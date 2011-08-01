@@ -825,6 +825,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         arguments = ((tag._id, _card_id) for _card_id in _card_ids)
         self.con.executemany("""delete from tags_for_card where _tag_id=?
             and _card_id=?""", arguments)
+        arguments = ((tag._id, _card_id) for _card_id in _card_ids)
         self.con.executemany("""insert into tags_for_card(_tag_id, _card_id)
             values(?,?)""", arguments)
         if self.store_pregenerated_data:

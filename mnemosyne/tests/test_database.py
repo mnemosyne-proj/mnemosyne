@@ -514,3 +514,30 @@ class TestDatabase(MnemosyneTest):
 
         card_1 = self.database().card(card_1._id, is_id_internal=True)
         assert card_1.card_type == card_type_1
+
+    def test_add_tag_to_card(self):
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                 grade=-1, tag_names=["default"])[0]
+        assert self.database().con.execute("select count() from log where event_type=?",
+            (EventTypes.EDITED_CARD, )).fetchone()[0] == 0
+
+        tag = self.database().get_or_create_tag_with_name("new")
+        self.database().add_tag_to_cards_with_internal_ids(tag, [card._id])
+
+        new_card = self.database().card(card._id, is_id_internal=True)
+        assert len(new_card.tags) == 2
+        assert self.database().con.execute("select count() from log where event_type=?",
+            (EventTypes.EDITED_CARD, )).fetchone()[0] == 1
+        sql_res = self.database().con.execute(\
+            "select * from log where _id=10").fetchone()
+        assert sql_res["event_type"] == EventTypes.EDITED_CARD
+        assert sql_res["object_id"] == card.id
+        
+        self.database().add_tag_to_cards_with_internal_ids(tag, [card._id])
+        assert self.database().con.execute("select count() from tags_for_card").fetchone()[0] == 2
+        assert len(new_card.tags) == 2
+        assert self.database().con.execute("select count() from log where event_type=?",
+            (EventTypes.EDITED_CARD, )).fetchone()[0] == 2

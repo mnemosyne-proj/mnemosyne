@@ -42,6 +42,7 @@ class Widget(MainWidget):
         #sys.stderr.write(error)
 
     def show_question(self, question, option0, option1, option2):
+        #sys.stderr.write(question+'\n')
         return answer
 
     def get_filename_to_save(self, path, filter, caption):

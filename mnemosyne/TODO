@@ -1,14 +1,12 @@
--sync conflict after restore from backup: check if warning for sync conflict is really given
--when restoring from backup after failed sync, the partnership table is reset. Desired?
+-uploading media seems to time out.
+-Exception socket.error: (32, 'Broken pipe') in <bound method _Stream.__del__ of <openSM2sync.tarfile._Stream instance at 0x7ff6c040f200>> ignored. Does tar close the socket we need to keep alive?
+-cancelling the sync before it happens leads to restoration from backup
+-add message when restoring from backup
 
--right click add tags in card browser
--add tags dialog
--prevent adding a tag twice. test.
--test if edited card events are correct
--add function to database.py
--see what part goes in controller
+-adding a tag to untagged, also for sync. Add tests. Fix own database.
 
 -right click remove tags in card browser
+-check delete tag if unused
 
 -migrate science server machine
 
@@ -24,7 +22,7 @@
 -when only 1 failed card is in the queue, new to memorise cards are never added
 
 -column width in browser not saved?
--make sure you can't run Mnemosyne twice
+
 
 -/cygdrive/c/python2.7/python.exe setup.py py2exe --packages=mnemosyne,numpy,xml.sax,xml.etree --includes=sip,PyQt4.QtNetwork
 -dist/Output/setup.exe

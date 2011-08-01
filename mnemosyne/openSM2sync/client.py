@@ -145,7 +145,7 @@ class Client(Partner):
             if self.database.is_sync_reset_needed(\
                 self.server_info["machine_id"]) or \
                 self.server_info["sync_reset_needed"] == True:
-                self.resolve_conflicts()                    
+                self.resolve_conflicts(restored_from_backup=True)                    
             # First sync.
             elif self.database.is_empty():
                 self.get_server_media_files()
@@ -183,22 +183,27 @@ class Client(Partner):
             self.con.close()
             self.ui.close_progress()
 
-    def resolve_conflicts(self):
+    def resolve_conflicts(self, restored_from_backup=False):
+        if restored_from_backup:
+            message = "The database was restored from a backup, either " + \
+                "automatically because of an aborted sync or manually by " + \
+                "the user.\nFor safety, a full sync needs to happen.\n"
+        else:
+            message = "Conflicts detected during sync!"
         # Ask for conflict resolution direction.
         if self.capabilities == "mnemosyne_dynamic_cards" and \
             self.interested_in_old_reps and self.store_pregenerated_data \
             and self.program_name == self.server_info["program_name"] and \
             self.program_version == self.server_info["program_version"]: 
-            result = self.ui.show_question(\
-                "Conflicts detected during sync!",
+            result = self.ui.show_question(message,
                 "Keep local version", "Fetch remote version", "Cancel")
             results = {0: "KEEP_LOCAL", 1: "KEEP_REMOTE", 2: "CANCEL"}
             result = results[result]
         else:
-            result = self.ui.show_question(\
-                "Conflicts detected during sync! Your client only " +\
-                "stores part of the server database, so you can only " +\
-                "fetch the remote version.",
+            message += "Your client only stores part of the server " + \
+                "database, so you can only fetch the remote version."
+            result = self.ui.show_question(message,
+
                 "Fetch remote version", "Cancel", "")
             results = {0: "KEEP_REMOTE", 1: "CANCEL"}
             result = results[result]

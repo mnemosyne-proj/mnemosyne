@@ -283,13 +283,13 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             
     def keyPressEvent(self, event):
         if len(self.table.selectionModel().selectedRows()) == 0:
-            return QtGui.QDialog.keyPressEvent(event)
+            return QtGui.QDialog.keyPressEvent(self, event)
         if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return]:
             self.menu_edit()
         elif event.key() in [QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace]:
             self.menu_delete()
         else:
-            return QtGui.QDialog.keyPressEvent(event)
+            return QtGui.QDialog.keyPressEvent(self, event)
 
     def cards_from_single_selection(self):
         index = self.table.selectionModel().selectedRows()[0]
@@ -311,11 +311,11 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             facts.append(self.database().fact(_fact_id, is_id_internal=True))
         return facts
     
-    def _cards_ids_from_selection(self):
+    def _card_ids_from_selection(self):
         _card_ids = set()
         for index in self.table.selectionModel().selectedRows():
             _card_id_index = index.model().index(\
-                index.row(), _CARD_ID, index.parent())
+                index.row(), _ID, index.parent())
             _card_id = index.model().data(_card_id_index).toInt()[0]
             _card_ids.add(_card_id)
         return _card_ids
@@ -406,7 +406,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         # Add the tags.
         _card_ids = self._card_ids_from_selection()
         self.unload_qt_database()
-        for tag_name in return_values["tag_names"].split(","):
+        for tag_name in return_values["tag_names"]:
+            if not tag_name:
+                continue
             tag = self.database().get_or_create_tag_with_name(tag_name)
             self.database().add_tag_to_cards_with_internal_ids(tag, _card_ids)
         self.display_card_table()
