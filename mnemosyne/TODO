@@ -1,7 +1,9 @@
--uploading media seems to time out.
--Exception socket.error: (32, 'Broken pipe') in <bound method _Stream.__del__ of <openSM2sync.tarfile._Stream instance at 0x7ff6c040f200>> ignored. Does tar close the socket we need to keep alive?
--cancelling the sync before it happens leads to restoration from backup
--add message when restoring from backup
+-get rid of tar format when syncing? Where to put filename?
+-filter out '..' paths on server for security
+-update sync documents
+
+-uploading media from client seems to time out.
+ Exception socket.error: (32, 'Broken pipe') in <bound method _Stream.__del__ of <openSM2sync.tarfile._Stream instance at 0x7ff6c040f200>> ignored. Does tar close the socket we need to keep alive? 
 
 -adding a tag to untagged, also for sync. Add tests. Fix own database.
 
@@ -22,6 +24,8 @@
 -when only 1 failed card is in the queue, new to memorise cards are never added
 
 -column width in browser not saved?
+
+-prevent sync with itself
 
 
 -/cygdrive/c/python2.7/python.exe setup.py py2exe --packages=mnemosyne,numpy,xml.sax,xml.etree --includes=sip,PyQt4.QtNetwork
@@ -44,8 +48,6 @@
 -better tips on start of 'clone card type'
 -tip on double-click to edit cards and tag names in browser
 -tip/docs to defragment disk
-
--sending entire binary database does not give a moving progress bar
 
 -About dialog
 -Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby, Max Usachev, Ullrich Martini
@@ -171,6 +173,7 @@
 
 -card formatting options on remote web server: act on config info that the client sent across
  Add hook in set_partner_info
+-binary database upload: configuration changes (fonts, ...) are not applied
 -check if online username is still free
 -threading/multiprocess for sync and review servers? Threading prob. works automatically if persistent
  connections are supported (CherryPy), perhaps also for multiprocess. Multiprocess probably only useful

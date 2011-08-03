@@ -485,6 +485,7 @@ class _Stream:
         """Close the _Stream object. No operation should be
            done on it afterwards.
         """
+
         if self.closed:
             return
 

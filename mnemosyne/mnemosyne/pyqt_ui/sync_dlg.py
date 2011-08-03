@@ -139,7 +139,7 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
                 QtCore.QEventLoop.ExcludeUserInputEvents)
             thread.wait(100)
 
-    def threaded_show_question(self,question, option0, option1, option2):
+    def threaded_show_question(self, question, option0, option1, option2):
         global answer
         mutex.lock()        
         answer = self.main_widget().show_question(question, option0,

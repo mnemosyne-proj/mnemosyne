@@ -45,9 +45,11 @@ class Latex(Filter):
 
         """
 
-        hash_input = latex_command + self.config()["latex_preamble"] + \
-            self.config()["latex_postamble"] + self.config()["dvipng"] + \
-            self.config()["latex"]
+        hash_input = latex_command.rstrip() + \
+            self.config()["latex_preamble"].rstrip() + \
+            self.config()["latex_postamble"].rstrip() + \
+            self.config()["dvipng"].rstrip() + \
+            self.config()["latex"].rstrip()
         img_name = md5(hash_input.encode("utf-8")).hexdigest() + ".png"
         latex_dir = os.path.join(self.database().media_dir(), "_latex")
         filename = os.path.join(latex_dir, img_name)
@@ -108,7 +110,7 @@ class Latex(Filter):
 
 class CheckForUpdatedLatexFiles(Hook):
 
-    # Used during sync. Added here to keep al the latex functionality in
+    # Used during sync. Added here to keep all the latex functionality in
     # a single file.
     
     used_for = "check_for_edited_local_media_files"

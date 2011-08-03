@@ -215,6 +215,8 @@ class Server(Partner):
         del self.session_token_for_user[session.client_info["username"]]
         del self.sessions[session_token]
         self.ui.close_progress()
+        self.ui.show_error("Sync failed, restoring from backup. " + \
+            "The next sync will need to be a full sync.")
         
     def terminate_all_sessions(self):
         for session_token in self.sessions.keys():
