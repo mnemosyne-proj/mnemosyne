@@ -6,9 +6,9 @@
 
 import os
 import socket
+import urllib
 import tarfile
 import httplib
-from xml.etree import cElementTree
 
 from partner import Partner
 from text_formats.xml_format import XMLFormat
@@ -411,8 +411,30 @@ class Client(Partner):
         self.database.create_if_needed_partnership_with(\
             self.server_info["machine_id"])
         self.database.remove_partnership_with(self.machine_id)
-        
+
     def put_client_media_files(self, reupload_all=False):
+        if reupload_all:
+            filenames = self.database.all_media_filenames()
+        else:
+            filenames = self.database.media_filenames_to_sync_for(\
+                self.server_info["machine_id"])
+        for filename in filenames:
+            self.ui.set_progress_text("Sending media %s...", (filename, ))
+            self.request_connection()
+            self.con.putrequest("PUT",
+                self.url("/client_media_file?session_token=%s&filename=%s" \
+                % (self.server_info["session_token"],
+                urllib.quote(filename.encode("utf-8"), ""))))
+            full_path = os.path.join(self.database.media_dir(), filename)
+            file_size = os.path.getsize(full_path)
+            self.con.putheader("content-length", file_size)
+            self.con.endheaders()
+            media_file = file(full_path)
+            for buffer in self.stream_binary_file(media_file, file_size):
+                self.con.send(buffer)
+            self._check_response_for_errors()                
+        
+    def put_client_media_files_old(self, reupload_all=False):
         # Size of tar archive.
         if reupload_all:
             filenames = self.database.all_media_filenames()

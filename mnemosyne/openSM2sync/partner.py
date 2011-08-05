@@ -2,6 +2,8 @@
 # partner.py <Peter.Bienstman@UGent.be>
 #
 
+import os
+
 class Partner(object):
 
     """Common code between Client and Server."""
@@ -22,6 +24,10 @@ class Partner(object):
         self.ui.set_progress_value(file_size)
 
     def download_binary_file(self, filename, stream, file_size):
+        directory = os.path.dirname(filename)
+        print filename, directory
+        if not os.path.exists(directory):
+            os.makedirs(directory)
         downloaded_file = file(filename, "wb")
         self.ui.set_progress_range(0, file_size)
         self.ui.set_progress_update_interval(file_size/50)

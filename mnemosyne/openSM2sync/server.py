@@ -158,7 +158,7 @@ class Server(Partner):
         method = (environ["REQUEST_METHOD"] + \
                   environ["PATH_INFO"].replace("/", "_")).lower()
         args = cgi.parse_qs(environ["QUERY_STRING"])
-        args = dict([(key, val[0]) for key, val in args.iteritems()])        
+        args = dict([(key, val[0]) for key, val in args.iteritems()])
         # Login method.
         if method == "put_login" or method == "get_status":
             if len(args) == 0:
@@ -491,9 +491,25 @@ class Server(Partner):
             # This is a full sync, we don't need to apply client log
             # entries here.
         except:
-            return self.handle_error(session, traceback_string())        
-
-    def put_client_media_files(self, environ, session_token):
+            return self.handle_error(session, traceback_string())
+        
+    def put_client_media_file(self, environ, session_token, filename):
+        try:
+            session = self.sessions[session_token]
+            self.ui.set_progress_text("Getting media file...")
+            socket = environ["wsgi.input"]
+            size = int(environ["CONTENT_LENGTH"])
+            filename = unicode(filename, "utf-8")
+            # Make sure a malicious client cannot overwrite anything outside
+            # of the media directory.
+            filename = filename.replace("..", "")
+            filename = os.path.join(session.database.media_dir(), filename)
+            self.download_binary_file(filename, environ["wsgi.input"], size)
+            return self.text_format.repr_message("OK")
+        except:
+            return self.handle_error(session, traceback_string())
+        
+    def put_client_media_files_old(self, environ, session_token):
         try:
             session = self.sessions[session_token]
             self.ui.set_progress_text("Getting media files...")

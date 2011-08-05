@@ -1,9 +1,10 @@
--get rid of tar format when syncing? Where to put filename?
--filter out '..' paths on server for security
+-get rid of tar format when syncing
+-client done, now do server
+-better progress bar?
+-test coverage
+-remove _old_ functions, tar, util function tar size + imports
 -update sync documents
-
--uploading media from client seems to time out.
- Exception socket.error: (32, 'Broken pipe') in <bound method _Stream.__del__ of <openSM2sync.tarfile._Stream instance at 0x7ff6c040f200>> ignored. Does tar close the socket we need to keep alive? 
+-filename vs file_name in partner and elsewhere?
 
 -adding a tag to untagged, also for sync. Add tests. Fix own database.
 
