@@ -12,7 +12,7 @@ import httplib
 
 from partner import Partner
 from text_formats.xml_format import XMLFormat
-from utils import tar_file_size, traceback_string, SyncError
+from utils import traceback_string, SyncError
 
 # Avoid delays caused by Nagle's algorithm.
 # http://www.cmlenz.net/archives/2008/03/python-httplib-performance-problems
@@ -413,13 +413,13 @@ class Client(Partner):
         self.database.remove_partnership_with(self.machine_id)
 
     def put_client_media_files(self, reupload_all=False):
+        self.ui.set_progress_text("Sending media files...")
         if reupload_all:
             filenames = self.database.all_media_filenames()
         else:
             filenames = self.database.media_filenames_to_sync_for(\
                 self.server_info["machine_id"])
         for filename in filenames:
-            self.ui.set_progress_text("Sending media %s...", (filename, ))
             self.request_connection()
             self.con.putrequest("PUT",
                 self.url("/client_media_file?session_token=%s&filename=%s" \
@@ -432,42 +432,11 @@ class Client(Partner):
             media_file = file(full_path)
             for buffer in self.stream_binary_file(media_file, file_size):
                 self.con.send(buffer)
-            self._check_response_for_errors()                
+            self._check_response_for_errors()
         
-    def put_client_media_files_old(self, reupload_all=False):
-        # Size of tar archive.
-        if reupload_all:
-            filenames = self.database.all_media_filenames()
-        else:
-            filenames = self.database.media_filenames_to_sync_for(\
-                self.server_info["machine_id"])
-        size = tar_file_size(self.database.media_dir(), filenames)
-        if size == 0:
-            return
-        self.ui.set_progress_text("Sending media files...")
-        self.request_connection()
-        self.con.putrequest("PUT", self.url(\
-            "/client_media_files?session_token=%s" \
-            % (self.server_info["session_token"], )))
-        self.con.putheader("content-length", size)
-        self.con.endheaders()     
-        socket = self.con.sock.makefile("wb", bufsize=self.BUFFER_SIZE)
-        # Bundle the media files in a single tar stream, and send it over a
-        # buffered socket in order to save memory. Note that this is a short
-        # cut for efficiency reasons and bypasses the routines in Partner, and
-        # in fact even httplib.HTTPConnection.send.
-        saved_path = os.getcwdu()
-        os.chdir(self.database.media_dir())
-        tar_pipe = tarfile.open(mode="w|",  # Open in streaming mode.
-             format=tarfile.PAX_FORMAT, fileobj=socket)
-        for filename in filenames:
-            tar_pipe.add(filename)
-        tar_pipe.close()
-        os.chdir(saved_path)
-        self._check_response_for_errors()
-
     def get_server_media_files(self, redownload_all=False):
-        media_url = "/server_media_files?session_token=%s" \
+        # Get list of names of all media files to download.
+        media_url = "/server_media_filenames?session_token=%s" \
             % (self.server_info["session_token"], )
         if redownload_all:
              media_url += "&redownload_all=1"
@@ -480,16 +449,23 @@ class Client(Partner):
             # since we reuse our connection.
             response.read()
             return
-        self.ui.set_progress_text("Getting media files...")
-        tar_pipe = tarfile.open(mode="r|", fileobj=response)
-        # Work around http://bugs.python.org/issue7693.
-        tar_pipe.extractall(self.database.media_dir().encode("utf-8"))
-        # When downloading with chunked transfer encoding, there might still
-        # be some end-of-chunk delimiters left, which tar does not know
-        # anything about. We need to consume these if we want to reuse the
-        # connection.
-        response.read()
-
+        # Download each media file.
+        self.ui.set_progress_text("Getting media files")
+        for filename in response.read().split("\n"):
+            filename = unicode(filename, "utf-8")
+            self.request_connection()           
+            self.con.request("GET",
+                self.url("/server_media_file?session_token=%s&filename=%s" \
+                % (self.server_info["session_token"],
+                urllib.quote(filename.encode("utf-8"), ""))))
+            response = self.con.getresponse()
+            size = int(response.getheader("mnemosyne-content-length"))
+            # Make sure a malicious server cannot overwrite anything outside
+            # of the media directory.
+            filename = filename.replace("..", "")
+            filename = os.path.join(self.database.media_dir(), filename)
+            self.download_binary_file(filename, response, size)
+            
     def get_sync_cancel(self):
         self.ui.set_progress_text("Cancelling sync...")
         self.request_connection()

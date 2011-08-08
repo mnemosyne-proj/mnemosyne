@@ -1,10 +1,4 @@
--get rid of tar format when syncing
--client done, now do server
--better progress bar?
--test coverage
--remove _old_ functions, tar, util function tar size + imports
--update sync documents
--filename vs file_name in partner and elsewhere?
+-better progress bar for media up/download: remove progress bars from partner? Add them to client everywhere and to server for entire database
 
 -adding a tag to untagged, also for sync. Add tests. Fix own database.
 
@@ -239,7 +233,6 @@ pylint:
 
 -matplotlib screen corruption, reenble resize?
 
--hack tarfile to add progress bar?
 -compression on backup to reduce write time to SD card?
 -move from httplib to urllib2 to make use of automatic proxy detection? However, could have
  an impact on performance/streaming upload.

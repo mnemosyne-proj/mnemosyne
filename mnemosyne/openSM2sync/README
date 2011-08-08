@@ -64,8 +64,6 @@ Since media can be modified outside of the program, it makes no sense to use the
 
 If the client identifies itself as a card-based client, then the server will automatically convert latex tags to images, without the client having to code anything.
 
-The media files are bundled in a streaming PAX format tar file, so that all files can be sent across in a single connection, which speeds up the sync. The tar file is not compressed, as most media files are already compressed by themselves.
-
 
 
 Cycles in the syncing graph:
@@ -135,7 +133,7 @@ When implementing the client in a different language, here are some tips to help
 -look for the most optimal XML parsing library, preferably a compiled one as opposed to an interpreted one
 -buffer *all* the http connections, i.e. read them block by block (e.g. 8kB), as opposed to e.g. log entry by log entry
 -to save memory, do all processing in a streaming manner, i.e. don't read in everything at once, but process block by block by block and throw away the block as soon as it's processed
--make sure to support all the time saving feature the server supports: binary download of the very first sync, grouping of media files in tar archives
+-make sure to support all the time saving feature the server supports, like binary download of the very first sync
 -at the beginning of 'client.py', there are a few network tweaks which are useful in the context of the Python network stack, but which could also be worth investigating
 -reuse the same http connection for the different stages of the sync
 -if you don't care about historical statistics, don't download the entire history on the first sync ('interested_in_old_reps' setting)

@@ -7,6 +7,7 @@ import os
 import sys
 import cgi
 import time
+import types
 import select
 import socket
 import tarfile
@@ -132,8 +133,8 @@ class Server(Partner):
         response_headers = [("content-type", self.text_format.mime_type)]
         if mnemosyne_content_length is not None:
             response_headers.append(\
-                ("mnemosyne-content-length", str(mnemosyne_content_length)))          
-        if type(data) == type("string"):
+                ("mnemosyne-content-length", str(mnemosyne_content_length)))
+        if type(data) == types.StringType:
             response_headers.append(("content-length", str(len(data))))
             start_response("200 OK", response_headers)            
             return [data]
@@ -495,8 +496,9 @@ class Server(Partner):
         
     def put_client_media_file(self, environ, session_token, filename):
         try:
+            # We don't have progress bars here, as this function gets called
+            # too frequently.
             session = self.sessions[session_token]
-            self.ui.set_progress_text("Getting media file...")
             socket = environ["wsgi.input"]
             size = int(environ["CONTENT_LENGTH"])
             filename = unicode(filename, "utf-8")
@@ -507,66 +509,54 @@ class Server(Partner):
             self.download_binary_file(filename, environ["wsgi.input"], size)
             return self.text_format.repr_message("OK")
         except:
-            return self.handle_error(session, traceback_string())
-        
-    def put_client_media_files_old(self, environ, session_token):
-        try:
-            session = self.sessions[session_token]
-            self.ui.set_progress_text("Getting media files...")
-            socket = environ["wsgi.input"]
-            size = int(environ["CONTENT_LENGTH"])
-            tar_pipe = tarfile.open(mode="r|", fileobj=socket)
-            # Work around http://bugs.python.org/issue7693.
-            tar_pipe.extractall(session.database.media_dir().encode("utf-8"))
-            return self.text_format.repr_message("OK")
-        except:
-            return self.handle_error(session, traceback_string())        
+            return self.handle_error(session, traceback_string())      
 
-    def get_server_media_files(self, environ, session_token,
-                               redownload_all=False):
+    def get_server_media_filenames(self, environ, session_token,
+                                   redownload_all=False):
         try:
-            global mnemosyne_content_length
             session = self.sessions[session_token]
-            # Determine files to send across.
+            global mnemosyne_content_length
+            mnemosyne_content_length = 0
+            self.ui.set_progress_text("Sending media files...")
             if redownload_all in ["1", "True", "true"]:
                 filenames = list(session.database.all_media_filenames())
             else:
                 filenames = list(session.database.media_filenames_to_sync_for(\
                     session.client_info["machine_id"]))
             if len(filenames) == 0:
-                mnemosyne_content_length = 0
                 return ""
-            self.ui.set_progress_text("Sending media files...")
-            # Create a temporary tar file with the files.
-            tmp_file = tempfile.NamedTemporaryFile(delete=False)
-            tmp_file_name = tmp_file.name
-            saved_path = os.getcwdu()
-            os.chdir(session.database.media_dir())
-            # Note that for media files, we use tar stream directly for efficiency
-            # reasons, and bypass the routines in Partner.
-            tar_pipe = tarfile.open(mode="w|", fileobj=tmp_file,
-                bufsize=self.BUFFER_SIZE, format=tarfile.PAX_FORMAT)
             for filename in filenames:
-                tar_pipe.add(filename)
-            tar_pipe.close()
-            # Stream tar file across. Note that we should not use
-            # 'utils.tar_file_size' here, as some filesystems truncate empty
-            # blocks at the end.
-            tmp_file = file(tmp_file_name, "rb")
-            file_size = os.path.getsize(tmp_file_name)
-            mnemosyne_content_length = file_size
+                mnemosyne_content_length += os.path.getsize(\
+                    os.path.join(session.database.media_dir(), filename))
+            return "\n".join(filenames).encode("utf-8")
+        except:
+            return self.handle_error(session, traceback_string())
+
+    def get_server_media_file(self, environ, session_token, filename): 
+        try:
+            # We don't have progress bars here, as this function gets called
+            # too frequently.
+            session = self.sessions[session_token]
+            global mnemosyne_content_length
+            socket = environ["wsgi.input"]
+            filename = unicode(filename, "utf-8")
+            # Make sure a malicious client cannot access anything outside
+            # of the media directory.
+            filename = filename.replace("..", "")
+            filename = os.path.join(session.database.media_dir(), filename)
+            size = os.path.getsize(os.path.join(\
+                session.database.media_dir(), filename))
+            mnemosyne_content_length = size
             # Since we want to modify the headers in this function, we cannot
             # use 'yield' directly to stream content, but have to add one layer
             # of indirection: http://www.cherrypy.org/wiki/ReturnVsYield
             def content():
-                for buffer in self.stream_binary_file(tmp_file, file_size):
+                for buffer in self.stream_binary_file(file(filename), size):
                     yield buffer            
-            os.remove(tmp_file_name)
-            os.chdir(saved_path)
             return content()
         except:
             return self.handle_error(session, traceback_string())
-
+                              
     def get_sync_cancel(self, environ, session_token):
         try:
             self.ui.set_progress_text("Sync cancelled!")

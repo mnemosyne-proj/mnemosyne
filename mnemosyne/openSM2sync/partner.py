@@ -25,7 +25,6 @@ class Partner(object):
 
     def download_binary_file(self, filename, stream, file_size):
         directory = os.path.dirname(filename)
-        print filename, directory
         if not os.path.exists(directory):
             os.makedirs(directory)
         downloaded_file = file(filename, "wb")
