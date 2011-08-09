@@ -415,10 +415,17 @@ class Client(Partner):
     def put_client_media_files(self, reupload_all=False):
         self.ui.set_progress_text("Sending media files...")
         if reupload_all:
-            filenames = self.database.all_media_filenames()
+            filenames = list(self.database.all_media_filenames())
         else:
-            filenames = self.database.media_filenames_to_sync_for(\
-                self.server_info["machine_id"])
+            filenames = list(self.database.media_filenames_to_sync_for(\
+                self.server_info["machine_id"]))
+        total_size = 0
+        for filename in filenames:
+            total_size += os.path.getsize(os.path.join(\
+                self.database.media_dir(), filename))
+        self.ui.set_progress_range(0, total_size)
+        self.ui.set_progress_update_interval(total_size/50)
+        bytes_sent = 0
         for filename in filenames:
             self.request_connection()
             self.con.putrequest("PUT",
@@ -430,9 +437,13 @@ class Client(Partner):
             self.con.putheader("content-length", file_size)
             self.con.endheaders()
             media_file = file(full_path)
-            for buffer in self.stream_binary_file(media_file, file_size):
+            for buffer in self.stream_binary_file(media_file, file_size,
+                progress_bar=False):
                 self.con.send(buffer)
+                bytes_sent += len(buffer)
+                self.ui.set_progress_value(bytes_sent)                
             self._check_response_for_errors()
+            self.ui.set_progress_value(total_size)
         
     def get_server_media_files(self, redownload_all=False):
         # Get list of names of all media files to download.
@@ -443,14 +454,17 @@ class Client(Partner):
         self.request_connection()
         self.con.request("GET", self.url(media_url))
         response = self.con.getresponse()
-        size = int(response.getheader("mnemosyne-content-length"))
-        if size == 0:
+        total_size = int(response.getheader("mnemosyne-content-length"))
+        if total_size == 0:
             # Make sure to read the full message, even if it's empty,
             # since we reuse our connection.
             response.read()
             return
         # Download each media file.
         self.ui.set_progress_text("Getting media files")
+        self.ui.set_progress_range(0, total_size)
+        self.ui.set_progress_update_interval(total_size/50)
+        bytes_read = 0
         for filename in response.read().split("\n"):
             filename = unicode(filename, "utf-8")
             self.request_connection()           
@@ -459,12 +473,16 @@ class Client(Partner):
                 % (self.server_info["session_token"],
                 urllib.quote(filename.encode("utf-8"), ""))))
             response = self.con.getresponse()
-            size = int(response.getheader("mnemosyne-content-length"))
+            file_size = int(response.getheader("mnemosyne-content-length"))
             # Make sure a malicious server cannot overwrite anything outside
             # of the media directory.
             filename = filename.replace("..", "")
             filename = os.path.join(self.database.media_dir(), filename)
-            self.download_binary_file(filename, response, size)
+            self.download_binary_file(\
+                filename, response, file_size, progress_bar=False)
+            bytes_read += file_size
+            self.ui.set_progress_value(bytes_read)            
+        self.ui.set_progress_value(total_size)
             
     def get_sync_cancel(self):
         self.ui.set_progress_text("Cancelling sync...")

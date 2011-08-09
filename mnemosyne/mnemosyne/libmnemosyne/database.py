@@ -146,6 +146,15 @@ class Database(Component):
     def delete_card(self, card):
         raise NotImplementedError
     
+    def tags_from_cards_with_internal_ids(self, _card_ids):
+        raise NotImplementedError
+    
+    def add_tag_to_cards_with_internal_ids(self, tag, _card_ids):
+        raise NotImplementedError
+    
+    def remove_tag_from_cards_with_internal_ids(self, tag, _card_ids):
+        raise NotImplementedError
+    
     # Fact views.
     
     def add_fact_view(self, fact_view):

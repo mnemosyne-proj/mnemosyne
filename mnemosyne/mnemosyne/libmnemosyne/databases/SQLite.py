@@ -371,11 +371,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             f.run()
         # We don't log the database load here, but in libmnemosyne.__init__,
         # as we prefer to log the start of the program first.
-
-
-        # TODO: tmp
-
-        self.link_inverse_cards()
         
     def save(self, path=None):
         # Update format.
@@ -819,12 +814,34 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self.delete_tag_if_unused(tag)
         self.log().deleted_card(card)
         del card
-
+        
+    def tags_from_cards_with_internal_ids(self, _card_ids):
+        import time
+        t = time.time()
+        query = "select distinct _tag_id from tags_for_card where "
+        args = []
+        for _card_id in _card_ids:
+            query += "_card_id=? or "
+            args.append(_card_id)
+        query = query.rsplit("or ", 1)[0]
+        result = [self.tag(cursor["_tag_id"], is_id_internal=True) \
+                for cursor in self.con.execute(query, args)]
+        print 'query took', time.time()-t
+        return result
+        
     def add_tag_to_cards_with_internal_ids(self, tag, _card_ids):
         # To make sure we don't insert the tag twice, we delete it first.
         arguments = ((tag._id, _card_id) for _card_id in _card_ids)
         self.con.executemany("""delete from tags_for_card where _tag_id=?
             and _card_id=?""", arguments)
+        # Make sure we remove the __UNTAGGED__ tag.
+        _tag_id_untagged = self.con.execute(\
+            "select _id from tags where name='__UNTAGGED__'")\
+            .fetchone()[0]
+        arguments = ((_tag_id_untagged, _card_id) for _card_id in _card_ids)
+        self.con.executemany("""delete from tags_for_card where _tag_id=?
+            and _card_id=?""", arguments)
+        # Add the new tag.
         arguments = ((tag._id, _card_id) for _card_id in _card_ids)
         self.con.executemany("""insert into tags_for_card(_tag_id, _card_id)
             values(?,?)""", arguments)
@@ -838,7 +855,32 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self.con.execute(\
                 "insert into log(event_type, timestamp, object_id) values(?,?,?)",
                 (EventTypes.EDITED_CARD, int(time.time()), card_id))
-
+            
+    def remove_tag_from_cards_with_internal_ids(self, tag, _card_ids):
+        arguments = ((tag._id, _card_id) for _card_id in _card_ids)
+        self.con.executemany("""delete from tags_for_card where _tag_id=?
+            and _card_id=?""", arguments)
+        # Make sure we add the __UNTAGGED__ tag if needed.
+        _card_ids_tagged = set([cursor[0] for cursor in 
+            self.con.execute ("select distinct _card_id from tags_for_card")])
+        _tag_id_untagged = self.con.execute(\
+            "select _id from tags where name='__UNTAGGED__'")\
+            .fetchone()[0]
+        arguments = ((_tag_id_untagged, _card_id) for \
+            _card_id in set(_card_ids).difference(_card_ids_tagged))
+        self.con.executemany("""insert into tags_for_card(_tag_id, _card_id)
+            values(?,?)""", arguments)
+        self.delete_tag_if_unused(tag)
+        if self.store_pregenerated_data:
+            self._update_tag_strings(_card_ids)
+        # We don't call 'self.log.edited_card(card)', which would require us to
+        # construct the entire card object, but take a short cut.
+        for _card_id in _card_ids:
+            card_id = self.con.execute("select id from cards where _id=?",
+                (_card_id, )).fetchone()[0]
+            self.con.execute(\
+                "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+                (EventTypes.EDITED_CARD, int(time.time()), card_id))
 
     #
     # Fact views.

@@ -1,17 +1,13 @@
--better progress bar for media up/download: remove progress bars from partner? Add them to client everywhere and to server for entire database
+-test full sync on slow network link and on windows.
 
--adding a tag to untagged, also for sync. Add tests. Fix own database.
-
--right click remove tags in card browser
--check delete tag if unused
+-right click remove tags in card browser: add gui part to select tags to delete
+-remove timing from tags_from_cards_with_internal_ids
 
 -migrate science server machine
 
 -syncing an empty database twice results in a spurious sync cycle detection. Also happens after syncing empty client and empty server database, then adding data to the server, and resyncing
 
 -if the server is empty, allow sync from non-empty client and change server user id.
-
--remove auto-link inverse cards from database load
 
 -memorise sister cards in the same day --> same setting
 -still got 2 sister cards next to each other

@@ -415,9 +415,22 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.tag_tree_wdgt.rebuild()
         
     def menu_remove_tags(self):
-        print 'remove_tags'
+        # Get new tag names. Use a dict as backdoor to return values
+        # from the dialog.
+        return_values = {}
+        from mnemosyne.pyqt_ui.remove_tags_dlg import RemoveTagsDlg
+        dlg = RemoveTagsDlg(self.component_manager, return_values)
+        if dlg.exec_() != QtGui.QDialog.Accepted:
+            return
+        # Remove the tags.
+        _card_ids = self._card_ids_from_selection()
         self.unload_qt_database()
-
+        for tag_name in return_values["tag_names"]:
+            if not tag_name:
+                continue
+            tag = self.database().get_or_create_tag_with_name(tag_name)
+            self.database().remove_tag_from_cards_with_internal_ids(\
+                tag, _card_ids)
         self.display_card_table()
         self.tag_tree_wdgt.rebuild()
         

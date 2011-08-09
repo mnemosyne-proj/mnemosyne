@@ -541,3 +541,121 @@ class TestDatabase(MnemosyneTest):
         assert len(new_card.tags) == 2
         assert self.database().con.execute("select count() from log where event_type=?",
             (EventTypes.EDITED_CARD, )).fetchone()[0] == 2
+        
+    def test_add_tag_to_untagged_card(self):
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                 grade=-1, tag_names=[])[0]
+        assert self.database().con.execute("select count() from log where event_type=?",
+            (EventTypes.EDITED_CARD, )).fetchone()[0] == 0
+
+        tag = self.database().get_or_create_tag_with_name("new")
+        self.database().add_tag_to_cards_with_internal_ids(tag, [card._id])
+
+        new_card = self.database().card(card._id, is_id_internal=True)
+        assert len(new_card.tags) == 1
+        assert self.database().con.execute("select count() from log where event_type=?",
+            (EventTypes.EDITED_CARD, )).fetchone()[0] == 1
+        
+        self.database().add_tag_to_cards_with_internal_ids(tag, [card._id])
+        assert self.database().con.execute("select count() from tags_for_card").fetchone()[0] == 1
+        assert len(new_card.tags) == 1
+        assert self.database().con.execute("select count() from log where event_type=?",
+            (EventTypes.EDITED_CARD, )).fetchone()[0] == 2
+
+    def test_remove_tag_from_card(self):
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                 grade=-1, tag_names=["a", "b"])[0]
+        assert self.database().con.execute("select count() from log where event_type=?",
+            (EventTypes.EDITED_CARD, )).fetchone()[0] == 0
+
+        tag = self.database().get_or_create_tag_with_name("a")
+        self.database().remove_tag_from_cards_with_internal_ids(tag, [card._id])
+
+        new_card = self.database().card(card._id, is_id_internal=True)
+        assert len(new_card.tags) == 1
+        assert self.database().con.execute("select count() from log where event_type=?",
+            (EventTypes.EDITED_CARD, )).fetchone()[0] == 1
+        sql_res = self.database().con.execute(\
+            "select * from log where _id=12").fetchone()
+        assert sql_res["event_type"] == EventTypes.EDITED_CARD
+        assert sql_res["object_id"] == card.id
+
+    def test_remove_tag_from_card_2(self):
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                 grade=-1, tag_names=["a"])[0]
+        assert self.database().con.execute("select count() from log where event_type=?",
+            (EventTypes.EDITED_CARD, )).fetchone()[0] == 0
+
+        tag = self.database().get_or_create_tag_with_name("a")
+        assert self.database().con.execute("select count() from tags").fetchone()[0] == 2
+        self.database().remove_tag_from_cards_with_internal_ids(tag, [card._id])
+        assert self.database().con.execute("select count() from tags").fetchone()[0] == 1
+        
+        new_card = self.database().card(card._id, is_id_internal=True)
+        assert len(new_card.tags) == 1
+        assert list(new_card.tags)[0].name == "__UNTAGGED__"        
+        assert self.database().con.execute("select count() from tags_for_card where _tag_id=1 and _card_id=?",
+            (card._id, )).fetchone()[0] == 1        
+        assert self.database().con.execute("select count() from log where event_type=?",
+            (EventTypes.EDITED_CARD, )).fetchone()[0] == 1
+        sql_res = self.database().con.execute(\
+            "select * from log where _id=10").fetchone()
+        assert sql_res["event_type"] == EventTypes.EDITED_CARD
+        assert sql_res["object_id"] == card.id
+        
+    def test_remove_tag_from_card_3(self):
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                 grade=-1, tag_names=[])[0]
+        assert self.database().con.execute("select count() from log where event_type=?",
+            (EventTypes.EDITED_CARD, )).fetchone()[0] == 0
+
+        tag = self.database().get_or_create_tag_with_name("a")
+        self.database().remove_tag_from_cards_with_internal_ids(tag, [card._id])
+
+        new_card = self.database().card(card._id, is_id_internal=True)
+        assert len(new_card.tags) == 1
+        assert list(new_card.tags)[0].name == "__UNTAGGED__"
+        assert self.database().con.execute("select count() from tags_for_card where _tag_id=1 and _card_id=?",
+            (card._id, )).fetchone()[0] == 1        
+        assert self.database().con.execute("select count() from log where event_type=?",
+            (EventTypes.EDITED_CARD, )).fetchone()[0] == 1
+        sql_res = self.database().con.execute(\
+            "select * from log where _id=10").fetchone()
+        assert sql_res["event_type"] == EventTypes.EDITED_CARD
+        assert sql_res["object_id"] == card.id
+        
+    def test_tags_for_cards(self):
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                 grade=-1, tag_names=["a", "b"])[0]
+        fact_data = {"f": "question2",
+                     "b": "answer"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                 grade=-1, tag_names=["a"])[0]
+        fact_data = {"f": "question3",
+                     "b": "answer"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                 grade=-1, tag_names=["c"])[0]
+
+        for tag in self.database().tags_from_cards_with_internal_ids([1, 2]):
+            assert tag._id in [2, 3]
+
+        for tag in self.database().tags_from_cards_with_internal_ids([2]):
+            assert tag._id in [2]
+
+        for tag in self.database().tags_from_cards_with_internal_ids([2, 3]):
+            assert tag._id in [2, 4]

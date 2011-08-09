@@ -496,8 +496,6 @@ class Server(Partner):
         
     def put_client_media_file(self, environ, session_token, filename):
         try:
-            # We don't have progress bars here, as this function gets called
-            # too frequently.
             session = self.sessions[session_token]
             socket = environ["wsgi.input"]
             size = int(environ["CONTENT_LENGTH"])
@@ -506,7 +504,10 @@ class Server(Partner):
             # of the media directory.
             filename = filename.replace("..", "")
             filename = os.path.join(session.database.media_dir(), filename)
-            self.download_binary_file(filename, environ["wsgi.input"], size)
+            # We don't have progress bars here, as this function gets called
+            # too frequently.
+            self.download_binary_file(filename, environ["wsgi.input"], size,
+                progress_bar=False)
             return self.text_format.repr_message("OK")
         except:
             return self.handle_error(session, traceback_string())      
@@ -534,8 +535,6 @@ class Server(Partner):
 
     def get_server_media_file(self, environ, session_token, filename): 
         try:
-            # We don't have progress bars here, as this function gets called
-            # too frequently.
             session = self.sessions[session_token]
             global mnemosyne_content_length
             socket = environ["wsgi.input"]
@@ -550,8 +549,12 @@ class Server(Partner):
             # Since we want to modify the headers in this function, we cannot
             # use 'yield' directly to stream content, but have to add one layer
             # of indirection: http://www.cherrypy.org/wiki/ReturnVsYield
+            #
+            # We don't have progress bars here, as this function gets called
+            # too frequently.
             def content():
-                for buffer in self.stream_binary_file(file(filename), size):
+                for buffer in self.stream_binary_file(file(filename), size,
+                    progress_bar=False):
                     yield buffer            
             return content()
         except:
