@@ -461,7 +461,7 @@ class Client(Partner):
             response.read()
             return
         # Download each media file.
-        self.ui.set_progress_text("Getting media files")
+        self.ui.set_progress_text("Getting media files...")
         self.ui.set_progress_range(0, total_size)
         self.ui.set_progress_update_interval(total_size/50)
         bytes_read = 0

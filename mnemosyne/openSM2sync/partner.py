@@ -27,12 +27,6 @@ class Partner(object):
         if progress_bar:
             self.ui.set_progress_value(file_size)
         
-    def stream_binary_file_without_progress_bar(self, binary_file):
-        buffer = binary_file.read(self.BUFFER_SIZE)
-        while buffer:
-            yield buffer
-            buffer = binary_file.read(self.BUFFER_SIZE)
-        
     def download_binary_file(self, filename, stream, file_size,
                              progress_bar=True):
         directory = os.path.dirname(filename)

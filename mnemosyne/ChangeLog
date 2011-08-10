@@ -18,16 +18,16 @@ Major user-visible changes:
 -'Activate cards' is completely revamped and is much more flexible. Also, sets
  of active cards can be now be saved for easier access later.
 -Graphical statistics, easily extensible through plugins (first
- implementation by Mike Appleby)
+ implementation by Mike Appleby).
 -Each individual field in a card can now have its own font, colour, ... which
  can be set through the GUI. No more need for hacks like 'increase size of 
  non-latin characters'. Background colour is also configurable per card type.
 -The widget that displays the cards is now a full webbrowser, with e.g. 
- support for Javascript, animated gifs, ...
+ support for Javascript, animated gifs, ... .
 -Added cramming scheduler plugin, which goes through your cards in random
  order and does not affect the normal scheduler data. It is visually
  distinguished from the regular scheduler by having only two grade buttons
- (Right and Wrong)
+ (Right and Wrong).
 -Sync protocol, to synchronise a mobile device to your desktop client. Fully
  bidirectional, i.e. you can add new cards on your desktop and review old
  cards on your phone, and both sets of changes will be merged seamlessly.

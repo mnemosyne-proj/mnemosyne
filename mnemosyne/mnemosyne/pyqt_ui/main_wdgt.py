@@ -24,6 +24,7 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         self.status_bar_widgets = []
         self.progress_bar = None
         self.progress_bar_update_interval = 1
+        self.progress_bar_last_shown_value = 0
 
     def closeEvent(self, event):
         self.config()["main_window_size"] = (self.width(), self.height())
@@ -78,6 +79,7 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         self.progress_bar.setLabelText(text)
         self.progress_bar.setRange(0, 0)
         self.progress_bar_update_interval = 1
+        self.progress_bar_last_shown_value = 0
         self.progress_bar.setValue(0)
         self.progress_bar.show()
 
@@ -91,8 +93,13 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         self.progress_bar_update_interval = update_interval
         
     def set_progress_value(self, value):
-        if value % self.progress_bar_update_interval == 0:
+        # There is a possibility that 'value' does not visit all intermediate
+        # integer values in the range, so we need to check and store the last
+        # shown value here.
+        if value - self.progress_bar_last_shown_value >= \
+               self.progress_bar_update_interval:
             self.progress_bar.setValue(value)
+            self.progress_bar_last_shown_value = value
             # This automatically processes events too. Calling processEvents
             # explictly here might even cause some crashes.
         

@@ -816,19 +816,16 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         del card
         
     def tags_from_cards_with_internal_ids(self, _card_ids):
-        import time
-        t = time.time()
-        query = "select distinct _tag_id from tags_for_card where "
-        args = []
+        # Since _card_ids can have many elements, we need to construct the
+        # query without ? placeholders in order to prevent hitting sqlite
+        # limitations.
+        query = "select distinct _tag_id from tags_for_card where _card_id in ("
         for _card_id in _card_ids:
-            query += "_card_id=? or "
-            args.append(_card_id)
-        query = query.rsplit("or ", 1)[0]
-        result = [self.tag(cursor["_tag_id"], is_id_internal=True) \
-                for cursor in self.con.execute(query, args)]
-        print 'query took', time.time()-t
-        return result
-        
+            query += str(_card_id) + ","
+        query = query[:-1] + ")"
+        return [self.tag(cursor["_tag_id"], is_id_internal=True) \
+                for cursor in self.con.execute(query)]
+    
     def add_tag_to_cards_with_internal_ids(self, tag, _card_ids):
         # To make sure we don't insert the tag twice, we delete it first.
         arguments = ((tag._id, _card_id) for _card_id in _card_ids)

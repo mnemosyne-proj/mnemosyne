@@ -1,20 +1,20 @@
 -test full sync on slow network link and on windows.
+-check resending of media files after full sync - keep local
 
--right click remove tags in card browser: add gui part to select tags to delete
--remove timing from tags_from_cards_with_internal_ids
+-time popup showing
+
+-when only 1 failed card is in the queue, new to memorise cards are never added
+
+-memorise sister cards in the same day --> same setting
+-still got 2 sister cards next to each other
+
+-column width in browser not saved?
 
 -migrate science server machine
 
 -syncing an empty database twice results in a spurious sync cycle detection. Also happens after syncing empty client and empty server database, then adding data to the server, and resyncing
 
 -if the server is empty, allow sync from non-empty client and change server user id.
-
--memorise sister cards in the same day --> same setting
--still got 2 sister cards next to each other
-
--when only 1 failed card is in the queue, new to memorise cards are never added
-
--column width in browser not saved?
 
 -prevent sync with itself
 
@@ -130,6 +130,8 @@
 -more elaborate plugin description in bottom pane
 
 -card appearance: show preview live
+
+-criterion applier: compare query time for  a in [1,2] vs a=1 or a=2
 
 -docs on dealing with synonyms and words which have multiple meanings (if implemented, update card converter too)
  check fonts for new meanings, check decorators
