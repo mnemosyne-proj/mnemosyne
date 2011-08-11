@@ -443,7 +443,7 @@ class Client(Partner):
                 bytes_sent += len(buffer)
                 self.ui.set_progress_value(bytes_sent)                
             self._check_response_for_errors()
-            self.ui.set_progress_value(total_size)
+        self.ui.set_progress_value(total_size)
         
     def get_server_media_files(self, redownload_all=False):
         # Get list of names of all media files to download.

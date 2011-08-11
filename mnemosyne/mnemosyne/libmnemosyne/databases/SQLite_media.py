@@ -4,7 +4,11 @@
 
 import os
 import re
-
+try:
+    from hashlib import md5
+except ImportError:
+    from md5 import md5
+    
 from mnemosyne.libmnemosyne.utils import copy_file_to_dir
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 
@@ -35,18 +39,26 @@ class SQLiteMedia(object):
 
         'filename' is a relative path inside the media dir.
 
-        In the current implementation, we use the modification date for this.
-        Although less robust, modification dates are faster to lookup then
-        calculating a hash, especially on mobile devices.
-
         In principle, you could have different hash implementations on
         different systems, as the hash is considered something internal and is
-        not sent across during sync e.g.
+        not sent across during sync e.g..
 
         """
+
+        media_file = file(os.path.join(self.media_dir(),
+            os.path.normcase(filename)))
+        hasher = md5()
+        while True:
+            buffer = media_file.read(8096)
+            if not buffer:
+                break
+            hasher.update(buffer)
+        return hasher.hexdigest()
+    
+        # The following implementation uses the modification date. Less
+        # robust, but could be useful on a mobile device.
         
-        return str(os.path.getmtime(os.path.join(self.media_dir(),
-            os.path.normcase(filename))))
+        #return str(os.path.getmtime(media_file))
 
     def check_for_edited_media_files(self):
         # Regular media files.
