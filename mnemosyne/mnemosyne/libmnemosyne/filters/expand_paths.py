@@ -22,5 +22,5 @@ class ExpandPaths(Filter):
                 self.database().media_dir()) + text[end:]
             # Since text is always longer now, we can start searching
             # from the previous end tag.
-            i = text.lower().find("src", end+1)        
+            i = text.lower().find("src", end+1)
         return text

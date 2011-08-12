@@ -3,6 +3,7 @@
 #
 
 import os
+import random
 import shutil
 import sqlite3
 import tempfile
@@ -22,19 +23,14 @@ class MnemosyneFormat(object):
     def binary_filename(self, store_pregenerated_data,
             interested_in_old_reps):
         self.database.save()     
-        # Copy the database to a temporary file if we need to modify it.    
-        if interested_in_old_reps and store_pregenerated_data:
-            filename = self.database._path
-            self.to_delete = None  
-        else:
-            tmp_file = tempfile.NamedTemporaryFile(delete=False)
-            filename = tmp_file.name
-            tmp_file.close()  
-            shutil.copy(self.database._path, filename)
-            self.to_delete = filename
+        # Copy the database to a temporary file to make sure any residual
+        # database access does not cause problems.
+        self.tmp_name = os.path.join(os.path.dirname(self.database._path),
+                str(random.randint(0,9999)))
+        shutil.copy(self.database._path, self.tmp_name)
         # Delete old reps if needed.
         if not interested_in_old_reps:
-            con = sqlite3.connect(filename, timeout=0.1,
+            con = sqlite3.connect(self.tmp_name, timeout=0.1,
                 isolation_level="EXCLUSIVE")
             con.execute("delete from log where event_type=?",
                 (EventTypes.REPETITION, ))
@@ -43,7 +39,7 @@ class MnemosyneFormat(object):
             con.close()
         # Delete pregerated data if needed.
         if not store_pregenerated_data:
-            con = sqlite3.connect(filename, timeout=0.1,
+            con = sqlite3.connect(self.tmp_name, timeout=0.1,
                 isolation_level="EXCLUSIVE")
             con.executescript("""
             begin;
@@ -80,8 +76,7 @@ class MnemosyneFormat(object):
             commit;
             vacuum;
             """)
-        return filename      
+        return self.tmp_name      
 
     def clean_up(self):
-        if self.to_delete:
-            os.remove(self.to_delete)
+        os.remove(self.tmp_name)

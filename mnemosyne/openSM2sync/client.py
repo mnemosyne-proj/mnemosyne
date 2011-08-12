@@ -135,11 +135,8 @@ class Client(Partner):
             if self.check_for_edited_local_media_files:
                 self.ui.set_progress_text("Checking for edited media files...")
                 self.database.check_for_edited_media_files()
-            # If the server is down, you want to know quickly.
-            socket.setdefaulttimeout(10)
-            self.login(username, password)
-            # Full syncs could take a while.  
             socket.setdefaulttimeout(10000)
+            self.login(username, password)
             # Do a full sync after either the client or the server has restored
             # from a backup.
             if self.database.is_sync_reset_needed(\
