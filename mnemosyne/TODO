@@ -1,12 +1,3 @@
--Windows: crashes in Qt (progress bar?) at the end of a sync
--Windows: after succesful initial sync, client still wants to send across media files
-
--after full sync (both binary and xml), reset other partnerships at the recipient
-
--Move sumerian cards back to vocabuly, delete card type, create new, then resync.
-
--time popup menu showing in card browser
-
 -check that we don't get to review 2 sister cards on the same day
 
 -column width in browser not saved?

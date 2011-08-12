@@ -46,7 +46,7 @@ class SQLiteMedia(object):
         """
 
         media_file = file(os.path.join(self.media_dir(),
-            os.path.normcase(filename)))
+            os.path.normcase(filename)), "rb")
         hasher = md5()
         while True:
             buffer = media_file.read(8096)

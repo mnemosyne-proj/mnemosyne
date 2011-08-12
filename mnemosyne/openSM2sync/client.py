@@ -125,9 +125,9 @@ class Client(Partner):
     def sync(self, server, port, username, password):
         try:
             self.server = socket.gethostbyname(server)
-            self.port = port           
+            self.port = port      
             if self.do_backup:
-                self.ui.set_progress_text("Creating backup...") 
+                self.ui.set_progress_text("Creating backup...")
                 backup_file = self.database.backup()
             # We check if files were edited outside of the program. This can
             # generate EDITED_MEDIA_FILES log entries, so it should be done
@@ -207,13 +207,15 @@ class Client(Partner):
                 "Fetch remote version", "Cancel", "")
             results = {0: "KEEP_REMOTE", 1: "CANCEL"}
             result = results[result]
-        # Keep remote.
+        # Keep remote. Reset the partnerships afterwards, such that syncing
+        # with a third party will also trigger a full sync.
         if result == "KEEP_REMOTE":
             self.get_server_media_files(redownload_all=True)                
             if self.server_info["supports_binary_transfer"]:
                 self.get_server_entire_database_binary()
             else:
                 self.get_server_entire_database()
+            self.database.reset_partnerships()
             self.get_sync_finish()
         # Keep local.
         elif result == "KEEP_LOCAL":

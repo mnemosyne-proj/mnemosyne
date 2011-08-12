@@ -102,7 +102,6 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
         self.exec_()
         
     def accept(self):
-        QtGui.QDialog.accept(self)
         # Store input for later use.
         server = unicode(self.server.text())
         port = self.port.value()
@@ -115,35 +114,34 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
         # Do the actual sync in a separate thread.
         self.database().release_connection()
         global answer
-        answer = None
-        thread = SyncThread(self, server, port, username, password)
-        thread.information_signal.connect(\
+        answer = None          
+        self.thread = SyncThread(self, server, port, username, password)
+        self.thread.information_signal.connect(\
             self.main_widget().show_information)
-        thread.error_signal.connect(\
+        self.thread.error_signal.connect(\
             self.main_widget().show_error)
-        thread.question_signal.connect(\
+        self.thread.question_signal.connect(\
             self.threaded_show_question)        
-        thread.set_progress_text_signal.connect(\
+        self.thread.set_progress_text_signal.connect(\
             self.main_widget().set_progress_text)
-        thread.set_progress_range_signal.connect(\
+        self.thread.set_progress_range_signal.connect(\
             self.main_widget().set_progress_range)
-        thread.set_progress_update_interval_signal.connect(\
+        self.thread.set_progress_update_interval_signal.connect(\
             self.main_widget().set_progress_update_interval)
-        thread.set_progress_value_signal.connect(\
+        self.thread.set_progress_value_signal.connect(\
             self.main_widget().set_progress_value)
-        thread.close_progress_signal.connect(\
+        self.thread.close_progress_signal.connect(\
             self.main_widget().close_progress)
-        thread.start()
-        while thread.isRunning():
-            QtCore.QCoreApplication.processEvents(\
-                QtCore.QEventLoop.ExcludeUserInputEvents)
-            thread.wait(100)
+        self.thread.finished.connect(self.finish_sync)
+        self.thread.start()
 
+    def finish_sync(self):
+        QtGui.QDialog.accept(self)
+        
     def threaded_show_question(self, question, option0, option1, option2):
         global answer
         mutex.lock()        
         answer = self.main_widget().show_question(question, option0,
             option1, option2)
         question_answered.wakeAll()
-        mutex.unlock()
-            
+        mutex.unlock()            

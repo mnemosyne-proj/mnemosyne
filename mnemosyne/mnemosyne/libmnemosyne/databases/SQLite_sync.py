@@ -87,13 +87,19 @@ class SQLiteSync(object):
                 self.con.execute("""insert into partnerships(partner, 
                      _last_log_id) values(?,?)""", (partner, -1))
 
-    def is_sync_reset_needed(self, partner):
+    def reset_partnerships(self):
 
-        """When restoring from a earlier backup, the partnership indices
-        have been set to -666, and we need to do a full sync.
+        """Reset partnerships, e.g. after restoring from a backup or after
+        doing a full sync. This will make sure that a next sync will be a
+        full sync if appropriate.
 
         """
         
+        self.con.execute(\
+            "update partnerships set _last_log_id=? where partner!=?",
+            (-666, "log.txt"))
+
+    def is_sync_reset_needed(self, partner):        
         return self.last_log_index_synced_for(partner) == -666
 
     def last_log_index_synced_for(self, partner):

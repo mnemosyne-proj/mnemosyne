@@ -405,6 +405,8 @@ class Server(Partner):
             session.database.create_if_needed_partnership_with(\
                 session.client_info["machine_id"])
             session.database.remove_partnership_with(self.machine_id)
+            # Next sync with a third party should be a full sync too.
+            session.database.reset_partnerships()
             return self.text_format.repr_message("OK")
         except:
             return self.handle_error(session, traceback_string())

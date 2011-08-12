@@ -435,9 +435,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # sync. Unfortunately, we can't do anything about the logs that have
         # already been sent to the science server, but the size of the science
         # database should mitigate that effect.
-        self.con.execute(\
-            "update partnerships set _last_log_id=? where partner!=?",
-            (-666, "log.txt"))
+        self.reset_partnerships()
         
     def unload(self):
         if not self._connection:
