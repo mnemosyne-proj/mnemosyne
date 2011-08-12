@@ -1,12 +1,13 @@
--test full sync on slow network link and on windows.
--check resending of media files after full sync - keep local
+-Windows: crashes in Qt (progress bar?) at the end of a sync
+-Windows: after succesful initial sync, client still wants to send across media files
 
--time popup showing
+-after full sync (both binary and xml), reset other partnerships at the recipient
 
--when only 1 failed card is in the queue, new to memorise cards are never added
+-Move sumerian cards back to vocabuly, delete card type, create new, then resync.
 
--memorise sister cards in the same day --> same setting
--still got 2 sister cards next to each other
+-time popup menu showing in card browser
+
+-check that we don't get to review 2 sister cards on the same day
 
 -column width in browser not saved?
 

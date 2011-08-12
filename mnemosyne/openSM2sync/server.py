@@ -398,8 +398,9 @@ class Server(Partner):
             self.ui.set_progress_text("Getting entire binary database...")
             filename = session.database.path()
             session.database.abandon()
-            size = int(environ["CONTENT_LENGTH"])
-            self.download_binary_file(filename, environ["wsgi.input"], size)
+            file_size = int(environ["CONTENT_LENGTH"])
+            self.download_binary_file(\
+                environ["wsgi.input"], filename, file_size)
             session.database.load(filename)
             session.database.create_if_needed_partnership_with(\
                 session.client_info["machine_id"])
@@ -476,16 +477,16 @@ class Server(Partner):
             session = self.sessions[session_token]
             self.ui.set_progress_text("Sending entire binary database...")
             binary_format = self.binary_format_for(session)
-            binary_file, file_size = binary_format.binary_file_and_size(\
+            filename = binary_format.binary_filename(\
                 session.client_info["store_pregenerated_data"],
                 session.client_info["interested_in_old_reps"])
             global mnemosyne_content_length
-            mnemosyne_content_length = file_size
+            mnemosyne_content_length = os.path.getsize(filename)
             # Since we want to modify the headers in this function, we cannot
             # use 'yield' directly to stream content, but have to add one layer
             # of indirection: http://www.cherrypy.org/wiki/ReturnVsYield
             def content():
-                for buffer in self.stream_binary_file(binary_file, file_size):
+                for buffer in self.stream_binary_file(filename):
                     yield buffer
                 binary_format.clean_up()
             return content()
@@ -506,7 +507,7 @@ class Server(Partner):
             filename = os.path.join(session.database.media_dir(), filename)
             # We don't have progress bars here, as this function gets called
             # too frequently.
-            self.download_binary_file(filename, environ["wsgi.input"], size,
+            self.download_binary_file(environ["wsgi.input"], filename, size,
                 progress_bar=False)
             return self.text_format.repr_message("OK")
         except:
@@ -543,9 +544,8 @@ class Server(Partner):
             # of the media directory.
             filename = filename.replace("..", "")
             filename = os.path.join(session.database.media_dir(), filename)
-            size = os.path.getsize(os.path.join(\
-                session.database.media_dir(), filename))
-            mnemosyne_content_length = size
+            file_size = os.path.getsize(filename)
+            mnemosyne_content_length = file_size
             # Since we want to modify the headers in this function, we cannot
             # use 'yield' directly to stream content, but have to add one layer
             # of indirection: http://www.cherrypy.org/wiki/ReturnVsYield
@@ -553,8 +553,8 @@ class Server(Partner):
             # We don't have progress bars here, as this function gets called
             # too frequently.
             def content():
-                for buffer in self.stream_binary_file(file(filename), size,
-                    progress_bar=False):
+                for buffer in self.stream_binary_file(\
+                    filename, progress_bar=False):
                     yield buffer            
             return content()
         except:

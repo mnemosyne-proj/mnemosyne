@@ -42,31 +42,31 @@ class SQLiteStatistics(object):
             where active=1""").fetchone()[0]
         
     def easinesses(self, active_only):
-        command = "select easiness from cards where grade>=0"
+        query = "select easiness from cards where grade>=0"
         if active_only:
-            command += " and active=1"
-        return [cursor[0] for cursor in self.con.execute(command)]
+            query += " and active=1"
+        return [cursor[0] for cursor in self.con.execute(query)]
 
     def easinesses_for_tag(self, tag, active_only):
-        command = """select cards.easiness from cards, tags_for_card where
+        query = """select cards.easiness from cards, tags_for_card where
             tags_for_card._card_id=cards._id and cards.grade>=0 and
             tags_for_card._tag_id=?"""
         if active_only:
-            command += " and cards.active=1"
-        return [cursor[0] for cursor in self.con.execute(command,
+            query += " and cards.active=1"
+        return [cursor[0] for cursor in self.con.execute(query,
             (tag._id, ))]
 
     def card_count_for_fact_view(self, fact_view, active_only):
-        command = "select count() from cards where fact_view_id=?"
+        query = "select count() from cards where fact_view_id=?"
         if active_only:
-            command += " and active=1"        
-        return self.con.execute(command, (fact_view.id, )).fetchone()[0]
+            query += " and active=1"        
+        return self.con.execute(query, (fact_view.id, )).fetchone()[0]
 
     def card_count_for_grade(self, grade, active_only):
-        command = "select count() from cards where grade=?"
+        query = "select count() from cards where grade=?"
         if active_only:
-            command += " and active=1"        
-        return self.con.execute(command, (grade, )).fetchone()[0]
+            query += " and active=1"        
+        return self.con.execute(query, (grade, )).fetchone()[0]
 
     def card_count_for_tags(self, tags, active_only):
         
@@ -79,21 +79,21 @@ class SQLiteStatistics(object):
             return 0
         if active_only == True:
             raise NotImplementedError
-        command = "select count(distinct _card_id) from tags_for_card where "
+        query = "select count(distinct _card_id) from tags_for_card where "
         args = []
         for tag in tags:
-            command += "_tag_id=? or "
+            query += "_tag_id=? or "
             args.append(tag._id)
-        command = command.rsplit("or ", 1)[0]
-        return self.con.execute(command, args).fetchone()[0]
+        query = query.rsplit("or ", 1)[0]
+        return self.con.execute(query, args).fetchone()[0]
 
     def card_count_for_grade_and_tag(self, grade, tag, active_only):
-        command = """select count() from cards, tags_for_card where
+        query = """select count() from cards, tags_for_card where
             tags_for_card._card_id=cards._id and tags_for_card._tag_id=?
             and grade=?"""
         if active_only:
-            command += " and cards.active=1"    
-        return self.con.execute(command, (tag._id, grade)).fetchone()[0]
+            query += " and cards.active=1"    
+        return self.con.execute(query, (tag._id, grade)).fetchone()[0]
 
     def sister_card_count_scheduled_between(self, card, start, stop):
         

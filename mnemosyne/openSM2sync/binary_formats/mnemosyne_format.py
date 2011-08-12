@@ -19,7 +19,7 @@ class MnemosyneFormat(object):
         return program_name.lower() == "mnemosyne" and \
             database_version == self.database.version
     
-    def binary_file_and_size(self, store_pregenerated_data,
+    def binary_filename(self, store_pregenerated_data,
             interested_in_old_reps):
         self.database.save()     
         # Copy the database to a temporary file if we need to modify it.    
@@ -80,7 +80,7 @@ class MnemosyneFormat(object):
             commit;
             vacuum;
             """)
-        return file(filename), os.path.getsize(filename)       
+        return filename      
 
     def clean_up(self):
         if self.to_delete:

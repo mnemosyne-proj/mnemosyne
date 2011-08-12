@@ -336,16 +336,16 @@ class Client(Partner):
                 self.server_info["database_version"]):
                 assert self.store_pregenerated_data == True
                 assert self.interested_in_old_reps == True
-                binary_file, file_size = binary_format.binary_file_and_size(\
+                filename = binary_format.binary_filename(\
                     self.store_pregenerated_data, self.interested_in_old_reps)
                 break
         self.request_connection()
         self.con.putrequest("PUT",
                 self.url("/client_entire_database_binary?session_token=%s" \
                 % (self.server_info["session_token"], )))
-        self.con.putheader("content-length", file_size)
+        self.con.putheader("content-length", os.path.getsize(filename))
         self.con.endheaders()   
-        for buffer in self.stream_binary_file(binary_file, file_size):
+        for buffer in self.stream_binary_file(filename):
             self.con.send(buffer)
         binary_format.clean_up()
         self._check_response_for_errors()
@@ -405,8 +405,8 @@ class Client(Partner):
             "/server_entire_database_binary?" + \
             "session_token=%s" % (self.server_info["session_token"], )))
         response = self.con.getresponse()
-        size = int(response.getheader("mnemosyne-content-length"))
-        self.download_binary_file(filename, response, size)
+        file_size = int(response.getheader("mnemosyne-content-length"))
+        self.download_binary_file(response, filename, file_size)
         self.database.load(filename)
         self.database.create_if_needed_partnership_with(\
             self.server_info["machine_id"])
@@ -436,9 +436,7 @@ class Client(Partner):
             file_size = os.path.getsize(full_path)
             self.con.putheader("content-length", file_size)
             self.con.endheaders()
-            media_file = file(full_path)
-            for buffer in self.stream_binary_file(media_file, file_size,
-                progress_bar=False):
+            for buffer in self.stream_binary_file(full_path, progress_bar=False):
                 self.con.send(buffer)
                 bytes_sent += len(buffer)
                 self.ui.set_progress_value(bytes_sent)                
@@ -478,8 +476,8 @@ class Client(Partner):
             # of the media directory.
             filename = filename.replace("..", "")
             filename = os.path.join(self.database.media_dir(), filename)
-            self.download_binary_file(\
-                filename, response, file_size, progress_bar=False)
+            self.download_binary_file(response, filename,
+                                      file_size, progress_bar=False)
             bytes_read += file_size
             self.ui.set_progress_value(bytes_read)            
         self.ui.set_progress_value(total_size)

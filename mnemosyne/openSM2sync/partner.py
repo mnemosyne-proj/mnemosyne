@@ -11,8 +11,9 @@ class Partner(object):
     def __init__(self, ui):
         self.ui = ui
         
-    def stream_binary_file(self, binary_file, file_size,
-                           progress_bar=True):
+    def stream_binary_file(self, filename, progress_bar=True):
+        binary_file = file(filename, "rb")
+        file_size = os.path.getsize(filename) 
         buffer = binary_file.read(self.BUFFER_SIZE)
         if progress_bar:
             self.ui.set_progress_range(0, file_size)
@@ -27,7 +28,7 @@ class Partner(object):
         if progress_bar:
             self.ui.set_progress_value(file_size)
         
-    def download_binary_file(self, filename, stream, file_size,
+    def download_binary_file(self, stream, filename, file_size,
                              progress_bar=True):
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):

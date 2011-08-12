@@ -218,7 +218,9 @@ class SM2Mnemosyne(Scheduler):
         #
         # Now do the cards which have never been committed to long-term
         # memory, but which we have seen before.
-        if self.stage == 3:
+        # Use <= in the stage check, such that earlier stages can use
+        # cards from this stage to increase the hand.
+        if self.stage <= 3:
             for _card_id, _fact_id in db.cards_new_memorising(grade=1):
                 if _fact_id not in self._fact_ids_in_queue:
                     if non_memorised_in_queue < limit:
@@ -248,6 +250,8 @@ class SM2Mnemosyne(Scheduler):
         # Stage 4
         #
         # Now add some cards we have yet to see for the first time.
+        # Use <= in the stage check, such that earlier stages can use
+        # cards from this stage to increase the hand.
         if self.stage <= 4:
             if self.config()["randomise_new_cards"]:
                 sort_key = "random"

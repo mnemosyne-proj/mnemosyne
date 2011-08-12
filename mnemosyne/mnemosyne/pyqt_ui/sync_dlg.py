@@ -146,3 +146,4 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
             option1, option2)
         question_answered.wakeAll()
         mutex.unlock()
+            

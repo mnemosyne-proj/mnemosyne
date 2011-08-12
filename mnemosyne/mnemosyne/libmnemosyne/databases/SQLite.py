@@ -344,8 +344,14 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # Identify missing plugins for card types and their parents.
         plugin_needed = set()
         active_ids = set(card_type.id for card_type in self.card_types())
-        for cursor in self.con.execute("""select distinct card_type_id
-            from cards"""):
+        # Sometimes corruption keeps the global_variables table intact,
+        # but not the cards table...
+        try:
+            result = self.con.execute("""select distinct card_type_id
+                from cards""")
+        except:
+            raise RuntimeError, _("Unable to load file.") + traceback_string()        
+        for cursor in result:
             id = cursor[0]
             while "::" in id: # Move up one level of the hierarchy.
                 id, child_name = id.rsplit("::", 1)
