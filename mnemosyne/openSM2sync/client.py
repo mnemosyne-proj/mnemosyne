@@ -92,6 +92,10 @@ class Client(Partner):
         HTTP 1.0 and use a separate connection for each request.
         
         """
+
+
+        self.behind_proxy = True
+        
         
         # If we haven't done so, determine whether we're behind a proxy.
         if self.behind_proxy is None:
@@ -123,7 +127,7 @@ class Client(Partner):
         return url_string
 
     def sync(self, server, port, username, password):
-        try:
+        try:            
             self.server = socket.gethostbyname(server)
             self.port = port      
             if self.do_backup:

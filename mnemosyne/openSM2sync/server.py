@@ -129,7 +129,7 @@ class Server(Partner):
         # ourselves at the lowest level.
         global mnemosyne_content_length
         mnemosyne_content_length = None
-        data = getattr(self, method)(environ, **args)        
+        data = getattr(self, method)(environ, **args)
         response_headers = [("content-type", self.text_format.mime_type)]
         if mnemosyne_content_length is not None:
             response_headers.append(\
@@ -141,12 +141,10 @@ class Server(Partner):
         else:  # We have an iterator. With a HTTP/1.0 client (i.e. a Mnemosyne
         # client behind an HTTP/1.0 proxy like Squid pre 3.1) we cannot use
         # chunked encoding, so we need to assemble the entire message
-        # beforehand. The obviously results in higher memory requirements for
+        # beforehand. This obviously results in higher memory requirements for
         # the server and less concurrent processing between client and server.
             if environ["SERVER_PROTOCOL"] == "HTTP/1.0":
-                message = ""
-                for buffer in data:
-                    message += buffer
+                message = "".join(data)
                 response_headers.append(("content-length", str(len(message))))
                 start_response("200 OK", response_headers)
                 return [message]
@@ -289,6 +287,11 @@ class Server(Partner):
     def put_login(self, environ):
         session = None
         try:
+
+            self.ui.show_information("info")
+            self.ui.show_error("error")            
+            1/0
+            
             self.ui.set_progress_text("Client logging in...")
             client_info_repr = environ["wsgi.input"].readline()
             client_info = self.text_format.parse_partner_info(\

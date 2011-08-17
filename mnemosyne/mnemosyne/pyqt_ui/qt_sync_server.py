@@ -46,6 +46,7 @@ class ServerThread(QtCore.QThread, SyncServer):
     
     sync_started_signal = QtCore.pyqtSignal()
     sync_ended_signal = QtCore.pyqtSignal()
+    information_signal = QtCore.pyqtSignal(QtCore.QString)
     error_signal = QtCore.pyqtSignal(QtCore.QString)
     set_progress_text_signal = QtCore.pyqtSignal(QtCore.QString)
     set_progress_range_signal = QtCore.pyqtSignal(int, int)
@@ -95,6 +96,9 @@ class ServerThread(QtCore.QThread, SyncServer):
             database_released.wakeAll()
         mutex.unlock()
         self.sync_ended_signal.emit()
+        
+    def show_information(self, information):
+        self.information_signal.emit(information)
         
     def show_error(self, error):
         self.error_signal.emit(error)
@@ -150,6 +154,8 @@ class QtSyncServer(Component, QtCore.QObject):
                 self.unload_database)
             self.thread.sync_ended_signal.connect(\
                 self.load_database)
+            self.thread.information_signal.connect(\
+                self.main_widget().show_information)
             self.thread.error_signal.connect(\
                 self.main_widget().show_error)
             self.thread.set_progress_text_signal.connect(\
