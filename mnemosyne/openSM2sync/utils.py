@@ -19,6 +19,7 @@ def traceback_string():
     list = traceback.format_tb(tb, limit=None) + \
            traceback.format_exception_only(type, value)
     body = body + "%-20s %s" % ("".join(list[:-1]), list[-1])
+    del tb  # Prevent circular references.
     return body
 
 def rand_uuid():

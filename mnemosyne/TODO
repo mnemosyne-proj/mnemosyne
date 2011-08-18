@@ -1,9 +1,12 @@
--fallback to http 1.0 is really slow for send entire binary database
--test with linux client and windows server, wireshark this
--try 1/0 in server code too
-
--remove 1.0 http fallback
+-only elimitate progress bars under Windows (time os.system call)
+-make sure qt sync server can recover gracefully from an internal server error
+-really need to wrap content generator? causes error message to be tacked on at the end
+-1/0 in server login gets caught nicely on both sides, but does not kill the progress bar on the server
 -stress test Windows sync
+
+-windows: both 2 and 5 seem to be default grade at the same time
+-check default button for unlearned cards is same under Windows and Linux (grade 2)
+-paintings
 
 -check that we don't get to review 2 sister cards on the same day
 
@@ -22,10 +25,6 @@
 -windows dialogs have ? in upper right corner (Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
 -use saveGeometry and saveState as opposed to manually saving width and height?
 -check close event: make sure sure geometry is written on accept too, as well as close event
--windows: both 2 and 5 seem to be default grade at the same time
--paintings
--windows client and windows server: import mem file from scratch, new sync. 
- Then do new binary sync from new client to same server: often crashes. Restarting the server first seems to fix it.
 -run test suite under windows
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
@@ -88,6 +87,8 @@
 -Qt bug? insertAtTop on tags combobox in add_cards does not seem to work
 -Qt bug? '(arabic) arabic' in lineedit shows up as 'arabic) arabic)' in webkit
 -Qt bug? choose named colours: crash
+-Qt bug? Windows: progress bars for sync often crash when they get called too quickly
+ (reproduce: download_binary_database for HTTP 1.0)
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 
 -workaround for short ogg files. Make short mp3 workaround linux only. Test if silence files

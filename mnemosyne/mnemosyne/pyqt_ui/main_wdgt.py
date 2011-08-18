@@ -92,7 +92,7 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
             update_interval = 1
         self.progress_bar_update_interval = update_interval
         
-    def set_progress_value(self, value):
+    def set_progress_value(self, value):        
         # There is a possibility that 'value' does not visit all intermediate
         # integer values in the range, so we need to check and store the last
         # shown value here.

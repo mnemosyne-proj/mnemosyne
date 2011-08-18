@@ -6,6 +6,7 @@ from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.ui_sync_dlg import Ui_SyncDlg
+from mnemosyne.libmnemosyne.utils import traceback_string
 from mnemosyne.libmnemosyne.ui_components.dialogs import SyncDialog
 
 
@@ -68,12 +69,15 @@ class SyncThread(QtCore.QThread):
         self.set_progress_text_signal.emit(text)
         
     def set_progress_range(self, minimum, maximum):
+        return
         self.set_progress_range_signal.emit(minimum, maximum)
         
     def set_progress_update_interval(self, value):
+        return
         self.set_progress_update_interval_signal.emit(value)
         
     def set_progress_value(self, value):
+        return
         self.set_progress_value_signal.emit(value) 
 
     def close_progress(self):
@@ -87,9 +91,8 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
         if not self.config()["sync_help_shown"]:
-            QtGui.QMessageBox.information(None, _("Mnemosyne"),
-               _("Here, you can sync with a different desktop or a webserver. \nTo sync with a mobile device, first enable a sync server on this computer in the configuration dialog, and then start the sync from the mobile device."),
-               _("&OK"), "", "", 0, -1)
+            self.main_widget().show_information(\
+               _("Here, you can sync with a different desktop or a webserver. \nTo sync with a mobile device, first enable a sync server on this computer in the configuration dialog, and then start the sync from the mobile device."))
             self.config()["sync_help_shown"] = True
         self.server.setText(self.config()["server_for_sync_as_client"])
         self.port.setValue(self.config()["port_for_sync_as_client"])

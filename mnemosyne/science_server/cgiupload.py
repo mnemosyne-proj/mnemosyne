@@ -24,10 +24,10 @@ class FileUploadAcquisition:
     def process(self):
         
         fs = cgi.FieldStorage()
-        uf = fs['file']
+        uf = fs["file"]
 
         filename = os.path.join("/home/mnemosyne", uf.filename)
-        f = file(filename, 'wb')
+        f = file(filename, "wb")
         while 1:
             line = uf.file.readline()
             if line:

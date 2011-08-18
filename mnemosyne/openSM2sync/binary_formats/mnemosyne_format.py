@@ -22,12 +22,11 @@ class MnemosyneFormat(object):
     
     def binary_filename(self, store_pregenerated_data,
             interested_in_old_reps):
-        self.database.save()     
-        # Copy the database to a temporary file to make sure any residual
-        # database access does not cause problems.
+        self.database.release_connection()
+        # Copy the database to a temporary file.
         self.tmp_name = os.path.join(os.path.dirname(self.database._path),
                 str(random.randint(0,9999)))
-        shutil.copy(self.database._path, self.tmp_name)
+        shutil.copy(self.database._path, self.tmp_name)        
         # Delete old reps if needed.
         if not interested_in_old_reps:
             con = sqlite3.connect(self.tmp_name, timeout=0.1,
@@ -76,6 +75,7 @@ class MnemosyneFormat(object):
             commit;
             vacuum;
             """)
+            con.close()
         return self.tmp_name      
 
     def clean_up(self):

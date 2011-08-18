@@ -92,10 +92,6 @@ class Client(Partner):
         HTTP 1.0 and use a separate connection for each request.
         
         """
-
-
-        self.behind_proxy = True
-        
         
         # If we haven't done so, determine whether we're behind a proxy.
         if self.behind_proxy is None:
@@ -166,7 +162,7 @@ class Client(Partner):
                 else:
                     self.resolve_conflicts()
             self.ui.show_information("Sync finished!")
-        except Exception, exception:
+        except Exception, exception:            
             self.ui.close_progress()
             if type(exception) == type(socket.gaierror()):
                 self.ui.show_error("Could not find server!") 
@@ -226,15 +222,18 @@ class Client(Partner):
         # Cancel.
         elif result == "CANCEL":
             self.get_sync_cancel()
-
-    def _check_response_for_errors(self):
-        response = self.con.getresponse().read()
-        message, traceback = self.text_format.parse_message(response)        
+        
+    def _check_response_for_errors(self, response, can_consume_response=True):
+        # Check for non-Mnemosyne error messages.
+        if response.status != httplib.OK:
+            raise SyncError("Internal server error:\n" + response.read())
+        if can_consume_response == False:
+            return
+        # Check for Mnemosyne error messages.
+        message, traceback = self.text_format.parse_message(response.read())        
         if "server error" in message.lower():
-            raise SyncError(message)
-        # We don't scare the client user with server log traces here, those
-        # should have already been logged at the server side.
-
+            raise SyncError(message + "\n" + traceback)
+        
     def login(self, username, password):
         self.ui.set_progress_text("Logging in...")
         client_info = {}
@@ -262,7 +261,9 @@ class Client(Partner):
         self.con.request("PUT", self.url("/login"),
             self.text_format.repr_partner_info(client_info).\
             encode("utf-8") + "\n")
-        response = self.con.getresponse().read()
+        response = self.con.getresponse()
+        self._check_response_for_errors(response, can_consume_response=False)
+        response = response.read()
         if "message" in response:
             message, traceback = self.text_format.parse_message(response)
             message = message.lower()
@@ -303,7 +304,7 @@ class Client(Partner):
             return
         self.ui.set_progress_text("Sending log entries...")
         self.ui.set_progress_range(0, number_of_entries)
-        self.ui.set_progress_update_interval(number_of_entries/50)
+        self.ui.set_progress_update_interval(number_of_entries/20)
         buffer = ""
         count = 0
         for log_entry in self.database.log_entries_to_sync_for(\
@@ -321,7 +322,10 @@ class Client(Partner):
                     % (self.server_info["session_token"],)),
                     buffer.encode("utf-8"))
                 buffer = ""
-                response = self.con.getresponse().read()
+                response = self.con.getresponse()
+                self._check_response_for_errors(response,
+                    can_consume_response=False)
+                response = response.read()
                 message, traceback = self.text_format.parse_message(response)        
                 message = message.lower()     
         if "server error" in message:
@@ -351,7 +355,7 @@ class Client(Partner):
         for buffer in self.stream_binary_file(filename):
             self.con.send(buffer)
         binary_format.clean_up()
-        self._check_response_for_errors()
+        self._check_response_for_errors(self.con.getresponse())
 
     def _download_log_entries(self, stream):
         element_loop = self.text_format.parse_log_entries(stream)        
@@ -375,7 +379,9 @@ class Client(Partner):
         self.con.request("GET", self.url(\
             "/server_log_entries?session_token=%s" \
             % (self.server_info["session_token"], )))
-        self._download_log_entries(self.con.getresponse())
+        response = self.con.getresponse()
+        self._check_response_for_errors(response, can_consume_response=False)
+        self._download_log_entries(response)
         # The server will always upload the science logs of the log events
         # which originated at the server side.
         self.database.skip_science_log()
@@ -389,7 +395,9 @@ class Client(Partner):
         self.request_connection()
         self.con.request("GET", self.url("/server_entire_database?" + \
             "session_token=%s" % (self.server_info["session_token"], )))
-        self._download_log_entries(self.con.getresponse())
+        response = self.con.getresponse()
+        self._check_response_for_errors(response, can_consume_response=False)
+        self._download_log_entries(response)
         self.database.load(filename)
         # The server will always upload the science logs of the log events
         # which originated at the server side.
@@ -408,6 +416,7 @@ class Client(Partner):
             "/server_entire_database_binary?" + \
             "session_token=%s" % (self.server_info["session_token"], )))
         response = self.con.getresponse()
+        self._check_response_for_errors(response, can_consume_response=False)
         file_size = int(response.getheader("mnemosyne-content-length"))
         self.download_binary_file(response, filename, file_size)
         self.database.load(filename)
@@ -443,7 +452,7 @@ class Client(Partner):
                 self.con.send(buffer)
                 bytes_sent += len(buffer)
                 self.ui.set_progress_value(bytes_sent)                
-            self._check_response_for_errors()
+            self._check_response_for_errors(self.con.getresponse())
         self.ui.set_progress_value(total_size)
         
     def get_server_media_files(self, redownload_all=False):
@@ -455,6 +464,7 @@ class Client(Partner):
         self.request_connection()
         self.con.request("GET", self.url(media_url))
         response = self.con.getresponse()
+        self._check_response_for_errors(response, can_consume_response=False)                        
         total_size = int(response.getheader("mnemosyne-content-length"))
         if total_size == 0:
             # Make sure to read the full message, even if it's empty,
@@ -474,6 +484,8 @@ class Client(Partner):
                 % (self.server_info["session_token"],
                 urllib.quote(filename.encode("utf-8"), ""))))
             response = self.con.getresponse()
+            self._check_response_for_errors(response,
+                can_consume_response=False)
             file_size = int(response.getheader("mnemosyne-content-length"))
             # Make sure a malicious server cannot overwrite anything outside
             # of the media directory.
@@ -491,7 +503,7 @@ class Client(Partner):
         self.con.request("GET", self.url("/sync_cancel?session_token=%s" \
             % (self.server_info["session_token"], )),
             headers={"connection": "close"})
-        self._check_response_for_errors()
+        self._check_response_for_errors(self.con.getresponse())
                 
     def get_sync_finish(self):
         self.ui.set_progress_text("Finishing sync...")
@@ -499,7 +511,7 @@ class Client(Partner):
         self.con.request("GET", self.url("/sync_finish?session_token=%s" \
             % (self.server_info["session_token"], )),
             headers={"connection": "close"})
-        self._check_response_for_errors()
+        self._check_response_for_errors(self.con.getresponse())
         # Only update after we are sure there have been no errors.
         self.database.update_last_log_index_synced_for(\
             self.server_info["machine_id"])

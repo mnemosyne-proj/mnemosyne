@@ -10,6 +10,7 @@ from PyQt4 import QtCore
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.libmnemosyne.utils import traceback_string
 from mnemosyne.libmnemosyne.sync_server import SyncServer
 
 # The following is some thread synchronisation machinery to ensure that
@@ -63,7 +64,9 @@ class ServerThread(QtCore.QThread, SyncServer):
         try:
             self.serve_until_stopped()
         except socket.error:
-            self.show_error(_("Unable to start sync server."))          
+            self.show_error(_("Unable to start sync server."))
+        except Exception, e:
+            self.show_error(str(e) + "\n" + traceback_string())         
         # Clean up after stopping.
         mutex.lock()
         server_hanging = (len(self.sessions) != 0)
@@ -76,8 +79,8 @@ class ServerThread(QtCore.QThread, SyncServer):
             self.terminate_all_sessions() # Does its own locking.
             self.database().release_connection()
             self.server_has_connection = False
-            database_released.wakeAll()
-            
+        database_released.wakeAll()
+        
     def load_database(self, database_name):
         mutex.lock()
         self.sync_started_signal.emit()
@@ -107,12 +110,15 @@ class ServerThread(QtCore.QThread, SyncServer):
         self.set_progress_text_signal.emit(text)
 
     def set_progress_range(self, minimum, maximum):
+        return
         self.set_progress_range_signal.emit(minimum, maximum)  
 
     def set_progress_update_interval(self, value):
+        return
         self.set_progress_update_interval_signal.emit(value)       
 
     def set_progress_value(self, value):
+        return
         self.set_progress_value_signal.emit(value) 
 
     def close_progress(self):
@@ -149,7 +155,7 @@ class QtSyncServer(Component, QtCore.QObject):
                     self.thread = None
                     return                    
                 else:
-                    raise
+                    raise e
             self.thread.sync_started_signal.connect(\
                 self.unload_database)
             self.thread.sync_ended_signal.connect(\

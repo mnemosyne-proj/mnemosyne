@@ -170,7 +170,7 @@ class Configuration(Component, dict):
         
     def save(self):
         try:
-            config_file = file(os.path.join(self.config_dir, "config"), 'wb')
+            config_file = file(os.path.join(self.config_dir, "config"), "wb")
             cPickle.dump(dict(self), config_file)
         except:
             from mnemosyne.libmnemosyne.utils import traceback_string

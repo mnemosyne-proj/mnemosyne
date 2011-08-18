@@ -286,12 +286,7 @@ class Server(Partner):
 
     def put_login(self, environ):
         session = None
-        try:
-
-            self.ui.show_information("info")
-            self.ui.show_error("error")            
-            1/0
-            
+        try:            
             self.ui.set_progress_text("Client logging in...")
             client_info_repr = environ["wsgi.input"].readline()
             client_info = self.text_format.parse_partner_info(\
@@ -490,10 +485,16 @@ class Server(Partner):
             # Since we want to modify the headers in this function, we cannot
             # use 'yield' directly to stream content, but have to add one layer
             # of indirection: http://www.cherrypy.org/wiki/ReturnVsYield
+            #
+            # Since we return an iterator, we also need to re-encapsulate our
+            # code in a try block.
             def content():
-                for buffer in self.stream_binary_file(filename):
-                    yield buffer
-                binary_format.clean_up()
+                try:
+                    for buffer in self.stream_binary_file(filename):
+                        yield buffer
+                    binary_format.clean_up()
+                except:
+                    yield self.handle_error(session, traceback_string())  
             return content()
             # This is a full sync, we don't need to apply client log
             # entries here.
@@ -510,8 +511,8 @@ class Server(Partner):
             # of the media directory.
             filename = filename.replace("..", "")
             filename = os.path.join(session.database.media_dir(), filename)
-            # We don't have progress bars here, as this function gets called
-            # too frequently.
+            # We don't have progress bars here, as 'put_client_media_file'
+            # gets called too frequently, and this would slow down the UI.
             self.download_binary_file(environ["wsgi.input"], filename, size,
                 progress_bar=False)
             return self.text_format.repr_message("OK")
@@ -555,12 +556,18 @@ class Server(Partner):
             # use 'yield' directly to stream content, but have to add one layer
             # of indirection: http://www.cherrypy.org/wiki/ReturnVsYield
             #
-            # We don't have progress bars here, as this function gets called
-            # too frequently.
+            # We don't have progress bars here, as 'get_server_media_file'
+            # gets called too frequently, and this would slow down the UI.
+            #
+            # Since we return an iterator, we also need to re-encapsulate our
+            # code in a try block.
             def content():
-                for buffer in self.stream_binary_file(\
-                    filename, progress_bar=False):
-                    yield buffer            
+                try:
+                    for buffer in self.stream_binary_file(\
+                        filename, progress_bar=False):
+                        yield buffer
+                except:
+                    yield self.handle_error(session, traceback_string())                      
             return content()
         except:
             return self.handle_error(session, traceback_string())
