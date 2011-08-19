@@ -3,7 +3,6 @@
 #
 
 import os
-import random
 import shutil
 import sqlite3
 import tempfile
@@ -25,7 +24,7 @@ class MnemosyneFormat(object):
         self.database.release_connection()
         # Copy the database to a temporary file.
         self.tmp_name = os.path.join(os.path.dirname(self.database._path),
-                str(random.randint(0,9999)))
+            "__FORSTREAMING__.db")
         shutil.copy(self.database._path, self.tmp_name)        
         # Delete old reps if needed.
         if not interested_in_old_reps:

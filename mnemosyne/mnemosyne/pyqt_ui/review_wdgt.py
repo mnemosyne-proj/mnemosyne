@@ -110,6 +110,10 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         
     def set_default_grade(self, grade):
         if self.auto_focus_grades:
+            # On Windows, we seem to need to clear the previous default
+            # first.
+            for grade_i in range(6):
+                self.grade_buttons.button(grade_i).setDefault(False)
             self.grade_buttons.button(grade).setDefault(True)
             self.grade_buttons.button(grade).setFocus()
             self.focus_widget = self.grade_buttons.button(grade)

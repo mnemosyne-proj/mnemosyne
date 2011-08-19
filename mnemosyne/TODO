@@ -1,12 +1,8 @@
--only elimitate progress bars under Windows (time os.system call)
--make sure qt sync server can recover gracefully from an internal server error
--really need to wrap content generator? causes error message to be tacked on at the end
--1/0 in server login gets caught nicely on both sides, but does not kill the progress bar on the server
--stress test Windows sync
-
--windows: both 2 and 5 seem to be default grade at the same time
--check default button for unlearned cards is same under Windows and Linux (grade 2)
--paintings
+-move all command line options to setup.py
+-jpg's don't show on Windows http://www.py2exe.org/index.cgi/Py2exeAndPyQt
+-add 'mnemosyne/webserver/review_page.html as well as webserver
+-matplotlib screen corruption, reenble resize?
+-retest progress bar under windows
 
 -check that we don't get to review 2 sister cards on the same day
 
@@ -19,6 +15,8 @@
 -if the server is empty, allow sync from non-empty client and change server user id.
 
 -prevent sync with itself
+
+-if dialog like edit card or browse cards is open on server, try to close it when sync comes in
 
 -/cygdrive/c/python2.7/python.exe setup.py py2exe --packages=mnemosyne,numpy,xml.sax,xml.etree --includes=sip,PyQt4.QtNetwork
 -dist/Output/setup.exe
@@ -49,10 +47,7 @@
 -test upgrade on OSX: remove library/Mnemosyne2, make sure you have 1.x in library/Mnemosyne.
  after upgrade there should be 2.0 files in library/Mnemosyne and a backup in library/Mnemosyne_1
 
--make distrib
--new binary directory for windows?
--reenable datadir in setup.py
--add 'mnemosyne/webserver/review_page.html
+-make distrib under linux
 -test sound on windows
 
 -first run wizard and tip of the day.
@@ -75,8 +70,6 @@
 -py2exe: download: http://www.microsoft.com/downloads/en/details.aspx?FamilyID=9b2da534-3e03-4391-8a4d-074b9f2bc1bf&displaylang=en
 -put __init__.py in numpy.distutils.test
 -set default matplotlib backend: http://www.py2exe.org/index.cgi/MatPlotLib
--more cleaner version, where options are moved from the makefile to setup.py def build_windist(): 
--installing over an old version does not seem to work. Move to different directory?
 
 -add plugin example on card type specific renderer
 -add doc on how to write plugin to sfinx doc
@@ -99,7 +92,7 @@
 -test running from usb, update instructions
 -add tests with unicode in data_dir
 
--leech detection + Changelog
+-leech detection
 
 -Faq about how to pronounce Mnemosyne
 
@@ -152,8 +145,6 @@
 -new translation infrastructure
 -handle deferred translation
 -different translators for different users?
-
--tar file size estimate sometimes off by one record.
 
 -integrate webserver in GUI, login mechanism, session_token, cookies
 -add webserver in testsuite, case when the database is empty
@@ -214,11 +205,6 @@
 
 -grep through TODO's in source code
 
-
--modality of dialogs (mail by Nosai)
-
--allow edit current card and add card to be open at the same time?
-
 -make filters more efficients by using regex instead of loops.
 
 -easier function to do tag detection in plugin
@@ -226,9 +212,6 @@
 
 pylint:
 	find ./mnemosyne/libmnemosyne/ -name \*.py | while read f ; do echo $f;pylint $f 2>&1|grep ^E:; done
-
-
--matplotlib screen corruption, reenble resize?
 
 -compression on backup to reduce write time to SD card?
 -move from httplib to urllib2 to make use of automatic proxy detection? However, could have
@@ -404,8 +387,6 @@ Multiuser statistics analysis:
 
 -download media files when giving URL
 
--three sided export?
-
 -webserver: map card type does not really hide the question box, just blanks the question
 
 -synonym handling plugin?
@@ -415,8 +396,6 @@ Multiuser statistics analysis:
 -add 'add card' option to deck manager?
 
 -active alert as plugin
-
--zooming picture instead of scrollbars?
  
 -animated strokes: http://lost-theory.org/ocrat/
 
@@ -433,7 +412,6 @@ Multiuser statistics analysis:
 * Miscellaneous:
 
 -change file suffix when changing export format
-
 
 -sound recorder
 

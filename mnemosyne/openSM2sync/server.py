@@ -222,6 +222,7 @@ class Server(Partner):
             self.terminate_session_with_token(session_token)
             
     def handle_error(self, session=None, traceback_string=None):
+        self.ui.close_progress()
         if session:
             self.terminate_session_with_token(session.token)
         if traceback_string:

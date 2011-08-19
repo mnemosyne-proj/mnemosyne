@@ -2,6 +2,7 @@
 # sync_dlg.py <Peter.Bienstman@UGent.be>
 #
 
+import sys
 from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
@@ -46,6 +47,8 @@ class SyncThread(QtCore.QThread):
         self.port = port
         self.username = username
         self.password = password
+        # A fast moving progress bar seems to cause crashes on Windows.
+        self.show_numeric_progress_bar = (sys.platform != "win32")
         
     def run(self):
         self.mnemosyne.controller().sync(self.server, self.port,
@@ -69,16 +72,16 @@ class SyncThread(QtCore.QThread):
         self.set_progress_text_signal.emit(text)
         
     def set_progress_range(self, minimum, maximum):
-        return
-        self.set_progress_range_signal.emit(minimum, maximum)
+        if self.show_numeric_progress_bar:
+            self.set_progress_range_signal.emit(minimum, maximum)
         
     def set_progress_update_interval(self, value):
-        return
-        self.set_progress_update_interval_signal.emit(value)
+        if self.show_numeric_progress_bar:
+            self.set_progress_update_interval_signal.emit(value)
         
     def set_progress_value(self, value):
-        return
-        self.set_progress_value_signal.emit(value) 
+        if self.show_numeric_progress_bar:
+            self.set_progress_value_signal.emit(value) 
 
     def close_progress(self):
         self.close_progress_signal.emit()

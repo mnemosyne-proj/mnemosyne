@@ -121,9 +121,10 @@ if sys.platform == "win32": # For py2exe.
                   # Because matplotlibrc does not have an extension, glob does not find it (at least I think that's why)
                   # So add it manually here:
                   (r'mpl-data', [r'C:\Python27\Lib\site-packages\matplotlib\mpl-data\matplotlibrc']),
-                  (r'mpl-data\images',glob.glob(r'C:\Python27\Lib\site-packages\matplotlib\mpl-data\images\*.*')),
-                  (r'mpl-data\fonts\ttf',glob.glob(r'C:\Python27\Lib\site-packages\matplotlib\mpl-data\fonts\ttf\*.*')),
+                  (r'mpl-data\images', glob.glob(r'C:\Python27\Lib\site-packages\matplotlib\mpl-data\images\*.*')),
+                  (r'mpl-data\fonts\ttf', glob.glob(r'C:\Python27\Lib\site-packages\matplotlib\mpl-data\fonts\ttf\*.*')),
                   ('phonon_backend', ['C:\Python27\Lib\site-packages\PyQt4\plugins\phonon_backend\phonon_ds94.dll']),
+                  ('imageformats', glob.glob(r'C:\Python27\Lib\site-packages\PyQt4\plugins\imageformats\*.dll')),
                   ('sqldrivers', ['C:\Python27\Lib\site-packages\PyQt4\plugins\sqldrivers\qsqlite4.dll'])
                   ]    
 elif sys.platform == "darwin": # For py2app.
@@ -166,6 +167,13 @@ if 'py2app' in sys.argv:
 
 package_name = "mnemosyne"
 
+py2exe_options = {
+    'packages' : ['mnemosyne', 'numpy', 'xml.sax' ,'xml.etree'],
+    'includes' : ['sip', 'PyQt4.QtNetwork'],
+    'excludes' : ['_gtkagg', '_tkagg'],
+    'dll_excludes': ['libgdk-win32-2.0-0.dll', 'libgobject-2.0-0.dll']
+}
+
 setup (name = "Mnemosyne",
        version = mnemosyne.version.version,
        author = "Peter Bienstman",
@@ -202,7 +210,7 @@ setup (name = "Mnemosyne",
        cmdclass = {"py2exe": build_installer},
        # py2app
        setup_requires = setup_requires,
-       options = {'py2app' : py2app_options},
+       options = {'py2app' : py2app_options, 'py2exe' : py2exe_options},
        app = py2app_app
 )
 
