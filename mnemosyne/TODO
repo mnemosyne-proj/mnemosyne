@@ -1,12 +1,14 @@
--move all command line options to setup.py
--jpg's don't show on Windows http://www.py2exe.org/index.cgi/Py2exeAndPyQt
--add 'mnemosyne/webserver/review_page.html as well as webserver
--matplotlib screen corruption, reenble resize?
--retest progress bar under windows
+-test sound on windows
 
 -check that we don't get to review 2 sister cards on the same day
 
 -column width in browser not saved?
+
+-windows dialogs have ? in upper right corner (Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
+-use saveGeometry and saveState as opposed to manually saving width and height?
+-check close event: make sure sure geometry is written on accept too, as well as close event
+
+-binary database upload: configuration changes (fonts, ...) are not applied
 
 -migrate science server machine
 
@@ -18,11 +20,6 @@
 
 -if dialog like edit card or browse cards is open on server, try to close it when sync comes in
 
--/cygdrive/c/python2.7/python.exe setup.py py2exe --packages=mnemosyne,numpy,xml.sax,xml.etree --includes=sip,PyQt4.QtNetwork
--dist/Output/setup.exe
--windows dialogs have ? in upper right corner (Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
--use saveGeometry and saveState as opposed to manually saving width and height?
--check close event: make sure sure geometry is written on accept too, as well as close event
 -run test suite under windows
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
@@ -42,13 +39,11 @@
 
 -example script to import cards from a text file
 
--purge old html files in bzr
-
 -test upgrade on OSX: remove library/Mnemosyne2, make sure you have 1.x in library/Mnemosyne.
  after upgrade there should be 2.0 files in library/Mnemosyne and a backup in library/Mnemosyne_1
 
 -make distrib under linux
--test sound on windows
+-bundle webserver with install
 
 -first run wizard and tip of the day.
 -startup tips: right click to add cards or sound, comma to separate tag names, 
@@ -156,7 +151,6 @@
 
 -card formatting options on remote web server: act on config info that the client sent across
  Add hook in set_partner_info
--binary database upload: configuration changes (fonts, ...) are not applied
 -check if online username is still free
 -threading/multiprocess for sync and review servers? Threading prob. works automatically if persistent
  connections are supported (CherryPy), perhaps also for multiprocess. Multiprocess probably only useful

@@ -116,25 +116,25 @@ if sys.platform == "win32": # For py2exe.
     import matplotlib
     sys.path.append("C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\redist\\x86\\Microsoft.VC90.CRT")
     base_path = ""
-    data_files = [("Microsoft.VC90.CRT", glob.glob(r'C:\Program Files\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\*.*')),
-                  (r'mpl-data', glob.glob(r'C:\Python27\Lib\site-packages\matplotlib\mpl-data\*.*')),
-                  # Because matplotlibrc does not have an extension, glob does not find it (at least I think that's why)
+    data_files = [("Microsoft.VC90.CRT", glob.glob(r"C:\Program Files\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\*.*")),
+                  ("mpl-data", glob.glob(r"C:\Python27\Lib\site-packages\matplotlib\mpl-data\*.*")),
+                  # Because matplotlibrc does not have an extension, glob does not find it (at least I think that"s why)
                   # So add it manually here:
-                  (r'mpl-data', [r'C:\Python27\Lib\site-packages\matplotlib\mpl-data\matplotlibrc']),
-                  (r'mpl-data\images', glob.glob(r'C:\Python27\Lib\site-packages\matplotlib\mpl-data\images\*.*')),
-                  (r'mpl-data\fonts\ttf', glob.glob(r'C:\Python27\Lib\site-packages\matplotlib\mpl-data\fonts\ttf\*.*')),
-                  ('phonon_backend', ['C:\Python27\Lib\site-packages\PyQt4\plugins\phonon_backend\phonon_ds94.dll']),
-                  ('imageformats', glob.glob(r'C:\Python27\Lib\site-packages\PyQt4\plugins\imageformats\*.dll')),
-                  ('sqldrivers', ['C:\Python27\Lib\site-packages\PyQt4\plugins\sqldrivers\qsqlite4.dll'])
-                  ]    
+                  ("mpl-data", [r"C:\Python27\Lib\site-packages\matplotlib\mpl-data\matplotlibrc"]),
+                  (r"mpl-data\images", glob.glob(r"C:\Python27\Lib\site-packages\matplotlib\mpl-data\images\*.*")),
+                  (r"mpl-data\fonts\ttf", glob.glob(r"C:\Python27\Lib\site-packages\matplotlib\mpl-data\fonts\ttf\*.*")),
+                  ("phonon_backend", ["C:\Python27\Lib\site-packages\PyQt4\plugins\phonon_backend\phonon_ds94.dll"]),
+                  ("imageformats", glob.glob(r"C:\Python27\Lib\site-packages\PyQt4\plugins\imageformats\*.dll")),
+                  ("sqldrivers", ["C:\Python27\Lib\site-packages\PyQt4\plugins\sqldrivers\qsqlite4.dll"])
+                  ]
 elif sys.platform == "darwin": # For py2app.
     base_path = ""
     data_files = []
 else:
-    base_path = os.path.join(sys.exec_prefix, "lib", "python"+sys.version[:3],
+    base_path = os.path.join(sys.exec_prefix, "lib", "python" + sys.version[:3],
                              "site-packages","mnemosyne")
-    data_files = [('/usr/share/applications', ['mnemosyne.desktop']),
-                  ('/usr/share/icons', ['pixmaps/mnemosyne.png'])]
+    data_files = [("/usr/share/applications", ["mnemosyne.desktop"]),
+                  ("/usr/share/icons", ["pixmaps/mnemosyne.png"])]
 
 pixmap_path = os.path.join(base_path, "pixmaps")
 util_path = os.path.join(base_path, "util")
@@ -145,72 +145,81 @@ setup_requires = []
 
 # py2app (OS X).
 py2app_options = {
-    'argv_emulation': True,
-    'includes' : 'sip,qt,cPickle,md5,logging,shutil,xml.sax,\
-                  xml.sax.drivers2.drv_pyexpat',
-    'resources' : 'mnemosyne',
-    'iconfile' : 'pixmaps/mnemosyne.icns'
+    "argv_emulation": True,
+    "includes": "sip,qt,cPickle,md5,logging,shutil,xml.sax,\
+                  xml.sax.drivers2.drv_pyexpat",
+    "resources": "mnemosyne",
+    "iconfile": "pixmaps/mnemosyne.icns"
 }
-py2app_app = ['build/Mnemosyne.py']
-if 'py2app' in sys.argv:
-    setup_requires.append('py2app')
+py2app_app = ["build/Mnemosyne.py"]
+if "py2app" in sys.argv:
+    setup_requires.append("py2app")
     # Create the application script.
     if not os.path.exists(build_path):
         os.mkdir(build_path)
     # Create a copy in build/ with name Mnemosyne.py, because py2app
     # needs a script that ends in .py.
-    appscript = os.path.join(build_path, 'Mnemosyne.py')
+    appscript = os.path.join(build_path, "Mnemosyne.py")
     source = os.path.join(base_path, "mnemosyne", "pyqt_ui", "mnemosyne")
     if os.path.exists(appscript):
         os.unlink(appscript)
     shutil.copyfile(source, appscript)
 
 package_name = "mnemosyne"
-
+packages = ["mnemosyne",
+            "mnemosyne.pyqt_ui",
+            "mnemosyne.libmnemosyne",
+            "mnemosyne.libmnemosyne.card_types",
+            "mnemosyne.libmnemosyne.databases",
+            "mnemosyne.libmnemosyne.file_formats",
+            "mnemosyne.libmnemosyne.filters",
+            "mnemosyne.libmnemosyne.loggers",
+            "mnemosyne.libmnemosyne.plugins",
+            "mnemosyne.libmnemosyne.renderers",
+            "mnemosyne.libmnemosyne.render_chains",                   
+            "mnemosyne.libmnemosyne.schedulers",                 
+            "mnemosyne.libmnemosyne.controllers",
+            "mnemosyne.libmnemosyne.ui_components",
+            "mnemosyne.libmnemosyne.statistics_pages",  
+            "mnemosyne.libmnemosyne.review_controllers",
+            "mnemosyne.libmnemosyne.criteria",
+            "mnemosyne.libmnemosyne.upgrades",
+            "mnemosyne.webserver",
+            "openSM2sync",
+            "openSM2sync.binary_formats",
+            "openSM2sync.text_formats"
+            ]
+      
 py2exe_options = {
-    'packages' : ['mnemosyne', 'numpy', 'xml.sax' ,'xml.etree'],
-    'includes' : ['sip', 'PyQt4.QtNetwork'],
-    'excludes' : ['_gtkagg', '_tkagg'],
-    'dll_excludes': ['libgdk-win32-2.0-0.dll', 'libgobject-2.0-0.dll']
+    "packages": ["mnemosyne", "numpy", "sip", "xml.sax", "xml.etree"],
+    "bundle_files": 3,
+    "optimize": 2,
+    "includes": ["numpy", "sip", "xml.sax", "xml.etree", "PyQt4.QtNetwork"],
+    "excludes": ["_gtkagg", "_tkagg", "_agg2", "_cairo", "_cocoaagg",
+                 "_fltkagg", "_gtk", "_gtkcairo", "tcl", "Tkconstants", "Tkinter",
+                 "pydoc", "doctest", "test"],
+    "dll_excludes": ["libgdk-win32-2.0-0.dll", "libgobject-2.0-0.dll",
+                     "tcl84.dll", "tk84.dll"]
 }
 
-setup (name = "Mnemosyne",
-       version = mnemosyne.version.version,
-       author = "Peter Bienstman",
-       author_email = "Peter.Bienstman@UGent.be",
-       packages = ["mnemosyne", "mnemosyne.pyqt_ui",
-                   "mnemosyne.libmnemosyne",
-                   "mnemosyne.libmnemosyne.card_types",
-                   "mnemosyne.libmnemosyne.databases",
-                   "mnemosyne.libmnemosyne.file_formats",
-                   "mnemosyne.libmnemosyne.filters",
-                   "mnemosyne.libmnemosyne.loggers",
-                   "mnemosyne.libmnemosyne.plugins",
-                   "mnemosyne.libmnemosyne.renderers",
-                   "mnemosyne.libmnemosyne.render_chains",                   
-                   "mnemosyne.libmnemosyne.schedulers",                 
-                   "mnemosyne.libmnemosyne.controllers",
-                   "mnemosyne.libmnemosyne.ui_components",
-                   "mnemosyne.libmnemosyne.statistics_pages",  
-                   "mnemosyne.libmnemosyne.review_controllers",
-                   "mnemosyne.libmnemosyne.criteria",
-                   "mnemosyne.libmnemosyne.upgrades",
-                   "openSM2sync",
-                   "openSM2sync.binary_formats",
-                   "openSM2sync.text_formats",
-                   "mnemosyne.webserver"
-                   ],
-       package_data = {"mnemosyne.pyqt_ui": ['mnemosyne.qrc'],
-                       "mnemosyne": ['mnemosyne.qrc']},
-       data_files = data_files,
-       scripts = ['mnemosyne/pyqt_ui/mnemosyne', 'mnemosyne/webserver/mnemosyne-webserver'],
-       # py2exe
-       windows = [{'script':'mnemosyne/pyqt_ui/mnemosyne',
-                   "icon_resources":[(1,"pixmaps/mnemosyne.ico")]}],
-       cmdclass = {"py2exe": build_installer},
-       # py2app
-       setup_requires = setup_requires,
-       options = {'py2app' : py2app_options, 'py2exe' : py2exe_options},
-       app = py2app_app
+setup(name = "Mnemosyne",
+      version = mnemosyne.version.version,
+      author = "Peter Bienstman",
+      author_email = "Peter.Bienstman@UGent.be",
+      packages = packages,
+      package_data = {"mnemosyne": ["mnemosyne.qrc"],
+                      "mnemosyne.pyqt_ui": ["mnemosyne.qrc"],
+                      "mnemosyne.webserver": ["review_page.html"]},
+      data_files = data_files,
+      scripts = ["mnemosyne/pyqt_ui/mnemosyne", "mnemosyne/webserver/mnemosyne-webserver"],
+      # py2exe
+      windows = [{#"console": "mnemosyne/webserver/mnemosyne-webserver",
+                  "script": "mnemosyne/pyqt_ui/mnemosyne",
+                  "icon_resources": [(1, "pixmaps/mnemosyne.ico")]}],
+      cmdclass = {"py2exe": build_installer},
+      # py2app
+      setup_requires = setup_requires,
+      options = {"py2app": py2app_options, "py2exe": py2exe_options},
+      app = py2app_app
 )
 

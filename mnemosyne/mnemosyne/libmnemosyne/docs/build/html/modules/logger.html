@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,12 +14,13 @@
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '2.0',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
     <link rel="next" title="Plugin" href="plugin.html" />
@@ -31,8 +34,8 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="plugin.html" title="Plugin"
              accesskey="N">next</a> |</li>
@@ -49,7 +52,7 @@
           <div class="body">
             
   <div class="section" id="module-mnemosyne.libmnemosyne.logger">
-<h1><tt class="xref docutils literal"><span class="pre">Logger</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.logger" title="Permalink to this headline">¶</a></h1>
+<span id="logger"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">Logger</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.logger" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.logger.Logger">
 <em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.logger.</tt><tt class="descname">Logger</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger" title="Permalink to this definition">¶</a></dt>
@@ -96,7 +99,8 @@
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.archive_old_log">
 <tt class="descname">archive_old_log</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.archive_old_log" title="Permalink to this definition">¶</a></dt>
-<dd>Archive log to history folder if it&#8217;s large enough.</dd></dl>
+<dd><p>Archive log to history folder if it&#8217;s large enough.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.deactivate">
@@ -174,6 +178,11 @@
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.logger.Logger.edited_setting">
+<tt class="descname">edited_setting</tt><big>(</big><em>key</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.edited_setting" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.edited_tag">
 <tt class="descname">edited_tag</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.edited_tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -181,15 +190,27 @@
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.get_timestamp">
 <tt class="descname">get_timestamp</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.get_timestamp" title="Permalink to this definition">¶</a></dt>
-<dd>If self._timestamp == None (the default), then the timestamp will
+<dd><p>If self._timestamp == None (the default), then the timestamp will
 be the current time. It is useful to be able to override this, e.g.
 during database import or syncing, when you need to add log entries
-to the database that happened in the past.</dd></dl>
+to the database that happened in the past.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.loaded_database">
 <tt class="descname">loaded_database</tt><big>(</big><em>scheduled_count=None</em>, <em>non_memorised_count=None</em>, <em>active_count=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.loaded_database" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.logger.Logger.log_index_of_last_upload">
+<tt class="descname">log_index_of_last_upload</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.log_index_of_last_upload" title="Permalink to this definition">¶</a></dt>
+<dd><p>We don&#8217;t store this info in the configuration, but determine it on
+the fly, so that users can copy configuration files between their
+machines.</p>
+<p>1.x log names have the format userid_index.bz2.
+2.x log names have the format userid_machineid_index.bz2</p>
+<p>Obviously, we should only consider the logs from our own machine.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.repetition">
@@ -229,10 +250,11 @@ to the database that happened in the past.</dd></dl>
 <dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.timestamp">
 <tt class="descname">timestamp</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.timestamp" title="Permalink to this definition">¶</a></dt>
-<dd>If self._timestamp == None (the default), then the timestamp will
+<dd><p>If self._timestamp == None (the default), then the timestamp will
 be the current time. It is useful to be able to override this, e.g.
 during database import or syncing, when you need to add log entries
-to the database that happened in the past.</dd></dl>
+to the database that happened in the past.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -244,30 +266,30 @@ to the database that happened in the past.</dd></dl>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="log_uploader.html"
-                                  title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">LogUploader</span></tt></a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="plugin.html"
-                                  title="next chapter"><tt class="docutils literal"><span class="pre">Plugin</span></tt></a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="../_sources/modules/logger.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="../search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="log_uploader.html"
+                        title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">LogUploader</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="plugin.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">Plugin</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/modules/logger.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -279,7 +301,7 @@ to the database that happened in the past.</dd></dl>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../modindex.html" title="Global Module Index"
+          <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="plugin.html" title="Plugin"
@@ -291,9 +313,9 @@ to the database that happened in the past.</dd></dl>
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 18, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
+        &copy; Copyright 2008, Peter Bienstman.
+      Last updated on Aug 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.1.
     </div>
   </body>
 </html>

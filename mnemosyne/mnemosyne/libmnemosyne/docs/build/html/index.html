@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,12 +14,13 @@
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
         VERSION:     '2.0',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="libmnemosyne v2.0 documentation" href="#" />
     <link rel="next" title="Component" href="modules/component.html" /> 
@@ -30,8 +33,8 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="modules/component.html" title="Component"
              accesskey="N">next</a> |</li>
@@ -88,41 +91,43 @@ statistics in an integrated way.</p>
 </div>
 <div class="section" id="contents">
 <h1>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference external" href="modules/component.html"><tt class="docutils literal"><span class="pre">Component</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/component_manager.html"><tt class="docutils literal"><span class="pre">ComponentManager</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/fact.html"><tt class="docutils literal"><span class="pre">Fact</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/fact_view.html"><tt class="docutils literal"><span class="pre">FactView</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/tag.html"><tt class="docutils literal"><span class="pre">Tag</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/tag_tree.html"><tt class="docutils literal"><span class="pre">TagTree</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/card_type.html"><tt class="docutils literal"><span class="pre">CardType</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/card.html"><tt class="docutils literal"><span class="pre">Card</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/card_type_converter.html"><tt class="docutils literal"><span class="pre">CardTypeConverter</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/render_chain.html"><tt class="docutils literal"><span class="pre">RenderChain</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/filter.html"><tt class="docutils literal"><span class="pre">Filter</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/renderer.html"><tt class="docutils literal"><span class="pre">Renderer</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/controller.html"><tt class="docutils literal"><span class="pre">Controller</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/review_controller.html"><tt class="docutils literal"><span class="pre">ReviewController</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/configuration.html"><tt class="docutils literal"><span class="pre">Configuration</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/database.html"><tt class="docutils literal"><span class="pre">Database</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/file_format.html"><tt class="docutils literal"><span class="pre">FileFormat</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/hook.html"><tt class="docutils literal"><span class="pre">Hook</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/log_uploader.html"><tt class="docutils literal"><span class="pre">LogUploader</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/logger.html"><tt class="docutils literal"><span class="pre">Logger</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/plugin.html"><tt class="docutils literal"><span class="pre">Plugin</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/scheduler.html"><tt class="docutils literal"><span class="pre">Scheduler</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/stopwatch.html"><tt class="docutils literal"><span class="pre">Stopwatch</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/statistics_page.html"><tt class="docutils literal"><span class="pre">StatisticsPage</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/criterion.html"><tt class="docutils literal"><span class="pre">Criterion</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/how_to_write_a_new_frontend.html">How to write a new frontend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/component.html"><tt class="docutils literal"><span class="pre">Component</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/component_manager.html"><tt class="docutils literal"><span class="pre">ComponentManager</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/fact.html"><tt class="docutils literal"><span class="pre">Fact</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/fact_view.html"><tt class="docutils literal"><span class="pre">FactView</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/tag.html"><tt class="docutils literal"><span class="pre">Tag</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/tag_tree.html"><tt class="docutils literal"><span class="pre">TagTree</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/card_type.html"><tt class="docutils literal"><span class="pre">CardType</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/card.html"><tt class="docutils literal"><span class="pre">Card</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/card_type_converter.html"><tt class="docutils literal"><span class="pre">CardTypeConverter</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/render_chain.html"><tt class="docutils literal"><span class="pre">RenderChain</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/filter.html"><tt class="docutils literal"><span class="pre">Filter</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/renderer.html"><tt class="docutils literal"><span class="pre">Renderer</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/controller.html"><tt class="docutils literal"><span class="pre">Controller</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/review_controller.html"><tt class="docutils literal"><span class="pre">ReviewController</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/configuration.html"><tt class="docutils literal"><span class="pre">Configuration</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/database.html"><tt class="docutils literal"><span class="pre">Database</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/file_format.html"><tt class="docutils literal"><span class="pre">FileFormat</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/hook.html"><tt class="docutils literal"><span class="pre">Hook</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/log_uploader.html"><tt class="docutils literal"><span class="pre">LogUploader</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/logger.html"><tt class="docutils literal"><span class="pre">Logger</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/plugin.html"><tt class="docutils literal"><span class="pre">Plugin</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/scheduler.html"><tt class="docutils literal"><span class="pre">Scheduler</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/stopwatch.html"><tt class="docutils literal"><span class="pre">Stopwatch</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/statistics_page.html"><tt class="docutils literal"><span class="pre">StatisticsPage</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/criterion.html"><tt class="docutils literal"><span class="pre">Criterion</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/how_to_write_a_new_frontend.html">How to write a new frontend</a></li>
 </ul>
+</div>
 </div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><a class="reference external" href="genindex.html"><em>Index</em></a></li>
-<li><a class="reference external" href="modindex.html"><em>Module Index</em></a></li>
-<li><a class="reference external" href="search.html"><em>Search Page</em></a></li>
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
+<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
 </ul>
 </div>
 
@@ -132,36 +137,36 @@ statistics in an integrated way.</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-            <h3><a href="#">Table Of Contents</a></h3>
-            <ul>
-<li><a class="reference external" href="#">Libmnemosyne overview</a></li>
-<li><a class="reference external" href="#contents">Contents</a><ul>
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Libmnemosyne overview</a></li>
+<li><a class="reference internal" href="#contents">Contents</a><ul>
 </ul>
 </li>
-<li><a class="reference external" href="#indices-and-tables">Indices and tables</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 
-            <h4>Next topic</h4>
-            <p class="topless"><a href="modules/component.html"
-                                  title="next chapter"><tt class="docutils literal"><span class="pre">Component</span></tt></a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="_sources/index.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="modules/component.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">Component</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -173,7 +178,7 @@ statistics in an integrated way.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="modules/component.html" title="Component"
@@ -182,9 +187,9 @@ statistics in an integrated way.</p>
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 18, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
+        &copy; Copyright 2008, Peter Bienstman.
+      Last updated on Aug 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.1.
     </div>
   </body>
 </html>

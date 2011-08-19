@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,12 +14,13 @@
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '2.0',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
     <link rel="next" title="Fact" href="fact.html" />
@@ -31,8 +34,8 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="fact.html" title="Fact"
              accesskey="N">next</a> |</li>
@@ -49,7 +52,7 @@
           <div class="body">
             
   <div class="section" id="module-mnemosyne.libmnemosyne.component_manager">
-<h1><tt class="xref docutils literal"><span class="pre">ComponentManager</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.component_manager" title="Permalink to this headline">¶</a></h1>
+<span id="componentmanager"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">ComponentManager</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.component_manager" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager">
 <em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.component_manager.</tt><tt class="descname">ComponentManager</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager" title="Permalink to this definition">¶</a></dt>
@@ -65,20 +68,23 @@ scheduler needs to be registered first.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.add_component_to_plugin">
 <tt class="descname">add_component_to_plugin</tt><big>(</big><em>plugin_class_name</em>, <em>component_class</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.add_component_to_plugin" title="Permalink to this definition">¶</a></dt>
-<dd>Typical use case for this is when a plugin has a GUI component
+<dd><p>Typical use case for this is when a plugin has a GUI component
 which obviously does not live inside libmnemosyne, and which needs to
-be added at a later stage.</dd></dl>
+be added at a later stage.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.all">
 <tt class="descname">all</tt><big>(</big><em>comp_type</em>, <em>used_for=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.all" title="Permalink to this definition">¶</a></dt>
-<dd>For components for which there can be many active at once.</dd></dl>
+<dd><p>For components for which there can be many active at once.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.current">
 <tt class="descname">current</tt><big>(</big><em>comp_type</em>, <em>used_for=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.current" title="Permalink to this definition">¶</a></dt>
-<dd>For components for which there can be only one active at any
-time.</dd></dl>
+<dd><p>For components for which there can be only one active at any
+time.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.deactivate_all">
@@ -105,30 +111,30 @@ time.</dd></dl>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="component.html"
-                                  title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">Component</span></tt></a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="fact.html"
-                                  title="next chapter"><tt class="docutils literal"><span class="pre">Fact</span></tt></a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="../_sources/modules/component_manager.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="../search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="component.html"
+                        title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Component</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="fact.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">Fact</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/modules/component_manager.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -140,7 +146,7 @@ time.</dd></dl>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../modindex.html" title="Global Module Index"
+          <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="fact.html" title="Fact"
@@ -152,9 +158,9 @@ time.</dd></dl>
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 18, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
+        &copy; Copyright 2008, Peter Bienstman.
+      Last updated on Aug 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.1.
     </div>
   </body>
 </html>

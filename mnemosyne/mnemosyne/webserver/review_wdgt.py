@@ -2,6 +2,7 @@
 # review_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
+import os
 from string import Template
 
 from mnemosyne.libmnemosyne.translator import _
@@ -32,8 +33,8 @@ class ReviewWdgt(ReviewWidget):
         self.is_show_button_enabled = True              
         self.is_grade_buttons_enabled = False
         self.status_bar = ""
-        self.template = Template(\
-            file("mnemosyne/webserver/review_page.html").read())
+        self.template = Template(file(os.path.join("mnemosyne", "webserver",
+            "review_page.html").read()))
         
     def show_answer(self):
         self.review_controller().show_answer()

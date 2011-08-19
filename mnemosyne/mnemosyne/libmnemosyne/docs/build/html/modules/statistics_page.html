@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,12 +14,13 @@
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '2.0',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
     <link rel="next" title="Criterion" href="criterion.html" />
@@ -31,8 +34,8 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="criterion.html" title="Criterion"
              accesskey="N">next</a> |</li>
@@ -49,7 +52,7 @@
           <div class="body">
             
   <div class="section" id="module-mnemosyne.libmnemosyne.statistics_page">
-<h1><tt class="xref docutils literal"><span class="pre">StatisticsPage</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.statistics_page" title="Permalink to this headline">¶</a></h1>
+<span id="statisticspage"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">StatisticsPage</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.statistics_page" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.statistics_page.StatisticsPage">
 <em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.statistics_page.</tt><tt class="descname">StatisticsPage</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage" title="Permalink to this definition">¶</a></dt>
@@ -65,21 +68,24 @@ manager as a &#8216;statistics_widget&#8217; &#8216;used_for&#8217; a particular
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.statistics_page.StatisticsPage.prepare_statistics">
 <tt class="descname">prepare_statistics</tt><big>(</big><em>variant_id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage.prepare_statistics" title="Permalink to this definition">¶</a></dt>
-<dd>This method calculates the data for the requested variant and sets
-the approriate hints to be picked up by the corresponding widget.</dd></dl>
+<dd><p>This method calculates the data for the requested variant and sets
+the approriate hints to be picked up by the corresponding widget.</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.statistics_page.PlotStatisticsPage">
 <em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.statistics_page.</tt><tt class="descname">PlotStatisticsPage</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.PlotStatisticsPage" title="Permalink to this definition">¶</a></dt>
-<dd>A statistics page where the data is represented on a graphical plot.</dd></dl>
+<dd><p>A statistics page where the data is represented on a graphical plot.</p>
+</dd></dl>
 
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.statistics_page.HtmlStatisticsPage">
 <em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.statistics_page.</tt><tt class="descname">HtmlStatisticsPage</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.HtmlStatisticsPage" title="Permalink to this definition">¶</a></dt>
-<dd>A statistics page which generates html to displayed in a browser
-widget.</dd></dl>
+<dd><p>A statistics page which generates html to displayed in a browser
+widget.</p>
+</dd></dl>
 
 </div>
 
@@ -89,30 +95,30 @@ widget.</dd></dl>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="stopwatch.html"
-                                  title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">Stopwatch</span></tt></a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="criterion.html"
-                                  title="next chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Criterion</span></tt></a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="../_sources/modules/statistics_page.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="../search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="stopwatch.html"
+                        title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">Stopwatch</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="criterion.html"
+                        title="next chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Criterion</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/modules/statistics_page.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -124,7 +130,7 @@ widget.</dd></dl>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../modindex.html" title="Global Module Index"
+          <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="criterion.html" title="Criterion"
@@ -136,9 +142,9 @@ widget.</dd></dl>
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 16, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
+        &copy; Copyright 2008, Peter Bienstman.
+      Last updated on Aug 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.1.
     </div>
   </body>
 </html>

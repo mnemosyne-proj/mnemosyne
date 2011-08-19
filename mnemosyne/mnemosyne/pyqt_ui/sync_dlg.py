@@ -49,7 +49,7 @@ class SyncThread(QtCore.QThread):
         self.password = password
         # A fast moving progress bar seems to cause crashes on Windows.
         self.show_numeric_progress_bar = (sys.platform != "win32")
-        
+               
     def run(self):
         self.mnemosyne.controller().sync(self.server, self.port,
             self.username, self.password, ui=self)

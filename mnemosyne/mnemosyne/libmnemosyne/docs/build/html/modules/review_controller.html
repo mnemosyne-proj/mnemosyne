@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,12 +14,13 @@
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '2.0',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
     <link rel="next" title="Configuration" href="configuration.html" />
@@ -31,8 +34,8 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="configuration.html" title="Configuration"
              accesskey="N">next</a> |</li>
@@ -49,7 +52,7 @@
           <div class="body">
             
   <div class="section" id="module-mnemosyne.libmnemosyne.review_controller">
-<h1><tt class="xref docutils literal"><span class="pre">ReviewController</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.review_controller" title="Permalink to this headline">¶</a></h1>
+<span id="reviewcontroller"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">ReviewController</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.review_controller" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.review_controller.ReviewController">
 <em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.review_controller.</tt><tt class="descname">ReviewController</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController" title="Permalink to this definition">¶</a></dt>
@@ -62,19 +65,22 @@ slow, especially on a mobile device.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.counters">
 <tt class="descname">counters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.counters" title="Permalink to this definition">¶</a></dt>
-<dd>Returns tuple (scheduled_count, non_memorised_count, active_count).</dd></dl>
+<dd><p>Returns tuple (scheduled_count, non_memorised_count, active_count).</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.grade_answer">
 <tt class="descname">grade_answer</tt><big>(</big><em>grade</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.grade_answer" title="Permalink to this definition">¶</a></dt>
-<dd>All the code that needs to run after the user grades the answer.
-Note that this also incluse pulling in a new question.</dd></dl>
+<dd><p>All the code that needs to run after the user grades the answer.
+Note that this also incluse pulling in a new question.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.heartbeat">
 <tt class="descname">heartbeat</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.heartbeat" title="Permalink to this definition">¶</a></dt>
-<dd>For code that needs to run periodically, e.g. to react to a change
-of date.</dd></dl>
+<dd><p>For code that needs to run periodically, e.g. to react to a change
+of date.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.is_answer_showing">
@@ -89,7 +95,8 @@ of date.</dd></dl>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.reload_counters">
 <tt class="descname">reload_counters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.reload_counters" title="Permalink to this definition">¶</a></dt>
-<dd>To be called when counters need to be reloaded from the database.</dd></dl>
+<dd><p>To be called when counters need to be reloaded from the database.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.reset">
@@ -99,10 +106,11 @@ of date.</dd></dl>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.reset_but_try_to_keep_current_card">
 <tt class="descname">reset_but_try_to_keep_current_card</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.reset_but_try_to_keep_current_card" title="Permalink to this definition">¶</a></dt>
-<dd>This is typically called after activities which invalidate the
+<dd><p>This is typically called after activities which invalidate the
 current queue, like &#8216;Activate cards&#8217; or &#8216;Configure&#8217;. For the best user
 experience, we try to keep the card that is currently being asked if
-possible.</dd></dl>
+possible.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.set_render_chain">
@@ -139,30 +147,30 @@ possible.</dd></dl>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="controller.html"
-                                  title="previous chapter"><tt class="docutils literal"><span class="pre">Controller</span></tt></a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="configuration.html"
-                                  title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">Configuration</span></tt></a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="../_sources/modules/review_controller.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="../search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="controller.html"
+                        title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Controller</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="configuration.html"
+                        title="next chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Configuration</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/modules/review_controller.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -174,7 +182,7 @@ possible.</dd></dl>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../modindex.html" title="Global Module Index"
+          <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="configuration.html" title="Configuration"
@@ -186,9 +194,9 @@ possible.</dd></dl>
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 18, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
+        &copy; Copyright 2008, Peter Bienstman.
+      Last updated on Aug 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.1.
     </div>
   </body>
 </html>

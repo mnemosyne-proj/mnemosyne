@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,12 +14,13 @@
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '2.0',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
     <link rel="next" title="Controller" href="controller.html" />
@@ -31,8 +34,8 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="controller.html" title="Controller"
              accesskey="N">next</a> |</li>
@@ -49,7 +52,7 @@
           <div class="body">
             
   <div class="section" id="module-mnemosyne.libmnemosyne.renderer">
-<h1><tt class="xref docutils literal"><span class="pre">Renderer</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.renderer" title="Permalink to this headline">¶</a></h1>
+<span id="renderer"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">Renderer</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.renderer" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.renderer.Renderer">
 <em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.renderer.</tt><tt class="descname">Renderer</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer" title="Permalink to this definition">¶</a></dt>
@@ -74,9 +77,10 @@ specific formatting.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.renderer.Renderer.update">
 <tt class="descname">update</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.update" title="Permalink to this definition">¶</a></dt>
-<dd>Update renderer information for given card type. Some information
+<dd><p>Update renderer information for given card type. Some information
 (e.g. css style sheets) is typically cached, and this function is
-used to signal that the cache should be rebuilt.</dd></dl>
+used to signal that the cache should be rebuilt.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -88,30 +92,30 @@ used to signal that the cache should be rebuilt.</dd></dl>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="filter.html"
-                                  title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Filter</span></tt></a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="controller.html"
-                                  title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">Controller</span></tt></a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="../_sources/modules/renderer.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="../search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="filter.html"
+                        title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Filter</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="controller.html"
+                        title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">Controller</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/modules/renderer.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -123,7 +127,7 @@ used to signal that the cache should be rebuilt.</dd></dl>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../modindex.html" title="Global Module Index"
+          <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="controller.html" title="Controller"
@@ -135,9 +139,9 @@ used to signal that the cache should be rebuilt.</dd></dl>
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 16, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
+        &copy; Copyright 2008, Peter Bienstman.
+      Last updated on Aug 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.1.
     </div>
   </body>
 </html>

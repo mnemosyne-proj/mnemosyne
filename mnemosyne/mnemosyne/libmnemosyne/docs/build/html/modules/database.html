@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,12 +14,13 @@
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '2.0',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
     <link rel="next" title="FileFormat" href="file_format.html" />
@@ -31,8 +34,8 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="file_format.html" title="FileFormat"
              accesskey="N">next</a> |</li>
@@ -49,7 +52,7 @@
           <div class="body">
             
   <div class="section" id="module-mnemosyne.libmnemosyne.database">
-<h1><tt class="xref docutils literal"><span class="pre">Database</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.database" title="Permalink to this headline">¶</a></h1>
+<span id="database"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">Database</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.database" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.database.Database">
 <em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.database.</tt><tt class="descname">Database</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database" title="Permalink to this definition">¶</a></dt>
@@ -94,6 +97,11 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.add_tag_to_cards_with_internal_ids">
+<tt class="descname">add_tag_to_cards_with_internal_ids</tt><big>(</big><em>tag</em>, <em>_card_ids</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_tag_to_cards_with_internal_ids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.backup">
 <tt class="descname">backup</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.backup" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -114,11 +122,6 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.cards_to_relearn">
-<tt class="descname">cards_to_relearn</tt><big>(</big><em>grade</em>, <em>sort_key=''</em>, <em>limit=-1</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_to_relearn" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.cards_due_for_ret_rep">
 <tt class="descname">cards_due_for_ret_rep</tt><big>(</big><em>now</em>, <em>sort_key=''</em>, <em>limit=-1</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_due_for_ret_rep" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -126,7 +129,8 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.cards_from_fact">
 <tt class="descname">cards_from_fact</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_from_fact" title="Permalink to this definition">¶</a></dt>
-<dd>Return a list of the cards deriving from a fact.</dd></dl>
+<dd><p>Return a list of the cards deriving from a fact.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.cards_learn_ahead">
@@ -136,6 +140,11 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.cards_new_memorising">
 <tt class="descname">cards_new_memorising</tt><big>(</big><em>grade</em>, <em>sort_key=''</em>, <em>limit=-1</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_new_memorising" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.cards_to_relearn">
+<tt class="descname">cards_to_relearn</tt><big>(</big><em>grade</em>, <em>sort_key=''</em>, <em>limit=-1</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_to_relearn" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -206,13 +215,15 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.display_name">
 <tt class="descname">display_name</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.display_name" title="Permalink to this definition">¶</a></dt>
-<dd>Returns bare name of the database, without parent paths and
-without extension.</dd></dl>
+<dd><p>Returns bare name of the database, without parent paths and
+without extension.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.duplicates_for_fact">
 <tt class="descname">duplicates_for_fact</tt><big>(</big><em>fact</em>, <em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.duplicates_for_fact" title="Permalink to this definition">¶</a></dt>
-<dd>Return facts with same &#8216;card_type.unique_fields&#8217; data as &#8216;fact&#8217;.</dd></dl>
+<dd><p>Return facts with same &#8216;card_type.unique_fields&#8217; data as &#8216;fact&#8217;.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.fact">
@@ -252,8 +263,9 @@ without extension.</dd></dl>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.name">
 <tt class="descname">name</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.name" title="Permalink to this definition">¶</a></dt>
-<dd>Returns name of the database, without parent paths, but with
-extensions.</dd></dl>
+<dd><p>Returns name of the database, without parent paths, but with
+extensions.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.new">
@@ -263,13 +275,20 @@ extensions.</dd></dl>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.path">
 <tt class="descname">path</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.path" title="Permalink to this definition">¶</a></dt>
-<dd>Returns full path of the database.</dd></dl>
+<dd><p>Returns full path of the database.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.release_connection">
 <tt class="descname">release_connection</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.release_connection" title="Permalink to this definition">¶</a></dt>
-<dd>Release the connection, so that it may be recreated in a separate
-thread.</dd></dl>
+<dd><p>Release the connection, so that it may be recreated in a separate
+thread.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.remove_tag_from_cards_with_internal_ids">
+<tt class="descname">remove_tag_from_cards_with_internal_ids</tt><big>(</big><em>tag</em>, <em>_card_ids</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.remove_tag_from_cards_with_internal_ids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.restore">
@@ -309,6 +328,11 @@ thread.</dd></dl>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.tags">
 <tt class="descname">tags</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.tags_from_cards_with_internal_ids">
+<tt class="descname">tags_from_cards_with_internal_ids</tt><big>(</big><em>_card_ids</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.tags_from_cards_with_internal_ids" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -361,30 +385,30 @@ thread.</dd></dl>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="configuration.html"
-                                  title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">Configuration</span></tt></a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="file_format.html"
-                                  title="next chapter"><tt class="docutils literal"><span class="pre">FileFormat</span></tt></a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="../_sources/modules/database.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="../search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="configuration.html"
+                        title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">Configuration</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="file_format.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">FileFormat</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/modules/database.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -396,7 +420,7 @@ thread.</dd></dl>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../modindex.html" title="Global Module Index"
+          <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="file_format.html" title="FileFormat"
@@ -408,9 +432,9 @@ thread.</dd></dl>
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 16, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
+        &copy; Copyright 2008, Peter Bienstman.
+      Last updated on Aug 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.1.
     </div>
   </body>
 </html>

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,12 +14,13 @@
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '2.0',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
     <link rel="next" title="Card" href="card.html" />
@@ -31,8 +34,8 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="card.html" title="Card"
              accesskey="N">next</a> |</li>
@@ -49,7 +52,7 @@
           <div class="body">
             
   <div class="section" id="module-mnemosyne.libmnemosyne.card_type">
-<h1><tt class="xref docutils literal"><span class="pre">CardType</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.card_type" title="Permalink to this headline">¶</a></h1>
+<span id="cardtype"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">CardType</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.card_type" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType">
 <em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.card_type.</tt><tt class="descname">CardType</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType" title="Permalink to this definition">¶</a></dt>
@@ -80,8 +83,9 @@ e.g. the cloze card type.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.create_sister_cards">
 <tt class="descname">create_sister_cards</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.create_sister_cards" title="Permalink to this definition">¶</a></dt>
-<dd>Initial grading of cards and storing in the database should not happen
-here, but is done in the main controller.</dd></dl>
+<dd><p>Initial grading of cards and storing in the database should not happen
+here, but is done in the main controller.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.edit_sister_cards">
@@ -97,23 +101,26 @@ here, but is done in the main controller.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.fact_data">
 <tt class="descname">fact_data</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.fact_data" title="Permalink to this definition">¶</a></dt>
-<dd>Returns the data in fact of a card. Normally. this is just
+<dd><p>Returns the data in fact of a card. Normally. this is just
 &#8216;card.fact.data&#8217;, but specialty card types (e.g. the cloze card type)
-can override this.</dd></dl>
+can override this.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.is_data_valid">
 <tt class="descname">is_data_valid</tt><big>(</big><em>fact_data</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.is_data_valid" title="Permalink to this definition">¶</a></dt>
-<dd>Check if all the required fields are present.</dd></dl>
+<dd><p>Check if all the required fields are present.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.key_format_proxies">
 <tt class="descname">key_format_proxies</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.key_format_proxies" title="Permalink to this definition">¶</a></dt>
-<dd>Sometimes, a card type can dynamically create a field when
+<dd><p>Sometimes, a card type can dynamically create a field when
 generating a question or an answer (see e.g. the cloze card type).
 Since the user cannot specify how this key should be formatted, it
 should be formatted like an other, static key. This function returns
-a dictionary with this correspondence.</dd></dl>
+a dictionary with this correspondence.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.key_names">
@@ -150,30 +157,30 @@ a dictionary with this correspondence.</dd></dl>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="tag_tree.html"
-                                  title="previous chapter"><tt class="docutils literal"><span class="pre">TagTree</span></tt></a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="card.html"
-                                  title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">Card</span></tt></a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="../_sources/modules/card_type.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="../search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tag_tree.html"
+                        title="previous chapter"><tt class="docutils literal"><span class="pre">TagTree</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="card.html"
+                        title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">Card</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/modules/card_type.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -185,7 +192,7 @@ a dictionary with this correspondence.</dd></dl>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../modindex.html" title="Global Module Index"
+          <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="card.html" title="Card"
@@ -197,9 +204,9 @@ a dictionary with this correspondence.</dd></dl>
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 16, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
+        &copy; Copyright 2008, Peter Bienstman.
+      Last updated on Aug 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.1.
     </div>
   </body>
 </html>

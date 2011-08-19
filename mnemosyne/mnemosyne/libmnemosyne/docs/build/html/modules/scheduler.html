@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,12 +14,13 @@
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '2.0',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
     <link rel="next" title="Stopwatch" href="stopwatch.html" />
@@ -31,8 +34,8 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="stopwatch.html" title="Stopwatch"
              accesskey="N">next</a> |</li>
@@ -49,7 +52,7 @@
           <div class="body">
             
   <div class="section" id="module-mnemosyne.libmnemosyne.scheduler">
-<h1><tt class="xref docutils literal"><span class="pre">Scheduler</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.scheduler" title="Permalink to this headline">¶</a></h1>
+<span id="scheduler"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">Scheduler</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.scheduler" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler">
 <em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.scheduler.</tt><tt class="descname">Scheduler</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler" title="Permalink to this definition">¶</a></dt>
@@ -74,24 +77,28 @@ scheduler information.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.heartbeat">
 <tt class="descname">heartbeat</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.heartbeat" title="Permalink to this definition">¶</a></dt>
-<dd>For code that needs to run periodically.</dd></dl>
+<dd><p>For code that needs to run periodically.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.is_in_queue">
 <tt class="descname">is_in_queue</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.is_in_queue" title="Permalink to this definition">¶</a></dt>
-<dd>To check whether the queue needs to be rebuilt, e.g. if it contains
-a card that was deleted in the GUI.</dd></dl>
+<dd><p>To check whether the queue needs to be rebuilt, e.g. if it contains
+a card that was deleted in the GUI.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.is_prefetch_allowed">
 <tt class="descname">is_prefetch_allowed</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.is_prefetch_allowed" title="Permalink to this definition">¶</a></dt>
-<dd>Can we display a new card before having processed the grading of
-the previous one?</dd></dl>
+<dd><p>Can we display a new card before having processed the grading of
+the previous one?</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.last_rep_to_interval_string">
 <tt class="descname">last_rep_to_interval_string</tt><big>(</big><em>last_rep</em>, <em>now=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.last_rep_to_interval_string" title="Permalink to this definition">¶</a></dt>
-<dd>Converts last_rep to a string like &#8216;yesterday&#8217;, &#8216;2 weeks ago&#8217;, ...</dd></dl>
+<dd><p>Converts last_rep to a string like &#8216;yesterday&#8217;, &#8216;2 weeks ago&#8217;, ...</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.next_card">
@@ -101,7 +108,8 @@ the previous one?</dd></dl>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.next_rep_to_interval_string">
 <tt class="descname">next_rep_to_interval_string</tt><big>(</big><em>next_rep</em>, <em>now=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.next_rep_to_interval_string" title="Permalink to this definition">¶</a></dt>
-<dd>Converts next_rep to a string like &#8216;tomorrow&#8217;, &#8216;in 2 weeks&#8217;, ...</dd></dl>
+<dd><p>Converts next_rep to a string like &#8216;tomorrow&#8217;, &#8216;in 2 weeks&#8217;, ...</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.non_memorised_count">
@@ -111,9 +119,10 @@ the previous one?</dd></dl>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.rebuild_queue">
 <tt class="descname">rebuild_queue</tt><big>(</big><em>learn_ahead=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.rebuild_queue" title="Permalink to this definition">¶</a></dt>
-<dd>Called by the rest of the library when an existing queue risks
+<dd><p>Called by the rest of the library when an existing queue risks
 becoming invalid, e.g. when cards have been deleted in the GUI.
-&#8216;next_card&#8217; also makes use of this in certain implementations.</dd></dl>
+&#8216;next_card&#8217; also makes use of this in certain implementations.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.remove_from_queue_if_present">
@@ -123,7 +132,8 @@ becoming invalid, e.g. when cards have been deleted in the GUI.
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.reset">
 <tt class="descname">reset</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.reset" title="Permalink to this definition">¶</a></dt>
-<dd>Called when starting the scheduler for the first time.</dd></dl>
+<dd><p>Called when starting the scheduler for the first time.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.scheduled_count">
@@ -158,30 +168,30 @@ but all the relevant information can still be parsed from them.)</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="plugin.html"
-                                  title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">Plugin</span></tt></a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="stopwatch.html"
-                                  title="next chapter"><tt class="docutils literal"><span class="pre">Stopwatch</span></tt></a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="../_sources/modules/scheduler.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="../search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="plugin.html"
+                        title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Plugin</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="stopwatch.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">Stopwatch</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/modules/scheduler.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -193,7 +203,7 @@ but all the relevant information can still be parsed from them.)</p>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../modindex.html" title="Global Module Index"
+          <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="stopwatch.html" title="Stopwatch"
@@ -205,9 +215,9 @@ but all the relevant information can still be parsed from them.)</p>
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 18, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
+        &copy; Copyright 2008, Peter Bienstman.
+      Last updated on Aug 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.1.
     </div>
   </body>
 </html>
