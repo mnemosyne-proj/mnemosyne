@@ -2,6 +2,7 @@
 # main_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
+import sys
 from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
@@ -25,7 +26,9 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         self.progress_bar = None
         self.progress_bar_update_interval = 1
         self.progress_bar_last_shown_value = 0
-
+        # A fast moving progress bar seems to cause crashes on Windows.
+        self.show_numeric_progress_bar = (sys.platform != "win32")
+        
     def closeEvent(self, event):
         self.config()["main_window_size"] = (self.width(), self.height())
 
@@ -84,15 +87,21 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         self.progress_bar.show()
 
     def set_progress_range(self, minimum, maximum):
+        if not self.show_numeric_progress_bar:
+            return
         self.progress_bar.setRange(minimum, maximum)
         
     def set_progress_update_interval(self, update_interval):
+        if not self.show_numeric_progress_bar:
+            return
         update_interval = int(update_interval)
         if update_interval == 0:
             update_interval = 1
         self.progress_bar_update_interval = update_interval
         
-    def set_progress_value(self, value):        
+    def set_progress_value(self, value):
+        if not self.show_numeric_progress_bar:
+            return
         # There is a possibility that 'value' does not visit all intermediate
         # integer values in the range, so we need to check and store the last
         # shown value here.

@@ -1,26 +1,34 @@
--test sound on windows
-
--check that we don't get to review 2 sister cards on the same day
-
--column width in browser not saved?
+-mail Ullrich: fixed
 
 -windows dialogs have ? in upper right corner (Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
 -use saveGeometry and saveState as opposed to manually saving width and height?
 -check close event: make sure sure geometry is written on accept too, as well as close event
 
+-server down should not result in sync conflict
+-prevent sync with itself
 -binary database upload: configuration changes (fonts, ...) are not applied
+-syncing an empty database twice results in a spurious sync cycle detection. Also happens after syncing empty client and empty server database, then adding data to the server, and resyncing
+-if the server is empty, allow sync from non-empty client and change server user id.
+-if dialog like edit card or browse cards is open on server, try to close it when sync comes in
+    QWidgetList list = QApplication::topLevelWidgets();
+    for (int i = 0; did_close && i < list.size(); ++i) {
+        w = list.at(i);
+        if (w->isVisible() && w->windowType() != Qt::Desktop) {
+            did_close = w->close();
+            list = QApplication::topLevelWidgets();
+            i = -1;
 
 -migrate science server machine
 
--syncing an empty database twice results in a spurious sync cycle detection. Also happens after syncing empty client and empty server database, then adding data to the server, and resyncing
+-About dialog
+-Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby, Max Usachev, Ullrich Martini
+ (also make sure they are on webpage)
+-also add option to download source in the info box
 
--if the server is empty, allow sync from non-empty client and change server user id.
-
--prevent sync with itself
-
--if dialog like edit card or browse cards is open on server, try to close it when sync comes in
-
--run test suite under windows
+-first run wizard and tip of the day.
+-startup tips: right click to add cards or sound, comma to separate tag names, 
+ :: to separate hierarchies
+ not having to do all your scheduled repetitions in one sitting
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
 -right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
@@ -32,31 +40,23 @@
 -tip on double-click to edit cards and tag names in browser
 -tip/docs to defragment disk
 
--About dialog
--Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby, Max Usachev, Ullrich Martini
- (also make sure they are on webpage)
--also add option to download source in the info box
+-ask about card browser speed. Try without decoration. shulgi: Core Duo 2.1 Ghz
+
+-card type clone: rename and delete, both in card browser and card type browser
+
+-make distrib under linux
+-bundle webserver with install?
+
+
 
 -example script to import cards from a text file
 
 -test upgrade on OSX: remove library/Mnemosyne2, make sure you have 1.x in library/Mnemosyne.
  after upgrade there should be 2.0 files in library/Mnemosyne and a backup in library/Mnemosyne_1
 
--make distrib under linux
--bundle webserver with install
-
--first run wizard and tip of the day.
--startup tips: right click to add cards or sound, comma to separate tag names, 
- :: to separate hierarchies
- not having to do all your scheduled repetitions in one sitting
-
 -implement duplicate checking. Also synonym checking? Add then standard tags.
 -autorun after import, browse with edit, but not sync
 -do review_controller.rebuild_queue, reload counter after clean duplicates?
-
--ask about card browser speed. Try with decoration. shulgi: Core Duo 2.1 Ghz
-
--card type clone: rename and delete, both in card browser and card type browser
 
 -activate cards: 'having any of these tags:' is not aligned with tag with tag tree
 
@@ -65,6 +65,7 @@
 -py2exe: download: http://www.microsoft.com/downloads/en/details.aspx?FamilyID=9b2da534-3e03-4391-8a4d-074b9f2bc1bf&displaylang=en
 -put __init__.py in numpy.distutils.test
 -set default matplotlib backend: http://www.py2exe.org/index.cgi/MatPlotLib
+-run test suite under windows
 
 -add plugin example on card type specific renderer
 -add doc on how to write plugin to sfinx doc

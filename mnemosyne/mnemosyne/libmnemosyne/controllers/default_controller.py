@@ -406,6 +406,7 @@ class DefaultController(Controller):
             return
         if not filename.endswith(suffix):
             filename += suffix
+        self.main_widget().set_progress_text(_("Creating new database..."))
         db.backup()
         db.unload()
         # Confirmation on overwrite has happened in the file dialog code.
@@ -418,6 +419,7 @@ class DefaultController(Controller):
         self.review_controller().reset()
         self.review_controller().update_dialog()
         self.update_title()
+        self.main_widget().close_progress()
         self.stopwatch().unpause()
 
     def show_open_file_dialog(self):

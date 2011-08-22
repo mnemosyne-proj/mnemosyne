@@ -4,12 +4,12 @@
 
 import os
 import sys
+import traceback
 
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.utils import expand_path, traceback_string
 from mnemosyne.libmnemosyne.component_manager import new_component_manager, \
     register_component_manager, unregister_component_manager
-
 
 class Mnemosyne(Component):
 
@@ -35,7 +35,8 @@ class Mnemosyne(Component):
         consider it.
         
         """
-        
+
+        sys.excepthook = self.handle_exception
         self.upload_science_logs = upload_science_logs
         self.interested_in_old_reps = interested_in_old_reps
         self.component_manager = new_component_manager()
@@ -107,6 +108,16 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.file_formats.mnemosyne1_mem",
           "Mnemosyne1Mem")]           
         self.extra_components_for_plugin = {}
+
+    def handle_exception(self, type, value, tb):    
+        body = "Uncaught exception!\nTraceback (innermost last):\n"
+        list = traceback.format_tb(tb, limit=None) + \
+               traceback.format_exception_only(type, value)
+        body = body + "%-20s %s" % ("".join(list[:-1]), list[-1])
+        try:
+            self.main_widget().show_error(body)
+        except: 
+            sys.stderr.write(body)
         
     def initialise(self, data_dir=None, filename=None,
                    automatic_upgrades=True):
@@ -124,7 +135,6 @@ class Mnemosyne(Component):
         if data_dir:
             self.config().data_dir = data_dir
         self.activate_components()
-        self.initialise_error_handling()
         register_component_manager(self.component_manager,
             self.config()["user_id"])
         self.execute_user_plugin_dir()
@@ -194,11 +204,6 @@ class Mnemosyne(Component):
         server = self.component_manager.current("sync_server")
         if server:
             server.activate()
-        
-    def initialise_error_handling(self):
-        if sys.platform == "win32":
-            error_log = os.path.join(self.config().data_dir, "error_log.txt")
-            sys.stderr = file(error_log, "a")
                     
     def execute_user_plugin_dir(self):
         # Note that we put user plugins in the data_dir and not the

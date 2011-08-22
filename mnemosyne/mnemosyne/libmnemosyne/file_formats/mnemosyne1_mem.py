@@ -67,7 +67,7 @@ class Mnemosyne1Mem(FileFormat):
             
     def _import_mem_file(self, filename, tag_name=None,
                          reset_learning_data=False):        
-        self.importdir = os.path.dirname(os.path.abspath(filename))
+        self.import_dir = os.path.dirname(os.path.abspath(filename))
         w = self.main_widget()    
         # Mimick 1.x module structure.
         class MnemosyneCore(object):                          
@@ -123,8 +123,8 @@ class Mnemosyne1Mem(FileFormat):
             ids_to_parse=self.items_by_id)
         log_dir = os.path.join(os.path.dirname(filename), "history")
         if not os.path.exists(log_dir):
-            self.main_widget().show_information(\
-                _("No history found to import."))
+            w.close_progress()
+            w.show_information(_("No history found to import."))
             return
         filenames = [os.path.join(log_dir, logname) for logname in \
             sorted(os.listdir(unicode(log_dir))) if logname.endswith(".bz2")]       
@@ -252,29 +252,25 @@ class Mnemosyne1Mem(FileFormat):
         for key in fact_data:
             for match in re_sound.finditer(fact_data[key]):
                 fact_data[key] = fact_data[key].replace(match.group(),
-                            match.group().replace("sound", "audio"))
+                    match.group().replace("sound", "audio"))
         # Copy files to media directory, creating subdirectories as we go.
         for key in fact_data:
             for match in re_src.finditer(fact_data[key]):
                 filename = match.group(1)
+                if not os.path.exists(filename) and \
+                    not os.path.exists(expand_path(filename, self.import_dir)):
+                    self.main_widget().show_information(\
+                        _("Missing media file") + " %s" % filename)
+                    fact_data[key] = fact_data[key].replace(match.group(),
+                        "src_missing=\"%s\"" % match.group(1))
+                    continue
                 if not os.path.isabs(filename):
-                    subdir = os.path.dirname(filename)
-                    subdirs = []
-                    while subdir:
-                        subdirs.insert(0, os.path.join(media_dir, subdir))
-                        subdir = os.path.dirname(subdir)
-                    for subdir in subdirs:
-                        if not os.path.exists(subdir):
-                            os.mkdir(subdir)
-                    source = expand_path(filename, self.importdir)
+                    source = expand_path(filename, self.import_dir)
                     dest = expand_path(filename, media_dir)
-                    if not os.path.exists(source):
-                        self.main_widget().show_information(\
-                            _("Missing media file") + " %s" % source)
-                        fact_data[key] = fact_data[key].replace(match.group(),
-                            "src_missing=\"%s\"" % match.group(1))
-                    else:
-                        shutil.copy(source, dest)
+                    directory = os.path.dirname(dest)
+                    if not os.path.exists(directory):
+                        os.makedirs(directory)
+                    shutil.copy(source, dest)
 
     def _activate_map_plugin(self):
         for plugin in self.plugins():

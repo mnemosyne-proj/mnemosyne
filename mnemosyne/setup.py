@@ -192,7 +192,6 @@ packages = ["mnemosyne",
       
 py2exe_options = {
     "packages": ["mnemosyne", "numpy", "sip", "xml.sax", "xml.etree"],
-    "bundle_files": 3,
     "optimize": 2,
     "includes": ["numpy", "sip", "xml.sax", "xml.etree", "PyQt4.QtNetwork"],
     "excludes": ["_gtkagg", "_tkagg", "_agg2", "_cairo", "_cocoaagg",

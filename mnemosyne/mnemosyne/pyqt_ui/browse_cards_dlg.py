@@ -449,7 +449,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.saved_index = self.table.indexAt(QtCore.QPoint(0,0))
         self.saved_selection = self.table.selectionModel().selectedRows()
         self.config()["browse_cards_dlg_table_settings"] \
-            = self.table.horizontalHeader().saveState()
+            = self.table.horizontalHeader().saveState()        
         self.table.setModel(QtGui.QStandardItemModel())
         del self.card_model
         QtSql.QSqlDatabase.removeDatabase(\
@@ -469,7 +469,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
               self.card_model.setHeaderData(key, QtCore.Qt.Horizontal,
                   QtCore.QVariant(value))
         self.table.setModel(self.card_model)
-        table_settings = self.config()["browse_cards_dlg_table_settings"]
+        table_settings = self.config()["browse_cards_dlg_table_settings"]        
         if table_settings:
             self.table.horizontalHeader().restoreState(table_settings)
         self.table.setItemDelegateForColumn(\
@@ -565,12 +565,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.counter_label.setText(\
             _("%d cards shown, of which %d active.") % (selected, active))   
         
-    def closeEvent(self, event):
-        self.unload_qt_database()                
+    def closeEvent(self, event):                
         self.config()["browse_cards_dlg_size"] = (self.width(), self.height())
         self.config()["browse_cards_dlg_splitter_1"] \
             = self.splitter_1.sizes()
         self.config()["browse_cards_dlg_splitter_2"] \
            = self.splitter_2.sizes()        
-        self.config()["browse_cards_dlg_table_settings"] \
-            = self.table.horizontalHeader().saveState()
+        self.unload_qt_database()
