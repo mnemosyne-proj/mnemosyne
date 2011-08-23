@@ -43,7 +43,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QWebView" name="question" native="true">
+      <widget class="QWebView" name="question">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -56,7 +56,7 @@
          <height>100</height>
         </size>
        </property>
-       <property name="url" stdset="0">
+       <property name="url">
         <url>
          <string>about:blank</string>
         </url>
@@ -73,7 +73,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QWebView" name="answer" native="true">
+        <widget class="QWebView" name="answer">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -86,7 +86,7 @@
            <height>100</height>
           </size>
          </property>
-         <property name="url" stdset="0">
+         <property name="url">
           <url>
            <string>about:blank</string>
           </url>
@@ -128,6 +128,12 @@
         <widget class="QPushButton" name="OK_button">
          <property name="text">
           <string>&amp;OK</string>
+         </property>
+         <property name="autoDefault">
+          <bool>true</bool>
+         </property>
+         <property name="default">
+          <bool>true</bool>
          </property>
         </widget>
        </item>

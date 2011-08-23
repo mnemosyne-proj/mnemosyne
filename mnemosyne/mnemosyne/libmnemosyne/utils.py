@@ -70,8 +70,8 @@ def copy_file_to_dir(filename, dirname):
 
     """
 
-    filename = os.path.abspath(filename)
-    dirname = os.path.abspath(dirname)
+    filename = os.path.abspath(os.path.normcase(filename))
+    dirname = os.path.abspath(os.path.normcase(dirname))
     if filename.startswith(dirname):
         return contract_path(filename, dirname)
     dest_path = os.path.join(dirname, os.path.basename(filename))

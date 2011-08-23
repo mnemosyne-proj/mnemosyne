@@ -1,6 +1,4 @@
--make import under Windows more robust (reported by Per Torhammer)
--log uncaught exceptions to UI (suggested by Dave Harding)
--save column width and sort order in card browser
+-try work with filenames with apostrophes (reported by Per Torhammer)
 
 MNEMOSYNE 2.0
 

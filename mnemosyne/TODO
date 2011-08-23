@@ -1,9 +1,12 @@
--mail Ullrich: fixed
-
 -windows dialogs have ? in upper right corner (Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
+-make sure they have maximise buttons too.
+-make dialogs copyable from
 -use saveGeometry and saveState as opposed to manually saving width and height?
 -check close event: make sure sure geometry is written on accept too, as well as close event
 
+-configure dialog is slow on Windows due to server detect
+
+-also give warning on the client side if a sync failed and a backup needs to happen
 -server down should not result in sync conflict
 -prevent sync with itself
 -binary database upload: configuration changes (fonts, ...) are not applied
@@ -30,6 +33,7 @@
  :: to separate hierarchies
  not having to do all your scheduled repetitions in one sitting
 
+-better docs on clone, also on entire sync setup, both when entering client and server settings for the first time
 -warn when creating a new database that this is not the recommended way to organise your cards.
 -right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
 -tooltip for hiding pronunciation field on language card type
@@ -78,6 +82,8 @@
 -Qt bug? choose named colours: crash
 -Qt bug? Windows: progress bars for sync often crash when they get called too quickly
  (reproduce: download_binary_database for HTTP 1.0)
+-Qt bug? cursor is always black, also on a black background
+ https://bugreports.qt.nokia.com/browse/QTBUG-52
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 
 -workaround for short ogg files. Make short mp3 workaround linux only. Test if silence files
@@ -134,7 +140,9 @@
 -warn when syncing and the other criterion plugin is not present?
 -make 'grade activity criterion' an official plugin? Add tests?
 
--hoop up dialogs in UDP
+-hoop uk dialogs in UDP
+
+-cntrl-c shortcut for question and answer
 
 -can the sync client always reconnect to a sync server if an error occured?
 
@@ -212,6 +220,8 @@ pylint:
 -move from httplib to urllib2 to make use of automatic proxy detection? However, could have
  an impact on performance/streaming upload.
 
+-have page up/up/page down/down keys work to scroll in q and a widgets
+
 -'shared deck' export
 -is 'client_info["shared_dack"] the best way to signal this? Or have entirely new
  server API functions?
@@ -282,6 +292,11 @@ pylint:
 http://developer.qt.nokia.com/faq/answer/how_can_i_add_a_non-resource_image_to_a_qtextdocument
 using Qwebit http://stackoverflow.com/questions/3142132/how-to-use-a-qgraphicswebview is not
 a good alternative, as it does not obey selection coloring
+-Tree widgets: save expanded/collapsed state of nodes
+-allow users to show/hide/rearrange columns
+-show full text on mouseover in case text does not fit in column
+-integrate sqlite with ICU for unicode/chinese sorting:
+ http://stackoverflow.com/questions/611459/how-to-sort-text-in-sqlite3-with-specified-locale
 -ellisis in QTextDocument in card browser?
 -rewrite card browser in C++, or at least delegate? In that case, move question and answer getting
  to data, and eliminate the text colors at selection using Qt.
@@ -290,12 +305,13 @@ a good alternative, as it does not obey selection coloring
 -tag browser editor of tag names does not capture focus out event, so card count is not redrawn.
 -save selection state (not checkstate) in tag and card type browser through hibernation
 -Qt performance problem with selectRow
+-"Browse Cards" dialog box. "Preview card" option should have a keyboard
+ shortcut.
 
 -send across cards as pictures (see stubs in client.py and server.py). Add resolution to filename? (device rotation)
 -Tim's gogorender plugin
 -option purge history, refactor logging test. Should only happen in no other sync partners are
  interested in it
-
 
 -website redesign? like http://hanzim.com/download.php
 
