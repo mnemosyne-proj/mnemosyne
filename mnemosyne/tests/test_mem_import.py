@@ -233,19 +233,21 @@ class TestMemImport(MnemosyneTest):
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 3  
 
     def test_sound(self):
+        os.mkdir(os.path.join(\
+            os.getcwd(), "tests", "files", "soundfiles"))
         soundname = os.path.join(os.path.join(\
-            os.getcwd(), "tests", "files", "a.ogg"))
+            os.getcwd(), "tests", "files", "soundfiles", "a.ogg"))
         file(soundname, "w")
         filename = os.path.join(os.getcwd(), "tests", "files", "sound.mem")
         self.mem_importer().do_import(filename)
         assert os.path.exists(os.path.join(\
-            os.path.abspath("dot_test"), "default.db_media", "a.ogg"))
+            os.path.abspath("dot_test"), "default.db_media", "soundfiles", "a.ogg"))
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 1
         self.review_controller().reset()
         card = self.review_controller().card
-        assert card.fact["f"] == """<audio src="a.ogg">"""
+        assert card.fact["f"] == """<audio src="soundfiles/a.ogg">"""
 
     def test_map(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "map.mem")
@@ -701,4 +703,7 @@ class TestMemImport(MnemosyneTest):
         dirname = os.path.join(os.getcwd(), "tests", "files", "figs")
         if os.path.exists(dirname):
             shutil.rmtree(dirname)
+        dirname = os.path.join(os.getcwd(), "tests", "files", "soundfiles")
+        if os.path.exists(dirname):
+            shutil.rmtree(dirname)        
         MnemosyneTest.teardown(self)

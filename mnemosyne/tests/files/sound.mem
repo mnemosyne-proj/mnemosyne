@@ -44,7 +44,7 @@ sS'cat'
 p20
 g9
 sS'q'
-V<sound src="a.ogg">
+V<sound src="soundfiles/a.ogg">
 p21
 sS'grade'
 p22
