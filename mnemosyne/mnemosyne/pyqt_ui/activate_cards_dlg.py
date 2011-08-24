@@ -17,16 +17,19 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         ActivateCardsDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
-        # Restore sizes.
-        config = self.config()
-        width, height = config["activate_cards_dlg_size"]
-        if width:
-            self.resize(width, height)
-        splitter_sizes = config["activate_cards_dlg_splitter"]
-        if not splitter_sizes:
+        self.setWindowFlags(self.windowFlags() \
+            | QtCore.Qt.WindowMinMaxButtonsHint)
+        self.setWindowFlags(self.windowFlags() \
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)        
+        # Restore state.
+        state = self.config()["activate_cards_dlg_state"]
+        if state:
+            self.restoreGeometry(state)
+        splitter_state = self.config()["activate_cards_dlg_splitter_state"]
+        if not splitter_state:
             self.splitter.setSizes([100, 350])
         else:
-            self.splitter.setSizes(splitter_sizes)
+            self.splitter.restoreState(splitter_state)
         # Initialise widgets.
         QtGui.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Delete),
                         self.saved_sets, self.delete_set)
@@ -140,21 +143,19 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
             QtCore.Qt.MatchExactly)[0]
         self.saved_sets.setCurrentItem(item)
             
-    def _store_layout(self):
-        self.config()["activate_cards_dlg_size"] = \
-            (self.width(), self.height())
-        self.config()["activate_cards_dlg_splitter"] = \
-            self.splitter.sizes()
+    def _store_state(self):
+        self.config()["activate_cards_dlg_state"] = \
+            self.saveGeometry()
+        self.config()["activate_cards_dlg_splitter_state"] = \
+            self.splitter.saveState()
         
     def closeEvent(self, event):
-        self._store_layout()
+        # Generated when clicking the window's close button.
+        self._store_state()
         
     def accept(self):
+        # 'accept' does not generate a close event.
         self.database().set_current_criterion(\
             self.tab_widget.currentWidget().criterion())
-        self._store_layout()
+        self._store_state()
         return QtGui.QDialog.accept(self)
-        
-    def reject(self):
-        self._store_layout()
-        QtGui.QDialog.reject(self)

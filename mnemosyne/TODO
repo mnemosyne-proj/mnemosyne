@@ -1,8 +1,12 @@
--windows dialogs have ? in upper right corner (Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
--make sure they have maximise buttons too.
--make dialogs copyable from
--use saveGeometry and saveState as opposed to manually saving width and height?
--check close event: make sure sure geometry is written on accept too, as well as close event
+-add filter plugin example
+
+-make sure all dialogs minimise/maximise buttons, and no help buttons
+-use saveGeometry and saveState as opposed to manually saving width and height
+-ake sure sure geometry is written on accept too, as well as close event
+
+(done up to browse cards)
+
+-add 2 test case of Tim
 
 -configure dialog is slow on Windows due to server detect
 
@@ -22,6 +26,9 @@
             i = -1;
 
 -migrate science server machine
+
+-when sync server is running, it seems possible to start a second copy of Mnemosyne, which just complains about
+ 'unable to start sync server'
 
 -About dialog
 -Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby, Max Usachev, Ullrich Martini
@@ -49,7 +56,7 @@
 -card type clone: rename and delete, both in card browser and card type browser
 
 -make distrib under linux
--bundle webserver with install?
+-bundle webserver with install
 
 
 
@@ -84,6 +91,7 @@
  (reproduce: download_binary_database for HTTP 1.0)
 -Qt bug? cursor is always black, also on a black background
  https://bugreports.qt.nokia.com/browse/QTBUG-52
+-Qt bug? error dialogs don't allow copying the text from it on all platforms
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 
 -workaround for short ogg files. Make short mp3 workaround linux only. Test if silence files
@@ -293,6 +301,7 @@ http://developer.qt.nokia.com/faq/answer/how_can_i_add_a_non-resource_image_to_a
 using Qwebit http://stackoverflow.com/questions/3142132/how-to-use-a-qgraphicswebview is not
 a good alternative, as it does not obey selection coloring
 -Tree widgets: save expanded/collapsed state of nodes
+-when deleting cards, only mention sister cards if there are actually sister cards
 -allow users to show/hide/rearrange columns
 -show full text on mouseover in case text does not fit in column
 -integrate sqlite with ICU for unicode/chinese sorting:

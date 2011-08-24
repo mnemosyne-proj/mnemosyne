@@ -75,6 +75,10 @@ class ActivatePluginsDlg(QtGui.QDialog, Ui_ActivatePluginsDlg, ActivatePluginsDi
         Component.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
+        self.setWindowFlags(self.windowFlags() \
+            | QtCore.Qt.WindowMinMaxButtonsHint)
+        self.setWindowFlags(self.windowFlags() \
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)  
         self.model = PluginListModel(self.component_manager)
         self.plugins.setModel(self.model)
         self.plugins.resizeColumnToContents(0)    
@@ -82,16 +86,21 @@ class ActivatePluginsDlg(QtGui.QDialog, Ui_ActivatePluginsDlg, ActivatePluginsDi
         self.plugins.setTextElideMode(QtCore.Qt.ElideNone)
         self.plugins.setRootIsDecorated(False)
         self.plugins.setItemsExpandable(False)
-        width, height = self.config()["plugins_dlg_size"]
-        if width:
-            self.resize(width, height)
+        state = self.config()["plugins_dlg_state"]
+        if state:
+            self.restoreGeometry(state)
         
     def activate(self):
-        self.exec_()
+        self.exec_()    
+
+    def _store_state(self):
+        self.config()["plugins_dlg_state"] = self.saveGeometry()
         
     def closeEvent(self, event):
-        self.config()["plugins_dlg_size"] = (self.width(), self.height())
+        # Generated when clicking the window's close button.
+        self._store_state()
         
     def accept(self):
-        self.config()["plugins_dlg_size"] = (self.width(), self.height())
-        return QtGui.QDialog.accept(self)       
+        # 'accept' does not generate a close event.
+        self._store_state()
+        return QtGui.QDialog.accept(self)

@@ -142,6 +142,10 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
         AddEditCards.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
+        self.setWindowFlags(self.windowFlags() \
+            | QtCore.Qt.WindowMinMaxButtonsHint)
+        self.setWindowFlags(self.windowFlags() \
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)
         last_used_card_type_id = self.config()["last_used_card_type_id"]
         if not last_used_card_type_id:
             last_used_card_type_id = "1"
@@ -163,16 +167,9 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
         self.grades.addButton(self.grade_5_button, 5)
         self.grades.buttonClicked[int].connect(self.create_new_cards)
         self.set_valid(False)
-        width, height = self.config()["add_widget_size"]
-        if width:
-            self.resize(width, height)
-            
-    def closeEvent(self, event):
-        self.config()["add_widget_size"] = (self.width(), self.height())
-        
-    def accept(self):
-        self.config()["add_widget_size"] = (self.width(), self.height())
-        return QtGui.QDialog.accept(self)
+        state = self.config()["add_cards_dlg_state"]
+        if state:
+            self.restoreGeometry(state)
     
     def set_valid(self, valid):
         self.grade_buttons.setEnabled(valid)
@@ -204,3 +201,15 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
                 return
         else:
             QtGui.QDialog.reject(self)
+
+    def _store_state(self):
+        self.config()["add_cards_dlg_state"] = self.saveGeometry()
+        
+    def closeEvent(self, event):
+        # Generated when clicking the window's close button.
+        self._store_state()
+        
+    def accept(self):
+        # 'accept' does not generate a close event.
+        self._store_state()
+        return QtGui.QDialog.accept(self)    

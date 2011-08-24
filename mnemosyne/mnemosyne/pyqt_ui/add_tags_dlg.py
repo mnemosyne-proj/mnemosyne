@@ -14,6 +14,10 @@ class AddTagsDlg(QtGui.QDialog, Ui_AddTagsDlg, AddEditCards):
         AddEditCards.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
+        self.setWindowFlags(self.windowFlags() \
+            | QtCore.Qt.WindowMinMaxButtonsHint)
+        self.setWindowFlags(self.windowFlags() \
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)        
         self.return_values = return_values
         self.update_tags_combobox("")
         

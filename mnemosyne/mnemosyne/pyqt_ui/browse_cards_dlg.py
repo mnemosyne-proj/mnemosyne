@@ -193,6 +193,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         BrowseCardsDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
+        self.setWindowFlags(self.windowFlags() \
+            | QtCore.Qt.WindowMinMaxButtonsHint)
+        self.setWindowFlags(self.windowFlags() \
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)    
         self.saved_index = None
         # Set up card type tree.
         self.container_1 = QtGui.QWidget(self.splitter_1)
@@ -235,20 +239,20 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         # Context menu.
         self.table.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.table.customContextMenuRequested.connect(self.context_menu)
-        # Restore settings.
-        width, height = self.config()["browse_cards_dlg_size"]
-        if width:
-            self.resize(width, height)
-        splitter_1_sizes = self.config()["browse_cards_dlg_splitter_1"]
-        if not splitter_1_sizes:
+        # Restore state.
+        state = self.config()["browse_cards_dlg_state"]
+        if state:
+            self.restoreGeometry(state)
+        splitter_1_state = self.config()["browse_cards_dlg_splitter_1_state"]
+        if not splitter_1_state:
             self.splitter_1.setSizes([230, 320])
         else:
-            self.splitter_1.setSizes(splitter_1_sizes)
-        splitter_2_sizes = self.config()["browse_cards_dlg_splitter_2"]
-        if not splitter_2_sizes:
+            self.splitter_1.restoreState(splitter_1_state)
+        splitter_2_state = self.config()["browse_cards_dlg_splitter_2_state"]
+        if not splitter_2_state:
             self.splitter_2.setSizes([333, 630])
         else:
-            self.splitter_2.setSizes(splitter_2_sizes)
+            self.splitter_2.restoreState(splitter_2_state)
 
     def context_menu(self, point):
         menu = QtGui.QMenu(self)
@@ -563,12 +567,24 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         query.first()
         active = query.value(0).toInt()[0]
         self.counter_label.setText(\
-            _("%d cards shown, of which %d active.") % (selected, active))   
+            _("%d cards shown, of which %d active.") % (selected, active))
+
+    def _store_state(self):
+        self.config()["browse_cards_dlg_state"] = self.saveGeometry()  
+        self.config()["browse_cards_dlg_splitter_1_state"] = \
+            self.splitter_1.saveState()
+        self.config()["browse_cards_dlg_splitter_2_state"] = \
+            self.splitter_2.saveState()
         
-    def closeEvent(self, event):                
-        self.config()["browse_cards_dlg_size"] = (self.width(), self.height())
-        self.config()["browse_cards_dlg_splitter_1"] \
-            = self.splitter_1.sizes()
-        self.config()["browse_cards_dlg_splitter_2"] \
-           = self.splitter_2.sizes()        
+    def closeEvent(self, event):
+        # Generated when clicking the window's close button.        
+        self._store_state()        
         self.unload_qt_database()
+
+    def accept(self):
+        # 'accept' does not generate a close event.
+        self._store_state()
+        self.unload_qt_database()
+        return QtGui.QDialog.accept(self)    
+
+

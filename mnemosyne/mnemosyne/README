@@ -2,6 +2,7 @@ Some information about the contents of the directories:
 
 -libmnemosyne: the main python library that does all the heavy lifting common
  to all the frontends.
+-example_plugins: some example plugins for libmnemosyne.
 -pyqt_ui: the Qt frontend, written in Python, for use on desktop machines 
  under Windows, Linux and OSX.
 -ppygui_ui: the PocketPyGui frontend, for use on Windows Mobile.

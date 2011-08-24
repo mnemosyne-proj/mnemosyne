@@ -20,7 +20,6 @@ from mnemosyne.libmnemosyne.file_formats.science_log_parser \
 re_src = re.compile(r"""src=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
 re_sound = re.compile(r"""<sound src=\".+?\">""", re.DOTALL | re.IGNORECASE)
 
-
 class Mnemosyne1Mem(FileFormat):
     
     description = _("Mnemosyne 1.x *.mem files")
@@ -142,7 +141,7 @@ class Mnemosyne1Mem(FileFormat):
             except:
                 w.show_information(_("Ignoring unparsable file:") + " " +\
                     filename)
-        w.set_progress_value(len(filenames))
+        w.close_progress()
 
     def _create_card_from_item(self, item):
         if item.cat.name == "<default>" or item.cat.name == "":
@@ -161,7 +160,7 @@ class Mnemosyne1Mem(FileFormat):
             return
         # Map.
         if item.id + ".inv" in self.items_by_id and \
-           "answerbox: overlay" in item.q:
+           "answerbox: overlay" in item.q and "<img " in item.q:
             item_2 = self.items_by_id[item.id + ".inv"]
             loc = item_2.a
             marked = item_2.q

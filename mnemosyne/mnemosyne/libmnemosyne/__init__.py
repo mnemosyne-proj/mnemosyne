@@ -115,7 +115,9 @@ class Mnemosyne(Component):
                traceback.format_exception_only(type, value)
         body = body + "%-20s %s" % ("".join(list[:-1]), list[-1])
         try:
-            self.main_widget().show_error(body)
+            if sys.platform != "win32":
+                sys.stderr.write(body) 
+            self.main_widget().show_error(body)               
         except: 
             sys.stderr.write(body)
         

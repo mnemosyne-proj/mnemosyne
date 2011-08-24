@@ -1,4 +1,6 @@
--try work with filenames with apostrophes (reported by Per Torhammer)
+-allow importing of overlay answer cards which are not maps
+-attempt to make closing of progress bar after import more robust
+-also write error messages to the console
 
 MNEMOSYNE 2.0
 
