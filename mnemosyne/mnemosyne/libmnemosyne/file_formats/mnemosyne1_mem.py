@@ -250,7 +250,6 @@ class Mnemosyne1Mem(FileFormat):
         # Convert sound tags to audio tags.
         for key in fact_data:
             for match in re_sound.finditer(fact_data[key]):
-                print match.group(), match.group(0)
                 fact_data[key] = fact_data[key].replace(match.group(),
                     match.group().replace("<sound src", "<audio src"))
         # Copy files to media directory, creating subdirectories as we go.

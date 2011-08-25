@@ -2,7 +2,7 @@
 # cloned_card_types_list_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtGui
+from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.card_type import CardType
@@ -19,9 +19,17 @@ class ClonedCardTypesListDlg(QtGui.QDialog, Ui_ClonedCardTypesListDlg,
         Component.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
+        self.setWindowFlags(self.windowFlags() \
+            | QtCore.Qt.WindowMinMaxButtonsHint)
+        self.setWindowFlags(self.windowFlags() \
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)
         self.update()
 
     def activate(self):
+        if not self.config()["clone_help_shown"]:
+            self.main_widget().show_information(\
+                _("Here, you can make clones of existing card types. This allows you to format the cards in this type independently from the original type. E.g. you could make a clone of 'Vocabulary', call it 'Thai' and set a Thai fonts specifically for this card type without disturbing the other cards."))
+            self.config()["clone_help_shown"] = True
         self.exec_()
 
     def update(self):
@@ -36,7 +44,4 @@ class ClonedCardTypesListDlg(QtGui.QDialog, Ui_ClonedCardTypesListDlg,
         dlg = CloneCardTypeDlg(self, self.component_manager)
         dlg.exec_()
         self.update()
-
-    def help(self):
-        message = _("Here, you can make clones of existing card types. This allows you to format the cards in this type independently from the original type. E.g. you could make a clone of 'Foreign word with pronunciation', call it 'Thai' and set a Thai fonts specifically for this card type without disturbing the other cards.")
-        QtGui.QMessageBox.information(self, _("Cloning card types"), message, _("&OK"))
+        

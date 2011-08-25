@@ -25,6 +25,11 @@ class TestRenderChain(MnemosyneTest):
     
         assert type(self.render_chain()._filters[0]) \
                != type(MyFilter(self.mnemosyne.component_manager))
+
+        self.render_chain().unregister_filter(MyFilter)
+        assert "666" not in card.question()
+        
+        self.render_chain().unregister_filter(type(1))
         
     def test_add_filter_2(self):      
         fact_data = {"f": "question",
@@ -62,3 +67,8 @@ class TestRenderChain(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type_2,
             grade=-1, tag_names=["default"])[0]
         assert "666" not in card.question()
+
+        self.render_chain().unregister_renderer(MyRenderer)
+        assert "666" not in card.question()
+
+        self.render_chain().unregister_renderer(type(1))

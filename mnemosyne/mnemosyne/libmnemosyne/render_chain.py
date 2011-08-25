@@ -48,22 +48,40 @@ class RenderChain(Component):
             self._renderers.append(renderer)
             self._renderer_for_card_type[renderer.used_for] = renderer
 
-    def register_filter(self, filter, in_front=False):
+    def register_filter(self, filter_class, in_front=False):
 
-        """'filter' should be a class, not an instance."""
+        """'filter_class' should be a class, not an instance."""
         
-        filter = filter(self.component_manager)        
+        filter = filter_class(self.component_manager)        
         if not in_front:
             self._filters.append(filter)
         else:
             self._filters.insert(0, filter)
 
-    def register_renderer(self, renderer):
-
-        """'renderer' should be a class, not an instance."""
+    def unregister_filter(self, filter_class):
         
-        renderer = renderer(self.component_manager)
+        """'filter_class' should be a class, not an instance."""
+
+        for filter in self._filters:
+            if isinstance(filter, filter_class):
+                self._filters.remove(filter)
+                break
+
+    def register_renderer(self, renderer_class):
+
+        """'renderer_class' should be a class, not an instance."""
+        
+        renderer = renderer_class(self.component_manager)
         self._renderer_for_card_type[renderer.used_for] = renderer
+
+    def unregister_renderer(self, renderer_class):
+
+        """'renderer_class' should be a class, not an instance."""
+
+        for card_type, renderer in self._renderer_for_card_type.iteritems():
+            if isinstance(renderer, renderer_class):
+                del self._renderer_for_card_type[card_type]
+                break
 
     def renderer_for_card_type(self, card_type):
         if card_type not in self._renderer_for_card_type:

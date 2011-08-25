@@ -1,12 +1,10 @@
--add filter plugin example
-
--make sure all dialogs minimise/maximise buttons, and no help buttons
+-make sure all dialogs have minimise/maximise buttons, and no help buttons
 -use saveGeometry and saveState as opposed to manually saving width and height
 -ake sure sure geometry is written on accept too, as well as close event
 
-(done up to browse cards)
+(done until before configuration)
 
--add 2 test case of Tim
+-add 2 test cases of Tim
 
 -configure dialog is slow on Windows due to server detect
 
@@ -40,7 +38,7 @@
  :: to separate hierarchies
  not having to do all your scheduled repetitions in one sitting
 
--better docs on clone, also on entire sync setup, both when entering client and server settings for the first time
+-better docs on entire sync setup, both when entering client and server settings for the first time
 -warn when creating a new database that this is not the recommended way to organise your cards.
 -right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
 -tooltip for hiding pronunciation field on language card type

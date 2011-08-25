@@ -2,7 +2,7 @@
 # clone_card_type_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtGui
+from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.pyqt_ui.ui_clone_card_type_dlg import Ui_CloneCardTypeDlg
@@ -14,6 +14,10 @@ class CloneCardTypeDlg(QtGui.QDialog, Ui_CloneCardTypeDlg, Component):
         Component.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
+        self.setWindowFlags(self.windowFlags() \
+            | QtCore.Qt.WindowMinMaxButtonsHint)
+        self.setWindowFlags(self.windowFlags() \
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)
         for card_type in self.card_types():
             self.parent_type.addItem(card_type.name)
 

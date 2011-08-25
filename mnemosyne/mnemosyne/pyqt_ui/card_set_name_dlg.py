@@ -2,7 +2,7 @@
 # card_set_name_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtGui
+from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.ui_component import UiComponent
@@ -14,6 +14,10 @@ class CardSetNameDlg(QtGui.QDialog, Ui_CardSetNameDlg, UiComponent):
     def __init__(self, component_manager, criterion, existing_names):
         UiComponent.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
+        self.setWindowFlags(self.windowFlags() \
+            | QtCore.Qt.WindowMinMaxButtonsHint)
+        self.setWindowFlags(self.windowFlags() \
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)
         self.setupUi(self)
         self.criterion = criterion
         self.existing_names = existing_names

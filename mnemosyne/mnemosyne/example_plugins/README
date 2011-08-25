@@ -24,5 +24,7 @@ illustrating to plugin writers on how to achieve certain functionality.
 
  * grades_criterion.py: adding a new criterion based on grades.
 
+ * filter.py: modifying question and answer text on the fly.
+
 Note that if you write plugins which require extra modules, the Windows user
 should add those to library.zip.
