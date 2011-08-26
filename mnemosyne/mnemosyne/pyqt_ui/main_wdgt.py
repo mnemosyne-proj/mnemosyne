@@ -28,14 +28,18 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         self.progress_bar_last_shown_value = 0
         # A fast moving progress bar seems to cause crashes on Windows.
         self.show_numeric_progress_bar = (sys.platform != "win32")
-        
+
+    def _store_state(self):
+        self.config()["main_window_state"] = self.saveGeometry()
+
     def closeEvent(self, event):
-        self.config()["main_window_size"] = (self.width(), self.height())
+        # Generated when clicking the window's close button.
+        self._store_state()
 
     def activate(self):
-        width, height = self.config()["main_window_size"]
-        if width:
-            self.resize(width, height)
+        state = self.config()["main_window_state"]
+        if state:
+            self.restoreGeometry(state)
         self.timer_1 = QtCore.QTimer()
         self.timer_1.timeout.connect(self.review_controller().heartbeat)
         self.timer_1.start(1000 * 60 * 10)

@@ -2,7 +2,7 @@
 # Widget to preview set of sister cards <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtGui
+from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.ui_preview_cards_dlg import Ui_PreviewCardsDlg
@@ -19,6 +19,10 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg):
         
         QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
+        self.setWindowFlags(self.windowFlags() \
+            | QtCore.Qt.WindowMinMaxButtonsHint)
+        self.setWindowFlags(self.windowFlags() \
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)        
         self.cards = cards
         self.index = 0
         self.question_label.setText(_("Question: ") + tag_text)

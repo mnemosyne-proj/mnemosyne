@@ -23,6 +23,10 @@ class StatisticsDlg(QtGui.QDialog, Ui_StatisticsDlg, StatisticsDialog):
 
     def activate(self):
         self.setupUi(self)
+        self.setWindowFlags(self.windowFlags() \
+            | QtCore.Qt.WindowMinMaxButtonsHint)
+        self.setWindowFlags(self.windowFlags() \
+            & ~ QtCore.Qt.WindowContextHelpButtonHint) 
         previous_page_index = self.config()["previous_statistics_page"]
         page_index = 0
         for page in self.component_manager.all("statistics_page"):
@@ -40,12 +44,17 @@ class StatisticsDlg(QtGui.QDialog, Ui_StatisticsDlg, StatisticsDialog):
         self.tab_widget.currentChanged[int].connect(self.display_page)
         self.exec_()
 
+    def _store_state(self):
+        self.config()["statistics_dlg_state"] = self.saveGeometry()
+        
     def closeEvent(self, event):
-        self.config()["statistics_dlg_size"] = (self.width(), self.height())
+        # Generated when clicking the window's close button.
+        self._store_state()
         
     def accept(self):
-        self.config()["statistics_dlg_size"] = (self.width(), self.height())
-        return QtGui.QDialog.accept(self)        
+        # 'accept' does not generate a close event.
+        self._store_state()
+        return QtGui.QDialog.accept(self)      
         
     def display_page(self, page_index):
         page = self.tab_widget.widget(page_index)
@@ -58,9 +67,9 @@ class StatisticsDlg(QtGui.QDialog, Ui_StatisticsDlg, StatisticsDialog):
         page.combobox.setCurrentIndex(variant_index)
         page.display_variant(variant_index)
         self.config()["previous_statistics_page"] = page_index
-        width, height = self.config()["statistics_dlg_size"]
-        if width:
-            self.resize(width, height)
+        state = self.config()["statistics_dlg_state"]
+        if state:
+            self.restoreGeometry(state)
 
 
 class StatisticsPageWdgt(QtGui.QWidget, Component):

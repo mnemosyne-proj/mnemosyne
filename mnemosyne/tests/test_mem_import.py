@@ -18,7 +18,7 @@ class Widget(MainWidget):
         self.review_controller().reset()
 
     def show_information(self, message):
-        if message.startswith("Missing media file"):
+        if message.startswith("Warning: "):
             return 0
         if message.startswith("No history found to import."):
             return 0
@@ -267,7 +267,7 @@ class TestMemImport(MnemosyneTest):
         self.review_controller().reset()
         assert self.review_controller().card.fact["loc"] == \
                u"""<b>Freistaat Th\xfcringen (Free State of Thuringia)</b>"""
-        assert self.review_controller().card.tag_string() == "Germany: States"
+        assert self.review_controller().card.tag_string() == "Germany: States, MISSING_MEDIA"
 
     def test_logs_new_1(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)

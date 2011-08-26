@@ -12,6 +12,10 @@ class RemoveTagsDlg(QtGui.QDialog, Ui_RemoveTagsDlg):
     def __init__(self, parent, tags, return_values):
         QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
+        self.setWindowFlags(self.windowFlags() \
+            | QtCore.Qt.WindowMinMaxButtonsHint)
+        self.setWindowFlags(self.windowFlags() \
+            & ~ QtCore.Qt.WindowContextHelpButtonHint) 
         self.return_values = return_values
         for tag in tags:
             if tag.name != "__UNTAGGED__":

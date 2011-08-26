@@ -1,10 +1,10 @@
--make sure all dialogs have minimise/maximise buttons, and no help buttons
--use saveGeometry and saveState as opposed to manually saving width and height
--ake sure sure geometry is written on accept too, as well as close event
-
-(done until before configuration)
-
 -add 2 test cases of Tim
+
+-new cards with a >=2 grade can end up on the same day on first interactive rep
+ replace set_initial_grade by set_initial_grades(cards)?
+-also make sure this is OK when changing card type creates extra cards
+-scheduler.spread_sister_cards?
+-recheck database for this through plugin
 
 -configure dialog is slow on Windows due to server detect
 
@@ -22,6 +22,7 @@
             did_close = w->close();
             list = QApplication::topLevelWidgets();
             i = -1;
+
 
 -migrate science server machine
 

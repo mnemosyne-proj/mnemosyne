@@ -135,6 +135,14 @@ class TestMedia(MnemosyneTest):
         assert os.path.join(self.database().media_dir(), "a.ogg") \
                not in card.question()
 
+    def test_missing_media(self):
+        fact_data = {"f": "<img src=\"missing.ogg\">",
+                     "b": "answer"}
+        card_type = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=-1, tag_names=["default"])[0]
+        assert "src_missing" in card.question()
+
     def test_card_edit_none(self):
         file("a.ogg", "w")
         full_path = os.path.abspath("a.ogg")

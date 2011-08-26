@@ -15,6 +15,10 @@ class ConvertCardTypeFieldsDlg(QtGui.QDialog, Ui_ConvertCardTypeFieldsDlg):
                  check_required_fields=True, parent=None):
         QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
+        self.setWindowFlags(self.windowFlags() \
+            | QtCore.Qt.WindowMinMaxButtonsHint)
+        self.setWindowFlags(self.windowFlags() \
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)        
         self.old_card_type = old_card_type
         self.new_card_type = new_card_type
         self.correspondence = correspondence

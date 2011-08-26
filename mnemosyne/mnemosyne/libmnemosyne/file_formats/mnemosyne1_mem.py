@@ -67,6 +67,7 @@ class Mnemosyne1Mem(FileFormat):
     def _import_mem_file(self, filename, tag_name=None,
                          reset_learning_data=False):        
         self.import_dir = os.path.dirname(os.path.abspath(filename))
+        self.warned_about_missing_media = False
         w = self.main_widget()    
         # Mimick 1.x module structure.
         class MnemosyneCore(object):                          
@@ -152,9 +153,10 @@ class Mnemosyne1Mem(FileFormat):
             if not item.id.split(".", 1)[0] in self.items_by_id:
                 card_type = self.card_type_with_id("1")
                 fact_data = {"f": item.q, "b": item.a}
-                self._preprocess_media(fact_data) 
+                tag_names = [item.cat.name]
+                self._preprocess_media(fact_data, tag_names) 
                 card = self.controller().create_new_cards(fact_data,
-                    card_type, grade=-1, tag_names=[item.cat.name],
+                    card_type, grade=-1, tag_names=tag_names,
                     check_for_duplicates=False, save=False)[0]
                 self._set_card_attributes(card, item)
             return
@@ -172,9 +174,10 @@ class Mnemosyne1Mem(FileFormat):
                 self.map_plugin_activated = True
             card_type = self.card_type_with_id("4")
             fact_data = {"loc": loc, "marked": marked, "blank": blank}
-            self._preprocess_media(fact_data) 
+            tag_names=[item.cat.name]
+            self._preprocess_media(fact_data, tag_names) 
             card_1, card_2 = self.controller().create_new_cards(fact_data,
-                card_type, grade=-1, tag_names=[item.cat.name],
+                card_type, grade=-1, tag_names=tag_names,
                 check_for_duplicates=False, save=False)
             self._set_card_attributes(card_2, item)
             self._set_card_attributes(card_1, item_2)
@@ -183,22 +186,24 @@ class Mnemosyne1Mem(FileFormat):
            item.id + ".tr.1" not in self.items_by_id:
             card_type = self.card_type_with_id("1")
             fact_data = {"f": item.q, "b": item.a}
-            self._preprocess_media(fact_data) 
+            tag_names=[item.cat.name]
+            self._preprocess_media(fact_data, tag_names) 
             card = self.controller().create_new_cards(fact_data,
-                card_type, grade=-1, tag_names=[item.cat.name],
+                card_type, grade=-1, tag_names=tag_names,
                 check_for_duplicates=False, save=False)[0]
             self._set_card_attributes(card, item)
         # Front-to-back and back-to-front.         
         elif item.id + ".inv" in self.items_by_id:
             card_type = self.card_type_with_id("2")
             fact_data = {"f": item.q, "b": item.a}
-            self._preprocess_media(fact_data) 
+            tag_names=[item.cat.name]
+            self._preprocess_media(fact_data, tag_names) 
             card_1, card_2 = self.controller().create_new_cards(fact_data,
-                card_type, grade=-1, tag_names=[item.cat.name],
+                card_type, grade=-1, tag_names=tag_names,
                 check_for_duplicates=False, save=False)
             self._set_card_attributes(card_1, item)
-            self._set_card_attributes(card_2,
-                                      self.items_by_id[item.id + ".inv"])               
+            self._set_card_attributes\
+                (card_2, self.items_by_id[item.id + ".inv"])               
         # Vocabulary.
         elif item.id + ".tr.1" in self.items_by_id:
             card_type = self.card_type_with_id("3")
@@ -207,13 +212,14 @@ class Mnemosyne1Mem(FileFormat):
             except:
                 p_1, m_1 = "", item.a    
             fact_data = {"f": item.q, "p_1": p_1, "m_1": m_1}
-            self._preprocess_media(fact_data) 
+            tag_names=[item.cat.name]
+            self._preprocess_media(fact_data, tag_names) 
             card_1, card_2 = self.controller().create_new_cards(fact_data,
-                card_type, grade=-1, tag_names=[item.cat.name],
+                card_type, grade=-1, tag_names=tag_names,
                 check_for_duplicates=False, save=False)            
             self._set_card_attributes(card_1, item)
-            self._set_card_attributes(card_2,
-                                      self.items_by_id[item.id + ".tr.1"])
+            self._set_card_attributes\
+                (card_2, self.items_by_id[item.id + ".tr.1"])
             
     def _midnight_UTC(self, timestamp):
         date_only = datetime.date.fromtimestamp(timestamp)
@@ -239,7 +245,8 @@ class Mnemosyne1Mem(FileFormat):
             card.next_rep = -1
         self.database().update_card(card)
         
-    def _preprocess_media(self, fact_data):
+    def _preprocess_media(self, fact_data, tag_names):
+        missing_media = False
         media_dir = self.database().media_dir()
         # os.path.normpath does not convert Windows separators to Unix
         # separators, so we need to make sure we internally store Unix paths.
@@ -258,10 +265,9 @@ class Mnemosyne1Mem(FileFormat):
                 filename = match.group(1)
                 if not os.path.exists(filename) and \
                     not os.path.exists(expand_path(filename, self.import_dir)):
-                    self.main_widget().show_information(\
-                        _("Missing media file") + " %s" % filename)
                     fact_data[key] = fact_data[key].replace(match.group(),
                         "src_missing=\"%s\"" % match.group(1))
+                    missing_media = True
                     continue
                 if not os.path.isabs(filename):
                     source = expand_path(filename, self.import_dir)
@@ -270,6 +276,16 @@ class Mnemosyne1Mem(FileFormat):
                     if not os.path.exists(directory):
                         os.makedirs(directory)
                     shutil.copy(source, dest)
+        if missing_media:
+            tag_names.append(_("MISSING_MEDIA"))
+            if not self.warned_about_missing_media:
+                self.main_widget().show_information(\
+ _("Warning: media files were missing. These cards have been tagged as MISSING_MEDIA. You must also change 'scr_missing' to 'scr' in the text of these cards."))
+                # We ask the users to edit the cards, so that the necessary
+                # media copying can take place when editing the card.
+                # Otherwise, if the user just add the missing file to the
+                # right (non-Mnemosyne) directory, this would not happen.
+                self.warned_about_missing_media = True
 
     def _activate_map_plugin(self):
         for plugin in self.plugins():

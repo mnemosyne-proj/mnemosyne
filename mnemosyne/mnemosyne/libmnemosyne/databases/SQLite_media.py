@@ -8,7 +8,8 @@ try:
     from hashlib import md5
 except ImportError:
     from md5 import md5
-    
+
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.utils import copy_file_to_dir
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 
@@ -96,6 +97,13 @@ class SQLiteMedia(object):
 
         for match in re_src.finditer("".join(fact.data.values())):
             filename = match.group(1)
+            if not os.path.exists(filename) and \
+                not os.path.exists(expand_path(filename, self.media_dir())):
+                self.main_widget().show_error(_("Missing media file!"))
+                for key, value in fact.data.iteritems():
+                    fact.data[key] = fact.data[key].replace(match.group(),
+                        "src_missing=\"%s\"" % match.group(1))
+                continue
             # If needed, copy file to the media dir. Normally this happens when
             # the user clicks 'Add image' e.g., but he could have typed in the
             # full path directly.

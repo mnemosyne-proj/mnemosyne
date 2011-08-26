@@ -20,6 +20,10 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         AddEditCards.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
+        self.setWindowFlags(self.windowFlags() \
+            | QtCore.Qt.WindowMinMaxButtonsHint)
+        self.setWindowFlags(self.windowFlags() \
+            & ~ QtCore.Qt.WindowContextHelpButtonHint) 
         self.before_apply_hook = None
         self.allow_cancel = allow_cancel
         if not allow_cancel:
@@ -27,12 +31,16 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         self.card = card
         self.initialise_card_types_combobox(self.card.card_type.name)
         self.update_tags_combobox(card.tag_string())
-        width, height = self.config()["edit_widget_size"]
-        if width:
-            self.resize(width, height)
+        state = self.config()["edit_dlg_state"]
+        if state:
+            self.restoreGeometry(state)
+
+    def _store_state(self):
+        self.config()["edit_dlg_state"] = self.saveGeometry()
             
     def closeEvent(self, event):
-        self.config()["edit_widget_size"] = (self.width(), self.height())
+        # Generated when clicking the window's close button.
+        self._store_state()
         if self.allow_cancel:
             event.accept()
             QtGui.QDialog.reject(self)
@@ -55,7 +63,7 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         self.preview_button.setEnabled(valid)
         
     def accept(self):
-        self.config()["edit_widget_size"] = (self.width(), self.height())
+        self._store_state()
         new_fact_data = self.card_type_widget.data()
         new_tag_names = [tag.strip() for tag in \
             unicode(self.tags.currentText()).split(',')]
@@ -74,5 +82,4 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
             QtGui.QDialog.accept(self)
 
     def reject(self):  # Override 'add cards' behaviour.
-        self.config()["edit_widget_size"] = (self.width(), self.height())
         QtGui.QDialog.reject(self)

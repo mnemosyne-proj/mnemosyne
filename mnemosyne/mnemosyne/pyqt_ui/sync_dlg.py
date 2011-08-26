@@ -87,6 +87,10 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
         SyncDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
+        self.setWindowFlags(self.windowFlags() \
+            | QtCore.Qt.WindowMinMaxButtonsHint)
+        self.setWindowFlags(self.windowFlags() \
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)       
         if not self.config()["sync_help_shown"]:
             self.main_widget().show_information(\
                _("Here, you can sync with a different desktop or a webserver. \nTo sync with a mobile device, first enable a sync server on this computer in the configuration dialog, and then start the sync from the mobile device."))

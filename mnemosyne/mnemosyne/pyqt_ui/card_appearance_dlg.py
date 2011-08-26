@@ -21,6 +21,10 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         Component.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
+        self.setWindowFlags(self.windowFlags() \
+            | QtCore.Qt.WindowMinMaxButtonsHint)
+        self.setWindowFlags(self.windowFlags() \
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)
         self.dynamic_widgets = []
         self.affected_card_types = []
         self.key_names = []       
