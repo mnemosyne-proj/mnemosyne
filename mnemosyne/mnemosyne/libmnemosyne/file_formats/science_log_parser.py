@@ -145,10 +145,13 @@ class ScienceLogParser(object):
         self.lower_timestamp_limit = 1121021345 # 2005-07-10 21:49:05.
         self.upper_timestamp_limit = time.time()
         for line in self.logfile:
+            if line.strip() == "":
+                continue
             try:
                 self._parse_line(line)
             except:
-                print "Ignoring error while parsing line:\n%s" % line
+                print ("Ignoring error in file '%s' while parsing line:\n%s" %
+                    (filename, line))
                 print traceback_string()
                 sys.stdout.flush()                
         
@@ -262,7 +265,7 @@ class ScienceLogParser(object):
         scheduled_interval = int(scheduled_interval)
         actual_interval = int(actual_interval)
         new_interval, noise = blocks[3].split(" ")
-        new_interval = int(new_interval) + int(noise)
+        new_interval = int(float(new_interval)) + int(noise)
         thinking_time = round(float(blocks[4]))
         # Deal with interval data for pre 2.0 logs.
         if self.version_number in \

@@ -1,5 +1,3 @@
--add 2 test cases of Tim
-
 -new cards with a >=2 grade can end up on the same day on first interactive rep
  replace set_initial_grade by set_initial_grades(cards)?
 -also make sure this is OK when changing card type creates extra cards

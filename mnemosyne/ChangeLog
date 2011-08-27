@@ -1,11 +1,4 @@
--when detecting missing media, only warn once, and give all the affected cards a 
- 'MISSING_MEDIA' tag, so that you can find them back later. 
- (from a bug report by Dandelo)
--dialogs now have max/min button under windows
--the main dialogs not only save their size, but also their position
--allow importing of overlay answer cards which are not maps
--attempt to make closing of progress bar after import more robust
--also write error messages to the console
+-patches from Tim to work around quirks in import logs caused by Mnemododo.
 
 MNEMOSYNE 2.0
 

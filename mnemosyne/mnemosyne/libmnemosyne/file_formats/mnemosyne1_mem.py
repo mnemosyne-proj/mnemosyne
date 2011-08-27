@@ -135,13 +135,16 @@ class Mnemosyne1Mem(FileFormat):
         # don't matter.)
         filenames.append(os.path.join(os.path.dirname(filename), "log.txt"))
         w.set_progress_range(0, len(filenames))
+        ignored_files = []
         for count, filename in enumerate(filenames):
             w.set_progress_value(count)
             try:
                 parser.parse(filename)
             except:
-                w.show_information(_("Ignoring unparsable file:") + " " +\
-                    filename)
+                ignored_files.append(filename)
+        if ignored_files:
+            w.show_information(_("Ignoring unparsable files:<br/>") +\
+                '<br/>'.join(ignored_files))
         w.close_progress()
 
     def _create_card_from_item(self, item):
@@ -222,7 +225,10 @@ class Mnemosyne1Mem(FileFormat):
                 (card_2, self.items_by_id[item.id + ".tr.1"])
             
     def _midnight_UTC(self, timestamp):
-        date_only = datetime.date.fromtimestamp(timestamp)
+        try:
+            date_only = datetime.date.fromtimestamp(timestamp)
+        except ValueError:
+            date_only = datetime.date.max
         return int(calendar.timegm(date_only.timetuple()))
     
     def _set_card_attributes(self, card, item):
