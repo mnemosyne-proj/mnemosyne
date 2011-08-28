@@ -35,12 +35,9 @@ class MyConfigurationWdgt(QtGui.QWidget, ConfigurationWidget):
         self.label = QtGui.QLabel("My value")
         self.hlayout.addWidget(self.label)
         self.my_value = QtGui.QSpinBox(self)
-        self.my_value.setProperty("value", QtCore.QVariant(10))
+        self.my_value.setValue(self.config()["my_value"])
         self.hlayout.addWidget(self.my_value)
         self.vlayout.addLayout(self.hlayout)
-        
-    def display(self):
-        self.my_value.setValue(self.config()["my_value"])
             
     def reset_to_defaults(self):
         self.my_value.setValue(10)

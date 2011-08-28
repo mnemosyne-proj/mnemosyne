@@ -112,7 +112,7 @@ class Component(object):
 
     def plugins(self):
         return self.component_manager.all("plugin")
-
+                
     def start_review(self):
         self.review_controller().reset()
 
