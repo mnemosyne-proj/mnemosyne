@@ -23,3 +23,5 @@ class IntroWizard(QtGui.QWizard, Ui_IntroWizard, IntroDialog):
             return
         if self.upload_box.isChecked():
             self.config()["upload_science_logs"] = True
+        else:
+            self.config()["upload_science_logs"] = False
