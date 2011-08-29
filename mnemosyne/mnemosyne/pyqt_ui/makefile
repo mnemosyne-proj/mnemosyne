@@ -7,7 +7,8 @@ WIDGETS = ui_main_wdgt.py ui_add_cards_dlg.py \
 	ui_configuration_dlg.py ui_criterion_wdgt_default.py \
 	ui_statistics_dlg.py ui_sync_dlg.py ui_configuration_wdgt_sync_server.py \
 	ui_browse_cards_dlg.py ui_rename_tag_dlg.py ui_change_card_type_dlg.py \
-	ui_add_tags_dlg.py ui_remove_tags_dlg.py ui_intro_wizard_dlg.py
+	ui_add_tags_dlg.py ui_remove_tags_dlg.py ui_intro_wizard_dlg.py \
+	ui_tipday_dlg.py
 
 default: $(WIDGETS) ui_review_wdgt.py 
 	pyrcc4 mnemosyne.qrc

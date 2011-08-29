@@ -97,6 +97,8 @@ class Configuration(Component, dict):
              "upload_science_logs": True,
              "science_server": "mnemosyne-proj.dyndns.org:80",
              "max_log_size_before_upload": 64000, # For testability.
+             "show_daily_tips": True,
+             "current_tip": 0,
              "font": {}, # [card_type.id][fact_key]
              "font_colour": {}, # [card_type.id][fact_key]
              "background_colour": {}, # [card_type.id]

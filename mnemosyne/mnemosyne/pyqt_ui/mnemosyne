@@ -116,6 +116,8 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_wdgt_sync_server",
                              "ConfigurationWdgtSyncServer"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.intro_wizard_dlg",
                              "IntroWizard"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.tipday_dlg",
+                             "TipDialog"))
 mnemosyne.extra_components_for_plugin["CrammingPlugin"] = \
                             [("mnemosyne.pyqt_ui.review_wdgt_cramming",
                              "ReviewWdgtCramming")]
@@ -130,9 +132,11 @@ if mnemosyne.config()["first_run"] == True:
     mnemosyne.component_manager.current('intro_dialog')(
             mnemosyne.component_manager).show()
     mnemosyne.config()["first_run"] = False
-# TODO: Display daily tips
-#elif config()["show_daily_tips"] == True:
-#    w.Tip()
+elif mnemosyne.config()["show_daily_tips"] == True:
+    mnemosyne.component_manager.current('tip_dialog')(
+            mnemosyne.component_manager).activate()
+    mnemosyne.component_manager.current('tip_dialog')(
+            mnemosyne.component_manager).show()
 
 a.exec_()
 mnemosyne.finalise()
