@@ -83,6 +83,7 @@ class Configuration(Component, dict):
 
         for key, value in \
             {"path": self.database().default_name + self.database().suffix,
+             "first_run": True,
              "import_dir": self.data_dir,
              "import_format": "XML",
              "reset_learning_data_import": False,

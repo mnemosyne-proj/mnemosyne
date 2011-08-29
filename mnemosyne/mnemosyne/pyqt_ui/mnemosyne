@@ -114,6 +114,8 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_wdgt_main",
                              "ConfigurationWdgtMain"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_wdgt_sync_server",
                              "ConfigurationWdgtSyncServer"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.intro_wizard_dlg",
+                             "IntroWizard"))
 mnemosyne.extra_components_for_plugin["CrammingPlugin"] = \
                             [("mnemosyne.pyqt_ui.review_wdgt_cramming",
                              "ReviewWdgtCramming")]
@@ -122,10 +124,13 @@ mnemosyne.extra_components_for_plugin["CrammingPlugin"] = \
 mnemosyne.initialise(data_dir=data_dir, filename=filename)
 mnemosyne.main_widget().show()
 mnemosyne.main_widget().raise_() # Needed for OSX.
-# TODO: check first run wizard.
-#if config()["first_run"] == True:
-#    w.productTour()
-#    config()["first_run"] = False
+if mnemosyne.config()["first_run"] == True:
+    mnemosyne.component_manager.current('intro_dialog')(
+            mnemosyne.component_manager).activate()
+    mnemosyne.component_manager.current('intro_dialog')(
+            mnemosyne.component_manager).show()
+    mnemosyne.config()["first_run"] = False
+# TODO: Display daily tips
 #elif config()["show_daily_tips"] == True:
 #    w.Tip()
 
