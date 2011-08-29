@@ -31,12 +31,12 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         self.card = card
         self.initialise_card_types_combobox(self.card.card_type.name)
         self.update_tags_combobox(card.tag_string())
-        state = self.config()["edit_dlg_state"]
+        state = self.config()["edit_card_dlg_state"]
         if state:
             self.restoreGeometry(state)
 
     def _store_state(self):
-        self.config()["edit_dlg_state"] = self.saveGeometry()
+        self.config()["edit_card_dlg_state"] = self.saveGeometry()
             
     def closeEvent(self, event):
         # Generated when clicking the window's close button.

@@ -1,11 +1,5 @@
 -progress bar 'importing history'
 
--resizing behaviour
-
--change card type: underlying C++ object has been deleted (reported by Twenty Ten)
-
--add counts above bars in grade statistics
-
 -new cards with a >=2 grade can end up on the same day on first interactive rep
  replace set_initial_grade by set_initial_grades(cards)?
 -also make sure this is OK when changing card type creates extra cards

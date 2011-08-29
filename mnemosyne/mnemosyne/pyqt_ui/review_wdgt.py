@@ -29,7 +29,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         parent = self.main_widget()
         QtGui.QWidget.__init__(self, parent)
         parent.setCentralWidget(self)
-        self.setupUi(self)
+        self.setupUi(self)        
         # TODO: move this to designer with update of PyQt.
         self.grade_buttons = QtGui.QButtonGroup()
         self.grade_buttons.addButton(self.grade_0_button, 0)
@@ -48,6 +48,21 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         parent.add_to_status_bar(self.notmem)
         parent.add_to_status_bar(self.act)
         parent.status_bar.setSizeGripEnabled(0)
+
+    def determine_stretch_factors(self, q, a):
+        q_stretch, a_stretch = 1, 1
+        if "img src" in q:
+            q_stretch = 2
+        if "img src" in a:
+            a_stretch = 2
+        return q_stretch, a_stretch
+
+    def set_stretch_factors(self):
+        q_stretch, a_stretch = self.determine_stretch_factors(\
+            self.review_controller().card.question("plain_text"),
+            self.review_controller().card.answer("plain_text"))
+        self.vertical_layout.setStretchFactor(self.question_box, q_stretch)
+        self.vertical_layout.setStretchFactor(self.answer_box, a_stretch)
         
     def show_answer(self):
         self.review_controller().show_answer()
@@ -75,6 +90,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.question_label.setText(text)
 
     def set_question(self, text):
+        self.set_stretch_factors()
         self.question.setHtml(text)
         
     def set_answer(self, text):

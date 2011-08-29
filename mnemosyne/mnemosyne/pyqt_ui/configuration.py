@@ -21,7 +21,8 @@ class PyQtConfiguration(Hook):
              "previous_variant_for_statistics_page": {}, # dict[page] = variant
              "main_window_state": None,
              "add_cards_dlg_state": None,
-             "edit_dlg_state": None,
+             "preview_cards_dlg_state": None,
+             "edit_card_dlg_state": None,
              "plugins_dlg_state": None,
              "clone_help_shown": False,
              "browse_cards_dlg_state": None,

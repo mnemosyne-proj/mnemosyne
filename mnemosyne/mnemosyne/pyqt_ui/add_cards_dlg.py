@@ -128,7 +128,7 @@ class AddEditCards(Component):
         fact = Fact(fact_data)
         cards = self.card_type.create_sister_cards(fact)
         tag_text = self.tags.currentText()
-        dlg = PreviewCardsDlg(cards, tag_text, self)
+        dlg = PreviewCardsDlg(self.component_manager, cards, tag_text, self)
         dlg.exec_()
 
     def __del__(self):

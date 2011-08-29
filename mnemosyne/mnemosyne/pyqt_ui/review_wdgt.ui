@@ -18,12 +18,12 @@
     <number>0</number>
    </property>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_4">
+    <layout class="QVBoxLayout" name="vertical_layout">
      <property name="margin">
       <number>9</number>
      </property>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QVBoxLayout" name="question_box">
        <item>
         <widget class="QLabel" name="question_label">
          <property name="text">
@@ -32,14 +32,14 @@
         </widget>
        </item>
        <item>
-        <widget class="QWebView" name="question" native="true">
+        <widget class="QWebView" name="question">
          <property name="minimumSize">
           <size>
            <width>295</width>
-           <height>100</height>
+           <height>50</height>
           </size>
          </property>
-         <property name="url" stdset="0">
+         <property name="url">
           <url>
            <string>about:blank</string>
           </url>
@@ -49,7 +49,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <layout class="QVBoxLayout" name="answer_box">
        <item>
         <widget class="QLabel" name="answer_label">
          <property name="text">
@@ -58,14 +58,14 @@
         </widget>
        </item>
        <item>
-        <widget class="QWebView" name="answer" native="true">
+        <widget class="QWebView" name="answer">
          <property name="minimumSize">
           <size>
            <width>295</width>
-           <height>100</height>
+           <height>50</height>
           </size>
          </property>
-         <property name="url" stdset="0">
+         <property name="url">
           <url>
            <string>about:blank</string>
           </url>

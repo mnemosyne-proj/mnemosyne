@@ -10,14 +10,15 @@ from mnemosyne.pyqt_ui.ui_change_card_type_dlg import Ui_ChangeCardTypeDlg
 
 class ChangeCardTypeDlg(QtGui.QDialog, Ui_ChangeCardTypeDlg, Component):
 
-    def __init__(self, component_manager, current_card_type, return_values):
+    def __init__(self, component_manager, current_card_type, return_values,
+                 parent=None):
         Component.__init__(self, component_manager)
+        QtGui.QDialog.__init__(self, self.main_widget())
+        self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
-        QtGui.QDialog.__init__(self, self.main_widget())
-        self.setupUi(self)
         self.card_type_by_name = {}
         self.return_values = return_values
         for card_type in self.card_types():

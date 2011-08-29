@@ -1,3 +1,9 @@
+-the size of question and answer boxes no longer is always equal, but boxes 
+ which contain images can take up more space (requested by Dan Schmidt)
+-fix searching for words containing an apostrophe
+-fix crash in changing card type from card browser (reported by Twenty Ten)
+-add card counts above bars in 'grades' statistics (requested by abacus)
+
 -patches from Tim to work around quirks in import logs caused by Mnemododo.
 
 MNEMOSYNE 2.0

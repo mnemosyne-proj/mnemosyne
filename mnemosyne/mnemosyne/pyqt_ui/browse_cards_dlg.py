@@ -338,7 +338,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
         cards = self.cards_from_single_selection()
         tag_text = cards[0].tag_string()
-        dlg = PreviewCardsDlg(cards, tag_text, self)
+        dlg = PreviewCardsDlg(self.component_manager, cards, tag_text, self)
         dlg.exec_()
 
     def menu_delete(self):
@@ -379,7 +379,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         return_values = {}
         from mnemosyne.pyqt_ui.change_card_type_dlg import ChangeCardTypeDlg
         dlg = ChangeCardTypeDlg(self.component_manager,
-            current_card_type, return_values)
+            current_card_type, return_values, parent=self)
         if dlg.exec_() != QtGui.QDialog.Accepted:
             return
         new_card_type = return_values["new_card_type"]
@@ -538,7 +538,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
                 filter += "_tag_id='%s' or " % (_tag_id, )
             filter = filter.rsplit("or ", 1)[0] + ")"
         # Search string.
-        search_string = unicode(self.search_box.text())
+        search_string = unicode(self.search_box.text()).replace("'", "''")
         self.card_model.search_string = search_string
         if search_string:
             if filter:

@@ -6,16 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>307</width>
-    <height>311</height>
+    <width>315</width>
+    <height>321</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Preview cards</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout_4">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QVBoxLayout" name="vertical_layout">
      <item>
       <widget class="QLabel" name="fact_view_name">
        <property name="font">
@@ -30,41 +30,45 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="question_label">
-       <property name="maximumSize">
-        <size>
-         <width>320</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Question:</string>
-       </property>
-      </widget>
+      <layout class="QVBoxLayout" name="question_box">
+       <item>
+        <widget class="QLabel" name="question_label">
+         <property name="maximumSize">
+          <size>
+           <width>320</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Question:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWebView" name="question">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>295</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="url">
+          <url>
+           <string>about:blank</string>
+          </url>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QWebView" name="question">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>295</width>
-         <height>100</height>
-        </size>
-       </property>
-       <property name="url">
-        <url>
-         <string>about:blank</string>
-        </url>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <layout class="QVBoxLayout" name="answer_box">
        <item>
         <widget class="QLabel" name="answer_label">
          <property name="text">
@@ -83,7 +87,7 @@
          <property name="minimumSize">
           <size>
            <width>295</width>
-           <height>100</height>
+           <height>50</height>
           </size>
          </property>
          <property name="url">

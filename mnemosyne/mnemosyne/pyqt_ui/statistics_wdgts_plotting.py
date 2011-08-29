@@ -58,6 +58,26 @@ class PlotStatisticsWdgt(QtGui.QWidget, StatisticsWidget):
             return "%d" % x
         else:
             return ""
+
+    def _add_numbers_to_bars(self):
+        # Add exact numeric value above each bar. The text padding is based 
+        # on the average height of non-zero bars. This gives a reasonable
+        # padding for most data, but looks ugly when one bar is *much* larger
+        # than the others. Note that bool() can be used as the filter function
+        # since bool(0) == False.
+        non_zero = filter(bool, self.page.y)
+        if non_zero:
+            avg = lambda s: sum(s) / len(s)
+            avg_height = avg(filter(bool, self.page.y))
+        else:
+            avg_height = 0
+        pad = avg_height * 1.05 - avg_height
+        for i in range(len(self.page.y)):
+            height = self.page.y[i]
+            if height == 0:
+                continue
+            self.axes.text(self.page.x[i], height + pad, "%d" % height,
+                           ha="center", va="bottom", fontsize="small")        
             
     def _background_colour(self, parent):
         
@@ -162,27 +182,9 @@ class BarChartDaysWdgt(PlotStatisticsWdgt):
         self.axes.set_ylim(ymax=int(max(self.page.y) *  1.1) + 1)
         from matplotlib.ticker import FuncFormatter
         self.axes.yaxis.set_major_formatter(FuncFormatter(self.integers_only))
-        # Add exact numeric value above each bar. The text padding is based 
-        # on the average height of non-zero bars. This gives a reasonable
-        # padding for most data, but looks ugly when one bar is *much* larger
-        # than the others. Note that bool() can be used as the filter function
-        # since bool(0) == False.
-        if show_text_value == False:
-            return
-        non_zero = filter(bool, self.page.y)
-        if non_zero:
-            avg = lambda s: sum(s) / len(s)
-            avg_height = avg(filter(bool, self.page.y))
-        else:
-            avg_height = 0
-        pad = avg_height * 1.05 - avg_height
-        for i in range(len(self.page.y)):
-            height = self.page.y[i]
-            if height == 0:
-                continue
-            self.axes.text(self.page.x[i], height + pad, "%d" % height,
-                           ha="center", va="bottom", fontsize="small")
-
+        if show_text_value:
+            self._add_numbers_to_bars()
+            
 
 class ScheduleWdgt(BarChartDaysWdgt):
 
@@ -224,7 +226,8 @@ class GradesWdgt(PlotStatisticsWdgt):
         self.axes.set_ylim(ymax=int(max(self.page.y) *  1.1) + 1)
         from matplotlib.ticker import FuncFormatter
         self.axes.yaxis.set_major_formatter(FuncFormatter(self.integers_only))
-
+        self._add_numbers_to_bars()
+        
 
 class EasinessWdgt(PlotStatisticsWdgt):
 
