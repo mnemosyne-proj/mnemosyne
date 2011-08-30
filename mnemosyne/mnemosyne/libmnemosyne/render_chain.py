@@ -58,6 +58,11 @@ class RenderChain(Component):
         else:
             self._filters.insert(0, filter)
 
+    def filter(self, filter_class):
+        for filter_i in self._filters:
+            if isinstance(filter_i, filter_class):
+                return filter_i
+
     def unregister_filter(self, filter_class):
         
         """'filter_class' should be a class, not an instance."""

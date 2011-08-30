@@ -43,7 +43,8 @@ class Upgrade1(Component):
             home = os.path.expanduser("~")
             old_data_dir = join(unicode(home), "Library", "Mnemosyne")
             backup_dir = join(unicode(home), "Library", "Mnemosyne_1")
-            if not os.path.exists(backup_dir):
+            if os.path.exists(old_data_dir) and \
+                not os.path.exists(backup_dir):
                 shutil.move(old_data_dir, backup_dir)
 
     def upgrade_from_old_data_dir(self, old_data_dir):

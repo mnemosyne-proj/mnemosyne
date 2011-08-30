@@ -21,7 +21,10 @@ class TestRenderChain(MnemosyneTest):
                 return "666"
 
         self.render_chain().register_filter(MyFilter)
+        
         assert "666" in card.question()
+        assert isinstance(self.render_chain().filter(MyFilter), MyFilter)
+        assert self.render_chain().filter(TestRenderChain) is None
     
         assert type(self.render_chain()._filters[0]) \
                != type(MyFilter(self.mnemosyne.component_manager))

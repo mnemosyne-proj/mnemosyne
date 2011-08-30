@@ -1,4 +1,22 @@
--progress bar 'importing history'
+-default window size under windows
+
+Tips: inline or tip-of-the-day
+
+-right click to add cards or sound
+-comma to separate tag names, 
+-:: to separate hierarchies
+- not having to do all your scheduled repetitions in one sitting
+-better docs on entire sync setup, both when entering client and server settings for the first time
+-warn when creating a new database that this is not the recommended way to organise your cards.
+-tooltip for hiding pronunciation field on language card type
+-pronunciation field wizard?
+-document cntrl enter in edit dialog instead of clicking ok (also manual?) Ditto for control + grade
+-tooltip in preview to explain sister cards
+-better tips on start of 'clone card type'
+-tip on double-click to edit cards and tag names in browser
+-tip/docs to defragment disk
+
+-more elaborate plugin description in bottom pane
 
 -new cards with a >=2 grade can end up on the same day on first interactive rep
  replace set_initial_grade by set_initial_grades(cards)?
@@ -7,6 +25,8 @@
 -recheck database for this through plugin
 
 -configure dialog is slow on Windows due to server detect
+
+-grade 4 default for new cards?
 
 -also give warning on the client side if a sync failed and a backup needs to happen
 -server down should not result in sync conflict
@@ -23,32 +43,12 @@
             list = QApplication::topLevelWidgets();
             i = -1;
 
-
 -migrate science server machine
 
 -when sync server is running, it seems possible to start a second copy of Mnemosyne, which just complains about
  'unable to start sync server'
 
--About dialog
--Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby, Max Usachev, Ullrich Martini
- (also make sure they are on webpage)
--also add option to download source in the info box
-
--first run wizard and tip of the day.
--startup tips: right click to add cards or sound, comma to separate tag names, 
- :: to separate hierarchies
- not having to do all your scheduled repetitions in one sitting
-
--better docs on entire sync setup, both when entering client and server settings for the first time
--warn when creating a new database that this is not the recommended way to organise your cards.
--right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
--tooltip for hiding pronunciation field on language card type
--pronunciation field wizard?
--document cntrl enter in edit dialog instead of clicking ok (also manual?) Ditto for control + grade
--tooltip in preview to explain sister cards
--better tips on start of 'clone card type'
--tip on double-click to edit cards and tag names in browser
--tip/docs to defragment disk
+-About dialog, with version and link to source
 
 -ask about card browser speed. Try without decoration. shulgi: Core Duo 2.1 Ghz
 
@@ -127,8 +127,6 @@
 -utf16?
 -make sure there is an error message to the user if xml import fails.
 -mention Mnemosyne XML instead of XML
-
--more elaborate plugin description in bottom pane
 
 -card appearance: show preview live
 
