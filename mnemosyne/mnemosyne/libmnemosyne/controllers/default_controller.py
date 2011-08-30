@@ -701,4 +701,18 @@ class DefaultController(Controller):
         self.main_widget().show_information(\
             _("For instructions on how to download Mnemosyne's source,") + \
             " " + _("go to http://www.mnemosyne-proj.org"))
-        self.stopwatch().unpause()        
+        self.stopwatch().unpause()
+
+    def show_getting_started_dialog(self):
+        self.stopwatch().pause()
+        self.flush_sync_server()
+        self.component_manager.current("getting_started_dialog")(
+           self.component_manager).activate()
+        self.stopwatch().unpause()
+
+    def show_tip_dialog(self):
+        self.stopwatch().pause()
+        self.flush_sync_server()
+        self.component_manager.current("tip_dialog")(
+            self.component_manager).activate()
+        self.stopwatch().unpause()

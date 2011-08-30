@@ -181,3 +181,9 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
 
     def show_statistics(self):
         self.controller().show_statistics_dialog()
+
+    def show_getting_started(self):
+        self.controller().show_getting_started_dialog()
+
+    def show_tip(self):
+        self.controller().show_tip_dialog()

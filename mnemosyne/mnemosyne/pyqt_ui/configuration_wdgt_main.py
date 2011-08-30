@@ -47,6 +47,10 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
             self.upload_science_logs.setCheckState(QtCore.Qt.Checked)
         else:
             self.upload_science_logs.setCheckState(QtCore.Qt.Unchecked)
+        if self.config()["show_daily_tips"] == True:
+            self.tip.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.tip.setCheckState(QtCore.Qt.Unchecked)
             
     def reset_to_defaults(self):
         self.new_cards.setCurrentIndex(0)
@@ -57,6 +61,7 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
         self.media_autoplay.setCheckState(QtCore.Qt.Checked)
         self.media_controls.setCheckState(QtCore.Qt.Unchecked)
         self.upload_science_logs.setCheckState(QtCore.Qt.Checked)
+        self.tip.setCheckState(QtCore.Qt.Checked)
         
     def apply(self):
         if self.new_cards.currentIndex() == 1:
@@ -86,4 +91,5 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
             self.config()["upload_science_logs"] = True
         else:
             self.config()["upload_science_logs"] = False
-            
+        if self.tip.checkState() == QtCore.Qt.Checked:
+            self.config()["show_daily_tips"] = True

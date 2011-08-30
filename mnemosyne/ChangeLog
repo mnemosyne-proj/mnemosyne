@@ -1,3 +1,4 @@
+-Johannes Baiter added 'tip of the day' and 'getting started' dialog
 -self.render_chain("default").filter(Uppercase)
 -fix OSX related problem on new installs
 -more work on progress bar during import. Hopefully finally fixed now, but

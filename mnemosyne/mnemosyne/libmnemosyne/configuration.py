@@ -83,6 +83,7 @@ class Configuration(Component, dict):
 
         for key, value in \
             {"path": self.database().default_name + self.database().suffix,
+             "first_run": True,
              "import_dir": self.data_dir,
              "import_format": "XML",
              "reset_learning_data_import": False,
@@ -96,6 +97,8 @@ class Configuration(Component, dict):
              "upload_science_logs": True,
              "science_server": "mnemosyne-proj.dyndns.org:80",
              "max_log_size_before_upload": 64000, # For testability.
+             "show_daily_tips": True,
+             "current_tip": 0,
              "font": {}, # [card_type.id][fact_key]
              "font_colour": {}, # [card_type.id][fact_key]
              "background_colour": {}, # [card_type.id]

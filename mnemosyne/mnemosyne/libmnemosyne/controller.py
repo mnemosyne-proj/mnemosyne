@@ -131,5 +131,11 @@ class Controller(Component):
     def show_sync_dialog(self):
         raise NotImplementedError
 
+    def show_tip_dialog(self):
+        raise NotImplementedError
+
+    def show_getting_started_dialog(self):
+        raise NotImplementedError
+
     def sync(self, server, port, username, password, ui=None):
         raise NotImplementedError        

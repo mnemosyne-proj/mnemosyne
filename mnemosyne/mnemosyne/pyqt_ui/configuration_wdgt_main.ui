@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>431</width>
-    <height>405</height>
+    <height>470</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -164,6 +164,22 @@
             <string>English</string>
            </property>
           </item>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_5">
+       <property name="title">
+        <string>Interface</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <widget class="QCheckBox" name="tip">
+          <property name="text">
+           <string>Show 'Tip of the Day'</string>
+          </property>
          </widget>
         </item>
        </layout>
