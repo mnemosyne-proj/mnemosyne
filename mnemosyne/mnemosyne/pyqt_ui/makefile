@@ -28,3 +28,4 @@ $(WIDGETS): ui_%.py: %.ui
 clean:
 	rm -f *~ *.pyc
 	rm -f $(WIDGETS) ui_review_wdgt.py
+	rm -f mnemosyne_rc.py

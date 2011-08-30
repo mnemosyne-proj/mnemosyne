@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>IntroWizard</class>
+ <class>GettingStartedDlg</class>
  <widget class="QWizard" name="Wizard">
   <property name="geometry">
    <rect>

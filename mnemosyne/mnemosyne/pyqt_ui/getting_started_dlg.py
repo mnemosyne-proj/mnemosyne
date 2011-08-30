@@ -4,10 +4,11 @@
 
 from PyQt4 import QtGui, QtCore
 
-from mnemosyne.pyqt_ui.ui_intro_wizard_dlg import Ui_IntroWizard
+from mnemosyne.pyqt_ui.ui_getting_started_dlg import Ui_GettingStartedDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import GettingStartedDialog
 
-class GettingStartedDlg(QtGui.QWizard, Ui_IntroWizard, GettingStartedDialog):
+class GettingStartedDlg(QtGui.QWizard, Ui_GettingStartedDlg,
+        GettingStartedDialog):
 
     def __init__(self, component_manager):
         GettingStartedDialog.__init__(self, component_manager)
