@@ -68,9 +68,9 @@ class SyncDialog(Dialog):
     
     component_type = "sync_dialog"
 
-class IntroDialog(Dialog):
+class GettingStartedDialog(Dialog):
 
-    component_type = "intro_dialog"
+    component_type = "getting_started_dialog"
 
 class TipDialog(Dialog):
 

@@ -5,13 +5,13 @@
 from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.pyqt_ui.ui_tipday_dlg import Ui_TipDlg
-from mnemosyne.libmnemosyne.ui_components.dialogs import TipDialog as TipDlg
+from mnemosyne.pyqt_ui.ui_tip_dlg import Ui_TipDlg
+from mnemosyne.libmnemosyne.ui_components.dialogs import TipDialog
 
-class TipDialog(QtGui.QDialog, Ui_TipDlg, TipDlg):
+class TipDlg(QtGui.QDialog, Ui_TipDlg, TipDialog):
 
     def __init__(self, component_manager):
-        TipDlg.__init__(self, component_manager)
+        TipDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
 
         self.tips = []
@@ -45,6 +45,10 @@ class TipDialog(QtGui.QDialog, Ui_TipDlg, TipDlg):
         self.setupUi(self)
         self.watermark.setPixmap(watermark)
         self.update_dialog()
+
+    def activate(self):
+        TipDialog.activate(self)
+        self.show()
 
     def update_dialog(self):
         tip = self.config()["current_tip"]

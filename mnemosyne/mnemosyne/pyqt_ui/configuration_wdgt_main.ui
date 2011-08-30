@@ -176,7 +176,7 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <item>
-         <widget class="QCheckBox" name="tipday">
+         <widget class="QCheckBox" name="tip">
           <property name="text">
            <string>Show 'Tip of the Day'</string>
           </property>
