@@ -25,7 +25,4 @@ class GettingStartedDlg(QtGui.QWizard, Ui_IntroWizard, GettingStartedDialog):
     def finished(self, result):
         if result != 1:
             return
-        if self.upload_box.isChecked():
-            self.config()["upload_science_logs"] = True
-        else:
-            self.config()["upload_science_logs"] = False
+        self.config()["upload_science_logs"] = self.upload_box.isChecked()
