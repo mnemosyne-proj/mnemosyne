@@ -1,7 +1,6 @@
 -default window size under windows
 
 Tips: inline or tip-of-the-day
-
 -right click to add cards or sound
 -comma to separate tag names, 
 -:: to separate hierarchies
@@ -16,6 +15,15 @@ Tips: inline or tip-of-the-day
 -tip on double-click to edit cards and tag names in browser
 -tip/docs to defragment disk
 
+-rename "activate plugins"? Also on source code level?
+-rename "(De)activate cards"? Also on source code level?
+-vocabulary/foreign vocabulary?
+
+-layout of "add clone" is not optimal under Windows
+-Statistics window under Win7 opens too small?
+-splitters on XP are not visible
+http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-between-qwidget-and-qtabwidget
+
 -more elaborate plugin description in bottom pane
 
 -new cards with a >=2 grade can end up on the same day on first interactive rep
@@ -26,15 +34,14 @@ Tips: inline or tip-of-the-day
 
 -configure dialog is slow on Windows due to server detect
 
--grade 4 default for new cards?
-
 -also give warning on the client side if a sync failed and a backup needs to happen
 -server down should not result in sync conflict
 -prevent sync with itself
 -binary database upload: configuration changes (fonts, ...) are not applied
--syncing an empty database twice results in a spurious sync cycle detection. Also happens after syncing empty client and empty server database, then adding data to the server, and resyncing
+-syncing an empty database twice results in a spurious sync cycle detection. Also happens after 
+ syncing empty client and empty server database, then adding data to the server, and resyncing
 -if the server is empty, allow sync from non-empty client and change server user id.
--if dialog like edit card or browse cards is open on server, try to close it when sync comes in
+-if dialog like edit card or browse cards is open on server, try to close it when sync comes in (+findChildren
     QWidgetList list = QApplication::topLevelWidgets();
     for (int i = 0; did_close && i < list.size(); ++i) {
         w = list.at(i);
@@ -44,6 +51,8 @@ Tips: inline or tip-of-the-day
             i = -1;
 
 -migrate science server machine
+
+-Mnemosyne console, example script to add cards, make possible on Windows
 
 -when sync server is running, it seems possible to start a second copy of Mnemosyne, which just complains about
  'unable to start sync server'
@@ -57,9 +66,6 @@ Tips: inline or tip-of-the-day
 -make distrib under linux
 -bundle webserver with install
 
-
-
--example script to import cards from a text file
 
 -test upgrade on OSX: remove library/Mnemosyne2, make sure you have 1.x in library/Mnemosyne.
  after upgrade there should be 2.0 files in library/Mnemosyne and a backup in library/Mnemosyne_1
@@ -144,6 +150,8 @@ Tips: inline or tip-of-the-day
 -removing plugin with criterion should not happen if it is in use. 
 -warn when syncing and the other criterion plugin is not present?
 -make 'grade activity criterion' an official plugin? Add tests?
+
+-plugin to hide toolbar (requested twice)
 
 -hoop uk dialogs in UDP
 

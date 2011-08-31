@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>GettingStartedDlg</class>
- <widget class="QWizard" name="Wizard">
+ <widget class="QWizard" name="GettingStartedDlg">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>644</width>
-    <height>336</height>
+    <width>600</width>
+    <height>380</height>
    </rect>
   </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
+  <property name="minimumSize">
+   <size>
+    <width>600</width>
+    <height>380</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Wizard</string>
@@ -23,30 +23,20 @@
    <enum>QWizard::ClassicStyle</enum>
   </property>
   <property name="options">
-   <set>QWizard::HaveHelpButton|QWizard::IgnoreSubTitles|QWizard::ExtendedWatermarkPixmap</set>
+   <set>QWizard::IgnoreSubTitles</set>
   </property>
   <property name="titleFormat">
    <enum>Qt::PlainText</enum>
   </property>
   <widget class="QWizardPage" name="intro">
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
    <property name="title">
     <string>Introduction</string>
    </property>
-   <widget class="QLabel" name="intro_lbl">
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="text">
-     <string>Greetings!
+   <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item>
+     <widget class="QLabel" name="intro_lbl">
+      <property name="text">
+       <string>Greetings!
 
 I am Mnemosyne, a type of butterfly named after the Greek goddess of Memory. 
 
@@ -55,171 +45,127 @@ I can make it more efficient for you to memorise and remember answers to questio
 For that, I'll decide when to ask you the questions, and you'll need to rate how well you remember the answers.
 
 Let's look at the meaning of these ratings now.</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-    <property name="margin">
-     <number>12</number>
-    </property>
-   </widget>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+      <property name="margin">
+       <number>12</number>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QWizardPage" name="grades02">
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
    <property name="title">
     <string>Grades 0-2</string>
    </property>
-   <widget class="QLabel" name="grades02_lbl">
-        <property name="sizePolicy">
-     <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="text">
-     <string>Grades range from 0 to 5.
+   <layout class="QVBoxLayout" name="verticalLayout_4">
+    <item>
+     <widget class="QLabel" name="grades02_lbl">
+      <property name="text">
+       <string>Grades range from 0 to 5.
 
-Grades 0 and 1 are used if you don't know the answer yet, or if you have forgotten it. A card with grade 1 is starting to get more familiar than one with grade 0, and will be repeated less often.
+Grades 0 and 1 are used if you don't know the answer yet, or if you have forgotten this card. A card with grade 1 is starting to get more familiar than one with grade 0, and will be repeated less often.
 
-I will keep on asking you these questions until you give them a grade 2 or higher (the exact grade doesn't matter). Grade 2 basically means that you think you'll be able to remember the card for at least one or two days. It signals the transition between short and long term memory.
+I will keep on asking you these questions until you give them a grade 2 or higher. This basically means that you think you'll be able to remember the card for at least one or two days. It signals the transition between short and long term memory.
 
 I will schedule this card at some future date, when I think you'll still be able to remember it with some effort, without having forgotten it completely. This is the most efficient for the learning process.</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-    <property name="margin">
-     <number>12</number>
-    </property>
-   </widget>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+      <property name="margin">
+       <number>12</number>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QWizardPage" name="grades35">
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
    <property name="title">
     <string>Grades 3-5</string>
    </property>
-   <widget class="QLabel" name="grades35_lbl">
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="text">
-     <string>If in the future I ask you the question too soon, and you're able to remember it without any effort, you rate the card a 5. I'll take this into account by waiting a lot longer before asking you this question again.
+   <layout class="QVBoxLayout" name="verticalLayout_5">
+    <item>
+     <widget class="QLabel" name="grades35_lbl">
+      <property name="text">
+       <string>If in the future I ask you the question too soon, and you're able to remember it without any effort, you rate the card a 5. I'll take this into account by waiting a lot longer before asking you this question again.
 
 If I get it just right, so that you remember it, albeit with some effort, you use grade 4.
 
 If on the other hand it takes you significant effort to remember the answer, and you think I've waited too long to ask you this question, then rate the card 3.
 
 If you fail to remember it altogether, rate it either 0 or 1, and I'll keep on asking you this question until you think you'll be able to remember it again for a few days.</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-    <property name="margin">
-     <number>12</number>
-    </property>
-   </widget>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+      <property name="margin">
+       <number>12</number>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QWizardPage" name="statistics">
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
    <property name="title">
     <string>Statistics</string>
    </property>
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <layout class="QVBoxLayout" name="statistics_layout">
-     <item>
-      <widget class="QLabel" name="statistics_lbl">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>If you're into statistics, I can keep detailed logs of your revisions.
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="statistics_lbl">
+      <property name="text">
+       <string>If you're into statistics, I keep detailed logs of your revisions.
 
 Not only that, but if you want, I can upload transparently a completely anonymous version of these logs to a central site for analysis, so that you can help making me better. In this way, you also contribute to scientific research on long-term memory.
 
 Uncheck the following box if you do not want to do this.</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
-       </property>
-       <property name="margin">
-        <number>12</number>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="upload_box">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Upload anonymous logs (can be changed later)</string>
-    </property>
-    <property name="checked">
-        <bool>true</bool>
-    </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+      <property name="margin">
+       <number>12</number>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="upload_box">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string>Upload anonymous logs (can be changed later)</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QWizardPage" name="ready">
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
    <property name="title">
     <string>Ready to start</string>
    </property>
-   <widget class="QLabel" name="ready_lbl">
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="text">
-     <string>Now you're ready to start!
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QLabel" name="ready_lbl">
+      <property name="text">
+       <string>Now you're ready to start!
 
 Add new cards by clicking on the icon with the 'plus' sign in the top left.
 
@@ -227,21 +173,24 @@ Remember, there is no need to worry about saving your work, I will do so automat
 
 For best results, I suggest you do your revisions every day, although I'll try to cope as best I can if you postpone your revisions or if you want to learn ahead of time.
 
-For more documentation, see http://www.mnemosyne-proj.sourceforge.net.
+For more documentation, see http://www.mnemosyne-proj.org.
 
 Happy learning!</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-    <property name="margin">
-     <number>12</number>
-    </property>
-   </widget>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+      <property name="margin">
+       <number>12</number>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
+ <resources/>
  <connections/>
 </ui>

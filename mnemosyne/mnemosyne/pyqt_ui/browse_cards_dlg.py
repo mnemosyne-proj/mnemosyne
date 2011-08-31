@@ -581,6 +581,11 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self._store_state()        
         self.unload_qt_database()
 
+    def reject(self):
+        # Generated when pressing escape.     
+        self.unload_qt_database()
+        return QtGui.QDialog.reject(self)
+    
     def accept(self):
         # 'accept' does not generate a close event.
         self._store_state()

@@ -71,12 +71,12 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
             self.gridLayout.addWidget(label, row, 0, 1, 1)
             self.dynamic_widgets.append(label)
             
-            font = QtGui.QPushButton(_("Set font"), self)
+            font = QtGui.QPushButton(_("Select font"), self)
             self.font_buttons.addButton(font, row)
             self.gridLayout.addWidget(font, row, 1, 1, 1)
             self.dynamic_widgets.append(font)
             
-            colour = QtGui.QPushButton(_("Set colour"),self)
+            colour = QtGui.QPushButton(_("Select colour"),self)
             self.colour_buttons.addButton(colour, row)
             self.gridLayout.addWidget(colour, row, 2, 1, 1)
             self.dynamic_widgets.append(colour)

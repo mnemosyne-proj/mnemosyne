@@ -30,7 +30,7 @@
      <x>0</x>
      <y>0</y>
      <width>280</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Settings">
@@ -270,6 +270,9 @@
   <action name="actionActivatePlugins">
    <property name="text">
     <string>Activate &amp;plugins...</string>
+   </property>
+   <property name="toolTip">
+    <string>Activate plugins</string>
    </property>
   </action>
   <action name="actionCloneCardTypes">
