@@ -1,3 +1,12 @@
+# Dummy 1.x module strucutre
+class MnemosyneCore(object):                          
+    class StartTime:                                    
+        pass                                            
+    class Category:                                     
+        pass                                            
+    class Item:                                         
+        pass
+
 ##############################################################################
 #
 # Mnemosyne_XML_Importer
@@ -339,4 +348,4 @@ def export_XML(filename, cat_names_to_export, reset_learning_data):
 register_file_format("Mnemosyne XML",
                      filter=_("Mnemosyne XML files (*.xml *.XML)"),
                      import_function=import_XML,
-                     export_function=export_XML)
+ 
