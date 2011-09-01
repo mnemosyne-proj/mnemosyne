@@ -106,7 +106,9 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.statistics_pages.current_card",
           "CurrentCard"),
          ("mnemosyne.libmnemosyne.file_formats.mnemosyne1_mem",
-          "Mnemosyne1Mem")]           
+          "Mnemosyne1Mem"),
+         ("mnemosyne.libmnemosyne.file_formats.mnemosyne1_xml",
+          "Mnemosyne1XML")]           
         self.extra_components_for_plugin = {}
 
     def handle_exception(self, type, value, tb):    

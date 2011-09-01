@@ -2,9 +2,8 @@ from datetime import datetime
 from xml.etree import cElementTree
 
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.libmnemosyne.file_formats.mnemosyne1x import MnemosyneCore
+from mnemosyne.libmnemosyne.file_formats._mnemosyne1 import MnemosyneCore
 from mnemosyne.libmnemosyne.file_format import FileFormat
-#from mnemosyne.libmnemosyne.file_formats.mnemosyne1_mem import
 
 #TODO: This filter will share a lot of common code with the Mnemosyne1Mem
 #      filter. Ideally we should try to put all of that code into an own
@@ -86,9 +85,5 @@ class Mnemosyne1XML(FileFormat):
 
             items.append(item)
         return starttime, categories, items
-
-            
-
-        pass
 
 
