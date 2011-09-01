@@ -1,26 +1,20 @@
--default window size under windows
-
-Tips: inline or tip-of-the-day
--right click to add cards or sound
--comma to separate tag names, 
--:: to separate hierarchies
-- not having to do all your scheduled repetitions in one sitting
--better docs on entire sync setup, both when entering client and server settings for the first time
 -warn when creating a new database that this is not the recommended way to organise your cards.
--tooltip for hiding pronunciation field on language card type
--pronunciation field wizard?
--document cntrl enter in edit dialog instead of clicking ok (also manual?) Ditto for control + grade
--tooltip in preview to explain sister cards
--better tips on start of 'clone card type'
--tip on double-click to edit cards and tag names in browser
--tip/docs to defragment disk
 
--rename "activate plugins"? Also on source code level?
--rename "(De)activate cards"? Also on source code level?
--vocabulary/foreign vocabulary?
+-comma to separate tag names
+-:: to separate hierarchies
+-right click to add cards or sound
+-hiding pronunciation field
+-add card: tab, tab, control enter or control+2
+-tooltip in preview to explain sister cards
+
+-edit card: tab, tab, control enter
+
+-tip on double-click to tag names and cards to edit them
+-right click on tag names in browser
+
+-About dialog, with version and link to source
 
 -layout of "add clone" is not optimal under Windows
--Statistics window under Win7 opens too small?
 -splitters on XP are not visible
 http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-between-qwidget-and-qtabwidget
 
@@ -49,20 +43,18 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
             did_close = w->close();
             list = QApplication::topLevelWidgets();
             i = -1;
+-when sync server is running, it seems possible to start a second copy of Mnemosyne, which just complains about
+ 'unable to start sync server'
 
 -migrate science server machine
 
 -Mnemosyne console, example script to add cards, make possible on Windows
 
--when sync server is running, it seems possible to start a second copy of Mnemosyne, which just complains about
- 'unable to start sync server'
-
--About dialog, with version and link to source
-
 -ask about card browser speed. Try without decoration. shulgi: Core Duo 2.1 Ghz
 
 -card type clone: rename and delete, both in card browser and card type browser
 
+-upgrade to qt 4.7.4, retest progress bars
 -make distrib under linux
 -bundle webserver with install
 
@@ -97,11 +89,11 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -Qt bug? cursor is always black, also on a black background
  https://bugreports.qt.nokia.com/browse/QTBUG-52
 -Qt bug? error dialogs don't allow copying the text from it on all platforms
+-Qt bug? svg Mnemosyne watermark for tip and getting started does not work under Linux
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 
 -workaround for short ogg files. Make short mp3 workaround linux only. Test if silence files
  are in distrib.
-
 
 -windows: test unicode filenames in sync protocol
 -test running from usb, update instructions

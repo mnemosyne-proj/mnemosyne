@@ -11,7 +11,7 @@ WIDGETS = ui_main_wdgt.py ui_add_cards_dlg.py \
 	ui_tip_dlg.py
 
 default: $(WIDGETS) ui_review_wdgt.py 
-	pyrcc4 mnemosyne.qrc
+	pyrcc4 mnemosyne.qrc -o mnemosyne_rc.py
 
 ui_review_wdgt.py: review_wdgt.ui
 	pyuic4 $< > $@

@@ -14,8 +14,14 @@ class GettingStartedDlg(QtGui.QWizard, Ui_GettingStartedDlg,
         GettingStartedDialog.__init__(self, component_manager)
         QtGui.QWizard.__init__(self, self.main_widget())
         self.setupUi(self)
-        watermark = QtGui.QPixmap("pixmaps/mnemosyne.svg").scaledToHeight(
-                200, QtCore.Qt.SmoothTransformation)
+        self.setWindowFlags(self.windowFlags() \
+            | QtCore.Qt.WindowMinMaxButtonsHint)
+        self.setWindowFlags(self.windowFlags() \
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+        # Note: the svg file does not seem to work under windows.
+        #watermark = QtGui.QPixmap(":/mnemosyne/pixmaps/mnemosyne.svg")\
+        #    .scaledToHeight(200, QtCore.Qt.SmoothTransformation)
+        watermark = QtGui.QPixmap(":/mnemosyne/pixmaps/mnemosyne.png")
         self.setPixmap(QtGui.QWizard.WatermarkPixmap, watermark)    
         
     def activate(self):

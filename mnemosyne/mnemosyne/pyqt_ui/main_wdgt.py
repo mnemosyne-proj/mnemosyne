@@ -10,12 +10,6 @@ from mnemosyne.pyqt_ui.ui_main_wdgt import Ui_MainWdgt
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 
-# The folloving is need to determine the location of the translations.
-# TODO: needed?
-import os
-prefix = os.path.dirname(__file__)
-
-
 class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
 
     def __init__(self, component_manager):

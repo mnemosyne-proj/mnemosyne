@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>280</width>
-    <height>305</height>
+    <width>315</width>
+    <height>494</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -29,7 +29,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>280</width>
+     <width>315</width>
      <height>21</height>
     </rect>
    </property>
@@ -269,10 +269,10 @@
   </action>
   <action name="actionActivatePlugins">
    <property name="text">
-    <string>Activate &amp;plugins...</string>
+    <string>(De)activate &amp;plugins...</string>
    </property>
    <property name="toolTip">
-    <string>Activate plugins</string>
+    <string>(De)activate plugins</string>
    </property>
   </action>
   <action name="actionCloneCardTypes">

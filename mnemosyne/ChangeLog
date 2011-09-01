@@ -1,8 +1,8 @@
--tweak 'getting started' wizard
+-improve the resizing behaviour in the statistics dialog (reported by Patrick 
+ Kenny and Roel De Conick)
 -some UI rewording (Patrick Kenny)
 -fix UI crash when cancelling card browser (reported by Tim Bourke)
 -fix UI crash in adding tags in the card browser (reported by Roel De Coninck)
-
 -Johannes Baiter added 'tip of the day' and 'getting started' dialog.
 -fix OSX related problem on new installs (reported by Patrick Kenny).
 -more work on progress bar during import. Hopefully finally fixed now, but

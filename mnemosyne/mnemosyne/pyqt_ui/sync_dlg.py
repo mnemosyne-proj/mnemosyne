@@ -100,7 +100,7 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
             & ~ QtCore.Qt.WindowContextHelpButtonHint)       
         if not self.config()["sync_help_shown"]:
             self.main_widget().show_information(\
-               _("Here, you can sync with a different desktop or a webserver. \nTo sync with a mobile device, first enable a sync server on this computer in the configuration dialog, and then start the sync from the mobile device."))
+               _("Here, you can sync this machine with a remote server. Of course, that remote computer needs to have a server running, which can be started from the configuration screen on that remote machine.\n\nHowever, if you want to sync a mobile device with this machine here, you shouldn't use the menu option you just selected. In that case, this computer needs to be the server. So, first enable a sync server here, and then start the sync from the mobile device."))
             self.config()["sync_help_shown"] = True
         self.server.setText(self.config()["server_for_sync_as_client"])
         self.port.setValue(self.config()["port_for_sync_as_client"])
