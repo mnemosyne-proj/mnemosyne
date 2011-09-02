@@ -1,20 +1,6 @@
--improve the resizing behaviour in the statistics dialog (reported by Patrick 
- Kenny and Roel De Conick)
--some UI rewording (Patrick Kenny)
--fix UI crash when cancelling card browser (reported by Tim Bourke)
--fix UI crash in adding tags in the card browser (reported by Roel De Coninck)
--Johannes Baiter added 'tip of the day' and 'getting started' dialog.
--fix OSX related problem on new installs (reported by Patrick Kenny).
--more work on progress bar during import. Hopefully finally fixed now, but
- feedback welcome.
--the size of question and answer boxes no longer is always equal, but boxes 
- which contain images can take up more space. Could need some more tweaking,
- so feedback welcome (requested by Dan Schmidt).
--fix searching for words containing an apostrophe.
--fix UI crash in changing card type from card browser (reported by Twenty Ten)
--add card counts above bars in 'grades' statistics (requested by abacus).
--tweaks to the plugin API.
--patches from Tim to work around quirks in import logs caused by Mnemododo.
+-fixed edit card dialog called from card browser that would sometimes
+ refuse to close (reported by Roel De Conick)
+
 
 MNEMOSYNE 2.0
 

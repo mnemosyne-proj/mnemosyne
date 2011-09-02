@@ -1,5 +1,3 @@
--warn when creating a new database that this is not the recommended way to organise your cards.
-
 -comma to separate tag names
 -:: to separate hierarchies
 -right click to add cards or sound
@@ -17,6 +15,8 @@
 -layout of "add clone" is not optimal under Windows
 -splitters on XP are not visible
 http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-between-qwidget-and-qtabwidget
+
+-turn off media checking by default, add gui option
 
 -more elaborate plugin description in bottom pane
 

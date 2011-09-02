@@ -392,10 +392,15 @@ class DefaultController(Controller):
         for fact_view in fact_views:
             self.database().delete_fact_view(fact_view)
         self.database().save()
+
+    single_database_help = _("It is recommended to put all your cards in a single database. Using tags to determine which cards to study is much more convenient than having to load and unload several databases.")
    
     def show_new_file_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
+        if self.config()["single_database_help_shown"] == False:
+            self.main_widget().show_information(self.single_database_help)
+            self.config()["single_database_help_shown"] = True
         db = self.database()
         suffix = db.suffix
         filename = self.main_widget().get_filename_to_save(\
@@ -477,6 +482,9 @@ class DefaultController(Controller):
 
     def show_save_file_as_dialog(self):
         self.stopwatch().pause()
+        if self.config()["single_database_help_shown"] == False:
+            self.main_widget().show_information(self.single_database_help)
+            self.config()["single_database_help_shown"] = True
         self.flush_sync_server()
         suffix = self.database().suffix
         old_path = expand_path(self.config()["path"], self.config().data_dir)

@@ -324,7 +324,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             _card_ids.add(_card_id)
         return _card_ids
     
-    def menu_edit(self):
+    def menu_edit(self, index):
+        # 'index' gets passed if this function gets called through the
+        # table.doubleClicked event.
         cards = self.cards_from_single_selection()
         dlg = self.component_manager.current("edit_card_dialog")\
             (cards[0], self.component_manager)
@@ -481,6 +483,12 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.table.setItemDelegateForColumn(\
             ANSWER, QA_Delegate(self.component_manager, ANSWER, self))
         self.table.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
+        # Since this function can get called multiple times, we need to make
+        # sure there is only a single connection for the double-click event.
+        try:
+            self.table.doubleClicked.disconnect(self.menu_edit)
+        except TypeError:
+            pass
         self.table.doubleClicked.connect(self.menu_edit)
         self.table.verticalHeader().hide()
         for column in (_ID, ID, CARD_TYPE_ID, _FACT_ID, FACT_VIEW_ID,

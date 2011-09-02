@@ -115,6 +115,7 @@ class Configuration(Component, dict):
              "backup_before_sync": True,
              "check_for_edited_local_media_files": True,
              "interested_in_old_reps": True,
+             "single_database_help_shown": False,
              "day_starts_at": 3,
              "save_after_n_reps": 1,
              "latex_preamble": "\\documentclass[12pt]{article}\n"+
