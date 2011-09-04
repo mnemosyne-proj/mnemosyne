@@ -1,10 +1,10 @@
 #
-# test_1x_import.py <Peter.Bienstman@UGent.be>
-#                   <Johannes.Baiter@gmail.com>
+# test_mem_import.py <Peter.Bienstman@UGent.be>
 #
 
 import os
 import shutil
+from nose.tools import raises
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
@@ -33,12 +33,10 @@ class Widget(MainWidget):
             return
         if message.startswith("Unable to open"):
             return
-        if message.startswith("Bad file version"):
-            return
         raise NotImplementedError
 
 
-class TestMnemosyne1Import(MnemosyneTest):
+class TestMemImport(MnemosyneTest):
 
     def setup(self):
         shutil.rmtree("dot_test", ignore_errors=True)        
@@ -50,7 +48,7 @@ class TestMnemosyne1Import(MnemosyneTest):
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))
         self.mnemosyne.components.append(\
-            ("test_1x_import", "Widget"))
+            ("test_mem_import", "Widget"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.review_controller().reset()
         
@@ -59,39 +57,13 @@ class TestMnemosyne1Import(MnemosyneTest):
             if format.__class__.__name__ == "Mnemosyne1Mem":
                 return format
 
-    def xml_importer(self):
-        for format in self.mnemosyne.component_manager.all("file_format"):
-            if format.__class__.__name__ == "Mnemosyne1XML":
-                return format
-
-    def get_fname(self, basename, format):
-        return os.path.join(os.getcwd(), "tests", "files",
-                            '.'.join([basename, format]))
-
-    def get_importer(self, format):
-        if format == 'mem':
-            importer = self.mem_importer()
-        elif format == 'xml':
-            importer = self.xml_importer()
-        else:
-            raise NotImplementedError("Mnemosyne 1.x file format \'%s\'\
-                                       not implemented', format")
-        return importer
-
-    def test_file_not_found_xml(self):
-        self.test_file_not_found('xml')
-
-    def test_file_not_found(self, format='mem'):
-        filename = self.get_fname('nothere', format)
-        assert self.get_importer(format).do_import(filename) == -1
-
-    def test_card_type_1_xml(self):
-        self.test_card_type_1('xml')
-
-    def test_card_type_1(self, format='mem'):
-        filename = self.get_fname("1sided", format)
-        importer = self.get_importer(format)
-        importer.do_import(filename)
+    def test_file_not_found(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "nothere.mem")
+        assert self.mem_importer().do_import(filename) == -1
+        
+    def test_card_type_1(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "1sided.mem")
+        self.mem_importer().do_import(filename)
         self.review_controller().reset()
         assert self.database().card_count() == 1
         card = self.review_controller().card
@@ -106,14 +78,10 @@ class TestMnemosyne1Import(MnemosyneTest):
         assert card.last_rep == 1247529600
         assert card.next_rep == 1247616000
         assert card.id == "9cff728f"
-
-    def test_card_type_1_unseen_xml(self):
-        self.test_card_type_1_unseen('xml')
-
-    def test_card_type_1_unseen(self, format='mem'):
-        filename = self.get_fname("1sided_unseen", format)
-        importer = self.get_importer(format)
-        importer.do_import(filename)
+        
+    def test_card_type_1_unseen(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "1sided_unseen.mem")
+        self.mem_importer().do_import(filename)
         self.review_controller().reset()
         assert self.database().card_count() == 1
         card = self.review_controller().card
@@ -129,29 +97,21 @@ class TestMnemosyne1Import(MnemosyneTest):
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 1
-
-    def test_card_type_1_edited_xml(self):
-        self.test_card_type_1_edited('xml')
-
-    def test_card_type_1_edited(self, format='mem'):
-        filename = self.get_fname("1sided", format)
-        importer = self.get_importer(format)
-        importer.do_import(filename)
+        
+    def test_card_type_1_edited(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "1sided.mem")
+        self.mem_importer().do_import(filename)
         self.review_controller().reset()
         assert self.database().card_count() == 1
         card = self.review_controller().card
         assert card.id == "9cff728f"
         assert "question" in card.question()
-        filename = self.get_fname("1sided", format)
+        filename = os.path.join(os.getcwd(), "tests", "files", "1sided.mem")
         assert self.mem_importer().do_import(filename) == -2      
-
-    def test_card_type_2_xml(self):
-        self.test_card_type_2('xml')
-
-    def test_card_type_2(self, format='mem'):
-        filename = self.get_fname("2sided", format)
-        importer = self.get_importer(format)
-        importer.do_import(filename)
+        
+    def test_card_type_2(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "2sided.mem")
+        self.mem_importer().do_import(filename)
         self.review_controller().reset()
         assert self.database().card_count() == 2
         card_1 = self.review_controller().card
@@ -167,12 +127,9 @@ class TestMnemosyne1Import(MnemosyneTest):
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 2 
-
-    def test_card_type_3_xml(self):
-        self.test_card_type_3('xml')
-
-    def test_card_type_3(self, format='mem'):
-        filename = self.get_fname("3sided", format)
+        
+    def test_card_type_3(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "3sided.mem")
         self.mem_importer().do_import(filename)
         self.review_controller().reset()
         assert self.database().card_count() == 2
@@ -181,12 +138,9 @@ class TestMnemosyne1Import(MnemosyneTest):
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 2
-
-    def test_card_type_3_corrupt_xml(self):
-        self.test_card_type_3_corrupt('xml')
-
-    def test_card_type_3_corrupt(self, format='mem'):
-        filename = self.get_fname("3sided_corrupt", format)
+        
+    def test_card_type_3_corrupt(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "3sided_corrupt.mem")
         self.mem_importer().do_import(filename)
         self.review_controller().reset()
         assert self.database().card_count() == 2
@@ -195,12 +149,9 @@ class TestMnemosyne1Import(MnemosyneTest):
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 2
-
-    def test_card_type_3_missing_xml(self):
-        self.test_card_type_3_missing('xml')
-
-    def test_card_type_3_missing(self, format='mem'):
-        filename = self.get_fname("3sided_missing", format)
+        
+    def test_card_type_3_missing(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "3sided_missing.mem")
         self.mem_importer().do_import(filename)
         self.review_controller().reset()
         assert self.database().card_count() == 1
@@ -210,10 +161,7 @@ class TestMnemosyne1Import(MnemosyneTest):
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 1
         
-    def test_media_xml(self):
-        self.test_media('xml')
-
-    def test_media(self, format='mem'):
+    def test_media(self):
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs"))
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs", "figs"))       
         figures = [\
@@ -222,7 +170,7 @@ class TestMnemosyne1Import(MnemosyneTest):
             os.path.join(os.getcwd(), "tests", "files", "figs", "figs", "a.png")]
         for filename in figures:
             file(filename, "w")
-        filename = self.get_fname("media", format)
+        filename = os.path.join(os.getcwd(), "tests", "files", "media.mem")
         self.mem_importer().do_import(filename)
         assert os.path.exists(os.path.join(\
             os.path.abspath("dot_test"), "default.db_media", "a.png"))
@@ -234,10 +182,7 @@ class TestMnemosyne1Import(MnemosyneTest):
             "select count() from log where event_type=?",
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 3      
 
-    def test_media_missing_xml(self):
-        self.test_media_missing('xml')
-
-    def test_media_missing(self, format='mem'):
+    def test_media_missing(self):
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs"))
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs", "figs"))       
         figures = [\
@@ -245,7 +190,7 @@ class TestMnemosyne1Import(MnemosyneTest):
             os.path.join(os.getcwd(), "tests", "files", "figs", "a.png")]
         for filename in figures:
             file(filename, "w")
-        filename = self.get_fname("media", format)
+        filename = os.path.join(os.getcwd(), "tests", "files", "media.mem")
         self.mem_importer().do_import(filename)
         assert os.path.exists(os.path.join(\
             os.path.abspath("dot_test"), "default.db_media", "a.png"))
@@ -254,12 +199,9 @@ class TestMnemosyne1Import(MnemosyneTest):
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 2
-
-    def test_media_missing_2_xml(self):
-        self.test_media_missing_2('xml')
-
-    def test_media_missing_2(self, format='mem'):
-        filename = self.get_fname("media", format)
+        
+    def test_media_missing_2(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "media.mem")
         self.mem_importer().do_import(filename)
         assert not os.path.exists(os.path.join(\
             os.path.abspath("dot_test"), "default.db_media", "a.png"))
@@ -268,11 +210,8 @@ class TestMnemosyne1Import(MnemosyneTest):
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 0
-
-    def test_media_slashes_xml(self):
-            self.test_media_slashes('xml')
-
-    def test_media_slashes(self, format='mem'):
+        
+    def test_media_slashes(self):
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs"))
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs", "figs"))       
         figures = [\
@@ -281,7 +220,7 @@ class TestMnemosyne1Import(MnemosyneTest):
             os.path.join(os.getcwd(), "tests", "files", "figs", "figs", "a.png")]
         for filename in figures:
             file(filename, "w")
-        filename = self.get_fname("media_slashes", format)
+        filename = os.path.join(os.getcwd(), "tests", "files", "media_slashes.mem")
         self.mem_importer().do_import(filename)
         assert os.path.exists(os.path.join(\
             os.path.abspath("dot_test"), "default.db_media", "a.png"))
@@ -293,16 +232,13 @@ class TestMnemosyne1Import(MnemosyneTest):
             "select count() from log where event_type=?",
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 3  
 
-    def test_sound_xml(self):
-        self.test_sound('xml')
-
-    def test_sound(self, format='mem'):
+    def test_sound(self):
         os.mkdir(os.path.join(\
             os.getcwd(), "tests", "files", "soundfiles"))
         soundname = os.path.join(os.path.join(\
             os.getcwd(), "tests", "files", "soundfiles", "a.ogg"))
         file(soundname, "w")
-        filename = self.get_fname("sound", format)
+        filename = os.path.join(os.getcwd(), "tests", "files", "sound.mem")
         self.mem_importer().do_import(filename)
         assert os.path.exists(os.path.join(\
             os.path.abspath("dot_test"), "default.db_media", "soundfiles", "a.ogg"))
@@ -313,11 +249,8 @@ class TestMnemosyne1Import(MnemosyneTest):
         card = self.review_controller().card
         assert card.fact["f"] == """<audio src="soundfiles/a.ogg">"""
 
-    def test_map_xml(self):
-        self.test_map('xml')
-
-    def test_map(self, format='mem'):
-        filename = self.get_fname("map", format)
+    def test_map(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "map.mem")
         self.mem_importer().do_import(filename)
         self.review_controller().reset()
         assert self.database().card_count() == 2
@@ -327,12 +260,9 @@ class TestMnemosyne1Import(MnemosyneTest):
           """<img src_missing="maps/Netherlands-Provinces/Drenthe.png">"""
         assert card.fact["blank"] == \
           """<img src_missing="maps/Netherlands-Provinces/Netherlands-Provinces.png">"""
-
-    def test_dups_xml(self):
-        self.test_dups('xml')
-
-    def test_dups(self, format='mem'):
-        filename = self.get_fname("dups", format)
+        
+    def test_dups(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "dups.mem")
         self.mem_importer().do_import(filename)
         self.review_controller().reset()
         assert self.review_controller().card.fact["loc"] == \

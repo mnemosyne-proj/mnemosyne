@@ -1,29 +1,16 @@
-from datetime import datetime
+#
+# mnemosyne1_xml.py <Johannes.Baiter@gmail.com>
+#
+
+import os.path
+import time
 from xml.etree import cElementTree
 
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.libmnemosyne.file_formats._mnemosyne1 import MnemosyneCore
+from mnemosyne.libmnemosyne.file_formats.mnemosyne1 import Mnemosyne1
 from mnemosyne.libmnemosyne.file_format import FileFormat
 
-#TODO: This filter will share a lot of common code with the Mnemosyne1Mem
-#      filter. Ideally we should try to put all of that code into an own
-#      "_mnemosyne1_cards.py" module that both Mem- and XML-Filter will import
-#      from. 
-#   Question: Do we need to care about science logs?
-#   Candidate functions/classes:
-#       - do_import
-#       - _import_mem_file (everything after the data is loaded)
-#       - MnemosyneCore [+ dummy packages]
-#       - _create_card_from_item
-#            We would need to create an item-datastructure from the XML
-#            first, but this should be worth the effort to avoid code-
-#            duplication
-#   Outline:
-#       - Parse mnemosyne version and start_time
-#       - Parse list of items from XML-file
-#       - run _create_card_from_item on each item
-
-class Mnemosyne1XML(FileFormat):
+class Mnemosyne1XML(FileFormat, Mnemosyne1):
 
     description = _("Mnemosyne 1.x *.xml files")
     filename_filter = _("Mnemosyne 1.x XML files") + " (*.xml)"
@@ -31,33 +18,62 @@ class Mnemosyne1XML(FileFormat):
     export_possible = False
 
     def do_import(self, filename, tag_name=None, reset_learning_data=False):
-        #TODO: This is probably the same as with Mem-files, so we should
-        #      probably refactor this into a single method
-        pass
+        db = self.database()
+        # Manage database indexes.
+        db.before_mem_import()
+        log_index = db.current_log_index()
+        result = self._import_xml_file(filename, tag_name, reset_learning_data)
+        db.remove_card_log_entries_since(log_index)
+        db.after_mem_import()
+        # Return if something went wrong
+        # TODO: This is a very unidiomatic, refactor to use Exceptions
+        if result and result < 0:
+            return result
+        db.dump_to_science_log()
+        db.skip_science_log()
+        # Force an ADDED_CARD log entry for our cards.
+        db.add_missing_added_card_log_entries(\
+            set(item.id for item in self.items))
+        # In 2.x, repetition events are used to update a card's last_rep and
+        # next_rep during sync. In 1.x, there was no such information,
+        # therefore, we force a card edit event for all cards.
+        timestamp = int(time.time())
+        for item in self.items:
+            db.log_edited_card(timestamp, item.id)
+        db.link_inverse_cards()
+        db.save()
+        return result
 
     def _import_xml_file(self, filename, tag_name=None,
                          reseat_learning_data=False):
-
-        tree = cElementTree.parse(filename)
+        self.import_dir = os.path.dirname(os.path.abspath(filename))
+        self.warned_about_missing_media = False
+        try:
+            tree = cElementTree.parse(filename)
+        except:
+            self.main_widget().show_error(
+                    _("Unable to open file."))
+            return -1
+        if tree.getroot().tag != 'mnemosyne':
+            self.main_widget().show_error(_
+                    ("Bad XML File: Needs to be an Mnemosyne 1.x XML file."))
+            return -1
         if tree.getroot().get('core_version') != '1':
-            raise Exception(_("Bad file version: Needs to be an Mnemosyne 1.x XML file."))
-
-        starttime = MnemosyneCore.StartTime()
-        starttime.time = datetime.fromtimestamp(
-            tree.getroot().get('time_of_start'))
-
+            self.main_widget().show_error(_
+                    ("Bad file version: Needs to be an Mnemosyne 1.x XML file."))
+            return -1
+        self.starttime = int(tree.getroot().get('time_of_start'))
         catdict = {}
-        categories = []
+        self.categories = []
         for element in tree.findall('category'):
-            category = MnemosyneCore.Category()
+            category = Mnemosyne1.MnemosyneCore.Category()
             category.name = element.find('name').text
             category.active = bool(element.get('active'))
-            categories.append(category)
+            self.categories.append(category)
             catdict[category.name] = category
-
-        items = []
+        self.items = []
         for element in tree.findall('item'):
-            item = MnemosyneCore.Item()
+            item = Mnemosyne1.MnemosyneCore.Item()
             item.id = element.get('id') 
             item.q = element.find('Q').text
             item.a = element.find('A').text
@@ -73,7 +89,6 @@ class Mnemosyne1XML(FileFormat):
             # This is how 1.x reads it, but why can next_rep be float
             # while last_rep can safely be parsed as an int?
             item.next_rep = int(float(element.get('n_rp')))
-
             if element.get('u'):
                 item.unseen = bool(element.get('u'))
             else:
@@ -82,8 +97,6 @@ class Mnemosyne1XML(FileFormat):
                     item.unseen = True
                 else:
                     item.unseen = False
-
-            items.append(item)
-        return starttime, categories, items
-
+            self.items.append(item)
+        return self._convert_to_2x()
 

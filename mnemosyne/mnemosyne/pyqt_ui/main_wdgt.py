@@ -144,6 +144,7 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         self.controller().show_save_file_as_dialog()
 
     def import_file(self):
+        print "Import dat shit"
         self.controller().show_import_file_dialog()
         
     def export_file(self):
