@@ -1,3 +1,6 @@
+-renamed 'next' to 'next sister card' in preview dialog
+
+
 -fixed edit card dialog called from card browser that would sometimes
  refuse to close (reported by Roel De Conick)
 

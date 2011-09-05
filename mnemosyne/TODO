@@ -1,13 +1,14 @@
--button; next 'sister' card
+-increase non-latin: add tests, coverage, gui, filter or renderer? Add more context to filterer
+ main_widget.default_font_size
+-merge card appearance with settings
+
 -pgdwn in preview/edit in card browser
--increase non-latin
 
 -comma to separate tag names
 -:: to separate hierarchies
 -right click to add cards or sound
 -hiding pronunciation field
 -add card: tab, tab, control enter or control+2
--tooltip in preview to explain sister cards
 
 -edit card: tab, tab, control enter
 
@@ -29,6 +30,9 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -also make sure this is OK when changing card type creates extra cards
 -scheduler.spread_sister_cards?
 -recheck database for this through plugin
+
+-failed card + new cards in two directions: learn all fw cards, get stuck on failed card. Only
+ restarting brings bw cards.
 
 -configure dialog is slow on Windows due to server detect
 

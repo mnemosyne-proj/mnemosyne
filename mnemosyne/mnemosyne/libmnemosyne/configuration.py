@@ -103,7 +103,8 @@ class Configuration(Component, dict):
              "font_colour": {}, # [card_type.id][fact_key]
              "background_colour": {}, # [card_type.id]
              "alignment": {}, # [card_type.id]
-             "hide_pronunciation_field": {}, # [card_type.id]             
+             "hide_pronunciation_field": {}, # [card_type.id]
+             "non_latin_font_size_increase": 0,
              "non_memorised_cards_in_hand": 10,
              "randomise_new_cards": False,
              "randomise_scheduled_cards": False,
