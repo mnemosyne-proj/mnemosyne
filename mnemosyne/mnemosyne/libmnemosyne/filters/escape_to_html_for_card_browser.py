@@ -12,7 +12,7 @@ class EscapeToHtmlForCardBrowser(Filter):
 
     """
 
-    def run(self, text, **render_args):
+    def run(self, text, card, fact_key, **render_args):
         text = text.replace("<", "&lt;")
         text = text.replace("&lt;b>", "<b>")
         text = text.replace("&lt;/b>", "</b>")

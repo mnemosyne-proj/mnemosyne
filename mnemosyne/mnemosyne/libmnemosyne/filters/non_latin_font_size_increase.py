@@ -31,25 +31,29 @@ class NonLatinFontSizeIncrease(Filter):
                 return True
         return False
 
-    def run(self, text, **render_args):
-        1/0
-        card = self.scheduler().card
-
-        print card.question("default", my_variable=1)
-        if issubclass(type(card.cardtype), Vocabulary):
+    def run(self, text, card, fact_key, **render_args):
+        if issubclass(type(card.card_type), Vocabulary):
             return text
         if text == "":
             return text 
-        base_font_size = 12 # TODO
+        proxy_key = card.card_type.key_format_proxies()[fact_key]
+        font_string = self.config().card_type_property(\
+            "font", card.card_type, proxy_key)
+        if font_string:
+            family,base_font_size,x,x,w,i,u,s,x,x = font_string.split(",")
+            base_font_size = int(base_font_size)
+        else:
+            base_font_size = self.main_widget().default_font_size()
         non_latin_size = base_font_size + \
-            self.config("non_latin_font_size_increase")       
+            self.config()["non_latin_font_size_increase"]       
         new_text = ""
         in_tag = False
         in_protect = 0
         in_unicode_substring = False
         for i in range(len(text)):
-            if not is_in_latin_plane(text[i]) and not in_protect:
-                # Don't substitute within XML tags or file names get messed up.
+            if not self.is_in_latin_plane(text[i]) and not in_protect:
+                # Don't substitute within XML tags or file names get
+                # messed up.
                 if in_tag or in_unicode_substring == True:
                     new_text += text[i]
                 else:
@@ -74,7 +78,7 @@ class NonLatinFontSizeIncrease(Filter):
                 else:
                     new_text += text[i]
         # Make sure to close the last tag.
-        if not is_in_latin_plane(text[-1]) and not in_protect:
+        if not self.is_in_latin_plane(text[-1]) and not in_protect:
             new_text += "</font>"
         # Now we can strip all the <protect> tags.
         new_text = new_text.replace("<protect>", "").replace("</protect>", "")

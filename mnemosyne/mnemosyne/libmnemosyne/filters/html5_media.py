@@ -13,7 +13,7 @@ class Html5Media(Filter):
 
     """Add autoplay and control tags to html5 media tags."""
     
-    def run(self, text, **render_args):
+    def run(self, text, card, fact_key, **render_args):
         options = ""
         if self.config()["media_autoplay"]:
             options += " autoplay=1"

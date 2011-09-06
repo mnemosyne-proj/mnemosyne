@@ -1,8 +1,17 @@
--increase non-latin: add tests, coverage, gui, filter or renderer? Add more context to filterer
- main_widget.default_font_size
+-increase non-latin: add tests, coverage, gui
+
+-replace field with key, script to update sqlite database
+
 -merge card appearance with settings
 
+-Tip dlg line 63, in update_dialog IndexError: list index out of range (reported by B_Monkey)
+
+-Hendrik image display problems
+
 -pgdwn in preview/edit in card browser
+
+-all grades function as show answer
+-have page up/up/page down/down keys work to scroll in q and a widgets
 
 -comma to separate tag names
 -:: to separate hierarchies
@@ -16,6 +25,7 @@
 -right click on tag names in browser
 
 -About dialog, with version and link to source
+
 
 -layout of "add clone" is not optimal under Windows
 -splitters on XP are not visible
@@ -232,8 +242,6 @@ pylint:
 -compression on backup to reduce write time to SD card?
 -move from httplib to urllib2 to make use of automatic proxy detection? However, could have
  an impact on performance/streaming upload.
-
--have page up/up/page down/down keys work to scroll in q and a widgets
 
 -'shared deck' export
 -is 'client_info["shared_dack"] the best way to signal this? Or have entirely new

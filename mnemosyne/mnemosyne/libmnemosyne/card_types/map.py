@@ -41,7 +41,11 @@ class Map(CardType):
         data["_"] = "\n"  # Insert a blank line to improve layout.
         return data
 
+    def key_format_proxies(self):
+        return {"loc": "loc", "blank": "blank",
+                "marked": "marked", "_": "loc"}
 
+    
 class MapPlugin(Plugin):
     
     name = _("Map")

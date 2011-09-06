@@ -17,7 +17,7 @@ class TestRenderChain(MnemosyneTest):
             grade=-1, tag_names=["default"])[0]
 
         class MyFilter(Filter):
-            def run(self, text):
+            def run(self, text, card, fact_key):
                 return "666"
 
         self.render_chain().register_filter(MyFilter)
@@ -42,7 +42,7 @@ class TestRenderChain(MnemosyneTest):
             grade=-1, tag_names=["default"])[0]
 
         class MyFilter(Filter):
-            def run(self, text):
+            def run(self, text, card, fact_key):
                 return "666"
 
         self.render_chain().register_filter(MyFilter, in_front=True)

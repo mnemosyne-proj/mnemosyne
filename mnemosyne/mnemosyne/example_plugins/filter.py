@@ -8,9 +8,7 @@ from mnemosyne.libmnemosyne.plugin import Plugin
 
 class Uppercase(Filter):
 
-    def run(self, text, **render_args):
-        # Note: if you need access to the current card in your filter, use
-        # 'self.review_controller().card'
+    def run(self, text, card, fact_key, **render_args):
         return text.upper()
 
 

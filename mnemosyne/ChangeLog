@@ -1,3 +1,4 @@
+-changed filter API to run(self, text, card, fact_key, **render_args)
 -renamed 'next' to 'next sister card' in preview dialog
 
 

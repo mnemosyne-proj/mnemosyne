@@ -53,7 +53,10 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
     def show_error(self, text):
         QtGui.QMessageBox.critical(self, _("Mnemosyne"), text,
             _("&OK"), "", "", 0, -1)
-        
+
+    def default_font_size(self):
+        return QtCore.QtGui.qApp.font().pointSize()
+    
     def get_filename_to_open(self, path, filter, caption=""):
         return unicode(QtGui.QFileDialog.\
             getOpenFileName(self, caption, path, filter))

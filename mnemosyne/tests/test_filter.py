@@ -14,7 +14,7 @@ class TestFilter(MnemosyneTest):
     @raises(NotImplementedError)
     def test(self):
         f = Filter(None)
-        f.run("")
+        f.run("", None, None)
 
     def test_html5(self):
 
@@ -23,18 +23,18 @@ class TestFilter(MnemosyneTest):
         self.config()["media_autoplay"] = True
         self.config()["media_controls"] = True        
 
-        assert f.run("""<audio src="b">""") == \
+        assert f.run("""<audio src="b">""", None, None) == \
               """<audio src="b" autoplay=1 controls=1>"""
 
         self.config()["media_autoplay"] = True
         self.config()["media_controls"] = False
 
-        assert f.run("""<video src="b">""") == \
+        assert f.run("""<video src="b">""", None, None) == \
               """<video src="b" autoplay=1>"""
     
         self.config()["media_autoplay"] = False
         self.config()["media_controls"] = True
 
-        assert f.run("""<video src="b">""") == \
+        assert f.run("""<video src="b">""", None, None) == \
               """<video src="b" controls=1>"""
     
