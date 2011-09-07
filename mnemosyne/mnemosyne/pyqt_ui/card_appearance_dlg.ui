@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>343</width>
-    <height>149</height>
+    <width>367</width>
+    <height>198</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,7 +38,7 @@
       </layout>
      </item>
      <item>
-      <widget class="Line" name="line_3">
+      <widget class="Line" name="line_4">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -89,6 +89,44 @@
      </item>
      <item>
       <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_non_latin_1">
+         <property name="text">
+          <string>Increase size of non-latin characters by</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="non_latin_font_size_increase"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_non_latin_2">
+         <property name="text">
+          <string>points.</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_non_latin_3">
+       <property name="text">
+        <string>(You can override this setting in card types cloned from 'Vocabulary'.)</string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="Line" name="line_non_latin">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>

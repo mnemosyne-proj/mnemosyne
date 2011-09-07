@@ -1,5 +1,3 @@
--increase non-latin: add tests, coverage, gui
-
 -replace field with key, script to update sqlite database
 
 -merge card appearance with settings
@@ -234,6 +232,8 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -make filters more efficients by using regex instead of loops.
 
 -easier function to do tag detection in plugin
+
+-join add tags/remove tags in a single dialog? http://bit.ly/oOK27n 
 
 
 pylint:

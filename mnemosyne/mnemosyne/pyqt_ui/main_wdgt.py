@@ -55,7 +55,7 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
             _("&OK"), "", "", 0, -1)
 
     def default_font_size(self):
-        return QtCore.QtGui.qApp.font().pointSize()
+        return QtGui.qApp.font().pointSize()
     
     def get_filename_to_open(self, path, filter, caption=""):
         return unicode(QtGui.QFileDialog.\

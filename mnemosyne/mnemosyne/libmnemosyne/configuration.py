@@ -136,11 +136,12 @@ class Configuration(Component, dict):
         # These keys will be shared in the sync protocol. Front-ends can
         # modify this list, e.g. if they don't want to override the fonts.
         self.keys_to_sync = ["font", "font_colour", "background_colour",
-             "alignment", "hide_pronunciation_field",
-             "non_memorised_cards_in_hand", "randomise_new_cards",
-             "randomise_scheduled_cards", "memorise_sister_cards_on_same_day",
-             "ui_language", "day_starts_at", "latex_preamble",
-             "latex_postamble", "latex", "dvipng"]        
+             "alignment", "non_latin_font_size_increase",
+             "hide_pronunciation_field", "non_memorised_cards_in_hand",
+             "randomise_new_cards", "randomise_scheduled_cards",
+             "memorise_sister_cards_on_same_day", "ui_language",
+             "day_starts_at", "latex_preamble", "latex_postamble",
+             "latex", "dvipng"]        
         # If the user id is not set, it's either because this is the first run
         # of the program, or because the user deleted the config file. In the
         # latter case, we try to recuperate the id from the history files.

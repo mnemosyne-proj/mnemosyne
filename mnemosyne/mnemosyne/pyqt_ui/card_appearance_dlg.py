@@ -27,7 +27,9 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
         self.dynamic_widgets = []
         self.affected_card_types = []
-        self.key_names = []       
+        self.key_names = []
+        self.non_latin_font_size_increase.setValue\
+            (self.config()['non_latin_font_size_increase'])
         # We calculate card_type_by_name here because these names can change
         # if the user chooses another translation.
         self.card_types_widget.addItem(_("<all card types>"))
@@ -50,17 +52,24 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         if new_card_type_name == _("<all card types>"):
             self.affected_card_types = self.card_types()
             self.key_names = [_("Text")]
+            for widget in [self.label_non_latin_1, self.label_non_latin_2,
+                self.label_non_latin_3, self.line_non_latin,
+                self.non_latin_font_size_increase]:
+                widget.show()
         else:
             new_card_type_name = unicode(new_card_type_name)
             new_card_type = self.card_type_by_name[new_card_type_name]
             self.affected_card_types = [new_card_type]
             self.key_names = new_card_type.key_names()
-
+            for widget in [self.label_non_latin_1, self.label_non_latin_2,
+                self.label_non_latin_3, self.line_non_latin,
+                self.non_latin_font_size_increase]:
+                widget.hide()
         for widget in self.dynamic_widgets:
             self.gridLayout.removeWidget(widget)
             widget.close()
         self.dynamic_widgets = []
-
+        
         row = 0
         self.font_buttons = QtGui.QButtonGroup()
         self.colour_buttons = QtGui.QButtonGroup()
@@ -193,6 +202,8 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         self.changed = True
         
     def accept(self):
+        self.config()['non_latin_font_size_increase'] = \
+            self.non_latin_font_size_increase.value()
         for card_type in self.card_types():
             for render_chain in self.component_manager.all("render_chain"):
                 render_chain.renderer_for_card_type(card_type).\
@@ -222,6 +233,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
             _("&Yes"), _("&No"), "", 0, -1)
         if result == 1:
             return
+        self.non_latin_font_size_increase.setValue(0)
         if len(self.affected_card_types) > 1:        
             self.config()["font"] = {}
             self.config()["background_colour"] = {}
