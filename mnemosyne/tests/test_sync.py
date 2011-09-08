@@ -2347,10 +2347,10 @@ class TestSync(object):
                 is_id_internal=False)
             assert fact_view.id == "1.1"
             assert fact_view.name == "Front-to-back"
-            assert fact_view.q_fields == ["f"]
-            assert fact_view.a_fields == ["b"]
-            assert fact_view.q_field_decorators["f"] == 'question is: $f'
-            assert fact_view.a_field_decorators["b"] == 'answer is: $b'
+            assert fact_view.q_keys == ["f"]
+            assert fact_view.a_keys == ["b"]
+            assert fact_view.q_key_decorators["f"] == 'question is: $f'
+            assert fact_view.a_key_decorators["b"] == 'answer is: $b'
             assert fact_view.a_on_top_of_q == False
             assert type(fact_view.a_on_top_of_q) == type(False)
             assert fact_view.type_answer == False
@@ -2366,8 +2366,8 @@ class TestSync(object):
         card_type = self.client.mnemosyne.card_type_with_id("1")
         
         fact_view = card_type.fact_views[0]
-        fact_view.q_field_decorators = {"f": 'question is: $f'}
-        fact_view.a_field_decorators = {"b": 'answer is: $b'}        
+        fact_view.q_key_decorators = {"f": 'question is: $f'}
+        fact_view.a_key_decorators = {"b": 'answer is: $b'}        
         fact_view.extra_data = {'1': 2}
         self.client.mnemosyne.database().add_fact_view(fact_view)
 
@@ -2376,8 +2376,8 @@ class TestSync(object):
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync()
 
-        fact_view.q_field_decorators = {}
-        fact_view.a_field_decorators = {}
+        fact_view.q_key_decorators = {}
+        fact_view.a_key_decorators = {}
         
     def test_edit_fact_view(self):
         
@@ -2442,16 +2442,16 @@ class TestSync(object):
             assert db.con.execute("select count() from fact_views").fetchone()[0] == 1
             card_type = db.card_type(self.card_type_id, is_id_internal=False)
             assert card_type.name == "1 cloned"
-            assert card_type.fields == [("f", 'Front'), ("b", 'Back')]
-            assert card_type.unique_fields == ["f"]
-            assert card_type.required_fields == ["f"]
+            assert card_type.keys_and_names == [("f", 'Front'), ("b", 'Back')]
+            assert card_type.unique_keys == ["f"]
+            assert card_type.required_keys == ["f"]
             assert card_type.keyboard_shortcuts == {}
             assert len(card_type.fact_views) == 1
             fact_view = card_type.fact_views[0]
             assert fact_view.id == "1::1 cloned.1"
             assert fact_view.name == "Front-to-back"
-            assert fact_view.q_fields == ["f"]
-            assert fact_view.a_fields == ["b"]
+            assert fact_view.q_keys == ["f"]
+            assert fact_view.a_keys == ["b"]
             assert fact_view.a_on_top_of_q == False
             assert type(fact_view.a_on_top_of_q) == type(False)            
             assert fact_view.type_answer == False
@@ -2478,17 +2478,17 @@ class TestSync(object):
             assert db.con.execute("select count() from fact_views").fetchone()[0] == 1
             card_type = db.card_type(self.card_type_id, is_id_internal=False)
             assert card_type.name == "1 cloned"
-            assert card_type.fields == [("f", 'Front'), ("b", 'Back')]
-            assert card_type.unique_fields == ["f"]
-            assert card_type.required_fields == ["f"]
+            assert card_type.keys_and_names == [("f", 'Front'), ("b", 'Back')]
+            assert card_type.unique_keys == ["f"]
+            assert card_type.required_keys == ["f"]
             assert card_type.keyboard_shortcuts == {}
             assert card_type.extra_data[1] == 1
             assert len(card_type.fact_views) == 1
             fact_view = card_type.fact_views[0]            
             assert fact_view.id == "1::1 cloned.1"
             assert fact_view.name == "Front-to-back"
-            assert fact_view.q_fields == ["f"]
-            assert fact_view.a_fields == ["b"]
+            assert fact_view.q_keys == ["f"]
+            assert fact_view.a_keys == ["b"]
             assert fact_view.a_on_top_of_q == False
             assert type(fact_view.a_on_top_of_q) == type(False)
             assert fact_view.type_answer == False

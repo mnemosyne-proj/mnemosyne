@@ -1,4 +1,13 @@
--replace field with key, script to update sqlite database
+-key i.o fact_key?
+-render_chain.render_fields, webserver renderer
+-hide pronunciation field/key
+-doc of card type, renderer
+-ui:convertcardtypefields
+
+-card_type.fact_data --> .data?
+-update docs
+
+-convert database
 
 -merge card appearance with settings
 

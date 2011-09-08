@@ -27,7 +27,7 @@ TBSTATE_ENABLED = 0x4
 CCS_NOPARENTALIGN = 0x8
 
 class BITMAP(Structure):
-    _fields_ = [("bmType", LONG),
+    _keys_ = [("bmType", LONG),
     		("bmWidth", LONG),
     		("bmHeight", LONG),
     		("bmWidthBytes", LONG),
@@ -36,7 +36,7 @@ class BITMAP(Structure):
     		("bmBits", LPVOID)]
             
 class TBADDBITMAP(Structure):
-    _fields_ = [('hInst', HINSTANCE),
+    _keys_ = [('hInst', HINSTANCE),
                 ('nID', INT),]
                 
 class ToolBar(Window):

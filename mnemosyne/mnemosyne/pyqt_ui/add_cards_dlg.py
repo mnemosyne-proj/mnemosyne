@@ -13,8 +13,8 @@ from mnemosyne.pyqt_ui.ui_add_cards_dlg import Ui_AddCardsDlg
 from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import AddCardsDialog
 from mnemosyne.pyqt_ui.card_type_wdgt_generic import GenericCardTypeWdgt
-from mnemosyne.pyqt_ui.convert_card_type_fields_dlg import \
-     ConvertCardTypeFieldsDlg
+from mnemosyne.pyqt_ui.convert_card_type_keys_dlg import \
+     ConvertCardTypekeysDlg
 
 class AddEditCards(Component):
 
@@ -115,8 +115,8 @@ class AddEditCards(Component):
                not self.card_type_widget.contains_data():
             self.update_card_widget()            
             return
-        dlg = ConvertCardTypeFieldsDlg(self.card_type, new_card_type,
-            self.correspondence, check_required_fields=False, parent=self)
+        dlg = ConvertCardTypekeysDlg(self.card_type, new_card_type,
+            self.correspondence, check_required_keys=False, parent=self)
         if dlg.exec_() != QtGui.QDialog.Accepted:
             self.card_types_widget.setCurrentIndex(self.card_type_index)
             return

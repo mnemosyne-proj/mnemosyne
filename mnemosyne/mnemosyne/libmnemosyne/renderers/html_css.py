@@ -48,7 +48,7 @@ class HtmlCss(Renderer):
             colour_string = ("%X" % colour)[2:] # Strip alpha.
             css += "background-color: #%s; " % colour_string      
         css += "}\n"
-        # Field tags.
+        # key tags.
         for true_key, proxy_key in card_type.key_format_proxies().iteritems():
             css += "div#%s { " % true_key
             # Set alignment within table cell.
@@ -92,16 +92,16 @@ class HtmlCss(Renderer):
             self.update(card_type)
         return self._css[card_type.id]
 
-    def body(self, data, fields, **render_args):
+    def body(self, data, keys, **render_args):
         html = ""
-        for field in fields:
-            if field in data and data[field]:
-                html += "<div id=\"%s\">%s</div>" % (field, data[field])
+        for key in keys:
+            if key in data and data[key]:
+                html += "<div id=\"%s\">%s</div>" % (key, data[key])
         return html
                 
-    def render_fields(self, data, fields, card_type, **render_args):
+    def render_fields(self, data, keys, card_type, **render_args):
         css = self.css(card_type)
-        body = self.body(data, fields, **render_args)
+        body = self.body(data, keys, **render_args)
         return """
         <html>
         <head>

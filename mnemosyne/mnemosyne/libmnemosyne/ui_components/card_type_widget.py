@@ -22,8 +22,8 @@ class CardTypeWidget(UiComponent):
 
     def data(self, check_for_required=True):
 
-        """Get fact data from widget, optionally check for required fields.
-        Should raise a ValueError if required fields are missing.
+        """Get fact data from widget, optionally check for required keys.
+        Should raise a ValueError if required keys are missing.
 
         """
 

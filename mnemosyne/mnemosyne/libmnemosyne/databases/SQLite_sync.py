@@ -290,12 +290,12 @@ class SQLiteSync(object):
                 fact_view = self.fact_view(log_entry["o_id"],
                     is_id_internal=False)
                 log_entry["name"] = fact_view.name
-                log_entry["q_fields"] = repr(fact_view.q_fields)
-                log_entry["a_fields"] = repr(fact_view.a_fields)
-                log_entry["q_field_decorators"] = \
-                    repr(fact_view.q_field_decorators)
-                log_entry["a_field_decorators"] = \
-                    repr(fact_view.a_field_decorators)
+                log_entry["q_keys"] = repr(fact_view.q_keys)
+                log_entry["a_keys"] = repr(fact_view.a_keys)
+                log_entry["q_key_decorators"] = \
+                    repr(fact_view.q_key_decorators)
+                log_entry["a_key_decorators"] = \
+                    repr(fact_view.a_key_decorators)
                 log_entry["a_on_top_of_q"] = repr(fact_view.a_on_top_of_q)
                 log_entry["type_answer"] = repr(fact_view.type_answer)
                 if fact_view.extra_data:
@@ -308,11 +308,11 @@ class SQLiteSync(object):
                 card_type = self.card_type(log_entry["o_id"],
                     is_id_internal=False)
                 log_entry["name"] = card_type.name
-                log_entry["fields"] = repr(card_type.fields)
+                log_entry["keys_and_names"] = repr(card_type.keys_and_names)
                 log_entry["fact_views"] = repr([fact_view.id for fact_view \
                     in card_type.fact_views])                
-                log_entry["unique_fields"] = repr(card_type.unique_fields)
-                log_entry["required_fields"] = repr(card_type.required_fields)
+                log_entry["unique_keys"] = repr(card_type.unique_keys)
+                log_entry["required_keys"] = repr(card_type.required_keys)
                 log_entry["keyboard_shortcuts"] = \
                     repr(card_type.keyboard_shortcuts)
                 if card_type.extra_data:
@@ -336,7 +336,7 @@ class SQLiteSync(object):
     def tag_from_log_entry(self, log_entry):
         # When deleting, the log entry only contains the tag's id, so we pull
         # the object from the database. This is a bit slower than just filling
-        # in harmless missing fields, but it is more robust against future
+        # in harmless missing keys, but it is more robust against future
         # side effects of tag deletion.
         if log_entry["type"] == EventTypes.DELETED_TAG:
             return self.tag(log_entry["o_id"], is_id_internal=False)
@@ -526,10 +526,10 @@ class SQLiteSync(object):
             return FactView("irrelevant", log_entry["o_id"])
         # Create fact view object.
         fact_view = FactView(log_entry["name"], log_entry["o_id"])
-        fact_view.q_fields = eval(log_entry["q_fields"])
-        fact_view.a_fields = eval(log_entry["a_fields"])
-        fact_view.q_field_decorators = eval(log_entry["q_field_decorators"])
-        fact_view.a_field_decorators = eval(log_entry["a_field_decorators"])         
+        fact_view.q_keys = eval(log_entry["q_keys"])
+        fact_view.a_keys = eval(log_entry["a_keys"])
+        fact_view.q_key_decorators = eval(log_entry["q_key_decorators"])
+        fact_view.a_key_decorators = eval(log_entry["a_key_decorators"])         
         fact_view.a_on_top_of_q = bool(eval(log_entry["a_on_top_of_q"]))
         fact_view.type_answer = bool(eval(log_entry["type_answer"]))
         if "extra" in log_entry:
@@ -551,13 +551,13 @@ class SQLiteSync(object):
         card_type = CardType(self.component_manager)
         card_type.id = log_entry["o_id"]
         card_type.name = log_entry["name"]
-        card_type.fields = eval(log_entry["fields"])
+        card_type.keys_and_names = eval(log_entry["keys_and_names"])
         card_type.fact_views = []
         for fact_view_id in eval(log_entry["fact_views"]):
             card_type.fact_views.append(self.fact_view(fact_view_id,
                 is_id_internal=False))
-        card_type.unique_fields = eval(log_entry["unique_fields"])
-        card_type.required_fields = eval(log_entry["required_fields"])        
+        card_type.unique_keys = eval(log_entry["unique_keys"])
+        card_type.required_keys = eval(log_entry["required_keys"])        
         card_type.keyboard_shortcuts = eval(log_entry["keyboard_shortcuts"])                    
         if "extra" in log_entry:
             card_type.extra_data = eval(log_entry["extra"])

@@ -9,11 +9,11 @@ class PlainText(Renderer):
 
     used_for = None  # All card types.
 
-    def render_fields(self, data, fields, card_type, **render_args):
+    def render_fields(self, data, keys, card_type, **render_args):
         text = ""
-        for field in fields:
-            if field in data and data[field]:
-                text += data[field] + "\n"
+        for key in keys:
+            if key in data and data[key]:
+                text += data[key] + "\n"
         return text[:-1]
 
     

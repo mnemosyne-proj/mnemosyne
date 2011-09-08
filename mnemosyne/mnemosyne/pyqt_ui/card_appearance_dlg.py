@@ -143,7 +143,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         if len(self.affected_card_types) > 1:
             affected_key = None # Actually means all the keys.
         else:
-            affected_key = self.affected_card_types[0].fields[index][0]          
+            affected_key = self.affected_card_types[0].keys[index][0]          
         # Determine current font.
         if len(self.affected_card_types) > 1:
             font_string = self.config().card_type_property(\
@@ -168,7 +168,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         if len(self.affected_card_types) > 1:
             affected_key = None # Actually means all the keys.
         else:
-            affected_key = self.affected_card_types[0].fields[index][0]            
+            affected_key = self.affected_card_types[0].keys[index][0]            
         # Determine current colour.
         if len(self.affected_card_types) > 1:
             current_rgb = self.config().card_type_property(\
@@ -215,7 +215,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         for render_chain in self.component_manager.all("render_chain"):
             render_chain.renderer_for_card_type(card_type).update(card_type)
         fact_data = {}
-        for fact_key, fact_key_name in card_type.fields:
+        for fact_key, fact_key_name in card_type.keys_and_names:
             fact_data[fact_key] = fact_key_name
         fact = Fact(fact_data)
         cards = card_type.create_sister_cards(fact)        

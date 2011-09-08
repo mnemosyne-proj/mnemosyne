@@ -21,15 +21,15 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         self.fact_key_for_edit_box = {}
         self.top_edit_box = None
         # Does this card type need to deal with the hiding of pronunciation
-        # fields?
+        # keys?
         if "p_1" not in self.card_type.keys():
             pronunciation_hiding = None
         else:
             pronunciation_hiding = self.config().card_type_property(\
-                "hide_pronunciation_field", self.card_type, default=False)
+                "hide_pronunciation_key", self.card_type, default=False)
         # Construct the rest of the dialog.
         parent.setTabOrder(parent.card_types_widget, parent.tags)
-        for fact_key, fact_key_name in self.card_type.fields:
+        for fact_key, fact_key_name in self.card_type.keys:
             l = QtGui.QLabel(fact_key_name + ":", self)
             self.vboxlayout.addWidget(l)
             if fact_key == "p_1":
@@ -39,7 +39,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
             t.setTabChangesFocus(True)
             t.setUndoRedoEnabled(True)
             t.setReadOnly(False)
-            if len(self.card_type.fields) > 2:
+            if len(self.card_type.keys_and_names) > 2:
                 t.setMinimumSize(QtCore.QSize(0, 60))
             else:
                 t.setMinimumSize(QtCore.QSize(0, 106))

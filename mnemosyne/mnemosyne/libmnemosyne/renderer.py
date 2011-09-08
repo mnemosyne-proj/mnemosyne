@@ -7,11 +7,11 @@ from mnemosyne.libmnemosyne.component import Component
 
 class Renderer(Component):
 
-    """Assembles a sequence of 'fields' which are keys in a dictionary 'data'
+    """Assembles a sequence of 'keys' which are keys in a dictionary 'data'
     to a certain format, e.g. a html page, or a purely text based format.
     
-    Typically, 'data' is the fact data of a card, and 'fields' are the question
-    and answer fields of the card's fact view.
+    Typically, 'data' is the fact data of a card, and 'keys' are the question
+    and answer keys of the card's fact view.
 
     It is contained in a RenderChain and represents the functionality which
     is typically different for each card type.
@@ -35,9 +35,9 @@ class Renderer(Component):
         
         pass
 
-    def render_fields(self, data, fields, card_type, **render_args):
+    def render_keys(self, data, keys, card_type, **render_args):
 
-        """Assembles a sequence of 'fields' which are keys in a dictionary
+        """Assembles a sequence of 'keys' which are keys in a dictionary
         'data'.
         
         card_type' is passed as extra argument e.g. to determine card type

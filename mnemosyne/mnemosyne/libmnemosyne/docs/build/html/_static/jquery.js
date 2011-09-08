@@ -4963,7 +4963,7 @@ var rinlinejQuery = / jQuery\d+="(?:\d+|null)"/g,
 	rchecked = /checked\s*(?:[^=]|=\s*.checked.)/i,
 	wrapMap = {
 		option: [ 1, "<select multiple='multiple'>", "</select>" ],
-		legend: [ 1, "<fieldset>", "</fieldset>" ],
+		legend: [ 1, "<keyset>", "</keyset>" ],
 		thead: [ 1, "<table>", "</table>" ],
 		tr: [ 2, "<table><tbody>", "</tbody></table>" ],
 		td: [ 3, "<table><tbody><tr>", "</tr></tbody></table>" ],
@@ -5369,7 +5369,7 @@ function cloneFixAttributes(src, dest) {
 		dest.selected = src.defaultSelected;
 
 	// IE6-8 fails to set the defaultValue to the correct value when
-	// cloning other types of input fields
+	// cloning other types of input keys
 	} else if ( nodeName === "input" || nodeName === "textarea" ) {
 		dest.defaultValue = src.defaultValue;
 	}
@@ -6276,7 +6276,7 @@ jQuery.extend({
 			json: /json/
 		},
 
-		responseFields: {
+		responsekeys: {
 			xml: "responseXML",
 			text: "responseText"
 		},
@@ -6745,7 +6745,7 @@ jQuery.extend({
 });
 
 /* Handles responses to an ajax request:
- * - sets all responseXXX fields accordingly
+ * - sets all responseXXX keys accordingly
  * - finds the right dataType (mediates between content-type and expected dataType)
  * - returns the corresponding response
  */
@@ -6753,16 +6753,16 @@ function ajaxHandleResponses( s, jXHR, responses ) {
 
 	var contents = s.contents,
 		dataTypes = s.dataTypes,
-		responseFields = s.responseFields,
+		responsekeys = s.responsekeys,
 		ct,
 		type,
 		finalDataType,
 		firstDataType;
 
-	// Fill responseXXX fields
-	for( type in responseFields ) {
+	// Fill responseXXX keys
+	for( type in responsekeys ) {
 		if ( type in responses ) {
-			jXHR[ responseFields[type] ] = responses[ type ];
+			jXHR[ responsekeys[type] ] = responses[ type ];
 		}
 	}
 

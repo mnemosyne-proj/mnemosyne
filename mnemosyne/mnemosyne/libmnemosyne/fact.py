@@ -22,13 +22,13 @@ class Fact(CompareOnId):
     When making new card types, it is best to reuse the keys below as much
     as possible, to facilitate conversion between card types:
 
-    === =============
-     f  front
-     b  back
-     f  foreign word
-     p  pronunciation
-     m  meaning
-    === =============
+    ===== =============
+     f    front
+     b    back
+     f    foreign word
+     p_1  pronunciation
+     m_1  meaning
+    ===== =============
 
     """
 

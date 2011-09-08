@@ -305,7 +305,7 @@ class TestAddCards(MnemosyneTest):
             "select * from log where _id=8").fetchone()
         assert sql_res["event_type"] == EventTypes.REPETITION
         
-    def test_optional_fields(self):
+    def test_optional_keys(self):
         fact_data = {"f": "foreign",
                      "m_1": "meaning", "n": ""}
         card_type = self.card_type_with_id("3")

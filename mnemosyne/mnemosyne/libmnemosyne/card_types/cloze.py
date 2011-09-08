@@ -38,12 +38,12 @@ class Cloze(CardType):
     id = "5"
     name = _("Cloze deletion")
 
-    fields = [("text", _("Text"))]
-    unique_fields = ["text"]
+    keys_and_names = [("text", _("Text"))]
+    unique_keys = ["text"]
 
     v = FactView(_("Cloze"), "5.1")
-    v.q_fields = ["f"]  # Generated on the fly. 
-    v.a_fields = ["b"]  # Generated on the fly. 
+    v.q_keys = ["f"]  # Generated on the fly. 
+    v.a_keys = ["b"]  # Generated on the fly. 
     fact_views = [v]
 
     def key_format_proxies(self):

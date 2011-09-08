@@ -24,7 +24,7 @@ from config import HIRES
 CreateFontIndirect=windll.coredll.CreateFontIndirectW
 
 class LOGFONT(Structure):
-    _fields_ = [("lfHeight", LONG),
+    _keys_ = [("lfHeight", LONG),
                 ("lfWidth", LONG),                
                 ("lfEscapement", LONG),
                 ("lfOrientation", LONG),

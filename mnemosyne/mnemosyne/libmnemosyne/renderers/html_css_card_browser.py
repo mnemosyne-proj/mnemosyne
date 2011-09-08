@@ -22,7 +22,7 @@ class HtmlCssCardBrowser(HtmlCss):
 
     def card_type_css(self, card_type):
         css = "._search { color: red; }"
-        # Field tags.
+        # key tags.
         for true_key, proxy_key in card_type.key_format_proxies().iteritems():
             css += ".%s { " % true_key
             # Font colours.
@@ -52,15 +52,15 @@ class HtmlCssCardBrowser(HtmlCss):
             css += "}\n"
         return css
 
-    def body(self, data, fields, **render_args):
+    def body(self, data, keys, **render_args):
         html = ""
-        for field in fields:
-            if field in data and data[field]:
-                data_field = data[field].replace("\n", " / ")
-                html += "<span class=\"%s\">%s</span> / " % (field, data_field)
+        for key in keys:
+            if key in data and data[key]:
+                data_key = data[key].replace("\n", " / ")
+                html += "<span class=\"%s\">%s</span> / " % (key, data_key)
         return html[:-2]
                 
-    def render_fields(self, data, fields, card_type, **render_args):
+    def render_fields(self, data, keys, card_type, **render_args):
         css = self.css(card_type)
         if "ignore_text_colour" in render_args and \
             render_args["ignore_text_colour"] == True:
@@ -70,11 +70,11 @@ class HtmlCssCardBrowser(HtmlCss):
             for symbol in ["(", ")", "?", ".", "^", "*", "$", "+"]:
                 search_string = search_string.replace(symbol, "\\" + symbol)
             search_re = re.compile("(" + search_string + ")", re.IGNORECASE)
-            for field in fields:
-                if field in data and data[field]:
-                    data[field] = search_re.sub(\
-                    "<span class=\"_search\">\\1</span>", data[field])
-        body = self.body(data, fields, **render_args)
+            for key in keys:
+                if key in data and data[key]:
+                    data[key] = search_re.sub(\
+                    "<span class=\"_search\">\\1</span>", data[key])
+        body = self.body(data, keys, **render_args)
         return """
         <html>
         <head>

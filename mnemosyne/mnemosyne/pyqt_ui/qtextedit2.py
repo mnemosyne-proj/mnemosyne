@@ -14,7 +14,7 @@ class QTextEdit2(QtGui.QTextEdit):
     def __init__(self, parent, pronunciation_hiding=None):
 
         """'pronunciation_hiding' is set to None when there is no
-        pronunciation field to hide, and to True or False when there is one to
+        pronunciation key to hide, and to True or False when there is one to
         hide.
 
         """
@@ -34,7 +34,7 @@ class QTextEdit2(QtGui.QTextEdit):
         if self.pronunciation_hiding in [True, False]:
             popup.addSeparator()
             self.hide_action = QtGui.QAction(\
-                _("&Hide pronunciation field for this card type"), popup)
+                _("&Hide pronunciation key for this card type"), popup)
             self.hide_action.setCheckable(True)
             self.hide_action.setChecked(self.pronunciation_hiding)
             self.hide_action.toggled.connect(\

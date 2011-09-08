@@ -59,19 +59,19 @@ TCS_BOTTOM = 0x2
 
 class MaskedStructureType(Structure.__class__):
     def __new__(cls, name, bases, dct):
-        fields = []
-        for field in dct['_fields_']:
-            fields.append((field[0], field[1]))
-            if len(field) == 4: #masked field
-                dct[field[3]] = property(None,
-                                         lambda self, val, field = field:
-                                         self.setProperty(field[0], field[2], val))
-        dct['_fields_'] = fields
+        keys = []
+        for key in dct['_keys_']:
+            keys.append((key[0], key[1]))
+            if len(key) == 4: #masked key
+                dct[key[3]] = property(None,
+                                         lambda self, val, key = key:
+                                         self.setProperty(key[0], key[2], val))
+        dct['_keys_'] = keys
         return Structure.__class__.__new__(cls, name, bases, dct)
     
 class MaskedStructure(Structure):
     __metaclass__ = MaskedStructureType
-    _fields_ = []
+    _keys_ = []
 
     def setProperty(self, name, mask, value):
         setattr(self, self._mask_, getattr(self, self._mask_) | mask)
@@ -81,7 +81,7 @@ class MaskedStructure(Structure):
         setattr(self, self._mask_, 0)
         
 class NMCBEENDEDIT(Structure):
-    _fields_ = [("hdr", NMHDR),
+    _keys_ = [("hdr", NMHDR),
                 ("fChanged", BOOL),
                 ("iNewSelection", INT),
                 ("szText", POINTER(TCHAR)),
@@ -89,7 +89,7 @@ class NMCBEENDEDIT(Structure):
 
 class LVCOLUMN(MaskedStructure):
     _mask_ = 'mask'
-    _fields_ = [("mask", UINT),
+    _keys_ = [("mask", UINT),
                 ("fmt", INT, LVCF_FMT, "format"),
                 ("cx", INT, LVCF_WIDTH, 'width'),
                 ("pszText", LPTSTR, LVCF_TEXT, 'text'),
@@ -99,7 +99,7 @@ class LVCOLUMN(MaskedStructure):
                 ("iOrder", INT)]
 
 class LVITEM(Structure):
-    _fields_ = [("mask", UINT),
+    _keys_ = [("mask", UINT),
                 ("iItem", INT),
                 ("iSubItem", INT),
                 ("state", UINT),
@@ -111,13 +111,13 @@ class LVITEM(Structure):
                 ("iIndent", INT)]
 
 class LV_DISPINFO(Structure):
-    _fields_ = [("hdr", NMHDR),
+    _keys_ = [("hdr", NMHDR),
                 ("item", LVITEM)]
     
 
 class TV_ITEMEX(MaskedStructure):
     _mask_ = 'mask'
-    _fields_ = [("mask", UINT),
+    _keys_ = [("mask", UINT),
                 ("hItem", HTREEITEM),
                 ("state", UINT),
                 ("stateMask", UINT),
@@ -130,7 +130,7 @@ class TV_ITEMEX(MaskedStructure):
                 ("iIntegral", INT)]
 
 class TVITEMOLD(Structure):
-    _fields_ = [("mask", UINT),
+    _keys_ = [("mask", UINT),
                 ("hItem", HTREEITEM),
                 ("state", UINT),
                 ("stateMask", UINT),
@@ -143,7 +143,7 @@ class TVITEMOLD(Structure):
 
 class TVITEM(MaskedStructure):
     _mask_ = 'mask'
-    _fields_ = [("mask", UINT),
+    _keys_ = [("mask", UINT),
                 ("hItem", HTREEITEM),
                 ("state", UINT),
                 ("stateMask", UINT),
@@ -155,7 +155,7 @@ class TVITEM(MaskedStructure):
                 ("lParam", LPARAM, TVIF_PARAM,'param')]
 
 class TBBUTTON(Structure):
-    _fields_ = [("iBitmap", INT),
+    _keys_ = [("iBitmap", INT),
                 ("idCommand", INT),
                 ("fsState", BYTE),
                 ("fsStyle", BYTE),
@@ -164,7 +164,7 @@ class TBBUTTON(Structure):
                 ("iString", INT_PTR)]
 
 class TBBUTTONINFO(Structure):
-    _fields_ = [("cbSize", UINT),
+    _keys_ = [("cbSize", UINT),
                 ("dwMask", DWORD),
                 ("idCommand", INT),
                 ("iImage", INT),
@@ -176,12 +176,12 @@ class TBBUTTONINFO(Structure):
                 ("cchText", INT)]
 
 class TVINSERTSTRUCT(Structure):
-    _fields_ = [("hParent", HTREEITEM),
+    _keys_ = [("hParent", HTREEITEM),
                 ("hInsertAfter", HTREEITEM),
                 ("item", TVITEM)]
 
 class TCITEM(Structure):
-    _fields_ = [("mask", UINT),
+    _keys_ = [("mask", UINT),
                 ("dwState", DWORD),
                 ("dwStateMask", DWORD),
                 ("pszText", LPTSTR),
@@ -190,14 +190,14 @@ class TCITEM(Structure):
                 ("lParam", LPARAM)]
 
 class NMTREEVIEW(Structure):
-    _fields_ = [("hdr", NMHDR),
+    _keys_ = [("hdr", NMHDR),
                 ("action", UINT),
                 ("itemOld", TVITEM),
                 ("itemNew", TVITEM),
                 ("ptDrag", POINT)]
 
 class NMLISTVIEW(Structure):
-    _fields_ = [("hrd", NMHDR),
+    _keys_ = [("hrd", NMHDR),
                 ("iItem", INT),
                 ("iSubItem", INT),
                 ("uNewState", UINT),
@@ -207,16 +207,16 @@ class NMLISTVIEW(Structure):
                 ("lParam", LPARAM)]
     
 class INITCOMMONCONTROLSEX(Structure):
-    _fields_ = [("dwSize", DWORD),
+    _keys_ = [("dwSize", DWORD),
                 ("dwICC", DWORD)]
 
 class REBARINFO(Structure):
-    _fields_ = [("cbSize", UINT),
+    _keys_ = [("cbSize", UINT),
                 ("fMask", UINT),
                 ("himl", HIMAGELIST)]
 
 class REBARBANDINFO(Structure):
-    _fields_ = [("cbSize", UINT),
+    _keys_ = [("cbSize", UINT),
                 ("fMask", UINT),
                 ("fStyle", UINT),
                 ("clrFore", COLORREF),
@@ -238,7 +238,7 @@ class REBARBANDINFO(Structure):
                 ("cxHeader", UINT)]
 
 class NMTOOLBAR(Structure):
-    _fields_ = [("hdr", NMHDR),
+    _keys_ = [("hdr", NMHDR),
                 ("iItem", INT),
                 ("tbButton", TBBUTTON),
                 ("cchText", INT),
@@ -246,17 +246,17 @@ class NMTOOLBAR(Structure):
                 ("rcButton", RECT)]
 
 class NMTBHOTITEM(Structure):
-    _fields_ = [("hdr", NMHDR),
+    _keys_ = [("hdr", NMHDR),
                 ("idOld", INT),
                 ("idNew", INT),
                 ("dwFlags", DWORD)]
 
 class PBRANGE(Structure):
-    _fields_ = [("iLow", INT),
+    _keys_ = [("iLow", INT),
                 ("iHigh", INT)]
     
 class NMITEMACTIVATE(Structure):
-    _fields_ = [("hdr", NMHDR),
+    _keys_ = [("hdr", NMHDR),
                 ("iItem", c_int),
                 ("iSubItem", c_int),
                 ("uNewState", UINT),
@@ -1033,8 +1033,10 @@ CB_GETCOMBOBOXINFO = 0x0162
 CB_MSGMAX = 0x0163
 CB_MSGMAX = 0x015B
 
-LVCFMT_LEFT = 0x0000
-LVCFMT_RIGHT = 0x0001
+LVCFMT_LEFT = 0x0000
+
+LVCFMT_RIGHT = 0x0001
+
 LVCFMT_CENTER = 0x0002
 
 LVS_SINGLESEL = 0x0004

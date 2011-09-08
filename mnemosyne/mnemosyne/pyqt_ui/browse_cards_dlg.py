@@ -11,8 +11,8 @@ from PyQt4 import QtCore, QtGui, QtSql
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.pyqt_ui.tag_tree_wdgt import TagsTreeWdgt
-from mnemosyne.pyqt_ui.convert_card_type_fields_dlg import \
-     ConvertCardTypeFieldsDlg
+from mnemosyne.pyqt_ui.convert_card_type_keys_dlg import \
+     ConvertCardTypekeysDlg
 from mnemosyne.pyqt_ui.ui_browse_cards_dlg import Ui_BrowseCardsDlg
 from mnemosyne.pyqt_ui.card_type_tree_wdgt import CardTypesTreeWdgt
 from mnemosyne.libmnemosyne.ui_components.dialogs import BrowseCardsDialog
@@ -61,7 +61,7 @@ class CardModel(QtSql.QSqlTableModel, Component):
                 QtGui.QColor(rgb)    
         self.font_colour_for_card_type_id = {}
         for card_type_id in self.config()["font_colour"]:
-            first_key = self.card_type_with_id(card_type_id).fields[0][0]
+            first_key = self.card_type_with_id(card_type_id).keys[0][0]
             self.font_colour_for_card_type_id[card_type_id] = QtGui.QColor(\
                 self.config()["font_colour"][card_type_id][first_key])
         
@@ -98,7 +98,7 @@ class CardModel(QtSql.QSqlTableModel, Component):
         if role != QtCore.Qt.DisplayRole:
             return QtSql.QSqlTableModel.data(self, index, role)
         # Display roles to format some columns in a more pretty way. Note that
-        # sorting still uses the orginal database fields, which is good
+        # sorting still uses the orginal database keys, which is good
         # for speed.
         if column == GRADE:
             grade = QtSql.QSqlTableModel.data(self, index).toInt()[0]
@@ -388,8 +388,8 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         # Get correspondence.
         self.correspondence = {}        
         if not current_card_type.keys().issubset(new_card_type.keys()):      
-            dlg = ConvertCardTypeFieldsDlg(current_card_type, new_card_type,
-                self.correspondence, check_required_fields=True, parent=self)
+            dlg = ConvertCardTypekeysDlg(current_card_type, new_card_type,
+                self.correspondence, check_required_keys=True, parent=self)
             if dlg.exec_() != QtGui.QDialog.Accepted:
                 return
         # Start the actual conversion.

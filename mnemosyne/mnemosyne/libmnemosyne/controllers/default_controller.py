@@ -95,7 +95,7 @@ class DefaultController(Controller):
                         return
                 answer = self.main_widget().show_question(\
                   _("There is already data present for:\n\n") +
-                  "/".join(fact[k] for k in card_type.required_fields),
+                  "/".join(fact[k] for k in card_type.required_keys),
                   _("&Merge and edit"), _("&Add as is"), _("&Do not add"))
                 if answer == 0: # Merge and edit.
                     db.add_fact(fact)
@@ -108,7 +108,7 @@ class DefaultController(Controller):
                     merged_fact_data = copy.copy(fact.data)
                     for duplicate in duplicates:
                         for key in fact_data:
-                            if key not in card_type.required_fields \
+                            if key not in card_type.required_keys \
                                 and key in duplicate.data:
                                 merged_fact_data[key] += " / " + duplicate[key]
                     self.delete_facts_and_their_cards(duplicates)

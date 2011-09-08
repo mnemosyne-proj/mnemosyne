@@ -34,7 +34,7 @@ DTN_FIRST = 4294966536
 DTN_DATETIMECHANGED = DTN_FIRST + 1
 
 class SYSTEMTIME(Structure):
-    _fields_ = [("wYear", WORD),
+    _keys_ = [("wYear", WORD),
                 ("wMonth", WORD),
                 ("wDayOfWeek", WORD),
                 ("wDay", WORD),

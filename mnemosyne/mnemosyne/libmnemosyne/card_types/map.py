@@ -16,25 +16,25 @@ class Map(CardType):
     name = _("Map")
 
     # List and name the keys.
-    fields = [("loc", _("Location")),
+    keys_and_names = [("loc", _("Location")),
               ("blank", _("Blank map")),
               ("marked", _("Marked map"))]
 
     # Recognition.
     v1 = FactView(_("Recognition"), "4.1")
-    v1.q_fields = ["_", "marked"]
-    v1.a_fields = ["loc", "marked",]
+    v1.q_keys = ["_", "marked"]
+    v1.a_keys = ["loc", "marked",]
     v1.a_on_top_of_q = True
     
     # Production.
     v2 = FactView(_("Production"), "4.2")
-    v2.q_fields = ["loc", "blank"]
-    v2.a_fields = ["loc", "marked"]
+    v2.q_keys = ["loc", "blank"]
+    v2.a_keys = ["loc", "marked"]
     v2.a_on_top_of_q = True
 
     fact_views = [v1, v2]
-    unique_fields = ["loc"]
-    required_fields = ["loc", "blank", "marked"]
+    unique_keys = ["loc"]
+    required_keys = ["loc", "blank", "marked"]
 
     def fact_data(self, card):
         data = copy.copy(card.fact.data)

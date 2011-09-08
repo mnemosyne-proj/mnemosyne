@@ -152,8 +152,8 @@ $pregenerated_data
     
     /* Here, we store the card types that are created at run time by the user
        through the GUI, as opposed to those that are instantiated through a
-       plugin. For columns containing lists, dicts, ...  like 'fields',
-       'unique_fields', ... we store the __repr__ representations of the
+       plugin. For columns containing lists, dicts, ...  like 'keys_and_names',
+       'unique_keys', ... we store the __repr__ representations of the
        Python objects.
        Since these are small tables which only get used during load to create
        card types, we only use id's instead of _ids.
@@ -164,10 +164,10 @@ $pregenerated_data
     create table fact_views(
         id text primary key,
         name text,
-        q_fields text,
-        a_fields text,
-        q_field_decorators text,
-        a_field_decorators text,
+        q_keys text,
+        a_keys text,
+        q_key_decorators text,
+        a_key_decorators text,
         a_on_top_of_q boolean default 0,
         type_answer boolean default 0,
         extra_data text default ""
@@ -176,9 +176,9 @@ $pregenerated_data
     create table card_types(
         id text primary key,
         name text,
-        fields text,
-        unique_fields text,
-        required_fields text,
+        keys_and_names text,
+        unique_keys text,
+        required_keys text,
         fact_view_ids text,
         keyboard_shortcuts text,
         extra_data text default ""
@@ -888,12 +888,12 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     #
 
     def add_fact_view(self, fact_view):
-        self.con.execute("""insert into fact_views(id, name, q_fields,
-            a_fields, q_field_decorators, a_field_decorators, a_on_top_of_q,
+        self.con.execute("""insert into fact_views(id, name, q_keys,
+            a_keys, q_key_decorators, a_key_decorators, a_on_top_of_q,
             type_answer, extra_data) values(?,?,?,?,?,?,?,?,?)""",
-            (fact_view.id, fact_view.name, repr(fact_view.q_fields),
-            repr(fact_view.a_fields), repr(fact_view.q_field_decorators),
-            repr(fact_view.a_field_decorators), fact_view.a_on_top_of_q,
+            (fact_view.id, fact_view.name, repr(fact_view.q_keys),
+            repr(fact_view.a_keys), repr(fact_view.q_key_decorators),
+            repr(fact_view.a_key_decorators), fact_view.a_on_top_of_q,
             fact_view.type_answer,
             self._repr_extra_data(fact_view.extra_data)))
         self.log().added_fact_view(fact_view)
@@ -904,8 +904,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         sql_res = self.con.execute("select * from fact_views where id=?",
                  (id, )).fetchone()            
         fact_view = FactView(sql_res["name"], sql_res["id"])
-        for attr in ("q_fields", "a_fields", "q_field_decorators",
-            "a_field_decorators"):
+        for attr in ("q_keys", "a_keys", "q_key_decorators",
+            "a_key_decorators"):
             setattr(fact_view, attr, eval(sql_res[attr]))
         for attr in ["a_on_top_of_q", "type_answer"]:
             setattr(fact_view, attr, bool(sql_res[attr]))
@@ -913,12 +913,12 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         return fact_view
 
     def update_fact_view(self, fact_view):
-        self.con.execute("""update fact_views set name=?, q_fields=?,
-            a_fields=?, q_field_decorators=?, a_field_decorators=?,
+        self.con.execute("""update fact_views set name=?, q_keys=?,
+            a_keys=?, q_key_decorators=?, a_key_decorators=?,
             a_on_top_of_q=?, type_answer=?, extra_data=? where id=?""",
-            (fact_view.name, repr(fact_view.q_fields),
-            repr(fact_view.a_fields), repr(fact_view.q_field_decorators),
-            repr(fact_view.a_field_decorators), fact_view.a_on_top_of_q,
+            (fact_view.name, repr(fact_view.q_keys),
+            repr(fact_view.a_keys), repr(fact_view.q_key_decorators),
+            repr(fact_view.a_key_decorators), fact_view.a_on_top_of_q,
             fact_view.type_answer,
             self._repr_extra_data(fact_view.extra_data), fact_view.id))
         self.log().edited_fact_view(fact_view)
@@ -934,11 +934,11 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     #
         
     def add_card_type(self, card_type):
-        self.con.execute("""insert into card_types(id, name, fields,
-            unique_fields, required_fields, fact_view_ids, keyboard_shortcuts,
+        self.con.execute("""insert into card_types(id, name, keys_and_names,
+            unique_keys, required_keys, fact_view_ids, keyboard_shortcuts,
             extra_data) values (?,?,?,?,?,?,?,?)""", (card_type.id,
-            card_type.name, repr(card_type.fields),
-            repr(card_type.unique_fields), repr(card_type.required_fields),
+            card_type.name, repr(card_type.keys_and_names),
+            repr(card_type.unique_keys), repr(card_type.required_keys),
             repr([fact_view.id for fact_view in card_type.fact_views]),
             repr(card_type.keyboard_shortcuts),
             self._repr_extra_data(card_type.extra_data)))
@@ -967,7 +967,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                                    (id, )).fetchone()
         card_type = type(mangle(id), (parent.__class__, ),
             {"name": sql_res["name"], "id": id})(self.component_manager)
-        for attr in ("fields", "unique_fields", "required_fields",
+        for attr in ("keys_and_names", "unique_keys", "required_keys",
                      "keyboard_shortcuts"):
             setattr(card_type, attr, eval(sql_res[attr]))
         self._construct_extra_data(sql_res, card_type)
@@ -979,11 +979,11 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     def update_card_type(self, card_type):
         # Updating of the fact views should happen at the controller level,
         # so as not to upset the sync protocol.
-        self.con.execute("""update card_types set name=?, fields=?,
-            unique_fields=?, required_fields=?, fact_view_ids=?,
+        self.con.execute("""update card_types set name=?, keys_and_names=?,
+            unique_keys=?, required_keys=?, fact_view_ids=?,
             keyboard_shortcuts=?, extra_data=? where id=?""",
-            (card_type.name, repr(card_type.fields),
-            repr(card_type.unique_fields), repr(card_type.required_fields),
+            (card_type.name, repr(card_type.keys_and_names),
+            repr(card_type.unique_keys), repr(card_type.required_keys),
             repr([fact_view.id for fact_view in card_type.fact_views]),
             repr(card_type.keyboard_shortcuts),
             self._repr_extra_data(card_type.extra_data), card_type.id))
@@ -1080,23 +1080,23 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
 
     def duplicates_for_fact(self, fact, card_type):
 
-        """Return facts with the same 'card_type.unique_fields'
+        """Return facts with the same 'card_type.unique_keys'
         data as 'fact'.
 
         """
 
         _fact_ids = set()
-        for field in card_type.unique_fields:
+        for key in card_type.unique_keys:
             if fact._id:
                 for cursor in self.con.execute("""select _fact_id from
                     data_for_fact where key=? and value=?
-                    and not _fact_id=?""", (field, fact[field], fact._id)):
+                    and not _fact_id=?""", (key, fact[key], fact._id)):
                     _fact_ids.add(cursor[0])
             else:
                 # The fact has not yet been saved in the database.
                 for cursor in self.con.execute("""select _fact_id from
                     data_for_fact where key=? and value=?""",
-                    (field, fact[field])):
+                    (key, fact[key])):
                     _fact_ids.add(cursor[0])
         # Now we still need to make sure these facts are from cards with
         # the correct card type.
