@@ -16,15 +16,15 @@ class DecoratedVocabulary(Vocabulary):
 
     # Recognition.
     v1 = FactView(_("Recognition"), "3::1")
-    v1.q_keys = ["f"]
-    v1.a_keys = ["p_1", "m_1", "n"]
-    v1.q_key_decorators = {"f": "What is the translation of ${f}?"}
+    v1.q_fact_keys = ["f"]
+    v1.a_fact_keys = ["p_1", "m_1", "n"]
+    v1.q_fact_key_decorators = {"f": "What is the translation of ${f}?"}
     
     # Production.
     v2 = FactView(_("Production"), "3::2")
-    v2.q_keys = ["m_1"]
-    v2.a_keys = ["f", "p_1", "n"]
-    v2.q_key_decorators = {"m_1": "How do you say ${m_1}?"}
+    v2.q_fact_keys = ["m_1"]
+    v2.a_fact_keys = ["f", "p_1", "n"]
+    v2.q_fact_key_decorators = {"m_1": "How do you say ${m_1}?"}
     
     fact_views = [v1, v2]
     

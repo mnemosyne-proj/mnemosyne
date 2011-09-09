@@ -15,22 +15,22 @@ class BothWays(CardType):
     name = _("Front-to-back and back-to-front")
 
     # List and name the keys.
-    keys_and_names = [("f", _("Front")),
+    fact_keys_and_names = [("f", _("Front")),
               ("b", _("Back"))]
     
     # Front-to-back.
     v1 = FactView(_("Front-to-back"), "2.1")
-    v1.q_keys = ["f"]
-    v1.a_keys = ["b"]
+    v1.q_fact_keys = ["f"]
+    v1.a_fact_keys = ["b"]
 
     # Back-to-front.
     v2 = FactView(_("Back-to-front"), "2.2",)
-    v2.q_keys = ["b"]
-    v2.a_keys = ["f"]
+    v2.q_fact_keys = ["b"]
+    v2.a_fact_keys = ["f"]
     
     fact_views = [v1, v2]
-    required_keys = ["f", "b"]
-    unique_keys = ["f"]
+    required_fact_keys = ["f", "b"]
+    unique_fact_keys = ["f"]
 
 
 from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack

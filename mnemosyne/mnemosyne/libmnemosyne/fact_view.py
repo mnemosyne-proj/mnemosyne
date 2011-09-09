@@ -23,10 +23,10 @@ class FactView(CompareOnId):
     def __init__(self, name, id):
         self.id = id
         self.name = name
-        self.q_keys = []
-        self.a_keys = []
-        self.q_key_decorators = {}  # {key: string.Template}
-        self.a_key_decorators = {}  # {key: string.Template}
+        self.q_fact_keys = []
+        self.a_fact_keys = []
+        self.q_fact_key_decorators = {}  # {key: string.Template}
+        self.a_fact_key_decorators = {}  # {key: string.Template}
         self.a_on_top_of_q = False
         self.type_answer = False
         self.extra_data = {}

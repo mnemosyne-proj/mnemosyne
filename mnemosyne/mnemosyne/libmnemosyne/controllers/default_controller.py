@@ -80,7 +80,7 @@ class DefaultController(Controller):
         """
 
         assert grade in [-1, 2, 3, 4, 5] # Use -1 for yet to learn cards.
-        assert card_type.is_data_valid(fact_data)
+        assert card_type.is_fact_data_valid(fact_data)
         db = self.database()
         tags = db.get_or_create_tags_with_names(tag_names)
         fact = Fact(fact_data)
@@ -95,7 +95,7 @@ class DefaultController(Controller):
                         return
                 answer = self.main_widget().show_question(\
                   _("There is already data present for:\n\n") +
-                  "/".join(fact[k] for k in card_type.required_keys),
+                  "/".join(fact[k] for k in card_type.required_fact_keys),
                   _("&Merge and edit"), _("&Add as is"), _("&Do not add"))
                 if answer == 0: # Merge and edit.
                     db.add_fact(fact)
@@ -108,7 +108,7 @@ class DefaultController(Controller):
                     merged_fact_data = copy.copy(fact.data)
                     for duplicate in duplicates:
                         for key in fact_data:
-                            if key not in card_type.required_keys \
+                            if key not in card_type.required_fact_keys \
                                 and key in duplicate.data:
                                 merged_fact_data[key] += " / " + duplicate[key]
                     self.delete_facts_and_their_cards(duplicates)
@@ -172,7 +172,7 @@ class DefaultController(Controller):
         db = self.database()
         cards_from_fact = db.cards_from_fact(fact)
         assert cards_from_fact[0].card_type == old_card_type
-        assert new_card_type.is_data_valid(new_fact_data)
+        assert new_card_type.is_fact_data_valid(new_fact_data)
         converter = self.component_manager.current\
               ("card_type_converter", used_for=(old_card_type.__class__,
                                                 new_card_type.__class__))
@@ -240,7 +240,7 @@ class DefaultController(Controller):
             new_card_type, new_tag_names, correspondence):        
         db = self.database()
         sch = self.scheduler()
-        assert new_card_type.is_data_valid(new_fact_data)
+        assert new_card_type.is_fact_data_valid(new_fact_data)
         # If the old fact contained media, we need to check for orphans.
         clean_orphaned_static_media_files_needed = \
             db.fact_contains_static_media_files(fact)
@@ -304,7 +304,7 @@ class DefaultController(Controller):
                 new_fact_data = {}
                 for old_key, new_key in correspondence.iteritems():
                     new_fact_data[new_key] = fact[old_key]
-                assert new_card_type.is_data_valid(new_fact_data)
+                assert new_card_type.is_fact_data_valid(new_fact_data)
                 fact.data = new_fact_data
                 db.update_fact(fact)
             else:

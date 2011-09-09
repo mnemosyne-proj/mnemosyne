@@ -272,10 +272,10 @@ class Configuration(Component, dict):
             self[property_name][card_type.id] = property
             return
         self[property_name].setdefault(card_type.id, {})
-        for key in card_type.keys():
+        for key in card_type.fact_keys():
             self[property_name][card_type.id].setdefault(key, None)
         if not fact_key:
-            keys = card_type.keys()
+            keys = card_type.fact_keys()
         else:
             keys = [fact_key]
         for key in keys:
@@ -297,7 +297,7 @@ class Configuration(Component, dict):
 
     def clone_card_type_properties(self, old_card_type, new_card_type):
         for property_name in ["font", "font_colour"]:
-            for fact_key in new_card_type.keys():
+            for fact_key in new_card_type.fact_keys():
                 old_value = self.card_type_property(property_name,
                     old_card_type, fact_key)
                 if old_value:

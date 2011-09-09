@@ -71,7 +71,7 @@ different names to the same key. (E.g. foreign word&#8217; could be called
 a list of the form [(fact_key, fact_key_name)]. It is tempting to use a
 dictionary here, but we can&#8217;t do that since ordering is important.</p>
 <p>keys which need to be different for all facts belonging to this card
-type are listed in &#8216;unique_keys&#8217;.</p>
+type are listed in &#8216;unique_fact_keys&#8217;.</p>
 <p>Note that a fact could contain more data than those listed in the card
 type&#8217;s &#8216;keys&#8217; variable, which could be useful for card types needing
 hidden keys, dynamically generated keys, ... .</p>
@@ -107,8 +107,8 @@ can override this.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.is_data_valid">
-<tt class="descname">is_data_valid</tt><big>(</big><em>fact_data</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.is_data_valid" title="Permalink to this definition">¶</a></dt>
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.is_fact_data_valid">
+<tt class="descname">is_fact_data_valid</tt><big>(</big><em>fact_data</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.is_fact_data_valid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if all the required keys are present.</p>
 </dd></dl>
 

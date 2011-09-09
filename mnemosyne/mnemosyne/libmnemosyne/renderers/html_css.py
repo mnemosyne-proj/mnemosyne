@@ -92,16 +92,16 @@ class HtmlCss(Renderer):
             self.update(card_type)
         return self._css[card_type.id]
 
-    def body(self, data, keys, **render_args):
+    def body(self, fact_data, fact_keys, **render_args):
         html = ""
-        for key in keys:
-            if key in data and data[key]:
-                html += "<div id=\"%s\">%s</div>" % (key, data[key])
+        for key in fact_keys:
+            if key in fact_data and fact_data[key]:
+                html += "<div id=\"%s\">%s</div>" % (key, fact_data[key])
         return html
                 
-    def render_fields(self, data, keys, card_type, **render_args):
+    def render(self, fact_data, fact_keys, card_type, **render_args):
         css = self.css(card_type)
-        body = self.body(data, keys, **render_args)
+        body = self.body(fact_data, fact_keys, **render_args)
         return """
         <html>
         <head>

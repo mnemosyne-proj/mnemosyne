@@ -1,11 +1,6 @@
--key i.o fact_key?
--render_chain.render_fields, webserver renderer
--hide pronunciation field/key
--doc of card type, renderer
+-seach for key, data, and replace it by fact_key, fact_data
+-update html docs
 -ui:convertcardtypefields
-
--card_type.fact_data --> .data?
--update docs
 
 -convert database
 

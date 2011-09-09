@@ -111,12 +111,12 @@ class AddEditCards(Component):
                 [new_card_type.id] = "" 
         self.update_tags_combobox(self.config()\
            ["last_used_tags_for_card_type_id"][new_card_type.id])
-        if self.card_type.keys().issubset(new_card_type.keys()) or \
+        if self.card_type.fact_keys().issubset(new_card_type.fact_keys()) or \
                not self.card_type_widget.contains_data():
             self.update_card_widget()            
             return
         dlg = ConvertCardTypekeysDlg(self.card_type, new_card_type,
-            self.correspondence, check_required_keys=False, parent=self)
+            self.correspondence, check_required_fact_keys=False, parent=self)
         if dlg.exec_() != QtGui.QDialog.Accepted:
             self.card_types_widget.setCurrentIndex(self.card_type_index)
             return

@@ -22,11 +22,11 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         self.top_edit_box = None
         # Does this card type need to deal with the hiding of pronunciation
         # keys?
-        if "p_1" not in self.card_type.keys():
+        if "p_1" not in self.card_type.fact_keys():
             pronunciation_hiding = None
         else:
             pronunciation_hiding = self.config().card_type_property(\
-                "hide_pronunciation_key", self.card_type, default=False)
+                "hide_pronunciation_field", self.card_type, default=False)
         # Construct the rest of the dialog.
         parent.setTabOrder(parent.card_types_widget, parent.tags)
         for fact_key, fact_key_name in self.card_type.keys:
@@ -39,7 +39,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
             t.setTabChangesFocus(True)
             t.setUndoRedoEnabled(True)
             t.setReadOnly(False)
-            if len(self.card_type.keys_and_names) > 2:
+            if len(self.card_type.fact_keys_and_names) > 2:
                 t.setMinimumSize(QtCore.QSize(0, 60))
             else:
                 t.setMinimumSize(QtCore.QSize(0, 106))
@@ -130,7 +130,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
     def set_data(self, data):
         if data:
             for edit_box, fact_key in self.fact_key_for_edit_box.iteritems():
-                if fact_key in data.keys():
+                if fact_key in data.fact_keys():
                     edit_box.setPlainText(data[fact_key])
 
     def clear(self):
@@ -139,4 +139,4 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         self.top_edit_box.setFocus()
     
     def text_changed(self):
-        self.parent().set_valid(self.card_type.is_data_valid(self.data()))
+        self.parent().set_valid(self.card_type.is_fact_data_valid(self.data()))

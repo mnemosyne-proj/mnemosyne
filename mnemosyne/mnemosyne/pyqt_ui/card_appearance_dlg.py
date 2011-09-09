@@ -27,7 +27,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
         self.dynamic_widgets = []
         self.affected_card_types = []
-        self.key_names = []
+        self.fact_key_names = []
         self.non_latin_font_size_increase.setValue\
             (self.config()['non_latin_font_size_increase'])
         # We calculate card_type_by_name here because these names can change
@@ -51,7 +51,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
     def card_type_changed(self, new_card_type_name):
         if new_card_type_name == _("<all card types>"):
             self.affected_card_types = self.card_types()
-            self.key_names = [_("Text")]
+            self.fact_key_names = [_("Text")]
             for widget in [self.label_non_latin_1, self.label_non_latin_2,
                 self.label_non_latin_3, self.line_non_latin,
                 self.non_latin_font_size_increase]:
@@ -60,7 +60,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
             new_card_type_name = unicode(new_card_type_name)
             new_card_type = self.card_type_by_name[new_card_type_name]
             self.affected_card_types = [new_card_type]
-            self.key_names = new_card_type.key_names()
+            self.fact_key_names = new_card_type.fact_key_names()
             for widget in [self.label_non_latin_1, self.label_non_latin_2,
                 self.label_non_latin_3, self.line_non_latin,
                 self.non_latin_font_size_increase]:
@@ -75,7 +75,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         self.colour_buttons = QtGui.QButtonGroup()
         self.align_buttons = QtGui.QButtonGroup()
         self.align_buttons.setExclusive(False)
-        for key_name in self.key_names:
+        for key_name in self.fact_key_names:
             label = QtGui.QLabel(key_name + ":", self)
             self.gridLayout.addWidget(label, row, 0, 1, 1)
             self.dynamic_widgets.append(label)
@@ -215,7 +215,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         for render_chain in self.component_manager.all("render_chain"):
             render_chain.renderer_for_card_type(card_type).update(card_type)
         fact_data = {}
-        for fact_key, fact_key_name in card_type.keys_and_names:
+        for fact_key, fact_key_name in card_type.fact_keys_and_names:
             fact_data[fact_key] = fact_key_name
         fact = Fact(fact_data)
         cards = card_type.create_sister_cards(fact)        

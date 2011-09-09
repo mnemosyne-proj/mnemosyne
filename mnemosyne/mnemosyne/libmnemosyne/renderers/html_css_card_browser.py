@@ -52,15 +52,16 @@ class HtmlCssCardBrowser(HtmlCss):
             css += "}\n"
         return css
 
-    def body(self, data, keys, **render_args):
+    def body(self, fact_data, fact_keys, **render_args):
         html = ""
-        for key in keys:
-            if key in data and data[key]:
-                data_key = data[key].replace("\n", " / ")
-                html += "<span class=\"%s\">%s</span> / " % (key, data_key)
+        for fact_key in fact_keys:
+            if fact_key in fact_data and fact_data[fact_key]:
+                fact_data_fact_key = fact_data[fact_key].replace("\n", " / ")
+                html += "<span class=\"%s\">%s</span> / " %
+                    (fact_key, fact_data_fact_key)
         return html[:-2]
                 
-    def render_fields(self, data, keys, card_type, **render_args):
+    def render(self, fact_data, fact_keys, card_type, **render_args):
         css = self.css(card_type)
         if "ignore_text_colour" in render_args and \
             render_args["ignore_text_colour"] == True:
@@ -70,11 +71,11 @@ class HtmlCssCardBrowser(HtmlCss):
             for symbol in ["(", ")", "?", ".", "^", "*", "$", "+"]:
                 search_string = search_string.replace(symbol, "\\" + symbol)
             search_re = re.compile("(" + search_string + ")", re.IGNORECASE)
-            for key in keys:
-                if key in data and data[key]:
-                    data[key] = search_re.sub(\
-                    "<span class=\"_search\">\\1</span>", data[key])
-        body = self.body(data, keys, **render_args)
+            for fact_key in fact_keys:
+                if fact_key in fact_data and fact_data[fact_key]:
+                    fact_data[fact_key] = search_re.sub(\
+                    "<span class=\"_search\">\\1</span>", fact_data[fact_key])
+        body = self.body(fact_data, fact_keys, **render_args)
         return """
         <html>
         <head>

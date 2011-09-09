@@ -38,18 +38,18 @@ class Cloze(CardType):
     id = "5"
     name = _("Cloze deletion")
 
-    keys_and_names = [("text", _("Text"))]
-    unique_keys = ["text"]
+    fact_keys_and_names = [("text", _("Text"))]
+    unique_fact_keys = ["text"]
 
     v = FactView(_("Cloze"), "5.1")
-    v.q_keys = ["f"]  # Generated on the fly. 
-    v.a_keys = ["b"]  # Generated on the fly. 
+    v.q_fact_keys = ["f"]  # Generated on the fly. 
+    v.a_fact_keys = ["b"]  # Generated on the fly. 
     fact_views = [v]
 
     def key_format_proxies(self):
         return {"text": "text", "f": "text", "b": "text"}
 
-    def is_data_valid(self, fact_data):
+    def is_fact_data_valid(self, fact_data):
         return bool(cloze_re.search(fact_data["text"]))
         
     def fact_data(self, card):

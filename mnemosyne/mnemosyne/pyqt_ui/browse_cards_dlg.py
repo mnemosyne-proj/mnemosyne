@@ -387,9 +387,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         new_card_type = return_values["new_card_type"]
         # Get correspondence.
         self.correspondence = {}        
-        if not current_card_type.keys().issubset(new_card_type.keys()):      
+        if not current_card_type.fact_keys().issubset(new_card_type.fact_keys()):      
             dlg = ConvertCardTypekeysDlg(current_card_type, new_card_type,
-                self.correspondence, check_required_keys=True, parent=self)
+                self.correspondence, check_required_fact_keys=True, parent=self)
             if dlg.exec_() != QtGui.QDialog.Accepted:
                 return
         # Start the actual conversion.

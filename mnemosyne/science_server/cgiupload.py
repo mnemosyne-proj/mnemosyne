@@ -23,7 +23,7 @@ class FileUploadAcquisition:
 	
     def process(self):
         
-        fs = cgi.keys_and_namestorage()
+        fs = cgi.fact_keys_and_namestorage()
         uf = fs["file"]
 
         filename = os.path.join("/home/mnemosyne", uf.filename)

@@ -12,7 +12,7 @@ from mnemosyne.pyqt_ui.ui_convert_card_type_keys_dlg import \
 class ConvertCardTypekeysDlg(QtGui.QDialog, Ui_ConvertCardTypekeysDlg):
 
     def __init__(self, old_card_type, new_card_type, correspondence,
-                 check_required_keys=True, parent=None):
+                 check_required_fact_keys=True, parent=None):
         QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
@@ -22,10 +22,10 @@ class ConvertCardTypekeysDlg(QtGui.QDialog, Ui_ConvertCardTypekeysDlg):
         self.old_card_type = old_card_type
         self.new_card_type = new_card_type
         self.correspondence = correspondence
-        self.check_required_keys = check_required_keys
+        self.check_required_fact_keys = check_required_fact_keys
         self.comboboxes = {}
         index = 1
-        for old_fact_key, old_fact_key_name in old_card_type.keys_and_names:
+        for old_fact_key, old_fact_key_name in old_card_type.fact_keys_and_names:
             label = QtGui.QLabel(self)
             label.setText(old_fact_key_name + ":")
             font = QtGui.QFont()
@@ -34,7 +34,7 @@ class ConvertCardTypekeysDlg(QtGui.QDialog, Ui_ConvertCardTypekeysDlg):
             label.setFont(font)
             self.gridLayout.addWidget(label, index, 0, 1, 1)
             combobox = QtGui.QComboBox(self)
-            for new_fact_key, new_key_name in new_card_type.keys_and_names:
+            for new_fact_key, new_key_name in new_card_type.fact_keys_and_names:
                 combobox.addItem(new_key_name)
             combobox.addItem(_("<none>"))
             combobox.setCurrentIndex(combobox.count()-1)
@@ -46,21 +46,21 @@ class ConvertCardTypekeysDlg(QtGui.QDialog, Ui_ConvertCardTypekeysDlg):
     def combobox_updated(self):
         self.ok_button.setEnabled(False)
         self.correspondence.clear()
-        for old_fact_key, old_fact_key_name in self.old_card_type.keys_and_names:
+        for old_fact_key, old_fact_key_name in self.old_card_type.fact_keys_and_names:
             new_fact_key_name = self.comboboxes[old_fact_key].currentText()
             if new_fact_key_name != _("<none>"):
                 self.ok_button.setEnabled(True)                
                 new_fact_key = \
-                     self.new_card_type.key_with_name(new_fact_key_name)
+                     self.new_card_type.fact_key_with_name(new_fact_key_name)
                 if new_fact_key in self.correspondence.values():
                     QtGui.QMessageBox.critical(None, _("Mnemosyne"),
-                        _("No duplicate in new keys_and_names allowed."),
+                        _("No duplicate in new fact_keys_and_names allowed."),
                         _("&OK"), "", "", 0, -1)
                     self.ok_button.setEnabled(False)
                     return                  
                 self.correspondence[old_fact_key] = new_fact_key
-        if self.check_required_keys:
-            for key in self.new_card_type.required_keys:
+        if self.check_required_fact_keys:
+            for key in self.new_card_type.required_fact_keys:
                 if key not in self.correspondence.values():
                     self.ok_button.setEnabled(False)
                     if len(self.correspondence) == \
@@ -76,7 +76,7 @@ class ConvertCardTypekeysDlg(QtGui.QDialog, Ui_ConvertCardTypekeysDlg):
             new_fact_key_name = self.comboboxes[old_fact_key].currentText()
             if new_fact_key_name != _("<none>"):
                 new_fact_key = \
-                     self.new_card_type.key_with_name(new_fact_key_name)
+                     self.new_card_type.fact_key_with_name(new_fact_key_name)
                 self.correspondence[old_fact_key] = new_fact_key
         QtGui.QDialog.accept(self)
         

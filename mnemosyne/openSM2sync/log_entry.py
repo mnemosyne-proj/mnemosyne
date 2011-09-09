@@ -128,20 +128,20 @@ class LogEntry(dict):
     
     Keys specific to ADDED_FACT_VIEW, EDITED_FACT_VIEW, DELETED_FACT_VIEW:
         name (string)
-        q_keys (string)
-        a_keys (string)
-        q_key_decorators (string)
-        a_key_decorators (string)
+        q_fact_keys (string)
+        a_fact_keys (string)
+        q_fact_key_decorators (string)
+        a_fact_key_decorators (string)
         a_on_top_of_q (bool)
         type_answer (bool)
         extra (string)
 
     Keys specific to ADDED_CARD_TYPE, EDITED_CARD_TYPE, DELETED_CARD_TYPE:
         name (string)
-        keys_and_names (string)
+        fact_keys_and_names (string)
         fact_views (string)
-        unique_keys (string)
-        required_keys (string)
+        unique_fact_keys (string)
+        required_fact_keys (string)
         keyboard_shortcuts (string)
         extra (string)
                 
