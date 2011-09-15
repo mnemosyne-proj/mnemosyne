@@ -280,8 +280,8 @@ class SQLiteSync(object):
                 return None
             try:
                 fact = self.fact(log_entry["o_id"], is_id_internal=False)
-                for key, value in fact.data.iteritems():
-                    log_entry[key] = value
+                for fact_key, value in fact.data.iteritems():
+                    log_entry[fact_key] = value
             except TypeError: # The object has been deleted at a later stage.
                 pass
         elif event_type in (EventTypes.ADDED_FACT_VIEW,
@@ -361,11 +361,11 @@ class SQLiteSync(object):
         if log_entry["type"] == EventTypes.DELETED_FACT:
             return self.fact(log_entry["o_id"], is_id_internal=False)
         # Create fact object.
-        data = {}
+        fact_data = {}
         for key, value in log_entry.iteritems():
             if key not in ["time", "type", "o_id"]:
-                data[key] = value        
-        fact = Fact(data, log_entry["o_id"])
+                fact_data[key] = value        
+        fact = Fact(fact_data, log_entry["o_id"])
         if log_entry["type"] != EventTypes.ADDED_FACT:
             fact._id = self.con.execute("select _id from facts where id=?",
                 (fact.id, )).fetchone()[0]

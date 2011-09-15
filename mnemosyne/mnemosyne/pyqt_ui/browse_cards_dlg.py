@@ -12,7 +12,7 @@ from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.pyqt_ui.tag_tree_wdgt import TagsTreeWdgt
 from mnemosyne.pyqt_ui.convert_card_type_keys_dlg import \
-     ConvertCardTypekeysDlg
+     ConvertCardTypeKeysDlg
 from mnemosyne.pyqt_ui.ui_browse_cards_dlg import Ui_BrowseCardsDlg
 from mnemosyne.pyqt_ui.card_type_tree_wdgt import CardTypesTreeWdgt
 from mnemosyne.libmnemosyne.ui_components.dialogs import BrowseCardsDialog
@@ -388,7 +388,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         # Get correspondence.
         self.correspondence = {}        
         if not current_card_type.fact_keys().issubset(new_card_type.fact_keys()):      
-            dlg = ConvertCardTypekeysDlg(current_card_type, new_card_type,
+            dlg = ConvertCardTypeKeysDlg(current_card_type, new_card_type,
                 self.correspondence, check_required_fact_keys=True, parent=self)
             if dlg.exec_() != QtGui.QDialog.Accepted:
                 return

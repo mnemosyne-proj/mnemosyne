@@ -272,14 +272,14 @@ class Configuration(Component, dict):
             self[property_name][card_type.id] = property
             return
         self[property_name].setdefault(card_type.id, {})
-        for key in card_type.fact_keys():
-            self[property_name][card_type.id].setdefault(key, None)
+        for _fact_key in card_type.fact_keys():
+            self[property_name][card_type.id].setdefault(_fact_key, None)
         if not fact_key:
-            keys = card_type.fact_keys()
+            fact_keys = card_type.fact_keys()
         else:
-            keys = [fact_key]
-        for key in keys:
-            self[property_name][card_type.id][key] = property
+            fact_keys = [fact_key]
+        for _fact_key in fact_keys:
+            self[property_name][card_type.id][_fact_key] = property
 
     def card_type_property(self, property_name, card_type, fact_key=None,
                             default=None):

@@ -46,7 +46,7 @@ class Cloze(CardType):
     v.a_fact_keys = ["b"]  # Generated on the fly. 
     fact_views = [v]
 
-    def key_format_proxies(self):
+    def fact_key_format_proxies(self):
         return {"text": "text", "f": "text", "b": "text"}
 
     def is_fact_data_valid(self, fact_data):

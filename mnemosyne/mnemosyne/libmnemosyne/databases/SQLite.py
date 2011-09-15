@@ -667,8 +667,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         fact._id = _fact_id
         # Create data_for_fact.        
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
-            values(?,?,?)""", ((_fact_id, key, value)
-            for key, value in fact.data.items() if value))
+            values(?,?,?)""", ((_fact_id, fact_key, value)
+            for fact_key, value in fact.data.items() if value))
         self.log().added_fact(fact)
         # Process media files.
         self._process_media(fact)
@@ -681,13 +681,13 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             sql_res = self.con.execute("select * from facts where id=?",
                                        (id, )).fetchone()            
         # Create dictionary with fact.data.
-        data = dict([(cursor["key"], cursor["value"]) for cursor in
+        fact_data = dict([(cursor["key"], cursor["value"]) for cursor in
             self.con.execute("select * from data_for_fact where _fact_id=?",
             (sql_res["_id"], ))])            
         # Create fact. Note that for the card type, we turn to the component
         # manager as opposed to this database, as we would otherwise miss the
         # built-in system card types.
-        fact = Fact(data, id=sql_res["id"])
+        fact = Fact(fact_data, id=sql_res["id"])
         fact._id = sql_res["_id"]
         self._construct_extra_data(sql_res, fact)
         return fact
@@ -1094,17 +1094,17 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         """
 
         _fact_ids = set()
-        for key in card_type.unique_fact_keys:
+        for fact_key in card_type.unique_fact_keys:
             if fact._id:
                 for cursor in self.con.execute("""select _fact_id from
-                    data_for_fact where key=? and value=?
-                    and not _fact_id=?""", (key, fact[key], fact._id)):
+                    data_for_fact where key=? and value=? and not
+                    _fact_id=?""", (fact_key, fact[fact_key], fact._id)):
                     _fact_ids.add(cursor[0])
             else:
                 # The fact has not yet been saved in the database.
                 for cursor in self.con.execute("""select _fact_id from
                     data_for_fact where key=? and value=?""",
-                    (key, fact[key])):
+                    (fact_key, fact[fact_key])):
                     _fact_ids.add(cursor[0])
         # Now we still need to make sure these facts are from cards with
         # the correct card type.

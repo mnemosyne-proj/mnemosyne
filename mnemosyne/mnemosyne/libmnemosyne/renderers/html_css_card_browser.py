@@ -23,17 +23,18 @@ class HtmlCssCardBrowser(HtmlCss):
     def card_type_css(self, card_type):
         css = "._search { color: red; }"
         # key tags.
-        for true_key, proxy_key in card_type.key_format_proxies().iteritems():
-            css += ".%s { " % true_key
+        for true_fact_key, proxy_fact_key in \
+            card_type.fact_key_format_proxies().iteritems():
+            css += ".%s { " % true_fact_key
             # Font colours.
             colour = self.config().card_type_property(\
-                "font_colour", card_type, proxy_key)
+                "font_colour", card_type, proxy_fact_key)
             if colour:
                 colour_string = ("%X" % colour)[2:] # Strip alpha.
                 css += "color: #%s; " % colour_string
             # Font.
             font_string = self.config().card_type_property(\
-                "font", card_type, proxy_key)
+                "font", card_type, proxy_fact_key)
             if font_string:
                 family,size,x,x,w,i,u,s,x,x = font_string.split(",")
                 css += "font-family: \"%s\"; " % family
@@ -57,7 +58,7 @@ class HtmlCssCardBrowser(HtmlCss):
         for fact_key in fact_keys:
             if fact_key in fact_data and fact_data[fact_key]:
                 fact_data_fact_key = fact_data[fact_key].replace("\n", " / ")
-                html += "<span class=\"%s\">%s</span> / " %
+                html += "<span class=\"%s\">%s</span> / " % \
                     (fact_key, fact_data_fact_key)
         return html[:-2]
                 

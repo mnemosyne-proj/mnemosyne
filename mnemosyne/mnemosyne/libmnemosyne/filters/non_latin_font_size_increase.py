@@ -37,7 +37,7 @@ class NonLatinFontSizeIncrease(Filter):
         if issubclass(type(card.card_type), Vocabulary) and not \
             isinstance(type(card.card_type), Vocabulary):
             return text 
-        proxy_key = card.card_type.key_format_proxies()[fact_key]
+        proxy_key = card.card_type.fact_key_format_proxies()[fact_key]
         font_string = self.config().card_type_property(\
             "font", card.card_type, proxy_key)
         if font_string:

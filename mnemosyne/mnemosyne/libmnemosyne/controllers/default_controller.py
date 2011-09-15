@@ -107,10 +107,11 @@ class DefaultController(Controller):
                             db.update_card(card, repetition_only=True)
                     merged_fact_data = copy.copy(fact.data)
                     for duplicate in duplicates:
-                        for key in fact_data:
-                            if key not in card_type.required_fact_keys \
-                                and key in duplicate.data:
-                                merged_fact_data[key] += " / " + duplicate[key]
+                        for fact_key in fact_data:
+                            if fact_key not in card_type.required_fact_keys \
+                                and fact_key in duplicate.data:
+                                merged_fact_data[fact_key] += " / " \
+                                    + duplicate[fact_key]
                     self.delete_facts_and_their_cards(duplicates)
                     card = db.cards_from_fact(fact)[0]
                     card.fact.data = merged_fact_data
@@ -302,8 +303,8 @@ class DefaultController(Controller):
         for fact in facts:
             if correspondence:
                 new_fact_data = {}
-                for old_key, new_key in correspondence.iteritems():
-                    new_fact_data[new_key] = fact[old_key]
+                for old_fact_key, new_fact_key in correspondence.iteritems():
+                    new_fact_data[new_fact_key] = fact[old_fact_key]
                 assert new_card_type.is_fact_data_valid(new_fact_data)
                 fact.data = new_fact_data
                 db.update_fact(fact)

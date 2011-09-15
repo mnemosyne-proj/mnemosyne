@@ -16,7 +16,7 @@ class BothWays(CardType):
 
     # List and name the keys.
     fact_keys_and_names = [("f", _("Front")),
-              ("b", _("Back"))]
+                           ("b", _("Back"))]
     
     # Front-to-back.
     v1 = FactView(_("Front-to-back"), "2.1")

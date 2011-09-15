@@ -62,9 +62,9 @@
 the cards, which is trivial and handled in the main controller, but
 rather to delete, create or convert cards to make the transition to the
 new card type.</p>
-<p>&#8216;correspondence&#8217; {old_key: new_key} is the dictionary which relates fact
-keys in the two card types, in order to determine in which way cards
-should be created or deleted.</p>
+<p>&#8216;correspondence&#8217; {old_fact_key: new_fact_key} is the dictionary which
+relates fact keys in the two card types, in order to determine in which
+way cards should be created or deleted.</p>
 <p>We return &#8216;new_cards&#8217;, &#8216;edited_cards&#8217;, &#8216;deleted_cards&#8217; in order to be able
 to handle them in the database storage.</p>
 <dl class="method">
@@ -130,7 +130,7 @@ to handle them in the database storage.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Aug 19, 2011.
+      Last updated on Sep 15, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.1.
     </div>
   </body>

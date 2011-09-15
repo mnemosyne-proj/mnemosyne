@@ -16,9 +16,9 @@ class CardTypeConverter(Component):
     rather to delete, create or convert cards to make the transition to the
     new card type.
 
-    'correspondence' {old_key: new_key} is the dictionary which relates fact
-    keys in the two card types, in order to determine in which way cards
-    should be created or deleted.
+    'correspondence' {old_fact_key: new_fact_key} is the dictionary which
+    relates fact keys in the two card types, in order to determine in which
+    way cards should be created or deleted.
 
     We return 'new_cards', 'edited_cards', 'deleted_cards' in order to be able
     to handle them in the database storage.

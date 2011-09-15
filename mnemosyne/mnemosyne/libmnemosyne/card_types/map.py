@@ -17,8 +17,8 @@ class Map(CardType):
 
     # List and name the keys.
     fact_keys_and_names = [("loc", _("Location")),
-              ("blank", _("Blank map")),
-              ("marked", _("Marked map"))]
+                           ("blank", _("Blank map")),
+                           ("marked", _("Marked map"))]
 
     # Recognition.
     v1 = FactView(_("Recognition"), "4.1")
@@ -37,11 +37,11 @@ class Map(CardType):
     required_fact_keys = ["loc", "blank", "marked"]
 
     def fact_data(self, card):
-        data = copy.copy(card.fact.data)
-        data["_"] = "\n"  # Insert a blank line to improve layout.
-        return data
+        _fact_data = copy.copy(card.fact.data)
+        _fact_data["_"] = "\n"  # Insert a blank line to improve layout.
+        return _fact_data
 
-    def key_format_proxies(self):
+    def fact_key_format_proxies(self):
         return {"loc": "loc", "blank": "blank",
                 "marked": "marked", "_": "loc"}
 

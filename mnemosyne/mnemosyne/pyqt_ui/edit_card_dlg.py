@@ -64,7 +64,7 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         
     def accept(self):
         self._store_state()
-        new_fact_data = self.card_type_widget.data()
+        new_fact_data = self.card_type_widget.fact_data()
         new_tag_names = [tag.strip() for tag in \
             unicode(self.tags.currentText()).split(',')]
         new_card_type_name = unicode(self.card_types_widget.currentText())

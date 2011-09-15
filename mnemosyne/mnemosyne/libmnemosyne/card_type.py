@@ -73,12 +73,13 @@ class CardType(Component, CompareOnId):
         return self.render_chain(render_chain).\
             render_answer(card, **render_args)
 
-    def is_fact_data_valid(self, data):
+    def is_fact_data_valid(self, fact_data):
 
         """Check if all the required keys are present."""
         
-        for required_key in self.required_fact_keys:
-            if required_key not in data or not data[required]:
+        for required_fact_key in self.required_fact_keys:
+            if required_fact_key not in fact_data or \
+                   not fact_data[required_fact_key]:
                 return False
         return True
         
@@ -116,7 +117,7 @@ class CardType(Component, CompareOnId):
         new_cards, edited_cards, deleted_cards = [], [], []
         return new_cards, edited_cards, deleted_cards
     
-    def key_format_proxies(self):
+    def fact_key_format_proxies(self):
 
         """Sometimes, a card type can dynamically create a key when
         generating a question or an answer (see e.g. the cloze card type).

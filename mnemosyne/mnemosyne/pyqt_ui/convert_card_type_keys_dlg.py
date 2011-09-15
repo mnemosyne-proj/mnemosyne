@@ -6,10 +6,10 @@ from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.ui_convert_card_type_keys_dlg import \
-     Ui_ConvertCardTypekeysDlg
+     Ui_ConvertCardTypeKeysDlg
 
 
-class ConvertCardTypekeysDlg(QtGui.QDialog, Ui_ConvertCardTypekeysDlg):
+class ConvertCardTypeKeysDlg(QtGui.QDialog, Ui_ConvertCardTypeKeysDlg):
 
     def __init__(self, old_card_type, new_card_type, correspondence,
                  check_required_fact_keys=True, parent=None):
@@ -60,11 +60,11 @@ class ConvertCardTypekeysDlg(QtGui.QDialog, Ui_ConvertCardTypekeysDlg):
                     return                  
                 self.correspondence[old_fact_key] = new_fact_key
         if self.check_required_fact_keys:
-            for key in self.new_card_type.required_fact_keys:
-                if key not in self.correspondence.values():
+            for fact_key in self.new_card_type.required_fact_keys:
+                if fact_key not in self.correspondence.values():
                     self.ok_button.setEnabled(False)
                     if len(self.correspondence) == \
-                       len(self.old_card_type.keys):
+                       len(self.old_card_type.fact_keys_and_names):
                         QtGui.QMessageBox.critical(None, _("Mnemosyne"),
                             _("A required field is missing."),
                             _("&OK"), "", "", 0, -1)                        
@@ -72,7 +72,8 @@ class ConvertCardTypekeysDlg(QtGui.QDialog, Ui_ConvertCardTypekeysDlg):
               
     def accept(self):
         self.correspondence.clear()
-        for old_fact_key, old_fact_key_name in self.old_card_type.keys:
+        for old_fact_key, old_fact_key_name in \
+            self.old_card_type.fact_keys_and_names:
             new_fact_key_name = self.comboboxes[old_fact_key].currentText()
             if new_fact_key_name != _("<none>"):
                 new_fact_key = \

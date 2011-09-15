@@ -60,7 +60,7 @@ class TestRenderChain(MnemosyneTest):
 
         class MyRenderer(Renderer):
             used_for = card_type_1
-            def render_fields(self, data, fields, card_type, **render_args):
+            def render(self, fact_data, fields, card_type, **render_args):
                 return "666"        
 
         self.render_chain().register_renderer(MyRenderer)

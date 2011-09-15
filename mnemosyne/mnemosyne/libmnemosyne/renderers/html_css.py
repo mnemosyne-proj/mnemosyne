@@ -49,21 +49,22 @@ class HtmlCss(Renderer):
             css += "background-color: #%s; " % colour_string      
         css += "}\n"
         # key tags.
-        for true_key, proxy_key in card_type.key_format_proxies().iteritems():
-            css += "div#%s { " % true_key
+        for true_fact_key, proxy_fact_key in \
+            card_type.fact_key_format_proxies().iteritems():
+            css += "div#%s { " % true_fact_key
             # Set alignment within table cell.
             alignment = self.config().card_type_property(\
-                "alignment", card_type, proxy_key, default="center")            
+                "alignment", card_type, proxy_fact_key, default="center")            
             css += "text-align: %s; " % alignment  
             # Font colours.
             colour = self.config().card_type_property(\
-                "font_colour", card_type, proxy_key)
+                "font_colour", card_type, proxy_fact_key)
             if colour:
                 colour_string = ("%X" % colour)[2:] # Strip alpha.
                 css += "color: #%s; " % colour_string
             # Font.
             font_string = self.config().card_type_property(\
-                "font", card_type, proxy_key)
+                "font", card_type, proxy_fact_key)
             if font_string:
                 family,size,x,x,w,i,u,s,x,x = font_string.split(",")
                 css += "font-family: \"%s\"; " % family
@@ -94,9 +95,10 @@ class HtmlCss(Renderer):
 
     def body(self, fact_data, fact_keys, **render_args):
         html = ""
-        for key in fact_keys:
-            if key in fact_data and fact_data[key]:
-                html += "<div id=\"%s\">%s</div>" % (key, fact_data[key])
+        for fact_key in fact_keys:
+            if fact_key in fact_data and fact_data[fact_key]:
+                html += "<div id=\"%s\">%s</div>" % \
+                    (fact_key, fact_data[fact_key])
         return html
                 
     def render(self, fact_data, fact_keys, card_type, **render_args):

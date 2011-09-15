@@ -14,7 +14,7 @@ from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import AddCardsDialog
 from mnemosyne.pyqt_ui.card_type_wdgt_generic import GenericCardTypeWdgt
 from mnemosyne.pyqt_ui.convert_card_type_keys_dlg import \
-     ConvertCardTypekeysDlg
+     ConvertCardTypeKeysDlg
 
 class AddEditCards(Component):
 
@@ -52,23 +52,23 @@ class AddEditCards(Component):
         # to self.card (which only exists in the 'edit' dialog) inside a try
         # statement.
         if self.card_type_widget:  # Get data from previous card widget.
-            prefill_data = self.card_type_widget.data()
+            prefill_fact_data = self.card_type_widget.fact_data()
             self.card_type_widget.close()
             self.card_type_widget = None
         else:
             try:  # Get data from fact passed to the 'edit' dialog.
-                prefill_data = self.card.fact.data
+                prefill_fact_data = self.card.fact.data
             except:  # Start from scratch in the 'add' dialog.
-                prefill_data = None          
+                prefill_fact_data = None          
         # Transform keys in dictionary if the card type has changed, but don't
         # edit the fact just yet.
-        if prefill_data and self.correspondence:
-            old_prefill_data = copy.copy(prefill_data)
-            prefill_data = {}
-            for key in old_prefill_data:
-                if key in self.correspondence:
-                    value = old_prefill_data[key]
-                    prefill_data[self.correspondence[key]] = value
+        if prefill_fact_data and self.correspondence:
+            old_prefill_fact_data = copy.copy(prefill_fact_data)
+            prefill_fact_data = {}
+            for fact_key in old_prefill_fact_data:
+                if fact_key in self.correspondence:
+                    value = old_prefill_fact_data[fact_key]
+                    prefill_fact_data[self.correspondence[fact_key]] = value
         # Show new card type widget.
         card_type_name = unicode(self.card_types_widget.currentText())
         self.card_type = self.card_type_by_name[card_type_name]
@@ -81,7 +81,7 @@ class AddEditCards(Component):
                 self.card_type_widget = self.component_manager.current \
                     ("generic_card_type_widget")(self.component_manager,
                     parent=self, card_type=self.card_type)
-        self.card_type_widget.set_data(prefill_data)
+        self.card_type_widget.set_fact_data(prefill_fact_data)
         self.card_type_widget.show()
         self.vbox_layout.insertWidget(1, self.card_type_widget)
 
@@ -112,10 +112,10 @@ class AddEditCards(Component):
         self.update_tags_combobox(self.config()\
            ["last_used_tags_for_card_type_id"][new_card_type.id])
         if self.card_type.fact_keys().issubset(new_card_type.fact_keys()) or \
-               not self.card_type_widget.contains_data():
+               self.card_type_widget.is_empty():
             self.update_card_widget()            
             return
-        dlg = ConvertCardTypekeysDlg(self.card_type, new_card_type,
+        dlg = ConvertCardTypeKeysDlg(self.card_type, new_card_type,
             self.correspondence, check_required_fact_keys=False, parent=self)
         if dlg.exec_() != QtGui.QDialog.Accepted:
             self.card_types_widget.setCurrentIndex(self.card_type_index)
@@ -124,7 +124,7 @@ class AddEditCards(Component):
             self.update_card_widget()
 
     def preview(self):
-        fact_data = self.card_type_widget.data()
+        fact_data = self.card_type_widget.fact_data()
         fact = Fact(fact_data)
         cards = self.card_type.create_sister_cards(fact)
         tag_text = self.tags.currentText()
@@ -178,7 +178,7 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
     def create_new_cards(self, grade):
         if grade == 0:
             grade = -1
-        fact_data = self.card_type_widget.data()
+        fact_data = self.card_type_widget.fact_data()
         tag_names = [c.strip() for c in \
                      unicode(self.tags.currentText()).split(',')]
         card_type_name = unicode(self.card_types_widget.currentText())
@@ -192,7 +192,7 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
         self.card_type_widget.clear()
 
     def reject(self):
-        if self.card_type_widget.contains_data():
+        if not self.card_type_widget.is_empty():
             status = QtGui.QMessageBox.warning(None, _("Mnemosyne"),
                 _("Abandon current card?"), _("&Yes"), _("&No"), "", 1, -1)
             if status == 0:

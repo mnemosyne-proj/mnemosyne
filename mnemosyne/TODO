@@ -1,7 +1,3 @@
--seach for key, data, and replace it by fact_key, fact_data
--update html docs
--ui:convertcardtypefields
-
 -convert database
 
 -merge card appearance with settings

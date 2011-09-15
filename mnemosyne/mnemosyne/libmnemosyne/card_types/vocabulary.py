@@ -16,9 +16,9 @@ class Vocabulary(CardType):
 
     # List and name the keys.
     fact_keys_and_names = [("f", _("Foreign word or expression")),
-              ("p_1", _("Pronunciation")),
-              ("m_1", _("Meaning")),
-              ("n", _("Notes"))]
+                           ("p_1", _("Pronunciation")),
+                           ("m_1", _("Meaning")),
+                           ("n", _("Notes"))]
 
     # Recognition.
     v1 = FactView(_("Recognition"), "3.1")
