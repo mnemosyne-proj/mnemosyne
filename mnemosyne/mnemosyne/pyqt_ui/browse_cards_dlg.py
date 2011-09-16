@@ -61,7 +61,8 @@ class CardModel(QtSql.QSqlTableModel, Component):
                 QtGui.QColor(rgb)    
         self.font_colour_for_card_type_id = {}
         for card_type_id in self.config()["font_colour"]:
-            first_key = self.card_type_with_id(card_type_id).keys[0][0]
+            first_key = \
+                self.card_type_with_id(card_type_id).fact_keys_and_names[0][0]
             self.font_colour_for_card_type_id[card_type_id] = QtGui.QColor(\
                 self.config()["font_colour"][card_type_id][first_key])
         
@@ -257,10 +258,11 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
     def context_menu(self, point):
         menu = QtGui.QMenu(self)
         edit_action = QtGui.QAction(_("&Edit"), menu)
-        edit_action.setShortcut(QtCore.Qt.Key_Enter)
+        edit_action.setShortcut(QtCore.Qt.CTRL + QtCore.Qt.Key_E)
         edit_action.triggered.connect(self.menu_edit)
         menu.addAction(edit_action)
         preview_action = QtGui.QAction(_("&Preview"), menu)
+        edit_action.setShortcut(QtCore.Qt.CTRL + QtCore.Qt.Key_P)
         preview_action.triggered.connect(self.menu_preview)
         menu.addAction(preview_action)
         delete_action = QtGui.QAction(_("&Delete"), menu)
@@ -290,6 +292,12 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             return QtGui.QDialog.keyPressEvent(self, event)
         if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return]:
             self.menu_edit()
+        if event.key() == QtCore.Qt.Key_E and \
+            event.modifiers() == QtCore.Qt.ControlModifier:
+            self.menu_edit()
+        if event.key() == QtCore.Qt.Key_P and \
+            event.modifiers() == QtCore.Qt.ControlModifier:
+            self.menu_preview()
         elif event.key() in [QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace]:
             self.menu_delete()
         else:
@@ -324,7 +332,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             _card_ids.add(_card_id)
         return _card_ids
     
-    def menu_edit(self, index):
+    def menu_edit(self, index=None):
         # 'index' gets passed if this function gets called through the
         # table.doubleClicked event.
         cards = self.cards_from_single_selection()

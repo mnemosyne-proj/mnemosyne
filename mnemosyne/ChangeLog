@@ -1,7 +1,8 @@
+-tweaked keyboard shortcuts (suggested by Murray James Morrison)
 -changed filter API to run(self, text, card, fact_key, **render_args)
+-bring back 'increase size of non-latin characters' in the card
+ appearance dialog
 -renamed 'next' to 'next sister card' in preview dialog
-
-
 -fixed edit card dialog called from card browser that would sometimes
  refuse to close (reported by Roel De Conick)
 
