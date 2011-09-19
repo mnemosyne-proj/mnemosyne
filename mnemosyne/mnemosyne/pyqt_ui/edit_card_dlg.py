@@ -34,7 +34,7 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         state = self.config()["edit_card_dlg_state"]
         if state:
             self.restoreGeometry(state)
-
+        
     def _store_state(self):
         self.config()["edit_card_dlg_state"] = self.saveGeometry()
             
@@ -57,7 +57,13 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
                 self.main_widget().show_information(\
                     _("You are not allowed to cancel the merging."))
                 event.ignore()                
- 
+        if event.modifiers() == QtCore.Qt.ControlModifier and \
+            event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return,
+            QtCore.Qt.Key_O] and self.OK_button.isEnabled():
+            self.accept()
+        else:
+            return QtGui.QDialog.keyPressEvent(self, event)
+        
     def set_valid(self, valid):
         self.OK_button.setEnabled(valid)    
         self.preview_button.setEnabled(valid)

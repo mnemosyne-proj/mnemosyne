@@ -1,8 +1,9 @@
--Ctrl/P shortcut for preview card in Add Cards dialog
--Yet to learn: also ctrl 0, 1, control Y
--add cards: exit shortcut does not work
-
+-both alt and control in add and edit card window?
+-In the Edit card window: if I click the Alt key, the O of OK, the P of Preview and X of Exit all appear underlined. Alt/P previews the card and Alt/X exits the card window. Alt/O does nothing. 
 -delete card action: both delete and backspace should work
+-all grades function as show answer
+
+-Tip dlg line 63, in update_dialog IndexError: list index out of range (reported by B_Monkey)
 
 -convert own databases, also on windows
 
@@ -10,34 +11,30 @@
 
 -merge card appearance with settings
 
--Tip dlg line 63, in update_dialog IndexError: list index out of range (reported by B_Monkey)
-
--Hendrik image display problems
-
 -pgdwn in preview/edit in card browser
 
 -'importing history' text does not show?
 
--all grades function as show answer
+-no icon on W7
+
 -have page up/up/page down/down keys work to scroll in q and a widgets
 
 -comma to separate tag names
 -:: to separate hierarchies
 -right click to add cards or sound
 -hiding pronunciation field
--add card: tab, tab, control enter or control+2
+-add card: tab, tab, control Y or control+2
 
 -edit card: tab, tab, control enter
 
 -tip on double-click to tag names and cards to edit them
 -right click on tag names in browser
 
+-popup on backlog during review
+
 -right click on criterion names (also tip)
 
 -About dialog, with version and link to source
-
-
-
 
 -layout of "add clone" is not optimal under Windows
 -splitters on XP are not visible

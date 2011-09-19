@@ -1,4 +1,5 @@
--tweaked keyboard shortcuts (suggested by Murray James Morrison)
+-tweaked keyboard shortcuts, mainly in the add and edit cards dialogs
+ (suggested by Murray James Morrison)
 -changed filter API to run(self, text, card, fact_key, **render_args)
 -bring back 'increase size of non-latin characters' in the card
  appearance dialog
