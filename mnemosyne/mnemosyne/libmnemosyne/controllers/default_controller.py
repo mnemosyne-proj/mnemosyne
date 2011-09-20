@@ -627,8 +627,8 @@ class DefaultController(Controller):
     def show_import_file_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
-        self.component_manager.current("import_dialog")(
-            self.component_manager).activate()
+        self.component_manager.current("import_dialog")\
+            (self.component_manager).activate()
         self.stopwatch().unpause()
         
     def show_export_file_dialog(self):

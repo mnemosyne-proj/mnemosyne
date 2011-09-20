@@ -148,8 +148,9 @@ class Mnemosyne(Component):
         # database.
 
         # TMP
-        from mnemosyne.libmnemosyne.upgrades.upgrade_beta_6 import UpgradeBeta6
-        UpgradeBeta6(self.component_manager).run(filename) 
+        if automatic_upgrades:
+            from mnemosyne.libmnemosyne.upgrades.upgrade_beta_6 import UpgradeBeta6
+            UpgradeBeta6(self.component_manager).run(filename) 
         
         self.load_database(filename)
         # Only now that the database is loaded, we can start writing log

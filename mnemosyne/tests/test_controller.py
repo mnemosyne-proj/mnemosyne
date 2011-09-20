@@ -59,6 +59,8 @@ class TestController(MnemosyneTest):
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ConfigurationDialog"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ActivateCardsDialog"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "ImportDialog"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
         self.review_controller().reset()
         

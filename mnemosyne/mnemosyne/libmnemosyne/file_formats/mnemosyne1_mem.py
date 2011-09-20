@@ -71,17 +71,14 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         sys.modules["mnemosyne.core"] = object()       
         sys.modules["mnemosyne.core.mnemosyne_core"] = Mnemosyne1.MnemosyneCore()       
         # Load data.
-#        try:
-        memfile = file(filename, "rb")
-        header = memfile.readline()
-        self.starttime, self.categories, self.items = cPickle.load(memfile)
-        self.starttime = self.starttime.time
-#        except Exception as e:
-#            raise 
-#            pdb.set_trace()
-#            print e
-#            w.show_error(_("Unable to open file."))
-#            return -1
+        try:
+            memfile = file(filename, "rb")
+            header = memfile.readline()
+            self.starttime, self.categories, self.items = cPickle.load(memfile)
+            self.starttime = self.starttime.time
+        except Exception as e:
+            w.show_error(_("Unable to open file."))
+            return -1
         return self._convert_to_2x()
 
     def _import_logs(self, filename):
