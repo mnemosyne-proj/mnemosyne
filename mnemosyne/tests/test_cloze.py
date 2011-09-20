@@ -42,19 +42,19 @@ class TestCloze(MnemosyneTest):
         card_type = self.card_type_with_id("5")
         
         fact_data = {"text": "incomplete"}
-        assert card_type.is_data_valid(fact_data) == False
+        assert card_type.is_fact_data_valid(fact_data) == False
         
         fact_data = {"text": "[incomplete"}
-        assert card_type.is_data_valid(fact_data) == False
+        assert card_type.is_fact_data_valid(fact_data) == False
         
         fact_data = {"text": "incomplete]"}
-        assert card_type.is_data_valid(fact_data) == False
+        assert card_type.is_fact_data_valid(fact_data) == False
         
         fact_data = {"text": "[]"}
-        assert card_type.is_data_valid(fact_data) == False
+        assert card_type.is_fact_data_valid(fact_data) == False
         
         fact_data = {"text": "[complete]"}
-        assert card_type.is_data_valid(fact_data) == True
+        assert card_type.is_fact_data_valid(fact_data) == True
 
     def test_add(self):
         card_type = self.card_type_with_id("5")

@@ -33,6 +33,9 @@ class MainWidget(UiComponent):
     
     def show_error(self, text):
         print text
+
+    def default_font_size(self):
+        return 12
        
     def get_filename_to_open(self, path, filter, caption=""):
         raise NotImplementedError

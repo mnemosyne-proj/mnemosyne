@@ -30,12 +30,12 @@ DTM_ENABLESHRINK = WM_USER + 107
 DTM_ENABLECONTEXTMENU = WM_USER + 110
 
 class _U_NM_HTMLVIEW(Union):
-    _fields_ = [('dwCookie', DWORD),
+    _keys_ = [('dwCookie', DWORD),
                 ('dwFlags', DWORD)
                 ]
                 
 class NM_HTMLVIEW(Structure):
-    _fields_ = [('hdr', NMHDR),
+    _keys_ = [('hdr', NMHDR),
                 ('szTarget', LPCTSTR),
                 ('szData', LPCTSTR),
                 ('_u', _U_NM_HTMLVIEW),

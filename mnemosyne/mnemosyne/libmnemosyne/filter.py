@@ -21,5 +21,5 @@ class Filter(Component):
 
     component_type = "filter"
 
-    def run(self, text, **render_args):
+    def run(self, text, card, fact_key, **render_args):
         raise NotImplementedError

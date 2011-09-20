@@ -135,7 +135,7 @@ class Mnemosyne(Component):
         # Upgrade if needed.
         if automatic_upgrades:
             from mnemosyne.libmnemosyne.upgrades.upgrade1 import Upgrade1
-            Upgrade1(self.component_manager).backup_old_dir()        
+            Upgrade1(self.component_manager).backup_old_dir()
         if data_dir:
             self.config().data_dir = data_dir
         self.activate_components()
@@ -146,6 +146,11 @@ class Mnemosyne(Component):
         # Loading the database should come after all user plugins have been
         # loaded, since these could be needed e.g. for a card type in the
         # database.
+
+        # TMP
+        from mnemosyne.libmnemosyne.upgrades.upgrade_beta_6 import UpgradeBeta6
+        UpgradeBeta6(self.component_manager).run(filename) 
+        
         self.load_database(filename)
         # Only now that the database is loaded, we can start writing log
         # events to it. This is why we log started_scheduler and
@@ -156,7 +161,7 @@ class Mnemosyne(Component):
         # Upgrade if needed.
         if automatic_upgrades:
             from mnemosyne.libmnemosyne.upgrades.upgrade1 import Upgrade1
-            Upgrade1(self.component_manager).run()  
+            Upgrade1(self.component_manager).run()
         # Finally, we can activate the main widget.
         self.main_widget().activate()
                     
@@ -241,12 +246,12 @@ class Mnemosyne(Component):
     def load_database(self, filename):
         if not filename:
             filename = self.config()["path"]
-        filename = expand_path(filename, self.config().data_dir)
+        path = expand_path(filename, self.config().data_dir)
         try:
-            if not os.path.exists(filename):
-                self.database().new(filename)
+            if not os.path.exists(path):
+                self.database().new(path)
             else:
-                self.database().load(filename)
+                self.database().load(path)
         except RuntimeError, e:
             # Making sure the GUI is in a correct state when no database is
             # loaded would require a lot of extra code, and this is only a
@@ -255,9 +260,9 @@ class Mnemosyne(Component):
             from mnemosyne.libmnemosyne.translator import _
             self.main_widget().show_error(unicode(e))
             self.main_widget().show_error(_("Creating temporary database."))
-            filename = os.path.join(os.path.split(filename)[0], "___TMP___" \
-                                    + self.database().suffix)
-            self.database().new(filename)
+            path = os.path.join(os.path.split(path)[0], "___TMP___" \
+                + self.database().suffix)
+            self.database().new(path)
         self.controller().update_title()
 
     def finalise(self):

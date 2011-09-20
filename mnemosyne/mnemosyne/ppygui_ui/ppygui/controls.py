@@ -296,7 +296,7 @@ class RadioGroup(GuiObject):
             
 class Edit(Control):
     '''\
-    The edit control displays an editable text field. 
+    The edit control displays an editable text key. 
     Supported events :
         - update -> CommandEvent: sent when the text is updated by the user
     '''
@@ -314,7 +314,7 @@ class Edit(Control):
             - text : the initial text to display
             - align : the text alignment, can be "left", "center" or "right"
             - style :
-                - normal : standard text field
+                - normal : standard text key
                 - number : accept numeric input only
             - password : a boolean that determines if the user input should be masked
             - multiline : a boolean that determines if the text should contain newlines
@@ -1560,10 +1560,14 @@ class Slider(Control):
     
     doc_value = "The position of the slider as an int"
     
-#    def get_pagesize(self):
-#        pass
-#        
-#    def set_pagesize(self, size):
+#    def get_pagesize(self):
+
+#        pass
+
+#        
+
+#    def set_pagesize(self, size):
+
 #        pass
 
     def get_best_size(self):
@@ -1585,8 +1589,10 @@ class _TabControl(Control):
     def __init__(self, parent, pos=(-1,-1,-1,-1)):
         Control.__init__(self, parent, pos=pos)
         self._send_w32_msg(CCM_SETVERSION, COMCTL32_VERSION, 0)
-#        self.events['_selchanging'].bind(self._onchanging)
-#        self.events['_selchange'].bind(self._onchange)
+#        self.events['_selchanging'].bind(self._onchanging)
+
+#        self.events['_selchange'].bind(self._onchange)
+
 #        self.events['size'].bind(self._onsize)
         
         
@@ -1741,7 +1747,8 @@ class UpDown(Control):
         return 14, 20
         
     def _get_pos(self):
-        err = c_ulong()
+        err = c_ulong()
+
         ret = self._send_w32_msg(UDM_GETPOS32, 0, byref(err))
         return ret
         

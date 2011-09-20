@@ -13,17 +13,22 @@ class GettingStartedDlg(QtGui.QWizard, Ui_GettingStartedDlg,
     def __init__(self, component_manager):
         GettingStartedDialog.__init__(self, component_manager)
         QtGui.QWizard.__init__(self, self.main_widget())
-        watermark = QtGui.QPixmap("pixmaps/mnemosyne.svg").scaledToHeight(
-                300, QtCore.Qt.SmoothTransformation)
-        self.setPixmap(QtGui.QWizard.WatermarkPixmap, watermark)
-        self.connect(self, QtCore.SIGNAL('finished(int)'), self.finished)
         self.setupUi(self)
-
+        self.setWindowFlags(self.windowFlags() \
+            | QtCore.Qt.WindowMinMaxButtonsHint)
+        self.setWindowFlags(self.windowFlags() \
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+        # Note: the svg file does not seem to work under windows.
+        #watermark = QtGui.QPixmap(":/mnemosyne/pixmaps/mnemosyne.svg")\
+        #    .scaledToHeight(200, QtCore.Qt.SmoothTransformation)
+        watermark = QtGui.QPixmap(":/mnemosyne/pixmaps/mnemosyne.png")
+        self.setPixmap(QtGui.QWizard.WatermarkPixmap, watermark)    
+        
     def activate(self):
         GettingStartedDialog.activate(self)
         self.show()
 
-    def finished(self, result):
-        if result != 1:
-            return
+    def accept(self):
         self.config()["upload_science_logs"] = self.upload_box.isChecked()
+        QtGui.QWizard.accept(self)
+        

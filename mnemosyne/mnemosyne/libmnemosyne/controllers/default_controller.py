@@ -80,7 +80,7 @@ class DefaultController(Controller):
         """
 
         assert grade in [-1, 2, 3, 4, 5] # Use -1 for yet to learn cards.
-        assert card_type.is_data_valid(fact_data)
+        assert card_type.is_fact_data_valid(fact_data)
         db = self.database()
         tags = db.get_or_create_tags_with_names(tag_names)
         fact = Fact(fact_data)
@@ -95,7 +95,7 @@ class DefaultController(Controller):
                         return
                 answer = self.main_widget().show_question(\
                   _("There is already data present for:\n\n") +
-                  "/".join(fact[k] for k in card_type.required_fields),
+                  "/".join(fact[k] for k in card_type.required_fact_keys),
                   _("&Merge and edit"), _("&Add as is"), _("&Do not add"))
                 if answer == 0: # Merge and edit.
                     db.add_fact(fact)
@@ -107,10 +107,11 @@ class DefaultController(Controller):
                             db.update_card(card, repetition_only=True)
                     merged_fact_data = copy.copy(fact.data)
                     for duplicate in duplicates:
-                        for key in fact_data:
-                            if key not in card_type.required_fields \
-                                and key in duplicate.data:
-                                merged_fact_data[key] += " / " + duplicate[key]
+                        for fact_key in fact_data:
+                            if fact_key not in card_type.required_fact_keys \
+                                and fact_key in duplicate.data:
+                                merged_fact_data[fact_key] += " / " \
+                                    + duplicate[fact_key]
                     self.delete_facts_and_their_cards(duplicates)
                     card = db.cards_from_fact(fact)[0]
                     card.fact.data = merged_fact_data
@@ -172,7 +173,7 @@ class DefaultController(Controller):
         db = self.database()
         cards_from_fact = db.cards_from_fact(fact)
         assert cards_from_fact[0].card_type == old_card_type
-        assert new_card_type.is_data_valid(new_fact_data)
+        assert new_card_type.is_fact_data_valid(new_fact_data)
         converter = self.component_manager.current\
               ("card_type_converter", used_for=(old_card_type.__class__,
                                                 new_card_type.__class__))
@@ -240,7 +241,7 @@ class DefaultController(Controller):
             new_card_type, new_tag_names, correspondence):        
         db = self.database()
         sch = self.scheduler()
-        assert new_card_type.is_data_valid(new_fact_data)
+        assert new_card_type.is_fact_data_valid(new_fact_data)
         # If the old fact contained media, we need to check for orphans.
         clean_orphaned_static_media_files_needed = \
             db.fact_contains_static_media_files(fact)
@@ -302,9 +303,9 @@ class DefaultController(Controller):
         for fact in facts:
             if correspondence:
                 new_fact_data = {}
-                for old_key, new_key in correspondence.iteritems():
-                    new_fact_data[new_key] = fact[old_key]
-                assert new_card_type.is_data_valid(new_fact_data)
+                for old_fact_key, new_fact_key in correspondence.iteritems():
+                    new_fact_data[new_fact_key] = fact[old_fact_key]
+                assert new_card_type.is_fact_data_valid(new_fact_data)
                 fact.data = new_fact_data
                 db.update_fact(fact)
             else:
@@ -392,10 +393,15 @@ class DefaultController(Controller):
         for fact_view in fact_views:
             self.database().delete_fact_view(fact_view)
         self.database().save()
+
+    single_database_help = _("It is recommended to put all your cards in a single database. Using tags to determine which cards to study is much more convenient than having to load and unload several databases.")
    
     def show_new_file_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
+        if self.config()["single_database_help_shown"] == False:
+            self.main_widget().show_information(self.single_database_help)
+            self.config()["single_database_help_shown"] = True
         db = self.database()
         suffix = db.suffix
         filename = self.main_widget().get_filename_to_save(\
@@ -477,6 +483,9 @@ class DefaultController(Controller):
 
     def show_save_file_as_dialog(self):
         self.stopwatch().pause()
+        if self.config()["single_database_help_shown"] == False:
+            self.main_widget().show_information(self.single_database_help)
+            self.config()["single_database_help_shown"] = True
         self.flush_sync_server()
         suffix = self.database().suffix
         old_path = expand_path(self.config()["path"], self.config().data_dir)

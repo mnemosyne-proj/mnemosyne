@@ -27,7 +27,9 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
         self.dynamic_widgets = []
         self.affected_card_types = []
-        self.key_names = []       
+        self.fact_key_names = []
+        self.non_latin_font_size_increase.setValue\
+            (self.config()['non_latin_font_size_increase'])
         # We calculate card_type_by_name here because these names can change
         # if the user chooses another translation.
         self.card_types_widget.addItem(_("<all card types>"))
@@ -49,34 +51,41 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
     def card_type_changed(self, new_card_type_name):
         if new_card_type_name == _("<all card types>"):
             self.affected_card_types = self.card_types()
-            self.key_names = [_("Text")]
+            self.fact_key_names = [_("Text")]
+            for widget in [self.label_non_latin_1, self.label_non_latin_2,
+                self.label_non_latin_3, self.line_non_latin,
+                self.non_latin_font_size_increase]:
+                widget.show()
         else:
             new_card_type_name = unicode(new_card_type_name)
             new_card_type = self.card_type_by_name[new_card_type_name]
             self.affected_card_types = [new_card_type]
-            self.key_names = new_card_type.key_names()
-
+            self.fact_key_names = new_card_type.fact_key_names()
+            for widget in [self.label_non_latin_1, self.label_non_latin_2,
+                self.label_non_latin_3, self.line_non_latin,
+                self.non_latin_font_size_increase]:
+                widget.hide()
         for widget in self.dynamic_widgets:
             self.gridLayout.removeWidget(widget)
             widget.close()
         self.dynamic_widgets = []
-
+        
         row = 0
         self.font_buttons = QtGui.QButtonGroup()
         self.colour_buttons = QtGui.QButtonGroup()
         self.align_buttons = QtGui.QButtonGroup()
         self.align_buttons.setExclusive(False)
-        for key_name in self.key_names:
+        for key_name in self.fact_key_names:
             label = QtGui.QLabel(key_name + ":", self)
             self.gridLayout.addWidget(label, row, 0, 1, 1)
             self.dynamic_widgets.append(label)
             
-            font = QtGui.QPushButton(_("Set font"), self)
+            font = QtGui.QPushButton(_("Select font"), self)
             self.font_buttons.addButton(font, row)
             self.gridLayout.addWidget(font, row, 1, 1, 1)
             self.dynamic_widgets.append(font)
             
-            colour = QtGui.QPushButton(_("Set colour"),self)
+            colour = QtGui.QPushButton(_("Select colour"),self)
             self.colour_buttons.addButton(colour, row)
             self.gridLayout.addWidget(colour, row, 2, 1, 1)
             self.dynamic_widgets.append(colour)
@@ -132,16 +141,16 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
     def update_font(self, index):
         # Determine keys affected.
         if len(self.affected_card_types) > 1:
-            affected_key = None # Actually means all the keys.
+            affected_fact_key = None # Actually means all the keys.
         else:
-            affected_key = self.affected_card_types[0].fields[index][0]          
+            affected_fact_key = self.affected_card_types[0].keys[index][0]          
         # Determine current font.
         if len(self.affected_card_types) > 1:
             font_string = self.config().card_type_property(\
                 "font", self.card_type_with_id("1"), "f")
         else:
             font_string = self.config().card_type_property(\
-                "font", self.affected_card_types[0], affected_key)
+                "font", self.affected_card_types[0], affected_fact_key)
         current_font = QtGui.QFont(self.font()) 
         if font_string:
             current_font.fromString(font_string)
@@ -151,22 +160,22 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
             font_string = unicode(font.toString())
             for card_type in self.affected_card_types:
                 self.config().set_card_type_property("font", font_string,
-                    card_type, affected_key)
+                    card_type, affected_fact_key)
             self.changed = True
         
     def update_font_colour(self, index):
         # Determine keys affected.
         if len(self.affected_card_types) > 1:
-            affected_key = None # Actually means all the keys.
+            affected_fact_key = None # Actually means all the keys.
         else:
-            affected_key = self.affected_card_types[0].fields[index][0]            
+            affected_fact_key = self.affected_card_types[0].keys[index][0]            
         # Determine current colour.
         if len(self.affected_card_types) > 1:
             current_rgb = self.config().card_type_property(\
                 "font_colour", self.card_type_with_id("1"), "f")
         else:
             current_rgb = self.config().card_type_property(\
-                "font_colour", self.affected_card_types[0], affected_key)
+                "font_colour", self.affected_card_types[0], affected_fact_key)
         if current_rgb:
             current_colour = QtGui.QColor(current_rgb)
         else:
@@ -176,7 +185,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         if colour.isValid():
             for card_type in self.affected_card_types:
                 self.config().set_card_type_property("font_colour",
-                    colour.rgb(), card_type, affected_key)
+                    colour.rgb(), card_type, affected_fact_key)
             self.changed = True
         
     def update_alignment(self, index):
@@ -193,6 +202,8 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         self.changed = True
         
     def accept(self):
+        self.config()['non_latin_font_size_increase'] = \
+            self.non_latin_font_size_increase.value()
         for card_type in self.card_types():
             for render_chain in self.component_manager.all("render_chain"):
                 render_chain.renderer_for_card_type(card_type).\
@@ -204,7 +215,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         for render_chain in self.component_manager.all("render_chain"):
             render_chain.renderer_for_card_type(card_type).update(card_type)
         fact_data = {}
-        for fact_key, fact_key_name in card_type.fields:
+        for fact_key, fact_key_name in card_type.fact_keys_and_names:
             fact_data[fact_key] = fact_key_name
         fact = Fact(fact_data)
         cards = card_type.create_sister_cards(fact)        
@@ -222,6 +233,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
             _("&Yes"), _("&No"), "", 0, -1)
         if result == 1:
             return
+        self.non_latin_font_size_increase.setValue(0)
         if len(self.affected_card_types) > 1:        
             self.config()["font"] = {}
             self.config()["background_colour"] = {}

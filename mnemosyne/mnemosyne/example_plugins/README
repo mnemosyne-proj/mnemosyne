@@ -3,6 +3,8 @@ illustrating to plugin writers on how to achieve certain functionality.
 
  * add_menu_item.py: adding a menu item to the GUI.
 
+ * hide_toolbar.py: hiding the toolbar.
+
  * shortcuts.py: changing some keyboard shortcuts during review.
 
  * new_card_type.py: a new card type with fixed text added around a field

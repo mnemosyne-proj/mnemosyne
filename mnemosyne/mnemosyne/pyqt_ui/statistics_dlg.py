@@ -39,6 +39,10 @@ class StatisticsDlg(QtGui.QDialog, Ui_StatisticsDlg, StatisticsDialog):
             previous_page_index = 0
         self.tab_widget.setCurrentIndex(previous_page_index)
         self.display_page(previous_page_index)
+        self.config()["previous_statistics_page"] = page_index
+        state = self.config()["statistics_dlg_state"]
+        if state:
+            self.restoreGeometry(state)
         # Only now do we connect the signal in order to have lazy
         # instantiation.
         self.tab_widget.currentChanged[int].connect(self.display_page)
@@ -66,11 +70,6 @@ class StatisticsDlg(QtGui.QDialog, Ui_StatisticsDlg, StatisticsDialog):
             variant_index = 0
         page.combobox.setCurrentIndex(variant_index)
         page.display_variant(variant_index)
-        self.config()["previous_statistics_page"] = page_index
-        state = self.config()["statistics_dlg_state"]
-        if state:
-            self.restoreGeometry(state)
-
 
 class StatisticsPageWdgt(QtGui.QWidget, Component):
 

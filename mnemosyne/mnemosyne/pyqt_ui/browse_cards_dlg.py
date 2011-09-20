@@ -11,8 +11,8 @@ from PyQt4 import QtCore, QtGui, QtSql
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.pyqt_ui.tag_tree_wdgt import TagsTreeWdgt
-from mnemosyne.pyqt_ui.convert_card_type_fields_dlg import \
-     ConvertCardTypeFieldsDlg
+from mnemosyne.pyqt_ui.convert_card_type_keys_dlg import \
+     ConvertCardTypeKeysDlg
 from mnemosyne.pyqt_ui.ui_browse_cards_dlg import Ui_BrowseCardsDlg
 from mnemosyne.pyqt_ui.card_type_tree_wdgt import CardTypesTreeWdgt
 from mnemosyne.libmnemosyne.ui_components.dialogs import BrowseCardsDialog
@@ -61,7 +61,8 @@ class CardModel(QtSql.QSqlTableModel, Component):
                 QtGui.QColor(rgb)    
         self.font_colour_for_card_type_id = {}
         for card_type_id in self.config()["font_colour"]:
-            first_key = self.card_type_with_id(card_type_id).fields[0][0]
+            first_key = \
+                self.card_type_with_id(card_type_id).fact_keys_and_names[0][0]
             self.font_colour_for_card_type_id[card_type_id] = QtGui.QColor(\
                 self.config()["font_colour"][card_type_id][first_key])
         
@@ -98,7 +99,7 @@ class CardModel(QtSql.QSqlTableModel, Component):
         if role != QtCore.Qt.DisplayRole:
             return QtSql.QSqlTableModel.data(self, index, role)
         # Display roles to format some columns in a more pretty way. Note that
-        # sorting still uses the orginal database fields, which is good
+        # sorting still uses the orginal database keys, which is good
         # for speed.
         if column == GRADE:
             grade = QtSql.QSqlTableModel.data(self, index).toInt()[0]
@@ -257,10 +258,11 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
     def context_menu(self, point):
         menu = QtGui.QMenu(self)
         edit_action = QtGui.QAction(_("&Edit"), menu)
-        edit_action.setShortcut(QtCore.Qt.Key_Enter)
+        edit_action.setShortcut(QtCore.Qt.CTRL + QtCore.Qt.Key_E)
         edit_action.triggered.connect(self.menu_edit)
         menu.addAction(edit_action)
         preview_action = QtGui.QAction(_("&Preview"), menu)
+        edit_action.setShortcut(QtCore.Qt.CTRL + QtCore.Qt.Key_P)
         preview_action.triggered.connect(self.menu_preview)
         menu.addAction(preview_action)
         delete_action = QtGui.QAction(_("&Delete"), menu)
@@ -290,6 +292,12 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             return QtGui.QDialog.keyPressEvent(self, event)
         if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return]:
             self.menu_edit()
+        if event.key() == QtCore.Qt.Key_E and \
+            event.modifiers() == QtCore.Qt.ControlModifier:
+            self.menu_edit()
+        if event.key() == QtCore.Qt.Key_P and \
+            event.modifiers() == QtCore.Qt.ControlModifier:
+            self.menu_preview()
         elif event.key() in [QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace]:
             self.menu_delete()
         else:
@@ -324,7 +332,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             _card_ids.add(_card_id)
         return _card_ids
     
-    def menu_edit(self):
+    def menu_edit(self, index=None):
+        # 'index' gets passed if this function gets called through the
+        # table.doubleClicked event.
         cards = self.cards_from_single_selection()
         dlg = self.component_manager.current("edit_card_dialog")\
             (cards[0], self.component_manager)
@@ -385,9 +395,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         new_card_type = return_values["new_card_type"]
         # Get correspondence.
         self.correspondence = {}        
-        if not current_card_type.keys().issubset(new_card_type.keys()):      
-            dlg = ConvertCardTypeFieldsDlg(current_card_type, new_card_type,
-                self.correspondence, check_required_fields=True, parent=self)
+        if not current_card_type.fact_keys().issubset(new_card_type.fact_keys()):      
+            dlg = ConvertCardTypeKeysDlg(current_card_type, new_card_type,
+                self.correspondence, check_required_fact_keys=True, parent=self)
             if dlg.exec_() != QtGui.QDialog.Accepted:
                 return
         # Start the actual conversion.
@@ -481,6 +491,12 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.table.setItemDelegateForColumn(\
             ANSWER, QA_Delegate(self.component_manager, ANSWER, self))
         self.table.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
+        # Since this function can get called multiple times, we need to make
+        # sure there is only a single connection for the double-click event.
+        try:
+            self.table.doubleClicked.disconnect(self.menu_edit)
+        except TypeError:
+            pass
         self.table.doubleClicked.connect(self.menu_edit)
         self.table.verticalHeader().hide()
         for column in (_ID, ID, CARD_TYPE_ID, _FACT_ID, FACT_VIEW_ID,
@@ -581,6 +597,11 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self._store_state()        
         self.unload_qt_database()
 
+    def reject(self):
+        # Generated when pressing escape.     
+        self.unload_qt_database()
+        return QtGui.QDialog.reject(self)
+    
     def accept(self):
         # 'accept' does not generate a close event.
         self._store_state()

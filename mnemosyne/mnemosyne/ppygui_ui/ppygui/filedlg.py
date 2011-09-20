@@ -24,7 +24,7 @@ from ctypes import *
 LPOFNHOOKPROC = c_voidp #TODO
 
 class OPENFILENAME(Structure):
-    _fields_ = [("lStructSize", DWORD),
+    _keys_ = [("lStructSize", DWORD),
                 ("hwndOwner", HWND),
                 ("hInstance", HINSTANCE),
                 ("lpstrFilter", LPCTSTR),

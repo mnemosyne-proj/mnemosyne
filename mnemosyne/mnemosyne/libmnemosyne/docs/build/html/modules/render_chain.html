@@ -68,15 +68,20 @@ card type specific.</p>
 <p>Plugins can add Filters or Renderers for a new card type to a chain at run
 time.</p>
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.filter">
+<tt class="descname">filter</tt><big>(</big><em>filter_class</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.filter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.register_filter">
-<tt class="descname">register_filter</tt><big>(</big><em>filter</em>, <em>in_front=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.register_filter" title="Permalink to this definition">¶</a></dt>
-<dd><p>&#8216;filter&#8217; should be a class, not an instance.</p>
+<tt class="descname">register_filter</tt><big>(</big><em>filter_class</em>, <em>in_front=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.register_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>&#8216;filter_class&#8217; should be a class, not an instance.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.register_renderer">
-<tt class="descname">register_renderer</tt><big>(</big><em>renderer</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.register_renderer" title="Permalink to this definition">¶</a></dt>
-<dd><p>&#8216;renderer&#8217; should be a class, not an instance.</p>
+<tt class="descname">register_renderer</tt><big>(</big><em>renderer_class</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.register_renderer" title="Permalink to this definition">¶</a></dt>
+<dd><p>&#8216;renderer_class&#8217; should be a class, not an instance.</p>
 </dd></dl>
 
 <dl class="method">
@@ -93,6 +98,18 @@ time.</p>
 <dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.renderer_for_card_type">
 <tt class="descname">renderer_for_card_type</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.renderer_for_card_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.unregister_filter">
+<tt class="descname">unregister_filter</tt><big>(</big><em>filter_class</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.unregister_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>&#8216;filter_class&#8217; should be a class, not an instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.unregister_renderer">
+<tt class="descname">unregister_renderer</tt><big>(</big><em>renderer_class</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.unregister_renderer" title="Permalink to this definition">¶</a></dt>
+<dd><p>&#8216;renderer_class&#8217; should be a class, not an instance.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -152,7 +169,7 @@ time.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Aug 19, 2011.
+      Last updated on Sep 15, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.1.
     </div>
   </body>

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>431</width>
-    <height>470</height>
+    <height>371</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -77,7 +77,7 @@
           <item>
            <widget class="QLabel" name="label">
             <property name="text">
-             <string>Number of non memorised cards to hold in your hand:</string>
+             <string>Number of non-memorised cards to hold in your hand:</string>
             </property>
            </widget>
           </item>
@@ -96,7 +96,7 @@
         <item>
          <widget class="QCheckBox" name="memorise_sister_cards_on_same_day">
           <property name="text">
-           <string>Memorise sister cards on the same day</string>
+           <string>(Re)learn sister cards on the same day</string>
           </property>
          </widget>
         </item>
@@ -164,22 +164,6 @@
             <string>English</string>
            </property>
           </item>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="groupBox_5">
-       <property name="title">
-        <string>Interface</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_7">
-        <item>
-         <widget class="QCheckBox" name="tip">
-          <property name="text">
-           <string>Show 'Tip of the Day'</string>
-          </property>
          </widget>
         </item>
        </layout>

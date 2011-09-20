@@ -17,25 +17,25 @@ class DecoratedThreeSided(CardType):
     name = "Foreign word with pronunciation (decorated)"
     
     # List and name the keys.
-    fields = [("f", "Foreign word"),
+    fact_keys_and_names = [("f", "Foreign word"),
               ("p_1", "Pronunciation"),
               ("m_1", "Translation")]
 
     # Recognition.
     v1 = FactView("Recognition", "3.1")
-    v1.q_fields = ["f"]
-    v1.a_fields = ["p_1", "m_1"]
-    v1.q_field_decorators = {"f": "What is the translation of ${f}?"}
+    v1.q_fact_keys = ["f"]
+    v1.a_fact_keys = ["p_1", "m_1"]
+    v1.q_fact_key_decorators = {"f": "What is the translation of ${f}?"}
     
     # Production.
     v2 = FactView("Production", "3.2")
-    v2.q_fields = ["m_1"]
-    v2.a_fields = ["f", "p_1"]
-    v2.q_field_decorators = {"m_1": "How do you say ${t}?"}
+    v2.q_fact_keys = ["m_1"]
+    v2.a_fact_keys = ["f", "p_1"]
+    v2.q_fact_key_decorators = {"m_1": "How do you say ${t}?"}
     
     fact_views = [v1, v2]
-    unique_fields = ["f"]
-    required_fields = ["f", "m_1"]
+    unique_fact_keys = ["f"]
+    required_fact_keys = ["f", "m_1"]
     
 class TestCardType(MnemosyneTest):
 
@@ -56,8 +56,8 @@ class TestCardType(MnemosyneTest):
 
     def test_card_types(self):
         card_type = self.card_type_with_id("1")
-        assert card_type.key_with_name("Front") == "f"
-        assert card_type.is_data_valid({"f": "foo"}) == True
+        assert card_type.fact_key_with_name("Front") == "f"
+        assert card_type.is_fact_data_valid({"f": "foo"}) == True
         assert self.card_type_with_id("1") == self.card_type_with_id("1")
         assert self.card_type_with_id("1") != None        
 
@@ -73,12 +73,12 @@ class TestCardType(MnemosyneTest):
         card_type_out = self.database().card_type(card_type.id,
                                                       is_id_internal=False)
         assert card_type_out.id == "1::1 clone"
-        assert card_type_out.key_with_name("Front") == "f"
-        assert card_type_out.required_fields == ["f"]
-        assert card_type_out.is_data_valid({"f": "foo"}) == True
+        assert card_type_out.fact_key_with_name("Front") == "f"
+        assert card_type_out.required_fact_keys == ["f"]
+        assert card_type_out.is_fact_data_valid({"f": "foo"}) == True
 
-        assert card_type_out.fields == card_type.fields
-        assert card_type_out.unique_fields == card_type.unique_fields
+        assert card_type_out.fact_keys_and_names == card_type.fact_keys_and_names
+        assert card_type_out.unique_fact_keys == card_type.unique_fact_keys
         assert card_type_out.keyboard_shortcuts == card_type.keyboard_shortcuts
         assert card_type_out.fact_views[0].type_answer == True
         assert card_type_out.fact_views[0].extra_data == {"b": "b"}
@@ -89,10 +89,10 @@ class TestCardType(MnemosyneTest):
                card_type.fact_views[0].id
         assert card_type_out.fact_views[0].name == \
                card_type.fact_views[0].name
-        assert card_type_out.fact_views[0].q_fields == \
-               card_type.fact_views[0].q_fields
-        assert card_type_out.fact_views[0].a_fields == \
-               card_type.fact_views[0].a_fields
+        assert card_type_out.fact_views[0].q_fact_keys == \
+               card_type.fact_views[0].q_fact_keys
+        assert card_type_out.fact_views[0].a_fact_keys == \
+               card_type.fact_views[0].a_fact_keys
         assert card_type_out.fact_views[0].a_on_top_of_q == \
                card_type.fact_views[0].a_on_top_of_q
         
@@ -123,20 +123,20 @@ class TestCardType(MnemosyneTest):
                card_type_2.fact_views[0].id
         assert card_type_out.fact_views[0].name == \
                card_type_2.fact_views[0].name
-        assert card_type_out.fact_views[0].q_fields == \
-               card_type_2.fact_views[0].q_fields
-        assert card_type_out.fact_views[0].a_fields == \
-               card_type_2.fact_views[0].a_fields
+        assert card_type_out.fact_views[0].q_fact_keys == \
+               card_type_2.fact_views[0].q_fact_keys
+        assert card_type_out.fact_views[0].a_fact_keys == \
+               card_type_2.fact_views[0].a_fact_keys
         assert card_type_out.fact_views[0].a_on_top_of_q == \
                card_type_2.fact_views[0].a_on_top_of_q        
         assert card_type_out.fact_views[1].id == \
                card_type_2.fact_views[1].id
         assert card_type_out.fact_views[1].name == \
                card_type_2.fact_views[1].name
-        assert card_type_out.fact_views[1].q_fields == \
-               card_type_2.fact_views[1].q_fields
-        assert card_type_out.fact_views[1].a_fields == \
-               card_type_2.fact_views[1].a_fields
+        assert card_type_out.fact_views[1].q_fact_keys == \
+               card_type_2.fact_views[1].q_fact_keys
+        assert card_type_out.fact_views[1].a_fact_keys == \
+               card_type_2.fact_views[1].a_fact_keys
         assert card_type_out.fact_views[1].a_on_top_of_q == \
                card_type_2.fact_views[1].a_on_top_of_q
         
@@ -153,12 +153,12 @@ class TestCardType(MnemosyneTest):
         self.mnemosyne.component_manager.unregister(card_type)
         card_type_out = self.database().card_type(card_type.id,
                                                       is_id_internal=False)
-        assert card_type_out.key_with_name("Front") == "f"
-        assert card_type_out.required_fields == ["f"]
-        assert card_type_out.is_data_valid({"f": "foo"}) == True
+        assert card_type_out.fact_key_with_name("Front") == "f"
+        assert card_type_out.required_fact_keys == ["f"]
+        assert card_type_out.is_fact_data_valid({"f": "foo"}) == True
 
-        assert card_type_out.fields == card_type.fields
-        assert card_type_out.unique_fields == card_type.unique_fields
+        assert card_type_out.fact_keys_and_names == card_type.fact_keys_and_names
+        assert card_type_out.unique_fact_keys == card_type.unique_fact_keys
         assert card_type_out.keyboard_shortcuts == card_type.keyboard_shortcuts
         assert card_type_out.fact_views[0].type_answer == True
         assert card_type_out.fact_views[0].extra_data == {"b": "b"}
@@ -169,10 +169,10 @@ class TestCardType(MnemosyneTest):
                card_type.fact_views[0].id
         assert card_type_out.fact_views[0].name == \
                card_type.fact_views[0].name
-        assert card_type_out.fact_views[0].q_fields == \
-               card_type.fact_views[0].q_fields
-        assert card_type_out.fact_views[0].a_fields == \
-               card_type.fact_views[0].a_fields
+        assert card_type_out.fact_views[0].q_fact_keys == \
+               card_type.fact_views[0].q_fact_keys
+        assert card_type_out.fact_views[0].a_fact_keys == \
+               card_type.fact_views[0].a_fact_keys
         assert card_type_out.fact_views[0].a_on_top_of_q == \
                card_type.fact_views[0].a_on_top_of_q
 

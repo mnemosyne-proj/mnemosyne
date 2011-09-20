@@ -100,8 +100,9 @@ class SQLiteMedia(object):
             if not os.path.exists(filename) and \
                 not os.path.exists(expand_path(filename, self.media_dir())):
                 self.main_widget().show_error(_("Missing media file!"))
-                for key, value in fact.data.iteritems():
-                    fact.data[key] = fact.data[key].replace(match.group(),
+                for fact_key, value in fact.data.iteritems():
+                    fact.data[fact_key] = \
+                        fact.data[fact_key].replace(match.group(),
                         "src_missing=\"%s\"" % match.group(1))
                 continue
             # If needed, copy file to the media dir. Normally this happens when
@@ -111,10 +112,11 @@ class SQLiteMedia(object):
                 filename = copy_file_to_dir(filename, self.media_dir())
             else:  # We always store Unix paths internally.
                 filename = filename.replace("\\", "/")
-            for key, value in fact.data.iteritems():
-                fact.data[key] = value.replace(match.group(1), filename)
+            for fact_key, value in fact.data.iteritems():
+                fact.data[fact_key] = value.replace(match.group(1), filename)
                 self.con.execute("""update data_for_fact set value=? where
-                    _fact_id=? and key=?""", (fact.data[key], fact._id, key))
+                    _fact_id=? and key=?""",
+                    (fact.data[fact_key], fact._id, fact_key))
             if self.con.execute("select count() from media where filename=?",
                                 (filename, )).fetchone()[0] == 0:
                 self.con.execute("""insert into media(filename, _hash)

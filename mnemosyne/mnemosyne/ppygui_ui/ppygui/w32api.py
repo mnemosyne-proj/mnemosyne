@@ -90,7 +90,7 @@ LRESULT = LONG_PTR
 
 #### Windows version detection ##############################
 class OSVERSIONINFO(Structure):
-    _fields_ = [("dwOSVersionInfoSize", DWORD),
+    _keys_ = [("dwOSVersionInfoSize", DWORD),
                 ("dwMajorVersion", DWORD),
                 ("dwMinorVersion", DWORD),
                 ("dwBuildNumber", DWORD),
@@ -125,7 +125,7 @@ EnumChildProc = WINFUNCTYPE(c_int, HWND, LPARAM)
 MSGBOXCALLBACK = WINFUNCTYPE(c_int, HWND, LPARAM) #TODO look up real def
 
 class WNDCLASS(Structure):
-    _fields_ = [
+    _keys_ = [
                 ("style",  UINT),
                 ("lpfnWndProc", WNDPROC),
                 ("cbClsExtra", INT),
@@ -139,7 +139,7 @@ class WNDCLASS(Structure):
                 ]
 
 class POINT(Structure):
-    _fields_ = [("x", LONG),
+    _keys_ = [("x", LONG),
                 ("y", LONG)]
 
     def __str__(self):
@@ -148,14 +148,14 @@ class POINT(Structure):
 POINTL = POINT
 
 class POINTS(Structure):
-    _fields_ = [("x", SHORT),
+    _keys_ = [("x", SHORT),
                 ("y", SHORT)]
     
 
 PtInRect = windll.coredll.PtInRect
 
 class RECT(Structure):
-    _fields_ = [("left", LONG),
+    _keys_ = [("left", LONG),
                 ("top", LONG),
                 ("right", LONG),
                 ("bottom", LONG)]
@@ -188,14 +188,14 @@ class RECT(Structure):
 RECTL = RECT        
 
 class SIZE(Structure):
-    _fields_ = [('cx', LONG),
+    _keys_ = [('cx', LONG),
                 ('cy', LONG)]
         
 SIZEL = SIZE        
         
     
 ##class MSG(Structure):
-##    _fields_ = [("hWnd", HWND),
+##    _keys_ = [("hWnd", HWND),
 ##                ("message", UINT),
 ##                ("wParam", WPARAM),
 ##                ("lParam", LPARAM),
@@ -210,12 +210,12 @@ SIZEL = SIZE
 from ctypes.wintypes import MSG
         
 class ACCEL(Structure):
-    _fields_ = [("fVirt", BYTE),
+    _keys_ = [("fVirt", BYTE),
                 ("key", WORD),
                 ("cmd", WORD)]
     
 class CREATESTRUCT(Structure):
-    _fields_ = [("lpCreateParams", LPVOID),
+    _keys_ = [("lpCreateParams", LPVOID),
                 ("hInstance", HINSTANCE),
                 ("hMenu", HMENU),
                 ("hwndParent", HWND),
@@ -231,12 +231,12 @@ class CREATESTRUCT(Structure):
 
 
 class NMHDR(Structure):
-    _fields_ = [("hwndFrom", HWND),
+    _keys_ = [("hwndFrom", HWND),
                 ("idFrom", UINT),
                 ("code", UINT)]
 
 class PAINTSTRUCT(Structure):
-    _fields_ = [("hdc", HDC),
+    _keys_ = [("hdc", HDC),
                 ("fErase", BOOL),
                 ("rcPaint", RECT),
                 ("fRestore", BOOL),
@@ -245,7 +245,7 @@ class PAINTSTRUCT(Structure):
 
     
 class MENUITEMINFO(Structure):
-    _fields_ = [("cbSize", UINT),
+    _keys_ = [("cbSize", UINT),
                 ("fMask", UINT),
                 ("fType", UINT),
                 ("fState", UINT),                
@@ -260,7 +260,7 @@ class MENUITEMINFO(Structure):
 
 class DLGTEMPLATE(Structure):
     _pack_ = 2
-    _fields_ = [
+    _keys_ = [
         ("style", DWORD),
         ("exStyle", DWORD),
         ("cDlgItems", WORD),
@@ -272,7 +272,7 @@ class DLGTEMPLATE(Structure):
 
 class DLGITEMTEMPLATE(Structure):
     _pack_ = 2
-    _fields_ = [
+    _keys_ = [
         ("style", DWORD),
         ("exStyle", DWORD),
         ("x", c_short),
@@ -283,7 +283,7 @@ class DLGITEMTEMPLATE(Structure):
     ]
 
 class COPYDATASTRUCT(Structure):
-    _fields_ = [
+    _keys_ = [
         ("dwData", ULONG_PTR),
         ("cbData", DWORD),
         ("lpData", PVOID)]
@@ -1001,13 +1001,13 @@ SHSipInfo = ctypes.windll.aygshell.SHSipInfo
 
 class SIPINFO(ctypes.Structure) :
 
-  _fields_ = [('cbSize', DWORD),('fdwFlags', DWORD),
+  _keys_ = [('cbSize', DWORD),('fdwFlags', DWORD),
               ('rcVisibleDesktop',RECT), ('rcSipRect', RECT),
               ('dwImDataSize', DWORD), ('pvImData', LPVOID)]
 
 class SHMENUBARINFO(ctypes.Structure):
 
-  _fields_ = [('cbSize', DWORD), ('hwndParent', HWND),
+  _keys_ = [('cbSize', DWORD), ('hwndParent', HWND),
               ('dwFlags', DWORD), ('nToolBarId',UINT),
               ('hInstRes', HINSTANCE), ('nBmpId', INT),
               ('cBmpImages', INT), ('hwndMB', HWND),
@@ -1015,16 +1015,16 @@ class SHMENUBARINFO(ctypes.Structure):
 
 class SHRGINFO(ctypes.Structure) :
 
-  _fields_ = [('cbSize', DWORD), ('hwndClient', HWND),
+  _keys_ = [('cbSize', DWORD), ('hwndClient', HWND),
               ('ptDown', POINT), ('dwFlags', DWORD)]
 
 class SHACTIVATEINFO(ctypes.Structure) :
-  _fields_ = [('cbSize', DWORD), ('hwndLastFocus', HWND),
+  _keys_ = [('cbSize', DWORD), ('hwndLastFocus', HWND),
               ('fSipUp', UINT,1), ('fSipOnDeactivation',UINT,1),
               ('fActive', UINT,1), ('fReserved', UINT,29)]
 
 class SHINITDLGINFO(ctypes.Structure) :
-  _fields_ = [('dwMask', DWORD), ('hDlg', HWND), ('dwFlags', DWORD) ]
+  _keys_ = [('dwMask', DWORD), ('hDlg', HWND), ('dwFlags', DWORD) ]
 
 SHInitDialog = ctypes.windll.aygshell.SHInitDialog
 SHRecognizeGesture = ctypes.windll.aygshell.SHRecognizeGesture
@@ -1050,7 +1050,7 @@ def InitSHActivateInfo():
 GetTextExtentExPointW = cdll.coredll.GetTextExtentExPointW
 
 class SIZE(Structure):
-    _fields_ = [('cx', LONG),
+    _keys_ = [('cx', LONG),
                 ('cy', LONG)]
     
 def GetTextExtent(hdc, string):

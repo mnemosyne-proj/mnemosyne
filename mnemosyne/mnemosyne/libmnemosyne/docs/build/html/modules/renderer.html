@@ -56,20 +56,21 @@
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.renderer.Renderer">
 <em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.renderer.</tt><tt class="descname">Renderer</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Assembles a sequence of &#8216;fields&#8217; which are keys in a dictionary &#8216;data&#8217;
-to a certain format, e.g. a html page, or a purely text based format.</p>
-<p>Typically, &#8216;data&#8217; is the fact data of a card, and &#8216;fields&#8217; are the question
-and answer fields of the card&#8217;s fact view.</p>
+<dd><p>Assembles a sequence of &#8216;fact_keys&#8217; which are keys in a dictionary
+&#8216;fact_data&#8217; to a certain format, e.g. a html page, or a purely text based
+format.</p>
+<p>Typically &#8216;fact_keys&#8217; are the question and answer keys of the card&#8217;s fact
+view.</p>
 <p>It is contained in a RenderChain and represents the functionality which
 is typically different for each card type.</p>
 <p>If this renderer is only for a specific card type (and its descendants)
 &#8216;used_for&#8217; can be set to the corresponding CardType class. If it is set to
 None, this renderer is used for all other card types.</p>
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.renderer.Renderer.render_fields">
-<tt class="descname">render_fields</tt><big>(</big><em>data</em>, <em>fields</em>, <em>card_type</em>, <em>**render_args</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.render_fields" title="Permalink to this definition">¶</a></dt>
-<dd><p>Assembles a sequence of &#8216;fields&#8217; which are keys in a dictionary
-&#8216;data&#8217;.</p>
+<dt id="mnemosyne.libmnemosyne.renderer.Renderer.render">
+<tt class="descname">render</tt><big>(</big><em>fact_data</em>, <em>fact_keys</em>, <em>card_type</em>, <em>**render_args</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assembles a sequence of &#8216;fact_keys&#8217; which are keys in a dictionary
+&#8216;fact_data&#8217;.</p>
 <p>card_type&#8217; is passed as extra argument e.g. to determine card type
 specific formatting.</p>
 </dd></dl>
@@ -140,7 +141,7 @@ used to signal that the cache should be rebuilt.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Aug 19, 2011.
+      Last updated on Sep 15, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.1.
     </div>
   </body>

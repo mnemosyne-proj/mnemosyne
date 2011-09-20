@@ -28,7 +28,7 @@ class ClonedCardTypesListDlg(QtGui.QDialog, Ui_ClonedCardTypesListDlg,
     def activate(self):
         if not self.config()["clone_help_shown"]:
             self.main_widget().show_information(\
-                _("Here, you can make clones of existing card types. This allows you to format the cards in this type independently from the original type. E.g. you could make a clone of 'Vocabulary', call it 'Thai' and set a Thai fonts specifically for this card type without disturbing the other cards."))
+                _("Here, you can make clones of existing card types. This allows you to format cards in this type independently from cards in the original type. E.g. you can make a clone of 'Vocabulary', call it 'Thai' and set a Thai font specifically for this card type without disturbing your other cards."))
             self.config()["clone_help_shown"] = True
         self.exec_()
 

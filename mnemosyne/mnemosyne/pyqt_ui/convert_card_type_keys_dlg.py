@@ -1,18 +1,18 @@
 #
-# convert_card_type_fields_dlg.py <Peter.Bienstman@UGent.be>
+# convert_card_type_keys_dlg.py <Peter.Bienstman@UGent.be>
 #
 
 from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.pyqt_ui.ui_convert_card_type_fields_dlg import \
-     Ui_ConvertCardTypeFieldsDlg
+from mnemosyne.pyqt_ui.ui_convert_card_type_keys_dlg import \
+     Ui_ConvertCardTypeKeysDlg
 
 
-class ConvertCardTypeFieldsDlg(QtGui.QDialog, Ui_ConvertCardTypeFieldsDlg):
+class ConvertCardTypeKeysDlg(QtGui.QDialog, Ui_ConvertCardTypeKeysDlg):
 
     def __init__(self, old_card_type, new_card_type, correspondence,
-                 check_required_fields=True, parent=None):
+                 check_required_fact_keys=True, parent=None):
         QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
@@ -22,10 +22,10 @@ class ConvertCardTypeFieldsDlg(QtGui.QDialog, Ui_ConvertCardTypeFieldsDlg):
         self.old_card_type = old_card_type
         self.new_card_type = new_card_type
         self.correspondence = correspondence
-        self.check_required_fields = check_required_fields
+        self.check_required_fact_keys = check_required_fact_keys
         self.comboboxes = {}
         index = 1
-        for old_fact_key, old_fact_key_name in old_card_type.fields:
+        for old_fact_key, old_fact_key_name in old_card_type.fact_keys_and_names:
             label = QtGui.QLabel(self)
             label.setText(old_fact_key_name + ":")
             font = QtGui.QFont()
@@ -34,7 +34,7 @@ class ConvertCardTypeFieldsDlg(QtGui.QDialog, Ui_ConvertCardTypeFieldsDlg):
             label.setFont(font)
             self.gridLayout.addWidget(label, index, 0, 1, 1)
             combobox = QtGui.QComboBox(self)
-            for new_fact_key, new_key_name in new_card_type.fields:
+            for new_fact_key, new_key_name in new_card_type.fact_keys_and_names:
                 combobox.addItem(new_key_name)
             combobox.addItem(_("<none>"))
             combobox.setCurrentIndex(combobox.count()-1)
@@ -46,25 +46,25 @@ class ConvertCardTypeFieldsDlg(QtGui.QDialog, Ui_ConvertCardTypeFieldsDlg):
     def combobox_updated(self):
         self.ok_button.setEnabled(False)
         self.correspondence.clear()
-        for old_fact_key, old_fact_key_name in self.old_card_type.fields:
+        for old_fact_key, old_fact_key_name in self.old_card_type.fact_keys_and_names:
             new_fact_key_name = self.comboboxes[old_fact_key].currentText()
             if new_fact_key_name != _("<none>"):
                 self.ok_button.setEnabled(True)                
                 new_fact_key = \
-                     self.new_card_type.key_with_name(new_fact_key_name)
+                     self.new_card_type.fact_key_with_name(new_fact_key_name)
                 if new_fact_key in self.correspondence.values():
                     QtGui.QMessageBox.critical(None, _("Mnemosyne"),
-                        _("No duplicate in new fields allowed."),
+                        _("No duplicate in new fact_keys_and_names allowed."),
                         _("&OK"), "", "", 0, -1)
                     self.ok_button.setEnabled(False)
                     return                  
                 self.correspondence[old_fact_key] = new_fact_key
-        if self.check_required_fields:
-            for field in self.new_card_type.required_fields:
-                if field not in self.correspondence.values():
+        if self.check_required_fact_keys:
+            for fact_key in self.new_card_type.required_fact_keys:
+                if fact_key not in self.correspondence.values():
                     self.ok_button.setEnabled(False)
                     if len(self.correspondence) == \
-                       len(self.old_card_type.fields):
+                       len(self.old_card_type.fact_keys_and_names):
                         QtGui.QMessageBox.critical(None, _("Mnemosyne"),
                             _("A required field is missing."),
                             _("&OK"), "", "", 0, -1)                        
@@ -72,11 +72,12 @@ class ConvertCardTypeFieldsDlg(QtGui.QDialog, Ui_ConvertCardTypeFieldsDlg):
               
     def accept(self):
         self.correspondence.clear()
-        for old_fact_key, old_fact_key_name in self.old_card_type.fields:
+        for old_fact_key, old_fact_key_name in \
+            self.old_card_type.fact_keys_and_names:
             new_fact_key_name = self.comboboxes[old_fact_key].currentText()
             if new_fact_key_name != _("<none>"):
                 new_fact_key = \
-                     self.new_card_type.key_with_name(new_fact_key_name)
+                     self.new_card_type.fact_key_with_name(new_fact_key_name)
                 self.correspondence[old_fact_key] = new_fact_key
         QtGui.QDialog.accept(self)
         

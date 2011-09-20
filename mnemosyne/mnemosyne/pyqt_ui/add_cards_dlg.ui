@@ -71,10 +71,13 @@
              <string>&amp;Yet to learn</string>
             </property>
             <property name="shortcut">
-             <string>Ctrl+0</string>
+             <string>Ctrl+Return</string>
             </property>
             <property name="autoDefault">
-             <bool>false</bool>
+             <bool>true</bool>
+            </property>
+            <property name="default">
+             <bool>true</bool>
             </property>
            </widget>
           </item>

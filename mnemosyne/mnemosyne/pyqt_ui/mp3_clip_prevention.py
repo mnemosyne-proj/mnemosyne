@@ -18,7 +18,7 @@ class Mp3ClipPrevention(Filter):
 
     """
 
-    def run(self, text):
+    def run(self, text, card, fact_key):
         match = re_mp3.match(text)
         if not match:
             return text

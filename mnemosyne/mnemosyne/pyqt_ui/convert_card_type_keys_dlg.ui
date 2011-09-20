@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ConvertCardTypeFieldsDlg</class>
- <widget class="QDialog" name="ConvertCardTypeFieldsDlg">
+ <class>ConvertCardTypeKeysDlg</class>
+ <widget class="QDialog" name="ConvertCardTypeKeysDlg">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Convert card type fields</string>
+   <string>Convert card type data</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -25,7 +25,7 @@
         </size>
        </property>
        <property name="text">
-        <string>Set the correspondence between fields in the old and the new card type:</string>
+        <string>Set the correspondence between data in the old and the new card type:</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>
@@ -108,7 +108,7 @@
   <connection>
    <sender>ok_button</sender>
    <signal>clicked()</signal>
-   <receiver>ConvertCardTypeFieldsDlg</receiver>
+   <receiver>ConvertCardTypeKeysDlg</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -124,7 +124,7 @@
   <connection>
    <sender>cancel_button</sender>
    <signal>clicked()</signal>
-   <receiver>ConvertCardTypeFieldsDlg</receiver>
+   <receiver>ConvertCardTypeKeysDlg</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

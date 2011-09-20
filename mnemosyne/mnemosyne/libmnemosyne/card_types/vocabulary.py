@@ -15,24 +15,24 @@ class Vocabulary(CardType):
     name = _("Vocabulary")
 
     # List and name the keys.
-    fields = [("f", _("Foreign word or expression")),
-              ("p_1", _("Pronunciation")),
-              ("m_1", _("Meaning")),
-              ("n", _("Notes"))]
+    fact_keys_and_names = [("f", _("Foreign word or expression")),
+                           ("p_1", _("Pronunciation")),
+                           ("m_1", _("Meaning")),
+                           ("n", _("Notes"))]
 
     # Recognition.
     v1 = FactView(_("Recognition"), "3.1")
-    v1.q_fields = ["f"]
-    v1.a_fields = ["p_1", "m_1", "n"]
+    v1.q_fact_keys = ["f"]
+    v1.a_fact_keys = ["p_1", "m_1", "n"]
 
     # Production.
     v2 = FactView(_("Production"), "3.2")
-    v2.q_fields = ["m_1"]
-    v2.a_fields = ["f", "p_1", "n"]
+    v2.q_fact_keys = ["m_1"]
+    v2.a_fact_keys = ["f", "p_1", "n"]
     
     fact_views = [v1, v2]
-    unique_fields = ["f"]
-    required_fields = ["f", "m_1"]
+    unique_fact_keys = ["f"]
+    required_fact_keys = ["f", "m_1"]
 
 from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
 from mnemosyne.libmnemosyne.card_types.both_ways import BothWays

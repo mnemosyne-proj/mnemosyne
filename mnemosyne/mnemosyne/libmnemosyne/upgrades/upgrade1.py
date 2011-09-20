@@ -60,6 +60,8 @@ class Upgrade1(Component):
         # Migrate configuration settings.
         self.config()["user_id"] = old_config["user_id"]
         self.config()["upload_science_logs"] = old_config["upload_logs"]
+        self.config()["non_latin_font_size_increase"] \
+            = old_config["non_latin_font_size_increase"]
         for card_type in self.card_types():
             self.config().set_card_type_property("font",
                 old_config["QA_font"], card_type)

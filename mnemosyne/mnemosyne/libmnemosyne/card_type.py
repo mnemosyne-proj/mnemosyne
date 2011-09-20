@@ -23,19 +23,17 @@ class CardType(Component, CompareOnId):
     the other hand to allow the possibility that different card types give
     different names to the same key. (E.g. foreign word' could be called
     'French' in a French card type, or 'pronunciation' could be called
-    'reading' in a Kanji card type.) This is done in self.fields, which is
-    a list of the form [(fact_key, fact_key_name)]. It is tempting to use a
-    dictionary here, but we can't do that since ordering is important.
+    'reading' in a Kanji card type.) This is done in self.fact_keys_and_names,
+    which is a list of the form [(fact_key, fact_key_name)]. It is tempting
+    to use a dictionary here, but we can't do that since ordering is
+    important.
 
-    Fields which need to be different for all facts belonging to this card
-    type are listed in 'unique_fields'.
+    Keys which need to be different for all facts belonging to this card
+    type are listed in 'unique_fact_keys'.
 
     Note that a fact could contain more data than those listed in the card
-    type's 'fields' variable, which could be useful for card types needing
-    hidden fields, dynamically generated fields, ... .
-
-    We could use the component manager to track fact views, but this is
-    probably overkill.
+    type's 'fact_keys_and_names' variable, which could be useful for card
+    types needing hidden keys, dynamically generated keys, ... .
 
     The functions 'create_sister_cards' and 'edit_sister_cards' can be
     overridden by card types which can have a varying number of fact views,
@@ -47,22 +45,24 @@ class CardType(Component, CompareOnId):
     name = ""
     component_type = "card_type"
 
-    fields = None
+    fact_keys_and_names = None
     fact_views = None
-    unique_fields = None
-    required_fields = None
+    unique_fact_keys = None
+    required_fact_keys = None
     keyboard_shortcuts = {}
     extra_data = {}
 
-    def keys(self):
-        return set(fact_key for (fact_key, fact_key_name) in self.fields)
+    def fact_keys(self):
+        return set(fact_key for (fact_key, fact_key_name) \
+            in self.fact_keys_and_names)
 
-    def key_names(self):
-        return [fact_key_name for (fact_key, fact_key_name) in self.fields]
+    def fact_key_names(self):
+        return [key_name for (fact_key, fact_key_name) \
+            in self.fact_keys_and_names]
     
-    def key_with_name(self, key_name):
-        for fact_key, fact_key_name in self.fields:
-            if fact_key_name == key_name:
+    def fact_key_with_name(self, name):
+        for fact_key, fact_key_name in self.fact_keys_and_names:
+            if fact_key_name == name:
                 return fact_key
             
     def render_question(self, card, render_chain="default", **render_args):
@@ -73,12 +73,13 @@ class CardType(Component, CompareOnId):
         return self.render_chain(render_chain).\
             render_answer(card, **render_args)
 
-    def is_data_valid(self, fact_data):
+    def is_fact_data_valid(self, fact_data):
 
-        """Check if all the required fields are present."""
+        """Check if all the required keys are present."""
         
-        for required in self.required_fields:
-            if required not in fact_data or not fact_data[required]:
+        for required_fact_key in self.required_fact_keys:
+            if required_fact_key not in fact_data or \
+                   not fact_data[required_fact_key]:
                 return False
         return True
         
@@ -116,9 +117,9 @@ class CardType(Component, CompareOnId):
         new_cards, edited_cards, deleted_cards = [], [], []
         return new_cards, edited_cards, deleted_cards
     
-    def key_format_proxies(self):
+    def fact_key_format_proxies(self):
 
-        """Sometimes, a card type can dynamically create a field when
+        """Sometimes, a card type can dynamically create a key when
         generating a question or an answer (see e.g. the cloze card type).
         Since the user cannot specify how this key should be formatted, it
         should be formatted like an other, static key. This function returns
@@ -127,6 +128,6 @@ class CardType(Component, CompareOnId):
         """
 
         proxies = {}
-        for fact_key, fact_key_name in self.fields:
-            proxies[fact_key] = fact_key
+        for key, key_name in self.fact_keys_and_names:
+            proxies[key] = key
         return proxies

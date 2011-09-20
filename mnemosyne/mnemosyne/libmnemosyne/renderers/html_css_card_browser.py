@@ -22,18 +22,19 @@ class HtmlCssCardBrowser(HtmlCss):
 
     def card_type_css(self, card_type):
         css = "._search { color: red; }"
-        # Field tags.
-        for true_key, proxy_key in card_type.key_format_proxies().iteritems():
-            css += ".%s { " % true_key
+        # key tags.
+        for true_fact_key, proxy_fact_key in \
+            card_type.fact_key_format_proxies().iteritems():
+            css += ".%s { " % true_fact_key
             # Font colours.
             colour = self.config().card_type_property(\
-                "font_colour", card_type, proxy_key)
+                "font_colour", card_type, proxy_fact_key)
             if colour:
                 colour_string = ("%X" % colour)[2:] # Strip alpha.
                 css += "color: #%s; " % colour_string
             # Font.
             font_string = self.config().card_type_property(\
-                "font", card_type, proxy_key)
+                "font", card_type, proxy_fact_key)
             if font_string:
                 family,size,x,x,w,i,u,s,x,x = font_string.split(",")
                 css += "font-family: \"%s\"; " % family
@@ -52,15 +53,16 @@ class HtmlCssCardBrowser(HtmlCss):
             css += "}\n"
         return css
 
-    def body(self, data, fields, **render_args):
+    def body(self, fact_data, fact_keys, **render_args):
         html = ""
-        for field in fields:
-            if field in data and data[field]:
-                data_field = data[field].replace("\n", " / ")
-                html += "<span class=\"%s\">%s</span> / " % (field, data_field)
+        for fact_key in fact_keys:
+            if fact_key in fact_data and fact_data[fact_key]:
+                fact_data_fact_key = fact_data[fact_key].replace("\n", " / ")
+                html += "<span class=\"%s\">%s</span> / " % \
+                    (fact_key, fact_data_fact_key)
         return html[:-2]
                 
-    def render_fields(self, data, fields, card_type, **render_args):
+    def render(self, fact_data, fact_keys, card_type, **render_args):
         css = self.css(card_type)
         if "ignore_text_colour" in render_args and \
             render_args["ignore_text_colour"] == True:
@@ -70,11 +72,11 @@ class HtmlCssCardBrowser(HtmlCss):
             for symbol in ["(", ")", "?", ".", "^", "*", "$", "+"]:
                 search_string = search_string.replace(symbol, "\\" + symbol)
             search_re = re.compile("(" + search_string + ")", re.IGNORECASE)
-            for field in fields:
-                if field in data and data[field]:
-                    data[field] = search_re.sub(\
-                    "<span class=\"_search\">\\1</span>", data[field])
-        body = self.body(data, fields, **render_args)
+            for fact_key in fact_keys:
+                if fact_key in fact_data and fact_data[fact_key]:
+                    fact_data[fact_key] = search_re.sub(\
+                    "<span class=\"_search\">\\1</span>", fact_data[fact_key])
+        body = self.body(fact_data, fact_keys, **render_args)
         return """
         <html>
         <head>

@@ -1,17 +1,11 @@
--Johannes Baiter added 'tip of the day' and 'getting started' dialog
--self.render_chain("default").filter(Uppercase)
--fix OSX related problem on new installs
--more work on progress bar during import. Hopefully finally fixed now, but
- feedback welcome.
-	
--the size of question and answer boxes no longer is always equal, but boxes 
- which contain images can take up more space. Could need some more tweaking,
- so feedback welcome. (requested by Dan Schmidt)
--fix searching for words containing an apostrophe
--fix crash in changing card type from card browser (reported by Twenty Ten)
--add card counts above bars in 'grades' statistics (requested by abacus)
--tweaks to the plugin API
--patches from Tim to work around quirks in import logs caused by Mnemododo.
+-tweaked keyboard shortcuts (suggested by Murray James Morrison)
+-changed filter API to run(self, text, card, fact_key, **render_args)
+-bring back 'increase size of non-latin characters' in the card
+ appearance dialog
+-renamed 'next' to 'next sister card' in preview dialog
+-fixed edit card dialog called from card browser that would sometimes
+ refuse to close (reported by Roel De Conick)
+
 
 MNEMOSYNE 2.0
 

@@ -10,7 +10,8 @@
         <file>pixmaps/fileopen.png</file>
         <file>pixmaps/filesave.png</file>
         <file>pixmaps/filesaveas.png</file>
-        <file>pixmaps/mnemosyne.png</file>
+        <file>pixmaps/mnemosyne.png</file>        
+        <file>pixmaps/mnemosyne.svg</file>
         <file>pixmaps/statistics.png</file>        
         <file>pixmaps/silence.mp3</file>
     </qresource>

@@ -1,6 +1,6 @@
 WIDGETS = ui_main_wdgt.py ui_add_cards_dlg.py \
 	ui_preview_cards_dlg.py ui_edit_card_dlg.py \
-	ui_convert_card_type_fields_dlg.py ui_card_appearance_dlg.py \
+	ui_convert_card_type_keys_dlg.py ui_card_appearance_dlg.py \
 	ui_activate_plugins_dlg.py ui_cloned_card_types_list_dlg.py \
 	ui_clone_card_type_dlg.py ui_configuration_wdgt_main.py \
 	ui_activate_cards_dlg.py ui_card_set_name_dlg.py \
@@ -11,7 +11,7 @@ WIDGETS = ui_main_wdgt.py ui_add_cards_dlg.py \
 	ui_tip_dlg.py ui_import_dlg.py
 
 default: $(WIDGETS) ui_review_wdgt.py 
-	pyrcc4 mnemosyne.qrc
+	pyrcc4 mnemosyne.qrc -o mnemosyne_rc.py
 
 ui_review_wdgt.py: review_wdgt.ui
 	pyuic4 $< > $@

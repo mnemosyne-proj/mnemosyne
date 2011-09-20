@@ -21,15 +21,15 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         self.fact_key_for_edit_box = {}
         self.top_edit_box = None
         # Does this card type need to deal with the hiding of pronunciation
-        # fields?
-        if "p_1" not in self.card_type.keys():
+        # keys?
+        if "p_1" not in self.card_type.fact_keys():
             pronunciation_hiding = None
         else:
             pronunciation_hiding = self.config().card_type_property(\
                 "hide_pronunciation_field", self.card_type, default=False)
         # Construct the rest of the dialog.
         parent.setTabOrder(parent.card_types_widget, parent.tags)
-        for fact_key, fact_key_name in self.card_type.fields:
+        for fact_key, fact_key_name in self.card_type.fact_keys_and_names:
             l = QtGui.QLabel(fact_key_name + ":", self)
             self.vboxlayout.addWidget(l)
             if fact_key == "p_1":
@@ -39,7 +39,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
             t.setTabChangesFocus(True)
             t.setUndoRedoEnabled(True)
             t.setReadOnly(False)
-            if len(self.card_type.fields) > 2:
+            if len(self.card_type.fact_keys_and_names) > 2:
                 t.setMinimumSize(QtCore.QSize(0, 60))
             else:
                 t.setMinimumSize(QtCore.QSize(0, 106))
@@ -115,23 +115,23 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         for edit_box in self.fact_key_for_edit_box:
             self.update_formatting(edit_box)
 
-    def contains_data(self):
+    def is_empty(self):
         for edit_box in self.fact_key_for_edit_box:
             if unicode(edit_box.document().toPlainText()):
-                return True
-        return False
+                return False
+        return True
 
-    def data(self):
-        fact_data = {}
+    def fact_data(self):
+        _fact_data = {}
         for edit_box, fact_key in self.fact_key_for_edit_box.iteritems():
-            fact_data[fact_key] = unicode(edit_box.document().toPlainText())
-        return fact_data
+            _fact_data[fact_key] = unicode(edit_box.document().toPlainText())
+        return _fact_data
 
-    def set_data(self, data):
-        if data:
+    def set_fact_data(self, fact_data):
+        if fact_data:
             for edit_box, fact_key in self.fact_key_for_edit_box.iteritems():
-                if fact_key in data.keys():
-                    edit_box.setPlainText(data[fact_key])
+                if fact_key in fact_data:
+                    edit_box.setPlainText(fact_data[fact_key])
 
     def clear(self):
         for edit_box in self.fact_key_for_edit_box:
@@ -139,4 +139,5 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         self.top_edit_box.setFocus()
     
     def text_changed(self):
-        self.parent().set_valid(self.card_type.is_data_valid(self.data()))
+        self.parent().set_valid(\
+            self.card_type.is_fact_data_valid(self.fact_data()))

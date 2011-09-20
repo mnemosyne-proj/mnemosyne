@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>315</width>
-    <height>321</height>
+    <width>369</width>
+    <height>332</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -104,14 +104,14 @@
        <item>
         <widget class="QPushButton" name="previous_button">
          <property name="text">
-          <string>&amp;Previous</string>
+          <string>&amp;Previous sister card</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="next_button">
          <property name="text">
-          <string>&amp;Next</string>
+          <string>&amp;Next sister card</string>
          </property>
         </widget>
        </item>

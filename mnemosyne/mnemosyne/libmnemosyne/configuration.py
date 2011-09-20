@@ -103,7 +103,8 @@ class Configuration(Component, dict):
              "font_colour": {}, # [card_type.id][fact_key]
              "background_colour": {}, # [card_type.id]
              "alignment": {}, # [card_type.id]
-             "hide_pronunciation_field": {}, # [card_type.id]             
+             "hide_pronunciation_field": {}, # [card_type.id]
+             "non_latin_font_size_increase": 0,
              "non_memorised_cards_in_hand": 10,
              "randomise_new_cards": False,
              "randomise_scheduled_cards": False,
@@ -115,6 +116,7 @@ class Configuration(Component, dict):
              "backup_before_sync": True,
              "check_for_edited_local_media_files": True,
              "interested_in_old_reps": True,
+             "single_database_help_shown": False,
              "day_starts_at": 3,
              "save_after_n_reps": 1,
              "latex_preamble": "\\documentclass[12pt]{article}\n"+
@@ -134,11 +136,12 @@ class Configuration(Component, dict):
         # These keys will be shared in the sync protocol. Front-ends can
         # modify this list, e.g. if they don't want to override the fonts.
         self.keys_to_sync = ["font", "font_colour", "background_colour",
-             "alignment", "hide_pronunciation_field",
-             "non_memorised_cards_in_hand", "randomise_new_cards",
-             "randomise_scheduled_cards", "memorise_sister_cards_on_same_day",
-             "ui_language", "day_starts_at", "latex_preamble",
-             "latex_postamble", "latex", "dvipng"]        
+             "alignment", "non_latin_font_size_increase",
+             "hide_pronunciation_field", "non_memorised_cards_in_hand",
+             "randomise_new_cards", "randomise_scheduled_cards",
+             "memorise_sister_cards_on_same_day", "ui_language",
+             "day_starts_at", "latex_preamble", "latex_postamble",
+             "latex", "dvipng"]        
         # If the user id is not set, it's either because this is the first run
         # of the program, or because the user deleted the config file. In the
         # latter case, we try to recuperate the id from the history files.
@@ -269,14 +272,14 @@ class Configuration(Component, dict):
             self[property_name][card_type.id] = property
             return
         self[property_name].setdefault(card_type.id, {})
-        for key in card_type.keys():
-            self[property_name][card_type.id].setdefault(key, None)
+        for _fact_key in card_type.fact_keys():
+            self[property_name][card_type.id].setdefault(_fact_key, None)
         if not fact_key:
-            keys = card_type.keys()
+            fact_keys = card_type.fact_keys()
         else:
-            keys = [fact_key]
-        for key in keys:
-            self[property_name][card_type.id][key] = property
+            fact_keys = [fact_key]
+        for _fact_key in fact_keys:
+            self[property_name][card_type.id][_fact_key] = property
 
     def card_type_property(self, property_name, card_type, fact_key=None,
                             default=None):
@@ -294,7 +297,7 @@ class Configuration(Component, dict):
 
     def clone_card_type_properties(self, old_card_type, new_card_type):
         for property_name in ["font", "font_colour"]:
-            for fact_key in new_card_type.keys():
+            for fact_key in new_card_type.fact_keys():
                 old_value = self.card_type_property(property_name,
                     old_card_type, fact_key)
                 if old_value:

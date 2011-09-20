@@ -87,7 +87,7 @@ class Latex(Filter):
         # should always run at the end.
         return "<img src=\"" + img_file + "\" align=middle>"
     
-    def run(self, text, **render_args):
+    def run(self, text, card, fact_key, **render_args):
 
         """The actual filter code called on the question or answer text."""
         
@@ -121,5 +121,5 @@ class CheckForUpdatedLatexFiles(Hook):
     
     def run(self, data):
         # Takes 0.10 sec on 8000 card database.
-        self.latex.run(data)
+        self.latex.run(data, None, None)
         
