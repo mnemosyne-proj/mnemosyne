@@ -5,6 +5,7 @@
 from PyQt4 import QtGui, QtCore
 
 from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.pyqt_ui.ui_import_dlg import Ui_ImportDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import ImportDialog
 
@@ -36,6 +37,7 @@ class ImportDlg(QtGui.QDialog, Ui_ImportDlg, ImportDialog):
         path = expand_path(self.config()["import_dir"], self.config().data_dir)
         self.fname = self.main_widget().get_filename_to_open(path,
             self.importer.filename_filter)
+        self.filename.setText(self.fname)
 
     def apply(self):
         self.importer.do_import(self.fname)

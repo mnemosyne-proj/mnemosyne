@@ -62,7 +62,10 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
             self.main_widget().show_error(_
                     ("Bad file version: Needs to be an Mnemosyne 1.x XML file."))
             return -1
-        self.starttime = int(tree.getroot().get('time_of_start'))
+        try:
+            self.starttime = int(tree.getroot().get('time_of_start'))
+        except:
+            self.starttime = 0
         catdict = {}
         self.categories = []
         for element in tree.findall('category'):
@@ -78,17 +81,44 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
             item.q = element.find('Q').text
             item.a = element.find('A').text
             item.cat = catdict[element.find('cat').text]
-            item.grade = int(element.get('gr'))
-            item.easiness = float(element.get('e'))
-            item.acq_reps = int(element.get('ac_rp'))
-            item.ret_reps = int(element.get('rt_rp'))
-            item.lapses = int(element.get('lps'))
-            item.acq_reps_since_lapse = int(element.get('ac_rp_l'))
-            item.ret_reps_since_lapse = int(element.get('rt_rp_l'))
-            item.last_rep = int(element.get('l_rp'))
+            try:
+                item.grade = int(element.get('gr'))
+            except:
+                item.grade = 0
+            try:
+                item.easiness = float(element.get('e'))
+            except:
+                item.easiness = 2.5
+            try:
+                item.acq_reps = int(element.get('ac_rp'))
+            except:
+                item.acq_reps = 1
+            try:
+                item.ret_reps = int(element.get('rt_rp'))
+            except:
+                item.ret_reps = 0
+            try:
+                item.lapses = int(element.get('lps'))
+            except:
+                item.lapses = 0
+            try:
+                item.acq_reps_since_lapse = int(element.get('ac_rp_l'))
+            except:
+                item.acq_reps_since_lapse = 1
+            try:
+                item.ret_reps_since_lapse = int(element.get('rt_rp_l'))
+            except:
+                item.ret_reps_since_lapse = 0
+            try:
+                item.last_rep = int(element.get('l_rp'))
+            except:
+                item.last_rep = 0
             # This is how 1.x reads it, but why can next_rep be float
             # while last_rep can safely be parsed as an int?
-            item.next_rep = int(float(element.get('n_rp')))
+            try:
+                item.next_rep = int(float(element.get('n_rp')))
+            except:
+                item.next_rep = 0
             if element.get('u'):
                 item.unseen = bool(element.get('u'))
             else:
@@ -97,6 +127,6 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
                     item.unseen = True
                 else:
                     item.unseen = False
+                pass
             self.items.append(item)
         return self._convert_to_2x()
-

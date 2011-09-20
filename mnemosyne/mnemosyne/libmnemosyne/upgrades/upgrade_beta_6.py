@@ -2,6 +2,7 @@
 # upgrade_beta_6.py <Peter.Bienstman@UGent.be>
 #
 
+import os.path
 import sqlite3
 import sys
 
@@ -108,6 +109,8 @@ class UpgradeBeta6(Component):
         if not filename:
             filename = self.config()["path"]
         filename = expand_path(filename, self.config().data_dir)
+        if not os.path.exists(filename):
+            return
         self.load_old(filename)
         # See if we need to upgrade.
         con = self.database().con
