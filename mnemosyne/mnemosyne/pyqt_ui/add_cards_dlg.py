@@ -172,11 +172,19 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
             self.restoreGeometry(state)
             
     def keyPressEvent(self, event):
-        print event.modifiers() in [QtCore.Qt.ControlModifier, QtCore.Qt.AltModifier]
-        if event.modifiers() in [QtCore.Qt.ControlModifier, QtCore.Qt.AltModifier] and \
-            event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return,
-            QtCore.Qt.Key_Y] and self.yet_to_learn_button.isEnabled():
-            self.create_new_cards(-1)
+        if self.yet_to_learn_button.isEnabled() and event.modifiers() in \
+            [QtCore.Qt.ControlModifier, QtCore.Qt.AltModifier]:
+            if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return,
+                QtCore.Qt.Key_Y, QtCore.Qt.Key_0, QtCore.Qt.Key_1]:
+                self.create_new_cards(-1)
+            elif event.key() == QtCore.Qt.Key_2:
+                self.create_new_cards(2)
+            elif event.key() == QtCore.Qt.Key_3:
+                self.create_new_cards(3)
+            elif event.key() == QtCore.Qt.Key_4:
+                self.create_new_cards(4)
+            elif event.key() == QtCore.Qt.Key_5:
+                self.create_new_cards(5)                   
         else:
             return QtGui.QDialog.keyPressEvent(self, event)
     

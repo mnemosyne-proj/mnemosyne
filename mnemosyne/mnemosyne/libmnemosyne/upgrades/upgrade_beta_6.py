@@ -2,11 +2,15 @@
 # upgrade_beta_6.py <Peter.Bienstman@UGent.be>
 #
 
+import os
+import sys
 import sqlite3
 
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
 from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.libmnemosyne.utils import traceback_string
 from mnemosyne.libmnemosyne.utils import numeric_string_cmp, mangle
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 
@@ -104,6 +108,8 @@ class UpgradeBeta6(Component):
         if not filename:
             filename = self.config()["path"]
         filename = expand_path(filename, self.config().data_dir)
+        if not os.path.exists(filename):
+            return
         self.load_old(filename)
         # See if we need to upgrade.
         con = self.database().con

@@ -1,5 +1,6 @@
--both alt and control in add and edit card window?
--In the Edit card window: if I click the Alt key, the O of OK, the P of Preview and X of Exit all appear underlined. Alt/P previews the card and Alt/X exits the card window. Alt/O does nothing. 
+-both alt and control in add and edit card window
+-In the Edit card window: if I click the Alt key, the O of OK, the P of Preview and X of Exit all appear underlined. Alt/P previews the card and Alt/X exits the card window. Alt/O does nothing.
+ 
 -delete card action: both delete and backspace should work
 -all grades function as show answer
 
