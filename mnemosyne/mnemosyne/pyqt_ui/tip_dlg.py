@@ -66,16 +66,16 @@ class TipDlg(QtGui.QDialog, Ui_TipDlg, TipDialog):
 
     def previous(self):
         self.config()["current_tip"] = \
-            (self.config()["current_tip"] - 1 % len(self.tips))
+            (self.config()["current_tip"] - 1) % len(self.tips)
         self.update_dialog()
 
     def next(self):
         self.config()["current_tip"] = \
-            (self.config()["current_tip"] + 1 % len(self.tips))
+            (self.config()["current_tip"] + 1) % len(self.tips)
         self.update_dialog()
 
     def closeEvent(self, event):
         self.config()["show_daily_tips"] = self.show_tips.isChecked()
         self.config()["current_tip"] = \
-            (self.config()["current_tip"] + 1 % len(self.tips))
+            (self.config()["current_tip"] + 1) % len(self.tips)
         event.accept()
