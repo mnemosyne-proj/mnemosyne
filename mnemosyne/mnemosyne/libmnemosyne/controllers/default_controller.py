@@ -618,25 +618,10 @@ class DefaultController(Controller):
     def show_import_file_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
-        path = expand_path(self.config()["import_dir"], self.config().data_dir)
-
-        # TMP hardcoded single fileformat.
-        filename = self.main_widget().get_filename_to_open(path=path,
-            filter=_("Mnemosyne 1.x databases") + " (*.mem)")
-        if not filename:
-            self.stopwatch().unpause()
-            return
-        self.component_manager.current("file_format").do_import(filename)
-        self.database().save()
-        self.log().saved_database()
-        review_controller = self.review_controller()
-        review_controller.reload_counters()
-        if review_controller.card is None:
-            review_controller.show_new_question()
-        else:
-            review_controller.update_status_bar_counters()
+        self.component_manager.current("import_dialog")(
+            self.component_manager).activate()
         self.stopwatch().unpause()
-
+        
     def show_export_file_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()

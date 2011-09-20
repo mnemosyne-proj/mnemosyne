@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mnemosyne core_version="2" time_of_start="1247533200" >
+<category active="1">
+ <name>&lt;default&gt;</name>
+</category>
+<item id="9cff728f" u="1" gr="2" e="2.500" ac_rp="1" rt_rp="0" lps="0" ac_rp_l="1" rt_rp_l="0" l_rp="0" n_rp="1">
+ <cat>&lt;default&gt;</cat>
+ <Q>question</Q>
+ <A>answer</A>
+</item>
+</mnemosyne>

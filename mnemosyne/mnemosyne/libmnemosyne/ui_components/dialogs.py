@@ -75,3 +75,7 @@ class GettingStartedDialog(Dialog):
 class TipDialog(Dialog):
 
     component_type = "tip_dialog"
+
+class ImportDialog(Dialog):
+
+    component_type = "import_dialog"
