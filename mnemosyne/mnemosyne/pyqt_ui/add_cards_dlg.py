@@ -172,6 +172,8 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
             self.restoreGeometry(state)
             
     def keyPressEvent(self, event):
+        # Note: for the following to work reliably, there should be no
+        # shortcuts defined in the ui file.
         if self.yet_to_learn_button.isEnabled() and event.modifiers() in \
             [QtCore.Qt.ControlModifier, QtCore.Qt.AltModifier]:
             if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return,
@@ -184,7 +186,11 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
             elif event.key() == QtCore.Qt.Key_4:
                 self.create_new_cards(4)
             elif event.key() == QtCore.Qt.Key_5:
-                self.create_new_cards(5)                   
+                self.create_new_cards(5)
+            elif event.key() == QtCore.Qt.Key_P:
+                self.preview()
+            elif event.key() == QtCore.Qt.Key_E:
+                self.reject()            
         else:
             return QtGui.QDialog.keyPressEvent(self, event)
     

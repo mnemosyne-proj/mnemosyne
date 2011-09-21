@@ -41,7 +41,7 @@ class TipDlg(QtGui.QDialog, Ui_TipDlg, TipDialog):
         self.tips.append(_("""You can sort the cards in the 'Browse cards' dialog by by clicking on a column title. Clicking again changes the sort order."""))
         self.tips.append(_("""If you want more fine-grained control over LaTeX's behaviour, see the explanation of the <$$>...</$$> and <latex>...</latex> tags on Mnemosyne's website."""))
         self.tips.append(_("""For optimal performance, keep your drives defragmented."""))
-        self.tips.append(_("""Advanced users can customise more of Mnemosyne by editing the config.py file in their .mnemosyne directory. They can also install additional plugins to customise Mnemosyne even further."""))
+        self.tips.append(_("""Advanced users can customise more of Mnemosyne by editing the config.py file in their mnemosyne directory. They can also install additional plugins to customise Mnemosyne even further."""))
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
@@ -59,23 +59,28 @@ class TipDlg(QtGui.QDialog, Ui_TipDlg, TipDialog):
         self.show()
 
     def update_dialog(self):
-        tip = self.config()["current_tip"]
+        # We need an extra modulo operation here to deal with the possibility
+        # of decreasing the number of tips during upgrade.
+        tip = self.config()["current_tip"] % len(self.tips)
         self.tip_label.setText(self.tips[tip])
         self.previous_button.setEnabled(tip != 0)
         self.next_button.setEnabled(tip != len(self.tips) - 1)
 
     def previous(self):
         self.config()["current_tip"] = \
-            (self.config()["current_tip"] - 1 % len(self.tips))
+            (self.config()["current_tip"] - 1) % len(self.tips)
         self.update_dialog()
 
     def next(self):
         self.config()["current_tip"] = \
-            (self.config()["current_tip"] + 1 % len(self.tips))
+            (self.config()["current_tip"] + 1) % len(self.tips)
         self.update_dialog()
+
+    def reject(self):
+        self.close()
 
     def closeEvent(self, event):
         self.config()["show_daily_tips"] = self.show_tips.isChecked()
         self.config()["current_tip"] = \
-            (self.config()["current_tip"] + 1 % len(self.tips))
+            (self.config()["current_tip"] + 1) % len(self.tips)
         event.accept()

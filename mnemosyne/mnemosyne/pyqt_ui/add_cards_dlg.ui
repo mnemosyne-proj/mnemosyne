@@ -90,9 +90,6 @@
             <property name="text">
              <string>&amp;2</string>
             </property>
-            <property name="shortcut">
-             <string>Ctrl+2</string>
-            </property>
             <property name="autoDefault">
              <bool>false</bool>
             </property>
@@ -102,9 +99,6 @@
            <widget class="QPushButton" name="grade_3_button">
             <property name="text">
              <string>&amp;3</string>
-            </property>
-            <property name="shortcut">
-             <string>Ctrl+3</string>
             </property>
             <property name="autoDefault">
              <bool>false</bool>
@@ -116,9 +110,6 @@
             <property name="text">
              <string>&amp;4</string>
             </property>
-            <property name="shortcut">
-             <string>Ctrl+4</string>
-            </property>
             <property name="autoDefault">
              <bool>false</bool>
             </property>
@@ -128,9 +119,6 @@
            <widget class="QPushButton" name="grade_5_button">
             <property name="text">
              <string>&amp;5</string>
-            </property>
-            <property name="shortcut">
-             <string>Ctrl+5</string>
             </property>
             <property name="autoDefault">
              <bool>false</bool>
@@ -148,9 +136,6 @@
         <widget class="QPushButton" name="preview_button">
          <property name="text">
           <string>&amp;Preview</string>
-         </property>
-         <property name="shortcut">
-          <string>Ctrl+P</string>
          </property>
          <property name="autoDefault">
           <bool>false</bool>
@@ -174,9 +159,6 @@
         <widget class="QPushButton" name="exit_button">
          <property name="text">
           <string>&amp;Exit</string>
-         </property>
-         <property name="shortcut">
-          <string>Ctrl+E</string>
          </property>
          <property name="autoDefault">
           <bool>false</bool>

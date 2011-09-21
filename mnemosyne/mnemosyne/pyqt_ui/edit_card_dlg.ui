@@ -64,9 +64,6 @@
          <property name="text">
           <string>&amp;OK</string>
          </property>
-         <property name="shortcut">
-          <string>Ctrl+Return</string>
-         </property>
          <property name="default">
           <bool>true</bool>
          </property>
@@ -90,9 +87,6 @@
          <property name="text">
           <string>&amp;Preview</string>
          </property>
-         <property name="shortcut">
-          <string>Ctrl+P</string>
-         </property>
          <property name="autoDefault">
           <bool>false</bool>
          </property>
@@ -115,9 +109,6 @@
         <widget class="QPushButton" name="exit_button">
          <property name="text">
           <string>&amp;Exit</string>
-         </property>
-         <property name="shortcut">
-          <string>Ctrl+E</string>
          </property>
          <property name="autoDefault">
           <bool>false</bool>

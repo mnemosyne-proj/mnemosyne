@@ -50,17 +50,24 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
             event.ignore()
 
     def keyPressEvent(self, event):
-        if event.key() == QtCore.Qt.Key_Escape:
+        # Note: for the following to work reliably, there should be no
+        # shortcuts defined in the ui file.
+        if event.key() == QtCore.Qt.Key_Escape or (event.modifiers() in \
+            [QtCore.Qt.ControlModifier, QtCore.Qt.AltModifier] and \
+            event.key() == QtCore.Qt.Key_E):
             if self.allow_cancel:
                 self.reject()
             else:
                 self.main_widget().show_information(\
                     _("You are not allowed to cancel the merging."))
-                event.ignore()                
-        if event.modifiers() == QtCore.Qt.ControlModifier and \
-            event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return,
-            QtCore.Qt.Key_O] and self.OK_button.isEnabled():
-            self.accept()
+                event.ignore()
+        elif self.OK_button.isEnabled() and event.modifiers() in \
+            [QtCore.Qt.ControlModifier, QtCore.Qt.AltModifier]:
+            if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return,
+                QtCore.Qt.Key_O]:
+                self.accept()
+            elif event.key() == QtCore.Qt.Key_P:
+                self.preview()
         else:
             return QtGui.QDialog.keyPressEvent(self, event)
         
@@ -88,4 +95,12 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
             QtGui.QDialog.accept(self)
 
     def reject(self):  # Override 'add cards' behaviour.
-        QtGui.QDialog.reject(self)
+        if self.card_type_widget.fact_data() != self.card.fact.data:
+            status = QtGui.QMessageBox.warning(None, _("Mnemosyne"),
+                _("Abandon current card?"), _("&Yes"), _("&No"), "", 1, -1)
+            if status == 0:
+                QtGui.QDialog.reject(self)
+                return
+        else:
+           QtGui.QDialog.reject(self) 
+

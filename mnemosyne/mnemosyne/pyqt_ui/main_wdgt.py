@@ -16,6 +16,9 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         MainWidget.__init__(self, component_manager)
         QtGui.QMainWindow.__init__(self)
         self.setupUi(self)
+        # Qt designer does not allow setting multiple shortcuts per action.
+        self.actionDeleteCurrentCard.setShortcuts\
+            ([QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace])
         self.status_bar_widgets = []
         self.progress_bar = None
         self.progress_bar_update_interval = 1
