@@ -106,7 +106,9 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.statistics_pages.current_card",
           "CurrentCard"),
          ("mnemosyne.libmnemosyne.file_formats.mnemosyne1_mem",
-          "Mnemosyne1Mem")]           
+          "Mnemosyne1Mem"),
+         ("mnemosyne.libmnemosyne.file_formats.mnemosyne1_xml",
+          "Mnemosyne1XML")]           
         self.extra_components_for_plugin = {}
 
     def handle_exception(self, type, value, tb):    
@@ -146,8 +148,9 @@ class Mnemosyne(Component):
         # database.
 
         # TMP
-        from mnemosyne.libmnemosyne.upgrades.upgrade_beta_6 import UpgradeBeta6
-        UpgradeBeta6(self.component_manager).run(filename) 
+        if automatic_upgrades:
+            from mnemosyne.libmnemosyne.upgrades.upgrade_beta_6 import UpgradeBeta6
+            UpgradeBeta6(self.component_manager).run(filename) 
         
         self.load_database(filename)
         # Only now that the database is loaded, we can start writing log

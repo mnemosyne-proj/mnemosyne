@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mnemosyne core_version="1" time_of_start="1247792400" >
+<category active="1">
+ <name>Germany: States</name>
+</category>
+<category active="1">
+ <name>Netherlands: Provinces</name>
+</category>
+<item id="0" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;b&gt;Freistaat Thüringen (Free State of Thuringia)?&lt;/b&gt;
+&lt;img src="maps/Germany-States/Germany-States.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Freistaat Thüringen (Free State of Thuringia)&lt;/b&gt;
+&lt;img src="maps/Germany-States/Thüringen.png"&gt;</A>
+</item>
+<item id="0.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;img src="maps/Germany-States/Thüringen.png"&gt;</Q>
+ <A>&lt;b&gt;Freistaat Thüringen (Free State of Thuringia)&lt;/b&gt;</A>
+</item>
+<item id="1" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;b&gt;Schleswig-Holstein?&lt;/b&gt;
+&lt;img src="maps/Germany-States/Germany-States.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Schleswig-Holstein&lt;/b&gt;
+&lt;img src="maps/Germany-States/Schleswig-Holstein.png"&gt;</A>
+</item>
+<item id="1.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;img src="maps/Germany-States/Schleswig-Holstein.png"&gt;</Q>
+ <A>&lt;b&gt;Schleswig-Holstein&lt;/b&gt;</A>
+</item>
+<item id="2" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;b&gt;Sachsen-Anhalt (Saxony-Anhalt)?&lt;/b&gt;
+&lt;img src="maps/Germany-States/Germany-States.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Sachsen-Anhalt (Saxony-Anhalt)&lt;/b&gt;
+&lt;img src="maps/Germany-States/Sachsen-Anhalt.png"&gt;</A>
+</item>
+<item id="2.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;img src="maps/Germany-States/Sachsen-Anhalt.png"&gt;</Q>
+ <A>&lt;b&gt;Sachsen-Anhalt (Saxony-Anhalt)&lt;/b&gt;</A>
+</item>
+<item id="3" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;b&gt;Freistaat Sachsen (Free State of Saxony)?&lt;/b&gt;
+&lt;img src="maps/Germany-States/Germany-States.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Freistaat Sachsen (Free State of Saxony)&lt;/b&gt;
+&lt;img src="maps/Germany-States/Sachsen.png"&gt;</A>
+</item>
+<item id="3.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;img src="maps/Germany-States/Sachsen.png"&gt;</Q>
+ <A>&lt;b&gt;Freistaat Sachsen (Free State of Saxony)&lt;/b&gt;</A>
+</item>
+<item id="4" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;b&gt;Saarland?&lt;/b&gt;
+&lt;img src="maps/Germany-States/Germany-States.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Saarland&lt;/b&gt;
+&lt;img src="maps/Germany-States/Saarland.png"&gt;</A>
+</item>
+<item id="4.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;img src="maps/Germany-States/Saarland.png"&gt;</Q>
+ <A>&lt;b&gt;Saarland&lt;/b&gt;</A>
+</item>
+<item id="5" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;b&gt;Rheinland-Pfalz (Rhineland-Palatinate)?&lt;/b&gt;
+&lt;img src="maps/Germany-States/Germany-States.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Rheinland-Pfalz (Rhineland-Palatinate)&lt;/b&gt;
+&lt;img src="maps/Germany-States/Rheinland-Pfalz.png"&gt;</A>
+</item>
+<item id="5.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;img src="maps/Germany-States/Rheinland-Pfalz.png"&gt;</Q>
+ <A>&lt;b&gt;Rheinland-Pfalz (Rhineland-Palatinate)&lt;/b&gt;</A>
+</item>
+<item id="6" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;b&gt;Nordrhein-Westfalen (North Rhine-Westphalia)?&lt;/b&gt;
+&lt;img src="maps/Germany-States/Germany-States.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Nordrhein-Westfalen (North Rhine-Westphalia)&lt;/b&gt;
+&lt;img src="maps/Germany-States/Nordrhein-Westfalen.png"&gt;</A>
+</item>
+<item id="6.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;img src="maps/Germany-States/Nordrhein-Westfalen.png"&gt;</Q>
+ <A>&lt;b&gt;Nordrhein-Westfalen (North Rhine-Westphalia)&lt;/b&gt;</A>
+</item>
+<item id="7" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;b&gt;Niedersachsen (Lower Saxony)?&lt;/b&gt;
+&lt;img src="maps/Germany-States/Germany-States.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Niedersachsen (Lower Saxony)&lt;/b&gt;
+&lt;img src="maps/Germany-States/Niedersachsen.png"&gt;</A>
+</item>
+<item id="7.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;img src="maps/Germany-States/Niedersachsen.png"&gt;</Q>
+ <A>&lt;b&gt;Niedersachsen (Lower Saxony)&lt;/b&gt;</A>
+</item>
+<item id="8" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;b&gt;Mecklenburg-Vorpommern (Mecklenburg-Western Pomerania)?&lt;/b&gt;
+&lt;img src="maps/Germany-States/Germany-States.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Mecklenburg-Vorpommern (Mecklenburg-Western Pomerania)&lt;/b&gt;
+&lt;img src="maps/Germany-States/Mecklenburg-Vorpommern.png"&gt;</A>
+</item>
+<item id="8.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;img src="maps/Germany-States/Mecklenburg-Vorpommern.png"&gt;</Q>
+ <A>&lt;b&gt;Mecklenburg-Vorpommern (Mecklenburg-Western Pomerania)&lt;/b&gt;</A>
+</item>
+<item id="9" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;b&gt;Hessen (Hesse)?&lt;/b&gt;
+&lt;img src="maps/Germany-States/Germany-States.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Hessen (Hesse)&lt;/b&gt;
+&lt;img src="maps/Germany-States/Hessen.png"&gt;</A>
+</item>
+<item id="9.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;img src="maps/Germany-States/Hessen.png"&gt;</Q>
+ <A>&lt;b&gt;Hessen (Hesse)&lt;/b&gt;</A>
+</item>
+<item id="10" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;b&gt;Freie und Hansestadt Hamburg (Free and Hanseatic City of Hamburg)?&lt;/b&gt;
+&lt;img src="maps/Germany-States/Germany-States.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Freie und Hansestadt Hamburg (Free and Hanseatic City of Hamburg)&lt;/b&gt;
+&lt;img src="maps/Germany-States/Hamburg.png"&gt;</A>
+</item>
+<item id="10.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;img src="maps/Germany-States/Hamburg.png"&gt;</Q>
+ <A>&lt;b&gt;Freie und Hansestadt Hamburg (Free and Hanseatic City of Hamburg)&lt;/b&gt;</A>
+</item>
+<item id="11" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;b&gt;Freie Hansestadt Bremen (Free Hanseatic City of Bremen)?&lt;/b&gt;
+&lt;img src="maps/Germany-States/Germany-States.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Freie Hansestadt Bremen (Free Hanseatic City of Bremen)&lt;/b&gt;
+&lt;img src="maps/Germany-States/Bremen.png"&gt;</A>
+</item>
+<item id="11.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;img src="maps/Germany-States/Bremen.png"&gt;</Q>
+ <A>&lt;b&gt;Freie Hansestadt Bremen (Free Hanseatic City of Bremen)&lt;/b&gt;</A>
+</item>
+<item id="12" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;b&gt;Brandenburg?&lt;/b&gt;
+&lt;img src="maps/Germany-States/Germany-States.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Brandenburg&lt;/b&gt;
+&lt;img src="maps/Germany-States/Brandenburg.png"&gt;</A>
+</item>
+<item id="12.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;img src="maps/Germany-States/Brandenburg.png"&gt;</Q>
+ <A>&lt;b&gt;Brandenburg&lt;/b&gt;</A>
+</item>
+<item id="13" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;b&gt;Berlin?&lt;/b&gt;
+&lt;img src="maps/Germany-States/Germany-States.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Berlin&lt;/b&gt;
+&lt;img src="maps/Germany-States/Berlin.png"&gt;</A>
+</item>
+<item id="13.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;img src="maps/Germany-States/Berlin.png"&gt;</Q>
+ <A>&lt;b&gt;Berlin&lt;/b&gt;</A>
+</item>
+<item id="14" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;b&gt;Freistaat Bayern (Free State of Bavaria)?&lt;/b&gt;
+&lt;img src="maps/Germany-States/Germany-States.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Freistaat Bayern (Free State of Bavaria)&lt;/b&gt;
+&lt;img src="maps/Germany-States/Bayern.png"&gt;</A>
+</item>
+<item id="14.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;img src="maps/Germany-States/Bayern.png"&gt;</Q>
+ <A>&lt;b&gt;Freistaat Bayern (Free State of Bavaria)&lt;/b&gt;</A>
+</item>
+<item id="15" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;b&gt;Baden-Württemberg?&lt;/b&gt;
+&lt;img src="maps/Germany-States/Germany-States.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Baden-Württemberg&lt;/b&gt;
+&lt;img src="maps/Germany-States/Baden__x26__Württemberg.png"&gt;</A>
+</item>
+<item id="15.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Germany: States</cat>
+ <Q>&lt;img src="maps/Germany-States/Baden__x26__Württemberg.png"&gt;</Q>
+ <A>&lt;b&gt;Baden-Württemberg&lt;/b&gt;</A>
+</item>
+<item id="0" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;b&gt;Drenthe?&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Netherlands-Provinces.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Drenthe&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Drenthe.png"&gt;</A>
+</item>
+<item id="0.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;img src="maps/Netherlands-Provinces/Drenthe.png"&gt;</Q>
+ <A>&lt;b&gt;Drenthe&lt;/b&gt;</A>
+</item>
+<item id="1" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;b&gt;Overijssel?&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Netherlands-Provinces.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Overijssel&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Overijssel.png"&gt;</A>
+</item>
+<item id="1.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;img src="maps/Netherlands-Provinces/Overijssel.png"&gt;</Q>
+ <A>&lt;b&gt;Overijssel&lt;/b&gt;</A>
+</item>
+<item id="2" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;b&gt;Gelderland?&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Netherlands-Provinces.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Gelderland&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Gelderland.png"&gt;</A>
+</item>
+<item id="2.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;img src="maps/Netherlands-Provinces/Gelderland.png"&gt;</Q>
+ <A>&lt;b&gt;Gelderland&lt;/b&gt;</A>
+</item>
+<item id="3" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;b&gt;Utrecht?&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Netherlands-Provinces.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Utrecht&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Utrecht.png"&gt;</A>
+</item>
+<item id="3.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;img src="maps/Netherlands-Provinces/Utrecht.png"&gt;</Q>
+ <A>&lt;b&gt;Utrecht&lt;/b&gt;</A>
+</item>
+<item id="4" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;b&gt;Noord-Holland?&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Netherlands-Provinces.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Noord-Holland&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Noord-Holland.png"&gt;</A>
+</item>
+<item id="4.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;img src="maps/Netherlands-Provinces/Noord-Holland.png"&gt;</Q>
+ <A>&lt;b&gt;Noord-Holland&lt;/b&gt;</A>
+</item>
+<item id="5" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;b&gt;Limburg?&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Netherlands-Provinces.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Limburg&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Limburg.png"&gt;</A>
+</item>
+<item id="5.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;img src="maps/Netherlands-Provinces/Limburg.png"&gt;</Q>
+ <A>&lt;b&gt;Limburg&lt;/b&gt;</A>
+</item>
+<item id="6" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;b&gt;Flevoland?&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Netherlands-Provinces.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Flevoland&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Flevoland.png"&gt;</A>
+</item>
+<item id="6.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;img src="maps/Netherlands-Provinces/Flevoland.png"&gt;</Q>
+ <A>&lt;b&gt;Flevoland&lt;/b&gt;</A>
+</item>
+<item id="7" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;b&gt;Friesland?&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Netherlands-Provinces.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Friesland&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Friesland.png"&gt;</A>
+</item>
+<item id="7.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;img src="maps/Netherlands-Provinces/Friesland.png"&gt;</Q>
+ <A>&lt;b&gt;Friesland&lt;/b&gt;</A>
+</item>
+<item id="8" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;b&gt;Groningen?&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Netherlands-Provinces.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Groningen&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Groningen.png"&gt;</A>
+</item>
+<item id="8.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;img src="maps/Netherlands-Provinces/Groningen.png"&gt;</Q>
+ <A>&lt;b&gt;Groningen&lt;/b&gt;</A>
+</item>
+<item id="9" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;b&gt;Zeeland?&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Netherlands-Provinces.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Zeeland&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Zeeland.png"&gt;</A>
+</item>
+<item id="9.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;img src="maps/Netherlands-Provinces/Zeeland.png"&gt;</Q>
+ <A>&lt;b&gt;Zeeland&lt;/b&gt;</A>
+</item>
+<item id="10" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;b&gt;Zuid-Holland?&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Netherlands-Provinces.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Zuid-Holland&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Zuid-Holland.png"&gt;</A>
+</item>
+<item id="10.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;img src="maps/Netherlands-Provinces/Zuid-Holland.png"&gt;</Q>
+ <A>&lt;b&gt;Zuid-Holland&lt;/b&gt;</A>
+</item>
+<item id="11" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;b&gt;Noord-Brabant?&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Netherlands-Provinces.png"&gt;&lt;card style="answerbox: overlay"/&gt;</Q>
+ <A>&lt;b&gt;Noord-Brabant&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Noord-Brabant.png"&gt;</A>
+</item>
+<item id="11.inv" u="1" gr="0" e="2.500" ac_rp="0" rt_rp="0" lps="0" ac_rp_l="0" rt_rp_l="0" l_rp="0" n_rp="0">
+ <cat>Netherlands: Provinces</cat>
+ <Q>&lt;img src="maps/Netherlands-Provinces/Noord-Brabant.png"&gt;</Q>
+ <A>&lt;b&gt;Noord-Brabant&lt;/b&gt;</A>
+</item>
+</mnemosyne>
