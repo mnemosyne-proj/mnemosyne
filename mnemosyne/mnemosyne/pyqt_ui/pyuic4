@@ -1,0 +1,56 @@
+#!/usr/bin/env python
+#
+# pyuic4 <Johannes.Baiter@gmail.com>
+#
+
+#
+# This wraps PyQt4's uic to provide support for mnemosyne's own translation
+# infrastructure.
+# Most of the code is taken from a blogpost by mandel_macaque [1]
+# [1] http://www.themacaque.com/?p=816
+#
+
+import sys
+
+class CompileUi(object):
+    def compile_ui(self, ui_file):
+        # import the uic compiler from pyqt and generate the 
+        # .py files something similar could be done with pyside
+        # but that is left as an exercise for the reader.
+        self._wrapuic()
+        from PyQt4 import uic
+        uic.compileUi(ui_file, sys.stdout)
+ 
+    _wrappeduic = False
+    @classmethod
+    def _wrapuic(cls):
+        """Wrap uic to use gettext's _() in place of tr()"""
+        if cls._wrappeduic:
+            return
+ 
+        from PyQt4.uic.Compiler import compiler, qtproxies, indenter
+ 
+        class _UICompiler(compiler.UICompiler):
+            """Speciallized compiler for qt .ui files."""
+            def createToplevelWidget(self, classname, widgetname):
+                o = indenter.getIndenter()
+                o.level = 0
+                o.write('from mnemosyne.libmnemosyne.translator import _')
+                return super(_UICompiler, self).createToplevelWidget(
+                                   classname, widgetname)
+        compiler.UICompiler = _UICompiler
+ 
+        class _i18n_string(qtproxies.i18n_string):
+            """Provide a translated text."""
+
+            def __str__(self):
+                return "_('%s')" % self.string.encode(
+                                                'string-escape')
+ 
+        qtproxies.i18n_string = _i18n_string
+ 
+        cls._wrappeduic = True
+
+if __name__ == '__main__':
+    compiler = CompileUi()
+    compiler.compile_ui(sys.argv[1])
