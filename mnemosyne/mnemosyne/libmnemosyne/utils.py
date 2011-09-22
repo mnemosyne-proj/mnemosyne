@@ -10,6 +10,11 @@ import random
 import shutil
 import traceback
 
+
+class MnemosyneError(Exception):
+    pass
+
+
 def _abs_path(path):
 
     """Our own version of os.path.abspath, which does not check for platform.

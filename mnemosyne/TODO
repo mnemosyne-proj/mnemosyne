@@ -1,4 +1,10 @@
--code johannes 
+-fix testsuite
+-code johannes: xml import itself, dialog
+-dialog: what happens if browse gets cancelled, remember last used tag, fileformat, import_dir
+-todo's below
+-tag: additional tag?
+-warn when importing xml with learning data
+-test option to add tag to card
 
 -rescale window only when answer picture is shown
 
