@@ -25,3 +25,14 @@ class TestTranslator2(MnemosyneTest):
         card_type = self.card_type_with_id("1")
         assert card_type._()
         
+class TestGettextTranslator(MnemosyneTest):
+    def test_fallback(self):
+        from mnemosyne.libmnemosyne.translator import _
+        assert _("foo") == "foo"
+
+    def test_translation(self):
+        from mnemosyne.libmnemosyne.translator import _
+        self.config()["ui_language"] = "de"
+        self.mnemosyne.component_manager.current(
+                'translator').change_language('de')
+        assert _("This is a test.") == "Dies ist ein Test."

@@ -24,7 +24,7 @@ class TestCrammingScheduler(MnemosyneTest):
         shutil.rmtree("dot_test", ignore_errors=True)
         
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
-        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+        self.mnemosyne.components.insert(2, ("mnemosyne.libmnemosyne.translator",
             "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("test_cramming", "Widget"))
