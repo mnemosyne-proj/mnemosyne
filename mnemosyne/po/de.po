@@ -606,13 +606,13 @@ msgstr ""
 #: ./mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:209
 #: ./mnemosyne/pyqt_ui/preview_cards_dlg.py:29
 msgid "Question: "
-msgstr ""
+msgstr "Frage:"
 
 #: ./mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:225
 #: ./mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:228
 #: ./mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:231
 msgid "Show answer"
-msgstr ""
+msgstr "Antwort zeigen"
 
 #: ./mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:235
 msgid "Learn ahead of schedule"
@@ -875,7 +875,7 @@ msgstr ""
 
 #: ./mnemosyne/pyqt_ui/browse_cards_dlg.py:205
 msgid "Show cards from these card types:"
-msgstr ""
+msgstr "Zeige Karten von diesem Typ:"
 
 #: ./mnemosyne/pyqt_ui/browse_cards_dlg.py:215
 msgid "having any of these tags:"
@@ -919,11 +919,11 @@ msgstr ""
 
 #: ./mnemosyne/pyqt_ui/browse_cards_dlg.py:476
 msgid "Answer"
-msgstr ""
+msgstr "Antwort"
 
 #: ./mnemosyne/pyqt_ui/browse_cards_dlg.py:476
 msgid "Question"
-msgstr ""
+msgstr "Frage"
 
 #: ./mnemosyne/pyqt_ui/browse_cards_dlg.py:477
 msgid "Next rep"
@@ -1274,7 +1274,7 @@ msgstr ""
 
 #: ./mnemosyne/webserver/review_wdgt.py:30
 msgid "Answer:"
-msgstr ""
+msgstr "Antwort:"
 
 #: ./tests/benchmark_pyqt.py:30
 msgid "data directory"

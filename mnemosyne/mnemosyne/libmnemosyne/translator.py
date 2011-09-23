@@ -32,7 +32,6 @@ class GetTextTranslator(Translator):
     import gettext
 
     def activate(self):
-
         # We need to monkey-patch the gettext module to provide support for
         # Launchpad's translation infrastructure, as the path for the message
         # catalogs is fixed in the standard library.
@@ -81,6 +80,16 @@ class GetTextTranslator(Translator):
             lang = ''
         self._gettext = gettext.translation('mnemosyne', localedir='po',
                     languages=[lang], fallback=True)
+
+    def get_supported_languages(self):
+        import glob
+        import re
+        langs = []
+        isorexp = re.compile(r"po/([a-z]{2})\.mo")
+        mofiles = glob.glob("po/*.mo")
+        for mofile in mofiles:
+            langs.append(isorexp.match(mofile).group(1))
+        return langs
 
     def __call__(self, text):
         try:

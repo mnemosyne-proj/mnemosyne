@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>431</width>
-    <height>371</height>
+    <height>380</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -154,17 +154,11 @@
      <item>
       <widget class="QGroupBox" name="groupBox_4">
        <property name="title">
-        <string>Language</string>
+        <string>Language (requires restart)</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <widget class="QComboBox" name="language">
-          <item>
-           <property name="text">
-            <string>English</string>
-           </property>
-          </item>
-         </widget>
+         <widget class="QComboBox" name="language"/>
         </item>
        </layout>
       </widget>
