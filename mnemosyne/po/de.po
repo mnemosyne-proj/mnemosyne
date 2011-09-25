@@ -21,20 +21,20 @@ msgstr ""
 #: ./mnemosyne/libmnemosyne/card_types/map.py:24
 #: ./mnemosyne/libmnemosyne/card_types/vocabulary.py:24
 msgid "Recognition"
-msgstr ""
+msgstr "Erkennung"
 
 #: ./mnemosyne/example_plugins/new_card_type.py:24
 #: ./mnemosyne/libmnemosyne/card_types/map.py:30
 #: ./mnemosyne/libmnemosyne/card_types/vocabulary.py:29
 msgid "Production"
-msgstr ""
+msgstr "Produktion"
 
 #: ./mnemosyne/example_plugins/plot_statistics.py:31
 #: ./mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:107
 #: ./mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:216
 #: ./mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:239
 msgid "No stats available."
-msgstr ""
+msgstr "Keine Statistiken verfügbar."
 
 #: ./mnemosyne/libmnemosyne/__init__.py:230
 #: ./mnemosyne/libmnemosyne/__init__.py:243
@@ -44,121 +44,121 @@ msgstr ""
 
 #: ./mnemosyne/libmnemosyne/__init__.py:263
 msgid "Creating temporary database."
-msgstr ""
+msgstr "Erzeuge temporäre Datenbank."
 
 #: ./mnemosyne/libmnemosyne/card_types/both_ways.py:15
 msgid "Front-to-back and back-to-front"
-msgstr ""
+msgstr "Vorne-Hinten und Hinten-Vorne"
 
 #: ./mnemosyne/libmnemosyne/card_types/both_ways.py:18
 #: ./mnemosyne/libmnemosyne/card_types/front_to_back.py:16
 msgid "Front"
-msgstr ""
+msgstr "Vorne"
 
 #: ./mnemosyne/libmnemosyne/card_types/both_ways.py:19
 #: ./mnemosyne/libmnemosyne/card_types/front_to_back.py:17
 msgid "Back"
-msgstr ""
+msgstr "Hinten"
 
 #: ./mnemosyne/libmnemosyne/card_types/both_ways.py:22
 #: ./mnemosyne/libmnemosyne/card_types/front_to_back.py:20
 msgid "Front-to-back"
-msgstr ""
+msgstr "Vorne-Hinten"
 
 #: ./mnemosyne/libmnemosyne/card_types/both_ways.py:27
 msgid "Back-to-front"
-msgstr ""
+msgstr "Hinten-Vorne"
 
 #: ./mnemosyne/libmnemosyne/card_types/cloze.py:39
 #: ./mnemosyne/libmnemosyne/card_types/cloze.py:107
 msgid "Cloze deletion"
-msgstr ""
+msgstr "Lückentext"
 
 #: ./mnemosyne/libmnemosyne/card_types/cloze.py:41
 #: ./mnemosyne/pyqt_ui/card_appearance_dlg.py:54
 msgid "Text"
-msgstr ""
+msgstr "Text"
 
 #: ./mnemosyne/libmnemosyne/card_types/cloze.py:44
 msgid "Cloze"
-msgstr ""
+msgstr "Lücken"
 
 #: ./mnemosyne/libmnemosyne/card_types/cloze.py:108
 msgid "A card type blanking out certain fragments in a text."
-msgstr ""
+msgstr "Ein Kartentyp der gewisse Textbestandteile ausblendet."
 
 #: ./mnemosyne/libmnemosyne/card_types/cloze.py:109
 msgid "This card type can be used to blank fragments in a text, e.g."
-msgstr ""
+msgstr "Dieser Kartentyp wird verwendet um Teile eines Textes auszublenden, z.B."
 
 #: ./mnemosyne/libmnemosyne/card_types/cloze.py:110
 msgid "\"The capital of France is [Paris]\","
-msgstr ""
+msgstr "\"Die Hauptstadt von Frankreich ist [Paris]\""
 
 #: ./mnemosyne/libmnemosyne/card_types/cloze.py:111
 msgid "will give a card with question"
-msgstr ""
+msgstr "würde eine Karte ergeben mit der Frage"
 
 #: ./mnemosyne/libmnemosyne/card_types/cloze.py:112
 msgid "\"The capital of France is [...]\""
-msgstr ""
+msgstr "\"Die Hauptstadt von Frankreich ist [...]\""
 
 #: ./mnemosyne/libmnemosyne/card_types/front_to_back.py:13
 msgid "Front-to-back only"
-msgstr ""
+msgstr "Nur Vorne-Hinten"
 
 #: ./mnemosyne/libmnemosyne/card_types/map.py:16
 #: ./mnemosyne/libmnemosyne/card_types/map.py:51
 msgid "Map"
-msgstr ""
+msgstr "Karte"
 
 #: ./mnemosyne/libmnemosyne/card_types/map.py:19
 msgid "Location"
-msgstr ""
+msgstr "Ort"
 
 #: ./mnemosyne/libmnemosyne/card_types/map.py:20
 msgid "Blank map"
-msgstr ""
+msgstr "Leere Karte"
 
 #: ./mnemosyne/libmnemosyne/card_types/map.py:21
 msgid "Marked map"
-msgstr ""
+msgstr "Markierte Karte"
 
 #: ./mnemosyne/libmnemosyne/card_types/map.py:52
 msgid "A card type for learning locations on a map"
-msgstr ""
+msgstr "Ein Kartentyp um Orte auf einer Karte zu lernen."
 
 #: ./mnemosyne/libmnemosyne/card_types/vocabulary.py:15
 msgid "Vocabulary"
-msgstr ""
+msgstr "Vokabeln"
 
 #: ./mnemosyne/libmnemosyne/card_types/vocabulary.py:18
 msgid "Foreign word or expression"
-msgstr ""
+msgstr "Fremdsprachiges Wort oder Ausdruck"
 
 #: ./mnemosyne/libmnemosyne/card_types/vocabulary.py:19
 msgid "Pronunciation"
-msgstr ""
+msgstr "Aussprache"
 
 #: ./mnemosyne/libmnemosyne/card_types/vocabulary.py:20
 msgid "Meaning"
-msgstr ""
+msgstr "Bedeutung"
 
 #: ./mnemosyne/libmnemosyne/card_types/vocabulary.py:21
 msgid "Notes"
-msgstr ""
+msgstr "Bemerkungen"
 
 #: ./mnemosyne/libmnemosyne/configuration.py:174
 msgid "Error in config:"
-msgstr ""
+msgstr "Fehler in Einstellungen:"
 
 #: ./mnemosyne/libmnemosyne/configuration.py:183
 msgid "Unable to save config file:"
-msgstr ""
+msgstr "Speichern der Konfigurationsdatei nicht möglich:"
 
 #: ./mnemosyne/libmnemosyne/configuration.py:331
 msgid "Error in config.py:"
-msgstr ""
+msgstr "Fehler in config.py:"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:48
 #: ./mnemosyne/pyqt_ui/add_cards_dlg.py:196
@@ -172,39 +172,43 @@ msgstr ""
 #: ./mnemosyne/pyqt_ui/main_wdgt.py:47 ./mnemosyne/pyqt_ui/main_wdgt.py:50
 #: ./mnemosyne/pyqt_ui/main_wdgt.py:54 ./mnemosyne/pyqt_ui/main_wdgt.py:77
 msgid "Mnemosyne"
-msgstr ""
+msgstr "Mnemosyne"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:94
 msgid ""
 "Card is already in database.\n"
 "Duplicate not added."
 msgstr ""
+"Karte befindet sich bereits in der Datenbank.\n"
+"Duplikat wird nicht hinzugefügt."
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:97
 msgid ""
 "There is already data present for:\n"
 "\n"
 msgstr ""
+"Es sind bereits Daten vorhanden für:\n"
+"\n"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:99
 msgid "&Add as is"
-msgstr ""
+msgstr "&Ohne Veränderung hinzufügen"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:99
 msgid "&Do not add"
-msgstr ""
+msgstr "&Nicht hinzufügen"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:99
 msgid "&Merge and edit"
-msgstr ""
+msgstr "&Zusammenführen und bearbeiten"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:197
 msgid "Can't preserve history when converting between these card types."
-msgstr ""
+msgstr "Der Verlauf kann bei Umwandlung zwischen diesen Datentypen nicht erhalten werden."
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:198
 msgid "The learning history of the cards will be reset."
-msgstr ""
+msgstr "Der Lernverlauf dieser Karten wird zurückgesetzt."
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:199
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:223
@@ -213,7 +217,7 @@ msgstr ""
 #: ./mnemosyne/pyqt_ui/browse_cards_dlg.py:357
 #: ./mnemosyne/pyqt_ui/tag_tree_wdgt.py:171
 msgid "&Cancel"
-msgstr ""
+msgstr "&Abbruch"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:199
 #: ./mnemosyne/pyqt_ui/activate_cards_dlg.py:108
@@ -225,179 +229,180 @@ msgstr ""
 #: ./mnemosyne/pyqt_ui/main_wdgt.py:47 ./mnemosyne/pyqt_ui/main_wdgt.py:55
 #: ./mnemosyne/pyqt_ui/tag_tree_wdgt.py:171
 msgid "&OK"
-msgstr ""
+msgstr "&OK"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:220
 msgid "This will delete cards and their history."
-msgstr ""
+msgstr "Hierdurch werden alle Karten und ihr Verlauf gelöscht."
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:221
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:336
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:341
 msgid "Are you sure you want to do this,"
-msgstr ""
+msgstr "Ist dies wirklich erwünscht oder sollen nur"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:222
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:337
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:342
 msgid "and not just deactivate cards in the 'Activate cards' dialog?"
-msgstr ""
+msgstr "Karten im 'Karten aktivieren' Menü deaktiviert werden?"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:223
 msgid "&Proceed and delete"
-msgstr ""
+msgstr "&Fortfahren und löschen"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:298
 msgid "Converting cards..."
-msgstr ""
+msgstr "Wandle Karten um..."
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:333
 msgid "Delete this card?"
-msgstr ""
+msgstr "Diese Karte löschen?"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:335
 msgid "Delete this card and 1 sister card?"
-msgstr ""
+msgstr "Diese Karte und eine Schwesterkarte löschen?"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:339
 msgid "Delete this card and"
-msgstr ""
+msgstr "Diese Karte und"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:340
 msgid "sister cards?"
-msgstr ""
+msgstr "alle Schwesterkarten löschen?"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:343
 #: ./mnemosyne/pyqt_ui/browse_cards_dlg.py:268
 msgid "&Delete"
-msgstr ""
+msgstr "&Löschen"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:371
 msgid "Card type name already exists."
-msgstr ""
+msgstr "Ein Kartentyp diesen Namens existiert bereits."
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:397
 msgid "It is recommended to put all your cards in a single database. Using tags to determine which cards to study is much more convenient than having to load and unload several databases."
-msgstr ""
+msgstr "Es wird empfohlen alle Karten in einer einzigen Datenbank aufzubewahren. Die Benutzung von 'Tags' zur Auswahl von zu lernenden Karten ist sehr viel komfortabler als mehrere Datenbanken separat zu verwalten."
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:408
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:438
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:493
 msgid "Mnemosyne databases"
-msgstr ""
+msgstr "Mnemosyne Datenbanken"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:409
 msgid "New"
-msgstr ""
+msgstr "Neu"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:415
 msgid "Creating new database..."
-msgstr ""
+msgstr "Erzeuge neue Datenbank..."
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:444
 msgid ""
 "Do you want to restore from this backup?\n"
 "Note that this will result in conflicts during the next sync, which need to be resolved by a full sync."
-msgstr ""
+msgstr "Wirklich von dieser Sicherung wiederherstellen?\n"
+"Es gilt zu beachten dass dies Konflikte während der nächsten Synchronisation hervorrufen wird, die von einer vollständigen Synchronisierung aufgelöst werden müssen."
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:445
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:445
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:525
 msgid "Image files"
-msgstr ""
+msgstr "Bilddateien"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:527
 msgid "Insert image"
-msgstr ""
+msgstr "Bild einfügen"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:540
 msgid "Sound files"
-msgstr ""
+msgstr "Klangdateien"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:542
 msgid "Insert sound"
-msgstr ""
+msgstr "Klang einfügen"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:555
 msgid "Video files"
-msgstr ""
+msgstr "Videodateien"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:557
 msgid "Insert video"
-msgstr ""
+msgstr "Video einfügen"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:696
 msgid "For instructions on how to download Mnemosyne's source,"
-msgstr ""
+msgstr "Nähere Informationen wie man an den Quelltext von Mnemosyne"
 
 #: ./mnemosyne/libmnemosyne/controllers/default_controller.py:697
-msgid "go to http://www.mnemosyne-proj.org"
+msgid "gelangt sind unter http://www.mnemosyne-proj.org verfügbar."
 msgstr ""
 
 #: ./mnemosyne/libmnemosyne/databases/SQLite.py:323
 msgid "Missing plugin for card type with id:"
-msgstr ""
+msgstr "Fehlendes Plugin für Kartentyp mit ID:"
 
 #: ./mnemosyne/libmnemosyne/databases/SQLite.py:336
 #: ./mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:31
 msgid "Another copy of Mnemosyne is still running."
-msgstr ""
+msgstr "Eine andere Instanz von Mnemosyne läuft noch."
 
 #: ./mnemosyne/libmnemosyne/databases/SQLite.py:337
 #: ./mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:32
 msgid "Continuing is impossible and will lead to data loss!"
-msgstr ""
+msgstr "Fortsetzen ist unmöglich und würde zu Datenverlust führen!"
 
 #: ./mnemosyne/libmnemosyne/databases/SQLite.py:340
 #: ./mnemosyne/libmnemosyne/databases/SQLite.py:355
 #: ./mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:35
 #: ./mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:50
 msgid "Unable to load file."
-msgstr ""
+msgstr "Laden der Datei nicht möglich."
 
 #: ./mnemosyne/libmnemosyne/databases/SQLite.py:342
 #: ./mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:37
 msgid "Unable to load file, query failed"
-msgstr ""
+msgstr "Laden der Datei nicht möglich, Abfrage fehlgeschlagen"
 
 #: ./mnemosyne/libmnemosyne/databases/SQLite.py:345
 #: ./mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:40
 msgid "Unable to load file: database version mismatch."
-msgstr ""
+msgstr "Laden der Datei nicht möglich: Falsche Datenbankversion."
 
 #: ./mnemosyne/libmnemosyne/databases/SQLite.py:416
 msgid "Warning: backup creation failed for"
-msgstr ""
+msgstr "Warnung: Erstellung einer Sicherung fehlgeschlagen für"
 
 #: ./mnemosyne/libmnemosyne/databases/SQLite_media.py:102
 msgid "Missing media file!"
-msgstr ""
+msgstr "Fehlende Mediendatei!"
 
 #: ./mnemosyne/libmnemosyne/databases/SQLite_sync.py:116
 msgid "Missing plugins for card types."
-msgstr ""
+msgstr "Fehlende Plugins für Kartentypen."
 
 #: ./mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:90
 msgid "Cuecard .wcu"
-msgstr ""
+msgstr "Cuecard .wcu"
 
 #: ./mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:91
 msgid "Cuecard files (*.wcu *.WCU)"
-msgstr ""
+msgstr "Cuecard Dateien (*.wcu *.WCU)"
 
 #: ./mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:40
 msgid "This file seems to have been imported before. Aborting..."
-msgstr ""
+msgstr "Diese Datei scheint schon zuvor importiert worden zu sein. Breche ab..."
 
 #: ./mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:42
 msgid "Importing cards..."
-msgstr ""
+msgstr "Importiere Karten..."
 
 #: ./mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:197
 msgid "MISSING_MEDIA"

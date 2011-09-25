@@ -111,7 +111,6 @@ class build_installer(py2exe):
         script.compile()
         # Note: the final setup.exe will be in an Output subdirectory.
 
-
 if sys.platform == "win32": # For py2exe.
     import matplotlib
     sys.path.append("C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\redist\\x86\\Microsoft.VC90.CRT")
@@ -127,6 +126,12 @@ if sys.platform == "win32": # For py2exe.
                   ("imageformats", glob.glob(r"C:\Python27\Lib\site-packages\PyQt4\plugins\imageformats\*.dll")),
                   ("sqldrivers", ["C:\Python27\Lib\site-packages\PyQt4\plugins\sqldrivers\qsqlite4.dll"])
                   ]
+    # Add translations
+    for mo in [x for x in glob.glob(os.path.join('mo', '*'))
+               if os.path.isdir(x)]:
+        p, lang = os.path.split(mo)
+        data_files.append((os.path.join("share", "locale", os.path.split(mo)[1], "LC_MESSAGES"), [os.path.join(mo, "LC_MESSAGES", "mnemosyne.mo")]))
+
 elif sys.platform == "darwin": # For py2app.
     base_path = ""
     data_files = []
@@ -135,6 +140,9 @@ else:
                              "site-packages","mnemosyne")
     data_files = [("/usr/share/applications", ["mnemosyne.desktop"]),
                   ("/usr/share/icons", ["pixmaps/mnemosyne.png"])]
+    for mo in [x for x in glob.glob(os.path.join('mo', '*'))
+               if os.path.isdir(x)]:
+        data_files.append((os.path.join(sys.exec_prefix, "share", "locale", os.path.split(mo)[1], "LC_MESSAGES"), [os.path.join(mo, "LC_MESSAGES", "mnemosyne.mo")]))
 
 pixmap_path = os.path.join(base_path, "pixmaps")
 util_path = os.path.join(base_path, "util")

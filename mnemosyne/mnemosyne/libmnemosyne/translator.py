@@ -27,49 +27,15 @@ class NoTranslation(Translator):
 
 
 class GetTextTranslator(Translator):
-    global os, gettext
-    import os
+    global gettext, os, sys
     import gettext
+    import os
+    import sys
 
     def activate(self):
         # We need to monkey-patch the gettext module to provide support for
         # Launchpad's translation infrastructure, as the path for the message
         # catalogs is fixed in the standard library.
-        def find_(domain, localedir=None, languages=None, all=0):
-            # Get some reasonable defaults for arguments that were not supplied
-            if localedir is None:
-                localedir = gettext._default_localedir
-            if languages is None:
-                languages = []
-                for envar in ('LANGUAGE', 'LC_ALL', 'LC_MESSAGES', 'LANG'):
-                    val = os.environ.get(envar)
-                    if val:
-                        languages = val.split(':')
-                        break
-                if 'C' not in languages:
-                    languages.append('C')
-            # now normalize and expand the languages
-            nelangs = []
-            for lang in languages:
-                for nelang in gettext._expand_lang(lang):
-                    if nelang not in nelangs:
-                        nelangs.append(nelang)
-            # select a language
-            if all:
-                result = []
-            else:
-                result = None
-            for lang in nelangs:
-                if lang == 'C':
-                    break
-                mofile = os.path.join(localedir, '%s.mo' % lang)
-                if os.path.exists(mofile):
-                    if all:
-                        result.append(mofile)
-                    else:
-                        return mofile
-            return result
-        gettext.find = find_
 
         self.change_language(self.config()["ui_language"])
         global _
@@ -78,17 +44,29 @@ class GetTextTranslator(Translator):
     def change_language(self, lang):
         if not lang:
             lang = ''
-        self._gettext = gettext.translation('mnemosyne', localedir='po',
+        # Check if we're running in a development environment
+        if os.path.exists('mo'):
+            localedir = 'mo'
+        else:
+            localedir = os.path.join(sys.exec_prefix, "share", "locale")
+        self._gettext = gettext.translation('mnemosyne', localedir=localedir,
                     languages=[lang], fallback=True)
 
     def get_supported_languages(self):
         import glob
-        import re
-        langs = []
-        isorexp = re.compile(r"po/([a-z]{2})\.mo")
-        mofiles = glob.glob("po/*.mo")
-        for mofile in mofiles:
-            langs.append(isorexp.match(mofile).group(1))
+        if os.path.exists('mo'):
+            langs = [os.path.split(x)[1] for x in glob.glob(os.path.join(
+                     'mo', '*')) if os.path.isdir(x)
+                     and len(os.path.split(x)[1]) == 2]
+        else:
+            if sys.platform == 'win32':
+                path_separator = "\\"
+            else:
+                path_separator = "/"
+            langs = [x.split(path_separator)[-3] for x in glob.glob(
+                     os.path.join(sys.exec_prefix, "share", "locale", '*',
+                                  'LC_MESSAGES', 'mnemosyne.mo'))]
+            print langs
         return langs
 
     def __call__(self, text):

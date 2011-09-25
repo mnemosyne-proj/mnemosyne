@@ -17,6 +17,7 @@ install-system:
 	cd mnemosyne/pyqt_ui && make clean
 	cd mnemosyne/pyqt_ui && make
 	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
+	cd po && make
 	python setup.py install
 	rm -f -R build
 
