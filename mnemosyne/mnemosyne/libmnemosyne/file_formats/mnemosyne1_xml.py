@@ -44,10 +44,9 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
             w.show_error(_
                     ("XML file does not seem to be a Mnemosyne 1.x XML file."))
             raise MnemosyneError
-        try:
+        self.starttime = 0
+        if tree.getroot().get("time_of_start"):
             self.starttime = int(tree.getroot().get("time_of_start"))
-        except:
-            self.starttime = 0
         category_with_name = {}
         self.categories = []
         for element in tree.findall("category"):
@@ -57,49 +56,53 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
             self.categories.append(category)
             category_with_name[category.name] = category
         self.items = []
+        warned_about_import = False
         for element in tree.findall("item"):
             item = Mnemosyne1.MnemosyneCore.Item()
             item.id = element.get("id") 
             item.q = element.find("Q").text
             item.a = element.find("A").text
             item.cat = category_with_name[element.find("cat").text]
-            try:
+            if element.get("gr"):
+                if not warned_about_import:
+                    result = w.show_question(_("This XML file contains learning data. It's best to import this from a mem file, in order to preserve historical statistics. Continue?"), _("Yes"), _("No"), "")
+                    warned_about_import = True
+                    if result == 1:  # No
+                        return
                 item.grade = int(element.get("gr"))
-            except:
+            else:
                 item.grade = 0
-            try:
+            if element.get("e"):
                 item.easiness = float(element.get("e"))
-            except:
+            else:
                 item.easiness = 2.5
-            try:
+            if element.get("ac_rp"):
                 item.acq_reps = int(element.get("ac_rp"))
-            except:
-                item.acq_reps = 1
-            try:
+            else:
+                item.acq_reps = 0
+            if element.get("rt_rp"):
                 item.ret_reps = int(element.get("rt_rp"))
-            except:
+            else:
                 item.ret_reps = 0
-            try:
+            if element.get("lps"):
                 item.lapses = int(element.get("lps"))
-            except:
+            else:
                 item.lapses = 0
-            try:
+            if element.get("ac_rp_l"):
                 item.acq_reps_since_lapse = int(element.get("ac_rp_l"))
-            except:
-                item.acq_reps_since_lapse = 1
-            try:
+            else:
+                item.acq_reps_since_lapse = 0
+            if element.get("rt_rp_l"):
                 item.ret_reps_since_lapse = int(element.get("rt_rp_l"))
-            except:
+            else:
                 item.ret_reps_since_lapse = 0
-            try:
-                item.last_rep = int(element.get("l_rp"))
-            except:
+            if element.get("l_rp"):
+                item.last_rep = int(float(element.get("l_rp")))
+            else:
                 item.last_rep = 0
-            # This is how 1.x reads it, but why can next_rep be float
-            # while last_rep can safely be parsed as an int?
-            try:
+            if element.get("n_rp"):
                 item.next_rep = int(float(element.get("n_rp")))
-            except:
+            else:
                 item.next_rep = 0
             if element.get("u"):
                 item.unseen = bool(element.get("u"))

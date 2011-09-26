@@ -12,6 +12,8 @@ from openSM2sync.log_entry import EventTypes
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 from mnemosyne.libmnemosyne.file_formats.science_log_parser import ScienceLogParser
 
+last_error = ""
+
 class Widget(MainWidget):
         
     def activate(self):
@@ -29,7 +31,9 @@ class Widget(MainWidget):
         raise NotImplementedError
 
     def show_error(self, message):
-        if message.startswith("This file seems to have been imported before"):
+        global last_error
+        last_error = message
+        if message.startswith("These cards seem to have been imported before"):
             return
         if message.startswith("Unable to open"):
             return
@@ -59,7 +63,8 @@ class TestMemImport(MnemosyneTest):
 
     def test_file_not_found(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "nothere.mem")
-        assert self.mem_importer().do_import(filename) == -1
+        self.mem_importer().do_import(filename)
+        assert last_error.startswith("Unable to open")
         
     def test_card_type_1(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "1sided.mem")
@@ -107,7 +112,8 @@ class TestMemImport(MnemosyneTest):
         assert card.id == "9cff728f"
         assert "question" in card.question()
         filename = os.path.join(os.getcwd(), "tests", "files", "1sided.mem")
-        assert self.mem_importer().do_import(filename) == -2      
+        self.mem_importer().do_import(filename)
+        assert last_error.startswith("These cards seem to have been imported before")
         
     def test_card_type_2(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "2sided.mem")
