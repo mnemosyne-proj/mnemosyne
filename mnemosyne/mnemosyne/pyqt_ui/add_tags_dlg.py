@@ -25,3 +25,6 @@ class AddTagsDlg(QtGui.QDialog, Ui_AddTagsDlg, AddEditCards):
         self.return_values["tag_names"] = [c.strip() for c in \
                      unicode(self.tags.currentText()).split(',')]
         return QtGui.QDialog.accept(self)
+
+    def activate(self):
+        self.retranslateUi(self)

@@ -4,7 +4,7 @@
 
 import copy
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.translator import _, D_
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.fact_view import FactView
@@ -13,21 +13,21 @@ from mnemosyne.libmnemosyne.fact_view import FactView
 class Map(CardType):
 
     id = "4"
-    name = _("Map")
+    name = D_("Map")
 
     # List and name the keys.
-    fact_keys_and_names = [("loc", _("Location")),
-                           ("blank", _("Blank map")),
-                           ("marked", _("Marked map"))]
+    fact_keys_and_names = [("loc", D_("Location")),
+                           ("blank", D_("Blank map")),
+                           ("marked", D_("Marked map"))]
 
     # Recognition.
-    v1 = FactView(_("Recognition"), "4.1")
+    v1 = FactView(D_("Recognition"), "4.1")
     v1.q_fact_keys = ["_", "marked"]
     v1.a_fact_keys = ["loc", "marked",]
     v1.a_on_top_of_q = True
     
     # Production.
-    v2 = FactView(_("Production"), "4.2")
+    v2 = FactView(D_("Production"), "4.2")
     v2.q_fact_keys = ["loc", "blank"]
     v2.a_fact_keys = ["loc", "marked"]
     v2.a_on_top_of_q = True
@@ -45,10 +45,9 @@ class Map(CardType):
         return {"loc": "loc", "blank": "blank",
                 "marked": "marked", "_": "loc"}
 
-    
+
 class MapPlugin(Plugin):
     
-    name = _("Map")
-    description = _("A card type for learning locations on a map")
+    name = D_("Map")
+    description = D_("A card type for learning locations on a map")
     components = [Map]
-

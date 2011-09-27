@@ -110,6 +110,7 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
             self.ok_button.setFocus()
         
     def activate(self):
+        self.retranslateUi(self)
         self.exec_()
         
     def accept(self):

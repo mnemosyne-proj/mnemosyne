@@ -29,6 +29,7 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         self._store_state()
 
     def activate(self):
+        self.retranslateUi(self)
         state = self.config()["main_window_state"]
         if state:
             self.restoreGeometry(state)

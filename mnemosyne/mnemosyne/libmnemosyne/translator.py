@@ -5,7 +5,11 @@
 
 from mnemosyne.libmnemosyne.component import Component
 
+# Dummy translator for cases where no translator is activated
 _ = lambda s: s
+# Dummy translator that forces translation to be deferred until later [1]
+#   [1] http://docs.python.org/library/gettext.html#deferred-translations
+D_ = lambda s: s
 
 class Translator(Component):
 
@@ -33,10 +37,6 @@ class GetTextTranslator(Translator):
     import sys
 
     def activate(self):
-        # We need to monkey-patch the gettext module to provide support for
-        # Launchpad's translation infrastructure, as the path for the message
-        # catalogs is fixed in the standard library.
-
         self.change_language(self.config()["ui_language"])
         global _
         _ = self
@@ -66,11 +66,10 @@ class GetTextTranslator(Translator):
             langs = [x.split(path_separator)[-3] for x in glob.glob(
                      os.path.join(sys.exec_prefix, "share", "locale", '*',
                                   'LC_MESSAGES', 'mnemosyne.mo'))]
-            print langs
         return langs
 
     def __call__(self, text):
         try:
-            return self._gettext.gettext(text)
+            return self._gettext.ugettext(text)
         except:
             return text

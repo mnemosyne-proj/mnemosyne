@@ -115,6 +115,10 @@ class Plugin(Component):
         self.registered_components = []        
         return True
 
+    def retranslate(self):
+        self.name = _(self.name)
+        self.description = _(self.description)
+
 def register_user_plugin(plugin_class):
 
     """Plugins defined in the user's plugin directory don't have an easy

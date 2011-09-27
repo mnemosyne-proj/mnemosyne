@@ -4,7 +4,7 @@
 
 from PyQt4 import QtCore, QtGui
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.translator import D_, _
 from mnemosyne.libmnemosyne.ui_components.configuration_widget import \
      ConfigurationWidget
 from mnemosyne.libmnemosyne.utils import get_iso6931_code, iso6931_dict
@@ -15,7 +15,7 @@ from mnemosyne.pyqt_ui.ui_configuration_wdgt_main import \
 class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
     ConfigurationWidget):
 
-    name = "General"
+    name = D_("General")
 
     def __init__(self, component_manager, parent):
         ConfigurationWidget.__init__(self, component_manager)
@@ -60,7 +60,14 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
             self.language.setCurrentIndex(
                     self.language.findText(
                         iso6931_dict[self.config()["ui_language"]]))
-            
+
+    def activate(self):
+        self.retranslate()
+        self.retranslateUi(self)
+
+    def retranslate(self):
+        self.name = _(self.name)
+
     def reset_to_defaults(self):
         self.new_cards.setCurrentIndex(0)
         self.scheduled_cards.setCurrentIndex(0)

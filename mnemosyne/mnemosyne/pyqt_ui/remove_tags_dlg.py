@@ -23,6 +23,9 @@ class RemoveTagsDlg(QtGui.QDialog, Ui_RemoveTagsDlg):
                 list_item.setFlags(list_item.flags() | QtCore.Qt.ItemIsUserCheckable)
                 list_item.setCheckState(QtCore.Qt.Unchecked)
                 self.tag_list.addItem(list_item)
+
+    def activate(self):
+        self.retranslateUi(self)
         
     def accept(self):
         self.return_values["tag_names"] = []

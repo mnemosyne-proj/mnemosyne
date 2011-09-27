@@ -2,13 +2,13 @@
 # grades.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.translator import D_, _
 from mnemosyne.libmnemosyne.statistics_page import PlotStatisticsPage
 
 
 class Grades(PlotStatisticsPage):
 
-    name = _("Grades")
+    name = D_("Grades")
     
     ALL_CARDS = -1
 

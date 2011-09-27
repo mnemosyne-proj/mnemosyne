@@ -2,6 +2,7 @@
 # file_format.py <Peter.Bienstman@UGent.be>
 #
 
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
 
 
@@ -12,6 +13,10 @@ class FileFormat(Component):
     filename_filter = "" # E.g. "XML Files (*.xml *XML)"
     import_possible = False
     export_possible = False
+
+    def retranslate(self):
+        self.description = _(self.description)
+        self.filename_filter = _(self.filename_filter)
     
     def do_import(self, filename, tag_name=None, reset_learning_data=False):
         raise NotImplementedError

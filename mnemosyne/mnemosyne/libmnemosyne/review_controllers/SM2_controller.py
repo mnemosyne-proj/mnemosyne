@@ -2,48 +2,47 @@
 # SM2_controller.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.translator import D_, _
 from mnemosyne.libmnemosyne.review_controller import ReviewController
 
 ACQ_PHASE = 0
 RET_PHASE = 1
 
-
-# Tooltip texts.  The first index deals with whether we have a card with
-# previous grade 0 or 1 (i.e. non memorised).  The second index is the grade.
-tooltip = [["", "", "", "", "", "", ""], ["", "", "", "", "", "", ""]]
-tooltip[ACQ_PHASE][0] = \
-    _("You don't remember this card yet.")
-tooltip[ACQ_PHASE][1] = \
-    _("Like '0', but it's getting more familiar.") + " " + \
-    _("Show it less often.")
-tooltip[ACQ_PHASE][2] = \
-    _("You've memorised this card now, and might remember it tomorrow.")
-tooltip[ACQ_PHASE][3] = \
-    _("You've memorised this card now, and should remember it tomorrow.")
-tooltip[ACQ_PHASE][4] = \
-    _("You've memorised this card now, and might remember it in 2 days.")
-tooltip[ACQ_PHASE][5] = \
-    _("You've memorised this card now, and should remember it in 2 days.")
-
-tooltip[RET_PHASE][0]  = \
-    _("You've forgotten this card completely.")
-tooltip[RET_PHASE][1] = \
-    _("You've forgotten this card.")
-tooltip[RET_PHASE][2] = \
-    _("Barely correct answer. The interval was way too long.")
-tooltip[RET_PHASE][3] = \
-    _("Correct answer, but with much effort.") + " " + \
-    _("The interval was probably too long.")
-tooltip[RET_PHASE][4] = \
-    _("Correct answer, with some effort.") + " " + \
-    _("The interval was probably just right.")
-tooltip[RET_PHASE][5] = \
-    _("Correct answer, but without any difficulties.") + " " + \
-    _("The interval was probably too short.")
-
-
 class SM2Controller(ReviewController):
+
+    # Tooltip texts.  The first index deals with whether we have a card with
+    # previous grade 0 or 1 (i.e. non memorised).  The second index is the grade.
+    tooltip = [["", "", "", "", "", "", ""], ["", "", "", "", "", "", ""]]
+    tooltip[ACQ_PHASE][0] = \
+        D_("You don't remember this card yet.")
+    tooltip[ACQ_PHASE][1] = \
+        D_("Like '0', but it's getting more familiar. Show it less often.")
+    tooltip[ACQ_PHASE][2] = \
+        D_("You've memorised this card now, and might remember it tomorrow.")
+    tooltip[ACQ_PHASE][3] = \
+        D_("You've memorised this card now, and should remember it tomorrow.")
+    tooltip[ACQ_PHASE][4] = \
+        D_("You've memorised this card now, and might remember it in 2 days.")
+    tooltip[ACQ_PHASE][5] = \
+        D_("You've memorised this card now, and should remember it in 2 days.")
+
+    tooltip[RET_PHASE][0]  = \
+        D_("You've forgotten this card completely.")
+    tooltip[RET_PHASE][1] = \
+        D_("You've forgotten this card.")
+    tooltip[RET_PHASE][2] = \
+        D_("Barely correct answer. The interval was way too long.")
+    tooltip[RET_PHASE][3] = \
+        D_("Correct answer, but with much effort. The interval was probably too long.")
+    tooltip[RET_PHASE][4] = \
+        D_("Correct answer, with some effort. The interval was probably just right.")
+    tooltip[RET_PHASE][5] = \
+        D_("Correct answer, but without any difficulties. The interval was probably too short.")
+
+    def retranslate(self):
+        for phase_idx, tiplist in enumerate(self.tooltip):
+            for idx, tip in enumerate(self.tooltip[phase_idx]):
+                self.tooltip[phase_idx][idx] = _(tip)
 
     def reset(self):
 
@@ -263,10 +262,10 @@ class SM2Controller(ReviewController):
                 interval = self.scheduler().process_answer(self.card, \
                     grade, dry_run=True)
                 days = int(math.ceil(interval / (24.0 * 60 * 60)))               
-                w.set_grade_tooltip(grade, tooltip[phase][grade] + \
+                w.set_grade_tooltip(grade, self.tooltip[phase][grade] + \
                     self.next_rep_string(days))
             else:
-                w.set_grade_tooltip(grade, tooltip[phase][grade])
+                w.set_grade_tooltip(grade, self.tooltip[phase][grade])
             # Button text.
             if self.state == "SELECT GRADE" and \
                self.config()["show_intervals"] == "buttons":

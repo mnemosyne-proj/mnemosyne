@@ -8,3 +8,6 @@ $(LANGS): ../mo/%/LC_MESSAGES/mnemosyne.mo: %.po
 
 clean:
 	rm -rf ../mo
+
+update:
+	pygettext -k D_ -o mnemosyne.pot ..

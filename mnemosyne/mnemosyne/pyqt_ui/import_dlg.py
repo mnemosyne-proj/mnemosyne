@@ -25,6 +25,7 @@ class ImportDlg(QtGui.QDialog, Ui_ImportDlg, ImportDialog):
 
     def activate(self):
         ImportDialog.activate(self)
+        self.retranslateUi(self)
         self.show()
 
     def _get_selected_format(self):

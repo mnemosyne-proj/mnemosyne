@@ -2,13 +2,13 @@
 # cards_added.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.translator import D_, _
 from mnemosyne.libmnemosyne.statistics_page import PlotStatisticsPage
 
 
 class CardsAdded(PlotStatisticsPage):
 
-    name = _("Cards added")
+    name = D_("Cards added")
 
     LAST_WEEK = 1
     LAST_MONTH = 2
@@ -16,12 +16,18 @@ class CardsAdded(PlotStatisticsPage):
     LAST_6_MONTHS = 4
     LAST_YEAR = 5
 
-    variants = [(LAST_WEEK, _("Last week")),
-                (LAST_MONTH, _("Last month")),
-                (LAST_3_MONTHS, _("Last 3 months")),
-                (LAST_6_MONTHS, _("Last 6 months")),                
-                (LAST_YEAR, _("Last year"))]
-    
+    variants = [(LAST_WEEK, D_("Last week")),
+                (LAST_MONTH, D_("Last month")),
+                (LAST_3_MONTHS, D_("Last 3 months")),
+                (LAST_6_MONTHS, D_("Last 6 months")),                
+                (LAST_YEAR, D_("Last year"))]
+
+    def retranslate(self):
+        self.name = _(self.name)
+        for idx, variant in enumerate(self.variants):
+            self.variants[idx] = (self.variants[idx][0],
+                                  _(self.variants[idx][1]))
+
     def prepare_statistics(self, variant):
         if variant == self.LAST_WEEK:            
             self.x = range(-7, 1, 1)

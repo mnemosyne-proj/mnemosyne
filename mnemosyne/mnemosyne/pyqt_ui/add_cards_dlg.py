@@ -21,6 +21,7 @@ class AddEditCards(Component):
     """Code shared between the add and the edit dialogs."""
 
     def activate(self):
+        self.retranslateUi(self)
         self.exec_()
 
     def initialise_card_types_combobox(self, current_card_type_name):

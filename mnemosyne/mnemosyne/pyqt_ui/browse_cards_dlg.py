@@ -529,6 +529,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             self.table.setSelectionMode(old_selection_mode)
             
     def activate(self):
+        self.retranslateUi(self)
         self.exec_()
 
     def update_filter(self):

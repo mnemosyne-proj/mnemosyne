@@ -6,14 +6,14 @@ import os.path
 import time
 from xml.etree import cElementTree
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.translator import D_, _
 from mnemosyne.libmnemosyne.file_formats.mnemosyne1 import Mnemosyne1
 from mnemosyne.libmnemosyne.file_format import FileFormat
 
 class Mnemosyne1XML(FileFormat, Mnemosyne1):
 
-    description = _("Mnemosyne 1.x *.xml files")
-    filename_filter = _("Mnemosyne 1.x XML files") + " (*.xml)"
+    description = D_("Mnemosyne 1.x *.xml files")
+    filename_filter = D_("Mnemosyne 1.x XML files") + " (*.xml)"
     import_possible = True
     export_possible = False
 

@@ -2,6 +2,7 @@
 # statistics_page.py <Peter.Bienstman@UGent.be>
 #
 
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
 
 
@@ -27,7 +28,10 @@ class StatisticsPage(Component):
     name = ""
     variants = [] # [(variant_id, variant_name)]
     show_variants_in_combobox = True
-        
+
+    def retranslate(self):
+        self.name = _(self.name)
+
     def prepare_statistics(self, variant_id):
 
         """This method calculates the data for the requested variant and sets

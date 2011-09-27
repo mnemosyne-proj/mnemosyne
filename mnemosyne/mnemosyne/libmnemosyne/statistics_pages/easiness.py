@@ -2,13 +2,13 @@
 # easiness.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.translator import D_, _
 from mnemosyne.libmnemosyne.statistics_page import PlotStatisticsPage
 
 
 class Easiness(PlotStatisticsPage):
 
-    name = _("Easiness")
+    name = D_("Easiness")
     
     ALL_CARDS = -1
 
