@@ -7,7 +7,9 @@ $(LANGS): ../mo/%/LC_MESSAGES/mnemosyne.mo: %.po
 	./msgfmt.py -o $@ $<
 
 clean:
+	rm -rf *~
 	rm -rf ../mo
 
 update:
+	cd ../mnemosyne/pyqt_ui && make
 	pygettext -k D_ -o mnemosyne.pot ..
