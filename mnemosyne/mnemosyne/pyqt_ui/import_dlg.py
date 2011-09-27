@@ -34,4 +34,5 @@ class ImportDlg(QtGui.QDialog, Ui_ImportDlg, ImportDialog):
             self.format().filename_filter))
 
     def accept(self):
-        self.format.do_import(unicode(self.filename.text()))
+        self.format().do_import(unicode(self.filename.text()))
+        QtGui.QDialog.accept(self)

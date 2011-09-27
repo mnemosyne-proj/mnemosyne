@@ -1,8 +1,11 @@
--need to anonimise ids from xml import from website + test
 -test option to add tag to card
--todo's below
--review import dialog
+-make sure enter does not close the import dialog
+-make sure there is an error message to the user if xml import fails.
+-rewrite test_mem_import test_sch to go through the controller
+-update data if same id present on import?
+-make sure after import all sync events fire
 -dialog: what happens if browse gets cancelled, remember last used tag, fileformat, import_dir
+-importing an unexisting mem file twice gives errors
 
 -rescale window only when answer picture is shown
 
@@ -42,9 +45,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 
 -more elaborate plugin description in bottom pane
 
--make sure all strings are translatable
- http://stackoverflow.com/questions/1114792/how-to-initialize-a-static-char-with-gettetxt-using-local-operating-system-env
-
 -new cards with a >=2 grade can end up on the same day on first interactive rep (PB)
  replace set_initial_grade by set_initial_grades(cards)?  (PB)
 -also make sure this is OK when changing card type creates extra cards
@@ -78,6 +78,8 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -Mnemosyne console, example script to add cards, make possible on Windows (PB)
 
 -ask about card browser speed. Try without decoration. shulgi: Core Duo 2.1 Ghz
+-try with large database (own database + 20k Chinese sentences): select call on opening database 
+ is rather slow
 
 -card type clone: rename and delete, both in card browser and card type browser
 
@@ -132,19 +134,13 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -Faq about how to pronounce Mnemosyne
 
 -import
--update data if same id present on import
--on import, activate plugins, created card types if necessary
+-on import, activate plugins, create card types if necessary
 -on import don't add cards for which card type is not present
--xml import tests (wcu, memaid, plconv)
--rewrite test_mem_import test_sch to go through the controller
 -warn when importing card type with duplicate id
--mention that txt format does not have tag info?
 -make sure after import all sync events fire
--make sure enter does not close the import dialog
--make sure we log new card creation on import
 -make sure to detect media and do slash normalisation from importing text files
 -utf16?
--make sure there is an error message to the user if xml import fails.
+
 
 -card appearance: show preview live
 

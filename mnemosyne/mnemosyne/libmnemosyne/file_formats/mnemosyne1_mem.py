@@ -66,8 +66,9 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
             db.log_edited_card(timestamp, item.id)
         # Manage database indexes.
         db.after_mem_import()
-        # Detect inverses.
+        # Detect inverses.        
         db.link_inverse_cards()
+        w.close_progress()
             
     def read_items_from_mnemosyne1_mem(self, filename):
         sys.modules["mnemosyne.core"] = object()       

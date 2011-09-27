@@ -318,6 +318,26 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
                u"""<b>Freistaat Th\xfcringen (Free State of Thuringia)</b>"""
         assert self.review_controller().card.tag_string() == "Germany: States, MISSING_MEDIA"
 
+    def test_anon_id(self):        
+        global answer
+        answer = 0
+        filename = os.path.join(os.getcwd(), "tests", "files", "anon_id.xml")
+        self.xml_importer().do_import(filename)
+        self.review_controller().reset()
+        fact = self.review_controller().card.fact
+        for card in self.database().cards_from_fact(fact):
+            assert not card.id.startswith("_")
+            
+    def test_no_id(self):        
+        global answer
+        answer = 0
+        filename = os.path.join(os.getcwd(), "tests", "files", "no_id.xml")
+        self.xml_importer().do_import(filename)
+        self.review_controller().reset()
+        fact = self.review_controller().card.fact
+        for card in self.database().cards_from_fact(fact):
+            assert card.id
+            
     def teardown(self):
         global answer
         answer = 0

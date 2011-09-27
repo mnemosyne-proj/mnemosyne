@@ -7,6 +7,7 @@ import time
 from xml.etree import cElementTree
 
 from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.utils import rand_uuid
 from mnemosyne.libmnemosyne.utils import MnemosyneError
 from mnemosyne.libmnemosyne.file_format import FileFormat
 from mnemosyne.libmnemosyne.file_formats.mnemosyne1 import Mnemosyne1
@@ -19,6 +20,11 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
     import_possible = True
     export_possible = False
 
+    def __init__(self, component_manager):
+        FileFormat.__init__(self, component_manager)
+        Mnemosyne1.__init__(self)
+        self.anon_to_id = {}
+
     def do_import(self, filename, tag_name=None):
         self.import_dir = os.path.dirname(os.path.abspath(filename))
         self.warned_about_missing_media = False
@@ -29,9 +35,10 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
             self.create_cards_from_mnemosyne1(tag_name)
         except MnemosyneError:
             w.close_progress()
-            return
+            return      
         self.database().link_inverse_cards()
-            
+        w.close_progress()
+         
     def read_items_from_mnemosyne1_xml(self, filename):
         w = self.main_widget()
         try:
@@ -59,7 +66,11 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
         warned_about_import = False
         for element in tree.findall("item"):
             item = Mnemosyne1.MnemosyneCore.Item()
-            item.id = element.get("id") 
+            item.id = element.get("id")
+            if not item.id:
+                item.id = rand_uuid()
+            if item.id.startswith('_'):
+                item.id = self.unanonymise_id(item.id) 
             item.q = element.find("Q").text
             item.a = element.find("A").text
             item.cat = category_with_name[element.find("cat").text]
@@ -113,3 +124,17 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
                 else:
                     item.unseen = False
             self.items.append(item)
+
+    def unanonymise_id(self, item_id):
+        if "." in item_id:
+            old_id, suffix = item_id.split(".", 1)
+            suffix = "." + suffix
+        else:
+            old_id, suffix = item_id, ""
+        if old_id in self.anon_to_id:
+            item_id = self.anon_to_id[old_id]
+        else:
+            item_id = rand_uuid()
+            self.anon_to_id[old_id] = item_id
+        return item_id + suffix
+

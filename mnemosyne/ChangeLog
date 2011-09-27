@@ -81,6 +81,7 @@ Other changes:
 -Improved backup scheme. Users can now restore from backups using the 
  File - Open menu, as opposed to first decompressing a file outside of 
  Mnemosyne.
+-Importing from xml files has been sped up considerably (Johannes Baiter)
 -The learing history is now stored in an SQL database, allowing to calculate
  more statistics.
 -The plugin mechanism encompasses also the statistics, configuration and card

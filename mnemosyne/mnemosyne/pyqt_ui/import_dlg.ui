@@ -171,7 +171,7 @@
    <sender>browse_button</sender>
    <signal>clicked()</signal>
    <receiver>ImportDlg</receiver>
-   <slot>accept()</slot>
+   <slot>browse()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>250</x>

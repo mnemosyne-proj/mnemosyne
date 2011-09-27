@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mnemosyne core_version="1"><category active="1"><name>Netherlands: Provinces</name></category>
+<item id="_0">
+<cat>Netherlands: Provinces</cat>
+<Q>&lt;b&gt;Drenthe?&lt;/b&gt;
+&lt;img src="maps/Netherlands-Provinces/Netherlands-Provinces.png"&gt;&lt;card style="answerbox: o
+verlay"/&gt;</Q>
+<A>&lt;b&gt;Drenthe&lt;/b&gt;&lt;img src="maps/Netherlands-Provinces/Drenthe.png"&gt;</A>
+</item>
+<item id="_0.inv">
+<cat>Netherlands: Provinces</cat>
+<Q>&lt;img src="maps/Netherlands-Provinces/Drenthe.png"&gt;</Q>
+<A>&lt;b&gt;Drenthe&lt;/b&gt;</A></item>
+</mnemosyne>
