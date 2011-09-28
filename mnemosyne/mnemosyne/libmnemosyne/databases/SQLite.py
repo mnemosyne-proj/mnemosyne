@@ -650,7 +650,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         
         result = [self.tag(cursor[0], is_id_internal=True) for cursor in \
             self.con.execute("select _id from tags")]
-        result.sort(key=lambda x: x.name, cmp=numeric_string_cmp)
+        result.sort(key=lambda x: x.name, cmp=numeric_string_cmp)        
         if result and result[0].name == "__UNTAGGED__":
             untagged = result.pop(0)
             result.append(untagged)

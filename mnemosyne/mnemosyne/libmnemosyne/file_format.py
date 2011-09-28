@@ -13,9 +13,9 @@ class FileFormat(Component):
     import_possible = False
     export_possible = False
     
-    def do_import(self, filename, tag_name=None, reset_learning_data=False):
+    def do_import(self, filename, extra_tag_name=None):
         raise NotImplementedError
 
-    def do_export(self, filename, tag_name=None, reset_learning_data=False):
+    def do_export(self, filename, extra_tag_name=None):
         raise NotImplementedError    
 

@@ -26,7 +26,7 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
     import_possible = True
     export_possible = False
 
-    def do_import(self, filename, tag_name=None):
+    def do_import(self, filename, extra_tag_name=None):
         self.import_dir = os.path.dirname(os.path.abspath(filename))
         self.warned_about_missing_media = False
         w = self.main_widget()
@@ -36,11 +36,12 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         db.before_mem_import()
         # The import process generates card log entries, which we will delete
         # in favour of those events that are recorded in the logs and which
-        # capture the true timestamps.
+        # capture the true timestamps. They also have new 2.0 ids, as opposed
+        # to their old 1.x ids.
         log_index = db.current_log_index()
         try:
             self.read_items_from_mnemosyne1_mem(filename)
-            self.create_cards_from_mnemosyne1(tag_name)
+            self.create_cards_from_mnemosyne1(extra_tag_name)
         except MnemosyneError:
             w.close_progress()
             return

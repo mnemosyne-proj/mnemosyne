@@ -52,7 +52,7 @@
      <item>
       <layout class="QHBoxLayout">
        <item>
-        <widget class="QLineEdit" name="filename"/>
+        <widget class="QLineEdit" name="filename_box"/>
        </item>
        <item>
         <widget class="QPushButton" name="browse_button">
@@ -142,7 +142,7 @@
  <layoutdefault spacing="6" margin="11"/>
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <tabstops>
-  <tabstop>filename</tabstop>
+  <tabstop>filename_box</tabstop>
   <tabstop>browse_button</tabstop>
   <tabstop>file_formats</tabstop>
   <tabstop>tags</tabstop>
@@ -192,6 +192,22 @@
     <hint type="sourcelabel">
      <x>27</x>
      <y>159</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>145</x>
+     <y>88</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>file_formats</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>ImportDlg</receiver>
+   <slot>file_format_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>145</x>
+     <y>35</y>
     </hint>
     <hint type="destinationlabel">
      <x>145</x>

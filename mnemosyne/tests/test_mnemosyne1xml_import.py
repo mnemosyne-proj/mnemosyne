@@ -32,6 +32,8 @@ class Widget(MainWidget):
             return
         if message.startswith("Unable to open"):
             return
+        if message.startswith("Unable to parse"):
+            return
         if message.startswith("Bad file version:"):
             return
         if message.startswith("XML file does not seem"):
@@ -40,6 +42,7 @@ class Widget(MainWidget):
     
     def show_question(self, question, option0, option1, option2):
         return answer
+
 
 class TestMnemosyne1XMLImport(MnemosyneTest):
 
@@ -70,7 +73,7 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
     def test_wrong_format(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "wrong_format.xml")
         self.xml_importer().do_import(filename)
-        assert last_error.startswith("Unable to open")
+        assert last_error.startswith("Unable to parse")
 
     def test_bad_version(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "bad_version.xml")
@@ -338,6 +341,30 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
         for card in self.database().cards_from_fact(fact):
             assert card.id
             
+    def test_bad_xml(self):        
+        global answer
+        answer = 0
+        filename = os.path.join(os.getcwd(), "tests", "files", "bad_xml.xml")
+        self.xml_importer().do_import(filename)
+        assert last_error.startswith("Unable to parse")
+        
+    def test_tags(self):        
+        global answer
+        answer = 0
+        filename = os.path.join(os.getcwd(), "tests", "files", "tag.xml")
+        self.xml_importer().do_import(filename, extra_tag_name="extra")
+        self.review_controller().reset()
+        assert len(self.review_controller().card.tags) == 2
+        
+    def test_log(self):        
+        global answer
+        answer = 0
+        filename = os.path.join(os.getcwd(), "tests", "files", "sound.xml")
+        self.xml_importer().do_import(filename)
+        ids = [cursor[0] for cursor in self.database().con.execute(\
+            "select distinct object_id from log where event_type='6' or event_type='7'")]
+        assert ids == ['ef2e21e1']
+        
     def teardown(self):
         global answer
         answer = 0

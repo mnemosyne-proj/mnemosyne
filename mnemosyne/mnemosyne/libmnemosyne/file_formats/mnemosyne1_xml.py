@@ -7,11 +7,9 @@ import time
 from xml.etree import cElementTree
 
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.libmnemosyne.utils import rand_uuid
-from mnemosyne.libmnemosyne.utils import MnemosyneError
 from mnemosyne.libmnemosyne.file_format import FileFormat
+from mnemosyne.libmnemosyne.utils import rand_uuid, MnemosyneError
 from mnemosyne.libmnemosyne.file_formats.mnemosyne1 import Mnemosyne1
-
 
 class Mnemosyne1XML(FileFormat, Mnemosyne1):
 
@@ -25,17 +23,27 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
         Mnemosyne1.__init__(self)
         self.anon_to_id = {}
 
-    def do_import(self, filename, tag_name=None):
+    def do_import(self, filename, extra_tag_name=None):
         self.import_dir = os.path.dirname(os.path.abspath(filename))
         self.warned_about_missing_media = False
         w = self.main_widget()
+        # The import process generates card log entries which have new 2.0
+        # ids as opposed to their old 1.x ids, so we need to delete them
+        # later.
+        db = self.database()
+        log_index = db.current_log_index()
         try:
             w.set_progress_text(_("Importing cards..."))
             self.read_items_from_mnemosyne1_xml(filename)
-            self.create_cards_from_mnemosyne1(tag_name)
+            self.create_cards_from_mnemosyne1(extra_tag_name)
         except MnemosyneError:
             w.close_progress()
-            return      
+            return
+        db.remove_card_log_entries_since(log_index)
+        # We now generate 'added card' events with the proper ids.
+        timestamp = int(time.time())
+        for item in self.items:
+            db.log_added_card(timestamp, item.id)        
         self.database().link_inverse_cards()
         w.close_progress()
          
@@ -43,6 +51,9 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
         w = self.main_widget()
         try:
             tree = cElementTree.parse(filename)
+        except cElementTree.ParseError, e:
+            w.show_error(_("Unable to parse file:") + str(e))
+            raise MnemosyneError            
         except:
             w.show_error(_("Unable to open file."))
             raise MnemosyneError

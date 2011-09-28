@@ -9,6 +9,7 @@ from nose.tools import raises
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
 from openSM2sync.log_entry import EventTypes
+from mnemosyne.libmnemosyne.ui_components.dialogs import ImportDialog
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 from mnemosyne.libmnemosyne.file_formats.science_log_parser import ScienceLogParser
 
@@ -39,6 +40,16 @@ class Widget(MainWidget):
             return
         raise NotImplementedError
 
+    
+class MyImportDialog(ImportDialog):
+
+    def activate(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "basedir_sch",
+                                "default.mem")
+        for format in self.component_manager.all("file_format"):
+            if format.__class__.__name__ == "Mnemosyne1Mem":
+                format.do_import(filename)
+    
 
 class TestMemImport(MnemosyneTest):
 
@@ -53,6 +64,8 @@ class TestMemImport(MnemosyneTest):
                              "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("test_mem_import", "Widget"))
+        self.mnemosyne.components.append(\
+            ("test_mem_import", "MyImportDialog"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.review_controller().reset()
         
@@ -667,14 +680,7 @@ class TestMemImport(MnemosyneTest):
             ("82f2ed0d", )).fetchone()[0] == 0
         
     def test_sch(self):
-        # TODO: rewrite this so that this goes through the import controller
-        # and remove log event here, so that we can check if the log event
-        # happens in the controller
-        filename = os.path.join(os.getcwd(), "tests", "files", "basedir_sch",
-                                "default.mem")
-        self.mem_importer().do_import(filename)
-        self.database().save()
-        self.log().saved_database()
+        self.controller().show_import_file_dialog()
         assert self.database().card_count_scheduled_n_days_ago(0) == 1
         
     def test_upgrade(self):

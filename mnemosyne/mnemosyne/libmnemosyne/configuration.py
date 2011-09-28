@@ -84,12 +84,6 @@ class Configuration(Component, dict):
         for key, value in \
             {"path": self.database().default_name + self.database().suffix,
              "first_run": True,
-             "import_dir": self.data_dir,
-             "import_format": "XML",
-             "reset_learning_data_import": False,
-             "export_dir": self.data_dir,
-             "export_format": "XML",
-             "reset_learning_data_export": False,
              "import_img_dir": self.data_dir,
              "import_sound_dir": self.data_dir,
              "import_video_dir": self.data_dir,
