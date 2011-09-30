@@ -1,4 +1,20 @@
+-card browser startup
+-optimise filter call to select tags a in (1,2) vs a=1 or a=2, also in criterion applier
+-try with true join
+-run update filter in thread?
+-try with large database (own database + 20k Chinese sentences): select call on opening database 
+ is rather slow
+-remove timing statements
+-when searching, only run update filter/counters when typing has slowed down?
+
+-run thread to import matplotlib?
+
 -on a large database, import map.mem is slow.
+
+-GUI option for save after N reps, 10 default
+
+-turn off sync media checking by default, add gui option
+
 
 -rescale window only when answer picture is shown
 
@@ -34,7 +50,6 @@
 -splitters on XP are not visible
 http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-between-qwidget-and-qtabwidget
 
--turn off media checking by default, add gui option
 
 -more elaborate plugin description in bottom pane
 
@@ -70,9 +85,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -migrate science server machine (PB)
 -Mnemosyne console, example script to add cards, make possible on Windows (PB)
 
--ask about card browser speed. Try without decoration. shulgi: Core Duo 2.1 Ghz
--try with large database (own database + 20k Chinese sentences): select call on opening database 
- is rather slow
 
 -card type clone: rename and delete, both in card browser and card type browser
 
@@ -138,8 +150,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 
 
 -card appearance: show preview live
-
--criterion applier: compare query time for  a in [1,2] vs a=1 or a=2
 
 -docs on dealing with synonyms and words which have multiple meanings (if implemented, update card converter too)
  check fonts for new meanings, check decorators

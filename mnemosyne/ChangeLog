@@ -1,16 +1,4 @@
--Mnemosyne 1.x XML import, implemented by Johannes Baiter
--fix 'list index out of range' error on startup (reported by B_Monkey)
--bring back 'increase size of non-latin characters' in the card
- appearance dialog
--tweaked keyboard shortcuts, mainly in the add and edit cards dialogs
- (suggested by Murray James Morrison)
--changed filter API to run(self, text, card, fact_key, **render_args)
- (Tim, this will mean a trivial change in your released plugin, but as
- you remarked, the previous version was too limited, and my workaround
- unsatisfactory)
--renamed 'next' to 'next sister card' in preview dialog
--fixed edit card dialog called from card browser that would sometimes
- refuse to close (reported by Roel De Conick)
+-speedup's when starting card browser
 
 
 MNEMOSYNE 2.0

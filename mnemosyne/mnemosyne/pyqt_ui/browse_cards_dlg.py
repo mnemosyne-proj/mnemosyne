@@ -229,10 +229,17 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.splitter_1.insertWidget(1, self.container_2)
         # Fill tree widgets.
         criterion = self.database().current_criterion()
+        import time
+        t1 = time.time()
         self.card_type_tree_wdgt.display(criterion)
+        t2 = time.time()
+        print 'card type', t2-t1
         self.tag_tree_wdgt.display(criterion)
+        t1 = time.time()
+        print 'tag tree', t1-t2
         self.display_card_table()
-        self.update_filter()
+        t2 = time.time()
+        print 'card table', t2-t1
         self.card_type_tree_wdgt.card_type_tree.\
             itemClicked.connect(self.update_filter)
         self.tag_tree_wdgt.tag_tree_wdgt.\
@@ -470,7 +477,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             QtSql.QSqlDatabase.database().connectionName())
 
     def display_card_table(self):
+        t1 = time.time()
         self.load_qt_database()
+        t2 = time.time()
+        print '--load', t2-t1
         self.card_model = CardModel(self.component_manager)
         self.card_model.setTable("cards")
         headers = {QUESTION: _("Question"), ANSWER: _("Answer"),
@@ -503,12 +513,12 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             ACQ_REPS_SINCE_LAPSE, RET_REPS_SINCE_LAPSE,
             EXTRA_DATA, ACTIVE, SCHEDULER_DATA):            
             self.table.setColumnHidden(column, True)
+        t1 = time.time()
+        print '--display', t1-t2 
         query = QtSql.QSqlQuery("select count() from tags")
         query.first()
         self.tag_count = query.value(0).toInt()[0]
         self.update_filter() # Needed after tag rename.
-        self.update_card_counters()
-        self.card_model.select()
         if self.saved_index:
             # All of the statements below are needed.
             # Qt does not (yet) seem to allow to restore the previous column
@@ -532,6 +542,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.exec_()
 
     def update_filter(self):
+        t1 = time.time()
         # Card types and fact views.
         criterion = DefaultCriterion(self.component_manager)
         self.card_type_tree_wdgt.checked_to_criterion(criterion)
@@ -548,11 +559,11 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             filter = "_id='not_there'"
         elif len(criterion._tag_ids_active) != self.tag_count:
             if filter:
-                filter += "and "
-            filter += "_id in (select _card_id from tags_for_card where "
+                filter += "and "                
+            filter += "_id in (select _card_id from tags_for_card where _tag_id in ("
             for _tag_id in criterion._tag_ids_active:
-                filter += "_tag_id='%s' or " % (_tag_id, )
-            filter = filter.rsplit("or ", 1)[0] + ")"
+                filter += "'%s', " % (_tag_id, )
+            filter = filter[:-2] + "))"    
         # Search string.
         search_string = unicode(self.search_box.text()).replace("'", "''")
         self.card_model.search_string = search_string
@@ -561,11 +572,14 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
                 filter += "and "
             filter += "(question like '%%%s%%' or answer like '%%%s%%')" \
                 % (search_string, search_string)
+        print filter
         self.card_model.setFilter(filter)
         self.card_model.select()
+        print '-update filter', time.time()-t1
         self.update_card_counters()
 
     def update_card_counters(self):
+        t1 = time.time()
         filter = self.card_model.filter()
         # Selected count.
         query_string = "select count() from cards"
@@ -584,6 +598,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         active = query.value(0).toInt()[0]
         self.counter_label.setText(\
             _("%d cards shown, of which %d active.") % (selected, active))
+        print '-update counters', time.time()-t1
 
     def _store_state(self):
         self.config()["browse_cards_dlg_state"] = self.saveGeometry()  

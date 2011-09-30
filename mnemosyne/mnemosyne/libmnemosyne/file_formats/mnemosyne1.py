@@ -155,6 +155,8 @@ class Mnemosyne1(object):
             self.midnight_UTC(self.starttime + item.last_rep * DAY)
         card.next_rep = \
             self.midnight_UTC(self.starttime + item.next_rep * DAY)
+        if not hasattr(item, "unseen"):
+            item.unseen = True
         if item.unseen and item.grade in [0, 1]:
             card.grade = -1
             card.acq_reps = 0
