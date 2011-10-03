@@ -57,7 +57,7 @@ class CardType(Component, CompareOnId):
             in self.fact_keys_and_names)
 
     def fact_key_names(self):
-        return [key_name for (fact_key, fact_key_name) \
+        return [fact_key_name for (fact_key, fact_key_name) \
             in self.fact_keys_and_names]
     
     def fact_key_with_name(self, name):
