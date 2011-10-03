@@ -1,11 +1,8 @@
--card browser startup
--optimise filter call to select tags a in (1,2) vs a=1 or a=2, also in criterion applier
--try with true join
--run update filter in thread?
--try with large database (own database + 20k Chinese sentences): select call on opening database 
- is rather slow
+-possible to use a different query if only a few tags are deactivated, also in criterion applier?
+ -join: http://yelmu.net/blog/2010/02/filtering-qsqlrelationaltablemodels-relational-tables-in-qt/)
+ -use 'active' field instead of a subquery?
+ -'invert' used card tag ids?
 -remove timing statements
--when searching, only run update filter/counters when typing has slowed down?
 
 -run thread to import matplotlib?
 
@@ -36,6 +33,8 @@
  -add card: tab, tab, control Y or control+2
 
  -edit card: tab, tab, control enter
+
+ -new user: first time learning queue empty: schedule tomorrow
 
  -tip on double-click to tag names and cards to edit them
  -right click on tag names in browser

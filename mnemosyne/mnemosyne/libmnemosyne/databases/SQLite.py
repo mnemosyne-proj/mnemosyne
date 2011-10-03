@@ -378,7 +378,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         for f in self.component_manager.all("hook", "after_load"):
             f.run()
         # We don't log the database load here, but in libmnemosyne.__init__,
-        # as we prefer to log the start of the program first.        
+        # as we prefer to log the start of the program first.
 
     def save(self, path=None):
         # Update format.

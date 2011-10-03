@@ -23,12 +23,12 @@ class DefaultCriterionApplier(CriterionApplier):
             db.con.execute("update cards set active=0")
             # Turn on active tags.
             command = """update cards set active=1 where _id in
-                (select _card_id from tags_for_card where """
+                (select _card_id from tags_for_card where _tag_id in ("""
             args = []
             for _tag_id in criterion._tag_ids_active:
-                command += "_tag_id=? or "
+                command += "?,"
                 args.append(_tag_id)
-            command = command.rsplit("or ", 1)[0] + ")"
+            command = command.rsplit(",", 1)[0] + "))"
             if criterion._tag_ids_active:
                 db.con.execute(command, args)                
         # Turn off inactive card types and views.
@@ -45,11 +45,12 @@ class DefaultCriterionApplier(CriterionApplier):
             db.con.execute(command, args)
         # Turn off forbidden tags.
         command = """update cards set active=0 where _id in (select _card_id
-            from tags_for_card where """       
+            from tags_for_card where _tag_id in ("""       
         args = []
         for _tag_id in criterion._tag_ids_forbidden:
-            command += "_tag_id=? or "
+            command += "?,"
             args.append(_tag_id)
-        command = command.rsplit("or ", 1)[0] + ")"
+        command = command.rsplit(",", 1)[0] + "))"
         if criterion._tag_ids_forbidden:
             db.con.execute(command, args)
+            
