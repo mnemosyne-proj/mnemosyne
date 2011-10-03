@@ -143,7 +143,8 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         if len(self.affected_card_types) > 1:
             affected_fact_key = None # Actually means all the keys.
         else:
-            affected_fact_key = self.affected_card_types[0].keys[index][0]          
+            affected_fact_key = \
+                self.affected_card_types[0].fact_keys_and_names[index][0]          
         # Determine current font.
         if len(self.affected_card_types) > 1:
             font_string = self.config().card_type_property(\
@@ -168,7 +169,8 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         if len(self.affected_card_types) > 1:
             affected_fact_key = None # Actually means all the keys.
         else:
-            affected_fact_key = self.affected_card_types[0].keys[index][0]            
+            affected_fact_key = \
+                self.affected_card_types[0].fact_keys_and_names[index][0]            
         # Determine current colour.
         if len(self.affected_card_types) > 1:
             current_rgb = self.config().card_type_property(\
