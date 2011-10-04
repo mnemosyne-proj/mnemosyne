@@ -75,6 +75,7 @@ $pregenerated_data
         active boolean default 1
     );
     create index i_cards on cards (id);
+    create index i_cards_2 on cards (fact_view_id); /* for card type tree */
     
     create table tags(
         _id integer primary key,
@@ -89,7 +90,8 @@ $pregenerated_data
         _tag_id integer
     );
     create index i_tags_for_card on tags_for_card (_card_id);
-
+    create index i_tags_for_card_2 on tags_for_card (_tag_id);
+    
     /* _id=1 is reserved for the currently active criterion, which could be a
     copy of another saved criterion or a completely different, unnamed
     criterion. */

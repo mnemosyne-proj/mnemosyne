@@ -11,6 +11,8 @@ class DefaultCriterionApplier(CriterionApplier):
     used_for = DefaultCriterion
 
     def apply_to_database(self, criterion):
+        import time
+        t = time.time()
         if len(criterion._tag_ids_forbidden) != 0:
             assert len(criterion._tag_ids_active) != 0
         db = self.database()
@@ -53,4 +55,4 @@ class DefaultCriterionApplier(CriterionApplier):
         command = command.rsplit(",", 1)[0] + "))"
         if criterion._tag_ids_forbidden:
             db.con.execute(command, args)
-            
+        print 'apply', time.time()-t

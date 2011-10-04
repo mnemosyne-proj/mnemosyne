@@ -152,6 +152,11 @@ class Mnemosyne(Component):
         UpgradeBeta6(self.component_manager).run(filename) 
         
         self.load_database(filename)
+
+        # TMP
+        from mnemosyne.libmnemosyne.upgrades.upgrade_beta_7 import UpgradeBeta7
+        UpgradeBeta7(self.component_manager).run() 
+        
         # Only now that the database is loaded, we can start writing log
         # events to it. This is why we log started_scheduler and
         # loaded_database manually.
@@ -164,7 +169,7 @@ class Mnemosyne(Component):
             Upgrade1(self.component_manager).run()
         # Finally, we can activate the main widget.
         self.main_widget().activate()
-                    
+            
     def register_components(self):
 
         """We register all components, but don't activate them yet, because in

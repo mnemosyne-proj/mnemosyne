@@ -1,10 +1,10 @@
--possible to use a different query if only a few tags are deactivated, also in criterion applier?
- -join: http://yelmu.net/blog/2010/02/filtering-qsqlrelationaltablemodels-relational-tables-in-qt/)
- -use 'active' field instead of a subquery?
- -'invert' used card tag ids?
+-sorting causes slowdown. Start unsorted on start, with tooltip when user clicks column
+-clean up speedup, see if can be applied to criterion applier too
 -remove timing statements
 
--run thread to import matplotlib?
+-make sure my own database have new indices
+
+-configure dialog is slow on Windows due to server detect
 
 -on a large database, import map.mem is slow.
 
@@ -61,7 +61,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -failed card + new cards in two directions: learn all fw cards, get stuck on failed card. Only
  restarting brings bw cards. (PB)
 
--configure dialog is slow on Windows due to server detect
 
 -also give warning on the client side if a sync failed and a backup needs to happen (PB)
 -server down should not result in sync conflict (PB)
@@ -87,7 +86,8 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 
 -card type clone: rename and delete, both in card browser and card type browser
 
--remove upgrade_beta_6.py
+-tell beta users to make sure to install latest beta first
+-remove upgrade_beta_6.py, beta_7
 
 -upgrade to qt 4.7.4, retest progress bars
 -make distrib under linux

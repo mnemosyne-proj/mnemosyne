@@ -191,6 +191,8 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
 class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
 
     def __init__(self, component_manager):
+        import time
+        t0 = time.time()
         BrowseCardsDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
@@ -230,13 +232,13 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.search_box.setFocus()
         self.layout_2.addWidget(self.search_box)
         self.splitter_1.insertWidget(1, self.container_2)
+        t1 = time.time()
+        print "init", t1-t0
         # Fill tree widgets.
         criterion = self.database().current_criterion()
-        import time
-        t1 = time.time()
         self.card_type_tree_wdgt.display(criterion)
         t2 = time.time()
-        print 'card type', t2-t1
+        print 'card type tree', t2-t1
         self.tag_tree_wdgt.display(criterion)
         t1 = time.time()
         print 'tag tree', t1-t2
@@ -244,12 +246,15 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         # as filter. In this case, we can make a shortcut simply by selecting
         # on 'active=1'
         self.display_card_table(run_filter=False)
+        t2 = time.time()
+        print 'display card table', t2-t1
         self.card_model.setFilter("cards.active=1")
         self.card_model.select()
-        print '-update start filter', time.time()-t1
+        t1 = time.time()
+        print 'update start filter', t1-t2
         self.update_card_counters()  
         t2 = time.time()
-        print 'card table', t2-t1
+        print 'update counters', t2-t1        
         self.card_type_tree_wdgt.card_type_tree.\
             itemClicked.connect(self.update_filter)
         self.tag_tree_wdgt.tag_tree_wdgt.\
@@ -271,6 +276,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             self.splitter_2.setSizes([333, 630])
         else:
             self.splitter_2.restoreState(splitter_2_state)
+        print 'total', t2-t0
 
     def context_menu(self, point):
         menu = QtGui.QMenu(self)
@@ -490,7 +496,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         t1 = time.time()
         self.load_qt_database()
         t2 = time.time()
-        print '--load', t2-t1
+        print 'display card table: load', t2-t1
         self.card_model = CardModel(self.component_manager)
         self.card_model.setTable("cards")
         headers = {QUESTION: _("Question"), ANSWER: _("Answer"),
@@ -503,9 +509,11 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
               self.card_model.setHeaderData(key, QtCore.Qt.Horizontal,
                   QtCore.QVariant(value))
         self.table.setModel(self.card_model)
-        table_settings = self.config()["browse_cards_dlg_table_settings"]        
-        if table_settings:
-            self.table.horizontalHeader().restoreState(table_settings)
+        table_settings = self.config()["browse_cards_dlg_table_settings"]
+        # We turn off sorting here: it can be way to slow to enable
+        # on startup.
+        #if table_settings:
+        #    self.table.horizontalHeader().restoreState(table_settings)
         self.table.setItemDelegateForColumn(\
             QUESTION, QA_Delegate(self.component_manager, QUESTION, self))
         self.table.setItemDelegateForColumn(\
@@ -524,7 +532,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             EXTRA_DATA, ACTIVE, SCHEDULER_DATA):            
             self.table.setColumnHidden(column, True)
         t1 = time.time()
-        print '--display', t1-t2 
+        print 'display card table: display', t1-t2 
         query = QtSql.QSqlQuery("select count() from tags")
         query.first()
         self.tag_count = query.value(0).toInt()[0]
@@ -573,13 +581,38 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.tag_tree_wdgt.checked_to_active_tags_in_criterion(criterion)
         if len(criterion._tag_ids_active) == 0:
             filter = "_id='not_there'"
+            
+        #elif len(criterion._tag_ids_active) != self.tag_count:
+        #    if filter:
+        #        filter += "and "
+        #    filter += "_id in (select _card_id from tags_for_card where _tag_id in ("
+        #    for _tag_id in criterion._tag_ids_active:
+        #        filter += "'%s', " % (_tag_id, )
+        #    filter = filter[:-2] + "))"
+
         elif len(criterion._tag_ids_active) != self.tag_count:
             if filter:
                 filter += "and "
-            filter += "_id in (select _card_id from tags_for_card where _tag_id in ("
+                
+            query = "select _card_id from tags_for_card where _tag_id in ("
             for _tag_id in criterion._tag_ids_active:
-                filter += "'%s', " % (_tag_id, )
-            filter = filter[:-2] + "))"                
+                query += "'%s', " % (_tag_id, )
+            query = query[:-2] + ")"
+            query = QtSql.QSqlQuery(query)
+            active__card_ids = set()
+            while query.next():
+                active__card_ids.add(str(query.value(0).toInt()[0]))
+
+            query = QtSql.QSqlQuery("select _id from cards")
+            all__card_ids = set()
+            while query.next():
+                all__card_ids.add(str(query.value(0).toInt()[0]))
+
+            if len(active__card_ids) > len(all__card_ids)/2:
+                filter += "_id not in (" + ",".join(all__card_ids - active__card_ids) + ")"
+            else:
+                filter += "_id in (" + ",".join(active__card_ids) + ")"
+        
         # Search string.
         search_string = unicode(self.search_box.text()).replace("'", "''")
         self.card_model.search_string = search_string
