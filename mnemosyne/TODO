@@ -1,19 +1,17 @@
--sorting causes slowdown. Start unsorted on start, with tooltip when user clicks column
--clean up speedup, see if can be applied to criterion applier too
--remove timing statements
+-leave cramming scheduler overnight (enkelvoud). Remove print
 
 -make sure my own database have new indices
 
--configure dialog is slow on Windows due to server detect
-
 -on a large database, import map.mem is slow.
-
--GUI option for save after N reps, 10 default
 
 -turn off sync media checking by default, add gui option
 
+-configure dialog is slow on Windows due to server detect
+
 
 -rescale window only when answer picture is shown
+
+-show background color also for unrevealed answer
 
 -merge card appearance with settings
 
@@ -195,6 +193,9 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -plugin to store backups on dropbox
 
 -larger interval for initial grade 5?
+
+-worthwhile to apply same tricks from card browser to criterion applier, i.e. inverting selection to
+ go from 'in large set' to 'not in small set'? Max time 0.6 secs, so perhaps not needed that much
 
 -condition coverage
  http://lautaportti.wordpress.com/2011/05/07/test-coverage-analysis/

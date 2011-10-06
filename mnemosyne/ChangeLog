@@ -1,5 +1,7 @@
+-added configuration option 'save after n reps'. Default to 10,
+ for battery and speed reasons.
 -speedups in browse cards, activate cards, show statistics
-
+-fix crash in cramming scheduler (reported by Sheryaar Butt)
 
 MNEMOSYNE 2.0
 
@@ -53,7 +55,8 @@ Other changes:
 -Vhen importing a sound or an image, a copy is made to the 
  .mnemosyne directory. This saves some confusing explaining to new users about
  the difference between relative and absolute paths.
--Mnemosyne now saves after each reviewed card.
+-Mnemosyne can now save after each reviewed card. Default is to only save after
+ 10 reps, to save battery.
 -Avoid showing the same card twice in a row during review.
 -Added option "learn new related cards in same session".
 -Replaced 'number of grade 0 cards to hold in your hand' by 'number of non 

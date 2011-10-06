@@ -97,7 +97,8 @@ class SM2Controller(ReviewController):
         the data gets updated when a new day starts.
 
         """
-        
+
+        print 'heartbeat'
         self.flush_sync_server() 
         self.reset_but_try_to_keep_current_card()
 

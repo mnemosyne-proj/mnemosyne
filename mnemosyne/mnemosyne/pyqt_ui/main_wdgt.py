@@ -36,13 +36,19 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         if state:
             self.restoreGeometry(state)
         self.timer_1 = QtCore.QTimer()
-        self.timer_1.timeout.connect(self.review_controller().heartbeat)
+        self.timer_1.timeout.connect(self.review_controller_heartbeat)
         self.timer_1.start(1000 * 60 * 10)
         self.timer_2 = QtCore.QTimer()
-        self.timer_2.timeout.connect(self.controller().heartbeat)
+        self.timer_2.timeout.connect(self.controller_heartbeat)
         self.timer_2.start(1000 * 60 * 60 * 12)
         self.start_review()
+
+    def review_controller_heartbeat(self):
+        self.review_controller().heartbeat()  # Late binding
         
+    def controller_heartbeat(self):
+        self.controller().heartbeat()  # Late binding
+
     def set_window_title(self, text):
         self.setWindowTitle(text)
         

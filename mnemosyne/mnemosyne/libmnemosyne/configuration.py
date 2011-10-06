@@ -23,14 +23,14 @@ only_editable_when_answer_shown = False
 # The number of daily backups to keep. Set to -1 for no limit.
 backups_to_keep = 10
 
+# Start the card browser with the last used colum sort. Can have a serious
+# performance penalty for large databases.
+start_card_browser_sorted = False
+
 # The moment the new day starts. Defaults to 3 am. Could be useful to change
 # if you are a night bird. You can only set the hours, not minutes, and
 # midnight corresponds to 0.
 day_starts_at = 3
-
-# The number of repetitions that need to happen before autosave.
-# Setting this to 1 means saving after every repetition.
-save_after_n_reps = 1
 
 # On mobile clients with slow SD cards copying a large database for the backup
 # before sync can take longer than the sync itself, so we offer reckless users
@@ -111,8 +111,9 @@ class Configuration(Component, dict):
              "check_for_edited_local_media_files": True,
              "interested_in_old_reps": True,
              "single_database_help_shown": False,
+             "start_card_browser_sorted": False,
              "day_starts_at": 3,
-             "save_after_n_reps": 1,
+             "save_after_n_reps": 10,
              "latex_preamble": "\\documentclass[12pt]{article}\n"+
                               "\\pagestyle{empty}\n\\begin{document}",
              "latex_postamble": "\\end{document}",
