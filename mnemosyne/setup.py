@@ -90,19 +90,6 @@ class build_installer(py2exe):
         py2exe.run(self)
         lib_dir = self.lib_dir
         dist_dir = self.dist_dir
-        # Prepare to install translations. These need to be installed outside of
-        # the zipped archive.
-        #join = os.path.join
-        #pyqt_ui_dir = join("mnemosyne", "pyqt_ui")
-        #locale_dir = join(pyqt_ui_dir, "locale")
-        #os.mkdir(join(dist_dir, "locale"))
-        self.qm_files = []
-        #for p in os.listdir(locale_dir):
-        #    if p.endswith(".qm"):
-        #         src = join(os.path.abspath(locale_dir), p)
-        #         dest = join(join(dist_dir, "locale"), p)
-        #         shutil.copy(src, dest)
-        #         self.qm_files.append(dest)
         # Create the Installer, using the files py2exe has created.
         script = InnoScript("Mnemosyne", lib_dir, dist_dir,
                             self.windows_exe_files, self.lib_files,
@@ -130,7 +117,12 @@ if sys.platform == "win32": # For py2exe.
     for mo in [x for x in glob.glob(os.path.join('mo', '*'))
                if os.path.isdir(x)]:
         p, lang = os.path.split(mo)
-        data_files.append((os.path.join("share", "locale", os.path.split(mo)[1], "LC_MESSAGES"), [os.path.join(mo, "LC_MESSAGES", "mnemosyne.mo")]))
+        data_files.append((os.path.join("share", "locale",
+                                        os.path.split(mo)[1], "LC_MESSAGES"),
+                           [os.path.join(mo, "LC_MESSAGES", "mnemosyne.mo")]))
+    for qm in glob.glob(os.path.join('qm', '*')):
+        data_files.append(os.path.join("share", "qt4", "translations",
+                          os.path.split(qm)[1], qm))
 
 elif sys.platform == "darwin": # For py2app.
     base_path = ""
