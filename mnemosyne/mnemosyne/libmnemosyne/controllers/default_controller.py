@@ -7,7 +7,7 @@ import copy
 import time
 
 from mnemosyne.libmnemosyne.fact import Fact
-from mnemosyne.libmnemosyne.translator import D_, _
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.controller import Controller
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 
@@ -397,7 +397,7 @@ class DefaultController(Controller):
             self.database().delete_fact_view(fact_view)
         self.database().save()
 
-    single_database_help = D_("It is recommended to put all your cards in a single database. Using tags to determine which cards to study is much more convenient than having to load and unload several databases.")
+    single_database_help = _("It is recommended to put all your cards in a single database. Using tags to determine which cards to study is much more convenient than having to load and unload several databases.")
    
     def show_new_file_dialog(self):
         self.stopwatch().pause()

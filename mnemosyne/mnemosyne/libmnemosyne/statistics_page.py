@@ -29,6 +29,10 @@ class StatisticsPage(Component):
     variants = [] # [(variant_id, variant_name)]
     show_variants_in_combobox = True
 
+    def __init__(self, component_manager):
+        Component.__init__(self, component_manager)
+        self.retranslate()
+
     def retranslate(self):
         self.name = _(self.name)
 

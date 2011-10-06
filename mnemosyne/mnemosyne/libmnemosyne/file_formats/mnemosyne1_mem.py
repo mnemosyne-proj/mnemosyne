@@ -9,7 +9,7 @@ import sys
 import time
 import cPickle
 
-from mnemosyne.libmnemosyne.translator import D_, _
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.file_format import FileFormat
 from mnemosyne.libmnemosyne.file_formats.mnemosyne1 import Mnemosyne1
 from mnemosyne.libmnemosyne.file_formats.science_log_parser \
@@ -20,8 +20,8 @@ re_sound = re.compile(r"""<sound src=\".+?\">""", re.DOTALL | re.IGNORECASE)
 
 class Mnemosyne1Mem(FileFormat, Mnemosyne1):
     
-    description = D_("Mnemosyne 1.x *.mem files")
-    filename_filter = D_("Mnemosyne 1.x databases (*.mem)")
+    description = _("Mnemosyne 1.x *.mem files")
+    filename_filter = _("Mnemosyne 1.x databases (*.mem)")
     import_possible = True
     export_possible = False
 

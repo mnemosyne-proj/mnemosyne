@@ -104,7 +104,7 @@ class ComponentManager(object):
                         except:
                             return []
                 return []
-        
+    
     def current(self, comp_type, used_for=None):
         
         """For components for which there can be only one active at any
@@ -117,7 +117,7 @@ class ComponentManager(object):
             return None
         else:
             return all[-1]
-        
+
     def deactivate_all(self):
         for used_for in self.components:
             for comp_type in self.components[used_for]:

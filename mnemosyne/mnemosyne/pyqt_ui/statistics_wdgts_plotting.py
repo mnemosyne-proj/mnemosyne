@@ -27,6 +27,7 @@ class PlotStatisticsWdgt(QtGui.QWidget, StatisticsWidget):
         self.page = page
 
     def activate(self):
+        self.retranslate()
         self.vbox_layout = QtGui.QVBoxLayout(self)        
         from matplotlib.figure import Figure
         from matplotlib.backends.backend_qt4agg import \
@@ -40,6 +41,9 @@ class PlotStatisticsWdgt(QtGui.QWidget, StatisticsWidget):
         self.canvas.setParent(self)
         self.axes = fig.add_subplot(111)
         self.canvas.updateGeometry()
+
+    def retranslate(self):
+        pass
 
     def display_message(self, text):
         self.axes.clear()
@@ -99,7 +103,10 @@ class PlotStatisticsWdgt(QtGui.QWidget, StatisticsWidget):
 class BarChartDaysWdgt(PlotStatisticsWdgt):
 
     colour = "blue"
-    
+
+    def retranslate(self):
+        self.title = _(self.title)
+
     def show_statistics(self, variant):
         self.activate()
         # Determine variant-dependent formatting.
@@ -187,17 +194,14 @@ class BarChartDaysWdgt(PlotStatisticsWdgt):
             
 
 class ScheduleWdgt(BarChartDaysWdgt):
-
-    used_for = Schedule
     title = _("Number of cards scheduled")
-
+    used_for = Schedule
 
 class RetentionScoreWdgt(BarChartDaysWdgt):
 
     used_for = RetentionScore
     colour = "green"
     title = _("Retention score (%)")
-
     
 class CardsAddedWdgt(BarChartDaysWdgt):
 
@@ -205,6 +209,9 @@ class CardsAddedWdgt(BarChartDaysWdgt):
     colour = "red"
     title = _("Number of cards added")
     
+    def activate(self):
+        super(CardsAddedWdgt, self).activate()
+        self.title = _(self.title)
 
 class GradesWdgt(PlotStatisticsWdgt):
 

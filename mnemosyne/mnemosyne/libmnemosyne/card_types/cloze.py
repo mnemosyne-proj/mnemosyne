@@ -4,7 +4,7 @@
 
 import re
 
-from mnemosyne.libmnemosyne.translator import D_
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.card_type import CardType
@@ -36,12 +36,12 @@ class Cloze(CardType):
     """
     
     id = "5"
-    name = D_("Cloze deletion")
+    name = _("Cloze deletion")
 
-    fact_keys_and_names = [("text", D_("Text"))]
+    fact_keys_and_names = [("text", _("Text"))]
     unique_fact_keys = ["text"]
 
-    v = FactView(D_("Cloze"), "5.1")
+    v = FactView(_("Cloze"), "5.1")
     v.q_fact_keys = ["f"]  # Generated on the fly. 
     v.a_fact_keys = ["b"]  # Generated on the fly. 
     fact_views = [v]
@@ -104,8 +104,8 @@ class Cloze(CardType):
 
 class ClozePlugin(Plugin):
 
-    name = D_("Cloze deletion")
-    description = D_("""A card type blanking out certain fragments in a text.
+    name = _("Cloze deletion")
+    description = _("""A card type blanking out certain fragments in a text.
 This card type can be used to blank fragments in a text,
 e.g. \"The capital of France is [Paris]\",
 will give a card with question

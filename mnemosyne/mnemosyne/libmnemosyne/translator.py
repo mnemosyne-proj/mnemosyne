@@ -7,9 +7,6 @@ from mnemosyne.libmnemosyne.component import Component
 
 # Dummy translator for cases where no translator is activated
 _ = lambda s: s
-# Dummy translator that forces translation to be deferred until later [1]
-#   [1] http://docs.python.org/library/gettext.html#deferred-translations
-D_ = lambda s: s
 
 class Translator(Component):
 
@@ -71,5 +68,5 @@ class GetTextTranslator(Translator):
     def __call__(self, text):
         try:
             return self._gettext.ugettext(text)
-        except:
+        except AttributeError:
             return text

@@ -2,13 +2,13 @@
 # retention_score.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.translator import D_, _
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.statistics_page import PlotStatisticsPage
 
 
 class RetentionScore(PlotStatisticsPage):
 
-    name = D_("Retention score")
+    name = _("Retention score")
 
     LAST_WEEK = 1
     LAST_MONTH = 2
@@ -16,11 +16,11 @@ class RetentionScore(PlotStatisticsPage):
     LAST_6_MONTHS = 4
     LAST_YEAR = 5
 
-    variants = [(LAST_WEEK, D_("Last week")),
-                (LAST_MONTH, D_("Last month")),
-                (LAST_3_MONTHS, D_("Last 3 months")),
-                (LAST_6_MONTHS, D_("Last 6 months")),                
-                (LAST_YEAR, D_("Last year"))]
+    variants = [(LAST_WEEK, _("Last week")),
+                (LAST_MONTH, _("Last month")),
+                (LAST_3_MONTHS, _("Last 3 months")),
+                (LAST_6_MONTHS, _("Last 6 months")),                
+                (LAST_YEAR, _("Last year"))]
 
     def retranslate(self):
         self.name = _(self.name)

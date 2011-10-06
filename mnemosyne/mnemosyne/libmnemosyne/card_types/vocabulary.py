@@ -2,7 +2,7 @@
 # vocabulary.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.translator import D_
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
@@ -12,21 +12,21 @@ from mnemosyne.libmnemosyne.card_type_converter import CardTypeConverter
 class Vocabulary(CardType):
     
     id = "3"
-    name = D_("Vocabulary")
+    name = _("Vocabulary")
 
     # List and name the keys.
-    fact_keys_and_names = [("f", D_("Foreign word or expression")),
-                           ("p_1", D_("Pronunciation")),
-                           ("m_1", D_("Meaning")),
-                           ("n", D_("Notes"))]
+    fact_keys_and_names = [("f", _("Foreign word or expression")),
+                           ("p_1", _("Pronunciation")),
+                           ("m_1", _("Meaning")),
+                           ("n", _("Notes"))]
 
     # Recognition.
-    v1 = FactView(D_("Recognition"), "3.1")
+    v1 = FactView(_("Recognition"), "3.1")
     v1.q_fact_keys = ["f"]
     v1.a_fact_keys = ["p_1", "m_1", "n"]
 
     # Production.
-    v2 = FactView(D_("Production"), "3.2")
+    v2 = FactView(_("Production"), "3.2")
     v2.q_fact_keys = ["m_1"]
     v2.a_fact_keys = ["f", "p_1", "n"]
     

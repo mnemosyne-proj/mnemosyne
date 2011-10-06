@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-09-27 12:52+CEST\n"
+"POT-Creation-Date: 2011-09-30 14:16+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,44 +48,44 @@ msgstr ""
 msgid "Creating temporary database."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/card_types/both_ways.py:15
+#: ../mnemosyne/libmnemosyne/card_types/both_ways.py:16
 msgid "Front-to-back and back-to-front"
-msgstr ""
-
-#: ../mnemosyne/libmnemosyne/card_types/both_ways.py:18
-#: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:16
-msgid "Front"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:19
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:17
+msgid "Front"
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/card_types/both_ways.py:20
+#: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:18
 msgid "Back"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/card_types/both_ways.py:22
-#: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:20
+#: ../mnemosyne/libmnemosyne/card_types/both_ways.py:23
+#: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:21
 msgid "Front-to-back"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/card_types/both_ways.py:27
+#: ../mnemosyne/libmnemosyne/card_types/both_ways.py:28
 msgid "Back-to-front"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/card_types/cloze.py:39
-#: ../mnemosyne/libmnemosyne/card_types/cloze.py:107
+#: ../mnemosyne/libmnemosyne/card_types/cloze.py:40
+#: ../mnemosyne/libmnemosyne/card_types/cloze.py:108
 msgid "Cloze deletion"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/card_types/cloze.py:41
+#: ../mnemosyne/libmnemosyne/card_types/cloze.py:42
 #: ../mnemosyne/pyqt_ui/card_appearance_dlg.py:55
 msgid "Text"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/card_types/cloze.py:44
+#: ../mnemosyne/libmnemosyne/card_types/cloze.py:45
 msgid "Cloze"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/card_types/cloze.py:108
+#: ../mnemosyne/libmnemosyne/card_types/cloze.py:109
 msgid ""
 "A card type blanking out certain fragments in a text.\n"
 "This card type can be used to blank fragments in a text,\n"
@@ -94,7 +94,7 @@ msgid ""
 "\"The capital of France is [...] "
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:13
+#: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:14
 msgid "Front-to-back only"
 msgstr ""
 
@@ -139,15 +139,15 @@ msgstr ""
 msgid "Notes"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/configuration.py:174
+#: ../mnemosyne/libmnemosyne/configuration.py:175
 msgid "Error in config:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/configuration.py:183
+#: ../mnemosyne/libmnemosyne/configuration.py:184
 msgid "Unable to save config file:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/configuration.py:331
+#: ../mnemosyne/libmnemosyne/configuration.py:332
 msgid "Error in config.py:"
 msgstr ""
 

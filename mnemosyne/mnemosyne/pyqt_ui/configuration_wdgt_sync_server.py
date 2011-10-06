@@ -4,9 +4,9 @@
 
 import socket
 import httplib
-from PyQt4 import QtCore, QtGui
+from PyQt4 import QtGui
 
-from mnemosyne.libmnemosyne.translator import D_, _
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.ui_components.configuration_widget import \
      ConfigurationWidget
 from mnemosyne.pyqt_ui.ui_configuration_wdgt_sync_server import \
@@ -25,7 +25,7 @@ def localhost_IP():
 class ConfigurationWdgtSyncServer(QtGui.QWidget,
     Ui_ConfigurationWdgtSyncServer, ConfigurationWidget):
 
-    name = D_("Sync server")
+    name = _("Sync server")
 
     def __init__(self, component_manager, parent):
         ConfigurationWidget.__init__(self, component_manager)

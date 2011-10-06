@@ -2,7 +2,7 @@
 # both_ways.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.translator import D_
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
@@ -12,19 +12,19 @@ from mnemosyne.libmnemosyne.card_type_converter import CardTypeConverter
 class BothWays(CardType):
 
     id = "2"
-    name = D_("Front-to-back and back-to-front")
+    name = _("Front-to-back and back-to-front")
 
     # List and name the keys.
-    fact_keys_and_names = [("f", D_("Front")),
-                           ("b", D_("Back"))]
+    fact_keys_and_names = [("f", _("Front")),
+                           ("b", _("Back"))]
     
     # Front-to-back.
-    v1 = FactView(D_("Front-to-back"), "2.1")
+    v1 = FactView(_("Front-to-back"), "2.1")
     v1.q_fact_keys = ["f"]
     v1.a_fact_keys = ["b"]
 
     # Back-to-front.
-    v2 = FactView(D_("Back-to-front"), "2.2",)
+    v2 = FactView(_("Back-to-front"), "2.2",)
     v2.q_fact_keys = ["b"]
     v2.a_fact_keys = ["f"]
     

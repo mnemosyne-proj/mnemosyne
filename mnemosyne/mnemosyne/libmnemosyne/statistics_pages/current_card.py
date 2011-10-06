@@ -2,14 +2,14 @@
 # current_card.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.translator import D_, _
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.statistics_page import HtmlStatisticsPage
 
 DAY = 24 * 60 * 60 # Seconds in a day.
 
 class CurrentCard(HtmlStatisticsPage):
 
-    name = D_("Current card")
+    name = _("Current card")
         
     def prepare_statistics(self, variant):
         card = self.review_controller().card

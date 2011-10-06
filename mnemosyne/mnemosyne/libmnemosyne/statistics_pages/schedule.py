@@ -2,13 +2,13 @@
 # schedule.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.translator import D_, _
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.statistics_page import PlotStatisticsPage
 
 
 class Schedule(PlotStatisticsPage):
 
-    name = D_("Schedule")
+    name = _("Schedule")
     
     NEXT_WEEK = 1
     NEXT_MONTH = 2
@@ -21,16 +21,16 @@ class Schedule(PlotStatisticsPage):
     LAST_6_MONTHS = 9
     LAST_YEAR = 10
 
-    variants = [(NEXT_WEEK, D_("Next week")),
-                (NEXT_MONTH, D_("Next month")),
-                (NEXT_3_MONTHS, D_("Next 3 months")),
-                (NEXT_6_MONTHS, D_("Next 6 months")),
-                (NEXT_YEAR, D_("Next year")),
-                (LAST_WEEK, D_("Last week")),
-                (LAST_MONTH, D_("Last month")),
-                (LAST_3_MONTHS, D_("Last 3 months")),
-                (LAST_6_MONTHS, D_("Last 6 months")),  
-                (LAST_YEAR, D_("Last year"))]
+    variants = [(NEXT_WEEK, _("Next week")),
+                (NEXT_MONTH, _("Next month")),
+                (NEXT_3_MONTHS, _("Next 3 months")),
+                (NEXT_6_MONTHS, _("Next 6 months")),
+                (NEXT_YEAR, _("Next year")),
+                (LAST_WEEK, _("Last week")),
+                (LAST_MONTH, _("Last month")),
+                (LAST_3_MONTHS, _("Last 3 months")),
+                (LAST_6_MONTHS, _("Last 6 months")),  
+                (LAST_YEAR, _("Last year"))]
 
     def retranslate(self):
         self.name = _(self.name)
