@@ -98,7 +98,6 @@ class SM2Controller(ReviewController):
 
         """
 
-        print 'heartbeat'
         self.flush_sync_server() 
         self.reset_but_try_to_keep_current_card()
 

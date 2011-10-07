@@ -1,8 +1,6 @@
--Cramming scheduler changes card on heartbear,  remove print
-
 -make sure my own database have new indices
 
--on a large database, import map.mem is slow.
+-check sound files with unicode under Windows
 
 -turn off sync media checking by default, add gui option
 
@@ -236,6 +234,9 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -easier function to do tag detection in plugin
 
 -join add tags/remove tags in a single dialog? http://bit.ly/oOK27n 
+
+-Cramming scheduler changes card on heartbeart. Make something like 
+ 'reset_and_add_current_card_to_queue_if_needed'?
 
 
 pylint:

@@ -22,7 +22,7 @@ class Mp3ClipPrevention(Filter):
         match = re_mp3.match(text)
         if not match:
             return text
-        mp3 = file(match.group(1).replace("file:\\\\", ""))
+        mp3 = file(match.group(1).replace("file:\\\\\\", ""))
         outname = os.path.join(self.database().media_dir(), "___.mp3") 
         mp3_silence = file(outname, 'wb')
         mp3_silence.write(mp3.read())

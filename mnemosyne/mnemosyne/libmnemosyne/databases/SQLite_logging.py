@@ -255,7 +255,7 @@ class SQLiteLogging(object):
     # logs. They are needed to store temporary data about cards which is used
     # during the parsing process.
 
-    def before_mem_import(self):
+    def before_1x_log_import(self):
         if not self.con.execute("pragma table_info(cards_data)").fetchall():
             self.con.execute("""create temp table _cards(
                 id text primary key,
@@ -265,7 +265,7 @@ class SQLiteLogging(object):
         self.con.execute("drop index if exists i_log_timestamp;")
         self.con.execute("drop index if exists i_log_object_id;")
 
-    def after_mem_import(self):
+    def after_1x_log_import(self):
         self.con.execute("drop table _cards")
         # Restore index situation.
         self.con.execute("create index i_log_timestamp on log (timestamp);")
@@ -299,15 +299,12 @@ class SQLiteLogging(object):
             acq_reps_since_lapse, sql_res["_id"]))
 
     def remove_card_log_entries_since(self, index):
-
         # Note that it is only safe to use this in case theses entries have
         # never been exposed to a sync. Their use during the import procedure
-        # is therefore OK.
-        
+        # is therefore OK.   
         self.con.execute("""delete from log where _id>? and
             (event_type=? or event_type=?)""",
             (index, EventTypes.ADDED_CARD, EventTypes.EDITED_CARD))
-        self.con.execute("vacuum")
 
     def add_missing_added_card_log_entries(self, id_set):
 

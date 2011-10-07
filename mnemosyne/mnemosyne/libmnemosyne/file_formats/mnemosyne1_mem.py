@@ -32,8 +32,6 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         w = self.main_widget()
         w.set_progress_text(_("Importing cards..."))
         db = self.database()
-        # Manage database indexes.
-        db.before_mem_import()
         # The import process generates card log entries, which we will delete
         # in favour of those events that are recorded in the logs and which
         # capture the true timestamps. They also have new 2.0 ids, as opposed
@@ -46,14 +44,7 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
             w.close_progress()
             return
         db.remove_card_log_entries_since(log_index)
-        # The events that we import from the science logs obviously should not
-        # be reexported to these logs (this is true for both the archived logs
-        # and log.txt). So, before the import, we flush the SQL logs to the
-        # science logs, and after the import we edit the partership index to
-        # skip these entries.
-        db.dump_to_science_log()
         self.import_logs(filename)
-        db.skip_science_log()
         # Force an ADDED_CARD log entry for those cards that did not figure in
         # the txt logs, e.g. due to missing or corrupt logs.
         db.add_missing_added_card_log_entries(
@@ -65,8 +56,6 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         timestamp = int(time.time())
         for item in self.items:
             db.log_edited_card(timestamp, item.id)
-        # Manage database indexes.
-        db.after_mem_import()
         # Detect inverses.        
         db.link_inverse_cards()
         w.close_progress()
@@ -87,14 +76,21 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
 
     def import_logs(self, filename):
         w = self.main_widget()
+        db = self.database()
         w.set_progress_text(_("Importing history..."))
-        parser = ScienceLogParser(self.database(),
-            ids_to_parse=self.items_by_id)
         log_dir = os.path.join(os.path.dirname(filename), "history")
         if not os.path.exists(log_dir):
             w.close_progress()
             w.show_information(_("No history found to import."))
             return
+        # The events that we import from the science logs obviously should not
+        # be reexported to these logs (this is true for both the archived logs
+        # and log.txt). So, before the import, we flush the SQL logs to the
+        # science logs, and after the import we edit the partership index to
+        # skip these entries.
+        db.dump_to_science_log()
+        # Manage database indexes.
+        db.before_1x_log_import()
         filenames = [os.path.join(log_dir, logname) for logname in \
             sorted(os.listdir(unicode(log_dir))) if logname.endswith(".bz2")]       
         # log.txt can also contain data we need to import, especially on the
@@ -105,6 +101,8 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         filenames.append(os.path.join(os.path.dirname(filename), "log.txt"))
         w.set_progress_range(0, len(filenames))
         ignored_files = []
+        parser = ScienceLogParser(self.database(),
+            ids_to_parse=self.items_by_id)
         for count, filename in enumerate(filenames):
             w.set_progress_value(count)
             try:
@@ -114,4 +112,6 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         if ignored_files:
             w.show_information(_("Ignoring unparsable files:<br/>") +\
                 '<br/>'.join(ignored_files))
-        w.close_progress()
+        # Manage database indexes.
+        db.after_1x_log_import()
+        db.skip_science_log()

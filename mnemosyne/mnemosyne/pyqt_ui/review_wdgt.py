@@ -68,6 +68,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.review_controller().show_answer()
 
     def grade_answer(self, grade):
+        self.main_widget().timer_1.start(self.main_widget().TIMER_1_INTERVAL)
         self.review_controller().grade_answer(grade)
 
     def set_question_box_visible(self, is_visible):

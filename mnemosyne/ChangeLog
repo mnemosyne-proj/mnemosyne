@@ -1,6 +1,7 @@
 -added configuration option 'save after n reps'. Default to 10,
  for battery and speed reasons.
 -speedups in browse cards, activate cards, show statistics
+-fix sound files with unicode filenames (reported by silverbear)
 -fix crash in cramming scheduler (reported by Sheryaar Butt)
 
 MNEMOSYNE 2.0
