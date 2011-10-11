@@ -25,7 +25,6 @@ class InnoScript:
         self.version = version
         self.windows_exe_files = [self.chop(p) for p in windows_exe_files]
         self.lib_files = [self.chop(p) for p in lib_files]
-        self.qm_files = [self.chop(p) for p in qm_files]
 
     def chop(self, pathname):
         assert pathname.startswith(self.dist_dir)
@@ -45,7 +44,7 @@ class InnoScript:
         print >> ofi
 
         print >> ofi, r"[Files]"
-        for path in self.windows_exe_files + self.lib_files + self.qm_files:
+        for path in self.windows_exe_files + self.lib_files:
             print >> ofi, r'Source: "%s"; DestDir: "{app}\%s"; Flags: ignoreversion' \
                                     % (path, os.path.dirname(path))
         print >> ofi
@@ -93,7 +92,7 @@ class build_installer(py2exe):
         # Create the Installer, using the files py2exe has created.
         script = InnoScript("Mnemosyne", lib_dir, dist_dir,
                             self.windows_exe_files, self.lib_files,
-                            self.qm_files, version=mnemosyne.version.version)
+                            version=mnemosyne.version.version)
         script.create()
         script.compile()
         # Note: the final setup.exe will be in an Output subdirectory.
@@ -120,9 +119,8 @@ if sys.platform == "win32": # For py2exe.
         data_files.append((os.path.join("share", "locale",
                                         os.path.split(mo)[1], "LC_MESSAGES"),
                            [os.path.join(mo, "LC_MESSAGES", "mnemosyne.mo")]))
-    for qm in glob.glob(os.path.join('qm', '*')):
-        data_files.append(os.path.join("share", "qt4", "translations",
-                          os.path.split(qm)[1], qm))
+        data_files.append((os.path.join("share", "qt4", "translations"),
+                           glob.glob(os.path.join('qm', '*'))))
 
 elif sys.platform == "darwin": # For py2app.
     base_path = ""
