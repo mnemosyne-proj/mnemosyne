@@ -43,13 +43,17 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
             self.server_status.setText(_("Server NOT running."))   
 
     def is_server_running(self):
+        timeout = socket.getdefaulttimeout()
         try:
+            socket.setdefaulttimeout(0.1)
             con = httplib.HTTPConnection(localhost_IP(),
                 self.config()["port_for_sync_as_server"])
             con.request("GET", "/status")
             assert "OK" in con.getresponse().read()
+            socket.setdefaulttimeout(timeout)
             return True
         except socket.error:
+            socket.setdefaulttimeout(timeout)
             return False
 
     def reset_to_defaults(self):

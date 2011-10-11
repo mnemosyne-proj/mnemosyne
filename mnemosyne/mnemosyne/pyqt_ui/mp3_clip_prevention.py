@@ -19,6 +19,7 @@ class Mp3ClipPrevention(Filter):
     """
 
     def run(self, text, card, fact_key):
+        self.main_widget().show_information(text.replace("<", "&lt;"))
         match = re_mp3.match(text)
         if not match:
             return text
@@ -28,7 +29,7 @@ class Mp3ClipPrevention(Filter):
         mp3_silence.write(mp3.read())
         silence = QtCore.QFile(":/mnemosyne/pixmaps/silence.mp3")
         silence.open(QtCore.QIODevice.ReadOnly)
-        mp3_silence.write(silence.readAll())             
+        mp3_silence.write(silence.readAll())          
         return re.sub(re_mp3, """<audio src=\"%s\"""" % outname, text)
     
         
