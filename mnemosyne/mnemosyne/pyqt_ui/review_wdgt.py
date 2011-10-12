@@ -91,7 +91,6 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.question_label.setText(text)
 
     def set_question(self, text):
-        self.main_widget().show_information(text.replace("<", "&lt;"))
         self.set_stretch_factors()
         self.question.setHtml(text)
         

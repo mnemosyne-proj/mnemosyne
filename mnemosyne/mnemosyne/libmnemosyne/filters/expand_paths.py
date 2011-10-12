@@ -11,7 +11,6 @@ class ExpandPaths(Filter):
     """Fill out relative paths for src tags (e.g. img src or sound src)."""
 
     def run(self, text, card, fact_key, **render_args):
-        self.main_widget().show_information("expand" + text.replace("<", "&lt;") + "\n" + self.database().media_dir() )
         i = text.lower().find("src")
         while i != -1:
             start = text.find("\"", i)
@@ -19,7 +18,7 @@ class ExpandPaths(Filter):
             if start == -1 or end == -1:
                 break
             old_path = text[start+1:end]
-            text = text[:start+1] + "file:\\\\\\" + expand_path(old_path,
+            text = text[:start+1] + "file:" + "\\\\\\" + expand_path(old_path,
                 self.database().media_dir()) + text[end:]
             # Since text is always longer now, we can start searching
             # from the previous end tag.

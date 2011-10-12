@@ -1,5 +1,8 @@
 -get sound files with unicode to work under Windows, both with and without clip prevention
--move to regex for expand paths?
+-re.match vs re.search elsewhere, add tests
+-check sound files both in preview and as active card
+
+-merge translation work by Johannes
 
 -turn off sync media checking by default, add gui option
 
@@ -99,6 +102,9 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 
 -activate cards: 'having any of these tags:' is not aligned with tag with tag tree
 
+-auto detect RTL '(arabic) arabic' in lineedit shows up as 'arabic) arabic)' in webkit
+http://dotancohen.com/howto/rtl_right_to_left.html
+
 -Windows makefile: ln -s pyuic4.bat pyuic, full path to python, py2exe needed, rename mnemosyne to mnemosyne.py, numpy
 -py2exe: downloads 64 bit by default
 -py2exe: download: http://www.microsoft.com/downloads/en/details.aspx?FamilyID=9b2da534-3e03-4391-8a4d-074b9f2bc1bf&displaylang=en
@@ -113,7 +119,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -Qt bug? Cannot restore scroll_to column in card browser after tag rename.
 -Qt bug? Cntl+a select all in card browser only selects all the prefetched entries
 -Qt bug? insertAtTop on tags combobox in add_cards does not seem to work
--Qt bug? '(arabic) arabic' in lineedit shows up as 'arabic) arabic)' in webkit
 -Qt bug? choose named colours: crash
 -Qt bug? Windows: progress bars for sync often crash when they get called too quickly
  (reproduce: download_binary_database for HTTP 1.0)
