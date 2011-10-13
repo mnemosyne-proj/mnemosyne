@@ -223,7 +223,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             self.container_2)
         self.layout_2.addWidget(self.label_3)
         self.search_box = QtGui.QLineEdit(self.container_2)
-        self.search_box.textChanged.connect(self.update_filter)
+        self.search_box.textChanged.connect(self.search_text_changed)
+        self.timer = QtCore.QTimer(self)
+        self.timer.setSingleShot(True)
+        self.timer.timeout.connect(self.update_filter)
         self.search_box.setFocus()
         self.layout_2.addWidget(self.search_box)
         self.splitter_1.insertWidget(1, self.container_2)
@@ -231,8 +234,13 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         criterion = self.database().current_criterion()
         self.card_type_tree_wdgt.display(criterion)
         self.tag_tree_wdgt.display(criterion)
-        self.display_card_table()
-        self.update_filter()
+        # When starting the widget, we default with the current criterion
+        # as filter. In this case, we can make a shortcut simply by selecting
+        # on 'active=1'
+        self.display_card_table(run_filter=False)
+        self.card_model.setFilter("cards.active=1")
+        self.card_model.select()
+        self.update_card_counters()       
         self.card_type_tree_wdgt.card_type_tree.\
             itemClicked.connect(self.update_filter)
         self.tag_tree_wdgt.tag_tree_wdgt.\
@@ -469,7 +477,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         QtSql.QSqlDatabase.removeDatabase(\
             QtSql.QSqlDatabase.database().connectionName())
 
-    def display_card_table(self):
+    def display_card_table(self, run_filter=True):
         self.load_qt_database()
         self.card_model = CardModel(self.component_manager)
         self.card_model.setTable("cards")
@@ -483,8 +491,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
               self.card_model.setHeaderData(key, QtCore.Qt.Horizontal,
                   QtCore.QVariant(value))
         self.table.setModel(self.card_model)
-        table_settings = self.config()["browse_cards_dlg_table_settings"]        
-        if table_settings:
+        self.table.horizontalHeader().sectionClicked.connect(\
+            self.horizontal_header_section_clicked)
+        table_settings = self.config()["browse_cards_dlg_table_settings"]
+        if table_settings and self.config()["start_card_browser_sorted"]:
             self.table.horizontalHeader().restoreState(table_settings)
         self.table.setItemDelegateForColumn(\
             QUESTION, QA_Delegate(self.component_manager, QUESTION, self))
@@ -506,9 +516,8 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         query = QtSql.QSqlQuery("select count() from tags")
         query.first()
         self.tag_count = query.value(0).toInt()[0]
-        self.update_filter() # Needed after tag rename.
-        self.update_card_counters()
-        self.card_model.select()
+        if run_filter:
+            self.update_filter() # Needed after tag rename.
         if self.saved_index:
             # All of the statements below are needed.
             # Qt does not (yet) seem to allow to restore the previous column
@@ -527,10 +536,20 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
                 for index in self.saved_selection:
                     self.table.selectRow(index.row())
             self.table.setSelectionMode(old_selection_mode)
+
+    def horizontal_header_section_clicked(self, index):
+        if not self.config()["browse_cards_dlg_sorting_warning_shown"]:
+            self.main_widget().show_information(_("You chose to sort this table. Operations in the card browser could now be slower. Next time you start the card browser, the table will be unsorted again."))
+            self.config()["browse_cards_dlg_sorting_warning_shown"] = True
             
     def activate(self):
         self.retranslateUi(self)
         self.exec_()
+
+    def search_text_changed(self):
+        # Don't immediately start updating the filter, but wait until the last
+        # keypress was 300 ms ago.
+        self.timer.start(300)
 
     def update_filter(self):
         # Card types and fact views.
@@ -550,10 +569,26 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         elif len(criterion._tag_ids_active) != self.tag_count:
             if filter:
                 filter += "and "
-            filter += "_id in (select _card_id from tags_for_card where "
+            # Determine all _card_ids. 
+            query = QtSql.QSqlQuery("select _id from cards")
+            all__card_ids = set()
+            while query.next():
+                all__card_ids.add(str(query.value(0).toInt()[0]))
+            # Determine _card_ids of card with an active tag.    
+            query = "select _card_id from tags_for_card where _tag_id in ("
             for _tag_id in criterion._tag_ids_active:
-                filter += "_tag_id='%s' or " % (_tag_id, )
-            filter = filter.rsplit("or ", 1)[0] + ")"
+                query += "'%s', " % (_tag_id, )
+            query = query[:-2] + ")"
+            query = QtSql.QSqlQuery(query)
+            active__card_ids = set()
+            while query.next():
+                active__card_ids.add(str(query.value(0).toInt()[0]))
+            # Construct most optimal query. 
+            if len(active__card_ids) > len(all__card_ids)/2:
+                filter += "_id not in (" + \
+                    ",".join(all__card_ids - active__card_ids) + ")"
+            else:
+                filter += "_id in (" + ",".join(active__card_ids) + ")"  
         # Search string.
         search_string = unicode(self.search_box.text()).replace("'", "''")
         self.card_model.search_string = search_string

@@ -171,6 +171,29 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
         state = self.config()["add_cards_dlg_state"]
         if state:
             self.restoreGeometry(state)
+            
+    def keyPressEvent(self, event):
+        # Note: for the following to work reliably, there should be no
+        # shortcuts defined in the ui file.
+        if self.yet_to_learn_button.isEnabled() and event.modifiers() in \
+            [QtCore.Qt.ControlModifier, QtCore.Qt.AltModifier]:
+            if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return,
+                QtCore.Qt.Key_Y, QtCore.Qt.Key_0, QtCore.Qt.Key_1]:
+                self.create_new_cards(-1)
+            elif event.key() == QtCore.Qt.Key_2:
+                self.create_new_cards(2)
+            elif event.key() == QtCore.Qt.Key_3:
+                self.create_new_cards(3)
+            elif event.key() == QtCore.Qt.Key_4:
+                self.create_new_cards(4)
+            elif event.key() == QtCore.Qt.Key_5:
+                self.create_new_cards(5)
+            elif event.key() == QtCore.Qt.Key_P:
+                self.preview()
+            elif event.key() == QtCore.Qt.Key_E:
+                self.reject()            
+        else:
+            return QtGui.QDialog.keyPressEvent(self, event)
     
     def set_valid(self, valid):
         self.grade_buttons.setEnabled(valid)

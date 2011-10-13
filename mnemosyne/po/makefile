@@ -12,4 +12,4 @@ clean:
 
 update:
 	cd ../mnemosyne/pyqt_ui && make
-	pygettext -k D_ -o mnemosyne.pot ..
+	pygettext -o mnemosyne.pot ..

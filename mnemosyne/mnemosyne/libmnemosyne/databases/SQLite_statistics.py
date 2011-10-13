@@ -81,6 +81,8 @@ class SQLiteStatistics(object):
             raise NotImplementedError
         query = "select count(distinct _card_id) from tags_for_card where "
         args = []
+        # Since tag typically contains 1 element, a query with 'or' is faster
+        # than one with 'in ()'.
         for tag in tags:
             query += "_tag_id=? or "
             args.append(tag._id)

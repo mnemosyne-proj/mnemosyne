@@ -9,8 +9,11 @@ from nose.tools import raises
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
 from openSM2sync.log_entry import EventTypes
+from mnemosyne.libmnemosyne.ui_components.dialogs import ImportDialog
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 from mnemosyne.libmnemosyne.file_formats.science_log_parser import ScienceLogParser
+
+last_error = ""
 
 class Widget(MainWidget):
         
@@ -29,12 +32,24 @@ class Widget(MainWidget):
         raise NotImplementedError
 
     def show_error(self, message):
-        if message.startswith("This file seems to have been imported before"):
+        global last_error
+        last_error = message
+        if message.startswith("These cards seem to have been imported before"):
             return
         if message.startswith("Unable to open"):
             return
         raise NotImplementedError
 
+    
+class MyImportDialog(ImportDialog):
+
+    def activate(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "basedir_sch",
+                                "default.mem")
+        for format in self.component_manager.all("file_format"):
+            if format.__class__.__name__ == "Mnemosyne1Mem":
+                format.do_import(filename)
+    
 
 class TestMemImport(MnemosyneTest):
 
@@ -49,6 +64,8 @@ class TestMemImport(MnemosyneTest):
                              "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("test_mem_import", "Widget"))
+        self.mnemosyne.components.append(\
+            ("test_mem_import", "MyImportDialog"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.review_controller().reset()
         
@@ -59,7 +76,8 @@ class TestMemImport(MnemosyneTest):
 
     def test_file_not_found(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "nothere.mem")
-        assert self.mem_importer().do_import(filename) == -1
+        self.mem_importer().do_import(filename)
+        assert last_error.startswith("Unable to open")
         
     def test_card_type_1(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "1sided.mem")
@@ -107,7 +125,8 @@ class TestMemImport(MnemosyneTest):
         assert card.id == "9cff728f"
         assert "question" in card.question()
         filename = os.path.join(os.getcwd(), "tests", "files", "1sided.mem")
-        assert self.mem_importer().do_import(filename) == -2      
+        self.mem_importer().do_import(filename)
+        assert last_error.startswith("These cards seem to have been imported before")
         
     def test_card_type_2(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "2sided.mem")
@@ -661,14 +680,7 @@ class TestMemImport(MnemosyneTest):
             ("82f2ed0d", )).fetchone()[0] == 0
         
     def test_sch(self):
-        # TODO: rewrite this so that this goes through the import controller
-        # and remove log event here, so that we can check if the log event
-        # happens in the controller
-        filename = os.path.join(os.getcwd(), "tests", "files", "basedir_sch",
-                                "default.mem")
-        self.mem_importer().do_import(filename)
-        self.database().save()
-        self.log().saved_database()
+        self.controller().show_import_file_dialog()
         assert self.database().card_count_scheduled_n_days_ago(0) == 1
         
     def test_upgrade(self):

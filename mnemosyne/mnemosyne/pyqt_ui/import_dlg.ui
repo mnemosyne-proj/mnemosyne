@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>396</width>
-    <height>322</height>
+    <width>292</width>
+    <height>178</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="fileformats">
+      <widget class="QComboBox" name="file_formats">
        <property name="editable">
         <bool>false</bool>
        </property>
@@ -52,12 +52,15 @@
      <item>
       <layout class="QHBoxLayout">
        <item>
-        <widget class="QLineEdit" name="filename"/>
+        <widget class="QLineEdit" name="filename_box"/>
        </item>
        <item>
         <widget class="QPushButton" name="browse_button">
          <property name="text">
           <string>&amp;Browse</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
          </property>
         </widget>
        </item>
@@ -66,7 +69,7 @@
      <item>
       <widget class="QLabel" name="textLabel2">
        <property name="text">
-        <string>Put cards without category into this category:</string>
+        <string>Add additional tag to cards:</string>
        </property>
        <property name="wordWrap">
         <bool>false</bool>
@@ -74,7 +77,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="categories">
+      <widget class="QComboBox" name="tags">
        <property name="editable">
         <bool>true</bool>
        </property>
@@ -83,23 +86,6 @@
        </property>
        <property name="duplicatesEnabled">
         <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="textLabel3">
-       <property name="text">
-        <string>Note: all cards will be added to the current database.</string>
-       </property>
-       <property name="wordWrap">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="reset_box">
-       <property name="text">
-        <string>Reset learning data on import</string>
        </property>
       </widget>
      </item>
@@ -139,8 +125,11 @@
          <property name="text">
           <string>&amp;Cancel</string>
          </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
          <property name="default">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
         </widget>
        </item>
@@ -153,11 +142,10 @@
  <layoutdefault spacing="6" margin="11"/>
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <tabstops>
-  <tabstop>filename</tabstop>
+  <tabstop>filename_box</tabstop>
   <tabstop>browse_button</tabstop>
-  <tabstop>fileformats</tabstop>
-  <tabstop>categories</tabstop>
-  <tabstop>reset_box</tabstop>
+  <tabstop>file_formats</tabstop>
+  <tabstop>tags</tabstop>
   <tabstop>ok_button</tabstop>
   <tabstop>cancel_button</tabstop>
  </tabstops>
@@ -176,6 +164,54 @@
     <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>browse_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ImportDlg</receiver>
+   <slot>browse()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>250</x>
+     <y>83</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>145</x>
+     <y>88</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ok_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ImportDlg</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>27</x>
+     <y>159</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>145</x>
+     <y>88</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>file_formats</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>ImportDlg</receiver>
+   <slot>file_format_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>145</x>
+     <y>35</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>145</x>
+     <y>88</y>
     </hint>
    </hints>
   </connection>

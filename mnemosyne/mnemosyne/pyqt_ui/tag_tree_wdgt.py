@@ -84,7 +84,6 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             before_using_libmnemosyne_db_hook=None,
             after_using_libmnemosyne_db_hook=None):
         Component.__init__(self, component_manager)
-        self.tag_tree = TagTree(self.component_manager)
         QtGui.QWidget.__init__(self, parent)
         self.before_using_libmnemosyne_db_hook = \
             before_using_libmnemosyne_db_hook
@@ -206,6 +205,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             for tag in self.database().tags():
                 criterion._tag_ids_active.add(tag._id)            
         # Create tree.
+        self.tag_tree = TagTree(self.component_manager)
         self.tag_tree_wdgt.clear()
         self.tag_for_node_item = {}
         node = "__ALL__"

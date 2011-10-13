@@ -2,12 +2,13 @@
 # import_dlg.py <Johannes.Baiter@gmail.com>
 #
 
+import os
 from PyQt4 import QtGui, QtCore
 
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.pyqt_ui.ui_import_dlg import Ui_ImportDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import ImportDialog
+
 
 class ImportDlg(QtGui.QDialog, Ui_ImportDlg, ImportDialog):
     
@@ -15,37 +16,61 @@ class ImportDlg(QtGui.QDialog, Ui_ImportDlg, ImportDialog):
         ImportDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
+        # File formats.
+        i = 0
+        current_index = None
         for format in self.component_manager.all("file_format"):
-            self.fileformats.addItem(format.description)
+            self.file_formats.addItem(format.description)
+            if type(format) == self.config()["import_format"]:
+                current_index = i
+            i += 1
+        if current_index is not None:
+            self.file_formats.setCurrentIndex(current_index)             
+        # Extra tag.
+        i = 0
+        current_index = None
         for tag in self.database().tags():
-            self.categories.addItem(tag.name)
+            if tag.name != "__UNTAGGED__":
+                self.tags.addItem(tag.name)
+                i += 1
+            if tag.name == self.config()["import_extra_tag_name"]:
+                current_index = i
+        if current_index is not None:
+            self.tags.setCurrentIndex(current_index)
+        if self.config()["import_extra_tag_name"] == "":
+            self.tags.insertItem(0, "")
+            self.tags.setCurrentIndex(0)
 
-        self.connect(self.browse_button, QtCore.SIGNAL("clicked()"), self.browse)
-        self.connect(self.ok_button,    QtCore.SIGNAL("clicked()"), self.apply)
-
+    def file_format_changed(self):
+        self.filename_box.setText("")
+            
     def activate(self):
         ImportDialog.activate(self)
         self.retranslateUi(self)
-        self.show()
+        self.exec_()
 
-    def _get_selected_format(self):
-        for format in self.component_manager.all("file_format"):
-                if format.description == self.fileformats.currentText():
-                    return format
+    def format(self):
+        for _format in self.component_manager.all("file_format"):
+            if _format.description == self.file_formats.currentText():
+                return _format
 
     def browse(self):
-        self.importer = self._get_selected_format()
-        path = expand_path(self.config()["import_dir"], self.config().data_dir)
-        self.fname = self.main_widget().get_filename_to_open(path,
-            self.importer.filename_filter)
-        self.filename.setText(self.fname)
-
-    def apply(self):
-        self.importer.do_import(self.fname)
-        review_controller = self.review_controller()
-        review_controller.reload_counters()
-        if review_controller.card is None:
-            review_controller.show_new_question()
+        import_dir = self.config()["import_dir"]
+        filename = self.main_widget().get_filename_to_open(import_dir,
+            self.format().filename_filter)
+        self.filename_box.setText(filename)
+        if filename:
+            self.config()["import_dir"] = os.path.dirname(filename)
+        
+    def accept(self):
+        filename = unicode(self.filename_box.text())
+        if filename and os.path.exists(filename):
+            extra_tag_name = unicode(self.tags.currentText())
+            self.config()["import_extra_tag_name"] = extra_tag_name
+            if not extra_tag_name:
+                extra_tag_name = None
+            self.config()["import_format"] = type(self.format())
+            self.format().do_import(filename, extra_tag_name)
+            QtGui.QDialog.accept(self)
         else:
-            review_controller.update_status_bar_counters()
-        self.done(1)
+            self.main_widget().show_error(_("File does not exist."))

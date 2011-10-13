@@ -632,6 +632,14 @@ class DefaultController(Controller):
         self.flush_sync_server()
         self.component_manager.current("import_dialog")\
             (self.component_manager).activate()
+        self.database().save()
+        self.log().saved_database()        
+        review_controller = self.review_controller()
+        review_controller.reload_counters()
+        if review_controller.card is None:
+            review_controller.show_new_question()
+        else:
+            review_controller.update_status_bar_counters()    
         self.stopwatch().unpause()
         
     def show_export_file_dialog(self):

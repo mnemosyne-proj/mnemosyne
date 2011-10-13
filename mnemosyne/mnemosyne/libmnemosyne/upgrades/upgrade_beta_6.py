@@ -2,17 +2,17 @@
 # upgrade_beta_6.py <Peter.Bienstman@UGent.be>
 #
 
-import os.path
-import sqlite3
+import os
 import sys
+import sqlite3
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
 from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.libmnemosyne.utils import traceback_string
 from mnemosyne.libmnemosyne.utils import numeric_string_cmp, mangle
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
-from mnemosyne.libmnemosyne.utils import traceback_string
 
 
 class UpgradeBeta6(Component):
@@ -25,8 +25,7 @@ class UpgradeBeta6(Component):
         try:
             sql_res = self.database().con.execute("""select value from global_variables
                 where key=?""", ("version", )).fetchone()
-        except sqlite3.OperationalError as e:
-            print e
+        except sqlite3.OperationalError:
             self.database().main_widget().show_error(
                 _("Another copy of Mnemosyne is still running.") + "\n" + \
                 _("Continuing is impossible and will lead to data loss!"))

@@ -198,6 +198,9 @@ iso6931_dict = {
     'zu': 'Zulu' 
 }
 
+class MnemosyneError(Exception):
+    pass
+
 def _abs_path(path):
 
     """Our own version of os.path.abspath, which does not check for platform.

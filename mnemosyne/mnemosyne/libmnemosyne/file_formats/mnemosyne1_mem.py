@@ -2,7 +2,6 @@
 # mnemosyne1_mem.py <Peter.Bienstman@UGent.be>
 #
 
-import pdb
 import os
 import re
 import sys
@@ -10,6 +9,7 @@ import time
 import cPickle
 
 from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.utils import MnemosyneError
 from mnemosyne.libmnemosyne.file_format import FileFormat
 from mnemosyne.libmnemosyne.file_formats.mnemosyne1 import Mnemosyne1
 from mnemosyne.libmnemosyne.file_formats.science_log_parser \
@@ -18,25 +18,33 @@ from mnemosyne.libmnemosyne.file_formats.science_log_parser \
 re_src = re.compile(r"""src=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
 re_sound = re.compile(r"""<sound src=\".+?\">""", re.DOTALL | re.IGNORECASE)
 
+
 class Mnemosyne1Mem(FileFormat, Mnemosyne1):
     
     description = _("Mnemosyne 1.x *.mem files")
-    filename_filter = _("Mnemosyne 1.x databases (*.mem)")
+    filename_filter = _("Mnemosyne 1.x *.mem databases (*.mem)")
     import_possible = True
     export_possible = False
 
-    def do_import(self, filename, tag_name=None, reset_learning_data=False):
-        print "Trying to import..."
+    def do_import(self, filename, extra_tag_name=None):
+        self.import_dir = os.path.dirname(os.path.abspath(filename))
+        self.warned_about_missing_media = False
+        w = self.main_widget()
+        w.set_progress_text(_("Importing cards..."))
         db = self.database()
         # Manage database indexes.
         db.before_mem_import()
         # The import process generates card log entries, which we will delete
         # in favour of those events that are recorded in the logs and which
-        # capture the true timestamps.
+        # capture the true timestamps. They also have new 2.0 ids, as opposed
+        # to their old 1.x ids.
         log_index = db.current_log_index()
-        result = self._import_mem_file(filename, tag_name, reset_learning_data)
-        if result:
-            return result
+        try:
+            self.read_items_from_mnemosyne1_mem(filename)
+            self.create_cards_from_mnemosyne1(extra_tag_name)
+        except MnemosyneError:
+            w.close_progress()
+            return
         db.remove_card_log_entries_since(log_index)
         # The events that we import from the science logs obviously should not
         # be reexported to these logs (this is true for both the archived logs
@@ -44,7 +52,7 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         # science logs, and after the import we edit the partership index to
         # skip these entries.
         db.dump_to_science_log()
-        self._import_logs(filename)
+        self.import_logs(filename)
         db.skip_science_log()
         # Force an ADDED_CARD log entry for those cards that did not figure in
         # the txt logs, e.g. due to missing or corrupt logs.
@@ -57,31 +65,27 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         timestamp = int(time.time())
         for item in self.items:
             db.log_edited_card(timestamp, item.id)
-        # Mananage database indexes.
+        # Manage database indexes.
         db.after_mem_import()
-        # Detect inverses.
+        # Detect inverses.        
         db.link_inverse_cards()
-        db.save()
+        w.close_progress()
             
-    def _import_mem_file(self, filename, tag_name=None,
-                         reset_learning_data=False):        
-        self.import_dir = os.path.dirname(os.path.abspath(filename))
-        self.warned_about_missing_media = False
-        w = self.main_widget()
+    def read_items_from_mnemosyne1_mem(self, filename):
         sys.modules["mnemosyne.core"] = object()       
-        sys.modules["mnemosyne.core.mnemosyne_core"] = Mnemosyne1.MnemosyneCore()       
-        # Load data.
+        sys.modules["mnemosyne.core.mnemosyne_core"] \
+            = Mnemosyne1.MnemosyneCore()
         try:
             memfile = file(filename, "rb")
             header = memfile.readline()
-            self.starttime, self.categories, self.items = cPickle.load(memfile)
+            self.starttime, self.categories, self.items \
+                = cPickle.load(memfile)
             self.starttime = self.starttime.time
-        except Exception as e:
-            w.show_error(_("Unable to open file."))
-            return -1
-        return self._convert_to_2x()
+        except:
+            self.main_widget().show_error(_("Unable to open file."))
+            raise MnemosyneError
 
-    def _import_logs(self, filename):
+    def import_logs(self, filename):
         w = self.main_widget()
         w.set_progress_text(_("Importing history..."))
         parser = ScienceLogParser(self.database(),

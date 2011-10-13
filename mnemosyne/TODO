@@ -1,73 +1,73 @@
--Ctrl/P shortcut for preview card in Add Cards dialog
--Yet to learn: also ctrl 0, 1, control Y
--add cards: exit shortcut does not work
+-leave cramming scheduler overnight (enkelvoud). Remove print
 
--delete card action: both delete and backspace should work
+-make sure my own database have new indices
 
--convert own databases, also on windows
+-on a large database, import map.mem is slow.
+
+-turn off sync media checking by default, add gui option
+
+-configure dialog is slow on Windows due to server detect
+
 
 -rescale window only when answer picture is shown
 
+-show background color also for unrevealed answer
+
 -merge card appearance with settings
 
--Tip dlg line 63, in update_dialog IndexError: list index out of range (reported by B_Monkey)
-
--Hendrik image display problems
-
+-all grades function as show answer
 -pgdwn in preview/edit in card browser
+-have page up/up/page down/down keys work to scroll in q and a widgets
 
 -'importing history' text does not show?
 
--all grades function as show answer
--have page up/up/page down/down keys work to scroll in q and a widgets
+-no icon on W7
 
--comma to separate tag names
--:: to separate hierarchies
--right click to add cards or sound
--hiding pronunciation field
--add card: tab, tab, control enter or control+2
+-popup tips (PB)
+ -comma to separate tag names
+ -:: to separate hierarchies
+ -right click to add cards or sound
+ -hiding pronunciation field
+ -add card: tab, tab, control Y or control+2
 
--edit card: tab, tab, control enter
+ -edit card: tab, tab, control enter
 
--tip on double-click to tag names and cards to edit them
--right click on tag names in browser
+ -new user: first time learning queue empty: schedule tomorrow
 
--right click on criterion names (also tip)
+ -tip on double-click to tag names and cards to edit them
+ -right click on tag names in browser
+
+ -popup on backlog during review
+
+ -right click on criterion names (also tip)
 
 -About dialog, with version and link to source
-
-
-
 
 -layout of "add clone" is not optimal under Windows
 -splitters on XP are not visible
 http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-between-qwidget-and-qtabwidget
 
--turn off media checking by default, add gui option
 
 -more elaborate plugin description in bottom pane
 
--new cards with a >=2 grade can end up on the same day on first interactive rep
- replace set_initial_grade by set_initial_grades(cards)?
+-new cards with a >=2 grade can end up on the same day on first interactive rep (PB)
+ replace set_initial_grade by set_initial_grades(cards)?  (PB)
 -also make sure this is OK when changing card type creates extra cards
--scheduler.spread_sister_cards?
--recheck database for this through plugin
+-scheduler.spread_sister_cards? (PB)
+-recheck database for this through plugin (PB)
 
 -failed card + new cards in two directions: learn all fw cards, get stuck on failed card. Only
- restarting brings bw cards.
+ restarting brings bw cards. (PB)
 
--configure dialog is slow on Windows due to server detect
 
--remove upgrade_beta_6.py
-
--also give warning on the client side if a sync failed and a backup needs to happen
--server down should not result in sync conflict
--prevent sync with itself
--binary database upload: configuration changes (fonts, ...) are not applied
+-also give warning on the client side if a sync failed and a backup needs to happen (PB)
+-server down should not result in sync conflict (PB)
+-prevent sync with itself (PB)
+-binary database upload: configuration changes (fonts, ...) are not applied (PB)
 -syncing an empty database twice results in a spurious sync cycle detection. Also happens after 
- syncing empty client and empty server database, then adding data to the server, and resyncing
--if the server is empty, allow sync from non-empty client and change server user id.
--if dialog like edit card or browse cards is open on server, try to close it when sync comes in (+findChildren
+ syncing empty client and empty server database, then adding data to the server, and resyncing (PB)
+-if the server is empty, allow sync from non-empty client and change server user id. (PB)
+-if dialog like edit card or browse cards is open on server, try to close it when sync comes in  (PB)(+findChildren
     QWidgetList list = QApplication::topLevelWidgets();
     for (int i = 0; did_close && i < list.size(); ++i) {
         w = list.at(i);
@@ -76,25 +76,25 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
             list = QApplication::topLevelWidgets();
             i = -1;
 -when sync server is running, it seems possible to start a second copy of Mnemosyne, which just complains about
- 'unable to start sync server'
+ 'unable to start sync server' (PB)
 
--migrate science server machine
+-migrate science server machine (PB)
+-Mnemosyne console, example script to add cards, make possible on Windows (PB)
 
--Mnemosyne console, example script to add cards, make possible on Windows
-
--ask about card browser speed. Try without decoration. shulgi: Core Duo 2.1 Ghz
 
 -card type clone: rename and delete, both in card browser and card type browser
+
+-tell beta users to make sure to install latest beta first
+-remove upgrade_beta_6.py, beta_7
 
 -upgrade to qt 4.7.4, retest progress bars
 -make distrib under linux
 -bundle webserver with install
 
-
 -test upgrade on OSX: remove library/Mnemosyne2, make sure you have 1.x in library/Mnemosyne.
  after upgrade there should be 2.0 files in library/Mnemosyne and a backup in library/Mnemosyne_1
 
--implement duplicate checking. Also synonym checking? Add then standard tags.
+-implement duplicate checking. Also synonym checking? Add then standard tags. 
 -autorun after import, browse with edit, but not sync
 -do review_controller.rebuild_queue, reload counter after clean duplicates?
 
@@ -136,31 +136,17 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -Faq about how to pronounce Mnemosyne
 
 -import
--update data if same id present on import
--on import, activate plugins, created card types if necessary
+-if txt import fails, give a useful error message showing the offending line
+-on import, activate plugins, create card types if necessary
 -on import don't add cards for which card type is not present
--warn when not importing a duplicate card
--covert to map type on import
--xml import tests (wcu, memaid, plconv)
--rewrite test_mem_import test_sch to go through the controller
--option to detect and mark inverses on import?
--update XML import/export to new database format
--make XML import tolerant to extra new lines in header
+-for mnemosyne 2 cards format, on import, ignore or update cards which were already imported?
 -warn when importing card type with duplicate id
--option to add tags on import
--mention that txt format does not have tag info?
--save import dir
 -make sure after import all sync events fire
--make sure enter does not close the import dialog
--make sure we log new card creation on import
 -make sure to detect media and do slash normalisation from importing text files
 -utf16?
--make sure there is an error message to the user if xml import fails.
--mention Mnemosyne XML instead of XML
+
 
 -card appearance: show preview live
-
--criterion applier: compare query time for  a in [1,2] vs a=1 or a=2
 
 -docs on dealing with synonyms and words which have multiple meanings (if implemented, update card converter too)
  check fonts for new meanings, check decorators
@@ -175,13 +161,10 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -warn when syncing and the other criterion plugin is not present?
 -make 'grade activity criterion' an official plugin? Add tests?
 
--plugin to hide toolbar (requested twice)
-
 -hoop uk dialogs in UDP
 
 -cntrl-c shortcut for question and answer
 
--can the sync client always reconnect to a sync server if an error occured?
 
 -new translation infrastructure
 -handle deferred translation
@@ -210,6 +193,9 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -plugin to store backups on dropbox
 
 -larger interval for initial grade 5?
+
+-worthwhile to apply same tricks from card browser to criterion applier, i.e. inverting selection to
+ go from 'in large set' to 'not in small set'? Max time 0.6 secs, so perhaps not needed that much
 
 -condition coverage
  http://lautaportti.wordpress.com/2011/05/07/test-coverage-analysis/

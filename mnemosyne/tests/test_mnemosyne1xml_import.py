@@ -10,6 +10,9 @@ from mnemosyne.libmnemosyne import Mnemosyne
 from openSM2sync.log_entry import EventTypes
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
+last_error = ""
+answer = None
+
 class Widget(MainWidget):
         
     def activate(self):
@@ -23,15 +26,22 @@ class Widget(MainWidget):
         raise NotImplementedError
 
     def show_error(self, message):
-        if message.startswith("This file seems to have been imported before"):
+        global last_error
+        last_error = message
+        if message.startswith("These cards seem to have been imported before"):
             return
         if message.startswith("Unable to open"):
             return
+        if message.startswith("Unable to parse"):
+            return
         if message.startswith("Bad file version:"):
             return
-        if message.startswith("Bad XML File:"):
+        if message.startswith("XML file does not seem"):
             return
         raise NotImplementedError
+    
+    def show_question(self, question, option0, option1, option2):
+        return answer
 
 
 class TestMnemosyne1XMLImport(MnemosyneTest):
@@ -57,21 +67,26 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
 
     def test_file_not_found(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "nothere.xml")
-        assert self.xml_importer().do_import(filename) == -1
+        self.xml_importer().do_import(filename)
+        assert last_error.startswith("Unable to open")
        
     def test_wrong_format(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "wrong_format.xml")
-        assert self.xml_importer().do_import(filename) == -1
+        self.xml_importer().do_import(filename)
+        assert last_error.startswith("Unable to parse")
 
     def test_bad_version(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "bad_version.xml")
-        assert self.xml_importer().do_import(filename) == -1
+        self.xml_importer().do_import(filename)
+        assert last_error.startswith("XML file does not seem")
 
     def test_card_type_1(self):
+        global answer
+        answer = 0
         filename = os.path.join(os.getcwd(), "tests", "files", "1sided.xml")
         self.xml_importer().do_import(filename)
         self.review_controller().reset()
-        assert self.database().card_count() == 1
+        assert self.database().card_count() == 4
         card = self.review_controller().card
         assert card.grade == 2
         assert card.easiness == 2.5
@@ -85,7 +100,17 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
         assert card.next_rep == 1247616000
         assert card.id == "9cff728f"
         
+    def test_card_type_1_abort(self):
+        global answer
+        answer = 1
+        filename = os.path.join(os.getcwd(), "tests", "files", "1sided.xml")
+        self.xml_importer().do_import(filename)
+        self.review_controller().reset()
+        assert self.database().card_count() == 0
+        
     def test_card_type_1_unseen(self):
+        global answer
+        answer = 0
         filename = os.path.join(os.getcwd(), "tests", "files", "1sided_unseen.xml")
         self.xml_importer().do_import(filename)
         self.review_controller().reset()
@@ -108,14 +133,17 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
         filename = os.path.join(os.getcwd(), "tests", "files", "1sided.xml")
         self.xml_importer().do_import(filename)
         self.review_controller().reset()
-        assert self.database().card_count() == 1
+        assert self.database().card_count() == 4
         card = self.review_controller().card
         assert card.id == "9cff728f"
         assert "question" in card.question()
         filename = os.path.join(os.getcwd(), "tests", "files", "1sided.xml")
-        assert self.xml_importer().do_import(filename) == -2      
+        self.xml_importer().do_import(filename)
+        assert last_error.startswith("These cards seem to have been imported before")
         
     def test_card_type_2(self):
+        global answer
+        answer = 0
         filename = os.path.join(os.getcwd(), "tests", "files", "2sided.xml")
         self.xml_importer().do_import(filename)
         self.review_controller().reset()
@@ -135,6 +163,8 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 2 
         
     def test_card_type_3(self):
+        global answer
+        answer = 0
         filename = os.path.join(os.getcwd(), "tests", "files", "3sided.xml")
         self.xml_importer().do_import(filename)
         self.review_controller().reset()
@@ -146,6 +176,8 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 2
         
     def test_card_type_3_corrupt(self):
+        global answer
+        answer = 0
         filename = os.path.join(os.getcwd(), "tests", "files", "3sided_corrupt.xml")
         self.xml_importer().do_import(filename)
         self.review_controller().reset()
@@ -157,6 +189,8 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 2
         
     def test_card_type_3_missing(self):
+        global answer
+        answer = 0
         filename = os.path.join(os.getcwd(), "tests", "files", "3sided_missing.xml")
         self.xml_importer().do_import(filename)
         self.review_controller().reset()
@@ -168,6 +202,8 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 1
         
     def test_media(self):
+        global answer
+        answer = 0
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs"))
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs", "figs"))       
         figures = [\
@@ -189,6 +225,8 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 3      
 
     def test_media_missing(self):
+        global answer
+        answer = 0
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs"))
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs", "figs"))       
         figures = [\
@@ -207,6 +245,8 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 2
         
     def test_media_missing_2(self):
+        global answer
+        answer = 0
         filename = os.path.join(os.getcwd(), "tests", "files", "media.xml")
         self.xml_importer().do_import(filename)
         assert not os.path.exists(os.path.join(\
@@ -218,6 +258,8 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 0
         
     def test_media_slashes(self):
+        global answer
+        answer = 0
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs"))
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs", "figs"))       
         figures = [\
@@ -239,6 +281,8 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 3  
 
     def test_sound(self):
+        global answer
+        answer = 0
         os.mkdir(os.path.join(\
             os.getcwd(), "tests", "files", "soundfiles"))
         soundname = os.path.join(os.path.join(\
@@ -268,6 +312,8 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
           """<img src_missing="maps/Netherlands-Provinces/Netherlands-Provinces.png">"""
         
     def test_dups(self):
+        global answer
+        answer = 0
         filename = os.path.join(os.getcwd(), "tests", "files", "dups.xml")
         self.xml_importer().do_import(filename)
         self.review_controller().reset()
@@ -275,7 +321,53 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
                u"""<b>Freistaat Th\xfcringen (Free State of Thuringia)</b>"""
         assert self.review_controller().card.tag_string() == "Germany: States, MISSING_MEDIA"
 
+    def test_anon_id(self):        
+        global answer
+        answer = 0
+        filename = os.path.join(os.getcwd(), "tests", "files", "anon_id.xml")
+        self.xml_importer().do_import(filename)
+        self.review_controller().reset()
+        fact = self.review_controller().card.fact
+        for card in self.database().cards_from_fact(fact):
+            assert not card.id.startswith("_")
+            
+    def test_no_id(self):        
+        global answer
+        answer = 0
+        filename = os.path.join(os.getcwd(), "tests", "files", "no_id.xml")
+        self.xml_importer().do_import(filename)
+        self.review_controller().reset()
+        fact = self.review_controller().card.fact
+        for card in self.database().cards_from_fact(fact):
+            assert card.id
+            
+    def test_bad_xml(self):        
+        global answer
+        answer = 0
+        filename = os.path.join(os.getcwd(), "tests", "files", "bad_xml.xml")
+        self.xml_importer().do_import(filename)
+        assert last_error.startswith("Unable to parse")
+        
+    def test_tags(self):        
+        global answer
+        answer = 0
+        filename = os.path.join(os.getcwd(), "tests", "files", "tag.xml")
+        self.xml_importer().do_import(filename, extra_tag_name="extra")
+        self.review_controller().reset()
+        assert len(self.review_controller().card.tags) == 2
+        
+    def test_log(self):        
+        global answer
+        answer = 0
+        filename = os.path.join(os.getcwd(), "tests", "files", "sound.xml")
+        self.xml_importer().do_import(filename)
+        ids = [cursor[0] for cursor in self.database().con.execute(\
+            "select distinct object_id from log where event_type='6' or event_type='7'")]
+        assert ids == ['ef2e21e1']
+        
     def teardown(self):
+        global answer
+        answer = 0
         filename = os.path.join(os.getcwd(), "tests", "files", "basedir_bz2",
                                     "DIRECTORY_NO_LONGER_USED_BY_MNEMOSYNE2")
         if os.path.exists(filename):

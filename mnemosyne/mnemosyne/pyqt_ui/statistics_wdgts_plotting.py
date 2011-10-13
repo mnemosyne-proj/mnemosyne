@@ -4,6 +4,9 @@
 
 from PyQt4 import QtGui
 
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.statistics_pages.grades import Grades
 from mnemosyne.libmnemosyne.statistics_pages.schedule import Schedule
@@ -12,7 +15,7 @@ from mnemosyne.libmnemosyne.statistics_pages.cards_added import CardsAdded
 from mnemosyne.libmnemosyne.statistics_pages.retention_score import RetentionScore
 from mnemosyne.libmnemosyne.ui_components.statistics_widget import StatisticsWidget
 
-
+         
 class PlotStatisticsWdgt(QtGui.QWidget, StatisticsWidget):
 
     """A canvas to plot graphs according to the data and display contained in a
@@ -29,9 +32,13 @@ class PlotStatisticsWdgt(QtGui.QWidget, StatisticsWidget):
     def activate(self):
         self.retranslate()
         self.vbox_layout = QtGui.QVBoxLayout(self)        
-        from matplotlib.figure import Figure
-        from matplotlib.backends.backend_qt4agg import \
-             FigureCanvasQTAgg as FigureCanvas
+        # The idea was to lazily import matplotlib only when we open the
+        # statistics dialog. However, the import statements below can often
+        # take ten times as long as compared to the a static import at the
+        # module level above. This is probably related to disc cache issues.
+        #from matplotlib.figure import Figure
+        #from matplotlib.backends.backend_qt4agg import \
+        #     FigureCanvasQTAgg as FigureCanvas
         colour = self._background_colour(self.parent)
         fig = Figure(figsize=(6.5, 5.2), facecolor=colour, edgecolor=colour)
         self.canvas = FigureCanvas(fig)

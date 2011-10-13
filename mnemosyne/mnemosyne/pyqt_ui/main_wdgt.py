@@ -16,6 +16,9 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         MainWidget.__init__(self, component_manager)
         QtGui.QMainWindow.__init__(self)
         self.setupUi(self)
+        # Qt designer does not allow setting multiple shortcuts per action.
+        self.actionDeleteCurrentCard.setShortcuts\
+            ([QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace])
         self.status_bar_widgets = []
         self.progress_bar = None
         self.progress_bar_update_interval = 1
@@ -34,13 +37,19 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         if state:
             self.restoreGeometry(state)
         self.timer_1 = QtCore.QTimer()
-        self.timer_1.timeout.connect(self.review_controller().heartbeat)
+        self.timer_1.timeout.connect(self.review_controller_heartbeat)
         self.timer_1.start(1000 * 60 * 10)
         self.timer_2 = QtCore.QTimer()
-        self.timer_2.timeout.connect(self.controller().heartbeat)
+        self.timer_2.timeout.connect(self.controller_heartbeat)
         self.timer_2.start(1000 * 60 * 60 * 12)
         self.start_review()
+
+    def review_controller_heartbeat(self):
+        self.review_controller().heartbeat()  # Late binding
         
+    def controller_heartbeat(self):
+        self.controller().heartbeat()  # Late binding
+
     def set_window_title(self, text):
         self.setWindowTitle(text)
         

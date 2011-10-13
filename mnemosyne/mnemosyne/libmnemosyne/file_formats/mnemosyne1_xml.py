@@ -2,131 +2,150 @@
 # mnemosyne1_xml.py <Johannes.Baiter@gmail.com>
 #
 
-import os.path
+import os
 import time
 from xml.etree import cElementTree
 
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.libmnemosyne.file_formats.mnemosyne1 import Mnemosyne1
 from mnemosyne.libmnemosyne.file_format import FileFormat
+from mnemosyne.libmnemosyne.utils import rand_uuid, MnemosyneError
+from mnemosyne.libmnemosyne.file_formats.mnemosyne1 import Mnemosyne1
 
 class Mnemosyne1XML(FileFormat, Mnemosyne1):
 
-    description = _("Mnemosyne 1.x *.xml files")
+    description = _("Mnemosyne 1.x *.XML files")
     filename_filter = _("Mnemosyne 1.x XML files") + " (*.xml)"
     import_possible = True
     export_possible = False
 
-    def do_import(self, filename, tag_name=None, reset_learning_data=False):
-        db = self.database()
-        # Manage database indexes.
-        db.before_mem_import()
-        log_index = db.current_log_index()
-        result = self._import_xml_file(filename, tag_name, reset_learning_data)
-        db.remove_card_log_entries_since(log_index)
-        db.after_mem_import()
-        # Return if something went wrong
-        # TODO: This is a very unidiomatic, refactor to use Exceptions
-        if result and result < 0:
-            return result
-        db.dump_to_science_log()
-        db.skip_science_log()
-        # Force an ADDED_CARD log entry for our cards.
-        db.add_missing_added_card_log_entries(\
-            set(item.id for item in self.items))
-        # In 2.x, repetition events are used to update a card's last_rep and
-        # next_rep during sync. In 1.x, there was no such information,
-        # therefore, we force a card edit event for all cards.
-        timestamp = int(time.time())
-        for item in self.items:
-            db.log_edited_card(timestamp, item.id)
-        db.link_inverse_cards()
-        db.save()
-        return result
+    def __init__(self, component_manager):
+        FileFormat.__init__(self, component_manager)
+        Mnemosyne1.__init__(self)
+        self.anon_to_id = {}
 
-    def _import_xml_file(self, filename, tag_name=None,
-                         reseat_learning_data=False):
+    def do_import(self, filename, extra_tag_name=None):
         self.import_dir = os.path.dirname(os.path.abspath(filename))
         self.warned_about_missing_media = False
+        w = self.main_widget()
+        # The import process generates card log entries which have new 2.0
+        # ids as opposed to their old 1.x ids, so we need to delete them
+        # later.
+        db = self.database()
+        log_index = db.current_log_index()
+        try:
+            w.set_progress_text(_("Importing cards..."))
+            self.read_items_from_mnemosyne1_xml(filename)
+            self.create_cards_from_mnemosyne1(extra_tag_name)
+        except MnemosyneError:
+            w.close_progress()
+            return
+        db.remove_card_log_entries_since(log_index)
+        # We now generate 'added card' events with the proper ids.
+        timestamp = int(time.time())
+        for item in self.items:
+            db.log_added_card(timestamp, item.id)        
+        self.database().link_inverse_cards()
+        w.close_progress()
+         
+    def read_items_from_mnemosyne1_xml(self, filename):
+        w = self.main_widget()
         try:
             tree = cElementTree.parse(filename)
+        except cElementTree.ParseError, e:
+            w.show_error(_("Unable to parse file:") + str(e))
+            raise MnemosyneError            
         except:
-            self.main_widget().show_error(
-                    _("Unable to open file."))
-            return -1
-        if tree.getroot().tag != 'mnemosyne':
-            self.main_widget().show_error(_
-                    ("Bad XML File: Needs to be an Mnemosyne 1.x XML file."))
-            return -1
-        if tree.getroot().get('core_version') != '1':
-            self.main_widget().show_error(_
-                    ("Bad file version: Needs to be an Mnemosyne 1.x XML file."))
-            return -1
-        try:
-            self.starttime = int(tree.getroot().get('time_of_start'))
-        except:
-            self.starttime = 0
-        catdict = {}
+            w.show_error(_("Unable to open file."))
+            raise MnemosyneError
+        if tree.getroot().tag != "mnemosyne" or \
+            tree.getroot().get("core_version") != "1":
+            w.show_error(_
+                    ("XML file does not seem to be a Mnemosyne 1.x XML file."))
+            raise MnemosyneError
+        self.starttime = 0
+        if tree.getroot().get("time_of_start"):
+            self.starttime = int(tree.getroot().get("time_of_start"))
+        category_with_name = {}
         self.categories = []
-        for element in tree.findall('category'):
+        for element in tree.findall("category"):
             category = Mnemosyne1.MnemosyneCore.Category()
-            category.name = element.find('name').text
-            category.active = bool(element.get('active'))
+            category.name = element.find("name").text
+            category.active = bool(element.get("active"))
             self.categories.append(category)
-            catdict[category.name] = category
+            category_with_name[category.name] = category
         self.items = []
-        for element in tree.findall('item'):
+        warned_about_import = False
+        for element in tree.findall("item"):
             item = Mnemosyne1.MnemosyneCore.Item()
-            item.id = element.get('id') 
-            item.q = element.find('Q').text
-            item.a = element.find('A').text
-            item.cat = catdict[element.find('cat').text]
-            try:
-                item.grade = int(element.get('gr'))
-            except:
-                item.grade = 0
-            try:
-                item.easiness = float(element.get('e'))
-            except:
-                item.easiness = 2.5
-            try:
-                item.acq_reps = int(element.get('ac_rp'))
-            except:
-                item.acq_reps = 1
-            try:
-                item.ret_reps = int(element.get('rt_rp'))
-            except:
-                item.ret_reps = 0
-            try:
-                item.lapses = int(element.get('lps'))
-            except:
-                item.lapses = 0
-            try:
-                item.acq_reps_since_lapse = int(element.get('ac_rp_l'))
-            except:
-                item.acq_reps_since_lapse = 1
-            try:
-                item.ret_reps_since_lapse = int(element.get('rt_rp_l'))
-            except:
-                item.ret_reps_since_lapse = 0
-            try:
-                item.last_rep = int(element.get('l_rp'))
-            except:
-                item.last_rep = 0
-            # This is how 1.x reads it, but why can next_rep be float
-            # while last_rep can safely be parsed as an int?
-            try:
-                item.next_rep = int(float(element.get('n_rp')))
-            except:
-                item.next_rep = 0
-            if element.get('u'):
-                item.unseen = bool(element.get('u'))
+            item.id = element.get("id")
+            if not item.id:
+                item.id = rand_uuid()
+            if item.id.startswith('_'):
+                item.id = self.unanonymise_id(item.id) 
+            item.q = element.find("Q").text
+            item.a = element.find("A").text
+            item.cat = category_with_name[element.find("cat").text]
+            if element.get("gr"):
+                if not warned_about_import:
+                    result = w.show_question(_("This XML file contains learning data. It's best to import this from a mem file, in order to preserve historical statistics. Continue?"), _("Yes"), _("No"), "")
+                    warned_about_import = True
+                    if result == 1:  # No
+                        return
+                item.grade = int(element.get("gr"))
             else:
-                if item.acq_reps <= 1 and item.ret_reps == 0\
-                        and item.grade == 0:
+                item.grade = 0
+            if element.get("e"):
+                item.easiness = float(element.get("e"))
+            else:
+                item.easiness = 2.5
+            if element.get("ac_rp"):
+                item.acq_reps = int(element.get("ac_rp"))
+            else:
+                item.acq_reps = 0
+            if element.get("rt_rp"):
+                item.ret_reps = int(element.get("rt_rp"))
+            else:
+                item.ret_reps = 0
+            if element.get("lps"):
+                item.lapses = int(element.get("lps"))
+            else:
+                item.lapses = 0
+            if element.get("ac_rp_l"):
+                item.acq_reps_since_lapse = int(element.get("ac_rp_l"))
+            else:
+                item.acq_reps_since_lapse = 0
+            if element.get("rt_rp_l"):
+                item.ret_reps_since_lapse = int(element.get("rt_rp_l"))
+            else:
+                item.ret_reps_since_lapse = 0
+            if element.get("l_rp"):
+                item.last_rep = int(float(element.get("l_rp")))
+            else:
+                item.last_rep = 0
+            if element.get("n_rp"):
+                item.next_rep = int(float(element.get("n_rp")))
+            else:
+                item.next_rep = 0
+            if element.get("u"):
+                item.unseen = bool(element.get("u"))
+            else:
+                if item.acq_reps <= 1 and item.ret_reps == 0 \
+                    and item.grade == 0:
                     item.unseen = True
                 else:
                     item.unseen = False
-                pass
             self.items.append(item)
-        return self._convert_to_2x()
+
+    def unanonymise_id(self, item_id):
+        if "." in item_id:
+            old_id, suffix = item_id.split(".", 1)
+            suffix = "." + suffix
+        else:
+            old_id, suffix = item_id, ""
+        if old_id in self.anon_to_id:
+            item_id = self.anon_to_id[old_id]
+        else:
+            item_id = rand_uuid()
+            self.anon_to_id[old_id] = item_id
+        return item_id + suffix
+

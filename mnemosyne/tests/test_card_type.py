@@ -76,7 +76,9 @@ class TestCardType(MnemosyneTest):
         assert card_type_out.fact_key_with_name("Front") == "f"
         assert card_type_out.required_fact_keys == ["f"]
         assert card_type_out.is_fact_data_valid({"f": "foo"}) == True
-
+        assert card_type_out.is_fact_data_valid({"q": "foo"}) == False
+        assert card_type_out.fact_key_names() == ["Front", "Back"]
+        
         assert card_type_out.fact_keys_and_names == card_type.fact_keys_and_names
         assert card_type_out.unique_fact_keys == card_type.unique_fact_keys
         assert card_type_out.keyboard_shortcuts == card_type.keyboard_shortcuts

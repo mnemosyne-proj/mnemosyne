@@ -75,6 +75,7 @@ $pregenerated_data
         active boolean default 1
     );
     create index i_cards on cards (id);
+    create index i_cards_2 on cards (fact_view_id); /* for card type tree */
     
     create table tags(
         _id integer primary key,
@@ -89,7 +90,8 @@ $pregenerated_data
         _tag_id integer
     );
     create index i_tags_for_card on tags_for_card (_card_id);
-
+    create index i_tags_for_card_2 on tags_for_card (_tag_id);
+    
     /* _id=1 is reserved for the currently active criterion, which could be a
     copy of another saved criterion or a completely different, unnamed
     criterion. */
@@ -378,7 +380,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         for f in self.component_manager.all("hook", "after_load"):
             f.run()
         # We don't log the database load here, but in libmnemosyne.__init__,
-        # as we prefer to log the start of the program first.        
+        # as we prefer to log the start of the program first.
 
     def save(self, path=None):
         # Update format.
@@ -650,7 +652,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         
         result = [self.tag(cursor[0], is_id_internal=True) for cursor in \
             self.con.execute("select _id from tags")]
-        result.sort(key=lambda x: x.name, cmp=numeric_string_cmp)
+        result.sort(key=lambda x: x.name, cmp=numeric_string_cmp)        
         if result and result[0].name == "__UNTAGGED__":
             untagged = result.pop(0)
             result.append(untagged)

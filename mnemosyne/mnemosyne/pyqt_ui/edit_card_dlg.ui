@@ -64,9 +64,6 @@
          <property name="text">
           <string>&amp;OK</string>
          </property>
-         <property name="shortcut">
-          <string>Ctrl+Return</string>
-         </property>
          <property name="default">
           <bool>true</bool>
          </property>
@@ -111,7 +108,7 @@
        <item>
         <widget class="QPushButton" name="exit_button">
          <property name="text">
-          <string>E&amp;xit</string>
+          <string>&amp;Exit</string>
          </property>
          <property name="autoDefault">
           <bool>false</bool>
@@ -128,22 +125,6 @@
   <include location="mnemosyne.qrc"/>
  </resources>
  <connections>
-  <connection>
-   <sender>exit_button</sender>
-   <signal>clicked()</signal>
-   <receiver>EditCardDlg</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>281</x>
-     <y>151</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>164</x>
-     <y>87</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>preview_button</sender>
    <signal>clicked()</signal>
@@ -173,6 +154,22 @@
     <hint type="destinationlabel">
      <x>148</x>
      <y>49</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>exit_button</sender>
+   <signal>clicked()</signal>
+   <receiver>EditCardDlg</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>281</x>
+     <y>151</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>164</x>
+     <y>87</y>
     </hint>
    </hints>
   </connection>
