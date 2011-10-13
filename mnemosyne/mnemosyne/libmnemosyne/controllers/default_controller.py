@@ -27,6 +27,9 @@ class DefaultController(Controller):
 
     """    
 
+    def retranslate(self):
+        self.single_database_help = _(self.single_database_help)
+        
     def heartbeat(self):
 
         """To be called once a day, to make sure, even if the user leaves the

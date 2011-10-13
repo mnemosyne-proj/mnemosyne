@@ -4,7 +4,7 @@
 
 import socket
 import httplib
-from PyQt4 import QtCore, QtGui
+from PyQt4 import QtGui
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.ui_components.configuration_widget import \
@@ -25,7 +25,7 @@ def localhost_IP():
 class ConfigurationWdgtSyncServer(QtGui.QWidget,
     Ui_ConfigurationWdgtSyncServer, ConfigurationWidget):
 
-    name = "Sync server"
+    name = _("Sync server")
 
     def __init__(self, component_manager, parent):
         ConfigurationWidget.__init__(self, component_manager)
@@ -41,6 +41,13 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
                 localhost_IP() + ".")
         else:
             self.server_status.setText(_("Server NOT running."))   
+    
+    def activate(self):
+        self.retranslate()
+        self.retranslateUi(self)
+
+    def retranslate(self):
+        self.name = _(self.name)
 
     def is_server_running(self):
         timeout = socket.getdefaulttimeout()

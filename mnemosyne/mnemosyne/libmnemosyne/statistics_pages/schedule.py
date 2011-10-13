@@ -31,7 +31,13 @@ class Schedule(PlotStatisticsPage):
                 (LAST_3_MONTHS, _("Last 3 months")),
                 (LAST_6_MONTHS, _("Last 6 months")),  
                 (LAST_YEAR, _("Last year"))]
-    
+
+    def retranslate(self):
+        self.name = _(self.name)
+        for idx, variant in enumerate(self.variants):
+            self.variants[idx] = (self.variants[idx][0],
+                                  _(self.variants[idx][1]))
+   
     def prepare_statistics(self, variant):
         if variant == self.NEXT_WEEK:
             self.x = range(1, 8, 1)

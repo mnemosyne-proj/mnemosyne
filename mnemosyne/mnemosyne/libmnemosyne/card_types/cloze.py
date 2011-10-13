@@ -105,9 +105,9 @@ class Cloze(CardType):
 class ClozePlugin(Plugin):
 
     name = _("Cloze deletion")
-    description = _("A card type blanking out certain fragments in a text.") + \
-        _("This card type can be used to blank fragments in a text, e.g.") + \
-        "\n" + _("\"The capital of France is [Paris]\",") + " " + \
-        _("will give a card with question") + "\n" + \
-        _("\"The capital of France is [...]\"")
+    description = _("""A card type blanking out certain fragments in a text.
+This card type can be used to blank fragments in a text,
+e.g. \"The capital of France is [Paris]\",
+will give a card with question
+\"The capital of France is [...] """)
     components = [Cloze]

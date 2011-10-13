@@ -5,6 +5,7 @@ install-and-run-virtual-env: install-virtual-env
 install-virtual-env:
 	cd mnemosyne/pyqt_ui && make
 	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
+	cd po && make
 	./bin/python setup.py develop
 
 setup:
@@ -16,6 +17,7 @@ install-system:
 	cd mnemosyne/pyqt_ui && make clean
 	cd mnemosyne/pyqt_ui && make
 	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
+	cd po && make
 	python setup.py install
 	rm -f -R build
 
@@ -58,9 +60,10 @@ windows:
 clean:
 	rm -f *~ *.pyc *.tgz process_profile.py 
 	rm -f -R Mnemosyne.egg-info
-	rm -f -R distrib build bin lib include dot_mnemosyne2 dot_test 
+	rm -f -R distrib build bin lib include dot_mnemosyne2 dot_test dot_sync_*
 	rm -f -R dot_benchmark dist
 	cd mnemosyne/pyqt_ui && make clean
+	cd po && make clean
 	rm -f mnemosyne/*~ mnemosyne/*.pyc
 	rm -f mnemosyne/libmnemosyne/*~ mnemosyne/libmnemosyne/*.pyc
 

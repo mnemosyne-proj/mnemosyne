@@ -29,6 +29,9 @@ class ReviewWdgtCramming(ReviewWdgt):
         parent.add_to_status_bar(self.unseen)
         parent.add_to_status_bar(self.active)
 
+    def activate(self):
+        self.retranslateUi(self)
+
     def update_status_bar_counters(self):
         wrong_count, unseen_count, active_count = \
                    self.review_controller().counters()

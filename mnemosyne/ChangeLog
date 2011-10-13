@@ -1,7 +1,8 @@
 -added configuration option 'save after n reps'. Defaults to 10,
  for battery and speed reasons.
 -speedups in browse cards, activate cards, show statistics, 
- configuration
+ configuration.
+-translation infrastructure by Johannes Baiter.
 -speedup importing small mem files when you have a large database.
 -fix sound files with unicode filenames (reported by silverbear)
 -fix crash in cramming scheduler (reported by Sheryaar Butt)

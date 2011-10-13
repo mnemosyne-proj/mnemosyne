@@ -2,6 +2,7 @@
 # card_type.py <Peter.Bienstman@UGent.be>
 #
 
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.utils import CompareOnId
 from mnemosyne.libmnemosyne.component import Component
@@ -51,6 +52,14 @@ class CardType(Component, CompareOnId):
     required_fact_keys = None
     keyboard_shortcuts = {}
     extra_data = {}
+
+    def retranslate(self):
+        self.name = _(self.name)
+        for idx, entry in enumerate(self.fact_keys_and_names):
+            self.fact_keys_and_names[idx] = (entry[0], _(entry[1]))
+        for idx, fact_view in enumerate(self.fact_views):
+            self.fact_views[idx].name = _(self.fact_views[idx].name)
+            
 
     def fact_keys(self):
         return set(fact_key for (fact_key, fact_key_name) \

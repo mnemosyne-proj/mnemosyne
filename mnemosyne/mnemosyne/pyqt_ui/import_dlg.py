@@ -45,6 +45,8 @@ class ImportDlg(QtGui.QDialog, Ui_ImportDlg, ImportDialog):
         self.filename_box.setText("")
             
     def activate(self):
+        ImportDialog.activate(self)
+        self.retranslateUi(self)
         self.exec_()
 
     def format(self):

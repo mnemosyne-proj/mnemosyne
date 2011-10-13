@@ -25,7 +25,6 @@ class InnoScript:
         self.version = version
         self.windows_exe_files = [self.chop(p) for p in windows_exe_files]
         self.lib_files = [self.chop(p) for p in lib_files]
-        self.qm_files = [self.chop(p) for p in qm_files]
 
     def chop(self, pathname):
         assert pathname.startswith(self.dist_dir)
@@ -45,7 +44,7 @@ class InnoScript:
         print >> ofi
 
         print >> ofi, r"[Files]"
-        for path in self.windows_exe_files + self.lib_files + self.qm_files:
+        for path in self.windows_exe_files + self.lib_files:
             print >> ofi, r'Source: "%s"; DestDir: "{app}\%s"; Flags: ignoreversion' \
                                     % (path, os.path.dirname(path))
         print >> ofi
@@ -90,27 +89,13 @@ class build_installer(py2exe):
         py2exe.run(self)
         lib_dir = self.lib_dir
         dist_dir = self.dist_dir
-        # Prepare to install translations. These need to be installed outside of
-        # the zipped archive.
-        #join = os.path.join
-        #pyqt_ui_dir = join("mnemosyne", "pyqt_ui")
-        #locale_dir = join(pyqt_ui_dir, "locale")
-        #os.mkdir(join(dist_dir, "locale"))
-        self.qm_files = []
-        #for p in os.listdir(locale_dir):
-        #    if p.endswith(".qm"):
-        #         src = join(os.path.abspath(locale_dir), p)
-        #         dest = join(join(dist_dir, "locale"), p)
-        #         shutil.copy(src, dest)
-        #         self.qm_files.append(dest)
         # Create the Installer, using the files py2exe has created.
         script = InnoScript("Mnemosyne", lib_dir, dist_dir,
                             self.windows_exe_files, self.lib_files,
-                            self.qm_files, version=mnemosyne.version.version)
+                            version=mnemosyne.version.version)
         script.create()
         script.compile()
         # Note: the final setup.exe will be in an Output subdirectory.
-
 
 if sys.platform == "win32": # For py2exe.
     import matplotlib
@@ -127,6 +112,16 @@ if sys.platform == "win32": # For py2exe.
                   ("imageformats", glob.glob(r"C:\Python27\Lib\site-packages\PyQt4\plugins\imageformats\*.dll")),
                   ("sqldrivers", ["C:\Python27\Lib\site-packages\PyQt4\plugins\sqldrivers\qsqlite4.dll"])
                   ]
+    # Add translations
+    for mo in [x for x in glob.glob(os.path.join('mo', '*'))
+               if os.path.isdir(x)]:
+        p, lang = os.path.split(mo)
+        data_files.append((os.path.join("share", "locale",
+                                        os.path.split(mo)[1], "LC_MESSAGES"),
+                           [os.path.join(mo, "LC_MESSAGES", "mnemosyne.mo")]))
+        data_files.append((os.path.join("share", "qt4", "translations"),
+                           glob.glob(os.path.join('qm', '*'))))
+
 elif sys.platform == "darwin": # For py2app.
     base_path = ""
     data_files = []
@@ -135,6 +130,9 @@ else:
                              "site-packages","mnemosyne")
     data_files = [("/usr/share/applications", ["mnemosyne.desktop"]),
                   ("/usr/share/icons", ["pixmaps/mnemosyne.png"])]
+    for mo in [x for x in glob.glob(os.path.join('mo', '*'))
+               if os.path.isdir(x)]:
+        data_files.append((os.path.join(sys.exec_prefix, "share", "locale", os.path.split(mo)[1], "LC_MESSAGES"), [os.path.join(mo, "LC_MESSAGES", "mnemosyne.mo")]))
 
 pixmap_path = os.path.join(base_path, "pixmaps")
 util_path = os.path.join(base_path, "util")

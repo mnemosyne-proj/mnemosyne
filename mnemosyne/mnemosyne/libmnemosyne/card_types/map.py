@@ -45,10 +45,9 @@ class Map(CardType):
         return {"loc": "loc", "blank": "blank",
                 "marked": "marked", "_": "loc"}
 
-    
+
 class MapPlugin(Plugin):
     
     name = _("Map")
     description = _("A card type for learning locations on a map")
     components = [Map]
-

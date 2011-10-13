@@ -167,6 +167,8 @@ class Mnemosyne(Component):
         if automatic_upgrades:
             from mnemosyne.libmnemosyne.upgrades.upgrade1 import Upgrade1
             Upgrade1(self.component_manager).run()
+        # Retranslate all components
+        self.retranslate_components()
         # Finally, we can activate the main widget.
         self.main_widget().activate()
             
@@ -197,8 +199,8 @@ class Mnemosyne(Component):
     def activate_components(self):
         
         """Now that everything is registered, we can activate the components
-        in the correct order: first config, followed by log, and then the
-        rest.
+        in the correct order: first config, followed by translator, log, and
+        then the rest.
         
         """
 
@@ -210,7 +212,8 @@ class Mnemosyne(Component):
         self.config()["upload_science_logs"] = self.upload_science_logs
         self.config()["interested_in_old_reps"] = self.interested_in_old_reps        
         # Activate other components.
-        for component in ["log", "database", "scheduler", "controller"]:
+        for component in ["translator", "log", "database", "scheduler",
+                          "controller"]:
             try:
                 self.component_manager.current(component).activate()
             except RuntimeError, e:
@@ -218,7 +221,22 @@ class Mnemosyne(Component):
         server = self.component_manager.current("sync_server")
         if server:
             server.activate()
-                    
+
+    def retranslate_components(self):
+
+        """Before displaying the main widget, we tell all components to
+           retranslate their strings according to the configuration.
+
+        """
+        for used_for in self.component_manager.components:
+            for comp_type in self.component_manager.components[used_for]:
+                for component in (
+                        self.component_manager.components[used_for][comp_type]
+                ):
+                    if not isinstance(component, type):
+                        component.retranslate()
+
+
     def execute_user_plugin_dir(self):
         # Note that we put user plugins in the data_dir and not the
         # config_dir as there could be plugins (e.g. new card types) for

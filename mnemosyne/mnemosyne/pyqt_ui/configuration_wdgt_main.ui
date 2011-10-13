@@ -244,17 +244,11 @@
      <item>
       <widget class="QGroupBox" name="groupBox_4">
        <property name="title">
-        <string>Language</string>
+        <string>Language (requires restart)</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <widget class="QComboBox" name="language">
-          <item>
-           <property name="text">
-            <string>English</string>
-           </property>
-          </item>
-         </widget>
+         <widget class="QComboBox" name="language"/>
         </item>
        </layout>
       </widget>

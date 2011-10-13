@@ -57,6 +57,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         self.saved_sets.clearSelection()
 
     def activate(self):
+        self.retranslateUi(self)
         self.exec_()
 
     def update_saved_sets_pane(self):

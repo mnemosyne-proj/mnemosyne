@@ -23,7 +23,7 @@ class TestLogging(MnemosyneTest):
     
     def restart(self):
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
-        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+        self.mnemosyne.components.insert(2, ("mnemosyne.libmnemosyne.translator",
             "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("test_logging", "MyMainWidget"))
@@ -194,7 +194,7 @@ class TestLogging(MnemosyneTest):
         os.remove(os.path.join(os.getcwd(), "dot_test", "config"))
 
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
-        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+        self.mnemosyne.components.insert(2, ("mnemosyne.libmnemosyne.translator",
             "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("test_logging", "MyMainWidget"))
@@ -212,7 +212,7 @@ class TestLogging(MnemosyneTest):
         os.remove(os.path.join(os.getcwd(), "dot_test", "config"))
 
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
-        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+        self.mnemosyne.components.insert(2, ("mnemosyne.libmnemosyne.translator",
             "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("test_logging", "MyMainWidget"))
@@ -271,7 +271,7 @@ class TestLogging(MnemosyneTest):
         MnemosyneTest.teardown(self)
 
         self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True)
-        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+        self.mnemosyne.components.insert(2, ("mnemosyne.libmnemosyne.translator",
             "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("test_logging", "MyMainWidget"))
@@ -282,7 +282,7 @@ class TestLogging(MnemosyneTest):
         MnemosyneTest.teardown(self)
 
         self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True)
-        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+        self.mnemosyne.components.insert(2, ("mnemosyne.libmnemosyne.translator",
             "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("test_logging", "MyMainWidget"))
@@ -293,7 +293,7 @@ class TestLogging(MnemosyneTest):
         MnemosyneTest.teardown(self)
         
         self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True)
-        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+        self.mnemosyne.components.insert(2, ("mnemosyne.libmnemosyne.translator",
             "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("test_logging", "MyMainWidget"))
@@ -319,7 +319,7 @@ class TestLogging(MnemosyneTest):
         MnemosyneTest.teardown(self)
 
         self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True)
-        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+        self.mnemosyne.components.insert(2, ("mnemosyne.libmnemosyne.translator",
             "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("test_logging", "MyMainWidget"))
@@ -330,7 +330,7 @@ class TestLogging(MnemosyneTest):
         MnemosyneTest.teardown(self)
 
         self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True)
-        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+        self.mnemosyne.components.insert(2, ("mnemosyne.libmnemosyne.translator",
             "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("test_logging", "MyMainWidget"))

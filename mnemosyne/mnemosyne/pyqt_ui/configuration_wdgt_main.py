@@ -4,8 +4,10 @@
 
 from PyQt4 import QtCore, QtGui
 
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.ui_components.configuration_widget import \
      ConfigurationWidget
+from mnemosyne.libmnemosyne.utils import get_iso6931_code, iso6931_dict
 from mnemosyne.pyqt_ui.ui_configuration_wdgt_main import \
      Ui_ConfigurationWdgtMain
 
@@ -13,7 +15,7 @@ from mnemosyne.pyqt_ui.ui_configuration_wdgt_main import \
 class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
     ConfigurationWidget):
 
-    name = "General"
+    name = _("General")
 
     def __init__(self, component_manager, parent):
         ConfigurationWidget.__init__(self, component_manager)
@@ -49,7 +51,26 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
             self.upload_science_logs.setCheckState(QtCore.Qt.Checked)
         else:
             self.upload_science_logs.setCheckState(QtCore.Qt.Unchecked)
-            
+
+        self.language.addItem('English')
+        for lang in _.get_supported_languages():
+            self.language.addItem(iso6931_dict[lang])
+        if not self.config()["ui_language"]:
+            self.language.setCurrentIndex(
+                    self.language.findText('English'))
+        else:
+            self.language.setCurrentIndex(
+                    self.language.findText(
+                        iso6931_dict[self.config()["ui_language"]]))
+
+    def activate(self):
+        self.retranslate()
+        self.retranslateUi(self)
+
+    def retranslate(self):
+        self.name = _(self.name)
+        print self.name
+
     def reset_to_defaults(self):
         self.new_cards.setCurrentIndex(0)
         self.scheduled_cards.setCurrentIndex(0)
@@ -62,6 +83,11 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
         self.upload_science_logs.setCheckState(QtCore.Qt.Checked)
         
     def apply(self):
+        if unicode(self.language.currentText()) == u'English (default)':
+            self.config()["ui_language"] = None
+        else:
+            self.config()["ui_language"] = get_iso6931_code(
+                    unicode(self.language.currentText()))
         if self.new_cards.currentIndex() == 1:
             self.config()["randomise_new_cards"] = True
         else:

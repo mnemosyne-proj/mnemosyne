@@ -542,7 +542,8 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             self.main_widget().show_information(_("You chose to sort this table. Operations in the card browser could now be slower. Next time you start the card browser, the table will be unsorted again."))
             self.config()["browse_cards_dlg_sorting_warning_shown"] = True
             
-    def activate(self):        
+    def activate(self):
+        self.retranslateUi(self)
         self.exec_()
 
     def search_text_changed(self):

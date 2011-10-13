@@ -13,6 +13,7 @@ import sys
 from optparse import OptionParser
 
 from PyQt4.QtGui import QApplication
+from PyQt4.QtCore import QTranslator
 
 from mnemosyne.libmnemosyne import Mnemosyne
 
@@ -48,16 +49,6 @@ mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True)
 # Initialise GUI toolkit.
 a = QApplication(sys.argv)
 a.setApplicationName("Mnemosyne")
-# TODO: install translator for Qt messages.
-# Under Windows, move out of library.zip to get the true prefix.
-# from mnemosyne.pyqt_ui.main_window import prefix
-#if sys.platform == "win32":
-#    prefix = os.path.split(prefix)[0]
-#    prefix = os.path.split(prefix)[0]
-#    prefix = os.path.split(prefix)[0]
-#translator = QTranslator(a)
-#translator.load("qt_" + loc + ".qm", os.path.join(prefix, 'locale'))
-#a.installTranslator(translator)
 
 # Add other components we need. The translator should obviously come first,
 # and the UI components should come in the order they should be instantiated,
@@ -133,5 +124,22 @@ if mnemosyne.config()["first_run"] == True:
     mnemosyne.config()["first_run"] = False
 elif mnemosyne.config()["show_daily_tips"] == True:
     mnemosyne.controller().show_tip_dialog()
+
+# To translate the Qt standard dialogs without obscene amounts of monkey-
+# patching, we have to use Qt's own translation framework.
+qt_translator = QTranslator(a)
+try:
+    qtdir = os.environ['QTDIR']
+except:
+    if sys.platform == "win32":
+        qtdir = os.path.join(sys.exec_prefix, 'share', 'qt4')
+    else:
+        qtdir = os.path.join('/usr', 'share', 'qt4')
+qm_dir = os.path.join(qtdir, "translations", "qt_" + mnemosyne.config()['ui_language'] + '.qm')
+qt_translator.load(os.path.join(qtdir, 'translations',
+                                "qt_" + mnemosyne.config()['ui_language']
+                                + ".qm"))
+a.installTranslator(qt_translator)
+
 a.exec_()
 mnemosyne.finalise()

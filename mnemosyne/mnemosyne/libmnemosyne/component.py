@@ -60,6 +60,18 @@ class Component(object):
     def deactivate(self):        
         pass
 
+    def retranslate(self):
+        """Method called to translate an object's static string attributes
+        into the language specified by the user.
+        This cannot be done when declaring the attribute itself or when
+        constructing the object, as by this time the translator will not have
+        yet been activated and the string would thus remain untranslated for
+        the lifetime of the application.
+
+        """
+
+        pass
+
     # Convenience functions, for easier access to all of the context of
     # libmnemosyne from within a component.
     

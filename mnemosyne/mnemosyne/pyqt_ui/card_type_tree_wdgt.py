@@ -21,6 +21,9 @@ class CardTypesTreeWdgt(QtGui.QWidget, Component):
         self.card_type_tree.setHeaderHidden(True)
         self.layout.addWidget(self.card_type_tree)
 
+    def activate(self):
+        self.retranslateUi(self)
+
     def display(self, criterion=None):
         # Create criterion if needed.
         if criterion is None:
@@ -42,7 +45,7 @@ class CardTypesTreeWdgt(QtGui.QWidget, Component):
         self.card_type_tree.clear()
         self.card_type_fact_view_ids_for_node_item = {}
         root_item = QtGui.QTreeWidgetItem(self.card_type_tree,
-            [_("All card types (%d)" % (root_count, ))], 0)
+            [_("All card types (%d)") % root_count], 0)
         root_item.setFlags(root_item.flags() | \
            QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
         root_item.setCheckState(0, QtCore.Qt.Checked)

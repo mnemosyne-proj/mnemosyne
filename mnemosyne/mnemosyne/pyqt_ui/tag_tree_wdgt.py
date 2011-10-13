@@ -23,6 +23,9 @@ class TagDelegate(QtGui.QStyledItemDelegate):
     def __init__(self, component_manager, parent=None):
         QtGui.QStyledItemDelegate.__init__(self, parent)
         self.old_node_label = None
+    
+    def activate(self):
+        self.retranslateUi(self)
 
     def createEditor(self, parent, option, index):
         
