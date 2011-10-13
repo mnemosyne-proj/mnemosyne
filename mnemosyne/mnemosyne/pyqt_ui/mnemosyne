@@ -9,6 +9,7 @@ _ = gettext.gettext
 
 import os
 import sys
+import locale
 
 from optparse import OptionParser
 
@@ -129,16 +130,18 @@ elif mnemosyne.config()["show_daily_tips"] == True:
 # patching, we have to use Qt's own translation framework.
 qt_translator = QTranslator(a)
 try:
-    qtdir = os.environ['QTDIR']
+    qtdir = os.environ["QTDIR"]
 except:
     if sys.platform == "win32":
-        qtdir = os.path.join(sys.exec_prefix, 'share', 'qt4')
+        qtdir = os.path.join(sys.exec_prefix, "share", "qt4")
     else:
-        qtdir = os.path.join('/usr', 'share', 'qt4')
-qm_dir = os.path.join(qtdir, "translations", "qt_" + mnemosyne.config()['ui_language'] + '.qm')
-qt_translator.load(os.path.join(qtdir, 'translations',
-                                "qt_" + mnemosyne.config()['ui_language']
-                                + ".qm"))
+        qtdir = os.path.join("/usr", "share", "qt4")
+if mnemosyne.config()["ui_language"] is None:
+    mnemosyne.config()["ui_language"] = locale.getdefaultlocale()[0][:2]
+qm_dir = os.path.join(qtdir, "translations",
+    "qt_" + mnemosyne.config()["ui_language"] + ".qm")
+qt_translator.load(os.path.join(qtdir, "translations",
+    "qt_" + mnemosyne.config()["ui_language"] + ".qm"))
 a.installTranslator(qt_translator)
 
 a.exec_()

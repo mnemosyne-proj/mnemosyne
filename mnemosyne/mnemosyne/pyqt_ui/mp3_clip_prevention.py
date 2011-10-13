@@ -19,17 +19,15 @@ class Mp3ClipPrevention(Filter):
     """
 
     def run(self, text, card, fact_key):
-        self.main_widget().show_information('mp3 clip in' + text.replace("<", "&lt;"))
         match = re_mp3.search(text)
         if not match:
             return unicode(text)
-        mp3 = file(match.group(1).replace("file:\\\\\\", ""))
+        mp3 = file(match.group(1).replace("file:\\\\\\", ""), "rb")
         filename_with_silence = os.path.join(self.database().media_dir(), "___.mp3") 
         mp3_with_silence = file(filename_with_silence, "wb")
         mp3_with_silence.write(mp3.read())
         silence = QtCore.QFile(":/mnemosyne/pixmaps/silence.mp3")
         silence.open(QtCore.QIODevice.ReadOnly)
-        mp3_with_silence.write(silence.readAll())
-        mp3_with_silence.close()
-        self.main_widget().show_information(re.sub(re_mp3, """<audio src=\"file:\\\\\\%s\"""" % filename_with_silence, text))    
-        return re.sub(re_mp3, """<audio src=\"file:\\\\\\%s\"""" % filename_with_silence, text)
+        mp3_with_silence.write(silence.readAll())  
+        return re.sub(re_mp3, """<audio src=\"file:\\\\\\%s\"""" \
+            % filename_with_silence, text)

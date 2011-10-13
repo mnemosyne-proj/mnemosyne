@@ -2,7 +2,9 @@
 -re.match vs re.search elsewhere, add tests
 -check sound files both in preview and as active card
 
--merge translation work by Johannes
+-review translation work by Johannes (retranslate in libmnemosyne, translator, dialog)
+ add translation data to installer
+ check activate calls with self.retranslateUi, too many generic dialogs
 
 -turn off sync media checking by default, add gui option
 

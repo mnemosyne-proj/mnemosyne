@@ -290,7 +290,7 @@ class TestMemImport(MnemosyneTest):
 
     def test_logs_new_1(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
-        self.database().before_mem_import()
+        self.database().before_1x_log_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "new_1.txt")
         ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
@@ -340,7 +340,7 @@ class TestMemImport(MnemosyneTest):
 
     def test_logs_new_2(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
-        self.database().before_mem_import()
+        self.database().before_1x_log_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "new_2.txt")
         ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
@@ -358,7 +358,7 @@ class TestMemImport(MnemosyneTest):
 
     def test_logs_new_3(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
-        self.database().before_mem_import()
+        self.database().before_1x_log_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "new_3.txt")
         ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
@@ -384,7 +384,7 @@ class TestMemImport(MnemosyneTest):
         
     def test_logs_new_4(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
-        self.database().before_mem_import()
+        self.database().before_1x_log_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "new_4.txt")
         ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
@@ -417,7 +417,7 @@ class TestMemImport(MnemosyneTest):
         
     def test_logs_new_5(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
-        self.database().before_mem_import()
+        self.database().before_1x_log_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "new_5.txt")
         ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
@@ -453,7 +453,7 @@ class TestMemImport(MnemosyneTest):
         
     def test_logs_new_6(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
-        self.database().before_mem_import()
+        self.database().before_1x_log_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "new_6.txt")
         ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
@@ -494,7 +494,7 @@ class TestMemImport(MnemosyneTest):
         
     def test_logs_imported_1(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
-        self.database().before_mem_import()
+        self.database().before_1x_log_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "imported_1.txt")
         ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
@@ -527,7 +527,7 @@ class TestMemImport(MnemosyneTest):
 
     def test_logs_imported_2(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
-        self.database().before_mem_import()
+        self.database().before_1x_log_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "imported_2.txt")
         ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
@@ -548,7 +548,7 @@ class TestMemImport(MnemosyneTest):
         
     def test_logs_imported_3(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
-        self.database().before_mem_import()
+        self.database().before_1x_log_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "imported_3.txt")
         ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
@@ -557,7 +557,7 @@ class TestMemImport(MnemosyneTest):
         
     def test_restored_1(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
-        self.database().before_mem_import()
+        self.database().before_1x_log_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "restored_1.txt")
         ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
@@ -583,7 +583,7 @@ class TestMemImport(MnemosyneTest):
         
     def test_restored_2(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
-        self.database().before_mem_import()
+        self.database().before_1x_log_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "restored_2.txt")
         ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
@@ -592,7 +592,7 @@ class TestMemImport(MnemosyneTest):
         
     def test_logs_act_interval(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
-        self.database().before_mem_import()
+        self.database().before_1x_log_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "actinterval_1.txt")
         ScienceLogParser(self.database()).parse(filename)             
         assert self.database().con.execute(\
@@ -602,7 +602,7 @@ class TestMemImport(MnemosyneTest):
         
     def test_logs_deleted(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
-        self.database().before_mem_import()
+        self.database().before_1x_log_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "delete_1.txt")
         ScienceLogParser(self.database()).parse(filename)             
         assert self.database().con.execute(\
@@ -614,7 +614,7 @@ class TestMemImport(MnemosyneTest):
         
     def test_logs_corrupt_1(self): # Wrong data, missing creation event.
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
-        self.database().before_mem_import()
+        self.database().before_1x_log_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "corrupt_1.txt")
         ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
@@ -626,7 +626,7 @@ class TestMemImport(MnemosyneTest):
         
     def test_logs_corrupt_2(self): # Wrong data, isolated deletion event.
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
-        self.database().before_mem_import()
+        self.database().before_1x_log_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "corrupt_2.txt")
         ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\

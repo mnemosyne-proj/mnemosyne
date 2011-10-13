@@ -625,7 +625,7 @@ class DefaultController(Controller):
         self.component_manager.current("configuration_dialog")\
             (self.component_manager).activate()
         self.review_controller().reset_but_try_to_keep_current_card()
-        self.review_controller.update_dialog(redraw_all=True)
+        self.review_controller().update_dialog(redraw_all=True)
         self.stopwatch().unpause()
         
     def show_import_file_dialog(self):

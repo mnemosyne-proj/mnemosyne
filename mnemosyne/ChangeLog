@@ -2,7 +2,8 @@
  for battery and speed reasons.
 -speedups in browse cards, activate cards, show statistics, 
  configuration.
--translation infrastructure by Johannes Baiter.
+-translation infrastructure by Johannes Baiter. (it's a bit early for
+ people to contribute translations, as the strings are still in flux)
 -speedup importing small mem files when you have a large database.
 -fix sound files with unicode filenames (reported by silverbear)
 -fix crash in cramming scheduler (reported by Sheryaar Butt)

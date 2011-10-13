@@ -53,7 +53,7 @@ class TestStatistics(MnemosyneTest):
 
     def test_past_schedule(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
-        self.database().before_mem_import()
+        self.database().before_1x_log_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "schedule_1.txt")
         ScienceLogParser(self.database()).parse(filename)
         days_elapsed = datetime.date.today() - datetime.date(2009, 8, 15)
@@ -75,7 +75,7 @@ class TestStatistics(MnemosyneTest):
 
     def test_added_cards(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
-        self.database().before_mem_import()
+        self.database().before_1x_log_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "added_1.txt")
         ScienceLogParser(self.database()).parse(filename)
         days_elapsed = datetime.date.today() - datetime.date(2009, 8, 19)
@@ -97,7 +97,7 @@ class TestStatistics(MnemosyneTest):
 
     def test_score(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
-        self.database().before_mem_import()
+        self.database().before_1x_log_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "score_1.txt")        
         ScienceLogParser(self.database()).parse(filename)
         days_elapsed = datetime.date.today() - datetime.date(2009, 8, 17)
