@@ -1,6 +1,4 @@
--get sound files with unicode to work under Windows, both with and without clip prevention
 -re.match vs re.search elsewhere, add tests
--check sound files both in preview and as active card
 
 -review translation work by Johannes (retranslate in libmnemosyne, translator, dialog)
  add translation data to installer
@@ -365,7 +363,7 @@ a good alternative, as it does not obey selection coloring
 
 -API for statusbar widgets
 
--get rid of mp3 clip prevention?
+-get rid of mp3 clip prevention? mp3 clip prevention for multiple sound files per card?
 
 
 -detect wrong current date (last review in the future or way past)

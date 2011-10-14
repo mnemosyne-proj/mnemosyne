@@ -23,11 +23,20 @@ class Mp3ClipPrevention(Filter):
         if not match:
             return unicode(text)
         mp3 = file(match.group(1).replace("file:\\\\\\", ""), "rb")
-        filename_with_silence = os.path.join(self.database().media_dir(), "___.mp3") 
-        mp3_with_silence = file(filename_with_silence, "wb")
-        mp3_with_silence.write(mp3.read())
-        silence = QtCore.QFile(":/mnemosyne/pixmaps/silence.mp3")
-        silence.open(QtCore.QIODevice.ReadOnly)
-        mp3_with_silence.write(silence.readAll())  
-        return re.sub(re_mp3, """<audio src=\"file:\\\\\\%s\"""" \
-            % filename_with_silence, text)
+        filename_with_silence = \
+            os.path.join(self.database().media_dir(), "___.mp3")
+        # When we try to play the sound file a second time, e.g. after opening
+        # the configuration dialog, we get 'permission denied' errors.
+        # As a hack, we just carry on in this case, and assume the file with
+        # extra silence is the same that was already created.
+        try:
+            mp3_with_silence = file(filename_with_silence, "wb")
+            mp3_with_silence.write(mp3.read())
+            silence = QtCore.QFile(":/mnemosyne/pixmaps/silence.mp3")
+            silence.open(QtCore.QIODevice.ReadOnly)
+            mp3_with_silence.write(silence.readAll())
+        except IOError:
+            pass
+        return text.replace(match.group(1),
+           "file:\\\\\\" + filename_with_silence)
+
