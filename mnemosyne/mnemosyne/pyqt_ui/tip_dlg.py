@@ -41,6 +41,7 @@ class TipDlg(QtGui.QDialog, Ui_TipDlg, TipDialog):
         self.tips.append(_("""You can sort the cards in the 'Browse cards' dialog by by clicking on a column title. Clicking again changes the sort order."""))
         self.tips.append(_("""If you want more fine-grained control over LaTeX's behaviour, see the explanation of the <$$>...</$$> and <latex>...</latex> tags on Mnemosyne's website."""))
         self.tips.append(_("""For optimal performance, keep your drives defragmented."""))
+        self.tips.append(_("""For optimal performance, do not put your database on a network drive."""))        
         self.tips.append(_("""Advanced users can customise more of Mnemosyne by editing the config.py file in their mnemosyne directory. They can also install additional plugins to customise Mnemosyne even further."""))
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \

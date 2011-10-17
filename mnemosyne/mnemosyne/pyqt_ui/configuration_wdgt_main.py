@@ -4,12 +4,12 @@
 
 from PyQt4 import QtCore, QtGui
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.translator import _, \
+    iso6931_code_for_language_name, language_name_for_iso6931_code
 from mnemosyne.libmnemosyne.ui_components.configuration_widget import \
-     ConfigurationWidget
-from mnemosyne.libmnemosyne.utils import get_iso6931_code, iso6931_dict
+    ConfigurationWidget
 from mnemosyne.pyqt_ui.ui_configuration_wdgt_main import \
-     Ui_ConfigurationWdgtMain
+    Ui_ConfigurationWdgtMain
 
 
 class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
@@ -51,17 +51,14 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
             self.upload_science_logs.setCheckState(QtCore.Qt.Checked)
         else:
             self.upload_science_logs.setCheckState(QtCore.Qt.Unchecked)
-
-        self.language.addItem('English')
-        for lang in _.get_supported_languages():
-            self.language.addItem(iso6931_dict[lang])
+        self.languages.addItem("English")
+        for language in _.supported_languages():
+            self.languages.addItem(language_name_for_iso6931_code[language])
         if not self.config()["ui_language"]:
-            self.language.setCurrentIndex(
-                    self.language.findText('English'))
+            self.languages.setCurrentIndex(self.languages.findText("English"))
         else:
-            self.language.setCurrentIndex(
-                    self.language.findText(
-                        iso6931_dict[self.config()["ui_language"]]))
+            self.languages.setCurrentIndex(self.languages.findText(\
+                language_name_for_iso6931_code[self.config()["ui_language"]]))
 
     def activate(self):
         self.retranslate()
@@ -69,7 +66,6 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
 
     def retranslate(self):
         self.name = _(self.name)
-        print self.name
 
     def reset_to_defaults(self):
         self.new_cards.setCurrentIndex(0)
@@ -81,13 +77,14 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
         self.media_autoplay.setCheckState(QtCore.Qt.Checked)
         self.media_controls.setCheckState(QtCore.Qt.Unchecked)
         self.upload_science_logs.setCheckState(QtCore.Qt.Checked)
+        self.languages.setCurrentIndex(self.languages.findText("English"))
         
     def apply(self):
-        if unicode(self.language.currentText()) == u'English (default)':
+        if unicode(self.languages.currentText()) == u"English":
             self.config()["ui_language"] = None
         else:
-            self.config()["ui_language"] = get_iso6931_code(
-                    unicode(self.language.currentText()))
+            self.config()["ui_language"] = iso6931_code_for_language_name(\
+                unicode(self.languages.currentText()))
         if self.new_cards.currentIndex() == 1:
             self.config()["randomise_new_cards"] = True
         else:

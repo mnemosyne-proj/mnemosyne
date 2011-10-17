@@ -113,14 +113,14 @@ if sys.platform == "win32": # For py2exe.
                   ("sqldrivers", ["C:\Python27\Lib\site-packages\PyQt4\plugins\sqldrivers\qsqlite4.dll"])
                   ]
     # Add translations
-    for mo in [x for x in glob.glob(os.path.join('mo', '*'))
-               if os.path.isdir(x)]:
+    for mo in [x for x in glob.glob(os.path.join("mo", "*")) \
+        if os.path.isdir(x)]:
         p, lang = os.path.split(mo)
         data_files.append((os.path.join("share", "locale",
-                                        os.path.split(mo)[1], "LC_MESSAGES"),
-                           [os.path.join(mo, "LC_MESSAGES", "mnemosyne.mo")]))
+            os.path.split(mo)[1], "LC_MESSAGES"),
+            [os.path.join(mo, "LC_MESSAGES", "mnemosyne.mo")]))
         data_files.append((os.path.join("share", "qt4", "translations"),
-                           glob.glob(os.path.join('qm', '*'))))
+            glob.glob(os.path.join('qm', '*'))))
 
 elif sys.platform == "darwin": # For py2app.
     base_path = ""
@@ -132,7 +132,9 @@ else:
                   ("/usr/share/icons", ["pixmaps/mnemosyne.png"])]
     for mo in [x for x in glob.glob(os.path.join('mo', '*'))
                if os.path.isdir(x)]:
-        data_files.append((os.path.join(sys.exec_prefix, "share", "locale", os.path.split(mo)[1], "LC_MESSAGES"), [os.path.join(mo, "LC_MESSAGES", "mnemosyne.mo")]))
+        data_files.append((os.path.join(sys.exec_prefix, "share", "locale",
+            os.path.split(mo)[1], "LC_MESSAGES"),
+            [os.path.join(mo, "LC_MESSAGES", "mnemosyne.mo")]))
 
 pixmap_path = os.path.join(base_path, "pixmaps")
 util_path = os.path.join(base_path, "util")

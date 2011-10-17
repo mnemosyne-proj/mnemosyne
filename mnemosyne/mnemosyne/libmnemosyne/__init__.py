@@ -167,8 +167,8 @@ class Mnemosyne(Component):
         if automatic_upgrades:
             from mnemosyne.libmnemosyne.upgrades.upgrade1 import Upgrade1
             Upgrade1(self.component_manager).run()
-        # Retranslate all components
-        self.retranslate_components()
+        # Translate components.
+        self.component_manager.retranslate_all()
         # Finally, we can activate the main widget.
         self.main_widget().activate()
             
@@ -221,21 +221,6 @@ class Mnemosyne(Component):
         server = self.component_manager.current("sync_server")
         if server:
             server.activate()
-
-    def retranslate_components(self):
-
-        """Before displaying the main widget, we tell all components to
-           retranslate their strings according to the configuration.
-
-        """
-        for used_for in self.component_manager.components:
-            for comp_type in self.component_manager.components[used_for]:
-                for component in (
-                        self.component_manager.components[used_for][comp_type]
-                ):
-                    if not isinstance(component, type):
-                        component.retranslate()
-
 
     def execute_user_plugin_dir(self):
         # Note that we put user plugins in the data_dir and not the

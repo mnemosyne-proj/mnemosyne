@@ -248,7 +248,7 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <widget class="QComboBox" name="language"/>
+         <widget class="QComboBox" name="languages"/>
         </item>
        </layout>
       </widget>

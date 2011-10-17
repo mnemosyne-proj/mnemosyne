@@ -109,5 +109,5 @@ class ClozePlugin(Plugin):
 This card type can be used to blank fragments in a text,
 e.g. \"The capital of France is [Paris]\",
 will give a card with question
-\"The capital of France is [...] """)
+\"The capital of France is [...]""")
     components = [Cloze]

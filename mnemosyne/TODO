@@ -1,8 +1,24 @@
--re.match vs re.search elsewhere, add tests
+-mail: translator.supported languages
 
--review translation work by Johannes (retranslate in libmnemosyne, translator, dialog)
- add translation data to installer
- check activate calls with self.retranslateUi, too many generic dialogs
+
+-add translator.localedir to simplify code
+-insert translator(,2)
+-pyqt.mnemosyne: relax comment of 'translator should come first'
+-check all retranslate calls
+check activate calls with self.retranslateUi, too many generic dialogs
+-add translation data to installer
+-coverage
+
+-changing languages without reboot
+ http://www.qtcentre.org/wiki/index.php?title=Dynamic_translation_in_Qt4_applications
+
+-The GetDriveType function in win32file module may help you - it's a wrapper for the GetDriveType WINAPI function.
+
+import win32file
+isNetworkDrive = win32file.GetDriveType("Z:\\") == win32file.DRIVE_REMOTE
+
+You'd be able to enumerate all with the GetLogicalDriveStrings() function in the win32api module, then use a loop to pick out only the network drives.
+
 
 -turn off sync media checking by default, add gui option
 

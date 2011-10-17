@@ -125,7 +125,7 @@ class ComponentManager(object):
                     if not isinstance(component, type):
                         component.deactivate()  
         self.components = {}
-        self.card_type_with_id = {}
+        self.card_type_with_id = {}        
 
     def retranslate_all(self):
         for used_for in self.components:
