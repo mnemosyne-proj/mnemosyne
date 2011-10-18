@@ -169,6 +169,7 @@ package_name = "mnemosyne"
 packages = ["mnemosyne",
             "mnemosyne.pyqt_ui",
             "mnemosyne.libmnemosyne",
+            "mnemosyne.libmnemosyne.translators",
             "mnemosyne.libmnemosyne.card_types",
             "mnemosyne.libmnemosyne.databases",
             "mnemosyne.libmnemosyne.file_formats",

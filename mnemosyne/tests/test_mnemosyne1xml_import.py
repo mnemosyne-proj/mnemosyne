@@ -49,12 +49,10 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
     def setup(self):
         shutil.rmtree("dot_test", ignore_errors=True)        
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
-        self.mnemosyne.components.insert(2, ("mnemosyne.libmnemosyne.translator",
-                             "GetTextTranslator"))
+        self.mnemosyne.components.insert(0,
+           ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("mnemosyne_test", "TestReviewWidget"))       
-        self.mnemosyne.components.insert(2, ("mnemosyne.libmnemosyne.translator",
-                             "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("test_mnemosyne1xml_import", "Widget"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)

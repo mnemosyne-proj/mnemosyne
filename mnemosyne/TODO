@@ -1,16 +1,13 @@
--mail: translator.supported languages
-
-
--add translator.localedir to simplify code
--insert translator(,2)
--pyqt.mnemosyne: relax comment of 'translator should come first'
+-changing languages without reboot
+ http://www.qtcentre.org/wiki/index.php?title=Dynamic_translation_in_Qt4_applications
 -check all retranslate calls
 check activate calls with self.retranslateUi, too many generic dialogs
+-really need self.current_language?
+-file dialogs
+-mv qm dir to pyqt_ui
 -add translation data to installer
 -coverage
 
--changing languages without reboot
- http://www.qtcentre.org/wiki/index.php?title=Dynamic_translation_in_Qt4_applications
 
 -The GetDriveType function in win32file module may help you - it's a wrapper for the GetDriveType WINAPI function.
 
@@ -104,6 +101,7 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 
 -tell beta users to make sure to install latest beta first
 -remove upgrade_beta_6.py, beta_7
+
 
 -upgrade to qt 4.7.4, retest progress bars
 -make distrib under linux

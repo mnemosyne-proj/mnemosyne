@@ -105,7 +105,7 @@ class Configuration(Component, dict):
              "memorise_sister_cards_on_same_day": False,
              "show_intervals": "never",
              "only_editable_when_answer_shown": False,
-             "ui_language": None,
+             "ui_language": "en",
              "backups_to_keep": 10,
              "backup_before_sync": True,
              "check_for_edited_local_media_files": True,

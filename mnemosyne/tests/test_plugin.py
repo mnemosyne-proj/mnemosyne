@@ -21,8 +21,8 @@ class TestPlugin(MnemosyneTest):
         shutil.rmtree("dot_test", ignore_errors=True)
         
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
-        self.mnemosyne.components.insert(2, ("mnemosyne.libmnemosyne.translator",
-                             "GetTextTranslator"))
+        self.mnemosyne.components.insert(0,
+           ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("test_plugin", "Widget"))
         self.mnemosyne.components.append(\

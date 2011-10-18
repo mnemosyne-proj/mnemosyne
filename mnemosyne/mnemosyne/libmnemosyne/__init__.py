@@ -167,8 +167,6 @@ class Mnemosyne(Component):
         if automatic_upgrades:
             from mnemosyne.libmnemosyne.upgrades.upgrade1 import Upgrade1
             Upgrade1(self.component_manager).run()
-        # Translate components.
-        self.component_manager.retranslate_all()
         # Finally, we can activate the main widget.
         self.main_widget().activate()
             
@@ -199,8 +197,7 @@ class Mnemosyne(Component):
     def activate_components(self):
         
         """Now that everything is registered, we can activate the components
-        in the correct order: first config, followed by translator, log, and
-        then the rest.
+        in the correct order: first config, followed by log and then the rest.
         
         """
 
@@ -212,7 +209,7 @@ class Mnemosyne(Component):
         self.config()["upload_science_logs"] = self.upload_science_logs
         self.config()["interested_in_old_reps"] = self.interested_in_old_reps        
         # Activate other components.
-        for component in ["translator", "log", "database", "scheduler",
+        for component in ["log", "translator", "database", "scheduler",
                           "controller"]:
             try:
                 self.component_manager.current(component).activate()

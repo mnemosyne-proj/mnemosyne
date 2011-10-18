@@ -127,13 +127,6 @@ class ComponentManager(object):
         self.components = {}
         self.card_type_with_id = {}        
 
-    def retranslate_all(self):
-        for used_for in self.components:
-            for comp_type in self.components[used_for]:
-                for component in self.components[used_for][comp_type]:
-                    if not isinstance(component, type):
-                        component.retranslate()
-
 
 # A component manager stores the entire session state of a user through the
 # different components it registers. To enable multiple users to use a single

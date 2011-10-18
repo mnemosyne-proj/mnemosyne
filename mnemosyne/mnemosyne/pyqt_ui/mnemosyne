@@ -4,17 +4,12 @@
 # Mnemosyne <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 import os
 import sys
-import locale
 
 from optparse import OptionParser
 
 from PyQt4.QtGui import QApplication
-from PyQt4.QtCore import QTranslator
 
 from mnemosyne.libmnemosyne import Mnemosyne
 
@@ -23,7 +18,7 @@ from mnemosyne.libmnemosyne import Mnemosyne
 parser = OptionParser()
 parser.usage = "%prog [<database_file>]"
 parser.add_option("-d", "--datadir", dest="data_dir",
-                  help=_("data directory"), default=None)
+                  help="data directory", default=None)
 (options, args) = parser.parse_args()
 
 # Check if we have to override the data_dir determined in libmnemosyne,
@@ -51,11 +46,12 @@ mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True)
 a = QApplication(sys.argv)
 a.setApplicationName("Mnemosyne")
 
-# Add other components we need. The translator should obviously come first,
-# and the UI components should come in the order they should be instantiated,
+# Add other components we need. The translator should come first.
+# The UI components should come in the order they should be instantiated,
 # but apart from that, the order does not matter.
-mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
-                             "GetTextTranslator"))
+mnemosyne.components.insert(0,
+                            ("mnemosyne.pyqt_ui.qt_translator",
+                             "QtTranslator"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.main_wdgt",
                              "MainWdgt"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.review_wdgt",
@@ -125,24 +121,5 @@ if mnemosyne.config()["first_run"] == True:
     mnemosyne.config()["first_run"] = False
 elif mnemosyne.config()["show_daily_tips"] == True:
     mnemosyne.controller().show_tip_dialog()
-
-# To translate the Qt standard dialogs without obscene amounts of monkey-
-# patching, we have to use Qt's own translation framework.
-qt_translator = QTranslator(a)
-try:
-    qtdir = os.environ["QTDIR"]
-except:
-    if sys.platform == "win32":
-        qtdir = os.path.join(sys.exec_prefix, "share", "qt4")
-    else:
-        qtdir = os.path.join("/usr", "share", "qt4")
-if mnemosyne.config()["ui_language"] is None:
-    mnemosyne.config()["ui_language"] = locale.getdefaultlocale()[0][:2]
-qm_dir = os.path.join(qtdir, "translations",
-    "qt_" + mnemosyne.config()["ui_language"] + ".qm")
-qt_translator.load(os.path.join(qtdir, "translations",
-    "qt_" + mnemosyne.config()["ui_language"] + ".qm"))
-a.installTranslator(qt_translator)
-
 a.exec_()
 mnemosyne.finalise()

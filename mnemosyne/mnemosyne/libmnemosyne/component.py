@@ -63,9 +63,10 @@ class Component(object):
     def retranslate(self):
         
         """Method to translate an object's static string attributes.
-        This cannot be done when declaring the attribute itself or when
-        constructing the object, as the translator has not been activated
-        at this time.
+        (This cannot be done when declaring the attribute itself or when
+        constructing the object, as the translator cannot yet be properly
+        activated at that time.)
+        
         """
 
         pass
@@ -74,6 +75,9 @@ class Component(object):
     # libmnemosyne from within a component.
     
     def _(self):
+        return self.component_manager.current("translator")
+    
+    def translator(self):
         return self.component_manager.current("translator")
     
     def config(self):

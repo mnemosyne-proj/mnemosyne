@@ -23,8 +23,9 @@ class MnemosyneTest():
 
     def restart(self):
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
-        self.mnemosyne.components.insert(2, ("mnemosyne.libmnemosyne.translator",
-                             "GetTextTranslator"))
+        self.mnemosyne.components.insert(0,
+            ("mnemosyne.libmnemosyne.translators.gettext_translator",
+             "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.main_widget", "MainWidget"))
         self.mnemosyne.components.append(\

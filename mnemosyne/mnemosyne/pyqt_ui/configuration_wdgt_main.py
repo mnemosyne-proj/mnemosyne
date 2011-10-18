@@ -54,11 +54,8 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
         self.languages.addItem("English")
         for language in _.supported_languages():
             self.languages.addItem(language_name_for_iso6931_code[language])
-        if not self.config()["ui_language"]:
-            self.languages.setCurrentIndex(self.languages.findText("English"))
-        else:
-            self.languages.setCurrentIndex(self.languages.findText(\
-                language_name_for_iso6931_code[self.config()["ui_language"]]))
+        self.languages.setCurrentIndex(self.languages.findText(\
+            language_name_for_iso6931_code[self.config()["ui_language"]]))
 
     def activate(self):
         self.retranslate()
@@ -80,11 +77,9 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
         self.languages.setCurrentIndex(self.languages.findText("English"))
         
     def apply(self):
-        if unicode(self.languages.currentText()) == u"English":
-            self.config()["ui_language"] = None
-        else:
-            self.config()["ui_language"] = iso6931_code_for_language_name(\
+        self.config()["ui_language"] = iso6931_code_for_language_name(\
                 unicode(self.languages.currentText()))
+        self.translator().set_language(self.config()["ui_language"])
         if self.new_cards.currentIndex() == 1:
             self.config()["randomise_new_cards"] = True
         else:

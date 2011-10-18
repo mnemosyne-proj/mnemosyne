@@ -10,6 +10,7 @@ from mnemosyne.libmnemosyne.component import Component
 class UpgradeBeta7(Component):
             
     def run(self):
+        self.config()["ui_language"] = "en"
         try:
             self.database().con.executescript("""
                 create index i_cards_2 on cards (fact_view_id);

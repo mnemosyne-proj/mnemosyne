@@ -66,8 +66,8 @@ class MyServer(Server, Thread):
         if erase_previous:
             shutil.rmtree(data_dir, ignore_errors=True)
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
-        self.mnemosyne.components.insert(2, ("mnemosyne.libmnemosyne.translator",
-            "GetTextTranslator"))
+        self.mnemosyne.components.insert(0,
+           ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(("test_sync", "Widget"))
         self.mnemosyne.components.append(("mnemosyne_test", "TestReviewWidget"))
         global server_is_initialised
@@ -151,8 +151,8 @@ class MyClient(Client):
         if erase_previous:
             shutil.rmtree(data_dir, ignore_errors=True)
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=False)
-        self.mnemosyne.components.insert(2, ("mnemosyne.libmnemosyne.translator",
-                             "GetTextTranslator"))
+        self.mnemosyne.components.insert(0,
+           ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(("test_sync", "Widget"))
         self.mnemosyne.components.append(("mnemosyne_test", "TestReviewWidget"))
         self.mnemosyne.initialise(data_dir, filename,  automatic_upgrades=False)

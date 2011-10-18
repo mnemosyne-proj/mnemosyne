@@ -2,14 +2,62 @@
 # translator.py <Peter.Bienstman@UGent.be>
 #               <Johannes.Baiter@gmail.com>
 #
-
-import os
-import sys
     
 from mnemosyne.libmnemosyne.component import Component
 
-# Dummy translator for cases where no translator is activated
-_ = lambda s: s
+
+class Translator(Component):
+
+    component_type = "translator"
+
+    def __init__(self, component_manager):
+        Component.__init__(self, component_manager)
+        global _
+        _ = self
+        # We install a dummy translator so that translatable stings can be
+        # marked even if 'activate' has not yet been called.
+        self._translator = lambda x : x
+        self.current_language = None
+
+    def activate(self):
+        self.set_language(self.config()["ui_language"])
+        # We cannot perform this in __init__, as we need to wait until
+        # 'config' has been activated.
+
+    def supported_languages(self):
+        return []
+
+    def set_language(self, language):
+
+        """'language' should be an iso 693-1 code."""
+        
+        if language == self.current_language:
+            return
+        self.set_translator(language)
+        # Make sure to update all static text too.
+        components = self.component_manager.components
+        for used_for in components:
+            for comp_type in components[used_for]:
+                for component in components[used_for][comp_type]:
+                    if not isinstance(component, type):
+                        component.retranslate()
+        self.translate_ui(language)
+        self.current_language = language
+
+    def set_translator(self, language):
+        raise NotImplementedError
+
+    def translate_ui(self, language):
+
+        """To be overridden by a GUI to do GUI-specific translation."""
+        
+        pass
+
+    def __call__(self, text):
+
+        """Used to do translations / mark translatable strings by _("...")."""
+        
+        return self._translator(text)
 
 
 # http://en.wikipedia.org/wiki/List_of_ISO_639-2_codes
@@ -205,67 +253,3 @@ language_name_for_iso6931_code = {
 def iso6931_code_for_language_name(language):
     return dict((v,k) for k, v in \
         language_name_for_iso6931_code.iteritems())[language]
-
-
-class Translator(Component):
-
-    component_type = "translator"
-
-    def __init__(self, component_manager):
-        Component.__init__(self, component_manager)
-        global _
-        _ = self
-
-    def __call__(self, text):
-        raise NotImplementedError
-    
-
-class NoTranslation(Translator):
-
-    def __call__(self, text):
-        return text
-
-
-class GetTextTranslator(Translator):
-
-    def activate(self):
-        # We cannot perform this in __init__, as we need the config to be
-        # activated.
-        self.change_language(self.config()["ui_language"])
-        global _
-        _ = self
-
-    def change_language(self, language):
-        if not language:
-            language = ""
-        # Check if we're running in a development environment.
-        if os.path.exists("mo"):
-            localedir = "mo"
-        else:
-            localedir = os.path.join(sys.exec_prefix, "share", "locale")
-        import gettext
-        self._gettext = gettext.translation("mnemosyne", localedir=localedir,
-            languages=[language], fallback=True)
-
-    def supported_languages(self):
-        import glob
-        # Check if we're running in a development environment.
-        if os.path.exists("mo"):
-            langs = [os.path.split(x)[1] for x in glob.glob(\
-                os.path.join("mo", "*")) if os.path.isdir(x) \
-                and len(os.path.split(x)[1]) == 2]
-        else:
-            if sys.platform == "win32":
-                path_separator = "\\"
-            else:
-                path_separator = "/"
-            langs = [x.split(path_separator)[-3] for x in glob.glob(
-                os.path.join(sys.exec_prefix, "share", "locale", "*",
-                "LC_MESSAGES", "mnemosyne.mo"))]
-        return langs
-
-    def __call__(self, text):
-        if hasattr(self, "_gettext"):
-            return self._gettext.ugettext(text)
-        else:  # Translator was not yet activated.
-            return text

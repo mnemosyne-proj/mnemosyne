@@ -24,13 +24,12 @@ mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=False)
 app = gui.Application()
 
 # List the components we use. We override the default list here, as we don't
-# need al the components specified there.
-# The translator should obviously come first, and the UI components should
-# come in the order they should be instantiated, but apart from that, the
-# order does not matter.
+# need al the components specified there. The translator should come first.
+# The UI components should come in the order they should be instantiated,
+# but apart from that, the order does not matter.
 mnemosyne.components = [
-    ("mnemosyne.libmnemosyne.translator",
-     "NoTranslation"),
+    ("mnemosyne.libmnemosyne.translators.no_translator",
+     "NoTranslator"),
     ("mnemosyne.ppygui_ui.main_wdgt",
      "MainWdgt"),
     ("mnemosyne.ppygui_ui.review_wdgt",
