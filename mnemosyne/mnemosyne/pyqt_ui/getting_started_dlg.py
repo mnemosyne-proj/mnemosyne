@@ -26,7 +26,6 @@ class GettingStartedDlg(QtGui.QWizard, Ui_GettingStartedDlg,
         
     def activate(self):
         GettingStartedDialog.activate(self)
-        self.retranslateUi(self)
         self.show()
 
     def accept(self):

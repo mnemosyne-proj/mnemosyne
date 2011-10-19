@@ -55,12 +55,11 @@ class CardType(Component, CompareOnId):
 
     def retranslate(self):
         self.name = _(self.name)
-        for idx, entry in enumerate(self.fact_keys_and_names):
-            self.fact_keys_and_names[idx] = (entry[0], _(entry[1]))
-        for idx, fact_view in enumerate(self.fact_views):
-            self.fact_views[idx].name = _(self.fact_views[idx].name)
+        for index, entry in enumerate(self.fact_keys_and_names):
+            self.fact_keys_and_names[index] = (entry[0], _(entry[1]))
+        for index, fact_view in enumerate(self.fact_views):
+            self.fact_views[index].name = _(self.fact_views[index].name)
             
-
     def fact_keys(self):
         return set(fact_key for (fact_key, fact_key_name) \
             in self.fact_keys_and_names)

@@ -46,7 +46,6 @@ class ImportDlg(QtGui.QDialog, Ui_ImportDlg, ImportDialog):
             
     def activate(self):
         ImportDialog.activate(self)
-        self.retranslateUi(self)
         self.exec_()
 
     def format(self):

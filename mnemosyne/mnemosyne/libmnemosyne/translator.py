@@ -17,7 +17,6 @@ class Translator(Component):
         # We install a dummy translator so that translatable stings can be
         # marked even if 'activate' has not yet been called.
         self._translator = lambda x : x
-        self.current_language = None
 
     def activate(self):
         self.set_language(self.config()["ui_language"])
@@ -30,9 +29,7 @@ class Translator(Component):
     def set_language(self, language):
 
         """'language' should be an iso 693-1 code."""
-        
-        if language == self.current_language:
-            return
+
         self.set_translator(language)
         # Make sure to update all static text too.
         components = self.component_manager.components
@@ -42,7 +39,6 @@ class Translator(Component):
                     if not isinstance(component, type):
                         component.retranslate()
         self.translate_ui(language)
-        self.current_language = language
 
     def set_translator(self, language):
         raise NotImplementedError

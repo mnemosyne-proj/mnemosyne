@@ -36,7 +36,6 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
             self.restoreGeometry(state)
 
     def activate(self):
-        self.retranslateUi(self)
         self.exec_()
         
     def _store_state(self):

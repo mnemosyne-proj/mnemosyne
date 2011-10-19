@@ -75,9 +75,6 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
             parent.setTabOrder(parent.preview_button, parent.exit_button)            
         self.top_edit_box.setFocus()
 
-    def activate(self):
-        self.retranslateUi(self)
-
     def pronunciation_hiding_toggled(self, checked):
         self.config().set_card_type_property("hide_pronunciation_field",
             checked, self.card_type)

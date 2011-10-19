@@ -1,9 +1,4 @@
--changing languages without reboot
- http://www.qtcentre.org/wiki/index.php?title=Dynamic_translation_in_Qt4_applications
--check all retranslate calls
-check activate calls with self.retranslateUi, too many generic dialogs
--really need self.current_language?
--file dialogs
+-get rid of all retranslate calls in libmnemosyne, update docs
 -mv qm dir to pyqt_ui
 -add translation data to installer
 -coverage
@@ -185,9 +180,7 @@ http://dotancohen.com/howto/rtl_right_to_left.html
 
 -cntrl-c shortcut for question and answer
 
-
--new translation infrastructure
--handle deferred translation
+-install kde translator to translate file dialogs and color dialogs
 -different translators for different users?
 
 -integrate webserver in GUI, login mechanism, session_token, cookies

@@ -25,9 +25,6 @@ class ChangeCardTypeDlg(QtGui.QDialog, Ui_ChangeCardTypeDlg, Component):
             if card_type != current_card_type:
                 self.card_type_by_name[card_type.name] = card_type
                 self.card_types_widget.addItem(card_type.name)
-        
-    def activate(self):
-        self.retranslateUi(self)
 
     def accept(self):
         card_type_name = unicode(self.card_types_widget.currentText())

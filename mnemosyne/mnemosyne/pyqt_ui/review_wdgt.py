@@ -49,8 +49,10 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         parent.add_to_status_bar(self.act)
         parent.status_bar.setSizeGripEnabled(0)
 
-    def activate(self):
-        self.retranslateUi(self)
+    def changeEvent(self, event):
+        if event.type() == QtCore.QEvent.LanguageChange:
+            self.retranslateUi(self)
+        QtGui.QWidget.changeEvent(self, event)
 
     def determine_stretch_factors(self, q, a):
         q_stretch, a_stretch = 1, 1

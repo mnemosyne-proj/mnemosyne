@@ -40,9 +40,6 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
             itemChanged.connect(self.criterion_changed)
         self.tag_tree_wdgt.tag_tree_wdgt.\
             itemChanged.connect(self.criterion_changed)
-
-    def activate(self):
-        self.retranslateUi(self)
     
     def display_criterion(self, criterion):
         self.card_type_tree_wdgt.display(criterion)

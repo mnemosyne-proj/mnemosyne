@@ -543,7 +543,6 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             self.config()["browse_cards_dlg_sorting_warning_shown"] = True
             
     def activate(self):
-        self.retranslateUi(self)
         self.exec_()
 
     def search_text_changed(self):

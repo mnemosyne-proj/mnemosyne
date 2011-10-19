@@ -43,9 +43,6 @@ class ConvertCardTypeKeysDlg(QtGui.QDialog, Ui_ConvertCardTypeKeysDlg):
             index += 1
             combobox.currentIndexChanged.connect(self.combobox_updated)
 
-    def activate(self):
-        self.retranslateUi(self)
-
     def combobox_updated(self):
         self.ok_button.setEnabled(False)
         self.correspondence.clear()

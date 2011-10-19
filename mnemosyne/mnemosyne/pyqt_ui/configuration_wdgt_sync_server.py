@@ -41,13 +41,6 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
                 localhost_IP() + ".")
         else:
             self.server_status.setText(_("Server NOT running."))   
-    
-    def activate(self):
-        self.retranslate()
-        self.retranslateUi(self)
-
-    def retranslate(self):
-        self.name = _(self.name)
 
     def is_server_running(self):
         timeout = socket.getdefaulttimeout()

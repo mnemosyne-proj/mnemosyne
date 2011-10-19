@@ -27,12 +27,16 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
     def _store_state(self):
         self.config()["main_window_state"] = self.saveGeometry()
 
+    def changeEvent(self, event):
+        if event.type() == QtCore.QEvent.LanguageChange:
+            self.retranslateUi(self)
+        QtGui.QMainWindow.changeEvent(self, event)
+
     def closeEvent(self, event):
         # Generated when clicking the window's close button.
         self._store_state()
 
     def activate(self):
-        self.retranslateUi(self)
         state = self.config()["main_window_state"]
         if state:
             self.restoreGeometry(state)

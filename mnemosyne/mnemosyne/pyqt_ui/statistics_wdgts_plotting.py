@@ -30,7 +30,6 @@ class PlotStatisticsWdgt(QtGui.QWidget, StatisticsWidget):
         self.page = page
 
     def activate(self):
-        self.retranslate()
         self.vbox_layout = QtGui.QVBoxLayout(self)        
         # The idea was to lazily import matplotlib only when we open the
         # statistics dialog. However, the import statements below can often
@@ -48,9 +47,6 @@ class PlotStatisticsWdgt(QtGui.QWidget, StatisticsWidget):
         self.canvas.setParent(self)
         self.axes = fig.add_subplot(111)
         self.canvas.updateGeometry()
-
-    def retranslate(self):
-        pass
 
     def display_message(self, text):
         self.axes.clear()
@@ -110,9 +106,6 @@ class PlotStatisticsWdgt(QtGui.QWidget, StatisticsWidget):
 class BarChartDaysWdgt(PlotStatisticsWdgt):
 
     colour = "blue"
-
-    def retranslate(self):
-        self.title = _(self.title)
 
     def show_statistics(self, variant):
         self.activate()

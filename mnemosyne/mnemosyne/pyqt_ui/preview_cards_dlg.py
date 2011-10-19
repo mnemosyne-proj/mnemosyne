@@ -32,9 +32,6 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component):
             self.restoreGeometry(state)
         self.update_dialog()
 
-    def activate(self):
-        self.retranslateUi(self)
-
     def update_dialog(self):
         if len(self.cards) == 1:
             self.previous_button.setVisible(False)

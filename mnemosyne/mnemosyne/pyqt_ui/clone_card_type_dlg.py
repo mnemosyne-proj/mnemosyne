@@ -21,9 +21,6 @@ class CloneCardTypeDlg(QtGui.QDialog, Ui_CloneCardTypeDlg, Component):
         for card_type in self.card_types():
             self.parent_type.addItem(card_type.name)
 
-    def activate(self):
-        self.retranslateUi(self)
-
     def name_changed(self):
         if not self.name.text():
             self.OK_button.setEnabled(False)

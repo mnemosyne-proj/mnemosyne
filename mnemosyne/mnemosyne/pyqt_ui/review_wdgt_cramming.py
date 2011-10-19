@@ -29,8 +29,12 @@ class ReviewWdgtCramming(ReviewWdgt):
         parent.add_to_status_bar(self.unseen)
         parent.add_to_status_bar(self.active)
 
-    def activate(self):
-        self.retranslateUi(self)
+    def changeEvent(self, event):
+        if event.type() == QtCore.QEvent.LanguageChange:
+            self.retranslateUi(self)
+        self.grade_0_button.setText(_("&Wrong"))
+        self.grade_5_button.setText(_("&Right"))
+        QtGui.QWidget.changeEvent(self, event)
 
     def update_status_bar_counters(self):
         wrong_count, unseen_count, active_count = \

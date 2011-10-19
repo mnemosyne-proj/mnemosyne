@@ -46,7 +46,6 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         self.changed = False
         
     def activate(self):
-        self.retranslateUi(self)
         self.exec_()
         
     def card_type_changed(self, new_card_type_name):

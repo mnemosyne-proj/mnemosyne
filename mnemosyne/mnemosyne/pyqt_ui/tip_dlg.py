@@ -57,13 +57,7 @@ class TipDlg(QtGui.QDialog, Ui_TipDlg, TipDialog):
 
     def activate(self):
         TipDialog.activate(self)
-        self.retranslateUi(self)
-        self.retranslate()
         self.show()
-
-    def retranslate(self):
-        for idx, tip in enumerate(self.tips):
-            self.tips[idx] = _(tip)
 
     def update_dialog(self):
         # We need an extra modulo operation here to deal with the possibility

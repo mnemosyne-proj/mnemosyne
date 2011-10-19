@@ -23,7 +23,6 @@ class StatisticsDlg(QtGui.QDialog, Ui_StatisticsDlg, StatisticsDialog):
 
     def activate(self):
         self.setupUi(self)
-        self.retranslateUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
@@ -71,6 +70,7 @@ class StatisticsDlg(QtGui.QDialog, Ui_StatisticsDlg, StatisticsDialog):
             variant_index = 0
         page.combobox.setCurrentIndex(variant_index)
         page.display_variant(variant_index)
+
 
 class StatisticsPageWdgt(QtGui.QWidget, Component):
 

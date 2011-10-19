@@ -27,9 +27,6 @@ class CardSetNameDlg(QtGui.QDialog, Ui_CardSetNameDlg, UiComponent):
         else:
             self.ok_button.setEnabled(False)
 
-    def activate(self):
-        self.retranslateUi(self)
-
     def text_changed(self):
         if self.set_name.text():
             self.ok_button.setEnabled(True)

@@ -18,9 +18,6 @@ class HtmlStatisticsWdgt(QtWebKit.QWebView, StatisticsWidget):
         QtWebKit.QWebView.__init__(self, parent)
         self.page = page
 
-    def activate(self):
-        self.retranslateUi(self)
-
     def sizeHint(self):
         return QtCore.QSize(400, 320)
 

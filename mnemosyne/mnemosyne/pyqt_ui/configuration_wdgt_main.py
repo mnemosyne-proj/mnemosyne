@@ -57,13 +57,6 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
         self.languages.setCurrentIndex(self.languages.findText(\
             language_name_for_iso6931_code[self.config()["ui_language"]]))
 
-    def activate(self):
-        self.retranslate()
-        self.retranslateUi(self)
-
-    def retranslate(self):
-        self.name = _(self.name)
-
     def reset_to_defaults(self):
         self.new_cards.setCurrentIndex(0)
         self.scheduled_cards.setCurrentIndex(0)

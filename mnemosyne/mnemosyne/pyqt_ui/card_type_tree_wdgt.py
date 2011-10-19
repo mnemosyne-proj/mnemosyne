@@ -21,9 +21,6 @@ class CardTypesTreeWdgt(QtGui.QWidget, Component):
         self.card_type_tree.setHeaderHidden(True)
         self.layout.addWidget(self.card_type_tree)
 
-    def activate(self):
-        self.retranslateUi(self)
-
     def display(self, criterion=None):
         # Create criterion if needed.
         if criterion is None:
