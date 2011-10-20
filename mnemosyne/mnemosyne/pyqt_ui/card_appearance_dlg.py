@@ -35,8 +35,8 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         self.card_types_widget.addItem(_("<all card types>"))
         self.card_type_by_name = {}
         for card_type in self.card_types():
-            self.card_type_by_name[card_type.name] = card_type
-            self.card_types_widget.addItem(card_type.name)          
+            self.card_type_by_name[_(card_type.name)] = card_type
+            self.card_types_widget.addItem(_(card_type.name))          
         # Store backups in order to be able to revert our changes.
         self.old_font = deepcopy(self.config()["font"])
         self.old_background_colour = \
@@ -76,7 +76,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         self.align_buttons = QtGui.QButtonGroup()
         self.align_buttons.setExclusive(False)
         for key_name in self.fact_key_names:
-            label = QtGui.QLabel(key_name + ":", self)
+            label = QtGui.QLabel(_(key_name) + ":", self)
             self.gridLayout.addWidget(label, row, 0, 1, 1)
             self.dynamic_widgets.append(label)
             
@@ -204,7 +204,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         self.changed = True
         
     def accept(self):
-        self.config()['non_latin_font_size_increase'] = \
+        self.config()["non_latin_font_size_increase"] = \
             self.non_latin_font_size_increase.value()
         for card_type in self.card_types():
             for render_chain in self.component_manager.all("render_chain"):
@@ -218,7 +218,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
             render_chain.renderer_for_card_type(card_type).update(card_type)
         fact_data = {}
         for fact_key, fact_key_name in card_type.fact_keys_and_names:
-            fact_data[fact_key] = fact_key_name
+            fact_data[fact_key] = _(fact_key_name)
         fact = Fact(fact_data)
         cards = card_type.create_sister_cards(fact)        
         tag_text = ""
@@ -230,7 +230,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
             message = _("Reset all card types to default?")
         else:
             message = _("Reset '%s' to default?") \
-                % (self.affected_card_types[0].name)
+                % (_(self.affected_card_types[0].name))
         result = QtGui.QMessageBox.question(None, _("Mnemosyne"), message,
             _("&Yes"), _("&No"), "", 0, -1)
         if result == 1:

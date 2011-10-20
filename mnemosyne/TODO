@@ -1,3 +1,6 @@
+-clone card type: card type by name
+-test card appearance
+
 -get rid of all retranslate calls in libmnemosyne, update docs
 -mv qm dir to pyqt_ui
 -add translation data to installer

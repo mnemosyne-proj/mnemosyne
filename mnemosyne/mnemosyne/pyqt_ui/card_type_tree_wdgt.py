@@ -48,13 +48,13 @@ class CardTypesTreeWdgt(QtGui.QWidget, Component):
         root_item.setCheckState(0, QtCore.Qt.Checked)
         for card_type in self.card_types():
             card_type_item = QtGui.QTreeWidgetItem(root_item, ["%s (%d)" % \
-                (card_type.name, count_for_card_type[card_type])], 0)
+                (_(card_type.name), count_for_card_type[card_type])], 0)
             card_type_item.setFlags(card_type_item.flags() | \
                 QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)            
             card_type_item.setCheckState(0, QtCore.Qt.Checked)
             for fact_view in card_type.fact_views:
                 fact_view_item = QtGui.QTreeWidgetItem(card_type_item,
-                    ["%s (%d)" % (fact_view.name,
+                    ["%s (%d)" % (_(fact_view.name),
                     count_for_fact_view[fact_view])], 0)
                 fact_view_item.setFlags(fact_view_item.flags() | \
                     QtCore.Qt.ItemIsUserCheckable)

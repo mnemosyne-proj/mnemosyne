@@ -52,13 +52,6 @@ class CardType(Component, CompareOnId):
     required_fact_keys = None
     keyboard_shortcuts = {}
     extra_data = {}
-
-    def retranslate(self):
-        self.name = _(self.name)
-        for index, entry in enumerate(self.fact_keys_and_names):
-            self.fact_keys_and_names[index] = (entry[0], _(entry[1]))
-        for index, fact_view in enumerate(self.fact_views):
-            self.fact_views[index].name = _(self.fact_views[index].name)
             
     def fact_keys(self):
         return set(fact_key for (fact_key, fact_key_name) \

@@ -45,7 +45,7 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component):
         self.vertical_layout.setStretchFactor(self.answer_box, a_stretch)
         self.question.setHtml(card.question())
         self.answer.setHtml(card.answer())
-        self.fact_view_name.setText(card.fact_view.name + " (" + \
+        self.fact_view_name.setText(_(card.fact_view.name) + " (" + \
                         str(self.index+1) + "/" + str(len(self.cards)) + ")")
         self.previous_button.setEnabled(self.index != 0)
         self.next_button.setEnabled(self.index != len(self.cards)-1)

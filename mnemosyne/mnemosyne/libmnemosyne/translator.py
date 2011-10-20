@@ -8,6 +8,17 @@ from mnemosyne.libmnemosyne.component import Component
 
 class Translator(Component):
 
+    """Note: static text will be marked as translatable by
+    `static_variable = _("...")`, e.g. in CardType. However, if want to have
+    this text show up translated in the GUI, we need to use
+    `_(static_variable)` there as opposed to just `static_variable`.
+
+    This is the most straightforward design to allow switching back and forth
+    between different languages in the GUI on the fly, i.e. without restarting
+    the program.
+
+    """
+
     component_type = "translator"
 
     def __init__(self, component_manager):
@@ -31,13 +42,6 @@ class Translator(Component):
         """'language' should be an iso 693-1 code."""
 
         self.set_translator(language)
-        # Make sure to update all static text too.
-        components = self.component_manager.components
-        for used_for in components:
-            for comp_type in components[used_for]:
-                for component in components[used_for][comp_type]:
-                    if not isinstance(component, type):
-                        component.retranslate()
         self.translate_ui(language)
 
     def set_translator(self, language):

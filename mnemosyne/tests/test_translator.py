@@ -11,6 +11,7 @@ from mnemosyne.libmnemosyne.translators.no_translator import NoTranslator
 class TestTranslator(MnemosyneTest):
     
     def test_translator_2(self):
+        self.mnemosyne.translator()
         t = NoTranslator(None)
         assert t("foo") == "foo"
     

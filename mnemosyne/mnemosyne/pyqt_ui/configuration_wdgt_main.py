@@ -52,7 +52,7 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
         else:
             self.upload_science_logs.setCheckState(QtCore.Qt.Unchecked)
         self.languages.addItem("English")
-        for language in _.supported_languages():
+        for language in self.translator().supported_languages():
             self.languages.addItem(language_name_for_iso6931_code[language])
         self.languages.setCurrentIndex(self.languages.findText(\
             language_name_for_iso6931_code[self.config()["ui_language"]]))

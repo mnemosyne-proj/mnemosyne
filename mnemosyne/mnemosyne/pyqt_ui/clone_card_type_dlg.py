@@ -4,6 +4,7 @@
 
 from PyQt4 import QtCore, QtGui
 
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.pyqt_ui.ui_clone_card_type_dlg import Ui_CloneCardTypeDlg
 

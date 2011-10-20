@@ -207,7 +207,18 @@ class Mnemosyne(Component):
         except RuntimeError, e:
             self.main_widget().show_error(unicode(e))
         self.config()["upload_science_logs"] = self.upload_science_logs
-        self.config()["interested_in_old_reps"] = self.interested_in_old_reps        
+        self.config()["interested_in_old_reps"] = self.interested_in_old_reps
+
+
+
+
+        # TMP beta 7.
+        if self.config()["ui_language"] is None:
+            self.config()["ui_language"] = "en"
+
+
+
+        
         # Activate other components.
         for component in ["log", "translator", "database", "scheduler",
                           "controller"]:
