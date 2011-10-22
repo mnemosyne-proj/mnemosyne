@@ -25,10 +25,7 @@ class DefaultController(Controller):
 
     See also 'How to write a new frontend' in the docs.
 
-    """    
-
-    def retranslate(self):
-        self.single_database_help = _(self.single_database_help)
+    """
         
     def heartbeat(self):
 
@@ -403,7 +400,7 @@ class DefaultController(Controller):
         self.stopwatch().pause()
         self.flush_sync_server()
         if self.config()["single_database_help_shown"] == False:
-            self.main_widget().show_information(self.single_database_help)
+            self.main_widget().show_information(_(self.single_database_help))
             self.config()["single_database_help_shown"] = True
         db = self.database()
         suffix = db.suffix
@@ -487,7 +484,7 @@ class DefaultController(Controller):
     def show_save_file_as_dialog(self):
         self.stopwatch().pause()
         if self.config()["single_database_help_shown"] == False:
-            self.main_widget().show_information(self.single_database_help)
+            self.main_widget().show_information(_(self.single_database_help))
             self.config()["single_database_help_shown"] = True
         self.flush_sync_server()
         suffix = self.database().suffix

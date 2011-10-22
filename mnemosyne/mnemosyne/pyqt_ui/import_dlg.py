@@ -20,7 +20,7 @@ class ImportDlg(QtGui.QDialog, Ui_ImportDlg, ImportDialog):
         i = 0
         current_index = None
         for format in self.component_manager.all("file_format"):
-            self.file_formats.addItem(format.description)
+            self.file_formats.addItem(_(format.description))
             if type(format) == self.config()["import_format"]:
                 current_index = i
             i += 1
@@ -56,7 +56,7 @@ class ImportDlg(QtGui.QDialog, Ui_ImportDlg, ImportDialog):
     def browse(self):
         import_dir = self.config()["import_dir"]
         filename = self.main_widget().get_filename_to_open(import_dir,
-            self.format().filename_filter)
+            _(self.format().filename_filter))
         self.filename_box.setText(filename)
         if filename:
             self.config()["import_dir"] = os.path.dirname(filename)

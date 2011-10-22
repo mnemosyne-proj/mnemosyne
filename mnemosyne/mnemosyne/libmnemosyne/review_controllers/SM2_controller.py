@@ -39,11 +39,6 @@ class SM2Controller(ReviewController):
     tooltip[RET_PHASE][5] = \
         _("Correct answer, but without any difficulties. The interval was probably too short.")
 
-    def retranslate(self):
-        for phase_idx, tiplist in enumerate(self.tooltip):
-            for idx, tip in enumerate(self.tooltip[phase_idx]):
-                self.tooltip[phase_idx][idx] = _(tip)
-
     def reset(self):
 
         """A Plugin can have a new scheduler, a new review controller or both,
@@ -262,10 +257,10 @@ class SM2Controller(ReviewController):
                 interval = self.scheduler().process_answer(self.card, \
                     grade, dry_run=True)
                 days = int(math.ceil(interval / (24.0 * 60 * 60)))               
-                w.set_grade_tooltip(grade, self.tooltip[phase][grade] + \
+                w.set_grade_tooltip(grade, _(self.tooltip[phase][grade]) + \
                     self.next_rep_string(days))
             else:
-                w.set_grade_tooltip(grade, self.tooltip[phase][grade])
+                w.set_grade_tooltip(grade, _(self.tooltip[phase][grade]))
             # Button text.
             if self.state == "SELECT GRADE" and \
                self.config()["show_intervals"] == "buttons":

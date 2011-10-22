@@ -13,10 +13,6 @@ class FileFormat(Component):
     filename_filter = ""  # E.g. "XML Files (*.xml *XML)"
     import_possible = False
     export_possible = False
-
-    def retranslate(self):
-        self.description = _(self.description)
-        self.filename_filter = _(self.filename_filter)
     
     def do_import(self, filename, extra_tag_name=None):
         raise NotImplementedError

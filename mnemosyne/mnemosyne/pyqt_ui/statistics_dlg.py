@@ -32,7 +32,7 @@ class StatisticsDlg(QtGui.QDialog, Ui_StatisticsDlg, StatisticsDialog):
         for page in self.component_manager.all("statistics_page"):
             page = page(self.component_manager)
             self.tab_widget.addTab(StatisticsPageWdgt(self.component_manager,
-                self, page, page_index), page.name)
+                self, page, page_index), _(page.name))
             page_index += 1
         self.tab_widget.tabBar().setVisible(self.tab_widget.count() > 1)  
         if previous_page_index >= self.tab_widget.count():
@@ -97,7 +97,7 @@ class StatisticsPageWdgt(QtGui.QWidget, Component):
         for variant_id, variant_name in variants:
             self.variant_ids.append(variant_id)
             self.variant_widgets.append(None)
-            self.combobox.addItem(unicode(variant_name))
+            self.combobox.addItem(unicode(_(variant_name)))
         if len(self.variant_ids) <= 1 or \
            self.statistics_page.show_variants_in_combobox == False:
             self.combobox.hide()

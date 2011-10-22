@@ -2,7 +2,7 @@
 # review_wdgt_cramming.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtGui
+from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.review_wdgt import ReviewWdgt

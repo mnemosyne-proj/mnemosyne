@@ -31,10 +31,6 @@ class StatisticsPage(Component):
 
     def __init__(self, component_manager):
         Component.__init__(self, component_manager)
-        self.retranslate()
-
-    def retranslate(self):
-        self.name = _(self.name)
 
     def prepare_statistics(self, variant_id):
 

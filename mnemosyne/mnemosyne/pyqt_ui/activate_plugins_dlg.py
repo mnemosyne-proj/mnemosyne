@@ -27,9 +27,9 @@ class PluginListModel(QtCore.QAbstractTableModel, Component):
             return QtCore.QVariant()
         if role == QtCore.Qt.DisplayRole:
             if index.column() == 0:
-                return QtCore.QVariant(self.plugins()[index.row()].name)
+                return QtCore.QVariant(_(self.plugins()[index.row()].name))
             elif index.column() == 1:
-                return QtCore.QVariant(self.plugins()[index.row()].description)
+                return QtCore.QVariant(_(self.plugins()[index.row()].description))
         if role == QtCore.Qt.CheckStateRole:
             if index.column() == 0:
                 if self.plugins()[index.row()].__class__.__name__ in \
@@ -37,7 +37,7 @@ class PluginListModel(QtCore.QAbstractTableModel, Component):
                     return QtCore.QVariant(QtCore.Qt.Checked)
                 else:
                     return QtCore.QVariant(QtCore.Qt.Unchecked)                   
-        return  QtCore.QVariant()
+        return QtCore.QVariant()
 
     def flags(self, index):
         if index.column() == 0:
