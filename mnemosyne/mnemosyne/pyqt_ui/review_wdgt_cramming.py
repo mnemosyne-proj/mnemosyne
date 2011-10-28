@@ -32,8 +32,11 @@ class ReviewWdgtCramming(ReviewWdgt):
     def changeEvent(self, event):
         if event.type() == QtCore.QEvent.LanguageChange:
             self.retranslateUi(self)
-        self.grade_0_button.setText(_("&Wrong"))
-        self.grade_5_button.setText(_("&Right"))
+        # Upon start, there will be a change event before the grade
+        # buttons have been created.
+        if hasattr(self, "grade_0_button"):
+            self.grade_0_button.setText(_("&Wrong"))
+            self.grade_5_button.setText(_("&Right"))
         QtGui.QWidget.changeEvent(self, event)
 
     def update_status_bar_counters(self):

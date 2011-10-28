@@ -6,7 +6,8 @@
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne.translator import Translator
 from mnemosyne.libmnemosyne.translators.no_translator import NoTranslator
-
+from mnemosyne.libmnemosyne.translator import iso6931_code_for_language_name
+from mnemosyne.libmnemosyne.translators.gettext_translator import GetTextTranslator
 
 class TestTranslator(MnemosyneTest):
     
@@ -29,3 +30,13 @@ class TestTranslator(MnemosyneTest):
         self.mnemosyne.component_manager.current(
                 "translator").set_language("de")
         assert _("This is a test.") == "Dies ist ein Test."
+
+    def test_1(self):
+        t = Translator(self.mnemosyne.component_manager)
+        assert t.supported_languages() == []
+        assert iso6931_code_for_language_name("Zulu") == "zu"
+
+        t = GetTextTranslator(self.mnemosyne.component_manager)
+        assert t.supported_languages() != []        
+
+        

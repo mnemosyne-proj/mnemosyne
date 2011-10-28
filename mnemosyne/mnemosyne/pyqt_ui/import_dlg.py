@@ -50,7 +50,7 @@ class ImportDlg(QtGui.QDialog, Ui_ImportDlg, ImportDialog):
 
     def format(self):
         for _format in self.component_manager.all("file_format"):
-            if _format.description == self.file_formats.currentText():
+            if _(_format.description) == self.file_formats.currentText():
                 return _format
 
     def browse(self):

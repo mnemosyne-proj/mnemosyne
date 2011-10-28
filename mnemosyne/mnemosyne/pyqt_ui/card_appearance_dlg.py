@@ -96,12 +96,9 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         self.font_buttons.buttonClicked[int].connect(self.update_font)
         self.colour_buttons.buttonClicked[int].\
             connect(self.update_font_colour)
-        
-        try:
-            current_alignment = self.config()["alignment"]\
-                                [self.affected_card_types[0].id]
-        except:
-            current_alignment = "center"
+
+        current_alignment = self.config().card_type_property(\
+            "alignment", self.affected_card_types[0], default="center")
         if current_alignment == "left":
             self.alignment.setCurrentIndex(0)
         elif current_alignment == "center":

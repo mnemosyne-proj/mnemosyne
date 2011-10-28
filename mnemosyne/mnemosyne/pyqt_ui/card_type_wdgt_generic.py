@@ -4,6 +4,7 @@
 
 from PyQt4 import QtCore, QtGui
 
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.qtextedit2 import QTextEdit2
 from mnemosyne.libmnemosyne.ui_components.card_type_widget \
      import GenericCardTypeWidget
@@ -30,7 +31,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         # Construct the rest of the dialog.
         parent.setTabOrder(parent.card_types_widget, parent.tags)
         for fact_key, fact_key_name in self.card_type.fact_keys_and_names:
-            l = QtGui.QLabel(fact_key_name + ":", self)
+            l = QtGui.QLabel(_(fact_key_name) + ":", self)
             self.vboxlayout.addWidget(l)
             if fact_key == "p_1":
                 self.pronunciation_label = l

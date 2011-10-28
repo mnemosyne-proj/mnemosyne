@@ -1,12 +1,5 @@
--starting with translated cramming widget does not work
--clone card type: card type by name
--test card appearance
--file format
-
--mv qm dir to pyqt_ui
--add translation data to installer
--coverage
-
+-mv qm dir to pyqt_ui: setup for all platforms, check qt_translator
+-test installed version
 
 -The GetDriveType function in win32file module may help you - it's a wrapper for the GetDriveType WINAPI function.
 
@@ -53,6 +46,8 @@ You'd be able to enumerate all with the GetLogicalDriveStrings() function in the
  -popup on backlog during review
 
  -right click on criterion names (also tip)
+
+-remove mnemosyne/pyqt_ui/locale
 
 -About dialog, with version and link to source
 

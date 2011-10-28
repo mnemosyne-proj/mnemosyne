@@ -36,8 +36,8 @@ class ClonedCardTypesListDlg(QtGui.QDialog, Ui_ClonedCardTypesListDlg,
         self.cloned_card_types.clear()
         for card_type in self.card_types():
             if card_type.__class__.__bases__[0] != CardType:
-                name = "%s (%s)" % (card_type.name,
-                                    card_type.__class__.__bases__[0].name)
+                name = "%s (%s)" % (_(card_type.name),
+                                    _(card_type.__class__.__bases__[0].name))
                 self.cloned_card_types.addItem(QtGui.QListWidgetItem(name))
 
     def clone_card_type(self):

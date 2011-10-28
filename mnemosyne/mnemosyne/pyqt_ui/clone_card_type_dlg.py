@@ -20,7 +20,7 @@ class CloneCardTypeDlg(QtGui.QDialog, Ui_CloneCardTypeDlg, Component):
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
         for card_type in self.card_types():
-            self.parent_type.addItem(card_type.name)
+            self.parent_type.addItem(_(card_type.name))
 
     def name_changed(self):
         if not self.name.text():

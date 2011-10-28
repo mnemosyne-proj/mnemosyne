@@ -16,7 +16,7 @@ class GetTextTranslator(Translator):
         # Check if we're running in a development environment.
         if os.path.exists("mo"):
             self.lang_path = "mo"
-        else:
+        else:  # pragma: no cover
             self.lang_path = os.path.join(sys.exec_prefix, "share", "locale")
 
     def supported_languages(self):
