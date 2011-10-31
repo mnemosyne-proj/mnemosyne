@@ -6,7 +6,7 @@
 
 import os
 import sys
-
+import ctypes
 from optparse import OptionParser
 
 from PyQt4.QtGui import QApplication
@@ -23,16 +23,16 @@ parser.add_option("-d", "--datadir", dest="data_dir",
 
 # Check if we have to override the data_dir determined in libmnemosyne,
 # either because we explicitly specified a data_dir on the command line,
-# or because there is a mnemosyne2 directory present in the current directory.
+# or because there is a mnemosyne directory present in the current directory.
 # The latter is handy when Mnemosyne is run from a USB key, so that there
 # is no need to refer to a drive letter which can change from computer to
 # computer.
 data_dir = None
 if options.data_dir != None:
     data_dir = os.path.abspath(options.data_dir)
-elif os.path.exists(os.path.join(os.getcwdu(), "mnemosyne2")):
-    data_dir = os.path.abspath(os.path.join(os.getcwdu(), "mnemosyne2"))
-    
+elif os.path.exists(os.path.join(os.getcwdu(), "mnemosyne")):
+    data_dir = os.path.abspath(os.path.join(os.getcwdu(), "mnemosyne"))
+        
 # Filename argument.
 if len(args) > 0:
     filename = os.path.abspath(args[0])

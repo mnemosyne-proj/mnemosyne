@@ -1,14 +1,3 @@
--mv qm dir to pyqt_ui: setup for all platforms, check qt_translator
--test installed version
-
--The GetDriveType function in win32file module may help you - it's a wrapper for the GetDriveType WINAPI function.
-
-import win32file
-isNetworkDrive = win32file.GetDriveType("Z:\\") == win32file.DRIVE_REMOTE
-
-You'd be able to enumerate all with the GetLogicalDriveStrings() function in the win32api module, then use a loop to pick out only the network drives.
-
-
 -turn off sync media checking by default, add gui option
 
 -rescale window only when answer picture is shown
@@ -26,6 +15,9 @@ You'd be able to enumerate all with the GetLogicalDriveStrings() function in the
 -browser column width should be saved as soon as it changes, not on browser close
 
 -no icon on W7
+
+-translations through website
+-see if 1.x translations can be reused
 
 -popup tips (PB)
  -comma to separate tag names

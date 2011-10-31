@@ -112,16 +112,6 @@ if sys.platform == "win32": # For py2exe.
                   ("imageformats", glob.glob(r"C:\Python27\Lib\site-packages\PyQt4\plugins\imageformats\*.dll")),
                   ("sqldrivers", ["C:\Python27\Lib\site-packages\PyQt4\plugins\sqldrivers\qsqlite4.dll"])
                   ]
-    # Add translations
-    for mo in [x for x in glob.glob(os.path.join("mo", "*")) \
-        if os.path.isdir(x)]:
-        p, lang = os.path.split(mo)
-        data_files.append((os.path.join("share", "locale",
-            os.path.split(mo)[1], "LC_MESSAGES"),
-            [os.path.join(mo, "LC_MESSAGES", "mnemosyne.mo")]))
-        data_files.append((os.path.join("share", "qt4", "translations"),
-            glob.glob(os.path.join("mnemosyne", "pyqt_ui", "qm", '*'))))
-
 elif sys.platform == "darwin": # For py2app.
     base_path = ""
     data_files = []
@@ -130,6 +120,17 @@ else:
                              "site-packages","mnemosyne")
     data_files = [("/usr/share/applications", ["mnemosyne.desktop"]),
                   ("/usr/share/icons", ["pixmaps/mnemosyne.png"])]
+# Translations.
+if sys.platform == "win32":
+    for mo in [x for x in glob.glob(os.path.join("mo", "*")) \
+        if os.path.isdir(x)]:
+        p, lang = os.path.split(mo)
+        data_files.append((os.path.join("share", "locale",
+            os.path.split(mo)[1], "LC_MESSAGES"),
+            [os.path.join(mo, "LC_MESSAGES", "mnemosyne.mo")]))
+        data_files.append((os.path.join("share", "qt4", "translations"),
+            glob.glob(os.path.join("mnemosyne", "pyqt_ui", "qm", '*'))))
+else:
     for mo in [x for x in glob.glob(os.path.join("mo", "*"))
                if os.path.isdir(x)]:
         data_files.append((os.path.join(sys.exec_prefix, "share", "locale",

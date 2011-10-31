@@ -242,6 +242,15 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         """Connection to the database, lazily created."""
 
         if not self._connection:
+            # Make sure we don't put a database on a network drive under
+            # Windows: http://www.sqlite.org/lockingv3.html
+            if sys.platform == "win32":  # pragma: no cover
+                drive = os.path.splitdrive(self._path)[0]
+                import ctypes
+                if ctypes.windll.kernel32.GetDriveTypeW(u"%s\\" % drive) == 4:
+                    self.main_widget().show_error(_\
+("Putting a database on a network drive is forbidden under Windows to avoid data corruption. Mnemosyne will now close."))
+                    sys.exit(-1)
             self._connection = sqlite3.connect(\
                 self._path, timeout=0.1, isolation_level="EXCLUSIVE")
             self._connection.row_factory = sqlite3.Row

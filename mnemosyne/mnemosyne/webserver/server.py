@@ -50,7 +50,7 @@ class Server(WSGIServer):
                                    interested_in_old_reps=True)
         self.mnemosyne.components.insert(0, (
             ("mnemosyne.libmnemosyne.translators.gettext_translator",
-             "GetTextTranslator"))
+             "GetTextTranslator")))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.main_widget",
              "MainWidget"))
