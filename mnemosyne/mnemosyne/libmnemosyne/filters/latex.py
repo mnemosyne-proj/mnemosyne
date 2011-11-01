@@ -113,7 +113,7 @@ class CheckForUpdatedLatexFiles(Hook):
     # Used during sync. Added here to keep all the latex functionality in
     # a single file.
     
-    used_for = "check_for_edited_local_media_files"
+    used_for = "dynamically_create_media_files"
 
     def __init__(self, component_manager):
         Hook.__init__(self, component_manager)

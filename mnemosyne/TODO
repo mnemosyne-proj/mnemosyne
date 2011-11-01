@@ -1,5 +1,3 @@
--turn off sync media checking by default, add gui option
-
 -rescale window only when answer picture is shown
 
 -show background color also for unrevealed answer
@@ -54,7 +52,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
  replace set_initial_grade by set_initial_grades(cards)?  (PB)
 -also make sure this is OK when changing card type creates extra cards
 -scheduler.spread_sister_cards? (PB)
--learn ahead of schedule bug? (PB)
 -recheck database for this through plugin (PB)
 
 -failed card + new cards in two directions: learn all fw cards, get stuck on failed card. Only

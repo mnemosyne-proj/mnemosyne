@@ -90,6 +90,11 @@ class Server(Partner):
     program_name = "unknown-SRS-app"
     program_version = "unknown"
     BUFFER_SIZE = 8192
+
+    # The following setting can be set to False to speed up the syncing
+    # process on e.g. Servers which are storage only and where media files
+    # cannot be edited.
+    check_for_edited_local_media_files = False
     
     dont_cause_conflict = set([EventTypes.STARTED_PROGRAM,
         EventTypes.STOPPED_PROGRAM, EventTypes.STARTED_SCHEDULER,
@@ -338,9 +343,15 @@ class Server(Partner):
             # Add optional program-specific information.
             server_info = \
                 session.database.append_to_sync_partner_info(server_info)
-            # We check if files were updated outside of the program. This can
-            # generate MEDIA_EDITED log entries, so it should be done first.
-            session.database.check_for_edited_media_files()
+            # We check if files were updated outside of the program, or if
+            # media files need to be generated dynamically, e.g. latex. This
+            # can generate MEDIA_EDITED log entries, so it should be done
+            # first.
+            if self.check_for_edited_local_media_files:
+                self.ui.set_progress_text("Checking for edited media files...")
+                self.session.database.check_for_edited_media_files()
+            self.ui.set_progress_text("Dynamically creating media files...")
+            session.database.dynamically_create_media_files()
             return self.text_format.repr_partner_info(server_info)\
                    .encode("utf-8")
         except:

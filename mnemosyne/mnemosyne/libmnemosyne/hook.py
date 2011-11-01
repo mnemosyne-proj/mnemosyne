@@ -20,7 +20,7 @@ class Hook(Component):
                                                extra argument: card
        'after_repetititon'                     in SM2_mnemosyne.grade_answer
                                                extra argument: card
-       'check_for_edited_local_media_files'    in SQLite_sync
+       'dynamically_create_media_files'        in SQLite_sync
                                                extra argument: data
        =====================================   ===============================
 

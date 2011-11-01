@@ -37,10 +37,6 @@ day_starts_at = 3
 # the possibility to skip this.
 backup_before_sync = True
 
-# The following setting can be set to False to speed up the syncing process on
-# e.g. mobile clients where the media files don't get edited externally.
-check_for_edited_local_media_files = True
-
 # Latex preamble. Note that for the pre- and postamble you need to use double
 # slashes instead of single slashes here, to have them escaped when Python
 # reads them in.
@@ -108,7 +104,7 @@ class Configuration(Component, dict):
              "ui_language": "en",
              "backups_to_keep": 10,
              "backup_before_sync": True,
-             "check_for_edited_local_media_files": True,
+             "check_for_edited_local_media_files": False,
              "interested_in_old_reps": True,
              "single_database_help_shown": False,
              "start_card_browser_sorted": False,

@@ -106,6 +106,8 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
         self.port.setValue(self.config()["port_for_sync_as_client"])
         self.username.setText(self.config()["username_for_sync_as_client"])
         self.password.setText(self.config()["password_for_sync_as_client"])
+        self.check_for_edited_local_media_files.setChecked(\
+            self.config()["check_for_edited_local_media_files"])
         if self.config()["server_for_sync_as_client"]:
             self.ok_button.setFocus()
         
@@ -122,6 +124,8 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
         self.config()["port_for_sync_as_client"] = port
         self.config()["username_for_sync_as_client"] = username
         self.config()["password_for_sync_as_client"] = password
+        self.config()["check_for_edited_local_media_files"] = \
+            self.check_for_edited_local_media_files.isChecked()                                                
         # Do the actual sync in a separate thread.
         self.database().release_connection()
         global answer

@@ -30,6 +30,8 @@ class SyncServer(Component, Server):
         Component.__init__(self, component_manager)
         Server.__init__(self, self.config().machine_id(),
             self.config()["port_for_sync_as_server"], ui)
+        self.check_for_edited_local_media_files = \
+            self.config()["check_for_edited_local_media_files"]
     
     def authorise(self, username, password):
         return username == self.config()["remote_access_username"] and \

@@ -124,11 +124,10 @@ Syncing speed:
 
 After robustness, speed is the most important property of any implementation of the sync protocol. An efficient sync will contribute greatly to the comfort of the user and the percieved quality of the client.
 
-The Python reference client and server implementation have already been optimised to this effect. For a typical daily scenario of doing 200 repetitions of your phone and adding 20 cards on your desktop, a sync takes about 4 seconds on a home WLAN with a rather old (2007) Windows Mobile phone. Memory requirement is about 4 Mb. This is without any GuI running, and does not take the time into account to backup the database before sync (which in this case turns out to be the dominant factor).
+The Python reference client and server implementation have already been optimised to this effect. For a typical daily scenario of doing 200 repetitions of your phone and adding 20 cards on your desktop, a sync takes about 4 seconds on a home WLAN with a rather old (2007) Windows Mobile phone. Memory requirement is about 4 Mb. This is without any GUI running, and does not take the time into account to backup the database before sync (which in this case turns out to be the dominant factor).
 
 When implementing the client in a different language, here are some tips to help improve performance:
 
--terminate each log entry with a newline. (side effect of WSGI 1.x not supporting chunked requests)
 -profile your client to detect where the bottlenecks are
 -look for the most optimal XML parsing library, preferably a compiled one as opposed to an interpreted one
 -buffer *all* the http connections, i.e. read them block by block (e.g. 8kB), as opposed to e.g. log entry by log entry

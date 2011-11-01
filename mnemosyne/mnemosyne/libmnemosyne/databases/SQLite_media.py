@@ -75,10 +75,12 @@ class SQLiteMedia(object):
             self.con.execute("update media set _hash=? where filename=?",
                 (new_hash, filename))
             self.log().edited_media_file(filename)
+
+    def dynamically_create_media_files(self):
         # Other media files, e.g. latex.
         for cursor in self.con.execute("select value from data_for_fact"):
             for f in self.component_manager.all("hook",
-                "check_for_edited_local_media_files"):
+                "dynamically_create_media_files"):
                 f.run(cursor[0])
     
     def _process_media(self, fact):

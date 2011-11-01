@@ -36,6 +36,8 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
         self.port.setValue(self.config()["port_for_sync_as_server"])
         self.username.setText(self.config()["remote_access_username"])
         self.password.setText(self.config()["remote_access_password"])
+        self.check_for_edited_local_media_files.setChecked(\
+            self.config()["check_for_edited_local_media_files"])
         if self.is_server_running():
             self.server_status.setText(_("Server running on ") + \
                 localhost_IP() + ".")
@@ -61,12 +63,16 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
         self.port.setValue(8512)
         self.username.setText("")
         self.password.setText("")
+        self.check_for_edited_local_media_files.setChecked(False)
                 
     def apply(self):
         self.config()["run_sync_server"] = self.run_sync_server.isChecked()
         self.config()["port_for_sync_as_server"] = self.port.value()
         self.config()["remote_access_username"] = unicode(self.username.text())
-        self.config()["remote_access_password"] = unicode(self.password.text())   
+        self.config()["remote_access_password"] = unicode(self.password.text())
+        self.config()["check_for_edited_local_media_files"] = \
+            self.check_for_edited_local_media_files.isChecked()
+        print self.check_for_edited_local_media_files.isChecked()
         self.component_manager.current("sync_server").deactivate()
         if self.config()["run_sync_server"]:
             self.component_manager.current("sync_server").activate()
