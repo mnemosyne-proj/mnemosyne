@@ -1,15 +1,11 @@
--considerable speedups in browse cards, activate cards, show statistics,
- configuration.
--translation infrastructure by Johannes Baiter. (It's a bit early for
- people to contribute translations, as the strings are still in flux)
--added configuration option 'save after n reps'. Defaults to 10,
- for battery and speed reasons.
--don't allow putting the database on a shared network drive under
- Windows for data integrity reasons.
--speedup importing small mem files when you have a large database.
--fix sound files with unicode filenames (reported by silverbear)
--fix crash in cramming scheduler (reported by Sheryaar Butt)
+-If a card type has a background colour set, also use that colour for the 
+ answer box when the answer has not yet been revealed.
+-In case only the answer has a picture, don't rescale the question and answer 
+ until the answer picture is shown.
+-Keep existing tags when changing card type, as opposed to switching to last
+ used tag for that card type.
 
+	
 MNEMOSYNE 2.0
 
 Almost three years in the making, this is essentially a complete rewrite of 

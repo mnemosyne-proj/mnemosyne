@@ -16,6 +16,7 @@ from mnemosyne.pyqt_ui.card_type_wdgt_generic import GenericCardTypeWdgt
 from mnemosyne.pyqt_ui.convert_card_type_keys_dlg import \
      ConvertCardTypeKeysDlg
 
+
 class AddEditCards(Component):
 
     """Code shared between the add and the edit dialogs."""
@@ -108,11 +109,12 @@ class AddEditCards(Component):
         if new_card_type.id not in \
             self.config()["last_used_tags_for_card_type_id"]:
             self.config()["last_used_tags_for_card_type_id"]\
-                [new_card_type.id] = "" 
-        self.update_tags_combobox(self.config()\
-           ["last_used_tags_for_card_type_id"][new_card_type.id])
+                [new_card_type.id] = ""
+        if not unicode(self.tags.currentText()):
+            self.update_tags_combobox(self.config()\
+                ["last_used_tags_for_card_type_id"][new_card_type.id])
         if self.card_type.fact_keys().issubset(new_card_type.fact_keys()) or \
-               self.card_type_widget.is_empty():
+            self.card_type_widget.is_empty():
             self.update_card_widget()            
             return
         dlg = ConvertCardTypeKeysDlg(self.card_type, new_card_type,
@@ -127,7 +129,7 @@ class AddEditCards(Component):
         fact_data = self.card_type_widget.fact_data()
         fact = Fact(fact_data)
         cards = self.card_type.create_sister_cards(fact)
-        tag_text = self.tags.currentText()
+        tag_text = unicode(self.tags.currentText())
         dlg = PreviewCardsDlg(self.component_manager, cards, tag_text, self)
         dlg.exec_()
 

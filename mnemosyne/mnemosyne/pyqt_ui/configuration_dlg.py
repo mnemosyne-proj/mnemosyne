@@ -26,7 +26,7 @@ class ConfigurationDlg(QtGui.QDialog, Ui_ConfigurationDlg, ConfigurationDialog):
             & ~ QtCore.Qt.WindowContextHelpButtonHint)        
         for widget in self.component_manager.all("configuration_widget"):
             widget = widget(self.component_manager, parent=self)
-            self.tab_widget.addTab(widget, widget.name)
+            self.tab_widget.addTab(widget, _(widget.name))
         self.tab_widget.tabBar().setVisible(self.tab_widget.count() > 1)     
         widget_index = self.config()["previous_configuration_wdgt"]
         if widget_index >= self.tab_widget.count():

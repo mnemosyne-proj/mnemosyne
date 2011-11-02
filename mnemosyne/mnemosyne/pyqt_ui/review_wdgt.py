@@ -11,17 +11,6 @@ from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
         
 class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
 
-    _empty = """
-        <html><head>
-        <style type="text/css">
-        table { height: 100%; }
-        body  { background-color: white;
-                margin: 0;
-                padding: 0;
-                border: thin solid #8F8F8F; }
-        </style></head>
-        <body><table><tr><td></td></tr></table></body></html>"""
-
     auto_focus_grades = True
     
     def __init__(self, component_manager):
@@ -54,6 +43,24 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
             self.retranslateUi(self)
         QtGui.QWidget.changeEvent(self, event)
 
+    def empty(self):
+        background = "white"
+        if self.review_controller().card:
+            colour = self.config().card_type_property(\
+            "background_colour", self.review_controller().card.card_type)
+            if colour:
+                background = ("%X" % colour)[2:] # Strip alpha.
+        return """
+        <html><head>
+        <style type="text/css">
+        table { height: 100%; }
+        body  { background-color: """ + background + """;
+                margin: 0;
+                padding: 0;
+                border: thin solid #8F8F8F; }
+        </style></head>
+        <body><table><tr><td></td></tr></table></body></html>"""
+
     def determine_stretch_factors(self, q, a):
         q_stretch, a_stretch = 1, 1
         if "img src" in q:
@@ -62,7 +69,16 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
             a_stretch = 2
         return q_stretch, a_stretch
 
-    def set_stretch_factors(self):
+    def set_question_stretch_factors(self):
+        q_stretch, a_stretch = self.determine_stretch_factors(\
+            self.review_controller().card.question("plain_text"),
+            self.review_controller().card.answer("plain_text"))
+        # Only stretch the the boxes if we are currently showing a picture.
+        if q_stretch != 1:
+            self.vertical_layout.setStretchFactor(self.question_box, q_stretch)
+            self.vertical_layout.setStretchFactor(self.answer_box, a_stretch)
+
+    def set_answer_stretch_factors(self):
         q_stretch, a_stretch = self.determine_stretch_factors(\
             self.review_controller().card.question("plain_text"),
             self.review_controller().card.answer("plain_text"))
@@ -73,6 +89,8 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.review_controller().show_answer()
 
     def grade_answer(self, grade):
+        self.vertical_layout.setStretchFactor(self.question_box, 1)
+        self.vertical_layout.setStretchFactor(self.answer_box, 1)
         self.main_widget().timer_1.start(self.main_widget().TIMER_1_INTERVAL)
         self.review_controller().grade_answer(grade)
 
@@ -96,17 +114,18 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.question_label.setText(text)
 
     def set_question(self, text):
-        self.set_stretch_factors()
+        self.set_question_stretch_factors()
         self.question.setHtml(text)
         
     def set_answer(self, text):
+        self.set_answer_stretch_factors()
         self.answer.setHtml(text)
 
     def clear_question(self):
-        self.question.setHtml(self._empty)
+        self.question.setHtml(self.empty())
         
     def clear_answer(self):
-        self.answer.setHtml(self._empty)
+        self.answer.setHtml(self.empty())
 
     def restore_focus(self):
         # After clicking on the question or the answer, that widget grabs the
