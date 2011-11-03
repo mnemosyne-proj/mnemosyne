@@ -1,20 +1,14 @@
--merge card appearance with settings
--remove old from update controller, main window action, menu file, bzr
--make sure reject option/cancel works
--gid rid of extra space above background color - alignment
--make sure 'reset to default' is per configuration pane. have popup to indicate this
-
 -all grades function as show answer
 -pgdwn in preview/edit in card browser
 -have page up/up/page down/down keys work to scroll in q and a widgets
+-make sure switching between saved sets with keyboard is easy
 
 -'importing history' text does not show?
 
--browser column width should be saved as soon as it changes, not on browser close
+-browser column width should be saved as soon as it changes, not on browser close 
+ (even there it does not seem to work)
 
 -no icon on W7
-
--verify languages issues upon start are gone everywhere
 
 -popup tips (PB)
  -comma to separate tag names
@@ -49,7 +43,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -also make sure this is OK when changing card type creates extra cards
 -scheduler.spread_sister_cards? (PB)
 -recheck database for this through plugin (PB)
-
 -failed card + new cards in two directions: learn all fw cards, get stuck on failed card. Only
  restarting brings bw cards. (PB)
 

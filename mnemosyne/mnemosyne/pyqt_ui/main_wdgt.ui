@@ -38,7 +38,6 @@
      <string>&amp;Settings</string>
     </property>
     <addaction name="actionConfigure"/>
-    <addaction name="actionSetCardAppearance"/>
     <addaction name="actionActivatePlugins"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
@@ -262,11 +261,6 @@
     <string>&amp;Tip of the day</string>
    </property>
   </action>
-  <action name="actionSetCardAppearance">
-   <property name="text">
-    <string>Set card &amp;appearance...</string>
-   </property>
-  </action>
   <action name="actionActivatePlugins">
    <property name="text">
     <string>(De)activate &amp;plugins...</string>
@@ -418,22 +412,6 @@
     <hint type="destinationlabel">
      <x>109</x>
      <y>67</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionSetCardAppearance</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWdgt</receiver>
-   <slot>set_card_appearance</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>123</x>
-     <y>103</y>
     </hint>
    </hints>
   </connection>

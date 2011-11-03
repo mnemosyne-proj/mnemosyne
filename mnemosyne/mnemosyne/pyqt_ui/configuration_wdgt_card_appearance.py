@@ -43,7 +43,6 @@ class ConfigurationWdgtCardAppearance(QtGui.QWidget,
             deepcopy(self.config()["background_colour"])
         self.old_font_colour = deepcopy(self.config()["font_colour"])
         self.old_alignment = deepcopy(self.config()["alignment"])
-        self.changed = False
 
     def card_type_changed(self, new_card_type_name):
         if new_card_type_name == _("<all card types>"):
@@ -130,7 +129,6 @@ class ConfigurationWdgtCardAppearance(QtGui.QWidget,
             for card_type in self.affected_card_types:
                 self.config().set_card_type_property("background_colour",
                     colour.rgb(), card_type)
-            self.changed = True
         
     def update_font(self, index):
         # Determine keys affected.
@@ -156,7 +154,6 @@ class ConfigurationWdgtCardAppearance(QtGui.QWidget,
             for card_type in self.affected_card_types:
                 self.config().set_card_type_property("font", font_string,
                     card_type, affected_fact_key)
-            self.changed = True
         
     def update_font_colour(self, index):
         # Determine keys affected.
@@ -182,7 +179,6 @@ class ConfigurationWdgtCardAppearance(QtGui.QWidget,
             for card_type in self.affected_card_types:
                 self.config().set_card_type_property("font_colour",
                     colour.rgb(), card_type, affected_fact_key)
-            self.changed = True
         
     def update_alignment(self, index):
         if index == 0:
@@ -195,7 +191,7 @@ class ConfigurationWdgtCardAppearance(QtGui.QWidget,
             self.config().set_card_type_property("alignment", new_alignment,
                 card_type)
         self.alignment.font().setWeight(50)
-        self.changed = True
+
         
     def apply(self):
         self.config()["non_latin_font_size_increase"] = \
@@ -242,12 +238,7 @@ class ConfigurationWdgtCardAppearance(QtGui.QWidget,
             self.config()["alignment"].pop(card_type_id, None)
         self.alignment.setCurrentIndex(1)
 
-    def reject(self): # TODO
-        if self.changed == True:
-            result = QtGui.QMessageBox.question(None, _("Mnemosyne"),
-                _("Abandon changes?"), _("&Yes"), _("&No"), "", 0, -1)
-            if result == 1:
-                return
+    def reject(self):
         self.config()["font"] = self.old_font
         self.config()["background_colour"] = self.old_background_colour
         self.config()["font_colour"] = self.old_font_colour

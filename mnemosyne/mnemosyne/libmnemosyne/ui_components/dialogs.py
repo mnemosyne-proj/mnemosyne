@@ -38,11 +38,6 @@ class BrowseCardsDialog(Dialog):
     
     component_type = "browse_cards_dialog"
 
-
-class CardAppearanceDialog(Dialog):
-    
-    component_type = "card_appearance_dialog"
-
     
 class ActivatePluginsDialog(Dialog):
     

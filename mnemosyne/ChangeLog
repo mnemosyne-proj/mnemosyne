@@ -1,9 +1,13 @@
+-The card appearance dialog is now merged as a separate tab in the 
+ configuration dialog.
 -If a card type has a background colour set, also use that colour for the 
  answer box when the answer has not yet been revealed.
 -In case only the answer has a picture, don't rescale the question and answer 
  until the answer picture is shown.
 -Keep existing tags when changing card type, as opposed to switching to last
  used tag for that card type.
+-Don't check for edited media files by default during sync. Make this 
+ configurable through the UI.
 
 	
 MNEMOSYNE 2.0

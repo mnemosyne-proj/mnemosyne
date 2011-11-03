@@ -55,6 +55,12 @@ class ConfigurationDlg(QtGui.QDialog, Ui_ConfigurationDlg, ConfigurationDialog):
             self.tab_widget.widget(index).apply()
         self._store_state()
         return QtGui.QDialog.accept(self)
+
+    def reject(self):
+        for index in range(self.tab_widget.count()):
+            if hasattr(self.tab_widget.widget(index), "reject"):
+                self.tab_widget.widget(index).reject()
+        return QtGui.QDialog.reject(self)        
     
     def reset_to_defaults(self):
         self.tab_widget.currentWidget().reset_to_defaults()

@@ -1,6 +1,6 @@
 WIDGETS = ui_main_wdgt.py ui_add_cards_dlg.py \
 	ui_preview_cards_dlg.py ui_edit_card_dlg.py \
-	ui_convert_card_type_keys_dlg.py ui_card_appearance_dlg.py \
+	ui_convert_card_type_keys_dlg.py \
 	ui_activate_plugins_dlg.py ui_cloned_card_types_list_dlg.py \
 	ui_clone_card_type_dlg.py ui_configuration_wdgt_main.py \
 	ui_configuration_wdgt_card_appearance.py \

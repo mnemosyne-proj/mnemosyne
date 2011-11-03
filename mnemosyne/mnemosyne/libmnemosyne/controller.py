@@ -105,9 +105,6 @@ class Controller(Component):
     
 
     def show_browse_cards_dialog(self):
-        raise NotImplementedError        
-    
-    def show_card_appearance_dialog(self):
         raise NotImplementedError
     
     def show_activate_plugins_dialog(self):

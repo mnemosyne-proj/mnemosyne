@@ -59,6 +59,10 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
             return False
 
     def reset_to_defaults(self):
+        answer = self.main_widget().show_question(\
+            _("Reset current tab to defaults?"), _("&Yes"), _("&No"), "")
+        if answer == 1:
+            return
         self.run_sync_server.setChecked(False)
         self.port.setValue(8512)
         self.username.setText("")

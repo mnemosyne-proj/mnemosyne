@@ -58,6 +58,10 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
             language_name_for_iso6931_code[self.config()["ui_language"]]))
 
     def reset_to_defaults(self):
+        answer = self.main_widget().show_question(\
+            _("Reset current tab to defaults?"), _("&Yes"), _("&No"), "")
+        if answer == 1:
+            return
         self.new_cards.setCurrentIndex(0)
         self.scheduled_cards.setCurrentIndex(0)
         self.non_memorised_cards.setValue(10)

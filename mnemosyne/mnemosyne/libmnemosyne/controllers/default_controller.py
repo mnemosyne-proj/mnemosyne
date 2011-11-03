@@ -586,14 +586,6 @@ class DefaultController(Controller):
         review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
         
-    def show_card_appearance_dialog(self):
-        self.stopwatch().pause()
-        self.flush_sync_server()
-        self.component_manager.current("card_appearance_dialog")\
-            (self.component_manager).activate()
-        self.review_controller().update_dialog(redraw_all=True)
-        self.stopwatch().unpause()
-        
     def show_activate_plugins_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
