@@ -1,3 +1,6 @@
+-Grade buttons can now be used as a shortcut for 'show answer'
+ (requsted by Roel De Conick)
+-Yet more sound system stability fixes under Windows.
 -The card appearance dialog is now merged as a separate tab in the 
  configuration dialog.
 -If a card type has a background colour set, also use that colour for the 

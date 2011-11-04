@@ -43,6 +43,14 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
             self.retranslateUi(self)
         QtGui.QWidget.changeEvent(self, event)
 
+    def keyPressEvent(self, event):
+        if event.key() in [QtCore.Qt.Key_0, QtCore.Qt.Key_1, QtCore.Qt.Key_2,
+            QtCore.Qt.Key_3, QtCore.Qt.Key_4, QtCore.Qt.Key_5] and \
+            self.review_controller().state == "SELECT SHOW":
+                self.show_answer()
+        else:
+            return QtGui.QWidget.keyPressEvent(self, event)
+
     def empty(self):
         background = "white"
         if self.review_controller().card:
@@ -90,7 +98,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
 
     def grade_answer(self, grade):
         self.vertical_layout.setStretchFactor(self.question_box, 1)
-        self.vertical_layout.setStretchFactor(self.answer_box, 1)
+        self.vertical_layout.setStretchFactor(self.answer_box, 1)            
         self.main_widget().timer_1.start(self.main_widget().TIMER_1_INTERVAL)
         self.review_controller().grade_answer(grade)
 

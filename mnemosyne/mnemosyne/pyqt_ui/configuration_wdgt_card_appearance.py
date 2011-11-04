@@ -23,7 +23,7 @@ class ConfigurationWdgtCardAppearance(QtGui.QWidget,
 
     def __init__(self, component_manager, parent):
         ConfigurationWidget.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, parent)
+        QtGui.QWidget.__init__(self, parent)
         self.setupUi(self)
         self.dynamic_widgets = []
         self.affected_card_types = []
@@ -246,6 +246,6 @@ class ConfigurationWdgtCardAppearance(QtGui.QWidget,
         for card_type in self.card_types():
             for render_chain in self.component_manager.all("render_chain"):
                 render_chain.renderer_for_card_type(card_type).\
-                    update(card_type)        
-        QtGui.QDialog.reject(self)   
+                    update(card_type)
+        print 'rejecting'  
             

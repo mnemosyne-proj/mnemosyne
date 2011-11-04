@@ -1,6 +1,6 @@
--all grades function as show answer
--pgdwn in preview/edit in card browser
--have page up/up/page down/down keys work to scroll in q and a widgets
+-have page up/up/page down/down keys work to scroll in q and a widgets (add to docs)
+-pgdwn in preview/edit in card browser (add to docs)
+
 -make sure switching between saved sets with keyboard is easy
 
 -'importing history' text does not show?
@@ -10,7 +10,7 @@
 
 -no icon on W7
 
--popup tips (PB)
+-popup tips 
  -comma to separate tag names
  -:: to separate hierarchies
  -right click to add cards or sound
@@ -38,22 +38,25 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 
 -new 'activate plugin' dialog
 
--new cards with a >=2 grade can end up on the same day on first interactive rep (PB)
- replace set_initial_grade by set_initial_grades(cards)?  (PB)
+-new cards with a >=2 grade can end up on the same day on first interactive rep 
+ replace set_initial_grade by set_initial_grades(cards)?  
 -also make sure this is OK when changing card type creates extra cards
--scheduler.spread_sister_cards? (PB)
--recheck database for this through plugin (PB)
+-scheduler.spread_sister_cards? 
+-recheck database for this through plugin 
 -failed card + new cards in two directions: learn all fw cards, get stuck on failed card. Only
- restarting brings bw cards. (PB)
+ restarting brings bw cards. 
+-sometimes card gets repeated?
 
--also give warning on the client side if a sync failed and a backup needs to happen (PB)
--server down should not result in sync conflict (PB)
--prevent sync with itself (PB)
--binary database upload: configuration changes (fonts, ...) are not applied (PB)
+-give more informative error message on raise RuntimeError, "Unable to change user id."
+ relax requirement involving uploading logs?
+-also give warning on the client side if a sync failed and a backup needs to happen 
+-server down should not result in sync conflict 
+-prevent sync with itself 
+-binary database upload: configuration changes (fonts, ...) are not applied 
 -syncing an empty database twice results in a spurious sync cycle detection. Also happens after 
- syncing empty client and empty server database, then adding data to the server, and resyncing (PB)
--if the server is empty, allow sync from non-empty client and change server user id. (PB)
--if dialog like edit card or browse cards is open on server, try to close it when sync comes in  (PB)(+findChildren
+ syncing empty client and empty server database, then adding data to the server, and resyncing 
+-if the server is empty, allow sync from non-empty client and change server user id. 
+-if dialog like edit card or browse cards is open on server, try to close it when sync comes in  (+findChildren
     QWidgetList list = QApplication::topLevelWidgets();
     for (int i = 0; did_close && i < list.size(); ++i) {
         w = list.at(i);
@@ -62,9 +65,9 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
             list = QApplication::topLevelWidgets();
             i = -1;
 -when sync server is running, it seems possible to start a second copy of Mnemosyne, which just complains about
- 'unable to start sync server' (PB)
+ 'unable to start sync server' 
 
--migrate science server machine (PB)
+-migrate science server machine 
 
 -card type clone: rename and delete, both in card browser and card type browser
 
@@ -129,6 +132,8 @@ http://dotancohen.com/howto/rtl_right_to_left.html
 -text to speech plugin google
 
 -Faq about how to pronounce Mnemosyne
+
+-docs on keyboard shortcuts on website: grade buttons to 'show answer'
 
 -import
 -if txt import fails, give a useful error message showing the offending line
@@ -449,8 +454,6 @@ Multiuser statistics analysis:
 -store _fact_ids_learned in config, such that they persist over sessions?
 
 -auto identifying similar cards
-
--unify number shortcuts (with and without Ctrl)
 
 -forward / backward when previewing cards in the database
 

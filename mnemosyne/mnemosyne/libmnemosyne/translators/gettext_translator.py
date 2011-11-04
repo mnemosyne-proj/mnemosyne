@@ -21,7 +21,8 @@ class GetTextTranslator(Translator):
 
     def supported_languages(self):
         return [os.path.split(x)[1] for x in os.listdir(self.lang_path) \
-            if os.path.isdir(os.path.join(self.lang_path, x)) \
+            if os.path.isdir(os.path.join(self.lang_path, x)) and \
+            os.path.exists(os.path.join(self.lang_path, x, "LC_MESSAGES")) \
             and "mnemosyne.mo" in os.listdir(\
             os.path.join(self.lang_path, x, "LC_MESSAGES"))]
 
