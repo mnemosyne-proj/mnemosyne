@@ -1,12 +1,11 @@
--have page up/up/page down/down keys work to scroll in q and a widgets (add to docs)
 -pgdwn in preview/edit in card browser (add to docs)
 
--make sure switching between saved sets with keyboard is easy
-
--'importing history' text does not show?
+-true comparison operators for criteria
 
 -browser column width should be saved as soon as it changes, not on browser close 
  (even there it does not seem to work)
+
+-'importing history' text does not show?
 
 -no icon on W7
 
@@ -133,7 +132,8 @@ http://dotancohen.com/howto/rtl_right_to_left.html
 
 -Faq about how to pronounce Mnemosyne
 
--docs on keyboard shortcuts on website: grade buttons to 'show answer'
+-docs on keyboard shortcuts on website: grade buttons to 'show answer', PageUp-PageDown to scroll
+ question/answer
 
 -import
 -if txt import fails, give a useful error message showing the offending line
@@ -164,6 +164,9 @@ http://dotancohen.com/howto/rtl_right_to_left.html
 -hoop uk dialogs in UDP
 
 -cntrl-c shortcut for question and answer
+
+-also allow scrolling webview widgets using up and down keys? Will probably require global
+ event filter and slow everything down
 
 -install kde translator to translate file dialogs and color dialogs
 -different translators for different users?

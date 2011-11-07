@@ -48,6 +48,10 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
             QtCore.Qt.Key_3, QtCore.Qt.Key_4, QtCore.Qt.Key_5] and \
             self.review_controller().state == "SELECT SHOW":
                 self.show_answer()
+        elif event.key() == QtCore.Qt.Key_PageDown:
+            self.scroll_down()
+        elif event.key() == QtCore.Qt.Key_PageUp:
+            self.scroll_up()
         else:
             return QtGui.QWidget.keyPressEvent(self, event)
 
@@ -92,7 +96,25 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
             self.review_controller().card.answer("plain_text"))
         self.vertical_layout.setStretchFactor(self.question_box, q_stretch)
         self.vertical_layout.setStretchFactor(self.answer_box, a_stretch)
+
+    def scroll_down(self):
+        if self.review_controller().state == "SELECT SHOW":
+            frame = self.question.page().mainFrame()
+        else:
+            frame = self.answer.page().mainFrame()   
+        x, y = frame.scrollPosition().x(), frame.scrollPosition().y()
+        y += int(0.9*(frame.geometry().height())) 
+        frame.scroll(x, y)
         
+    def scroll_up(self):
+        if self.review_controller().state == "SELECT SHOW":
+            frame = self.question.page().mainFrame()
+        else:
+            frame = self.answer.page().mainFrame()   
+        x, y = frame.scrollPosition().x(), frame.scrollPosition().y()
+        y -= int(0.9*(frame.geometry().height())) 
+        frame.scroll(x, y) 
+                 
     def show_answer(self):
         self.review_controller().show_answer()
 

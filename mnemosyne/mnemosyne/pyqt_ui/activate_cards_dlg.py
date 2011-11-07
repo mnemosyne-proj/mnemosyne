@@ -20,16 +20,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)        
-        # Restore state.
-        state = self.config()["activate_cards_dlg_state"]
-        if state:
-            self.restoreGeometry(state)
-        splitter_state = self.config()["activate_cards_dlg_splitter_state"]
-        if not splitter_state:
-            self.splitter.setSizes([100, 350])
-        else:
-            self.splitter.restoreState(splitter_state)
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)
         # Initialise widgets.
         QtGui.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Delete),
                         self.saved_sets, self.delete_set)
@@ -48,7 +39,16 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         self.tab_widget.setCurrentWidget(self.widget_for_criterion_type\
                                          [current_criterion.criterion_type])
         self.tab_widget.tabBar().setVisible(self.tab_widget.count() > 1)
-        self.tab_widget.currentWidget().display_criterion(current_criterion)           
+        self.tab_widget.currentWidget().display_criterion(current_criterion)
+        # Restore state.
+        state = self.config()["activate_cards_dlg_state"]
+        if state:
+            self.restoreGeometry(state)
+        splitter_state = self.config()["activate_cards_dlg_splitter_state"]
+        if not splitter_state:
+            self.splitter.setSizes([100, 350])
+        else:
+            self.splitter.restoreState(splitter_state)
         # Should go last, otherwise the selection of the saved sets pane will
         # always be cleared.
         self.update_saved_sets_pane()
@@ -70,8 +70,8 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
                 self.saved_sets.addItem(criterion.name)
                 if criterion.criterion_type \
                        == active_criterion.criterion_type \
-                   and criterion.data_to_string() \
-                   == active_criterion.data_to_string():
+                   and criterion.data_to_string() == \
+                   active_criterion.data_to_string():
                     active_name = criterion.name
         self.saved_sets.sortItems()
         if active_name:

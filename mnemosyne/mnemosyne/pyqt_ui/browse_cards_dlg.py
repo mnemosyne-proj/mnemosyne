@@ -270,7 +270,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         edit_action.triggered.connect(self.menu_edit)
         menu.addAction(edit_action)
         preview_action = QtGui.QAction(_("&Preview"), menu)
-        edit_action.setShortcut(QtCore.Qt.CTRL + QtCore.Qt.Key_P)
+        preview_action.setShortcut(QtCore.Qt.CTRL + QtCore.Qt.Key_P)
         preview_action.triggered.connect(self.menu_preview)
         menu.addAction(preview_action)
         delete_action = QtGui.QAction(_("&Delete"), menu)
