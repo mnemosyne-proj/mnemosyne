@@ -53,7 +53,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         elif event.key() == QtCore.Qt.Key_PageUp:
             self.scroll_up()
         else:
-            return QtGui.QWidget.keyPressEvent(self, event)
+            QtGui.QWidget.keyPressEvent(self, event)
 
     def empty(self):
         background = "white"

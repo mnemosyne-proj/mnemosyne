@@ -43,7 +43,10 @@ class QTextEdit2(QtGui.QTextEdit):
         popup.exec_(e.globalPos())
 
     def keyPressEvent(self, event):
-        if event.key() == QtCore.Qt.Key_I and event.modifiers() == \
+        if event.key() in [QtCore.Qt.Key_PageUp, QtCore.Qt.Key_PageDown]:
+            print 'ignoring'
+            pass # Ignore, so that card browser can capture it.
+        elif event.key() == QtCore.Qt.Key_I and event.modifiers() == \
             QtCore.Qt.ControlModifier:
             self.insert_img()
         elif event.key() == QtCore.Qt.Key_S and event.modifiers() == \

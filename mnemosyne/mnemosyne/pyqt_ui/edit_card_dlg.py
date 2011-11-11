@@ -12,7 +12,11 @@ from mnemosyne.libmnemosyne.ui_components.dialogs import EditCardDialog
 
 class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
                   EditCardDialog):
-
+    
+    page_up_down_signal = QtCore.pyqtSignal(int)
+    UP = 0
+    DOWN = 1
+    
     def __init__(self, card, component_manager, allow_cancel=True):
         # Note: even though this is in essence an EditFactDlg, we don't use
         # 'fact' as argument, as 'fact' does not know anything about card
@@ -29,11 +33,19 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         if not allow_cancel:
             self.exit_button.setVisible(False)  
         self.card = card
-        self.initialise_card_types_combobox(self.card.card_type.name)
-        self.update_tags_combobox(card.tag_string())
+        self.update_dialog()
         state = self.config()["edit_card_dlg_state"]
         if state:
             self.restoreGeometry(state)
+        print 'deleting'
+        self.tags.close()
+        self.card_types_widget.close()
+        del self.tags
+        del self.card_types_widget
+            
+    def update_dialog(self):
+        self.initialise_card_types_combobox(self.card.card_type.name)
+        self.update_tags_combobox(self.card.tag_string())        
 
     def activate(self):
         self.exec_()
@@ -53,9 +65,16 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
             event.ignore()
 
     def keyPressEvent(self, event):
+        # When this dialog is called from the card browser, PageUp and PageDown
+        # keys can be used to move the previous/next card in the list.
+        if event.key() == QtCore.Qt.Key_PageUp:
+            print 'up'
+            self.page_up_down_signal.emit(self.UP)
+        elif event.key() == QtCore.Qt.Key_PageDown:
+            self.page_up_down_signal.emit(self.DOWN)
         # Note: for the following to work reliably, there should be no
         # shortcuts defined in the ui file.
-        if event.key() == QtCore.Qt.Key_Escape or (event.modifiers() in \
+        elif event.key() == QtCore.Qt.Key_Escape or (event.modifiers() in \
             [QtCore.Qt.ControlModifier, QtCore.Qt.AltModifier] and \
             event.key() == QtCore.Qt.Key_E):
             if self.allow_cancel:
@@ -72,7 +91,7 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
             elif event.key() == QtCore.Qt.Key_P:
                 self.preview()
         else:
-            return QtGui.QDialog.keyPressEvent(self, event)
+            QtGui.QDialog.keyPressEvent(self, event)
         
     def set_valid(self, valid):
         self.OK_button.setEnabled(valid)    

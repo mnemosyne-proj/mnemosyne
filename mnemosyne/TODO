@@ -1,6 +1,8 @@
--pgdwn in preview/edit in card browser (add to docs)
+-pgdwn in preview/edit in card browser, both preview and edit (add to docs)
 
 -true comparison operators for criteria
+
+-cntrl R for replay media
 
 -browser column width should be saved as soon as it changes, not on browser close 
  (even there it does not seem to work)

@@ -300,16 +300,16 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             return QtGui.QDialog.keyPressEvent(self, event)
         if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return]:
             self.menu_edit()
-        if event.key() == QtCore.Qt.Key_E and \
+        elif event.key() == QtCore.Qt.Key_E and \
             event.modifiers() == QtCore.Qt.ControlModifier:
             self.menu_edit()
-        if event.key() == QtCore.Qt.Key_P and \
+        elif event.key() == QtCore.Qt.Key_P and \
             event.modifiers() == QtCore.Qt.ControlModifier:
             self.menu_preview()
         elif event.key() in [QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace]:
             self.menu_delete()
         else:
-            return QtGui.QDialog.keyPressEvent(self, event)
+            QtGui.QDialog.keyPressEvent(self, event)
 
     def cards_from_single_selection(self):
         index = self.table.selectionModel().selectedRows()[0]
@@ -344,20 +344,54 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         # 'index' gets passed if this function gets called through the
         # table.doubleClicked event.
         cards = self.cards_from_single_selection()
-        dlg = self.component_manager.current("edit_card_dialog")\
+        self.edit_dlg = self.component_manager.current("edit_card_dialog")\
             (cards[0], self.component_manager)
-        dlg.before_apply_hook = self.unload_qt_database
-        if dlg.exec_() == QtGui.QDialog.Accepted:
+        self.edit_dlg.before_apply_hook = self.unload_qt_database
+        self.edit_dlg.page_up_down_signal.connect(\
+            self.page_up_down_edit)        
+        if self.edit_dlg.exec_() == QtGui.QDialog.Accepted:
             self.display_card_table()
             self.card_type_tree_wdgt.rebuild()
             self.tag_tree_wdgt.rebuild()
-                    
+        # Avoid multiple connections.
+        self.edit_dlg.page_up_down_signal.disconnect(\
+            self.page_up_down_edit)
+        
+    def page_up_down_edit(self, up_down):
+        from mnemosyne.pyqt_ui.edit_cards_dlg import EditCardsDlg
+        current_row = self.table.selectionModel().selectedRows()[0].row()
+        if up_down == EditCardsDlg.UP:
+            shift = -1
+        elif up_down == EditCardsDlg.DOWN:
+            shift = 1
+        self.table.selectRow(current_row + shift)           
+        self.edit_dlg.card = self.cards_from_single_selection()[0]
+        self.edit_dlg.update_dialog()
+        
     def menu_preview(self):
         from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
         cards = self.cards_from_single_selection()
         tag_text = cards[0].tag_string()
-        dlg = PreviewCardsDlg(self.component_manager, cards, tag_text, self)
-        dlg.exec_()
+        self.preview_dlg = \
+            PreviewCardsDlg(self.component_manager, cards, tag_text, self)
+        self.preview_dlg.page_up_down_signal.connect(\
+            self.page_up_down_preview)
+        self.preview_dlg.exec_()
+        # Avoid multiple connections.
+        self.preview_dlg.page_up_down_signal.disconnect(\
+            self.page_up_down_preview)
+        
+    def page_up_down_preview(self, up_down):
+        from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
+        current_row = self.table.selectionModel().selectedRows()[0].row()
+        if up_down == PreviewCardsDlg.UP:
+            shift = -1
+        elif up_down == PreviewCardsDlg.DOWN:
+            shift = 1
+        self.table.selectRow(current_row + shift)           
+        self.preview_dlg.cards = self.cards_from_single_selection()
+        self.preview_dlg.tag_text = self.preview_dlg.cards[0].tag_string()
+        self.preview_dlg.update_dialog()
 
     def menu_delete(self):
         answer = self.main_widget().show_question\

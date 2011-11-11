@@ -10,6 +10,10 @@ from mnemosyne.pyqt_ui.ui_preview_cards_dlg import Ui_PreviewCardsDlg
 
 class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component):
 
+    page_up_down_signal = QtCore.pyqtSignal(int)
+    UP = 0
+    DOWN = 1
+
     def __init__(self, component_manager, cards, tag_text, parent=None):
 
         """We need to provide tag_text explicitly, since it's possible that
@@ -23,16 +27,31 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component):
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)        
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+        self.tag_text = tag_text
         self.cards = cards
         self.index = 0
-        self.question_label.setText(_("Question: ") + tag_text)
         state = self.config()["preview_cards_dlg_state"]
         if state:
             self.restoreGeometry(state)
         self.update_dialog()
 
+    def keyPressEvent(self, event):
+
+        """When this dialog is called from the card browser, PageUp and
+        PageDown keys can be used to move the previous/next card in the list.
+
+        """
+        
+        if event.key() == QtCore.Qt.Key_PageUp:
+            self.page_up_down_signal.emit(self.UP)
+        elif event.key() == QtCore.Qt.Key_PageDown:
+            self.page_up_down_signal.emit(self.DOWN)
+        else:
+            QtGui.QWidget.keyPressEvent(self, event)
+
     def update_dialog(self):
+        self.question_label.setText(_("Question: ") + self.tag_text)
         if len(self.cards) == 1:
             self.previous_button.setVisible(False)
             self.next_button.setVisible(False)
@@ -46,10 +65,10 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component):
         self.question.setHtml(card.question())
         self.answer.setHtml(card.answer())
         self.fact_view_name.setText(_(card.fact_view.name) + " (" + \
-                        str(self.index+1) + "/" + str(len(self.cards)) + ")")
+            str(self.index + 1) + "/" + str(len(self.cards)) + ")")
         self.previous_button.setEnabled(self.index != 0)
-        self.next_button.setEnabled(self.index != len(self.cards)-1)
-
+        self.next_button.setEnabled(self.index != len(self.cards) - 1)
+        
     def previous(self):
         self.index -= 1
         self.update_dialog()
