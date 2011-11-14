@@ -76,7 +76,6 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
         self.config()["remote_access_password"] = unicode(self.password.text())
         self.config()["check_for_edited_local_media_files"] = \
             self.check_for_edited_local_media_files.isChecked()
-        print self.check_for_edited_local_media_files.isChecked()
         self.component_manager.current("sync_server").deactivate()
         if self.config()["run_sync_server"]:
             self.component_manager.current("sync_server").activate()

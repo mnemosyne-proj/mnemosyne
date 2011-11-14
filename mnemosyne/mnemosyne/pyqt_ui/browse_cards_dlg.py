@@ -347,26 +347,32 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.edit_dlg = self.component_manager.current("edit_card_dialog")\
             (cards[0], self.component_manager)
         self.edit_dlg.before_apply_hook = self.unload_qt_database
-        self.edit_dlg.page_up_down_signal.connect(\
-            self.page_up_down_edit)        
+        for box in self.edit_dlg.card_type_widget.edit_boxes():
+            box.page_up_down_signal.connect(self.page_up_down_edit)        
         if self.edit_dlg.exec_() == QtGui.QDialog.Accepted:
             self.display_card_table()
             self.card_type_tree_wdgt.rebuild()
             self.tag_tree_wdgt.rebuild()
         # Avoid multiple connections.
-        self.edit_dlg.page_up_down_signal.disconnect(\
-            self.page_up_down_edit)
-        
+        for box in self.edit_dlg.card_type_widget.edit_boxes():
+            try:
+                box.page_up_down_signal.disconnect(self.page_up_down_edit)
+            except TypeError:
+                pass
+
     def page_up_down_edit(self, up_down):
-        from mnemosyne.pyqt_ui.edit_cards_dlg import EditCardsDlg
+        from mnemosyne.pyqt_ui.edit_card_dlg import EditCardDlg
+        from mnemosyne.pyqt_ui.qtextedit2 import QTextEdit2        
         current_row = self.table.selectionModel().selectedRows()[0].row()
-        if up_down == EditCardsDlg.UP:
+        if up_down == QTextEdit2.UP:
             shift = -1
-        elif up_down == EditCardsDlg.DOWN:
+        elif up_down == QTextEdit2.DOWN:
             shift = 1
-        self.table.selectRow(current_row + shift)           
-        self.edit_dlg.card = self.cards_from_single_selection()[0]
-        self.edit_dlg.update_dialog()
+        self.table.selectRow(current_row + shift)
+        # Avoid multiple connections.
+        for box in self.edit_dlg.card_type_widget.edit_boxes():
+            box.page_up_down_signal.disconnect(self.page_up_down_edit)
+        self.edit_dlg.set_new_card(self.cards_from_single_selection()[0])
         
     def menu_preview(self):
         from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg

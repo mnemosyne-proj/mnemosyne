@@ -76,6 +76,10 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
             parent.setTabOrder(parent.preview_button, parent.exit_button)            
         self.top_edit_box.setFocus()
 
+    def edit_boxes(self):
+        # To be able to capture PageUp/PageDown events from these.
+        return self.fact_key_for_edit_box.keys()
+
     def pronunciation_hiding_toggled(self, checked):
         self.config().set_card_type_property("hide_pronunciation_field",
             checked, self.card_type)

@@ -9,7 +9,16 @@ from mnemosyne.libmnemosyne.translator import _
 
 class QTextEdit2(QtGui.QTextEdit):
 
-    """QTextEdit with extra options in popup menu."""
+    """QTextEdit with extra options in popup menu.
+
+    Also captures PageUp and PageDown events and sends them on, e.g.
+    to the card browser.
+
+    """
+
+    page_up_down_signal = QtCore.pyqtSignal(int)
+    UP = 0
+    DOWN = 1
 
     def __init__(self, parent, pronunciation_hiding=None):
 
@@ -43,10 +52,21 @@ class QTextEdit2(QtGui.QTextEdit):
         popup.exec_(e.globalPos())
 
     def keyPressEvent(self, event):
-        if event.key() in [QtCore.Qt.Key_PageUp, QtCore.Qt.Key_PageDown]:
-            print 'ignoring'
-            pass # Ignore, so that card browser can capture it.
-        elif event.key() == QtCore.Qt.Key_I and event.modifiers() == \
+        # When this dialog is called from the card browser, PageUp and
+        # PageDown keys can be used to move the previous/next card in the
+        # list. Simply ignoring PageUp/Down events does not seem to propagate
+        # them further to the card browser (probably caught by a different
+        # widget?), so we emit a signal.
+        #if event.key() in [QtCore.Qt.Key_PageUp, QtCore.Qt.Key_PageDown]:
+        #    print 'ignoring'
+        #    return event.ignore()
+        #if event.key() == QtCore.Qt.Key_PageUp:
+        #    print 'emit signal'
+        #    self.page_up_down_signal.emit(self.UP)
+        #elif event.key() == QtCore.Qt.Key_PageDown:
+        #    self.page_up_down_signal.emit(self.DOWN)
+            
+        if event.key() == QtCore.Qt.Key_I and event.modifiers() == \
             QtCore.Qt.ControlModifier:
             self.insert_img()
         elif event.key() == QtCore.Qt.Key_S and event.modifiers() == \

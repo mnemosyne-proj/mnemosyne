@@ -1,4 +1,6 @@
 -pgdwn in preview/edit in card browser, both preview and edit (add to docs)
+ qtextedit2,editcard, addcards, browsecards
+-only do event filter when starting from card browser?
 
 -true comparison operators for criteria
 

@@ -10,12 +10,20 @@ from mnemosyne.pyqt_ui.ui_edit_card_dlg import Ui_EditCardDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import EditCardDialog
 
 
+class EventFilter(QtCore.QObject):
+
+    def eventFilter(self, object, event):
+        if event.type() == QtCore.QEvent.KeyPress:
+            if event.key() in [QtCore.Qt.Key_PageUp, QtCore.Qt.Key_PageDown]:
+                print 'filtered'
+                return True
+            else:
+                return False
+        return False
+
+
 class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
                   EditCardDialog):
-    
-    page_up_down_signal = QtCore.pyqtSignal(int)
-    UP = 0
-    DOWN = 1
     
     def __init__(self, card, component_manager, allow_cancel=True):
         # Note: even though this is in essence an EditFactDlg, we don't use
@@ -33,19 +41,38 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         if not allow_cancel:
             self.exit_button.setVisible(False)  
         self.card = card
-        self.update_dialog()
+        self.initialise_card_types_combobox(self.card.card_type.name)
+        self.update_tags_combobox(self.card.tag_string())
         state = self.config()["edit_card_dlg_state"]
         if state:
             self.restoreGeometry(state)
-        print 'deleting'
-        self.tags.close()
-        self.card_types_widget.close()
-        del self.tags
-        del self.card_types_widget
-            
-    def update_dialog(self):
-        self.initialise_card_types_combobox(self.card.card_type.name)
-        self.update_tags_combobox(self.card.tag_string())        
+
+        self.filter = EventFilter(self)
+        for child in self.children():
+            child.installEventFilter(self)
+        # TODO: move to card type widget?
+        for child in self.card_type_widget.children():
+            child.installEventFilter(self)      
+
+    def eventFilter(self, object, event):
+        if event.type() == QtCore.QEvent.KeyPress:
+            if event.key() in [QtCore.Qt.Key_PageUp, QtCore.Qt.Key_PageDown]:
+                print 'filtered1'
+                return True
+            else:
+                return False
+        return False
+
+        
+    def keyPressEvent(self, event):
+        if event.key() in [QtCore.Qt.Key_PageUp, QtCore.Qt.Key_PageDown]:
+            print 'got PgUp/Dw in edit card!'
+
+        
+    def set_new_card(self, card):
+        # Called from card browser.
+        self.card = card
+        self.update_card_widget(keep_data_from_previous_widget=False)
 
     def activate(self):
         self.exec_()
@@ -65,16 +92,9 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
             event.ignore()
 
     def keyPressEvent(self, event):
-        # When this dialog is called from the card browser, PageUp and PageDown
-        # keys can be used to move the previous/next card in the list.
-        if event.key() == QtCore.Qt.Key_PageUp:
-            print 'up'
-            self.page_up_down_signal.emit(self.UP)
-        elif event.key() == QtCore.Qt.Key_PageDown:
-            self.page_up_down_signal.emit(self.DOWN)
         # Note: for the following to work reliably, there should be no
         # shortcuts defined in the ui file.
-        elif event.key() == QtCore.Qt.Key_Escape or (event.modifiers() in \
+        if event.key() == QtCore.Qt.Key_Escape or (event.modifiers() in \
             [QtCore.Qt.ControlModifier, QtCore.Qt.AltModifier] and \
             event.key() == QtCore.Qt.Key_E):
             if self.allow_cancel:

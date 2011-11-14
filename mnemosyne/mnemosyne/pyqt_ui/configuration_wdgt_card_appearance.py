@@ -247,5 +247,4 @@ class ConfigurationWdgtCardAppearance(QtGui.QWidget,
             for render_chain in self.component_manager.all("render_chain"):
                 render_chain.renderer_for_card_type(card_type).\
                     update(card_type)
-        print 'rejecting'  
             

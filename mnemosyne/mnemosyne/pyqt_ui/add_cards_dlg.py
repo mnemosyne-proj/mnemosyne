@@ -47,7 +47,7 @@ class AddEditCards(Component):
         self.correspondence = {}  # Used when changing card types.
         self.update_card_widget()
         
-    def update_card_widget(self):
+    def update_card_widget(self, keep_data_from_previous_widget=True):
         # Determine data to put into card widget. Since we want to share this
         # code between the 'add' and the 'edit' dialogs, we put the reference
         # to self.card (which only exists in the 'edit' dialog) inside a try
@@ -70,6 +70,11 @@ class AddEditCards(Component):
                 if fact_key in self.correspondence:
                     value = old_prefill_fact_data[fact_key]
                     prefill_fact_data[self.correspondence[fact_key]] = value
+        # If we just want to force a new card in the dialog, e.g. by pressing
+        # PageUp or PageDown in the card browser, don't bother with trying to
+        # keep old data.
+        if not keep_data_from_previous_widget:
+            prefill_fact_data = self.card.fact.data
         # Show new card type widget.
         card_type_name = unicode(self.card_types_widget.currentText())
         self.card_type = self.card_type_by_name[card_type_name]
@@ -194,7 +199,7 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
             elif event.key() == QtCore.Qt.Key_E:
                 self.reject()            
         else:
-            return QtGui.QDialog.keyPressEvent(self, event)
+            QtGui.QDialog.keyPressEvent(self, event)
     
     def set_valid(self, valid):
         self.grade_buttons.setEnabled(valid)
