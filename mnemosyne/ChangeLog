@@ -1,3 +1,5 @@
+-When editing or previewing cards from the card browser, PageUp/PageDown can
+ be used to move to the previous/next card
 -Make it easier to change active card sets using keyboard only
  (cntr-D, arrow keys, enter).
 -Question and answer fields in the review widget can now be scrolled

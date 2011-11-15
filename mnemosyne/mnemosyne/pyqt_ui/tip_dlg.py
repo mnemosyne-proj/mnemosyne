@@ -34,6 +34,7 @@ class TipDlg(QtGui.QDialog, Ui_TipDlg, TipDialog):
         self.tips.append(_(""" If you want to sync a mobile device with this computer, don't use 'File - Sync', but first enable a sync server in the configuration dialog, and then start the sync from the mobile device."""))
         self.tips.append(_("""Right-click on a tag name in the card browser to edit or delete it."""))
         self.tips.append(_("""Double-click on a card or tag name in the card browser to edit them."""))
+        self.tips.append(_("""When editing or previewing cards from the card browser, PageUp/PageDown can be used to move to the previous/next card."""))
         self.tips.append(_("""In the 'Add cards' dialog, use tab to move between different keys, cntrl+Enter for 'Yet to learn', and cntrl+2, etc. for the grades."""))
         self.tips.append(_("""In the 'Edit card' dialog, use tab to move between different fields and cntrl+Enter to close the dialog."""))
         self.tips.append(_("""Mnemosyne can use LaTeX to render mathematical formulas, e.g. <$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"""))

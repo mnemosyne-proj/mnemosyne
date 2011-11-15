@@ -345,33 +345,23 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         # table.doubleClicked event.
         cards = self.cards_from_single_selection()
         self.edit_dlg = self.component_manager.current("edit_card_dialog")\
-            (cards[0], self.component_manager)
+            (cards[0], self.component_manager, started_from_card_browser=True)
         self.edit_dlg.before_apply_hook = self.unload_qt_database
-        for box in self.edit_dlg.card_type_widget.edit_boxes():
-            box.page_up_down_signal.connect(self.page_up_down_edit)        
+        self.edit_dlg.page_up_down_signal.connect(self.page_up_down_edit)        
         if self.edit_dlg.exec_() == QtGui.QDialog.Accepted:
             self.display_card_table()
             self.card_type_tree_wdgt.rebuild()
             self.tag_tree_wdgt.rebuild()
         # Avoid multiple connections.
-        for box in self.edit_dlg.card_type_widget.edit_boxes():
-            try:
-                box.page_up_down_signal.disconnect(self.page_up_down_edit)
-            except TypeError:
-                pass
+        self.edit_dlg.page_up_down_signal.disconnect(self.page_up_down_edit)  
 
-    def page_up_down_edit(self, up_down):
-        from mnemosyne.pyqt_ui.edit_card_dlg import EditCardDlg
-        from mnemosyne.pyqt_ui.qtextedit2 import QTextEdit2        
+    def page_up_down_edit(self, up_down):     
         current_row = self.table.selectionModel().selectedRows()[0].row()
-        if up_down == QTextEdit2.UP:
+        if up_down == self.edit_dlg.UP:
             shift = -1
-        elif up_down == QTextEdit2.DOWN:
+        elif up_down == self.edit_dlg.DOWN:
             shift = 1
         self.table.selectRow(current_row + shift)
-        # Avoid multiple connections.
-        for box in self.edit_dlg.card_type_widget.edit_boxes():
-            box.page_up_down_signal.disconnect(self.page_up_down_edit)
         self.edit_dlg.set_new_card(self.cards_from_single_selection()[0])
         
     def menu_preview(self):

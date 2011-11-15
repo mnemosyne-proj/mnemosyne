@@ -48,8 +48,6 @@ class TestController(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "SyncDialog"))
         self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.dialogs", "CardAppearanceDialog"))
-        self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ActivatePluginsDialog"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ManageCardTypesDialog"))
@@ -78,8 +76,7 @@ class TestController(MnemosyneTest):
         self.controller().show_edit_card_dialog()        
         self.controller().show_new_file_dialog()
         self.controller().show_open_file_dialog()
-        self.controller().show_save_file_as_dialog()
-        self.controller().show_card_appearance_dialog()        
+        self.controller().show_save_file_as_dialog()       
         self.controller().show_activate_plugins_dialog()  
         self.controller().show_manage_card_types_dialog()        
         self.controller().show_browse_cards_dialog()
@@ -117,7 +114,6 @@ class TestController(MnemosyneTest):
         self.controller().show_insert_video_dialog("")        
         self.controller().show_download_source_dialog()
         self.controller().show_sync_dialog()
-        self.controller().show_card_appearance_dialog()
         self.controller().show_activate_plugins_dialog()
         self.controller().show_manage_card_types_dialog()
         self.controller().show_statistics_dialog()

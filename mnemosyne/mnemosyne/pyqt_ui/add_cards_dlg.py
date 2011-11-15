@@ -23,7 +23,7 @@ class AddEditCards(Component):
 
     def activate(self):
         self.exec_()
-
+        
     def initialise_card_types_combobox(self, current_card_type_name):
         # We calculate card_type_by_name here because these names can change
         # if the user chooses another translation.
@@ -46,7 +46,7 @@ class AddEditCards(Component):
             connect(self.card_type_changed)
         self.correspondence = {}  # Used when changing card types.
         self.update_card_widget()
-        
+            
     def update_card_widget(self, keep_data_from_previous_widget=True):
         # Determine data to put into card widget. Since we want to share this
         # code between the 'add' and the 'edit' dialogs, we put the reference
@@ -86,7 +86,7 @@ class AddEditCards(Component):
             if not self.card_type_widget:
                 self.card_type_widget = self.component_manager.current \
                     ("generic_card_type_widget")(self.component_manager,
-                    parent=self, card_type=self.card_type)
+                    parent=self, card_type=self.card_type) 
         self.card_type_widget.set_fact_data(prefill_fact_data)
         self.card_type_widget.show()
         self.vbox_layout.insertWidget(1, self.card_type_widget)

@@ -10,22 +10,27 @@ from mnemosyne.pyqt_ui.ui_edit_card_dlg import Ui_EditCardDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import EditCardDialog
 
 
-class EventFilter(QtCore.QObject):
+class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
+                  EditCardDialog):
 
+    page_up_down_signal = QtCore.pyqtSignal(int)
+    UP = 0
+    DOWN = 1
+ 
     def eventFilter(self, object, event):
         if event.type() == QtCore.QEvent.KeyPress:
-            if event.key() in [QtCore.Qt.Key_PageUp, QtCore.Qt.Key_PageDown]:
-                print 'filtered'
+            if event.key() == QtCore.Qt.Key_PageUp:
+                self.page_up_down_signal.emit(self.UP)
+                return True
+            elif event.key() == QtCore.Qt.Key_PageDown:
+                self.page_up_down_signal.emit(self.DOWN)
                 return True
             else:
                 return False
         return False
-
-
-class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
-                  EditCardDialog):
     
-    def __init__(self, card, component_manager, allow_cancel=True):
+    def __init__(self, card, component_manager, allow_cancel=True,
+                 started_from_card_browser=False):
         # Note: even though this is in essence an EditFactDlg, we don't use
         # 'fact' as argument, as 'fact' does not know anything about card
         # types.
@@ -35,40 +40,33 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint) 
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+        self.started_from_card_browser = started_from_card_browser
         self.before_apply_hook = None
         self.allow_cancel = allow_cancel
         if not allow_cancel:
-            self.exit_button.setVisible(False)  
+            self.exit_button.setVisible(False)
         self.card = card
         self.initialise_card_types_combobox(self.card.card_type.name)
         self.update_tags_combobox(self.card.tag_string())
         state = self.config()["edit_card_dlg_state"]
         if state:
-            self.restoreGeometry(state)
-
-        self.filter = EventFilter(self)
-        for child in self.children():
-            child.installEventFilter(self)
-        # TODO: move to card type widget?
-        for child in self.card_type_widget.children():
-            child.installEventFilter(self)      
-
-    def eventFilter(self, object, event):
-        if event.type() == QtCore.QEvent.KeyPress:
-            if event.key() in [QtCore.Qt.Key_PageUp, QtCore.Qt.Key_PageDown]:
-                print 'filtered1'
-                return True
-            else:
-                return False
-        return False
-
-        
-    def keyPressEvent(self, event):
-        if event.key() in [QtCore.Qt.Key_PageUp, QtCore.Qt.Key_PageDown]:
-            print 'got PgUp/Dw in edit card!'
-
-        
+            self.restoreGeometry(state)     
+        # Make sure we can capture PageUp/PageDown keys before any of the
+        # children (e.g. comboboxes) do so.
+        if self.started_from_card_browser:
+            for child in self.children():
+                child.installEventFilter(self)
+                
+    def update_card_widget(self, keep_data_from_previous_widget=True):
+        AddEditCards.update_card_widget(self, keep_data_from_previous_widget)
+        # Install event filters if we need to capture PageUp/PageDown.
+        if self.started_from_card_browser:
+            for child in self.card_type_widget.children():
+                # Make sure we don't install the filter twice.
+                child.removeEventFilter(self)
+                child.installEventFilter(self)
+                
     def set_new_card(self, card):
         # Called from card browser.
         self.card = card
