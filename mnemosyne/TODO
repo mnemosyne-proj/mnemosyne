@@ -1,11 +1,11 @@
--cntrl R for replay media
-
--true comparison operators for criteria
+-if card edit contains no data, do change tag upon changing card type
 
 -browser column width should be saved as soon as it changes, not on browser close 
  (even there it does not seem to work)
 
 -'importing history' text does not show?
+
+-revert to classical sed
 
 -no icon on W7
 
@@ -135,7 +135,7 @@ http://dotancohen.com/howto/rtl_right_to_left.html
 -Faq about how to pronounce Mnemosyne
 
 -docs on keyboard shortcuts on website: grade buttons to 'show answer', PageUp/PageDown to scroll
- question/answer, PageUp/PageDown to change cards in preview/edit started from card browser
+ question/answer, PageUp/PageDown to change cards in preview/edit started from card browser, control+R replay media
 
 -import
 -if txt import fails, give a useful error message showing the offending line

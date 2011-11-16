@@ -68,11 +68,8 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
             if criterion._id != 1:
                 self.criteria_by_name[criterion.name] = criterion
                 self.saved_sets.addItem(criterion.name)
-                if criterion.criterion_type \
-                       == active_criterion.criterion_type \
-                   and criterion.data_to_string() == \
-                   active_criterion.data_to_string():
-                    active_name = criterion.name
+                if criterion == active_criterion:
+                    active_name = criterion.name                    
         self.saved_sets.sortItems()
         if active_name:
             item = self.saved_sets.findItems(active_name,

@@ -52,6 +52,10 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
             self.scroll_down()
         elif event.key() == QtCore.Qt.Key_PageUp:
             self.scroll_up()
+        elif event.key() == QtCore.Qt.Key_R and \
+            event.modifiers() == QtCore.Qt.ControlModifier:
+            print 'redraw'
+            self.review_controller().update_dialog(redraw_all=True) # Replay media.
         else:
             QtGui.QWidget.keyPressEvent(self, event)
 

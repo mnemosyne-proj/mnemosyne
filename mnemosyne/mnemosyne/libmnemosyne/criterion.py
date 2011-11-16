@@ -27,6 +27,12 @@ class Criterion(Component):
             id = rand_uuid()
         self.id = id
         self._id = None
+
+    def __eq__(self, other):
+        raise NotImplementedError
+    
+    def __ne__(self, other):
+        return not self.__eq__(other)
             
     def apply_to_card(self, card):
 

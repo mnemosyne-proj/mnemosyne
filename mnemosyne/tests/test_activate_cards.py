@@ -8,6 +8,26 @@ from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.criteria.default_criterion import DefaultCriterion
 
 class TestActivateCards(MnemosyneTest):
+
+    def test_compare_criteria(self):
+        c1 = DefaultCriterion(self.mnemosyne.component_manager)
+        c1.deactivated_card_type_fact_view_ids = set()
+        c1._tag_ids_active = set([self.database().get_or_create_tag_with_name("default")._id])
+        c1._tag_ids_forbidden = set()
+        
+        c2 = DefaultCriterion(self.mnemosyne.component_manager)
+        c2.deactivated_card_type_fact_view_ids = set()
+        c2._tag_ids_active = set([self.database().get_or_create_tag_with_name("default")._id])
+        c2._tag_ids_forbidden = set()
+
+        c3 = DefaultCriterion(self.mnemosyne.component_manager)
+        c3.deactivated_card_type_fact_view_ids = set()
+        c3._tag_ids_active = set([self.database().get_or_create_tag_with_name("default1")._id])
+        c3._tag_ids_forbidden = set()
+
+        assert c1 == c2
+        assert c1 != c3
+        assert c1 != 1
     
     def test_activate_cards_1(self):
         fact_data = {"f": "question",

@@ -17,6 +17,14 @@ class DefaultCriterion(Criterion):
         self._tag_ids_active = set()
         self._tag_ids_forbidden = set()
 
+    def __eq__(self, other):
+        if type(self) != type(other):
+            return False
+        return self.deactivated_card_type_fact_view_ids == \
+                other.deactivated_card_type_fact_view_ids \
+            and self._tag_ids_active == other._tag_ids_active \
+            and self._tag_ids_forbidden == other._tag_ids_forbidden
+
     def apply_to_card(self, card):
         card.active = False
         for tag in card.tags:
