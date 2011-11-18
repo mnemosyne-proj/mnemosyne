@@ -500,6 +500,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
     def unload_qt_database(self):
         self.saved_index = self.table.indexAt(QtCore.QPoint(0,0))
         self.saved_selection = self.table.selectionModel().selectedRows()
+        if not self.config()["start_card_browser_sorted"]:
+            self.table.horizontalHeader().setSortIndicator\
+                (-1, QtCore.Qt.AscendingOrder)
         self.config()["browse_cards_dlg_table_settings"] \
             = self.table.horizontalHeader().saveState()        
         self.table.setModel(QtGui.QStandardItemModel())
@@ -524,8 +527,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.table.horizontalHeader().sectionClicked.connect(\
             self.horizontal_header_section_clicked)
         table_settings = self.config()["browse_cards_dlg_table_settings"]
-        if table_settings and self.config()["start_card_browser_sorted"]:
+        if table_settings:
             self.table.horizontalHeader().restoreState(table_settings)
+        self.table.horizontalHeader().setMovable(True)
         self.table.setItemDelegateForColumn(\
             QUESTION, QA_Delegate(self.component_manager, QUESTION, self))
         self.table.setItemDelegateForColumn(\

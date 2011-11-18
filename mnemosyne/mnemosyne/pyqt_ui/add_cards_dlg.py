@@ -115,7 +115,8 @@ class AddEditCards(Component):
             self.config()["last_used_tags_for_card_type_id"]:
             self.config()["last_used_tags_for_card_type_id"]\
                 [new_card_type.id] = ""
-        if not unicode(self.tags.currentText()):
+        if not unicode(self.tags.currentText()) \
+            or self.card_type_widget.is_empty():
             self.update_tags_combobox(self.config()\
                 ["last_used_tags_for_card_type_id"][new_card_type.id])
         if self.card_type.fact_keys().issubset(new_card_type.fact_keys()) or \

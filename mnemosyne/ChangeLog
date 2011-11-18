@@ -1,3 +1,6 @@
+-Regression fix: Mnemosyne now remembers again the column width in the card 
+ browser.
+-You can reorder columns in the card browser
 -Make sure active set is highlighted when starting 'Activate cards' dialog.
 -cntrl+R replays media, just like in 1.x.
 -When editing or previewing cards from the card browser, PageUp/PageDown can
@@ -15,8 +18,8 @@
  answer box when the answer has not yet been revealed.
 -In case only the answer has a picture, don't rescale the question and answer 
  until the answer picture is shown.
--Keep existing tags when changing card type, as opposed to switching to last
- used tag for that card type.
+-Better heuristics for when to keep existing tags when changing card type, as 
+ opposed to switching to last used tag for that card type.
 -Don't check for edited media files by default during sync. Make this 
  configurable through the UI.
 

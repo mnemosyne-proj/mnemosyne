@@ -1,11 +1,7 @@
--if card edit contains no data, do change tag upon changing card type
-
--browser column width should be saved as soon as it changes, not on browser close 
- (even there it does not seem to work)
-
 -'importing history' text does not show?
 
 -revert to classical sed
+-retranslate UI issues
 
 -no icon on W7
 
