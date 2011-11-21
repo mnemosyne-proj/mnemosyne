@@ -1,3 +1,4 @@
+-Icon now works on Windows 7.
 -Regression fix: Mnemosyne now remembers again the column width in the card 
  browser.
 -You can reorder columns in the card browser

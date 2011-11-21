@@ -1,9 +1,7 @@
--'importing history' text does not show?
+-review_controller_heartbeat during long sync: 248 sqlite: splitdrive: none
 
 -revert to classical sed
 -retranslate UI issues
-
--no icon on W7
 
 -popup tips 
  -comma to separate tag names
@@ -161,6 +159,8 @@ http://dotancohen.com/howto/rtl_right_to_left.html
 
 -hoop uk dialogs in UDP
 
+-pinyin sort
+
 -cntrl-c shortcut for question and answer
 
 -also allow scrolling webview widgets using up and down keys? Will probably require global
@@ -208,6 +208,8 @@ http://dotancohen.com/howto/rtl_right_to_left.html
 -http://www.mblondel.org/journal/2008/08/01/web-canvas/
 
 -infrastructure to make it easier to type certain symbols
+
+-zooming on statistics?
 
 -mark cards plugin
 

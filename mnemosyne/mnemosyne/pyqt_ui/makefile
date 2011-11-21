@@ -15,12 +15,8 @@ default: $(WIDGETS) ui_review_wdgt.py
 	pyrcc4 mnemosyne.qrc -o mnemosyne_rc.py
 
 ui_review_wdgt.py: review_wdgt.ui
-	./pyuic4 $< > $@
-	sed -i -e '11ifrom qpushbutton2 import *'\
-		-e '11ifrom qwebview2 import *'\
-		-e 's/QtGui.QPushButton(/QPushButton2(/'\
-		-e 's/QtWebKit.QWebView(/QWebView2(/'\
-		$@
+	./pyuic4 $< > tmp
+	sed -f fix_review_widget_ui.sed <  tmp > $@
 
 $(WIDGETS): ui_%.py: %.ui
 	./pyuic4 $< > $@
