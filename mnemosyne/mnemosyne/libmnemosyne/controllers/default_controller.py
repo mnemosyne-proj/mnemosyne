@@ -36,7 +36,10 @@ class DefaultController(Controller):
 
         """
         
-        self.flush_sync_server()        
+        self.flush_sync_server()
+        if not self.database().is_loaded():
+            # Make sure we don't continue if we are syncing e.g..
+            return
         self.database().backup()
         self.log().saved_database()
         self.log().loaded_database()        

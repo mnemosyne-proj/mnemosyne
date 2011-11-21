@@ -333,8 +333,7 @@ class Configuration(Component, dict):
 
         if new_user_id == self["user_id"]:
             return
-        db = self.database()
-        if self.log().log_index_of_last_upload() > 1 or not db.is_empty():
+        if not self.database().is_empty():
             raise RuntimeError, "Unable to change user id."
         old_user_id = self["user_id"]
         self["user_id"] = new_user_id

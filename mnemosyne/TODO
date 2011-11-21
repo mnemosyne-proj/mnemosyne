@@ -1,7 +1,9 @@
--review_controller_heartbeat during long sync: 248 sqlite: splitdrive: none
+-stress test sync, reset heartbeat intervals
+-heart beat when browse cards open
 
--revert to classical sed
--retranslate UI issues
+-sometimes card gets repeated?
+-failed card + new cards in two directions: learn all fw cards, get stuck on failed card. Only
+ restarting brings bw cards.
 
 -popup tips 
  -comma to separate tag names
@@ -38,14 +40,8 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -also make sure this is OK when changing card type creates extra cards
 -scheduler.spread_sister_cards? 
 -recheck database for this through plugin 
--failed card + new cards in two directions: learn all fw cards, get stuck on failed card. Only
- restarting brings bw cards. 
--sometimes card gets repeated?
-
--give more informative error message on raise RuntimeError, "Unable to change user id."
- relax requirement involving uploading logs?
+ 
 -also give warning on the client side if a sync failed and a backup needs to happen 
--server down should not result in sync conflict 
 -prevent sync with itself 
 -binary database upload: configuration changes (fonts, ...) are not applied 
 -syncing an empty database twice results in a spurious sync cycle detection. Also happens after 
@@ -68,6 +64,10 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 
 -activate cards: 'having any of these tags:' is not aligned with tag with tag tree
 
+-implement duplicate checking. Also synonym checking? Add then standard tags. 
+-autorun after import, browse with edit, but not sync
+-do review_controller.rebuild_queue, reload counter after clean duplicates?
+
 -translations through website
 -see if 1.x translations can be reused
 -remove mnemosyne/pyqt_ui/locale
@@ -75,17 +75,12 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -tell beta users to make sure to install latest beta first
 -remove upgrade_beta_6.py, beta_7
 
-
 -upgrade to qt 4.7.4, retest progress bars
 -make distrib under linux
 -bundle webserver with install
 
 -test upgrade on OSX: remove library/Mnemosyne2, make sure you have 1.x in library/Mnemosyne.
  after upgrade there should be 2.0 files in library/Mnemosyne and a backup in library/Mnemosyne_1
-
--implement duplicate checking. Also synonym checking? Add then standard tags. 
--autorun after import, browse with edit, but not sync
--do review_controller.rebuild_queue, reload counter after clean duplicates?
 
 -auto detect RTL '(arabic) arabic' in lineedit shows up as 'arabic) arabic)' in webkit
 http://dotancohen.com/howto/rtl_right_to_left.html
@@ -113,6 +108,7 @@ http://dotancohen.com/howto/rtl_right_to_left.html
  https://bugreports.qt.nokia.com/browse/QTBUG-52
 -Qt bug? error dialogs don't allow copying the text from it on all platforms
 -Qt bug? svg Mnemosyne watermark for tip and getting started does not work under Linux
+-Qt bug? review widget: frame.scroll does not seem to work reliably for PageUp
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 
 -workaround for short ogg files. Make short mp3 workaround linux only. Test if silence files
@@ -141,8 +137,7 @@ http://dotancohen.com/howto/rtl_right_to_left.html
 -make sure to detect media and do slash normalisation from importing text files
 -utf16?
 
-
--card appearance: show preview live
+-card appearance: show preview live?
 
 -docs on dealing with synonyms and words which have multiple meanings (if implemented, update card converter too)
  check fonts for new meanings, check decorators
@@ -157,7 +152,7 @@ http://dotancohen.com/howto/rtl_right_to_left.html
 -warn when syncing and the other criterion plugin is not present?
 -make 'grade activity criterion' an official plugin? Add tests?
 
--hoop uk dialogs in UDP
+-hoop up all dialogs in UDP
 
 -pinyin sort
 

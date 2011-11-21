@@ -164,17 +164,22 @@ class Client(Partner):
             self.ui.show_information("Sync finished!")
         except Exception, exception:            
             self.ui.close_progress()
+            serious = True
             if type(exception) == type(socket.gaierror()):
-                self.ui.show_error("Could not find server!") 
+                self.ui.show_error("Could not find server!")
+                serious = False
             elif type(exception) == type(socket.error()):
-                self.ui.show_error("Could not connect to server!")            
+                self.ui.show_error("Could not connect to server!")
+                serious = False           
             elif type(exception) == type(socket.timeout()):
-                self.ui.show_error("Timeout while waiting for server!")
+                self.ui.show_error("Timeout while waiting for server!") 
             elif type(exception) == type(SyncError()):
                 self.ui.show_error(str(exception))
             else:
                 self.ui.show_error(traceback_string())
-            if self.do_backup:
+            if serious and self.do_backup:
+                # Only serious errors should result in the need for a full
+                # sync next time.
                 self.database.restore(backup_file)
         finally:
             self.con.close()

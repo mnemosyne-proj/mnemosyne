@@ -107,8 +107,9 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         else:
             frame = self.answer.page().mainFrame()   
         x, y = frame.scrollPosition().x(), frame.scrollPosition().y()
-        y += int(0.9*(frame.geometry().height())) 
-        frame.scroll(x, y)
+        y += int(0.9*(frame.geometry().height()))
+        #frame.scroll(x, y) # Seems buggy 20111121
+        frame.evaluateJavaScript("window.scrollTo(%d, %d);" % (x, y))
         
     def scroll_up(self):
         if self.review_controller().state == "SELECT SHOW":
@@ -116,9 +117,10 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         else:
             frame = self.answer.page().mainFrame()   
         x, y = frame.scrollPosition().x(), frame.scrollPosition().y()
-        y -= int(0.9*(frame.geometry().height())) 
-        frame.scroll(x, y) 
-                 
+        y -= int(0.9*(frame.geometry().height()))
+        #frame.scroll(x, y)  # Seems buggy 20111121
+        frame.evaluateJavaScript("window.scrollTo(%d, %d);" % (x, y))
+        
     def show_answer(self):
         self.review_controller().show_answer()
 

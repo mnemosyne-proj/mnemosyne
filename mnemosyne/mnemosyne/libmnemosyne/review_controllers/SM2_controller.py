@@ -92,8 +92,9 @@ class SM2Controller(ReviewController):
 
         """
 
-        self.flush_sync_server() 
-        self.reset_but_try_to_keep_current_card()
+        self.flush_sync_server()
+        if self.database().is_loaded(): # Don't do this if syncing now.
+            self.reset_but_try_to_keep_current_card()
 
     def show_new_question(self):
         # Reload the counters if they have not yet been initialised. Also do
