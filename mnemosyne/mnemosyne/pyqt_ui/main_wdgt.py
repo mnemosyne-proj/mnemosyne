@@ -41,12 +41,12 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         if state:
             self.restoreGeometry(state)
         self.TIMER_1_INTERVAL = 1000 * 5 # 1000 * 60 * 10 # For reuse in review widget.
-        self.TIMER_1_INTERVAL = 1000 * 60 * 10 # For reuse in review widget.
+        #self.TIMER_1_INTERVAL = 1000 * 60 * 10 # For reuse in review widget.
         self.timer_1 = QtCore.QTimer()
         self.timer_1.timeout.connect(self.review_controller_heartbeat)
         self.timer_1.start(self.TIMER_1_INTERVAL)
         self.TIMER_2_INTERVAL = 1000 * 5 # 1000 * 60 * 60 * 12
-        self.TIMER_2_INTERVAL = 1000 * 60 * 60 * 12
+        #self.TIMER_2_INTERVAL = 1000 * 60 * 60 * 12
         self.timer_2 = QtCore.QTimer()
         self.timer_2.timeout.connect(self.controller_heartbeat)
         self.timer_2.start(self.TIMER_2_INTERVAL)

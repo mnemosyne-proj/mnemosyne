@@ -52,8 +52,11 @@ class SyncThread(QtCore.QThread):
         self.show_numeric_progress_bar = (sys.platform != "win32")
         
     def run(self):
-        self.mnemosyne.controller().sync(self.server, self.port,
-            self.username, self.password, ui=self)
+        try:
+            self.mnemosyne.controller().sync(self.server, self.port,
+                self.username, self.password, ui=self)
+        except:
+            self.mnemosyne.database().release_connection()
         
     def show_information(self, message):
         self.information_signal.emit(message)

@@ -93,7 +93,9 @@ class SM2Controller(ReviewController):
         """
 
         self.flush_sync_server()
-        if self.database().is_loaded(): # Don't do this if syncing now.
+        if self.database().is_loaded() and self.database().is_accessible():
+            # Don't do this if e.g. the GUI or another thread holds the
+            # database.
             self.reset_but_try_to_keep_current_card()
 
     def show_new_question(self):

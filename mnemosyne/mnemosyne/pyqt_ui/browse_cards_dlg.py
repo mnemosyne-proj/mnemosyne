@@ -8,6 +8,9 @@ import locale
 
 from PyQt4 import QtCore, QtGui, QtSql
 
+from mnemosyne.libmnemosyne.tag import Tag
+from mnemosyne.libmnemosyne.fact import Fact
+from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.pyqt_ui.tag_tree_wdgt import TagsTreeWdgt
@@ -140,6 +143,62 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
         self.doc = QtGui.QTextDocument(self)
         self.Q_or_A = Q_or_A
 
+    # We need to reimplement the database access functions here using Qt's
+    # database driver. Otherwise, both Qt and libmnemosyne try to claim
+    # ownership at the same time. We don't reconstruct everything in order
+    # to save time. This could in theory give problems if the browser render
+    # chain makes use of this extra information, but that seems unlikely.
+
+    def tag(self, _id):
+        query = QtSql.QSqlQuery(\
+            "select name from tags where _id=%d" % (_id, ))
+        query.first()           
+        tag = Tag(unicode(query.value(0).toString()), "dummy_id")
+        tag._id = _id
+        return tag
+    
+    def fact(self, _id):       
+        # Create dictionary with fact.data.
+        fact_data = {}
+        query = QtSql.QSqlQuery(\
+           "select key, value from data_for_fact where _fact_id=%d" % (_id, ))
+        query.next()
+        while query.isValid():
+            fact_data[unicode(query.value(0).toString())] = \
+                unicode(query.value(1).toString())
+            query.next()            
+        # Create fact.
+        fact = Fact(fact_data, "dummy_id")
+        fact._id = _id
+        return fact
+    
+    def card(self, _id):       
+        query = QtSql.QSqlQuery("""select _fact_id, card_type_id,
+            fact_view_id from cards where _id=%d""" % (_id, ))
+        query.first()
+        fact = self.fact(query.value(0).toInt()[0])
+        # Note that for the card type, we turn to the component manager as
+        # opposed to this database, as we would otherwise miss the built-in
+        # system card types
+        card_type = self.card_type_with_id(unicode(query.value(1).toString()))
+        fact_view_id = unicode(query.value(2).toString())
+        for fact_view in card_type.fact_views:
+            if fact_view.id == fact_view_id:
+                card = Card(card_type, fact, fact_view)
+                break
+
+        # Let's not add tags to speed things up, they don't affect the card
+        # browser renderer
+
+        #query = QtSql.QSqlQuery("""select _tag_id from tags_for_card
+        #    where _card_id=%d""" % (_id, ))
+        #query.next()
+        #while query.isValid():
+        #    card.tags.add(self.tag(query.value(0).toInt()[0]))
+        #    query.next()
+
+        return card
+
     def paint(self, painter, option, index):
         optionV4 = QtGui.QStyleOptionViewItemV4(option)
         self.initStyleOption(optionV4, index)
@@ -152,8 +211,7 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
         _id = index.model().data(_id_index).toInt()[0]
         ignore_text_colour = bool(optionV4.state & QtGui.QStyle.State_Selected)
         search_string = index.model().search_string
-        card = self.component_manager.current("database").\
-            card(_id, is_id_internal=True)
+        card = self.card(_id)
         if self.Q_or_A == QUESTION:
             self.doc.setHtml(card.question(render_chain="card_browser",
                 ignore_text_colour=ignore_text_colour,

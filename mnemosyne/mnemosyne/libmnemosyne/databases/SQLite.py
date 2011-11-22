@@ -480,6 +480,18 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     def is_loaded(self):
         return self._connection is not None
 
+    def is_accessible(self):
+
+        """Check if the database is not locked by another thread."""
+
+        accessible = True
+        try:
+            sql_res = self.con.execute("""select value from global_variables
+                where key=?""", ("version", )).fetchone()
+        except sqlite3.ProgrammingError:
+            accessible = False
+        return accessible
+
     def is_empty(self):
         return self.tag_count() == 1 and self.fact_count() == 0 and \
             self.con.execute("""select count() from log where event_type=? or
@@ -695,9 +707,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         fact_data = dict([(cursor["key"], cursor["value"]) for cursor in
             self.con.execute("select * from data_for_fact where _fact_id=?",
             (sql_res["_id"], ))])            
-        # Create fact. Note that for the card type, we turn to the component
-        # manager as opposed to this database, as we would otherwise miss the
-        # built-in system card types.
+        # Create fact.
         fact = Fact(fact_data, id=sql_res["id"])
         fact._id = sql_res["_id"]
         self._construct_extra_data(sql_res, fact)
@@ -766,6 +776,9 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             sql_res = self.con.execute("select * from cards where id=?",
                                        (id, )).fetchone()
         fact = self.fact(sql_res["_fact_id"], is_id_internal=True)
+        # Note that for the card type, we turn to the component manager as
+        # opposed to this database, as we would otherwise miss the built-in
+        # system card types
         card_type = self.card_type_with_id(sql_res["card_type_id"])
         for fact_view in card_type.fact_views:
             if fact_view.id == sql_res["fact_view_id"]:
