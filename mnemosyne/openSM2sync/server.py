@@ -596,7 +596,7 @@ class Server(Partner):
     def get_sync_finish(self, environ, session_token):           
         try:
             session = self.sessions[session_token]
-            if session.apply_error:
+            if session.apply_error is not None:
                 return self.handle_error(session, session.apply_error)
             self.ui.set_progress_text("Sync finished!")
             self.close_session_with_token(session_token) 

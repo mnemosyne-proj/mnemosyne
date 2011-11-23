@@ -1,9 +1,4 @@
--add test for is_accessible
--stress test sync, reset heartbeat intervals
-
 -sometimes card gets repeated?
--failed card + new cards in two directions: learn all fw cards, get stuck on failed card. Only
- restarting brings bw cards.
 
 -popup tips 
  -comma to separate tag names

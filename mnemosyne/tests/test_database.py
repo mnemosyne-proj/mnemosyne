@@ -659,3 +659,27 @@ class TestDatabase(MnemosyneTest):
 
         for tag in self.database().tags_from_cards_with_internal_ids([2, 3]):
             assert tag._id in [2, 4]
+
+    def test_is_accessible(self):
+        from threading import Thread
+        import time
+
+        class MyThread(Thread):
+
+            def __init__(self, mnemosyne):
+                Thread.__init__(self)
+                self.mnemosyne = mnemosyne
+
+            def run(self):
+                assert self.mnemosyne.database().is_accessible() == True
+                self.mnemosyne.database().scheduled_count(0)
+                time.sleep(0.2)
+                self.mnemosyne.database().release_connection()
+
+        assert self.database().is_accessible() == True
+        self.database().release_connection()
+        thread = MyThread(self)
+        thread.start()
+        time.sleep(0.1)
+        assert self.database().is_accessible() == False
+        time.sleep(0.3)                

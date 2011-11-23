@@ -462,3 +462,57 @@ class TestScheduler(MnemosyneTest):
         assert self.review_controller().card is not None
         self.review_controller().grade_answer(0)        
         assert self.review_controller().card is not None
+
+    def test_stuck(self):
+        fact_data = {"f": "question1",
+                     "b": "answer1"}
+        card_type = self.card_type_with_id("1")
+        card_0 = self.controller().create_new_cards(fact_data, card_type,
+              grade=-1, tag_names=["default"])[0]
+
+        self.review_controller().reset()
+        self.review_controller().show_new_question()        
+        self.review_controller().show_answer()
+        self.review_controller().grade_answer(2)
+
+        self.review_controller().learning_ahead = True
+        self.review_controller().show_new_question()
+        self.review_controller().grade_answer(0)
+        self.review_controller().learning_ahead = False
+        
+        fact_data = {"f": "question2",
+                     "b": "answer2"}
+        card_type = self.card_type_with_id("2")
+        card_1, card_2 = self.controller().create_new_cards(fact_data, card_type,
+              grade=-1, tag_names=["default"])
+
+        while True:
+            self.review_controller().show_new_question()
+            if self.review_controller().card.id in [card_1.id, card_2.id]:
+                if self.review_controller().card.id == card_1.id:
+                    other_card = card_2
+                else:
+                    other_card = card_1
+                self.review_controller().grade_answer(2)
+                break
+            self.review_controller().grade_answer(0)
+
+        # Now we should get to see the other reverse card and not get stuck on the
+        # failed card.
+
+        # We also check whether we keep on alternating between the two
+        # remaining cards.
+        failed = True
+        previous_card_id = None
+        for i in range(10):
+            self.review_controller().show_new_question()
+            if previous_card_id:
+                assert self.review_controller().card.id != previous_card_id
+            print "AAAA", self.review_controller().card.id
+            if self.review_controller().card.id == other_card.id:
+                failed = False
+            previous_card_id = self.review_controller().card.id
+            self.review_controller().grade_answer(0)
+        assert failed == False
+        1/0
+        

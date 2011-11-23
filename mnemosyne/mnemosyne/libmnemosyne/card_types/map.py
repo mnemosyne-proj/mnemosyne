@@ -23,7 +23,7 @@ class Map(CardType):
     # Recognition.
     v1 = FactView(_("Recognition"), "4.1")
     v1.q_fact_keys = ["_", "marked"]
-    v1.a_fact_keys = ["loc", "marked",]
+    v1.a_fact_keys = ["loc", "marked"]
     v1.a_on_top_of_q = True
     
     # Production.

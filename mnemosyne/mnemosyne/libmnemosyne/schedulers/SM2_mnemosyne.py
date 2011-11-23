@@ -272,9 +272,9 @@ class SM2Mnemosyne(Scheduler):
                     if non_memorised_in_queue == limit:
                         self.stage = 2
                         return
-            # If the queue is empty, relax the 'sister not together'                           
-            # requirement.                                                                      
-            if not sisters_together and len(self._card_ids_in_queue) == 0:
+            # If the queue is close to empty, relax the 'sister not together'                           
+            # requirement.
+            if not sisters_together and len(self._fact_ids_in_queue) <= 1:
                 for _card_id, _fact_id in db.cards_unseen(\
                     sort_key=sort_key, limit=min(limit, 50)):                
                     if _fact_id not in self._fact_ids_in_queue:
@@ -396,8 +396,8 @@ class SM2Mnemosyne(Scheduler):
              # Make sure the second copy of a grade 0 card doesn't show
              # up again.
              if not dry_run and card.grade == 0:
-                if card._id in self._card_ids_in_queue:
-                    self._card_ids_in_queue.remove(card._id)
+                 if card._id in self._card_ids_in_queue:
+                     self._card_ids_in_queue.remove(card._id)
         elif card.grade in [2, 3, 4, 5] and new_grade in [0, 1]:
              # In the retention phase and dropping back to the
              # acquisition phase.
