@@ -1,5 +1,3 @@
--sometimes card gets repeated?
-
 -popup tips 
  -comma to separate tag names
  -:: to separate hierarchies
@@ -34,7 +32,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
  replace set_initial_grade by set_initial_grades(cards)?  
 -also make sure this is OK when changing card type creates extra cards
 -scheduler.spread_sister_cards? 
--recheck database for this through plugin 
  
 -also give warning on the client side if a sync failed and a backup needs to happen 
 -prevent sync with itself 

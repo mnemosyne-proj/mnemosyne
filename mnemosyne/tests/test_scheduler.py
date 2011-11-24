@@ -28,27 +28,75 @@ class TestScheduler(MnemosyneTest):
         card_4.next_rep -= 1000 * 24 * 60 * 60
         self.database().update_card(card_4)
 
-        # Due cards.
         assert self.scheduler().next_card() == card_4
         self.scheduler().grade_answer(card_4, 0)
         assert card_4.active == True
         self.database().update_card(card_4)
-    
-        # Failed scheduled cards.
-        assert self.scheduler().next_card() == card_4
-        self.scheduler().grade_answer(card_4, 2)
-        assert card_4.active == True
-        self.database().update_card(card_4)
-        
-        # Unseen cards.
+
         card = self.scheduler().next_card()
-        assert card == card_1 or card == card_2
+        self.scheduler().grade_answer(card, 2)
+        assert card.active == True
+        self.database().update_card(card)
+        
+        card = self.scheduler().next_card()
         self.scheduler().grade_answer(card, 0)
         self.database().update_card(card)
             
-        # Cards currently being memorised.
         card = self.scheduler().next_card()
-        assert card == card_1 or card == card_2
+        self.scheduler().grade_answer(card, 1)
+        self.database().update_card(card)
+        
+        card = self.scheduler().next_card()
+        self.scheduler().grade_answer(card, 2)
+        self.database().update_card(card)
+        learned_cards = [card]
+        
+        card = self.scheduler().next_card()
+        assert card not in learned_cards
+        self.scheduler().grade_answer(card, 2)
+        self.database().update_card(card)
+        learned_cards.append(card)
+        
+        assert self.scheduler().next_card() == None
+
+        # Learn ahead.
+        
+        assert self.scheduler().next_card(learn_ahead=True) != None
+
+    def test_1_bis(self):
+        card_type = self.card_type_with_id("1")
+        
+        fact_data = {"f": "1", "b": "b"}
+        card_1 = self.controller().create_new_cards(fact_data, card_type,
+                     grade=-1, tag_names=[])[0]
+        fact_data = {"f": "2", "b": "b"}        
+        card_2 = self.controller().create_new_cards(fact_data, card_type,
+                     grade=-1, tag_names=[])[0]
+        fact_data = {"f": "3", "b": "b"}
+        card_3 = self.controller().create_new_cards(fact_data, card_type,
+                     grade=2, tag_names=[])[0]
+        fact_data = {"f": "4", "b": "b"}
+        card_4 = self.controller().create_new_cards(fact_data, card_type,
+                     grade=2, tag_names=[])[0]
+        card_4.next_rep -= 1000 * 24 * 60 * 60
+        self.database().update_card(card_4)
+
+        assert self.scheduler().next_card() == card_4
+        self.scheduler().grade_answer(card_4, 1)
+
+        assert card_4.active == True
+        self.database().update_card(card_4)
+
+        card = self.scheduler().next_card()
+        self.scheduler().grade_answer(card, 2)
+        assert card.active == True
+        self.database().update_card(card)
+        
+        card = self.scheduler().next_card()
+        self.scheduler().grade_answer(card, 0)
+        self.database().update_card(card)
+            
+        card = self.scheduler().next_card()
         self.scheduler().grade_answer(card, 1)
         self.database().update_card(card)
         
@@ -476,7 +524,7 @@ class TestScheduler(MnemosyneTest):
         self.review_controller().grade_answer(2)
 
         self.review_controller().learning_ahead = True
-        self.review_controller().show_new_question()
+        self.review_controller().show_answer()
         self.review_controller().grade_answer(0)
         self.review_controller().learning_ahead = False
         
@@ -487,9 +535,10 @@ class TestScheduler(MnemosyneTest):
               grade=-1, tag_names=["default"])
 
         while True:
-            self.review_controller().show_new_question()
-            if self.review_controller().card.id in [card_1.id, card_2.id]:
-                if self.review_controller().card.id == card_1.id:
+            self.review_controller().show_answer()
+            previous_card_id = self.review_controller().card._id
+            if self.review_controller().card._id in [card_1._id, card_2._id]:
+                if self.review_controller().card._id == card_1._id:
                     other_card = card_2
                 else:
                     other_card = card_1
@@ -503,16 +552,16 @@ class TestScheduler(MnemosyneTest):
         # We also check whether we keep on alternating between the two
         # remaining cards.
         failed = True
-        previous_card_id = None
-        for i in range(10):
-            self.review_controller().show_new_question()
-            if previous_card_id:
-                assert self.review_controller().card.id != previous_card_id
-            print "AAAA", self.review_controller().card.id
-            if self.review_controller().card.id == other_card.id:
+        for i in range(100):
+            self.review_controller().show_answer()
+            assert self.review_controller().card._id != previous_card_id
+            if self.review_controller().card._id == other_card._id:
                 failed = False
-            previous_card_id = self.review_controller().card.id
+            previous_card_id = self.review_controller().card._id
             self.review_controller().grade_answer(0)
         assert failed == False
-        1/0
-        
+
+    def test_heartbeat(self):
+        self.scheduler().heartbeat()
+        self.scheduler()._fact_ids_memorised_expires_at = -1
+        self.scheduler().heartbeat()

@@ -122,10 +122,7 @@ class SM2Mnemosyne(Scheduler):
         card.last_rep = int(time.time())
         new_interval = self.calculate_initial_interval(grade)
         new_interval += self.calculate_interval_noise(new_interval)
-        if grade >= 2:
-            card.next_rep = self.midnight_UTC(card.last_rep + new_interval)
-        else:
-            card.next_rep = int(time.time())            
+        card.next_rep = self.midnight_UTC(card.last_rep + new_interval)            
         self.log().repetition(card, scheduled_interval=0, actual_interval=0,
                               new_interval=new_interval, thinking_time=0)
 
@@ -316,17 +313,17 @@ class SM2Mnemosyne(Scheduler):
             pass
     
     def next_card(self, learn_ahead=False):
-        # Populate queue if it is empty.
-        if len(self._card_ids_in_queue) == 0:
+        # Populate queue if it is running low, so that we have enough cards to
+        # alternate with.
+        if len(self._card_ids_in_queue) <= 1:
             self.rebuild_queue(learn_ahead)
             if len(self._card_ids_in_queue) == 0:
                 return None
         # Pick the first card and remove it from the queue. Make sure we don't
-        # show the same card twice in succession, unless the queue becomes too
-        # small and we risk running out of cards.
+        # show the same card twice in succession.
         _card_id = self._card_ids_in_queue.pop(0)
         if self._card_id_last:
-            while len(self._card_ids_in_queue) >= 3 and \
+            while len(self._card_ids_in_queue) != 0 and \
                       self._card_id_last == _card_id:
                 _card_id = self._card_ids_in_queue.pop(0)
         self._card_id_last = _card_id

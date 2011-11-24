@@ -1,3 +1,4 @@
+-Avoid showing the same card twice in a row.
 -Fix some corner cases in scheduler, where scheduler could get stuck on a
  near empty queue.
 -Make sync more robust in corner cases
@@ -6,7 +7,7 @@
  browser.
 -You can reorder columns in the card browser
 -Make sure active set is highlighted when starting 'Activate cards' dialog.
--cntrl+R replays media, just like in 1.x.
+-cntrl+R replays media, just like in Mnemosyne 1.x.
 -When editing or previewing cards from the card browser, PageUp/PageDown can
  be used to move to the previous/next card
 -Make it easier to change active card sets using keyboard only
