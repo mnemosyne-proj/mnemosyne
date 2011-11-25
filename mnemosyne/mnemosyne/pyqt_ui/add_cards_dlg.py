@@ -15,13 +15,22 @@ from mnemosyne.libmnemosyne.ui_components.dialogs import AddCardsDialog
 from mnemosyne.pyqt_ui.card_type_wdgt_generic import GenericCardTypeWdgt
 from mnemosyne.pyqt_ui.convert_card_type_keys_dlg import \
      ConvertCardTypeKeysDlg
+from mnemosyne.pyqt_ui.tip_after_starting_n_times import \
+     TipAfterStartingNTimes
 
 
-class AddEditCards(Component):
+class AddEditCards(TipAfterStartingNTimes):
 
     """Code shared between the add and the edit dialogs."""
 
+    started_n_times_counter = "started_add_edit_cards_n_times"
+    tip_after_n_times = \
+        {3: _("You can add multiple tags to a card by separating tags with a comma in the 'Tag(s)' input field."),
+         6: _("You can organise tags in a hierarchy by using :: as separator, e.g. My book::Lesson 1."),
+         9: _("You can add images and sounds to your cards. Right-click on an input field when editing a card to bring up a pop-up menu to do so.")}
+ 
     def activate(self):
+        self.show_tip_after_starting_n_times()
         self.exec_()
         
     def initialise_card_types_combobox(self, current_card_type_name):

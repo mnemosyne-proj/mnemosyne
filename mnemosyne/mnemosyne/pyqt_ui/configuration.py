@@ -46,6 +46,8 @@ class PyQtConfiguration(Hook):
              "password_for_sync_as_client": "",
              "port_for_sync_as_server": 8512,
              "remote_access_username": "",
-             "remote_access_password": ""
+             "remote_access_password": "",
+             "started_add_edit_cards_n_times": 0,
+             "started_browse_cards_n_times": 0
             }.items():
             self.config().setdefault(key, value)

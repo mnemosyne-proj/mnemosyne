@@ -14,13 +14,14 @@ from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.pyqt_ui.tag_tree_wdgt import TagsTreeWdgt
-from mnemosyne.pyqt_ui.convert_card_type_keys_dlg import \
-     ConvertCardTypeKeysDlg
 from mnemosyne.pyqt_ui.ui_browse_cards_dlg import Ui_BrowseCardsDlg
 from mnemosyne.pyqt_ui.card_type_tree_wdgt import CardTypesTreeWdgt
 from mnemosyne.libmnemosyne.ui_components.dialogs import BrowseCardsDialog
 from mnemosyne.libmnemosyne.criteria.default_criterion import DefaultCriterion
-
+from mnemosyne.pyqt_ui.convert_card_type_keys_dlg import \
+     ConvertCardTypeKeysDlg
+from mnemosyne.pyqt_ui.tip_after_starting_n_times import \
+     TipAfterStartingNTimes
 
 _ID = 0
 ID = 1
@@ -246,10 +247,20 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
         painter.restore()
 
         
-class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
+class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
+                     TipAfterStartingNTimes):
+
+    started_n_times_counter = "started_browse_cards_n_times"
+    tip_after_n_times = \
+        {3 : _("Right-click on a tag name in the card browser to edit or delete it."),
+         6 : _("Double-click on a card or tag name in the card browser to edit them."),
+         9 : _("You can reorder columns in the card browser by dragging the header label."),
+        12 : _("You can resize columns in the card browser by dragging between the header labels."),     
+        15 : _("When editing or previewing cards from the card browser, PageUp/PageDown can be used to move to the previous/next card.")}
 
     def __init__(self, component_manager):
         BrowseCardsDialog.__init__(self, component_manager)
+        self.show_tip_after_starting_n_times()
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \

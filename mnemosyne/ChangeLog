@@ -1,33 +1,4 @@
--Avoid showing the same card twice in a row.
--Fix some corner cases in scheduler, where scheduler could get stuck on a
- near empty queue.
--Make sync more robust in corner cases
--Icon now works on Windows 7.
--Regression fix: Mnemosyne now remembers again the column width in the card 
- browser.
--You can reorder columns in the card browser
--Make sure active set is highlighted when starting 'Activate cards' dialog.
--cntrl+R replays media, just like in Mnemosyne 1.x.
--When editing or previewing cards from the card browser, PageUp/PageDown can
- be used to move to the previous/next card
--Make it easier to change active card sets using keyboard only
- (cntrl-D, arrow keys, enter).
--Question and answer fields in the review widget can now be scrolled
- using PageUp and PageDown.
--Grade buttons can now be used as a shortcut for 'show answer'
- (requsted by Roel De Conick)
--Yet more sound system stability fixes under Windows.
--The card appearance dialog is now merged as a separate tab in the 
- configuration dialog.
--If a card type has a background colour set, also use that colour for the 
- answer box when the answer has not yet been revealed.
--In case only the answer has a picture, don't rescale the question and answer 
- until the answer picture is shown.
--Better heuristics for when to keep existing tags when changing card type, as 
- opposed to switching to last used tag for that card type.
--Don't check for edited media files by default during sync. Make this 
- configurable through the UI.
-
+-More in-program help.
 	
 MNEMOSYNE 2.0
 

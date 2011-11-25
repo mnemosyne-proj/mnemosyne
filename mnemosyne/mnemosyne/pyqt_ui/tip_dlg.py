@@ -24,7 +24,7 @@ class TipDlg(QtGui.QDialog, Ui_TipDlg, TipDialog):
         self.tips.append(_("""You can use keyboard shortcuts to do your repetitions. Enter, Return or Space stand for the default action. The number keys can be used for grading."""))
         self.tips.append(_("""You can select which cards you wish to study in the '(De)activate cards' menu option."""))
         self.tips.append(_("""It is recommended to put all your cards in a single database and use tag to organise them. Using '(De)activate cards' is much more convenient than having to load and unload several databases."""))
-        self.tips.append(_("""You can add multiple tags to a card by separating tags with a comma in the 'Tag(s) input field."""))
+        self.tips.append(_("""You can add multiple tags to a card by separating tags with a comma in the 'Tag(s)' input field."""))
         self.tips.append(_("""You can organise tags in a hierarchy by using :: as separator, e.g. My book::Lesson 1."""))
         self.tips.append(_("""You can add images and sounds to your cards. Right-click on an input field when editing a card to bring up a pop-up menu to do so."""))
         self.tips.append(_("""You can make clones of existing card types. This allows you to format cards in this type independently from cards in the original type. E.g. you can make a clone of 'Vocabulary', call it 'Thai' and set a Thai font specifically for this card type without disturbing your other cards."""))

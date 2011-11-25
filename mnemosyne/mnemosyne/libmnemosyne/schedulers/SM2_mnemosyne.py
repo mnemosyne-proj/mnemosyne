@@ -315,7 +315,8 @@ class SM2Mnemosyne(Scheduler):
     def next_card(self, learn_ahead=False):
         # Populate queue if it is running low, so that we have enough cards to
         # alternate with.
-        if len(self._card_ids_in_queue) <= 1:
+        limit = self.config()["non_memorised_cards_in_hand"]
+        if len(self._card_ids_in_queue) <= limit:
             self.rebuild_queue(learn_ahead)
             if len(self._card_ids_in_queue) == 0:
                 return None
