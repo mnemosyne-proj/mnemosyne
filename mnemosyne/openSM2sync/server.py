@@ -85,6 +85,7 @@ class Session(object):
 # header, so that the client can show progress bars.
 mnemosyne_content_length = None
 
+
 class Server(Partner):
     
     program_name = "unknown-SRS-app"
@@ -291,7 +292,7 @@ class Server(Partner):
         return self.text_format.repr_message("OK")
 
     def put_login(self, environ):
-        session = None
+        session = None        
         try:            
             self.ui.set_progress_text("Client logging in...")
             client_info_repr = environ["wsgi.input"].readline()
@@ -349,7 +350,7 @@ class Server(Partner):
             # first.
             if self.check_for_edited_local_media_files:
                 self.ui.set_progress_text("Checking for edited media files...")
-                self.session.database.check_for_edited_media_files()
+                session.database.check_for_edited_media_files()
             self.ui.set_progress_text("Dynamically creating media files...")
             session.database.dynamically_create_media_files()
             return self.text_format.repr_partner_info(server_info)\

@@ -143,6 +143,7 @@ class TestScheduler(MnemosyneTest):
             self.scheduler().grade_answer(card, 0)
             self.database().update_card(card)
             cards.add(card._id)
+            print card._id
         assert len(cards) == 3
 
     def test_learn_ahead(self):

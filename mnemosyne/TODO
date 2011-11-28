@@ -1,4 +1,8 @@
--fix test suite
+Murray James Morrison  -  Peter, with the update I'm now unable to close "Preview Card" window with the Enter and ESC keys.
+
+-test if queue does not refill?
+
+-negative scheduled count?
 
 -add icon to popup tip
 
@@ -27,6 +31,8 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
  replace set_initial_grade by set_initial_grades(cards)?  
 -also make sure this is OK when changing card type creates extra cards
 -scheduler.spread_sister_cards? 
+
+-after showing answer, exiting card browser hides answer again
  
 -also give warning on the client side if a sync failed and a backup needs to happen 
 -prevent sync with itself 
