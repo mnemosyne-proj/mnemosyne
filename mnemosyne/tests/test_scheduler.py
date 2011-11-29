@@ -143,7 +143,6 @@ class TestScheduler(MnemosyneTest):
             self.scheduler().grade_answer(card, 0)
             self.database().update_card(card)
             cards.add(card._id)
-            print card._id
         assert len(cards) == 3
 
     def test_learn_ahead(self):
@@ -566,3 +565,36 @@ class TestScheduler(MnemosyneTest):
         self.scheduler().heartbeat()
         self.scheduler()._fact_ids_memorised_expires_at = -1
         self.scheduler().heartbeat()
+
+    def test_filling(self):
+        fact_data = {"f": "question1",
+                     "b": "answer1"}
+        card_type = self.card_type_with_id("1")
+        card_0 = self.controller().create_new_cards(fact_data, card_type,
+              grade=-1, tag_names=["default"])[0]
+
+        unlearned = []
+        for i in range(10):
+            fact_data = {"f": str(i), "b": "b"}
+            card = self.controller().create_new_cards(fact_data, card_type,
+                     grade=-1, tag_names=["default"])[0]
+            unlearned.append(card)
+        self.config()["non_memorised_cards_in_hand"] = 4
+
+        self.review_controller().reset()
+        self.review_controller().show_new_question()        
+        self.review_controller().show_answer()
+        self.review_controller().grade_answer(2)
+
+        self.review_controller().learning_ahead = True
+        self.review_controller().show_answer()
+        self.review_controller().grade_answer(0)
+        self.review_controller().learning_ahead = False
+
+        showed_cards = set()
+        for i in range(100):
+            self.review_controller().show_answer()
+            showed_cards.add(self.review_controller().card._id)
+            self.review_controller().grade_answer(0)
+            
+        assert len(showed_cards) == 4

@@ -1,8 +1,4 @@
-Murray James Morrison  -  Peter, with the update I'm now unable to close "Preview Card" window with the Enter and ESC keys.
-
--test if queue does not refill?
-
--negative scheduled count?
+-answer Murray James Morrison on G+
 
 -add icon to popup tip
 
@@ -104,6 +100,7 @@ http://dotancohen.com/howto/rtl_right_to_left.html
 -Qt bug? error dialogs don't allow copying the text from it on all platforms
 -Qt bug? svg Mnemosyne watermark for tip and getting started does not work under Linux
 -Qt bug? review widget: frame.scroll does not seem to work reliably for PageUp
+-Qt bug? preview dialog does not pass on keypressevents it does not handle
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 
 -workaround for short ogg files. Make short mp3 workaround linux only. Test if silence files

@@ -313,21 +313,27 @@ class SM2Mnemosyne(Scheduler):
             pass
     
     def next_card(self, learn_ahead=False):
-        # Populate queue if it is running low, so that we have enough cards to
-        # alternate with.
-        if len(self._card_ids_in_queue) <= 1:
+        db = self.database()
+        # Populate queue if it is empty, and pop first card from the queue.
+        if len(self._card_ids_in_queue) == 0:
             self.rebuild_queue(learn_ahead)
             if len(self._card_ids_in_queue) == 0:
                 return None
-        # Pick the first card and remove it from the queue. Make sure we don't
-        # show the same card twice in succession.
         _card_id = self._card_ids_in_queue.pop(0)
+        # Make sure we don't show the same card twice in succession.
         if self._card_id_last:
-            while len(self._card_ids_in_queue) != 0 and \
-                      self._card_id_last == _card_id:
+            while _card_id == self._card_id_last:
+                # Make sure we have enough cards to vary, but exit in hopeless
+                # situations.
+                if len(self._card_ids_in_queue) == 0:
+                    self.rebuild_queue(learn_ahead)
+                    if len(self._card_ids_in_queue) == 0:
+                        return None
+                    if set(self._card_ids_in_queue) == set([_card_id]):
+                        return db.card(_card_id, is_id_internal=True)
                 _card_id = self._card_ids_in_queue.pop(0)
         self._card_id_last = _card_id
-        return self.database().card(_card_id, is_id_internal=True)
+        return db.card(_card_id, is_id_internal=True)
 
     def is_prefetch_allowed(self, card_to_grade):
 

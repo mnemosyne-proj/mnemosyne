@@ -8,6 +8,7 @@ from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.pyqt_ui.ui_preview_cards_dlg import Ui_PreviewCardsDlg
 
+
 class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component):
 
     page_up_down_signal = QtCore.pyqtSignal(int)
@@ -47,6 +48,12 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component):
             self.page_up_down_signal.emit(self.UP)
         elif event.key() == QtCore.Qt.Key_PageDown:
             self.page_up_down_signal.emit(self.DOWN)
+        # Note QtGui.QWidget.keyPressEvent(self, event) does not seem to work,
+        # so we handle the most common keypresses here too.
+        if event.key() == QtCore.Qt.Key_Escape:
+            self.reject()
+        if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return]:
+            self.accept()            
         else:
             QtGui.QWidget.keyPressEvent(self, event)
 
