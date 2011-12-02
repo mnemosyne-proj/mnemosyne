@@ -1,5 +1,5 @@
 #
-# tipday_dlg.py <Johannes.Baiter@gmail.com>
+# tip_dlg.py <Johannes.Baiter@gmail.com>
 #
 
 from PyQt4 import QtCore, QtGui

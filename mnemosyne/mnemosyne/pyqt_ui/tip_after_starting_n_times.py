@@ -2,6 +2,7 @@
 # tip_after_starting_n_times.py <Peter.Bienstman@UGent.be>
 #
 
+from mnemosyne.pyqt_ui.tip_dlg import TipDlg
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
 
@@ -26,7 +27,13 @@ class TipAfterStartingNTimes(Component):
     def show_tip_after_starting_n_times(self):
         counter = self.config()[self.started_n_times_counter]
         if counter in self.tip_after_n_times:
-            self.main_widget().show_information(\
-                _(self.tip_after_n_times[counter]))
+            tip_dlg = TipDlg(self.component_manager)
+            tip_dlg.setWindowTitle(_("Mnemosyne")) 
+            tip_dlg.show_tips.hide()
+            tip_dlg.previous_button.hide()
+            tip_dlg.next_button.hide()
+            tip_dlg.tip_label.setText(_(self.tip_after_n_times[counter]))
+            tip_dlg.closeEvent = lambda event : event.accept()
+            tip_dlg.exec_()
         if counter <= max(self.tip_after_n_times.keys()):
             self.config()[self.started_n_times_counter] = counter + 1
