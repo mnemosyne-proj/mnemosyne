@@ -32,6 +32,10 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
             self.retranslateUi(self)
         QtGui.QMainWindow.changeEvent(self, event)
 
+    def createPopupMenu(self):
+        # Don't create a silly popup menu saying ('toolBar').
+        pass 
+
     def closeEvent(self, event):
         # Generated when clicking the window's close button.
         self._store_state()

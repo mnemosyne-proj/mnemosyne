@@ -1,14 +1,16 @@
--window title: (de)activate cards, (de)activate plugins, plugins?
+-mail Doug on stretch factors QWebElement::render, http://wouwlabs.com/blogs/jeez/?p=197
 
 -warn if creating a set without any cards
 
--single click on saved sets under Windows?
+-save tree state (which nodes are expanded or not)
 
--save tree state
+-card with image, change set to display another card: stretch factors are not reset
 
--shortcuts in cramming sheduler
+-reduce timeout on sync login, test again full sync
 
--toolBar (with a lowercase "t")
+-F11 full screen?
+
+-Pol Chalet database issues
 
 -does tip counter also fire for edit card?
 

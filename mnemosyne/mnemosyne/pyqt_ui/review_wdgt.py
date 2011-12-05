@@ -54,7 +54,6 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
             self.scroll_up()
         elif event.key() == QtCore.Qt.Key_R and \
             event.modifiers() == QtCore.Qt.ControlModifier:
-            print 'redraw'
             self.review_controller().update_dialog(redraw_all=True) # Replay media.
         else:
             QtGui.QWidget.keyPressEvent(self, event)
@@ -118,7 +117,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
             frame = self.answer.page().mainFrame()   
         x, y = frame.scrollPosition().x(), frame.scrollPosition().y()
         y -= int(0.9*(frame.geometry().height()))
-        #frame.scroll(x, y)  # Seems buggy 20111121
+        #frame.scroll(x, y)  # Seems buggy 20111121.
         frame.evaluateJavaScript("window.scrollTo(%d, %d);" % (x, y))
         
     def show_answer(self):
@@ -152,11 +151,13 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
     def set_question(self, text):
         self.set_question_stretch_factors()
         self.question.setHtml(text)
+        print "Q", self.question.page().mainFrame().contentsSize()
         
     def set_answer(self, text):
         self.set_answer_stretch_factors()
         self.answer.setHtml(text)
-
+        print "A", self.answer.page().mainFrame().contentsSize()
+        
     def clear_question(self):
         self.question.setHtml(self.empty())
         

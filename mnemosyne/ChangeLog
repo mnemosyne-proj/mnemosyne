@@ -1,3 +1,9 @@
+-Make dialog titles more consistent (reported by Troy Guze).
+-Don't create a silly popup menu saying 'toolBar' when right clicking on
+ the toolbar (reported by Troy Guze).
+-Make grade shortcuts work in cramming scheduler (<=1 for pass) 
+ (reported by Troy Guze).
+	
 -The enter and escape keys now work again to close the preview dialog
 -More scheduler tweaks.
 -More in-program help.

@@ -38,7 +38,16 @@ class ReviewWdgtCramming(ReviewWdgt):
             self.grade_0_button.setText(_("&Wrong"))
             self.grade_5_button.setText(_("&Right"))
         QtGui.QWidget.changeEvent(self, event)
-
+        
+    def keyPressEvent(self, event):
+        if self.review_controller().state == "SELECT GRADE":
+            if event.key() in [QtCore.Qt.Key_0, QtCore.Qt.Key_1]:
+                return self.grade_answer(0)
+            elif event.key() in [QtCore.Qt.Key_2, QtCore.Qt.Key_3,
+                QtCore.Qt.Key_4, QtCore.Qt.Key_5]:
+                return self.grade_answer(5)
+        ReviewWdgt.keyPressEvent(self, event)
+        
     def update_status_bar_counters(self):
         wrong_count, unseen_count, active_count = \
                    self.review_controller().counters()
