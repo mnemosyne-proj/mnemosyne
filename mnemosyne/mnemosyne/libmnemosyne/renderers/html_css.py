@@ -32,7 +32,7 @@ class HtmlCss(Renderer):
 
     def card_type_css(self, card_type):
         # Set aligment of the table (but not the contents within the table).
-        css = "table { height: " + self.table_height + "; width: 100%; "
+        css = "table { height: " + self.table_height + "; width: 100%; "        
         alignment = self.config().card_type_property(\
             "alignment", card_type, default="center")
         if alignment == "left":

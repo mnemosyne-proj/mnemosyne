@@ -53,9 +53,9 @@ class CompileUi(object):
                     i18n_elements.append(line)
                 output.write(line)
             else:
-                if not i18n_elements:
+                if not i18n_elements and "def retranslateUi" not in line:
                     continue
-                # Skip the "pass" statement
+                # Skip the "pass" statement.
                 output.write(line)
                 source.next()
                 output.write("".join(i18n_elements))

@@ -204,7 +204,7 @@ class SM2Controller(ReviewController):
             w.set_answer_box_visible(True)
         # Update question label.
         question_label_text = _("Question: ")
-        if self.card is not None:
+        if self.card is not None and self.config()["show_tags_during_review"]:
             question_label_text += self.card.tag_string()
         w.set_question_label(question_label_text)
         # Update question content.

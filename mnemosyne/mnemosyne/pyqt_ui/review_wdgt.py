@@ -38,6 +38,21 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         parent.add_to_status_bar(self.act)
         parent.status_bar.setSizeGripEnabled(0)
 
+        self.question.loadFinished.connect(self.q_f)
+        self.answer.loadFinished.connect(self.a_f)
+        
+        from PyQt4 import QtWebKit
+        self.v1 = QtWebKit.QGraphicsWebView()
+        self.v1.page().setPreferredContentsSize(QtCore.QSize(1, 1))
+        self.v1.setResizesToContents(True)
+        self.v1.loadFinished.connect(self.v1_f)
+        
+        from PyQt4 import QtWebKit
+        self.v2 = QtWebKit.QGraphicsWebView()
+        self.v2.page().setPreferredContentsSize(QtCore.QSize(1, 1))
+        self.v2.setResizesToContents(True)
+        self.v2.loadFinished.connect(self.v2_f)
+        
     def changeEvent(self, event):
         if event.type() == QtCore.QEvent.LanguageChange:
             self.retranslateUi(self)
@@ -107,7 +122,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
             frame = self.answer.page().mainFrame()   
         x, y = frame.scrollPosition().x(), frame.scrollPosition().y()
         y += int(0.9*(frame.geometry().height()))
-        #frame.scroll(x, y) # Seems buggy 20111121
+        #frame.scroll(x, y) # Seems buggy 20111121.
         frame.evaluateJavaScript("window.scrollTo(%d, %d);" % (x, y))
         
     def scroll_up(self):
@@ -149,15 +164,38 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.question_label.setText(text)
 
     def set_question(self, text):
-        self.set_question_stretch_factors()
+        self.set_question_stretch_factors()        
         self.question.setHtml(text)
-        print "Q", self.question.page().mainFrame().contentsSize()
-        
+
+        self.v1.setHtml(text)
+            
     def set_answer(self, text):
         self.set_answer_stretch_factors()
         self.answer.setHtml(text)
-        print "A", self.answer.page().mainFrame().contentsSize()
+
+
+        self.v2.setHtml(text)
         
+    def q_f(self):
+        print "q", self.question.page().viewportSize().height()
+        for img in self.question.page().mainFrame().findAllElements("img"):
+            print "IMG q", img.geometry().height()
+            
+    def a_f(self):
+        print "a", self.answer.page().viewportSize().height()
+        for img in self.answer.page().mainFrame().findAllElements("img"):
+            print "IMG a", img.geometry().height()
+            
+    def v1_f(self):
+        print "V1", self.v1.page().viewportSize().height()
+        for img in self.v1.page().mainFrame().findAllElements("img"):
+            print 'img v1', img.geometry().height()
+
+    def v2_f(self):
+        print "V2", self.v2.page().viewportSize().height()
+        for img in self.v2.page().mainFrame().findAllElements("img"):
+            print 'img v2', img.geometry().height()
+            
     def clear_question(self):
         self.question.setHtml(self.empty())
         

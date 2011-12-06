@@ -13,12 +13,21 @@ from mnemosyne.libmnemosyne.utils import rand_uuid, traceback_string
 config_py = \
 """# Mnemosyne configuration file.
 
+# This file contains settings which we deem to be too specialised to be
+# accesible from the GUI. However, if you use some of these settings, feel
+# free to inform the developers so that it can be re-evaluated if these
+# settings need to be exposed in the GUI.
+
 # Science server. Only change when prompted by the developers.
 science_server = "mnemosyne-proj.dyndns.org:80"
 
 # Set to True to prevent you from accidentally revealing the answer when
 # clicking the edit button.
 only_editable_when_answer_shown = False
+
+# Set to False if you don't want the tag names to be shown in the review
+# window.
+show_tags_during_review = True
 
 # The number of daily backups to keep. Set to -1 for no limit.
 backups_to_keep = 10
@@ -101,6 +110,7 @@ class Configuration(Component, dict):
              "memorise_sister_cards_on_same_day": False,
              "show_intervals": "never",
              "only_editable_when_answer_shown": False,
+             "show_tags_during_review": True, 
              "ui_language": "en",
              "backups_to_keep": 10,
              "backup_before_sync": True,

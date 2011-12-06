@@ -1,4 +1,4 @@
--mail Doug on stretch factors QWebElement::render, http://wouwlabs.com/blogs/jeez/?p=197
+-better stretch factors, document alternative, add to changelog
 
 -warn if creating a set without any cards
 
@@ -8,9 +8,7 @@
 
 -reduce timeout on sync login, test again full sync
 
--F11 full screen?
-
--Pol Chalet database issues
+-F11 full screen
 
 -does tip counter also fire for edit card?
 
@@ -161,6 +159,9 @@ http://dotancohen.com/howto/rtl_right_to_left.html
 -pinyin sort
 
 -cntrl-c shortcut for question and answer
+
+-documentation on config.py: if you need to change this, send developers a line so that we 
+ know this is used a lot.
 
 -also allow scrolling webview widgets using up and down keys? Will probably require global
  event filter and slow everything down
