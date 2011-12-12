@@ -2,7 +2,6 @@
 # card_type.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.utils import CompareOnId
 from mnemosyne.libmnemosyne.component import Component

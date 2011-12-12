@@ -39,21 +39,23 @@ class UpgradeBeta6(Component):
                 _("Unable to load file: database version mismatch.")
         # Identify missing plugins for card types and their parents.
         plugin_needed = set()
-        active_ids = set(card_type.id for card_type in self.database().card_types())
+        builtin_ids = set(card_type.id for card_type in self.database().card_types())
         # Sometimes corruption keeps the global_variables table intact,
         # but not the cards table...
         try:
-            result = self.database().con.execute("""select distinct card_type_id
-                from cards""")
+            used_ids = \
+                self.database().con.execute("select distinct card_type_id from cards")
         except:
-            raise RuntimeError, _("Unable to load file.") + traceback_string()        
-        for cursor in result:
+            raise RuntimeError, _("Unable to load file.") + traceback_string()
+        defined_in_database_ids = [cursor[0] for cursor in \
+            self.database().con.execute("select id from card_types")]
+        for cursor in used_ids:
             id = cursor[0]
             while "::" in id: # Move up one level of the hierarchy.
                 id, child_name = id.rsplit("::", 1)
-                if id not in active_ids:
+                if id not in builtin_ids and id not in defined_in_database_ids:
                     plugin_needed.add(id)
-            if id not in active_ids:
+            if id not in builtin_ids and id not in defined_in_database_ids:
                 plugin_needed.add(id)
         for card_type_id in plugin_needed:
             try:

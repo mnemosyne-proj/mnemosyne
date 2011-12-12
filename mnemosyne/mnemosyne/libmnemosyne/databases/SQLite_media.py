@@ -161,8 +161,16 @@ class SQLiteMedia(object):
                 if root:
                     filename = root + "/" + filename
                 files_in_media_dir.add(filename)
+        # Ask if it's OK to delete the files.
+        orphaned_files = files_in_media_dir - files_in_db
+        if len(orphaned_files):
+            answer = self.main_widget().show_question(
+                _("Found orphaned media files. Delete them?"), _("&Delete"),
+                _("&Cancel"), "")
+            if answer == 1:  # Cancel.
+                return
         # Delete orphaned files.
-        for filename in files_in_media_dir - files_in_db:
+        for filename in orphaned_files:
             os.remove(expand_path(filename, self.media_dir()))
             self.log().deleted_media_file(filename)
         # Purge empty dirs.

@@ -181,7 +181,15 @@ class TestCardType(MnemosyneTest):
         # Reset global variables.
         self.mnemosyne.component_manager.register(card_type)        
         card_type.fact_views[0].type_answer = False
-        card_type.fact_views[0].extra_data = {}   
+        card_type.fact_views[0].extra_data = {}
+
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card = self.mnemosyne.controller().create_new_cards(fact_data, card_type,
+           grade=-1, tag_names=["default"])[0]
+        path = self.mnemosyne.database().path()
+        self.mnemosyne.database().unload()
+        self.mnemosyne.database().load(path)
 
     def test_decorators(self):
         fact_data = {"f": "foreign word",

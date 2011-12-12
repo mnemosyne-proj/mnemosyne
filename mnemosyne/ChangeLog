@@ -1,10 +1,13 @@
+-Fixed bug involving clones of clones of card types (reported by 
+ Anselm Wooden).
+-Warn before deleting orphaned media files (reported by Murray 
+ James Morrison).
 
 -added 'show_tags_during_review' option to config.py in order to be able
  to hide the tags in the review window. Let me know if you use it, so that I
  can make this more visible if more people use it (requested by Sander 
  Hoogendoorn).
 -Build system fixes (James Litton)
-
 -Make dialog titles more consistent (reported by Troy Guze).
 -Don't create a silly popup menu saying 'toolBar' when right clicking on
  the toolbar (reported by Troy Guze).
@@ -16,7 +19,7 @@
 	
 MNEMOSYNE 2.0
 
-Almost three years in the making, this is essentially a complete rewrite of 
+More than three years in the making, this is essentially a complete rewrite of 
 the old 1.x codebase, with a new, clean design, consisting of components that
 can be swapped in and out very easily, which allows plugin writers maximum 
 flexibility.

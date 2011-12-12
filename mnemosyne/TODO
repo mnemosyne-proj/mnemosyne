@@ -1,5 +1,7 @@
 -better stretch factors, document alternative, add to changelog
 
+-Timezone bug: December 12, 2011 07:10 PM Beijing Time
+
 -warn if creating a set without any cards
 
 -save tree state (which nodes are expanded or not)

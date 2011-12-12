@@ -25,7 +25,7 @@ class ComponentManager(object):
         
     def register(self, component):
         comp_type = component.component_type
-        used_for = component.used_for   
+        used_for = component.used_for
         if not self.components.has_key(used_for):
             self.components[used_for] = {}
         if not self.components[used_for].has_key(comp_type):

@@ -11,11 +11,18 @@ from openSM2sync.log_entry import EventTypes
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 filename = ""
+answer = 0
 
 class Widget(MainWidget):
 
     def get_filename_to_open(self, a, b, c):
         return filename
+
+    def show_question(self, question, option0, option1, option2):
+        if question.startswith("Found orphaned"):
+            return answer
+        else:
+            raise NotImplementedError
     
 class TestMedia(MnemosyneTest):
 
@@ -316,6 +323,41 @@ class TestMedia(MnemosyneTest):
         assert not os.path.exists(os.path.join(self.database().media_dir(), "a.ogg"))        
         assert not os.path.exists(os.path.join(self.database().media_dir(), "sub"))
         assert not os.path.exists(os.path.join(self.database().media_dir(), "sub", "b.ogg"))
+        assert os.path.exists(os.path.join(self.database().media_dir(), "c.ogg"))
+        assert os.path.exists(os.path.join(self.database().media_dir(), "_keep"))
+        assert os.path.exists(os.path.join(self.database().media_dir(), "_keep", "b.ogg"))
+
+    def test_orphaned_dont_delete(self):
+        global answer
+        answer = 1
+        file(os.path.join(self.database().media_dir(), "a.ogg"), "w")
+        os.mkdir(os.path.join(self.database().media_dir(), "sub"))
+        file(os.path.join(self.database().media_dir(), "sub", "b.ogg"), "w")
+        
+        os.mkdir(os.path.join(self.database().media_dir(), "_keep"))
+        file(os.path.join(self.database().media_dir(), "_keep", "b.ogg"), "w")
+        
+        file("c.ogg", "w")
+        full_path = os.path.abspath("c.ogg")
+
+        fact_data = {"f": "<img src=\"%s\">" % full_path,
+                     "b": "answer"}
+        card_type = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=-1, tag_names=["default"])[0]
+        
+        assert os.path.exists(os.path.join(self.database().media_dir(), "a.ogg"))        
+        assert os.path.exists(os.path.join(self.database().media_dir(), "sub"))
+        assert os.path.exists(os.path.join(self.database().media_dir(), "sub", "b.ogg"))
+        assert os.path.exists(os.path.join(self.database().media_dir(), "_keep"))
+        assert os.path.exists(os.path.join(self.database().media_dir(), "_keep", "b.ogg"))
+        
+        self.database().clean_orphaned_static_media_files()
+        answer = 0
+        
+        assert os.path.exists(os.path.join(self.database().media_dir(), "a.ogg"))        
+        assert os.path.exists(os.path.join(self.database().media_dir(), "sub"))
+        assert os.path.exists(os.path.join(self.database().media_dir(), "sub", "b.ogg"))
         assert os.path.exists(os.path.join(self.database().media_dir(), "c.ogg"))
         assert os.path.exists(os.path.join(self.database().media_dir(), "_keep"))
         assert os.path.exists(os.path.join(self.database().media_dir(), "_keep", "b.ogg"))
