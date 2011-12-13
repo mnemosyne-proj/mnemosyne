@@ -8,6 +8,37 @@ from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.ui_review_wdgt import Ui_ReviewWdgt
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
+def determine_stretch_factor(page):
+
+    """Approximate algorith to make sure the image can get all the space they
+    need, shrinking the text only boxes.
+
+    Ideally, we would need the total height in pixels of the complete rendered
+    page, not counting the borders, but doing so seems impossible or buggy in
+    Qt. Instead, we make a simpler estimate based on the height of the
+    pictures in the page.
+
+    This code is not part of ReviewWidget, in order to be able to reuse this
+    in Preview Cards.
+    
+    """
+
+    images = page.mainFrame().findAllElements("img")
+    if len(images) == 0:
+        stretch = 50 # Default estimate for text only field.
+    else:
+        viewport_width = page.viewportSize().width()
+        running_width = 0
+        stretch = 0
+        for image in images:
+            running_width += image.geometry().width()
+            if running_width < viewport_width:
+                stretch = max(stretch, image.geometry().height())
+            else:
+                stretch += image.geometry().height()
+                running_width = 0
+    return stretch
+    
         
 class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
 
@@ -37,21 +68,10 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         parent.add_to_status_bar(self.notmem)
         parent.add_to_status_bar(self.act)
         parent.status_bar.setSizeGripEnabled(0)
-
-        self.question.loadFinished.connect(self.q_f)
-        self.answer.loadFinished.connect(self.a_f)
-        
-        from PyQt4 import QtWebKit
-        self.v1 = QtWebKit.QGraphicsWebView()
-        self.v1.page().setPreferredContentsSize(QtCore.QSize(1, 1))
-        self.v1.setResizesToContents(True)
-        self.v1.loadFinished.connect(self.v1_f)
-        
-        from PyQt4 import QtWebKit
-        self.v2 = QtWebKit.QGraphicsWebView()
-        self.v2.page().setPreferredContentsSize(QtCore.QSize(1, 1))
-        self.v2.setResizesToContents(True)
-        self.v2.loadFinished.connect(self.v2_f)
+        # Since the images are loaded lazily, we can only determine the
+        # stretch factors after the images have been loaded.
+        self.question.loadFinished.connect(self.question_load_finished)
+        self.answer.loadFinished.connect(self.answer_load_finished)
         
     def changeEvent(self, event):
         if event.type() == QtCore.QEvent.LanguageChange:
@@ -90,30 +110,6 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
                 border: thin solid #8F8F8F; }
         </style></head>
         <body><table><tr><td></td></tr></table></body></html>"""
-
-    def determine_stretch_factors(self, q, a):
-        q_stretch, a_stretch = 1, 1
-        if "img src" in q:
-            q_stretch = 2
-        if "img src" in a:
-            a_stretch = 2
-        return q_stretch, a_stretch
-
-    def set_question_stretch_factors(self):
-        q_stretch, a_stretch = self.determine_stretch_factors(\
-            self.review_controller().card.question("plain_text"),
-            self.review_controller().card.answer("plain_text"))
-        # Only stretch the the boxes if we are currently showing a picture.
-        if q_stretch != 1:
-            self.vertical_layout.setStretchFactor(self.question_box, q_stretch)
-            self.vertical_layout.setStretchFactor(self.answer_box, a_stretch)
-
-    def set_answer_stretch_factors(self):
-        q_stretch, a_stretch = self.determine_stretch_factors(\
-            self.review_controller().card.question("plain_text"),
-            self.review_controller().card.answer("plain_text"))
-        self.vertical_layout.setStretchFactor(self.question_box, q_stretch)
-        self.vertical_layout.setStretchFactor(self.answer_box, a_stretch)
 
     def scroll_down(self):
         if self.review_controller().state == "SELECT SHOW":
@@ -163,39 +159,20 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
     def set_question_label(self, text):
         self.question_label.setText(text)
 
-    def set_question(self, text):
-        self.set_question_stretch_factors()        
+    def set_question(self, text):        
         self.question.setHtml(text)
-
-        self.v1.setHtml(text)
             
     def set_answer(self, text):
-        self.set_answer_stretch_factors()
-        self.answer.setHtml(text)
-
-
-        self.v2.setHtml(text)
+        self.answer.setHtml(text)      
         
-    def q_f(self):
-        print "q", self.question.page().viewportSize().height()
-        for img in self.question.page().mainFrame().findAllElements("img"):
-            print "IMG q", img.geometry().height()
-            
-    def a_f(self):
-        print "a", self.answer.page().viewportSize().height()
-        for img in self.answer.page().mainFrame().findAllElements("img"):
-            print "IMG a", img.geometry().height()
-            
-    def v1_f(self):
-        print "V1", self.v1.page().viewportSize().height()
-        for img in self.v1.page().mainFrame().findAllElements("img"):
-            print 'img v1', img.geometry().height()
-
-    def v2_f(self):
-        print "V2", self.v2.page().viewportSize().height()
-        for img in self.v2.page().mainFrame().findAllElements("img"):
-            print 'img v2', img.geometry().height()
-            
+    def question_load_finished(self):
+        stretch = determine_stretch_factor(self.question.page())
+        self.vertical_layout.setStretchFactor(self.question_box, stretch)
+        
+    def answer_load_finished(self):
+        stretch = determine_stretch_factor(self.answer.page())
+        self.vertical_layout.setStretchFactor(self.answer_box, stretch)
+                     
     def clear_question(self):
         self.question.setHtml(self.empty())
         

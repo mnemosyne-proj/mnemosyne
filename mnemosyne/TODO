@@ -1,17 +1,3 @@
--better stretch factors, document alternative, add to changelog
-
--Timezone bug: December 12, 2011 07:10 PM Beijing Time
-
--warn if creating a set without any cards
-
--save tree state (which nodes are expanded or not)
-
--card with image, change set to display another card: stretch factors are not reset
-
--reduce timeout on sync login, test again full sync
-
--F11 full screen
-
 -does tip counter also fire for edit card?
 
 -popup tips (check also for tip of the day)
@@ -25,9 +11,19 @@
 
  -popup on backlog during review
 
- -right click on criterion names (also tip)
+ -right click on criterion names in activate cards (also tip)
 
 -About dialog, with version and link to source
+
+-Timezone bug: December 12, 2011 07:10 PM Beijing Time (Murray James Morrison)
+
+-warn if creating a set without any cards (Troy Guze)
+
+-save tree state (which nodes are expanded or not) (Troy Guze)
+
+-reduce timeout on sync login, test again full sync
+
+-F11 full screen (Dougie Nisbet)
 
 -layout of "add clone" is not optimal under Windows
 -splitters on XP are not visible
@@ -213,7 +209,9 @@ http://dotancohen.com/howto/rtl_right_to_left.html
 
 -zooming on statistics?
 
--mark cards plugin
+-mark/star cards plugin, also on desktop
+
+-minimalist mode, without toolbar, extra text in review window. F11 to move fullscreen
 
 -move button group in review widget to designer code after pyqt upgrade. 
  Also possible in add cards?

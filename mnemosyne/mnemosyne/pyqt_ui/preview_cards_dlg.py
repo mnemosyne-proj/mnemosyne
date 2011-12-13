@@ -6,6 +6,7 @@ from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.pyqt_ui.review_wdgt import determine_stretch_factor
 from mnemosyne.pyqt_ui.ui_preview_cards_dlg import Ui_PreviewCardsDlg
 
 
@@ -32,6 +33,8 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component):
         self.tag_text = tag_text
         self.cards = cards
         self.index = 0
+        self.question.loadFinished.connect(self.question_load_finished)
+        self.answer.loadFinished.connect(self.answer_load_finished)
         state = self.config()["preview_cards_dlg_state"]
         if state:
             self.restoreGeometry(state)
@@ -64,17 +67,20 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component):
             self.next_button.setVisible(False)
             self.fact_view_name.setVisible(False)            
         card = self.cards[self.index]
-        q_stretch, a_stretch = \
-            self.review_widget().determine_stretch_factors(\
-            card.question("plain_text"), card.answer("plain_text"))
-        self.vertical_layout.setStretchFactor(self.question_box, q_stretch)
-        self.vertical_layout.setStretchFactor(self.answer_box, a_stretch)
         self.question.setHtml(card.question())
         self.answer.setHtml(card.answer())
         self.fact_view_name.setText(_(card.fact_view.name) + " (" + \
             str(self.index + 1) + "/" + str(len(self.cards)) + ")")
         self.previous_button.setEnabled(self.index != 0)
         self.next_button.setEnabled(self.index != len(self.cards) - 1)
+
+    def question_load_finished(self):
+        stretch = determine_stretch_factor(self.question.page())
+        self.vertical_layout.setStretchFactor(self.question_box, stretch)
+        
+    def answer_load_finished(self):
+        stretch = determine_stretch_factor(self.answer.page())
+        self.vertical_layout.setStretchFactor(self.answer_box, stretch)
         
     def previous(self):
         self.index -= 1
