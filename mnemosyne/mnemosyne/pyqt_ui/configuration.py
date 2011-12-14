@@ -48,6 +48,7 @@ class PyQtConfiguration(Hook):
              "remote_access_username": "",
              "remote_access_password": "",
              "started_add_edit_cards_n_times": 0,
-             "started_browse_cards_n_times": 0
+             "started_browse_cards_n_times": 0,
+             "showed_help_on_renaming_sets": False
             }.items():
             self.config().setdefault(key, value)

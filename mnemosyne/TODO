@@ -1,17 +1,7 @@
--does tip counter also fire for edit card?
-
--popup tips (check also for tip of the day)
- -hiding pronunciation field
- -add card: tab, tab, control Y or control+2
- -edit card: tab, tab, control enter
-
+-popup tips
  -new user: first time learning queue empty: schedule tomorrow
-
  -don't abuse learn ahead of schedule
-
  -popup on backlog during review
-
- -right click on criterion names in activate cards (also tip)
 
 -About dialog, with version and link to source
 
@@ -72,7 +62,7 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -migrate science server machine 
 
 -tell beta users to make sure to install latest beta first
--remove upgrade_beta_6.py, beta_7
+-remove upgrade_beta_6.py, beta_7, etc...
 
 -upgrade to qt 4.7.4, retest progress bars
 -make distrib under linux

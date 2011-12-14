@@ -71,9 +71,6 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         # Called from card browser.
         self.card = card
         self.update_card_widget(keep_data_from_previous_widget=False)
-
-    def activate(self):
-        self.exec_()
         
     def _store_state(self):
         self.config()["edit_card_dlg_state"] = self.saveGeometry()

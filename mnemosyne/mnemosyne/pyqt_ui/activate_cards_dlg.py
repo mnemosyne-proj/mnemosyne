@@ -99,7 +99,11 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         item = self.saved_sets.findItems(criterion.name,
             QtCore.Qt.MatchExactly)[0]
         self.saved_sets.setCurrentItem(item)
-        
+        if self.config()["showed_help_on_renaming_sets"] == False:
+            self.main_widget().show_information(\
+                _("You can right-click on the name of a saved set to rename or delete it."))
+            self.config()["showed_help_on_renaming_sets"] = True
+            
     def delete_set(self):
         answer = self.main_widget().show_question(_("Delete this set?"),
             _("&OK"), _("&Cancel"), "")
