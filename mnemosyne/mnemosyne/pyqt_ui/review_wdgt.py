@@ -79,7 +79,8 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         QtGui.QWidget.changeEvent(self, event)
 
     def keyPressEvent(self, event):
-        if event.key() in [QtCore.Qt.Key_0, QtCore.Qt.Key_1, QtCore.Qt.Key_2,
+        if not event.isAutoRepeat() and event.key() in \
+            [QtCore.Qt.Key_0, QtCore.Qt.Key_1, QtCore.Qt.Key_2,
             QtCore.Qt.Key_3, QtCore.Qt.Key_4, QtCore.Qt.Key_5] and \
             self.review_controller().state == "SELECT SHOW":
                 self.show_answer()

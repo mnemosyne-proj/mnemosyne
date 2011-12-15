@@ -1,4 +1,6 @@
--Better algorith to determine relative height of question and answer field
+-Don't autorepeat number key shortcuts to show answer (reported by Murray 
+ James Morrison).
+-Better algorithm to determine relative height of question and answer field
  when images are present, taking the actual size of the images into account
  (requested Dougie Nisbet).
 -Fixed bug involving clones of clones of card types (reported by 
@@ -6,9 +8,7 @@
 -Warn before deleting orphaned media files (reported by Murray 
  James Morrison).
 -added 'show_tags_during_review' option to config.py in order to be able
- to hide the tags in the review window. Let me know if you use it, so that I
- can make this more visible if more people use it (requested by Sander 
- Hoogendoorn).
+ to hide the tags in the review window. (requested by Sander Hoogendoorn).
 -Build system fixes (James Litton)
 -Make dialog titles more consistent (reported by Troy Guze).
 -Don't create a silly popup menu saying 'toolBar' when right clicking on

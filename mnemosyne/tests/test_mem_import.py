@@ -28,7 +28,9 @@ class Widget(MainWidget):
         if message.startswith("Ignoring unparsable file"):
             return 0
         if message.startswith("Upgrade from"):
-            return 0        
+            return 0
+        if message.startswith("You appear"):
+            return 0 
         raise NotImplementedError
 
     def show_error(self, message):

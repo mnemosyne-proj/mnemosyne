@@ -8,6 +8,7 @@ from mnemosyne.libmnemosyne.review_controller import ReviewController
 ACQ_PHASE = 0
 RET_PHASE = 1
 
+
 class SM2Controller(ReviewController):
 
     # Tooltip texts.  The first index deals with whether we have a card with
@@ -112,12 +113,18 @@ class SM2Controller(ReviewController):
             if self.card is not None:
                 self.state = "SELECT SHOW"
             else:
+                if self.config()["shown_schedule_help"] == False:
+                    self.main_widget().show_information(_("You have no more work for today. Either add more cards or come back tomorrow."))
+                    self.config()["shown_schedule_help"] = True   
                 self.state = "SELECT AHEAD"
         self.update_dialog()
         self.stopwatch().start()
 
     def show_answer(self):
         if self.state == "SELECT AHEAD":
+            if self.config()["warned_about_learning_ahead"] == False:
+                self.main_widget().show_information(_("Use 'Learn ahead of schedule' sparingly. For cramming before an exam, it's much better to use the cramming scheduler plugin"))
+                self.config()["warned_about_learning_ahead"] = True
             self.learning_ahead = True
             self.show_new_question()
         else:

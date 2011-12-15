@@ -23,6 +23,8 @@ class Widget(MainWidget):
             return 0
         if message.startswith("Ignoring unparsable file"):
             return 0
+        if message.startswith("You appear"):
+            return 0        
         raise NotImplementedError
 
     def show_error(self, message):

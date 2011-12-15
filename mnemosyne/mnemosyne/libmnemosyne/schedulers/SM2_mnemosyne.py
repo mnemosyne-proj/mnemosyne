@@ -165,6 +165,10 @@ class SM2Mnemosyne(Scheduler):
         # Fetch maximum 50 cards at the same time, as a trade-off between
         # memory usage and redoing the query.
         if self.stage == 1:
+            if self.config()["shown_backlog_help"] == False:
+                if db.scheduled_count(self.adjusted_now() - DAY) != 0:
+                    self.main_widget().show_information(_("You appear to have missed some reviews. Don't worry too much about this backlog, and do as many cards as you feel comfortable with to catch up each day. Mnemosyne will automatically reschedule your cards such that the most urgent ones are shown first."))
+                    self.config()["shown_backlog_help"] = True
             if self.config()["randomise_scheduled_cards"] == True:
                 sort_key = "random"
             else:
