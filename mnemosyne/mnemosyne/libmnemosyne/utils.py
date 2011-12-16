@@ -126,6 +126,11 @@ def traceback_string():
     return body
 
 
+re1 = re.compile(r"<[^>]*?>", re.DOTALL | re.IGNORECASE)
+def strip_tags(string):
+    return re1.sub("", string)
+
+
 def mangle(string):
 
     """Massage string such that it can be used as an identifier."""

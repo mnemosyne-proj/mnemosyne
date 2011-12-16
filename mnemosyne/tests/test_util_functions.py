@@ -60,4 +60,7 @@ class TestUtilFunctions(object):
         assert copy_file_to_dir("/home/joe/a/test.py", "/home/joe") == "a/test.py"
         assert copy_file_to_dir("/home/joe/a/test.py", "/home/joe/") == "a/test.py"
 
+    def test_strip_tags(self):
+        assert strip_tags("""<img = "">""") == ""
+
         

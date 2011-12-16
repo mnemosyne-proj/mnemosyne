@@ -10,33 +10,37 @@ from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
 def determine_stretch_factor(page):
 
-    """Approximate algorith to make sure the image can get all the space they
-    need, shrinking the text only boxes.
+    """Approximate algorithm to make sure the split between question and
+    answer boxes is as optimal as possible.
 
     Ideally, we would need the total height in pixels of the complete rendered
     page, not counting the borders, but doing so seems impossible or buggy in
     Qt. Instead, we make a simpler estimate based on the height of the
-    pictures in the page.
+    pictures in the page and an estimate of the text size provided by the
+    renderer..
 
     This code is not part of ReviewWidget, in order to be able to reuse this
     in Preview Cards.
     
     """
 
+    # Estimate for images.
     images = page.mainFrame().findAllElements("img")
-    if len(images) == 0:
-        stretch = 50 # Default estimate for text only field.
-    else:
-        viewport_width = page.viewportSize().width()
-        running_width = 0
-        stretch = 0
-        for image in images:
-            running_width += image.geometry().width()
-            if running_width < viewport_width:
-                stretch = max(stretch, image.geometry().height())
-            else:
-                stretch += image.geometry().height()
-                running_width = 0
+    viewport_width = page.viewportSize().width()
+    running_width = 0
+    stretch = 0
+    for image in images:
+        running_width += image.geometry().width()
+        if running_width < viewport_width:
+            stretch = max(stretch, image.geometry().height())
+        else:
+            stretch += image.geometry().height()
+            running_width = 0
+    # Estimate for text.
+    stretch += int(page.mainFrame().\
+        findFirstElement("text_size_estimate").attribute("value"))   
+    if stretch < 50:
+        stretch = 50
     return stretch
     
         
@@ -110,7 +114,8 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
                 padding: 0;
                 border: thin solid #8F8F8F; }
         </style></head>
-        <body><table><tr><td></td></tr></table></body></html>"""
+        <body><table><tr><td><text_size_estimate value=\"0\">
+        </td></tr></table></body></html>"""
 
     def scroll_down(self):
         if self.review_controller().state == "SELECT SHOW":

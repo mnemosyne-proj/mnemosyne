@@ -2,6 +2,7 @@
 # html_css.py <Peter.Bienstman@UGent.be>
 #
 
+from mnemosyne.libmnemosyne.utils import strip_tags
 from mnemosyne.libmnemosyne.renderer import Renderer
 
 # Css table wizardry based on info from
@@ -26,12 +27,14 @@ class HtmlCss(Renderer):
         # We cache the css creation to save some time, especially on mobile
         # devices.
         self._css = {} # {card_type.id: css}
+        self._font_size = {} # {card_type.id : {fact_key: point_size}}
 
     def body_css(self):
         return "body { margin: 0; padding: 0; border: thin solid #8F8F8F; }\n"
 
     def card_type_css(self, card_type):
         # Set aligment of the table (but not the contents within the table).
+        self._font_size[card_type.id] = {}
         css = "table { height: " + self.table_height + "; width: 100%; "        
         alignment = self.config().card_type_property(\
             "alignment", card_type, default="center")
@@ -67,6 +70,7 @@ class HtmlCss(Renderer):
                 "font", card_type, proxy_fact_key)
             if font_string:
                 family,size,x,x,w,i,u,s,x,x = font_string.split(",")
+                self._font_size[card_type.id][proxy_fact_key] = int(size)
                 css += "font-family: \"%s\"; " % family
                 css += "font-size: %spt; " % size
                 if w == "25":
@@ -86,24 +90,37 @@ class HtmlCss(Renderer):
 
     def update(self, card_type):
         self._css[card_type.id] = \
-                self.body_css() + self.card_type_css(card_type)
+            self.body_css() + self.card_type_css(card_type)
         
     def css(self, card_type):
         if not card_type.id in self._css:
             self.update(card_type)
         return self._css[card_type.id]
 
-    def body(self, fact_data, fact_keys, **render_args):
+    def body(self, fact_data, fact_keys, card_type, **render_args):
         html = ""
+        text_size_estimate = 0
         for fact_key in fact_keys:
             if fact_key in fact_data and fact_data[fact_key]:
+                # Estimate the point size of the text, as a hint to
+                # layout the review widget.
+                try:
+                    font_size = self._font_size[card_type.id][fact_key]
+                except KeyError:
+                    font_size = 12  # Guestimate for the default.
+                stripped = strip_tags(fact_data[fact_key])
+                lines = len(stripped.split("\n"))
+                lines += len(stripped.split("<br>")) - 1
+                text_size_estimate += lines * font_size
+                # Construct html.
                 html += "<div id=\"%s\">%s</div>" % \
                     (fact_key, fact_data[fact_key])
+        html += "<text_size_estimate value=\"%d\">" % text_size_estimate
         return html
                 
     def render(self, fact_data, fact_keys, card_type, **render_args):
         css = self.css(card_type)
-        body = self.body(fact_data, fact_keys, **render_args)
+        body = self.body(fact_data, fact_keys, card_type, **render_args)
         return """
         <html>
         <head>
