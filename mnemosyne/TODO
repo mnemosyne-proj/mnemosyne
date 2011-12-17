@@ -1,5 +1,6 @@
 -estimate text size
--add tests
+-font.setPointSize(yourPointSize); QFontMetrics fm(font); fm.height()lineSpacing() 
+-add tests (nim)
 
 -About dialog, with version and link to source
 

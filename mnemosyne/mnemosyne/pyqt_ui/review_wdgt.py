@@ -41,6 +41,8 @@ def determine_stretch_factor(page):
         findFirstElement("text_size_estimate").attribute("value"))   
     if stretch < 50:
         stretch = 50
+    print int(page.mainFrame().\
+        findFirstElement("text_size_estimate").attribute("value"))  , stretch
     return stretch
     
         

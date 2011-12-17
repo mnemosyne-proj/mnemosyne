@@ -111,7 +111,8 @@ class HtmlCss(Renderer):
                 stripped = strip_tags(fact_data[fact_key])
                 lines = len(stripped.split("\n"))
                 lines += len(stripped.split("<br>")) - 1
-                text_size_estimate += lines * font_size
+                if stripped != "":
+                    text_size_estimate += lines * font_size
                 # Construct html.
                 html += "<div id=\"%s\">%s</div>" % \
                     (fact_key, fact_data[fact_key])
