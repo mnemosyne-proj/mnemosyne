@@ -2,7 +2,7 @@
 # review_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtCore, QtGui
+from PyQt4 import QtCore, QtGui, QtWebKit
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.ui_review_wdgt import Ui_ReviewWdgt
@@ -24,7 +24,6 @@ def determine_stretch_factor(page):
     
     """
 
-    # Estimate for images.
     images = page.mainFrame().findAllElements("img")
     viewport_width = page.viewportSize().width()
     running_width = 0
@@ -36,13 +35,6 @@ def determine_stretch_factor(page):
         else:
             stretch += image.geometry().height()
             running_width = 0
-    # Estimate for text.
-    stretch += int(page.mainFrame().\
-        findFirstElement("text_size_estimate").attribute("value"))   
-    if stretch < 50:
-        stretch = 50
-    print int(page.mainFrame().\
-        findFirstElement("text_size_estimate").attribute("value"))  , stretch
     return stretch
     
         
@@ -78,6 +70,19 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         # stretch factors after the images have been loaded.
         self.question.loadFinished.connect(self.question_load_finished)
         self.answer.loadFinished.connect(self.answer_load_finished)
+
+        self.v = QtWebKit.QGraphicsWebView()
+        self.v.setResizesToContents(True)
+        self.v.loadFinished.connect(self.v_load_finished)
+
+    def v_load_finished(self):
+        # There seems to be a bug in QGraphicsWebView where the loadFinished
+        # signal is emitted before the images are loaded. As a workaround
+        # hack we wait a certain time before reading out the height.
+        QtCore.QTimer.singleShot(50, self.v_2)
+
+    def v_2(self):
+        print self.v.size().height()
         
     def changeEvent(self, event):
         if event.type() == QtCore.QEvent.LanguageChange:
@@ -139,7 +144,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         #frame.scroll(x, y)  # Seems buggy 20111121.
         frame.evaluateJavaScript("window.scrollTo(%d, %d);" % (x, y))
         
-    def show_answer(self):
+    def show_answer(self):        
         self.review_controller().show_answer()
 
     def grade_answer(self, grade):
@@ -167,11 +172,17 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
     def set_question_label(self, text):
         self.question_label.setText(text)
 
-    def set_question(self, text):        
+    def set_question(self, text):
         self.question.setHtml(text)
-            
+        self.v.page().setPreferredContentsSize(\
+            QtCore.QSize(self.question.size().width(),1))
+        self.v.setHtml(text)
+        
     def set_answer(self, text):
-        self.answer.setHtml(text)      
+        self.answer.setHtml(text)
+        self.v.page().setPreferredContentsSize(\
+            QtCore.QSize(self.question.size().width(),1))
+        self.v.setHtml(text)
         
     def question_load_finished(self):
         stretch = determine_stretch_factor(self.question.page())
@@ -186,7 +197,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         
     def clear_answer(self):
         self.answer.setHtml(self.empty())
-
+        
     def restore_focus(self):
         # After clicking on the question or the answer, that widget grabs the
         # focus, so that the keyboard shortcuts no longer work. This functions
