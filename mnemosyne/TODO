@@ -1,6 +1,10 @@
 -better stretch factor
--use QGraphicsWebview throughout
--also for preview
+-best place to set q and a, also for redraw all
+-don't be clairvoyant about answer size
+-update other review widgets
+-don't play sound in prerender
+
+
 
 -About dialog, with version and link to source
 
@@ -98,7 +102,8 @@ http://dotancohen.com/howto/rtl_right_to_left.html
 -Qt bug? svg Mnemosyne watermark for tip and getting started does not work under Linux
 -Qt bug? review widget: frame.scroll does not seem to work reliably for PageUp
 -Qt bug? preview dialog does not pass on keypressevents it does not handle
--Qt bug? QGraphicsWebView.loadFinished fires before images are loaded
+-Qt bug? QGraphicsWebView.loadFinished sometimes fires before images are loaded?
+
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 
 -workaround for short ogg files. Make short mp3 workaround linux only. Test if silence files

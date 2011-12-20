@@ -16,6 +16,10 @@ class ReviewWidget(UiComponent):
     instantiating them all at the start of the program could be slow,
     especially on mobile devices.
 
+    'set_question' and 'set_answer' do not yet show the question and the
+    answer. This allows the review widget to tweak the layout based on the
+    answer even before it is shown.
+
     """
 
     component_type = "review_widget"
@@ -34,7 +38,13 @@ class ReviewWidget(UiComponent):
         
     def set_answer(self, text):
         pass
+    
+    def reveal_question(self):
+        pass
         
+    def reveal_answer(self):
+        pass
+    
     def clear_question(self): 
         pass
         

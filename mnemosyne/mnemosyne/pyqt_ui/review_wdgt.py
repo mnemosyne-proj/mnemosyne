@@ -8,37 +8,98 @@ from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.ui_review_wdgt import Ui_ReviewWdgt
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
-def determine_stretch_factor(page):
 
-    """Approximate algorithm to make sure the split between question and
-    answer boxes is as optimal as possible.
+class QAOptimalSplit(object):
 
-    Ideally, we would need the total height in pixels of the complete rendered
-    page, not counting the borders, but doing so seems impossible or buggy in
-    Qt. Instead, we make a simpler estimate based on the height of the
-    pictures in the page and an estimate of the text size provided by the
-    renderer..
-
+    """Algorithm to make sure the split between question and answer boxes is
+    as optimal as possible.
+       
     This code is not part of ReviewWidget, in order to be able to reuse this
     in Preview Cards.
-    
+
     """
 
-    images = page.mainFrame().findAllElements("img")
-    viewport_width = page.viewportSize().width()
-    running_width = 0
-    stretch = 0
-    for image in images:
-        running_width += image.geometry().width()
-        if running_width < viewport_width:
-            stretch = max(stretch, image.geometry().height())
-        else:
-            stretch += image.geometry().height()
-            running_width = 0
-    return stretch
-    
+    def __init__(self):
+        # Add some dummy QWebViews that will be used to determine the actual
+        # size of the rendered html. This information will then be used to
+        # determine the optimal split between the question and the answer
+        # pane.
+        self.question_preview = QtWebKit.QWebView()
+        self.question_preview.loadFinished.connect(\
+            self.question_preview_load_finished)
+        self.answer_preview = QtWebKit.QWebView()
+        self.answer_preview.loadFinished.connect(\
+            self.answer_preview_load_finished)
+        # Calculate an offset to use in the stretching factor of the boxes,
+        # e.g. question_box = question_label + question.
+        self.stretch_offset = self.question_label.size().height()
+        if self.question_box.spacing() != -1:
+            self.stretch_offset += self.question_box.spacing()
+        self.question_height = self.question.size().height()
+        self.answer_height = self.answer.size().height()
+        # Needed to get the stretch factors right for the first card.
+        self.adjustSize()
         
-class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
+    def question_preview_load_finished(self):        
+        self.question_height = \
+            self.question_preview.page().currentFrame().contentsSize().height()
+        self.update_stretch_factors()
+        
+    def answer_preview_load_finished(self):            
+        self.answer_height = \
+            self.answer_preview.page().currentFrame().contentsSize().height()
+        self.update_stretch_factors()
+
+    def update_stretch_factors(self):
+        total_height = \
+            self.question.size().height() + self.answer.size().height()
+        print self.question_height, self.answer_height, total_height
+        if self.question_height < total_height/2 and \
+           self.answer_height < total_height/2:
+            question_stretch = 1
+            answer_stretch = 1
+        # Don't be clairvoyant about the answer size, unless we will need
+        # a non 50/50 split to start with.
+        elif self.answer_empty and self.question_height < total_height/2:
+            question_stretch = 1
+            answer_stretch = 1
+        else:
+            question_stretch = self.question_height
+            answer_stretch = self.answer_height
+        print question_stretch, answer_stretch
+        self.vertical_layout.setStretchFactor(\
+            self.question_box, question_stretch + self.stretch_offset)            
+        self.vertical_layout.setStretchFactor(\
+            self.answer_box, answer_stretch + self.stretch_offset)
+        
+    def set_question(self, text):
+        self.question_text = text
+        self.question_preview.page().setPreferredContentsSize(\
+            QtCore.QSize(self.question.size().width(), 1))
+        self.question_preview.setHtml(text)
+        
+    def set_answer(self, text):
+        self.answer_text = text
+        self.answer_preview.page().setPreferredContentsSize(\
+            QtCore.QSize(self.answer.size().width(), 1)) 
+        self.answer_preview.setHtml(text)
+
+    def reveal_question(self):
+        self.question.setHtml(self.question_text)
+
+    def reveal_answer(self):
+        self.answer_empty = False
+        self.answer.setHtml(self.answer_text)
+        
+    def clear_question(self):
+        self.question.setHtml(self.empty())
+        
+    def clear_answer(self):
+        self.answer_empty = True
+        self.answer.setHtml(self.empty())
+     
+    
+class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
 
     auto_focus_grades = True
     
@@ -66,24 +127,8 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         parent.add_to_status_bar(self.notmem)
         parent.add_to_status_bar(self.act)
         parent.status_bar.setSizeGripEnabled(0)
-        # Since the images are loaded lazily, we can only determine the
-        # stretch factors after the images have been loaded.
-        self.question.loadFinished.connect(self.question_load_finished)
-        self.answer.loadFinished.connect(self.answer_load_finished)
+        QAOptimalSplit.__init__(self)
 
-        self.v = QtWebKit.QGraphicsWebView()
-        self.v.setResizesToContents(True)
-        self.v.loadFinished.connect(self.v_load_finished)
-
-    def v_load_finished(self):
-        # There seems to be a bug in QGraphicsWebView where the loadFinished
-        # signal is emitted before the images are loaded. As a workaround
-        # hack we wait a certain time before reading out the height.
-        QtCore.QTimer.singleShot(50, self.v_2)
-
-    def v_2(self):
-        print self.v.size().height()
-        
     def changeEvent(self, event):
         if event.type() == QtCore.QEvent.LanguageChange:
             self.retranslateUi(self)
@@ -121,7 +166,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
                 padding: 0;
                 border: thin solid #8F8F8F; }
         </style></head>
-        <body><table><tr><td><text_size_estimate value=\"0\">
+        <body><table><tr><td>
         </td></tr></table></body></html>"""
 
     def scroll_down(self):
@@ -148,8 +193,8 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.review_controller().show_answer()
 
     def grade_answer(self, grade):
-        self.vertical_layout.setStretchFactor(self.question_box, 1)
-        self.vertical_layout.setStretchFactor(self.answer_box, 1)            
+        self.vertical_layout.setStretchFactor(self.question_box, 50)
+        self.vertical_layout.setStretchFactor(self.answer_box, 50)            
         self.main_widget().timer_1.start(self.main_widget().TIMER_1_INTERVAL)
         self.review_controller().grade_answer(grade)
 
@@ -171,32 +216,6 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
 
     def set_question_label(self, text):
         self.question_label.setText(text)
-
-    def set_question(self, text):
-        self.question.setHtml(text)
-        self.v.page().setPreferredContentsSize(\
-            QtCore.QSize(self.question.size().width(),1))
-        self.v.setHtml(text)
-        
-    def set_answer(self, text):
-        self.answer.setHtml(text)
-        self.v.page().setPreferredContentsSize(\
-            QtCore.QSize(self.question.size().width(),1))
-        self.v.setHtml(text)
-        
-    def question_load_finished(self):
-        stretch = determine_stretch_factor(self.question.page())
-        self.vertical_layout.setStretchFactor(self.question_box, stretch)
-        
-    def answer_load_finished(self):
-        stretch = determine_stretch_factor(self.answer.page())
-        self.vertical_layout.setStretchFactor(self.answer_box, stretch)
-                     
-    def clear_question(self):
-        self.question.setHtml(self.empty())
-        
-    def clear_answer(self):
-        self.answer.setHtml(self.empty())
         
     def restore_focus(self):
         # After clicking on the question or the answer, that widget grabs the

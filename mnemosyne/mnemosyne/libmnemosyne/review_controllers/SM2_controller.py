@@ -111,6 +111,11 @@ class SM2Controller(ReviewController):
         else:
             self.card = self.scheduler().next_card(self.learning_ahead)
             if self.card is not None:
+                # Giving the widget info about the answer even before it is
+                # shown allows it to optimise its layout.
+                w = self.widget
+                w.set_question(self.card.question(self.render_chain))
+                w.set_answer(self.card.answer(self.render_chain))                
                 self.state = "SELECT SHOW"
             else:
                 if self.config()["shown_schedule_help"] == False:
@@ -214,16 +219,16 @@ class SM2Controller(ReviewController):
         if self.card is not None and self.config()["show_tags_during_review"]:
             question_label_text += self.card.tag_string()
         w.set_question_label(question_label_text)
-        # Update question content.
+        # Show question.
         if self.card is None:
             w.clear_question()
         elif self.state == "SELECT SHOW" or redraw_all == True:
-            w.set_question(self.card.question(self.render_chain))
-        # Update answer content.
+            w.reveal_question()
+        # Show answer.
         if self.card is None or self.state == "SELECT SHOW":
             w.clear_answer()
         else:
-            w.set_answer(self.card.answer(self.render_chain))
+            w.reveal_answer()
         # Update 'Show answer' button.
         if self.state == "EMPTY":
             show_enabled, default, text = False, False, _("Show answer")
