@@ -1,16 +1,8 @@
--better stretch factor
--best place to set q and a, also for redraw all
--don't be clairvoyant about answer size
--update other review widgets
--don't play sound in prerender
-
-
-
 -About dialog, with version and link to source
 
 -Timezone bug: December 12, 2011 07:10 PM Beijing Time (Murray James Morrison)
 
--warn if creating a set without any cards (Troy Guze)
+-do not allow creating a set without any cards (Troy Guze)
 
 -save tree state (which nodes are expanded or not) (Troy Guze)
 
@@ -69,7 +61,7 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 
 -upgrade to qt 4.7.4, retest progress bars
 -make distrib under linux
--bundle webserver with install
+-fix webserver, bundle it with install
 
 -test upgrade on OSX: remove library/Mnemosyne2, make sure you have 1.x in library/Mnemosyne.
  after upgrade there should be 2.0 files in library/Mnemosyne and a backup in library/Mnemosyne_1

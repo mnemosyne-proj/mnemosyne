@@ -5,7 +5,6 @@
     
 from mnemosyne.libmnemosyne.component import Component
 
-
 class Translator(Component):
 
     """Note: static text will be marked as translatable by

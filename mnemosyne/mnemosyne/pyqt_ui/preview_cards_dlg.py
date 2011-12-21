@@ -69,6 +69,8 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component,
         card = self.cards[self.index]
         self.set_question(card.question())
         self.set_answer(card.answer())
+        self.reveal_question()
+        self.reveal_answer()
         self.fact_view_name.setText(_(card.fact_view.name) + " (" + \
             str(self.index + 1) + "/" + str(len(self.cards)) + ")")
         self.previous_button.setEnabled(self.index != 0)

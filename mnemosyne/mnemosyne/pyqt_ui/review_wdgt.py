@@ -35,67 +35,102 @@ class QAOptimalSplit(object):
         self.stretch_offset = self.question_label.size().height()
         if self.question_box.spacing() != -1:
             self.stretch_offset += self.question_box.spacing()
-        self.question_height = self.question.size().height()
-        self.answer_height = self.answer.size().height()
+        self.scrollbar_width = QtGui.QScrollBar().sizeHint().width()
+        self.is_answer_showing = False
         # Needed to get the stretch factors right for the first card.
+        self.required_question_size = self.question.size()
+        self.required_answer_size = self.answer.size()
         self.adjustSize()
         
-    def question_preview_load_finished(self):        
-        self.question_height = \
-            self.question_preview.page().currentFrame().contentsSize().height()
+    def question_preview_load_finished(self):
+        self.required_question_size = \
+            self.question_preview.page().currentFrame().contentsSize()
         self.update_stretch_factors()
         
     def answer_preview_load_finished(self):            
-        self.answer_height = \
-            self.answer_preview.page().currentFrame().contentsSize().height()
+        self.required_answer_size = \
+            self.answer_preview.page().currentFrame().contentsSize()
         self.update_stretch_factors()
-
+        
     def update_stretch_factors(self):
-        total_height = \
-            self.question.size().height() + self.answer.size().height()
-        print self.question_height, self.answer_height, total_height
-        if self.question_height < total_height/2 and \
-           self.answer_height < total_height/2:
-            question_stretch = 1
-            answer_stretch = 1
+        total_height_available = self.question.height() + self.answer.height()
+        # Correct the required heights of question and answer for the
+        # presence of horizontal scrollbars.
+        required_question_height = self.required_question_size.height()
+        if self.required_question_size.width() > self.question.width():
+            required_question_height += self.scrollbar_width
+        required_answer_height = self.required_answer_size.height()
+        if self.required_answer_size.width() > self.answer.width():
+            required_answer_height += self.scrollbar_width        
+        total_height_available = self.question.height() + self.answer.height()        
+        # If both question and answer fit in their own boxes, there is no need
+        # to deviate from a 50/50 split.
+        if required_question_height < total_height_available / 2 and \
+            required_answer_height < total_height_available / 2:
+            question_stretch = 50
+            answer_stretch = 50
         # Don't be clairvoyant about the answer size, unless we will need
         # a non 50/50 split to start with.
-        elif self.answer_empty and self.question_height < total_height/2:
-            question_stretch = 1
-            answer_stretch = 1
+        # If we are only showing the question, we try to limit 'surprising',
+        # 'clairvoyant' stretches if they are not needed.
+        elif not self.is_answer_showing:
+            if required_question_height < total_height_available / 2:
+                # No need to be clairvoyant.
+                question_stretch = 50
+                answer_stretch = 50                
+            else:
+                # Make enough room for the question.
+                question_stretch = required_question_height
+                if required_question_height + required_answer_height \
+                    <= total_height_available:
+                    # Already have the stretch set-up to accomodate the answer,
+                    # which makes the UI more relaxed (no need to have a
+                    # different non 50/50 split once the answer is shown).
+                    answer_stretch = required_answer_height
+                else:
+                    # But if we don't have enough space to show both the
+                    # question and the answer, make sure the question gets
+                    # all the space it can get now.
+                    answer_stretch = 50 
+        # We are showing both question and answer, stretch in proportion to
+        # height.
         else:
-            question_stretch = self.question_height
-            answer_stretch = self.answer_height
-        print question_stretch, answer_stretch
+            question_stretch = required_question_height
+            answer_stretch = required_answer_height
         self.vertical_layout.setStretchFactor(\
             self.question_box, question_stretch + self.stretch_offset)            
         self.vertical_layout.setStretchFactor(\
             self.answer_box, answer_stretch + self.stretch_offset)
+
+    def silence_audio(self, text):
+        return text.replace("<audio src=\"", "<audio src=\"DONTPLAY")
         
     def set_question(self, text):
         self.question_text = text
         self.question_preview.page().setPreferredContentsSize(\
             QtCore.QSize(self.question.size().width(), 1))
-        self.question_preview.setHtml(text)
+        self.question_preview.setHtml(self.silence_audio(text))
         
     def set_answer(self, text):
         self.answer_text = text
         self.answer_preview.page().setPreferredContentsSize(\
             QtCore.QSize(self.answer.size().width(), 1)) 
-        self.answer_preview.setHtml(text)
+        self.answer_preview.setHtml(self.silence_audio(text))
 
     def reveal_question(self):
         self.question.setHtml(self.question_text)
-
+        
     def reveal_answer(self):
-        self.answer_empty = False
+        self.is_answer_showing = True
+        self.update_stretch_factors()
         self.answer.setHtml(self.answer_text)
         
     def clear_question(self):
         self.question.setHtml(self.empty())
         
     def clear_answer(self):
-        self.answer_empty = True
+        self.is_answer_showing = False
+        self.update_stretch_factors()
         self.answer.setHtml(self.empty())
      
     

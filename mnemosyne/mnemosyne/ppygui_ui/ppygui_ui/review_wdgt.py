@@ -58,6 +58,8 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
         sizer.add(self.grade_sizer)
         sizer.add(self.status_bar)        
         self.sizer = sizer
+        self._question_text = ""
+        self._answer_text = ""
         
     def show_answer(self, event):
         if not self.is_show_button_enabled:
@@ -90,10 +92,16 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
         self._question_label.text = text
         
     def set_question(self, text):
-        self._question.value = text
+        self._question_text = text
 
     def set_answer(self, text):
-        self._answer.value = text
+        self._answer_text = text
+        
+    def reveal_question(self, text):
+        self._question.value = self._question_text
+
+    def reveal_answer(self, text):
+        self._answer.value = self._answer_text
 
     def clear_question(self):
 		self._question.value = ""

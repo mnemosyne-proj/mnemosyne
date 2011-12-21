@@ -111,5 +111,3 @@ class ReviewWdgt(ReviewWidget):
             question_label=self.question_label, question=self.question,
             answer_label=self.answer_label, answer=self.answer,
             status_bar=self.status_bar).encode("utf-8")
-
-       
