@@ -1,8 +1,12 @@
+-detect long filenames under Windows during sync (partner, download binary file, 36)
+ and during import
+-proxy sync issues?
+
+-disable automatic media deletion
+
 -About dialog, with version and link to source
 
 -Timezone bug: December 12, 2011 07:10 PM Beijing Time (Murray James Morrison)
-
--do not allow creating a set without any cards (Troy Guze)
 
 -save tree state (which nodes are expanded or not) (Troy Guze)
 
@@ -37,6 +41,8 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
             did_close = w->close();
             list = QApplication::topLevelWidgets();
             i = -1;
+-remind top level widget, and make those parent to error dialog? Now e.g. an error on the activate card
+ widget will be centered on the main widget and not the activate cards dialog.
 -when sync server is running, it seems possible to start a second copy of Mnemosyne, which just complains about
  'unable to start sync server' 
 

@@ -33,6 +33,15 @@ class Criterion(Component):
     
     def __ne__(self, other):
         return not self.__eq__(other)
+
+    def is_empty(self):
+
+        """Used to prevent people from creating a criterion which can never
+        contain any cards (e.g. disabling all card types).
+
+        """
+        
+        return False
             
     def apply_to_card(self, card):
 

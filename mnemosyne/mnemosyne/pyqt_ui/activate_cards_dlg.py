@@ -90,6 +90,10 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         
     def save_set(self):
         criterion = self.tab_widget.currentWidget().criterion()
+        if criterion.is_empty():
+            self.main_widget().show_error(\
+                _("This set can never contain any cards!"))
+            return
         CardSetNameDlg(self.component_manager, criterion,
                        self.criteria_by_name.keys()).exec_()
         if not criterion.name:  # User cancelled.
@@ -155,8 +159,12 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         self._store_state()
         
     def accept(self):
+        criterion = self.tab_widget.currentWidget().criterion()
+        if criterion.is_empty():
+            self.main_widget().show_error(\
+                _("This set can never contain any cards!"))
+            return
         # 'accept' does not generate a close event.
-        self.database().set_current_criterion(\
-            self.tab_widget.currentWidget().criterion())
+        self.database().set_current_criterion(criterion)
         self._store_state()
         return QtGui.QDialog.accept(self)

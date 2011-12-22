@@ -1,24 +1,4 @@
--Don't autorepeat number key shortcuts to show answer (reported by Murray 
- James Morrison).
--Better algorithm to determine relative height of question and answer field.
- Now, the actual size of images and text are taken into account
- (requested Dougie Nisbet).
--Fixed bug involving clones of clones of card types (reported by 
- Anselm Wooden).
--Warn before deleting orphaned media files (reported by Murray 
- James Morrison).
--added 'show_tags_during_review' option to config.py in order to be able
- to hide the tags in the review window. (requested by Sander Hoogendoorn).
--Build system fixes (James Litton).
--Make dialog titles more consistent (reported by Troy Guze).
--Don't create a silly popup menu saying 'toolBar' when right clicking on
- the toolbar (reported by Troy Guze).
--Make grade shortcuts work in cramming scheduler (<=1 for pass) 
- (reported by Troy Guze).
--The enter and escape keys now work again to close the preview dialog.
--More scheduler tweaks.
--More in-program help.
-
+-do not allow creating a set without any cards (requested by Troy Guze).
 	
 MNEMOSYNE 2.0
 

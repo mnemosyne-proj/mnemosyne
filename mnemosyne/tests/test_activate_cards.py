@@ -5,6 +5,7 @@
 from nose.tools import raises
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
+from mnemosyne.libmnemosyne.criterion import Criterion
 from mnemosyne.libmnemosyne.criteria.default_criterion import DefaultCriterion
 
 class TestActivateCards(MnemosyneTest):
@@ -340,3 +341,35 @@ class TestActivateCards(MnemosyneTest):
         c._tag_ids_forbidden = set([self.database().get_or_create_tag_with_name("b")._id])
         self.database().set_current_criterion(c)
         assert self.database().active_count() == 1
+
+    def test_empty_criterion(self):
+        c = Criterion(self.mnemosyne.component_manager)
+        assert c.is_empty() == False
+
+        tag_id = self.database().get_or_create_tag_with_name("a")._id
+
+        c = DefaultCriterion(self.mnemosyne.component_manager)
+        for card_type in self.card_types():
+            for fact_view in card_type.fact_views:
+                c.deactivated_card_type_fact_view_ids.add((card_type.id, fact_view.id))
+        c._tag_ids_active = set([])
+        c._tag_ids_forbidden = set()
+        assert c.is_empty() == True 
+
+        c = DefaultCriterion(self.mnemosyne.component_manager)
+        c.deactivated_card_type_fact_view_ids = set()
+        c._tag_ids_active = set([])
+        c._tag_ids_forbidden = set()
+        assert c.is_empty() == True
+
+        c = DefaultCriterion(self.mnemosyne.component_manager)
+        c.deactivated_card_type_fact_view_ids = set()
+        c._tag_ids_active = set(["__UNTAGGED__"])
+        c._tag_ids_forbidden = set([tag_id])
+        assert c.is_empty() == False
+
+        c = DefaultCriterion(self.mnemosyne.component_manager)
+        c.deactivated_card_type_fact_view_ids = set()
+        c._tag_ids_active = set(["__UNTAGGED__"])
+        c._tag_ids_forbidden = set([tag_id, "__UNTAGGED__"])
+        assert c.is_empty() == True 

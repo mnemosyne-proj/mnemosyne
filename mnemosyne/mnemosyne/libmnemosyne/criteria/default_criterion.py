@@ -25,6 +25,22 @@ class DefaultCriterion(Criterion):
             and self._tag_ids_active == other._tag_ids_active \
             and self._tag_ids_forbidden == other._tag_ids_forbidden
 
+    def is_empty(self):        
+        # Check card types.
+        counter = 0
+        for card_type in self.card_types():
+            counter += len(card_type.fact_views)
+        if len(self.deactivated_card_type_fact_view_ids) == counter:
+            return True
+        # Active tags.
+        elif len(self._tag_ids_active) == 0:
+            return True
+        # Forbidden tags.
+        elif len(self.database().tags()) == len(self._tag_ids_forbidden):
+            return True
+        else:
+            return False
+
     def apply_to_card(self, card):
         card.active = False
         for tag in card.tags:
