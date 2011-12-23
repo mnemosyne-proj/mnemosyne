@@ -59,6 +59,13 @@ class TestController(MnemosyneTest):
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ActivateCardsDialog"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ImportDialog"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "TipDialog"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "GettingStartedDialog"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "AboutDialog"))
+        
         self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
         self.review_controller().reset()
         
@@ -83,6 +90,9 @@ class TestController(MnemosyneTest):
         self.controller().show_configuration_dialog()
         self.controller().show_statistics_dialog()
         self.controller().show_activate_cards_dialog()
+        self.controller().show_tip_dialog()
+        self.controller().show_getting_started_dialog()
+        self.controller().show_about_dialog()
         self.controller().download_source()
         self.controller().sync()
         

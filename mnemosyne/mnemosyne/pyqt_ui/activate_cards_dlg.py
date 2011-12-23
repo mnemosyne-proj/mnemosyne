@@ -13,7 +13,7 @@ from mnemosyne.libmnemosyne.ui_components.dialogs import ActivateCardsDialog
 class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
                        ActivateCardsDialog):
 
-    def __init__(self, component_manager):
+    def __init__(self, component_manager):        
         ActivateCardsDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)

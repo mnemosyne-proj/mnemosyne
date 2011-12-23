@@ -204,3 +204,6 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
 
     def show_tip(self):
         self.controller().show_tip_dialog()
+        
+    def show_about(self):
+        self.controller().show_about_dialog()

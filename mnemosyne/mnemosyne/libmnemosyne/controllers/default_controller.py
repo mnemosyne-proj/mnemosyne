@@ -716,3 +716,10 @@ class DefaultController(Controller):
         self.component_manager.current("tip_dialog")(
             self.component_manager).activate()
         self.stopwatch().unpause()
+
+    def show_about_dialog(self):
+        self.stopwatch().pause()
+        self.flush_sync_server()
+        self.component_manager.current("about_dialog")(
+            self.component_manager).activate()     
+        self.stopwatch().unpause()

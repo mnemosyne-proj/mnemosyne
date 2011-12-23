@@ -8,6 +8,7 @@ from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.ui_tip_dlg import Ui_TipDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import TipDialog
 
+
 class TipDlg(QtGui.QDialog, Ui_TipDlg, TipDialog):
 
     def __init__(self, component_manager):

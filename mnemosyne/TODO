@@ -1,10 +1,10 @@
 -detect long filenames under Windows during sync (partner, download binary file, 36)
  and during import
--proxy sync issues?
+-sync issues Doug
 
 -disable automatic media deletion
 
--About dialog, with version and link to source
+-use version string in windows build
 
 -Timezone bug: December 12, 2011 07:10 PM Beijing Time (Murray James Morrison)
 

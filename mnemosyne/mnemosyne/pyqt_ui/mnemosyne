@@ -106,6 +106,8 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.getting_started_dlg",
                              "GettingStartedDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.tip_dlg",
                              "TipDlg"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.about_dlg",
+                             "AboutDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.import_dlg",
                              "ImportDlg"))
 mnemosyne.extra_components_for_plugin["CrammingPlugin"] = \
