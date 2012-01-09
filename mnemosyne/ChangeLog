@@ -1,5 +1,7 @@
--added about dialog
+-fixed timezone bug (Tim Bourke, Murray James Morrison).
+-added about dialog.
 -do not allow creating a set without any cards (requested by Troy Guze).
+
 	
 MNEMOSYNE 2.0
 

@@ -34,7 +34,7 @@ class TestDatabase(MnemosyneTest):
         tag.name = "test2"
         self.database().update_tag(tag)
         assert len(self.database().tags()) == 2
-        assert self.database().tags()[0].name == u"test2"      
+        assert self.database().tags()[0].name == u"test2"    
 
     def test_new_cards(self):
         fact_data = {"f": "question",
@@ -42,6 +42,8 @@ class TestDatabase(MnemosyneTest):
         card_type = self.card_type_with_id("1")
         old_card = self.controller().create_new_cards(fact_data, card_type,
                                  grade=-1, tag_names=["default"])[0]
+        assert len([self.database().cards()]) == 1
+        
         old_fact = old_card.fact
         self.database().unload()
 
@@ -72,6 +74,7 @@ class TestDatabase(MnemosyneTest):
         assert card.extra_data == old_card.extra_data
         assert card.scheduler_data == old_card.scheduler_data
         assert card.active == old_card.active
+
         
         # Modify cards
 

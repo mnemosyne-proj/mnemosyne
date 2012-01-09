@@ -19,6 +19,9 @@ parser = OptionParser()
 parser.usage = "%prog [<database_file>]"
 parser.add_option("-d", "--datadir", dest="data_dir",
                   help="data directory", default=None)
+parser.add_option("--no-upgrades", dest="automatic_upgrades",
+		  action="store_false", help="do not upgrade automatically",
+		  default=True)
 (options, args) = parser.parse_args()
 
 # Check if we have to override the data_dir determined in libmnemosyne,
@@ -115,7 +118,8 @@ mnemosyne.extra_components_for_plugin["CrammingPlugin"] = \
                              "ReviewWdgtCramming")]
 
 # Run Mnemosyne.
-mnemosyne.initialise(data_dir=data_dir, filename=filename)
+mnemosyne.initialise(data_dir=data_dir, filename=filename,
+		     automatic_upgrades=options.automatic_upgrades)
 mnemosyne.main_widget().show()
 mnemosyne.main_widget().raise_() # Needed for OSX.
 if mnemosyne.config()["first_run"] == True:

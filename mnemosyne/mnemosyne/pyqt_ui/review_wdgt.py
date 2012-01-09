@@ -260,14 +260,14 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
             self.focus_widget.setDefault(True)
             self.focus_widget.setFocus()
         
-    def update_show_button(self, text, is_default, is_enabled):
+    def update_show_button(self, text, is_default, is_enabled):        
         self.show_button.setText(text)
         self.show_button.setEnabled(is_enabled)
         if is_default:
             self.show_button.setDefault(True)
             self.show_button.setFocus()
             self.focus_widget = self.show_button
-
+        
     def set_grades_enabled(self, is_enabled):
         self.grades.setEnabled(is_enabled)
         

@@ -228,7 +228,7 @@ class SM2Controller(ReviewController):
             w.clear_answer()
         else:
             w.reveal_answer()
-        # Update 'Show answer' button.
+        # Update 'Show answer' button.        
         if self.state == "EMPTY":
             show_enabled, default, text = False, False, _("Show answer")
             self.grades_enabled = False

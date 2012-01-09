@@ -41,18 +41,21 @@ class SM2Mnemosyne(Scheduler):
     def adjusted_now(self, now=None):
 
         """Adjust now such that the cross-over point of h:00 local time
-        (with h being 'day_starts_at') becomes midnight UTC.
+        (with h being 'day_starts_at') becomes midnight UTC (i.e. the start
+        of that particular day).
 
         """
 
         if now == None:
             now = time.time()
-        now -= self.config()["day_starts_at"] * HOUR 
-        if time.daylight:
-            now -= time.altzone
-        else:
-            now -= time.timezone
-        return int(now)
+        # Recover the local time from the adjusted time stamp.
+        now = time.localtime(now - self.config()["day_starts_at"] * HOUR)
+        # Form midnight on that day.
+        now = datetime.datetime(now.tm_year, now.tm_mon, now.tm_mday, 0, 0)
+        # Go to a time tuple without setting the daylight saving flag.
+        now = now.utctimetuple()
+        # Turn that time tuple into a timestamp without any other offsets.
+        return int(calendar.timegm(now))
 
     def true_scheduled_interval(self, card):
 
@@ -62,15 +65,13 @@ class SM2Mnemosyne(Scheduler):
 
         """
 
-        interval = card.next_rep - card.last_rep
         if card.grade < 2:
-            return interval
-        interval += self.config()["day_starts_at"] * HOUR            
-        if time.daylight:
-            interval += time.altzone
+            return card.next_rep - card.last_rep
         else:
-            interval += time.timezone
-        return int(interval)
+            # Recover the local time from the adjusted time stamp.
+            next_rep = calendar.timegm(time.localtime\
+                (card.next_rep + self.config()["day_starts_at"] * HOUR))       
+            return int(next_rep) - card.last_rep
 
     def reset(self):
 
