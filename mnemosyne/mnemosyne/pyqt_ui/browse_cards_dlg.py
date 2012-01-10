@@ -175,7 +175,7 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
     
     def card(self, _id):       
         query = QtSql.QSqlQuery("""select _fact_id, card_type_id,
-            fact_view_id from cards where _id=%d""" % (_id, ))
+            fact_view_id, extra_data from cards where _id=%d""" % (_id, ))
         query.first()
         fact = self.fact(query.value(0).toInt()[0])
         # Note that for the card type, we turn to the component manager as
@@ -186,6 +186,12 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
         for fact_view in card_type.fact_views:
             if fact_view.id == fact_view_id:
                 card = Card(card_type, fact, fact_view)
+                # We need extra_data to display the cloze cards.
+                extra_data = unicode(query.value(3).toString())
+                if extra_data == "":
+                    card.extra_data = {}
+                else:
+                    card.extra_data = eval(extra_data)
                 break
 
         # Let's not add tags to speed things up, they don't affect the card

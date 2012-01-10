@@ -66,11 +66,15 @@ class SM2Mnemosyne(Scheduler):
         """
 
         if card.grade < 2:
-            return card.next_rep - card.last_rep
+            assert card.next_rep == card.last_rep
+            return card.next_rep - card.last_rep # Should be zero anyhow.
         else:
             # Recover the local time from the adjusted time stamp.
-            next_rep = calendar.timegm(time.localtime\
-                (card.next_rep + self.config()["day_starts_at"] * HOUR))       
+            next_rep = card.next_rep + self.config()["day_starts_at"] * HOUR
+            if time.daylight:
+                next_rep -= HOUR
+            next_rep = time.mktime(time.gmtime(next_rep))
+            assert abs(next_rep - card.next_rep) < DAY
             return int(next_rep) - card.last_rep
 
     def reset(self):

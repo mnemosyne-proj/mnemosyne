@@ -24,7 +24,7 @@ class ConfigurationDlg(QtGui.QDialog, Ui_ConfigurationDlg, ConfigurationDialog):
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowContextHelpButtonHint)        
-        for widget in self.component_manager.all("configuration_widget"):
+        for widget in self.component_manager.all("configuration_widget"):          
             widget = widget(self.component_manager, parent=self)
             self.tab_widget.addTab(widget, _(widget.name))
         self.tab_widget.tabBar().setVisible(self.tab_widget.count() > 1)     

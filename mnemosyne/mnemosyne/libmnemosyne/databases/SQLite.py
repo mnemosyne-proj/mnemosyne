@@ -286,6 +286,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self._path = expand_path(path, self.config().data_dir)
         if os.path.exists(self._path):
             os.remove(self._path)
+        self.create_media_dir_if_needed()
         # Create tables.
         if self.store_pregenerated_data:
             self.con.executescript(\
@@ -312,11 +313,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self._current_criterion.name = "__DEFAULT__"
         self._current_criterion._tag_ids_active.add(tag._id)
         self.add_criterion(self._current_criterion)
-        # Create media directory.
-        media_dir = self.media_dir()
-        if not os.path.exists(media_dir):
-            os.mkdir(media_dir)
-            os.mkdir(os.path.join(media_dir, "_latex"))
 
     def _activate_plugin_for_card_type(self, card_type_id):
         found = False
@@ -338,6 +334,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         if self.is_loaded():
             self.unload()
         self._path = expand_path(path, self.config().data_dir)
+        self.create_media_dir_if_needed()
         # Check database version.
         try:
             sql_res = self.con.execute("""select value from global_variables

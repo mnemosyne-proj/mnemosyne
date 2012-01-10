@@ -361,6 +361,13 @@ class TestMedia(MnemosyneTest):
         assert os.path.exists(os.path.join(self.database().media_dir(), "c.ogg"))
         assert os.path.exists(os.path.join(self.database().media_dir(), "_keep"))
         assert os.path.exists(os.path.join(self.database().media_dir(), "_keep", "b.ogg"))
+
+    def test_database_not_in_datadir(self):
+        assert "dot_test" in self.database().media_dir()
+        self.database().new(os.path.abspath("outside.db"))
+        assert self.database().media_dir() == os.path.join(\
+            os.path.dirname(os.path.abspath("outside.db")), "outside.db_media")
+        assert "dot_test" not in self.database().media_dir()
         
     def teardown(self):
         if os.path.exists("a.ogg"):

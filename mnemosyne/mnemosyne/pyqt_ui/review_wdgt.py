@@ -165,8 +165,14 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         QAOptimalSplit.__init__(self)
 
     def changeEvent(self, event):
+        if hasattr(self, "show_button"):
+            show_button_text = self.show_button.text()
         if event.type() == QtCore.QEvent.LanguageChange:
             self.retranslateUi(self)
+        # retranslateUI resets the show button text to 'Show answer',
+        # so we need to work around this.
+        if hasattr(self, "show_button"):
+            self.show_button.setText(_(show_button_text))
         QtGui.QWidget.changeEvent(self, event)
 
     def keyPressEvent(self, event):
@@ -260,7 +266,7 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
             self.focus_widget.setDefault(True)
             self.focus_widget.setFocus()
         
-    def update_show_button(self, text, is_default, is_enabled):        
+    def update_show_button(self, text, is_default, is_enabled):
         self.show_button.setText(text)
         self.show_button.setEnabled(is_enabled)
         if is_default:

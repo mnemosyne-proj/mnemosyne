@@ -1,3 +1,13 @@
+-Fix for displaying Cloze cards in the card browser (reported by Roel
+ De Coninck).
+-Correctly set mediadir if a database is created outside of Mnemosyne's
+ datadir (reported by Cyril Frei).
+-Recreate media and latex dir if they get deleted after the database has been
+ created (reported by Cyril Frei).
+-make sure 'Learn ahead of schedule' button text does not revert to 
+ 'Show answer' after opening the configuration dialog (reported by Cyril 
+ Frei).
+
 -fixed timezone bug (Tim Bourke, Murray James Morrison).
 -added about dialog.
 -do not allow creating a set without any cards (requested by Troy Guze).

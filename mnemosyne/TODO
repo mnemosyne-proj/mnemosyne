@@ -1,16 +1,12 @@
--mail Tim about 2 committed patches (cards instead of all_cards) 
+-rework getting started wizard to include grade 2
 
--With 0 scheduled and 0 not memorised cards, the button shows "Learn
-ahead of schedule" If you go then to the Configuration windows and hit ok, the label
-changes to "Show answer" (CFrei)
+-don't have popup menu on html widget (Gnome)
 
--always create media and latex dir if it does not exist (CFrei)
+-truncate retention score at 100% for non-week long graphs (Dan Schmidt)
 
--make mediadir relative to database location, not to datadir (CFrei)
+-remember last shown statictics page (Dan Schmidt)
 
--remember last show statictics page
-
--expand answer preferentially
+-expand answer preferentially (Murray James Morrison)
 
 -disable automatic media deletion, to allow people to move their media in their folder
 
@@ -78,7 +74,7 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -tell beta users to make sure to install latest beta first
 -remove upgrade_beta_6.py, beta_7, etc...
 
--'duplicate card' option in menu and browser?
+-'duplicate card' option in menu and browser? Or as plugin?
 
 -upgrade to qt 4.7.4, retest progress bars
 -make distrib under linux
@@ -219,7 +215,8 @@ http://dotancohen.com/howto/rtl_right_to_left.html
 
 -zooming on statistics?
 
--mark/star cards plugin, also on desktop
+-mark/star cards plugin, also on desktop, also with right click
+-edit/delete card on right click
 
 -minimalist mode, without toolbar, extra text in review window. F11 to move fullscreen
 
