@@ -25,13 +25,13 @@ class SM2Mnemosyne(Scheduler):
     efficient, we do this by setting 'next_rep' the same for all cards that
     are due on the same day.
     
-    In order to allow for the fact that the time zone and 'day_starts_at' can
+    In order to allow for the fact that the timezone and 'day_starts_at' can
     change after scheduling a card, we store 'next_rep' as midnight UTC, and
     bring local time and 'day_starts_at' only into play when querying the
     database.
 
     """
-    
+   
     name = "SM2 Mnemosyne"
 
     def midnight_UTC(self, timestamp):        

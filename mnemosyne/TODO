@@ -1,6 +1,19 @@
--rework getting started wizard to include grade 2
+-timezone issues
 
--don't have popup menu on html widget (Gnome)
+-rework getting started wizard to include grade 2
+ mail to Kent Stearman <stearman.kc@gmail.com>
+
+'scheduled' only refers to card which you have previously graded 2 or higher,
+and which therefore are not immediately repeated on the same day.
+
+If you give a card grade 0, it will pop up again during the same day.
+Mnemosyne will keep on showing you grade 0/1 cards on the same day until
+you've indicated that you'll remember them tomorrow by grading them 2 or
+higher. In that case, you will no longer see them again today, but rather as
+part of the 'scheduled' counter tomorrow, or the day after. 
+
+-don't have popup menu on html widget (Gnome) setContextMenuPolicy (
+Qt::ContextMenuPolicy ) where you can set the policy to Qt::NoContextMenu 
 
 -truncate retention score at 100% for non-week long graphs (Dan Schmidt)
 
@@ -9,6 +22,8 @@
 -expand answer preferentially (Murray James Morrison)
 
 -disable automatic media deletion, to allow people to move their media in their folder
+
+-~ / `" key as a short cut for the "0 button" (Kent Stearman)
 
 -use version string in windows build
 
@@ -112,6 +127,13 @@ http://dotancohen.com/howto/rtl_right_to_left.html
 -Qt bug? review widget: frame.scroll does not seem to work reliably for PageUp
 -Qt bug? preview dialog does not pass on keypressevents it does not handle
 -Qt bug? QGraphicsWebView.loadFinished sometimes fires before images are loaded?
+-Qt bug? bulleted lists: bullets are always aligned left, not centered:
+Milesteiner
+<ul><li>Focuses 20 to 30cm away</li>
+  <li>Eyes wander and occasionally cross</li>
+  <li>Prefers black-and-white or highcontrast patterns</li>
+  <li>Prefers the human face to all other patterns </li>
+</ul>
 
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 
@@ -130,6 +152,7 @@ http://dotancohen.com/howto/rtl_right_to_left.html
 
 -docs on keyboard shortcuts on website: grade buttons to 'show answer', PageUp/PageDown to scroll
  question/answer, PageUp/PageDown to change cards in preview/edit started from card browser, control+R replay media
+-updated grading info on new website, to match new first run wizard
 
 -import
 -if txt import fails, give a useful error message showing the offending line
@@ -397,6 +420,8 @@ http://lost-theory.org/python/ltchinese/
 
 
 -control B format character in supermemo import?
+
+-make autosuggest in tag dialog also work for the second tag after the comma.
 
 
 Windows Mobile client:
