@@ -19,11 +19,20 @@ Qt::ContextMenuPolicy ) where you can set the policy to Qt::NoContextMenu
 
 -remember last shown statictics page (Dan Schmidt)
 
+-use always active cards, add tip and popup: (Dan Schmidt)
+Schedule / Last week uses my entire deck.
+Retention score seems to apply to my whole deck
+Cards added seems to apply to my whole deck.
+
 -expand answer preferentially (Murray James Morrison)
 
 -disable automatic media deletion, to allow people to move their media in their folder
 
 -~ / `" key as a short cut for the "0 button" (Kent Stearman)
+
+-don't refresh review widget after edit window if no changes have been made (gnome)
+
+-Cntr+D shortcut in edit card doesn't work. (gnome)
 
 -use version string in windows build
 
@@ -44,9 +53,12 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -new cards with a >=2 grade can end up on the same day on first interactive rep 
  replace set_initial_grade by set_initial_grades(cards)?  
 -also make sure this is OK when changing card type creates extra cards
--scheduler.spread_sister_cards? 
+-scheduler.spread_sister_cards?
+-when learning late, related cards on the same day can happen, see violin log example
 
 -after showing answer, exiting card browser hides answer again
+-try to avoid showing different card after exiting browser. Better reset_but_try_to_keep ...
+ taking grade 0/1 cards as well into account?
  
 -also give warning on the client side if a sync failed and a backup needs to happen
 -detect long filenames under Windows during sync (partner, download binary file, 36)
@@ -179,7 +191,7 @@ Milesteiner
 -warn when syncing and the other criterion plugin is not present?
 -make 'grade activity criterion' an official plugin? Add tests?
 
--hoop up all dialogs in UDP
+-hook up all dialogs in UDP
 
 -pinyin sort
 
@@ -225,6 +237,8 @@ Milesteiner
 
 -condition coverage
  http://lautaportti.wordpress.com/2011/05/07/test-coverage-analysis/
+
+-phonegap?
 
 -have hierarchy in plugin names
 
