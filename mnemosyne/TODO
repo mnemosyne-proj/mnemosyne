@@ -1,4 +1,7 @@
--timezone issues
+-timezone issues: next, last rep
+-utc time tuple
+-true scheduled interval
+-document code better
 
 -rework getting started wizard to include grade 2
  mail to Kent Stearman <stearman.kc@gmail.com>

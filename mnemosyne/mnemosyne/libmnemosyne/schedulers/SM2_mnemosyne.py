@@ -34,9 +34,12 @@ class SM2Mnemosyne(Scheduler):
    
     name = "SM2 Mnemosyne"
 
-    def midnight_UTC(self, timestamp):        
-        date_only = datetime.date.fromtimestamp(timestamp)
-        return int(calendar.timegm(date_only.timetuple()))
+    def midnight_UTC(self, timestamp):
+        # Create a time tuple containing the local date only, i.e. throwing
+        # away hours, minutes, etc.
+        date_only = datetime.date.fromtimestamp(timestamp).timetuple()
+        # Transform that local time tuple to a POSIX timestamp.
+        return int(calendar.timegm(date_only))
     
     def adjusted_now(self, now=None):
 
@@ -48,14 +51,13 @@ class SM2Mnemosyne(Scheduler):
 
         if now == None:
             now = time.time()
-        # Recover the local time from the adjusted time stamp.
-        now = time.localtime(now - self.config()["day_starts_at"] * HOUR)
-        # Form midnight on that day.
-        now = datetime.datetime(now.tm_year, now.tm_mon, now.tm_mday, 0, 0)
-        # Go to a time tuple without setting the daylight saving flag.
-        now = now.utctimetuple()
-        # Turn that time tuple into a timestamp without any other offsets.
-        return int(calendar.timegm(now))
+        now -= self.config()["day_starts_at"] * HOUR 
+        if time.daylight:
+            now -= time.altzone
+        else:
+            now -= time.timezone
+        return int(now)
+
 
     def true_scheduled_interval(self, card):
 
@@ -67,7 +69,7 @@ class SM2Mnemosyne(Scheduler):
 
         if card.grade < 2:
             assert card.next_rep == card.last_rep
-            return card.next_rep - card.last_rep # Should be zero anyhow.
+            return card.next_rep - card.last_rep
         else:
             # Recover the local time from the adjusted time stamp.
             next_rep = card.next_rep + self.config()["day_starts_at"] * HOUR
@@ -555,9 +557,11 @@ class SM2Mnemosyne(Scheduler):
 
     def last_rep_to_interval_string(self, last_rep, now=None):
         if now is None:
-            now = self.adjusted_now()
-        now = self.midnight_UTC(now)
-        last_rep = self.midnight_UTC(self.adjusted_now(now=last_rep))
+            now = time.time()
+        now = self.midnight_UTC(\
+            now - self.config()["day_starts_at"] * HOUR)
+        last_rep = self.midnight_UTC(\
+            last_rep - self.config()["day_starts_at"] * HOUR)
         interval_days = (last_rep - now) / DAY
         if interval_days > -1:
             return _("today")
@@ -568,7 +572,7 @@ class SM2Mnemosyne(Scheduler):
         elif interval_days > -62:
             return _("1 month ago")  
         elif interval_days > -365:
-            interval_months = int(-interval_days/31)
+            interval_months = int(-interval_days/31.)
             return str(interval_months) + " " + _("months ago")
         else:
             interval_years = -interval_days/365.

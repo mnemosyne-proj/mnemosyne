@@ -2,6 +2,7 @@
 # test_scheduler.py <Peter.Bienstman@UGent.be>
 #
 
+import os
 import time
 import datetime
 import calendar
@@ -338,6 +339,8 @@ class TestScheduler(MnemosyneTest):
         assert self.review_controller().card == card
 
     def test_next_rep_to_interval_string(self):
+        os.environ["TZ"] = "Europe/Brussels"
+        
         sch = self.scheduler()
         now = datetime.datetime(2000, 9, 1, 12, 0)
 
@@ -411,6 +414,8 @@ class TestScheduler(MnemosyneTest):
             "1.0 years ago"
 
     def test_last_rep_to_interval_string(self):
+        os.environ["TZ"] = "Europe/Brussels"
+
         sch = self.scheduler()
         now = datetime.datetime(2000, 9, 1, 12, 0)
 
@@ -454,6 +459,48 @@ class TestScheduler(MnemosyneTest):
             calendar.timegm(now.timetuple())) == \
             "1.0 years ago"
 
+    def test_last_rep_to_interval_string_2(self):
+        sch = self.scheduler()
+        os.environ["TZ"] = "America/Los_Angeles"
+        os.environ["TZ"] = "Australia/Sydney"
+        
+        last_rep = time.mktime(datetime.datetime(2012,1,14,4,0,0).timetuple())
+        now      = time.mktime(datetime.datetime(2012,1,14,5,0,0).timetuple())
+        assert sch.last_rep_to_interval_string(last_rep, now) == "today"
+
+        last_rep = time.mktime(datetime.datetime(2012,1,14,4,0,0).timetuple())
+        now      = time.mktime(datetime.datetime(2012,1,15,2,0,0).timetuple())
+        assert sch.last_rep_to_interval_string(last_rep, now) == "today"        
+        
+        last_rep = time.mktime(datetime.datetime(2012,1,14,2,0,0).timetuple())
+        now      = time.mktime(datetime.datetime(2012,1,14,4,0,0).timetuple())
+        assert sch.last_rep_to_interval_string(last_rep, now) == "yesterday"
+        
+        last_rep = time.mktime(datetime.datetime(2012,1,13,5,0,0).timetuple())
+        now      = time.mktime(datetime.datetime(2012,1,14,4,0,0).timetuple())
+        assert sch.last_rep_to_interval_string(last_rep, now) == "yesterday"
+
+    def test_last_rep_to_interval_string_3(self):
+        sch = self.scheduler()
+        os.environ["TZ"] = "America/Los_Angeles"
+
+        last_rep = time.mktime(datetime.datetime(2012,1,14,4,0,0).timetuple())
+        now      = time.mktime(datetime.datetime(2012,1,14,5,0,0).timetuple())
+        assert sch.last_rep_to_interval_string(last_rep, now) == "today"
+
+        last_rep = time.mktime(datetime.datetime(2012,1,14,4,0,0).timetuple())
+        now      = time.mktime(datetime.datetime(2012,1,15,2,0,0).timetuple())
+        assert sch.last_rep_to_interval_string(last_rep, now) == "today"        
+        
+        last_rep = time.mktime(datetime.datetime(2012,1,14,2,0,0).timetuple())
+        now      = time.mktime(datetime.datetime(2012,1,14,4,0,0).timetuple())
+        assert sch.last_rep_to_interval_string(last_rep, now) == "yesterday"
+        
+        last_rep = time.mktime(datetime.datetime(2012,1,13,5,0,0).timetuple())
+        now      = time.mktime(datetime.datetime(2012,1,14,4,0,0).timetuple())
+        assert sch.last_rep_to_interval_string(last_rep, now) == "yesterday"
+        
+        
     def test_prefetch(self):
         fact_data = {"f": "question1",
                      "b": "answer1"}
