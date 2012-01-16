@@ -11,13 +11,32 @@ from mnemosyne_test import MnemosyneTest
 
 class TestScheduler(MnemosyneTest):
 
+    def test_midnight_UTC(self):
+        sch = self.scheduler()
+        os.environ["TZ"] = "UCT"
+        midnight_UTC = int(time.mktime(datetime.datetime(2012,1,14,0,0,0).timetuple()))
+
+        os.environ["TZ"] = "Australia/Sydney"
+        t = time.mktime(datetime.datetime(2012,1,14,0,0,0).timetuple())
+        assert sch.midnight_UTC(t) == midnight_UTC
+        t = time.mktime(datetime.datetime(2012,1,14,2,0,0).timetuple())
+        assert sch.midnight_UTC(t) == midnight_UTC
+        t = time.mktime(datetime.datetime(2012,1,14,23,59,0).timetuple())
+        assert sch.midnight_UTC(t) == midnight_UTC
+
+        os.environ["TZ"] = "America/Los_Angeles"
+        t = time.mktime(datetime.datetime(2012,1,14,0,0,0).timetuple())
+        assert sch.midnight_UTC(t) == midnight_UTC
+        t = time.mktime(datetime.datetime(2012,1,14,23,59,0).timetuple())
+        assert sch.midnight_UTC(t) == midnight_UTC
+
     def test_1(self):
         card_type = self.card_type_with_id("1")
-        
+
         fact_data = {"f": "1", "b": "b"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=[])[0]
-        fact_data = {"f": "2", "b": "b"}        
+        fact_data = {"f": "2", "b": "b"}
         card_2 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=[])[0]
         fact_data = {"f": "3", "b": "b"}
@@ -38,39 +57,39 @@ class TestScheduler(MnemosyneTest):
         self.scheduler().grade_answer(card, 2)
         assert card.active == True
         self.database().update_card(card)
-        
+
         card = self.scheduler().next_card()
         self.scheduler().grade_answer(card, 0)
         self.database().update_card(card)
-            
+
         card = self.scheduler().next_card()
         self.scheduler().grade_answer(card, 1)
         self.database().update_card(card)
-        
+
         card = self.scheduler().next_card()
         self.scheduler().grade_answer(card, 2)
         self.database().update_card(card)
         learned_cards = [card]
-        
+
         card = self.scheduler().next_card()
         assert card not in learned_cards
         self.scheduler().grade_answer(card, 2)
         self.database().update_card(card)
         learned_cards.append(card)
-        
+
         assert self.scheduler().next_card() == None
 
         # Learn ahead.
-        
+
         assert self.scheduler().next_card(learn_ahead=True) != None
 
     def test_1_bis(self):
         card_type = self.card_type_with_id("1")
-        
+
         fact_data = {"f": "1", "b": "b"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=[])[0]
-        fact_data = {"f": "2", "b": "b"}        
+        fact_data = {"f": "2", "b": "b"}
         card_2 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=[])[0]
         fact_data = {"f": "3", "b": "b"}
@@ -92,51 +111,51 @@ class TestScheduler(MnemosyneTest):
         self.scheduler().grade_answer(card, 2)
         assert card.active == True
         self.database().update_card(card)
-        
+
         card = self.scheduler().next_card()
         self.scheduler().grade_answer(card, 0)
         self.database().update_card(card)
-            
+
         card = self.scheduler().next_card()
         self.scheduler().grade_answer(card, 1)
         self.database().update_card(card)
-        
+
         card = self.scheduler().next_card()
         self.scheduler().grade_answer(card, 2)
         self.database().update_card(card)
         learned_cards = [card]
-        
+
         card = self.scheduler().next_card()
         assert card not in learned_cards
         self.scheduler().grade_answer(card, 2)
         self.database().update_card(card)
         learned_cards.append(card)
-        
+
         assert self.scheduler().next_card() == None
 
         # Learn ahead.
-        
+
         assert self.scheduler().next_card(learn_ahead=True) != None
-        
+
     def test_2(self):
         card_type = self.card_type_with_id("1")
-        
+
         fact_data = {"f": "1", "b": "b"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
-        fact_data = {"f": "2", "b": "b"}        
+        fact_data = {"f": "2", "b": "b"}
         card_2 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
         self.config()["non_memorised_cards_in_hand"] = 0
-        
+
         assert self.scheduler().next_card() is None
-        
+
     def test_grade_0_limit(self):
         card_type = self.card_type_with_id("1")
         for i in range(10):
             fact_data = {"f": str(i), "b": "b"}
             self.controller().create_new_cards(fact_data, card_type,
-                     grade=-1, tag_names=["default"])[0]    
+                     grade=-1, tag_names=["default"])[0]
         self.config()["non_memorised_cards_in_hand"] = 3
         cards = set()
         for i in range(10):
@@ -157,13 +176,13 @@ class TestScheduler(MnemosyneTest):
             card = self.scheduler().next_card(learn_ahead=True)
             self.scheduler().grade_answer(card, 5)
             self.database().update_card(card)
-            
+
     def test_learn_ahead_2(self):
         card_type = self.card_type_with_id("1")
         fact_data = {"f": "1", "b": "b"}
         old_card = self.controller().create_new_cards(fact_data, card_type,
                      grade=5, tag_names=["default"])[0]
-        self.review_controller().learning_ahead = True      
+        self.review_controller().learning_ahead = True
         for i in range(3):
             card = self.scheduler().next_card(learn_ahead=True)
             self.scheduler().grade_answer(card, 5)
@@ -176,29 +195,29 @@ class TestScheduler(MnemosyneTest):
 
     def test_4(self):
         card_type = self.card_type_with_id("1")
-        
+
         fact_data = {"f": "1", "b": "b"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
-        fact_data = {"f": "2", "b": "b"}        
+        fact_data = {"f": "2", "b": "b"}
         card_2 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
 
         card = self.scheduler().next_card()
         self.scheduler().grade_answer(card, 0)
         card = self.scheduler().next_card()
-        self.scheduler().grade_answer(card, 0)        
+        self.scheduler().grade_answer(card, 0)
         self.database().update_card(card)
 
         assert self.scheduler().next_card() != None
-        
+
     def test_5(self):
         card_type = self.card_type_with_id("1")
-        
+
         fact_data = {"f": "1", "b": "b"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
-        fact_data = {"f": "2", "b": "b"}        
+        fact_data = {"f": "2", "b": "b"}
         card_2 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
 
@@ -207,7 +226,7 @@ class TestScheduler(MnemosyneTest):
         self.review_controller().grade_answer(0)
 
         assert self.review_controller().card != None
-        
+
     def test_6(self):
         card_1 = None
         self.review_controller().reset()
@@ -217,7 +236,7 @@ class TestScheduler(MnemosyneTest):
             if i % 2:
                 card_type = self.card_type_with_id("1")
             else:
-                card_type = self.card_type_with_id("2")            
+                card_type = self.card_type_with_id("2")
             card = self.controller().create_new_cards(fact_data, card_type,
                     grade=4, tag_names=["default" + str(i)])[0]
             card.next_rep = time.time() - 24 * 60 * 60
@@ -237,7 +256,7 @@ class TestScheduler(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
         self.review_controller().show_new_question()
-        self.review_controller().grade_answer(5)    
+        self.review_controller().grade_answer(5)
         self.review_controller().learning_ahead = True
         for i in range(10):
             self.review_controller().show_new_question()
@@ -253,7 +272,7 @@ class TestScheduler(MnemosyneTest):
         self.review_controller().show_new_question()
         self.review_controller().grade_answer(0)
         assert self.review_controller().scheduled_count == 0
-                    
+
     def test_learn_sister_together(self):
         self.config()["memorise_sister_cards_on_same_day"] = True
         card_type = self.card_type_with_id("2")
@@ -272,7 +291,7 @@ class TestScheduler(MnemosyneTest):
             self.review_controller().grade_answer(1)
             cards.add(self.review_controller().card._id)
         assert card_2._id in cards
-        
+
     def test_learn_sister_together_2(self):
         self.config()["memorise_sister_cards_on_same_day"] = False
         card_type = self.card_type_with_id("2")
@@ -316,7 +335,7 @@ class TestScheduler(MnemosyneTest):
         card_1.next_rep = time.time() - 24 * 60 * 60
         card_1.last_rep = card_1.next_rep - 2 * 24 * 60 * 60
         self.database().update_card(card_1)
-        fact_data = {"f": "2", "b": "b"}        
+        fact_data = {"f": "2", "b": "b"}
         card_2 = self.controller().create_new_cards(fact_data, card_type,
                      grade=5, tag_names=["default"])[0]
         card_2.next_rep = time.time() - 24 * 60 * 60
@@ -330,7 +349,7 @@ class TestScheduler(MnemosyneTest):
         card_type = self.card_type_with_id("1")
         fact_data = {"f": "1", "b": "b"}
         card = self.controller().create_new_cards(fact_data, card_type,
-                     grade=-1, tag_names=[])[0]     
+                     grade=-1, tag_names=[])[0]
         self.review_controller().show_new_question()
         assert self.review_controller().card == card
         self.review_controller().grade_answer(2)
@@ -340,74 +359,74 @@ class TestScheduler(MnemosyneTest):
 
     def test_next_rep_to_interval_string(self):
         os.environ["TZ"] = "Europe/Brussels"
-        
+
         sch = self.scheduler()
         now = datetime.datetime(2000, 9, 1, 12, 0)
 
-        next_rep = now + datetime.timedelta(1) 
+        next_rep = now + datetime.timedelta(1)
         sch.next_rep_to_interval_string(\
             sch.midnight_UTC(calendar.timegm(next_rep.timetuple())))
-       
+
         assert sch.next_rep_to_interval_string(\
             sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
             calendar.timegm(now.timetuple())) == \
             "tomorrow"
-        
-        next_rep = now + datetime.timedelta(2)        
+
+        next_rep = now + datetime.timedelta(2)
         assert sch.next_rep_to_interval_string(\
             sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
             calendar.timegm(now.timetuple())) == \
             "in 2 days"
-        
-        next_rep = now + datetime.timedelta(32)        
+
+        next_rep = now + datetime.timedelta(32)
         assert sch.next_rep_to_interval_string(\
             sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
             calendar.timegm(now.timetuple())) == \
             "in 1 month"
-        
-        next_rep = now + datetime.timedelta(64)        
+
+        next_rep = now + datetime.timedelta(64)
         assert sch.next_rep_to_interval_string(\
             sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
             calendar.timegm(now.timetuple())) == \
             "in 2 months"
-        
-        next_rep = now + datetime.timedelta(366)        
+
+        next_rep = now + datetime.timedelta(366)
         assert sch.next_rep_to_interval_string(\
             sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
             calendar.timegm(now.timetuple())) == \
             "in 1.0 years"
-        
-        next_rep = now + datetime.timedelta(0)        
+
+        next_rep = now + datetime.timedelta(0)
         assert sch.next_rep_to_interval_string(\
             sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
             calendar.timegm(now.timetuple())) == \
             "today"
-        
-        next_rep = now - datetime.timedelta(1)        
+
+        next_rep = now - datetime.timedelta(1)
         assert sch.next_rep_to_interval_string(\
             sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
             calendar.timegm(now.timetuple())) == \
             "yesterday"
-        
-        next_rep = now - datetime.timedelta(2)        
+
+        next_rep = now - datetime.timedelta(2)
         assert sch.next_rep_to_interval_string(\
             sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
             calendar.timegm(now.timetuple())) == \
             "2 days ago"
-        
-        next_rep = now - datetime.timedelta(32)        
+
+        next_rep = now - datetime.timedelta(32)
         assert sch.next_rep_to_interval_string(\
             sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
             calendar.timegm(now.timetuple())) == \
             "1 month ago"
-        
-        next_rep = now - datetime.timedelta(64)        
+
+        next_rep = now - datetime.timedelta(64)
         assert sch.next_rep_to_interval_string(\
             sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
             calendar.timegm(now.timetuple())) == \
             "2 months ago"
 
-        next_rep = now - datetime.timedelta(365)      
+        next_rep = now - datetime.timedelta(365)
         assert sch.next_rep_to_interval_string(\
             sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
             calendar.timegm(now.timetuple())) == \
@@ -419,41 +438,41 @@ class TestScheduler(MnemosyneTest):
         sch = self.scheduler()
         now = datetime.datetime(2000, 9, 1, 12, 0)
 
-        last_rep = now + datetime.timedelta(0)  
+        last_rep = now + datetime.timedelta(0)
         sch.last_rep_to_interval_string(\
             calendar.timegm(last_rep.timetuple()))
-        
-        last_rep = now + datetime.timedelta(0)        
+
+        last_rep = now + datetime.timedelta(0)
         assert sch.last_rep_to_interval_string(\
             calendar.timegm(last_rep.timetuple()),
             calendar.timegm(now.timetuple())) == \
             "today"
 
-        last_rep = now - datetime.timedelta(1)        
+        last_rep = now - datetime.timedelta(1)
         assert sch.last_rep_to_interval_string(\
             calendar.timegm(last_rep.timetuple()),
             calendar.timegm(now.timetuple())) == \
             "yesterday"
-        
-        last_rep = now - datetime.timedelta(2)        
+
+        last_rep = now - datetime.timedelta(2)
         assert sch.last_rep_to_interval_string(\
             calendar.timegm(last_rep.timetuple()),
             calendar.timegm(now.timetuple())) == \
             "2 days ago"
-        
-        last_rep = now - datetime.timedelta(32)        
+
+        last_rep = now - datetime.timedelta(32)
         assert sch.last_rep_to_interval_string(\
             calendar.timegm(last_rep.timetuple()),
             calendar.timegm(now.timetuple())) == \
             "1 month ago"
-        
+
         last_rep = now - datetime.timedelta(64)
         assert sch.last_rep_to_interval_string(\
             calendar.timegm(last_rep.timetuple()),
             calendar.timegm(now.timetuple())) == \
             "2 months ago"
 
-        last_rep = now - datetime.timedelta(365)      
+        last_rep = now - datetime.timedelta(365)
         assert sch.last_rep_to_interval_string(\
             calendar.timegm(last_rep.timetuple()),
             calendar.timegm(now.timetuple())) == \
@@ -461,21 +480,20 @@ class TestScheduler(MnemosyneTest):
 
     def test_last_rep_to_interval_string_2(self):
         sch = self.scheduler()
-        os.environ["TZ"] = "America/Los_Angeles"
         os.environ["TZ"] = "Australia/Sydney"
-        
+
         last_rep = time.mktime(datetime.datetime(2012,1,14,4,0,0).timetuple())
         now      = time.mktime(datetime.datetime(2012,1,14,5,0,0).timetuple())
         assert sch.last_rep_to_interval_string(last_rep, now) == "today"
 
         last_rep = time.mktime(datetime.datetime(2012,1,14,4,0,0).timetuple())
         now      = time.mktime(datetime.datetime(2012,1,15,2,0,0).timetuple())
-        assert sch.last_rep_to_interval_string(last_rep, now) == "today"        
-        
+        assert sch.last_rep_to_interval_string(last_rep, now) == "today"
+
         last_rep = time.mktime(datetime.datetime(2012,1,14,2,0,0).timetuple())
         now      = time.mktime(datetime.datetime(2012,1,14,4,0,0).timetuple())
         assert sch.last_rep_to_interval_string(last_rep, now) == "yesterday"
-        
+
         last_rep = time.mktime(datetime.datetime(2012,1,13,5,0,0).timetuple())
         now      = time.mktime(datetime.datetime(2012,1,14,4,0,0).timetuple())
         assert sch.last_rep_to_interval_string(last_rep, now) == "yesterday"
@@ -490,17 +508,17 @@ class TestScheduler(MnemosyneTest):
 
         last_rep = time.mktime(datetime.datetime(2012,1,14,4,0,0).timetuple())
         now      = time.mktime(datetime.datetime(2012,1,15,2,0,0).timetuple())
-        assert sch.last_rep_to_interval_string(last_rep, now) == "today"        
-        
+        assert sch.last_rep_to_interval_string(last_rep, now) == "today"
+
         last_rep = time.mktime(datetime.datetime(2012,1,14,2,0,0).timetuple())
         now      = time.mktime(datetime.datetime(2012,1,14,4,0,0).timetuple())
         assert sch.last_rep_to_interval_string(last_rep, now) == "yesterday"
-        
+
         last_rep = time.mktime(datetime.datetime(2012,1,13,5,0,0).timetuple())
         now      = time.mktime(datetime.datetime(2012,1,14,4,0,0).timetuple())
         assert sch.last_rep_to_interval_string(last_rep, now) == "yesterday"
-        
-        
+
+
     def test_prefetch(self):
         fact_data = {"f": "question1",
                      "b": "answer1"}
@@ -514,7 +532,7 @@ class TestScheduler(MnemosyneTest):
 
         self.scheduler()._card_ids_in_queue = [card_0._id, card_1._id, card_1._id]
         assert self.scheduler().is_prefetch_allowed(card_to_grade=card_0) == False
-        
+
     def test_prefetch_2(self):
         fact_data = {"f": "question1",
                      "b": "answer1"}
@@ -536,7 +554,7 @@ class TestScheduler(MnemosyneTest):
         self.review_controller().grade_answer(0)
         self.review_controller().show_answer()
         self.review_controller().grade_answer(0)
-    
+
     def test_relearn(self):
         fact_data = {"f": "question1",
                      "b": "answer1"}
@@ -546,7 +564,7 @@ class TestScheduler(MnemosyneTest):
         card_0.next_rep = 0
         self.database().update_card(card_0)
         self.review_controller().reset()
-        self.review_controller().show_new_question()        
+        self.review_controller().show_new_question()
         self.review_controller().show_answer()
         self.review_controller().grade_answer(0)
         self.review_controller().show_answer()
@@ -555,7 +573,7 @@ class TestScheduler(MnemosyneTest):
         self.review_controller().grade_answer(0)
         self.review_controller().show_answer()
         assert self.review_controller().card is not None
-        self.review_controller().grade_answer(0)        
+        self.review_controller().grade_answer(0)
         assert self.review_controller().card is not None
 
     def test_stuck(self):
@@ -566,7 +584,7 @@ class TestScheduler(MnemosyneTest):
               grade=-1, tag_names=["default"])[0]
 
         self.review_controller().reset()
-        self.review_controller().show_new_question()        
+        self.review_controller().show_new_question()
         self.review_controller().show_answer()
         self.review_controller().grade_answer(2)
 
@@ -574,7 +592,7 @@ class TestScheduler(MnemosyneTest):
         self.review_controller().show_answer()
         self.review_controller().grade_answer(0)
         self.review_controller().learning_ahead = False
-        
+
         fact_data = {"f": "question2",
                      "b": "answer2"}
         card_type = self.card_type_with_id("2")
@@ -629,7 +647,7 @@ class TestScheduler(MnemosyneTest):
         self.config()["non_memorised_cards_in_hand"] = 4
 
         self.review_controller().reset()
-        self.review_controller().show_new_question()        
+        self.review_controller().show_new_question()
         self.review_controller().show_answer()
         self.review_controller().grade_answer(2)
 
@@ -643,5 +661,5 @@ class TestScheduler(MnemosyneTest):
             self.review_controller().show_answer()
             showed_cards.add(self.review_controller().card._id)
             self.review_controller().grade_answer(0)
-            
+
         assert len(showed_cards) == 4

@@ -1,7 +1,10 @@
--timezone issues: next, last rep
--utc time tuple
+timezone issues:
 -true scheduled interval
 -document code better
+
+-import with maps (Scott Youngman)
+
+-bug with counters and learning ahead of schedule (Tim Macdonald)
 
 -rework getting started wizard to include grade 2
  mail to Kent Stearman <stearman.kc@gmail.com>
@@ -13,10 +16,10 @@ If you give a card grade 0, it will pop up again during the same day.
 Mnemosyne will keep on showing you grade 0/1 cards on the same day until
 you've indicated that you'll remember them tomorrow by grading them 2 or
 higher. In that case, you will no longer see them again today, but rather as
-part of the 'scheduled' counter tomorrow, or the day after. 
+part of the 'scheduled' counter tomorrow, or the day after.
 
 -don't have popup menu on html widget (Gnome) setContextMenuPolicy (
-Qt::ContextMenuPolicy ) where you can set the policy to Qt::NoContextMenu 
+Qt::ContextMenuPolicy ) where you can set the policy to Qt::NoContextMenu
 
 -truncate retention score at 100% for non-week long graphs (Dan Schmidt)
 
@@ -53,8 +56,8 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 
 -new 'activate plugin' dialog
 
--new cards with a >=2 grade can end up on the same day on first interactive rep 
- replace set_initial_grade by set_initial_grades(cards)?  
+-new cards with a >=2 grade can end up on the same day on first interactive rep
+ replace set_initial_grade by set_initial_grades(cards)?
 -also make sure this is OK when changing card type creates extra cards
 -scheduler.spread_sister_cards?
 -when learning late, related cards on the same day can happen, see violin log example
@@ -62,16 +65,19 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -after showing answer, exiting card browser hides answer again
 -try to avoid showing different card after exiting browser. Better reset_but_try_to_keep ...
  taking grade 0/1 cards as well into account?
- 
+
 -also give warning on the client side if a sync failed and a backup needs to happen
 -detect long filenames under Windows during sync (partner, download binary file, 36)
  and during import
 -sync issues Doug, prevent sync with itself
--prevent sync with itself 
--binary database upload: configuration changes (fonts, ...) are not applied 
--syncing an empty database twice results in a spurious sync cycle detection. Also happens after 
- syncing empty client and empty server database, then adding data to the server, and resyncing 
--if the server is empty, allow sync from non-empty client and change server user id. 
+-prevent sync with itself
+-binary database upload: configuration changes (fonts, ...) are not applied
+-syncing an empty database twice results in a spurious sync cycle detection.
+Also happens after
+ syncing empty client and empty server database, then adding data to the server,
+and resyncing
+-if the server is empty, allow sync from non-empty client and change server user
+id.
 -if dialog like edit card or browse cards is open on server, try to close it when sync comes in  (+findChildren
     QWidgetList list = QApplication::topLevelWidgets();
     for (int i = 0; did_close && i < list.size(); ++i) {
@@ -83,7 +89,7 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -remind top level widget, and make those parent to error dialog? Now e.g. an error on the activate card
  widget will be centered on the main widget and not the activate cards dialog.
 -when sync server is running, it seems possible to start a second copy of Mnemosyne, which just complains about
- 'unable to start sync server' 
+ 'unable to start sync server'
 
 -card type clone: rename and delete, both in card browser and card type browser
 
@@ -91,7 +97,7 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 
 -activate cards: 'having any of these tags:' is not aligned with tag with tag tree
 
--implement duplicate checking. Also synonym checking? Add then standard tags. 
+-implement duplicate checking. Also synonym checking? Add then standard tags.
 -autorun after import, browse with edit, but not sync
 -do review_controller.rebuild_queue, reload counter after clean duplicates?
 
@@ -99,7 +105,7 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -see if 1.x translations can be reused
 -remove mnemosyne/pyqt_ui/locale
 
--migrate science server machine 
+-migrate science server machine
 
 -tell beta users to make sure to install latest beta first
 -remove upgrade_beta_6.py, beta_7, etc...
@@ -190,7 +196,7 @@ Milesteiner
 -Select saved set, switch tab to other criterion (deselects set) and switch back to original one.
  The set should then be autoselected again.
 -being able to edit existing set, replace input box by combobox with old sets
--removing plugin with criterion should not happen if it is in use. 
+-removing plugin with criterion should not happen if it is in use.
 -warn when syncing and the other criterion plugin is not present?
 -make 'grade activity criterion' an official plugin? Add tests?
 
@@ -202,7 +208,8 @@ Milesteiner
 
 -cntrl-c shortcut for question and answer
 
--documentation on config.py: if you need to change this, send developers a line so that we 
+-documentation on config.py: if you need to change this, send developers a line
+so that we
  know this is used a lot.
 
 -also allow scrolling webview widgets using up and down keys? Will probably require global
@@ -260,7 +267,7 @@ Milesteiner
 
 -minimalist mode, without toolbar, extra text in review window. F11 to move fullscreen
 
--move button group in review widget to designer code after pyqt upgrade. 
+-move button group in review widget to designer code after pyqt upgrade.
  Also possible in add cards?
 
 -partial implementation of type answer (none/all/special tag? Db Attribute? Button?)
@@ -283,9 +290,9 @@ Milesteiner
 
 -easier function to do tag detection in plugin
 
--join add tags/remove tags in a single dialog? http://bit.ly/oOK27n 
+-join add tags/remove tags in a single dialog? http://bit.ly/oOK27n
 
--Cramming scheduler changes card on heartbeart. Make something like 
+-Cramming scheduler changes card on heartbeart. Make something like
  'reset_and_add_current_card_to_queue_if_needed'?
 
 
@@ -320,10 +327,10 @@ pylint:
         # self.put_client_log_entries()
         # self.put_client_media_files()
         # no self.get_sync_finish(), no partnership update.
-    
+
         # Refactor put_client_log_entries to have arguments number_of_entries,
         # entries, where entries is an iterator that does not pass through the
-        # log put rather only creates new cards and facts events.     
+        # log put rather only creates new cards and facts events.
         # Ditto for media files.
 
         # An upload always overrides the previous one. The alternative would be
@@ -333,7 +340,7 @@ pylint:
 
     def download_shared_database(self):
         raise NotImplementedError
-    
+
         # client_info["shared_deck"] = True
         # backup_file = self.database.backup()
         # self.login(hostname, port, username, password)
@@ -443,7 +450,8 @@ http://lost-theory.org/python/ltchinese/
 
 Windows Mobile client:
 
-If your phone has a touchscreen use the pocket pc version. Otherwise try the smartphone version. 
+If your phone has a touchscreen use the pocket pc version. Otherwise try the
+smartphone version.
 
 -integrate sync
 -add full html header to standard renderer. Still need MW table hack?
@@ -484,7 +492,7 @@ Multiuser statistics analysis:
 -add 'add card' option to deck manager?
 
 -active alert as plugin
- 
+
 -animated strokes: http://lost-theory.org/ocrat/
 
 -congratulations screen

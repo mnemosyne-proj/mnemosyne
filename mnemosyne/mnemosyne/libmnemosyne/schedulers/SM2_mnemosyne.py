@@ -10,7 +10,7 @@ import datetime
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.scheduler import Scheduler
 
-HOUR = 60 * 60 # Seconds in an hour. 
+HOUR = 60 * 60 # Seconds in an hour.
 DAY = 24 * HOUR # Seconds in a day.
 
 
@@ -24,23 +24,36 @@ class SM2Mnemosyne(Scheduler):
     should become due at the same time. In order to keep the SQL query
     efficient, we do this by setting 'next_rep' the same for all cards that
     are due on the same day.
-    
+
     In order to allow for the fact that the timezone and 'day_starts_at' can
     change after scheduling a card, we store 'next_rep' as midnight UTC, and
     bring local time and 'day_starts_at' only into play when querying the
     database.
 
     """
-   
+
     name = "SM2 Mnemosyne"
 
     def midnight_UTC(self, timestamp):
+
+        """Round a timestamp to a value with resolution of a day, storing it
+        in a timezone independent way, as a POSIX timestamp corresponding to
+        midnight UTC on that date.
+
+        E.g. if the scheduler sets next_rep to 2012/1/1 12:14 local time,
+        this function will return the timestamp corresponding to
+        2012/1/1 00;00 UTC.
+
+        """
+
         # Create a time tuple containing the local date only, i.e. throwing
         # away hours, minutes, etc.
         date_only = datetime.date.fromtimestamp(timestamp).timetuple()
-        # Transform that local time tuple to a POSIX timestamp.
+        # Now we reinterpret this same time tuple as being UTC and convert it
+        # to a POSIX timestamp. (Note that timetuples are 'naive', i.e. they
+        # themselves do not contain timezone information.)
         return int(calendar.timegm(date_only))
-    
+
     def adjusted_now(self, now=None):
 
         """Adjust now such that the cross-over point of h:00 local time
@@ -51,19 +64,17 @@ class SM2Mnemosyne(Scheduler):
 
         if now == None:
             now = time.time()
-        now -= self.config()["day_starts_at"] * HOUR 
+        now -= self.config()["day_starts_at"] * HOUR
         if time.daylight:
             now -= time.altzone
         else:
             now -= time.timezone
         return int(now)
 
-
     def true_scheduled_interval(self, card):
 
         """Since 'next_rep' is always midnight UTC for retention reps, we need
-        to take timezone and 'day_starts_at' into account to calculate the true
-        scheduled interval when we are doing the actual repetition.
+        to take timezone and 'day_starts_at' into account to calculate the true scheduled interval when we are doing the actual repetition.
 
         """
 
@@ -72,11 +83,8 @@ class SM2Mnemosyne(Scheduler):
             return card.next_rep - card.last_rep
         else:
             # Recover the local time from the adjusted time stamp.
-            next_rep = card.next_rep + self.config()["day_starts_at"] * HOUR
-            if time.daylight:
-                next_rep -= HOUR
-            next_rep = time.mktime(time.gmtime(next_rep))
-            assert abs(next_rep - card.next_rep) < DAY
+            next_rep = calendar.timegm(time.localtime\
+                (card.next_rep + self.config()["day_starts_at"] * HOUR))
             return int(next_rep) - card.last_rep
 
     def reset(self):
@@ -87,7 +95,7 @@ class SM2Mnemosyne(Scheduler):
         The corresponding fact._ids are also stored in '_fact_ids_in_queue',
         which is needed to make sure that no sister cards can be together in
         the queue at any time.
-        
+
         '_fact_ids_memorised' has a different function and persists over the
         different stages invocations of 'rebuild_queue'. It can be used to
         control whether or not memorising a card will prevent a sister card
@@ -101,7 +109,7 @@ class SM2Mnemosyne(Scheduler):
         over unnecessary queries.
 
         """
-        
+
         self._card_ids_in_queue = []
         self._fact_ids_in_queue = []
         self._fact_ids_memorised = []
@@ -113,8 +121,8 @@ class SM2Mnemosyne(Scheduler):
     def heartbeat(self):
         if time.time() > self._fact_ids_memorised_expires_at:
             self._fact_ids_memorised = []
-            self._fact_ids_memorised_expires_at = int(time.time()) + DAY            
-        
+            self._fact_ids_memorised_expires_at = int(time.time()) + DAY
+
     def set_initial_grade(self, card, grade):
 
         """Note that even if the initial grading happens when adding a card, it
@@ -129,18 +137,18 @@ class SM2Mnemosyne(Scheduler):
         card.last_rep = int(time.time())
         new_interval = self.calculate_initial_interval(grade)
         new_interval += self.calculate_interval_noise(new_interval)
-        card.next_rep = self.midnight_UTC(card.last_rep + new_interval)            
+        card.next_rep = self.midnight_UTC(card.last_rep + new_interval)
         self.log().repetition(card, scheduled_interval=0, actual_interval=0,
                               new_interval=new_interval, thinking_time=0)
 
     def calculate_initial_interval(self, grade):
-        
+
         """The first repetition is treated specially, and gives longer
         intervals, to allow for the fact that the user may have seen this
         card before.
 
         """
-        
+
         return (0, 0, 1*DAY, 3*DAY, 4*DAY, 5*DAY) [grade]
 
     def calculate_interval_noise(self, interval):
@@ -162,7 +170,7 @@ class SM2Mnemosyne(Scheduler):
             return
         self._card_ids_in_queue = []
         self._fact_ids_in_queue = []
-        
+
         # Stage 1
         #
         # Do the cards that are scheduled for today (or are overdue), but
@@ -174,7 +182,11 @@ class SM2Mnemosyne(Scheduler):
         if self.stage == 1:
             if self.config()["shown_backlog_help"] == False:
                 if db.scheduled_count(self.adjusted_now() - DAY) != 0:
-                    self.main_widget().show_information(_("You appear to have missed some reviews. Don't worry too much about this backlog, and do as many cards as you feel comfortable with to catch up each day. Mnemosyne will automatically reschedule your cards such that the most urgent ones are shown first."))
+                    self.main_widget().show_information(_("You appear to have
+missed some reviews. Don't worry too much about this backlog, and do as many
+cards as you feel comfortable with to catch up each day. Mnemosyne will
+automatically reschedule your cards such that the most urgent ones are shown
+first."))
                     self.config()["shown_backlog_help"] = True
             if self.config()["randomise_scheduled_cards"] == True:
                 sort_key = "random"
@@ -203,7 +215,7 @@ class SM2Mnemosyne(Scheduler):
                         self._fact_ids_in_queue.append(_fact_id)
                         non_memorised_in_queue += 1
                     if non_memorised_in_queue == limit:
-                        break  
+                        break
             for _card_id, _fact_id in db.cards_to_relearn(grade=0):
                 if _fact_id not in self._fact_ids_in_queue:
                     if non_memorised_in_queue < limit:
@@ -212,7 +224,7 @@ class SM2Mnemosyne(Scheduler):
                         self._fact_ids_in_queue.append(_fact_id)
                         non_memorised_in_queue += 1
                     if non_memorised_in_queue == limit:
-                        break                 
+                        break
             random.shuffle(self._card_ids_in_queue)
             # Only stop when we reach the non memorised limit. Otherwise, keep
             # going to add some extra cards to get more spread.
@@ -236,7 +248,7 @@ class SM2Mnemosyne(Scheduler):
                         self._fact_ids_in_queue.append(_fact_id)
                         non_memorised_in_queue += 1
                     if non_memorised_in_queue == limit:
-                        break                        
+                        break
             for _card_id, _fact_id in db.cards_new_memorising(grade=0):
                 if _fact_id not in self._fact_ids_in_queue:
                     if non_memorised_in_queue < limit:
@@ -245,7 +257,7 @@ class SM2Mnemosyne(Scheduler):
                         self._fact_ids_in_queue.append(_fact_id)
                         non_memorised_in_queue += 1
                     if non_memorised_in_queue == limit:
-                        break          
+                        break
             random.shuffle(self._card_ids_in_queue)
             # Only stop when we reach the grade 0 limit. Otherwise, keep
             # going to add some extra cards to get more spread.
@@ -280,22 +292,22 @@ class SM2Mnemosyne(Scheduler):
                     if non_memorised_in_queue == limit:
                         self.stage = 2
                         return
-            # If the queue is close to empty, relax the 'sister not together'                           
+            # If the queue is close to empty, relax the 'sister not together'
             # requirement.
             if not sisters_together and len(self._fact_ids_in_queue) <= 1:
                 for _card_id, _fact_id in db.cards_unseen(\
-                    sort_key=sort_key, limit=min(limit, 50)):                
+                    sort_key=sort_key, limit=min(limit, 50)):
                     if _fact_id not in self._fact_ids_in_queue:
                         self._card_ids_in_queue.append(_card_id)
                         self._fact_ids_in_queue.append(_fact_id)
-                        non_memorised_in_queue += 1                                                   
-                        if non_memorised_in_queue == limit:                                 
-                            self.stage = 2                                                      
-                            return                                                              
-            # If the queue is still empty, go to learn ahead of schedule.                       
+                        non_memorised_in_queue += 1
+                        if non_memorised_in_queue == limit:
+                            self.stage = 2
+                            return
+            # If the queue is still empty, go to learn ahead of schedule.
             if len(self._card_ids_in_queue) == 0:
                 self.stage = 5
-            
+
         # Stage 5
         #
         # If we get to here, there are no more scheduled cards or new cards
@@ -315,14 +327,14 @@ class SM2Mnemosyne(Scheduler):
 
     def is_in_queue(self, card):
         return card._id in self._card_ids_in_queue
-    
+
     def remove_from_queue_if_present(self, card):
         try:
             self._card_ids_in_queue.remove(card._id)
             self._card_ids_in_queue.remove(card._id)
         except:
             pass
-    
+
     def next_card(self, learn_ahead=False):
         db = self.database()
         # Populate queue if it is empty, and pop first card from the queue.
@@ -369,7 +381,7 @@ class SM2Mnemosyne(Scheduler):
         # from hooks running then.
         if not dry_run:
             for f in self.component_manager.all("hook", "before_repetition"):
-                f.run(card)            
+                f.run(card)
         # When doing a dry run, make a copy to operate on. This leaves the
         # original in the GUI intact.
         if dry_run:
@@ -379,7 +391,7 @@ class SM2Mnemosyne(Scheduler):
         # If we memorise a card, keep track of its fact, so that we can avoid
         # pulling a sister card from the 'unseen' pile.
         if not dry_run and card.grade < 2 and new_grade >= 2:
-            self._fact_ids_memorised.append(card.fact._id)   
+            self._fact_ids_memorised.append(card.fact._id)
         if card.grade == -1: # Unseen card.
             actual_interval = 0
         else:
@@ -389,7 +401,7 @@ class SM2Mnemosyne(Scheduler):
             card.easiness = 2.5
             card.acq_reps = 1
             card.acq_reps_since_lapse = 1
-            new_interval = self.calculate_initial_interval(new_grade)   
+            new_interval = self.calculate_initial_interval(new_grade)
         elif card.grade in [0, 1] and new_grade in [0, 1]:
             # In the acquisition phase and staying there.
             card.acq_reps += 1
@@ -466,7 +478,7 @@ class SM2Mnemosyne(Scheduler):
             card.next_rep = self.midnight_UTC(card.last_rep + new_interval)
             # Don't schedule sister cards on the same day. Keep normalising,
             # as a day is not always exactly DAY seconds when there are leap
-            # seconds. 
+            # seconds.
             while self.database().sister_card_count_scheduled_between\
                   (card, card.next_rep, card.next_rep + DAY):
                 card.next_rep = self.midnight_UTC(card.next_rep + DAY)
@@ -491,13 +503,13 @@ class SM2Mnemosyne(Scheduler):
         self.log().repetition(card, scheduled_interval, actual_interval,
             new_interval, thinking_time=self.stopwatch().time())
         return new_interval
-    
+
     def scheduled_count(self):
         return self.database().scheduled_count(self.adjusted_now())
-    
+
     def non_memorised_count(self):
         return self.database().non_memorised_count()
-    
+
     def active_count(self):
         return self.database().active_count()
 
@@ -524,11 +536,11 @@ class SM2Mnemosyne(Scheduler):
 
         if now is None:
             now = self.adjusted_now()
-        interval_days = (next_rep - now) / DAY        
+        interval_days = (next_rep - now) / DAY
         if interval_days >= 365:
             interval_years = interval_days/365.
             return _("in") + " " + "%.1f" % interval_years + " " + \
-                   _("years")             
+                   _("years")
         elif interval_days >= 62:
             interval_months = int(interval_days/31)
             return _("in") + " " + str(interval_months) + " " + \
@@ -547,7 +559,7 @@ class SM2Mnemosyne(Scheduler):
         elif interval_days >= -31:
             return str(int(-interval_days) - 1) + " " + _("days ago")
         elif interval_days >= -62:
-            return _("1 month ago")  
+            return _("1 month ago")
         elif interval_days >= -365:
             interval_months = int(-interval_days/31)
             return str(interval_months) + " " + _("months ago")
@@ -570,11 +582,11 @@ class SM2Mnemosyne(Scheduler):
         elif interval_days > -31:
             return str(int(-interval_days)) + " " + _("days ago")
         elif interval_days > -62:
-            return _("1 month ago")  
+            return _("1 month ago")
         elif interval_days > -365:
             interval_months = int(-interval_days/31.)
             return str(interval_months) + " " + _("months ago")
         else:
             interval_years = -interval_days/365.
-            return "%.1f " % interval_years +  _("years ago")        
-        
+            return "%.1f " % interval_years +  _("years ago")
+
