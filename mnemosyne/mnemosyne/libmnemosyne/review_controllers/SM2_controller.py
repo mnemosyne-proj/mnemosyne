@@ -94,6 +94,10 @@ class SM2Controller(ReviewController):
         """
 
         self.flush_sync_server()
+
+        import datetime, time
+        print datetime.datetime.now(), self.database().scheduled_count(time.time())
+        
         if self.database().is_loaded() and self.database().is_accessible():
             # Don't do this if e.g. the GUI or another thread holds the
             # database.

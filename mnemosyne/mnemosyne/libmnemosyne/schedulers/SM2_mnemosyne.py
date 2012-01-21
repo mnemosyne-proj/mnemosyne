@@ -67,11 +67,9 @@ class SM2Mnemosyne(Scheduler):
 
         if now == None:
             now = time.time()
-        print now,
         # The larger 'day_starts_at', the later the card should become due,
         # i.e. larger than 'next_card', so the more 'now' should be decreased.
         now -= self.config()["day_starts_at"] * HOUR
-        print now,
         # 'altzone' or 'timezone' contains the offset in seconds west of UTC.
         # This number is positive for the US, where a card should become
         # due later than in Europe, so 'now' should be decreased by this
@@ -80,7 +78,6 @@ class SM2Mnemosyne(Scheduler):
             now -= time.altzone
         else:
             now -= time.timezone
-        print now
         return int(now)
 
     def true_scheduled_interval(self, card):

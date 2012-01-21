@@ -36,9 +36,54 @@ Cards added seems to apply to my whole deck.
 
 -~ / `" key as a short cut for the "0 button" (Kent Stearman)
 
+-Gnome:
+Screenshot: http://bildr.no/view/1082699
+After going into edit card box, then closing it: http://bildr.no/view/1082702
+The picture has been grayed out due to copyright.
+-
+The html for the card:
+FRONT:
+Text
+<img src="kortbilder/bios/ulk.jpg">
+
+BACK:
+Text
+<img src="kortbilder/bios/ulk.jpg">
+
+
+- Text size set in setting does not apply to tables. (Gnome)
+
+-Cntr+C in Q&A main does not work. (Gnome)
+
+-don't automatically manually insert <br> inside table tags (Gnome) or latex tags (abakus0816)
+<table border="0" cellpadding="3">
+  <tr>
+    <td>glukose</td>
+    <td>+</td>
+    <td>oksygen</td>
+    <td><p><b>→</b></p></td>
+    <td>karbondioksid</td>
+    <td>vann</td>
+    <td>+</td>
+    <td>energi</td>
+  </tr>
+  <tr>
+    <td>C<sub>6</sub>H<sub>12</sub>O<sub>6</sub></td>
+    <td>+</td>
+    <td>6O<sub>2</sub></td>
+    <td><p><b>→</b></p></td>
+    <td>6CO<sub>2</sub></td>
+    <td>6H<sub>2</sub>O</td>
+    <td>+</td>
+    <td>energi (ATP)</td>
+  </tr>
+</table>
+
 -don't refresh review widget after edit window if no changes have been made (gnome)
 
 -Cntr+D shortcut in edit card doesn't work. (gnome)
+
+-disable drag and drop of pictures from Q to A
 
 -use version string in windows build
 
@@ -166,6 +211,8 @@ Milesteiner
 -add tests with unicode in data_dir
 
 -leech detection
+
+-Pasting into card from other sources keeps the formatting.
 
 -text to speech plugin google
 

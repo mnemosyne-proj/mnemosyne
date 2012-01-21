@@ -54,7 +54,7 @@ class ConvertCardTypeKeysDlg(QtGui.QDialog, Ui_ConvertCardTypeKeysDlg):
                      self.new_card_type.fact_key_with_name(new_fact_key_name)
                 if new_fact_key in self.correspondence.values():
                     QtGui.QMessageBox.critical(None, _("Mnemosyne"),
-                        _("No duplicate in new fact_keys_and_names allowed."),
+                        _("No duplicate in new keys allowed."),
                         _("&OK"), "", "", 0, -1)
                     self.ok_button.setEnabled(False)
                     return                  
