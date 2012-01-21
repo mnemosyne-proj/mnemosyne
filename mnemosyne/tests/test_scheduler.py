@@ -30,6 +30,37 @@ class TestScheduler(MnemosyneTest):
         t = time.mktime(datetime.datetime(2012,1,14,23,59,0).timetuple())
         assert sch.midnight_UTC(t) == midnight_UTC
 
+    def test_adjusted_now(self):
+        sch = self.scheduler()
+        os.environ["TZ"] = "UCT"
+        midnight_UTC = int(time.mktime(datetime.datetime(2012,1,14,0,0,0).timetuple()))
+        print 'midnight_UTC', midnight_UTC
+        print datetime.datetime.fromtimestamp(midnight_UTC)
+        os.environ["TZ"] = "Australia/Sydney"
+        t = time.mktime(datetime.datetime(2012,1,14,2,59,0).timetuple())
+        print datetime.datetime.fromtimestamp(midnight_UTC)
+        print datetime.datetime.fromtimestamp(t)
+        t0 = t
+        assert sch.adjusted_now(t) < midnight_UTC
+        t = time.mktime(datetime.datetime(2012,1,14,3,0,0).timetuple())
+        print 'sssss'
+        assert sch.adjusted_now(t) >= midnight_UTC
+        t = time.mktime(datetime.datetime(2012,1,15,2,59,0).timetuple())
+        assert sch.adjusted_now(t) >= midnight_UTC
+        t = time.mktime(datetime.datetime(2012,1,15,3,1,0).timetuple())
+        assert sch.adjusted_now(t) >= midnight_UTC
+
+        os.environ["TZ"] = "America/Los_Angeles"
+        t = time.mktime(datetime.datetime(2012,1,14,2,59,0).timetuple())
+        assert t != t0
+        assert sch.adjusted_now(t) < midnight_UTC
+        t = time.mktime(datetime.datetime(2012,1,14,3,0,0).timetuple())
+        assert sch.adjusted_now(t) >= midnight_UTC
+        t = time.mktime(datetime.datetime(2012,1,15,2,59,0).timetuple())
+        assert sch.adjusted_now(t) >= midnight_UTC
+        t = time.mktime(datetime.datetime(2012,1,15,3,1,0).timetuple())
+        assert sch.adjusted_now(t) >= midnight_UTC
+
     def test_1(self):
         card_type = self.card_type_with_id("1")
 

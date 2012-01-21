@@ -23,12 +23,12 @@ class Mnemosyne1(object):
     class MnemosyneCore(object):
 
         """Dummy 1.x module structure."""
-        
-        class StartTime:                                    
-            pass                                            
-        class Category:                                     
-            pass                                            
-        class Item:                                         
+
+        class StartTime:
+            pass
+        class Category:
+            pass
+        class Item:
             pass
 
     def create_cards_from_mnemosyne1(self, extra_tag_name):
@@ -51,7 +51,7 @@ class Mnemosyne1(object):
         self.items_by_id = {}
         for item in self.items:
             if item.id in self.items_by_id:
-                item.id = "dup" + item.id 
+                item.id = "dup" + item.id
             self.items_by_id[item.id] = item
         for item in self.items:
             count += 1
@@ -73,7 +73,7 @@ class Mnemosyne1(object):
                 card_type = self.card_type_with_id("1")
                 fact_data = {"f": item.q, "b": item.a}
                 tag_names = [item.cat.name]
-                self.preprocess_media(fact_data, tag_names) 
+                self.preprocess_media(fact_data, tag_names)
                 card = self.controller().create_new_cards(fact_data,
                     card_type, grade=-1, tag_names=tag_names,
                     check_for_duplicates=False, save=False)[0]
@@ -93,7 +93,7 @@ class Mnemosyne1(object):
                 self.map_plugin_activated = True
             card_type = self.card_type_with_id("4")
             fact_data = {"loc": loc, "marked": marked, "blank": blank}
-            self.preprocess_media(fact_data, tag_names) 
+            self.preprocess_media(fact_data, tag_names)
             card_1, card_2 = self.controller().create_new_cards(fact_data,
                 card_type, grade=-1, tag_names=tag_names,
                 check_for_duplicates=False, save=False)
@@ -104,38 +104,38 @@ class Mnemosyne1(object):
             item.id + ".tr.1" not in self.items_by_id:
             card_type = self.card_type_with_id("1")
             fact_data = {"f": item.q, "b": item.a}
-            self.preprocess_media(fact_data, tag_names) 
+            self.preprocess_media(fact_data, tag_names)
             card = self.controller().create_new_cards(fact_data,
                 card_type, grade=-1, tag_names=tag_names,
                 check_for_duplicates=False, save=False)[0]
             self.set_card_attributes(card, item)
-        # Front-to-back and back-to-front.         
+        # Front-to-back and back-to-front.
         elif item.id + ".inv" in self.items_by_id:
             card_type = self.card_type_with_id("2")
             fact_data = {"f": item.q, "b": item.a}
-            self.preprocess_media(fact_data, tag_names) 
+            self.preprocess_media(fact_data, tag_names)
             card_1, card_2 = self.controller().create_new_cards(fact_data,
                 card_type, grade=-1, tag_names=tag_names,
                 check_for_duplicates=False, save=False)
             self.set_card_attributes(card_1, item)
             self.set_card_attributes\
-                (card_2, self.items_by_id[item.id + ".inv"])               
+                (card_2, self.items_by_id[item.id + ".inv"])
         # Vocabulary.
         elif item.id + ".tr.1" in self.items_by_id:
             card_type = self.card_type_with_id("3")
             try:
                 p_1, m_1 = item.a.split("\n", 1)
             except:
-                p_1, m_1 = "", item.a    
+                p_1, m_1 = "", item.a
             fact_data = {"f": item.q, "p_1": p_1, "m_1": m_1}
-            self.preprocess_media(fact_data, tag_names) 
+            self.preprocess_media(fact_data, tag_names)
             card_1, card_2 = self.controller().create_new_cards(fact_data,
                 card_type, grade=-1, tag_names=tag_names,
-                check_for_duplicates=False, save=False)            
+                check_for_duplicates=False, save=False)
             self.set_card_attributes(card_1, item)
             self.set_card_attributes\
                 (card_2, self.items_by_id[item.id + ".tr.1"])
-        
+
     def midnight_UTC(self, timestamp):
         try:
             date_only = datetime.date.fromtimestamp(timestamp)
@@ -149,7 +149,7 @@ class Mnemosyne1(object):
         self.database().change_card_id(card, item.id)
         for attr in ["id", "grade", "easiness", "acq_reps", "ret_reps",
             "lapses", "acq_reps_since_lapse", "ret_reps_since_lapse"]:
-            setattr(card, attr, getattr(item, attr))    
+            setattr(card, attr, getattr(item, attr))
         DAY = 24 * 60 * 60 # Seconds in a day.
         card.last_rep = \
             self.midnight_UTC(self.starttime + item.last_rep * DAY)

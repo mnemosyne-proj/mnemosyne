@@ -206,6 +206,8 @@ Milesteiner
 
 -kivy, python for android
 
+-scrape from websites: https://bitbucket.org/nosklo/supymemo/downloads
+
 -cntrl-c shortcut for question and answer
 
 -documentation on config.py: if you need to change this, send developers a line

@@ -34,7 +34,7 @@ from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 
 SCHEMA = string.Template("""
     begin;
-    
+
     create table facts(
         _id integer primary key,
         id text,
@@ -43,15 +43,15 @@ SCHEMA = string.Template("""
     /* indexes on id's are necessary for the sync protocol, which
     needs to work with id's instead of _id's. */
     create index i_facts on facts (id);
-    
+
     create table data_for_fact(
         _fact_id integer,
         key text,
         value text
     );
-    
+
     create index i_data_for_fact on data_for_fact (_fact_id);
-    
+
     create table cards(
         _id integer primary key,
         id text,
@@ -76,7 +76,7 @@ $pregenerated_data
     );
     create index i_cards on cards (id);
     create index i_cards_2 on cards (fact_view_id); /* for card type tree */
-    
+
     create table tags(
         _id integer primary key,
         id text,
@@ -84,18 +84,18 @@ $pregenerated_data
         extra_data text default ""
     );
     create index i_tags on tags (id);
-    
+
     create table tags_for_card(
         _card_id integer,
         _tag_id integer
     );
     create index i_tags_for_card on tags_for_card (_card_id);
     create index i_tags_for_card_2 on tags_for_card (_tag_id);
-    
+
     /* _id=1 is reserved for the currently active criterion, which could be a
     copy of another saved criterion or a completely different, unnamed
     criterion. */
-    
+
     create table criteria(
        _id integer primary key,
        id text,
@@ -114,7 +114,7 @@ $pregenerated_data
        the _ids, and for robustness and interoperability, we need to send the
        ids across when syncing.
     */
-       
+
     create table log(
         _id integer primary key autoincrement, /* Should never be reused. */
         event_type integer,
@@ -137,21 +137,21 @@ $pregenerated_data
     );
     create index i_log_timestamp on log (timestamp);
     create index i_log_object_id on log (object_id);
-    
+
     /* We track the last _id as opposed to the last timestamp, as importing
        another database could add log events with earlier dates, but which
        still need to be synced. Also avoids issues with clock drift. */
-    
+
     create table partnerships(
         partner text unique,
         _last_log_id integer
     );
-    
+
     create table media(
         filename text primary key,
         _hash text
     );
-    
+
     /* Here, we store the card types that are created at run time by the user
        through the GUI, as opposed to those that are instantiated through a
        plugin. For columns containing lists, dicts, ...  like
@@ -185,7 +185,7 @@ $pregenerated_data
         keyboard_shortcuts text,
         extra_data text default ""
     );
-    
+
     commit;
 """)
 
@@ -194,7 +194,7 @@ pregenerated_data = """
         answer text,
         tags text,
 """
-        
+
 from mnemosyne.libmnemosyne.databases.SQLite_sync import SQLiteSync
 from mnemosyne.libmnemosyne.databases.SQLite_media import SQLiteMedia
 from mnemosyne.libmnemosyne.databases.SQLite_logging import SQLiteLogging
@@ -235,10 +235,10 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     #
     # File operations.
     #
-    
+
     @property
     def con(self):
-        
+
         """Connection to the database, lazily created."""
 
         if not self._connection:
@@ -267,20 +267,20 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self._connection.commit()
             self._connection.close()
             self._connection = None
-    
+
     def path(self):
         return self._path
-    
+
     def name(self):
         return os.path.basename(self.config()["path"])
-        
+
     def display_name(self):
         if not self.is_loaded():
             return None
         else:
             return os.path.basename(self.config()["path"]).\
                    split(self.database().suffix)[0]
-    
+
     def new(self, path):
         self.unload()
         self._path = expand_path(path, self.config().data_dir)
@@ -293,7 +293,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 SCHEMA.substitute(pregenerated_data=pregenerated_data))
         else:
             self.con.executescript(\
-                SCHEMA.substitute(pregenerated_data=""))            
+                SCHEMA.substitute(pregenerated_data=""))
         self.con.execute(\
             "insert into global_variables(key, value) values(?,?)",
             ("version", self.version))
@@ -303,7 +303,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             contract_path(self._path, self.config().data_dir)
         # Create __UNTAGGED__ tag
         tag = Tag("__UNTAGGED__", "__UNTAGGED__")
-        self.add_tag(tag)      
+        self.add_tag(tag)
         # Create default criterion.
         from mnemosyne.libmnemosyne.criteria.default_criterion import \
              DefaultCriterion
@@ -449,7 +449,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # already been sent to the science server, but the size of the science
         # database should mitigate that effect.
         self.reset_partnerships()
-        
+
     def unload(self):
         if not self._connection:
             return
@@ -464,19 +464,19 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             for f in self.component_manager.all("hook", "before_unload"):
                 f.run()
             self.log().dump_to_science_log()
-            self.backup()  # Saves too.         
+            self.backup()  # Saves too.
             self._connection.close()
         except:
             pass
         finally:
             self._connection = None
-            self._path = None        
+            self._path = None
         return True
 
     def abandon(self):
         self._connection = None
         self._path = None
-        
+
     def is_loaded(self):
         return self._connection is not None
 
@@ -499,7 +499,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             (EventTypes.ADDED_TAG, EventTypes.ADDED_FACT,
             EventTypes.ADDED_FACT_VIEW, EventTypes.ADDED_CARD_TYPE)).\
             fetchone()[0] == 0
-        
+
     def _repr_extra_data(self, extra_data):
         # Use simply repr(), as pickle is overkill for a simple dictionary.
         if extra_data == {}:
@@ -537,7 +537,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             if name:
                 tags.add(self.get_or_create_tag_with_name(name))
         return tags
-    
+
     def add_tag(self, tag):
         _id = self.con.execute("""insert into tags(name, extra_data, id)
             values(?,?,?)""", (tag.name,
@@ -567,7 +567,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                                        (id, )).fetchone()
         else:
             sql_res = self.con.execute("select * from tags where id=?",
-                                       (id, )).fetchone()            
+                                       (id, )).fetchone()
         tag = Tag(sql_res["name"], sql_res["id"])
         tag._id = sql_res["_id"]
         self._construct_extra_data(sql_res, tag)
@@ -619,8 +619,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             sorted_tag_names = sorted(tag_names, cmp=numeric_string_cmp)
             tag_string = ", ".join(sorted_tag_names)
             self.con.execute("update cards set tags=? where _id=?",
-                (tag_string, _card_id))            
-    
+                (tag_string, _card_id))
+
     def delete_tag(self, tag):
         if tag.id == "__UNTAGGED__":
             return
@@ -656,7 +656,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             used_for=criterion.__class__)
         applier.apply_to_database(criterion)
         del tag
-        
+
     def delete_tag_if_unused(self, tag):
         if tag.id == "__UNTAGGED__":
             return
@@ -664,16 +664,16 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             tags_for_card as cat_c where cat_c._tag_id=cat._id and
             cat._id=?""", (tag._id, )).fetchone()[0] == 0:
             self.delete_tag(tag)
-            
+
     def tags(self):
 
         """Return tags in a nicely sorted order, with __UNTAGGED__ at the end.
 
         """
-        
+
         result = [self.tag(cursor[0], is_id_internal=True) for cursor in \
             self.con.execute("select _id from tags")]
-        result.sort(key=lambda x: x.name, cmp=numeric_string_cmp)        
+        result.sort(key=lambda x: x.name, cmp=numeric_string_cmp)
         if result and result[0].name == "__UNTAGGED__":
             untagged = result.pop(0)
             result.append(untagged)
@@ -682,13 +682,13 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     #
     # Facts.
     #
-    
+
     def add_fact(self, fact):
         # Add fact to facts table.
         _fact_id = self.con.execute("insert into facts(id) values(?)",
             (fact.id, )).lastrowid
         fact._id = _fact_id
-        # Create data_for_fact.        
+        # Create data_for_fact.
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
             values(?,?,?)""", ((_fact_id, fact_key, value)
             for fact_key, value in fact.data.items() if value))
@@ -702,17 +702,17 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                                        (id, )).fetchone()
         else:
             sql_res = self.con.execute("select * from facts where id=?",
-                                       (id, )).fetchone()            
+                                       (id, )).fetchone()
         # Create dictionary with fact.data.
         fact_data = dict([(cursor["key"], cursor["value"]) for cursor in
             self.con.execute("select * from data_for_fact where _fact_id=?",
-            (sql_res["_id"], ))])            
+            (sql_res["_id"], ))])
         # Create fact.
         fact = Fact(fact_data, id=sql_res["id"])
         fact._id = sql_res["_id"]
         self._construct_extra_data(sql_res, fact)
         return fact
-    
+
     def update_fact(self, fact):
         # Delete data_for_fact and recreate it.
         self.con.execute("delete from data_for_fact where _fact_id=?",
@@ -734,7 +734,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     #
     # Cards.
     #
-    
+
     def add_card(self, card):
         # The card should at least have the __UNTAGGED__ tag. This allows for
         # an easy and fast implementation of applying criteria.
@@ -795,7 +795,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             where _card_id=?""", (sql_res["_id"], )):
             card.tags.add(self.tag(cursor["_tag_id"], is_id_internal=True))
         return card
-    
+
     def update_card(self, card, repetition_only=False):
         # The card should at least have the __UNTAGGED__ tag. This allows for
         # an easy and fast implementation of applying criteria.
@@ -805,7 +805,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self.current_criterion().apply_to_card(card)
         self.con.execute("""update cards set grade=?, next_rep=?, last_rep=?,
             easiness=?, acq_reps=?, ret_reps=?, lapses=?,
-            acq_reps_since_lapse=?, ret_reps_since_lapse=?, 
+            acq_reps_since_lapse=?, ret_reps_since_lapse=?,
             scheduler_data=?, active=? where _id=?""",
             (card.grade, card.next_rep, card.last_rep, card.easiness,
             card.acq_reps, card.ret_reps, card.lapses,
@@ -822,7 +822,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self.con.execute(\
                 "update cards set question=?, answer=?, tags=? where _id=?",
                 (card.question("plain_text"), card.answer("plain_text"),
-                card.tag_string(), card._id))        
+                card.tag_string(), card._id))
         # If repetition_only is True, there is no need to log an EDITED_CARD
         # entry here, as the REPETITION log entry will contain all the data to
         # update the card.
@@ -844,7 +844,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self.delete_tag_if_unused(tag)
         self.log().deleted_card(card)
         del card
-        
+
     def tags_from_cards_with_internal_ids(self, _card_ids):
         # Since _card_ids can have many elements, we need to construct the
         # query without ? placeholders in order to prevent hitting sqlite
@@ -856,7 +856,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         query = query[:-1] + ")"
         return [self.tag(cursor["_tag_id"], is_id_internal=True) \
                 for cursor in self.con.execute(query)]
-    
+
     def add_tag_to_cards_with_internal_ids(self, tag, _card_ids):
         # To make sure we don't insert the tag twice, we delete it first.
         arguments = ((tag._id, _card_id) for _card_id in _card_ids)
@@ -883,13 +883,13 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self.con.execute("""insert into log(event_type, timestamp,
                 object_id) values(?,?,?)""",
                 (EventTypes.EDITED_CARD, int(time.time()), card_id))
-            
+
     def remove_tag_from_cards_with_internal_ids(self, tag, _card_ids):
         arguments = ((tag._id, _card_id) for _card_id in _card_ids)
         self.con.executemany("""delete from tags_for_card where _tag_id=?
             and _card_id=?""", arguments)
         # Make sure we add the __UNTAGGED__ tag if needed.
-        _card_ids_tagged = set([cursor[0] for cursor in 
+        _card_ids_tagged = set([cursor[0] for cursor in
             self.con.execute ("select distinct _card_id from tags_for_card")])
         _tag_id_untagged = self.con.execute(\
             "select _id from tags where name='__UNTAGGED__'")\
@@ -931,7 +931,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # Since there are so few of them, we don't use internal _ids.
         # ids should be unique too.
         sql_res = self.con.execute("select * from fact_views where id=?",
-                 (id, )).fetchone()            
+                 (id, )).fetchone()
         fact_view = FactView(sql_res["name"], sql_res["id"])
         for attr in ("q_fact_keys", "a_fact_keys", "q_fact_key_decorators",
             "a_fact_key_decorators"):
@@ -951,17 +951,17 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             fact_view.type_answer,
             self._repr_extra_data(fact_view.extra_data), fact_view.id))
         self.log().edited_fact_view(fact_view)
-        
+
     def delete_fact_view(self, fact_view):
         self.con.execute("delete from fact_views where id=?",
             (fact_view.id, ))
         self.log().deleted_fact_view(fact_view)
         del fact_view
-    
+
     #
     # Card types.
     #
-        
+
     def add_card_type(self, card_type):
         self.con.execute("""insert into card_types(id, name,
             fact_keys_and_names, unique_fact_keys, required_fact_keys,
@@ -982,7 +982,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         for criterion in self.criteria():
             criterion.card_type_added(card_type)
             self.update_criterion(criterion)
-            
+
     def card_type(self, id, is_id_internal):
         # Since there are so few of them, we don't use internal _ids.
         # ids should be unique too.
@@ -1006,7 +1006,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             is_id_internal=False) for fact_view_id in \
             eval(sql_res["fact_view_ids"])]
         return card_type
-        
+
     def update_card_type(self, card_type):
         # Updating of the fact views should happen at the controller level,
         # so as not to upset the sync protocol.
@@ -1053,7 +1053,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # client will have done so automatically.
         if criterion.id != "__DEFAULT__":
             self.log().added_criterion(criterion)
-        
+
     def criterion(self, id, is_id_internal):
         if is_id_internal:
             sql_res = self.con.execute("select * from criteria where _id=?",
@@ -1070,7 +1070,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 criterion.name = sql_res["name"]
                 criterion.set_data_from_string(sql_res["data"])
                 return criterion
-    
+
     def update_criterion(self, criterion):
         self.con.execute("""update criteria set name=?, type=?, data=?
             where id=?""", (criterion.name, criterion.criterion_type,
@@ -1078,25 +1078,25 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         if criterion._id == 1:
             self._current_criterion = criterion
         self.log().edited_criterion(criterion)
-        
+
     def delete_criterion(self, criterion):
         self.con.execute("delete from criteria where _id=?", (criterion._id, ))
         self.log().deleted_criterion(criterion)
         del criterion
-        
+
     def set_current_criterion(self, criterion):
         criterion = copy.copy(criterion)
         criterion._id = 1
         criterion.id = "__DEFAULT__"
         criterion.name = "__DEFAULT__"
-        self.update_criterion(criterion)        
+        self.update_criterion(criterion)
         applier = self.component_manager.current("criterion_applier",
             used_for=criterion.__class__)
         applier.apply_to_database(criterion)
 
     def current_criterion(self):
         return self._current_criterion
-    
+
     def criteria(self):
         return (self.criterion(cursor[0], is_id_internal=True) \
             for cursor in self.con.execute("select _id from criteria"))
@@ -1176,7 +1176,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             _fact_id_2 = _fact_id_for_back[key]
             # Deal only once with a pair.
             if _fact_id_1 in _fact_ids_dealt_with or \
-                _fact_id_2 in _fact_ids_dealt_with:               
+                _fact_id_2 in _fact_ids_dealt_with:
                 continue
             # Try to keep ordering consistent.
             if _fact_id_1 > _fact_id_2:
@@ -1186,10 +1186,10 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 continue
             # Check if they correspond to the right card type.
             if _fact_id_1 not in _card_id_for__fact_id or \
-                _fact_id_2 not in _card_id_for__fact_id:                   
+                _fact_id_2 not in _card_id_for__fact_id:
                 continue
             _card_id_1 = _card_id_for__fact_id[_fact_id_1]
-            _card_id_2 = _card_id_for__fact_id[_fact_id_2]                
+            _card_id_2 = _card_id_for__fact_id[_fact_id_2]
             card_1 = self.card(_card_id_1, is_id_internal=True)
             card_2 = self.card(_card_id_2, is_id_internal=True)
             # Make sure they are truly duplicates, and not coming
@@ -1213,12 +1213,12 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self.update_card(card_2)
             # Only now is it safe to mark these cards as dealt with.
             _fact_ids_dealt_with.extend([_fact_id_1, _fact_id_2])
-            
+
 
     #
     # Card queries used by the scheduler.
     #
-    
+
     def _process_sort_key(self, sort_key):
         if sort_key == "":
             return "_id"
@@ -1241,7 +1241,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             select _id, _fact_id from cards where
             active=1 and grade>=2 and ?>=next_rep order by %s limit ?"""
             % sort_key, (timestamp, limit)))
-    
+
     def cards_to_relearn(self, grade, sort_key="", limit=-1):
         sort_key = self._process_sort_key(sort_key)
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
@@ -1255,14 +1255,14 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             select _id, _fact_id from cards where
             active=1 and grade=? and lapses=0 order by %s limit ?"""
             % sort_key, (grade, limit)))
-    
+
     def cards_unseen(self, sort_key="", limit=-1):
         sort_key = self._process_sort_key(sort_key)
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where
             active=1 and grade=-1 order by %s limit ?"""
             % sort_key, (limit, )))
-    
+
     def cards_learn_ahead(self, timestamp, sort_key="", limit=-1):
         sort_key = self._process_sort_key(sort_key)
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
@@ -1273,7 +1273,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     #
     # Extra commands for custom schedulers.
     #
-    
+
     def set_scheduler_data(self, scheduler_data):
         self.con.execute("update cards set scheduler_data=?",
             (scheduler_data, ))
@@ -1288,4 +1288,4 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     def scheduler_data_count(self, scheduler_data):
         return self.con.execute("""select count() from cards
             where active=1 and scheduler_data=?""",
-            (scheduler_data, )).fetchone()[0]        
+            (scheduler_data, )).fetchone()[0]

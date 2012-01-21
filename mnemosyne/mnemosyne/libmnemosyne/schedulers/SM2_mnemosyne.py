@@ -40,7 +40,7 @@ class SM2Mnemosyne(Scheduler):
         in a timezone independent way, as a POSIX timestamp corresponding to
         midnight UTC on that date.
 
-        E.g. if the scheduler sets next_rep to 2012/1/1 12:14 local time,
+        E.g. if the scheduler sets 'next_rep' to 2012/1/1 12:14 local time,
         this function will return the timestamp corresponding to
         2012/1/1 00;00 UTC.
 
@@ -56,36 +56,51 @@ class SM2Mnemosyne(Scheduler):
 
     def adjusted_now(self, now=None):
 
-        """Adjust now such that the cross-over point of h:00 local time
-        (with h being 'day_starts_at') becomes midnight UTC (i.e. the start
-        of that particular day).
+        """Timezone information and 'day_starts_at' will only become relevant
+        when the queue is built, not at schedule time, to allow for
+        moving to a different timezone after a card has been scheduled.
+        Cards are due when 'adjusted_now >= next_rep', and this function
+        makes sure that happens at h:00 local time (with h being
+        'day_starts_at').
 
         """
 
         if now == None:
             now = time.time()
+        print now,
+        # The larger 'day_starts_at', the later the card should become due,
+        # i.e. larger than 'next_card', so the more 'now' should be decreased.
         now -= self.config()["day_starts_at"] * HOUR
+        print now,
+        # 'altzone' or 'timezone' contains the offset in seconds west of UTC.
+        # This number is positive for the US, where a card should become
+        # due later than in Europe, so 'now' should be decreased by this
+        # offset.
         if time.daylight:
             now -= time.altzone
         else:
             now -= time.timezone
+        print now
         return int(now)
 
     def true_scheduled_interval(self, card):
 
         """Since 'next_rep' is always midnight UTC for retention reps, we need
-        to take timezone and 'day_starts_at' into account to calculate the true scheduled interval when we are doing the actual repetition.
+        to take timezone and 'day_starts_at' into account to calculate the
+        true scheduled interval when we are doing the actual repetition.
 
         """
 
+        interval = card.next_rep - card.last_rep
         if card.grade < 2:
-            assert card.next_rep == card.last_rep
-            return card.next_rep - card.last_rep
+            assert interval == 0
+            return interval
+        interval += self.config()["day_starts_at"] * HOUR
+        if time.daylight:
+            interval += time.altzone
         else:
-            # Recover the local time from the adjusted time stamp.
-            next_rep = calendar.timegm(time.localtime\
-                (card.next_rep + self.config()["day_starts_at"] * HOUR))
-            return int(next_rep) - card.last_rep
+            interval += time.timezone
+        return int(interval)
 
     def reset(self):
 
@@ -182,11 +197,7 @@ class SM2Mnemosyne(Scheduler):
         if self.stage == 1:
             if self.config()["shown_backlog_help"] == False:
                 if db.scheduled_count(self.adjusted_now() - DAY) != 0:
-                    self.main_widget().show_information(_("You appear to have
-missed some reviews. Don't worry too much about this backlog, and do as many
-cards as you feel comfortable with to catch up each day. Mnemosyne will
-automatically reschedule your cards such that the most urgent ones are shown
-first."))
+                    self.main_widget().show_information(_("You appear to have missed some reviews. Don't worry too much about this backlog, and do as many cards as you feel comfortable with to catch up each day. Mnemosyne will automatically reschedule your cards such that the most urgent ones are shown first."))
                     self.config()["shown_backlog_help"] = True
             if self.config()["randomise_scheduled_cards"] == True:
                 sort_key = "random"
