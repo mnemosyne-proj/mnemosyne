@@ -74,7 +74,11 @@ class SM2Mnemosyne(Scheduler):
         # This number is positive for the US, where a card should become
         # due later than in Europe, so 'now' should be decreased by this
         # offset.
-        if time.daylight:
+        # As for when to use 'altzone' instead of 'timezone' if daylight
+        # savings time is active, this is a matter of big confusion
+        # among the Python developers themselves:
+        # http://bugs.python.org/issue7229
+        if time.localtime(now).tm_isdst and time.daylight:
             now -= time.altzone
         else:
             now -= time.timezone
@@ -93,7 +97,7 @@ class SM2Mnemosyne(Scheduler):
             assert interval == 0
             return interval
         interval += self.config()["day_starts_at"] * HOUR
-        if time.daylight:
+        if time.localtime(now).tm_isdst and time.daylight:
             interval += time.altzone
         else:
             interval += time.timezone

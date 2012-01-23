@@ -1,8 +1,12 @@
 timezone issues:
+-http://bugs.python.org/issue7229
 -true scheduled interval
+-(rollover at 1am instead of 3am Brussels time)
 -document code better
 
 -import with maps (Scott Youngman)
+
+-upgrade from 1.x from non latin user name (Patrick de Metz)
 
 -bug with counters and learning ahead of schedule (Tim Macdonald)
 
@@ -92,6 +96,8 @@ QModelIndexList QAbstractItemModel::persistentIndexList () const
 bool isExpanded ( const QModelIndex & index ) const
 
 -reduce timeout on sync login, test again full sync
+
+-profile loading time
 
 -F11 full screen (Dougie Nisbet)
 

@@ -13,10 +13,12 @@ class TestScheduler(MnemosyneTest):
 
     def test_midnight_UTC(self):
         sch = self.scheduler()
-        os.environ["TZ"] = "UCT"
+        os.environ["TZ"] = "UTC"
+        time.tzset()
         midnight_UTC = int(time.mktime(datetime.datetime(2012,1,14,0,0,0).timetuple()))
 
         os.environ["TZ"] = "Australia/Sydney"
+        time.tzset()
         t = time.mktime(datetime.datetime(2012,1,14,0,0,0).timetuple())
         assert sch.midnight_UTC(t) == midnight_UTC
         t = time.mktime(datetime.datetime(2012,1,14,2,0,0).timetuple())
@@ -25,6 +27,7 @@ class TestScheduler(MnemosyneTest):
         assert sch.midnight_UTC(t) == midnight_UTC
 
         os.environ["TZ"] = "America/Los_Angeles"
+        time.tzset()
         t = time.mktime(datetime.datetime(2012,1,14,0,0,0).timetuple())
         assert sch.midnight_UTC(t) == midnight_UTC
         t = time.mktime(datetime.datetime(2012,1,14,23,59,0).timetuple())
@@ -32,18 +35,16 @@ class TestScheduler(MnemosyneTest):
 
     def test_adjusted_now(self):
         sch = self.scheduler()
-        os.environ["TZ"] = "UCT"
+        os.environ["TZ"] = "UTC"
+        time.tzset()
         midnight_UTC = int(time.mktime(datetime.datetime(2012,1,14,0,0,0).timetuple()))
-        print 'midnight_UTC', midnight_UTC
-        print datetime.datetime.fromtimestamp(midnight_UTC)
+
         os.environ["TZ"] = "Australia/Sydney"
+        time.tzset()
         t = time.mktime(datetime.datetime(2012,1,14,2,59,0).timetuple())
-        print datetime.datetime.fromtimestamp(midnight_UTC)
-        print datetime.datetime.fromtimestamp(t)
         t0 = t
         assert sch.adjusted_now(t) < midnight_UTC
         t = time.mktime(datetime.datetime(2012,1,14,3,0,0).timetuple())
-        print 'sssss'
         assert sch.adjusted_now(t) >= midnight_UTC
         t = time.mktime(datetime.datetime(2012,1,15,2,59,0).timetuple())
         assert sch.adjusted_now(t) >= midnight_UTC
@@ -51,6 +52,7 @@ class TestScheduler(MnemosyneTest):
         assert sch.adjusted_now(t) >= midnight_UTC
 
         os.environ["TZ"] = "America/Los_Angeles"
+        time.tzset()
         t = time.mktime(datetime.datetime(2012,1,14,2,59,0).timetuple())
         assert t != t0
         assert sch.adjusted_now(t) < midnight_UTC
@@ -390,6 +392,7 @@ class TestScheduler(MnemosyneTest):
 
     def test_next_rep_to_interval_string(self):
         os.environ["TZ"] = "Europe/Brussels"
+        time.tzset()
 
         sch = self.scheduler()
         now = datetime.datetime(2000, 9, 1, 12, 0)
@@ -465,6 +468,7 @@ class TestScheduler(MnemosyneTest):
 
     def test_last_rep_to_interval_string(self):
         os.environ["TZ"] = "Europe/Brussels"
+        time.tzset()
 
         sch = self.scheduler()
         now = datetime.datetime(2000, 9, 1, 12, 0)
@@ -512,6 +516,7 @@ class TestScheduler(MnemosyneTest):
     def test_last_rep_to_interval_string_2(self):
         sch = self.scheduler()
         os.environ["TZ"] = "Australia/Sydney"
+        time.tzset()
 
         last_rep = time.mktime(datetime.datetime(2012,1,14,4,0,0).timetuple())
         now      = time.mktime(datetime.datetime(2012,1,14,5,0,0).timetuple())
@@ -532,6 +537,7 @@ class TestScheduler(MnemosyneTest):
     def test_last_rep_to_interval_string_3(self):
         sch = self.scheduler()
         os.environ["TZ"] = "America/Los_Angeles"
+        time.tzset()
 
         last_rep = time.mktime(datetime.datetime(2012,1,14,4,0,0).timetuple())
         now      = time.mktime(datetime.datetime(2012,1,14,5,0,0).timetuple())
