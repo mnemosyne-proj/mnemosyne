@@ -1,10 +1,4 @@
-timezone issues:
--http://bugs.python.org/issue7229
--true scheduled interval
--(rollover at 1am instead of 3am Brussels time)
--document code better
-
--import with maps (Scott Youngman)
+-rollover at 1am instead of 3am Brussels time
 
 -upgrade from 1.x from non latin user name (Patrick de Metz)
 
@@ -22,9 +16,6 @@ you've indicated that you'll remember them tomorrow by grading them 2 or
 higher. In that case, you will no longer see them again today, but rather as
 part of the 'scheduled' counter tomorrow, or the day after.
 
--don't have popup menu on html widget (Gnome) setContextMenuPolicy (
-Qt::ContextMenuPolicy ) where you can set the policy to Qt::NoContextMenu
-
 -truncate retention score at 100% for non-week long graphs (Dan Schmidt)
 
 -remember last shown statictics page (Dan Schmidt)
@@ -37,8 +28,6 @@ Cards added seems to apply to my whole deck.
 -expand answer preferentially (Murray James Morrison)
 
 -disable automatic media deletion, to allow people to move their media in their folder
-
--~ / `" key as a short cut for the "0 button" (Kent Stearman)
 
 -Gnome:
 Screenshot: http://bildr.no/view/1082699
@@ -54,40 +43,15 @@ BACK:
 Text
 <img src="kortbilder/bios/ulk.jpg">
 
-
-- Text size set in setting does not apply to tables. (Gnome)
+-Text size set in setting does not apply to tables. (Gnome)
 
 -Cntr+C in Q&A main does not work. (Gnome)
 
 -don't automatically manually insert <br> inside table tags (Gnome) or latex tags (abakus0816)
-<table border="0" cellpadding="3">
-  <tr>
-    <td>glukose</td>
-    <td>+</td>
-    <td>oksygen</td>
-    <td><p><b>→</b></p></td>
-    <td>karbondioksid</td>
-    <td>vann</td>
-    <td>+</td>
-    <td>energi</td>
-  </tr>
-  <tr>
-    <td>C<sub>6</sub>H<sub>12</sub>O<sub>6</sub></td>
-    <td>+</td>
-    <td>6O<sub>2</sub></td>
-    <td><p><b>→</b></p></td>
-    <td>6CO<sub>2</sub></td>
-    <td>6H<sub>2</sub>O</td>
-    <td>+</td>
-    <td>energi (ATP)</td>
-  </tr>
-</table>
 
 -don't refresh review widget after edit window if no changes have been made (gnome)
 
 -Cntr+D shortcut in edit card doesn't work. (gnome)
-
--disable drag and drop of pictures from Q to A
 
 -use version string in windows build
 
@@ -98,8 +62,6 @@ bool isExpanded ( const QModelIndex & index ) const
 -reduce timeout on sync login, test again full sync
 
 -profile loading time
-
--F11 full screen (Dougie Nisbet)
 
 -layout of "add clone" is not optimal under Windows
 -splitters on XP are not visible
@@ -181,6 +143,10 @@ http://dotancohen.com/howto/rtl_right_to_left.html
 -run test suite under windows
 
 -Mnemosyne console, example script to add cards, make possible on Windows
+
+-~ / `" key as a short cut for the "0 button" (Kent Stearman)
+
+-F11 full screen (Dougie Nisbet)
 
 -add plugin example on card type specific renderer
 -add doc on how to write plugin to sfinx doc

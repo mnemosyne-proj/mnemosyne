@@ -45,6 +45,12 @@
            <height>50</height>
           </size>
          </property>
+         <property name="contextMenuPolicy">
+          <enum>Qt::NoContextMenu</enum>
+         </property>
+         <property name="acceptDrops">
+          <bool>false</bool>
+         </property>
          <property name="url">
           <url>
            <string>about:blank</string>
@@ -76,6 +82,12 @@
            <width>295</width>
            <height>50</height>
           </size>
+         </property>
+         <property name="contextMenuPolicy">
+          <enum>Qt::NoContextMenu</enum>
+         </property>
+         <property name="acceptDrops">
+          <bool>false</bool>
          </property>
          <property name="url">
           <url>

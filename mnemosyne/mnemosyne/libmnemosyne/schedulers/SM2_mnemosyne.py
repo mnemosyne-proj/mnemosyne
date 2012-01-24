@@ -89,6 +89,10 @@ class SM2Mnemosyne(Scheduler):
         """Since 'next_rep' is always midnight UTC for retention reps, we need
         to take timezone and 'day_starts_at' into account to calculate the
         true scheduled interval when we are doing the actual repetition.
+        This basically undoes the operations from 'adjusted_now'.
+        Note that during the transition between different timezones, this is
+        not well-defined, but the influence on the scheduler will be minor
+        anyhow.
 
         """
 
@@ -97,7 +101,7 @@ class SM2Mnemosyne(Scheduler):
             assert interval == 0
             return interval
         interval += self.config()["day_starts_at"] * HOUR
-        if time.localtime(now).tm_isdst and time.daylight:
+        if time.localtime(time.time()).tm_isdst and time.daylight:
             interval += time.altzone
         else:
             interval += time.timezone
@@ -580,8 +584,15 @@ class SM2Mnemosyne(Scheduler):
             return "%.1f " % interval_years +  _("years ago")
 
     def last_rep_to_interval_string(self, last_rep, now=None):
+
+        """Converts next_rep to a string like 'yesterday', '2 weeks ago', ...
+
+        """
+
         if now is None:
             now = time.time()
+        # To perform the calculation, we need to 'snap' the two timestamps
+        # to midnight UTC before calculating the interval.
         now = self.midnight_UTC(\
             now - self.config()["day_starts_at"] * HOUR)
         last_rep = self.midnight_UTC(\

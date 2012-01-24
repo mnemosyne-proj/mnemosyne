@@ -85,7 +85,7 @@ class SM2Controller(ReviewController):
         else:
             sch.remove_from_queue_if_present(self.card)
             sch.remove_from_queue_if_present(self.card)
-            
+
     def heartbeat(self):
 
         """To be called several times during the day, to make sure that
@@ -96,8 +96,16 @@ class SM2Controller(ReviewController):
         self.flush_sync_server()
 
         import datetime, time
+
         print datetime.datetime.now(), self.database().scheduled_count(time.time())
-        
+        due = set()
+        for _card_id in self.scheduler()._card_ids_in_queue:
+            card = self.database().card(_card_id, is_id_internal=True)
+            due.add(card.next_rep)
+        for i in due:
+            print i, self.scheduler().midnight_UTC(i), ":", time.time(), self.scheduler().adjusted_now(time.time())
+        print '--', self.config()["day_starts_at"]
+
         if self.database().is_loaded() and self.database().is_accessible():
             # Don't do this if e.g. the GUI or another thread holds the
             # database.
@@ -114,12 +122,12 @@ class SM2Controller(ReviewController):
             self.card = None
         else:
             self.card = self.scheduler().next_card(self.learning_ahead)
-            if self.card is not None:               
+            if self.card is not None:
                 self.state = "SELECT SHOW"
             else:
                 if self.config()["shown_schedule_help"] == False:
                     self.main_widget().show_information(_("You have no more work for today. Either add more cards or come back tomorrow."))
-                    self.config()["shown_schedule_help"] = True   
+                    self.config()["shown_schedule_help"] = True
                 self.state = "SELECT AHEAD"
         self.update_dialog()
         self.stopwatch().start()
@@ -145,7 +153,7 @@ class SM2Controller(ReviewController):
         old_grade = card_to_grade.grade
         self.update_counters(old_grade, grade)
         self.rep_count += 1
-        if self.scheduler().is_prefetch_allowed(card_to_grade):            
+        if self.scheduler().is_prefetch_allowed(card_to_grade):
             self.show_new_question()
             interval = self.scheduler().grade_answer(card_to_grade, grade)
             self.database().update_card(card_to_grade, repetition_only=True)
@@ -156,13 +164,13 @@ class SM2Controller(ReviewController):
             self.database().update_card(card_to_grade, repetition_only=True)
             if self.rep_count % self.config()["save_after_n_reps"] == 0:
                 self.database().save()
-            self.show_new_question()  
+            self.show_new_question()
         if self.config()["show_intervals"] == "status_bar":
             import math
             days = int(math.ceil(interval / (24.0 * 60 * 60)))
             self.main_widget().set_status_bar_message(_("Returns in") + \
                 " " + str(interval) + _(" day(s)."))
-        
+
     def next_rep_string(self, days):
         if days == 0:
             return '\n' + _("Next repetition: today.")
@@ -184,21 +192,21 @@ class SM2Controller(ReviewController):
 
     def update_counters(self, old_grade, new_grade):
         if self.scheduled_count is None:
-            self.reload_counters()        
+            self.reload_counters()
         if old_grade >= 2 and not self.learning_ahead:
             self.scheduled_count -= 1
         if old_grade >= 2 and new_grade <= 1:
             self.non_memorised_count += 1
-        if old_grade <= 1 and new_grade >= 2: 
+        if old_grade <= 1 and new_grade >= 2:
             self.non_memorised_count -= 1
-            
+
     def update_dialog(self, redraw_all=False):
         self.update_qa_area(redraw_all)
         self.update_grades_area()
         self.update_status_bar_counters()
         self.update_menu_bar()
         self.widget.redraw_now()  # Don't wait until disk activity dies down.
-                   
+
     def update_qa_area(self, redraw_all=False):
         w = self.widget
         # Hide/show the question and answer boxes.
@@ -225,14 +233,14 @@ class SM2Controller(ReviewController):
             # Giving the widget info about the answer even before it is shown
             # allows it to optimise its layout.
             w.set_question(self.card.question(self.render_chain))
-            w.set_answer(self.card.answer(self.render_chain)) 
+            w.set_answer(self.card.answer(self.render_chain))
             w.reveal_question()
         # Show answer.
         if self.card is None or self.state == "SELECT SHOW":
             w.clear_answer()
         else:
             w.reveal_answer()
-        # Update 'Show answer' button.        
+        # Update 'Show answer' button.
         if self.state == "EMPTY":
             show_enabled, default, text = False, False, _("Show answer")
             self.grades_enabled = False
@@ -259,13 +267,13 @@ class SM2Controller(ReviewController):
             default_grade = 4
         w.set_grades_enabled(self.grades_enabled)
         if self.grades_enabled:
-            w.set_default_grade(default_grade)         
+            w.set_default_grade(default_grade)
         # Set title for grades box.
         if self.state == "SELECT GRADE" and \
                self.config()["show_intervals"] == "buttons":
             w.set_grades_title(_("Pick days until next repetition:"))
         else:
-            w.set_grades_title(_("Grade your answer:"))   
+            w.set_grades_title(_("Grade your answer:"))
         # Set tooltips and texts for the grade buttons.
         for grade in range(0,6):
             # Tooltip.
@@ -274,7 +282,7 @@ class SM2Controller(ReviewController):
                 import math
                 interval = self.scheduler().process_answer(self.card, \
                     grade, dry_run=True)
-                days = int(math.ceil(interval / (24.0 * 60 * 60)))               
+                days = int(math.ceil(interval / (24.0 * 60 * 60)))
                 w.set_grade_tooltip(grade, _(self.tooltip[phase][grade]) + \
                     self.next_rep_string(days))
             else:
@@ -285,7 +293,7 @@ class SM2Controller(ReviewController):
                 w.set_grade_text(grade, str(self.scheduler().process_answer(\
                                             self.card, grade, dry_run=True)))
             else:
-                w.set_grade_text(grade, str(grade))           
+                w.set_grade_text(grade, str(grade))
 
     def update_menu_bar(self):
         w = self.main_widget()

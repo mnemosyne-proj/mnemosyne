@@ -6,7 +6,7 @@ from mnemosyne.libmnemosyne.component import Component
 
 
 class ReviewController(Component):
-    
+
     """Controls the behaviour of a widget which implements the ReviewWidget
     interface.
 
@@ -14,7 +14,7 @@ class ReviewController(Component):
     widget, and only one needed. There could be many review widgets defined
     in plugins, and instantiating them all when starting the program could be
     slow, especially on a mobile device.
-    
+
     """
 
     component_type = "review_controller"
@@ -28,10 +28,10 @@ class ReviewController(Component):
 
     def set_render_chain(self, render_chain):
         self.render_chain = render_chain
-        
+
     def reset(self):
         raise NotImplementedError
-    
+
     def reset_but_try_to_keep_current_card(self):
 
         """This is typically called after activities which invalidate the
@@ -40,21 +40,21 @@ class ReviewController(Component):
         possible.
 
         """
-        
+
         raise NotImplementedError
-    
+
     def heartbeat(self):
 
         """For code that needs to run periodically, e.g. to react to a change
         of date.
 
         """
-        
+
         pass
 
     def show_new_question(self):
-        raise NotImplementedError    
-        
+        raise NotImplementedError
+
     def show_answer(self):
         raise NotImplementedError
 
@@ -64,29 +64,29 @@ class ReviewController(Component):
         Note that this also incluse pulling in a new question.
 
         """
-        
+
         raise NotImplementedError
 
     def counters(self):
 
         """Returns tuple (scheduled_count, non_memorised_count, active_count)."""
-        
+
         raise NotImplementedError
 
     def reload_counters(self):
-        
+
         """To be called when counters need to be reloaded from the database."""
-        
-        raise NotImplementedError       
-    
+
+        raise NotImplementedError
+
     def update_dialog(self):
         raise NotImplementedError
 
     def update_status_bar_counters(self):
-        raise NotImplementedError 
+        raise NotImplementedError
 
     def is_question_showing(self):
         raise NotImplementedError
 
     def is_answer_showing(self):
-        raise NotImplementedError  
+        raise NotImplementedError

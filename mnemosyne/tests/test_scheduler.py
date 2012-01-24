@@ -8,6 +8,9 @@ import datetime
 import calendar
 from mnemosyne_test import MnemosyneTest
 
+HOUR = 60 * 60 # Seconds in an hour.
+DAY = 24 * HOUR # Seconds in a day.
+
 
 class TestScheduler(MnemosyneTest):
 
@@ -38,6 +41,13 @@ class TestScheduler(MnemosyneTest):
         os.environ["TZ"] = "UTC"
         time.tzset()
         midnight_UTC = int(time.mktime(datetime.datetime(2012,1,14,0,0,0).timetuple()))
+
+        os.environ["TZ"] = "Europe/Brussels"
+        time.tzset()
+        t = time.mktime(datetime.datetime(2012,1,14,2,59,0).timetuple())
+        assert sch.adjusted_now(t) < midnight_UTC
+        t = time.mktime(datetime.datetime(2012,1,14,3,0,0).timetuple())
+        assert sch.adjusted_now(t) >= midnight_UTC
 
         os.environ["TZ"] = "Australia/Sydney"
         time.tzset()
@@ -466,6 +476,47 @@ class TestScheduler(MnemosyneTest):
             calendar.timegm(now.timetuple())) == \
             "1.0 years ago"
 
+    def test_next_rep_to_interval_string_2(self):
+        os.environ["TZ"] = "Europe/Brussels"
+        time.tzset()
+
+        sch = self.scheduler()
+        now = time.mktime(datetime.datetime(2000, 9, 1, 12, 0, 0).timetuple())
+        now = sch.adjusted_now(now)
+
+        next_rep = sch.midnight_UTC(now + DAY)
+        assert sch.next_rep_to_interval_string(next_rep, now) == "tomorrow"
+
+        next_rep = sch.midnight_UTC(now + 2*DAY)
+        assert sch.next_rep_to_interval_string(next_rep, now) == "in 2 days"
+
+        next_rep = sch.midnight_UTC(now + 32*DAY)
+        assert sch.next_rep_to_interval_string(next_rep, now) == "in 1 month"
+
+        next_rep = sch.midnight_UTC(now + 64*DAY)
+        assert sch.next_rep_to_interval_string(next_rep, now) == "in 2 months"
+
+        next_rep = sch.midnight_UTC(now + 366*DAY)
+        assert sch.next_rep_to_interval_string(next_rep, now) == "in 1.0 years"
+
+        next_rep = sch.midnight_UTC(now)
+        assert sch.next_rep_to_interval_string(next_rep, now) == "today"
+
+        next_rep = sch.midnight_UTC(now - DAY)
+        assert sch.next_rep_to_interval_string(next_rep, now) == "yesterday"
+
+        next_rep = sch.midnight_UTC(now - 2*DAY)
+        assert sch.next_rep_to_interval_string(next_rep, now) == "2 days ago"
+
+        next_rep = sch.midnight_UTC(now - 32*DAY)
+        assert sch.next_rep_to_interval_string(next_rep, now) == "1 month ago"
+
+        next_rep = sch.midnight_UTC(now - 64*DAY)
+        assert sch.next_rep_to_interval_string(next_rep, now) == "2 months ago"
+
+        next_rep = sch.midnight_UTC(now - 366*DAY)
+        assert sch.next_rep_to_interval_string(next_rep, now) == "1.0 years ago"
+
     def test_last_rep_to_interval_string(self):
         os.environ["TZ"] = "Europe/Brussels"
         time.tzset()
@@ -699,4 +750,5 @@ class TestScheduler(MnemosyneTest):
             showed_cards.add(self.review_controller().card._id)
             self.review_controller().grade_answer(0)
 
+        print len(showed_cards)
         assert len(showed_cards) == 4

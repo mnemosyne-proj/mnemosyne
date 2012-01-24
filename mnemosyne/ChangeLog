@@ -1,31 +1,35 @@
+-Don't allow drag and drop on question or answer field and disable the
+ popup menu there (Gnome).
+-Only automatically import 1.x databases from the standard location
+ reported by Scott Youngman).
 -Fix for displaying Cloze cards in the card browser (reported by Roel
  De Coninck).
 -Correctly set mediadir if a database is created outside of Mnemosyne's
  datadir (reported by Cyril Frei).
 -Recreate media and latex dir if they get deleted after the database has been
  created (reported by Cyril Frei).
--make sure 'Learn ahead of schedule' button text does not revert to 
- 'Show answer' after opening the configuration dialog (reported by Cyril 
+-make sure 'Learn ahead of schedule' button text does not revert to
+ 'Show answer' after opening the configuration dialog (reported by Cyril
  Frei).
 
 -fixed timezone bug (Tim Bourke, Murray James Morrison).
 -added about dialog.
 -do not allow creating a set without any cards (requested by Troy Guze).
 
-	
+
 MNEMOSYNE 2.0
 
-More than three years in the making, this is essentially a complete rewrite of 
+More than three years in the making, this is essentially a complete rewrite of
 the old 1.x codebase, with a new, clean design, consisting of components that
-can be swapped in and out very easily, which allows plugin writers maximum 
+can be swapped in and out very easily, which allows plugin writers maximum
 flexibility.
 
 Major user-visible changes:
-	
+
 -Support for what is called card types. The main user visible changes are that
  editing a vice versa card or three sided card will automatically update the
  related card. There is also support for N-sided cards.
--Whereas in Mnemosyne 1.x, a card could belong to only one category, now a 
+-Whereas in Mnemosyne 1.x, a card could belong to only one category, now a
  card can have multiple tags. Tags can also be organised in a hierachy, with
  '::' separating the levels of the hierachy.
 -Powerful new card browser, giving much more information and flexibility to
@@ -35,9 +39,9 @@ Major user-visible changes:
 -Graphical statistics, easily extensible through plugins (first
  implementation by Mike Appleby).
 -Each individual field in a card can now have its own font, colour, ... which
- can be set through the GUI. No more need for hacks like 'increase size of 
+ can be set through the GUI. No more need for hacks like 'increase size of
  non-latin characters'. Background colour is also configurable per card type.
--The widget that displays the cards is now a full webbrowser, with e.g. 
+-The widget that displays the cards is now a full webbrowser, with e.g.
  support for Javascript, animated gifs, ... .
 -Added cramming scheduler plugin, which goes through your cards in random
  order and does not affect the normal scheduler data. It is visually
@@ -54,22 +58,22 @@ Major user-visible changes:
 
 Other changes:
 
--Move from Qt3 to Qt4 as GUI toolkit, which has better performance and 
+-Move from Qt3 to Qt4 as GUI toolkit, which has better performance and
  eliminates many interface quirks.
 -Move to SQL as the storage backend, resulting in improved speed and memory
  usage, as well as better scalability for large decks (first implementation
  by Ed Bartosh).
 -Added card type for maps, and for cloze deletion.
 -Plugins can now be turned on and off through the GUI.
--Windows use scroll bar when the data does not fit.	
--Vhen importing a sound or an image, a copy is made to the 
+-Windows use scroll bar when the data does not fit.
+-Vhen importing a sound or an image, a copy is made to the
  .mnemosyne directory. This saves some confusing explaining to new users about
  the difference between relative and absolute paths.
 -Mnemosyne can now save after each reviewed card. Default is to only save after
  10 reps, to save battery.
 -Avoid showing the same card twice in a row during review.
 -Added option "learn new related cards in same session".
--Replaced 'number of grade 0 cards to hold in your hand' by 'number of non 
+-Replaced 'number of grade 0 cards to hold in your hand' by 'number of non
  memorised cards to hold in your hand', so that the limit now works on the
  total of grade 0 and 1 cards. Default value is 10.
 -Warn if the user memorises over 15 new cards in a session.
@@ -79,8 +83,8 @@ Other changes:
 -Added option to control whether media (sound/video) gets started automatically
  when displaying a card.
 -Added option to display a media control (play/pause/slider)
--Improved backup scheme. Users can now restore from backups using the 
- File - Open menu, as opposed to first decompressing a file outside of 
+-Improved backup scheme. Users can now restore from backups using the
+ File - Open menu, as opposed to first decompressing a file outside of
  Mnemosyne.
 -Importing from xml files has been sped up considerably (Johannes Baiter)
 -The learing history is now stored in an SQL database, allowing to calculate
@@ -89,8 +93,8 @@ Other changes:
  activation screens.
 -Cards which are failed during learning ahead are now periodically brought
  back in the learning process.
--Mnemosyne now stores its data in a more standards compliant location: 
- C:/Users/peter/Application Data/Mnemosyne2 under Windows, and 
+-Mnemosyne now stores its data in a more standards compliant location:
+ C:/Users/peter/Application Data/Mnemosyne2 under Windows, and
  /home/pbienst/.local/share/mnemosyne2 and /home/pbienst/.config/mnemosyne2
  under Linux.
 -When leaving the program open overnight, the display will update at the
@@ -104,10 +108,10 @@ Other changes:
 -Croatian translation by Ilija Pavlic
 -Indonesian translation by Prabowo Murti
 -Russian translation by Denis Zhuravlyov
-	
+
 Mnemosyne 1.2.2 : 2010-01-29
-	
-(Note that for Windows users we recommend uninstalling the previous 
+
+(Note that for Windows users we recommend uninstalling the previous
 version before doing an upgrade.)
 
 -Added support for Tim Bourke's Mnemogogo plugin, which enables you
@@ -121,7 +125,7 @@ version before doing an upgrade.)
 -Updated French translation by Christophe Mealares and Yannick Voglaire.
 -Hungarian translation by bkile.
 
-	
+
 MNEMOSYNE 1.2.1 : 2009-04-11
 
 -Fix bug so that vice versa cards now always start with grade 0.
@@ -131,24 +135,24 @@ MNEMOSYNE 1.2.1 : 2009-04-11
 -Esperanto translation by jchthys.
 -Updated Japanese translation by Patrick Kenny.
 
-	
+
 MNEMOSYNE 1.2 : 2008-11-25
 
 -Improved support for unicode in filenames and directories.
--Reverted compression of backups from gz to bz2 again, to circumvent a   
+-Reverted compression of backups from gz to bz2 again, to circumvent a
  bug under Windows with unicode directory names.
 -Wrote a plugin to always shuffle the revision queue, for users who want
  to override the prioritised scheduling introduced in Mnemosyne 1.1.
- This plugin can also be downloaded from 
+ This plugin can also be downloaded from
  http://www.mnemosyne-proj.org/node/142
--Only open the sound system when needed in order to save CPU time 
+-Only open the sound system when needed in order to save CPU time
  (patch by marmuta).
 -More robust upgrading from old Mnemosyne versions.
 -Fix bug where default export location was incorrectly specified.
--Reword statistics dialog to make clear that we only show data for 
+-Reword statistics dialog to make clear that we only show data for
  the next week.
--Norwegian translation by Petter Goksoyr Asen. 
-	
+-Norwegian translation by Petter Goksoyr Asen.
+
 
 MNEMOSYNE 1.1.1 : 2008-08-23
 

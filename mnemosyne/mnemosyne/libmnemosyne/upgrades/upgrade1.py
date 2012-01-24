@@ -88,7 +88,7 @@ class Upgrade1(Component):
         shutil.copyfile(join(old_data_dir, "log.txt"),
                         join(new_data_dir, "log.txt"))
         # Upgrade database.
-        old_database = expand_path(old_config["path"], old_data_dir)
+        old_database = expand_path("default.mem", old_data_dir)
         for format in self.component_manager.all("file_format"):
             if format.__class__.__name__ == "Mnemosyne1Mem":
                 format.do_import(old_database)
