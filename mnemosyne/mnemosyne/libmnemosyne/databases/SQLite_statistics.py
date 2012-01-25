@@ -7,7 +7,7 @@ import datetime
 
 from openSM2sync.log_entry import EventTypes
 
-HOUR = 60 * 60 # Seconds in an hour. 
+HOUR = 60 * 60 # Seconds in an hour.
 DAY = 24 * HOUR # Seconds in a day.
 
 
@@ -20,7 +20,7 @@ class SQLiteStatistics(object):
 
     def tag_count(self):
         return self.con.execute("select count() from tags").fetchone()[0]
-    
+
     def fact_count(self):
         return self.con.execute("select count() from facts").fetchone()[0]
 
@@ -40,7 +40,7 @@ class SQLiteStatistics(object):
     def active_count(self):
         return self.con.execute("""select count() from cards
             where active=1""").fetchone()[0]
-        
+
     def easinesses(self, active_only):
         query = "select easiness from cards where grade>=0"
         if active_only:
@@ -59,17 +59,17 @@ class SQLiteStatistics(object):
     def card_count_for_fact_view(self, fact_view, active_only):
         query = "select count() from cards where fact_view_id=?"
         if active_only:
-            query += " and active=1"        
+            query += " and active=1"
         return self.con.execute(query, (fact_view.id, )).fetchone()[0]
 
     def card_count_for_grade(self, grade, active_only):
         query = "select count() from cards where grade=?"
         if active_only:
-            query += " and active=1"        
+            query += " and active=1"
         return self.con.execute(query, (grade, )).fetchone()[0]
 
     def card_count_for_tags(self, tags, active_only):
-        
+
         """ Determine the number of cards in a set of tags. Note that a card
         could have one or more of these tags.
 
@@ -94,21 +94,21 @@ class SQLiteStatistics(object):
             tags_for_card._card_id=cards._id and tags_for_card._tag_id=?
             and grade=?"""
         if active_only:
-            query += " and cards.active=1"    
+            query += " and cards.active=1"
         return self.con.execute(query, (tag._id, grade)).fetchone()[0]
 
     def sister_card_count_scheduled_between(self, card, start, stop):
-        
+
         """Return how many sister cards with grade >= 2 are scheduled at
         between 'start' (included) and 'stop' (excluded).
 
         """
-        
+
         return self.con.execute("""select count() from cards where active=1
             and grade>=2 and ?<=next_rep and next_rep<? and _id<>? and _id in
             (select _id from cards where _fact_id=?)""",
             (start, stop, card._id, card.fact._id)).fetchone()[0]
-    
+
     def card_count_scheduled_between(self, start, stop):
         return self.con.execute(\
             """select count() from cards where active=1 and grade>=2
@@ -117,7 +117,7 @@ class SQLiteStatistics(object):
 
     def _start_of_day_n_days_ago(self, n):
         timestamp = time.time() - n * DAY \
-                    - self.config()["day_starts_at"] * HOUR 
+                    - self.config()["day_starts_at"] * HOUR
         date_only = datetime.date.fromtimestamp(timestamp)
         start_of_day = int(time.mktime(date_only.timetuple()))
         start_of_day += self.config()["day_starts_at"] * HOUR
@@ -142,7 +142,7 @@ class SQLiteStatistics(object):
             and event_type=?""",
             (start_of_day, start_of_day + DAY, EventTypes.ADDED_CARD)).\
             fetchone()[0]
-    
+
     def retention_score_n_days_ago(self, n):
         start_of_day = self._start_of_day_n_days_ago(n)
         scheduled_cards_seen = self.con.execute(\
@@ -158,7 +158,7 @@ class SQLiteStatistics(object):
             (start_of_day, start_of_day + DAY, EventTypes.REPETITION)).\
             fetchone()[0]
         return 100.0 * scheduled_cards_correct / scheduled_cards_seen
-    
+
     def average_thinking_time(self, card):
         result = self.con.execute(\
             """select avg(thinking_time) from log where object_id=?

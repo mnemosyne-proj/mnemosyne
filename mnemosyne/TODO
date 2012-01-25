@@ -1,8 +1,11 @@
 -rollover at 1am instead of 3am Brussels time
 
 -upgrade from 1.x from non latin user name (Patrick de Metz)
+-run on blank windows install under Qemu
 
 -bug with counters and learning ahead of schedule (Tim Macdonald)
+
+-activate map plugin: component = plugin.components[0]
 
 -rework getting started wizard to include grade 2
  mail to Kent Stearman <stearman.kc@gmail.com>
