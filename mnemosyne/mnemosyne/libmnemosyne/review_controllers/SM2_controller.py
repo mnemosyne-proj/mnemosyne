@@ -94,22 +94,10 @@ class SM2Controller(ReviewController):
         """
 
         self.flush_sync_server()
-
         if self.database().is_loaded() and self.database().is_accessible():
             # Don't do this if e.g. the GUI or another thread holds the
             # database.
             self.reset_but_try_to_keep_current_card()
-
-        import datetime, time
-
-        print datetime.datetime.now(), self.scheduler().scheduled_count()
-        due = set()
-        for _card_id in self.scheduler()._card_ids_in_queue:
-            card = self.database().card(_card_id, is_id_internal=True)
-            due.add(card.next_rep)
-        for i in due:
-            print i, self.scheduler().midnight_UTC(i), ":", time.time(), self.scheduler().adjusted_now(time.time())
-        print '--'
 
     def show_new_question(self):
         # Reload the counters if they have not yet been initialised. Also do

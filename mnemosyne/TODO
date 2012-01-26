@@ -1,5 +1,3 @@
--rollover at 1am instead of 3am Brussels time
-
 -upgrade from 1.x from non latin user name (Patrick de Metz)
 -run on blank windows install under Qemu
 
