@@ -13,7 +13,7 @@ class QAOptimalSplit(object):
 
     """Algorithm to make sure the split between question and answer boxes is
     as optimal as possible.
-       
+
     This code is not part of ReviewWidget, in order to be able to reuse this
     in Preview Cards.
 
@@ -41,17 +41,17 @@ class QAOptimalSplit(object):
         self.required_question_size = self.question.size()
         self.required_answer_size = self.answer.size()
         self.adjustSize()
-        
+
     def question_preview_load_finished(self):
         self.required_question_size = \
             self.question_preview.page().currentFrame().contentsSize()
         self.update_stretch_factors()
-        
-    def answer_preview_load_finished(self):            
+
+    def answer_preview_load_finished(self):
         self.required_answer_size = \
             self.answer_preview.page().currentFrame().contentsSize()
         self.update_stretch_factors()
-        
+
     def update_stretch_factors(self):
         total_height_available = self.question.height() + self.answer.height()
         # Correct the required heights of question and answer for the
@@ -61,8 +61,8 @@ class QAOptimalSplit(object):
             required_question_height += self.scrollbar_width
         required_answer_height = self.required_answer_size.height()
         if self.required_answer_size.width() > self.answer.width():
-            required_answer_height += self.scrollbar_width        
-        total_height_available = self.question.height() + self.answer.height()        
+            required_answer_height += self.scrollbar_width
+        total_height_available = self.question.height() + self.answer.height()
         # If both question and answer fit in their own boxes, there is no need
         # to deviate from a 50/50 split.
         if required_question_height < total_height_available / 2 and \
@@ -77,7 +77,7 @@ class QAOptimalSplit(object):
             if required_question_height < total_height_available / 2:
                 # No need to be clairvoyant.
                 question_stretch = 50
-                answer_stretch = 50                
+                answer_stretch = 50
             else:
                 # Make enough room for the question.
                 question_stretch = required_question_height
@@ -91,59 +91,59 @@ class QAOptimalSplit(object):
                     # But if we don't have enough space to show both the
                     # question and the answer, make sure the question gets
                     # all the space it can get now.
-                    answer_stretch = 50 
+                    answer_stretch = 50
         # We are showing both question and answer, stretch in proportion to
         # height.
         else:
             question_stretch = required_question_height
             answer_stretch = required_answer_height
         self.vertical_layout.setStretchFactor(\
-            self.question_box, question_stretch + self.stretch_offset)            
+            self.question_box, question_stretch + self.stretch_offset)
         self.vertical_layout.setStretchFactor(\
             self.answer_box, answer_stretch + self.stretch_offset)
 
     def silence_audio(self, text):
         return text.replace("<audio src=\"", "<audio src=\"DONTPLAY")
-        
+
     def set_question(self, text):
         self.question_text = text
         self.question_preview.page().setPreferredContentsSize(\
             QtCore.QSize(self.question.size().width(), 1))
         self.question_preview.setHtml(self.silence_audio(text))
-        
+
     def set_answer(self, text):
         self.answer_text = text
         self.answer_preview.page().setPreferredContentsSize(\
-            QtCore.QSize(self.answer.size().width(), 1)) 
+            QtCore.QSize(self.answer.size().width(), 1))
         self.answer_preview.setHtml(self.silence_audio(text))
 
     def reveal_question(self):
         self.question.setHtml(self.question_text)
-        
+
     def reveal_answer(self):
         self.is_answer_showing = True
         self.update_stretch_factors()
         self.answer.setHtml(self.answer_text)
-        
+
     def clear_question(self):
         self.question.setHtml(self.empty())
-        
+
     def clear_answer(self):
         self.is_answer_showing = False
         self.update_stretch_factors()
         self.answer.setHtml(self.empty())
-     
-    
+
+
 class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
 
     auto_focus_grades = True
-    
+
     def __init__(self, component_manager):
         ReviewWidget.__init__(self, component_manager)
         parent = self.main_widget()
         QtGui.QWidget.__init__(self, parent)
         parent.setCentralWidget(self)
-        self.setupUi(self)        
+        self.setupUi(self)
         # TODO: move this to designer with update of PyQt.
         self.grade_buttons = QtGui.QButtonGroup()
         self.grade_buttons.addButton(self.grade_0_button, 0)
@@ -214,28 +214,28 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         if self.review_controller().state == "SELECT SHOW":
             frame = self.question.page().mainFrame()
         else:
-            frame = self.answer.page().mainFrame()   
+            frame = self.answer.page().mainFrame()
         x, y = frame.scrollPosition().x(), frame.scrollPosition().y()
         y += int(0.9*(frame.geometry().height()))
         #frame.scroll(x, y) # Seems buggy 20111121.
         frame.evaluateJavaScript("window.scrollTo(%d, %d);" % (x, y))
-        
+
     def scroll_up(self):
         if self.review_controller().state == "SELECT SHOW":
             frame = self.question.page().mainFrame()
         else:
-            frame = self.answer.page().mainFrame()   
+            frame = self.answer.page().mainFrame()
         x, y = frame.scrollPosition().x(), frame.scrollPosition().y()
         y -= int(0.9*(frame.geometry().height()))
         #frame.scroll(x, y)  # Seems buggy 20111121.
         frame.evaluateJavaScript("window.scrollTo(%d, %d);" % (x, y))
-        
-    def show_answer(self):        
+
+    def show_answer(self):
         self.review_controller().show_answer()
 
     def grade_answer(self, grade):
         self.vertical_layout.setStretchFactor(self.question_box, 50)
-        self.vertical_layout.setStretchFactor(self.answer_box, 50)            
+        self.vertical_layout.setStretchFactor(self.answer_box, 50)
         self.main_widget().timer_1.start(self.main_widget().TIMER_1_INTERVAL)
         self.review_controller().grade_answer(grade)
 
@@ -257,7 +257,7 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
 
     def set_question_label(self, text):
         self.question_label.setText(text)
-        
+
     def restore_focus(self):
         # After clicking on the question or the answer, that widget grabs the
         # focus, so that the keyboard shortcuts no longer work. This functions
@@ -265,7 +265,7 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         if self.focus_widget:
             self.focus_widget.setDefault(True)
             self.focus_widget.setFocus()
-        
+
     def update_show_button(self, text, is_default, is_enabled):
         self.show_button.setText(text)
         self.show_button.setEnabled(is_enabled)
@@ -273,13 +273,13 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
             self.show_button.setDefault(True)
             self.show_button.setFocus()
             self.focus_widget = self.show_button
-        
+
     def set_grades_enabled(self, is_enabled):
         self.grades.setEnabled(is_enabled)
-        
+
     def set_grade_enabled(self, grade, is_enabled):
         self.grade_buttons.button(grade).setEnabled(is_enabled)
-        
+
     def set_default_grade(self, grade):
         if self.auto_focus_grades:
             # On Windows, we seem to need to clear the previous default
@@ -289,13 +289,13 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
             self.grade_buttons.button(grade).setDefault(True)
             self.grade_buttons.button(grade).setFocus()
             self.focus_widget = self.grade_buttons.button(grade)
- 
+
     def set_grades_title(self, text):
         self.grades.setTitle(text)
-        
+
     def set_grade_text(self, grade, text):
         self.grade_buttons.button(grade).setText(text)
-        
+
     def set_grade_tooltip(self, grade, text):
         self.grade_buttons.button(grade).setToolTip(text)
 
@@ -307,5 +307,5 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         self.act.setText(_("Active: %d ") % active_count)
 
     def redraw_now(self):
-        self.repaint()        
+        self.repaint()
         self.parent().repaint()

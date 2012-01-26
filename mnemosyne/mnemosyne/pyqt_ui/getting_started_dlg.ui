@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>693</width>
-    <height>401</height>
+    <height>450</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>600</width>
-    <height>380</height>
+    <height>450</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -38,7 +38,7 @@
       <property name="text">
        <string>Greetings!
 
-I am Mnemosyne, a type of butterfly named after the Greek goddess of Memory. 
+I am Mnemosyne, a type of butterfly named after the Greek goddess of Memory.
 
 I can make it more efficient for you to memorise and remember answers to questions, by helping you focus on the cards you're most likely to forget and by not wasting your time on things you know well.
 
@@ -61,7 +61,7 @@ Let's look at the meaning of these ratings now.</string>
   </widget>
   <widget class="QWizardPage" name="grades02">
    <property name="title">
-    <string>Grades 0-2</string>
+    <string>Memorising new cards</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_4">
     <item>
@@ -69,11 +69,12 @@ Let's look at the meaning of these ratings now.</string>
       <property name="text">
        <string>Grades range from 0 to 5.
 
-Grades 0 and 1 are used if you don't know the answer yet, or if you have forgotten this card. A card with grade 1 is starting to get more familiar than one with grade 0, and will be repeated less often.
+When you are memorising new cards, use grades 0 and 1 to signal that you have not yet mastered them. A grade 1 card is starting to get more familiar than a grade 0 card, and will be repeated less often.
 
-I will keep on asking you these questions until you give them a grade 2 or higher. This basically means that you think you'll be able to remember the card for at least one or two days. It signals the transition between short and long term memory.
+I will keep on showing you these cards during today's study session until you give them a grade 2 or higher. This means that you think you'll be able to remember the card for at least one or two days, and you will see the 'Not memorised' counter decrease by one.
 
-I will schedule this card at some future date, when I think you'll still be able to remember it with some effort, without having forgotten it completely. This is the most efficient for the learning process.</string>
+I will schedule this card at some future date, when I think you'll still be able to remember it with some effort, without having forgotten it completely. This is the most efficient for the learning process.
+</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -90,19 +91,21 @@ I will schedule this card at some future date, when I think you'll still be able
   </widget>
   <widget class="QWizardPage" name="grades35">
    <property name="title">
-    <string>Grades 3-5</string>
+    <string>Reviewing previously memorised cards</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_5">
     <item>
      <widget class="QLabel" name="grades35_lbl">
       <property name="text">
-       <string>If in the future I ask you the question too soon, and you're able to remember it without any effort, you rate the card a 5. I'll take this into account by waiting a lot longer before asking you this question again.
+       <string>If you come back for a new study session tomorrow, the 'scheduled' counter will tell you how many cards that you've memorised earlier you need to review on that day.
+
+If I ask you the question too soon, and you're able to remember it without any effort, you rate the card a 5. I'll take this into account by waiting a lot longer before asking you this question again.
 
 If I get it just right, so that you remember it, albeit with some effort, you use grade 4.
 
-If on the other hand it takes you significant effort to remember the answer, and you think I've waited too long to ask you this question, then rate the card 3.
+If on the other hand it takes you significant effort to remember the answer, and you think I've waited too long to ask you this question, then rate the card 3 or even 2.
 
-If you fail to remember it altogether, rate it either 0 or 1, and I'll keep on asking you this question until you think you'll be able to remember it again for a few days.</string>
+If you fail to remember it altogether, rate it either 0 or 1, and after you finish your other scheduled cards I'll keep on asking you this question during the same study session until you think you'll be able to remember it again for a few days.</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>

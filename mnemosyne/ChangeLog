@@ -1,7 +1,14 @@
+-Reworded 'Getting started' wizard a bit (suggested by Kent Stearman).
+-Text properties like fonts are now also applied in user-defined html tables
+ (reported by Gnome and Sam S.).
+-A user-defined html table no longer uses the same css style as the table
+ used by mnemosyne to center the card content. This means that user defined
+ tables no longer expand to the full width by default (reported by Gnome).
 -Don't allow drag and drop on question or answer field and disable the
- popup menu there (Gnome).
+ popup menu there (reported by Gnome).
 -Only automatically import 1.x databases from the standard location
  reported by Scott Youngman).
+
 -Fix for displaying Cloze cards in the card browser (reported by Roel
  De Coninck).
 -Correctly set mediadir if a database is created outside of Mnemosyne's

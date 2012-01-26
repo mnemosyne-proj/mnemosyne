@@ -1,21 +1,6 @@
--upgrade from 1.x from non latin user name (Patrick de Metz)
--run on blank windows install under Qemu
+-Dan scheduler bug
 
--bug with counters and learning ahead of schedule (Tim Macdonald)
-
--activate map plugin: component = plugin.components[0]
-
--rework getting started wizard to include grade 2
- mail to Kent Stearman <stearman.kc@gmail.com>
-
-'scheduled' only refers to card which you have previously graded 2 or higher,
-and which therefore are not immediately repeated on the same day.
-
-If you give a card grade 0, it will pop up again during the same day.
-Mnemosyne will keep on showing you grade 0/1 cards on the same day until
-you've indicated that you'll remember them tomorrow by grading them 2 or
-higher. In that case, you will no longer see them again today, but rather as
-part of the 'scheduled' counter tomorrow, or the day after.
+-tip for splitters on browse cards
 
 -truncate retention score at 100% for non-week long graphs (Dan Schmidt)
 
@@ -26,35 +11,16 @@ Schedule / Last week uses my entire deck.
 Retention score seems to apply to my whole deck
 Cards added seems to apply to my whole deck.
 
--expand answer preferentially (Murray James Morrison)
+-expand answer preferentially (Murray James Morrison, Gnome) (LP bug)
 
 -disable automatic media deletion, to allow people to move their media in their folder
 
--Gnome:
-Screenshot: http://bildr.no/view/1082699
-After going into edit card box, then closing it: http://bildr.no/view/1082702
-The picture has been grayed out due to copyright.
--
-The html for the card:
-FRONT:
-Text
-<img src="kortbilder/bios/ulk.jpg">
-
-BACK:
-Text
-<img src="kortbilder/bios/ulk.jpg">
-
--Text size set in setting does not apply to tables. (Gnome)
-
--Cntr+C in Q&A main does not work. (Gnome)
-
--don't automatically manually insert <br> inside table tags (Gnome) or latex tags (abakus0816)
-
--don't refresh review widget after edit window if no changes have been made (gnome)
-
--Cntr+D shortcut in edit card doesn't work. (gnome)
+-don't automatically manually insert <br> inside table tags, ul (Gnome) or latex tags (abakus0816) (LP bug)
+ (use celementtree, time)
 
 -use version string in windows build
+
+###
 
 -save tree state (which nodes are expanded or not) (Troy Guze)
 QModelIndexList QAbstractItemModel::persistentIndexList () const
@@ -64,44 +30,20 @@ bool isExpanded ( const QModelIndex & index ) const
 
 -profile loading time
 
--layout of "add clone" is not optimal under Windows
--splitters on XP are not visible
-http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-between-qwidget-and-qtabwidget
-
 -new 'activate plugin' dialog
-
--new cards with a >=2 grade can end up on the same day on first interactive rep
- replace set_initial_grade by set_initial_grades(cards)?
--also make sure this is OK when changing card type creates extra cards
--scheduler.spread_sister_cards?
--when learning late, related cards on the same day can happen, see violin log example
-
--after showing answer, exiting card browser hides answer again
--try to avoid showing different card after exiting browser. Better reset_but_try_to_keep ...
- taking grade 0/1 cards as well into account?
 
 -also give warning on the client side if a sync failed and a backup needs to happen
 -detect long filenames under Windows during sync (partner, download binary file, 36)
  and during import
 -sync issues Doug, prevent sync with itself
 -prevent sync with itself
--binary database upload: configuration changes (fonts, ...) are not applied
 -syncing an empty database twice results in a spurious sync cycle detection.
 Also happens after
  syncing empty client and empty server database, then adding data to the server,
 and resyncing
 -if the server is empty, allow sync from non-empty client and change server user
 id.
--if dialog like edit card or browse cards is open on server, try to close it when sync comes in  (+findChildren
-    QWidgetList list = QApplication::topLevelWidgets();
-    for (int i = 0; did_close && i < list.size(); ++i) {
-        w = list.at(i);
-        if (w->isVisible() && w->windowType() != Qt::Desktop) {
-            did_close = w->close();
-            list = QApplication::topLevelWidgets();
-            i = -1;
--remind top level widget, and make those parent to error dialog? Now e.g. an error on the activate card
- widget will be centered on the main widget and not the activate cards dialog.
+
 -when sync server is running, it seems possible to start a second copy of Mnemosyne, which just complains about
  'unable to start sync server'
 
@@ -109,25 +51,62 @@ id.
 
 -import from txt file (2 test cases from mac os	Naomi Borkowski)
 
--activate cards: 'having any of these tags:' is not aligned with tag with tag tree
+-queue gets stuck on 2 new cards (stuck.bd)
 
--implement duplicate checking. Also synonym checking? Add then standard tags.
--autorun after import, browse with edit, but not sync
--do review_controller.rebuild_queue, reload counter after clean duplicates?
+#######
+
+-upgrade from 1.x from non latin user name (Patrick de Metz)
+-run on blank windows install under Qemu
+
+-tell beta users to make sure to install latest beta first
+-remove upgrade_beta_6.py, beta_7, etc...
 
 -translations through website
 -see if 1.x translations can be reused
 -remove mnemosyne/pyqt_ui/locale
 
--migrate science server machine
+-new cards with a >=2 grade can end up on the same day on first interactive rep
+replace set_initial_grade by set_initial_grades(cards)?
+-also make sure this is OK when changing card type creates extra cards
+-scheduler.spread_sister_cards?
+-when learning late, related cards on the same day can happen
 
--tell beta users to make sure to install latest beta first
--remove upgrade_beta_6.py, beta_7, etc...
+
+-activate cards: 'having any of these tags:' is not aligned with tag with tag tree
+-layout of "add clone" is not optimal under Windows
+-splitters on XP are not visible
+http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-between-qwidget-and-qtabwidget
+
+-binary database upload: configuration changes (fonts, ...) are not applied
+
+-if dialog like edit card or browse cards is open on server, try to close it when sync comes in  (+findChildren
+QWidgetList list = QApplication::topLevelWidgets();
+for (int i = 0; did_close && i < list.size(); ++i) {
+w = list.at(i);
+if (w->isVisible() && w->windowType() != Qt::Desktop) {
+did_close = w->close();
+list = QApplication::topLevelWidgets();
+i = -1;
+-remind top level widget, and make those parent to error dialog? Now e.g. an error on the activate card
+widget will be centered on the main widget and not the activate cards dialog.
+
+-don't refresh review widget after edit window if no changes have been made (gnome) (LP bug)
+-after showing answer, exiting card browser hides answer again (Gnome, LP bug)
+-try to avoid showing different card after exiting browser. Better reset_but_try_to_keep ...
+taking grade 0/1 cards as well into account?
+
+-Cntr+C in Q&A main does not work. (Gnome) (LP bug)
+-Cntr+D shortcut in edit card doesn't work. (Gnome) (LP bug)
+
+-implement duplicate checking. Also synonym checking? Add then standard tags.
+-autorun after import, browse with edit, but not sync
+-do review_controller.rebuild_queue, reload counter after clean duplicates?
+
+-migrate science server machine
 
 -'duplicate card' option in menu and browser? Or as plugin?
 
 -upgrade to qt 4.7.4, retest progress bars
--make distrib under linux
 -fix webserver, bundle it with install
 
 -test upgrade on OSX: remove library/Mnemosyne2, make sure you have 1.x in library/Mnemosyne.
@@ -185,7 +164,7 @@ Milesteiner
 
 -leech detection
 
--Pasting into card from other sources keeps the formatting.
+-Pasting into card from other sources initially keeps the formatting. (Gnome) (LP bug)
 
 -text to speech plugin google
 

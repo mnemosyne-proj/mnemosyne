@@ -211,7 +211,9 @@ class Mnemosyne1(object):
 
     def activate_map_plugin(self):
         for plugin in self.plugins():
-            component = plugin.components[0]
-            if component.component_type == "card_type" and component.id == "4":
-                plugin.activate()
+            if plugin.components != []:  # Safeguard for badly written plugins.
+                component = plugin.components[0]
+                if component.component_type == "card_type" \
+                    and component.id == "4":
+                    plugin.activate()
 
