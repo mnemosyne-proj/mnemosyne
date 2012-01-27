@@ -10,7 +10,7 @@ DAY = 24 * 60 * 60 # Seconds in a day.
 class CurrentCard(HtmlStatisticsPage):
 
     name = _("Current card")
-        
+
     def prepare_statistics(self, variant):
         card = self.review_controller().card
         self.html = """<html<body>

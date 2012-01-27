@@ -62,16 +62,16 @@ class CardModel(QtSql.QSqlTableModel, Component):
         for card_type_id, rgb in \
             self.config()["background_colour"].iteritems():
             self.background_colour_for_card_type_id[card_type_id] = \
-                QtGui.QColor(rgb)    
+                QtGui.QColor(rgb)
         self.font_colour_for_card_type_id = {}
         for card_type_id in self.config()["font_colour"]:
             first_key = \
                 self.card_type_with_id(card_type_id).fact_keys_and_names[0][0]
             self.font_colour_for_card_type_id[card_type_id] = QtGui.QColor(\
                 self.config()["font_colour"][card_type_id][first_key])
-        
+
     def data(self, index, role=QtCore.Qt.DisplayRole):
-        if role == QtCore.Qt.TextColorRole: 
+        if role == QtCore.Qt.TextColorRole:
             card_type_id_index = self.index(index.row(), CARD_TYPE_ID)
             card_type_id = str(QtSql.QSqlTableModel.data(\
                 self, card_type_id_index).toString())
@@ -126,13 +126,13 @@ class CardModel(QtSql.QSqlTableModel, Component):
         if column == EASINESS:
             old_data = QtSql.QSqlTableModel.data(self, index, role).toString()
             return QtCore.QVariant("%.2f" % float(old_data))
-        if column in (CREATION_TIME, MODIFICATION_TIME):    
+        if column in (CREATION_TIME, MODIFICATION_TIME):
             old_data = QtSql.QSqlTableModel.data(self, index, role).toInt()[0]
             return QtCore.QVariant(time.strftime(self.date_format,
                 time.gmtime(old_data)))
         return QtSql.QSqlTableModel.data(self, index, role)
 
- 
+
 class QA_Delegate(QtGui.QStyledItemDelegate, Component):
 
     # http://stackoverflow.com/questions/1956542/
@@ -153,12 +153,12 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
     def tag(self, _id):
         query = QtSql.QSqlQuery(\
             "select name from tags where _id=%d" % (_id, ))
-        query.first()           
+        query.first()
         tag = Tag(unicode(query.value(0).toString()), "dummy_id")
         tag._id = _id
         return tag
-    
-    def fact(self, _id):       
+
+    def fact(self, _id):
         # Create dictionary with fact.data.
         fact_data = {}
         query = QtSql.QSqlQuery(\
@@ -167,13 +167,13 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
         while query.isValid():
             fact_data[unicode(query.value(0).toString())] = \
                 unicode(query.value(1).toString())
-            query.next()            
+            query.next()
         # Create fact.
         fact = Fact(fact_data, "dummy_id")
         fact._id = _id
         return fact
-    
-    def card(self, _id):       
+
+    def card(self, _id):
         query = QtSql.QSqlQuery("""select _fact_id, card_type_id,
             fact_view_id, extra_data from cards where _id=%d""" % (_id, ))
         query.first()
@@ -230,7 +230,7 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
         # Paint the item without the text.
         optionV4.text = QtCore.QString()
         style.drawControl(QtGui.QStyle.CE_ItemViewItem, optionV4, painter)
-        context = QtGui.QAbstractTextDocumentLayout.PaintContext() 
+        context = QtGui.QAbstractTextDocumentLayout.PaintContext()
         # Highlight text if item is selected.
         if optionV4.state & QtGui.QStyle.State_Selected:
             context.palette.setColor(QtGui.QPalette.Text,
@@ -252,7 +252,7 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
         self.doc.documentLayout().draw(painter, context)
         painter.restore()
 
-        
+
 class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
                      TipAfterStartingNTimes):
 
@@ -261,7 +261,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         {3 : _("Right-click on a tag name in the card browser to edit or delete it."),
          6 : _("Double-click on a card or tag name in the card browser to edit them."),
          9 : _("You can reorder columns in the card browser by dragging the header label."),
-        12 : _("You can resize columns in the card browser by dragging between the header labels."),     
+        12 : _("You can resize columns in the card browser by dragging between the header labels."),
         15 : _("When editing or previewing cards from the card browser, PageUp/PageDown can be used to move to the previous/next card.")}
 
     def __init__(self, component_manager):
@@ -272,7 +272,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)    
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)
         self.saved_index = None
         # Set up card type tree.
         self.container_1 = QtGui.QWidget(self.splitter_1)
@@ -315,7 +315,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         self.display_card_table(run_filter=False)
         self.card_model.setFilter("cards.active=1")
         self.card_model.select()
-        self.update_card_counters()       
+        self.update_card_counters()
         self.card_type_tree_wdgt.card_type_tree.\
             itemClicked.connect(self.update_filter)
         self.tag_tree_wdgt.tag_tree_wdgt.\
@@ -366,10 +366,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         indexes = self.table.selectionModel().selectedRows()
         if len(indexes) > 1:
             edit_action.setEnabled(False)
-            preview_action.setEnabled(False)            
+            preview_action.setEnabled(False)
         if len(indexes) >= 1:
             menu.exec_(self.table.mapToGlobal(point))
-            
+
     def keyPressEvent(self, event):
         if len(self.table.selectionModel().selectedRows()) == 0:
             return QtGui.QDialog.keyPressEvent(self, event)
@@ -405,7 +405,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         for _fact_id in _fact_ids:
             facts.append(self.database().fact(_fact_id, is_id_internal=True))
         return facts
-    
+
     def _card_ids_from_selection(self):
         _card_ids = set()
         for index in self.table.selectionModel().selectedRows():
@@ -414,7 +414,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             _card_id = index.model().data(_card_id_index).toInt()[0]
             _card_ids.add(_card_id)
         return _card_ids
-    
+
     def menu_edit(self, index=None):
         # 'index' gets passed if this function gets called through the
         # table.doubleClicked event.
@@ -422,15 +422,15 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         self.edit_dlg = self.component_manager.current("edit_card_dialog")\
             (cards[0], self.component_manager, started_from_card_browser=True)
         self.edit_dlg.before_apply_hook = self.unload_qt_database
-        self.edit_dlg.page_up_down_signal.connect(self.page_up_down_edit)        
+        self.edit_dlg.page_up_down_signal.connect(self.page_up_down_edit)
         if self.edit_dlg.exec_() == QtGui.QDialog.Accepted:
             self.display_card_table()
             self.card_type_tree_wdgt.rebuild()
             self.tag_tree_wdgt.rebuild()
         # Avoid multiple connections.
-        self.edit_dlg.page_up_down_signal.disconnect(self.page_up_down_edit)  
+        self.edit_dlg.page_up_down_signal.disconnect(self.page_up_down_edit)
 
-    def page_up_down_edit(self, up_down):     
+    def page_up_down_edit(self, up_down):
         current_row = self.table.selectionModel().selectedRows()[0].row()
         if up_down == self.edit_dlg.UP:
             shift = -1
@@ -438,7 +438,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             shift = 1
         self.table.selectRow(current_row + shift)
         self.edit_dlg.set_new_card(self.cards_from_single_selection()[0])
-        
+
     def menu_preview(self):
         from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
         cards = self.cards_from_single_selection()
@@ -451,7 +451,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         # Avoid multiple connections.
         self.preview_dlg.page_up_down_signal.disconnect(\
             self.page_up_down_preview)
-        
+
     def page_up_down_preview(self, up_down):
         from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
         current_row = self.table.selectionModel().selectedRows()[0].row()
@@ -459,7 +459,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             shift = -1
         elif up_down == PreviewCardsDlg.DOWN:
             shift = 1
-        self.table.selectRow(current_row + shift)           
+        self.table.selectRow(current_row + shift)
         self.preview_dlg.cards = self.cards_from_single_selection()
         self.preview_dlg.tag_text = self.preview_dlg.cards[0].tag_string()
         self.preview_dlg.update_dialog()
@@ -478,7 +478,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             facts.append(self.database().fact(_fact_id, is_id_internal=True))
         self.unload_qt_database()
         self.saved_selection = []
-        self.controller().delete_facts_and_their_cards(facts)        
+        self.controller().delete_facts_and_their_cards(facts)
         self.display_card_table()
         self.card_type_tree_wdgt.rebuild()
         self.tag_tree_wdgt.rebuild()
@@ -507,8 +507,8 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             return
         new_card_type = return_values["new_card_type"]
         # Get correspondence.
-        self.correspondence = {}        
-        if not current_card_type.fact_keys().issubset(new_card_type.fact_keys()):      
+        self.correspondence = {}
+        if not current_card_type.fact_keys().issubset(new_card_type.fact_keys()):
             dlg = ConvertCardTypeKeysDlg(current_card_type, new_card_type,
                 self.correspondence, check_required_fact_keys=True, parent=self)
             if dlg.exec_() != QtGui.QDialog.Accepted:
@@ -521,7 +521,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         self.display_card_table()
         self.card_type_tree_wdgt.rebuild()
         self.tag_tree_wdgt.rebuild()
-        
+
     def menu_add_tags(self):
         # Get new tag names. Use a dict as backdoor to return values
         # from the dialog.
@@ -540,7 +540,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             self.database().add_tag_to_cards_with_internal_ids(tag, _card_ids)
         self.display_card_table()
         self.tag_tree_wdgt.rebuild()
-        
+
     def menu_remove_tags(self):
         # Figure out the tags used by the selected cards.
         _card_ids = self._card_ids_from_selection()
@@ -562,7 +562,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
                 tag, _card_ids)
         self.display_card_table()
         self.tag_tree_wdgt.rebuild()
-        
+
     def load_qt_database(self):
         self.database().release_connection()
         qt_db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
@@ -579,7 +579,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             self.table.horizontalHeader().setSortIndicator\
                 (-1, QtCore.Qt.AscendingOrder)
         self.config()["browse_cards_dlg_table_settings"] \
-            = self.table.horizontalHeader().saveState()        
+            = self.table.horizontalHeader().saveState()
         self.table.setModel(QtGui.QStandardItemModel())
         del self.card_model
         QtSql.QSqlDatabase.removeDatabase(\
@@ -620,7 +620,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         self.table.verticalHeader().hide()
         for column in (_ID, ID, CARD_TYPE_ID, _FACT_ID, FACT_VIEW_ID,
             ACQ_REPS_SINCE_LAPSE, RET_REPS_SINCE_LAPSE,
-            EXTRA_DATA, ACTIVE, SCHEDULER_DATA):            
+            EXTRA_DATA, ACTIVE, SCHEDULER_DATA):
             self.table.setColumnHidden(column, True)
         query = QtSql.QSqlQuery("select count() from tags")
         query.first()
@@ -650,7 +650,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         if not self.config()["browse_cards_dlg_sorting_warning_shown"]:
             self.main_widget().show_information(_("You chose to sort this table. Operations in the card browser could now be slower. Next time you start the card browser, the table will be unsorted again."))
             self.config()["browse_cards_dlg_sorting_warning_shown"] = True
-            
+
     def activate(self):
         self.exec_()
 
@@ -677,12 +677,12 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         elif len(criterion._tag_ids_active) != self.tag_count:
             if filter:
                 filter += "and "
-            # Determine all _card_ids. 
+            # Determine all _card_ids.
             query = QtSql.QSqlQuery("select _id from cards")
             all__card_ids = set()
             while query.next():
                 all__card_ids.add(str(query.value(0).toInt()[0]))
-            # Determine _card_ids of card with an active tag.    
+            # Determine _card_ids of card with an active tag.
             query = "select _card_id from tags_for_card where _tag_id in ("
             for _tag_id in criterion._tag_ids_active:
                 query += "'%s', " % (_tag_id, )
@@ -691,12 +691,12 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             active__card_ids = set()
             while query.next():
                 active__card_ids.add(str(query.value(0).toInt()[0]))
-            # Construct most optimal query. 
+            # Construct most optimal query.
             if len(active__card_ids) > len(all__card_ids)/2:
                 filter += "_id not in (" + \
                     ",".join(all__card_ids - active__card_ids) + ")"
             else:
-                filter += "_id in (" + ",".join(active__card_ids) + ")"  
+                filter += "_id in (" + ",".join(active__card_ids) + ")"
         # Search string.
         search_string = unicode(self.search_box.text()).replace("'", "''")
         self.card_model.search_string = search_string
@@ -730,26 +730,26 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             _("%d cards shown, of which %d active.") % (selected, active))
 
     def _store_state(self):
-        self.config()["browse_cards_dlg_state"] = self.saveGeometry()  
+        self.config()["browse_cards_dlg_state"] = self.saveGeometry()
         self.config()["browse_cards_dlg_splitter_1_state"] = \
             self.splitter_1.saveState()
         self.config()["browse_cards_dlg_splitter_2_state"] = \
             self.splitter_2.saveState()
-        
+
     def closeEvent(self, event):
-        # Generated when clicking the window's close button.        
-        self._store_state()        
+        # Generated when clicking the window's close button.
+        self._store_state()
         self.unload_qt_database()
 
     def reject(self):
-        # Generated when pressing escape.     
+        # Generated when pressing escape.
         self.unload_qt_database()
         return QtGui.QDialog.reject(self)
-    
+
     def accept(self):
         # 'accept' does not generate a close event.
         self._store_state()
         self.unload_qt_database()
-        return QtGui.QDialog.accept(self)    
+        return QtGui.QDialog.accept(self)
 
 

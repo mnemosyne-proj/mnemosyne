@@ -36,7 +36,7 @@ class Card(CompareOnId):
     card level and not as a flag in fact view or tag, so that plugins have the
     possibility to offer more flexibility, e.g. by having cards active based
     on grade, ...
-    
+
     'id' is used to identify this object to the external world (logs, xml
     files, sync, ...), whereas '_id' is an internal id that could be different
     and that can be used by the database for efficiency reasons.
@@ -58,7 +58,7 @@ class Card(CompareOnId):
         self.scheduler_data = 0
         self.active = True
         self.reset_learning_data()
-        
+
     def reset_learning_data(self):
 
         """Used when creating a card for the first time, or when choosing
@@ -87,10 +87,10 @@ class Card(CompareOnId):
         self.acq_reps_since_lapse = 0
         self.ret_reps_since_lapse = 0
 
-    def question(self, render_chain="default", **render_args):        
+    def question(self, render_chain="default", **render_args):
         return self.card_type.render_question\
             (self, render_chain, **render_args)
-       
+
     def answer(self, render_chain="default", **render_args):
         return self.card_type.render_answer\
             (self, render_chain, **render_args)
@@ -100,5 +100,5 @@ class Card(CompareOnId):
             if tag.name != "__UNTAGGED__"]
         sorted_tag_names = sorted(tag_names, cmp=numeric_string_cmp)
         return ", ".join(sorted_tag_names)
-        
+
     interval = property(lambda self : self.next_rep - self.last_rep)

@@ -1,4 +1,24 @@
--Dan scheduler bug
+-Dan scheduler bug: 5947, 5899  VlC6OOe3xjkc5nPPRg1mKP Or3hFNlU5SiBLQ3K1VVZ5O
+select * from log where object_id='Or3hFNlU5SiBLQ3K1VVZ5O'
+
+
+1327661079 14513 sch 0 0 new 86400 +noise 86400
+lr 1327661079 nr 1327747479 1327708800
+
+
+-learing on the same day triggers 'late' branch
+
+-does actual interval survive hibernation?
+
+-why is noise non integer?
+
+-when keeping on learning ahead, the actual interval always becomes zero?
+
+-thinking time zero?
+
+-no need to log last rep in the log database? We already have timestamp. Also scheduler data, new interval, ...
+
+###
 
 -tip for splitters on browse cards
 

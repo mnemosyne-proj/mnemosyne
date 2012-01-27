@@ -19,7 +19,7 @@ class SQLiteLogging(object):
     former use case is in logging.database_logger.)
 
     """
-                            
+
     def log_started_program(self, timestamp, version_string):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
@@ -34,7 +34,7 @@ class SQLiteLogging(object):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.STARTED_SCHEDULER, int(timestamp), scheduler_name))
-    
+
     def log_loaded_database(self, timestamp, scheduled_count,
         non_memorised_count, active_count):
         self.con.execute(\
@@ -42,7 +42,7 @@ class SQLiteLogging(object):
             lapses) values(?,?,?,?,?)""",
             (EventTypes.LOADED_DATABASE, int(timestamp), scheduled_count,
             non_memorised_count, active_count))
-        
+
     def log_saved_database(self, timestamp, scheduled_count,
         non_memorised_count, active_count):
         self.con.execute(\
@@ -50,22 +50,22 @@ class SQLiteLogging(object):
             lapses) values(?,?,?,?,?)""",
             (EventTypes.SAVED_DATABASE, int(timestamp), scheduled_count,
             non_memorised_count, active_count))
-        
+
     def log_added_card(self, timestamp, card_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.ADDED_CARD, int(timestamp), card_id))
-        
+
     def log_edited_card(self, timestamp, card_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.EDITED_CARD, int(timestamp), card_id))
-        
+
     def log_deleted_card(self, timestamp, card_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.DELETED_CARD, int(timestamp), card_id))
-        
+
     def log_repetition(self, timestamp, card_id, grade, easiness, acq_reps,
         ret_reps, lapses, acq_reps_since_lapse, ret_reps_since_lapse,
         scheduled_interval, actual_interval, new_interval, thinking_time,
@@ -81,17 +81,17 @@ class SQLiteLogging(object):
             ret_reps_since_lapse, scheduled_interval, actual_interval,
             new_interval, int(thinking_time), last_rep, next_rep,
             scheduler_data))
-              
+
     def log_added_tag(self, timestamp, tag_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.ADDED_TAG, int(timestamp), tag_id))
-        
+
     def log_edited_tag(self, timestamp, tag_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.EDITED_TAG, int(timestamp), tag_id))
-        
+
     def log_deleted_tag(self, timestamp, tag_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
@@ -101,86 +101,86 @@ class SQLiteLogging(object):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.ADDED_MEDIA_FILE, int(timestamp), filename))
-        
+
     def log_edited_media_file(self, timestamp, filename):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.EDITED_MEDIA_FILE, int(timestamp), filename))
-        
+
     def log_deleted_media_file(self, timestamp, filename):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.DELETED_MEDIA_FILE, int(timestamp), filename))
-                
+
     def log_added_fact(self, timestamp, fact_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.ADDED_FACT, int(timestamp), fact_id))
-        
+
     def log_edited_fact(self, timestamp, fact_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.EDITED_FACT, int(timestamp), fact_id))
-        
+
     def log_deleted_fact(self, timestamp, fact_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.DELETED_FACT, int(timestamp), fact_id))
-        
+
     def log_added_fact_view(self, timestamp, fact_view_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.ADDED_FACT_VIEW, int(timestamp), fact_view_id))
-        
+
     def log_edited_fact_view(self, timestamp, fact_view_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.EDITED_FACT_VIEW, int(timestamp), fact_view_id))
-        
+
     def log_deleted_fact_view(self, timestamp, fact_view_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.DELETED_FACT_VIEW, int(timestamp), fact_view_id))
-        
+
     def log_added_card_type(self, timestamp, card_type_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.ADDED_CARD_TYPE, int(timestamp), card_type_id))
-        
+
     def log_edited_card_type(self, timestamp, card_type_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.EDITED_CARD_TYPE, int(timestamp), card_type_id))
-        
+
     def log_deleted_card_type(self, timestamp, card_type_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.DELETED_CARD_TYPE, int(timestamp), card_type_id))
-        
+
     def log_added_criterion(self, timestamp, criterion_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.ADDED_CRITERION, int(timestamp), criterion_id))
-        
+
     def log_edited_criterion(self, timestamp, criterion_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.EDITED_CRITERION, int(timestamp), criterion_id))
-        
+
     def log_deleted_criterion(self, timestamp, criterion_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.DELETED_CRITERION, int(timestamp), criterion_id))
-        
+
     def log_edited_setting(self, timestamp, key):
         index = self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.EDITED_SETTING, int(timestamp), key))
-        
+
     def current_log_index(self):
         return self.con.execute(\
             "select _id from log order by _id desc limit 1").fetchone()[0]
-    
+
     def dump_to_science_log(self):
         if self.config()["upload_science_logs"] == False:
             return
@@ -208,7 +208,7 @@ class SQLiteLogging(object):
             elif event_type == EventTypes.LOADED_DATABASE:
                 print >> logfile, "%s : Loaded database %d %d %d" \
                       % (timestamp, cursor["acq_reps"], cursor["ret_reps"],
-                         cursor["lapses"])                              
+                         cursor["lapses"])
             elif event_type == EventTypes.SAVED_DATABASE:
                 print >> logfile, "%s : Saved database %d %d %d" \
                       % (timestamp, cursor["acq_reps"], cursor["ret_reps"],
@@ -233,7 +233,7 @@ class SQLiteLogging(object):
                           cursor["actual_interval"], cursor["new_interval"],
                           0, cursor["thinking_time"])
             elif event_type == EventTypes.STOPPED_PROGRAM:
-                print >> logfile, "%s : Program stopped" % (timestamp, )               
+                print >> logfile, "%s : Program stopped" % (timestamp, )
         # Update partnership index.
         if index:
             self.con.execute(\
@@ -246,11 +246,11 @@ class SQLiteLogging(object):
         because some other machine took care of uploading these logs.
 
         """
-        
+
         self.con.execute(\
             "update partnerships set _last_log_id=? where partner=?",
             (self.current_log_index(), "log.txt"))
-        
+
     # The following functions are only used when importing pre-2.0 cards and
     # logs. They are needed to store temporary data about cards which is used
     # during the parsing process.
@@ -283,7 +283,7 @@ class SQLiteLogging(object):
 
     def change_card_id(self, card, new_id):
         self.con.execute("update cards set id=? where _id=?",
-            (new_id, card._id))       
+            (new_id, card._id))
 
     def update_card_after_log_import(self, id, creation_time, offset):
         sql_res = self.con.execute("""select _id, acq_reps, lapses,
@@ -301,7 +301,7 @@ class SQLiteLogging(object):
     def remove_card_log_entries_since(self, index):
         # Note that it is only safe to use this in case theses entries have
         # never been exposed to a sync. Their use during the import procedure
-        # is therefore OK.   
+        # is therefore OK.
         self.con.execute("""delete from log where _id>? and
             (event_type=? or event_type=?)""",
             (index, EventTypes.ADDED_CARD, EventTypes.EDITED_CARD))
@@ -309,10 +309,10 @@ class SQLiteLogging(object):
     def add_missing_added_card_log_entries(self, id_set):
 
         """Make sure all ids in 'id_set' have a card creation log entry."""
-        
+
         for id in id_set - set(cursor[0] for cursor in self.con.execute(\
           "select distinct object_id from log where event_type=?",
           (EventTypes.ADDED_CARD, ))):
             self.log_added_card(int(time.time()), id)
-            
-        
+
+
