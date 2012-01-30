@@ -1,9 +1,13 @@
--learning on the same day triggers 'late' branch: don't compare intervals,
- but midnight utc of next rep and adjusted now
-
 -no need to log last rep in the log database? We already have timestamp. Also scheduler data, new interval, ...
 
 -sync server: add tag, delete tag, readd it
+
+-playing multiple sound files in sequence (Patrick de Metz)
+
+-plugin to do <img align="top"..>
+
+-don't automatically manually insert <br> inside table tags, ul (Gnome) or latex tags (abakus0816) (LP bug)
+ (use celementtree, time)
 
 ###
 
@@ -22,9 +26,6 @@ Cards added seems to apply to my whole deck.
 
 -disable automatic media deletion, to allow people to move their media in their folder
 
--don't automatically manually insert <br> inside table tags, ul (Gnome) or latex tags (abakus0816) (LP bug)
- (use celementtree, time)
-
 -use version string in windows build
 
 ###
@@ -36,6 +37,8 @@ bool isExpanded ( const QModelIndex & index ) const
 -reduce timeout on sync login, test again full sync
 
 -profile loading time
+
+-grade tooltips in adding cards (Gnome, LP bug)
 
 -new 'activate plugin' dialog
 
@@ -61,6 +64,12 @@ id.
 
 #######
 
+-new cards with a >=2 grade can end up on the same day on first interactive rep
+replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
+-also make sure this is OK when changing card type creates extra cards
+-scheduler.spread_sister_cards?
+-when learning late, related cards on the same day can happens
+
 -upgrade from 1.x from non latin user name (Patrick de Metz)
 -run on blank windows install under Qemu
 
@@ -71,11 +80,7 @@ id.
 -see if 1.x translations can be reused
 -remove mnemosyne/pyqt_ui/locale
 
--new cards with a >=2 grade can end up on the same day on first interactive rep
-replace set_initial_grade by set_initial_grades(cards)?
--also make sure this is OK when changing card type creates extra cards
--scheduler.spread_sister_cards?
--when learning late, related cards on the same day can happen
+
 
 
 -activate cards: 'having any of these tags:' is not aligned with tag with tag tree
@@ -169,6 +174,8 @@ Milesteiner
 -add tests with unicode in data_dir
 
 -leech detection
+
+-jplayer media player?
 
 -Pasting into card from other sources initially keeps the formatting. (Gnome) (LP bug)
 

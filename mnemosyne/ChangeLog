@@ -1,3 +1,4 @@
+-Tweaked scheduler to prevent shrinking intervals (reported by Dan Schmidt).
 -Reworded 'Getting started' wizard a bit (suggested by Kent Stearman).
 -Text properties like fonts are now also applied in user-defined html tables
  (reported by Gnome and Sam S.).
@@ -8,7 +9,6 @@
  popup menu there (reported by Gnome).
 -Only automatically import 1.x databases from the standard location
  reported by Scott Youngman).
-
 -Fix for displaying Cloze cards in the card browser (reported by Roel
  De Coninck).
 -Correctly set mediadir if a database is created outside of Mnemosyne's
@@ -18,7 +18,6 @@
 -make sure 'Learn ahead of schedule' button text does not revert to
  'Show answer' after opening the configuration dialog (reported by Cyril
  Frei).
-
 -fixed timezone bug (Tim Bourke, Murray James Morrison).
 -added about dialog.
 -do not allow creating a set without any cards (requested by Troy Guze).

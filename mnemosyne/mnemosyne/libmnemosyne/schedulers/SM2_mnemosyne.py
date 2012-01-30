@@ -408,6 +408,15 @@ class SM2Mnemosyne(Scheduler):
         if dry_run:
             import copy
             card = copy.copy(card)
+	# Determine whether we learned on time or not (only relevant for
+	# grades 2 or higher).
+	if self.adjusted_now() - DAY >= card.next_rep: # Already due yesterday.
+	    timing = "LATE"
+	else:
+	    if self.adjusted_now() < card.next_rep: # Not due today.
+		timing = "EARLY"
+	    else:
+		timing = "ON TIME"
         scheduled_interval = self.true_scheduled_interval(card)
         # If we memorise a card, keep track of its fact, so that we can avoid
         # pulling a sister card from the 'unseen' pile.
@@ -458,7 +467,7 @@ class SM2Mnemosyne(Scheduler):
             card.ret_reps += 1
             card.ret_reps_since_lapse += 1
             # Don't update the easiness when learning ahead.
-            if actual_interval >= scheduled_interval:
+            if timing in ["LATE", "ON TIME"]:
                 if new_grade == 2:
                     card.easiness -= 0.16
                 if new_grade == 3:
@@ -471,13 +480,9 @@ class SM2Mnemosyne(Scheduler):
                 new_interval = 6 * DAY
             else:
                 if new_grade == 2 or new_grade == 3:
-                    if actual_interval <= scheduled_interval:
-                        # Learning ahead or on time.
+                    if timing in ["ON TIME", "EARLY"]:
                         new_interval = actual_interval * card.easiness
                     else:
-                        # issue: with second-level granularity this will also
-                        # be trigged if learing on the correct day!
-
                         # Learning late and interval was too long, so don't
                         # increase the interval and use scheduled_interval
                         # again as opposed to the much larger
@@ -486,17 +491,17 @@ class SM2Mnemosyne(Scheduler):
                 if new_grade == 4:
                     new_interval = actual_interval * card.easiness
                 if new_grade == 5:
-                    if actual_interval < scheduled_interval:
+		    if timing in ["EARLY"]:
                         # Learning ahead and interval was too short. To avoid
-                        # that the intervals increase too much when learning
+                        # that the intervals increase explosively when learning
                         # ahead, take scheduled_interval as opposed to the
                         # much larger actual_interval * card.easiness.
                         new_interval = scheduled_interval
                     else:
                         new_interval = actual_interval * card.easiness
-                # Pathological case which can occur when learning ahead
-                # a card in a single card database many times on the same day,
-                # so that actual_interval = 0.
+                # Pathological case which can occur when learning ahead a card
+                # in a single card database many times on the same day, such
+                # that actual_interval becomes 0.
                 if new_interval < DAY:
                     new_interval = DAY
         new_interval = int(new_interval)
