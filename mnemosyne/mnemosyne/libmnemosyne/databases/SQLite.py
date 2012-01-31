@@ -131,8 +131,9 @@ $pregenerated_data
         actual_interval integer,
         new_interval integer,
         thinking_time integer,
-        last_rep integer,
+        last_rep integer, /* same as timestamp */
         next_rep integer,
+        /* Storing scheduler_data allows syncing the cramming scheduler */
         scheduler_data integer
     );
     create index i_log_timestamp on log (timestamp);

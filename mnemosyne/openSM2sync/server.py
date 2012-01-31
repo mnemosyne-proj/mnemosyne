@@ -87,7 +87,7 @@ mnemosyne_content_length = None
 
 
 class Server(Partner):
-    
+
     program_name = "unknown-SRS-app"
     program_version = "unknown"
     BUFFER_SIZE = 8192
@@ -96,13 +96,13 @@ class Server(Partner):
     # process on e.g. Servers which are storage only and where media files
     # cannot be edited.
     check_for_edited_local_media_files = False
-    
+
     dont_cause_conflict = set([EventTypes.STARTED_PROGRAM,
         EventTypes.STOPPED_PROGRAM, EventTypes.STARTED_SCHEDULER,
         EventTypes.LOADED_DATABASE, EventTypes.SAVED_DATABASE,
         EventTypes.EDITED_CRITERION])
 
-    def __init__(self, machine_id, port, ui):        
+    def __init__(self, machine_id, port, ui):
         self.machine_id = machine_id
         # We only use 1 thread, such that subsequent requests don't run into
         # SQLite access problems.
@@ -114,7 +114,7 @@ class Server(Partner):
         self.sessions = {} # {session_token: session}
         self.session_token_for_user = {} # {user_name: session_token}
 
-    def serve_until_stopped(self): 
+    def serve_until_stopped(self):
         try:
             self.wsgi_server.start()
         except KeyboardInterrupt:
@@ -142,7 +142,7 @@ class Server(Partner):
                 ("mnemosyne-content-length", str(mnemosyne_content_length)))
         if type(data) == types.StringType:
             response_headers.append(("content-length", str(len(data))))
-            start_response("200 OK", response_headers)            
+            start_response("200 OK", response_headers)
             return [data]
         else:  # We have an iterator. With a HTTP/1.0 client (i.e. a Mnemosyne
         # client behind an HTTP/1.0 proxy like Squid pre 3.1) we cannot use
@@ -157,8 +157,8 @@ class Server(Partner):
             else:
                 start_response("200 OK", response_headers)
                 return data
-        
-    def get_method(self, environ):        
+
+    def get_method(self, environ):
         # Convert e.g. GET /foo_bar into get_foo_bar.
         method = (environ["REQUEST_METHOD"] + \
                   environ["PATH_INFO"].replace("/", "_")).lower()
@@ -174,7 +174,7 @@ class Server(Partner):
         if not "session_token" in args or args["session_token"] \
             not in self.sessions:
             return "403 Forbidden", None, None
-        # See if the method exists.        
+        # See if the method exists.
         if hasattr(self, method) and callable(getattr(self, method)):
             return "200 OK", method, args
         else:
@@ -192,24 +192,24 @@ class Server(Partner):
     def close_session_with_token(self, session_token):
         session = self.sessions[session_token]
         session.close()
-        self.unload_database(session.database)        
+        self.unload_database(session.database)
         del self.session_token_for_user[session.client_info["username"]]
         del self.sessions[session_token]
         self.ui.close_progress()
-        
+
     def cancel_session_with_token(self, session_token):
 
         """Cancel a session at the user's request, e.g. after detecting
         conflicts.
 
         """
-        
+
         session = self.sessions[session_token]
         self.unload_database(session.database)
         del self.session_token_for_user[session.client_info["username"]]
         del self.sessions[session_token]
         self.ui.close_progress()
-        
+
     def terminate_session_with_token(self, session_token):
 
         """Clean up a session which failed to close normally."""
@@ -222,11 +222,16 @@ class Server(Partner):
         self.ui.close_progress()
         self.ui.show_error("Sync failed, restoring from backup. " + \
             "The next sync will need to be a full sync.")
-        
+
+    def expire_old_sessions(self):
+        for session_token, session in self.sessions.iteritems():
+            if session.is_expired():
+                self.terminate_session_with_token(session_token)
+
     def terminate_all_sessions(self):
         for session_token in self.sessions.keys():
             self.terminate_session_with_token(session_token)
-            
+
     def handle_error(self, session=None, traceback_string=None):
         self.ui.close_progress()
         if session:
@@ -235,12 +240,12 @@ class Server(Partner):
             self.ui.show_error(traceback_string)
             return self.text_format.repr_message("Internal server error",
                 traceback_string)
-    
+
     def stop(self):
         self.terminate_all_sessions()
         self.ui.close_progress()
         self.wsgi_server.stop()
-        
+
     def binary_format_for(self, session):
         for BinaryFormat in BinaryFormats:
             binary_format = BinaryFormat(session.database)
@@ -253,16 +258,16 @@ class Server(Partner):
     def supports_binary_transfer(self, session):
 
         """For testability, can easily be overridden by testsuite. """
-        
+
         return self.binary_format_for(session) is not None
-    
+
     # The following functions are to be overridden by the actual server code,
     # to implement e.g. authorisation, storage, ... .
 
     def authorise(self, username, password):
 
         """Returns True if 'password' is correct for 'username'."""
-        
+
         raise NotImplementedError
 
     def load_database(self, database_name):
@@ -282,7 +287,7 @@ class Server(Partner):
         """
 
         pass
-    
+
     # The following are methods that are supported by the server through GET
     # and PUT calls. 'get_foo_bar' gets executed after a 'GET /foo_bar'
     # request. Similarly, 'put_foo_bar' gets executed after a 'PUT /foo_bar'
@@ -292,8 +297,8 @@ class Server(Partner):
         return self.text_format.repr_message("OK")
 
     def put_login(self, environ):
-        session = None        
-        try:            
+        session = None
+        try:
             self.ui.set_progress_text("Client logging in...")
             client_info_repr = environ["wsgi.input"].readline()
             client_info = self.text_format.parse_partner_info(\
@@ -320,7 +325,7 @@ class Server(Partner):
             if (server_in_client_partners and not client_in_server_partners)\
                or \
                (client_in_server_partners and not server_in_client_partners):
-                self.terminate_session_with_token(session.token)                
+                self.terminate_session_with_token(session.token)
                 return self.text_format.repr_message("Sync cycle detected")
             session.database.create_if_needed_partnership_with(\
                 client_info["machine_id"])
@@ -382,12 +387,12 @@ class Server(Partner):
                 if log_entry["type"] not in self.dont_cause_conflict:
                     if "fname" in log_entry:
                         log_entry["o_id"] = log_entry["fname"]
-                    session.client_o_ids.append(log_entry["o_id"])                
+                    session.client_o_ids.append(log_entry["o_id"])
                 self.ui.set_progress_value(len(session.client_log))
             # If we haven't downloaded all entries yet, tell the client
             # it's OK to continue.
             if len(session.client_log) < session.number_of_client_entries:
-                return self.text_format.repr_message("Continue")               
+                return self.text_format.repr_message("Continue")
             # Now we have all the data from the client and we can determine
             # whether there are conflicts.
             for log_entry in session.database.log_entries_to_sync_for(\
@@ -402,10 +407,10 @@ class Server(Partner):
             return self.text_format.repr_message("OK")
         except:
             return self.handle_error(session, traceback_string())
-        
+
     def put_client_entire_database_binary(self, environ, session_token):
         try:
-            session = self.sessions[session_token] 
+            session = self.sessions[session_token]
             self.ui.set_progress_text("Getting entire binary database...")
             filename = session.database.path()
             session.database.abandon()
@@ -457,7 +462,7 @@ class Server(Partner):
         # start applying the client log entries. If there are errors that
         # occur, we save them and communicate them to the client in
         # 'get_sync_finish'.
-        try:    
+        try:
             self.ui.set_progress_text("Applying log entries...")
             # First, dump to the science log, so that we can skip over the new
             # logs in case the client uploads them.
@@ -507,13 +512,13 @@ class Server(Partner):
                         yield buffer
                     binary_format.clean_up()
                 except:
-                    yield self.handle_error(session, traceback_string())  
+                    yield self.handle_error(session, traceback_string())
             return content()
             # This is a full sync, we don't need to apply client log
             # entries here.
         except:
             return self.handle_error(session, traceback_string())
-        
+
     def put_client_media_file(self, environ, session_token, filename):
         try:
             session = self.sessions[session_token]
@@ -530,7 +535,7 @@ class Server(Partner):
                 progress_bar=False)
             return self.text_format.repr_message("OK")
         except:
-            return self.handle_error(session, traceback_string())      
+            return self.handle_error(session, traceback_string())
 
     def get_server_media_filenames(self, environ, session_token,
                                    redownload_all=False):
@@ -553,7 +558,7 @@ class Server(Partner):
         except:
             return self.handle_error(session, traceback_string())
 
-    def get_server_media_file(self, environ, session_token, filename): 
+    def get_server_media_file(self, environ, session_token, filename):
         try:
             session = self.sessions[session_token]
             global mnemosyne_content_length
@@ -580,11 +585,11 @@ class Server(Partner):
                         filename, progress_bar=False):
                         yield buffer
                 except:
-                    yield self.handle_error(session, traceback_string())                      
+                    yield self.handle_error(session, traceback_string())
             return content()
         except:
             return self.handle_error(session, traceback_string())
-                              
+
     def get_sync_cancel(self, environ, session_token):
         try:
             self.ui.set_progress_text("Sync cancelled!")
@@ -593,19 +598,16 @@ class Server(Partner):
         except:
             session = self.sessions[session_token]
             return self.handle_error(session, traceback_string())
-        
-    def get_sync_finish(self, environ, session_token):           
+
+    def get_sync_finish(self, environ, session_token):
         try:
             session = self.sessions[session_token]
             if session.apply_error is not None:
                 return self.handle_error(session, session.apply_error)
             self.ui.set_progress_text("Sync finished!")
-            self.close_session_with_token(session_token) 
+            self.close_session_with_token(session_token)
             # Now is a good time to garbage-collect dangling sessions.
-            # Only relevant for multi-user server.
-            for session_token, session in self.sessions.iteritems():
-                if session.is_expired():
-                    self.terminate_session_with_token(session_token)
+            self.expire_old_sessions()
             return self.text_format.repr_message("OK")
         except:
             return self.handle_error(session, traceback_string())

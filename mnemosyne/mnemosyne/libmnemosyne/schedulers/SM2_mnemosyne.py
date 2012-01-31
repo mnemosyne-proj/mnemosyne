@@ -172,21 +172,14 @@ class SM2Mnemosyne(Scheduler):
         return (0, 0, 1*DAY, 3*DAY, 4*DAY, 5*DAY) [grade]
 
     def calculate_interval_noise(self, interval):
-
-	"""Never add negative noise, otherwise in exceptional situations,
-	the interval could keep on decreasing instead of increasing.
-
-	"""
         if interval == 0:
             noise = 0
-        elif interval <= DAY:
-            noise = random.choice([0, DAY])
         elif interval <= 10 * DAY:
-            noise = random.choice([0, DAY, 2 * DAY])
+            noise = random.choice([0, DAY])
         elif interval <= 60 * DAY:
-            noise = random.uniform(0, 4 * DAY)
+            noise = random.uniform(-3 * DAY, 3 * DAY)
         else:
-            noise = random.uniform(0, 0.05 * interval)
+            noise = random.uniform(-0.05 * interval, 0.05 * interval)
         return noise
 
     def rebuild_queue(self, learn_ahead=False):
@@ -408,15 +401,15 @@ class SM2Mnemosyne(Scheduler):
         if dry_run:
             import copy
             card = copy.copy(card)
-	# Determine whether we learned on time or not (only relevant for
-	# grades 2 or higher).
-	if self.adjusted_now() - DAY >= card.next_rep: # Already due yesterday.
-	    timing = "LATE"
-	else:
-	    if self.adjusted_now() < card.next_rep: # Not due today.
-		timing = "EARLY"
-	    else:
-		timing = "ON TIME"
+        # Determine whether we learned on time or not (only relevant for
+        # grades 2 or higher).
+        if self.adjusted_now() - DAY >= card.next_rep: # Already due yesterday.
+            timing = "LATE"
+        else:
+            if self.adjusted_now() < card.next_rep: # Not due today.
+                timing = "EARLY"
+            else:
+                timing = "ON TIME"
         scheduled_interval = self.true_scheduled_interval(card)
         # If we memorise a card, keep track of its fact, so that we can avoid
         # pulling a sister card from the 'unseen' pile.
@@ -491,7 +484,7 @@ class SM2Mnemosyne(Scheduler):
                 if new_grade == 4:
                     new_interval = actual_interval * card.easiness
                 if new_grade == 5:
-		    if timing in ["EARLY"]:
+                    if timing in ["EARLY"]:
                         # Learning ahead and interval was too short. To avoid
                         # that the intervals increase explosively when learning
                         # ahead, take scheduled_interval as opposed to the
@@ -522,12 +515,8 @@ class SM2Mnemosyne(Scheduler):
             while self.database().sister_card_count_scheduled_between\
                   (card, card.next_rep, card.next_rep + DAY):
                 card.next_rep = self.midnight_UTC(card.next_rep + DAY)
-            # Round new interval to nearest cross-over point (only used in
-            # logging at this stage).
-            new_interval = self.true_scheduled_interval(card)
         else:
             card.next_rep = int(time.time())
-            new_interval = 0
         # Warn if we learned a lot of new cards.
         if len(self._fact_ids_memorised) == 15 and \
             self.warned_about_too_many_cards == False:

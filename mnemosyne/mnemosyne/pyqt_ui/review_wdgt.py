@@ -106,7 +106,6 @@ class QAOptimalSplit(object):
         return text.replace("<audio src=\"", "<audio src=\"DONTPLAY")
 
     def set_question(self, text):
-	print text
         self.question_text = text
         self.question_preview.page().setPreferredContentsSize(\
             QtCore.QSize(self.question.size().width(), 1))

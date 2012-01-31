@@ -1,3 +1,4 @@
+-Made sync more robust.
 -Tweaked scheduler to prevent shrinking intervals (reported by Dan Schmidt).
 -Reworded 'Getting started' wizard a bit (suggested by Kent Stearman).
 -Text properties like fonts are now also applied in user-defined html tables

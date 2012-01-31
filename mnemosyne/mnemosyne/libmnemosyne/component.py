@@ -12,7 +12,7 @@ class Component(object):
     generic_card_type_widget, ui_component, controller, main_widget,
     review_controller, review_widget, file format, plugin, hook,
     criterion, criterion_applier, statistics_page, sync_server,
-    all the abstract dialogs, ...      
+    all the abstract dialogs, ...
 
     'used_for' can store certain relationships between components, e.g.
     a card type widget is used for a certain card type.
@@ -33,17 +33,17 @@ class Component(object):
     constructor, as many component make use of it in their __init__ method.
     This means that derived components should always call the
     Component.__init__ if they provide their own constructor.
-    
+
     """
-    
+
     component_type = ""
     used_for = None
 
     IMMEDIATELY = 0
     LATER = 1
-    
+
     instantiate = IMMEDIATELY
-    
+
     def __init__(self, component_manager):
         self.component_manager = component_manager
 
@@ -57,18 +57,18 @@ class Component(object):
 
         pass
 
-    def deactivate(self):        
+    def deactivate(self):
         pass
 
     # Convenience functions, for easier access to all of the context of
     # libmnemosyne from within a component.
-    
+
     def _(self):
         return self.component_manager.current("translator")
-    
+
     def translator(self):
         return self.component_manager.current("translator")
-    
+
     def config(self):
         return self.component_manager.current("config")
 
@@ -80,13 +80,13 @@ class Component(object):
 
     def scheduler(self):
         return self.component_manager.current("scheduler")
-    
+
     def stopwatch(self):
         return self.component_manager.current("stopwatch")
-    
+
     def main_widget(self):
         return self.component_manager.current("main_widget")
-    
+
     def review_widget(self):
 
         """Apart from the main widget, we create all other widgets lazily for
@@ -95,9 +95,9 @@ class Component(object):
         controller.
 
         """
-        
+
         return self.review_controller().widget
-    
+
     def controller(self):
         return self.component_manager.current("controller")
 
@@ -106,16 +106,16 @@ class Component(object):
 
     def card_types(self):
         return self.component_manager.all("card_type")
-    
+
     def card_type_with_id(self, id):
         return self.component_manager.card_type_with_id[id]
 
     def render_chain(self, id="default"):
-        return self.component_manager.render_chain_by_id[id]        
+        return self.component_manager.render_chain_by_id[id]
 
     def plugins(self):
         return self.component_manager.all("plugin")
-                
+
     def start_review(self):
         self.review_controller().reset()
 
@@ -132,4 +132,4 @@ class Component(object):
 
         server = self.component_manager.current("sync_server")
         if server:
-            server.flush_sync_server()
+            server.flush()

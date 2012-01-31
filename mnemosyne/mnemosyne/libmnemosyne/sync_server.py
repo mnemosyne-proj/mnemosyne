@@ -32,13 +32,13 @@ class SyncServer(Component, Server):
             self.config()["port_for_sync_as_server"], ui)
         self.check_for_edited_local_media_files = \
             self.config()["check_for_edited_local_media_files"]
-    
+
     def authorise(self, username, password):
         return username == self.config()["remote_access_username"] and \
                password == self.config()["remote_access_password"]
-    
+
     def load_database(self, database_name):
-        self.previous_database = self.config()["path"]   
+        self.previous_database = self.config()["path"]
         if self.previous_database != database_name:
             if not os.path.exists(expand_path(database_name,
                 self.config().data_dir)):
@@ -46,7 +46,7 @@ class SyncServer(Component, Server):
             else:
                 self.database().load(database_name)
         return self.database()
-    
+
     def unload_database(self, database):
         self.database().load(self.previous_database)
         self.log().loaded_database()

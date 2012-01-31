@@ -26,7 +26,7 @@ class DefaultController(Controller):
     See also 'How to write a new frontend' in the docs.
 
     """
-        
+
     def heartbeat(self):
 
         """To be called once a day, to make sure, even if the user leaves the
@@ -35,7 +35,7 @@ class DefaultController(Controller):
         uploaded.
 
         """
-        
+
         self.flush_sync_server()
         if not self.database().is_loaded() or \
             not self.database().is_accessible():
@@ -44,11 +44,11 @@ class DefaultController(Controller):
             return
         self.database().backup()
         self.log().saved_database()
-        self.log().loaded_database()        
+        self.log().loaded_database()
         self.log().dump_to_science_log()
         self.log().deactivate()
         self.log().activate()
-        
+
     def update_title(self):
         title = _("Mnemosyne")
         database_name = self.database().display_name()
@@ -70,7 +70,7 @@ class DefaultController(Controller):
         else:
             review_controller.update_status_bar_counters()
         self.stopwatch().unpause()
-        
+
     def create_new_cards(self, fact_data, card_type, grade, tag_names,
                          check_for_duplicates=True, save=True):
 
@@ -149,7 +149,7 @@ class DefaultController(Controller):
         self.component_manager.current("edit_card_dialog")\
             (review_controller.card, self.component_manager).activate()
         # This dialog calls 'edit_sister_cards' at some point.
-        review_controller.reload_counters()    
+        review_controller.reload_counters()
         # Our current card could have disappeared from the database here,
         # e.g. when converting a front-to-back card to a cloze card, which
         # deletes the old cards and their learning history.
@@ -159,11 +159,11 @@ class DefaultController(Controller):
             review_controller.card = self.database().card(\
                 review_controller.card._id, is_id_internal=True)
             # Our current card could have picked up a forbidden tag.
-            if review_controller.card.active == False: 
+            if review_controller.card.active == False:
                 review_controller.show_new_question()
             review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
-        
+
     def _change_card_type(self, fact, old_card_type, new_card_type,
                           correspondence, new_fact_data, warn=True):
 
@@ -186,7 +186,7 @@ class DefaultController(Controller):
             # Perhaps they have a common ancestor.
             parents_old = old_card_type.id.split("::")
             parents_new = new_card_type.id.split("::")
-            if parents_old[0] == parents_new[0]: 
+            if parents_old[0] == parents_new[0]:
                 edited_cards = cards_from_fact
                 new_fact_view_for = {}
                 for index, old_fact_view in enumerate(old_card_type.fact_views):
@@ -203,12 +203,12 @@ class DefaultController(Controller):
                  + " " + _("The learning history of the cards will be reset."),
                  _("&OK"), _("&Cancel"), "")
                     if answer == 1:  # Cancel.
-                        return -1  
+                        return -1
                 # Go ahead with conversion
                 is_currently_asked = \
                    self.review_controller().card in cards_from_fact
                 tag_names = cards_from_fact[0].tag_string().split(", ")
-                self.delete_facts_and_their_cards([fact])                        
+                self.delete_facts_and_their_cards([fact])
                 new_card = self.create_new_cards(new_fact_data,
                     new_card_type, grade=-1, tag_names=tag_names)[0]
                 if is_currently_asked:
@@ -241,9 +241,9 @@ class DefaultController(Controller):
             if new_cards and self.review_controller().learning_ahead:
                 self.review_controller().reset()
             return 0
-        
+
     def edit_sister_cards(self, fact, new_fact_data, old_card_type,
-            new_card_type, new_tag_names, correspondence):        
+            new_card_type, new_tag_names, correspondence):
         db = self.database()
         sch = self.scheduler()
         assert new_card_type.is_fact_data_valid(new_fact_data)
@@ -254,7 +254,7 @@ class DefaultController(Controller):
         result = self._change_card_type(fact, old_card_type, new_card_type,
             correspondence, new_fact_data)
         if result == -1:  # Aborted.
-            return -1  
+            return -1
         # Update fact and create or delete cards.
         new_cards, edited_cards, deleted_cards = \
             new_card_type.edit_sister_cards(fact, new_fact_data)
@@ -274,7 +274,7 @@ class DefaultController(Controller):
         # entry for each sister card, which is needed when syncing with a
         # partner that does not have the concept of facts.
         old_tags = set()
-        tags = db.get_or_create_tags_with_names(new_tag_names)    
+        tags = db.get_or_create_tags_with_names(new_tag_names)
         modification_time = int(time.time())
         for card in self.database().cards_from_fact(fact):
             card.modification_time = modification_time
@@ -284,17 +284,17 @@ class DefaultController(Controller):
         for tag in old_tags:
             db.delete_tag_if_unused(tag)
         if clean_orphaned_static_media_files_needed:
-            db.clean_orphaned_static_media_files()        
-        db.save()       
+            db.clean_orphaned_static_media_files()
+        db.save()
         return 0
 
     def change_card_type(self, facts, old_card_type, new_card_type,
                          correspondence):
 
         """Note: all facts should have the same card type."""
-        
+
         db = self.database()
-        clean_orphaned_static_media_files_needed = False  
+        clean_orphaned_static_media_files_needed = False
         for fact in facts:
             if db.fact_contains_static_media_files(fact):
                 clean_orphaned_static_media_files_needed = True
@@ -323,7 +323,7 @@ class DefaultController(Controller):
             count += 1
             w.set_progress_value(count)
         if clean_orphaned_static_media_files_needed:
-            db.clean_orphaned_static_media_files()        
+            db.clean_orphaned_static_media_files()
         db.save()
         w.close_progress()
 
@@ -357,7 +357,7 @@ class DefaultController(Controller):
 
     def delete_facts_and_their_cards(self, facts):
         db = self.database()
-        clean_orphaned_static_media_files_needed = False  
+        clean_orphaned_static_media_files_needed = False
         for fact in facts:
             if db.fact_contains_static_media_files(fact):
                 clean_orphaned_static_media_files_needed = True
@@ -370,7 +370,7 @@ class DefaultController(Controller):
         db.save()
 
     def clone_card_type(self, card_type, clone_name):
-        from mnemosyne.libmnemosyne.utils import mangle    
+        from mnemosyne.libmnemosyne.utils import mangle
         clone_id = card_type.id + "::" + clone_name
         if clone_id in [card_t.id for card_t in self.card_types()]:
             self.main_widget().show_error(_("Card type name already exists."))
@@ -383,12 +383,12 @@ class DefaultController(Controller):
             cloned_fact_view = copy.copy(fact_view)
             cloned_fact_view.id = clone_id + "." + fact_view.id.rsplit(".", 1)[1]
             cloned_card_type.fact_views.append(cloned_fact_view)
-            self.database().add_fact_view(cloned_fact_view)         
+            self.database().add_fact_view(cloned_fact_view)
         self.database().add_card_type(cloned_card_type)
         self.config().clone_card_type_properties(card_type, cloned_card_type)
         self.database().save()
         return cloned_card_type
-    
+
     def delete_card_type(self, card_type):
         # TODO: check if card type in use.
         fact_views = card_type.fact_views
@@ -400,7 +400,7 @@ class DefaultController(Controller):
         self.database().save()
 
     single_database_help = _("It is recommended to put all your cards in a single database. Using tags to determine which cards to study is much more convenient than having to load and unload several databases.")
-   
+
     def show_new_file_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
@@ -456,7 +456,7 @@ class DefaultController(Controller):
                 self.review_controller().reset()
                 self.update_title()
             self.stopwatch().unpause()
-            return  
+            return
         try:
             self.log().saved_database()
             db.backup()
@@ -464,7 +464,7 @@ class DefaultController(Controller):
         except RuntimeError, error:
             self.main_widget().show_error(unicode(error))
             self.stopwatch().unpause()
-            return            
+            return
         try:
             db.load(filename)
             self.log().loaded_database()
@@ -537,7 +537,7 @@ class DefaultController(Controller):
                 os.path.dirname(filename), data_dir)
             filename = copy_file_to_dir(filename, media_dir)
             return contract_path(filename, media_dir)
-        
+
     def show_insert_sound_dialog(self, filter):
         from mnemosyne.libmnemosyne.utils import copy_file_to_dir
         data_dir, media_dir = self.config().data_dir, self.database().media_dir()
@@ -552,7 +552,7 @@ class DefaultController(Controller):
                 os.path.dirname(filename), data_dir)
             filename = copy_file_to_dir(filename, media_dir)
             return filename
-        
+
     def show_insert_video_dialog(self, filter):
         from mnemosyne.libmnemosyne.utils import copy_file_to_dir
         data_dir, media_dir = self.config().data_dir, self.database().media_dir()
@@ -567,7 +567,7 @@ class DefaultController(Controller):
                 os.path.dirname(filename), data_dir)
             filename = copy_file_to_dir(filename, media_dir)
             return filename
-        
+
     def show_activate_cards_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
@@ -577,7 +577,7 @@ class DefaultController(Controller):
         review_controller.reset_but_try_to_keep_current_card()
         review_controller.update_status_bar_counters()
         self.stopwatch().unpause()
-        
+
     def show_browse_cards_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
@@ -590,7 +590,7 @@ class DefaultController(Controller):
             review_controller.card._id, is_id_internal=True)
         review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
-        
+
     def show_activate_plugins_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
@@ -605,14 +605,14 @@ class DefaultController(Controller):
         self.component_manager.current("manage_card_types_dialog")\
             (self.component_manager).activate()
         self.stopwatch().unpause()
-        
+
     def show_statistics_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("statistics_dialog")\
             (self.component_manager).activate()
         self.stopwatch().unpause()
-        
+
     def show_configuration_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
@@ -621,32 +621,32 @@ class DefaultController(Controller):
         self.review_controller().reset_but_try_to_keep_current_card()
         self.review_controller().update_dialog(redraw_all=True)
         self.stopwatch().unpause()
-        
+
     def show_import_file_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("import_dialog")\
             (self.component_manager).activate()
         self.database().save()
-        self.log().saved_database()        
+        self.log().saved_database()
         review_controller = self.review_controller()
         review_controller.reload_counters()
         if review_controller.card is None:
             review_controller.show_new_question()
         else:
-            review_controller.update_status_bar_counters()    
+            review_controller.update_status_bar_counters()
         self.stopwatch().unpause()
-        
+
     def show_export_file_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
-        
+
         self.stopwatch().unpause()
 
     def show_sync_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
-        self.database().save()        
+        self.database().save()
         self.component_manager.current("sync_dialog")\
             (self.component_manager).activate()
         self.database().save()
@@ -655,13 +655,13 @@ class DefaultController(Controller):
         self.review_controller().update_dialog(redraw_all=True)
         self.stopwatch().unpause()
 
-    def sync(self, server, port, username, password, ui=None):      
+    def sync(self, server, port, username, password, ui=None):
         if ui is None:
             ui = self.main_widget()
         from openSM2sync.client import Client
         client = Client(self.config().machine_id(), self.database(), ui)
         client.program_name = "Mnemosyne"
-        import mnemosyne.version  
+        import mnemosyne.version
         client.program_version = mnemosyne.version.version
         client.capabilities = "mnemosyne_dynamic_cards"
         client.check_for_edited_local_media_files = \
@@ -675,12 +675,12 @@ class DefaultController(Controller):
         try:
             client.sync(server, port, username, password)
         finally:
-            client.database.release_connection()        
+            client.database.release_connection()
 
     def show_download_source_dialog(self):
 
         """The following code is here to be able to enforce the AGPL licence.
-        
+
         If you run Mnemosyne as a service over the network, you need to provide
         users the option to download your modified version of libmnemosyne and
         the Mnemosyne HTML server.
@@ -695,7 +695,7 @@ class DefaultController(Controller):
         example for people who do modify the source.
 
         """
-        
+
         self.stopwatch().pause()
         self.flush_sync_server()
         self.main_widget().show_information(\
@@ -721,5 +721,5 @@ class DefaultController(Controller):
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("about_dialog")(
-            self.component_manager).activate()     
+            self.component_manager).activate()
         self.stopwatch().unpause()

@@ -1,4 +1,11 @@
--no need to log last rep in the log database? We already have timestamp. Also scheduler data, new interval, ...
+-literal int bug during syncing
+
+-revisit rational of flushing, move dummy implementation to sync_server.py?
+-better flushing of sync server
+
+-no need to log last rep in the log database? We already have timestamp. update sync too
+ get rid of new_interval and keep next_rep? we need next rep in sqlite stats
+ document why we store them
 
 -sync server: add tag, delete tag, readd it
 

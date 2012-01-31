@@ -34,7 +34,7 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
 
     def createPopupMenu(self):
         # Don't create a silly popup menu saying ('toolBar').
-        pass 
+        pass
 
     def closeEvent(self, event):
         # Generated when clicking the window's close button.
@@ -45,6 +45,11 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         if state:
             self.restoreGeometry(state)
         self.TIMER_1_INTERVAL = 1000 * 60 * 10 # For reuse in review widget.
+
+
+        self.TIMER_1_INTERVAL = 1000 * 5 # For reuse in review widget.
+
+
         self.timer_1 = QtCore.QTimer()
         self.timer_1.timeout.connect(self.review_controller_heartbeat)
         self.timer_1.start(self.TIMER_1_INTERVAL)
@@ -56,13 +61,13 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
 
     def review_controller_heartbeat(self):
         self.review_controller().heartbeat()  # Late binding
-        
+
     def controller_heartbeat(self):
         self.controller().heartbeat()  # Late binding
 
     def set_window_title(self, text):
         self.setWindowTitle(text)
-        
+
     def show_information(self, text):
         QtGui.QMessageBox.information(self, _("Mnemosyne"), text, _("&OK"))
 
@@ -76,15 +81,15 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
 
     def default_font_size(self):
         return QtGui.qApp.font().pointSize()
-    
+
     def get_filename_to_open(self, path, filter, caption=""):
         return unicode(QtGui.QFileDialog.\
             getOpenFileName(self, caption, path, filter))
-     
+
     def get_filename_to_save(self, path, filter, caption=""):
         return unicode(QtGui.QFileDialog.\
             getSaveFileName(self, caption, path, filter))
-    
+
     def set_status_bar_message(self, text):
         self.status_bar.showMessage(text)
 
@@ -107,13 +112,13 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
 
     def set_progress_range(self, minimum, maximum):
         self.progress_bar.setRange(minimum, maximum)
-        
+
     def set_progress_update_interval(self, update_interval):
         update_interval = int(update_interval)
         if update_interval == 0:
             update_interval = 1
         self.progress_bar_update_interval = update_interval
-        
+
     def set_progress_value(self, value):
         # There is a possibility that 'value' does not visit all intermediate
         # integer values in the range, so we need to check and store the last
@@ -124,19 +129,19 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
             self.progress_bar_last_shown_value = value
             # This automatically processes events too. Calling processEvents
             # explictly here might even cause some crashes.
-        
+
     def close_progress(self):
         if self.progress_bar:
             self.progress_bar.close()
         self.progress_bar = None
-        
+
     def enable_edit_current_card(self, is_enabled):
         self.actionEditCurrentCard.setEnabled(is_enabled)
 
-    def enable_delete_current_card(self, is_enabled):      
+    def enable_delete_current_card(self, is_enabled):
         self.actionDeleteCurrentCard.setEnabled(is_enabled)
 
-    def enable_browse_cards(self, is_enabled):      
+    def enable_browse_cards(self, is_enabled):
         self.actionBrowseCards.setEnabled(is_enabled)
 
     def add_to_status_bar(self, widget):
@@ -147,25 +152,25 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         for widget in self.status_bar_widgets:
             self.status_bar.removeWidget(widget)
         self.status_bar_widgets = []
-        
+
     def file_new(self):
         self.controller().show_new_file_dialog()
 
     def file_open(self):
         self.controller().show_open_file_dialog()
-        
+
     def file_save(self):
         self.controller().save_file()
-        
+
     def file_save_as(self):
         self.controller().show_save_file_as_dialog()
 
     def import_file(self):
         self.controller().show_import_file_dialog()
-        
+
     def export_file(self):
         self.controller().show_export_file_dialog()
- 
+
     def sync(self):
         self.controller().show_sync_dialog()
 
@@ -174,25 +179,25 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
 
     def edit_current_card(self):
         self.controller().show_edit_card_dialog()
-        
+
     def delete_current_card(self):
         self.controller().delete_current_card()
-        
+
     def browse_cards(self):
         self.controller().show_browse_cards_dialog()
-        
+
     def activate_cards(self):
-        self.controller().show_activate_cards_dialog()   
-        
+        self.controller().show_activate_cards_dialog()
+
     def manage_card_types(self):
         self.controller().show_manage_card_types_dialog()
-        
+
     def configure(self):
         self.controller().show_configuration_dialog()
-        
+
     def set_card_appearance(self):
         self.controller().show_card_appearance_dialog()
-        
+
     def activate_plugins(self):
         self.controller().show_activate_plugins_dialog()
 
@@ -204,6 +209,6 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
 
     def show_tip(self):
         self.controller().show_tip_dialog()
-        
+
     def show_about(self):
         self.controller().show_about_dialog()
