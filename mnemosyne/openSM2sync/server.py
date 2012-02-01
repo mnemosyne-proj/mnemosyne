@@ -66,7 +66,7 @@ class Session(object):
         self.database.set_sync_partner_info(client_info)
 
     def is_expired(self):
-        return time.time() > self.expired
+        return time.time() > self.expires
 
     def close(self):
         self.database.update_last_log_index_synced_for(\

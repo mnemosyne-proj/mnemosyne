@@ -180,7 +180,7 @@ class SM2Mnemosyne(Scheduler):
             noise = random.uniform(-3 * DAY, 3 * DAY)
         else:
             noise = random.uniform(-0.05 * interval, 0.05 * interval)
-        return noise
+        return int(noise)
 
     def rebuild_queue(self, learn_ahead=False):
         db = self.database()

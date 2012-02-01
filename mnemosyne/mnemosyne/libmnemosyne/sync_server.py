@@ -18,8 +18,8 @@ class SyncServer(Component, Server):
     threads and the GUI event loop.
 
     Also, a GUI will typically want to override/wrap 'load_database' and
-    'unload_database' too, because these will be subject to threading issues
-    as well.
+    'unload_database', 'flush' too, because these will be subject to threading
+    issues as well.
 
     """
 
@@ -52,3 +52,16 @@ class SyncServer(Component, Server):
         self.log().loaded_database()
         self.review_controller().reset_but_try_to_keep_current_card()
         self.review_controller().update_dialog(redraw_all=True)
+
+    def flush(self):
+
+        """If there are still dangling sessions (i.e. those waiting in vain
+        for more client input) in the sync server, we should flush them and
+        make sure they restore from backup before doing anything that could
+        change the database (e.g. adding a card). Otherwise, if these
+        sessions close later during program shutdown, their backup
+        restoration will override the changes.
+
+        """
+
+        self.expire_old_sessions()

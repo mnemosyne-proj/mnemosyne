@@ -5,6 +5,7 @@
 import os
 import sys
 import socket
+import sqlite3
 
 from PyQt4 import QtCore
 
@@ -20,7 +21,6 @@ from mnemosyne.libmnemosyne.sync_server import SyncServer
 
 mutex = QtCore.QMutex()
 database_released = QtCore.QWaitCondition()
-server_flushed = QtCore.QWaitCondition()
 
 class ServerThread(QtCore.QThread, SyncServer):
 
@@ -38,7 +38,7 @@ class ServerThread(QtCore.QThread, SyncServer):
        'unload_database' being called.
      - when the client disappears halfway through the sync, and the user of
        the server database wants to go on using it. For that reason,
-       libmnemosyne calls 'flush_sync_server' before each GUI action.
+       libmnemosyne calls 'flush' before each GUI action.
 
     Also note that in Qt, we cannot do GUI updates in the server thread, so we
     use the signal/slot mechanism to notify the main thread to do the
@@ -104,12 +104,12 @@ class ServerThread(QtCore.QThread, SyncServer):
         self.sync_ended_signal.emit()
 
     def flush(self):
-        print 'entering flushing server thread'
         mutex.lock()
+        if not self.server_has_connection:
+            database_released.wait(mutex)
         self.expire_old_sessions()
-        server_flushed.wakeAll()
+        self.server_has_connection = True
         mutex.unlock()
-        print 'done flushing server thread'
 
     def show_information(self, information):
         self.information_signal.emit(information)
@@ -185,21 +185,27 @@ class QtSyncServer(Component, QtCore.QObject):
                 self.main_widget().set_progress_value)
             self.thread.close_progress_signal.connect(\
                 self.main_widget().close_progress)
-            self.thread.server_flushed_signal.connect(\
-                self.main_widget().close_progress)
             self.thread.start()
 
-    def release_database_if_needed(self):
+    def release_database(self):
         mutex.lock()
-        if not self.thread.server_has_connection:
+        # Since this function can get called by libmnemosyne outside of the
+        # syncing protocol, 'thread.server_has_connection' is not necessarily
+        # accurate, so we can't rely on its value to determine whether we have
+        # the ownership to release the connection. Therefore, we always
+        # attempt to release the connection, and if it fails because the server
+        # already has access, we just ignore this.
+        try:
             self.database().release_connection()
-            self.thread.server_has_connection = True
-            database_released.wakeAll()
+        except sqlite3.ProgrammingError:
+            pass
+        self.thread.server_has_connection = True
+        database_released.wakeAll()
         mutex.unlock()
 
     def unload_database(self):
         self.previous_database = self.config()["path"]
-        self.release_database_if_needed()
+        self.release_database()
 
     def load_database(self):
         mutex.lock()
@@ -215,15 +221,13 @@ class QtSyncServer(Component, QtCore.QObject):
     def flush(self):
         if not self.thread:
             return
-        print 'flushing main thread'
+        self.release_database()
         self.thread.flush()
-        server_flushed.wait(mutex)
-        print 'done flushing main thread'
 
     def deactivate(self):
         if not self.thread:
             return
-        self.release_database_if_needed()
+        self.release_database()
         self.thread.stop()
         self.thread.wait()
         self.thread = None
