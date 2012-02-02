@@ -35,7 +35,7 @@ if options.data_dir != None:
     data_dir = os.path.abspath(options.data_dir)
 elif os.path.exists(os.path.join(os.getcwdu(), "mnemosyne")):
     data_dir = os.path.abspath(os.path.join(os.getcwdu(), "mnemosyne"))
-        
+
 # Filename argument.
 if len(args) > 0:
     filename = os.path.abspath(args[0])

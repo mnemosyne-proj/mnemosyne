@@ -13,7 +13,7 @@ from mnemosyne.libmnemosyne.ui_components.dialogs import ActivateCardsDialog
 class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
                        ActivateCardsDialog):
 
-    def __init__(self, component_manager):        
+    def __init__(self, component_manager):
         ActivateCardsDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
@@ -26,7 +26,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
                         self.saved_sets, self.delete_set)
         criterion = self.database().current_criterion()
         self.criterion_classes = \
-            self.component_manager.all("criterion")       
+            self.component_manager.all("criterion")
         current_criterion = self.database().current_criterion()
         self.widget_for_criterion_type = {}
         for criterion_class in self.criterion_classes:
@@ -69,7 +69,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
                 self.criteria_by_name[criterion.name] = criterion
                 self.saved_sets.addItem(criterion.name)
                 if criterion == active_criterion:
-                    active_name = criterion.name                    
+                    active_name = criterion.name
         self.saved_sets.sortItems()
         if active_name:
             item = self.saved_sets.findItems(active_name,
@@ -87,7 +87,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         menu.addAction(_("Delete"), self.delete_set)
         menu.addAction(_("Rename"), self.rename_set)
         menu.exec_(self.saved_sets.mapToGlobal(pos))
-        
+
     def save_set(self):
         criterion = self.tab_widget.currentWidget().criterion()
         if criterion.is_empty():
@@ -107,7 +107,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
             self.main_widget().show_information(\
                 _("You can right-click on the name of a saved set to rename or delete it."))
             self.config()["showed_help_on_renaming_sets"] = True
-            
+
     def delete_set(self):
         answer = self.main_widget().show_question(_("Delete this set?"),
             _("&OK"), _("&Cancel"), "")
@@ -147,17 +147,17 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         item = self.saved_sets.findItems(criterion.name,
             QtCore.Qt.MatchExactly)[0]
         self.saved_sets.setCurrentItem(item)
-            
+
     def _store_state(self):
         self.config()["activate_cards_dlg_state"] = \
             self.saveGeometry()
         self.config()["activate_cards_dlg_splitter_state"] = \
             self.splitter.saveState()
-        
+
     def closeEvent(self, event):
         # Generated when clicking the window's close button.
         self._store_state()
-        
+
     def accept(self):
         criterion = self.tab_widget.currentWidget().criterion()
         if criterion.is_empty():

@@ -8,7 +8,7 @@ from mnemosyne.libmnemosyne.criterion import Criterion
 class DefaultCriterion(Criterion):
 
     criterion_type = "default"
-    
+
     def __init__(self, component_manager, id=None):
         Criterion.__init__(self, component_manager, id)
         # (card_type.id, fact_view.id):
@@ -25,7 +25,7 @@ class DefaultCriterion(Criterion):
             and self._tag_ids_active == other._tag_ids_active \
             and self._tag_ids_forbidden == other._tag_ids_forbidden
 
-    def is_empty(self):        
+    def is_empty(self):
         # Check card types.
         counter = 0
         for card_type in self.card_types():
@@ -54,7 +54,7 @@ class DefaultCriterion(Criterion):
             if tag._id in self._tag_ids_forbidden:
                 card.active = False
                 break
-    
+
     def tag_added(self, tag):
         self._tag_ids_active.add(tag._id)
 
@@ -74,7 +74,7 @@ class DefaultCriterion(Criterion):
         return repr((self.deactivated_card_type_fact_view_ids,
                      self._tag_ids_active,
                      self._tag_ids_forbidden))
-    
+
     def set_data_from_string(self, data_string):
         data = eval(data_string)
         self.deactivated_card_type_fact_view_ids = data[0]
@@ -82,7 +82,7 @@ class DefaultCriterion(Criterion):
         self._tag_ids_forbidden = data[2]
 
     # To send the criteria across, we need to convert from _ids ids first.
-    
+
     def data_to_sync_string(self):
         active_tag_ids = set()
         for _tag_id in self._tag_ids_active:
@@ -103,8 +103,8 @@ class DefaultCriterion(Criterion):
         self._tag_ids_active = set()
         for tag_id in active_tag_ids:
             tag = self.database().tag(tag_id, is_id_internal=False)
-            self._tag_ids_active.add(tag._id)        
+            self._tag_ids_active.add(tag._id)
         self._tag_ids_forbidden = set()
         for tag_id in forbidden_tag_ids:
             tag = self.database().tag(tag_id, is_id_internal=False)
-            self._tag_ids_forbidden.add(tag._id)        
+            self._tag_ids_forbidden.add(tag._id)

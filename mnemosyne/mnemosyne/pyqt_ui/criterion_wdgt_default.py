@@ -26,7 +26,7 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
     def __init__(self, component_manager, parent):
         CriterionWidget.__init__(self, component_manager)
         QtGui.QWidget.__init__(self, parent)
-        self.setupUi(self)   
+        self.setupUi(self)
         self.card_type_tree_wdgt = CardTypesTreeWdgt(component_manager, self)
         self.gridLayout.addWidget(self.card_type_tree_wdgt, 1, 0, 1, 1)
         self.tag_tree_wdgt = TagsTreeWdgt(component_manager, self)
@@ -40,22 +40,22 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
             itemChanged.connect(self.criterion_changed)
         self.tag_tree_wdgt.tag_tree_wdgt.\
             itemChanged.connect(self.criterion_changed)
-    
+
     def display_criterion(self, criterion):
         self.card_type_tree_wdgt.display(criterion)
         self.tag_tree_wdgt.display(criterion)
         if len(criterion._tag_ids_forbidden):
             self.active_or_forbidden.setCurrentIndex(1)
         else:
-            self.active_or_forbidden.setCurrentIndex(0)            
-        
+            self.active_or_forbidden.setCurrentIndex(0)
+
     def criterion(self):
 
         """Build the criterion from the information the user entered in the
         widget.
 
         """
-        
+
         criterion = DefaultCriterion(self.component_manager)
         criterion = self.card_type_tree_wdgt.checked_to_criterion(criterion)
         # Tag tree contains active tags.
@@ -69,5 +69,5 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
                 criterion._tag_ids_active.add(tag._id)
         return criterion
 
-    def criterion_changed(self):        
+    def criterion_changed(self):
         self.parent_saved_sets.clearSelection()

@@ -1,3 +1,5 @@
+-Upgraded PyQt on Windows.
+-Fixes for cards containing multiple mp3 files (reported Patrick de Metz).
 -Made sync more robust.
 -Tweaked scheduler to prevent shrinking intervals (reported by Dan Schmidt).
 -Reworded 'Getting started' wizard a bit (suggested by Kent Stearman).

@@ -187,7 +187,7 @@ class QtSyncServer(Component, QtCore.QObject):
                 self.main_widget().close_progress)
             self.thread.start()
 
-    def release_database(self):
+    def unload_database(self):
         mutex.lock()
         # Since this function can get called by libmnemosyne outside of the
         # syncing protocol, 'thread.server_has_connection' is not necessarily
@@ -197,21 +197,19 @@ class QtSyncServer(Component, QtCore.QObject):
         # already has access, we just ignore this.
         try:
             self.database().release_connection()
-        except sqlite3.ProgrammingError:
+        except sqlite3.ProgrammingError: # Database locked in server thread.
             pass
         self.thread.server_has_connection = True
         database_released.wakeAll()
         mutex.unlock()
 
-    def unload_database(self):
-        self.previous_database = self.config()["path"]
-        self.release_database()
-
     def load_database(self):
         mutex.lock()
-        if self.thread.server_has_connection:
+        try:
+            self.database().load(self.config()["path"])
+        except sqlite3.ProgrammingError: # Database locked in server thread.
             database_released.wait(mutex)
-        self.database().load(self.previous_database)
+            self.database().load(self.config()["path"])
         self.log().loaded_database()
         self.review_controller().reset_but_try_to_keep_current_card()
         self.review_controller().update_dialog(redraw_all=True)
@@ -221,13 +219,21 @@ class QtSyncServer(Component, QtCore.QObject):
     def flush(self):
         if not self.thread:
             return
-        self.release_database()
+        # Don't flush the server if not need, as loading and unloading the
+        # database can be expensive.
+        mutex.lock()
+        is_server_idle = (len(self.thread.sessions) == 0)
+        mutex.unlock()
+        if is_server_idle:
+            return
+        self.unload_database()
         self.thread.flush()
+        self.load_database()
 
     def deactivate(self):
         if not self.thread:
             return
-        self.release_database()
+        self.unload_database()
         self.thread.stop()
         self.thread.wait()
         self.thread = None

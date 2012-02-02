@@ -21,7 +21,7 @@ question_answered = QtCore.QWaitCondition()
 
 
 class SyncThread(QtCore.QThread):
-    
+
     """We do the syncing in a separate thread so that the GUI still stays
     responsive when waiting for the server.
 
@@ -30,7 +30,7 @@ class SyncThread(QtCore.QThread):
     necessary GUI operations.
 
     """
-    
+
     information_signal = QtCore.pyqtSignal(QtCore.QString)
     error_signal = QtCore.pyqtSignal(QtCore.QString)
     question_signal = QtCore.pyqtSignal(QtCore.QString, QtCore.QString,
@@ -38,9 +38,9 @@ class SyncThread(QtCore.QThread):
     set_progress_text_signal = QtCore.pyqtSignal(QtCore.QString)
     set_progress_range_signal = QtCore.pyqtSignal(int, int)
     set_progress_update_interval_signal = QtCore.pyqtSignal(int)
-    set_progress_value_signal = QtCore.pyqtSignal(int)    
+    set_progress_value_signal = QtCore.pyqtSignal(int)
     close_progress_signal = QtCore.pyqtSignal()
-    
+
     def __init__(self, mnemosyne, server, port, username, password):
         QtCore.QThread.__init__(self)
         self.mnemosyne = mnemosyne
@@ -50,17 +50,17 @@ class SyncThread(QtCore.QThread):
         self.password = password
         # A fast moving progress bar seems to cause crashes on Windows.
         self.show_numeric_progress_bar = (sys.platform != "win32")
-        
+
     def run(self):
         try:
             self.mnemosyne.controller().sync(self.server, self.port,
                 self.username, self.password, ui=self)
         except:
             self.mnemosyne.database().release_connection()
-        
+
     def show_information(self, message):
         self.information_signal.emit(message)
-    
+
     def show_error(self, error):
         self.error_signal.emit(error)
 
@@ -74,18 +74,18 @@ class SyncThread(QtCore.QThread):
 
     def set_progress_text(self, text):
         self.set_progress_text_signal.emit(text)
-        
+
     def set_progress_range(self, minimum, maximum):
         if self.show_numeric_progress_bar:
             self.set_progress_range_signal.emit(minimum, maximum)
-        
+
     def set_progress_update_interval(self, value):
         if self.show_numeric_progress_bar:
             self.set_progress_update_interval_signal.emit(value)
-        
+
     def set_progress_value(self, value):
         if self.show_numeric_progress_bar:
-            self.set_progress_value_signal.emit(value) 
+            self.set_progress_value_signal.emit(value)
 
     def close_progress(self):
         self.close_progress_signal.emit()
@@ -100,7 +100,7 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)       
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)
         if not self.config()["sync_help_shown"]:
             self.main_widget().show_information(\
                _("Here, you can sync this machine with a remote server. Of course, that remote computer needs to have a server running, which can be started from the configuration screen on that remote machine.\n\nHowever, if you want to sync a mobile device with this machine here, you shouldn't use the menu option you just selected. In that case, this computer needs to be the server. So, first enable a sync server here, and then start the sync from the mobile device."))
@@ -113,33 +113,33 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
             self.config()["check_for_edited_local_media_files"])
         if self.config()["server_for_sync_as_client"]:
             self.ok_button.setFocus()
-        
+
     def activate(self):
         self.exec_()
-        
+
     def accept(self):
         # Store input for later use.
         server = unicode(self.server.text())
         port = self.port.value()
         username = unicode(self.username.text())
-        password = unicode(self.password.text()) 
+        password = unicode(self.password.text())
         self.config()["server_for_sync_as_client"] = server
         self.config()["port_for_sync_as_client"] = port
         self.config()["username_for_sync_as_client"] = username
         self.config()["password_for_sync_as_client"] = password
         self.config()["check_for_edited_local_media_files"] = \
-            self.check_for_edited_local_media_files.isChecked()                                                
+            self.check_for_edited_local_media_files.isChecked()
         # Do the actual sync in a separate thread.
         self.database().release_connection()
         global answer
-        answer = None          
+        answer = None
         self.thread = SyncThread(self, server, port, username, password)
         self.thread.information_signal.connect(\
             self.main_widget().show_information)
         self.thread.error_signal.connect(\
             self.main_widget().show_error)
         self.thread.question_signal.connect(\
-            self.threaded_show_question)        
+            self.threaded_show_question)
         self.thread.set_progress_text_signal.connect(\
             self.main_widget().set_progress_text)
         self.thread.set_progress_range_signal.connect(\
@@ -155,11 +155,11 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
 
     def finish_sync(self):
         QtGui.QDialog.accept(self)
-        
+
     def threaded_show_question(self, question, option0, option1, option2):
         global answer
-        mutex.lock()        
+        mutex.lock()
         answer = self.main_widget().show_question(question, option0,
             option1, option2)
         question_answered.wakeAll()
-        mutex.unlock()            
+        mutex.unlock()

@@ -1,21 +1,22 @@
--playing multiple sound files in sequence (Patrick de Metz)
+-retest full sync with short heartbeat
+
+-settings are not saved
+-remember last shown statictics page (Dan Schmidt)
 
 ###
 
 -don't automatically manually insert <br> inside table tags, ul (Gnome) or latex tags (abakus0816) (LP bug)
  (use celementtree, time)
 
--plugin to do <img align="top"..>
-
--no need to log last rep in the log database? We already have timestamp. update sync too
- get rid of new_interval and keep next_rep? we need next rep in sqlite stats
- document why we store them
+-plugin to do <img align="top"..> Mail Patrick
 
 -tip for splitters on browse cards
 
 -truncate retention score at 100% for non-week long graphs (Dan Schmidt)
 
--remember last shown statictics page (Dan Schmidt)
+-no need to log last rep in the log database? We already have timestamp. update sync too
+ get rid of new_interval and keep next_rep? we need next rep in sqlite stats
+ document why we store them
 
 -use always active cards, add tip and popup: (Dan Schmidt)
 Schedule / Last week uses my entire deck.
@@ -29,10 +30,6 @@ Cards added seems to apply to my whole deck.
 -use version string in windows build
 
 ###
-
--save tree state (which nodes are expanded or not) (Troy Guze)
-QModelIndexList QAbstractItemModel::persistentIndexList () const
-bool isExpanded ( const QModelIndex & index ) const
 
 -reduce timeout on sync login, test again full sync
 
@@ -48,9 +45,8 @@ bool isExpanded ( const QModelIndex & index ) const
 -sync issues Doug, prevent sync with itself
 -prevent sync with itself
 -syncing an empty database twice results in a spurious sync cycle detection.
-Also happens after
- syncing empty client and empty server database, then adding data to the server,
-and resyncing
+ Also happens after syncing empty client and empty server database, then adding
+ data to the server, and resyncing
 -if the server is empty, allow sync from non-empty client and change server user
 id.
 -store all xml as debug information during sync?
@@ -61,6 +57,9 @@ id.
 -card type clone: rename and delete, both in card browser and card type browser
 
 -import from txt file (2 test cases from mac os	Naomi Borkowski)
+
+-auto detect RTL '(arabic) arabic' in lineedit shows up as 'arabic) arabic)' in webkit
+http://dotancohen.com/howto/rtl_right_to_left.html (bug report)
 
 #######
 
@@ -80,8 +79,11 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 -see if 1.x translations can be reused
 -remove mnemosyne/pyqt_ui/locale
 
+###
 
-
+-save tree state (which nodes are expanded or not) (Troy Guze)
+QModelIndexList QAbstractItemModel::persistentIndexList () const
+bool isExpanded ( const QModelIndex & index ) const
 
 -activate cards: 'having any of these tags:' is not aligned with tag with tag tree
 -layout of "add clone" is not optimal under Windows
@@ -115,16 +117,19 @@ taking grade 0/1 cards as well into account?
 
 -migrate science server machine
 
+-eliminate flicker for map card type?
+
 -'duplicate card' option in menu and browser? Or as plugin?
+
+-bundle grades criterion? add criterion names i.e. type. Fix bug saving sets.
+ Other mechanism to skip scheduled cards? What happens to saved set after
+ disabling plugin?
 
 -upgrade to qt 4.7.4, retest progress bars
 -fix webserver, bundle it with install
 
 -test upgrade on OSX: remove library/Mnemosyne2, make sure you have 1.x in library/Mnemosyne.
  after upgrade there should be 2.0 files in library/Mnemosyne and a backup in library/Mnemosyne_1
-
--auto detect RTL '(arabic) arabic' in lineedit shows up as 'arabic) arabic)' in webkit
-http://dotancohen.com/howto/rtl_right_to_left.html
 
 -Windows makefile: ln -s pyuic4.bat pyuic, full path to python, py2exe needed, rename mnemosyne to mnemosyne.py, numpy
 -py2exe: downloads 64 bit by default
@@ -211,6 +216,8 @@ Milesteiner
 -removing plugin with criterion should not happen if it is in use.
 -warn when syncing and the other criterion plugin is not present?
 -make 'grade activity criterion' an official plugin? Add tests?
+
+-archive old learning data, check interplay with sync
 
 -hook up all dialogs in UDP
 
@@ -443,6 +450,8 @@ a good alternative, as it does not obey selection coloring
 -pythoscope? http://pypi.python.org/pypi/pythoscope/0.2.1
 http://pythoscope.org/
 -pyflakes?
+
+-prevent presses 2 different keys at the same time
 
 -hover over extra hanzi information, hanzi statistics
 
