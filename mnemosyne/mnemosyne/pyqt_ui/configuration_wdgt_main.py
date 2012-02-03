@@ -32,7 +32,7 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
         self.non_memorised_cards.setValue(self.config()\
             ["non_memorised_cards_in_hand"])
         self.save_after_n_reps.setValue(self.config()\
-            ["save_after_n_reps"])        
+            ["save_after_n_reps"])
         if self.config()["memorise_sister_cards_on_same_day"] == True:
             self.memorise_sister_cards_on_same_day.setCheckState(\
                 QtCore.Qt.Checked)
@@ -42,7 +42,7 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
         if self.config()["media_autoplay"] == True:
             self.media_autoplay.setCheckState(QtCore.Qt.Checked)
         else:
-            self.media_autoplay.setCheckState(QtCore.Qt.Unchecked)        
+            self.media_autoplay.setCheckState(QtCore.Qt.Unchecked)
         if self.config()["media_controls"] == True:
             self.media_controls.setCheckState(QtCore.Qt.Checked)
         else:
@@ -72,7 +72,7 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
         self.media_controls.setCheckState(QtCore.Qt.Unchecked)
         self.upload_science_logs.setCheckState(QtCore.Qt.Checked)
         self.languages.setCurrentIndex(self.languages.findText("English"))
-        
+
     def apply(self):
         self.config()["ui_language"] = iso6931_code_for_language_name(\
                 unicode(self.languages.currentText()))

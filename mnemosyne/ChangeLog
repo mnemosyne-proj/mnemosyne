@@ -1,3 +1,7 @@
+-fix regression for not remembering last shown statictics page (reported by
+ Dan Schmidt)
+-Fixes for some configuration settings which were not saved.
+
 -Upgraded PyQt on Windows.
 -Fixes for cards containing multiple mp3 files (reported Patrick de Metz).
 -Made sync more robust.

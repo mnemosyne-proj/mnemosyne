@@ -26,7 +26,7 @@ class StatisticsDlg(QtGui.QDialog, Ui_StatisticsDlg, StatisticsDialog):
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint) 
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)
         previous_page_index = self.config()["previous_statistics_page"]
         page_index = 0
         for page in self.component_manager.all("statistics_page"):
@@ -34,12 +34,11 @@ class StatisticsDlg(QtGui.QDialog, Ui_StatisticsDlg, StatisticsDialog):
             self.tab_widget.addTab(StatisticsPageWdgt(self.component_manager,
                 self, page, page_index), _(page.name))
             page_index += 1
-        self.tab_widget.tabBar().setVisible(self.tab_widget.count() > 1)  
+        self.tab_widget.tabBar().setVisible(self.tab_widget.count() > 1)
         if previous_page_index >= self.tab_widget.count():
             previous_page_index = 0
         self.tab_widget.setCurrentIndex(previous_page_index)
         self.display_page(previous_page_index)
-        self.config()["previous_statistics_page"] = page_index
         state = self.config()["statistics_dlg_state"]
         if state:
             self.restoreGeometry(state)
@@ -50,18 +49,19 @@ class StatisticsDlg(QtGui.QDialog, Ui_StatisticsDlg, StatisticsDialog):
 
     def _store_state(self):
         self.config()["statistics_dlg_state"] = self.saveGeometry()
-        
+
     def closeEvent(self, event):
         # Generated when clicking the window's close button.
         self._store_state()
-        
+
     def accept(self):
         # 'accept' does not generate a close event.
         self._store_state()
-        return QtGui.QDialog.accept(self)      
-        
+        return QtGui.QDialog.accept(self)
+
     def display_page(self, page_index):
         page = self.tab_widget.widget(page_index)
+        self.config()["previous_statistics_page"] = page_index
         self.config()["previous_variant_for_statistics_page"]\
             .setdefault(page_index, 0)
         variant_index = self.config()\
@@ -82,7 +82,7 @@ class StatisticsPageWdgt(QtGui.QWidget, Component):
     """
 
     def __init__(self, component_manager, parent, statistics_page, page_index):
-        Component.__init__(self, component_manager)        
+        Component.__init__(self, component_manager)
         QtGui.QWidget.__init__(self, parent)
         self.statistics_page = statistics_page
         self.page_index = page_index
@@ -103,7 +103,7 @@ class StatisticsPageWdgt(QtGui.QWidget, Component):
             self.combobox.hide()
         self.vbox_layout.addWidget(self.combobox)
         self.combobox.currentIndexChanged.connect(self.display_variant)
-        
+
     def display_variant(self, variant_index):
 
         """Lazy creation of the actual widget that displays the statistics."""
@@ -115,7 +115,7 @@ class StatisticsPageWdgt(QtGui.QWidget, Component):
         # Create widget if it has not been shown before.
         if not self.variant_widgets[variant_index]:
             self.statistics_page.prepare_statistics\
-                (self.variant_ids[variant_index])            
+                (self.variant_ids[variant_index])
             widget_class = self.component_manager.current(\
                 "statistics_widget", used_for=self.statistics_page.__class__)
             widget = widget_class(self.component_manager, self,

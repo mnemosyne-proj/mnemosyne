@@ -257,6 +257,7 @@ class TestSync(object):
              )).fetchone()[0] == 1
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 9
+        assert self.server.has_active_sessions() == False
 
     def test_add_tag_controller(self):
 

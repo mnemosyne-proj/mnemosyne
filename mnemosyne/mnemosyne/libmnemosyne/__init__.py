@@ -19,7 +19,7 @@ class Mnemosyne(Component):
 
     See also 'how to write a new frontend' in the docs for more information
     on startup and configuration of libmnemosyne.
-    
+
     """
 
     def __init__(self, upload_science_logs, interested_in_old_reps):
@@ -34,7 +34,7 @@ class Mnemosyne(Component):
         up the initial sync and save disk space. We've specified this as a
         non-default argument here, in order to force front-end writers to
         consider it.
-        
+
         """
 
         sys.excepthook = self.handle_exception
@@ -47,11 +47,11 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.configuration",
           "Configuration"),
          ("mnemosyne.libmnemosyne.loggers.database_logger",
-          "DatabaseLogger"), 
+          "DatabaseLogger"),
          ("mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne",
           "SM2Mnemosyne"),
          ("mnemosyne.libmnemosyne.stopwatch",
-          "Stopwatch"),         
+          "Stopwatch"),
          ("mnemosyne.libmnemosyne.card_types.front_to_back",
           "FrontToBack"),
          ("mnemosyne.libmnemosyne.card_types.both_ways",
@@ -73,11 +73,11 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.render_chains.default_render_chain",
           "DefaultRenderChain"),
          ("mnemosyne.libmnemosyne.render_chains.plain_text_chain",
-          "PlainTextChain"), 
+          "PlainTextChain"),
          ("mnemosyne.libmnemosyne.render_chains.sync_to_card_only_client",
           "SyncToCardOnlyClient"),
          ("mnemosyne.libmnemosyne.render_chains.card_browser_render_chain",
-          "CardBrowserRenderChain"),  
+          "CardBrowserRenderChain"),
          ("mnemosyne.libmnemosyne.filters.latex",
           "CheckForUpdatedLatexFiles"),
          ("mnemosyne.libmnemosyne.controllers.default_controller",
@@ -91,7 +91,7 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.criteria.default_criterion",
           "DefaultCriterion"),
          ("mnemosyne.libmnemosyne.databases.SQLite_criterion_applier",
-          "DefaultCriterionApplier"),   
+          "DefaultCriterionApplier"),
          ("mnemosyne.libmnemosyne.plugins.cramming_plugin",
           "CrammingPlugin"),
          ("mnemosyne.libmnemosyne.statistics_pages.schedule",
@@ -99,39 +99,39 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.statistics_pages.retention_score",
           "RetentionScore"),
          ("mnemosyne.libmnemosyne.statistics_pages.cards_added",
-          "CardsAdded"), 
+          "CardsAdded"),
          ("mnemosyne.libmnemosyne.statistics_pages.grades",
           "Grades"),
          ("mnemosyne.libmnemosyne.statistics_pages.easiness",
-          "Easiness"),        
+          "Easiness"),
          ("mnemosyne.libmnemosyne.statistics_pages.current_card",
           "CurrentCard"),
          ("mnemosyne.libmnemosyne.file_formats.mnemosyne1_mem",
           "Mnemosyne1Mem"),
          ("mnemosyne.libmnemosyne.file_formats.mnemosyne1_xml",
-          "Mnemosyne1XML")]           
+          "Mnemosyne1XML")]
         self.extra_components_for_plugin = {}
 
-    def handle_exception(self, type, value, tb):    
+    def handle_exception(self, type, value, tb):
         body = "Uncaught exception!\nTraceback (innermost last):\n"
         list = traceback.format_tb(tb, limit=None) + \
                traceback.format_exception_only(type, value)
         body = body + "%-20s %s" % ("".join(list[:-1]), list[-1])
         try:
             if sys.platform != "win32":
-                sys.stderr.write(body) 
-            self.main_widget().show_error(body)               
-        except: 
+                sys.stderr.write(body)
+            self.main_widget().show_error(body)
+        except:
             sys.stderr.write(body)
-        
+
     def initialise(self, data_dir=None, filename=None,
                    automatic_upgrades=True):
-        
+
         """The automatic upgrades of the database can be turned off by setting
         'automatic_upgrade' to False. This is mainly useful for the testsuite.
 
         """
-    
+
         self.register_components()
         # Upgrade if needed.
         if automatic_upgrades:
@@ -150,16 +150,16 @@ class Mnemosyne(Component):
 
         # TMP
         from mnemosyne.libmnemosyne.upgrades.upgrade_beta_6 import UpgradeBeta6
-        UpgradeBeta6(self.component_manager).run(filename) 
-        
+        UpgradeBeta6(self.component_manager).run(filename)
+
         self.load_database(filename)
 
         # TMP
         from mnemosyne.libmnemosyne.upgrades.upgrade_beta_7 import UpgradeBeta7
-        UpgradeBeta7(self.component_manager).run() 
+        UpgradeBeta7(self.component_manager).run()
         from mnemosyne.libmnemosyne.upgrades.upgrade_beta_8 import UpgradeBeta8
         UpgradeBeta8(self.component_manager).run()
-        
+
         # Only now that the database is loaded, we can start writing log
         # events to it. This is why we log started_scheduler and
         # loaded_database manually.
@@ -172,7 +172,7 @@ class Mnemosyne(Component):
             Upgrade1(self.component_manager).run()
         # Finally, we can activate the main widget.
         self.main_widget().activate()
-            
+
     def register_components(self):
 
         """We register all components, but don't activate them yet, because in
@@ -193,15 +193,15 @@ class Mnemosyne(Component):
             for module_name, class_name in \
                     self.extra_components_for_plugin[plugin_name]:
                 exec("from %s import %s" % (module_name, class_name))
-                exec("component = %s" % class_name)           
+                exec("component = %s" % class_name)
                 self.component_manager.add_component_to_plugin(\
                     plugin_name, component)
-            
+
     def activate_components(self):
-        
+
         """Now that everything is registered, we can activate the components
         in the correct order: first config, followed by log and then the rest.
-        
+
         """
 
         # Activate config and inject necessary settings.
@@ -209,7 +209,10 @@ class Mnemosyne(Component):
             self.component_manager.current("config").activate()
         except RuntimeError, e:
             self.main_widget().show_error(unicode(e))
-        self.config()["upload_science_logs"] = self.upload_science_logs
+        # If the front end programmer decides we never upload logs, we override
+        # the user setting here.
+        if self.upload_science_logs is False:
+            self.config()["upload_science_logs"] = False
         self.config()["interested_in_old_reps"] = self.interested_in_old_reps
 
 
@@ -221,7 +224,7 @@ class Mnemosyne(Component):
 
 
 
-        
+
         # Activate other components.
         for component in ["log", "translator", "database", "scheduler",
                           "controller"]:
@@ -236,7 +239,7 @@ class Mnemosyne(Component):
     def execute_user_plugin_dir(self):
         # Note that we put user plugins in the data_dir and not the
         # config_dir as there could be plugins (e.g. new card types) for
-        # which the database does not make sense without them. 
+        # which the database does not make sense without them.
         plugin_dir = unicode(os.path.join(self.config().data_dir, "plugins"))
         sys.path.insert(0, plugin_dir)
         for component in os.listdir(unicode(plugin_dir)):
@@ -304,5 +307,5 @@ class Mnemosyne(Component):
         # Then do the other components.
         self.component_manager.deactivate_all()
         unregister_component_manager(user_id)
-        
-        
+
+

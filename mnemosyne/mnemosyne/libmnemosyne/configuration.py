@@ -78,7 +78,7 @@ class Configuration(Component, dict):
         self.fill_dirs()
         self.load()
         self.load_user_config()
-        
+
     def set_defaults(self):
 
         """Fill the config with default values.  Is called after every load,
@@ -110,7 +110,7 @@ class Configuration(Component, dict):
              "memorise_sister_cards_on_same_day": False,
              "show_intervals": "never",
              "only_editable_when_answer_shown": False,
-             "show_tags_during_review": True, 
+             "show_tags_during_review": True,
              "ui_language": "en",
              "backups_to_keep": 10,
              "backup_before_sync": True,
@@ -145,7 +145,7 @@ class Configuration(Component, dict):
              "randomise_new_cards", "randomise_scheduled_cards",
              "memorise_sister_cards_on_same_day", "ui_language",
              "day_starts_at", "latex_preamble", "latex_postamble",
-             "latex", "dvipng"]        
+             "latex", "dvipng"]
         # If the user id is not set, it's either because this is the first run
         # of the program, or because the user deleted the config file. In the
         # latter case, we try to recuperate the id from the history files.
@@ -177,7 +177,7 @@ class Configuration(Component, dict):
             from mnemosyne.libmnemosyne.utils import traceback_string
             raise RuntimeError, _("Error in config:") \
                   + "\n" + traceback_string()
-        
+
     def save(self):
         try:
             config_file = file(os.path.join(self.config_dir, "config"), "wb")
@@ -288,7 +288,7 @@ class Configuration(Component, dict):
     def card_type_property(self, property_name, card_type, fact_key=None,
                             default=None):
         if property_name in ["background_colour", "alignment",
-                             "hide_pronunciation_field"]:        
+                             "hide_pronunciation_field"]:
             try:
                 return self[property_name][card_type.id]
             except KeyError:
@@ -306,14 +306,14 @@ class Configuration(Component, dict):
                     old_card_type, fact_key)
                 if old_value:
                     self.set_card_type_property(property_name, old_value, \
-                        new_card_type, fact_key)                                       
+                        new_card_type, fact_key)
         for property_name in ["background_colour", "alignment",
                              "hide_pronunciation_field"]:
             old_value = self.card_type_property(property_name, old_card_type)
             if old_value:
                 self.set_card_type_property(\
                     property_name, old_value, new_card_type)
-            
+
     def machine_id(self):
         return file(os.path.join(self.config_dir, "machine.id")).\
             readline().rstrip()

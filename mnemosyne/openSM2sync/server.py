@@ -223,6 +223,12 @@ class Server(Partner):
         self.ui.show_error("Sync failed, restoring from backup. " + \
             "The next sync will need to be a full sync.")
 
+    def has_active_sessions(self):
+        for session_token, session in self.sessions.iteritems():
+            if not session.is_expired():
+                return True
+        return False
+
     def expire_old_sessions(self):
         for session_token, session in self.sessions.iteritems():
             if session.is_expired():

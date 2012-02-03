@@ -262,7 +262,8 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
          6 : _("Double-click on a card or tag name in the card browser to edit them."),
          9 : _("You can reorder columns in the card browser by dragging the header label."),
         12 : _("You can resize columns in the card browser by dragging between the header labels."),
-        15 : _("When editing or previewing cards from the card browser, PageUp/PageDown can be used to move to the previous/next card.")}
+        15 : _("When editing or previewing cards from the card browser, PageUp/PageDown can be used to move to the previous/next card."),
+        18 : _("You change the relative size of the card list, card type tree and tag tree by dragging the dividers between them.")}
 
     def __init__(self, component_manager):
         BrowseCardsDialog.__init__(self, component_manager)

@@ -1,7 +1,6 @@
 -retest full sync with short heartbeat
 
--settings are not saved
--remember last shown statictics page (Dan Schmidt)
+-close bugs afer new beta release
 
 ###
 
@@ -9,8 +8,6 @@
  (use celementtree, time)
 
 -plugin to do <img align="top"..> Mail Patrick
-
--tip for splitters on browse cards
 
 -truncate retention score at 100% for non-week long graphs (Dan Schmidt)
 
@@ -100,6 +97,7 @@ if (w->isVisible() && w->windowType() != Qt::Desktop) {
 did_close = w->close();
 list = QApplication::topLevelWidgets();
 i = -1;
+
 -remind top level widget, and make those parent to error dialog? Now e.g. an error on the activate card
 widget will be centered on the main widget and not the activate cards dialog.
 
@@ -125,7 +123,7 @@ taking grade 0/1 cards as well into account?
  Other mechanism to skip scheduled cards? What happens to saved set after
  disabling plugin?
 
--upgrade to qt 4.7.4, retest progress bars
+-upgrade to qt after 4.8, retest progress bars
 -fix webserver, bundle it with install
 
 -test upgrade on OSX: remove library/Mnemosyne2, make sure you have 1.x in library/Mnemosyne.

@@ -38,7 +38,7 @@ class PyQtConfiguration(Hook):
              "statistics_dlg_state": None,
              "configuration_dlg_state": None,
              "activate_cards_dlg_state": None,
-             "activate_cards_dlg_splitter_state": None,           
+             "activate_cards_dlg_splitter_state": None,
              "sync_help_shown": False,
              "server_for_sync_as_client": "",
              "port_for_sync_as_client": 8512,
