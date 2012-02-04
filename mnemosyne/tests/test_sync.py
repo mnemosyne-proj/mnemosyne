@@ -257,7 +257,7 @@ class TestSync(object):
              )).fetchone()[0] == 1
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 9
-        assert self.server.has_active_sessions() == False
+        assert self.server.is_sync_in_progress() == False
 
     def test_add_tag_controller(self):
 
@@ -793,6 +793,7 @@ class TestSync(object):
         self.server.client_card = self.client.mnemosyne.database().\
             card(card.id, is_id_internal=False)
         self.client.do_sync()
+        assert self.server.is_idle() == True
 
         filename = os.path.join(os.path.abspath("dot_sync_client"),
             "default.db_media", "b", unichr(0x628) + u"b.ogg")

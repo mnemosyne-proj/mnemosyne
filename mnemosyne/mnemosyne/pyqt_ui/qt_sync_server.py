@@ -217,14 +217,17 @@ class QtSyncServer(Component, QtCore.QObject):
         mutex.unlock()
 
     def flush(self):
-        if not self.thread:
-            return
         # Don't flush the server if not needed, as loading and unloading the
         # database can be expensive.
+        if not self.thread:
+            return
         mutex.lock()
-        is_server_active = self.thread.has_active_sessions()
+        is_sync_in_progress = self.thread.is_sync_in_progress()
+        is_idle = self.thread.is_idle()
         mutex.unlock()
-        if is_server_active:
+        if is_sync_in_progress: # Don't kill a running session.
+            return
+        if is_idle: # No need to unload the database if server is not active. 
             return
         self.unload_database()
         self.thread.flush()
