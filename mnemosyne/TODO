@@ -1,20 +1,3 @@
--retest full sync with short heartbeat
-
--close bugs afer new beta release
-
-###
-
--don't automatically manually insert <br> inside table tags, ul (Gnome) or latex tags (abakus0816) (LP bug)
- (use celementtree, time)
-
--plugin to do <img align="top"..> Mail Patrick
-
--truncate retention score at 100% for non-week long graphs (Dan Schmidt)
-
--no need to log last rep in the log database? We already have timestamp. update sync too
- get rid of new_interval and keep next_rep? we need next rep in sqlite stats
- document why we store them
-
 -use always active cards, add tip and popup: (Dan Schmidt)
 Schedule / Last week uses my entire deck.
 Retention score seems to apply to my whole deck
@@ -24,11 +7,14 @@ Cards added seems to apply to my whole deck.
 
 -disable automatic media deletion, to allow people to move their media in their folder
 
+-no need to log last rep in the log database? We already have timestamp. update sync too
+ get rid of new_interval and keep next_rep? we need next rep in sqlite stats
+ document why we store them
+
 -use version string in windows build
 
-###
-
 -reduce timeout on sync login, test again full sync
+-release database on client after sync error
 
 -profile loading time
 
@@ -53,12 +39,12 @@ id.
 
 -card type clone: rename and delete, both in card browser and card type browser
 
+###
+
 -import from txt file (2 test cases from mac os	Naomi Borkowski)
 
 -auto detect RTL '(arabic) arabic' in lineedit shows up as 'arabic) arabic)' in webkit
 http://dotancohen.com/howto/rtl_right_to_left.html (bug report)
-
-#######
 
 -new cards with a >=2 grade can end up on the same day on first interactive rep
 replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
@@ -296,6 +282,9 @@ so that we
  last grade filter
 
 -when pasting from a webpage, font formatting in 'add cards' is inconsistent.
+
+-escape to html is overzealous in preventing \n replacement by <br>: also
+ prevents if newline is outside a tag.
 
 -ask people about biggest gripe in Mnemosyne, things that did not behave as expected
 
