@@ -9,13 +9,13 @@ if sys.platform == "win32":
 else:
     class py2exe:
         pass
-        
+
 import mnemosyne.version
 
 
 class InnoScript:
     def __init__(self, name, lib_dir, dist_dir, windows_exe_files = [],
-                 lib_files = [], qm_files = [], 
+                 lib_files = [], qm_files = [],
                  version = mnemosyne.version.version):
         self.lib_dir = lib_dir
         self.dist_dir = dist_dir
@@ -81,7 +81,7 @@ class build_installer(py2exe):
 
     """This first builds the exe file(s), then creates a Windows installer.
     You need InnoSetup for it.
-    
+
     """
 
     def run(self):
@@ -178,11 +178,11 @@ packages = ["mnemosyne",
             "mnemosyne.libmnemosyne.loggers",
             "mnemosyne.libmnemosyne.plugins",
             "mnemosyne.libmnemosyne.renderers",
-            "mnemosyne.libmnemosyne.render_chains",                   
-            "mnemosyne.libmnemosyne.schedulers",                 
+            "mnemosyne.libmnemosyne.render_chains",
+            "mnemosyne.libmnemosyne.schedulers",
             "mnemosyne.libmnemosyne.controllers",
             "mnemosyne.libmnemosyne.ui_components",
-            "mnemosyne.libmnemosyne.statistics_pages",  
+            "mnemosyne.libmnemosyne.statistics_pages",
             "mnemosyne.libmnemosyne.review_controllers",
             "mnemosyne.libmnemosyne.criteria",
             "mnemosyne.libmnemosyne.upgrades",
@@ -191,7 +191,7 @@ packages = ["mnemosyne",
             "openSM2sync.binary_formats",
             "openSM2sync.text_formats"
             ]
-      
+
 py2exe_options = {
     "packages": ["mnemosyne", "numpy", "sip", "xml.sax", "xml.etree"],
     "optimize": 2,

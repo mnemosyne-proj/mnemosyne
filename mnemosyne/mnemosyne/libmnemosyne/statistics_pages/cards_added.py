@@ -19,11 +19,11 @@ class CardsAdded(PlotStatisticsPage):
     variants = [(LAST_WEEK, _("Last week")),
                 (LAST_MONTH, _("Last month")),
                 (LAST_3_MONTHS, _("Last 3 months")),
-                (LAST_6_MONTHS, _("Last 6 months")),                
+                (LAST_6_MONTHS, _("Last 6 months")),
                 (LAST_YEAR, _("Last year"))]
 
     def prepare_statistics(self, variant):
-        if variant == self.LAST_WEEK:            
+        if variant == self.LAST_WEEK:
             self.x = range(-7, 1, 1)
         elif variant == self.LAST_MONTH:
             self.x = range(-31, 1, 1)
@@ -37,5 +37,5 @@ class CardsAdded(PlotStatisticsPage):
             raise AttributeError, "Invalid variant"
         self.y = [self.database().card_count_added_n_days_ago(n=-day) \
                   for day in self.x]
-        
-            
+
+

@@ -1,7 +1,4 @@
--use always active cards, add tip and popup: (Dan Schmidt)
-Schedule / Last week uses my entire deck.
-Retention score seems to apply to my whole deck
-Cards added seems to apply to my whole deck.
+-why does mp3 creates two temporary files, i.e. why does set question run twice?
 
 -expand answer preferentially (Murray James Morrison, Gnome) (LP bug)
 
@@ -15,8 +12,6 @@ Cards added seems to apply to my whole deck.
 
 -reduce timeout on sync login, test again full sync
 -release database on client after sync error
-
--profile loading time
 
 -grade tooltips in adding cards (Gnome, LP bug)
 
@@ -111,6 +106,8 @@ taking grade 0/1 cards as well into account?
 
 -upgrade to qt after 4.8, retest progress bars
 -fix webserver, bundle it with install
+
+-make statistics refer to active cards only. Profile. (Dan Schmidt)
 
 -test upgrade on OSX: remove library/Mnemosyne2, make sure you have 1.x in library/Mnemosyne.
  after upgrade there should be 2.0 files in library/Mnemosyne and a backup in library/Mnemosyne_1

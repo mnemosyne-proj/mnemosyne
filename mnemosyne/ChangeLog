@@ -1,35 +1,4 @@
--Truncate retention score at 100% for non-week long graphs (Dan Schmidt).
--Don't automatically replace newlines with <br> when tags like table tags,
- ul or latex are present (reported by Gnome, abakus0816)
--fix regression for not remembering last shown statictics page (reported by
- Dan Schmidt)
--Fixes for some configuration settings which were not saved.
--Upgraded PyQt on Windows.
--Fixes for cards containing multiple mp3 files (reported Patrick de Metz).
--Made sync more robust.
--Tweaked scheduler to prevent shrinking intervals (reported by Dan Schmidt).
--Reworded 'Getting started' wizard a bit (suggested by Kent Stearman).
--Text properties like fonts are now also applied in user-defined html tables
- (reported by Gnome and Sam S.).
--A user-defined html table no longer uses the same css style as the table
- used by mnemosyne to center the card content. This means that user defined
- tables no longer expand to the full width by default (reported by Gnome).
--Don't allow drag and drop on question or answer field and disable the
- popup menu there (reported by Gnome).
--Only automatically import 1.x databases from the standard location
- reported by Scott Youngman).
--Fix for displaying Cloze cards in the card browser (reported by Roel
- De Coninck).
--Correctly set mediadir if a database is created outside of Mnemosyne's
- datadir (reported by Cyril Frei).
--Recreate media and latex dir if they get deleted after the database has been
- created (reported by Cyril Frei).
--make sure 'Learn ahead of schedule' button text does not revert to
- 'Show answer' after opening the configuration dialog (reported by Cyril
- Frei).
--fixed timezone bug (Tim Bourke, Murray James Morrison).
--added about dialog.
--do not allow creating a set without any cards (requested by Troy Guze).
+-Statistics now consistenly deal with full database (reported by Dan Schmidt).
 
 
 MNEMOSYNE 2.0

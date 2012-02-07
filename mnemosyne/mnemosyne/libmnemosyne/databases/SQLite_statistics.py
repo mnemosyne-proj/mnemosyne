@@ -111,7 +111,7 @@ class SQLiteStatistics(object):
 
     def card_count_scheduled_between(self, start, stop):
         return self.con.execute(\
-            """select count() from cards where active=1 and grade>=2
+            """select count() from cards where grade>=2
             and ?<=next_rep and next_rep<?""",
             (start, stop)).fetchone()[0]
 

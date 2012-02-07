@@ -19,7 +19,7 @@ class RetentionScore(PlotStatisticsPage):
     variants = [(LAST_WEEK, _("Last week")),
                 (LAST_MONTH, _("Last month")),
                 (LAST_3_MONTHS, _("Last 3 months")),
-                (LAST_6_MONTHS, _("Last 6 months")),                
+                (LAST_6_MONTHS, _("Last 6 months")),
                 (LAST_YEAR, _("Last year"))]
 
     def prepare_statistics(self, variant):
@@ -37,5 +37,5 @@ class RetentionScore(PlotStatisticsPage):
             raise AttributeError, "Invalid variant"
         self.y = [self.database().retention_score_n_days_ago(n=-day) \
                   for day in self.x]
-        
-            
+
+

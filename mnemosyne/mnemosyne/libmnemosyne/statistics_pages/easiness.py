@@ -9,7 +9,7 @@ from mnemosyne.libmnemosyne.statistics_page import PlotStatisticsPage
 class Easiness(PlotStatisticsPage):
 
     name = _("Easiness")
-    
+
     ALL_CARDS = -1
 
     def __init__(self, component_manager):
@@ -21,11 +21,11 @@ class Easiness(PlotStatisticsPage):
                 tag.name = _("Untagged")
             self.tag_with_internal_id[tag._id] = tag
             self.variants.append((tag._id, tag.name))
-        
-    def prepare_statistics(self, variant):                
+
+    def prepare_statistics(self, variant):
         if variant == self.ALL_CARDS:
-            self.data = self.database().easinesses(active_only=True)
+            self.data = self.database().easinesses(active_only=False)
         else:
             self.data = self.database().easinesses_for_tag\
-                (self.tag_with_internal_id[variant], active_only=True)
-            
+                (self.tag_with_internal_id[variant], active_only=False)
+

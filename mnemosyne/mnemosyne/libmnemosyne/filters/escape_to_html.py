@@ -13,7 +13,7 @@ class EscapeToHtml(Filter):
         # Replace newline with <br>, but not in tags like latex or tables.
         # Note: the current implementation is overzealous: as soon as one of
         # these tags is present, no such substitutions will be made anywhere.
-        if not ("<ul>" in text or "<table>" in text or "<latex>" in text):
+        if not ("<ul" in text or "<table" in text or "<latex" in text):
             text = text.replace("\n", "<br>")
         # Escape hanging <.
         hanging = []
