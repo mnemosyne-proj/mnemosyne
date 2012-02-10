@@ -67,6 +67,9 @@
          <layout class="QHBoxLayout">
           <item>
            <widget class="QPushButton" name="yet_to_learn_button">
+            <property name="toolTip">
+             <string>You have yet to learn this.</string>
+            </property>
             <property name="text">
              <string>&amp;Yet to learn</string>
             </property>
@@ -87,6 +90,9 @@
           </item>
           <item>
            <widget class="QPushButton" name="grade_2_button">
+            <property name="toolTip">
+             <string>You know this, but just barely.</string>
+            </property>
             <property name="text">
              <string>&amp;2</string>
             </property>
@@ -97,6 +103,9 @@
           </item>
           <item>
            <widget class="QPushButton" name="grade_3_button">
+            <property name="toolTip">
+             <string>You know this, but not very well.</string>
+            </property>
             <property name="text">
              <string>&amp;3</string>
             </property>
@@ -107,6 +116,9 @@
           </item>
           <item>
            <widget class="QPushButton" name="grade_4_button">
+            <property name="toolTip">
+             <string>You know this.</string>
+            </property>
             <property name="text">
              <string>&amp;4</string>
             </property>
@@ -117,6 +129,9 @@
           </item>
           <item>
            <widget class="QPushButton" name="grade_5_button">
+            <property name="toolTip">
+             <string>You know this very well.</string>
+            </property>
             <property name="text">
              <string>&amp;5</string>
             </property>
@@ -175,22 +190,6 @@
   <include location="mnemosyne.qrc"/>
  </resources>
  <connections>
-  <connection>
-   <sender>card_types_widget</sender>
-   <signal>activated(QString)</signal>
-   <receiver>AddCardsDlg</receiver>
-   <slot>update_card_widget()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>196</x>
-     <y>21</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>164</x>
-     <y>87</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>exit_button</sender>
    <signal>clicked()</signal>

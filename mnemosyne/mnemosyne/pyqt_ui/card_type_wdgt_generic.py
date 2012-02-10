@@ -35,7 +35,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
             self.vboxlayout.addWidget(l)
             if fact_key == "p_1":
                 self.pronunciation_label = l
-                self.pronunciation_label.setVisible(not pronunciation_hiding)            
+                self.pronunciation_label.setVisible(not pronunciation_hiding)
             t = QTextEdit2(self, pronunciation_hiding)
             t.setTabChangesFocus(True)
             t.setUndoRedoEnabled(True)
@@ -64,7 +64,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         if parent.component_type == "add_cards_dialog":
             parent.setTabOrder(t, parent.yet_to_learn_button)
             parent.setTabOrder(parent.yet_to_learn_button,
-                               parent.grade_2_button)          
+                               parent.grade_2_button)
             parent.setTabOrder(parent.grade_2_button, parent.grade_3_button)
             parent.setTabOrder(parent.grade_3_button, parent.grade_4_button)
             parent.setTabOrder(parent.grade_4_button, parent.grade_5_button)
@@ -73,7 +73,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         else:
             parent.setTabOrder(t, parent.OK_button)
             parent.setTabOrder(parent.OK_button, parent.preview_button)
-            parent.setTabOrder(parent.preview_button, parent.exit_button)            
+            parent.setTabOrder(parent.preview_button, parent.exit_button)
         self.top_edit_box.setFocus()
 
     def pronunciation_hiding_toggled(self, checked):
@@ -82,7 +82,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         self.pronunciation_label.setVisible(not checked)
         self.pronunciation_box.setVisible(not checked)
         self.pronunciation_box.pronunciation_hiding = checked
-        
+
     def update_formatting(self, edit_box):
         # Font colour.
         fact_key = self.fact_key_for_edit_box[edit_box]
@@ -103,7 +103,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
             "font", self.card_type, fact_key)
         if font_string:
             font = QtGui.QFont()
-            font.fromString(font_string)                
+            font.fromString(font_string)
             edit_box.setCurrentFont(font)
 
     def reset_formatting(self):
@@ -112,7 +112,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         to force our custom font again.
 
         """
-        
+
         for edit_box in self.fact_key_for_edit_box:
             self.update_formatting(edit_box)
 
@@ -138,7 +138,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         for edit_box in self.fact_key_for_edit_box:
             edit_box.setText("")
         self.top_edit_box.setFocus()
-    
+
     def text_changed(self):
         self.parent().set_valid(\
             self.card_type.is_fact_data_valid(self.fact_data()))

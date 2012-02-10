@@ -1,3 +1,13 @@
+-In the 'Add cards' dialog, previously entered data was sometimes discarded
+ when switching card types.
+-Bring back 'Copy' in right click menu of question and answer (reported by
+ Murray James Morrison).
+-When there is not enough space to show both the question and the answer,
+ make sure the answer gets all the space it can get, as opposed to a
+ proportional split between question and answer (requested by Murray
+ James Morrison, Gnome).
+-Add tooltips for grades in 'Add cards' (reported by Gnome).
+
 -Statistics now consistenly deal with full database (reported by Dan Schmidt).
 
 

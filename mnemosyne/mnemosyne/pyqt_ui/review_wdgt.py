@@ -92,11 +92,18 @@ class QAOptimalSplit(object):
                     # question and the answer, make sure the question gets
                     # all the space it can get now.
                     answer_stretch = 50
-        # We are showing both question and answer, stretch in proportion to
-        # height.
+        # We are showing both question and answer.
         else:
-            question_stretch = required_question_height
             answer_stretch = required_answer_height
+            if required_question_height + required_answer_height \
+                <= total_height_available:
+                # If we have enough space, stretch in proportion to height.
+                question_stretch = required_question_height
+            else:
+                # But if we don't have enough space to show both the
+                # question and the answer, make sure the answer gets
+                # all the space it can get now.
+                question_stretch = 50
         self.vertical_layout.setStretchFactor(\
             self.question_box, question_stretch + self.stretch_offset)
         self.vertical_layout.setStretchFactor(\

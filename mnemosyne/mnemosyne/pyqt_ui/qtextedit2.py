@@ -18,7 +18,7 @@ class QTextEdit2(QtGui.QTextEdit):
         hide.
 
         """
-        
+
         QtGui.QTextEdit.__init__(self, parent)
         self.pronunciation_hiding = pronunciation_hiding
 
@@ -39,10 +39,10 @@ class QTextEdit2(QtGui.QTextEdit):
             self.hide_action.setChecked(self.pronunciation_hiding)
             self.hide_action.toggled.connect(\
                 self.parent().pronunciation_hiding_toggled)
-            popup.addAction(self.hide_action)        
+            popup.addAction(self.hide_action)
         popup.exec_(e.globalPos())
 
-    def keyPressEvent(self, event):            
+    def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key_I and event.modifiers() == \
             QtCore.Qt.ControlModifier:
             self.insert_img()
@@ -64,7 +64,7 @@ class QTextEdit2(QtGui.QTextEdit):
         filename = self.parent().controller().show_insert_sound_dialog(filter)
         if filename:
             self.insertPlainText("<audio src=\"" + filename + "\">")
-        
+
     def insert_video(self):
         filter = "(*.mov *.ogg *.ogv *.mp4 *.qt" + \
                  " *.MOV *.OGG *.OGV *.MP4 *.QT)"
@@ -72,5 +72,5 @@ class QTextEdit2(QtGui.QTextEdit):
         if filename:
             self.insertPlainText("<video src=\"" + filename + "\">")
 
-        
-            
+
+
