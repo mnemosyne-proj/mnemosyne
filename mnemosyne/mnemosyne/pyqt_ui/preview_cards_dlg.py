@@ -28,6 +28,7 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component,
         QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
         QAOptimalSplit.__init__(self)
+        self.used_for_reviewing = False
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
@@ -46,7 +47,7 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component,
         PageDown keys can be used to move the previous/next card in the list.
 
         """
-        
+
         if event.key() == QtCore.Qt.Key_PageUp:
             self.page_up_down_signal.emit(self.UP)
         elif event.key() == QtCore.Qt.Key_PageDown:
@@ -56,7 +57,7 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component,
         if event.key() == QtCore.Qt.Key_Escape:
             self.reject()
         if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return]:
-            self.accept()            
+            self.accept()
         else:
             QtGui.QWidget.keyPressEvent(self, event)
 
@@ -65,7 +66,7 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component,
         if len(self.cards) == 1:
             self.previous_button.setVisible(False)
             self.next_button.setVisible(False)
-            self.fact_view_name.setVisible(False)            
+            self.fact_view_name.setVisible(False)
         card = self.cards[self.index]
         self.set_question(card.question())
         self.set_answer(card.answer())
@@ -75,7 +76,7 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component,
             str(self.index + 1) + "/" + str(len(self.cards)) + ")")
         self.previous_button.setEnabled(self.index != 0)
         self.next_button.setEnabled(self.index != len(self.cards) - 1)
-        
+
     def previous(self):
         self.index -= 1
         self.update_dialog()
@@ -85,13 +86,13 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component,
         self.update_dialog()
 
     def _store_state(self):
-        self.config()["preview_cards_dlg_state"] = self.saveGeometry()        
+        self.config()["preview_cards_dlg_state"] = self.saveGeometry()
 
     def closeEvent(self, event):
-        # Generated when clicking the window's close button.        
-        self._store_state()        
+        # Generated when clicking the window's close button.
+        self._store_state()
 
     def accept(self):
         # 'accept' does not generate a close event.
         self._store_state()
-        return QtGui.QDialog.accept(self)    
+        return QtGui.QDialog.accept(self)

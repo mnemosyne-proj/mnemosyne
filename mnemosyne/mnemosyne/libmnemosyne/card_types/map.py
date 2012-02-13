@@ -25,7 +25,7 @@ class Map(CardType):
     v1.q_fact_keys = ["_", "marked"]
     v1.a_fact_keys = ["loc", "marked"]
     v1.a_on_top_of_q = True
-    
+
     # Production.
     v2 = FactView(_("Production"), "4.2")
     v2.q_fact_keys = ["loc", "blank"]
@@ -38,7 +38,7 @@ class Map(CardType):
 
     def fact_data(self, card):
         _fact_data = copy.copy(card.fact.data)
-        _fact_data["_"] = "\n"  # Insert a blank line to improve layout.
+        _fact_data["_"] = "&nbsp;"  # Insert a blank line to improve layout.
         return _fact_data
 
     def fact_key_format_proxies(self):
@@ -47,7 +47,7 @@ class Map(CardType):
 
 
 class MapPlugin(Plugin):
-    
+
     name = _("Map")
     description = _("A card type for learning locations on a map")
     components = [Map]

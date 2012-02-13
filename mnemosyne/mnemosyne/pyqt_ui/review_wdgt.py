@@ -19,6 +19,8 @@ class QAOptimalSplit(object):
 
     """
 
+    used_for_reviewing = True
+
     def __init__(self):
         # Add some dummy QWebViews that will be used to determine the actual
         # size of the rendered html. This information will then be used to
@@ -36,11 +38,18 @@ class QAOptimalSplit(object):
         if self.question_box.spacing() != -1:
             self.stretch_offset += self.question_box.spacing()
         self.scrollbar_width = QtGui.QScrollBar().sizeHint().width()
-        self.is_answer_showing = False
-        # Needed to get the stretch factors right for the first card.
         self.required_question_size = self.question.size()
         self.required_answer_size = self.answer.size()
-        self.adjustSize()
+        self.is_answer_showing = False
+
+    def resizeEvent(self, event):
+        # Update stretch factors when changing the size of the window.
+        self.set_question(self.question_text)
+        self.set_answer(self.answer_text)
+        self.reveal_question()
+        if self.is_answer_showing:
+            self.reveal_answer()
+        return QtGui.QWidget.resizeEvent(self, event)
 
     def question_preview_load_finished(self):
         self.required_question_size = \
@@ -96,7 +105,7 @@ class QAOptimalSplit(object):
         else:
             answer_stretch = required_answer_height
             if required_question_height + required_answer_height \
-                <= total_height_available:
+                    <= total_height_available:
                 # If we have enough space, stretch in proportion to height.
                 question_stretch = required_question_height
             else:
@@ -104,6 +113,10 @@ class QAOptimalSplit(object):
                 # question and the answer, make sure the answer gets
                 # all the space it can get now.
                 question_stretch = 50
+                # Unless we're using it to preview cards, then we go for
+                # a 50/50 split.
+                if not self.used_for_reviewing:
+                    answer_stretch = 50
         self.vertical_layout.setStretchFactor(\
             self.question_box, question_stretch + self.stretch_offset)
         self.vertical_layout.setStretchFactor(\

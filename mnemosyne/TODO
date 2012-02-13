@@ -1,3 +1,5 @@
+-sound on Win7
+
 -when sync server is running, it seems possible to start a second copy of
  Mnemosyne, which just complains about 'unable to start sync server'
 
@@ -94,13 +96,13 @@ taking grade 0/1 cards as well into account?
 
 -migrate science server machine
 
--eliminate flicker for map card type?
-
 -'duplicate card' option in menu and browser? Or as plugin?
 
 -bundle grades criterion? add criterion names i.e. type. Fix bug saving sets.
  Other mechanism to skip scheduled cards? What happens to saved set after
  disabling plugin?
+
+-plugin to reset active cards to unlearned
 
 -upgrade to qt after 4.8, retest progress bars
 -fix webserver, bundle it with install

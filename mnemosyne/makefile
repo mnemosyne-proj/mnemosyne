@@ -1,3 +1,19 @@
+# Choose the correct python executable:
+
+ifeq (1,$(shell python2 -c "print(1)" 2>&- ))
+  PYTHON := python2 # use `python2` if it exists
+else
+  PYTHON := python # otherwise use `python`
+endif
+export PYTHON  # pass the variable to sub-makefiles through the environment
+
+
+# Allow specifying an alternate root destination dir for system-wide installation:
+
+ifdef DESTDIR
+  INSTALL_OPTS += --root="$(DESTDIR)"
+endif
+
 
 install-and-run-virtual-env: install-virtual-env
 	./bin/mnemosyne -d dot_mnemosyne2
@@ -9,7 +25,7 @@ install-virtual-env:
 	./bin/python setup.py develop
 
 setup:
-	virtualenv .
+	virtualenv --python=$(PYTHON) --system-site-packages .
 	./bin/easy_install nose
 	./bin/easy_install coverage
 
@@ -18,7 +34,7 @@ install-system:
 	cd mnemosyne/pyqt_ui && make
 	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
 	cd po && make
-	python setup.py install
+	$(PYTHON) setup.py install $(INSTALL_OPTS)
 	rm -f -R build
 
 test: install-virtual-env
@@ -36,7 +52,7 @@ profile: install-virtual-env
 	echo "s = stats.load(\"stats.dat\")" >> process_profile.py
 	echo "s.sort_stats(\"time\").print_stats()" >> process_profile.py
 	./bin/nosetests --with-profile --profile-stats-file=stats.dat
-	python process_profile.py
+	$(PYTHON) process_profile.py
 
 gui-profile:
 	./bin/python -m cProfile -s cumulative bin/mnemosyne -d ./dot_mnemosyne2/ | more
@@ -54,11 +70,11 @@ docs:
 windows:
 	rmdir /S /Q dist
 	rmdir /S /Q build
-	python setup.py build
-	python setup.py py2exe --packages=mnemosyne,numpy,xml.sax,xml.etree --includes=sip,PyQt4.QtNetwork
+	$(PYTHON) setup.py build
+	$(PYTHON) setup.py py2exe --packages=mnemosyne,numpy,xml.sax,xml.etree --includes=sip,PyQt4.QtNetwork
 
 clean:
-	rm -f *~ *.pyc *.tgz process_profile.py 
+	rm -f *~ *.pyc *.tgz process_profile.py
 	rm -f -R Mnemosyne.egg-info
 	rm -f -R distrib build bin lib include dot_mnemosyne2 dot_test dot_sync_*
 	rm -f -R dot_benchmark dist
@@ -99,12 +115,12 @@ distrib: FORCE
 	mkdir distrib/plugins
 	cp plugins/README plugins/*.py distrib/plugins
 
-	V=`python mnemosyne/version.py` && mv distrib mnemosyne-$${V}
+	V=`$(PYTHON) mnemosyne/version.py` && mv distrib mnemosyne-$${V}
 
-	V=`python mnemosyne/version.py` && tar cvfz mnemosyne-$${V}.tgz \
+	V=`$(PYTHON) mnemosyne/version.py` && tar cvfz mnemosyne-$${V}.tgz \
 		mnemosyne-$${V}/*
 
-	V=`python mnemosyne/version.py` && rm -R mnemosyne-$${V}
+	V=`$(PYTHON) mnemosyne/version.py` && rm -R mnemosyne-$${V}
 
 	# Windows Mobile.
 
@@ -114,12 +130,12 @@ distrib: FORCE
 	mkdir distrib/ppygui_ui
 	cp -r mnemosyne/ppygui_ui/*.py distrib/ppygui_ui
 
-	V=`python mnemosyne/version.py` && mv distrib mnemosyne-WM-$${V}
+	V=`$(PYTHON) mnemosyne/version.py` && mv distrib mnemosyne-WM-$${V}
 
-	V=`python mnemosyne/version.py` && tar cvfz mnemosyne-WM-$${V}.tgz \
+	V=`$(PYTHON) mnemosyne/version.py` && tar cvfz mnemosyne-WM-$${V}.tgz \
 		mnemosyne-WM-$${V}/*
 
-	V=`python mnemosyne/version.py` && rm -R mnemosyne-WM-$${V}	
+	V=`$(PYTHON) mnemosyne/version.py` && rm -R mnemosyne-WM-$${V}
 
 
 FORCE:

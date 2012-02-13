@@ -1,3 +1,8 @@
+-Make makefiles more robust (contributed by Sam. S).
+-When resizing the review window, update split between question and answer as
+ needed.
+-Tweak map card type appearance.
+
 -In the 'Add cards' dialog, previously entered data was sometimes discarded
  when switching card types.
 -Bring back 'Copy' in right click menu of question and answer (reported by
@@ -7,7 +12,6 @@
  proportional split between question and answer (requested by Murray
  James Morrison, Gnome).
 -Add tooltips for grades in 'Add cards' (reported by Gnome).
-
 -Statistics now consistenly deal with full database (reported by Dan Schmidt).
 
 

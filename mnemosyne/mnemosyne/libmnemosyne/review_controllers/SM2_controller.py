@@ -197,18 +197,14 @@ class SM2Controller(ReviewController):
 
     def update_qa_area(self, redraw_all=False):
         w = self.widget
-        # Hide/show the question and answer boxes.
-        if self.state == "SELECT SHOW":
-            w.set_question_box_visible(True)
+        # When the answer should be shown on top of the question, we draw the
+        # answer in the question field to eliminate flicker.
+        w.set_question_box_visible(True)
+        if self.card is not None:
             if self.card.fact_view.a_on_top_of_q:
                 w.set_answer_box_visible(False)
-        elif self.state == "SELECT GRADE":
-            w.set_answer_box_visible(True)
-            if self.card.fact_view.a_on_top_of_q:
-                w.set_question_box_visible(False)
-        else:
-            w.set_question_box_visible(True)
-            w.set_answer_box_visible(True)
+            else:
+                w.set_answer_box_visible(True)
         # Update question label.
         question_label_text = _("Question: ")
         if self.card is not None and self.config()["show_tags_during_review"]:
@@ -221,13 +217,19 @@ class SM2Controller(ReviewController):
             # Giving the widget info about the answer even before it is shown
             # allows it to optimise its layout.
             w.set_question(self.card.question(self.render_chain))
-            w.set_answer(self.card.answer(self.render_chain))
+            if not self.card.fact_view.a_on_top_of_q:
+                w.set_answer(self.card.answer(self.render_chain))
             w.reveal_question()
         # Show answer.
         if self.card is None or self.state == "SELECT SHOW":
             w.clear_answer()
         else:
-            w.reveal_answer()
+            if not self.card.fact_view.a_on_top_of_q:
+                w.reveal_answer()
+            else:
+                # Draw answer in question box.
+                w.set_question(self.card.answer(self.render_chain))
+                w.reveal_question()
         # Update 'Show answer' button.
         if self.state == "EMPTY":
             show_enabled, default, text = False, False, _("Show answer")
@@ -240,7 +242,7 @@ class SM2Controller(ReviewController):
             self.grades_enabled = True
         elif self.state == "SELECT AHEAD":
             show_enabled, default, text = True,  False, \
-                                     _("Learn ahead of schedule")
+                _("Learn ahead of schedule")
             self.grades_enabled = False
         w.update_show_button(text, default, show_enabled)
 

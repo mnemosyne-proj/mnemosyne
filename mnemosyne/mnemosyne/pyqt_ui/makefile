@@ -15,11 +15,11 @@ default: $(WIDGETS) ui_review_wdgt.py
 	pyrcc4 mnemosyne.qrc -o mnemosyne_rc.py
 
 ui_review_wdgt.py: review_wdgt.ui
-	./pyuic4 $< > tmp
+	$(PYTHON) ./pyuic4 $< > tmp
 	sed -f fix_review_widget_ui.sed <  tmp > $@
 
 $(WIDGETS): ui_%.py: %.ui
-	./pyuic4 $< > $@
+	$(PYTHON) ./pyuic4 $< > $@
 
 clean:
 	rm -f *~ *.pyc

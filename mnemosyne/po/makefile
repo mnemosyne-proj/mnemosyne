@@ -4,7 +4,7 @@ default: $(LANGS)
 
 $(LANGS): ../mo/%/LC_MESSAGES/mnemosyne.mo: %.po
 	mkdir -p `dirname $@`
-	./msgfmt.py -o $@ $<
+	$(PYTHON) ./msgfmt.py -o $@ $<
 
 clean:
 	rm -rf *~
