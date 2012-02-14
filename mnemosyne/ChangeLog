@@ -1,8 +1,9 @@
+-Rework sound handling, better support for multiple sound files per card.
+-Updated German translation by Stephan Maseizik.
 -Make makefiles more robust (contributed by Sam. S).
 -When resizing the review window, update split between question and answer as
  needed.
--Tweak map card type appearance.
-
+-Tweak map card type to reduce flicker.
 -In the 'Add cards' dialog, previously entered data was sometimes discarded
  when switching card types.
 -Bring back 'Copy' in right click menu of question and answer (reported by

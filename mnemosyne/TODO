@@ -1,4 +1,6 @@
--sound on Win7
+-rework sound handler (mail Patrick, close bug)
+-separate for audio and video
+-retest short media files
 
 -when sync server is running, it seems possible to start a second copy of
  Mnemosyne, which just complains about 'unable to start sync server'
@@ -48,14 +50,15 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 -upgrade from 1.x from non latin user name (Patrick de Metz)
 -run on blank windows install under Qemu
 
--picture renderer for MnemoGogo?
-
 -tell beta users to make sure to install latest beta first
 -remove upgrade_beta_6.py, beta_7, etc...
 
--translations through website
+-translations through website:
+ https://help.launchpad.net/Translations/YourProject/Exports
 -see if 1.x translations can be reused
 -remove mnemosyne/pyqt_ui/locale
+
+-upgrade website
 
 ### Release
 
@@ -147,6 +150,7 @@ Milesteiner
 <ul><li>Focuses 20 to 30cm away</li>
   <li>Eyes wander and occasionally cross</li>
 </ul>
+-Qt bug? images in map card type sometimes hang
 
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 

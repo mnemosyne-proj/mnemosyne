@@ -38,6 +38,8 @@ class QAOptimalSplit(object):
         if self.question_box.spacing() != -1:
             self.stretch_offset += self.question_box.spacing()
         self.scrollbar_width = QtGui.QScrollBar().sizeHint().width()
+        self.question_text = ""
+        self.answer_text = ""
         self.required_question_size = self.question.size()
         self.required_answer_size = self.answer.size()
         self.is_answer_showing = False

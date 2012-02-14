@@ -2,6 +2,14 @@
 # Copyright (C) 2011 The Mnemosyne Project
 # Johannes Baiter <johannes.baiter@gmail.com>, 2011
 #
+#
+# Stephan Maseizik <st.mase@web.de>, 14.02.2012
+# Corrected a few typos in the german translation. 
+# Mainly there were a couple of blank spaces between 
+# two words missing. 
+#
+
+
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.0-pre\n"
@@ -710,7 +718,7 @@ msgstr "Vorlernen"
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:254
 msgid "Pick days until next repetition:"
-msgstr "Tage bis zur nächsten Wiederholung wählen"
+msgstr "Tage bis zur nächsten Wiederholung wählen:"
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:256
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:60
@@ -1291,13 +1299,13 @@ msgid ""
 msgstr ""
 "Hier kann dieser Rechner mit einem Server synchronisiert werden."
 "Selbstverständlich muss auf diesem Server ein Serverprogramm laufen, das "
-"ausden Einstellungen des Servers heraus gestartet werden kann.\n"
+"aus den Einstellungen des Servers heraus gestartet werden kann.\n"
 "\n"
 "Soll jedoch ein mobiles Gerät mit diesem Rechner synchronisiert werden, "
-"istdies der falsche Weg. In diesem Fall muss der gegenwärtige Rechner als "
+"ist dies der falsche Weg. In diesem Fall muss der gegenwärtige Rechner als "
 "Serverfungieren. Es it also notwendig die Serversoftware auf diesem Rechner "
 "zustarten und dann den Sychronisationsvorgang von dem mobilen Gerät in "
-"Gangzu setzen."
+"Gang zu setzen."
 
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:121
 msgid "Re&name"
@@ -1443,10 +1451,10 @@ msgid ""
 "specifically for this card type without disturbing your other cards."
 msgstr ""
 "Von bestehenden Kartentypen können 'Klone' erstellt werden. Dies erlaubt "
-"esKarten dieses Typs unabhängig von Karten des Ursprungstypes zu formatieren."
+"es Karten dieses Typs unabhängig von Karten des Ursprungstypes zu formatieren."
 "Zum Beispiel könnte man einen Klon des 'Vokabular'-Typs erstellen, ihn "
 "'Thai'nennen und eine spezielle Thai-Schriftart speziell für diesen "
-"Kartentypeinstellen, ohne die anderen 'Vokabular' Karten automatisch "
+"Kartentyp einstellen, ohne die anderen 'Vokabular' Karten automatisch "
 "mitzuverändern."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:31
@@ -1456,7 +1464,7 @@ msgid ""
 "pop-up menu."
 msgstr ""
 "Sollte für einen bestimmten Kartentyp, der aus dem 'Vokabular'-Typ "
-"erzeugtwurde, kein 'Aussprache'-Feld benötigt wird, kann man es per "
+"erzeugtwurde, kein 'Aussprache'-Feld benötigt werden, kann man es per "
 "Rechtsklicküber das Pop-Up Menü verbergen."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:32
@@ -1475,8 +1483,8 @@ msgid ""
 "started from the configuration screen on that remote machine."
 msgstr ""
 "Über 'Datei - Synchronisieren' kann dieser Rechner mit einem Server "
-"synchronisiert werden.Selbstverständlich muss auf diesem Server ein "
-"Serverprogramm laufen, das ausden Einstellungen des Servers heraus gestartet "
+"synchronisiert werden. Selbstverständlich muss auf diesem Server ein "
+"Serverprogramm laufen, das aus den Einstellungen des Servers heraus gestartet "
 "werden kann."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:34
@@ -1486,10 +1494,10 @@ msgid ""
 "start the sync from the mobile device."
 msgstr ""
 "Soll jedoch ein mobiles Gerät mit diesem Rechner synchronisiert werden, "
-"solltenicht 'Datei - Sychronisieren' verwendet werden, sondern "
-"derSychronisations-Server im Einstellungsdialog aktiviert werden und dann "
-"derSychronisationsvorgang von dem mobilen Gerät aus in Gang gesetzt werden."
-"zu setzen."
+"sollte nicht 'Datei - Sychronisieren' verwendet werden, sondern "
+"der Sychronisations-Server im Einstellungsdialog aktiviert und dann "
+"der Sychronisationsvorgang von dem mobilen Gerät aus in Gang gesetzt werden."
+
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:35
 msgid "Right-click on a tag name in the card browser to edit or delete it."
@@ -1508,10 +1516,10 @@ msgid ""
 "In the 'Add cards' dialog, use tab to move between different keys, cntrl"
 "+Enter for 'Yet to learn', and cntrl+2, etc. for the grades."
 msgstr ""
-"Im 'Karten hinzufügen' Dialog kann die Tab-Taste verwendet werden um "
+"Im 'Karten hinzufügen' Dialog kann die Tab-Taste verwendet werden, um "
 "zwischenverschiedenen Feldern zu wechseln. Per Strg+Enter für 'Noch zu "
 "lernen' undStrg+1, Strg+2, etc. kann man die Bearbeitung abschließen und "
-"denAnfangswert auf einmal setzen."
+"den Anfangswert auf einmal setzen."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:38
 msgid ""
@@ -1547,8 +1555,8 @@ msgid ""
 "column title. Clicking again changes the sort order."
 msgstr ""
 "Karten im 'Karten durchsuchen' Dialog können sortiert werden indem man "
-"aufeinen Spaltentitel klickt. Durch nochmaliges Klicken verändert man "
-"dieReihenfolge."
+"auf einen Spaltentitel klickt. Durch nochmaliges Klicken verändert man "
+"die Reihenfolge."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:42
 msgid ""
@@ -1557,14 +1565,14 @@ msgid ""
 "website."
 msgstr ""
 "Wenn weitergehende Kontrolle beim Satz von LaTeX-Formeln gewünscht ist "
-"wirddie Lektüre der Dokumentation zu den <$$>...</$$> und <latex>...</latex> "
-"Tagsauf der Mnemosyne Website nahegelegt."
+"wird die Lektüre der Dokumentation zu den <$$>...</$$> und <latex>...</latex> "
+"Tags auf der Mnemosyne Website nahegelegt."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:43
 msgid "For optimal performance, keep your drives defragmented."
 msgstr ""
 "Für optimale Leistung wird empfohlen die Festplatten regelmäßig "
-"zudefragmentieren"
+"zu defragmentieren"
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:44
 #, fuzzy
@@ -1575,7 +1583,7 @@ msgid ""
 msgstr ""
 "Fortgeschrittene Benutzer können Mnemosyne anpassen indem sie die config.py "
 "Datei in ihrem .mnemosyne-Verzeichnis bearbeiten. Weiterhin können "
-"auchzusätzliche Plugins installiert werden um Mnemosyne noch mehr anzupassen."
+"auch zusätzliche Plugins installiert werden um Mnemosyne noch mehr anzupassen."
 
 #: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:22
 #: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:84
@@ -2027,7 +2035,7 @@ msgid ""
 "able to remember it with some effort, without having forgotten it "
 "completely. This is the most efficient for the learning process."
 msgstr ""
-"Die Bewertungen reichen von 0 bis 5.Die Bewertungen 0 und 1 werden vergeben, "
+"Die Bewertungen reichen von 0 bis 5. Die Bewertungen 0 und 1 werden vergeben, "
 "wenn Du die Antwort nicht weißt oder wenn Du sie vergessen hast. Eine Karte "
 "mit einer Bewertung von 1 beginnt Dir vertrauter zu werden als eine mit 0 "
 "und wird deswegen seltener wiederholt.\n"
@@ -2037,7 +2045,7 @@ msgstr ""
 "Lage zu sein die Karteikarte zu wissen. Das zeigt den Übergang vom "
 "Kurzzeitgedächtnis ins Langzeitgedächtnis an.\n"
 "Ich werde die Karte dann für ein späteres Datum vormerken. Dabei gehe ich "
-"davon aus, daß Du dann immer noch in der Lage sein wirst, Dich mit ein wenig "
+"davon aus, dass Du dann immer noch in der Lage sein wirst, Dich mit ein wenig "
 "Anstrengung an die Antwort zu erinnern ohne sie ganz und gar vergessen zu "
 "haben. Das ist die effektivste Methode um zu lernen."
 

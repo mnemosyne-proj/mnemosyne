@@ -14,17 +14,17 @@ cloze_re = re.compile(r"\[(.+?)\]", re.DOTALL)
 
 
 class Cloze(CardType):
-    
+
     """CardType to do cloze deletion on a string, e.g. "The political parties in
     the US are the [democrats] and the [republicans]." would give the following
     cards:
-    
+
     Q:The political parties in the US are the [...] and the republicans.
     A:democrats
-    
+
     Q:The political parties in the US are the democrats and the [...].
     A:republicans
-    
+
     Illustration of a CardType which does not use the traditional FactView
     mechanism.
 
@@ -32,9 +32,9 @@ class Cloze(CardType):
     "cloze" and "index", containing e.g. "democrats" and 0. Storing both the
     cloze and its index allows us to have enough data to support all possible
     editing operations.
-    
+
     """
-    
+
     id = "5"
     name = _("Cloze deletion")
 
@@ -42,8 +42,8 @@ class Cloze(CardType):
     unique_fact_keys = ["text"]
 
     v = FactView(_("Cloze"), "5.1")
-    v.q_fact_keys = ["f"]  # Generated on the fly. 
-    v.a_fact_keys = ["b"]  # Generated on the fly. 
+    v.q_fact_keys = ["f"]  # Generated on the fly.
+    v.a_fact_keys = ["b"]  # Generated on the fly.
     fact_views = [v]
 
     def fact_key_format_proxies(self):
@@ -51,7 +51,7 @@ class Cloze(CardType):
 
     def is_fact_data_valid(self, fact_data):
         return bool(cloze_re.search(fact_data["text"]))
-        
+
     def fact_data(self, card):
         cloze = card.extra_data["cloze"]
         question = card.fact["text"].replace("[", "").replace("]", "")
@@ -64,10 +64,10 @@ class Cloze(CardType):
             card = Card(self, fact, self.fact_views[0])
             card.extra_data["cloze"] = match.group(1)
             card.extra_data["index"] = len(cards)
-            cards.append(card)         
+            cards.append(card)
         return cards
 
-    def edit_sister_cards(self, fact, new_fact_data):        
+    def edit_sister_cards(self, fact, new_fact_data):
         new_cards, edited_cards, deleted_cards = [], [], []
         old_clozes = cloze_re.findall(fact["text"])
         new_clozes = cloze_re.findall(new_fact_data["text"])
@@ -91,14 +91,15 @@ class Cloze(CardType):
                     edited_cards.append(card)
                 else:
                     deleted_cards.append(card)
-            # For the new cards that we are about to create, we need to have
-            # a unique suffix first.
             for new_cloze in set(new_clozes).difference(new_clozes_processed):
                 new_index = new_clozes.index(new_cloze)
                 card = Card(self, fact, self.fact_views[0])
                 card.extra_data["cloze"] = new_cloze
                 card.extra_data["index"] = new_index
-                new_cards.append(card)                  
+                new_cards.append(card)
+        # Sanity checking.
+        for card in new_cards + edited_cards:
+            assert card.extra_data["cloze"] in new_fact_data["text"]
         return new_cards, edited_cards, deleted_cards
 
 
