@@ -1,4 +1,7 @@
 -Rework sound handling, better support for multiple sound files per card.
+ Unfortunately, due to a Qt bug, this only works on Linux so far.
+-Bug fix for upgrading from Mnemosyne 1.x on Windows with non-latin characters
+ in login name.
 -Updated German translation by Stephan Maseizik.
 -Make makefiles more robust (contributed by Sam. S).
 -When resizing the review window, update split between question and answer as
@@ -93,8 +96,8 @@ Other changes:
 -Cards which are failed during learning ahead are now periodically brought
  back in the learning process.
 -Mnemosyne now stores its data in a more standards compliant location:
- C:/Users/peter/Application Data/Mnemosyne2 under Windows, and
- /home/pbienst/.local/share/mnemosyne2 and /home/pbienst/.config/mnemosyne2
+ C:/Users/peter/Application Data/Mnemosyne under Windows, and
+ /home/pbienst/.local/share/mnemosyne and /home/pbienst/.config/mnemosyne
  under Linux.
 -When leaving the program open overnight, the display will update at the
  roll over point.

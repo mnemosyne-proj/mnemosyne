@@ -1,16 +1,25 @@
--rework sound handler (mail Patrick, close bug)
--separate for audio and video
--retest short media files
+-upgrade PyQt from scratch (rm dist, uninstall previous version), 
+ bug report if sound still does not work
 
--when sync server is running, it seems possible to start a second copy of
- Mnemosyne, which just complains about 'unable to start sync server'
+-If something was fixed by upgrading to the new Qt, check if we need to install
+ the old mnemosyne first in order to get these benefits. If so, enforce uninstall
+ in installer?
 
--use version string in windows build
+-use makefiles more under windows to assure download, clean install, rename to include
+ version
+
+-If new Qt works, mail map card type problem people
+
+-check 2 sound files again under W7, mail Patrick, update changelog
+
+-install to trunk, close bugs
+
+-hand / right hand man: change card type
 
 -disable automatic media deletion, to allow people to move their media in their folder
 
--no need to log last rep in the log database? We already have timestamp. update sync too
- get rid of new_interval and keep next_rep? we need next rep in sqlite stats
+-no need to log last rep in the log database? We already have timestamp. Update sync too.
+ Get rid of new_interval and keep next_rep? we need next rep in sqlite stats
  document why we store them
 
 -reduce timeout on sync login, test again full sync
@@ -26,7 +35,6 @@
  data to the server, and resyncing
 -if the server is empty, allow sync from non-empty client and change server user
 id.
--store all xml as debug information during sync?
 
 -new 'activate plugin' dialog
 
@@ -46,9 +54,6 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 -when learning late, related cards on the same day can happen
 
 ### RC1
-
--upgrade from 1.x from non latin user name (Patrick de Metz)
--run on blank windows install under Qemu
 
 -tell beta users to make sure to install latest beta first
 -remove upgrade_beta_6.py, beta_7, etc...
@@ -120,6 +125,10 @@ taking grade 0/1 cards as well into account?
 -py2exe: download: http://www.microsoft.com/downloads/en/details.aspx?FamilyID=9b2da534-3e03-4391-8a4d-074b9f2bc1bf&displaylang=en
 -put __init__.py in numpy.distutils.test
 -set default matplotlib backend: http://www.py2exe.org/index.cgi/MatPlotLib
+-/cygdrive/c/Python27/python.exe setup.py py2exe
+-V=`/usr/bin/python mnemosyne/version.py` && cp dist/Output/setup.exe /cygdrive/y/mnemosyne-${V}-setup.exe
+
+
 -run test suite under windows
 
 -Mnemosyne console, example script to add cards, make possible on Windows
@@ -151,19 +160,15 @@ Milesteiner
   <li>Eyes wander and occasionally cross</li>
 </ul>
 -Qt bug? images in map card type sometimes hang
+-Qt bug? multiple sounds per card under Windows does not work
 
 -coverage bug?: default_controller().sync() does not seem to get picked up.
-
--workaround for short ogg files. Make short mp3 workaround linux only. Test if silence files
- are in distrib.
 
 -windows: test unicode filenames in sync protocol
 -test running from usb, update instructions
 -add tests with unicode in data_dir
 
 -leech detection
-
--jplayer media player?
 
 -Pasting into card from other sources initially keeps the formatting. (Gnome) (LP bug)
 
@@ -186,6 +191,8 @@ Milesteiner
 -utf16?
 
 -card appearance: show preview live?
+
+-store all xml as debug information during sync?
 
 -docs on dealing with synonyms and words which have multiple meanings (if implemented, update card converter too)
  check fonts for new meanings, check decorators
@@ -240,6 +247,8 @@ Milesteiner
 -create latex dir in filter plugin?
 -media on dropbox?
 -plugin to store backups on dropbox
+
+-drag and drop in card browser, with tag tree
 
 -larger interval for initial grade 5?
 

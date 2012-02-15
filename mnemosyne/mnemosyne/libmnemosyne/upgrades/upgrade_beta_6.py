@@ -69,7 +69,7 @@ class UpgradeBeta6(Component):
         # Since there are so few of them, we don't use internal _ids.
         # ids should be unique too.
         sql_res = self.database().con.execute("select * from fact_views where id=?",
-                 (id, )).fetchone()          
+                 (id, )).fetchone()
         fact_view = FactView(sql_res["name"], sql_res["id"])
         fact_view.q_fact_keys = eval(sql_res["q_fields"])
         fact_view.a_fact_keys = eval(sql_res["a_fields"])
@@ -105,7 +105,7 @@ class UpgradeBeta6(Component):
             is_id_internal=False) for fact_view_id in \
             eval(sql_res["fact_view_ids"])]
         return card_type
-            
+
     def run(self, filename):
         if not filename:
             filename = self.config()["path"]
@@ -123,14 +123,14 @@ class UpgradeBeta6(Component):
         if not upgrade_needed:
             self.database()._connection.close()
             self.database()._connection = None
-            self.database()._path = None  
+            self.database()._path = None
             return
         # Upgrade.
         self.database().backup()
         fact_views = [self.fact_view_old(result[0], is_id_internal=False) \
             for result in con.execute("select id from fact_views")]
         card_types = [self.card_type_old(result[0], is_id_internal=False) \
-            for result in con.execute("select id from card_types")]        
+            for result in con.execute("select id from card_types")]
         con.executescript("""
             drop table fact_views;
             create table fact_views(
@@ -144,7 +144,7 @@ class UpgradeBeta6(Component):
                 type_answer boolean default 0,
                 extra_data text default ""
             );
-            
+
             drop table card_types;
             create table card_types(
                 id text primary key,

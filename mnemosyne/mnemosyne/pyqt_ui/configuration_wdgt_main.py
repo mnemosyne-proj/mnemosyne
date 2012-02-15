@@ -56,6 +56,11 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
             self.languages.addItem(language_name_for_iso6931_code[language])
         self.languages.setCurrentIndex(self.languages.findText(\
             language_name_for_iso6931_code[self.config()["ui_language"]]))
+        self.media_autoplay.stateChanged.connect(self.changed_media_autoplay)
+
+    def changed_media_autoplay(self, state):
+        if state == QtCore.Qt.Unchecked:
+            self.media_controls.setCheckState(QtCore.Qt.Checked)
 
     def reset_to_defaults(self):
         answer = self.main_widget().show_question(\

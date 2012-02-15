@@ -19,7 +19,7 @@ def _abs_path(path):
     """Our own version of os.path.abspath, which does not check for platform.
     In this way, we can test Windows paths even when running the testsuite
     under Linux.
-    
+
     """
 
     return    ((len(path) > 1) and path[0] == "/") \
@@ -29,7 +29,7 @@ def _abs_path(path):
 def contract_path(path, start):
 
     """Return relative path to 'path' from the directory 'start'.
-    
+
     All paths in Mnemosyne are internally stored with Unix separators /.
 
     """
@@ -39,7 +39,7 @@ def contract_path(path, start):
     # even when running the testsuite under Linux.
     path = os.path.normpath(path)
     start = os.path.normpath(start)
-    if ( (len(path) > 2) and path[1] == ":"):
+    if (len(path) > 2) and (path[1] == ":"):
         path = path.lower()
         start = start.lower()
     # Do the actual detection.
@@ -47,7 +47,7 @@ def contract_path(path, start):
         try:
             rel_path = path.split(start)[1][1:]
         except:
-            rel_path = path   
+            rel_path = path
     else:
         rel_path = path
     return rel_path.replace("\\", "/")
@@ -63,7 +63,7 @@ def expand_path(path, start):
 
     if _abs_path(path):
         return os.path.normcase(path)
-    else:  
+    else:
         return os.path.normcase(os.path.join(start, path))
 
 
@@ -92,11 +92,11 @@ def copy_file_to_dir(filename, dirname):
 
 
 def numeric_string_cmp(s1, s2):
-    
+
     """Compare two strings using numeric ordering
-    
-    Compare the two strings s1 and s2 and return an integer according to the 
-    outcome. The return value is negative if s1 < s2, zero if s1 == s2 and 
+
+    Compare the two strings s1 and s2 and return an integer according to the
+    outcome. The return value is negative if s1 < s2, zero if s1 == s2 and
     strictly positive if s1 > s2. Unlike the standard python cmp() function
     numeric_string_cmp() compares strings using a natural numeric ordering,
     so that, e.g., "abc2" < "abc10".
@@ -107,14 +107,14 @@ def numeric_string_cmp(s1, s2):
     using the standard python cmp().
 
     """
-    
+
     atoi = lambda s: int(s) if s.isdigit() else s.lower()
     scan = lambda s: tuple(atoi(str) for str in re.split('(\d+)', s))
     return cmp(scan(s1), scan(s2))
 
 
 def traceback_string():
-    
+
     """Like traceback.print_exc(), but returns a string."""
 
     type, value, tb = sys.exc_info()
@@ -141,7 +141,7 @@ def mangle(string):
     new_string = ""
     for char in string:
         if char.isalnum() or char == "_":
-            new_string += char    
+            new_string += char
     return new_string
 
 
@@ -153,7 +153,7 @@ def rand_uuid():
     string with length 32, but uses less space.
 
     """
-    
+
     chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXZY0123456789"
     rand = random.random
     uuid = ""
@@ -170,16 +170,16 @@ class CompareOnId(object):
     them on id.
 
     """
-  
+
     def __eq__(self, other):
         if isinstance(other, CompareOnId):
             return self.id == other.id
         return NotImplemented  # So Python can try other.__eq__(self)
-    
+
     def __ne__(self, other):
 
         """Not automatically overridden by overriding __eq__!"""
-        
+
         result = self.__eq__(other)
         if result is NotImplemented:
             return result

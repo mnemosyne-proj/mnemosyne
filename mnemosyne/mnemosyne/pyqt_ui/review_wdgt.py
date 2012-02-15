@@ -22,6 +22,10 @@ class QAOptimalSplit(object):
     used_for_reviewing = True
 
     def __init__(self):
+        self.question.settings().setAttribute(\
+            QtWebKit.QWebSettings.PluginsEnabled, True)
+        self.answer.settings().setAttribute(\
+            QtWebKit.QWebSettings.PluginsEnabled, True)
         # Add some dummy QWebViews that will be used to determine the actual
         # size of the rendered html. This information will then be used to
         # determine the optimal split between the question and the answer
@@ -43,14 +47,20 @@ class QAOptimalSplit(object):
         self.required_question_size = self.question.size()
         self.required_answer_size = self.answer.size()
         self.is_answer_showing = False
+        self.first_time = True
 
     def resizeEvent(self, event):
         # Update stretch factors when changing the size of the window.
         self.set_question(self.question_text)
         self.set_answer(self.answer_text)
-        self.reveal_question()
-        if self.is_answer_showing:
-            self.reveal_answer()
+        # To get this working the first time we start the program, we need to
+        # explicitly show the contents. We don't do this on subsequent resizes
+        # to prevent flicker and media replays.
+        if self.first_time:
+            self.first_time = False
+            self.reveal_question()
+            if self.is_answer_showing:
+                self.reveal_answer()
         return QtGui.QWidget.resizeEvent(self, event)
 
     def question_preview_load_finished(self):
@@ -124,20 +134,21 @@ class QAOptimalSplit(object):
         self.vertical_layout.setStretchFactor(\
             self.answer_box, answer_stretch + self.stretch_offset)
 
-    def silence_audio(self, text):
-        return text.replace("<audio src=\"", "<audio src=\"DONTPLAY")
+    def silence_media(self, text):
+        return text.replace("<div id='player'>", "")
+        return text.replace("<video src", "<video_off src")
 
     def set_question(self, text):
         self.question_text = text
         self.question_preview.page().setPreferredContentsSize(\
             QtCore.QSize(self.question.size().width(), 1))
-        self.question_preview.setHtml(self.silence_audio(text))
+        self.question_preview.setHtml(self.silence_media(text))
 
     def set_answer(self, text):
         self.answer_text = text
         self.answer_preview.page().setPreferredContentsSize(\
             QtCore.QSize(self.answer.size().width(), 1))
-        self.answer_preview.setHtml(self.silence_audio(text))
+        self.answer_preview.setHtml(self.silence_media(text))
 
     def reveal_question(self):
         self.question.setHtml(self.question_text)

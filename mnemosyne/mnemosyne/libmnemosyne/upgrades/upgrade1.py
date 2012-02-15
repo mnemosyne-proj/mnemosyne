@@ -49,6 +49,10 @@ class Upgrade1(Component):
 
     def upgrade_from_old_data_dir(self, old_data_dir):
         join = os.path.join
+        try:
+            old_data_dir = unicode(old_data_dir)
+        except:
+            old_data_dir = unicode(old_data_dir, "mbcs")
         # Warn people that this directory is no longer used.
         file(join(old_data_dir,
             "DIRECTORY_NO_LONGER_USED_BY_MNEMOSYNE2"), "w").close()
