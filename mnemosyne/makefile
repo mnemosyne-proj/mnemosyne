@@ -1,4 +1,4 @@
-# Choose the correct python and virtualenv executables:
+# Choose the correct python and virtualenv commands:
 
 PYTHON     := python
 VIRTUALENV := virtualenv
@@ -8,6 +8,10 @@ ifeq (1,$(shell python2 -c "print(1)" 2>&- )) # true if `python2` exists
 endif
 ifneq (,$(shell virtualenv2 --version 2>&- )) # true if `virtualenv2` exists
   VIRTUALENV := virtualenv2
+endif
+ifneq (,$(shell $(VIRTUALENV) --system-site-packages --version 2>&- ))
+                                              # true if "--system-site-packages" supported
+  VIRTUALENV += --system-site-packages
 endif
 
 export PYTHON  # pass the variable to sub-makefiles through the environment
@@ -30,7 +34,7 @@ install-virtual-env:
 	./bin/python setup.py develop
 
 setup:
-	$(VIRTUALENV) --python=$(PYTHON) --system-site-packages .
+	$(VIRTUALENV) --python=$(PYTHON) .
 	./bin/easy_install nose
 	./bin/easy_install coverage
 

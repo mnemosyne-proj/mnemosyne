@@ -2,14 +2,16 @@
 # test_render_chain.py <Peter.Bienstman@UGent.be>
 #
 
+import os
+
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne.filter import Filter
 from mnemosyne.libmnemosyne.renderer import Renderer
 
 
 class TestRenderChain(MnemosyneTest):
-    
-    def test_add_filter(self):      
+
+    def test_add_filter(self):
         fact_data = {"f": "question",
                      "b": "answer"}
         card_type_1 = self.card_type_with_id("1")
@@ -21,20 +23,20 @@ class TestRenderChain(MnemosyneTest):
                 return "666"
 
         self.render_chain().register_filter(MyFilter)
-        
+
         assert "666" in card.question()
         assert isinstance(self.render_chain().filter(MyFilter), MyFilter)
         assert self.render_chain().filter(TestRenderChain) is None
-    
+
         assert type(self.render_chain()._filters[0]) \
                != type(MyFilter(self.mnemosyne.component_manager))
 
         self.render_chain().unregister_filter(MyFilter)
         assert "666" not in card.question()
-        
+
         self.render_chain().unregister_filter(type(1))
-        
-    def test_add_filter_2(self):      
+
+    def test_add_filter_2(self):
         fact_data = {"f": "question",
                      "b": "answer"}
         card_type_1 = self.card_type_with_id("1")
@@ -47,7 +49,7 @@ class TestRenderChain(MnemosyneTest):
 
         self.render_chain().register_filter(MyFilter, in_front=True)
         assert "666" in card.question()
-        
+
         assert type(self.render_chain()._filters[0]) \
                == type(MyFilter(self.mnemosyne.component_manager))
 
@@ -61,11 +63,11 @@ class TestRenderChain(MnemosyneTest):
         class MyRenderer(Renderer):
             used_for = card_type_1
             def render(self, fact_data, fields, card_type, **render_args):
-                return "666"        
+                return "666"
 
         self.render_chain().register_renderer(MyRenderer)
         assert "666" in card.question()
-        
+
         card_type_2 = self.card_type_with_id("2")
         card = self.controller().create_new_cards(fact_data, card_type_2,
             grade=-1, tag_names=["default"])[0]
@@ -75,3 +77,17 @@ class TestRenderChain(MnemosyneTest):
         assert "666" not in card.question()
 
         self.render_chain().unregister_renderer(type(1))
+
+    def test_latex(self):
+        fact_data = {"f": "<latex>1<2</latex>",
+                     "b": "answer"}
+        card_type_1 = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type_1,
+            grade=-1, tag_names=["default"])[0]
+        card.question()
+
+        filename = os.path.join(os.path.abspath("dot_test"),
+            "default.db_media", "_latex", "tmp.tex")
+        contents = "".join(file(filename).readlines())
+        assert '<' in contents
+        assert "&lt;" not in contents

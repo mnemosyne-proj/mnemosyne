@@ -1,18 +1,5 @@
--upgrade PyQt from scratch (rm dist, uninstall previous version), 
- bug report if sound still does not work
-
--If something was fixed by upgrading to the new Qt, check if we need to install
- the old mnemosyne first in order to get these benefits. If so, enforce uninstall
- in installer?
-
 -use makefiles more under windows to assure download, clean install, rename to include
  version
-
--If new Qt works, mail map card type problem people
-
--check 2 sound files again under W7, mail Patrick, update changelog
-
--install to trunk, close bugs
 
 -hand / right hand man: change card type
 
@@ -64,6 +51,16 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 -remove mnemosyne/pyqt_ui/locale
 
 -upgrade website
+
+## Waiting for PyQt fixes:
+
+-https://bugreports.qt-project.org/browse/QTBUG-22883
+-If something was fixed by upgrading to the new Qt, check if we need to install
+ the old mnemosyne first in order to get these benefits. If so, enforce uninstall
+ in installer?
+-mail map card type problem people
+-check 2 sound files again under W7, mail Patrick, update changelog
+-install to trunk, close bugs
 
 ### Release
 

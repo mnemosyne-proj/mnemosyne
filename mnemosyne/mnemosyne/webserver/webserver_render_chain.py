@@ -17,6 +17,6 @@ class WebserverRenderChain(RenderChain):
 
     id = "webserver"
 
-    filters = [EscapeToHtml, Latex, ExpandPaths, Html5Audio, Html5Video,
+    filters = [Latex, EscapeToHtml, ExpandPaths, Html5Audio, Html5Video,
                NonLatinFontSizeIncrease]
     renderers = [WebserverRenderer]

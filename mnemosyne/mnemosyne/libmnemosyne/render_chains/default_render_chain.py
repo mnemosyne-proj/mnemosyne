@@ -17,12 +17,13 @@ class DefaultRenderChain(RenderChain):
 
     """Renders either the question or answer as a complete web page.
 
-    The ExpandPaths filter needs to run after the Latex filter.
+    The ExpandPaths and EscapeToHtml filter needs to run after the
+    Latex filter.
 
     """
 
     id = "default"
 
-    filters = [EscapeToHtml, Latex, ExpandPaths, Html5Audio, Html5Video,
+    filters = [Latex, EscapeToHtml, ExpandPaths, Html5Audio, Html5Video,
                NonLatinFontSizeIncrease]
     renderers = [HtmlCss]
