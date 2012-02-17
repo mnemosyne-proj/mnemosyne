@@ -931,6 +931,7 @@ class TestSync(object):
         card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["a"])[0]
 
+
         self.client.do_sync(); assert last_error is None
         self.client.mnemosyne.finalise()
         self.server.stop()
@@ -957,6 +958,7 @@ class TestSync(object):
         self.client = MyClient(erase_previous=False)
 
         self.client.mnemosyne.controller().delete_facts_and_their_cards([card.fact])
+        self.client.mnemosyne.database().delete_unused_media_files()
         self.client.mnemosyne.controller().save_file()
 
         self.client.do_sync(); assert last_error is None

@@ -10,7 +10,7 @@ class Hook(Component):
     """Function hooks are used by registering an instance of this class as
     component of type hook, with the 'used_for' argument any of the following
     hook points:
-    
+
        =====================================   ===============================
        'after_load'                            in database.load
        'after_backup'                          in database.backup
@@ -22,14 +22,15 @@ class Hook(Component):
                                                extra argument: card
        'dynamically_create_media_files'        in SQLite_sync
                                                extra argument: data
+       'delete_unused_media_files'             in SQLite_sync
        =====================================   ===============================
 
     It is the 'run' method that will get called at the corresponding point
     in the program.
-    
+
     """
 
     component_type = "hook"
-    
+
     def run(self):
         raise NotImplementedError

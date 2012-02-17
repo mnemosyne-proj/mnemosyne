@@ -282,6 +282,9 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             return os.path.basename(self.config()["path"]).\
                    split(self.database().suffix)[0]
 
+    def compact(self):
+        self.con.execute("vacuum")
+
     def new(self, path):
         self.unload()
         self._path = expand_path(path, self.config().data_dir)

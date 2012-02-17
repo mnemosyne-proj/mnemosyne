@@ -308,11 +308,14 @@ class SQLiteSync(object):
                 card_type = self.card_type(log_entry["o_id"],
                     is_id_internal=False)
                 log_entry["name"] = card_type.name
-                log_entry["fact_keys_and_names"] = repr(card_type.fact_keys_and_names)
+                log_entry["fact_keys_and_names"] = \
+                    repr(card_type.fact_keys_and_names)
                 log_entry["fact_views"] = repr([fact_view.id for fact_view \
                     in card_type.fact_views])
-                log_entry["unique_fact_keys"] = repr(card_type.unique_fact_keys)
-                log_entry["required_fact_keys"] = repr(card_type.required_fact_keys)
+                log_entry["unique_fact_keys"] = \
+                    repr(card_type.unique_fact_keys)
+                log_entry["required_fact_keys"] = \
+                    repr(card_type.required_fact_keys)
                 log_entry["keyboard_shortcuts"] = \
                     repr(card_type.keyboard_shortcuts)
                 if card_type.extra_data:

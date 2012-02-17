@@ -26,7 +26,7 @@ re3 = re.compile(r"<\$\$>(.+?)</\$\$>",   re.DOTALL | re.IGNORECASE)
 
 
 class Latex(Filter):
-    
+
     # To create the images, we have two options: either precreate them when
     # adding or editing cards, or lazily create them before display or sync.
     # We choose the latter, so that a power user can e.g. change the latex
@@ -61,10 +61,10 @@ class Latex(Filter):
             os.chdir(latex_dir)
             if os.path.exists("tmp1.png"):
                 os.remove("tmp1.png")
-            f = file("tmp.tex", 'w') 
+            f = file("tmp.tex", 'w')
             print >> f, self.config()["latex_preamble"]
             print >> f, latex_command.encode("utf-8")
-            print >> f, self.config()["latex_postamble"]           
+            print >> f, self.config()["latex_postamble"]
             f.close()
             os.system(self.config()["latex"] + " tmp.tex 2>&1 1>latex_out.txt")
             os.system(self.config()["dvipng"].rstrip())
@@ -72,13 +72,13 @@ class Latex(Filter):
                 return None
             shutil.copy("tmp1.png", img_name)
             self.log().added_media_file(rel_filename)
-            os.chdir(previous_dir)            
+            os.chdir(previous_dir)
         return rel_filename
 
     def process_latex_img_tag(self, latex_command):
 
         """Transform the latex tags to image tags."""
-        
+
         img_file = self.create_latex_img_file(latex_command)
         if not img_file:
             return "<b>" + \
@@ -88,13 +88,13 @@ class Latex(Filter):
         # expand_paths plugin. This means however that the expand_paths plugin
         # should always run at the end.
         return "<img src=\"" + img_file + "\" align=middle>"
-    
+
     def run(self, text, card, fact_key, **render_args):
 
         """The actual filter code called on the question or answer text."""
-        
+
         # Process <latex>...</latex> tags.
-        for match in re1.finditer(text):   
+        for match in re1.finditer(text):
             img_tag = self.process_latex_img_tag(match.group(1))
             text = text.replace(match.group(), img_tag)
         # Process <$>...</$> (equation) tags.
@@ -114,14 +114,24 @@ class CheckForUpdatedLatexFiles(Hook):
 
     # Used during sync. Added here to keep all the latex functionality in
     # a single file.
-    
+
     used_for = "dynamically_create_media_files"
 
     def __init__(self, component_manager):
         Hook.__init__(self, component_manager)
         self.latex = Latex(component_manager)
-    
+
     def run(self, data):
         # Takes 0.10 sec on 8000 card database.
         self.latex.run(data, None, None)
-        
+
+
+class DeleteUnusedLatexFiles(Hook):
+
+    used_for = "delete_unused_media_files"
+
+    def run(self):
+        # Crude approach: just delete everything.
+        latex_dir = os.path.join(self.database().media_dir(), "_latex")
+        if os.path.exists(latex_dir):
+            shutil.rmtree(latex_dir)

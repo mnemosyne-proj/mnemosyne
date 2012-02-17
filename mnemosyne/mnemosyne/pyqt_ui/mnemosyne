@@ -63,6 +63,8 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration",
                              "PyQtConfiguration"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.pyqt_render_chain",
                              "PyQtRenderChain"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.compact_database_dlg",
+                             "CompactDatabaseDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.add_cards_dlg",
                              "AddCardsDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.edit_card_dlg",

@@ -12,7 +12,7 @@ class Dialog(UiComponent):
 
 
 class AddCardsDialog(Dialog):
-         
+
     component_type = "add_cards_dialog"
 
 
@@ -22,7 +22,7 @@ class EditCardDialog(Dialog):
     'fact' as argument, as 'fact' does not know anything about card types.
 
     """
-    
+
     component_type = "edit_card_dialog"
 
     def __init__(self, card, component_manager, allow_cancel=True):
@@ -30,37 +30,37 @@ class EditCardDialog(Dialog):
 
 
 class ActivateCardsDialog(Dialog):
-    
+
     component_type = "activate_cards_dialog"
 
-    
+
 class BrowseCardsDialog(Dialog):
-    
+
     component_type = "browse_cards_dialog"
 
-    
+
 class ActivatePluginsDialog(Dialog):
-    
+
     component_type = "activate_plugins_dialog"
 
 
 class ManageCardTypesDialog(Dialog):
-    
+
     component_type = "manage_card_types_dialog"
 
 
 class StatisticsDialog(Dialog):
-    
+
     component_type = "statistics_dialog"
 
 
 class ConfigurationDialog(Dialog):
-    
+
     component_type = "configuration_dialog"
 
 
 class SyncDialog(Dialog):
-    
+
     component_type = "sync_dialog"
 
 
@@ -73,12 +73,17 @@ class TipDialog(Dialog):
 
     component_type = "tip_dialog"
 
-    
+
 class AboutDialog(Dialog):
 
     component_type = "about_dialog"
 
-    
+
 class ImportDialog(Dialog):
 
     component_type = "import_dialog"
+
+
+class CompactDatabaseDialog(Dialog):
+
+    component_type = "compact_database_dialog"

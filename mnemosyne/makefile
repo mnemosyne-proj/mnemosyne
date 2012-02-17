@@ -77,10 +77,13 @@ docs:
 	cd mnemosyne/libmnemosyne/docs && make html
 
 windows:
-	rmdir /S /Q dist
-	rmdir /S /Q build
-	$(PYTHON) setup.py build
-	$(PYTHON) setup.py py2exe --packages=mnemosyne,numpy,xml.sax,xml.etree --includes=sip,PyQt4.QtNetwork
+	rm -rf dist
+	rm -rf build
+	cd mnemosyne/pyqt_ui && make clean
+	cd mnemosyne/pyqt_ui && make
+	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
+	cd po && make
+	$(PYTHON) setup.py py2exe
 
 clean:
 	rm -f *~ *.pyc *.tgz process_profile.py

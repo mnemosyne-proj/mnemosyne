@@ -160,6 +160,9 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
     def file_save_as(self):
         self.controller().show_save_file_as_dialog()
 
+    def compact_database(self):
+        self.controller().show_compact_database_dialog()
+
     def import_file(self):
         self.controller().show_import_file_dialog()
 

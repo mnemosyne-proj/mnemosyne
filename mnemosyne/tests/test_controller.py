@@ -19,7 +19,7 @@ class Widget(MainWidget):
 
     def get_filename_to_save(self, path, filter, caption=""):
         return save_file
-    
+
     def get_filename_to_open(self, path, filter, caption=""):
         return os.path.join(os.getcwd(), "dot_test", "default.db")
 
@@ -31,7 +31,7 @@ class TestController(MnemosyneTest):
 
     def setup(self):
         shutil.rmtree("dot_test", ignore_errors=True)
-        
+
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
         self.mnemosyne.components.insert(0,
             ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
@@ -65,27 +65,30 @@ class TestController(MnemosyneTest):
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "GettingStartedDialog"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "AboutDialog"))
-        
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "CompactDatabaseDialog"))
+
         self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
         self.review_controller().reset()
-        
+
     def test_coverage(self):
         global save_file
         os.path.join(os.getcwd(), "dot_test", "copy.db")
-        
+
         self.controller().heartbeat()
         self.controller().show_add_cards_dialog()
         card_type = self.card_type_with_id("2")
         fact_data = {"f": "f", "b": "b"}
         card_1, card_2 = self.controller().create_new_cards(fact_data,
           card_type, grade=-1, tag_names=["default"])
-        self.review_controller().show_new_question()        
-        self.controller().show_edit_card_dialog()        
+        self.review_controller().show_new_question()
+        self.controller().show_edit_card_dialog()
         self.controller().show_new_file_dialog()
         self.controller().show_open_file_dialog()
-        self.controller().show_save_file_as_dialog()       
-        self.controller().show_activate_plugins_dialog()  
-        self.controller().show_manage_card_types_dialog()        
+        self.controller().show_save_file_as_dialog()
+        self.controller().show_compact_database_dialog()
+        self.controller().show_activate_plugins_dialog()
+        self.controller().show_manage_card_types_dialog()
         self.controller().show_browse_cards_dialog()
         self.controller().show_configuration_dialog()
         self.controller().show_statistics_dialog()
@@ -95,7 +98,7 @@ class TestController(MnemosyneTest):
         self.controller().show_about_dialog()
         self.controller().download_source()
         self.controller().sync()
-        
+
     def test_2(self):
         self.controller().show_save_file_as_dialog()
         self.controller().show_open_file_dialog()
@@ -109,7 +112,7 @@ class TestController(MnemosyneTest):
         card_1, card_2 = self.controller().create_new_cards(fact_data,
           card_type, grade=-1, tag_names=["default"])
         self.controller().save_file()
-        
+
         self.controller().show_new_file_dialog()
 
     def test_coverage(self):
@@ -121,7 +124,7 @@ class TestController(MnemosyneTest):
 
         self.controller().show_add_cards_dialog()
         self.controller().show_edit_card_dialog()
-        self.controller().show_insert_video_dialog("")        
+        self.controller().show_insert_video_dialog("")
         self.controller().show_download_source_dialog()
         self.controller().show_sync_dialog()
         self.controller().show_activate_plugins_dialog()
@@ -147,7 +150,7 @@ class TestController(MnemosyneTest):
         global answer
         answer = 0
         self.controller().delete_current_card()
-        
+
     def test_delete_current_2(self):
         card_type = self.card_type_with_id("1")
         fact_data = {"f": "1", "b": "1"}
@@ -161,4 +164,4 @@ class TestController(MnemosyneTest):
         self.review_controller().grade_answer(2)
         global answer
         answer = 0
-        self.controller().delete_current_card()        
+        self.controller().delete_current_card()

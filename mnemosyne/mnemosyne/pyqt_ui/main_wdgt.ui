@@ -30,7 +30,7 @@
      <x>0</x>
      <y>0</y>
      <width>315</width>
-     <height>21</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Settings">
@@ -60,6 +60,7 @@
     <addaction name="separator"/>
     <addaction name="actionImport"/>
     <addaction name="actionSync"/>
+    <addaction name="actionCompact"/>
     <addaction name="separator"/>
     <addaction name="actionFileExit"/>
    </widget>
@@ -286,6 +287,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Y</string>
+   </property>
+  </action>
+  <action name="actionCompact">
+   <property name="text">
+    <string>Compact...</string>
+   </property>
+   <property name="toolTip">
+    <string>Compact database</string>
    </property>
   </action>
  </widget>
@@ -586,6 +595,22 @@
    <signal>triggered()</signal>
    <receiver>MainWdgt</receiver>
    <slot>show_about()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>246</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCompact</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWdgt</receiver>
+   <slot>compact_database()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>

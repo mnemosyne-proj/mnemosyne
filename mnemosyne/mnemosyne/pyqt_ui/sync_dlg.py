@@ -55,7 +55,7 @@ class SyncThread(QtCore.QThread):
         try:
             self.mnemosyne.controller().sync(self.server, self.port,
                 self.username, self.password, ui=self)
-        except:
+        finally:
             self.mnemosyne.database().release_connection()
 
     def show_information(self, message):

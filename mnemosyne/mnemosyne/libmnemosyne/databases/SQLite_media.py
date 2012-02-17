@@ -23,7 +23,7 @@ class SQLiteMedia(object):
 
 
     """
-            
+
     def media_dir(self):
         if self.config()["path"] == os.path.basename(self.config()["path"]):
             return unicode(os.path.join(self.config().data_dir,
@@ -63,10 +63,10 @@ class SQLiteMedia(object):
                 break
             hasher.update(buffer)
         return hasher.hexdigest()
-    
+
         # The following implementation uses the modification date. Less
         # robust, but could be useful on a mobile device.
-        
+
         #return str(os.path.getmtime(media_file))
 
     def check_for_edited_media_files(self):
@@ -90,7 +90,7 @@ class SQLiteMedia(object):
             for f in self.component_manager.all("hook",
                 "dynamically_create_media_files"):
                 f.run(cursor[0])
-    
+
     def _process_media(self, fact):
 
         """Copy the media files to the media directory and edit the media
@@ -138,20 +138,7 @@ class SQLiteMedia(object):
                 if not self.syncing:
                     self.log().added_media_file(filename)
 
-    def clean_orphaned_static_media_files(self):
-        
-        """Remove the static (i.e. explictly specified in a src='' tag) unused
-        media files.
-        
-        (This check takes less than 30 ms for 9000 cards with 400 media files on
-        a 2.1 GHz dual core.)
-        
-        Note: purging dynamicly generated media files, like e.g. latex files,
-        would be rather time consuming. These files are typically small anyway
-        and can be easily cleaned up by deleting the entire _latex directory.
-
-        """
-
+    def delete_unused_media_files(self):
         # Files referenced in the database.
         files_in_db = set()
         for result in self.con.execute(\
@@ -169,16 +156,9 @@ class SQLiteMedia(object):
                 if root:
                     filename = root + "/" + filename
                 files_in_media_dir.add(filename)
-        # Ask if it's OK to delete the files.
-        orphaned_files = files_in_media_dir - files_in_db
-        if len(orphaned_files):
-            answer = self.main_widget().show_question(
-                _("Found orphaned media files. Delete them?"), _("&Delete"),
-                _("&Cancel"), "")
-            if answer == 1:  # Cancel.
-                return
-        # Delete orphaned files.
-        for filename in orphaned_files:
+        # Delete unused files.
+        unused_files = files_in_media_dir - files_in_db
+        for filename in unused_files:
             os.remove(expand_path(filename, self.media_dir()))
             self.log().deleted_media_file(filename)
         # Purge empty dirs.
@@ -189,6 +169,11 @@ class SQLiteMedia(object):
                 continue
             if len(filenames) == 0 and len(dirnames) == 0:
                 os.rmdir(root)
+        # Other media files, e.g. latex.
+        for f in self.component_manager.all("hook",
+            "delete_unused_media_files"):
+            f.run()
 
 
-    
+
+

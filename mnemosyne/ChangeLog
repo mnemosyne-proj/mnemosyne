@@ -1,3 +1,4 @@
+-Added 'File - Compact' to compact the database and delete unused media files.
 -Don't substitute < with &lt; inside latex commands (reported by Estevo).
 -Rework sound handling, better support for multiple sound files per card.
  Unfortunately, due to a Qt bug, this only works on Linux so far.

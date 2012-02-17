@@ -247,9 +247,6 @@ class DefaultController(Controller):
         db = self.database()
         sch = self.scheduler()
         assert new_card_type.is_fact_data_valid(new_fact_data)
-        # If the old fact contained media, we need to check for orphans.
-        clean_orphaned_static_media_files_needed = \
-            db.fact_contains_static_media_files(fact)
         # Change card type first.
         result = self._change_card_type(fact, old_card_type, new_card_type,
             correspondence, new_fact_data)
@@ -283,8 +280,6 @@ class DefaultController(Controller):
             db.update_card(card)
         for tag in old_tags:
             db.delete_tag_if_unused(tag)
-        if clean_orphaned_static_media_files_needed:
-            db.clean_orphaned_static_media_files()
         db.save()
         return 0
 
@@ -294,10 +289,6 @@ class DefaultController(Controller):
         """Note: all facts should have the same card type."""
 
         db = self.database()
-        clean_orphaned_static_media_files_needed = False
-        for fact in facts:
-            if db.fact_contains_static_media_files(fact):
-                clean_orphaned_static_media_files_needed = True
         warn = True
         w = self.main_widget()
         w.set_progress_text(_("Converting cards..."))
@@ -322,8 +313,6 @@ class DefaultController(Controller):
             warn = False
             count += 1
             w.set_progress_value(count)
-        if clean_orphaned_static_media_files_needed:
-            db.clean_orphaned_static_media_files()
         db.save()
         w.close_progress()
 
@@ -357,16 +346,11 @@ class DefaultController(Controller):
 
     def delete_facts_and_their_cards(self, facts):
         db = self.database()
-        clean_orphaned_static_media_files_needed = False
         for fact in facts:
-            if db.fact_contains_static_media_files(fact):
-                clean_orphaned_static_media_files_needed = True
             for card in db.cards_from_fact(fact):
                 self.scheduler().remove_from_queue_if_present(card)
                 db.delete_card(card)
             db.delete_fact(fact)
-        if clean_orphaned_static_media_files_needed:
-            db.clean_orphaned_static_media_files()
         db.save()
 
     def clone_card_type(self, card_type, clone_name):
@@ -510,6 +494,13 @@ class DefaultController(Controller):
             return
         self.review_controller().update_dialog()
         self.update_title()
+        self.stopwatch().unpause()
+
+    def show_compact_database_dialog(self):
+        self.stopwatch().pause()
+        self.flush_sync_server()
+        self.component_manager.current("compact_database_dialog")\
+            (self.component_manager).activate()
         self.stopwatch().unpause()
 
     def show_insert_img_dialog(self, filter):
