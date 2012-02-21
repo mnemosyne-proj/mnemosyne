@@ -252,14 +252,12 @@ class SQLiteSync(object):
             log_entry["e"] = sql_res["easiness"]
             log_entry["sch_i"] = sql_res["scheduled_interval"]
             log_entry["act_i"] = sql_res["actual_interval"]
-            log_entry["new_i"] = sql_res["new_interval"]
             log_entry["th_t"] = sql_res["thinking_time"]
             log_entry["ac_rp"] = sql_res["acq_reps"]
             log_entry["rt_rp"] = sql_res["ret_reps"]
             log_entry["lps"] = sql_res["lapses"]
             log_entry["ac_rp_l"] = sql_res["acq_reps_since_lapse"]
             log_entry["rt_rp_l"] = sql_res["ret_reps_since_lapse"]
-            log_entry["l_rp"] = sql_res["last_rep"]
             log_entry["n_rp"] = sql_res["next_rep"]
             log_entry["sch_data"] = sql_res["scheduler_data"]
         elif event_type in (EventTypes.ADDED_TAG, EventTypes.EDITED_TAG):
@@ -475,10 +473,10 @@ class SQLiteSync(object):
             ret_reps=log_entry["rt_rp"], lapses=log_entry["lps"],
             acq_reps_since_lapse=log_entry["ac_rp_l"],
             ret_reps_since_lapse=log_entry["rt_rp_l"],
-            last_rep=log_entry["l_rp"], next_rep=log_entry["n_rp"],
+            last_rep=log_entry["time"], next_rep=log_entry["n_rp"],
             scheduler_data=sch_data)
         self.log().repetition(card, log_entry["sch_i"], log_entry["act_i"],
-                   log_entry["new_i"], log_entry["th_t"])
+            log_entry["th_t"])
         self.con.execute("""update cards set grade=?, easiness=?, acq_reps=?,
             ret_reps=?, lapses=?, acq_reps_since_lapse=?,
             ret_reps_since_lapse=?, last_rep=?, next_rep=?, scheduler_data=?

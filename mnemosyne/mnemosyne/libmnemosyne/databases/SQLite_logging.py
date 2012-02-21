@@ -68,19 +68,18 @@ class SQLiteLogging(object):
 
     def log_repetition(self, timestamp, card_id, grade, easiness, acq_reps,
         ret_reps, lapses, acq_reps_since_lapse, ret_reps_since_lapse,
-        scheduled_interval, actual_interval, new_interval, thinking_time,
-        last_rep, next_rep, scheduler_data):
+        scheduled_interval, actual_interval, thinking_time, next_rep,
+        scheduler_data):
         self.con.execute(\
             """insert into log(event_type, timestamp, object_id, grade,
             easiness, acq_reps, ret_reps, lapses, acq_reps_since_lapse,
             ret_reps_since_lapse, scheduled_interval, actual_interval,
-            new_interval, thinking_time, last_rep, next_rep, scheduler_data)
-            values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            thinking_time, next_rep, scheduler_data)
+            values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
             (EventTypes.REPETITION, int(timestamp), card_id, grade, easiness,
             acq_reps, ret_reps, lapses, acq_reps_since_lapse,
             ret_reps_since_lapse, scheduled_interval, actual_interval,
-            new_interval, int(thinking_time), last_rep, next_rep,
-            scheduler_data))
+            int(thinking_time), next_rep, scheduler_data))
 
     def log_added_tag(self, timestamp, tag_id):
         self.con.execute(\
@@ -222,6 +221,7 @@ class SQLiteLogging(object):
                 print >> logfile, "%s : Deleted item %s" \
                       % (timestamp, cursor["object_id"])
             elif event_type == EventTypes.REPETITION:
+                new_interval = int(cursor["next_rep"] - cursor["timestamp"])
                 print >> logfile, \
               "%s : R %s %d %1.2f | %d %d %d %d %d | %d %d | %d %d | %1.1f" %\
                          (timestamp, cursor["object_id"], cursor["grade"],
@@ -230,7 +230,7 @@ class SQLiteLogging(object):
                           cursor["acq_reps_since_lapse"],
                           cursor["ret_reps_since_lapse"],
                           cursor["scheduled_interval"],
-                          cursor["actual_interval"], cursor["new_interval"],
+                          cursor["actual_interval"], new_interval,
                           0, cursor["thinking_time"])
             elif event_type == EventTypes.STOPPED_PROGRAM:
                 print >> logfile, "%s : Program stopped" % (timestamp, )

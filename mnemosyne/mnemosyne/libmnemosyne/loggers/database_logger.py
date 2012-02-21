@@ -55,12 +55,12 @@ class DatabaseLogger(Logger):
         self.database().log_deleted_card(self.timestamp, card.id)
 
     def repetition(self, card, scheduled_interval, actual_interval,
-                   new_interval, thinking_time):
+                   thinking_time):
         self.database().log_repetition(self.timestamp, card.id, card.grade,
             card.easiness, card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
-            scheduled_interval, actual_interval, new_interval,
-            thinking_time, card.last_rep, card.next_rep, card.scheduler_data)
+            scheduled_interval, actual_interval, thinking_time,
+            card.next_rep, card.scheduler_data)
 
     def added_tag(self, tag):
         self.database().log_added_tag(self.timestamp, tag.id)

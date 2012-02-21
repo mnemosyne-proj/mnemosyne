@@ -636,7 +636,7 @@ class TestSync(object):
             assert rep["ret_reps_since_lapse"] == 1
             assert rep["scheduled_interval"] > 60*60
             assert rep["actual_interval"] < 10
-            assert rep["new_interval"] > 60*60
+            assert rep["next_rep"] - rep["timestamp"] > 60*60
             assert rep["thinking_time"] < 10
             assert rep["timestamp"] > 0
 

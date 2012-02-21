@@ -40,8 +40,10 @@ SCHEMA = string.Template("""
         id text,
         extra_data text default ""
     );
+
     /* indexes on id's are necessary for the sync protocol, which
     needs to work with id's instead of _id's. */
+
     create index i_facts on facts (id);
 
     create table data_for_fact(
@@ -109,11 +111,20 @@ $pregenerated_data
         value text
     );
 
-    /* For object_id, we need to store the full ids as opposed to the _ids.
+    /* Activity logs.
+
+       For object_id, we need to store the full ids as opposed to the _ids.
        When deleting an object, there is no longer a way to get the ids from
        the _ids, and for robustness and interoperability, we need to send the
        ids across when syncing.
-    */
+
+       We store scheduling information here, such that the contents from a log
+       entry are sufficient to sync a card after a repetition. We don't need to
+       store last_rep, since it's equal to timestamp.
+
+       We also store info like scheduled_interval and actual_interval, which
+       in theory could be derived from earlier log entries in the database, but
+       which would be expensive staticstics to calculate. */
 
     create table log(
         _id integer primary key autoincrement, /* Should never be reused. */
@@ -129,9 +140,7 @@ $pregenerated_data
         ret_reps_since_lapse integer,
         scheduled_interval integer,
         actual_interval integer,
-        new_interval integer,
         thinking_time integer,
-        last_rep integer, /* same as timestamp */
         next_rep integer,
         /* Storing scheduler_data allows syncing the cramming scheduler */
         scheduler_data integer
@@ -161,8 +170,7 @@ $pregenerated_data
        Since these are small tables which only get used during load to create
        card types, we only use id's instead of _ids.
        We store card_types.fact_view_ids as a repr of a list instead of as a
-       separate table, because order is important.
-    */
+       separate table, because order is important. */
 
     create table fact_views(
         id text primary key,

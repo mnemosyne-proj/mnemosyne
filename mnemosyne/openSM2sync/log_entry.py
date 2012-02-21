@@ -13,12 +13,12 @@ class EventTypes(object):
     STARTED_SCHEDULER = 3
     LOADED_DATABASE = 4
     SAVED_DATABASE = 5
-    
+
     ADDED_CARD = 6
     EDITED_CARD = 7
     DELETED_CARD = 8
     REPETITION = 9
-    
+
     ADDED_TAG = 10
     EDITED_TAG = 11
     DELETED_TAG = 12
@@ -28,7 +28,7 @@ class EventTypes(object):
     DELETED_MEDIA_FILE = 15
 
     # Only relevant for fact-based clients.
-    
+
     ADDED_FACT = 16
     EDITED_FACT = 17
     DELETED_FACT = 18
@@ -36,7 +36,7 @@ class EventTypes(object):
     ADDED_FACT_VIEW = 19
     EDITED_FACT_VIEW = 20
     DELETED_FACT_VIEW = 21
-       
+
     ADDED_CARD_TYPE = 22
     EDITED_CARD_TYPE = 23
     DELETED_CARD_TYPE = 24
@@ -63,12 +63,12 @@ class LogEntry(dict):
             Object ids should not contain commas.
         extra (string): extra data for tags, cards and card_types, typically
             the representation of a Python dictionary. Optional.
-        
+
     Keys specific to LOADED_DATABASE and SAVED_DATABASE:
         sch, n_mem, act (int): optional, but suggested for compatibility with
             Mnemosyne. The number of scheduled, non memorised and active cards
             in the database.
-            
+
     Keys specific to ADDED_CARD, EDITED_CARD:
         c_time, m_time (int): creation time, modification time, Unix timestamp
         card_t (nice_string): card type id, if partner supports facts
@@ -81,7 +81,7 @@ class LogEntry(dict):
         n_rp (int): next repetition, Unix timestamp
 
         Optional, but suggested for compatibility with Mnemosyne:
-        
+
         ac_rp (int): number of acquisition repetitions (gr < 2)
         rt_rp (int): number of retention repetitions (gr >= 2)
         lps (int): number of lapses (new grade < 2 if old grade >= 2)
@@ -91,13 +91,12 @@ class LogEntry(dict):
     Keys specific to REPETITION:
         gr (int): grade (-1 through 5, -1 meaning unseen)
         e (float): easiness
-        sch_i (int): scheduled interval in seconds
-        act_i (int): actual interval in seconds
-        new_i (int): new interval in seconds
+        sch_i (int): scheduled previous interval in seconds
+        act_i (int): actual previous interval in seconds
         th_t (int): thinking time in seconds
-        l_rp (int): last repetiton, Unix timestamp
         n_rp (int): next repetition, Unix timestamp
-        
+          (note: last rep is the same as the entry's timestamp')
+
         Optional, but suggested for compatibility with Mnemosyne:
 
         ac_rp (int): number of acquisition repetitions (gr < 2)
@@ -111,7 +110,7 @@ class LogEntry(dict):
         science server and to have some data available locally for statistics
         plugins to work with. On the other hand, it contains all the info
         needed to update the corresponding card in the database.
-        
+
     Keys specific to ADDED_TAG, EDITED_TAG:
         name (string): tag name
 
@@ -125,7 +124,7 @@ class LogEntry(dict):
 
     The following events are entirely optional, certainly for card-based
     clients. Consult libmnemosyne's code for more details.
-    
+
     Keys specific to ADDED_FACT_VIEW, EDITED_FACT_VIEW, DELETED_FACT_VIEW:
         name (string)
         q_fact_keys (string)
@@ -144,7 +143,7 @@ class LogEntry(dict):
         required_fact_keys (string)
         keyboard_shortcuts (string)
         extra (string)
-                
+
     Keys specific to ADDED_CRITERION, EDITED_CRITERION, DELETED_CRITERION:
         name (string)
         criterion_type (string)
@@ -152,7 +151,7 @@ class LogEntry(dict):
 
     Keys specific to EDITED_SETTING:
         value (string)
-    
+
     Any other keys in LogEntry that don't appear in the list above will be
     synced as string.
 
@@ -165,5 +164,5 @@ class LogEntry(dict):
     encoded/escaped as appropriate.
 
     """
-    
+
     pass

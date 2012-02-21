@@ -35,33 +35,33 @@ class Logger(Component):
         to the database that happened in the past.
 
         """
-        
+
         if self._timestamp == None:
             return time.time()
         else:
             return self._timestamp
-        
+
     def set_timestamp(self, timestamp):
         self._timestamp = timestamp
 
     timestamp = property(get_timestamp, set_timestamp)
-    
+
     def start_logging(self):
         pass
-    
+
     def started_program(self, version_string=None):
         pass
-        
+
     def stopped_program(self):
         pass
-    
+
     def started_scheduler(self, scheduler_name=None):
         pass
 
     def loaded_database(self, scheduled_count=None, non_memorised_count=None,
         active_count=None):
         pass
-        
+
     def saved_database(self, scheduled_count=None, non_memorised_count=None,
         active_count=None):
         pass
@@ -71,12 +71,12 @@ class Logger(Component):
 
     def edited_card(self, card):
         pass
-    
+
     def deleted_card(self, card):
         pass
-        
+
     def repetition(self, card, scheduled_interval, actual_interval,
-                   new_interval, thinking_time):
+        thinking_time):
         pass
 
     def added_tag(self, tag):
@@ -84,58 +84,58 @@ class Logger(Component):
 
     def edited_tag(self, tag):
         pass
-    
+
     def deleted_tag(self, tag):
         pass
 
     def added_media_file(self, filename):
         pass
-    
+
     def edited_media_file(self, filename):
         pass
-    
+
     def deleted_media_file(self, filename):
         pass
- 
+
     def added_fact(self, fact):
         pass
 
     def edited_fact(self, fact):
         pass
-    
+
     def deleted_fact(self, fact):
         pass
-    
+
     def added_fact_view(self, fact_view):
         pass
 
     def edited_fact_view(self, fact_view):
         pass
-    
+
     def deleted_fact_view(self, fact_view):
         pass
-    
+
     def added_card_type(self, card_type):
         pass
 
     def edited_card_type(self, card_type):
         pass
-    
+
     def deleted_card_type(self, card_type):
         pass
-    
+
     def added_criterion(self, criterion):
         pass
 
     def edited_criterion(self, criterion):
         pass
-    
+
     def deleted_criterion(self, criterion):
         pass
-    
+
     def edited_setting(self, key):
         pass
-    
+
     def dump_to_science_log(self):
         pass
 
@@ -151,10 +151,10 @@ class Logger(Component):
         Obviously, we should only consider the logs from our own machine.
 
         """
-        
+
         _dir = os.listdir(unicode(\
             os.path.join(self.config().data_dir, "history")))
-        history_files = [x for x in _dir if x[-4:] == ".bz2"]        
+        history_files = [x for x in _dir if x[-4:] == ".bz2"]
         max_log_index = 0
         this_machine_id = self.config().machine_id()
         for history_file in history_files:
@@ -167,9 +167,9 @@ class Logger(Component):
             if log_index > max_log_index:
                 max_log_index = log_index
         return max_log_index
-                    
+
     def archive_old_log(self):
-        
+
         """Archive log to history folder if it's large enough."""
 
         if not self.config()["upload_science_logs"]:
@@ -192,7 +192,7 @@ class Logger(Component):
                 f.write(l)
             f.close()
             os.remove(log_name)
-            
+
 
     def deactivate(self):
         if self.upload_thread:

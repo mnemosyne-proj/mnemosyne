@@ -1,6 +1,7 @@
--no need to log last rep in the log database? We already have timestamp. Update sync too.
- Get rid of new_interval and keep next_rep? we need next rep in sqlite stats
- document why we store them
+-review entire changeset
+-write upgrader for database format
+
+-scheduled/actual interval --> scheduled_actual_previous_interval?
 
 -reduce timeout on sync login, test again full sync
 -release database on client after sync error
@@ -14,6 +15,8 @@
  data to the server, and resyncing
 -if the server is empty, allow sync from non-empty client and change server user
 id.
+
+-queue gets stuck on two cards if sisters have just been memorised?
 
 -new 'activate plugin' dialog
 

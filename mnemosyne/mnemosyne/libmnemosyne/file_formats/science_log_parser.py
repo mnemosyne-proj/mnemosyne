@@ -25,11 +25,11 @@ class ScienceLogParser(object):
     the actual interval with a resolution of a second. This however requires
     holding on to the exact time of the previous repetition of each card,
     while parsing the logs.
-    
+
     A second, more thorny idiosyncrasy is the matter of the first grading of a
     card. When adding cards manually through the UI, users set an initial
     grade there. For cards that are imported, there is no such possibility.
-    
+
     Throughout the history of Mnemosyne, several approaches have been taken
     to deal with this issue.
 
@@ -57,13 +57,13 @@ class ScienceLogParser(object):
     summary of the contents of the logs after creating a new card through
     the GUI (giving it an initial grade at the same time), as well as the
     value of 'acq_reps' at that time.
-    
+
                             initial grade 0,1      initial grade 2,3,4,5
 
-    version < 0.9.8:        New item, acq_reps=0   New item, acq_reps=0 
+    version < 0.9.8:        New item, acq_reps=0   New item, acq_reps=0
 
     0.9.8 <= version < 2.0  New item, acq_reps=1   New item, acq_reps=1
-                                
+
     2.0 <= version          New item, acq_reps=0   New item, acq_reps=0
                                                    R acq_reps=1
 
@@ -80,19 +80,20 @@ class ScienceLogParser(object):
 
     Since there is no grading on import, we don't need to do anything special
     for imported cards.
-    
+
     The database object should implement the following API:
 
         def log_started_program(self, timestamp, program_name_version)
         def log_stopped_program(self, timestamp)
-        def log_started_scheduler(self, timestamp, scheduler_name)   
+        def log_started_scheduler(self, timestamp, scheduler_name)
         def log_loaded_database(self, timestamp, scheduled_count,
         def log_saved_database(self, timestamp, scheduled_count,
         def log_added_card(self, timestamp, card_id)
         def log_deleted_card(self, timestamp, card_id)
         def log_repetition(self, timestamp, card_id, grade, easiness, acq_reps,
             ret_reps, lapses, acq_reps_since_lapse, ret_reps_since_lapse,
-            scheduled_interval, actual_interval, new_interval, thinking_time)
+            scheduled_interval, actual_interval, thinking_time, next_rep,
+            scheduler_data)
         def set_offset_last_rep(self, card_id, offset, last_rep)
         def offset_last_rep(self, card_id)
         def update_card_after_log_import(id, creation_time, offset)
@@ -100,7 +101,7 @@ class ScienceLogParser(object):
     Note that we don't go through the log() level of abstraction here, as this
     code is also used outside libmnemosyne for parsing logs in the statistics
     server.
-                                                                 
+
     """
 
     versions_1_x_phase_1 = ["0.1", "0.9", "0.9.1", "0.9.2", "0.9.3", "0.9.4",
@@ -117,11 +118,11 @@ class ScienceLogParser(object):
         For efficiency reasons, 'ids_to_parse' is best a dictionary.
 
         """
-        
+
         self.database = database
         self.ids_to_parse = ids_to_parse
         self.version_number = "1.2.2" # Default guess for missing logs.
-        
+
     def parse(self, filename):
         # Open file.
         if os.path.basename(filename) != "log.txt":
@@ -130,7 +131,7 @@ class ScienceLogParser(object):
                 self.user_id, self.log_number = before_extension.split("_")
             else:
                 self.user_id, self.machine_id, self.log_number = \
-                    before_extension.split("_")                
+                    before_extension.split("_")
             self.log_number = int(self.log_number)
         if filename.endswith(".bz2"):
             self.logfile = bz2.BZ2File(filename)
@@ -139,7 +140,7 @@ class ScienceLogParser(object):
         # For pre-2.0 logs, we need to hang on to the previous timestamp, as
         # this will be used as the time the card was shown, in order to
         # calculate the actual interval. (The timestamps for repetitions are
-        # when the card was graded, not when it was presented to the user.)        
+        # when the card was graded, not when it was presented to the user.)
         self.timestamp = None
         self.previous_timestamp = None
         self.lower_timestamp_limit = 1121021345 # 2005-07-10 21:49:05.
@@ -153,9 +154,9 @@ class ScienceLogParser(object):
                 print ("Ignoring error in file '%s' while parsing line:\n%s" %
                     (filename, line))
                 print traceback_string()
-                sys.stdout.flush()                
-        
-    def _parse_line(self, line):      
+                sys.stdout.flush()
+
+    def _parse_line(self, line):
         parts = line.rstrip().rsplit(" : ")
         self.timestamp = int(time.mktime(time.strptime(parts[0],
                                          "%Y-%m-%d %H:%M:%S")))
@@ -214,9 +215,8 @@ class ScienceLogParser(object):
             self.database.log_repetition(self.timestamp, id, grade,
                 easiness=2.5, acq_reps=1, ret_reps=0, lapses=0,
                 acq_reps_since_lapse=1, ret_reps_since_lapse=0,
-                scheduled_interval=0, actual_interval=0, new_interval=\
-                int(new_interval), thinking_time=0, last_rep=0,
-                next_rep=0, scheduler_data=0)
+                scheduled_interval=0, actual_interval=0, thinking_time=0,
+                next_rep=self.timestamp, scheduler_data=0)
 
     def _parse_imported_item(self, imported_item_chunk):
         Imported, item, id, grade, ret_reps, last_rep, next_rep, interval \
@@ -238,7 +238,7 @@ class ScienceLogParser(object):
     def _parse_deleted_item(self, deleted_item_chunk):
         Deleted, item, id = deleted_item_chunk.split(" ")
         if self.ids_to_parse and id not in self.ids_to_parse:
-            return        
+            return
         # Only log the deletion if we've seen the card before, as a safeguard
         # against corrupt logs.
         try:
@@ -260,7 +260,7 @@ class ScienceLogParser(object):
         acq_reps, ret_reps = int(acq_reps), int(ret_reps)
         lapses = int(lapses)
         acq_reps_since_lapse = int(acq_reps_since_lapse)
-        ret_reps_since_lapse = int(ret_reps_since_lapse)  
+        ret_reps_since_lapse = int(ret_reps_since_lapse)
         scheduled_interval, actual_interval = blocks[2].split(" ")
         scheduled_interval = int(scheduled_interval)
         actual_interval = int(actual_interval)
@@ -276,7 +276,7 @@ class ScienceLogParser(object):
                 # it was shown.)
                 offset, last_rep = self.database.offset_last_rep(id)
                 if last_rep:
-                    actual_interval = self.previous_timestamp - last_rep               
+                    actual_interval = self.previous_timestamp - last_rep
                 else:
                     actual_interval = 0
                 self.database.set_offset_last_rep(id, offset, self.timestamp)
@@ -286,11 +286,12 @@ class ScienceLogParser(object):
                 actual_interval = 0
                 self.database.log_added_card(self.timestamp, id)
                 self.database.set_offset_last_rep(id, offset, last_rep=0)
-                self.database.update_card_after_log_import(id, self.timestamp, offset)
+                self.database.update_card_after_log_import\
+                (id, self.timestamp, offset)
             # Convert days to seconds.
             scheduled_interval *= DAY
             new_interval *= DAY
-            # Take offset into account.      
+            # Take offset into account.
             acq_reps += offset
             if lapses == 0:
                 acq_reps_since_lapse += offset
@@ -298,7 +299,7 @@ class ScienceLogParser(object):
         self.database.log_repetition(self.timestamp, id, grade, easiness,
             acq_reps, ret_reps, lapses, acq_reps_since_lapse,
             ret_reps_since_lapse, scheduled_interval, actual_interval,
-            new_interval, thinking_time, last_rep=0, next_rep=0,
+            thinking_time, next_rep=self.timestamp + new_interval,
             scheduler_data=0)
-        
-        
+
+
