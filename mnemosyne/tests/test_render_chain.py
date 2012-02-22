@@ -53,6 +53,59 @@ class TestRenderChain(MnemosyneTest):
         assert type(self.render_chain()._filters[0]) \
                == type(MyFilter(self.mnemosyne.component_manager))
 
+    def test_add_filter_order(self):
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type_1 = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type_1,
+            grade=-1, tag_names=["default"])[0]
+
+        class MyFilter1(Filter):
+            def run(self, text, card, fact_key):
+                return "666"
+
+        class MyFilter2(Filter):
+            def run(self, text, card, fact_key):
+                return "[%s]" % text
+
+        class MyFilter3(Filter):
+            def run(self, text, card, fact_key):
+                return "(%s)" % text
+
+        class MyFilter4(Filter):
+            def run(self, text, card, fact_key):
+                return "{%s}" % text
+
+        def equals(filter_class):
+            ty = type(filter_class(self.mnemosyne.component_manager))
+            def eq(x):
+                return type(x) == ty
+            return eq
+
+        self.render_chain().register_at_front(MyFilter1)
+        assert "666" in card.question()
+
+        self.render_chain().register_at_front(MyFilter2, [MyFilter1.__name__])
+        assert "[666]" in card.question()
+
+        self.render_chain().register_at_back(MyFilter3, [MyFilter2.__name__])
+        assert "[(666)]" in card.question()
+
+        self.render_chain().register_at_front(MyFilter4, [MyFilter3.__name__])
+        assert "[{(666)}]" in card.question()
+
+        assert type(self.render_chain()._filters[0]) \
+               == type(MyFilter1(self.mnemosyne.component_manager))
+
+        assert type(self.render_chain()._filters[1]) \
+               == type(MyFilter3(self.mnemosyne.component_manager))
+
+        assert type(self.render_chain()._filters[2]) \
+               == type(MyFilter4(self.mnemosyne.component_manager))
+
+        assert type(self.render_chain()._filters[3]) \
+               == type(MyFilter2(self.mnemosyne.component_manager))
+
     def test_add_card_type_renderer(self):
         fact_data = {"f": "question",
                      "b": "answer"}

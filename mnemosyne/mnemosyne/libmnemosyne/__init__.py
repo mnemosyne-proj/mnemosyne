@@ -161,6 +161,8 @@ class Mnemosyne(Component):
         UpgradeBeta7(self.component_manager).run()
         from mnemosyne.libmnemosyne.upgrades.upgrade_beta_8 import UpgradeBeta8
         UpgradeBeta8(self.component_manager).run()
+        from mnemosyne.libmnemosyne.upgrades.upgrade_beta_11 import UpgradeBeta11
+        UpgradeBeta11(self.component_manager).run()
 
         # Only now that the database is loaded, we can start writing log
         # events to it. This is why we log started_scheduler and

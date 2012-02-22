@@ -1,7 +1,10 @@
--review entire changeset
--write upgrader for database format
+-past schedule gets confused if two machines keep running at the same time
+ and only one does reps, such that the other registers overdue counts.
+ needs to log machine to save/load events too
+-check sqlite_stats:_start_of_day_n_days_ago
 
--scheduled/actual interval --> scheduled_actual_previous_interval?
+-scheduled/actual interval --> scheduled/actual previous_interval? At least
+ document in card and scheduler
 
 -reduce timeout on sync login, test again full sync
 -release database on client after sync error
@@ -38,6 +41,8 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 
 -tell beta users to make sure to install latest beta first
 -remove upgrade_beta_6.py, beta_7, etc...
+
+-make doc: errors related to _
 
 -translations through website:
  https://help.launchpad.net/Translations/YourProject/Exports

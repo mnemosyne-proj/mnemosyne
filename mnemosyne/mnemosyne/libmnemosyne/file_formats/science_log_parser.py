@@ -216,7 +216,8 @@ class ScienceLogParser(object):
                 easiness=2.5, acq_reps=1, ret_reps=0, lapses=0,
                 acq_reps_since_lapse=1, ret_reps_since_lapse=0,
                 scheduled_interval=0, actual_interval=0, thinking_time=0,
-                next_rep=self.timestamp, scheduler_data=0)
+                next_rep=self.timestamp + int(new_interval),
+                scheduler_data=0)
 
     def _parse_imported_item(self, imported_item_chunk):
         Imported, item, id, grade, ret_reps, last_rep, next_rep, interval \

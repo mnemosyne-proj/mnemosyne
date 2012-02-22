@@ -60,7 +60,7 @@
 component of type hook, with the &#8216;used_for&#8217; argument any of the following
 hook points:</p>
 <blockquote>
-<table border="1" class="docutils">
+<div><table border="1" class="docutils">
 <colgroup>
 <col width="54%" />
 <col width="46%" />
@@ -86,13 +86,16 @@ extra argument: card</td>
 <td>in SM2_mnemosyne.grade_answer
 extra argument: card</td>
 </tr>
-<tr><td>&#8216;check_for_edited_local_media_files&#8217;</td>
+<tr><td>&#8216;dynamically_create_media_files&#8217;</td>
 <td>in SQLite_sync
 extra argument: data</td>
 </tr>
+<tr><td>&#8216;delete_unused_media_files&#8217;</td>
+<td>in SQLite_sync</td>
+</tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 <p>It is the &#8216;run&#8217; method that will get called at the corresponding point
 in the program.</p>
 <dl class="method">
@@ -158,8 +161,8 @@ in the program.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 15, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.1.
+      Last updated on Feb 22, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>
