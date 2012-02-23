@@ -403,6 +403,11 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # We don't log the database load here, but in libmnemosyne.__init__,
         # as we prefer to log the start of the program first.
 
+        # TMP
+        from mnemosyne.libmnemosyne.upgrades.upgrade_beta_11 import UpgradeBeta11
+        UpgradeBeta11(self.component_manager).run()
+
+
     def save(self, path=None):
         # Update format.
         self.con.execute("update global_variables set value=? where key=?",

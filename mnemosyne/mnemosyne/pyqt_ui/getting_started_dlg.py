@@ -22,8 +22,8 @@ class GettingStartedDlg(QtGui.QWizard, Ui_GettingStartedDlg,
         #watermark = QtGui.QPixmap(":/mnemosyne/pixmaps/mnemosyne.svg")\
         #    .scaledToHeight(200, QtCore.Qt.SmoothTransformation)
         watermark = QtGui.QPixmap(":/mnemosyne/pixmaps/mnemosyne.png")
-        self.setPixmap(QtGui.QWizard.WatermarkPixmap, watermark)    
-        
+        self.setPixmap(QtGui.QWizard.WatermarkPixmap, watermark)
+
     def activate(self):
         GettingStartedDialog.activate(self)
         self.show()
@@ -31,4 +31,4 @@ class GettingStartedDlg(QtGui.QWizard, Ui_GettingStartedDlg,
     def accept(self):
         self.config()["upload_science_logs"] = self.upload_box.isChecked()
         QtGui.QWizard.accept(self)
-        
+

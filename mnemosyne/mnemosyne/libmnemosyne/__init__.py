@@ -127,13 +127,15 @@ class Mnemosyne(Component):
             sys.stderr.write(body)
 
     def initialise(self, data_dir=None, filename=None,
-                   automatic_upgrades=True):
+                   automatic_upgrades=True, debug_file=None):
 
         """The automatic upgrades of the database can be turned off by setting
         'automatic_upgrade' to False. This is mainly useful for the testsuite.
 
         """
 
+        if debug_file:
+            self.component_manager.debug_file = open(debug_file, 'w', 0)
         self.register_components()
         # Upgrade if needed.
         if automatic_upgrades:
@@ -161,8 +163,6 @@ class Mnemosyne(Component):
         UpgradeBeta7(self.component_manager).run()
         from mnemosyne.libmnemosyne.upgrades.upgrade_beta_8 import UpgradeBeta8
         UpgradeBeta8(self.component_manager).run()
-        from mnemosyne.libmnemosyne.upgrades.upgrade_beta_11 import UpgradeBeta11
-        UpgradeBeta11(self.component_manager).run()
 
         # Only now that the database is loaded, we can start writing log
         # events to it. This is why we log started_scheduler and
@@ -311,5 +311,6 @@ class Mnemosyne(Component):
         # Then do the other components.
         self.component_manager.deactivate_all()
         unregister_component_manager(user_id)
-
+        if self.component_manager.debug_file:
+            self.component_manager.debug_file.close()
 

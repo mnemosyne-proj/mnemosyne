@@ -1,5 +1,5 @@
 -Reduce database size.
--API improvements for render chain (Tim Bourke).
+-API improvements for render chain and debug logging (Tim Bourke).
 -Added 'File - Compact' to compact the database and delete unused media files.
 -Don't substitute < with &lt; inside latex commands (reported by Estevo).
 -Rework sound handling, better support for multiple sound files per card.

@@ -22,6 +22,9 @@ parser.add_option("-d", "--datadir", dest="data_dir",
 parser.add_option("--no-upgrades", dest="automatic_upgrades",
 		  action="store_false", help="do not upgrade automatically",
 		  default=True)
+parser.add_option("--debug", dest="debug_file",
+		  help="log debug information to FILE",
+		  metavar="FILE", default=None)
 (options, args) = parser.parse_args()
 
 # Check if we have to override the data_dir determined in libmnemosyne,
@@ -121,7 +124,8 @@ mnemosyne.extra_components_for_plugin["CrammingPlugin"] = \
 
 # Run Mnemosyne.
 mnemosyne.initialise(data_dir=data_dir, filename=filename,
-		     automatic_upgrades=options.automatic_upgrades)
+		     automatic_upgrades=options.automatic_upgrades,
+		     debug_file=options.debug_file)
 mnemosyne.main_widget().show()
 mnemosyne.main_widget().raise_() # Needed for OSX.
 if mnemosyne.config()["first_run"] == True:

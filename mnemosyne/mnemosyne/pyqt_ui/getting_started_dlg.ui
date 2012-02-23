@@ -71,7 +71,7 @@ When you are learning new cards, use grades 0 and 1 to signal that you have not 
 
 These cards will be repeatedly shown until you give them a grade 2 or higher. This means that you've memorised the card and that you'll be able to remember it for one or two days. The 'Not memorised' counter will decrease by one.
 
-This card will be scheduled at some future date, when you're likeley still be able to remember it with some effort, without having forgotten it completely. This is most efficient for the learning process.
+This card will be scheduled at some future date, when you're likely still be able to remember it with some effort, without having forgotten it completely. This is most efficient for the learning process.
 </string>
       </property>
       <property name="alignment">

@@ -1,7 +1,15 @@
+-only show 1 popup on missing media during import (Gwern)
+-import logs errors related to inv.inv card
+-copy over entire media directory on upgrade, but warn that compact will
+ delete them (Gwern)
+
+-when deleting media, give list of filenames
+
 -past schedule gets confused if two machines keep running at the same time
  and only one does reps, such that the other registers overdue counts.
  needs to log machine to save/load events too
 -check sqlite_stats:_start_of_day_n_days_ago
+-midnight utc in mnemosyne1
 
 -scheduled/actual interval --> scheduled/actual previous_interval? At least
  document in card and scheduler

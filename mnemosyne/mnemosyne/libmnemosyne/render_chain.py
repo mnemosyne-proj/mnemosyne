@@ -52,7 +52,9 @@ class RenderChain(Component):
 
         """Register a filter at the very front of the render chain, but after
            a list of other filters already in the chain. The list should
-           contain class names.
+           contain class names. (Using strings instead of classes means a
+           plugin writer does not need to import the filters he wants to use
+           in this list.)
 
            'filter_class' should be a class, not an instance.
 
@@ -69,7 +71,11 @@ class RenderChain(Component):
 
         """Register a filter at the back of the render chain, but before
            a list of other filters already in the chain. The list should
-           contain class names.
+           contain class names. (Using strings instead of classes means a
+           plugin writer does not need to import the filters he wants to use
+           in this list.)
+
+           'filter_class' should be a class, not an instance.
 
         """
 

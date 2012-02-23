@@ -295,7 +295,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             TagsTreeWdgt(component_manager, self.container_2,
                  self.unload_qt_database, self.display_card_table)
         self.layout_2.addWidget(self.tag_tree_wdgt)
-        self.label_3 = QtGui.QLabel(_("containing this text:"),
+        self.label_3 = QtGui.QLabel(_("containing this text in the cards:"),
             self.container_2)
         self.layout_2.addWidget(self.label_3)
         self.search_box = QtGui.QLineEdit(self.container_2)

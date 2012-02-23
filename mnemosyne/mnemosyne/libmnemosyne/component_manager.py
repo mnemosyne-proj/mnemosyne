@@ -22,6 +22,7 @@ class ComponentManager(object):
         self.components = {} # {used_for: {type: [component]} }
         self.card_type_with_id = {}
         self.render_chain_by_id = {}
+        self.debug_file = None
         
     def register(self, component):
         comp_type = component.component_type
@@ -127,6 +128,14 @@ class ComponentManager(object):
         self.components = {}
         self.card_type_with_id = {}        
 
+    def debug(self, msg):
+        
+        """Log a debugging message if debugging is enabled.
+
+        """
+
+        if self.debug_file:
+            self.debug_file.write(unicode(msg + "\n").encode('UTF-8'))
 
 # A component manager stores the entire session state of a user through the
 # different components it registers. To enable multiple users to use a single

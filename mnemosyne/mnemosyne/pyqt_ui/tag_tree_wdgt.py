@@ -17,15 +17,15 @@ NODE = 1
 
 class TagDelegate(QtGui.QStyledItemDelegate):
 
-    rename_node = QtCore.pyqtSignal(unicode, unicode)   
+    rename_node = QtCore.pyqtSignal(unicode, unicode)
     redraw_node = QtCore.pyqtSignal(unicode)
-    
+
     def __init__(self, component_manager, parent=None):
         QtGui.QStyledItemDelegate.__init__(self, parent)
         self.old_node_label = None
 
     def createEditor(self, parent, option, index):
-        
+
         # Ideally, we want to capture the focusOut event here, to redraw the
         # card counts in case of an aborted edit by the user. One option to
         # achieve this is connecting the editingFinished signal instead of
@@ -41,9 +41,9 @@ class TagDelegate(QtGui.QStyledItemDelegate):
         #
         #  http://www.qtforum.org/article/33631/qlineedit-the-signal-editingfinished-is-emitted-twice.html
         #  http://bugreports.qt.nokia.com/browse/QTBUG-40
-        
+
         editor = QtGui.QStyledItemDelegate.createEditor\
-            (self, parent, option, index)        
+            (self, parent, option, index)
         editor.returnPressed.connect(self.commit_and_close_editor)
         return editor
 
@@ -53,7 +53,7 @@ class TagDelegate(QtGui.QStyledItemDelegate):
         node_index = index.model().index(index.row(), NODE, index.parent())
         self.old_node_label = index.model().data(node_index).toString()
         editor.setText(self.old_node_label)
-        
+
     def commit_and_close_editor(self):
         editor = self.sender()
         if unicode(self.old_node_label) == unicode(editor.text()):
@@ -66,7 +66,7 @@ class TagDelegate(QtGui.QStyledItemDelegate):
 class TagsTreeWdgt(QtGui.QWidget, Component):
 
     """Displays all the tags in a tree together with check boxes.
-    
+
     If 'before_using_libmnemosyne_db_hook' and 'after_using_libmnemosyne_db'
     are set, these will be called before and after using libmnemosyne
     operations which can modify the database.
@@ -74,7 +74,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
     Typical use case for this comes from a parent widget like the card
     browser, which needs to relinquish its control over the sqlite database
     first, before the tag tree operations can take place.
-    
+
     """
 
     def __init__(self, component_manager, parent,
@@ -90,7 +90,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         self.tag_tree_wdgt = QtGui.QTreeWidget(self)
         self.tag_tree_wdgt.setColumnCount(2)
         self.tag_tree_wdgt.setColumnHidden(1, True)
-        self.tag_tree_wdgt.setColumnHidden(NODE, True)        
+        self.tag_tree_wdgt.setColumnHidden(NODE, True)
         self.tag_tree_wdgt.setHeaderHidden(True)
         self.tag_tree_wdgt.setSelectionMode(\
             QtGui.QAbstractItemView.ExtendedSelection)
@@ -144,28 +144,28 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             return
         # We display the full node (i.e. all levels including ::), so that
         # the hierarchy can be changed upon editing.
-        index = indexes[0]        
+        index = indexes[0]
         node_index = index.model().index(index.row(), NODE, index.parent())
         old_node_label = index.model().data(node_index).toString()
 
-        from mnemosyne.pyqt_ui.ui_rename_tag_dlg import Ui_RenameTagDlg        
-        class RenameDlg(QtGui.QDialog, Ui_RenameTagDlg):          
+        from mnemosyne.pyqt_ui.ui_rename_tag_dlg import Ui_RenameTagDlg
+        class RenameDlg(QtGui.QDialog, Ui_RenameTagDlg):
             def __init__(self, old_node_label):
                 QtGui.QDialog.__init__(self)
                 self.setupUi(self)
                 self.tag_name.setText(old_node_label)
 
-        dlg = RenameDlg(old_node_label)  
+        dlg = RenameDlg(old_node_label)
         if dlg.exec_() == QtGui.QDialog.Accepted:
             self.rename_node(old_node_label, unicode(dlg.tag_name.text()))
-        
+
     def menu_remove(self):
         # Ask for confirmation.
         indexes = self.selected_non_read_only_indexes()
         if len(indexes) > 1:
-            question = _("Remove these tags?")
+            question = _("Remove these tags? Cards with these tags will not be deleted.")
         else:
-            question = _("Remove this tag?")            
+            question = _("Remove this tag? Cards with this tag will not be deleted.")
         answer = self.main_widget().show_question\
             (question, _("&OK"), _("&Cancel"), "")
         if answer == 1: # Cancel.
@@ -176,7 +176,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             node_index = index.model().index(index.row(), NODE, index.parent())
             node_labels.append(index.model().data(node_index).toString())
         self.delete_nodes(node_labels)
-        
+
     def create_tree(self, tree, qt_parent):
         for node in tree:
             node_name = "%s (%d)" % \
@@ -192,15 +192,15 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
                 self.tag_for_node_item[node_item] = \
                     self.tag_tree.tag_for_node[node]
             node_item.setData(NODE, QtCore.Qt.DisplayRole,
-                    QtCore.QVariant(QtCore.QString(node)))              
+                    QtCore.QVariant(QtCore.QString(node)))
             self.create_tree(tree=self.tag_tree[node], qt_parent=node_item)
-        
+
     def display(self, criterion=None):
         # Create criterion if needed.
         if criterion is None:
             criterion = DefaultCriterion(self.component_manager)
             for tag in self.database().tags():
-                criterion._tag_ids_active.add(tag._id)            
+                criterion._tag_ids_active.add(tag._id)
         # Create tree.
         self.tag_tree = TagTree(self.component_manager)
         self.tag_tree_wdgt.clear()
@@ -221,7 +221,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
                 if tag._id in criterion._tag_ids_forbidden:
                     node_item.setCheckState(0, QtCore.Qt.Checked)
                 else:
-                    node_item.setCheckState(0, QtCore.Qt.Unchecked)  
+                    node_item.setCheckState(0, QtCore.Qt.Unchecked)
         # Set active tags.
         else:
             for node_item, tag in self.tag_for_node_item.iteritems():
@@ -260,9 +260,9 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         new_criterion = DefaultCriterion(self.component_manager)
         for tag in self.database().tags():
             if tag._id in self.saved_criterion._tag_ids_active:
-                new_criterion._tag_ids_active.add(tag._id)  
+                new_criterion._tag_ids_active.add(tag._id)
         self.display(new_criterion)
-        
+
     def hibernate(self):
 
         """Save the current criterion and unload the database so that
@@ -280,13 +280,13 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         calling libmnemosyne functions.
 
         """
-        
+
         self.restore_criterion()
         if self.after_using_libmnemosyne_db_hook:
             self.after_using_libmnemosyne_db_hook()
 
     def rename_node(self, old_node_label, new_node_label):
-        self.hibernate()  
+        self.hibernate()
         self.tag_tree.rename_node(\
             unicode(old_node_label), unicode(new_node_label))
         self.wakeup()
@@ -294,16 +294,16 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
     def delete_nodes(self, nodes):
         self.hibernate()
         for node in nodes:
-            self.tag_tree.delete_subtree(unicode(node)) 
+            self.tag_tree.delete_subtree(unicode(node))
         self.wakeup()
-        
+
     def redraw_node(self, node_label):
 
         """When renaming a tag to the same name, we need to redraw the node
         to show the card count again.
 
         """
-        
+
         # We do the redrawing in a rather hackish way now, simply by
         # recreating the widget. Could be sped up, but at the expense of more
         # complicated code.
@@ -317,6 +317,6 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
 
         """
 
-        self.hibernate()  
+        self.hibernate()
         self.tag_tree = TagTree(self.component_manager)
         self.wakeup()
