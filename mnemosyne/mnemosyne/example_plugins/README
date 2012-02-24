@@ -11,13 +11,15 @@ illustrating to plugin writers on how to achieve certain functionality.
 
  * new_card_type_widget.py: for if you want to customise the input/edit widget
    used for a certain card type.
- 
+
  * after_repetition.py: illustration of function hooks, in this case
    running code after a repetition was performed.
 
  * html_statistics.py: adding an extra page with html statistics.
 
- * plot_statistics.py: adding an extra page with plotted statistics.
+ * pie_chact_statistics.py: adding an extra page with pie chart statistics.
+
+ * avg_grade_statistics.py: adding an extra page with average grade statistics.
 
  * backup.py: moving your backups to a safe place.
 

@@ -121,21 +121,24 @@ class QAOptimalSplit(object):
                 # If we have enough space, stretch in proportion to height.
                 question_stretch = required_question_height
             else:
-                # But if we don't have enough space to show both the
-                # question and the answer, make sure the answer gets
-                # all the space it can get now.
-                question_stretch = 50
-                # Unless we're using it to preview cards, then we go for
-                # a 50/50 split.
+                # If we are previewing cards, go for a 50/50 split.
                 if not self.used_for_reviewing:
+                    question_stretch = 50
                     answer_stretch = 50
+                # If we don't have enough space to show both the question and
+                # the answer, try to give the answer all the space it needs.
+                else:
+                    answer_stretch = required_answer_height
+                    question_stretch = total_height_available - answer_stretch
+                    if question_stretch < 50:
+                        question_stretch = 50
         self.vertical_layout.setStretchFactor(\
             self.question_box, question_stretch + self.stretch_offset)
         self.vertical_layout.setStretchFactor(\
             self.answer_box, answer_stretch + self.stretch_offset)
 
     def silence_media(self, text):
-        return text.replace("<div id='player'>", "")
+        text = text.replace("<div id='player'>", "")
         return text.replace("<video src", "<video_off src")
 
     def set_question(self, text):

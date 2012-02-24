@@ -1,0 +1,6 @@
+Some example scripts illustrating the use of the libmnemosyne API from
+within a script.
+
+* export_starts.py: writing stats to a file for post-processing
+
+* add_card.py: adding a card programatically

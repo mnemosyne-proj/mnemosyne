@@ -1,18 +1,20 @@
--only show 1 popup on missing media during import (Gwern)
 -import logs errors related to inv.inv card
+
+-check midnight utc in mnemosyne1
+
+-only show 1 popup on missing media during import (Gwern)
 -copy over entire media directory on upgrade, but warn that compact will
  delete them (Gwern)
-
 -when deleting media, give list of filenames
+
+-recheck 'increase size of non-latin characters'
+
+-scheduled/actual interval --> scheduled/actual previous_interval? At least
+ document in card and scheduler. remove card.interval?
 
 -past schedule gets confused if two machines keep running at the same time
  and only one does reps, such that the other registers overdue counts.
  needs to log machine to save/load events too
--check sqlite_stats:_start_of_day_n_days_ago
--midnight utc in mnemosyne1
-
--scheduled/actual interval --> scheduled/actual previous_interval? At least
- document in card and scheduler
 
 -reduce timeout on sync login, test again full sync
 -release database on client after sync error
@@ -129,8 +131,7 @@ taking grade 0/1 cards as well into account?
 -put __init__.py in numpy.distutils.test
 -set default matplotlib backend: http://www.py2exe.org/index.cgi/MatPlotLib
 -run test suite under windows
-
--Mnemosyne console, example script to add cards, make possible on Windows
+-document on how to make mnemosyne scripts run on Windows
 
 -~ / `" key as a short cut for the "0 button" (Kent Stearman)
 

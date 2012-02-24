@@ -1,3 +1,6 @@
+-Further tweaks on Q/A split (reported by Dougie Nisbet).
+-Added infrastructure to make it easier to script Mnemosyne using a python
+ script.
 -Reduce database size.
 -API improvements for render chain and debug logging (Tim Bourke).
 -Added 'File - Compact' to compact the database and delete unused media files.

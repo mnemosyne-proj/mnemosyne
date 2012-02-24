@@ -115,16 +115,18 @@ class SQLiteStatistics(object):
             and ?<=next_rep and next_rep<?""",
             (start, stop)).fetchone()[0]
 
-    def _start_of_day_n_days_ago(self, n):
+    def start_of_day_n_days_ago(self, n):
         timestamp = time.time() - n * DAY \
                     - self.config()["day_starts_at"] * HOUR
-        date_only = datetime.date.fromtimestamp(timestamp)
+        # Roll this back to the midnight before.
+        date_only = datetime.date.fromtimestamp(timestamp) # Local date.
         start_of_day = int(time.mktime(date_only.timetuple()))
+        # Bring back to 0:h with h="day_starts_at"
         start_of_day += self.config()["day_starts_at"] * HOUR
         return start_of_day
 
     def card_count_scheduled_n_days_ago(self, n):
-        start_of_day = self._start_of_day_n_days_ago(n)
+        start_of_day = self.start_of_day_n_days_ago(n)
         result = self.con.execute(\
             """select acq_reps from log where ?<=timestamp and timestamp<?
             and (event_type=? or event_type=?) order by acq_reps desc
@@ -136,7 +138,7 @@ class SQLiteStatistics(object):
             return 0 # Unknown.
 
     def card_count_added_n_days_ago(self, n):
-        start_of_day = self._start_of_day_n_days_ago(n)
+        start_of_day = self.start_of_day_n_days_ago(n)
         return self.con.execute(\
             """select count() from log where ?<=timestamp and timestamp<?
             and event_type=?""",
@@ -144,7 +146,7 @@ class SQLiteStatistics(object):
             fetchone()[0]
 
     def retention_score_n_days_ago(self, n):
-        start_of_day = self._start_of_day_n_days_ago(n)
+        start_of_day = self.start_of_day_n_days_ago(n)
         scheduled_cards_seen = self.con.execute(\
             """select count() from log where ?<=timestamp and timestamp<?
             and event_type=? and scheduled_interval!=0""",
