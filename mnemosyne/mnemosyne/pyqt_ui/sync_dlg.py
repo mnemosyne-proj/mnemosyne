@@ -113,6 +113,7 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
             self.config()["check_for_edited_local_media_files"])
         if self.config()["server_for_sync_as_client"]:
             self.ok_button.setFocus()
+        self.can_reject = True
 
     def activate(self):
         self.exec_()
@@ -129,6 +130,10 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
         self.config()["password_for_sync_as_client"] = password
         self.config()["check_for_edited_local_media_files"] = \
             self.check_for_edited_local_media_files.isChecked()
+        # Prevent user from interrupting a sync.
+        self.can_reject = False
+        self.ok_button.setEnabled(False)
+        self.cancel_button.setEnabled(False)
         # Do the actual sync in a separate thread.
         self.database().release_connection()
         global answer
@@ -152,6 +157,10 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
             self.main_widget().close_progress)
         self.thread.finished.connect(self.finish_sync)
         self.thread.start()
+
+    def reject(self):
+        if self.can_reject:
+            QtGui.QDialog.reject(self)
 
     def finish_sync(self):
         QtGui.QDialog.accept(self)

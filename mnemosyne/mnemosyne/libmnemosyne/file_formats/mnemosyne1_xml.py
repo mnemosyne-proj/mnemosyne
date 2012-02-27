@@ -11,6 +11,7 @@ from mnemosyne.libmnemosyne.file_format import FileFormat
 from mnemosyne.libmnemosyne.utils import rand_uuid, MnemosyneError
 from mnemosyne.libmnemosyne.file_formats.mnemosyne1 import Mnemosyne1
 
+
 class Mnemosyne1XML(FileFormat, Mnemosyne1):
 
     description = _("Mnemosyne 1.x *.XML files")
@@ -43,17 +44,17 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
         # We now generate 'added card' events with the proper ids.
         timestamp = int(time.time())
         for item in self.items:
-            db.log_added_card(timestamp, item.id)        
+            db.log_added_card(timestamp, item.id)
         self.database().link_inverse_cards()
         w.close_progress()
-         
+
     def read_items_from_mnemosyne1_xml(self, filename):
         w = self.main_widget()
         try:
             tree = cElementTree.parse(filename)
         except cElementTree.ParseError, e:
             w.show_error(_("Unable to parse file:") + str(e))
-            raise MnemosyneError            
+            raise MnemosyneError
         except:
             w.show_error(_("Unable to open file."))
             raise MnemosyneError
@@ -81,7 +82,7 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
             if not item.id:
                 item.id = rand_uuid()
             if item.id.startswith('_'):
-                item.id = self.unanonymise_id(item.id) 
+                item.id = self.unanonymise_id(item.id)
             item.q = element.find("Q").text
             item.a = element.find("A").text
             item.cat = category_with_name[element.find("cat").text]

@@ -14,13 +14,13 @@ from mnemosyne.libmnemosyne.file_format import FileFormat
 from mnemosyne.libmnemosyne.file_formats.mnemosyne1 import Mnemosyne1
 from mnemosyne.libmnemosyne.file_formats.science_log_parser \
      import ScienceLogParser
-        
+
 re_src = re.compile(r"""src=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
 re_sound = re.compile(r"""<sound src=\".+?\">""", re.DOTALL | re.IGNORECASE)
 
 
 class Mnemosyne1Mem(FileFormat, Mnemosyne1):
-    
+
     description = _("Mnemosyne 1.x *.mem files")
     filename_filter = _("Mnemosyne 1.x *.mem databases (*.mem)")
     import_possible = True
@@ -56,12 +56,12 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         timestamp = int(time.time())
         for item in self.items:
             db.log_edited_card(timestamp, item.id)
-        # Detect inverses.        
+        # Detect inverses.
         db.link_inverse_cards()
         w.close_progress()
-            
+
     def read_items_from_mnemosyne1_mem(self, filename):
-        sys.modules["mnemosyne.core"] = object()       
+        sys.modules["mnemosyne.core"] = object()
         sys.modules["mnemosyne.core.mnemosyne_core"] \
             = Mnemosyne1.MnemosyneCore()
         try:
@@ -92,7 +92,7 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         # Manage database indexes.
         db.before_1x_log_import()
         filenames = [os.path.join(log_dir, logname) for logname in \
-            sorted(os.listdir(unicode(log_dir))) if logname.endswith(".bz2")]       
+            sorted(os.listdir(unicode(log_dir))) if logname.endswith(".bz2")]
         # log.txt can also contain data we need to import, especially on the
         # initial upgrade from 1.x. 'ids_to_parse' will make sure we only pick
         # up the relevant events. (If we do the importing after having used

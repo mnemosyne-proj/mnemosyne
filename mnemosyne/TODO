@@ -1,25 +1,14 @@
--import logs errors related to inv.inv card
-
--check midnight utc in mnemosyne1
-
 -only show 1 popup on missing media during import (Gwern)
 -copy over entire media directory on upgrade, but warn that compact will
  delete them (Gwern)
--when deleting media, give list of filenames
-
--recheck 'increase size of non-latin characters'
-
--scheduled/actual interval --> scheduled/actual previous_interval? At least
- document in card and scheduler. remove card.interval?
+-when deleting media, give list of filenames.
 
 -past schedule gets confused if two machines keep running at the same time
  and only one does reps, such that the other registers overdue counts.
  needs to log machine to save/load events too
+-log future schedule too, so as to have info if the program doesn't run than
+-make use of that info
 
--reduce timeout on sync login, test again full sync
--release database on client after sync error
-
--also give warning on the client side if a sync failed and a backup needs to happen
 -detect long filenames under Windows during sync (partner, download binary file, 36)
  and during import
 -sync issues Doug, prevent sync with itself
@@ -29,11 +18,11 @@
 -if the server is empty, allow sync from non-empty client and change server user
 id.
 
--queue gets stuck on two cards if sisters have just been memorised?
-
--new 'activate plugin' dialog
+-new 'activate plugins' dialog
 
 ### Beta 11
+
+-progress bars for long stats
 
 -card type clone: rename and delete, both in card browser and card type browser
 
@@ -76,6 +65,9 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 QModelIndexList QAbstractItemModel::persistentIndexList () const
 bool isExpanded ( const QModelIndex & index ) const
 
+-after config change, tag label disappears (probably interaction with
+ translation infrastructure)
+
 -activate cards: 'having any of these tags:' is not aligned with tag with tag tree
 -layout of "add clone" is not optimal under Windows
 -splitters on XP are not visible
@@ -108,6 +100,9 @@ taking grade 0/1 cards as well into account?
 -do review_controller.rebuild_queue, reload counter after clean duplicates?
 
 -migrate science server machine
+
+-circadian rythm plugin
+-bundle more of the example plugins?
 
 -'duplicate card' option in menu and browser? Or as plugin?
 

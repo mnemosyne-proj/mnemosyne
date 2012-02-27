@@ -96,7 +96,7 @@ class SM2Mnemosyne(Scheduler):
 
         """
 
-        interval = card.interval
+        interval = card.next_rep - card.last_rep
         if card.grade < 2:
             assert interval == 0
             return interval
@@ -308,7 +308,7 @@ class SM2Mnemosyne(Scheduler):
                         return
             # If the queue is close to empty, relax the 'sister not together'
             # requirement.
-            if not sisters_together and len(self._fact_ids_in_queue) <= 1:
+            if not sisters_together and len(self._fact_ids_in_queue) <= 2:
                 for _card_id, _fact_id in db.cards_unseen(\
                     sort_key=sort_key, limit=min(limit, 50)):
                     if _fact_id not in self._fact_ids_in_queue:
@@ -410,6 +410,8 @@ class SM2Mnemosyne(Scheduler):
                 timing = "EARLY"
             else:
                 timing = "ON TIME"
+        # Calculate the previously scheduled interval, i.e. the interval that
+        # let up to this repetition.
         scheduled_interval = self.true_scheduled_interval(card)
         # If we memorise a card, keep track of its fact, so that we can avoid
         # pulling a sister card from the 'unseen' pile.

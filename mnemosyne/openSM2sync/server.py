@@ -232,9 +232,9 @@ class Server(Partner):
     def is_idle(self):
 
 	"""No sessions, expired or otherwise."""
-	
+
 	return (len(self.sessions) == 0)
-        
+
     def expire_old_sessions(self):
         for session_token, session in self.sessions.iteritems():
             if session.is_expired():

@@ -15,17 +15,17 @@ class NonLatinFontSizeIncrease(Filter):
 
     """
 
-    def is_in_latin_plane(self, unicode_char):   
+    def is_in_latin_plane(self, unicode_char):
         # Basic Latin (US-ASCII): {U+0000..U+007F}
         # Latin-1 (ISO-8859-1): {U+0080..U+00FF}
         # Latin Extended: {U+0100..U+024F}
         # IPA Extensions: {U+0250..U+02AF}\
         # Spacing Modifier Letters: {U+02B0..U+02FF}
-        # Combining Diacritical Marks: {U+0300..U+036F}  
+        # Combining Diacritical Marks: {U+0300..U+036F}
         # Greek: {U+0370..U+03FF}
         # Cyrillic: {U+0400..U+04FF}
         # Latin Extended Additional
-        # Greek Extended  
+        # Greek Extended
         for plane in [(0x0000, 0x04FF), (0x1E00, 0x1EFF), (0x1F00, 0x1FFF)]:
             if plane[0] < ord(unicode_char) < plane[1]:
                 return True
@@ -36,7 +36,7 @@ class NonLatinFontSizeIncrease(Filter):
             return text
         if issubclass(type(card.card_type), Vocabulary) and not \
             isinstance(type(card.card_type), Vocabulary):
-            return text 
+            return text
         proxy_key = card.card_type.fact_key_format_proxies()[fact_key]
         font_string = self.config().card_type_property(\
             "font", card.card_type, proxy_key)
@@ -46,7 +46,7 @@ class NonLatinFontSizeIncrease(Filter):
         else:
             base_font_size = self.main_widget().default_font_size()
         non_latin_size = base_font_size + \
-            self.config()["non_latin_font_size_increase"]       
+            self.config()["non_latin_font_size_increase"]
         new_text = ""
         in_tag = False
         in_protect = 0

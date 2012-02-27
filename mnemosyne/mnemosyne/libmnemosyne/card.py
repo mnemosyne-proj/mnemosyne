@@ -101,4 +101,3 @@ class Card(CompareOnId):
         sorted_tag_names = sorted(tag_names, cmp=numeric_string_cmp)
         return ", ".join(sorted_tag_names)
 
-    interval = property(lambda self : self.next_rep - self.last_rep)

@@ -29,7 +29,7 @@ socket.socket = socketwrap
 # Fix included here for systems running Python 2.5.
 
 class HTTPResponse(httplib.HTTPResponse):
-    
+
     def __init__(self, sock, **kw):
         httplib.HTTPResponse.__init__(self, sock, **kw)
         self.fp = sock.makefile("rb") # Was unbuffered: sock.makefile("rb", 0)
@@ -43,7 +43,7 @@ BinaryFormats = [MnemosyneFormat]
 
 
 class Client(Partner):
-    
+
     program_name = "unknown-SRS-app"
     program_version = "unknown"
     BUFFER_SIZE = 8192
@@ -74,7 +74,7 @@ class Client(Partner):
     # logs to the sync server. Recommended to set this to False for mobile
     # clients, which are not always guaranteed to have an internet connection.
     upload_science_logs = True
-    
+
     def __init__(self, machine_id, database, ui):
         Partner.__init__(self, ui)
         self.machine_id = machine_id
@@ -84,19 +84,19 @@ class Client(Partner):
         self.con = None
         self.behind_proxy = None  # Explicit variable for testability.
         self.proxy = None
-        
+
     def request_connection(self):
 
         """If we are not behind a proxy, create the connection once and reuse
         it for all requests. If we are behind a proxy, we need to revert to
         HTTP 1.0 and use a separate connection for each request.
-        
+
         """
-        
+
         # If we haven't done so, determine whether we're behind a proxy.
         if self.behind_proxy is None:
             import urllib
-            proxies = urllib.getproxies() 
+            proxies = urllib.getproxies()
             if "http" in proxies:
                 self.behind_proxy = True
                 self.proxy = proxies["http"]
@@ -110,10 +110,10 @@ class Client(Partner):
                 self.con = httplib.HTTPConnection(self.proxy, self.port)
             else:  # Testsuite has set self.behind_proxy to True to simulate
                 # being behind a proxy.
-                self.con = httplib.HTTPConnection(self.server, self.port)                
+                self.con = httplib.HTTPConnection(self.server, self.port)
         else:
             httplib.HTTPConnection._http_vsn = 11
-            httplib.HTTPConnection._http_vsn_str = "HTTP/1.1"            
+            httplib.HTTPConnection._http_vsn_str = "HTTP/1.1"
             if not self.con:
                 self.con = httplib.HTTPConnection(self.server, self.port)
 
@@ -123,26 +123,26 @@ class Client(Partner):
         return url_string
 
     def sync(self, server, port, username, password):
-        try:            
+        try:
             self.server = socket.gethostbyname(server)
-            self.port = port      
+            self.port = port
             if self.do_backup:
                 self.ui.set_progress_text("Creating backup...")
                 backup_file = self.database.backup()
             # We check if files were edited outside of the program. This can
             # generate EDITED_MEDIA_FILES log entries, so it should be done
-            # first. 
+            # first.
             if self.check_for_edited_local_media_files:
                 self.ui.set_progress_text("Checking for edited media files...")
                 self.database.check_for_edited_media_files()
-            socket.setdefaulttimeout(10000)
+            socket.setdefaulttimeout(10)
             self.login(username, password)
             # Do a full sync after either the client or the server has restored
             # from a backup.
             if self.database.is_sync_reset_needed(\
                 self.server_info["machine_id"]) or \
                 self.server_info["sync_reset_needed"] == True:
-                self.resolve_conflicts(restored_from_backup=True)                    
+                self.resolve_conflicts(restored_from_backup=True)
             # First sync.
             elif self.database.is_empty():
                 self.get_server_media_files()
@@ -153,7 +153,7 @@ class Client(Partner):
                 self.get_sync_finish()
             else:
                 # Upload local changes and check for conflicts.
-                result = self.put_client_log_entries()            
+                result = self.put_client_log_entries()
                 if result == "OK":
                     self.put_client_media_files()
                     self.get_server_media_files()
@@ -162,7 +162,7 @@ class Client(Partner):
                 else:
                     self.resolve_conflicts()
             self.ui.show_information("Sync finished!")
-        except Exception, exception:            
+        except Exception, exception:
             self.ui.close_progress()
             serious = True
             if type(exception) == type(socket.gaierror()):
@@ -170,9 +170,9 @@ class Client(Partner):
                 serious = False
             elif type(exception) == type(socket.error()):
                 self.ui.show_error("Could not connect to server!")
-                serious = False           
+                serious = False
             elif type(exception) == type(socket.timeout()):
-                self.ui.show_error("Timeout while waiting for server!") 
+                self.ui.show_error("Timeout while waiting for server!")
             elif type(exception) == type(SyncError()):
                 self.ui.show_error(str(exception))
             else:
@@ -180,6 +180,8 @@ class Client(Partner):
             if serious and self.do_backup:
                 # Only serious errors should result in the need for a full
                 # sync next time.
+                self.ui.show_error("Sync failed, restoring from backup. " + \
+                    "The next sync will need to be a full sync.")
                 self.database.restore(backup_file)
         finally:
             self.con.close()
@@ -196,7 +198,7 @@ class Client(Partner):
         if self.capabilities == "mnemosyne_dynamic_cards" and \
             self.interested_in_old_reps and self.store_pregenerated_data \
             and self.program_name == self.server_info["program_name"] and \
-            self.program_version == self.server_info["program_version"]: 
+            self.program_version == self.server_info["program_version"]:
             result = self.ui.show_question(message,
                 "Keep local version", "Fetch remote version", "Cancel")
             results = {0: "KEEP_LOCAL", 1: "KEEP_REMOTE", 2: "CANCEL"}
@@ -212,7 +214,7 @@ class Client(Partner):
         # Keep remote. Reset the partnerships afterwards, such that syncing
         # with a third party will also trigger a full sync.
         if result == "KEEP_REMOTE":
-            self.get_server_media_files(redownload_all=True)                
+            self.get_server_media_files(redownload_all=True)
             if self.server_info["supports_binary_transfer"]:
                 self.get_server_entire_database_binary()
             else:
@@ -221,13 +223,13 @@ class Client(Partner):
             self.get_sync_finish()
         # Keep local.
         elif result == "KEEP_LOCAL":
-            self.put_client_media_files(reupload_all=True) 
+            self.put_client_media_files(reupload_all=True)
             self.put_client_entire_database_binary()
             self.get_sync_finish()
         # Cancel.
         elif result == "CANCEL":
             self.get_sync_cancel()
-        
+
     def _check_response_for_errors(self, response, can_consume_response=True):
         # Check for non-Mnemosyne error messages.
         if response.status != httplib.OK:
@@ -235,10 +237,10 @@ class Client(Partner):
         if can_consume_response == False:
             return
         # Check for Mnemosyne error messages.
-        message, traceback = self.text_format.parse_message(response.read())        
+        message, traceback = self.text_format.parse_message(response.read())
         if "server error" in message.lower():
             raise SyncError(message + "\n" + traceback)
-        
+
     def login(self, username, password):
         self.ui.set_progress_text("Logging in...")
         client_info = {}
@@ -254,7 +256,7 @@ class Client(Partner):
         client_info["partners"] = self.database.partners()
         client_info["interested_in_old_reps"] = self.interested_in_old_reps
         client_info["store_pregenerated_data"] = self.store_pregenerated_data
-        client_info["upload_science_logs"] = self.upload_science_logs     
+        client_info["upload_science_logs"] = self.upload_science_logs
         # Signal if the database is empty, so that the server does not give a
         # spurious sync cycle warning if the client database was reset.
         client_info["database_is_empty"] = self.database.is_empty()
@@ -278,7 +280,7 @@ class Client(Partner):
                 raise SyncError("Wrong username or password.")
             if "cycle" in message:
                 raise SyncError(\
-                    "Sync cycle detected. Sync through intermediate partner.")         
+                    "Sync cycle detected. Sync through intermediate partner.")
         self.server_info = self.text_format.parse_partner_info(response)
         self.database.set_sync_partner_info(self.server_info)
         if self.database.is_empty():
@@ -289,7 +291,7 @@ class Client(Partner):
         self.database.create_if_needed_partnership_with(\
             self.server_info["machine_id"])
         self.database.merge_partners(self.server_info["partners"])
-        
+
     def put_client_log_entries(self):
 
         """Contrary to binary files, the size of the log is not known until we
@@ -302,7 +304,7 @@ class Client(Partner):
         self.BUFFER_SIZE.
 
         """
-        
+
         number_of_entries = self.database.number_of_log_entries_to_sync_for(\
             self.server_info["machine_id"])
         if number_of_entries == 0:
@@ -331,12 +333,12 @@ class Client(Partner):
                 self._check_response_for_errors(response,
                     can_consume_response=False)
                 response = response.read()
-                message, traceback = self.text_format.parse_message(response)        
-                message = message.lower()     
+                message, traceback = self.text_format.parse_message(response)
+                message = message.lower()
         if "server error" in message:
             raise SyncError(message)
         if "conflict" in message:
-            return "conflict"           
+            return "conflict"
         return "OK"
 
     def put_client_entire_database_binary(self):
@@ -356,14 +358,14 @@ class Client(Partner):
                 self.url("/client_entire_database_binary?session_token=%s" \
                 % (self.server_info["session_token"], )))
         self.con.putheader("content-length", os.path.getsize(filename))
-        self.con.endheaders()   
+        self.con.endheaders()
         for buffer in self.stream_binary_file(filename):
             self.con.send(buffer)
         binary_format.clean_up()
         self._check_response_for_errors(self.con.getresponse())
 
     def _download_log_entries(self, stream):
-        element_loop = self.text_format.parse_log_entries(stream)        
+        element_loop = self.text_format.parse_log_entries(stream)
         number_of_entries = int(element_loop.next())
         if number_of_entries == 0:
             return
@@ -375,7 +377,7 @@ class Client(Partner):
             count += 1
             self.ui.set_progress_value(count)
         self.ui.set_progress_value(number_of_entries)
-        
+
     def get_server_log_entries(self):
         self.ui.set_progress_text("Getting log entries...")
         if self.upload_science_logs:
@@ -390,7 +392,7 @@ class Client(Partner):
         # The server will always upload the science logs of the log events
         # which originated at the server side.
         self.database.skip_science_log()
-        
+
     def get_server_entire_database(self):
         self.ui.set_progress_text("Getting entire database...")
         filename = self.database.path()
@@ -411,7 +413,7 @@ class Client(Partner):
         # partnership again.
         self.database.create_if_needed_partnership_with(\
             self.server_info["machine_id"])
-        
+
     def get_server_entire_database_binary(self):
         self.ui.set_progress_text("Getting entire binary database...")
         filename = self.database.path()
@@ -456,10 +458,10 @@ class Client(Partner):
             for buffer in self.stream_binary_file(full_path, progress_bar=False):
                 self.con.send(buffer)
                 bytes_sent += len(buffer)
-                self.ui.set_progress_value(bytes_sent)                
+                self.ui.set_progress_value(bytes_sent)
             self._check_response_for_errors(self.con.getresponse())
         self.ui.set_progress_value(total_size)
-        
+
     def get_server_media_files(self, redownload_all=False):
         # Get list of names of all media files to download.
         media_url = "/server_media_filenames?session_token=%s" \
@@ -469,7 +471,7 @@ class Client(Partner):
         self.request_connection()
         self.con.request("GET", self.url(media_url))
         response = self.con.getresponse()
-        self._check_response_for_errors(response, can_consume_response=False)                        
+        self._check_response_for_errors(response, can_consume_response=False)
         total_size = int(response.getheader("mnemosyne-content-length"))
         if total_size == 0:
             # Make sure to read the full message, even if it's empty,
@@ -483,7 +485,7 @@ class Client(Partner):
         bytes_read = 0
         for filename in response.read().split("\n"):
             filename = unicode(filename, "utf-8")
-            self.request_connection()           
+            self.request_connection()
             self.con.request("GET",
                 self.url("/server_media_file?session_token=%s&filename=%s" \
                 % (self.server_info["session_token"],
@@ -499,9 +501,9 @@ class Client(Partner):
             self.download_binary_file(response, filename,
                                       file_size, progress_bar=False)
             bytes_read += file_size
-            self.ui.set_progress_value(bytes_read)            
+            self.ui.set_progress_value(bytes_read)
         self.ui.set_progress_value(total_size)
-            
+
     def get_sync_cancel(self):
         self.ui.set_progress_text("Cancelling sync...")
         self.request_connection()
@@ -509,7 +511,7 @@ class Client(Partner):
             % (self.server_info["session_token"], )),
             headers={"connection": "close"})
         self._check_response_for_errors(self.con.getresponse())
-                
+
     def get_sync_finish(self):
         self.ui.set_progress_text("Finishing sync...")
         self.request_connection()

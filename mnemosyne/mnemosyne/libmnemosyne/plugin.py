@@ -22,14 +22,14 @@ class Plugin(Component):
     'activate' and 'deactivate' methods of the components, as these also
     are called when the program is still starting up and the context can
     be completely different. Therefore, they are handled here.
-    
+
     """
 
     name = ""
     description = ""
     component_type = "plugin"
     components = []
-        
+
     def __init__(self, component_manager):
         Component.__init__(self, component_manager)
         assert self.name and self.description, \
@@ -37,7 +37,7 @@ class Plugin(Component):
         self.instantiated_components = []
         self.registered_components = []
         self.review_reset_needed = False
-            
+
     def activate(self):
         # Don't activate a plugin twice.
         if self.instantiated_components or self.registered_components:
@@ -52,8 +52,8 @@ class Plugin(Component):
         for component in self.components:
             if component.instantiate == Component.IMMEDIATELY:
                 component = component(self.component_manager)
-                self.component_manager.register(component)                
-                component.activate()           
+                self.component_manager.register(component)
+                component.activate()
                 self.instantiated_components.append(component)
             else:
                 self.component_manager.register(component)
@@ -76,9 +76,9 @@ class Plugin(Component):
             # during startup, the database is not yet loaded when the
             # scheduler gets activated.
             self.log().started_scheduler()
-        # Use names instead of instances here in order to survive pickling.  
+        # Use names instead of instances here in order to survive pickling.
         self.config()["active_plugins"].add(self.__class__.__name__)
-                    
+
     def deactivate(self):
         db = self.database()
         # Check if we are allowed to deactivate a card type.
@@ -89,12 +89,12 @@ class Plugin(Component):
                         if issubclass(card_type.__class__,
                                       component.__class__):
                             self.main_widget().show_information(\
-          _("Cannot deactivate, this card type or a clone of it is in use."))
+          _("Cannot deactivate, there are cards with this card type (or a clone of it) in the database."))
                             return False
                     for criterion in db.criteria():
                         criterion.card_type_deleted(component)
-                        db.update_criterion(criterion)                            
-        # Deactivate and unregister components.  
+                        db.update_criterion(criterion)
+        # Deactivate and unregister components.
         for component in self.instantiated_components:
             component.deactivate()
             self.component_manager.unregister(component)
@@ -112,7 +112,7 @@ class Plugin(Component):
         if self.__class__.__name__ in self.config()["active_plugins"]:
             self.config()["active_plugins"].remove(self.__class__.__name__)
         self.instantiated_components = []
-        self.registered_components = []        
+        self.registered_components = []
         return True
 
 
@@ -125,7 +125,7 @@ def register_user_plugin(plugin_class):
     first registered component manager as being the correct one.
 
     """
-    
+
     from component_manager import _component_managers
     key = _component_managers.keys()[0]
     component_manager = _component_managers[key]

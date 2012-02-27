@@ -33,8 +33,8 @@ class CurrentCard(HtmlStatisticsPage):
             self.html += _("Repetitions") + ": %d<br>" \
                 % (card.acq_reps + card.ret_reps)
             self.html += _("Lapses") + ": %d<br>" % card.lapses
-            self.html += _("Interval") + ": %d<br>" \
-                % (card.interval / DAY)
+            self.html += _("Scheduled interval") + ": %d<br>" \
+                % ((card.next_rep - card.last_rep) / DAY)
             self.html += _("Last repetition") + ": %s<br>" \
                 % self.scheduler().last_rep_to_interval_string(card.last_rep)
             self.html += _("Next repetition") + ": %s<br>" \

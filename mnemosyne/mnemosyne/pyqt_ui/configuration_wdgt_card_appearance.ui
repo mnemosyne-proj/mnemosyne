@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>370</width>
+    <width>374</width>
     <height>256</height>
    </rect>
   </property>
@@ -200,7 +200,7 @@
      <item>
       <widget class="QLabel" name="label_non_latin_3">
        <property name="text">
-        <string>(You can override this setting in card types cloned from 'Vocabulary'.)</string>
+        <string>(This setting will be overridden in card types cloned from 'Vocabulary'.)</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>

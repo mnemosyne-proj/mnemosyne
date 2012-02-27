@@ -1,3 +1,4 @@
+-Various minor tweaks to sync protocol.
 -Further tweaks on Q/A split (reported by Dougie Nisbet).
 -Added infrastructure to make it easier to script Mnemosyne using a python
  script.

@@ -48,6 +48,7 @@ class DefaultController(Controller):
         self.log().dump_to_science_log()
         self.log().deactivate()
         self.log().activate()
+        self.config().save()
 
     def update_title(self):
         title = _("Mnemosyne")
