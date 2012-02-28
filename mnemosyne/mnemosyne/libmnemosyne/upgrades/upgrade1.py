@@ -82,15 +82,42 @@ class Upgrade1(Component):
             self.config()[setting] = ""
             for line in file(full_filename):
                 self.config()[setting] += line
-        # Copy over the history folder and log.txt. In this way, we also
-        # completely preserve the state of all the files that need to uploaded
-        # to the science server.
+        # Copy over everything that does not interfere with Mnemosyne 2.
         new_data_dir = self.config().data_dir
+        new_media_dir = self.database().media_dir()
         shutil.rmtree(join(new_data_dir, "history"))
+        names = [name for name in os.listdir(old_data_dir) if name not in
+            ["backups", "config", "config.py", "config.pyc",
+            "DIRECTORY_NO_LONGER_USED_BY_MNEMOSYNE2", "error_log.txt",
+            "latex", "plugins", "log.txt", "history"] \
+            and not name.endswith(".mem")]
+        self.main_widget().set_progress_text("Copying files from 1.x...")
+        # By copying over the history folder and log.txt, we also completely
+        # preserve the state of all the files that need to uploaded to the
+        # science server.
+        self.main_widget().set_progress_range(0, len(names) + 2)
+        count = 0
         shutil.copytree(join(old_data_dir, "history"),
                         join(new_data_dir, "history"))
+        count += 1
+        self.main_widget().set_progress_value(count)
         shutil.copyfile(join(old_data_dir, "log.txt"),
                         join(new_data_dir, "log.txt"))
+        count += 1
+        self.main_widget().set_progress_value(count)
+        # We copy all the other files to the media directory. In this way,
+        # if there are media files that are not explicitly referenced in the
+        # cards, it will be easier for the user to fix his path errors after
+        # the upgrade.
+        for name in names:
+            if os.path.isdir(os.path.join(old_data_dir, name)):
+                shutil.copytree(join(old_data_dir, name),
+                                join(new_media_dir, name))
+            else:
+                shutil.copyfile(join(old_data_dir, name),
+                                join(new_media_dir, name))
+            count += 1
+            self.main_widget().set_progress_value(count)
         # Upgrade database.
         old_database = expand_path("default.mem", old_data_dir)
         for format in self.component_manager.all("file_format"):

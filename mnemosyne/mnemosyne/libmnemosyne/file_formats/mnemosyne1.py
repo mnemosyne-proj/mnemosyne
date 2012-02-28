@@ -181,6 +181,9 @@ class Mnemosyne1(object):
                 fact_data[fact_key] = fact_data[fact_key].replace(match.group(),
                     match.group().replace("<sound src", "<audio src"))
         # Copy files to media directory, creating subdirectories as we go.
+        # For missing media, we change the tag to scr_missing, which makes it
+        # easier for the user to identify the problem if there are more than 1
+        # media file a card.
         for fact_key in fact_data:
             for match in re_src.finditer(fact_data[fact_key]):
                 filename = match.group(1)
@@ -203,10 +206,6 @@ class Mnemosyne1(object):
             if not self.warned_about_missing_media:
                 self.main_widget().show_information(\
  _("Warning: media files were missing. These cards have been tagged as MISSING_MEDIA. You must also change 'scr_missing' to 'scr' in the text of these cards."))
-                # We ask the users to edit the cards, so that the necessary
-                # media copying can take place when editing the card.
-                # Otherwise, if the user just add the missing file to the
-                # right (non-Mnemosyne) directory, this would not happen.
                 self.warned_about_missing_media = True
 
     def activate_map_plugin(self):

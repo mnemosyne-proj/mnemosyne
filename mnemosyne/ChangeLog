@@ -1,3 +1,7 @@
+-Changed the way the upgrade protocol from 1.x works. Now, all all media files
+ are copied over to the new directory, not just those that are explicitly
+ referenced in the cards. This will make it easier for the user to fix broken
+ paths (requested by Gwern Branwen).
 -Various minor tweaks to sync protocol.
 -Further tweaks on Q/A split (reported by Dougie Nisbet).
 -Added infrastructure to make it easier to script Mnemosyne using a python

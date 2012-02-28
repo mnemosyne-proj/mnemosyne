@@ -1,7 +1,8 @@
 -only show 1 popup on missing media during import (Gwern)
--copy over entire media directory on upgrade, but warn that compact will
- delete them (Gwern)
 -when deleting media, give list of filenames.
+
+-set progress: Merge update interval in set range? Start at zero?
+-set progress: increase progress(count)
 
 -past schedule gets confused if two machines keep running at the same time
  and only one does reps, such that the other registers overdue counts.
