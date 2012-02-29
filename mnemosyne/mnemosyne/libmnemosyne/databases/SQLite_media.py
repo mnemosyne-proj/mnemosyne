@@ -138,7 +138,13 @@ class SQLiteMedia(object):
                 if not self.syncing:
                     self.log().added_media_file(filename)
 
-    def delete_unused_media_files(self):
+    def unused_media_files(self):
+
+        """Returns a set of media files which are in the media directory but
+        which are not referenced in the cards.
+
+        """
+
         # Files referenced in the database.
         files_in_db = set()
         for result in self.con.execute(\
@@ -156,8 +162,15 @@ class SQLiteMedia(object):
                 if root:
                     filename = root + "/" + filename
                 files_in_media_dir.add(filename)
-        # Delete unused files.
-        unused_files = files_in_media_dir - files_in_db
+        return files_in_media_dir - files_in_db
+
+    def delete_unused_media_files(self, unused_files):
+
+        """Delete media files which are no longer in use. 'unused_files'
+        should be a subset of 'self.unused_media_files', because here we no
+        longer check if these media files are used or not.
+
+        """
         for filename in unused_files:
             os.remove(expand_path(filename, self.media_dir()))
             self.log().deleted_media_file(filename)

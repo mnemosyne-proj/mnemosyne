@@ -67,9 +67,9 @@ void main_wdgt_set_progress_text(char* text)
 }
 
 
-void main_wdgt_set_progress_range(int min, int max)
+void main_wdgt_set_progress_range(int max)
 {
-  printf("set_progress_range: %d %d\n", min, max);
+  printf("set_progress_range: %d\n", max);
 }
 
 
@@ -79,6 +79,11 @@ void main_wdgt_set_progress_update_interval(int interval)
 }
 
 
+void main_wdgt_increase_progress(int value)
+{
+  printf("increase_progress: %d\n", value);
+}
+
 void main_wdgt_set_progress_value(int value)
 {
   printf("set_progress_value: %d\n", value);
@@ -86,7 +91,7 @@ void main_wdgt_set_progress_value(int value)
 
 
 void main_wdgt_close_progress()
-{  
+{
   printf("close_progress\n");
 }
 

@@ -43,10 +43,8 @@ class Mnemosyne1(object):
                 _("These cards seem to have been imported before. Aborting..."))
             raise MnemosyneError
         w.set_progress_text(_("Importing cards..."))
-        w.set_progress_range(0, len(self.items))
+        w.set_progress_range(len(self.items))
         w.set_progress_update_interval(len(self.items)/50)
-        count = 0
-        w.set_progress_value(0)
         self.map_plugin_activated = False
         self.items_by_id = {}
         for item in self.items:
@@ -54,8 +52,7 @@ class Mnemosyne1(object):
                 item.id = "dup" + item.id
             self.items_by_id[item.id] = item
         for item in self.items:
-            count += 1
-            w.set_progress_value(count)
+            w.increase_progress(1)
             self.create_card_from_item(item, extra_tag_name)
         w.set_progress_value(len(self.items))
 

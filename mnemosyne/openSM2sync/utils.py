@@ -10,8 +10,13 @@ import traceback
 class SyncError(Exception):
     pass
 
+class SeriousSyncError(Exception):
+
+    """Requires backup from database afterwards."""
+    pass
+
 def traceback_string():
-    
+
     """Like traceback.print_exc(), but returns a string."""
 
     type, value, tb = sys.exc_info()
@@ -30,7 +35,7 @@ def rand_uuid():
     string with length 32, but uses less space.
 
     """
-    
+
     chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXZY0123456789"
     rand = random.random
     uuid = ""

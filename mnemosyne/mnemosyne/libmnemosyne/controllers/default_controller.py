@@ -103,7 +103,7 @@ class DefaultController(Controller):
                   _("There is already data present for:\n\n") +
                   "/".join(fact[k] for k in card_type.required_fact_keys),
                   _("&Merge and edit"), _("&Add as is"), _("&Do not add"))
-                if answer == 0: # Merge and edit.
+                if answer == 0:  # Merge and edit.
                     db.add_fact(fact)
                     for card in card_type.create_sister_cards(fact):
                         card.tags = tags
@@ -293,10 +293,8 @@ class DefaultController(Controller):
         warn = True
         w = self.main_widget()
         w.set_progress_text(_("Converting cards..."))
-        w.set_progress_range(0, len(facts))
+        w.set_progress_range(len(facts))
         w.set_progress_update_interval(len(facts)/50)
-        count = 0
-        w.set_progress_value(0)
         for fact in facts:
             if correspondence:
                 new_fact_data = {}
@@ -312,8 +310,7 @@ class DefaultController(Controller):
             if result == -1:
                 return
             warn = False
-            count += 1
-            w.set_progress_value(count)
+            w.increase_progress(1)
         db.save()
         w.close_progress()
 

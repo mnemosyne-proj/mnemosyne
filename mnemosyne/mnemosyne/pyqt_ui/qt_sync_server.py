@@ -51,8 +51,9 @@ class ServerThread(QtCore.QThread, SyncServer):
     information_signal = QtCore.pyqtSignal(QtCore.QString)
     error_signal = QtCore.pyqtSignal(QtCore.QString)
     set_progress_text_signal = QtCore.pyqtSignal(QtCore.QString)
-    set_progress_range_signal = QtCore.pyqtSignal(int, int)
+    set_progress_range_signal = QtCore.pyqtSignal(int)
     set_progress_update_interval_signal = QtCore.pyqtSignal(int)
+    increase_progress_signal = QtCore.pyqtSignal(int)
     set_progress_value_signal = QtCore.pyqtSignal(int)
     close_progress_signal = QtCore.pyqtSignal()
 
@@ -120,13 +121,17 @@ class ServerThread(QtCore.QThread, SyncServer):
     def set_progress_text(self, text):
         self.set_progress_text_signal.emit(text)
 
-    def set_progress_range(self, minimum, maximum):
+    def set_progress_range(self, maximum):
         if self.show_numeric_progress_bar:
-            self.set_progress_range_signal.emit(minimum, maximum)
+            self.set_progress_range_signal.emit(maximum)
 
     def set_progress_update_interval(self, value):
         if self.show_numeric_progress_bar:
             self.set_progress_update_interval_signal.emit(value)
+
+    def increase_progress(self, value):
+        if self.show_numeric_progress_bar:
+            self.increase_progress_signal.emit(value)
 
     def set_progress_value(self, value):
         if self.show_numeric_progress_bar:
@@ -181,6 +186,8 @@ class QtSyncServer(Component, QtCore.QObject):
                 self.main_widget().set_progress_range)
             self.thread.set_progress_update_interval_signal.connect(\
                 self.main_widget().set_progress_update_interval)
+            self.thread.increase_progress_signal.connect(\
+                self.main_widget().increase_progress)
             self.thread.set_progress_value_signal.connect(\
                 self.main_widget().set_progress_value)
             self.thread.close_progress_signal.connect(\
@@ -227,7 +234,7 @@ class QtSyncServer(Component, QtCore.QObject):
         mutex.unlock()
         if is_sync_in_progress: # Don't kill a running session.
             return
-        if is_idle: # No need to unload the database if server is not active. 
+        if is_idle: # No need to unload the database if server is not active.
             return
         self.unload_database()
         self.thread.flush()

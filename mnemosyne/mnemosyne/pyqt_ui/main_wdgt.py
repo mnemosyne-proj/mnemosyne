@@ -101,12 +101,13 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         self.progress_bar.setLabelText(text)
         self.progress_bar.setRange(0, 0)
         self.progress_bar_update_interval = 1
+        self.progress_bar_current_value = 0
         self.progress_bar_last_shown_value = 0
         self.progress_bar.setValue(0)
         self.progress_bar.show()
 
-    def set_progress_range(self, minimum, maximum):
-        self.progress_bar.setRange(minimum, maximum)
+    def set_progress_range(self, maximum):
+        self.progress_bar.setRange(0, maximum)
 
     def set_progress_update_interval(self, update_interval):
         update_interval = int(update_interval)
@@ -114,10 +115,14 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
             update_interval = 1
         self.progress_bar_update_interval = update_interval
 
+    def increase_progress(self, value):
+        self.set_progress_value(self.progress_bar_current_value + value)
+
     def set_progress_value(self, value):
         # There is a possibility that 'value' does not visit all intermediate
         # integer values in the range, so we need to check and store the last
-        # shown value here.
+        # shown and the current value here.
+        self.progress_bar_current_value = value
         if value - self.progress_bar_last_shown_value >= \
                self.progress_bar_update_interval:
             self.progress_bar.setValue(value)

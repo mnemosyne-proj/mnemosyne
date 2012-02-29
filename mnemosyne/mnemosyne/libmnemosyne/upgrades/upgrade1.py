@@ -95,16 +95,13 @@ class Upgrade1(Component):
         # By copying over the history folder and log.txt, we also completely
         # preserve the state of all the files that need to uploaded to the
         # science server.
-        self.main_widget().set_progress_range(0, len(names) + 2)
-        count = 0
+        self.main_widget().set_progress_range(len(names) + 2)
         shutil.copytree(join(old_data_dir, "history"),
                         join(new_data_dir, "history"))
-        count += 1
-        self.main_widget().set_progress_value(count)
+        self.main_widget().increase_progress(1)
         shutil.copyfile(join(old_data_dir, "log.txt"),
                         join(new_data_dir, "log.txt"))
-        count += 1
-        self.main_widget().set_progress_value(count)
+        self.main_widget().increase_progress(1)
         # We copy all the other files to the media directory. In this way,
         # if there are media files that are not explicitly referenced in the
         # cards, it will be easier for the user to fix his path errors after
@@ -116,8 +113,7 @@ class Upgrade1(Component):
             else:
                 shutil.copyfile(join(old_data_dir, name),
                                 join(new_media_dir, name))
-            count += 1
-            self.main_widget().set_progress_value(count)
+            self.main_widget().increase_progress(1)
         # Upgrade database.
         old_database = expand_path("default.mem", old_data_dir)
         for format in self.component_manager.all("file_format"):

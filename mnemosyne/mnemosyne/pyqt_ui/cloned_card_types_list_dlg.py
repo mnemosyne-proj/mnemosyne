@@ -6,7 +6,6 @@ from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.card_type import CardType
-from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.pyqt_ui.clone_card_type_dlg import CloneCardTypeDlg
 from mnemosyne.pyqt_ui.ui_cloned_card_types_list_dlg import \
      Ui_ClonedCardTypesListDlg
@@ -16,7 +15,7 @@ class ClonedCardTypesListDlg(QtGui.QDialog, Ui_ClonedCardTypesListDlg,
                              ManageCardTypesDialog):
 
     def __init__(self, component_manager):
-        Component.__init__(self, component_manager)
+        ManageCardTypesDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
@@ -44,4 +43,4 @@ class ClonedCardTypesListDlg(QtGui.QDialog, Ui_ClonedCardTypesListDlg,
         dlg = CloneCardTypeDlg(self, self.component_manager)
         dlg.exec_()
         self.update()
-        
+

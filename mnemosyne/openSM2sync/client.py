@@ -12,7 +12,7 @@ import httplib
 
 from partner import Partner
 from text_formats.xml_format import XMLFormat
-from utils import traceback_string, SyncError
+from utils import traceback_string, SyncError, SeriousSyncError
 
 # Avoid delays caused by Nagle's algorithm.
 # http://www.cmlenz.net/archives/2008/03/python-httplib-performance-problems
@@ -175,6 +175,9 @@ class Client(Partner):
                 self.ui.show_error("Timeout while waiting for server!")
             elif type(exception) == type(SyncError()):
                 self.ui.show_error(str(exception))
+                serious = False
+            elif type(exception) == type(SeriousSyncError()):
+                self.ui.show_error(str(exception))
             else:
                 self.ui.show_error(traceback_string())
             if serious and self.do_backup:
@@ -233,13 +236,13 @@ class Client(Partner):
     def _check_response_for_errors(self, response, can_consume_response=True):
         # Check for non-Mnemosyne error messages.
         if response.status != httplib.OK:
-            raise SyncError("Internal server error:\n" + response.read())
+            raise SeriousSyncError("Internal server error:\n" + response.read())
         if can_consume_response == False:
             return
         # Check for Mnemosyne error messages.
         message, traceback = self.text_format.parse_message(response.read())
         if "server error" in message.lower():
-            raise SyncError(message + "\n" + traceback)
+            raise SeriousSyncError(message + "\n" + traceback)
 
     def login(self, username, password):
         self.ui.set_progress_text("Logging in...")
@@ -310,7 +313,7 @@ class Client(Partner):
         if number_of_entries == 0:
             return
         self.ui.set_progress_text("Sending log entries...")
-        self.ui.set_progress_range(0, number_of_entries)
+        self.ui.set_progress_range(number_of_entries)
         self.ui.set_progress_update_interval(number_of_entries/20)
         buffer = ""
         count = 0
@@ -318,7 +321,7 @@ class Client(Partner):
                 self.server_info["machine_id"]):
             buffer += self.text_format.repr_log_entry(log_entry)
             count += 1
-            self.ui.set_progress_value(count)
+            self.ui.increase_progress(1)
             if len(buffer) > self.BUFFER_SIZE or count == number_of_entries:
                 buffer = \
                     self.text_format.log_entries_header(number_of_entries) \
@@ -336,7 +339,7 @@ class Client(Partner):
                 message, traceback = self.text_format.parse_message(response)
                 message = message.lower()
         if "server error" in message:
-            raise SyncError(message)
+            raise SeriousSyncError(message)
         if "conflict" in message:
             return "conflict"
         return "OK"
@@ -369,13 +372,11 @@ class Client(Partner):
         number_of_entries = int(element_loop.next())
         if number_of_entries == 0:
             return
-        self.ui.set_progress_range(0, number_of_entries)
+        self.ui.set_progress_range(number_of_entries)
         self.ui.set_progress_update_interval(number_of_entries/50)
-        count = 0
         for log_entry in element_loop:
             self.database.apply_log_entry(log_entry)
-            count += 1
-            self.ui.set_progress_value(count)
+            self.ui.increase_progress(1)
         self.ui.set_progress_value(number_of_entries)
 
     def get_server_log_entries(self):
@@ -442,9 +443,8 @@ class Client(Partner):
         for filename in filenames:
             total_size += os.path.getsize(os.path.join(\
                 self.database.media_dir(), filename))
-        self.ui.set_progress_range(0, total_size)
+        self.ui.set_progress_range(total_size)
         self.ui.set_progress_update_interval(total_size/50)
-        bytes_sent = 0
         for filename in filenames:
             self.request_connection()
             self.con.putrequest("PUT",
@@ -457,8 +457,7 @@ class Client(Partner):
             self.con.endheaders()
             for buffer in self.stream_binary_file(full_path, progress_bar=False):
                 self.con.send(buffer)
-                bytes_sent += len(buffer)
-                self.ui.set_progress_value(bytes_sent)
+                self.ui.increase_progress(len(buffer))
             self._check_response_for_errors(self.con.getresponse())
         self.ui.set_progress_value(total_size)
 
@@ -480,9 +479,8 @@ class Client(Partner):
             return
         # Download each media file.
         self.ui.set_progress_text("Getting media files...")
-        self.ui.set_progress_range(0, total_size)
+        self.ui.set_progress_range(total_size)
         self.ui.set_progress_update_interval(total_size/50)
-        bytes_read = 0
         for filename in response.read().split("\n"):
             filename = unicode(filename, "utf-8")
             self.request_connection()
@@ -500,8 +498,7 @@ class Client(Partner):
             filename = os.path.join(self.database.media_dir(), filename)
             self.download_binary_file(response, filename,
                                       file_size, progress_bar=False)
-            bytes_read += file_size
-            self.ui.set_progress_value(bytes_read)
+            self.ui.increase_progress(file_size)
         self.ui.set_progress_value(total_size)
 
     def get_sync_cancel(self):

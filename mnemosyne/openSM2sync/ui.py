@@ -11,14 +11,14 @@ class UI(object):
 
     def show_information(self, message):
         raise NotImplementedError
-    
+
     def show_error(self, message):
         raise NotImplementedError
-    
+
     def show_question(self, question, option0, option1, option2):
 
         """Returns 0, 1 or 2."""
-                
+
         raise NotImplementedError
 
     def set_progress_text(self, text):
@@ -27,18 +27,18 @@ class UI(object):
         and displays 'text'.
 
         """
-        
-        pass
-    
-    def set_progress_range(self, minimum, maximum):
 
-        """If minimum and maximum are zero, this is just a busy dialog.
-        Should be the default for set_progress_text.
+        pass
+
+    def set_progress_range(self, maximum):
+
+        """Progress bar runs from 0 to 'maximum. If 'maximum' is zero, this is
+        just a busy dialog. Should be the default for set_progress_text.
 
         """
-        
+
         pass
-    
+
     def set_progress_update_interval(self, update_interval):
 
         """Sometimes updating the progress bar for a single step takes longer
@@ -47,17 +47,23 @@ class UI(object):
         'update_interval' steps.
 
         """
-        
+
         pass
-    
+
+    def increase_progress(self, value):
+
+        """Increase the progress by 'value'."""
+
+        pass
+
     def set_progress_value(self, value):
 
-        """If value is maximum or beyond, the dialog closes."""
-        
+        """If 'value' is maximum or beyond, the dialog closes."""
+
         pass
 
     def close_progress(self):
 
         """Convenience function for closing a busy dialog."""
-        
+
         pass

@@ -99,16 +99,16 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         # 2.x for a while, there could be duplicate load events, etc, but these
         # don't matter.)
         filenames.append(os.path.join(os.path.dirname(filename), "log.txt"))
-        w.set_progress_range(0, len(filenames))
+        w.set_progress_range(len(filenames))
         ignored_files = []
         parser = ScienceLogParser(self.database(),
             ids_to_parse=self.items_by_id)
-        for count, filename in enumerate(filenames):
-            w.set_progress_value(count)
+        for filename in filenames:
             try:
                 parser.parse(filename)
             except:
                 ignored_files.append(filename)
+            w.increase_progress(1)
         if ignored_files:
             w.show_information(_("Ignoring unparsable files:<br/>") +\
                 '<br/>'.join(ignored_files))

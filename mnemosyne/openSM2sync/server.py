@@ -391,7 +391,7 @@ class Server(Partner):
             session.number_of_client_entries = int(element_loop.next())
             if session.number_of_client_entries == 0:
                 return self.text_format.repr_message("OK")
-            self.ui.set_progress_range(0, session.number_of_client_entries)
+            self.ui.set_progress_range(session.number_of_client_entries)
             self.ui.set_progress_update_interval(\
                 session.number_of_client_entries/50)
             for log_entry in element_loop:
@@ -440,13 +440,11 @@ class Server(Partner):
             return self.handle_error(session, traceback_string())
 
     def _stream_log_entries(self, log_entries, number_of_entries):
-        self.ui.set_progress_range(0, number_of_entries)
+        self.ui.set_progress_range(number_of_entries)
         self.ui.set_progress_update_interval(number_of_entries/50)
         buffer = self.text_format.log_entries_header(number_of_entries)
-        count = 0
         for log_entry in log_entries:
-            count += 1
-            self.ui.set_progress_value(count)
+            self.ui.increase_progress(1)
             buffer += self.text_format.repr_log_entry(log_entry)
             if len(buffer) > self.BUFFER_SIZE:
                 yield buffer.encode("utf-8")

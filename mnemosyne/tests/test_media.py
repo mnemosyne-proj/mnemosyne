@@ -220,7 +220,7 @@ class TestMedia(MnemosyneTest):
         self.controller().edit_sister_cards(card.fact, fact_data,
            card.card_type,  card_type, new_tag_names=["bla"], correspondence=None)
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
-        self.database().delete_unused_media_files()
+        self.database().delete_unused_media_files(self.database().unused_media_files())
         assert not os.path.exists(full_path_in_media_dir)
         assert full_path_in_media_dir not in card.question()
         assert self.database().con.execute(\
@@ -268,7 +268,7 @@ class TestMedia(MnemosyneTest):
         # Make sure we don't reuse existing objects.
         card = self.database().card(card._id, is_id_internal=True)
         self.controller().delete_facts_and_their_cards([card.fact])
-        self.database().delete_unused_media_files()
+        self.database().delete_unused_media_files(self.database().unused_media_files())
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
         assert not os.path.exists(full_path_in_media_dir) # Autodelete.
         assert self.database().con.execute(\
@@ -320,7 +320,7 @@ class TestMedia(MnemosyneTest):
         assert os.path.exists(os.path.join(self.database().media_dir(), "_keep"))
         assert os.path.exists(os.path.join(self.database().media_dir(), "_keep", "b.ogg"))
 
-        self.database().delete_unused_media_files()
+        self.database().delete_unused_media_files(self.database().unused_media_files())
 
         assert not os.path.exists(os.path.join(self.database().media_dir(), "a.ogg"))
         assert not os.path.exists(os.path.join(self.database().media_dir(), "sub"))
@@ -338,7 +338,7 @@ class TestMedia(MnemosyneTest):
         card.question()
         latex_dir = os.path.join(self.database().media_dir(), "_latex")
         assert os.path.exists(latex_dir)
-        self.database().delete_unused_media_files()
+        self.database().delete_unused_media_files(self.database().unused_media_files())
         assert not os.path.exists(latex_dir)
 
     def test_database_not_in_datadir(self):
