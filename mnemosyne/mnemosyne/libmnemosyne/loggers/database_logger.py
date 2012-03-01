@@ -33,8 +33,9 @@ class DatabaseLogger(Logger):
             scheduled_count = self.scheduler().scheduled_count()
             non_memorised_count = self.scheduler().non_memorised_count()
             active_count = self.scheduler().active_count()
-        self.database().log_loaded_database(self.timestamp, scheduled_count,
-            non_memorised_count, active_count)
+        self.database().log_loaded_database(self.timestamp,
+            self.config().machine_id(), scheduled_count, non_memorised_count,
+            active_count)
 
     def saved_database(self, scheduled_count=None, non_memorised_count=None,
         active_count=None):
@@ -42,8 +43,12 @@ class DatabaseLogger(Logger):
             scheduled_count = self.scheduler().scheduled_count()
             non_memorised_count = self.scheduler().non_memorised_count()
             active_count = self.scheduler().active_count()
-        self.database().log_saved_database(self.timestamp, scheduled_count,
-            non_memorised_count, active_count)
+        self.database().log_saved_database(self.timestamp,
+            self.config().machine_id(), scheduled_count, non_memorised_count,
+            active_count)
+
+    def future_schedule(self):
+        self.database().log_future_schedule()
 
     def added_card(self, card):
         self.database().log_added_card(self.timestamp, card.id)

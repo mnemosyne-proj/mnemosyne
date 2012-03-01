@@ -7,6 +7,9 @@ import time
 
 from openSM2sync.log_entry import EventTypes
 
+HOUR = 60 * 60 # Seconds in an hour.
+DAY = 24 * HOUR # Seconds in a day.
+
 
 class SQLiteLogging(object):
 
@@ -35,21 +38,39 @@ class SQLiteLogging(object):
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.STARTED_SCHEDULER, int(timestamp), scheduler_name))
 
-    def log_loaded_database(self, timestamp, scheduled_count,
+    def log_loaded_database(self, timestamp, machine_id, scheduled_count,
         non_memorised_count, active_count):
         self.con.execute(\
-            """insert into log(event_type, timestamp, acq_reps, ret_reps,
-            lapses) values(?,?,?,?,?)""",
-            (EventTypes.LOADED_DATABASE, int(timestamp), scheduled_count,
-            non_memorised_count, active_count))
+            """insert into log(event_type, timestamp, object_id, acq_reps,
+            ret_reps, lapses) values(?,?,?,?,?,?)""",
+            (EventTypes.LOADED_DATABASE, int(timestamp), machine_id,
+            scheduled_count, non_memorised_count, active_count))
 
-    def log_saved_database(self, timestamp, scheduled_count,
+    def log_saved_database(self, timestamp, machine_id, scheduled_count,
         non_memorised_count, active_count):
         self.con.execute(\
-            """insert into log(event_type, timestamp, acq_reps, ret_reps,
-            lapses) values(?,?,?,?,?)""",
-            (EventTypes.SAVED_DATABASE, int(timestamp), scheduled_count,
-            non_memorised_count, active_count))
+            """insert into log(event_type, timestamp, object_id, acq_reps,
+            ret_reps, lapses) values(?,?,?,?,?,?)""",
+            (EventTypes.SAVED_DATABASE, int(timestamp), machine_id,
+            scheduled_count, non_memorised_count, active_count))
+
+    def log_future_schedule(self):
+
+        """Write data to the logs to allow us to retrieve the scheduled count
+        in case the user the user does not run Mnemosyne on that day.
+
+        """
+
+        timestamp = int(time.time())
+        scheduled_count = 0
+        for n in range(1, 8):
+            timestamp += DAY
+            scheduled_count += \
+                self.scheduler().card_count_scheduled_n_days_from_now(n)
+            self.con.execute("""insert into log(event_type, timestamp,
+                object_id, acq_reps,ret_reps, lapses) values(?,?,?,?,?,?)""",
+                (EventTypes.SAVED_DATABASE, timestamp,
+                self.config().machine_id() + ".fut", scheduled_count, -1, -1))
 
     def log_added_card(self, timestamp, card_id):
         self.con.execute(\

@@ -45,6 +45,7 @@ class DefaultController(Controller):
         self.database().backup()
         self.log().saved_database()
         self.log().loaded_database()
+        self.log().future_schedule()
         self.log().dump_to_science_log()
         self.log().deactivate()
         self.log().activate()
@@ -450,6 +451,7 @@ class DefaultController(Controller):
         try:
             db.load(filename)
             self.log().loaded_database()
+            self.log().future_schedule()
         except Exception, e:
             self.main_widget().show_exception(e)
             self.stopwatch().unpause()

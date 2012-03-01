@@ -111,7 +111,7 @@ class ScienceLogParser(object):
                             "1.0.1", "1.0.1.1", "1.0.2", "1.1", "1.1.1", "1.2",
                             "1.2.1", "1.2.2"]
 
-    def __init__(self, database, ids_to_parse=None):
+    def __init__(self, database, ids_to_parse=None, machine_id=""):
 
         """Only convertings ids in 'ids_to_parse' makes it possible to reliably
         import different mem files (which all share the same log files).
@@ -121,6 +121,7 @@ class ScienceLogParser(object):
 
         self.database = database
         self.ids_to_parse = ids_to_parse
+        self.machine_id = machine_id
         self.version_number = "1.2.2" # Default guess for missing logs.
 
     def parse(self, filename):
@@ -178,8 +179,9 @@ class ScienceLogParser(object):
         elif parts[1].startswith("Loaded database"):
             Loaded, database, scheduled, non_memorised, active = \
                 parts[1].split(" ")
-            self.database.log_loaded_database(self.timestamp, int(scheduled),
-                                              int(non_memorised), int(active))
+            self.database.log_loaded_database(self.timestamp,
+                self.machine_id, int(scheduled), int(non_memorised),
+                int(active))
         elif parts[1].startswith("New item"):
             self._parse_new_item(parts[1])
         elif parts[1].startswith("Imported item"):
@@ -191,8 +193,9 @@ class ScienceLogParser(object):
         elif parts[1].startswith("Saved database"):
             Saved, database, scheduled, non_memorised, active = \
                 parts[1].split(" ")
-            self.database.log_saved_database(self.timestamp, int(scheduled),
-                                             int(non_memorised), int(active))
+            self.database.log_saved_database(self.timestamp,
+                self.machine_id, int(scheduled), int(non_memorised),
+                int(active))
         elif parts[1].startswith("Program stopped"):
             self.database.log_stopped_program(self.timestamp)
         self.previous_timestamp = self.timestamp

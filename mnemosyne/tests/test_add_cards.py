@@ -25,12 +25,12 @@ class Widget(MainWidget):
         else:
             return answer
 
-        
+
 class TestAddCards(MnemosyneTest):
 
     def setup(self):
         shutil.rmtree("dot_test", ignore_errors=True)
-        
+
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
         self.mnemosyne.components.insert(0,
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
@@ -60,8 +60,8 @@ class TestAddCards(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         card.fact["f"] = "new_question"
-        
-        
+
+
     def test_src(self):
         fact_data = {"f": """<font face="courier">src</font>""",
                      "b": "answer"}
@@ -71,7 +71,7 @@ class TestAddCards(MnemosyneTest):
         card.question()
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
-        
+
     def test_comparisons(self):
         fact_data = {"f": "question",
                      "b": "answer"}
@@ -91,7 +91,7 @@ class TestAddCards(MnemosyneTest):
         tag = card.tags.pop()
         assert tag == tag
         assert tag != a
-        
+
     def test_1_duplicates(self):
         fact_data = {"f": "question",
                      "b": "answer"}
@@ -102,7 +102,7 @@ class TestAddCards(MnemosyneTest):
                                               grade=-1, tag_names=["default"])
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
-        
+
     def test_2(self):
         fact_data = {"f": "question",
                      "b": "answer"}
@@ -111,7 +111,7 @@ class TestAddCards(MnemosyneTest):
                                               grade=-1, tag_names=["default"])
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 2
-        
+
     def test_3(self):
         fact_data = {"f": "foreign word",
                      "p_1": "pronunciation",
@@ -146,7 +146,7 @@ class TestAddCards(MnemosyneTest):
         for i in range(6):
             assert self.review_controller().card != card_3
             self.review_controller().grade_answer(0)
-            
+
     def test_delete_2(self):
         fact_data = {"f": "question1",
                      "b": "answer1"}
@@ -169,7 +169,7 @@ class TestAddCards(MnemosyneTest):
         for i in range(6):
             assert self.review_controller().card != card_1
             self.review_controller().grade_answer(0)
-            
+
     def test_change_tag(self):
         fact_data = {"f": "question",
                      "b": "answer"}
@@ -177,8 +177,8 @@ class TestAddCards(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         self.review_controller().show_new_question()
-        self.controller().edit_sister_cards(card.fact, fact_data, card.card_type, 
-            card_type, ["new"], correspondence={})     
+        self.controller().edit_sister_cards(card.fact, fact_data, card.card_type,
+            card_type, ["new"], correspondence={})
         new_card = self.database().card(card._id, is_id_internal=True)
         tag_names = [tag.name for tag in new_card.tags]
         assert len(tag_names) == 1
@@ -195,7 +195,7 @@ class TestAddCards(MnemosyneTest):
 
         new_card = self.database().card(card._id, is_id_internal=True)
         assert len(new_card.tags) == 1
-        
+
     def test_edit_untagged(self):
         fact_data = {"f": "question",
                      "b": "answer"}
@@ -209,7 +209,7 @@ class TestAddCards(MnemosyneTest):
         assert len(new_card.tags) == 1
 
         self.controller().edit_sister_cards(new_card.fact, new_card.fact.data,
-           card.card_type,  new_card.card_type, [" "], [])    
+           card.card_type,  new_card.card_type, [" "], [])
 
         new_card = self.database().card(card._id, is_id_internal=True)
         assert len(new_card.tags) == 1
@@ -227,11 +227,11 @@ class TestAddCards(MnemosyneTest):
         _untagged_id =  list(new_card.tags)[0]._id
 
         self.controller().edit_sister_cards(new_card.fact, new_card.fact.data,
-           card.card_type,  new_card.card_type, ["tag"], [])    
+           card.card_type,  new_card.card_type, ["tag"], [])
 
         new_card = self.database().card(card._id, is_id_internal=True)
-        assert list(new_card.tags)[0]._id != _untagged_id 
-        
+        assert list(new_card.tags)[0]._id != _untagged_id
+
     def test_duplicate(self):
         fact_data = {"f": "question",
                      "b": "answer"}
@@ -297,14 +297,14 @@ class TestAddCards(MnemosyneTest):
         self.controller().save_file()
 
         sql_res = self.database().con.execute(\
-            "select * from log where _id=7").fetchone()
+            "select * from log where _id=14").fetchone()
         assert sql_res["event_type"] == EventTypes.ADDED_CARD
         assert sql_res["object_id"] is not None
-        
+
         sql_res = self.database().con.execute(\
-            "select * from log where _id=8").fetchone()
+            "select * from log where _id=15").fetchone()
         assert sql_res["event_type"] == EventTypes.REPETITION
-        
+
     def test_optional_keys(self):
         fact_data = {"f": "foreign",
                      "m_1": "meaning", "n": ""}

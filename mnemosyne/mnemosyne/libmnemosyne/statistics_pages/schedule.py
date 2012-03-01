@@ -58,4 +58,3 @@ class Schedule(PlotStatisticsPage):
         self.y = [self.scheduler().card_count_scheduled_n_days_from_now(n=day)
                   for day in self.x]
 
-

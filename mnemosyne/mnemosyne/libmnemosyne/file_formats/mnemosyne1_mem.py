@@ -102,7 +102,8 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         w.set_progress_range(len(filenames))
         ignored_files = []
         parser = ScienceLogParser(self.database(),
-            ids_to_parse=self.items_by_id)
+            ids_to_parse=self.items_by_id,
+            machine_id=self.config().machine_id())
         for filename in filenames:
             try:
                 parser.parse(filename)

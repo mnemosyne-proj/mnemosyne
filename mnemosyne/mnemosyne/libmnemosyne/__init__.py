@@ -170,6 +170,7 @@ class Mnemosyne(Component):
         self.log().started_program()
         self.log().started_scheduler()
         self.log().loaded_database()
+        self.log().future_schedule()
         # Upgrade if needed.
         if automatic_upgrades:
             from mnemosyne.libmnemosyne.upgrades.upgrade1 import Upgrade1

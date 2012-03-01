@@ -1,8 +1,6 @@
+-also sync machine id log entry for saved and load events
 -past schedule gets confused if two machines keep running at the same time
- and only one does reps, such that the other registers overdue counts.
- needs to log machine to save/load events too
 -log future schedule too, so as to have info if the program doesn't run than
--make use of that info
 
 -detect long filenames under Windows during sync (partner, download binary file, 36)
  and during import

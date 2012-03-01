@@ -82,7 +82,7 @@ class SQLiteSync(object):
         local_partners = self.partners()
         for partner in remote_partners:
             if partner not in local_partners and \
-               partner != self.sync_partner_info["machine_id"] and\
+               partner != self.sync_partner_info["machine_id"] and \
                partner != self.config().machine_id():
                 self.con.execute("""insert into partnerships(partner,
                      _last_log_id) values(?,?)""", (partner, -1))
