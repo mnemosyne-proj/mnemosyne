@@ -58,12 +58,12 @@ class Logger(Component):
     def started_scheduler(self, scheduler_name=None):
         pass
 
-    def loaded_database(self, scheduled_count=None, non_memorised_count=None,
-        active_count=None):
+    def loaded_database(self, machine_id=None, scheduled_count=None,
+        non_memorised_count=None, active_count=None):
         pass
 
-    def saved_database(self, scheduled_count=None, non_memorised_count=None,
-        active_count=None):
+    def saved_database(self, machine_id=None, scheduled_count=None,
+        non_memorised_count=None, active_count=None):
         pass
 
     def added_card(self, card):

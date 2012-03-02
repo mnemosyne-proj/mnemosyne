@@ -605,10 +605,10 @@ class SQLiteSync(object):
             elif event_type == EventTypes.STARTED_SCHEDULER:
                 self.log().started_scheduler(log_entry["o_id"])
             elif event_type == EventTypes.LOADED_DATABASE:
-                self.log().loaded_database(log_entry["sch"],
+                self.log().loaded_database(log_entry["o_id"], log_entry["sch"],
                     log_entry["n_mem"], log_entry["act"])
             elif event_type == EventTypes.SAVED_DATABASE:
-                self.log().saved_database(log_entry["sch"],
+                self.log().saved_database(log_entry["o_id"], log_entry["sch"],
                     log_entry["n_mem"], log_entry["act"])
             elif event_type == EventTypes.ADDED_TAG:
                 self.add_tag(self.tag_from_log_entry(log_entry))

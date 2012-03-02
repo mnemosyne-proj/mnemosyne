@@ -188,6 +188,55 @@ class TestSync(object):
         finally:
             self.client.mnemosyne.finalise()
 
+    def off_test_sync_empty_twice(self):
+
+        def test_server(self):
+            pass
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        # Do full binary sync
+
+        self.client.do_sync(); assert last_error is None
+        self.client.mnemosyne.finalise()
+
+        # Second sync.
+        self.client = MyClient(erase_previous=False)
+        self.client.do_sync(); assert last_error is None
+
+    def test_machine_id(self):
+
+        def test_server(self):
+            assert self.mnemosyne.database().con.execute(\
+                "select count(distinct object_id) from log where event_type=?",
+               (EventTypes.LOADED_DATABASE, )).fetchone()[0] == 4
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        self.server.client_machine_id = \
+            self.client.mnemosyne.config().machine_id()
+        # Do full binary sync
+        self.client.do_sync(); assert last_error is None
+        self.client.mnemosyne.finalise()
+
+        # Second sync.
+        self.client = MyClient(erase_previous=False)
+        tag = self.client.mnemosyne.database().\
+              get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
+        self.client.do_sync(); assert last_error is None
+        print self.client.mnemosyne.database().con.execute(\
+            "select count(distinct object_id) from log where event_type=?",
+               (EventTypes.LOADED_DATABASE, )).fetchone()[0]
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count(distinct object_id) from log where event_type=?",
+               (EventTypes.LOADED_DATABASE, )).fetchone()[0] == 4
+
     def test_add_tag(self):
 
         def test_server(self):
@@ -215,7 +264,7 @@ class TestSync(object):
         self.server.tag_added_timestamp = sql_res["timestamp"]
         assert type(self.server.tag_added_timestamp) == int
         self.client.mnemosyne.controller().save_file()
-        self.client.do_sync()
+        self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
              )).fetchone()[0] == 1
@@ -251,7 +300,7 @@ class TestSync(object):
         self.server.tag_added_timestamp = sql_res["timestamp"]
         assert type(self.server.tag_added_timestamp) == int
         self.client.mnemosyne.controller().save_file()
-        self.client.do_sync()
+        self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
              )).fetchone()[0] == 1
@@ -287,7 +336,7 @@ class TestSync(object):
         assert type(self.server.tag_added_timestamp) == int
         self.client.mnemosyne.controller().save_file()
         self.client.mnemosyne.controller().sync("localhost", PORT,
-             self.client.user, self.client.password)
+             self.client.user, self.client.password); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
              )).fetchone()[0] == 1
@@ -314,7 +363,7 @@ class TestSync(object):
         self.client.mnemosyne.database().update_tag(tag)
         self.server.client_tag_id = tag.id
         self.client.mnemosyne.controller().save_file()
-        self.client.do_sync()
+        self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 10
 
@@ -340,7 +389,7 @@ class TestSync(object):
         self.client.mnemosyne.database().delete_tag(tag)
         self.server.client_tag_id = tag.id
         self.client.mnemosyne.controller().save_file()
-        self.client.do_sync()
+        self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
                 "select count() from log").fetchone()[0] == 12
 
@@ -362,7 +411,7 @@ class TestSync(object):
         self.client.mnemosyne.database().add_fact(fact)
         self.server.client_fact_id = fact.id
         self.client.mnemosyne.controller().save_file()
-        self.client.do_sync()
+        self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 8
 
@@ -386,7 +435,7 @@ class TestSync(object):
         self.client.mnemosyne.database().update_fact(fact)
         self.server.client_fact_id = fact.id
         self.client.mnemosyne.controller().save_file()
-        self.client.do_sync()
+        self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 9
 
@@ -414,7 +463,7 @@ class TestSync(object):
         self.server.client_fact_id = fact.id
         self.client.mnemosyne.controller().save_file()
         self.client.mnemosyne.log().stopped_program()
-        self.client.do_sync()
+        self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 11
 
@@ -459,7 +508,7 @@ class TestSync(object):
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.server.client_card = card
         self.client.mnemosyne.controller().save_file()
-        self.client.do_sync()
+        self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 14
 
@@ -489,7 +538,7 @@ class TestSync(object):
         self.client.database.update_card(card)
         self.server.client_card = card
         self.client.mnemosyne.controller().save_file()
-        self.client.do_sync()
+        self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 15
 
@@ -509,7 +558,7 @@ class TestSync(object):
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.client.mnemosyne.controller().save_file()
-        self.client.do_sync()
+        self.client.do_sync(); assert last_error is None
         self.client.mnemosyne.finalise()
         self.server.stop()
         self._wait_for_server_shutdown()
@@ -532,7 +581,7 @@ class TestSync(object):
 
         tag = self.client.mnemosyne.database().get_or_create_tag_with_name("tag_1")
         self.client.mnemosyne.database().delete_tag(tag)
-        self.client.do_sync()
+        self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 24
 
@@ -552,7 +601,7 @@ class TestSync(object):
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.client.mnemosyne.controller().save_file()
-        self.client.do_sync()
+        self.client.do_sync(); assert last_error is None
         self.client.mnemosyne.finalise()
         self.server.stop()
         self._wait_for_server_shutdown()
@@ -577,7 +626,7 @@ class TestSync(object):
         tag = self.client.mnemosyne.database().get_or_create_tag_with_name("tag_1")
         tag.name = "TAG_1"
         self.client.mnemosyne.database().update_tag(tag)
-        self.client.do_sync()
+        self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 23
 
@@ -605,7 +654,7 @@ class TestSync(object):
         self.server.client_card = card
         self.client.mnemosyne.controller().delete_facts_and_their_cards([card.fact])
         self.client.mnemosyne.controller().save_file()
-        self.client.do_sync()
+        self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 20
 
@@ -658,7 +707,7 @@ class TestSync(object):
         self.client.mnemosyne.controller().save_file()
         self.server.client_card = self.client.mnemosyne.database().\
            card(card.id, is_id_internal=False)
-        self.client.do_sync()
+        self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 15
 
@@ -719,7 +768,7 @@ class TestSync(object):
         self.client.mnemosyne.controller().save_file()
         self.server.client_card = self.client.mnemosyne.database().\
             card(card.id, is_id_internal=False)
-        self.client.do_sync()
+        self.client.do_sync(); assert last_error is None
 
         filename = os.path.join(os.path.abspath("dot_sync_client"),
             "default.db_media", "b", unichr(0x628) + u"b.ogg")
@@ -792,7 +841,7 @@ class TestSync(object):
         self.client.mnemosyne.controller().save_file()
         self.server.client_card = self.client.mnemosyne.database().\
             card(card.id, is_id_internal=False)
-        self.client.do_sync()
+        self.client.do_sync(); assert last_error is None
         assert self.server.is_idle() == True
 
         filename = os.path.join(os.path.abspath("dot_sync_client"),
@@ -852,7 +901,7 @@ class TestSync(object):
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.client.mnemosyne.controller().delete_facts_and_their_cards([card.fact])
         self.client.mnemosyne.controller().save_file()
-        self.client.do_sync()
+        self.client.do_sync(); assert last_error is None
 
     def test_check_for_edited_media_files(self):
 
@@ -900,8 +949,7 @@ class TestSync(object):
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.client.mnemosyne.controller().delete_facts_and_their_cards([card.fact])
         self.client.mnemosyne.controller().save_file()
-        self.client.do_sync()
-        assert last_error is None
+        self.client.do_sync(); assert last_error is None
 
     def test_delete_media_2(self):
 

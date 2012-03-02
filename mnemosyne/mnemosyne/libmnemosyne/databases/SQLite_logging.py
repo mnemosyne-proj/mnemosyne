@@ -69,8 +69,9 @@ class SQLiteLogging(object):
                 self.scheduler().card_count_scheduled_n_days_from_now(n)
             self.con.execute("""insert into log(event_type, timestamp,
                 object_id, acq_reps,ret_reps, lapses) values(?,?,?,?,?,?)""",
-                (EventTypes.SAVED_DATABASE, timestamp,
-                self.config().machine_id() + ".fut", scheduled_count, -1, -1))
+                (EventTypes.LOADED_DATABASE, timestamp,
+                self.config().machine_id() + ".fut",
+                scheduled_count, -666, -666))
 
     def log_added_card(self, timestamp, card_id):
         self.con.execute(\

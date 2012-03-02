@@ -1,11 +1,12 @@
--also sync machine id log entry for saved and load events
+-fix test suite
+
 -past schedule gets confused if two machines keep running at the same time
 -log future schedule too, so as to have info if the program doesn't run than
 
 -detect long filenames under Windows during sync (partner, download binary file, 36)
  and during import
 -sync issues Doug, prevent sync with itself
--syncing an empty database twice results in a spurious sync cycle detection.
+-syncing an empty database twice results in a spurious sync cycle detection. (off_test_sync_empty_twice)
  Also happens after syncing empty client and empty server database, then adding
  data to the server, and resyncing
 -if the server is empty, allow sync from non-empty client and change server user
