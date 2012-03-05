@@ -1,7 +1,6 @@
--fix test suite
-
 -past schedule gets confused if two machines keep running at the same time
 -log future schedule too, so as to have info if the program doesn't run than
+-add tests
 
 -detect long filenames under Windows during sync (partner, download binary file, 36)
  and during import

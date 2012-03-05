@@ -188,24 +188,26 @@ class TestSync(object):
         finally:
             self.client.mnemosyne.finalise()
 
-    def off_test_sync_empty_twice(self):
+    #def test_sync_empty_twice(self):
 
-        def test_server(self):
-            pass
+        #def test_server(self):
+        #    pass
 
-        self.server = MyServer()
-        self.server.test_server = test_server
-        self.server.start()
+        #self.server = MyServer()
+        #self.server.test_server = test_server
+        #self.server.start()
 
-        self.client = MyClient()
+        #self.client = MyClient()
+
+
         # Do full binary sync
 
-        self.client.do_sync(); assert last_error is None
-        self.client.mnemosyne.finalise()
+        #self.client.do_sync(); assert last_error is None
+        #self.client.mnemosyne.finalise()
 
         # Second sync.
-        self.client = MyClient(erase_previous=False)
-        self.client.do_sync(); assert last_error is None
+        #self.client = MyClient(erase_previous=False)
+        #self.client.do_sync(); assert last_error is None
 
     def test_machine_id(self):
 
@@ -248,7 +250,7 @@ class TestSync(object):
                (EventTypes.ADDED_TAG, )).fetchone()
             assert self.tag_added_timestamp == sql_res["timestamp"]
             assert type(sql_res["timestamp"]) == int
-            assert db.con.execute("select count() from log").fetchone()[0] == 9
+            assert db.con.execute("select count() from log").fetchone()[0] == 23
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -269,7 +271,7 @@ class TestSync(object):
             "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
              )).fetchone()[0] == 1
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 9
+            "select count() from log").fetchone()[0] == 23
 
     def test_add_tag_behind_proxy(self):
 
@@ -282,7 +284,7 @@ class TestSync(object):
                (EventTypes.ADDED_TAG, )).fetchone()
             assert self.tag_added_timestamp == sql_res["timestamp"]
             assert type(sql_res["timestamp"]) == int
-            assert db.con.execute("select count() from log").fetchone()[0] == 9
+            assert db.con.execute("select count() from log").fetchone()[0] == 23
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -305,7 +307,7 @@ class TestSync(object):
             "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
              )).fetchone()[0] == 1
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 9
+            "select count() from log").fetchone()[0] == 23
         assert self.server.is_sync_in_progress() == False
 
     def test_add_tag_controller(self):
@@ -319,7 +321,7 @@ class TestSync(object):
                (EventTypes.ADDED_TAG, )).fetchone()
             assert self.tag_added_timestamp == sql_res["timestamp"]
             assert type(sql_res["timestamp"]) == int
-            assert db.con.execute("select count() from log").fetchone()[0] == 9
+            assert db.con.execute("select count() from log").fetchone()[0] == 23
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -341,7 +343,7 @@ class TestSync(object):
             "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
              )).fetchone()[0] == 1
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 9
+            "select count() from log").fetchone()[0] == 23
 
     def test_edit_tag(self):
 
@@ -350,7 +352,7 @@ class TestSync(object):
             tag = db.tag(self.client_tag_id, is_id_internal=False)
             assert tag.extra_data["b"] == "<a>"
             assert db.con.execute("select count() from log").\
-                   fetchone()[0] == 10
+                   fetchone()[0] == 24
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -365,7 +367,7 @@ class TestSync(object):
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 10
+            "select count() from log").fetchone()[0] == 24
 
     def test_delete_tag(self):
         def test_server(self):
@@ -376,7 +378,7 @@ class TestSync(object):
             except TypeError:
                 pass
             assert db.con.execute("select count() from log").\
-                   fetchone()[0] == 12
+                   fetchone()[0] == 26
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -391,7 +393,7 @@ class TestSync(object):
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
-                "select count() from log").fetchone()[0] == 12
+                "select count() from log").fetchone()[0] == 26
 
     def test_add_fact(self):
 
@@ -399,7 +401,7 @@ class TestSync(object):
             db = self.mnemosyne.database()
             fact = db.fact(self.client_fact_id, is_id_internal=False)
             assert fact.data == {"f": "f"}
-            assert db.con.execute("select count() from log").fetchone()[0] == 8
+            assert db.con.execute("select count() from log").fetchone()[0] == 22
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -413,7 +415,7 @@ class TestSync(object):
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 8
+            "select count() from log").fetchone()[0] == 22
 
     def test_edit_fact(self):
 
@@ -421,7 +423,7 @@ class TestSync(object):
             db = self.mnemosyne.database()
             fact = db.fact(self.client_fact_id, is_id_internal=False)
             assert fact.data == {"f": "f", "b": "AA"}
-            assert db.con.execute("select count() from log").fetchone()[0] == 9
+            assert db.con.execute("select count() from log").fetchone()[0] == 23
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -437,7 +439,7 @@ class TestSync(object):
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 9
+            "select count() from log").fetchone()[0] == 23
 
     def test_delete_fact(self):
 
@@ -448,7 +450,7 @@ class TestSync(object):
                 assert 1 == 0
             except TypeError:
                 pass
-            assert db.con.execute("select count() from log").fetchone()[0] == 11
+            assert db.con.execute("select count() from log").fetchone()[0] == 25
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -465,7 +467,7 @@ class TestSync(object):
         self.client.mnemosyne.log().stopped_program()
         self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 11
+            "select count() from log").fetchone()[0] == 25
 
     def test_add_cards(self):
 
@@ -493,7 +495,7 @@ class TestSync(object):
             assert card.ret_reps_since_lapse == 0
             assert card.last_rep != -1
             assert card.next_rep != -1
-            assert db.con.execute("select count() from log").fetchone()[0] == 14
+            assert db.con.execute("select count() from log").fetchone()[0] == 28
             assert card.id == self.client_card.id
 
         self.server = MyServer()
@@ -510,7 +512,7 @@ class TestSync(object):
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 14
+            "select count() from log").fetchone()[0] == 28
 
     def test_edit_cards(self):
 
@@ -518,7 +520,7 @@ class TestSync(object):
             db = self.mnemosyne.database()
             card = db.card(self.client_card.id, is_id_internal=False)
             assert card.extra_data == {"A": "B"}
-            assert db.con.execute("select count() from log").fetchone()[0] == 15
+            assert db.con.execute("select count() from log").fetchone()[0] == 29
             assert card.card_type == self.mnemosyne.card_type_with_id("1")
             assert card.creation_time == self.client_card.creation_time
             assert card.modification_time == self.client_card.modification_time
@@ -540,7 +542,7 @@ class TestSync(object):
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 15
+            "select count() from log").fetchone()[0] == 29
 
     def test_delete_tag_2(self):
 
@@ -569,7 +571,7 @@ class TestSync(object):
             tag_string = db.con.execute("select tags from cards where _id=?",
                 (card._id,)).fetchone()[0]
             assert "tag_1" not in tag_string
-            assert db.con.execute("select count() from log").fetchone()[0] == 24
+            assert db.con.execute("select count() from log").fetchone()[0] == 52
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -583,7 +585,7 @@ class TestSync(object):
         self.client.mnemosyne.database().delete_tag(tag)
         self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 24
+            "select count() from log").fetchone()[0] == 52
 
     def test_rename_tag(self):
 
@@ -613,7 +615,7 @@ class TestSync(object):
                 (card._id,)).fetchone()[0]
             assert "TAG_1" in tag_string
             assert "tag_1" not in tag_string
-            assert db.con.execute("select count() from log").fetchone()[0] == 23
+            assert db.con.execute("select count() from log").fetchone()[0] == 51
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -628,7 +630,7 @@ class TestSync(object):
         self.client.mnemosyne.database().update_tag(tag)
         self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 23
+            "select count() from log").fetchone()[0] == 51
 
     def test_delete_cards(self):
 
@@ -639,7 +641,7 @@ class TestSync(object):
                 assert 1 == 0
             except TypeError:
                 pass
-            assert db.con.execute("select count() from log").fetchone()[0] == 20
+            assert db.con.execute("select count() from log").fetchone()[0] == 34
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -656,7 +658,7 @@ class TestSync(object):
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 20
+            "select count() from log").fetchone()[0] == 34
 
     def test_repetition(self):
 
@@ -689,7 +691,7 @@ class TestSync(object):
             assert rep["thinking_time"] < 10
             assert rep["timestamp"] > 0
 
-            assert db.con.execute("select count() from log").fetchone()[0] == 15
+            assert db.con.execute("select count() from log").fetchone()[0] == 29
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -709,7 +711,7 @@ class TestSync(object):
            card(card.id, is_id_internal=False)
         self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 15
+            "select count() from log").fetchone()[0] == 29
 
     def test_add_media(self):
 
@@ -735,7 +737,7 @@ class TestSync(object):
                 "default.db_media", "a", unichr(0x628) + u"a.ogg")
             assert os.path.exists(filename)
             assert file(filename).read() == "A"
-            assert db.con.execute("select count() from log").fetchone()[0] == 24
+            assert db.con.execute("select count() from log").fetchone()[0] == 38
             assert db.con.execute("select count() from log where event_type=?",
                 (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 2
             assert db.con.execute("""select object_id from log where event_type=?
@@ -775,7 +777,7 @@ class TestSync(object):
         assert os.path.exists(filename)
         assert file(filename).read() == "B"
         db = self.client.mnemosyne.database()
-        assert db.con.execute("select count() from log").fetchone()[0] == 24
+        assert db.con.execute("select count() from log").fetchone()[0] == 38
         assert db.con.execute("select count() from log where event_type=?",
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 2
         assert db.con.execute("select count() from media").fetchone()[0] == 2
@@ -807,7 +809,7 @@ class TestSync(object):
                 "default.db_media", "a", unichr(0x628) + u"a.ogg")
             assert os.path.exists(filename)
             assert file(filename).read() == "A"
-            assert db.con.execute("select count() from log").fetchone()[0] == 24
+            assert db.con.execute("select count() from log").fetchone()[0] == 38
             assert db.con.execute("select count() from log where event_type=?",
                 (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 2
             assert db.con.execute("""select object_id from log where event_type=?
@@ -849,7 +851,7 @@ class TestSync(object):
         assert os.path.exists(filename)
         assert file(filename).read() == "B"
         db = self.client.mnemosyne.database()
-        assert db.con.execute("select count() from log").fetchone()[0] == 24
+        assert db.con.execute("select count() from log").fetchone()[0] == 38
         assert db.con.execute("select count() from log where event_type=?",
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 2
         assert db.con.execute("select count() from media").fetchone()[0] == 2
@@ -1022,7 +1024,7 @@ class TestSync(object):
             assert os.path.exists(filename)
             assert file(filename).read() == "B"
             assert db.con.execute("""select count() from media""").fetchone()[0] == 1
-            assert db.con.execute("select count() from log").fetchone()[0] == 16
+            assert db.con.execute("select count() from log").fetchone()[0] == 30
             assert db.con.execute("select count() from log where event_type=?",
                 (EventTypes.EDITED_MEDIA_FILE, )).fetchone()[0] == 1
 
@@ -1066,7 +1068,7 @@ class TestSync(object):
 
         assert db.con.execute("select count() from log where event_type=?",
             (EventTypes.EDITED_MEDIA_FILE, )).fetchone()[0] == 1
-        assert db.con.execute("select count() from log").fetchone()[0] == 16
+        assert db.con.execute("select count() from log").fetchone()[0] == 30
 
     def test_mem_import(self):
 
@@ -1444,7 +1446,7 @@ class TestSync(object):
                (EventTypes.ADDED_TAG, )).fetchone()
             assert self.tag_added_timestamp == sql_res["timestamp"]
             assert type(sql_res["timestamp"]) == int
-            assert db.con.execute("select count() from log").fetchone()[0] == 9
+            assert db.con.execute("select count() from log").fetchone()[0] == 23
 
         self.server = MyServer(filename=unichr(0x628) + ".db")
         self.server.test_server = test_server
@@ -1465,7 +1467,7 @@ class TestSync(object):
             "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
              )).fetchone()[0] == 1
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 9
+            "select count() from log").fetchone()[0] == 23
 
     def test_dont_upload_science_logs(self):
 
@@ -1487,7 +1489,7 @@ class TestSync(object):
                (EventTypes.REPETITION, )).fetchone()[0] == 3
             db.dump_to_science_log()
             f = file(os.path.join(os.path.abspath("dot_sync_server"), "log.txt"))
-            assert len(f.readlines()) == 13
+            assert len(f.readlines()) == 27
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -1538,7 +1540,7 @@ class TestSync(object):
                (EventTypes.REPETITION, )).fetchone()[0] == 3
             db.dump_to_science_log()
             f = file(os.path.join(os.path.abspath("dot_sync_server"), "log.txt"))
-            assert len(f.readlines()) == 7
+            assert len(f.readlines()) == 14
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -1564,7 +1566,8 @@ class TestSync(object):
         assert db.con.execute("select count() from log where event_type=?",
                (EventTypes.REPETITION, )).fetchone()[0] == 1
         f = file(os.path.join(os.path.abspath("dot_sync_client"), "log.txt"))
-        assert len(f.readlines()) == 6
+
+        assert len(f.readlines()) == 6+7
 
     def test_sync_cycle(self):
 
@@ -1865,7 +1868,7 @@ class TestSync(object):
         def test_server(self):
             partners = self.mnemosyne.database().partners()
             assert len(partners) == 1
-            assert self.mnemosyne.database().last_log_index_synced_for(partners[0]) == 9
+            assert self.mnemosyne.database().last_log_index_synced_for(partners[0]) == 23
 
         self.server = MyServer()
         self.server.test_server = test_server

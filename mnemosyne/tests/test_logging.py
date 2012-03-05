@@ -149,21 +149,21 @@ class TestLogging(MnemosyneTest):
         assert sql_res["lapses"] == 1
 
         sql_res = self.database().con.execute(\
-            "select * from log where _id=23").fetchone()
+            "select * from log where _id=30").fetchone()
         assert sql_res["event_type"] == EventTypes.ADDED_FACT
         assert sql_res["object_id"] is not None
 
         sql_res = self.database().con.execute(\
-            "select * from log where _id=24").fetchone()
+            "select * from log where _id=31").fetchone()
         assert sql_res["event_type"] == EventTypes.ADDED_CARD
 
         sql_res = self.database().con.execute(\
-            "select * from log where _id=25").fetchone()
+            "select * from log where _id=32").fetchone()
         assert sql_res["event_type"] == EventTypes.DELETED_CARD
         assert sql_res["object_id"] is not None
 
         sql_res = self.database().con.execute(\
-            "select * from log where _id=26").fetchone()
+            "select * from log where _id=33").fetchone()
         assert sql_res["event_type"] == EventTypes.DELETED_FACT
         assert sql_res["object_id"] is not None
 
