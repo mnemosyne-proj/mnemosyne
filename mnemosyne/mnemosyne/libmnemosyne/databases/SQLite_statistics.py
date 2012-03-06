@@ -127,15 +127,43 @@ class SQLiteStatistics(object):
 
     def card_count_scheduled_n_days_ago(self, n):
         start_of_day = self.start_of_day_n_days_ago(n)
-        result = self.con.execute(\
-            """select acq_reps from log where ?<=timestamp and timestamp<?
-            and (event_type=? or event_type=?) order by acq_reps desc
-            limit 1""", (start_of_day, start_of_day + DAY,
-            EventTypes.LOADED_DATABASE, EventTypes.SAVED_DATABASE)).fetchone()
-        if result:
-            return result[0]
+        actual_counts_for_machine = {}
+        projected_counts_for_machine = {}
+        # For each machine id, get the number of cards that were scheduled
+        # that day. Make a distinction between the actual schedule and the
+        # scheduled that was projected in the future during database load
+        # events. For each machine, we take the largest number in the logs,
+        # i.e. those at the start of the day.
+        for cursor in self.con.execute("""select acq_reps, object_id from log
+            where ?<=timestamp and timestamp<? and (event_type=? or
+            event_type=?)""", (start_of_day, start_of_day + DAY,
+            EventTypes.LOADED_DATABASE, EventTypes.SAVED_DATABASE)):
+            count = cursor["acq_reps"]
+            machine = cursor["object_id"]
+            if machine.endswith(".fut"):
+                if not machine in projected_counts_for_machine or \
+                    (projected_counts_for_machine[machine] < count):
+                    projected_counts_for_machine[machine] = count
+            else:
+                if not machine in actual_counts_for_machine or \
+                    (actual_counts_for_machine[machine] < count):
+                    actual_counts_for_machine[machine] = count
+        # In case several machines report a different scheduded count, take
+        # the minimum, as we assume that the larger number corresponds to
+        # another machine which was kept running and therefore accumulated a
+        # backlog, while the actual reviews happened on another machine.
+        if len(actual_counts_for_machine) != 0:
+            return min(actual_counts_for_machine.values())
+        # In case there is no actual data, use the projected data, taking the
+        # maximum over all possible machines.
+        elif len(projected_counts_for_machine) != 0:
+            return max(projected_counts_for_machine.values())
+        # If there is no data, return 0 for unknown.
         else:
-            return 0 # Unknown.
+            return 0
+        # Note that the algorithm above is still an approximation, e.g. there
+        # is no way it can know about different cards sets that are active
+        # during the day.
 
     def card_count_added_n_days_ago(self, n):
         start_of_day = self.start_of_day_n_days_ago(n)

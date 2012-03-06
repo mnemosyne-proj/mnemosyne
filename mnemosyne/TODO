@@ -1,6 +1,4 @@
--past schedule gets confused if two machines keep running at the same time
--log future schedule too, so as to have info if the program doesn't run than
--add tests
+-add tests html_audio/video
 
 -detect long filenames under Windows during sync (partner, download binary file, 36)
  and during import
@@ -10,6 +8,8 @@
  data to the server, and resyncing
 -if the server is empty, allow sync from non-empty client and change server user
 id.
+
+-test stats after weekend
 
 -new 'activate plugins' dialog
 
@@ -32,7 +32,7 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 ### RC1
 
 -tell beta users to make sure to install latest beta first
--remove upgrade_beta_6.py, beta_7, etc...
+-remove upgrade_beta_6.py, beta_7, etc... also in database
 
 -make doc: errors related to _
 
@@ -54,6 +54,14 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 
 ### Release
 
+-don't refresh review widget after edit window if no changes have been made (gnome) (LP bug)
+-after showing answer, exiting card browser hides answer again (Gnome, LP bug)
+-try to avoid showing different card after exiting browser. Better reset_but_try_to_keep ...
+taking grade 0/1 cards as well into account?
+
+-Cntr+C in Q&A main does not work. (Gnome) (LP bug)
+-Cntr+D shortcut in edit card doesn't work. (Gnome) (LP bug)
+
 -save tree state (which nodes are expanded or not) (Troy Guze)
 QModelIndexList QAbstractItemModel::persistentIndexList () const
 bool isExpanded ( const QModelIndex & index ) const
@@ -65,8 +73,6 @@ bool isExpanded ( const QModelIndex & index ) const
 -layout of "add clone" is not optimal under Windows
 -splitters on XP are not visible
 http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-between-qwidget-and-qtabwidget
-
--binary database upload: configuration changes (fonts, ...) are not applied
 
 -if dialog like edit card or browse cards is open on server, try to close it when sync comes in  (+findChildren
 QWidgetList list = QApplication::topLevelWidgets();
@@ -80,13 +86,10 @@ i = -1;
 -remind top level widget, and make those parent to error dialog? Now e.g. an error on the activate card
 widget will be centered on the main widget and not the activate cards dialog.
 
--don't refresh review widget after edit window if no changes have been made (gnome) (LP bug)
--after showing answer, exiting card browser hides answer again (Gnome, LP bug)
--try to avoid showing different card after exiting browser. Better reset_but_try_to_keep ...
-taking grade 0/1 cards as well into account?
+-binary database upload: configuration changes (fonts, ...) are not applied
 
--Cntr+C in Q&A main does not work. (Gnome) (LP bug)
--Cntr+D shortcut in edit card doesn't work. (Gnome) (LP bug)
+-option to import plugin in 'activate plugins' dialog. Should have mechanism
+ to bundle plugins and their dependencies too, like a zip file
 
 -implement duplicate checking. Also synonym checking? Add then standard tags.
 -autorun after import, browse with edit, but not sync
