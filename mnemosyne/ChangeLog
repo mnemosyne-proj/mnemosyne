@@ -1,3 +1,4 @@
+-Make calculation of the stats of the past schedule more robust.
 -Changed the way the upgrade protocol from 1.x works. Now, all all media files
  are copied over to the new directory, not just those that are explicitly
  referenced in the cards. This will make it easier for the user to fix broken

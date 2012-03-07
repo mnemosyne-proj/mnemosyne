@@ -7,6 +7,7 @@ from nose.tools import raises
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne.filter import Filter
 from mnemosyne.libmnemosyne.filters.html5_video import Html5Video
+from mnemosyne.libmnemosyne.filters.html5_audio import Html5Audio
 from mnemosyne.libmnemosyne.filters.escape_to_html import EscapeToHtml
 
 class TestFilter(MnemosyneTest):
@@ -16,7 +17,21 @@ class TestFilter(MnemosyneTest):
         f = Filter(None)
         f.run("", None, None)
 
-    def test_html5(self):
+    def test_html5_audio(self):
+
+        f = Html5Audio(self.mnemosyne.component_manager)
+
+        self.config()["media_autoplay"] = True
+        self.config()["media_controls"] = True
+
+        f.run("""<audio src="b">""", None, None)
+
+        self.config()["media_autoplay"] = False
+        self.config()["media_controls"] = True
+
+        f.run("""<audio src="b">""", None, None)
+
+    def test_html5_video(self):
 
         f = Html5Video(self.mnemosyne.component_manager)
 
@@ -24,7 +39,7 @@ class TestFilter(MnemosyneTest):
         self.config()["media_controls"] = True
 
         assert f.run("""<video src="b">""", None, None) == \
-              """<video src="b" autoplay=1>"""
+              """<video src="b" autoplay=1 controls=1>"""
 
         self.config()["media_autoplay"] = False
         self.config()["media_controls"] = True

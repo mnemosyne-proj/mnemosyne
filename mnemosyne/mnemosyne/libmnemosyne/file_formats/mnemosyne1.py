@@ -179,7 +179,7 @@ class Mnemosyne1(object):
                     match.group().replace("<sound src", "<audio src"))
         # Copy files to media directory, creating subdirectories as we go.
         # For missing media, we change the tag to scr_missing, which makes it
-        # easier for the user to identify the problem if there are more than 1
+        # easier for the user to identify the problem if there is more than 1
         # media file a card.
         for fact_key in fact_data:
             for match in re_src.finditer(fact_data[fact_key]):

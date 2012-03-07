@@ -1,11 +1,7 @@
--add tests html_audio/video
-
--detect long filenames under Windows during sync (partner, download binary file, 36)
- and during import
--sync issues Doug, prevent sync with itself
 -syncing an empty database twice results in a spurious sync cycle detection. (off_test_sync_empty_twice)
- Also happens after syncing empty client and empty server database, then adding
+-Also happens after syncing empty client and empty server database, then adding
  data to the server, and resyncing
+-sync issues Doug, prevent sync with itself
 -if the server is empty, allow sync from non-empty client and change server user
 id.
 
@@ -61,6 +57,8 @@ taking grade 0/1 cards as well into account?
 
 -Cntr+C in Q&A main does not work. (Gnome) (LP bug)
 -Cntr+D shortcut in edit card doesn't work. (Gnome) (LP bug)
+-starting the program when no cards are shownn does not draw a border around the
+ Q field
 
 -save tree state (which nodes are expanded or not) (Troy Guze)
 QModelIndexList QAbstractItemModel::persistentIndexList () const
@@ -82,6 +80,8 @@ if (w->isVisible() && w->windowType() != Qt::Desktop) {
 did_close = w->close();
 list = QApplication::topLevelWidgets();
 i = -1;
+
+-remove TMP adding of default o_id in sync
 
 -remind top level widget, and make those parent to error dialog? Now e.g. an error on the activate card
 widget will be centered on the main widget and not the activate cards dialog.
@@ -152,6 +152,7 @@ Milesteiner
 </ul>
 -Qt bug? images in map card type sometimes hang
 -Qt bug? multiple sounds per card under Windows does not work
+-Qt bug? text + linebreak + video + linebreak + text2 does not show text2
 
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 

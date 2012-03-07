@@ -597,6 +597,10 @@ class SQLiteSync(object):
         self.syncing = True
         event_type = log_entry["type"]
         self.log().timestamp = int(log_entry["time"])
+        # TMP measure to allow syncing partners which did not yet store
+        # machine ids for LOADED_DATABASE and SAVED_DATABASE.
+        if not "o_id" in log_entry:
+            log_entry["o_id"] = ""
         try:
             if event_type == EventTypes.STARTED_PROGRAM:
                 self.log().started_program(log_entry["o_id"])

@@ -19,6 +19,6 @@ class Html5Video(Filter):
             options += " autoplay=1"
         if self.config()["media_controls"]:
             options += " controls=1"
-        return re.sub(re_video, r"<\1\2" + options + ">", text)
+        return re.sub(re_video, r"<video\1" + options + ">", text)
 
 

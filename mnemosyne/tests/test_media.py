@@ -150,6 +150,14 @@ class TestMedia(MnemosyneTest):
                                               grade=-1, tag_names=["default"])[0]
         assert "src_missing" in card.question()
 
+    def test_long_media(self):
+        filename = 220*"a"
+        fact_data = {"f": "<img src=\"%s\">" % (filename, ),
+                     "b": "answer"}
+        card_type = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=-1, tag_names=["default"])[0]
+
     def test_card_edit_none(self):
         file("a.ogg", "w")
         full_path = os.path.abspath("a.ogg")
