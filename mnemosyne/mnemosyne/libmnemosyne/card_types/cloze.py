@@ -54,9 +54,20 @@ class Cloze(CardType):
 
     def fact_data(self, card):
         cloze = card.extra_data["cloze"]
-        question = card.fact["text"].replace("[", "").replace("]", "")
-        question = question.replace(cloze, "[...]", 1)
-        return {"f": question, "b": cloze}
+        cursor = 0
+        current_index = -1
+        question = card.fact["text"]
+        while True:
+            cursor = question.find("[", cursor)
+            current_index += 1
+            if current_index == card.extra_data["index"]:
+                question = question[:cursor] + \
+                    question[cursor:].replace(cloze, "...", 1)
+                question = question.replace("[", "").replace("]", "")
+                question = question.replace("...", "[...]")
+                break
+            cursor += len(cloze)
+        return {"f": question, "b": card.extra_data["cloze"]}
 
     def create_sister_cards(self, fact):
         cards = []

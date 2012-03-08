@@ -1,13 +1,15 @@
+-fix cloze bugs, see why safeguard doesn't trigger
+
 -syncing an empty database twice results in a spurious sync cycle detection. (off_test_sync_empty_twice)
 -Also happens after syncing empty client and empty server database, then adding
  data to the server, and resyncing
 -sync issues Doug, prevent sync with itself
--if the server is empty, allow sync from non-empty client and change server user
-id.
+-if the server is empty, and the database is default.db, allow sync from
+ non-empty client and change server user id.
 
 -test stats after weekend
 
--new 'activate plugins' dialog
+-new 'activate plugins' dialog, import plugin from file
 
 ### Beta 11
 
@@ -87,9 +89,6 @@ i = -1;
 widget will be centered on the main widget and not the activate cards dialog.
 
 -binary database upload: configuration changes (fonts, ...) are not applied
-
--option to import plugin in 'activate plugins' dialog. Should have mechanism
- to bundle plugins and their dependencies too, like a zip file
 
 -implement duplicate checking. Also synonym checking? Add then standard tags.
 -autorun after import, browse with edit, but not sync

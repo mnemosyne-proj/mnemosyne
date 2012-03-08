@@ -158,3 +158,67 @@ class TestCloze(MnemosyneTest):
 
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 2
+
+    def test_overlap(self):
+        card_type = self.card_type_with_id("5")
+        fact_data = {"text": "[as] [a]"}
+
+        cards = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])
+        fact = cards[0].fact
+        assert "[...] a" in cards[0].question()
+        assert "as [...]" in cards[1].question()
+
+        fact_data = {"text": "[buds] [bud]"}
+        self.controller().edit_sister_cards(fact, fact_data, card_type,
+            card_type, new_tag_names=["default"], correspondence={})
+        cards = self.database().cards_from_fact(fact)
+
+        assert "[...] bud" in cards[0].question()
+        assert "buds [...]" in cards[1].question()
+
+    def test_overlap_2(self):
+        card_type = self.card_type_with_id("5")
+        fact_data = {"text": "[as] [a]"}
+
+        cards = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])
+        fact = cards[0].fact
+        assert "[...] a" in cards[0].question()
+        assert "as [...]" in cards[1].question()
+
+        fact_data = {"text": "[as] [bud]"}
+        self.controller().edit_sister_cards(fact, fact_data, card_type,
+            card_type, new_tag_names=["default"], correspondence={})
+        cards = self.database().cards_from_fact(fact)
+
+        assert "[...] bud" in cards[0].question()
+        assert "as [...]" in cards[1].question()
+
+    def test_overlap_3(self):
+        card_type = self.card_type_with_id("5")
+        fact_data = {"text": "[as] [a]"}
+
+        cards = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])
+        fact = cards[0].fact
+        assert "[...] a" in cards[0].question()
+        assert "as [...]" in cards[1].question()
+
+        fact_data = {"text": "[buds] [a]"}
+        self.controller().edit_sister_cards(fact, fact_data, card_type,
+            card_type, new_tag_names=["default"], correspondence={})
+        cards = self.database().cards_from_fact(fact)
+
+        assert "[...] a" in cards[0].question()
+        assert "buds [...]" in cards[1].question()
+
+    def test_duplicate(self):
+        card_type = self.card_type_with_id("5")
+        fact_data = {"text": "[a] [a]"}
+
+        cards = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])
+
+        assert "[...] a" in cards[0].question()
+        assert "a [...]" in cards[1].question()
