@@ -37,12 +37,14 @@ class XMLFormat(object):
         for key, value in info.iteritems():
             if key.lower() == "partners":
                 if value:
-                    repr_info += "%s=%s " % (key, saxutils.quoteattr(",".join(value)))
+                    repr_info += "%s=%s " % \
+                        (key, saxutils.quoteattr(",".join(value)))
             else:
                 if type(value) != str and type(value) != unicode:
                     value = repr(value)
                 repr_info += "%s=%s " % (key, saxutils.quoteattr(value))
-        repr_info += "protocol_version=\"%s\"></partner>\n" % (PROTOCOL_VERSION, )
+        repr_info += "protocol_version=\"%s\"></partner>\n" \
+            % (PROTOCOL_VERSION, )
         #import sys; sys.stderr.write(repr_info)
         return repr_info
 

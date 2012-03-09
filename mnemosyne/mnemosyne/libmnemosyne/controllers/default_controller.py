@@ -254,7 +254,7 @@ class DefaultController(Controller):
             correspondence, new_fact_data)
         if result == -1:  # Aborted.
             return -1
-        # Update fact and create or delete cards.
+        # Update fact and create, delete and update cards.
         new_cards, edited_cards, deleted_cards = \
             new_card_type.edit_sister_cards(fact, new_fact_data)
         fact.data = new_fact_data
@@ -266,6 +266,8 @@ class DefaultController(Controller):
             db.delete_card(card)
         for card in new_cards:
             db.add_card(card)
+        for card in edited_cards:
+            db.update_card(card)
         if new_cards and self.review_controller().learning_ahead == True:
             self.review_controller().reset()
         # Apply new tags and modification time to cards and save them back to

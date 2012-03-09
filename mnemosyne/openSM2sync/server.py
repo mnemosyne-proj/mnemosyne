@@ -329,7 +329,9 @@ class Server(Partner):
             if session.client_info["database_is_empty"] == True:
                 session.database.remove_partnership_with(\
                     session.client_info["machine_id"])
-            # Make sure there are no cycles in the sync graph.
+            # Make sure there are no cycles in the sync graph. Don't worry
+            # about this if the database is empty, sinc the previous statement
+            # would otherwise cause a spurious error.
             server_in_client_partners = self.machine_id in \
                 session.client_info["partners"]
             client_in_server_partners = session.client_info["machine_id"] in \
@@ -337,8 +339,15 @@ class Server(Partner):
             if (server_in_client_partners and not client_in_server_partners)\
                or \
                (client_in_server_partners and not server_in_client_partners):
+                if not session.client_info["database_is_empty"]:
+                    self.terminate_session_with_token(session.token)
+                    return self.text_format.repr_message("Sync cycle detected")
+            # Detect the case where a user has copied the entire mnemosyne
+            # directory before syncing.
+            if session.client_info["machine_id"] == self.machine_id:
                 self.terminate_session_with_token(session.token)
-                return self.text_format.repr_message("Sync cycle detected")
+                return self.text_format.repr_message("same machine ids")
+            # Create partnerships.
             session.database.create_if_needed_partnership_with(\
                 client_info["machine_id"])
             session.database.merge_partners(client_info["partners"])

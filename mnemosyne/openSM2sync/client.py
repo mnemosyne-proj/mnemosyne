@@ -284,6 +284,9 @@ class Client(Partner):
             if "cycle" in message:
                 raise SyncError(\
                     "Sync cycle detected. Sync through intermediate partner.")
+            if "same machine ids" in message:
+                raise SyncError(\
+"You have manually copied the data directory before sync. Sync needs to start from an empty database.")
         self.server_info = self.text_format.parse_partner_info(response)
         self.database.set_sync_partner_info(self.server_info)
         if self.database.is_empty():

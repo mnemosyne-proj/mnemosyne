@@ -188,6 +188,47 @@ class TestSync(object):
         finally:
             self.client.mnemosyne.finalise()
 
+    def test_copied_database(self):
+
+        global last_error
+
+        def test_server(self):
+            pass
+
+        def fill_server_database(self):
+            fact_data = {"f": "question",
+                         "b": "answer"}
+            card_type = self.mnemosyne.card_type_with_id("1")
+            card = self.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient()
+        self.client.do_sync(); assert last_error is None
+        self.client.mnemosyne.finalise()
+
+        self.server.stop()
+        self._wait_for_server_shutdown()
+
+        if os.path.exists(os.path.abspath("dot_sync_client")):
+            shutil.rmtree(os.path.abspath("dot_sync_client"))
+        shutil.copytree(os.path.abspath("dot_sync_server"),
+            os.path.abspath("dot_sync_client"))
+
+        self.server = MyServer(erase_previous=False)
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient(erase_previous=False)
+
+        self.client.do_sync();
+        assert "copied" in last_error
+        last_error = None
+
     def test_sync_empty_twice(self):
 
         def test_server(self):

@@ -108,9 +108,6 @@ class Cloze(CardType):
                 card.extra_data["cloze"] = new_cloze
                 card.extra_data["index"] = new_index
                 new_cards.append(card)
-        # Sanity checking.
-        for card in new_cards + edited_cards:
-            assert card.extra_data["cloze"] in new_fact_data["text"]
         return new_cards, edited_cards, deleted_cards
 
 

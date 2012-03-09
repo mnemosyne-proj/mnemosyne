@@ -1,4 +1,6 @@
--Fix some bugs in cloze card type.
+-Fix corner case bugs when syncing an empty database twice.
+-Fix some bugs in cloze card type (reported by Roel De Conick, Dougie Nisbet,
+ Scott Youngman).
 -Make calculation of the stats of the past schedule more robust.
 -Changed the way the upgrade protocol from 1.x works. Now, all all media files
  are copied over to the new directory, not just those that are explicitly
@@ -55,8 +57,8 @@ Major user-visible changes:
 -Graphical statistics, easily extensible through plugins (first
  implementation by Mike Appleby).
 -Each individual field in a card can now have its own font, colour, ... which
- can be set through the GUI. No more need for hacks like 'increase size of
- non-latin characters'. Background colour is also configurable per card type.
+ can be set through the GUI. Background colour is also configurable per card
+ type.
 -The widget that displays the cards is now a full webbrowser, with e.g.
  support for Javascript, animated gifs, ... .
 -Added cramming scheduler plugin, which goes through your cards in random

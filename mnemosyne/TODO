@@ -1,17 +1,11 @@
--fix cloze bugs, see why safeguard doesn't trigger
-
--syncing an empty database twice results in a spurious sync cycle detection. (off_test_sync_empty_twice)
--Also happens after syncing empty client and empty server database, then adding
- data to the server, and resyncing
--sync issues Doug, prevent sync with itself
 -if the server is empty, and the database is default.db, allow sync from
  non-empty client and change server user id.
 
 -test stats after weekend
 
--new 'activate plugins' dialog, import plugin from file
-
 ### Beta 11
+
+-new 'activate plugins' dialog, import plugin from file
 
 -progress bars for long stats
 

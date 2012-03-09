@@ -39,7 +39,7 @@ setup:
 	./bin/easy_install coverage
 
 install-system:
-	cd mnemosyne/libmnemosyne/docs && make html
+	#cd mnemosyne/libmnemosyne/docs && make html
 	cd mnemosyne/pyqt_ui && make clean
 	cd mnemosyne/pyqt_ui && make
 	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc

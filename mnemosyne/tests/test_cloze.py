@@ -213,6 +213,26 @@ class TestCloze(MnemosyneTest):
         assert "[...] a" in cards[0].question()
         assert "buds [...]" in cards[1].question()
 
+    def test_edit_2(self):
+        card_type = self.card_type_with_id("5")
+        fact_data = {"text": "[consumerist] lifestyles"}
+
+        cards = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])
+        fact = cards[0].fact
+
+        fact_data = {"text": "[consumerism]"}
+        self.controller().edit_sister_cards(fact, fact_data, card_type,
+            card_type, new_tag_names=["default"], correspondence={})
+        cards = self.database().cards_from_fact(fact)
+
+        question = cards[0].question()
+        print question, cards[0].extra_data, cards[0].fact.data
+        assert "[...]" in question
+        assert "consumerism" not in question
+        assert "consumerist" not in question
+        assert "lifestyles" not in question
+
     def test_duplicate(self):
         card_type = self.card_type_with_id("5")
         fact_data = {"text": "[a] [a]"}
