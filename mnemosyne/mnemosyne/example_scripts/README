@@ -4,3 +4,5 @@ within a script.
 * export_starts.py: writing stats to a file for post-processing
 
 * add_card.py: adding a card programatically
+
+* export_to_pdf.py: export the latest cards to a pdf file
