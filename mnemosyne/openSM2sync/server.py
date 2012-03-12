@@ -231,9 +231,9 @@ class Server(Partner):
 
     def is_idle(self):
 
-	"""No sessions, expired or otherwise."""
+        """No sessions, expired or otherwise."""
 
-	return (len(self.sessions) == 0)
+        return (len(self.sessions) == 0)
 
     def expire_old_sessions(self):
         for session_token, session in self.sessions.iteritems():
@@ -326,7 +326,7 @@ class Server(Partner):
             session = self.create_session(client_info)
             # If the client database is empty, perhaps it was reset, and we
             # need to delete the partnership from our side too.
-            if session.client_info["database_is_empty"] == True:
+            if session.client_info["is_database_empty"] == True:
                 session.database.remove_partnership_with(\
                     session.client_info["machine_id"])
             # Make sure there are no cycles in the sync graph. Don't worry
@@ -339,7 +339,7 @@ class Server(Partner):
             if (server_in_client_partners and not client_in_server_partners)\
                or \
                (client_in_server_partners and not server_in_client_partners):
-                if not session.client_info["database_is_empty"]:
+                if not session.client_info["is_database_empty"]:
                     self.terminate_session_with_token(session.token)
                     return self.text_format.repr_message("Sync cycle detected")
             # Detect the case where a user has copied the entire mnemosyne
@@ -362,7 +362,8 @@ class Server(Partner):
                 "partners": session.database.partners(),
                 "session_token": session.token,
                 "supports_binary_transfer": \
-                    self.supports_binary_transfer(session)}
+                    self.supports_binary_transfer(session),
+                "is_database_empty": session.database.is_empty()}
             # Signal if we need a sync reset after restoring from a backup.
             server_info["sync_reset_needed"] = \
                 session.database.is_sync_reset_needed(\
@@ -425,6 +426,8 @@ class Server(Partner):
                 if log_entry["type"] not in self.dont_cause_conflict and \
                     log_entry["o_id"] in session.client_o_ids:
                     return self.text_format.repr_message("Conflict")
+            if session.database.is_empty():
+                session.database.set_user_id(session.client_info["user_id"])
             return self.text_format.repr_message("OK")
         except:
             return self.handle_error(session, traceback_string())
@@ -439,6 +442,8 @@ class Server(Partner):
             self.download_binary_file(\
                 environ["wsgi.input"], filename, file_size)
             session.database.load(filename)
+            if session.database.is_empty():
+                session.database.set_user_id(session.client_info["user_id"])
             session.database.create_if_needed_partnership_with(\
                 session.client_info["machine_id"])
             session.database.remove_partnership_with(self.machine_id)

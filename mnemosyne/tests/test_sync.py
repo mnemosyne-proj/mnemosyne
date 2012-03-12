@@ -39,7 +39,7 @@ class Widget(MainWidget):
         global last_error
         last_error = error
         # Activate this for debugging.
-        #sys.stderr.write(error)
+        sys.stderr.write(error)
 
     def show_question(self, question, option0, option1, option2):
         #sys.stderr.write(question+'\n')
@@ -91,7 +91,7 @@ class MyServer(Server, Thread):
         # We use a condition object here to prevent the client from accessing
         # the server until the server is ready.
         server_initialised.acquire()
-        self.mnemosyne.initialise(self.data_dir, self.filename,  automatic_upgrades=False)
+        self.mnemosyne.initialise(self.data_dir, self.filename, automatic_upgrades=False)
         self.mnemosyne.config().change_user_id(self.user_id)
         self.mnemosyne.review_controller().reset()
         if hasattr(self, "fill_server_database"):
@@ -145,6 +145,7 @@ class MyClient(Client):
     user = "user"
     password = "pass"
     exchange_settings = False
+    binary_upload = False
 
     def __init__(self, data_dir=os.path.abspath("dot_sync_client"),
             filename="default.db", erase_previous=True):
@@ -160,6 +161,10 @@ class MyClient(Client):
         self.mnemosyne.review_controller().reset()
         Client.__init__(self, self.mnemosyne.config().machine_id(),
                         self.mnemosyne.database(), self.mnemosyne.main_widget())
+
+    def supports_binary_upload(self):
+        # Make sure we excercise the text protocol.
+        return self.binary_upload
 
     def do_sync(self):
         server_initialised.acquire()
@@ -326,12 +331,14 @@ class TestSync(object):
             assert self.tag_added_timestamp == sql_res["timestamp"]
             assert type(sql_res["timestamp"]) == int
             assert db.con.execute("select count() from log").fetchone()[0] == 23
+            assert self.mnemosyne.config()["user_id"] == "funky"
 
         self.server = MyServer()
         self.server.test_server = test_server
         self.server.start()
 
         self.client = MyClient()
+        self.client.mnemosyne.config().change_user_id("funky")
         tag = self.client.mnemosyne.database().\
               get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
         self.server.client_tag_id = tag.id
@@ -1721,6 +1728,7 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient()
+        self.client.binary_upload = True
         tag = self.client.mnemosyne.database().get_or_create_tag_with_name("tag")
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
@@ -1749,6 +1757,7 @@ class TestSync(object):
         self.client = MyClient(erase_previous=False)
         tag = self.client.mnemosyne.database().tag(tag.id, is_id_internal=False)
         tag.name = "client"
+        self.client.binary_upload = True
         self.client.mnemosyne.database().update_tag(tag)
         self.client.mnemosyne.database().save()
 
@@ -1773,6 +1782,7 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient()
+        self.client.binary_upload = True
         tag = self.client.mnemosyne.database().get_or_create_tag_with_name("tag")
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
@@ -1803,6 +1813,7 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient(erase_previous=False)
+        self.client.binary_upload = True
         tag = self.client.mnemosyne.database().tag(tag.id, is_id_internal=False)
         tag.name = "client"
         self.client.mnemosyne.database().update_tag(tag)
@@ -1861,6 +1872,7 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient(erase_previous=False)
+        self.client.binary_upload = True
         tag = self.client.mnemosyne.database().tag(tag.id, is_id_internal=False)
         tag.name = "client"
         self.client.mnemosyne.database().update_tag(tag)
@@ -1920,6 +1932,7 @@ class TestSync(object):
 
         self.client = MyClient(erase_previous=False)
         self.client.interested_in_old_reps = False
+        self.client.binary_upload = False
         tag = self.client.mnemosyne.database().tag(tag.id, is_id_internal=False)
         tag.name = "client"
         self.client.mnemosyne.database().update_tag(tag)
@@ -1983,6 +1996,7 @@ class TestSync(object):
 
         self.client = MyClient(erase_previous=False)
         self.client.interested_in_old_reps = False
+        self.client.binary_upload = False
         tag = self.client.mnemosyne.database().tag(tag.id, is_id_internal=False)
         tag.name = "client"
         self.client.mnemosyne.database().update_tag(tag)
@@ -2011,6 +2025,7 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient()
+        self.client.binary_upload = True
         tag = self.client.mnemosyne.database().get_or_create_tag_with_name("tag")
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
@@ -2043,6 +2058,7 @@ class TestSync(object):
         self.client = MyClient(erase_previous=False)
         tag = self.client.mnemosyne.database().tag(tag.id, is_id_internal=False)
         tag.name = "client"
+        self.client.binary_upload = True
         self.client.mnemosyne.database().update_tag(tag)
         self.client.mnemosyne.database().save()
 
@@ -2105,6 +2121,7 @@ class TestSync(object):
         tag.name = "client"
         self.client.mnemosyne.database().update_tag(tag)
         self.client.mnemosyne.database().save()
+        self.client.binary_upload = True
 
         global answer
         answer = 0 # keep local
@@ -2181,6 +2198,7 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient(erase_previous=False)
+        self.client.binary_upload = True
         tag = self.client.mnemosyne.database().tag(tag.id, is_id_internal=False)
         tag.name = "client"
         self.client.mnemosyne.database().update_tag(tag)
@@ -2263,6 +2281,7 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient(erase_previous=False)
+        self.client.binary_upload = True
         tag = self.client.mnemosyne.database().tag(tag.id, is_id_internal=False)
         tag.name = "client"
         self.client.mnemosyne.database().update_tag(tag)
@@ -3235,6 +3254,7 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient(os.path.abspath("dot_sync_client"), erase_previous=False)
+        self.client.binary_upload = True
         self.client.do_sync(); assert last_error is None
         self.client.database.restore(os.path.join(os.path.abspath("dot_sync_client"), "backup.db"))
         assert self.client.mnemosyne.database().fact_count() == 1

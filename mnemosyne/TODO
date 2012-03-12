@@ -1,11 +1,12 @@
--if the server is empty, and the database is default.db, allow sync from
- non-empty client and change server user id.
+-fix testcase for changing server id
+-add testcase for client initial binary upload, test change of server user id
+-retest regular initial sync
 
 -test stats after weekend
 
 ### Beta 11
 
--new 'activate plugins' dialog, import plugin from file
+-new plugins dialog, import plugin from file (rename to manage plugins?)
 
 -progress bars for long stats
 
@@ -25,6 +26,8 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 
 -tell beta users to make sure to install latest beta first
 -remove upgrade_beta_6.py, beta_7, etc... also in database
+
+-errors in scripting engine related to main_widget
 
 -make doc: errors related to _
 
