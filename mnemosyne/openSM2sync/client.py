@@ -143,13 +143,20 @@ class Client(Partner):
                 self.server_info["machine_id"]) or \
                 self.server_info["sync_reset_needed"] == True:
                 self.resolve_conflicts(restored_from_backup=True)
-            # First sync.
+            # First sync, fetch database from server.
             elif self.database.is_empty():
                 self.get_server_media_files()
                 if self.server_info["supports_binary_transfer"]:
                     self.get_server_entire_database_binary()
                 else:
                     self.get_server_entire_database()
+                self.get_sync_finish()
+            # First sync, put binary database to server if supported.
+            elif not self.database.is_empty() and \
+                    self.server_info["is_database_empty"] and \
+                    self.supports_binary_upload():
+                self.put_client_media_files(reupload_all=True)
+                self.put_client_entire_database_binary()
                 self.get_sync_finish()
             else:
                 # Upload local changes and check for conflicts.
@@ -190,6 +197,12 @@ class Client(Partner):
             self.con.close()
             self.ui.close_progress()
 
+    def supports_binary_upload(self):
+        return self.capabilities == "mnemosyne_dynamic_cards" and \
+            self.interested_in_old_reps and self.store_pregenerated_data \
+            and self.program_name == self.server_info["program_name"] and \
+            self.program_version == self.server_info["program_version"]
+
     def resolve_conflicts(self, restored_from_backup=False):
         if restored_from_backup:
             message = "The database was restored from a backup, either " + \
@@ -198,10 +211,7 @@ class Client(Partner):
         else:
             message = "Conflicts detected during sync!"
         # Ask for conflict resolution direction.
-        if self.capabilities == "mnemosyne_dynamic_cards" and \
-            self.interested_in_old_reps and self.store_pregenerated_data \
-            and self.program_name == self.server_info["program_name"] and \
-            self.program_version == self.server_info["program_version"]:
+        if self.supports_binary_upload():
             result = self.ui.show_question(message,
                 "Keep local version", "Fetch remote version", "Cancel")
             results = {0: "KEEP_LOCAL", 1: "KEEP_REMOTE", 2: "CANCEL"}
@@ -210,7 +220,6 @@ class Client(Partner):
             message += "Your client only stores part of the server " + \
                 "database, so you can only fetch the remote version."
             result = self.ui.show_question(message,
-
                 "Fetch remote version", "Cancel", "")
             results = {0: "KEEP_REMOTE", 1: "CANCEL"}
             result = results[result]
@@ -262,7 +271,7 @@ class Client(Partner):
         client_info["upload_science_logs"] = self.upload_science_logs
         # Signal if the database is empty, so that the server does not give a
         # spurious sync cycle warning if the client database was reset.
-        client_info["database_is_empty"] = self.database.is_empty()
+        client_info["is_database_empty"] = self.database.is_empty()
         # Not yet implemented: preferred renderer.
         client_info["render_chain"] = ""
         # Add optional program-specific information.
@@ -290,8 +299,9 @@ class Client(Partner):
         self.server_info = self.text_format.parse_partner_info(response)
         self.database.set_sync_partner_info(self.server_info)
         if self.database.is_empty():
-            self.database.set_user_id(self.server_info["user_id"])
-        elif self.server_info["user_id"] != client_info["user_id"]:
+            self.database.change_user_id(self.server_info["user_id"])
+        elif self.server_info["user_id"] != client_info["user_id"] and \
+            self.server_info["is_database_empty"] == False:
             raise SyncError("Error: mismatched user ids.\n" + \
                 "The first sync should happen on an empty database.")
         self.database.create_if_needed_partnership_with(\

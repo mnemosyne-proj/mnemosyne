@@ -1,13 +1,17 @@
--if the server is empty, and the database is default.db, allow sync from
- non-empty client and change server user id.
-
 -test stats after weekend
 
-### Beta 11
-
--new 'activate plugins' dialog, import plugin from file
+-new plugins dialog, import plugin from file (rename to manage plugins?)
 
 -progress bars for long stats
+
+-if the user has effectively used 'activate cards' once, and if he adds a new
+ tag, ask if tag should be active. Always update the active set, and if the
+ active set is also a saved set, update the saved set too. Different behaviour
+ for subtags of existing tags? (Gnome)
+ https://bugs.launchpad.net/bugs/953504
+ https://bugs.launchpad.net/bugs/953507
+
+-add tag 'a', '1. a': tag order in browser is off
 
 -card type clone: rename and delete, both in card browser and card type browser
 
@@ -25,6 +29,8 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 
 -tell beta users to make sure to install latest beta first
 -remove upgrade_beta_6.py, beta_7, etc... also in database
+
+-errors in scripting engine related to main_widget
 
 -make doc: errors related to _
 
@@ -98,6 +104,7 @@ widget will be centered on the main widget and not the activate cards dialog.
 -bundle grades criterion? add criterion names i.e. type. Fix bug saving sets.
  Other mechanism to skip scheduled cards? What happens to saved set after
  disabling plugin?
+-criterion to select last X added cards, useful for cramming
 
 -plugin to reset active cards to unlearned
 
