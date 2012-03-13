@@ -339,15 +339,12 @@ class Configuration(Component, dict):
 
         """When a client syncs for the first time with a server, we need to
         set the client's user_id identical to the one of the server, in order
-        for the uploaded anonymous logs to be consistent. However, we should only
-        do this on a 'virgin' client.
+        for the uploaded anonymous logs to be consistent.
 
         """
 
         if new_user_id == self["user_id"]:
             return
-        if not self.database().is_empty():
-            raise RuntimeError, "Unable to change user id."
         old_user_id = self["user_id"]
         self["user_id"] = new_user_id
         from mnemosyne.libmnemosyne.component_manager import \

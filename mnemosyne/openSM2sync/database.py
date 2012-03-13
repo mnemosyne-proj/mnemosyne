@@ -32,14 +32,14 @@ class Database(object):
         next_rep integer
     );
     create index i_cards on cards (id);
-    
+
     create table tags(
         _id integer primary key,
         id text,
         name text,
     );
     create index i_tags on tags (id);
-    
+
     create table tags_for_card(
         _card_id integer,
         _tag_id integer
@@ -51,7 +51,7 @@ class Database(object):
        the _ids, and for robustness and interoperability, we need to send the
        ids across when syncing.
     */
-       
+
     create table log(
         _id integer primary key autoincrement, /* Should never be reused. */
         event_type integer,
@@ -73,16 +73,16 @@ class Database(object):
     );
     create index i_log_timestamp on log (timestamp);
     create index i_log_object_id on log (object_id);
-    
+
     /* We track the last _id as opposed to the last timestamp, as importing
        another database could add log events with earlier dates, but which
        still need to be synced. Also avoids issues with clock drift. */
-    
+
     create table partnerships(
         partner text,
         _last_log_id integer
     );
-    
+
     create table media(
         filename text primary key,
         _hash text
@@ -100,32 +100,32 @@ class Database(object):
     def path(self):
 
         """Returns full path of the database."""
-        
+
         raise NotImplementedError
-        
-        
+
+
     def name(self):
 
         """Returns bare name of the database, without parent paths and
         suffixes.
 
         """
-        
+
         raise NotImplementedError
 
     def media_dir(self):
-        raise NotImplementedError        
-    
+        raise NotImplementedError
+
     def user_id(self):
         raise NotImplementedError
 
-    def set_user_id(self, user_id):
+    def change_user_id(self, user_id):
         raise NotImplementedError
 
     # File operations.
 
     def new(self, path):
-        raise NotImplementedError       
+        raise NotImplementedError
 
     def save(self, path=None):
         raise NotImplementedError
@@ -134,45 +134,45 @@ class Database(object):
         raise NotImplementedError
 
     def restore(self, path):
-        raise NotImplementedError        
+        raise NotImplementedError
 
     def load(self, path):
         raise NotImplementedError
 
     def abandon(self):
-        raise NotImplementedError        
-    
+        raise NotImplementedError
+
     def is_empty(self):
         raise NotImplementedError
 
     # Partnerships.
-        
+
     def set_sync_partner_info(self, info):
         raise NotImplementedError
-    
+
     def partners(self):
         raise NotImplementedError
-    
+
     def create_if_needed_partnership_with(self, partner):
         raise NotImplementedError
 
     def remove_partnership_with(self, partner):
         raise NotImplementedError
-        
+
     def merge_partners(self, remote_partners):
         raise NotImplementedError
 
     def reset_partnerships(self):
-        raise NotImplementedError         
+        raise NotImplementedError
 
     def is_sync_reset_needed(self, partner):
-        raise NotImplementedError        
+        raise NotImplementedError
 
     def append_to_sync_partner_info(self, partner_info):
         return partner_info
 
     # Syncing process.
-    
+
     def update_last_log_index_synced_for(self, partner):
         raise NotImplementedError
 
@@ -181,21 +181,21 @@ class Database(object):
         raise NotImplementedError
 
     def number_of_log_entries(self, interested_in_old_reps=True):
-        raise NotImplementedError   
-        
+        raise NotImplementedError
+
     def log_entries_to_sync_for(self, partner, interested_in_old_reps=True):
         raise NotImplementedError
-        
+
     def all_log_entries(self, interested_in_old_reps=True):
         raise NotImplementedError
-        
+
     def check_for_edited_media_files(self):
         raise NotImplementedError
-    
-    def media_filenames_to_sync_for(self, partner):    
+
+    def media_filenames_to_sync_for(self, partner):
         raise NotImplementedError
-    
-    def all_media_filenames(self):    
+
+    def all_media_filenames(self):
         raise NotImplementedError
 
     def apply_log_entry(self, log_entry):
@@ -206,6 +206,6 @@ class Database(object):
 
     def dump_to_science_log(self):
         pass
-    
+
     def skip_science_log(self):
         pass

@@ -39,7 +39,7 @@ class Widget(MainWidget):
         global last_error
         last_error = error
         # Activate this for debugging.
-        sys.stderr.write(error)
+        #sys.stderr.write(error)
 
     def show_question(self, question, option0, option1, option2):
         #sys.stderr.write(question+'\n')
@@ -331,14 +331,12 @@ class TestSync(object):
             assert self.tag_added_timestamp == sql_res["timestamp"]
             assert type(sql_res["timestamp"]) == int
             assert db.con.execute("select count() from log").fetchone()[0] == 23
-            assert self.mnemosyne.config()["user_id"] == "funky"
 
         self.server = MyServer()
         self.server.test_server = test_server
         self.server.start()
 
         self.client = MyClient()
-        self.client.mnemosyne.config().change_user_id("funky")
         tag = self.client.mnemosyne.database().\
               get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
         self.server.client_tag_id = tag.id
@@ -354,6 +352,42 @@ class TestSync(object):
              )).fetchone()[0] == 1
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 23
+
+    # The next two tests are a bit problematic in the sense that both client
+    # and server share the same component_manager here, so we can't really
+    # check proper behaviour.
+
+    def test_change_server_user_id(self):
+
+        def test_server(self):
+            assert self.mnemosyne.config()["user_id"] == "funky"
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        self.client.mnemosyne.database().get_or_create_tag_with_name("test")
+        self.client.mnemosyne.config().change_user_id("funky")
+        self.client.mnemosyne.controller().save_file()
+        self.client.do_sync(); assert last_error is None
+
+    def test_change_server_user_id_binary_upload(self):
+
+        def test_server(self):
+            assert self.mnemosyne.config()["user_id"] == "funky"
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        self.client.mnemosyne.database().get_or_create_tag_with_name("test")
+        self.client.binary_upload = True
+        self.client.mnemosyne.config().change_user_id("funky")
+
+        self.client.mnemosyne.controller().save_file()
+        self.client.do_sync(); assert last_error is None
 
     def test_add_tag_behind_proxy(self):
 

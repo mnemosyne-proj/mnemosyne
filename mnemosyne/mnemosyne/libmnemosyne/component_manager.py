@@ -17,13 +17,13 @@ class ComponentManager(object):
     scheduler needs to be registered first.
 
     """
-        
+
     def __init__(self):
         self.components = {} # {used_for: {type: [component]} }
         self.card_type_with_id = {}
         self.render_chain_by_id = {}
         self.debug_file = None
-        
+
     def register(self, component):
         comp_type = component.component_type
         used_for = component.used_for
@@ -40,7 +40,7 @@ class ComponentManager(object):
             self.card_type_with_id[component.id] = component
         elif comp_type == "render_chain":
             self.render_chain_by_id[component.id] = component
-            
+
     def unregister(self, component):
         comp_type = component.component_type
         used_for = component.used_for
@@ -49,21 +49,21 @@ class ComponentManager(object):
             del self.card_type_with_id[component.id]
         elif component.component_type == "render_chain":
             del self.render_chain_by_id[component.id]
-            
+
     def add_component_to_plugin(self, plugin_class_name, component_class):
 
         """Typical use case for this is when a plugin has a GUI component
         which obviously does not live inside libmnemosyne, and which needs to
         be added at a later stage.
-        
+
         """
-        
+
         for plugin in self.all("plugin"):
             if plugin.__class__.__name__ == plugin_class_name:
                 plugin.components.append(component_class)
 
     def all(self, comp_type, used_for=None):
-        
+
         """For components for which there can be many active at once."""
 
         # If 'used_for' is not a class, we can just retrieve it.
@@ -85,7 +85,7 @@ class ComponentManager(object):
                     [_key for _key in self.components.keys() if \
                     not isinstance(_key, str) and not (_key == None) \
                     and isinstance(_key, tuple)]
-                for key in tuple_class_keys:                   
+                for key in tuple_class_keys:
                     if issubclass(used_for[0], key[0]) and \
                        issubclass(used_for[1], key[1]):
                         try:
@@ -105,9 +105,9 @@ class ComponentManager(object):
                         except:
                             return []
                 return []
-    
+
     def current(self, comp_type, used_for=None):
-        
+
         """For components for which there can be only one active at any
         time.
 
@@ -124,12 +124,12 @@ class ComponentManager(object):
             for comp_type in self.components[used_for]:
                 for component in self.components[used_for][comp_type]:
                     if not isinstance(component, type):
-                        component.deactivate()  
+                        component.deactivate()
         self.components = {}
-        self.card_type_with_id = {}        
+        self.card_type_with_id = {}
 
     def debug(self, msg):
-        
+
         """Log a debugging message if debugging is enabled.
 
         """
@@ -150,7 +150,7 @@ def new_component_manager():
 def register_component_manager(component_manager, user_id):
     global _component_managers
     _component_managers[user_id] = component_manager
-    
+
 def unregister_component_manager(user_id):
     global _component_managers
     if user_id in _component_managers:
@@ -158,5 +158,9 @@ def unregister_component_manager(user_id):
 
 def migrate_component_manager(old_user_id, new_user_id):
     global _component_managers
+    # Work around a test suite issue where both client and server share the
+    # same component manager, potentially causing race conditions.
+    if old_user_id not in _component_managers:
+        return
     _component_managers[new_user_id] = _component_managers[old_user_id]
     del _component_managers[old_user_id]

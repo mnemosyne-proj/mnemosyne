@@ -299,7 +299,7 @@ class Client(Partner):
         self.server_info = self.text_format.parse_partner_info(response)
         self.database.set_sync_partner_info(self.server_info)
         if self.database.is_empty():
-            self.database.set_user_id(self.server_info["user_id"])
+            self.database.change_user_id(self.server_info["user_id"])
         elif self.server_info["user_id"] != client_info["user_id"] and \
             self.server_info["is_database_empty"] == False:
             raise SyncError("Error: mismatched user ids.\n" + \

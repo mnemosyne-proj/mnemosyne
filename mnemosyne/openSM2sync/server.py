@@ -427,7 +427,7 @@ class Server(Partner):
                     log_entry["o_id"] in session.client_o_ids:
                     return self.text_format.repr_message("Conflict")
             if session.database.is_empty():
-                session.database.set_user_id(session.client_info["user_id"])
+                session.database.change_user_id(session.client_info["user_id"])
             return self.text_format.repr_message("OK")
         except:
             return self.handle_error(session, traceback_string())
@@ -442,8 +442,7 @@ class Server(Partner):
             self.download_binary_file(\
                 environ["wsgi.input"], filename, file_size)
             session.database.load(filename)
-            if session.database.is_empty():
-                session.database.set_user_id(session.client_info["user_id"])
+            session.database.change_user_id(session.client_info["user_id"])
             session.database.create_if_needed_partnership_with(\
                 session.client_info["machine_id"])
             session.database.remove_partnership_with(self.machine_id)

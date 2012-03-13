@@ -1,14 +1,17 @@
--fix testcase for changing server id
--add testcase for client initial binary upload, test change of server user id
--retest regular initial sync
-
 -test stats after weekend
-
-### Beta 11
 
 -new plugins dialog, import plugin from file (rename to manage plugins?)
 
 -progress bars for long stats
+
+-if the user has effectively used 'activate cards' once, and if he adds a new
+ tag, ask if tag should be active. Always update the active set, and if the
+ active set is also a saved set, update the saved set too. Different behaviour
+ for subtags of existing tags? (Gnome)
+ https://bugs.launchpad.net/bugs/953504
+ https://bugs.launchpad.net/bugs/953507
+
+-add tag 'a', '1. a': tag order in browser is off
 
 -card type clone: rename and delete, both in card browser and card type browser
 
@@ -101,6 +104,7 @@ widget will be centered on the main widget and not the activate cards dialog.
 -bundle grades criterion? add criterion names i.e. type. Fix bug saving sets.
  Other mechanism to skip scheduled cards? What happens to saved set after
  disabling plugin?
+-criterion to select last X added cards, useful for cramming
 
 -plugin to reset active cards to unlearned
 
