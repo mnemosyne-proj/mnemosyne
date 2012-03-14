@@ -1,5 +1,12 @@
 -test stats after weekend
 
+-check sync (is_database_empty issues)
+-media sentence card has wrong color  on win 
+-timeout still gives a serious error (test when syncing client over vpn)
+-sync on laptop, no wifi: no server: client 197 None.close
+
+-last added tag: check if tag still exists
+
 -new plugins dialog, import plugin from file (rename to manage plugins?)
 
 -progress bars for long stats

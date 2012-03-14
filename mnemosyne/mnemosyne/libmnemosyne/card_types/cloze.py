@@ -62,11 +62,12 @@ class Cloze(CardType):
             current_index += 1
             if current_index == card.extra_data["index"]:
                 question = question[:cursor] + \
-                    question[cursor:].replace(cloze, "...", 1)
+                    question[cursor:].replace(cloze, "__CLOZE__", 1)
                 question = question.replace("[", "").replace("]", "")
-                question = question.replace("...", "[...]")
+                question = question.replace("__CLOZE__", "[...]")
                 break
-            cursor += len(cloze)
+            else:
+                cursor += 1
         return {"f": question, "b": card.extra_data["cloze"]}
 
     def create_sister_cards(self, fact):
