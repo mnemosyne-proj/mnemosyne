@@ -242,3 +242,30 @@ class TestCloze(MnemosyneTest):
 
         assert "[...] a" in cards[0].question()
         assert "a [...]" in cards[1].question()
+        
+    def test_henrik_1(self):
+        card_type = self.card_type_with_id("5")
+        fact_data = {"text": """I [1302] ble [Ingebjorg] (datteren til [Eufemia]
+og [Hakon V]) lovet bort til hertug [Erik] av [Sverige]. Hun var da [ett] ar
+gammel...."""}
+
+        cards = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])
+
+        for card in cards:
+            assert card.question().count("[") == 1
+
+    def test_henrik_2(self):
+        card_type = self.card_type_with_id("5")
+        fact_data = {"text": """Since his death in [1992], [Francis Bacon]'s
+reputation has steadily
+grown. Despite [Margaret Thatcher] having famously described him as
+"that man who paints those [dreadful pictures]", he was the subject of
+two major [Tate retrospectives] during his lifetime and received a
+third in 2008"""}
+
+        cards = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])
+
+        for card in cards:
+            assert card.question().count("[") == 1

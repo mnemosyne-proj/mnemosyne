@@ -21,16 +21,16 @@ class Schedule(PlotStatisticsPage):
     LAST_6_MONTHS = 9
     LAST_YEAR = 10
 
-    variants = [(NEXT_WEEK, _("Next week")),
-                (NEXT_MONTH, _("Next month")),
-                (NEXT_3_MONTHS, _("Next 3 months")),
-                (NEXT_6_MONTHS, _("Next 6 months")),
-                (NEXT_YEAR, _("Next year")),
-                (LAST_WEEK, _("Last week")),
-                (LAST_MONTH, _("Last month")),
-                (LAST_3_MONTHS, _("Last 3 months")),
-                (LAST_6_MONTHS, _("Last 6 months")),
-                (LAST_YEAR, _("Last year"))]
+    variants = [(NEXT_WEEK, _("Next week (active cards only)")),
+                (NEXT_MONTH, _("Next month (active cards only)")),
+                (NEXT_3_MONTHS, _("Next 3 months (active cards only)")),
+                (NEXT_6_MONTHS, _("Next 6 months (active cards only)")),
+                (NEXT_YEAR, _("Next year (active cards only)")),
+                (LAST_WEEK, _("Last week (all cards)")),
+                (LAST_MONTH, _("Last month (all cards)")),
+                (LAST_3_MONTHS, _("Last 3 months (all cards)")),
+                (LAST_6_MONTHS, _("Last 6 months (all cards)")),
+                (LAST_YEAR, _("Last year (all cards)"))]
 
     def prepare_statistics(self, variant):
         if variant == self.NEXT_WEEK:

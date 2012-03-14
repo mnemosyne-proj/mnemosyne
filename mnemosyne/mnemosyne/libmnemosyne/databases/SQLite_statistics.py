@@ -112,7 +112,7 @@ class SQLiteStatistics(object):
     def card_count_scheduled_between(self, start, stop):
         return self.con.execute(\
             """select count() from cards where grade>=2
-            and ?<=next_rep and next_rep<?""",
+            and ?<=next_rep and next_rep<? and active='1'""",
             (start, stop)).fetchone()[0]
 
     def start_of_day_n_days_ago(self, n):
@@ -140,10 +140,13 @@ class SQLiteStatistics(object):
             EventTypes.LOADED_DATABASE, EventTypes.SAVED_DATABASE)):
             count = cursor["acq_reps"]
             machine = cursor["object_id"]
-            if machine.endswith(".fut"):
+            # Future projected schedule. Check if machine exists to deal with
+            # Mnemosyne versions before 201203.
+            if machine and machine.endswith(".fut"):
                 if not machine in projected_counts_for_machine or \
                     (projected_counts_for_machine[machine] < count):
                     projected_counts_for_machine[machine] = count
+            # Actual schedule.
             else:
                 if not machine in actual_counts_for_machine or \
                     (actual_counts_for_machine[machine] < count):
