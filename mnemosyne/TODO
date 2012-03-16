@@ -1,11 +1,8 @@
 -test stats after weekend
-
 -check sync (is_database_empty issues)
--media sentence card has wrong color  on win 
--timeout still gives a serious error (test when syncing client over vpn)
--sync on laptop, no wifi: no server: client 197 None.close
 
--last added tag: check if tag still exists
+-accented sound files
+-sync cycle issues, make sure that resolving conflicts does not cause this
 
 -new plugins dialog, import plugin from file (rename to manage plugins?)
 
@@ -18,13 +15,12 @@
  https://bugs.launchpad.net/bugs/953504
  https://bugs.launchpad.net/bugs/953507
 
--add tag 'a', '1. a': tag order in browser is off
-
 -card type clone: rename and delete, both in card browser and card type browser
 
 -import from txt file (2 test cases from mac os	Naomi Borkowski)
 
 -auto detect RTL http://dotancohen.com/howto/rtl_right_to_left.html (bug report)
+-media sentence card has wrong color on win
 
 -new cards with a >=2 grade can end up on the same day on first interactive rep
 replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)

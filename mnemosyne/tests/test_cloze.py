@@ -138,6 +138,25 @@ class TestCloze(MnemosyneTest):
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
 
+    def test_convert_2(self):
+        card_type = self.card_type_with_id("1")
+
+        fact_data = {"f": "a [b] [c]"}
+
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])[0]
+        fact = card.fact
+        new_fact_data = {"text": "a [b] [c]"}
+
+        new_card_type = self.card_type_with_id("5")
+
+        global answer
+        answer = 0 # OK.
+
+        self.controller().edit_sister_cards(fact, new_fact_data, card_type,
+            new_card_type, ["default"], {"f": "text"})
+
+
     def test_convert_abort(self):
         card_type = self.card_type_with_id("5")
 
@@ -242,7 +261,7 @@ class TestCloze(MnemosyneTest):
 
         assert "[...] a" in cards[0].question()
         assert "a [...]" in cards[1].question()
-        
+
     def test_henrik_1(self):
         card_type = self.card_type_with_id("5")
         fact_data = {"text": """I [1302] ble [Ingebjorg] (datteren til [Eufemia]

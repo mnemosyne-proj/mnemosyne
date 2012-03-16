@@ -228,6 +228,7 @@ class SM2Controller(ReviewController):
                 w.reveal_answer()
             else:
                 # Draw answer in question box.
+                w.set_question_label("Answer:")
                 w.set_question(self.card.answer(self.render_chain))
                 w.reveal_question()
         # Update 'Show answer' button.

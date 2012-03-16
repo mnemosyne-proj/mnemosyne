@@ -194,7 +194,8 @@ class Client(Partner):
                     "The next sync will need to be a full sync.")
                 self.database.restore(backup_file)
         finally:
-            self.con.close()
+            if self.con:
+                self.con.close()
             self.ui.close_progress()
 
     def supports_binary_upload(self):

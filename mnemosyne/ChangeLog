@@ -1,3 +1,9 @@
+-Fix bug converting existing cards to Cloze cards (reported by Jin Hale).
+-'Untagged' now always shows up last in the tag tree, even if there are tags
+ starting with a number
+-For map cards, the answer is now again labeled 'Aswer:' as opposed to
+ 'Question:'
+
 
 MNEMOSYNE 2.0
 

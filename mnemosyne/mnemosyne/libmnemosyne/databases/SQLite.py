@@ -691,9 +691,15 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         result = [self.tag(cursor[0], is_id_internal=True) for cursor in \
             self.con.execute("select _id from tags")]
         result.sort(key=lambda x: x.name, cmp=numeric_string_cmp)
-        if result and result[0].name == "__UNTAGGED__":
-            untagged = result.pop(0)
-            result.append(untagged)
+        index = 0
+        # __UNTAGGED__ is typically at the head of the list, apart when tags
+        # start with numbers.
+        for tag in result:
+            if tag.name == "__UNTAGGED__":
+                untagged = result.pop(index)
+                result.append(untagged)
+                break
+            index += 1
         return result
 
     #

@@ -103,10 +103,15 @@ class AddEditCards(TipAfterStartingNTimes):
         self.vbox_layout.insertWidget(1, self.card_type_widget)
 
     def update_tags_combobox(self, current_tag_name):
+        all_current_tag_names = current_tag_name.split(", ")
+        existing_current_tag_names = []
         self.tags.clear()
         for tag in self.database().tags():
             if tag.name != "__UNTAGGED__":
                 self.tags.addItem(tag.name)
+            if tag.name in all_current_tag_names:
+                existing_current_tag_names.append(tag.name)
+        current_tag_name = ", ".join(existing_current_tag_names)
         # For the 'special' tags, we add them at the top.
         self.tags.setInsertPolicy(QtGui.QComboBox.InsertAtTop)
         if "," in current_tag_name:

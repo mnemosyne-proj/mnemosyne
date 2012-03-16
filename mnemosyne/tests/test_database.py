@@ -36,6 +36,13 @@ class TestDatabase(MnemosyneTest):
         assert len(self.database().tags()) == 2
         assert self.database().tags()[0].name == u"test2"
 
+    def test_tag_order(self):
+        tag = Tag("a")
+        self.database().add_tag(tag)
+        tag = Tag("1. a")
+        self.database().add_tag(tag)
+        assert [tag.name for tag in self.database().tags()] == ["1. a", "a", "__UNTAGGED__"]
+
     def test_new_cards(self):
         fact_data = {"f": "question",
                      "b": "answer"}

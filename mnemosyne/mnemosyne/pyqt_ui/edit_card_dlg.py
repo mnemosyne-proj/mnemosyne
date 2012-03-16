@@ -16,7 +16,7 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
     page_up_down_signal = QtCore.pyqtSignal(int)
     UP = 0
     DOWN = 1
- 
+
     def eventFilter(self, object, event):
         if event.type() == QtCore.QEvent.KeyPress:
             if event.key() == QtCore.Qt.Key_PageUp:
@@ -28,7 +28,7 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
             else:
                 return False
         return False
-    
+
     def __init__(self, card, component_manager, allow_cancel=True,
                  started_from_card_browser=False):
         # Note: even though this is in essence an EditFactDlg, we don't use
@@ -51,13 +51,13 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         self.update_tags_combobox(self.card.tag_string())
         state = self.config()["edit_card_dlg_state"]
         if state:
-            self.restoreGeometry(state)     
+            self.restoreGeometry(state)
         # Make sure we can capture PageUp/PageDown keys before any of the
         # children (e.g. comboboxes) do so.
         if self.started_from_card_browser:
             for child in self.children():
                 child.installEventFilter(self)
-                
+
     def update_card_widget(self, keep_data_from_previous_widget=True):
         AddEditCards.update_card_widget(self, keep_data_from_previous_widget)
         # Install event filters if we need to capture PageUp/PageDown.
@@ -66,15 +66,15 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
                 # Make sure we don't install the filter twice.
                 child.removeEventFilter(self)
                 child.installEventFilter(self)
-                
+
     def set_new_card(self, card):
         # Called from card browser.
         self.card = card
         self.update_card_widget(keep_data_from_previous_widget=False)
-        
+
     def _store_state(self):
         self.config()["edit_card_dlg_state"] = self.saveGeometry()
-            
+
     def closeEvent(self, event):
         # Generated when clicking the window's close button.
         self._store_state()
@@ -107,11 +107,11 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
                 self.preview()
         else:
             QtGui.QDialog.keyPressEvent(self, event)
-        
+
     def set_valid(self, valid):
-        self.OK_button.setEnabled(valid)    
+        self.OK_button.setEnabled(valid)
         self.preview_button.setEnabled(valid)
-        
+
     def accept(self):
         self._store_state()
         new_fact_data = self.card_type_widget.fact_data()
@@ -140,5 +140,5 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
                 QtGui.QDialog.reject(self)
                 return
         else:
-           QtGui.QDialog.reject(self) 
+           QtGui.QDialog.reject(self)
 

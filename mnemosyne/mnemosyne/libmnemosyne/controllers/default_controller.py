@@ -249,7 +249,6 @@ class DefaultController(Controller):
         db = self.database()
         sch = self.scheduler()
         assert new_card_type.is_fact_data_valid(new_fact_data)
-        # Change card type first.
         result = self._change_card_type(fact, old_card_type, new_card_type,
             correspondence, new_fact_data)
         if result == -1:  # Aborted.

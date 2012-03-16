@@ -81,7 +81,10 @@ class Cloze(CardType):
 
     def edit_sister_cards(self, fact, new_fact_data):
         new_cards, edited_cards, deleted_cards = [], [], []
-        old_clozes = cloze_re.findall(fact["text"])
+        if "text" in fact.data.keys():
+            old_clozes = cloze_re.findall(fact["text"])
+        else:  # Coming from card type conversion.
+            old_clozes = []
         new_clozes = cloze_re.findall(new_fact_data["text"])
         # If the number of clozes is equal, just edit the existing cards.
         if len(old_clozes) == len(new_clozes):
