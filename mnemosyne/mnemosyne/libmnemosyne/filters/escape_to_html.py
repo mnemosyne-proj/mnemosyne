@@ -7,14 +7,25 @@ from mnemosyne.libmnemosyne.filter import Filter
 
 class EscapeToHtml(Filter):
 
-    """Escape literal < (unmatched tag) and new line from string."""
+    """Escape literal < (unmatched tag) and newline from string."""
 
     def run(self, text, card, fact_key, **render_args):
-        # Replace newline with <br>, but not in tags like latex or tables.
-        # Note: the current implementation is overzealous: as soon as one of
-        # these tags is present, no such substitutions will be made anywhere.
-        if not ("<ul" in text or "<table" in text or "<latex" in text):
-            text = text.replace("\n", "<br>")
+        # Replace newline with <br>, but not when enclosed by tags like latex
+        # or tables.
+        lower_text = text.lower()
+        linebreak_positions = []
+        escape_breaks = True
+        for i in range(len(text)):
+            for tag in ["ul", "table", "latex"]:
+                if lower_text[i:].startswith("<" + tag):
+                    escape_breaks = False
+                if lower_text[i:].startswith("</" + tag):
+                    escape_breaks = True
+            if lower_text[i] == "\n" and escape_breaks:
+                linebreak_positions.append(i)
+        for linebreak_position in linebreak_positions:
+            text = text[:linebreak_position] + \
+                text[linebreak_position:].replace("\n", "<br>", 1)
         # Escape hanging <.
         hanging = []
         open = 0

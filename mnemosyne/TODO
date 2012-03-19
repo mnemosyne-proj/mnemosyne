@@ -1,8 +1,6 @@
--test stats after weekend
--check sync (is_database_empty issues)
+-rework rollover, remembering time of last rollover. time overhead
 
--accented sound files
--sync cycle issues, make sure that resolving conflicts does not cause this
+-accented sound files urllib.quote
 
 -new plugins dialog, import plugin from file (rename to manage plugins?)
 
@@ -14,6 +12,8 @@
  for subtags of existing tags? (Gnome)
  https://bugs.launchpad.net/bugs/953504
  https://bugs.launchpad.net/bugs/953507
+
+-recheck stats after weekend
 
 -card type clone: rename and delete, both in card browser and card type browser
 
@@ -280,9 +280,6 @@ Milesteiner
  last grade filter
 
 -when pasting from a webpage, font formatting in 'add cards' is inconsistent.
-
--escape to html is overzealous in preventing \n replacement by <br>: also
- prevents if newline is outside a tag.
 
 -ask people about biggest gripe in Mnemosyne, things that did not behave as expected
 

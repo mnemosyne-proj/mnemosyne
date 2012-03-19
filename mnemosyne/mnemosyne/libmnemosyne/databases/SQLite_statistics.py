@@ -167,6 +167,8 @@ class SQLiteStatistics(object):
         # Note that the algorithm above is still an approximation, e.g. there
         # is no way it can know about different cards sets that are active
         # during the day.
+        # It can also go wrong after resolution of a sync conflict when all the
+        # reviews are done for the day.
 
     def card_count_added_n_days_ago(self, n):
         start_of_day = self.start_of_day_n_days_ago(n)
