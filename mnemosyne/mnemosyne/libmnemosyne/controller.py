@@ -25,22 +25,22 @@ class Controller(Component):
     def heartbeat(self):
 
         """For code that needs to run periodically."""
-        
+
         pass
 
     def update_title(self):
-        raise NotImplementedError        
-        
+        raise NotImplementedError
+
     def show_add_cards_dialog(self):
         raise NotImplementedError
 
     def create_new_cards(self, fact_data, card_type, grade,
                          tag_names, check_for_duplicates=True, save=True):
         raise NotImplementedError
-    
+
     def show_edit_card_dialog(self):
         raise NotImplementedError
-    
+
     def edit_sister_cards(self, fact, new_fact_data, old_card_type,
                           new_card_type, new_tag_names, correspondence):
         raise NotImplementedError
@@ -49,8 +49,8 @@ class Controller(Component):
                          correspondence):
 
         """Note: all facts should have the same card type."""
-        
-        raise NotImplementedError        
+
+        raise NotImplementedError
 
     def delete_current_card(self):
         raise NotImplementedError
@@ -60,19 +60,19 @@ class Controller(Component):
 
     def clone_card_type(self, card_type, clone_name):
         raise NotImplementedError
-    
+
     def delete_card_type(self, card_type):
         raise NotImplementedError
-    
+
     def show_new_file_dialog(self):
         raise NotImplementedError
-    
+
     def show_open_file_dialog(self):
         raise NotImplementedError
-    
+
     def save_file(self):
         raise NotImplementedError
-    
+
     def show_save_file_as_dialog(self):
         raise NotImplementedError
 
@@ -82,7 +82,7 @@ class Controller(Component):
         filetypes.
 
         """
-        
+
         raise NotImplementedError
 
     def show_insert_sound_dialog(self, filter):
@@ -91,22 +91,22 @@ class Controller(Component):
         filetypes.
 
         """
-        
+
         raise NotImplementedError
-    
+
     def show_insert_video_dialog(self, filter):
 
         """Filter contains the file dialog filter with the supported
         filetypes.
 
         """
-        
+
         raise NotImplementedError
-    
+
 
     def show_browse_cards_dialog(self):
         raise NotImplementedError
-    
+
     def show_activate_plugins_dialog(self):
         raise NotImplementedError
 
@@ -114,17 +114,17 @@ class Controller(Component):
         raise NotImplementedError
 
     def show_statistics_dialog(self):
-        raise NotImplementedError    
-    
+        raise NotImplementedError
+
     def show_configuration_dialog(self):
         raise NotImplementedError
 
     def show_import_file_dialog(self):
         raise NotImplementedError
-    
+
     def show_export_file_dialog(self):
         raise NotImplementedError
-    
+
     def show_sync_dialog(self):
         raise NotImplementedError
 
@@ -135,4 +135,4 @@ class Controller(Component):
         raise NotImplementedError
 
     def sync(self, server, port, username, password, ui=None):
-        raise NotImplementedError        
+        raise NotImplementedError

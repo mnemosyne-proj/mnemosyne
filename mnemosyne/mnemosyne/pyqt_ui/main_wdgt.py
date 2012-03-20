@@ -44,21 +44,14 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         state = self.config()["main_window_state"]
         if state:
             self.restoreGeometry(state)
-        self.TIMER_1_INTERVAL = 1000 * 60 * 10 # For reuse in review widget.
-        self.timer_1 = QtCore.QTimer()
-        self.timer_1.timeout.connect(self.review_controller_heartbeat)
-        self.timer_1.start(self.TIMER_1_INTERVAL)
-        self.TIMER_2_INTERVAL = 1000 * 60 * 60 * 12
-        self.timer_2 = QtCore.QTimer()
-        self.timer_2.timeout.connect(self.controller_heartbeat)
-        self.timer_2.start(self.TIMER_2_INTERVAL)
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.controller_heartbeat)
+        self.timer.start(1000)  # 1 sec.
         self.start_review()
 
-    def review_controller_heartbeat(self):
-        self.review_controller().heartbeat()  # Late binding
-
     def controller_heartbeat(self):
-        self.controller().heartbeat()  # Late binding
+        # Need late binding to allow for inheritance.
+        self.controller().heartbeat()
 
     def set_window_title(self, text):
         self.setWindowTitle(text)

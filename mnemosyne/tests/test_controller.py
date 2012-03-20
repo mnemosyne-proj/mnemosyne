@@ -135,6 +135,7 @@ class TestController(MnemosyneTest):
         self.controller().show_activate_cards_dialog()
         self.controller().show_import_file_dialog()
         self.controller().show_export_file_dialog()
+        self.controller().next_rollover = 0
         self.controller().heartbeat()
 
     def test_delete_current(self):

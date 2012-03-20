@@ -86,19 +86,6 @@ class SM2Controller(ReviewController):
             sch.remove_from_queue_if_present(self.card)
             sch.remove_from_queue_if_present(self.card)
 
-    def heartbeat(self):
-
-        """To be called several times during the day, to make sure that
-        the data gets updated when a new day starts.
-
-        """
-
-        self.flush_sync_server()
-        if self.database().is_loaded() and self.database().is_accessible():
-            # Make sure we don't continue if e.g. the GUI or another thread
-            # holds the database
-            self.reset_but_try_to_keep_current_card()
-
     def show_new_question(self):
         # Reload the counters if they have not yet been initialised. Also do
         # this if the active counter is zero, make sure it is really zero to

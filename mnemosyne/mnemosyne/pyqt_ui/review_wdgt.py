@@ -272,7 +272,6 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
     def grade_answer(self, grade):
         self.vertical_layout.setStretchFactor(self.question_box, 50)
         self.vertical_layout.setStretchFactor(self.answer_box, 50)
-        self.main_widget().timer_1.start(self.main_widget().TIMER_1_INTERVAL)
         self.review_controller().grade_answer(grade)
 
     def set_question_box_visible(self, is_visible):

@@ -27,29 +27,36 @@ class DefaultController(Controller):
 
     """
 
+    def activate(self):
+        Controller.activate(self)
+        self.next_rollover = self.database().start_of_day_n_days_ago(n=-1)
+
     def heartbeat(self):
 
-        """To be called once a day, to make sure, even if the user leaves the
-        program open indefinitely, that backups get taken, that the cards
-        scheduled for the day get dumped to the log and that the the logs get
-        uploaded.
+        """Making sure, even if the user leaves the program open indefinitely,
+        that backups get taken, that the cards scheduled for the day get dumped
+        to the log and that the the logs get uploaded, and that the new cards
+        for the day are brought into the queue.
 
         """
 
-        self.flush_sync_server()
-        if not self.database().is_loaded() or \
-            not self.database().is_accessible():
-            # Make sure we don't continue if e.g. the GUI or another thread
-            # holds the database
-            return
-        self.database().backup()
-        self.log().saved_database()
-        self.log().loaded_database()
-        self.log().future_schedule()
-        self.log().dump_to_science_log()
-        self.log().deactivate()
-        self.log().activate()
-        self.config().save()
+        if time.time() > self.next_rollover:
+            self.flush_sync_server()
+            if not self.database().is_loaded() or \
+                not self.database().is_accessible():
+                # Make sure we don't continue if e.g. the GUI or another thread
+                # holds the database
+                return
+            self.database().backup()
+            self.log().saved_database()
+            self.log().loaded_database()
+            self.log().future_schedule()
+            self.log().dump_to_science_log()
+            self.log().deactivate()
+            self.log().activate()
+            self.config().save()
+            self.reset_but_try_to_keep_current_card()
+            self.next_rollover = self.database().start_of_day_n_days_ago(n=-1)
 
     def update_title(self):
         title = _("Mnemosyne")

@@ -43,15 +43,6 @@ class ReviewController(Component):
 
         raise NotImplementedError
 
-    def heartbeat(self):
-
-        """For code that needs to run periodically, e.g. to react to a change
-        of date.
-
-        """
-
-        pass
-
     def show_new_question(self):
         raise NotImplementedError
 
