@@ -1,7 +1,10 @@
+-Bug fix when importing xml files with anonymous ids after importing an
+ anynymous id file just before that (reported by Scott Youngman).
+-Fix searching for [ and ] (reported by Scott Youngman).
+
 -If you resume your pc from hibernation in the morning, the new day's cards are
  now added more quickly to your queue. This also makes sure there is more data
  available to calculate the past schedule.
-
 -Make newlines outside of tables and latex tags work again (reported by Gnome)
 -Fix bug converting existing cards to Cloze cards (reported by Jin Hale).
 -'Untagged' now always shows up last in the tag tree, even if there are tags

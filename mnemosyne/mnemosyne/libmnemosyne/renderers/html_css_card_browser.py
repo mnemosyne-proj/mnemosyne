@@ -14,9 +14,9 @@ class HtmlCssCardBrowser(HtmlCss):
     in the card browser. The idea is to display everything as much as possible
     on a single line which fits with the rest of the table, so we only respect
     fonts families, colours and weights, not size and alignment.
-    
+
     """
-    
+
     def body_css(self):
         return "body { margin: 0; padding: 0; }\n"
 
@@ -49,7 +49,7 @@ class HtmlCssCardBrowser(HtmlCss):
                 if u == "1":
                     css += "text-decoration: underline; "
                 if s == "1":
-                    css += "text-decoration: line-through; "                 
+                    css += "text-decoration: line-through; "
             css += "}\n"
         return css
 
@@ -61,7 +61,7 @@ class HtmlCssCardBrowser(HtmlCss):
                 html += "<span class=\"%s\">%s</span> / " % \
                     (fact_key, fact_data_fact_key)
         return html[:-2]
-                
+
     def render(self, fact_data, fact_keys, card_type, **render_args):
         css = self.css(card_type)
         if "ignore_text_colour" in render_args and \
@@ -69,7 +69,7 @@ class HtmlCssCardBrowser(HtmlCss):
             css = colour_re.sub("", css)
         if "search_string" in render_args and render_args["search_string"]:
             search_string = render_args["search_string"]
-            for symbol in ["(", ")", "?", ".", "^", "*", "$", "+"]:
+            for symbol in ["(", ")", "?", ".", "^", "*", "$", "+", "[", "]"]:
                 search_string = search_string.replace(symbol, "\\" + symbol)
             search_re = re.compile("(" + search_string + ")", re.IGNORECASE)
             for fact_key in fact_keys:
@@ -88,4 +88,4 @@ class HtmlCssCardBrowser(HtmlCss):
         %s
         </body>
         </html>""" % (css, body)
-    
+

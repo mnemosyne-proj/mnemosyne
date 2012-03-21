@@ -3,6 +3,7 @@
 #
 
 import re
+import urllib
 
 from mnemosyne.libmnemosyne.filter import Filter
 
@@ -62,14 +63,17 @@ class Html5Audio(Filter):
             return text
         sound_files = []
         for match in re_audio.finditer(text):
-            sound_files.append("'" + match.group(1) + "'")
+            sound_files.append("'" + \
+                urllib.quote(match.group(1).encode("utf-8"), safe="/:") + "'")
+            #sound_files.append("'" + urllib.quote(match.group(1).encode("utf-8"), safe="/:").replace("%","\\x") + "'")
+            #sound_files.append("'" + match.group(1) + "'")
+            #sound_files.append("'" + match.group(1).encode("mbcs") + "'")
             text = text.replace(match.group(0), "")
+        #print sound_files, ",".join(sound_files)
         text = script + text + "<div id='player'></div>"
-        text = text.replace("_SOUNDFILES_", ','.join(sound_files))
+        text = text.replace("_SOUNDFILES_", ",".join(sound_files))
         if self.config()["media_autoplay"] == False:
             text = text.replace("autoplay = true", "autoplay = false")
         if self.config()["media_controls"] == False:
             text = text.replace("audioPlayer.controls = 'controls';", "")
         return text
-
-

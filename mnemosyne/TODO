@@ -1,6 +1,7 @@
--rework rollover, remembering time of last rollover. time overhead
+-unicode sound files under windows (mail Barbara) %C3%A5_en vs \xxx\xxx"
+-create html test page, test under chrome
 
--accented sound files urllib.quote
+-test rollover
 
 -new plugins dialog, import plugin from file (rename to manage plugins?)
 

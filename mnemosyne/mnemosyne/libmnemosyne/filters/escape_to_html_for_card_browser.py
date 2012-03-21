@@ -21,6 +21,6 @@ class EscapeToHtmlForCardBrowser(Filter):
         text = text.replace("&lt;i>", "<i>")
         text = text.replace("&lt;/i>", "</i>")
         text = text.replace("&lt;I>", "<I>")
-        text = text.replace("&lt;/I>", "</I>")        
+        text = text.replace("&lt;/I>", "</I>")
         return text
 

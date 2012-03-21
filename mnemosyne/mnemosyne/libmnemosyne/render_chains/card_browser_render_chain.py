@@ -12,7 +12,7 @@ from mnemosyne.libmnemosyne.filters.escape_to_html_for_card_browser \
 class CardBrowserRenderChain(RenderChain):
 
     """Renders either the question or answer for display in the card browser.
-    
+
     """
 
     id = "card_browser"

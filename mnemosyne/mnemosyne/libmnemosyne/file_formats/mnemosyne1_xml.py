@@ -49,6 +49,10 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
         w.close_progress()
 
     def read_items_from_mnemosyne1_xml(self, filename):
+        # Reset anonymiser when importing a new file, otherwise information
+        # from the previous file still lingers and we get erroneously think
+        # we've imported this before.
+        self.anon_to_id = {}
         w = self.main_widget()
         try:
             tree = cElementTree.parse(filename)
