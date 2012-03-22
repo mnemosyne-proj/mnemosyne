@@ -5,6 +5,7 @@
 import os
 import copy
 import time
+import shutil
 
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.translator import _
@@ -486,6 +487,7 @@ class DefaultController(Controller):
         self.flush_sync_server()
         suffix = self.database().suffix
         old_path = expand_path(self.config()["path"], self.config().data_dir)
+        old_media_dir = self.database().media_dir()
         filename = self.main_widget().get_filename_to_save(path=old_path,
             filter=_("Mnemosyne databases") + " (*%s)" % suffix)
         if not filename:
@@ -495,6 +497,12 @@ class DefaultController(Controller):
             filename += suffix
         try:
             self.database().save(filename)
+            new_media_dir = self.database().media_dir()
+            if old_media_dir == new_media_dir:
+                return
+            if os.path.exists(new_media_dir):
+                shutil.rmtree(new_media_dir)
+            shutil.copytree(old_media_dir, new_media_dir)
             self.log().saved_database()
         except RuntimeError, error:
             self.main_widget().show_error(unicode(error))

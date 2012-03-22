@@ -1,6 +1,3 @@
--unicode sound files under windows (mail Barbara) %C3%A5_en vs \xxx\xxx"
--create html test page, test under chrome
-
 -test rollover
 
 -new plugins dialog, import plugin from file (rename to manage plugins?)
@@ -51,7 +48,7 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 -If something was fixed by upgrading to the new Qt, check if we need to install
  the old mnemosyne first in order to get these benefits. If so, enforce uninstall
  in installer?
--mail map card type problem people
+-check sound with unicode, mail Barbara
 -check 2 sound files again under W7, mail Patrick, update changelog
 
 ### Release
@@ -101,6 +98,7 @@ widget will be centered on the main widget and not the activate cards dialog.
 -migrate science server machine
 
 -circadian rythm plugin
+-plugin to move basedir to dropbox?
 -bundle more of the example plugins?
 
 -'duplicate card' option in menu and browser? Or as plugin?

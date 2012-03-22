@@ -8,7 +8,7 @@ from mnemosyne.libmnemosyne.plugin import Plugin
 
 
 class HideToolbarPlugin(Plugin):
-    
+
     name = "Hide toolbar"
     description = "Hide the main toolbar"
 
@@ -22,7 +22,7 @@ class HideToolbarPlugin(Plugin):
     def deactivate(self):
         Plugin.deactivate(self)
         self.main_widget().tool_bar.setVisible(True)
-  
+
 
 # Register plugin.
 

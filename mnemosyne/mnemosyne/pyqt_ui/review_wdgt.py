@@ -142,7 +142,6 @@ class QAOptimalSplit(object):
         return text.replace("<video src", "<video_off src")
 
     def set_question(self, text):
-        #self.main_widget().show_information(text.replace("<", "&lt;"))
         self.question_text = text
         self.question_preview.page().setPreferredContentsSize(\
             QtCore.QSize(self.question.size().width(), 1))

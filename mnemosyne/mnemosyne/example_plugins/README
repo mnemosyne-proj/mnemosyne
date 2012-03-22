@@ -5,6 +5,8 @@ illustrating to plugin writers on how to achieve certain functionality.
 
  * hide_toolbar.py: hiding the toolbar.
 
+ * lock_down.py: drastically hiding the toolbar and the menu bar.
+
  * shortcuts.py: changing some keyboard shortcuts during review.
 
  * new_card_type.py: a new card type with fixed text added around a field
