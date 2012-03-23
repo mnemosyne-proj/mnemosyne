@@ -15,7 +15,7 @@ class RemoveTagsDlg(QtGui.QDialog, Ui_RemoveTagsDlg):
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint) 
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)
         self.return_values = return_values
         for tag in tags:
             if tag.name != "__UNTAGGED__":
@@ -23,12 +23,12 @@ class RemoveTagsDlg(QtGui.QDialog, Ui_RemoveTagsDlg):
                 list_item.setFlags(list_item.flags() | QtCore.Qt.ItemIsUserCheckable)
                 list_item.setCheckState(QtCore.Qt.Unchecked)
                 self.tag_list.addItem(list_item)
-        
+
     def accept(self):
         self.return_values["tag_names"] = []
         for index in range(self.tag_list.count()):
             list_item = self.tag_list.item(index)
             if list_item.checkState() == QtCore.Qt.Checked:
                 self.return_values["tag_names"].append(\
-                    unicode(list_item.text()))             
+                    unicode(list_item.text()))
         return QtGui.QDialog.accept(self)

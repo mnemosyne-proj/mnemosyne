@@ -13,5 +13,6 @@ class CrammingPlugin(Plugin):
 
     name = _("Cramming scheduler")
     description = \
-  _("Goes through cards in random order without saving scheduling information.")
-    components = [Cramming, SM2ControllerCramming]    
+  _("""Goes through the active cards in random order without saving scheduling information.\n
+To return to the original scheduler, just deactivate this plugin.""")
+    components = [Cramming, SM2ControllerCramming]

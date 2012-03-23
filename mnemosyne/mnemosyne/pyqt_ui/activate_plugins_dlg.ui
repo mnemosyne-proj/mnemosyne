@@ -6,31 +6,59 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>250</height>
+    <width>392</width>
+    <height>479</height>
    </rect>
   </property>
-  <property name="minimumSize">
-   <size>
-    <width>500</width>
-    <height>250</height>
-   </size>
-  </property>
   <property name="windowTitle">
-   <string>(De)activate plugins</string>
+   <string>Activate plugins</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QTreeView" name="plugins"/>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Installed plugins:</string>
+       </property>
+      </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <widget class="QListWidget" name="plugin_list">
+       <property name="minimumSize">
+        <size>
+         <width>350</width>
+         <height>200</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Plugin description:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="plugin_description">
+       <property name="minimumSize">
+        <size>
+         <width>350</width>
+         <height>200</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout">
        <item>
         <widget class="QPushButton" name="ok_button">
          <property name="text">
           <string>&amp;OK</string>
+         </property>
+         <property name="autoDefault">
+          <bool>true</bool>
          </property>
          <property name="default">
           <bool>true</bool>
@@ -38,17 +66,27 @@
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer">
+        <spacer>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>13</width>
-           <height>38</height>
+           <width>101</width>
+           <height>20</height>
           </size>
          </property>
         </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="cancel_button">
+         <property name="text">
+          <string>&amp;Cancel</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -56,8 +94,26 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="mnemosyne.qrc"/>
+ </resources>
  <connections>
+  <connection>
+   <sender>cancel_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ActivatePluginsDlg</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>281</x>
+     <y>151</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>164</x>
+     <y>87</y>
+    </hint>
+   </hints>
+  </connection>
   <connection>
    <sender>ok_button</sender>
    <signal>clicked()</signal>
@@ -65,12 +121,12 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>82</x>
-     <y>252</y>
+     <x>45</x>
+     <y>155</y>
     </hint>
     <hint type="destinationlabel">
-     <x>199</x>
-     <y>149</y>
+     <x>148</x>
+     <y>87</y>
     </hint>
    </hints>
   </connection>

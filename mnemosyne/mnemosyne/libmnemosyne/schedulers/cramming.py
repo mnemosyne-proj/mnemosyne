@@ -25,7 +25,7 @@ class Cramming(SM2Mnemosyne):
         self._card_ids_in_queue = []
         self._fact_ids_in_queue = []
         self.criterion = db.current_criterion()
-        # Stage 1 : do all the unseen cards.     
+        # Stage 1 : do all the unseen cards.
         if self.stage == 1:
             for _card_id, _fact_id in db.cards_with_scheduler_data(self.UNSEEN,
                                       sort_key="random", limit=25):
@@ -43,7 +43,7 @@ class Cramming(SM2Mnemosyne):
                     self._card_ids_in_queue.append(_card_id)
                     self._fact_ids_in_queue.append(_fact_id)
             if len(self._card_ids_in_queue):
-                return           
+                return
         # Start again.
         self.reset()
         self.rebuild_queue()
@@ -55,7 +55,7 @@ class Cramming(SM2Mnemosyne):
         if not dry_run:
             for f in self.component_manager.all("hook", "before_repetition"):
                 f.run(card)
-        # Do the actual grading.       
+        # Do the actual grading.
         if new_grade <= 1:
             card.scheduler_data = self.WRONG
         else:

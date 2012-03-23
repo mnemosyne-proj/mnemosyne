@@ -1,8 +1,8 @@
+-Reworked plugin dialog.
 -Fix playing of sound files containing unicode characters. Unfortunately, due
  to a bug with Qt under Windows, this only works on Linux (reported by Barbara).
 -Copy media directory when doing 'Save as..' (reported by Henrik).
 -example plugin to lock down the UI (requested by Eugene Campbell).
-
 -Bug fix when importing xml files with anonymous ids after importing an
  anynymous id file just before that (reported by Scott Youngman).
 -Fix searching for [ and ] (reported by Scott Youngman).

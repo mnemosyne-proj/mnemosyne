@@ -1,6 +1,8 @@
--test rollover
+-recheck stats after weekend
 
--new plugins dialog, import plugin from file (rename to manage plugins?)
+-import plugin from file
+-delete plugin
+-rename to plugin manager in source and UI
 
 -progress bars for long stats
 
@@ -10,8 +12,6 @@
  for subtags of existing tags? (Gnome)
  https://bugs.launchpad.net/bugs/953504
  https://bugs.launchpad.net/bugs/953507
-
--recheck stats after weekend
 
 -card type clone: rename and delete, both in card browser and card type browser
 
@@ -398,8 +398,6 @@ a good alternative, as it does not obey selection coloring
  interested in it
 
 -website redesign? like http://hanzim.com/download.php
-
--don't activate plugins until after clicking ok
 
 -card type with prefilled fields
 

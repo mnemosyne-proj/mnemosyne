@@ -49,5 +49,6 @@ class Map(CardType):
 class MapPlugin(Plugin):
 
     name = _("Map")
-    description = _("A card type for learning locations on a map")
+    description = _("""A card type for learning locations on a map.\n
+Displays the answer map on top of the question map, rather than below it as a second map.""")
     components = [Map]
