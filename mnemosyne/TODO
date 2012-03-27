@@ -1,10 +1,12 @@
--recheck stats after weekend
-
--import plugin from file
+-make sure we don't install a plugin twice
+-add tests
+-delete empty dirs when uninstalling plugins and compacting database
 -delete plugin
 -rename to plugin manager in source and UI
 
 -progress bars for long stats
+
+-make sure sync login timeout never results in a serious error
 
 -if the user has effectively used 'activate cards' once, and if he adds a new
  tag, ask if tag should be active. Always update the active set, and if the

@@ -607,6 +607,62 @@ class DefaultController(Controller):
         self.review_controller().update_dialog(redraw_all=True)
         self.stopwatch().unpause()
 
+    def install_plugin(self):
+        filename = self.main_widget().get_filename_to_open(\
+            self.config()["import_plugin_dir"],
+            _("Plugins") + " " + "(*.plugin)", _("Install plugin"))
+        if not filename:
+            return ""
+        self.config()["import_plugin_dir"] = os.path.dirname(filename)
+        plugin_dir = os.path.join(self.config().data_dir, "plugins")
+        import zipfile
+        plugin_file = zipfile.ZipFile(filename, "r")
+        # Filter out safety risks.
+        filenames = [filename for filename in plugin_file.namelist() \
+            if not filename.startswith("/") and not ".." in filename]
+        # Find actual plugin.
+        plugin_file.extractall(plugin_dir, filenames)
+        import re
+        re_plugin = re.compile(r""".*class (.+?)\(Plugin""",
+            re.DOTALL | re.IGNORECASE)
+        plugin_filename, plugin_class_name = None, None
+        for filename in filenames:
+            if filename.endswith(".py"):
+                text = file(os.path.join(plugin_dir, filename), "r").read()
+                match = re_plugin.match(text)
+                if match is not None:
+                    plugin_filename = filename
+                    plugin_class_name = match.group(1)
+                    break
+        if plugin_class_name is None:
+            self.main_widget().show_error(_("No plugin found!"))
+            return
+        # Write manifest to allow uninstalling.
+        manifest = file(os.path.join(plugin_dir,
+            plugin_class_name + ".manifest"), "w")
+        for filename in filenames:
+            print >> manifest, filename
+        # Register the plugin.
+        try:
+            __import__(plugin_filename[:-3])
+        except:
+            msg = _("Error when running plugin:") \
+                + "\n" + traceback_string()
+            self.main_widget().show_error(msg)
+
+    def delete_plugin(self, plugin):
+        plugin.deactivate()
+        self.component_manager.unregister(plugin)
+        manifest = file(os.path.join(plugin_dir, plugin.__class__.__name__ + \
+                ".manifest"), "r")
+        plugin_dir = os.path.join(self.config().data_dir, "plugins")
+        for filename in manifest:
+            filename = os.path.join(plugin_dir, filename)
+            os.path.remove(filename)
+            if filename.endswith(".py") and os.path.exists(filename + "c"):
+                os.path.remove(filename + "c")
+        del plugin
+
     def show_manage_card_types_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()

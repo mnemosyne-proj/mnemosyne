@@ -92,6 +92,7 @@ class Configuration(Component, dict):
              "import_img_dir": self.data_dir,
              "import_sound_dir": self.data_dir,
              "import_video_dir": self.data_dir,
+             "import_plugin_dir": os.path.expanduser("~"),
              "user_id": None,
              "upload_science_logs": True,
              "science_server": "mnemosyne-proj.dyndns.org:80",

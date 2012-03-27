@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>392</width>
-    <height>479</height>
+    <width>360</width>
+    <height>488</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -66,17 +66,18 @@
         </widget>
        </item>
        <item>
-        <spacer>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+        <widget class="QPushButton" name="install_button">
+         <property name="text">
+          <string>&amp;Install plugin</string>
          </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>101</width>
-           <height>20</height>
-          </size>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="delete_button">
+         <property name="text">
+          <string>&amp;Delete plugin</string>
          </property>
-        </spacer>
+        </widget>
        </item>
        <item>
         <widget class="QPushButton" name="cancel_button">
@@ -127,6 +128,38 @@
     <hint type="destinationlabel">
      <x>148</x>
      <y>87</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>install_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ActivatePluginsDlg</receiver>
+   <slot>install_plugin()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>114</x>
+     <y>468</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>179</x>
+     <y>243</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>delete_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ActivatePluginsDlg</receiver>
+   <slot>delete_plugin()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>225</x>
+     <y>468</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>179</x>
+     <y>243</y>
     </hint>
    </hints>
   </connection>

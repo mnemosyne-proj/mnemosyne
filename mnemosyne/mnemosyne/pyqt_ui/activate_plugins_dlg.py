@@ -20,6 +20,13 @@ class ActivatePluginsDlg(QtGui.QDialog, Ui_ActivatePluginsDlg,
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
+        self.build_plugin_list()
+        state = self.config()["plugins_dlg_state"]
+        if state:
+            self.restoreGeometry(state)
+
+    def build_plugin_list(self):
+        self.plugin_list.clear()
         self.previously_active = {}
         self.plugin_with_name = {}
         for plugin in self.plugins():
@@ -37,9 +44,6 @@ class ActivatePluginsDlg(QtGui.QDialog, Ui_ActivatePluginsDlg,
         self.plugin_list.itemActivated.connect(self.plugin_selected)
         self.plugin_list.setCurrentRow(0)
         self.plugin_description.setText(self.plugins()[0].description)
-        state = self.config()["plugins_dlg_state"]
-        if state:
-            self.restoreGeometry(state)
 
     def plugin_selected(self, list_item):
         self.plugin_description.setText(\
@@ -68,3 +72,11 @@ class ActivatePluginsDlg(QtGui.QDialog, Ui_ActivatePluginsDlg,
                 self.previously_active[plugin_name] == True:
                 self.plugin_with_name[plugin_name].deactivate()
         return QtGui.QDialog.accept(self)
+
+    def install_plugin(self):
+        self.controller().install_plugin()
+        self.build_plugin_list()
+
+    def delete_plugin(self):
+        self.controller().delete_plugin()
+        self.build_plugin_list()
