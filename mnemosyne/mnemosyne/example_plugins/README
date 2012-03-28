@@ -32,5 +32,9 @@ illustrating to plugin writers on how to achieve certain functionality.
 
  * filter.py: modifying question and answer text on the fly.
 
+In order to package a plugin for easy installation by the user, just compress
+your .py file and all the other files it requires in a zip file, and change
+the extension from .zip to .plugin.
+
 Note that if you write plugins which require extra modules, the Windows user
 should add those to library.zip.

@@ -19,7 +19,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Installed plugins:</string>
+        <string>Installed plugins (active and inactive):</string>
        </property>
       </widget>
      </item>

@@ -91,6 +91,19 @@ def copy_file_to_dir(filename, dirname):
     return contract_path(dest_path, dirname)
 
 
+def remove_empty_dirs_in(path):
+    if not os.path.isdir(path):
+        return
+    # Remove empty subfolders.
+    for f in os.listdir(path)
+        fullpath = os.path.join(path, f)
+        if os.path.isdir(fullpath):
+            remove_empty_dirs_in(fullpath)
+    # If the directory is empty, delete it.
+    if len(os.listdir(path)) == 0:
+        os.rmdir(path)
+
+
 def numeric_string_cmp(s1, s2):
 
     """Compare two strings using numeric ordering

@@ -10,16 +10,26 @@ from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
+filename = None
+last_error = None
+
 class Widget(MainWidget):
 
     def show_information(self, s1):
         raise NotImplementedError
 
+    def show_error(self, error):
+        global last_error
+        last_error = error
+
+    def get_filename_to_open(self, a, b, c):
+        return filename
+
 class TestPlugin(MnemosyneTest):
 
     def setup(self):
         shutil.rmtree("dot_test", ignore_errors=True)
-        
+
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
         self.mnemosyne.components.insert(0,
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
@@ -27,20 +37,20 @@ class TestPlugin(MnemosyneTest):
             ("test_plugin", "Widget"))
         self.mnemosyne.components.append(\
             ("mnemosyne_test", "TestReviewWidget"))
-        self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
+        self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.review_controller().reset()
-        
+
     @raises(AssertionError)
     def test_1(self):
         from mnemosyne.libmnemosyne.plugin import Plugin
         p = Plugin(self.mnemosyne.component_manager)
-        
+
     @raises(NotImplementedError)
     def test_2(self):
 
         from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
         from mnemosyne.libmnemosyne.plugin import Plugin
-        
+
         class MyCardType(FrontToBack):
             id = "666"
 
@@ -48,13 +58,13 @@ class TestPlugin(MnemosyneTest):
             name = "myplugin"
             description = "MyPlugin"
             components = [MyCardType]
-    
+
         p = MyPlugin(self.mnemosyne.component_manager)
 
         old_length = len(self.card_types())
         p.activate()
         assert len(self.card_types()) == old_length + 1
-        p.deactivate()              
+        p.deactivate()
         assert len(self.card_types()) == old_length
 
         p.activate()
@@ -65,7 +75,7 @@ class TestPlugin(MnemosyneTest):
         self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])
         p.deactivate() # Pops up an information box that this is not possible.
-       
+
     def test_3(self):
 
         from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
@@ -78,13 +88,13 @@ class TestPlugin(MnemosyneTest):
             name = "myplugin"
             description = "MyPlugin"
             components = [MyCardType]
-            
+
         p = MyPlugin(self.mnemosyne.component_manager)
 
         old_length = len(self.card_types())
         p.activate()
         assert len(self.card_types()) == old_length + 1
-        p.deactivate()              
+        p.deactivate()
         assert len(self.card_types()) == old_length
 
         p.activate()
@@ -96,11 +106,11 @@ class TestPlugin(MnemosyneTest):
                                           grade=-1, tag_names=["default"])[0]
         fact = card.fact
         self.controller().delete_facts_and_their_cards([fact])
-        
+
         p.deactivate() # Should work without problems.
 
     def test_4(self):
-   
+
         from mnemosyne.libmnemosyne.plugin import Plugin
         from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
         from mnemosyne.pyqt_ui.card_type_wdgt_generic import GenericCardTypeWdgt
@@ -117,16 +127,16 @@ class TestPlugin(MnemosyneTest):
             name = "Red"
             description = "Red widget for front-to-back cards"
             components = [RedGenericCardTypeWdgt]
-            
+
         p = RedPlugin(self.mnemosyne.component_manager)
         p.activate()
         assert self.mnemosyne.component_manager.current\
                     ("generic_card_type_widget", used_for=FrontToBack) != None
-        p.deactivate()  
+        p.deactivate()
         assert self.mnemosyne.component_manager.current\
                     ("generic_card_type_widget", used_for=FrontToBack) == None
 
-    def test_5(self):   
+    def test_5(self):
         for plugin in self.plugins():
             component = plugin.components[0]
             if component.component_type == "card_type" and component.id == "4":
@@ -137,3 +147,29 @@ class TestPlugin(MnemosyneTest):
     def test_6(self):
         from mnemosyne.libmnemosyne.hook import Hook
         Hook(self.mnemosyne.component_manager).run()
+
+    def test_install_plugin(self):
+        global filename
+        filename = os.path.join(os.getcwd(), "tests", "files", "hide_toolbar.plugin")
+        self.controller().install_plugin()
+
+    def test_install_plugin_cancel(self):
+        global filename
+        filename = ""
+        self.controller().install_plugin()
+
+    def test_install_plugin_missing(self):
+        global filename
+        global last_error
+        filename = os.path.join(os.getcwd(), "tests", "files", "hide_toolbar_missing.plugin")
+        self.controller().install_plugin()
+        assert last_error.startswith("No plugin found")
+        last_error = None
+
+    def test_install_plugin_corrupt(self):
+        global filename
+        global last_error
+        filename = os.path.join(os.getcwd(), "tests", "files", "hide_toolbar_corrupt.plugin")
+        self.controller().install_plugin()
+        assert last_error.startswith("Error when running")
+        last_error = None

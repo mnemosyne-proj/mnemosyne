@@ -1,4 +1,4 @@
--Reworked plugin dialog.
+-Reworked plugin dialog. Plugins can now also be installed through the GUI.
 -Fix playing of sound files containing unicode characters. Unfortunately, due
  to a bug with Qt under Windows, this only works on Linux (reported by Barbara).
 -Copy media directory when doing 'Save as..' (reported by Henrik).

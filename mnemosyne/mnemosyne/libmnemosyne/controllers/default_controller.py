@@ -642,13 +642,18 @@ class DefaultController(Controller):
             plugin_class_name + ".manifest"), "w")
         for filename in filenames:
             print >> manifest, filename
-        # Register the plugin.
+        # Register the plugin. We don't need to worry about registering a
+        # plugin twice, as Python's import mechanism will take of that.
         try:
             __import__(plugin_filename[:-3])
         except:
+            from mnemosyne.libmnemosyne.utils import traceback_string
             msg = _("Error when running plugin:") \
                 + "\n" + traceback_string()
             self.main_widget().show_error(msg)
+            for plugin in self.plugins():
+                if plugin.__class__.__name__ == plugin_class_name:
+                    self.component_manager.unregister(plugin)
 
     def delete_plugin(self, plugin):
         plugin.deactivate()

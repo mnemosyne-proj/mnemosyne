@@ -1,5 +1,4 @@
--make sure we don't install a plugin twice
--add tests
+-check coverage
 -delete empty dirs when uninstalling plugins and compacting database
 -delete plugin
 -rename to plugin manager in source and UI
@@ -11,7 +10,7 @@
 -if the user has effectively used 'activate cards' once, and if he adds a new
  tag, ask if tag should be active. Always update the active set, and if the
  active set is also a saved set, update the saved set too. Different behaviour
- for subtags of existing tags? (Gnome)
+ for subtags of existing tags? (Gnome, Henrik)
  https://bugs.launchpad.net/bugs/953504
  https://bugs.launchpad.net/bugs/953507
 
