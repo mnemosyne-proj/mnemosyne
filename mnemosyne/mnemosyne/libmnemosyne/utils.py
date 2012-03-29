@@ -91,16 +91,16 @@ def copy_file_to_dir(filename, dirname):
     return contract_path(dest_path, dirname)
 
 
-def remove_empty_dirs_in(path):
+def remove_empty_dirs_in(path, level=0):
     if not os.path.isdir(path):
         return
     # Remove empty subfolders.
-    for f in os.listdir(path)
+    for f in os.listdir(path):
         fullpath = os.path.join(path, f)
         if os.path.isdir(fullpath):
-            remove_empty_dirs_in(fullpath)
+            remove_empty_dirs_in(fullpath, level+1)
     # If the directory is empty, delete it.
-    if len(os.listdir(path)) == 0:
+    if level !=  0 and len(os.listdir(path)) == 0:
         os.rmdir(path)
 
 

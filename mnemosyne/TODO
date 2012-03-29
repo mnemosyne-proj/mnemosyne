@@ -1,4 +1,4 @@
--check coverage
+-check coverage util / delete
 -delete empty dirs when uninstalling plugins and compacting database
 -delete plugin
 -rename to plugin manager in source and UI
@@ -26,6 +26,8 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 -also make sure this is OK when changing card type creates extra cards
 -scheduler.spread_sister_cards?
 -when learning late, related cards on the same day can happen
+
+-flash format
 
 ### RC1
 

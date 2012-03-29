@@ -10,6 +10,7 @@ import shutil
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.controller import Controller
+from mnemosyne.libmnemosyne.utils import remove_empty_dirs_in
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 
 
@@ -641,7 +642,8 @@ class DefaultController(Controller):
         manifest = file(os.path.join(plugin_dir,
             plugin_class_name + ".manifest"), "w")
         for filename in filenames:
-            print >> manifest, filename
+            if not os.path.isdir(os.path.join(plugin_dir, filename)):
+                print >> manifest, filename
         # Register the plugin. We don't need to worry about registering a
         # plugin twice, as Python's import mechanism will take of that.
         try:
@@ -658,15 +660,19 @@ class DefaultController(Controller):
     def delete_plugin(self, plugin):
         plugin.deactivate()
         self.component_manager.unregister(plugin)
-        manifest = file(os.path.join(plugin_dir, plugin.__class__.__name__ + \
-                ".manifest"), "r")
+        plugin_dir = os.path.join(self.config().data_dir, "plugins")
+        manifest_filename = os.path.join(plugin_dir,
+            plugin.__class__.__name__ + ".manifest")
+        manifest = file(manifest_filename, "r")
         plugin_dir = os.path.join(self.config().data_dir, "plugins")
         for filename in manifest:
-            filename = os.path.join(plugin_dir, filename)
-            os.path.remove(filename)
+            filename = os.path.join(plugin_dir, filename.rstrip())
+            os.remove(filename)
             if filename.endswith(".py") and os.path.exists(filename + "c"):
-                os.path.remove(filename + "c")
+                os.remove(filename + "c")
         del plugin
+        os.remove(manifest_filename)
+        remove_empty_dirs_in(plugin_dir)
 
     def show_manage_card_types_dialog(self):
         self.stopwatch().pause()

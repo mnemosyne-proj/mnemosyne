@@ -10,8 +10,8 @@ except ImportError:
     from md5 import md5
 
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.libmnemosyne.utils import copy_file_to_dir
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
+from mnemosyne.libmnemosyne.utils import copy_file_to_dir, remove_empty_dirs_in
 
 re_src = re.compile(r"""src=['\"](.+?)['\"]""", re.DOTALL | re.IGNORECASE)
 
@@ -189,6 +189,7 @@ _("Media filename rather long. This could cause problems using this file on a di
         for f in self.component_manager.all("hook",
             "delete_unused_media_files"):
             f.run()
+        remove_empty_dirs_in(self.media_dir())
 
 
 

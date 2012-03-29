@@ -110,6 +110,12 @@ class Controller(Component):
     def show_activate_plugins_dialog(self):
         raise NotImplementedError
 
+    def install_plugin(self):
+        raise NotImplementedError
+
+    def delete_plugin(self, plugin):
+        raise NotImplementedError
+
     def show_manage_card_types_dialog(self):
         raise NotImplementedError
 

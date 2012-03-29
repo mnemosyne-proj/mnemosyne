@@ -3,6 +3,7 @@
 #
 
 import os
+import sys
 import shutil
 from nose.tools import raises
 
@@ -151,7 +152,26 @@ class TestPlugin(MnemosyneTest):
     def test_install_plugin(self):
         global filename
         filename = os.path.join(os.getcwd(), "tests", "files", "hide_toolbar.plugin")
+        import sys
+        for module in [module for module in sys.modules if 'hide_toolbar' in module]:
+            del sys.modules[module]
+        print self.plugins()
+        print 'hide_toolbar' in sys.modules
         self.controller().install_plugin()
+        print 'hide_toolbar' in sys.modules
+        for mod in sys.modules.values():
+            reload(mod)
+
+        print self.plugins()
+        assert os.path.exists(os.path.join(os.getcwd(), "dot_test", "plugins", "plugin_data"))
+        #assert len(self.plugins()) == 4
+        for plugin in self.plugins():
+            if plugin.__class__.__name__ == "HideToolbarPlugin":
+                self.controller().delete_plugin(plugin)
+                break
+        assert not os.path.exists(os.path.join(os.getcwd(), "dot_test", "plugins", "plugin_data"))
+        assert not os.path.exists(os.path.join(os.getcwd(), "dot_test", "plugins", "HideToolbarPlugin.manifest"))
+        assert os.path.exists(os.path.join(os.getcwd(), "dot_test", "plugins"))
 
     def test_install_plugin_cancel(self):
         global filename
@@ -161,6 +181,9 @@ class TestPlugin(MnemosyneTest):
     def test_install_plugin_missing(self):
         global filename
         global last_error
+        import sys
+        for module in [module for module in sys.modules if 'hide_toolbar' in module]:
+            del sys.modules[module]
         filename = os.path.join(os.getcwd(), "tests", "files", "hide_toolbar_missing.plugin")
         self.controller().install_plugin()
         assert last_error.startswith("No plugin found")
@@ -170,6 +193,9 @@ class TestPlugin(MnemosyneTest):
         global filename
         global last_error
         filename = os.path.join(os.getcwd(), "tests", "files", "hide_toolbar_corrupt.plugin")
+        import sys
+        for module in [module for module in sys.modules if 'hide_toolbar' in module]:
+            del sys.modules[module]
         self.controller().install_plugin()
         assert last_error.startswith("Error when running")
         last_error = None
