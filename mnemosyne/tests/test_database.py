@@ -242,7 +242,9 @@ class TestDatabase(MnemosyneTest):
                 self.mnemosyne.component_manager.unregister(plugin)
 
         def dont_finalise():
-            pass
+            from mnemosyne.libmnemosyne.component_manager import clear_component_managers
+            clear_component_managers()
+
         self.mnemosyne.finalise = dont_finalise
 
         self.database().load(self.config()["path"])
@@ -284,10 +286,12 @@ class TestDatabase(MnemosyneTest):
                 break
 
         def dont_finalise():
-            pass
+            from mnemosyne.libmnemosyne.component_manager import clear_component_managers
+            clear_component_managers()
         self.mnemosyne.finalise = dont_finalise
 
         self.database().load(self.config()["path"])
+
 
     def test_save_as(self):
         fact_data = {"f": "question",

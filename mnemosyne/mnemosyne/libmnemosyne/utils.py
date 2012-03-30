@@ -92,8 +92,6 @@ def copy_file_to_dir(filename, dirname):
 
 
 def remove_empty_dirs_in(path, level=0):
-    if not os.path.isdir(path):
-        return
     # Remove empty subfolders.
     for f in os.listdir(path):
         fullpath = os.path.join(path, f)

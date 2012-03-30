@@ -22,6 +22,13 @@ class MnemosyneTest():
         self.restart()
 
     def restart(self):
+        # If there is another Mnemosyne still running, finalise it so as to
+        # avoid having multiple component_managers active.
+        if hasattr(self, "mnemosyne"):
+            try:
+                self.mnemosyne.finalise()
+            except:
+                pass
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
         self.mnemosyne.components.insert(0,
             ("mnemosyne.libmnemosyne.translators.gettext_translator",
@@ -36,6 +43,9 @@ class MnemosyneTest():
 
     def teardown(self):
         self.mnemosyne.finalise()
+        # Avoid having multiple component_managers active.
+        from mnemosyne.libmnemosyne.component_manager import clear_component_managers
+        clear_component_managers()
 
     def config(self):
         return self.mnemosyne.component_manager.current("config")

@@ -39,9 +39,9 @@ class BrowseCardsDialog(Dialog):
     component_type = "browse_cards_dialog"
 
 
-class ActivatePluginsDialog(Dialog):
+class ManagePluginsDialog(Dialog):
 
-    component_type = "activate_plugins_dialog"
+    component_type = "manage_plugins_dialog"
 
 
 class ManageCardTypesDialog(Dialog):

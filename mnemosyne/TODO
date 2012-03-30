@@ -1,8 +1,3 @@
--check coverage util / delete
--delete empty dirs when uninstalling plugins and compacting database
--delete plugin
--rename to plugin manager in source and UI
-
 -progress bars for long stats
 
 -make sure sync login timeout never results in a serious error
@@ -26,8 +21,6 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 -also make sure this is OK when changing card type creates extra cards
 -scheduler.spread_sister_cards?
 -when learning late, related cards on the same day can happen
-
--flash format
 
 ### RC1
 
@@ -55,6 +48,8 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 -check 2 sound files again under W7, mail Patrick, update changelog
 
 ### Release
+
+-flash format <object type="application/x-shockwave-flash" data="foo.swf" />
 
 -don't refresh review widget after edit window if no changes have been made (gnome) (LP bug)
 -after showing answer, exiting card browser hides answer again (Gnome, LP bug)

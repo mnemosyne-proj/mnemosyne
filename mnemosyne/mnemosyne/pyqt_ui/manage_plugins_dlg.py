@@ -1,19 +1,19 @@
 #
-# activate_plugins_dlg.py <Peter.Bienstman@UGent.be>
+# manage_plugins_dlg.py <Peter.Bienstman@UGent.be>
 #
 
+import os
 from PyQt4 import QtCore, QtGui
 
+from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.pyqt_ui.ui_manage_plugins_dlg import Ui_ManagePluginsDlg
+from mnemosyne.libmnemosyne.ui_components.dialogs import ManagePluginsDialog
 
-from mnemosyne.pyqt_ui.ui_activate_plugins_dlg import Ui_ActivatePluginsDlg
-from mnemosyne.libmnemosyne.ui_components.dialogs import ActivatePluginsDialog
 
-
-class ActivatePluginsDlg(QtGui.QDialog, Ui_ActivatePluginsDlg,
-    ActivatePluginsDialog):
+class ManagePluginsDlg(QtGui.QDialog, Ui_ManagePluginsDlg, ManagePluginsDialog):
 
     def __init__(self, component_manager):
-        ActivatePluginsDialog.__init__(self, component_manager)
+        ManagePluginsDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
@@ -26,6 +26,10 @@ class ActivatePluginsDlg(QtGui.QDialog, Ui_ActivatePluginsDlg,
             self.restoreGeometry(state)
 
     def build_plugin_list(self):
+        plugin_dir = os.path.join(self.config().data_dir, "plugins")
+        self.can_be_deleted = [filename.rsplit(".", 1)[0] for \
+            filename in os.listdir(plugin_dir) \
+            if filename.endswith(".manifest")]
         self.plugin_list.clear()
         self.previously_active = {}
         self.plugin_with_name = {}
@@ -44,10 +48,14 @@ class ActivatePluginsDlg(QtGui.QDialog, Ui_ActivatePluginsDlg,
         self.plugin_list.itemActivated.connect(self.plugin_selected)
         self.plugin_list.setCurrentRow(0)
         self.plugin_description.setText(self.plugins()[0].description)
+        self.delete_button.setEnabled(\
+            self.plugins()[0].__class__.__name__ in self.can_be_deleted)
 
     def plugin_selected(self, list_item):
-        self.plugin_description.setText(\
-            self.plugin_with_name[unicode(list_item.text())].description)
+        plugin = self.plugin_with_name[unicode(list_item.text())]
+        self.plugin_description.setText(plugin.description)
+        self.delete_button.setEnabled(\
+            plugin.__class__.__name__ in self.can_be_deleted)
 
     def activate(self):
         self.exec_()
@@ -78,5 +86,12 @@ class ActivatePluginsDlg(QtGui.QDialog, Ui_ActivatePluginsDlg,
         self.build_plugin_list()
 
     def delete_plugin(self):
-        self.controller().delete_plugin()
+        plugin_name = unicode(self.plugin_list.selectedItems()[0].text())
+        question = _("Are you sure you want to delete the plugin") + " \"" + \
+            plugin_name + "\" " + _("and not just deactivate it?")
+        answer = self.main_widget().show_question(question,
+            _("Delete"), _("Cancel"), "")
+        if answer == 1:  # Cancel
+            return
+        self.controller().delete_plugin(self.plugin_with_name[plugin_name])
         self.build_plugin_list()

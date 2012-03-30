@@ -144,6 +144,17 @@ class ComponentManager(object):
 
 _component_managers = {}
 
+def clear_component_managers():
+
+    """Used for the testsuite to prevent multiple component managers hanging
+    around.
+
+    """
+
+    user_ids = _component_managers.keys()
+    for user_id in user_ids:
+        unregister_component_manager(user_id)
+
 def new_component_manager():
     return ComponentManager()
 

@@ -38,7 +38,7 @@
      <string>&amp;Settings</string>
     </property>
     <addaction name="actionConfigure"/>
-    <addaction name="actionActivatePlugins"/>
+    <addaction name="actionManagePlugins"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
     <property name="title">
@@ -268,12 +268,12 @@
     <string>&amp;Tip of the day</string>
    </property>
   </action>
-  <action name="actionActivatePlugins">
+  <action name="actionManagePlugins">
    <property name="text">
-    <string>(De)activate &amp;plugins...</string>
+    <string>Manage &amp;plugins...</string>
    </property>
    <property name="toolTip">
-    <string>(De)activate plugins</string>
+    <string>Manage plugins</string>
    </property>
   </action>
   <action name="actionCloneCardTypes">
@@ -431,10 +431,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionActivatePlugins</sender>
+   <sender>actionManagePlugins</sender>
    <signal>triggered()</signal>
    <receiver>MainWdgt</receiver>
-   <slot>activate_plugins</slot>
+   <slot>manage_plugins</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>

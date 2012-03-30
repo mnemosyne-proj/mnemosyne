@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ActivatePluginsDlg</class>
- <widget class="QDialog" name="ActivatePluginsDlg">
+ <class>ManagePluginsDlg</class>
+ <widget class="QDialog" name="ManagePluginsDlg">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Activate plugins</string>
+   <string>Manage plugins</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -102,7 +102,7 @@
   <connection>
    <sender>cancel_button</sender>
    <signal>clicked()</signal>
-   <receiver>ActivatePluginsDlg</receiver>
+   <receiver>ManagePluginsDlg</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -118,7 +118,7 @@
   <connection>
    <sender>ok_button</sender>
    <signal>clicked()</signal>
-   <receiver>ActivatePluginsDlg</receiver>
+   <receiver>ManagePluginsDlg</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -134,7 +134,7 @@
   <connection>
    <sender>install_button</sender>
    <signal>clicked()</signal>
-   <receiver>ActivatePluginsDlg</receiver>
+   <receiver>ManagePluginsDlg</receiver>
    <slot>install_plugin()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -150,7 +150,7 @@
   <connection>
    <sender>delete_button</sender>
    <signal>clicked()</signal>
-   <receiver>ActivatePluginsDlg</receiver>
+   <receiver>ManagePluginsDlg</receiver>
    <slot>delete_plugin()</slot>
    <hints>
     <hint type="sourcelabel">

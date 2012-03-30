@@ -3,6 +3,7 @@
 #
 
 import os
+import sys
 import copy
 import time
 import shutil
@@ -600,10 +601,10 @@ class DefaultController(Controller):
         review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
 
-    def show_activate_plugins_dialog(self):
+    def show_manage_plugins_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
-        self.component_manager.current("activate_plugins_dialog")\
+        self.component_manager.current("manage_plugins_dialog")\
             (self.component_manager).activate()
         self.review_controller().update_dialog(redraw_all=True)
         self.stopwatch().unpause()
@@ -644,10 +645,18 @@ class DefaultController(Controller):
         for filename in filenames:
             if not os.path.isdir(os.path.join(plugin_dir, filename)):
                 print >> manifest, filename
-        # Register the plugin. We don't need to worry about registering a
-        # plugin twice, as Python's import mechanism will take of that.
+        # Make sure we don't register a plugin twice.
+        for plugin in self.plugins():
+            if plugin.__class__.__name__ == plugin_class_name:
+                return
+        # Register plugin.
         try:
-            __import__(plugin_filename[:-3])
+            module_name = plugin_filename[:-3]
+            # Schedule module for reloading. Needed to catch the case of
+            # deleting a plugin and then immediately reinstalling it.
+            if module_name in sys.modules:
+                del sys.modules[module_name]
+            __import__(module_name)
         except:
             from mnemosyne.libmnemosyne.utils import traceback_string
             msg = _("Error when running plugin:") \

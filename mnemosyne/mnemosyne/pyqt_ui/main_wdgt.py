@@ -194,8 +194,8 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
     def set_card_appearance(self):
         self.controller().show_card_appearance_dialog()
 
-    def activate_plugins(self):
-        self.controller().show_activate_plugins_dialog()
+    def manage_plugins(self):
+        self.controller().show_manage_plugins_dialog()
 
     def show_statistics(self):
         self.controller().show_statistics_dialog()
