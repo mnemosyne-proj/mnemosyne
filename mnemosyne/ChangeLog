@@ -1,3 +1,5 @@
+-When the sync login fails, don't force a restore from backup on the next sync.
+-Display progress bar when calculating long statistics.
 -Reworked plugin dialog. Plugins can now also be installed through the GUI.
 -Fix playing of sound files containing unicode characters. Unfortunately, due
  to a bug with Qt under Windows, this only works on Linux (reported by Barbara).

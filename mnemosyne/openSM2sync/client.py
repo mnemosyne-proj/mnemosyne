@@ -282,7 +282,13 @@ class Client(Partner):
             self.text_format.repr_partner_info(client_info).\
             encode("utf-8") + "\n")
         response = self.con.getresponse()
-        self._check_response_for_errors(response, can_consume_response=False)
+        # Check for errors, but don't force a restore from backup if we can't
+        # login.
+        try:
+            self._check_response_for_errors(\
+                response, can_consume_response=False)
+        except SeriousSyncError:
+            raise SyncError("Logging in: server error.")
         response = response.read()
         if "message" in response:
             message, traceback = self.text_format.parse_message(response)

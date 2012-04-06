@@ -48,7 +48,7 @@ class TestController(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "SyncDialog"))
         self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.dialogs", "ActivatePluginsDialog"))
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "ManagePluginsDialog"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ManageCardTypesDialog"))
         self.mnemosyne.components.append(\
@@ -87,7 +87,7 @@ class TestController(MnemosyneTest):
         self.controller().show_open_file_dialog()
         self.controller().show_save_file_as_dialog()
         self.controller().show_compact_database_dialog()
-        self.controller().show_activate_plugins_dialog()
+        self.controller().show_manage_plugins_dialog()
         self.controller().show_manage_card_types_dialog()
         self.controller().show_browse_cards_dialog()
         self.controller().show_configuration_dialog()
@@ -96,8 +96,8 @@ class TestController(MnemosyneTest):
         self.controller().show_tip_dialog()
         self.controller().show_getting_started_dialog()
         self.controller().show_about_dialog()
-        self.controller().download_source()
-        self.controller().sync()
+        self.controller().show_download_source_dialog()
+        self.controller().show_sync_dialog()
 
     def test_2(self):
         self.controller().show_save_file_as_dialog()
@@ -115,7 +115,7 @@ class TestController(MnemosyneTest):
 
         self.controller().show_new_file_dialog()
 
-    def test_coverage(self):
+    def test_coverage_2(self):
         from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
         w = MainWidget(self.mnemosyne.component_manager)
         w.show_information("")
@@ -127,7 +127,7 @@ class TestController(MnemosyneTest):
         self.controller().show_insert_video_dialog("")
         self.controller().show_download_source_dialog()
         self.controller().show_sync_dialog()
-        self.controller().show_activate_plugins_dialog()
+        self.controller().show_manage_plugins_dialog()
         self.controller().show_manage_card_types_dialog()
         self.controller().show_statistics_dialog()
         self.controller().show_configuration_dialog()

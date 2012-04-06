@@ -1,7 +1,3 @@
--progress bars for long stats
-
--make sure sync login timeout never results in a serious error
-
 -if the user has effectively used 'activate cards' once, and if he adds a new
  tag, ask if tag should be active. Always update the active set, and if the
  active set is also a saved set, update the saved set too. Different behaviour
@@ -14,7 +10,8 @@
 -import from txt file (2 test cases from mac os	Naomi Borkowski)
 
 -auto detect RTL http://dotancohen.com/howto/rtl_right_to_left.html (bug report)
--media sentence card has wrong color on win
+
+-media sentence card has wrong color on win. Are settings synced?
 
 -new cards with a >=2 grade can end up on the same day on first interactive rep
 replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
@@ -49,6 +46,7 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 
 ### Release
 
+-insert latex tags shortcut and menu (phyTech)
 -flash format <object type="application/x-shockwave-flash" data="foo.swf" />
 
 -don't refresh review widget after edit window if no changes have been made (gnome) (LP bug)

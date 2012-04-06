@@ -107,7 +107,7 @@ class Controller(Component):
     def show_browse_cards_dialog(self):
         raise NotImplementedError
 
-    def show_activate_plugins_dialog(self):
+    def show_manage_plugins_dialog(self):
         raise NotImplementedError
 
     def install_plugin(self):
