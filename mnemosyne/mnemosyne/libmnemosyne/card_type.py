@@ -14,10 +14,10 @@ class CardType(Component, CompareOnId):
 
     A card type needs an id as well as a name, because the name can change
     for different translations.
-    
+
     Inherited card types should have ids where :: separates the different
     levels of the hierarchy, e.g. parent_id::child_id.
-    
+
     The keys from the fact are also given more verbose names here. This is
     not done in fact.py, on one hand to save space in the database, and on
     the other hand to allow the possibility that different card types give
@@ -40,7 +40,7 @@ class CardType(Component, CompareOnId):
     e.g. the cloze card type.
 
     """
-    
+
     id = "-1"
     name = ""
     component_type = "card_type"
@@ -51,7 +51,7 @@ class CardType(Component, CompareOnId):
     required_fact_keys = None
     keyboard_shortcuts = {}
     extra_data = {}
-            
+
     def fact_keys(self):
         return set(fact_key for (fact_key, fact_key_name) \
             in self.fact_keys_and_names)
@@ -59,16 +59,16 @@ class CardType(Component, CompareOnId):
     def fact_key_names(self):
         return [fact_key_name for (fact_key, fact_key_name) \
             in self.fact_keys_and_names]
-    
+
     def fact_key_with_name(self, name):
         for fact_key, fact_key_name in self.fact_keys_and_names:
             if fact_key_name == name:
                 return fact_key
-            
+
     def render_question(self, card, render_chain="default", **render_args):
         return self.render_chain(render_chain).\
             render_question(card, **render_args)
-       
+
     def render_answer(self, card, render_chain="default", **render_args):
         return self.render_chain(render_chain).\
             render_answer(card, **render_args)
@@ -76,13 +76,13 @@ class CardType(Component, CompareOnId):
     def is_fact_data_valid(self, fact_data):
 
         """Check if all the required keys are present."""
-        
+
         for required_fact_key in self.required_fact_keys:
             if required_fact_key not in fact_data or \
                    not fact_data[required_fact_key]:
                 return False
         return True
-        
+
     def fact_data(self, card):
 
         """Returns the data in fact of a card. Normally. this is just
@@ -90,16 +90,16 @@ class CardType(Component, CompareOnId):
         can override this.
 
         """
-        
+
         return card.fact.data
 
     def create_sister_cards(self, fact):
 
-        """Initial grading of cards and storing in the database should not happen
-        here, but is done in the main controller.
+        """Initial grading of cards and storing in the database should not
+        happen here, but is done in the main controller.
 
         """
-        
+
         return [Card(self, fact, fact_view) for fact_view in self.fact_views]
 
     def edit_sister_cards(self, fact, new_fact_data):
@@ -116,7 +116,7 @@ class CardType(Component, CompareOnId):
 
         new_cards, edited_cards, deleted_cards = [], [], []
         return new_cards, edited_cards, deleted_cards
-    
+
     def fact_key_format_proxies(self):
 
         """Sometimes, a card type can dynamically create a key when

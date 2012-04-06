@@ -2413,6 +2413,50 @@ class TestSync(object):
         assert self.client.mnemosyne.database().con.\
                    execute("select count() from partnerships").fetchone()[0] == 1
 
+    def test_add_tag_and_update_criterion(self):
+
+        def test_server(self):
+            db = self.mnemosyne.database()
+            criterion = db.criterion(self.criterion_id,
+                is_id_internal=False)
+            print criterion.data_to_string()
+            assert criterion.data_to_string() == (set([]), set([2, 4]), set([]))
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.client.mnemosyne.card_type_with_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_1"])[0]
+
+        fact_data = {"f": "question2",
+                     "b": "answer2"}
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_2"])[0]
+
+        c = DefaultCriterion(self.client.mnemosyne.component_manager)
+        c.name = "My criterion"
+        c._tag_ids_active = set([self.client.mnemosyne.database().\
+            get_or_create_tag_with_name("tag_1")._id])
+        self.client.mnemosyne.database().add_criterion(c)
+        self.client.mnemosyne.database().set_current_criterion(c)
+
+        fact_data = {"f": "question3",
+                     "b": "answer3"}
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_3"])[0]
+
+        self.server.criterion_id = c.id
+
+        self.client.mnemosyne.controller().save_file()
+        self.client.do_sync(); assert last_error is None
+
+
     def test_add_criterion(self):
 
         def test_server(self):
