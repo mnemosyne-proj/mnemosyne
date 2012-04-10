@@ -55,15 +55,23 @@ class DefaultCriterion(Criterion):
                 card.active = False
                 break
 
-    def tag_added(self, tag):
+    def active_tag_added(self, tag):
         self._tag_ids_active.add(tag._id)
+
+    def forbidden_tag_added(self, tag):
+        pass
 
     def tag_deleted(self, tag):
         self._tag_ids_active.discard(tag._id)
         self._tag_ids_forbidden.discard(tag._id)
 
-    def card_type_added(self, card_type):
+    def active_card_type_added(self, card_type):
         pass
+
+    def forbidden_card_type_added(self, card_type):
+        for fact_view in card_type.fact_views:
+            self.deactivated_card_type_fact_view_ids.add(\
+                (card_type.id, fact_view.id))
 
     def card_type_deleted(self, card_type):
         for fact_view in card_type.fact_views:

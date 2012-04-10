@@ -16,10 +16,10 @@ class Criterion(Component):
 
     """
 
-    component_type = "criterion"   
+    component_type = "criterion"
     criterion_type = ""
     instantiate = Component.LATER
-    
+
     def __init__(self, component_manager, id=None):
         Component.__init__(self, component_manager)
         self.name = ""
@@ -30,7 +30,7 @@ class Criterion(Component):
 
     def __eq__(self, other):
         raise NotImplementedError
-    
+
     def __ne__(self, other):
         return not self.__eq__(other)
 
@@ -40,9 +40,9 @@ class Criterion(Component):
         contain any cards (e.g. disabling all card types).
 
         """
-        
+
         return False
-            
+
     def apply_to_card(self, card):
 
         """Set the card active or not depending on the criterion. Does not
@@ -55,21 +55,27 @@ class Criterion(Component):
         destroyed, such that Criteria can update their status if needed.
 
         """
-        
+
         raise NotImplementedError
 
-    def tag_added(self, tag):
+    def active_tag_added(self, tag):
+        pass
+
+    def forbidden_tag_added(self, tag):
         pass
 
     def tag_deleted(self, tag):
         pass
 
-    def card_type_added(self, card_type):
+    def active_card_type_added(self, card_type):
+        pass
+
+    def forbidden_card_type_added(self, card_type):
         pass
 
     def card_type_deleted(self, card_type):
         pass
-    
+
     def data_to_string(self):
 
         """Convert variables to a string for storage in the database. We don't
@@ -77,12 +83,12 @@ class Criterion(Component):
         to read the database.
 
         """
-        
+
         raise NotImplementedError
 
     def set_data_from_string(self, data_string):
         raise NotImplementedError
-    
+
     def data_to_sync_string(self):
 
         """Convert variables to a string for sending across during syncing.
@@ -90,7 +96,7 @@ class Criterion(Component):
         of _ids."""
 
         raise NotImplementedError
-    
+
     def set_data_from_sync_string(self, data_string):
         raise NotImplementedError
 
@@ -110,4 +116,4 @@ class CriterionApplier(Component):
     component_type = "criterion_applier"
 
     def apply_to_database(self, criterion):
-        raise NotImplementedError        
+        raise NotImplementedError

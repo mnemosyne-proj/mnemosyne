@@ -1,18 +1,10 @@
 -fix testsuite
 
--add test that a new tag only gets added to the current and saved criterion
+-add tests for forbidden tags/card types, check coverage
 
--when len(criteria >1), tell that this tag was added to the currently active set.
- Warn only once.
-
--if the user has effectively used 'activate cards' once, and if he adds a new
- tag, ask if tag should be active. Always update the active set, and if the
- active set is also a saved set, update the saved set too. Different behaviour
- for subtags of existing tags? (Gnome, Henrik). Don't do this for non-active criteria.
+-(Gnome, Henrik)
  https://bugs.launchpad.net/bugs/953504
  https://bugs.launchpad.net/bugs/953507
-
--similar for adding card types
 
 -Saving set to name which already exists: update set
 
