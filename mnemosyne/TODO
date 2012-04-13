@@ -1,5 +1,3 @@
--fix testsuite
-
 -add tests for forbidden tags/card types, check coverage
 
 -(Gnome, Henrik)

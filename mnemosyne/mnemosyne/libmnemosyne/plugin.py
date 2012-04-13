@@ -67,7 +67,7 @@ class Plugin(Component):
             for component in self.instantiated_components:
                 if component.component_type == "card_type":
                     for criterion in db.criteria():
-                        criterion.card_type_added(component)
+                        criterion.active_card_type_added(component)
                         db.update_criterion(criterion)
         if self.database().is_loaded() and self.review_reset_needed:
             self.review_controller().reset()
