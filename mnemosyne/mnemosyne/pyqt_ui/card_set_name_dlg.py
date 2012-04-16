@@ -35,13 +35,9 @@ class CardSetNameDlg(QtGui.QDialog, Ui_CardSetNameDlg, UiComponent):
 
     def reject(self):
         self.criterion.name = ""
-        return QtGui.QDialog.reject(self)        
-        
+        return QtGui.QDialog.reject(self)
+
     def accept(self):
-        name = unicode(self.set_name.text())
-        if name in self.existing_names:
-            self.main_widget().show_error(_("This name already exists."))
-            return
-        self.criterion.name = name
+        self.criterion.name = unicode(self.set_name.text())
         return QtGui.QDialog.accept(self)
-        
+

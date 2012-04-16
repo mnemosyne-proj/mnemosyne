@@ -61,7 +61,7 @@ class Criterion(Component):
     def active_tag_added(self, tag):
         pass
 
-    def forbidden_tag_added(self, tag):
+    def deactivated_tag_added(self, tag):
         pass
 
     def tag_deleted(self, tag):
@@ -70,7 +70,7 @@ class Criterion(Component):
     def active_card_type_added(self, card_type):
         pass
 
-    def forbidden_card_type_added(self, card_type):
+    def deactivated_card_type_added(self, card_type):
         pass
 
     def card_type_deleted(self, card_type):

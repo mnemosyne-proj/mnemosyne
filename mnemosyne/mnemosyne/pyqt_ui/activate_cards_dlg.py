@@ -98,7 +98,17 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
                        self.criteria_by_name.keys()).exec_()
         if not criterion.name:  # User cancelled.
             return
-        self.database().add_criterion(criterion)
+        if criterion.name in self.criteria_by_name.keys():
+            answer = self.main_widget().show_question(_("Update this set?"),
+                _("&OK"), _("&Cancel"), "")
+            if answer == 1:  # Cancel.
+                return
+            original_criterion = self.criteria_by_name[criterion.name]
+            criterion._id = original_criterion._id
+            criterion.id = original_criterion.id
+            self.database().update_criterion(criterion)
+        else:
+            self.database().add_criterion(criterion)
         self.update_saved_sets_pane()
         item = self.saved_sets.findItems(criterion.name,
             QtCore.Qt.MatchExactly)[0]

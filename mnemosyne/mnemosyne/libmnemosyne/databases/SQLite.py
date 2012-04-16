@@ -593,7 +593,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             if criterion in criteria_to_activate_tag_in:
                 criterion.active_tag_added(tag)
             else:
-                criterion.forbidden_tag_added(tag)
+                criterion.deactivated_tag_added(tag)
             self.update_criterion(criterion)
         # Strictly speaking, we should reapply the default criterion here,
         # just as we do in delete_tag. However, the behaviour for new tags is
@@ -1048,7 +1048,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             if criterion in criteria_to_activate_card_type_in:
                 criterion.active_card_type_added(card_type)
             else:
-                criterion.forbidden_card_type_added(card_type)
+                criterion.deactivated_card_type_added(card_type)
             self.update_criterion(criterion)
 
     def card_type(self, id, is_id_internal):

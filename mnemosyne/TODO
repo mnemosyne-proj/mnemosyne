@@ -1,24 +1,20 @@
--add tests for forbidden tags/card types, check coverage
-
--(Gnome, Henrik)
- https://bugs.launchpad.net/bugs/953504
+-(Gnome, Henrik) https://bugs.launchpad.net/bugs/953504
  https://bugs.launchpad.net/bugs/953507
-
--Saving set to name which already exists: update set
 
 -card type clone: rename and delete, both in card browser and card type browser
 
--import from txt file (2 test cases from mac os	Naomi Borkowski)
-
--auto detect RTL http://dotancohen.com/howto/rtl_right_to_left.html (bug report)
-
+-check sync timeout when both client and server check for updated media files.
 -media sentence card has wrong color on win. Are settings synced?
+
+-import from txt file (2 test cases from mac os	Naomi Borkowski)
 
 -new cards with a >=2 grade can end up on the same day on first interactive rep
 replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 -also make sure this is OK when changing card type creates extra cards
 -scheduler.spread_sister_cards?
 -when learning late, related cards on the same day can happen
+
+-auto detect RTL http://dotancohen.com/howto/rtl_right_to_left.html (bug report)
 
 ### RC1
 

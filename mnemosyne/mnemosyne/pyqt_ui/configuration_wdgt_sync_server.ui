@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>344</width>
+    <width>349</width>
     <height>299</height>
    </rect>
   </property>
@@ -84,7 +84,7 @@
       <item>
        <widget class="QCheckBox" name="check_for_edited_local_media_files">
         <property name="text">
-         <string>Check for changed media files on this machine</string>
+         <string>Check for changed media files on server</string>
         </property>
        </widget>
       </item>

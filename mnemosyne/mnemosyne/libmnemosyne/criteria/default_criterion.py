@@ -58,8 +58,14 @@ class DefaultCriterion(Criterion):
     def active_tag_added(self, tag):
         self._tag_ids_active.add(tag._id)
 
-    def forbidden_tag_added(self, tag):
-        pass
+    def deactivated_tag_added(self, tag):
+        # Since the UI only supports criteria which either have active tags or
+        # forbidden tags, but not both, we need to maintain that situation when
+        # adding tags.
+        if len(self._tag_ids_forbidden) != 0:
+            self._tag_ids_forbidden.add(tag._id)
+        else:
+            pass
 
     def tag_deleted(self, tag):
         self._tag_ids_active.discard(tag._id)
@@ -68,7 +74,7 @@ class DefaultCriterion(Criterion):
     def active_card_type_added(self, card_type):
         pass
 
-    def forbidden_card_type_added(self, card_type):
+    def deactivated_card_type_added(self, card_type):
         for fact_view in card_type.fact_views:
             self.deactivated_card_type_fact_view_ids.add(\
                 (card_type.id, fact_view.id))

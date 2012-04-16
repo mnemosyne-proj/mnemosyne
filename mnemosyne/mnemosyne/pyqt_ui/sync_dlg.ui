@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>334</width>
-    <height>144</height>
+    <width>337</width>
+    <height>152</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -84,7 +84,7 @@
      <item>
       <widget class="QCheckBox" name="check_for_edited_local_media_files">
        <property name="text">
-        <string>Check for changed media files on this machine</string>
+        <string>Check for changed media files on client</string>
        </property>
       </widget>
      </item>

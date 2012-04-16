@@ -1,5 +1,8 @@
+-You can now save a set of cards using a name of an existing set, and you will
+ get the option of updating the previous set.
 -When adding a new tag, the user gets the choice of whether this tag will be
  activated in the current saved set. Other saved sets will be left alone.
+ Ditto for new card types.
 -When the sync login fails, don't force a restore from backup on the next sync.
 -Display progress bar when calculating long statistics.
 -Reworked plugin dialog. Plugins can now also be installed through the GUI.
