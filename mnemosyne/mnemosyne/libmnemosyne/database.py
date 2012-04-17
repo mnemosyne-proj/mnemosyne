@@ -177,6 +177,9 @@ class Database(Component):
     def card_type(self, id, is_id_internal):
         raise NotImplementedError
 
+    def is_user_card_type(self, card_type):
+        raise NotImplementedError
+
     def update_card_type(self, card_type):
         raise NotImplementedError
 

@@ -20,6 +20,24 @@ class CardTypesTreeWdgt(QtGui.QWidget, Component):
         self.card_type_tree = QtGui.QTreeWidget(self)
         self.card_type_tree.setHeaderHidden(True)
         self.layout.addWidget(self.card_type_tree)
+        # Context menu.
+        self.card_type_tree.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        self.card_type_tree.customContextMenuRequested.connect(self.context_menu)
+
+    def context_menu(self, point):
+        if not self.card_type_tree.currentItem() in self.can_be_edited:
+            return
+        menu = QtGui.QMenu(self)
+        rename_action = QtGui.QAction(_("&Rename"), menu)
+        rename_action.triggered.connect(self.menu_rename)
+        menu.addAction(rename_action)
+        delete_action = QtGui.QAction(_("&Delete"), menu)
+        delete_action.setShortcut(QtGui.QKeySequence.Delete)
+        delete_action.triggered.connect(self.menu_delete)
+        if not self.card_type_tree.currentItem() in self.can_be_deleted:
+            delete_action.setEnabled(False)
+        menu.addAction(delete_action)
+        menu.exec_(self.card_type_tree.mapToGlobal(point))
 
     def display(self, criterion=None):
         # Create criterion if needed.
@@ -36,9 +54,11 @@ class CardTypesTreeWdgt(QtGui.QWidget, Component):
                     (fact_view, active_only=False)
                 card_type_count += count
                 count_for_fact_view[fact_view] = count
-            count_for_card_type[card_type] = card_type_count 
+            count_for_card_type[card_type] = card_type_count
             root_count += card_type_count
         # Fill widget.
+        self.can_be_deleted = []
+        self.can_be_edited = []
         self.card_type_tree.clear()
         self.card_type_fact_view_ids_for_node_item = {}
         root_item = QtGui.QTreeWidgetItem(self.card_type_tree,
@@ -50,8 +70,13 @@ class CardTypesTreeWdgt(QtGui.QWidget, Component):
             card_type_item = QtGui.QTreeWidgetItem(root_item, ["%s (%d)" % \
                 (_(card_type.name), count_for_card_type[card_type])], 0)
             card_type_item.setFlags(card_type_item.flags() | \
-                QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)            
+                QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
             card_type_item.setCheckState(0, QtCore.Qt.Checked)
+            if count_for_card_type[card_type] == 0 and \
+                self.database().is_user_card_type(card_type):
+                    self.can_be_deleted.append(card_type_item)
+            if self.database().is_user_card_type(card_type):
+                self.can_be_edited.append(card_type_item)
             for fact_view in card_type.fact_views:
                 fact_view_item = QtGui.QTreeWidgetItem(card_type_item,
                     ["%s (%d)" % (_(fact_view.name),
@@ -68,6 +93,12 @@ class CardTypesTreeWdgt(QtGui.QWidget, Component):
                     (card_type.id, fact_view.id)
         self.card_type_tree.expandAll()
 
+    def menu_rename(self):
+        print "rename"
+
+    def menu_delete(self):
+        print 'delete'
+
     def checked_to_criterion(self, criterion):
         criterion.deactivated_card_type_fact_view_ids = set()
         for item, card_type_fact_view_ids in \
@@ -83,7 +114,7 @@ class CardTypesTreeWdgt(QtGui.QWidget, Component):
         e.g. due to edits in the card browser widget.
 
         """
-        
+
         saved_criterion = DefaultCriterion(self.component_manager)
         self.checked_to_criterion(saved_criterion)
         # Now we've saved the checked state of the tree.

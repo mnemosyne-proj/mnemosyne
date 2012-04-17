@@ -1,7 +1,8 @@
--(Gnome, Henrik) https://bugs.launchpad.net/bugs/953504
- https://bugs.launchpad.net/bugs/953507
-
--card type clone: rename and delete, both in card browser and card type browser
+-libmnemosyne function to rename card type
+-where to check if card type can be deleted? Safer to do that in libmnemosyne
+-card type clone: rename and delete in card browser. Edit through double-click
+-no context menu if more than 1 clone is selected
+-same in card type browser
 
 -check sync timeout when both client and server check for updated media files.
 -media sentence card has wrong color on win. Are settings synced?
@@ -15,6 +16,8 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 -when learning late, related cards on the same day can happen
 
 -auto detect RTL http://dotancohen.com/howto/rtl_right_to_left.html (bug report)
+
+-workaround for non-latin sound files?
 
 ### RC1
 
