@@ -9,6 +9,16 @@ from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
+from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
+
+last_error = None
+
+class Widget(MainWidget):
+
+    def show_error(self, error):
+        global last_error
+        last_error = error
+
 
 
 class DecoratedThreeSided(CardType):
@@ -48,7 +58,7 @@ class TestCardType(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("test_card_type", "DecoratedThreeSided"))
         self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.main_widget", "MainWidget"))
+            ("test_card_type", "Widget"))
         self.mnemosyne.components.append(\
             ("mnemosyne_test", "TestReviewWidget"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
@@ -56,6 +66,7 @@ class TestCardType(MnemosyneTest):
 
     def test_card_types(self):
         card_type = self.card_type_with_id("1")
+        assert self.database().is_in_use(card_type) is False
         assert card_type.fact_key_with_name("Front") == "f"
         assert card_type.is_fact_data_valid({"f": "foo"}) == True
         assert self.card_type_with_id("1") == self.card_type_with_id("1")
@@ -141,6 +152,55 @@ class TestCardType(MnemosyneTest):
                card_type_2.fact_views[1].a_fact_keys
         assert card_type_out.fact_views[1].a_on_top_of_q == \
                card_type_2.fact_views[1].a_on_top_of_q
+
+    def test_cannot_delete(self):
+        global last_error
+        last_error = None
+
+        card_type = self.card_type_with_id("1")
+        self.controller().delete_card_type(card_type)
+        assert last_error.startswith("Card type is")
+        last_error = None
+
+        card_type_1 = self.controller().clone_card_type(\
+            card_type, "1 clone")
+        card_type = self.card_type_with_id("2")
+        card_type_2 = self.controller().clone_card_type(\
+                      card_type, "2 clone")
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        old_card = self.controller().create_new_cards(fact_data, card_type_1,
+                                 grade=-1, tag_names=["default"])[0]
+        self.controller().delete_card_type(card_type_1)
+        assert last_error.startswith("Card type is")
+        last_error = None
+
+    def test_rename(self):
+        card_type = self.card_type_with_id("1")
+        card_type_1 = self.controller().clone_card_type(\
+            card_type, "1 clone")
+        self.controller().rename_card_type(card_type_1, "newname")
+        card_type_out = self.database().card_type(card_type_1.id,
+            is_id_internal=False)
+        assert card_type_out.name == "newname"
+
+    def test_cannot_rename(self):
+        global last_error
+        last_error = None
+        card_type = self.card_type_with_id("1")
+        self.controller().rename_card_type(card_type, "newname")
+        assert last_error.startswith("Cannot rename")
+        last_error = None
+
+    def test_cannot_rename_duplicate(self):
+        global last_error
+        last_error = None
+        card_type = self.card_type_with_id("1")
+        card_type_1 = self.controller().clone_card_type(\
+            card_type, "1 clone")
+        self.controller().rename_card_type(card_type_1, "Vocabulary")
+        assert "in use" in last_error
+        last_error = None
 
     def test_clone_of_clone(self):
         card_type = self.card_type_with_id("1")

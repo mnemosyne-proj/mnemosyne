@@ -49,6 +49,7 @@ class TestAddCards(MnemosyneTest):
         card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
+        assert self.database().is_in_use(card_type) is True
         self.controller().save_file()
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1

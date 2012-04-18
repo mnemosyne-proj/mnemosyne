@@ -10,7 +10,7 @@ WIDGETS = ui_main_wdgt.py ui_add_cards_dlg.py \
 	ui_browse_cards_dlg.py ui_rename_tag_dlg.py ui_change_card_type_dlg.py \
 	ui_add_tags_dlg.py ui_remove_tags_dlg.py ui_getting_started_dlg.py \
 	ui_tip_dlg.py ui_import_dlg.py ui_compact_database_dlg.py \
-	ui_delete_unused_media_files_dlg.py
+	ui_delete_unused_media_files_dlg.py ui_rename_card_type_dlg.py
 
 default: $(WIDGETS) ui_review_wdgt.py
 	pyrcc4 mnemosyne.qrc -o mnemosyne_rc.py

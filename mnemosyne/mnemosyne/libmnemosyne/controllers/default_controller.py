@@ -384,13 +384,31 @@ class DefaultController(Controller):
         return cloned_card_type
 
     def delete_card_type(self, card_type):
-        # TODO: check if card type in use.
+        if not self.database().is_user_card_type(card_type) or \
+            self.database().is_in_use(card_type):
+            self.main_widget().show_error(\
+    _("Card type is in use or is a system card type, cannot delete it."))
+            return
         fact_views = card_type.fact_views
         self.database().delete_card_type(card_type)
         # Correct ordering for the sync protocol is deleting the fact views
         # last.
         for fact_view in fact_views:
             self.database().delete_fact_view(fact_view)
+        self.database().save()
+
+    def rename_card_type(self, card_type, new_name):
+        if not self.database().is_user_card_type(card_type):
+            self.main_widget().show_error(\
+            _("Cannot rename a system card type."))
+            return
+        for card_type in self.card_types():
+            if card_type.name == new_name:
+                self.main_widget().show_error(\
+                _("This card type name is already in use."))
+                return
+        card_type.name = new_name
+        self.database().update_card_type(card_type)
         self.database().save()
 
     single_database_help = _("It is recommended to put all your cards in a single database. Using tags to determine which cards to study is much more convenient than having to load and unload several databases.")

@@ -60,6 +60,7 @@ class CardTypesTreeWdgt(QtGui.QWidget, Component):
         self.can_be_deleted = []
         self.can_be_edited = []
         self.card_type_tree.clear()
+        self.card_type_for_node_item = {}
         self.card_type_fact_view_ids_for_node_item = {}
         root_item = QtGui.QTreeWidgetItem(self.card_type_tree,
             [_("All card types (%d)") % root_count], 0)
@@ -77,6 +78,7 @@ class CardTypesTreeWdgt(QtGui.QWidget, Component):
                     self.can_be_deleted.append(card_type_item)
             if self.database().is_user_card_type(card_type):
                 self.can_be_edited.append(card_type_item)
+            self.card_type_for_node_item[card_type_item] = card_type
             for fact_view in card_type.fact_views:
                 fact_view_item = QtGui.QTreeWidgetItem(card_type_item,
                     ["%s (%d)" % (_(fact_view.name),
@@ -94,10 +96,33 @@ class CardTypesTreeWdgt(QtGui.QWidget, Component):
         self.card_type_tree.expandAll()
 
     def menu_rename(self):
-        print "rename"
+        card_type = \
+            self.card_type_for_node_item[self.card_type_tree.currentItem()]
+
+        from mnemosyne.pyqt_ui.ui_rename_card_type_dlg \
+            import Ui_RenameCardTypeDlg
+
+        class RenameDlg(QtGui.QDialog, Ui_RenameCardTypeDlg):
+            def __init__(self, old_card_type_name):
+                QtGui.QDialog.__init__(self)
+                self.setupUi(self)
+                self.card_type_name.setText(old_card_type_name)
+
+        dlg = RenameDlg(card_type.name)
+        if dlg.exec_() == QtGui.QDialog.Accepted:
+            self.controller().rename_card_type(card_type,
+                unicode(dlg.card_type_name.text()))
+            self.rebuild()
 
     def menu_delete(self):
-        print 'delete'
+        card_type = \
+            self.card_type_for_node_item[self.card_type_tree.currentItem()]
+        answer = self.main_widget().show_question(_("Delete card type?"),
+            _("Yes"), _("No"), "")
+        if answer == 1:  # No
+            return
+        self.controller().delete_card_type(card_type)
+        self.rebuild()
 
     def checked_to_criterion(self, criterion):
         criterion.deactivated_card_type_fact_view_ids = set()

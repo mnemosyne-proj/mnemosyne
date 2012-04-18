@@ -171,9 +171,11 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
         last_used_card_type_id = self.config()["last_used_card_type_id"]
-        if not last_used_card_type_id:
-            last_used_card_type_id = "1"
-        last_used_card_type = self.card_type_with_id(last_used_card_type_id)
+        try:
+            last_used_card_type = self.card_type_with_id(last_used_card_type_id)
+        except:
+            # First time use, or card type was deleted.
+            last_used_card_type = self.card_type_with_id("1")
         self.initialise_card_types_combobox(last_used_card_type.name)
         if last_used_card_type.id not in \
             self.config()["last_used_tags_for_card_type_id"]:

@@ -407,7 +407,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         from mnemosyne.libmnemosyne.upgrades.upgrade_beta_11 import UpgradeBeta11
         UpgradeBeta11(self.component_manager).run()
 
-
     def save(self, path=None):
         # Update format.
         self.con.execute("update global_variables set value=? where key=?",
@@ -1078,6 +1077,11 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     def is_user_card_type(self, card_type):
         return self.con.execute("select count() from card_types where id=?",
             (card_type.id, )).fetchone()[0] == 1
+
+    def is_in_use(self, card_type):
+        return self.con.execute(\
+            "select count() from cards where card_type_id=?",
+            (card_type.id, )).fetchone()[0] != 0
 
     def update_card_type(self, card_type):
         # Updating of the fact views should happen at the controller level,

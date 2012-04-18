@@ -1,8 +1,6 @@
--libmnemosyne function to rename card type
--where to check if card type can be deleted? Safer to do that in libmnemosyne
--card type clone: rename and delete in card browser. Edit through double-click
--no context menu if more than 1 clone is selected
--same in card type browser
+-rename card type through double-click
+-rename and delete in card type browser. Rework, such that dialog is listed
+ first? Rename to manage card types? Right-click or also buttons?
 
 -check sync timeout when both client and server check for updated media files.
 -media sentence card has wrong color on win. Are settings synced?
@@ -12,7 +10,7 @@
 -new cards with a >=2 grade can end up on the same day on first interactive rep
 replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 -also make sure this is OK when changing card type creates extra cards
--scheduler.spread_sister_cards?
+-scheduler.spread_sister_cards? Also after mnemododo import.
 -when learning late, related cards on the same day can happen
 
 -auto detect RTL http://dotancohen.com/howto/rtl_right_to_left.html (bug report)
