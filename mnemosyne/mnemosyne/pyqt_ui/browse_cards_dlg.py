@@ -282,7 +282,8 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             self.container_1)
         self.layout_1.addWidget(self.label_1)
         self.card_type_tree_wdgt = \
-            CardTypesTreeWdgt(component_manager, self.container_1)
+            CardTypesTreeWdgt(component_manager, self.container_1,
+                self.unload_qt_database, self.display_card_table))
         self.layout_1.addWidget(self.card_type_tree_wdgt)
         self.splitter_1.insertWidget(0, self.container_1)
         # Set up tag tree plus search box.

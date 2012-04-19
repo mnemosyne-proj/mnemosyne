@@ -87,25 +87,25 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         self.after_using_libmnemosyne_db_hook = \
             after_using_libmnemosyne_db_hook
         self.layout = QtGui.QVBoxLayout(self)
-        self.tag_tree_wdgt = QtGui.QTreeWidget(self)
-        self.tag_tree_wdgt.setColumnCount(2)
-        self.tag_tree_wdgt.setColumnHidden(1, True)
-        self.tag_tree_wdgt.setColumnHidden(NODE, True)
-        self.tag_tree_wdgt.setHeaderHidden(True)
-        self.tag_tree_wdgt.setSelectionMode(\
+        self.tree_wdgt = QtGui.QTreeWidget(self)
+        self.tree_wdgt.setColumnCount(2)
+        self.tree_wdgt.setColumnHidden(1, True)
+        self.tree_wdgt.setColumnHidden(NODE, True)
+        self.tree_wdgt.setHeaderHidden(True)
+        self.tree_wdgt.setSelectionMode(\
             QtGui.QAbstractItemView.ExtendedSelection)
         self.delegate = TagDelegate(component_manager, self)
-        self.tag_tree_wdgt.setItemDelegate(self.delegate)
+        self.tree_wdgt.setItemDelegate(self.delegate)
         self.delegate.rename_node.connect(self.rename_node)
         self.delegate.redraw_node.connect(self.redraw_node)
-        self.layout.addWidget(self.tag_tree_wdgt)
-        self.tag_tree_wdgt.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
-        self.tag_tree_wdgt.customContextMenuRequested.connect(\
+        self.layout.addWidget(self.tree_wdgt)
+        self.tree_wdgt.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        self.tree_wdgt.customContextMenuRequested.connect(\
             self.context_menu)
 
     def selected_non_read_only_indexes(self):
         indexes = []
-        for index in self.tag_tree_wdgt.selectedIndexes():
+        for index in self.tree_wdgt.selectedIndexes():
             node_index = \
                 index.model().index(index.row(), NODE, index.parent())
             if index.model().data(node_index).toString() not in \
@@ -115,25 +115,25 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
 
     def context_menu(self, point):
         menu = QtGui.QMenu(self)
-        rename_tag_action = QtGui.QAction(_("Re&name"), menu)
-        rename_tag_action.triggered.connect(self.menu_rename)
-        rename_tag_action.setShortcut(QtCore.Qt.Key_Enter)
-        menu.addAction(rename_tag_action)
-        remove_tag_action = QtGui.QAction(_("Re&move"), menu)
-        remove_tag_action.triggered.connect(self.menu_remove)
-        remove_tag_action.setShortcut(QtGui.QKeySequence.Delete)
-        menu.addAction(remove_tag_action)
+        rename_action = QtGui.QAction(_("&Rename"), menu)
+        rename_action.triggered.connect(self.menu_rename)
+        rename_action.setShortcut(QtCore.Qt.Key_Enter)
+        menu.addAction(rename_action)
+        delete_action = QtGui.QAction(_("&Delete"), menu)
+        delete_action.triggered.connect(self.menu_delete)
+        delete_action.setShortcut(QtGui.QKeySequence.Delete)
+        menu.addAction(delete_action)
         indexes = self.selected_non_read_only_indexes()
         if len(indexes) > 1:
-            rename_tag_action.setEnabled(False)
+            rename_action.setEnabled(False)
         if len(indexes) >= 1:
-            menu.exec_(self.tag_tree_wdgt.mapToGlobal(point))
+            menu.exec_(self.tree_wdgt.mapToGlobal(point))
 
     def keyPressEvent(self, event):
         if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return]:
             self.menu_rename()
         elif event.key() in [QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace]:
-            self.menu_remove()
+            self.menu_delete()
 
     def menu_rename(self):
         indexes = self.selected_non_read_only_indexes()
@@ -159,13 +159,13 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         if dlg.exec_() == QtGui.QDialog.Accepted:
             self.rename_node(old_node_label, unicode(dlg.tag_name.text()))
 
-    def menu_remove(self):
+    def menu_delete(self):
         # Ask for confirmation.
         indexes = self.selected_non_read_only_indexes()
         if len(indexes) > 1:
-            question = _("Remove these tags? Cards with these tags will not be deleted.")
+            question = _("Delete these tags? Cards with these tags will not be deleted.")
         else:
-            question = _("Remove this tag? Cards with this tag will not be deleted.")
+            question = _("Delete this tag? Cards with this tag will not be deleted.")
         answer = self.main_widget().show_question\
             (question, _("&OK"), _("&Cancel"), "")
         if answer == 1: # Cancel.
@@ -203,14 +203,14 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
                 criterion._tag_ids_active.add(tag._id)
         # Create tree.
         self.tag_tree = TagTree(self.component_manager)
-        self.tag_tree_wdgt.clear()
+        self.tree_wdgt.clear()
         self.tag_for_node_item = {}
         node = "__ALL__"
         node_name = "%s (%d)" % (self.tag_tree.display_name_for_node[node],
             self.tag_tree.card_count_for_node[node])
         root = self.tag_tree[node]
         root_item = QtGui.QTreeWidgetItem(\
-            self.tag_tree_wdgt, [node_name, node], 0)
+            self.tree_wdgt, [node_name, node], 0)
         root_item.setFlags(root_item.flags() | \
            QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
         root_item.setCheckState(0, QtCore.Qt.Checked)
@@ -230,7 +230,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
                 else:
                     node_item.setCheckState(0, QtCore.Qt.Unchecked)
         # Finalise.
-        self.tag_tree_wdgt.expandAll()
+        self.tree_wdgt.expandAll()
 
     def checked_to_active_tags_in_criterion(self, criterion):
         for item, tag in self.tag_for_node_item.iteritems():

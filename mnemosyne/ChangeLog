@@ -27,9 +27,9 @@
 
 MNEMOSYNE 2.0
 
-More than three years in the making, this is essentially a complete rewrite of
-the old 1.x codebase, with a new, clean design, consisting of components that
-can be swapped in and out very easily, which allows plugin writers maximum
+Four years in the making, this is essentially a complete rewrite of the old
+1.x codebase, with a new, clean design, consisting of components that can be
+swapped in and out very easily, which allows plugin writers maximum
 flexibility.
 
 Major user-visible changes:

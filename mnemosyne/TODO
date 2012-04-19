@@ -1,4 +1,12 @@
--rename card type through double-click
+-Tim's import failures
+
+-unify with tag tree widget mechanism to see which node can be edited and
+ deleted. Also hidden column?
+
+-unify with tag tree widget: remove --> delete?
+
+-check enter and delete keyboard shortcuts
+
 -rename and delete in card type browser. Rework, such that dialog is listed
  first? Rename to manage card types? Right-click or also buttons?
 
