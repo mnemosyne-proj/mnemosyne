@@ -1,17 +1,14 @@
--Tim's import failures
+-refactor: make node and node_label uniform
 
--unify with tag tree widget mechanism to see which node can be edited and
- deleted. Also hidden column?
-
--unify with tag tree widget: remove --> delete?
-
+-recheck tag and card type widget for editing and deleting
 -check enter and delete keyboard shortcuts
+
+-don't delete a card type if it has clones
+
+-Tim's import failures
 
 -rename and delete in card type browser. Rework, such that dialog is listed
  first? Rename to manage card types? Right-click or also buttons?
-
--check sync timeout when both client and server check for updated media files.
--media sentence card has wrong color on win. Are settings synced?
 
 -import from txt file (2 test cases from mac os	Naomi Borkowski)
 
@@ -21,18 +18,10 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 -scheduler.spread_sister_cards? Also after mnemododo import.
 -when learning late, related cards on the same day can happen
 
--auto detect RTL http://dotancohen.com/howto/rtl_right_to_left.html (bug report)
-
--workaround for non-latin sound files?
-
 ### RC1
 
 -tell beta users to make sure to install latest beta first
 -remove upgrade_beta_6.py, beta_7, etc... also in database
-
--errors in scripting engine related to main_widget
-
--make doc: errors related to _
 
 -translations through website:
  https://help.launchpad.net/Translations/YourProject/Exports
@@ -52,8 +41,21 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 
 ### Release
 
+-workaround for non-latin sound files?
+
+-check sync timeout when both client and server check for updated media files.
+-media sentence card has wrong color on win. Are settings synced?
+
+-ask user if 'no sister cards' should be overriden if the queue runs empty
+
+-auto detect RTL http://dotancohen.com/howto/rtl_right_to_left.html (bug report)
+
 -insert latex tags shortcut and menu (phyTech)
 -flash format <object type="application/x-shockwave-flash" data="foo.swf" />
+
+-errors in scripting engine related to main_widget
+
+-make doc: errors related to _
 
 -don't refresh review widget after edit window if no changes have been made (gnome) (LP bug)
 -after showing answer, exiting card browser hides answer again (Gnome, LP bug)

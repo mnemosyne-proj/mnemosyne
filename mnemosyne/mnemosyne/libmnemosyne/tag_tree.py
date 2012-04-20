@@ -16,7 +16,7 @@ class TagTree(Component, dict):
 
     The internal tree datastructure for e.g. the two tags A::B::C and A::B::D
     looks as follows:
-    
+
     self[_("__ALL__")] = ["A"]
     self["A"] = ["A::B"]
     self["A::B"] = ["A::B::C", "A::B::D"]
@@ -29,7 +29,7 @@ class TagTree(Component, dict):
     the index field for the main dictionary self.
 
     """
-    
+
     def __init__(self, component_manager):
         Component.__init__(self, component_manager)
         self._rebuild()
@@ -52,7 +52,7 @@ class TagTree(Component, dict):
                 if not partial_tag in self.display_name_for_node:
                     self[parent].append(partial_tag)
                     self[partial_tag] = []
-                    self.display_name_for_node[partial_tag] = node 
+                    self.display_name_for_node[partial_tag] = node
                 parent = partial_tag
         if "__UNTAGGED__" in self.display_name_for_node:
             self.display_name_for_node["__UNTAGGED__"] = _("Untagged")
@@ -85,7 +85,7 @@ class TagTree(Component, dict):
             self.database().update_tag(tag)
         self.database().save()
         self._rebuild()
-             
+
     def delete_subtree(self, node):
         for tag in self._tags_in_subtree(node):
             self.database().delete_tag(tag)

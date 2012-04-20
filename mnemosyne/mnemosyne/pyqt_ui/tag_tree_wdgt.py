@@ -11,6 +11,9 @@ from mnemosyne.libmnemosyne.criteria.default_criterion import DefaultCriterion
 
 # We hijack QTreeWidgetItem a bit and store extra data in a hidden column, so
 # that we don't need to implement a custom tree model.
+# The first column stores the string displayed, i.e. the leaf part of the
+# hierachical tag name. The second column stores the node id, i.e. the
+# full tag name.
 
 DISPLAY_STRING = 0
 NODE = 1
@@ -103,30 +106,43 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         self.tree_wdgt.customContextMenuRequested.connect(\
             self.context_menu)
 
-    def selected_non_read_only_indexes(self):
-        indexes = []
+    def selected_nodes_which_can_be_renamed(self):
+        nodes = []
         for index in self.tree_wdgt.selectedIndexes():
             node_index = \
                 index.model().index(index.row(), NODE, index.parent())
-            if index.model().data(node_index).toString() not in \
-                ["__ALL__", "__UNTAGGED__"]:
-                indexes.append(index)
-        return indexes
+            node = index.model().data(node_index).toString()
+            if node in self.nodes_which_can_be_renamed:
+                nodes.append(node)
+        return nodes
+
+    def selected_nodes_which_can_be_deleted(self):
+        nodes = []
+        for index in self.tree_wdgt.selectedIndexes():
+            node_index = \
+                index.model().index(index.row(), NODE, index.parent())
+            node = index.model().data(node_index).toString()
+            if node in self.nodes_which_can_be_deleted:
+                nodes.append(node)
+        return nodes
 
     def context_menu(self, point):
         menu = QtGui.QMenu(self)
-        rename_action = QtGui.QAction(_("&Rename"), menu)
-        rename_action.triggered.connect(self.menu_rename)
-        rename_action.setShortcut(QtCore.Qt.Key_Enter)
-        menu.addAction(rename_action)
-        delete_action = QtGui.QAction(_("&Delete"), menu)
-        delete_action.triggered.connect(self.menu_delete)
-        delete_action.setShortcut(QtGui.QKeySequence.Delete)
-        menu.addAction(delete_action)
-        indexes = self.selected_non_read_only_indexes()
-        if len(indexes) > 1:
-            rename_action.setEnabled(False)
-        if len(indexes) >= 1:
+        to_rename = self.selected_nodes_which_can_be_renamed()
+        if len(to_rename) >= 1:
+            rename_action = QtGui.QAction(_("&Rename"), menu)
+            rename_action.triggered.connect(self.menu_rename)
+            rename_action.setShortcut(QtCore.Qt.Key_Enter)
+            menu.addAction(rename_action)
+            if len(to_rename) > 1:
+                rename_action.setEnabled(False)
+        to_delete = self.selected_nodes_which_can_be_deleted()
+        if len(to_delete) >= 1:
+            delete_action = QtGui.QAction(_("&Delete"), menu)
+            delete_action.triggered.connect(self.menu_delete)
+            delete_action.setShortcut(QtGui.QKeySequence.Delete)
+            menu.addAction(delete_action)
+        if len(to_delete) + len(to_rename) >= 1:
             menu.exec_(self.tree_wdgt.mapToGlobal(point))
 
     def keyPressEvent(self, event):
@@ -136,17 +152,15 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             self.menu_delete()
 
     def menu_rename(self):
-        indexes = self.selected_non_read_only_indexes()
+        nodes = self.selected_nodes_which_can_be_renamed()
         # If there are tags selected, this means that we could only have got
         # after pressing return on an actual edit, due to our custom
         # 'keyPressEvent'. We should not continue in that case.
-        if len(indexes) == 0:
+        if len(nodes) == 0:
             return
         # We display the full node (i.e. all levels including ::), so that
         # the hierarchy can be changed upon editing.
-        index = indexes[0]
-        node_index = index.model().index(index.row(), NODE, index.parent())
-        old_node_label = index.model().data(node_index).toString()
+        old_node_label = node[0]
 
         from mnemosyne.pyqt_ui.ui_rename_tag_dlg import Ui_RenameTagDlg
         class RenameDlg(QtGui.QDialog, Ui_RenameTagDlg):
@@ -160,9 +174,10 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             self.rename_node(old_node_label, unicode(dlg.tag_name.text()))
 
     def menu_delete(self):
-        # Ask for confirmation.
-        indexes = self.selected_non_read_only_indexes()
-        if len(indexes) > 1:
+        nodes = self.selected_nodes_which_can_be_deleted()
+        if len(nodes) == 0:
+            return
+        if len(nodes) > 1:
             question = _("Delete these tags? Cards with these tags will not be deleted.")
         else:
             question = _("Delete this tag? Cards with this tag will not be deleted.")
@@ -170,12 +185,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             (question, _("&OK"), _("&Cancel"), "")
         if answer == 1: # Cancel.
             return
-        # Remove the nodes.
-        node_labels = []
-        for index in self.selected_non_read_only_indexes():
-            node_index = index.model().index(index.row(), NODE, index.parent())
-            node_labels.append(index.model().data(node_index).toString())
-        self.delete_nodes(node_labels)
+        self.delete_nodes(nodes)
 
     def create_tree(self, tree, qt_parent):
         for node in tree:
@@ -188,6 +198,8 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             if node not in ["__ALL__", "__UNTAGGED__"]:
                 node_item.setFlags(node_item.flags() | \
                     QtCore.Qt.ItemIsEditable)
+                self.nodes_which_can_be_renamed.append(node)
+                self.nodes_which_can_be_deleted.append(node)
             if node in self.tag_tree.tag_for_node:
                 self.tag_for_node_item[node_item] = \
                     self.tag_tree.tag_for_node[node]
@@ -205,6 +217,8 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         self.tag_tree = TagTree(self.component_manager)
         self.tree_wdgt.clear()
         self.tag_for_node_item = {}
+        self.nodes_which_can_be_deleted = []
+        self.nodes_which_can_be_renamed = []
         node = "__ALL__"
         node_name = "%s (%d)" % (self.tag_tree.display_name_for_node[node],
             self.tag_tree.card_count_for_node[node])
