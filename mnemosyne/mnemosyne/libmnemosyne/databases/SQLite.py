@@ -1083,6 +1083,11 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             "select count() from cards where card_type_id=?",
             (card_type.id, )).fetchone()[0] != 0
 
+    def has_clones(self, card_type):
+         return self.con.execute(\
+            "select count() from card_types where id like ?",
+            (card_type.id + "::%", )).fetchone()[0] != 0
+
     def update_card_type(self, card_type):
         # Updating of the fact views should happen at the controller level,
         # so as not to upset the sync protocol.

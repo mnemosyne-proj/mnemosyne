@@ -1,22 +1,18 @@
--refactor: make node and node_label uniform
+-Manage card types:
+ add: pops up info on clones
+ rename cloned_card_type_list to card type manager, also in menus
 
--recheck tag and card type widget for editing and deleting
--check enter and delete keyboard shortcuts
+-does readding an already present tag generate a log event?
 
--don't delete a card type if it has clones
-
--Tim's import failures
-
--rename and delete in card type browser. Rework, such that dialog is listed
- first? Rename to manage card types? Right-click or also buttons?
-
--import from txt file (2 test cases from mac os	Naomi Borkowski)
+-import from txt file (2 test cases from mac os Naomi Borkowski)
 
 -new cards with a >=2 grade can end up on the same day on first interactive rep
 replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 -also make sure this is OK when changing card type creates extra cards
 -scheduler.spread_sister_cards? Also after mnemododo import.
 -when learning late, related cards on the same day can happen
+
+-replace m_1 with m1?
 
 ### RC1
 
@@ -45,8 +41,6 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 
 -check sync timeout when both client and server check for updated media files.
 -media sentence card has wrong color on win. Are settings synced?
-
--ask user if 'no sister cards' should be overriden if the queue runs empty
 
 -auto detect RTL http://dotancohen.com/howto/rtl_right_to_left.html (bug report)
 

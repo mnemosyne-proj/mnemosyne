@@ -183,6 +183,9 @@ class Database(Component):
     def is_in_use(self, card_type):
         raise NotImplementedError
 
+    def has_clone(self, card_type):
+        raise NotImplementedError
+
     def update_card_type(self, card_type):
         raise NotImplementedError
 

@@ -137,6 +137,7 @@ class SM2Mnemosyne(Scheduler):
         self._card_id_last = None
         self.stage = 1
         self.warned_about_too_many_cards = False
+        self.warned_about_relaxing_no_sister_cards_together = False
 
     def heartbeat(self):
         if time.time() > self._fact_ids_memorised_expires_at:
@@ -309,6 +310,10 @@ class SM2Mnemosyne(Scheduler):
             # If the queue is close to empty, relax the 'sister not together'
             # requirement.
             if not sisters_together and len(self._fact_ids_in_queue) <= 2:
+                if not self.warned_about_relaxing_no_sister_cards_together:
+                    self.main_widget().show_information(\
+_("Your queue is running empty, so sisters of cards you just learned were added to the queue. If you don't want this to happen, add new cards to learn."))
+                    self.warned_about_relaxing_no_sister_cards_together = True
                 for _card_id, _fact_id in db.cards_unseen(\
                     sort_key=sort_key, limit=min(limit, 50)):
                     if _fact_id not in self._fact_ids_in_queue:

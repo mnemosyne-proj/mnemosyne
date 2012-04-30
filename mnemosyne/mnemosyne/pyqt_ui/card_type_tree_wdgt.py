@@ -1,5 +1,5 @@
 #
-# tree_wdgt_wdgt.py <Peter.Bienstman@UGent.be>
+# card_type_tree_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
 from PyQt4 import QtCore, QtGui
@@ -24,9 +24,9 @@ class CardTypeDelegate(TagDelegate):
 
     def setEditorData(self, editor, index):
         # Get rid of the card count.
-        self.old_node_label = \
+        self.previous_node_name = \
             index.model().data(index).toString().rsplit(" (", 1)[0]
-        editor.setText(self.old_node_label)
+        editor.setText(self.previous_node_name)
 
 
 class CardTypesTreeWdgt(TagsTreeWdgt):
@@ -49,7 +49,6 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
         # 'keyPressEvent'. We should not continue in that case.
         if len(nodes) == 0:
             return
-        old_node_label = node[0]
 
         from mnemosyne.pyqt_ui.ui_rename_card_type_dlg \
             import Ui_RenameCardTypeDlg
@@ -60,18 +59,19 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
                 self.setupUi(self)
                 self.card_type_name.setText(old_card_type_name)
 
-        dlg = RenameDlg(card_type.name)
+        old_card_type_name = self.card_type_with_id(unicode(nodes[0])).name
+        dlg = RenameDlg(old_card_type_name)
         if dlg.exec_() == QtGui.QDialog.Accepted:
-            self.rename_node(card_type, unicode(dlg.card_type_name.text()))
+            self.rename_node(nodes[0], unicode(dlg.card_type_name.text()))
 
     def menu_delete(self):
         nodes = self.selected_nodes_which_can_be_deleted()
         if len(nodes) == 0:
             return
         if len(nodes) > 1:
-            question = _("Delete this card type?")
-        else:
             question = _("Delete these card types?")
+        else:
+            question = _("Delete this card type?")
         answer = self.main_widget().show_question\
             (question, _("&OK"), _("&Cancel"), "")
         if answer == 1: # Cancel.
@@ -96,8 +96,8 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
             count_for_card_type[card_type] = card_type_count
             root_count += card_type_count
         # Fill widget.
-        self.card_type_ids_which_can_be_deleted = []
-        self.card_type_ids_which_can_be_renamed = []
+        self.nodes_which_can_be_deleted = []
+        self.nodes_which_can_be_renamed = []
         self.tree_wdgt.clear()
         self.card_type_fact_view_ids_for_node_item = {}
         root_item = QtGui.QTreeWidgetItem(self.tree_wdgt,
@@ -115,9 +115,9 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
                     QtCore.QVariant(QtCore.QString(card_type.id)))
             if count_for_card_type[card_type] == 0 and \
                 self.database().is_user_card_type(card_type):
-                    self.card_type_ids_which_can_be_deleted.append(card_type.id)
+                    self.nodes_which_can_be_deleted.append(card_type.id)
             if self.database().is_user_card_type(card_type):
-                self.card_type_ids_which_can_be_renamed.append(card_type.id)
+                self.nodes_which_can_be_renamed.append(card_type.id)
                 card_type_item.setFlags(card_type_item.flags() | \
                     QtCore.Qt.ItemIsEditable)
             for fact_view in card_type.fact_views:
@@ -135,7 +135,6 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
                 self.card_type_fact_view_ids_for_node_item[fact_view_item] = \
                     (card_type.id, fact_view.id)
         self.tree_wdgt.expandAll()
-        self.tree_wdgt.itemChanged.connect(self.tree_item_changed)
 
     def checked_to_criterion(self, criterion):
         criterion.deactivated_card_type_fact_view_ids = set()
@@ -173,18 +172,19 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
             if card_type_id in deleted_card_type_ids:
                 self.saved_criterion.deactivated_card_type_fact_view_ids.\
                     discard((card_type_id, fact_view_id))
-        self.display(new_criterion)
+        self.display(self.saved_criterion)
 
-    def rename_node(self, old_node_label, new_node_label):
+    def rename_node(self, node, new_name):
         self.hibernate()
-        card_type = self.card_type_with_id(old_node_label)
-        self.controller().rename_card_type(card_type, new_node_label)
+        card_type = self.card_type_with_id(unicode(node))
+        self.controller().rename_card_type(card_type, new_name)
         self.wakeup()
 
     def delete_nodes(self, nodes):
         self.hibernate()
         for node in nodes:
-            self.controller().delete_card_type(self.card_type_with_id(node)
+            card_type = self.card_type_with_id(unicode(node))
+            self.controller().delete_card_type(card_type)
         self.wakeup()
 
     def rebuild(self):

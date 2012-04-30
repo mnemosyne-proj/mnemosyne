@@ -25,7 +25,7 @@ class TagDelegate(QtGui.QStyledItemDelegate):
 
     def __init__(self, component_manager, parent=None):
         QtGui.QStyledItemDelegate.__init__(self, parent)
-        self.old_node_label = None
+        self.previous_node_name = None
 
     def createEditor(self, parent, option, index):
 
@@ -54,15 +54,15 @@ class TagDelegate(QtGui.QStyledItemDelegate):
         # We display the full node (i.e. all levels including ::), so that
         # the hierarchy can be changed upon editing.
         node_index = index.model().index(index.row(), NODE, index.parent())
-        self.old_node_label = index.model().data(node_index).toString()
-        editor.setText(self.old_node_label)
+        self.previous_node_name = index.model().data(node_index).toString()
+        editor.setText(self.previous_node_name)
 
     def commit_and_close_editor(self):
         editor = self.sender()
-        if unicode(self.old_node_label) == unicode(editor.text()):
-            self.redraw_node.emit(self.old_node_label)
+        if unicode(self.previous_node_name) == unicode(editor.text()):
+            self.redraw_node.emit(self.previous_node_name)
         else:
-            self.rename_node.emit(self.old_node_label, editor.text())
+            self.rename_node.emit(self.previous_node_name, editor.text())
         self.closeEditor.emit(editor, QtGui.QAbstractItemDelegate.NoHint)
 
 
@@ -160,18 +160,19 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             return
         # We display the full node (i.e. all levels including ::), so that
         # the hierarchy can be changed upon editing.
-        old_node_label = node[0]
 
         from mnemosyne.pyqt_ui.ui_rename_tag_dlg import Ui_RenameTagDlg
+
         class RenameDlg(QtGui.QDialog, Ui_RenameTagDlg):
-            def __init__(self, old_node_label):
+            def __init__(self, old_tag_name):
                 QtGui.QDialog.__init__(self)
                 self.setupUi(self)
-                self.tag_name.setText(old_node_label)
+                self.tag_name.setText(old_tag_name)
 
-        dlg = RenameDlg(old_node_label)
+        old_tag_name = nodes[0]
+        dlg = RenameDlg(old_tag_name)
         if dlg.exec_() == QtGui.QDialog.Accepted:
-            self.rename_node(old_node_label, unicode(dlg.tag_name.text()))
+            self.rename_node(nodes[0], unicode(dlg.tag_name.text()))
 
     def menu_delete(self):
         nodes = self.selected_nodes_which_can_be_deleted()
@@ -299,10 +300,9 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         if self.after_using_libmnemosyne_db_hook:
             self.after_using_libmnemosyne_db_hook()
 
-    def rename_node(self, old_node_label, new_node_label):
+    def rename_node(self, node, new_name):
         self.hibernate()
-        self.tag_tree.rename_node(\
-            unicode(old_node_label), unicode(new_node_label))
+        self.tag_tree.rename_node(unicode(node), unicode(new_name))
         self.wakeup()
 
     def delete_nodes(self, nodes):
@@ -311,7 +311,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             self.tag_tree.delete_subtree(unicode(node))
         self.wakeup()
 
-    def redraw_node(self, node_label):
+    def redraw_node(self, node):
 
         """When renaming a tag to the same name, we need to redraw the node
         to show the card count again.

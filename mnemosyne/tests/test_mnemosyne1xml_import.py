@@ -26,6 +26,8 @@ class Widget(MainWidget):
             return 0
         if message.startswith("You appear"):
             return 0
+        if message.startswith("Your queue is running empty, "):
+            return 0
         raise NotImplementedError
 
     def show_error(self, message):

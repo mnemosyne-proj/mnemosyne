@@ -72,12 +72,12 @@ class TagTree(Component, dict):
             tags.extend(self._tags_in_subtree(subnode))
         return tags
 
-    def rename_node(self, old_node_label, new_node_label):
-        if new_node_label == "__UNTAGGED__": # Forbidden.
-            new_node_label = "Untagged"
-        for tag in self._tags_in_subtree(old_node_label):
-            tag.name = tag.name.replace(old_node_label, new_node_label, 1)
-            # Corner cases when new_node_label is empty.
+    def rename_node(self, node, new_name):
+        if new_name == "__UNTAGGED__": # Forbidden.
+            new_name = "Untagged"
+        for tag in self._tags_in_subtree(node):
+            tag.name = tag.name.replace(node, new_name, 1)
+            # Corner cases when new_name is empty.
             if tag.name == "":
                 tag.name = "__UNTAGGED__"
             if tag.name.startswith("::"):

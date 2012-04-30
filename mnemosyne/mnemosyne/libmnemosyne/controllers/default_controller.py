@@ -387,7 +387,13 @@ class DefaultController(Controller):
         if not self.database().is_user_card_type(card_type) or \
             self.database().is_in_use(card_type):
             self.main_widget().show_error(\
-    _("Card type is in use or is a system card type, cannot delete it."))
+    _("Card type %s is in use or is a system card type, cannot delete it.") \
+    % (card_type.name, ))
+            return
+        if self.database().has_clones(card_type):
+            self.main_widget().show_error(\
+    _("Card type %s has clones, cannot delete it.") \
+    % (card_type.name, ))
             return
         fact_views = card_type.fact_views
         self.database().delete_card_type(card_type)

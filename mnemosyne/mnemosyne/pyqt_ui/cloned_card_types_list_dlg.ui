@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>300</width>
-    <height>240</height>
+    <width>352</width>
+    <height>245</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Cloned card types</string>
+   <string>Card type manager</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -25,7 +25,7 @@
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>Cloned card types in use:</string>
+        <string>User-created card types:</string>
        </property>
       </widget>
      </item>
@@ -42,22 +42,23 @@
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+        <widget class="QPushButton" name="rename_button">
+         <property name="text">
+          <string>&amp;Rename</string>
          </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
+        </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="exit_button">
+        <widget class="QPushButton" name="pushButton_2">
          <property name="text">
-          <string>E&amp;xit</string>
+          <string>&amp;Delete</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="cancel_button">
+         <property name="text">
+          <string>&amp;Cancel</string>
          </property>
         </widget>
        </item>
@@ -70,10 +71,10 @@
  <resources/>
  <connections>
   <connection>
-   <sender>exit_button</sender>
+   <sender>cancel_button</sender>
    <signal>clicked()</signal>
    <receiver>ClonedCardTypesListDlg</receiver>
-   <slot>accept()</slot>
+   <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>342</x>

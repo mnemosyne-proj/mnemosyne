@@ -17,6 +17,8 @@ class Widget(MainWidget):
     def show_information(self, message):
         if message == "Card is already in database.\nDuplicate not added.":
             return 0
+        if message.startswith("Your queue is running empty, "):
+            return 0
         raise NotImplementedError
 
     def show_question(self, question, a, b, c):

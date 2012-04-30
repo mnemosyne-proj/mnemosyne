@@ -159,7 +159,7 @@ class TestCardType(MnemosyneTest):
 
         card_type = self.card_type_with_id("1")
         self.controller().delete_card_type(card_type)
-        assert last_error.startswith("Card type is")
+        assert "in use" in last_error
         last_error = None
 
         card_type_1 = self.controller().clone_card_type(\
@@ -172,7 +172,7 @@ class TestCardType(MnemosyneTest):
         old_card = self.controller().create_new_cards(fact_data, card_type_1,
                                  grade=-1, tag_names=["default"])[0]
         self.controller().delete_card_type(card_type_1)
-        assert last_error.startswith("Card type is")
+        assert "in use" in last_error
         last_error = None
 
     def test_rename(self):
@@ -200,6 +200,21 @@ class TestCardType(MnemosyneTest):
             card_type, "1 clone")
         self.controller().rename_card_type(card_type_1, "Vocabulary")
         assert "in use" in last_error
+        last_error = None
+
+    def test_has_clones(self):
+        global last_error
+        last_error = None
+        card_type = self.card_type_with_id("1")
+        assert self.database().has_clones(card_type) == False
+        card_type_1 = self.controller().clone_card_type(\
+            card_type, "1 clone")
+        card_type_2 = self.controller().clone_card_type(\
+            card_type_1, "1 clone clone")
+        assert self.database().has_clones(card_type) == True
+        assert self.database().has_clones(card_type_1) == True
+        self.controller().delete_card_type(card_type_1)
+        assert "clone" in last_error
         last_error = None
 
     def test_clone_of_clone(self):

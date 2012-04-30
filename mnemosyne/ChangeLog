@@ -1,4 +1,6 @@
 -Cloned card types can now be renamed and deleted.
+-Warn when sister cards are being added to your queue to prevent it from
+ running empty.
 -You can now save a set of cards using a name of an existing set, and you will
  get the option of updating the previous set.
 -When adding a new tag, the user gets the choice of whether this tag will be
