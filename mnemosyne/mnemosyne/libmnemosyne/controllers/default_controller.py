@@ -115,8 +115,13 @@ class DefaultController(Controller):
                   "/".join(fact[k] for k in card_type.required_fact_keys),
                   _("&Merge and edit"), _("&Add as is"), _("&Do not add"))
                 if answer == 0:  # Merge and edit.
+                    # Allow card type to modify fact if needed, before adding
+                    # it to the database.
+                    # TODO: remove once multiple meanings in Vocabulary are
+                    # implemented.
+                    cards = card_type.create_sister_cards(fact)
                     db.add_fact(fact)
-                    for card in card_type.create_sister_cards(fact):
+                    for card in cards:
                         card.tags = tags
                         db.add_card(card)
                         if grade >= 2:
@@ -138,16 +143,19 @@ class DefaultController(Controller):
                     return
                 if answer == 2:  # Don't add.
                     return
+        # Allow card type to modify fact if needed, before adding
+        # it to the database.
+        # TODO: remove once multiple meanings in Vocabulary are
+        # implemented.
+        cards = card_type.create_sister_cards(fact)
         db.add_fact(fact)
         # Create cards.
-        cards = []
-        for card in card_type.create_sister_cards(fact):
+        for card in cards:
             card.tags = tags
             db.add_card(card)
             if grade >= 2:
                 self.scheduler().set_initial_grade(card, grade)
                 db.update_card(card, repetition_only=True)
-            cards.append(card)
         if save:
             db.save()
         if self.review_controller().learning_ahead == True:
