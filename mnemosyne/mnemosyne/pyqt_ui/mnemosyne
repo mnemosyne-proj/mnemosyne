@@ -76,8 +76,8 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.browse_cards_dlg",
                              "BrowseCardsDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.activate_cards_dlg",
                              "ActivateCardsDlg"))
-mnemosyne.components.append(("mnemosyne.pyqt_ui.cloned_card_types_list_dlg",
-                             "ClonedCardTypesListDlg"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.manage_card_types_dlg",
+                             "ManageCardTypesDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.manage_plugins_dlg",
                              "ManagePluginsDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.statistics_dlg",

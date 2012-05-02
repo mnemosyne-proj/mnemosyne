@@ -36,9 +36,9 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
         for tag in self.database().tags():
             criterion._tag_ids_active.add(tag._id)
         self.display_criterion(criterion)
-        self.card_type_tree_wdgt.card_type_tree.\
+        self.card_type_tree_wdgt.tree_wdgt.\
             itemChanged.connect(self.criterion_changed)
-        self.tag_tree_wdgt.tag_tree_wdgt.\
+        self.tag_tree_wdgt.tree_wdgt.\
             itemChanged.connect(self.criterion_changed)
 
     def display_criterion(self, criterion):

@@ -74,7 +74,7 @@
     <addaction name="separator"/>
     <addaction name="actionBrowseCards"/>
     <addaction name="actionActivateCards"/>
-    <addaction name="actionCloneCardTypes"/>
+    <addaction name="actionManageTypes"/>
     <addaction name="separator"/>
     <addaction name="actionShowStatistics"/>
    </widget>
@@ -276,9 +276,9 @@
     <string>Manage plugins</string>
    </property>
   </action>
-  <action name="actionCloneCardTypes">
+  <action name="actionManageTypes">
    <property name="text">
-    <string>C&amp;lone card types...</string>
+    <string>&amp;Manage card types...</string>
    </property>
   </action>
   <action name="actionSync">
@@ -447,7 +447,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionCloneCardTypes</sender>
+   <sender>actionManageTypes</sender>
    <signal>triggered()</signal>
    <receiver>MainWdgt</receiver>
    <slot>manage_card_types</slot>

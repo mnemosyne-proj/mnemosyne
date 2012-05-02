@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ClonedCardTypesListDlg</class>
- <widget class="QDialog" name="ClonedCardTypesListDlg">
+ <class>ManageCardTypesDlg</class>
+ <widget class="QDialog" name="ManageCardTypesDlg">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -25,7 +25,7 @@
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>User-created card types:</string>
+        <string>Cloned card types:</string>
        </property>
       </widget>
      </item>
@@ -35,9 +35,9 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QPushButton" name="add_button">
+        <widget class="QPushButton" name="clone_button">
          <property name="text">
-          <string>&amp;Add clone</string>
+          <string>&amp;New clone</string>
          </property>
         </widget>
        </item>
@@ -49,7 +49,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="delete_button">
          <property name="text">
           <string>&amp;Delete</string>
          </property>
@@ -73,7 +73,7 @@
   <connection>
    <sender>cancel_button</sender>
    <signal>clicked()</signal>
-   <receiver>ClonedCardTypesListDlg</receiver>
+   <receiver>ManageCardTypesDlg</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -87,9 +87,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>add_button</sender>
+   <sender>clone_button</sender>
    <signal>clicked()</signal>
-   <receiver>ClonedCardTypesListDlg</receiver>
+   <receiver>ManageCardTypesDlg</receiver>
    <slot>clone_card_type</slot>
    <hints>
     <hint type="sourcelabel">
@@ -99,6 +99,38 @@
     <hint type="destinationlabel">
      <x>149</x>
      <y>119</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>delete_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ManageCardTypesDlg</receiver>
+   <slot>delete_card_type()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>223</x>
+     <y>225</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>175</x>
+     <y>122</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rename_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ManageCardTypesDlg</receiver>
+   <slot>rename_card_type()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>140</x>
+     <y>225</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>175</x>
+     <y>122</y>
     </hint>
    </hints>
   </connection>

@@ -1,9 +1,3 @@
--Manage card types:
- add: pops up info on clones
- rename cloned_card_type_list to card type manager, also in menus
-
--does readding an already present tag generate a log event?
-
 -import from txt file (2 test cases from mac os Naomi Borkowski)
 
 -new cards with a >=2 grade can end up on the same day on first interactive rep
@@ -11,8 +5,6 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
 -also make sure this is OK when changing card type creates extra cards
 -scheduler.spread_sister_cards? Also after mnemododo import.
 -when learning late, related cards on the same day can happen
-
--replace m_1 with m1?
 
 ### RC1
 
@@ -83,6 +75,7 @@ list = QApplication::topLevelWidgets();
 i = -1;
 
 -remove TMP adding of default o_id in sync
+-remove TMP backdoor in default controller to allow card types to modify their facts
 
 -remind top level widget, and make those parent to error dialog? Now e.g. an error on the activate card
 widget will be centered on the main widget and not the activate cards dialog.
@@ -172,6 +165,9 @@ Milesteiner
  question/answer, PageUp/PageDown to change cards in preview/edit started from card browser, control+R replay media
 -updated grading info on new website, to match new first run wizard
 
+-Optimisation: Adding a tag to a set of cards which already have this tag
+ generates unneccesary log events
+
 -import
 -if txt import fails, give a useful error message showing the offending line
 -on import, activate plugins, create card types if necessary
@@ -185,6 +181,8 @@ Milesteiner
 -card appearance: show preview live?
 
 -store all xml as debug information during sync?
+
+-find and replace in card browser
 
 -docs on dealing with synonyms and words which have multiple meanings (if implemented, update card converter too)
  check fonts for new meanings, check decorators
