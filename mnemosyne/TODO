@@ -1,4 +1,4 @@
--import from txt file (2 test cases from mac os Naomi Borkowski)
+-2 test cases from mac os (Naomi Borkowski)
 
 -new cards with a >=2 grade can end up on the same day on first interactive rep
 replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
@@ -169,14 +169,11 @@ Milesteiner
  generates unneccesary log events
 
 -import
--if txt import fails, give a useful error message showing the offending line
 -on import, activate plugins, create card types if necessary
 -on import don't add cards for which card type is not present
 -for mnemosyne 2 cards format, on import, ignore or update cards which were already imported?
 -warn when importing card type with duplicate id
 -make sure after import all sync events fire
--make sure to detect media and do slash normalisation from importing text files
--utf16?
 
 -card appearance: show preview live?
 

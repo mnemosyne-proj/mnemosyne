@@ -28,7 +28,6 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
 
     def do_import(self, filename, extra_tag_name=None):
         self.import_dir = os.path.dirname(os.path.abspath(filename))
-        self.warned_about_missing_media = False
         w = self.main_widget()
         w.set_progress_text(_("Importing cards..."))
         db = self.database()

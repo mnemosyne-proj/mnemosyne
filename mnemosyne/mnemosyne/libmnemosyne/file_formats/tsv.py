@@ -1,230 +1,92 @@
-##############################################################################
 #
-# process_html_unicode
+# tsv.py <Peter.Bienstman@UGent.be>
 #
-#   Parse html style escaped unicode (e.g. &#33267;)
-#
-##############################################################################
+
+import re
+
+from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.utils import MnemosyneError
+from mnemosyne.libmnemosyne.file_format import FileFormat
+from mnemosyne.libmnemosyne.file_formats.media_preprocessor \
+    import MediaPreprocessor
 
 re0 = re.compile(r"&#(.+?);", re.DOTALL | re.IGNORECASE)
 
-def process_html_unicode(s):
 
-    for match in re0.finditer(s):   
-        u = unichr(int(match.group(1)))  # Integer part.
-        s = s.replace(match.group(), u)  # Integer part with &# and ;.
-        
-    return s
+class Tsv(FileFormat, MediaPreprocessor):
 
+    """Question and answers on a single line, separated by tabs.
+    Or, for three-sided cards: foreign word, pronunciation, meaning,
+    separated by tabs.
 
+    """
 
-##############################################################################
-#
-# import_txt
-#
-#   Question and answers on a single line, separated by tabs.
-#   Or, for three-sided cards: written form, pronunciation, translation,
-#   separated by tabs.
-#
-##############################################################################
+    description = _("Tab-separated text files")
+    filename_filter = _("Tab-separated text files (*.txt)")
+    import_possible = True
+    export_possible = False
 
-def import_txt(filename, default_cat, reset_learning_data=False):
-    
-    global cards
+    def __init__(self, component_manager):
+        FileFormat.__init__(self, component_manager)
+        MediaPreprocessor.__init__(self, component_manager)
 
-    imported_cards = []
-
-    # Parse txt file.
-
-    avg_easiness = average_easiness()
-
-    f = None
-    try:
-        f = file(filename)
-    except:
+    def do_import(self, filename, extra_tag_name=None):
+        card_type_1 = self.card_type_with_id("1")
+        card_type_3 = self.card_type_with_id("3")
+        # Open txt file.
+        f = None
         try:
-            f = file(filename.encode("latin"))
-        except:
-            raise LoadError()
-    
-    for line in f:
-        
-        try:
-            line = unicode(line, "utf-8")
+            f = file(filename)
         except:
             try:
-                line = unicode(line, "latin")
+                f = file(filename.encode("latin"))
             except:
-                raise EncodingError()
-
-        line = line.rstrip()
-        line = process_html_unicode(line)
-        
-        if len(line) == 0:
-            continue
-
-        if line[0] == u'\ufeff': # Microsoft Word unicode export oddity.
-            line = line[1:]
-
-        fields = line.split('\t')
-
-        # Three sided card.
-
-        if len(fields) >= 3:
-
-            # Card 1.
-            
-            card = Card()
-            
-            card.q = fields[0]
-            card.a = fields[1] + '\n' + fields[2]
-            card.easiness = avg_easiness
-            card.cat = default_cat
-            card.new_id()
-                    
-            imported_cards.append(card)
-
-            id = card.id
-
-            # Card 2.
-            
-            card = Card()
-            
-            card.q = fields[2]
-            card.a = fields[0] + '\n' + fields[1]
-            card.easiness = avg_easiness
-            card.cat = default_cat
-            card.id = id + '.tr.1'
-                    
-            imported_cards.append(card)
-
-        # Two sided card.
-        
-        elif len(fields) == 2:
-            
-            card = Card()
-            
-            card.q = fields[0]
-            card.a = fields[1]
-            card.easiness = avg_easiness
-            card.cat = default_cat
-            card.new_id()
-                    
-            imported_cards.append(card)
-            
-        else:
-            raise MissingAnswerError(info=line)
-
-    return imported_cards
-
-
-
-##############################################################################
-#
-# export_txt
-#
-#   Newlines are converted to <br> to keep cards on a single line.
-#
-##############################################################################
-
-def export_txt(filename, cat_names_to_export, reset_learning_data=False):
-
-    try:
-        outfile = file(filename,'w')
-    except:
-        return False
-
-    for e in cards:
-        if e.cat.name in cat_names_to_export:
-            question = e.q.encode("utf-8")
-            question = question.replace("\t", " ")
-            question = question.replace("\n", "<br>")
-            
-            answer = e.a.encode("utf-8")
-            answer = answer.replace("\t", " ")
-            answer = answer.replace("\n", "<br>")
-            
-            print >> outfile, question + "\t" + answer
-
-    outfile.close()
-
-    return True
-    
-
-register_file_format(_("Text with tab separated Q/A"),
-                     filter=_("Text files (*.txt *.TXT)"),
-                     import_function=import_txt,
-                     export_function=export_txt)
-
-
-##############################################################################
-#
-# import_txt_2
-#
-#   Question and answers each on a separate line.
-#
-##############################################################################
-
-def import_txt_2(filename, default_cat, reset_learning_data=False):
-    
-    global cards
-
-    imported_cards = []
-
-    # Parse txt file.
-
-    avg_easiness = average_easiness()
-
-    f = None
-    try:
-        f = file(filename)
-    except:
-        try:
-            f = file(filename.encode("latin"))
-        except:
-            raise LoadError()
-
-    Q_A = []
-    
-    for line in f:
-        
-        try:
-            line = unicode(line, "utf-8")
-        except:
+                self.main_widget().show_error(_("Could not load file."))
+                raise MnemosyneError
+        # Parse txt file.
+        self.database().add_savepoint("import")
+        for line in f:
             try:
-                line = unicode(line, "latin")
+                line = unicode(line, "utf-8")
             except:
-                raise EncodingError()
+                try:
+                    line = unicode(line, "latin")
+                except:
+                    self.main_widget().show_error(\
+                        _("Could not determine encoding."))
+                    raise MnemosyneError
+            line = line.rstrip()
+            # Parse html style escaped unicode (e.g. &#33267;).
+            for match in re0.finditer(s):
+                # Integer part.
+                u = unichr(int(match.group(1)))
+                # Integer part with &# and ;.
+                line = line.replace(match.group(), u)
+            if len(line) == 0:
+                continue
+            if line[0] == u"\ufeff": # Remove byte-order mark.
+                line = line[1:]
+            fields = line.split("\t")
+            # Vocabulary card.
+            if len(fields) >= 3:
+                fact_data = {"f": fields[0], "p_1": fields[1],
+                    "m_1": fields[2]}
+                self.preprocess_media(fact_data, [extra_tag_name])
+                self.controller().create_new_cards(fact_data,
+                    card_type_3, grade=-1, tag_names=[extra_tag_name],
+                    check_for_duplicates=False, save=False)
+            # Front-to-back only.
+            elif len(fields) == 2:
+                fact_data = {"f": fields[0], "b": fields[1]}
+                self.preprocess_media(fact_data, [extra_tag_name])
+                self.controller().create_new_cards(fact_data,
+                    card_type_1, grade=-1, tag_names=[extra_tag_name],
+                    check_for_duplicates=False, save=False)
+            # Malformed line.
+            else:
+                self.main_widget().show_error(\
+                    _("Missing answer on line:\n") + line)
+                self.database().rollback_to_savepoint("import")
+                raise MnemosyneError
 
-        line = line.rstrip()
-        line = process_html_unicode(line)
-        
-        if len(line) == 0:
-            continue
 
-        if line[0] == u'\ufeff': # Microsoft Word unicode export oddity.
-            line = line[1:]
-
-        Q_A.append(line)
-
-        if len(Q_A) == 2:
-            
-            card = Card()
-
-            card.q = Q_A[0]
-            card.a = Q_A[1]    
-        
-            card.easiness = avg_easiness
-            card.cat = default_cat
-            card.new_id()
-                    
-            imported_cards.append(card)
-
-            Q_A = []
-
-    return imported_cards
-
-register_file_format(_("Text with Q and A each on separate line"),
-                     filter=_("Text files (*.txt *.TXT)"),
-                     import_function=import_txt_2,
-                     export_function=False)

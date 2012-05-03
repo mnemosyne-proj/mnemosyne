@@ -489,6 +489,12 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self._path = None
         return True
 
+    def add_savepoint(self, savepoint_name):
+        self.con.execute("savepoint ?", (savepoint_name, ))
+
+    def rollback_to_savepoint(self, savepoint_name):
+        self.con.execute("rollback to savepoint ?", (savepoint_name, ))
+
     def abandon(self):
         self._connection = None
         self._path = None

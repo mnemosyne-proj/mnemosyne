@@ -111,7 +111,9 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.file_formats.mnemosyne1_mem",
           "Mnemosyne1Mem"),
          ("mnemosyne.libmnemosyne.file_formats.mnemosyne1_xml",
-          "Mnemosyne1XML")]
+          "Mnemosyne1XML"),
+         ("mnemosyne.libmnemosyne.file_formats.tsv",
+          "Tsv")]
         self.extra_components_for_plugin = {}
 
     def handle_exception(self, type, value, tb):
