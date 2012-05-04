@@ -75,12 +75,6 @@ class Database(Component):
     def unload(self):
         raise NotImplementedError
 
-    def add_savepoint(self, savepoint_name):
-        raise NotImplementedError
-
-    def rollback_to_savepoint(self, savepoint_name):
-        raise NotImplementedError
-
     def abandon(self):
         raise NotImplementedError
 

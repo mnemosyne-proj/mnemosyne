@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>360</width>
+    <width>382</width>
     <height>488</height>
    </rect>
   </property>
@@ -68,7 +68,7 @@
        <item>
         <widget class="QPushButton" name="install_button">
          <property name="text">
-          <string>&amp;Install plugin</string>
+          <string>&amp;Install new plugin</string>
          </property>
         </widget>
        </item>

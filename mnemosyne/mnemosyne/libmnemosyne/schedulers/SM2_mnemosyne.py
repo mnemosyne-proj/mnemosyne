@@ -310,7 +310,8 @@ class SM2Mnemosyne(Scheduler):
             # If the queue is close to empty, relax the 'sister not together'
             # requirement.
             if not sisters_together and len(self._fact_ids_in_queue) <= 2:
-                if not self.warned_about_relaxing_no_sister_cards_together:
+                if not self.warned_about_relaxing_no_sister_cards_together \
+                    and self.database().non_memorised_count() != 0:
                     self.main_widget().show_information(\
 _("Your queue is running empty, so sisters of cards you just learned were added to the queue. If you don't want this to happen, add new cards to learn."))
                     self.warned_about_relaxing_no_sister_cards_together = True

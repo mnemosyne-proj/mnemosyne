@@ -5,7 +5,6 @@
 import re
 
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.libmnemosyne.utils import MnemosyneError
 from mnemosyne.libmnemosyne.file_format import FileFormat
 from mnemosyne.libmnemosyne.file_formats.media_preprocessor \
     import MediaPreprocessor
@@ -31,8 +30,6 @@ class Tsv(FileFormat, MediaPreprocessor):
         MediaPreprocessor.__init__(self, component_manager)
 
     def do_import(self, filename, extra_tag_name=None):
-        card_type_1 = self.card_type_with_id("1")
-        card_type_3 = self.card_type_with_id("3")
         # Open txt file.
         f = None
         try:
@@ -42,9 +39,9 @@ class Tsv(FileFormat, MediaPreprocessor):
                 f = file(filename.encode("latin"))
             except:
                 self.main_widget().show_error(_("Could not load file."))
-                raise MnemosyneError
+                return
         # Parse txt file.
-        self.database().add_savepoint("import")
+        facts_data = []
         for line in f:
             try:
                 line = unicode(line, "utf-8")
@@ -54,10 +51,10 @@ class Tsv(FileFormat, MediaPreprocessor):
                 except:
                     self.main_widget().show_error(\
                         _("Could not determine encoding."))
-                    raise MnemosyneError
+                    return
             line = line.rstrip()
             # Parse html style escaped unicode (e.g. &#33267;).
-            for match in re0.finditer(s):
+            for match in re0.finditer(line):
                 # Integer part.
                 u = unichr(int(match.group(1)))
                 # Integer part with &# and ;.
@@ -67,26 +64,25 @@ class Tsv(FileFormat, MediaPreprocessor):
             if line[0] == u"\ufeff": # Remove byte-order mark.
                 line = line[1:]
             fields = line.split("\t")
-            # Vocabulary card.
-            if len(fields) >= 3:
-                fact_data = {"f": fields[0], "p_1": fields[1],
-                    "m_1": fields[2]}
-                self.preprocess_media(fact_data, [extra_tag_name])
-                self.controller().create_new_cards(fact_data,
-                    card_type_3, grade=-1, tag_names=[extra_tag_name],
-                    check_for_duplicates=False, save=False)
-            # Front-to-back only.
-            elif len(fields) == 2:
-                fact_data = {"f": fields[0], "b": fields[1]}
-                self.preprocess_media(fact_data, [extra_tag_name])
-                self.controller().create_new_cards(fact_data,
-                    card_type_1, grade=-1, tag_names=[extra_tag_name],
-                    check_for_duplicates=False, save=False)
-            # Malformed line.
-            else:
+            if len(fields) >= 3:  # Vocabulary card.
+                facts_data.append({"f": fields[0], "p_1": fields[1],
+                    "m_1": fields[2]})
+            elif len(fields) == 2:  # Front-to-back only.
+                facts_data.append({"f": fields[0], "b": fields[1]})
+            else:  # Malformed line.
                 self.main_widget().show_error(\
                     _("Missing answer on line:\n") + line)
-                self.database().rollback_to_savepoint("import")
-                raise MnemosyneError
-
+                return
+        # Now that we know all the data is well-formed, create the cards.
+        tag_names = []
+        if extra_tag_name:
+            tag_names.append(extra_tag_name)
+        for fact_data in facts_data:
+            if len(fact_data.keys()) == 2:
+                card_type = self.card_type_with_id("1")
+            else:
+                card_type = self.card_type_with_id("3")
+            self.preprocess_media(fact_data, [extra_tag_name])
+            self.controller().create_new_cards(fact_data, card_type, grade=-1,
+                tag_names=tag_names, check_for_duplicates=False, save=False)
 

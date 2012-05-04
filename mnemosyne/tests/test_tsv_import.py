@@ -1,0 +1,80 @@
+#
+# test_tsv_import.py <Peter.Bienstman@UGent.be>
+#
+
+import os
+import shutil
+from nose.tools import raises
+
+from mnemosyne_test import MnemosyneTest
+from mnemosyne.libmnemosyne import Mnemosyne
+from openSM2sync.log_entry import EventTypes
+from mnemosyne.libmnemosyne.ui_components.dialogs import ImportDialog
+from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
+
+last_error = ""
+
+class Widget(MainWidget):
+
+    def activate(self):
+        self.review_controller().reset()
+
+    def show_error(self, message):
+        global last_error
+        last_error = message
+        if message.startswith("Could not load "):
+            return 0
+        if message.startswith("Could not determine"):
+            return 0
+        if message.startswith("Missing answer"):
+            return 0
+        raise NotImplementedError
+
+
+
+class TestTsvImport(MnemosyneTest):
+
+    def setup(self):
+        shutil.rmtree("dot_test", ignore_errors=True)
+        self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
+        self.mnemosyne.components.insert(0,
+           ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne_test", "TestReviewWidget"))
+        self.mnemosyne.components.append(\
+            ("test_tsv_import", "Widget"))
+        self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
+        self.review_controller().reset()
+
+    def tsv_importer(self):
+        for format in self.mnemosyne.component_manager.all("file_format"):
+            if format.__class__.__name__ == "Tsv":
+                return format
+
+    def test_file_not_found(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "nothere.tsv")
+        self.tsv_importer().do_import(filename)
+        assert last_error.startswith("Could not load")
+
+    def test_1(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "tsv_1.txt")
+        self.tsv_importer().do_import(filename)
+        assert last_error == ""
+        self.review_controller().reset()
+        assert self.database().card_count() == 3
+
+    def test_2(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "tsv_2.txt")
+        self.tsv_importer().do_import(filename, 'extra_tag_name')
+        print last_error
+        assert last_error == ""
+        self.review_controller().reset()
+        assert self.database().card_count() == 2
+        assert unichr(33267) in self.review_controller().card.answer()
+
+    def test_3(self):
+        global last_error
+        filename = os.path.join(os.getcwd(), "tests", "files", "tsv_3.txt")
+        self.tsv_importer().do_import(filename, 'extra_tag_name')
+        assert last_error.startswith("Missing answer")
+        last_error = None
