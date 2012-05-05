@@ -88,6 +88,10 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
                 item.id = self.unanonymise_id(item.id)
             item.q = element.find("Q").text
             item.a = element.find("A").text
+            if item.q is None:
+                item.q = ""
+            if item.a is None:
+                item.a = ""
             item.cat = category_with_name[element.find("cat").text]
             if element.get("gr"):
                 if not warned_about_import:
