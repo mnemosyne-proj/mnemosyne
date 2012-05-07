@@ -13,15 +13,15 @@ class Scheduler(Component):
     def reset(self):
 
         """Called when starting the scheduler for the first time."""
-        
+
         raise NotImplementedError
-    
+
     def heartbeat(self):
 
         """For code that needs to run periodically."""
-        
+
         pass
-    
+
     def set_initial_grade(self, card, grade):
 
         """Called when cards are given their initial grade outside of the
@@ -34,7 +34,7 @@ class Scheduler(Component):
         cards created during import or conversion from different card type),
         get their initial grade when they are encountered in the interactive
         review process for the first time.
-        
+
         In both cases, this initial grading is seen as the first repetition.
 
         In this way, both types of cards are treated in the same way. (There
@@ -42,8 +42,11 @@ class Scheduler(Component):
         but all the relevant information can still be parsed from them.)
 
         """
-                
+
         raise NotImplementedError
+
+    def spread_sister_cards(self):
+        pass
 
     def rebuild_queue(self, learn_ahead=False):
 
@@ -52,7 +55,7 @@ class Scheduler(Component):
         'next_card' also makes use of this in certain implementations.
 
         """
-        
+
         raise NotImplementedError
 
     def is_in_queue(self, card):
@@ -61,58 +64,58 @@ class Scheduler(Component):
         a card that was deleted in the GUI.
 
         """
-        
+
         raise NotImplementedError
 
     def remove_from_queue_if_present(self, card):
-        raise NotImplementedError        
+        raise NotImplementedError
 
     def next_card(self, learn_ahead=False):
         raise NotImplementedError
-    
+
     def is_prefetch_allowed(self):
 
         """Can we display a new card before having processed the grading of
         the previous one?
 
         """
-        
-        raise NotImplementedError    
+
+        raise NotImplementedError
 
     def grade_answer(self, card, new_grade, dry_run=False):
         raise NotImplementedError
-    
+
     def scheduled_count(self):
         raise NotImplementedError
-    
+
     def non_memorised_count(self):
         raise NotImplementedError
 
     def active_count(self):
         raise NotImplementedError
-    
+
     def card_count_scheduled_n_days_from_now(self, n):
 
         """Yesterday: n=-1, today: n=0, tomorrow: n=1, ... .
-        
+
         Is not implemented in the database, because this could need internal
         scheduler information.
         """
-        
+
         raise NotImplementedError
 
     def next_rep_to_interval_string(self, next_rep, now=None):
-        
+
         """Converts next_rep to a string like 'tomorrow', 'in 2 weeks', ...
 
         """
-        
+
         raise NotImplementedError
 
     def last_rep_to_interval_string(self, last_rep, now=None):
-        
+
         """Converts last_rep to a string like 'yesterday', '2 weeks ago', ...
 
         """
-        
+
         raise NotImplementedError

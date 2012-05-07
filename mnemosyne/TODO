@@ -1,12 +1,5 @@
--2 test cases from mac os (Naomi Borkowski)
--check coverage
-
--Gwern: warn twice about media files
--item.q is None: add test
-
 -new cards with a >=2 grade can end up on the same day on first interactive rep
 replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
--also make sure this is OK when changing card type creates extra cards
 -scheduler.spread_sister_cards? Also after mnemododo import.
 -when learning late, related cards on the same day can happen
 

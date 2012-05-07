@@ -10,8 +10,8 @@ from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.utils import MnemosyneError, expand_path
 
-re_src = re.compile(r"""src=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
-re_sound = re.compile(r"""<sound src=\".+?\">""", re.DOTALL | re.IGNORECASE)
+re_src = re.compile(r"""src=['\"](.+?)['\"]""", re.DOTALL | re.IGNORECASE)
+re_sound = re.compile(r"""<sound src=['\"].+?['\"]>""", re.DOTALL | re.IGNORECASE)
 
 
 class MediaPreprocessor(Component):

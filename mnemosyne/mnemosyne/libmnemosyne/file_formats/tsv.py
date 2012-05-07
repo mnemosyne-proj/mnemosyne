@@ -30,13 +30,13 @@ class Tsv(FileFormat, MediaPreprocessor):
         MediaPreprocessor.__init__(self, component_manager)
 
     def do_import(self, filename, extra_tag_name=None):
-        # Open txt file.
+        # Open txt file. Use Universal line ending detection.
         f = None
         try:
-            f = file(filename)
+            f = file(filename, "rU")
         except:
             try:
-                f = file(filename.encode("latin"))
+                f = file(filename.encode("latin", "rU"))
             except:
                 self.main_widget().show_error(_("Could not load file."))
                 return
