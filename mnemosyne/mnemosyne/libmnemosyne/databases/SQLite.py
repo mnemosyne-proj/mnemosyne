@@ -264,6 +264,9 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self._connection = sqlite3.connect(\
                 self._path, timeout=0.1, isolation_level="EXCLUSIVE")
             self._connection.row_factory = sqlite3.Row
+            # Should only be used to speed up the test suite.
+            if self.config()["asynchronous_database"] == True:
+                self._connection.execute("pragma synchronous = off;")
         return self._connection
 
     def release_connection(self):

@@ -135,7 +135,8 @@ class Configuration(Component, dict):
              "sync_server_password": "",
              "warned_about_learning_ahead": False,
              "shown_backlog_help": False,
-             "shown_schedule_help": False
+             "shown_schedule_help": False,
+             "asynchronous_database": False
             }.items():
             self.setdefault(key, value)
         # These keys will be shared in the sync protocol. Front-ends can

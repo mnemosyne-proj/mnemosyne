@@ -65,7 +65,8 @@ class MyServer(Server, Thread):
         Thread.__init__(self)
         if erase_previous:
             shutil.rmtree(data_dir, ignore_errors=True)
-        self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
+        self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
+            asynchronous_database=True)
         self.mnemosyne.components.insert(0,
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(("test_sync", "Widget"))
@@ -151,7 +152,8 @@ class MyClient(Client):
             filename="default.db", erase_previous=True):
         if erase_previous:
             shutil.rmtree(data_dir, ignore_errors=True)
-        self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=False)
+        self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=False,
+            asynchronous_database=True)
         self.mnemosyne.components.insert(0,
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(("test_sync", "Widget"))

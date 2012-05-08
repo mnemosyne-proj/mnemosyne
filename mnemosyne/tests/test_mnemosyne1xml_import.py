@@ -54,7 +54,8 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
 
     def setup(self):
         shutil.rmtree("dot_test", ignore_errors=True)
-        self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
+        self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
+            asynchronous_database=True)
         self.mnemosyne.components.insert(0,
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\

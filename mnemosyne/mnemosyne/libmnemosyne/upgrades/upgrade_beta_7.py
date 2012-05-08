@@ -8,7 +8,7 @@ from mnemosyne.libmnemosyne.component import Component
 
 
 class UpgradeBeta7(Component):
-            
+
     def run(self):
         try:
             self.database().con.executescript("""

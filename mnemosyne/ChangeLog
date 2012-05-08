@@ -1,3 +1,5 @@
+-Tweaks with respect to scheduling of sister cards, avoiding to schedule them
+ on the same day.
 -Text files with tab-separated values can now be imported.
 -Cloned card types can now be renamed and deleted.
 -Warn when sister cards are being added to your queue to prevent it from

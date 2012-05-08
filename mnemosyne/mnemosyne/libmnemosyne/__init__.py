@@ -22,7 +22,8 @@ class Mnemosyne(Component):
 
     """
 
-    def __init__(self, upload_science_logs, interested_in_old_reps):
+    def __init__(self, upload_science_logs, interested_in_old_reps,
+        asynchronous_database=False):
 
         """For mobile clients, it is recommended that you set
         'upload_science_logs' to 'False'. We need to specify this as an
@@ -35,11 +36,15 @@ class Mnemosyne(Component):
         non-default argument here, in order to force front-end writers to
         consider it.
 
+        Setting 'asynchronous_database' to True increases the risk of data
+        loss and should only be done to speed up the test suite.
+
         """
 
         sys.excepthook = self.handle_exception
         self.upload_science_logs = upload_science_logs
         self.interested_in_old_reps = interested_in_old_reps
+        self.asynchronous_database = asynchronous_database
         self.component_manager = new_component_manager()
         self.components = [
          ("mnemosyne.libmnemosyne.databases.SQLite",
@@ -221,6 +226,7 @@ class Mnemosyne(Component):
         if self.upload_science_logs is False:
             self.config()["upload_science_logs"] = False
         self.config()["interested_in_old_reps"] = self.interested_in_old_reps
+        self.config()["asynchronous_database"] = self.asynchronous_database
 
 
 

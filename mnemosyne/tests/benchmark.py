@@ -2,6 +2,7 @@
 
 import os
 import time
+import shutil
 import pstats
 import cProfile
 
@@ -18,23 +19,24 @@ def startup():
 
     # Note that this also includes building the queue and getting the first card.
 
-    mnemosyne = Mnemosyne(upload_science_logs=False)
+    mnemosyne = Mnemosyne(upload_science_logs=False,
+        interested_in_old_reps=True)
     mnemosyne.components.insert(0,
-        ("mnemosyne.libmnemosyne.translator",
-         "NoTranslation"))
-    mnemosyne.components.append(    
+        ("mnemosyne.libmnemosyne.translators.no_translator",
+         "NoTranslator"))
+    mnemosyne.components.append(
         ("mnemosyne.libmnemosyne.ui_components.main_widget",
          "MainWidget"))
     mnemosyne.components.append(
-        ("mnemosyne.libmnemosyne.ui_components.review_widget",
-         "ReviewWidget"))
+        ("mnemosyne_test",
+         "TestReviewWidget"))
 
     mnemosyne.initialise(data_dir=os.path.abspath("dot_benchmark"),
         automatic_upgrades=False)
     #mnemosyne.initialise(data_dir="\SDMMC\.mnemosyne",
     #automatic_upgrades=False)
 
-    mnemosyne.review_controller().reset()
+    mnemosyne.start_review()
 
 def create_database():
     mnemosyne.database().new(mnemosyne.config()["path"])
@@ -66,11 +68,11 @@ def display():
 def grade():
     # Note that this will also pull in a new question.
     mnemosyne.review_controller().grade_answer(0)
-    
+
 def grade_2():
     # Note that this will also pull in a new question.
     mnemosyne.review_controller().grade_answer(0)
-    
+
 def grade_only():
     mnemosyne.scheduler().grade_answer(\
         mnemosyne.review_controller().card, 0)
@@ -107,13 +109,13 @@ def do_import():
 def test_setup():
     shutil.rmtree("dot_test", ignore_errors=True)
     global mnemosyne
-    mnemosyne = Mnemosyne(upload_science_logs=False)
-    mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+    mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
+    mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translators.gettext_translator",
         "GetTextTranslator"))
     mnemosyne.components.append(\
         ("test_add_cards", "Widget"))
     mnemosyne.components.append(\
-        ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
+        ("mnemosyne_test", "TestReviewWidget"))
     mnemosyne.components.append(\
         ("mnemosyne.libmnemosyne.ui_components.dialogs", "EditCardDialog"))
     mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
@@ -131,8 +133,8 @@ def test_run():
 
 tests = ["startup()", "create_database()", "queue()", "new_question()", "display()", "grade_only()",
          "grade()", "grade_2()", "count_active()", "count_scheduled()", "count_not_memorised()"]
-tests = ["startup()", "new_question()", "display()", "grade()", "grade_2()", "activate()",
-    "finalise()"]
+#tests = ["startup()", "new_question()", "display()", "grade()", "grade_2()", "activate()",
+#    "finalise()"]
 #tests = ["startup()", "create_database()", "new_question()", "display()",
 #    "grade()", "activate()", "finalise()"]
 #tests = ["startup()", "create_database()", "new_question()", "display()",
@@ -141,8 +143,8 @@ tests = ["startup()", "new_question()", "display()", "grade()", "grade_2()", "ac
 #tests = ["startup()", "do_import()", "finalise()"]
 #tests = ["startup()", "queue()", "finalise()"]
 #tests = ["startup()", "activate()"]
-tests = ["startup()", "finalise()"]
-tests = ["test_setup()", "test_run()"]
+#tests = ["startup()", "finalise()"]
+#tests = ["test_setup()", "test_run()"]
 
 for test in tests:
     cProfile.run(test, "mnemosyne_profile." + test.replace("()", ""))

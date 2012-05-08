@@ -22,7 +22,8 @@ class MyMainWidget(MainWidget):
 class TestLogging(MnemosyneTest):
 
     def restart(self):
-        self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
+        self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
+            asynchronous_database=True)
         self.mnemosyne.components.insert(0,
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\
@@ -206,7 +207,8 @@ class TestLogging(MnemosyneTest):
         file(os.path.join(os.getcwd(), "dot_test", "history", "userid_001.bz2"), "w")
         os.remove(os.path.join(os.getcwd(), "dot_test", "config"))
 
-        self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
+        self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
+            asynchronous_database=True)
         self.mnemosyne.components.insert(0,
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\
@@ -224,7 +226,8 @@ class TestLogging(MnemosyneTest):
         file(os.path.join(os.getcwd(), "dot_test", "history", "userid_machine_001.bz2"), "w")
         os.remove(os.path.join(os.getcwd(), "dot_test", "config"))
 
-        self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
+        self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
+            asynchronous_database=True)
         self.mnemosyne.components.insert(0,
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\
@@ -283,7 +286,8 @@ class TestLogging(MnemosyneTest):
         self.config()["max_log_size_before_upload"] = 1
         MnemosyneTest.teardown(self)
 
-        self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True)
+        self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True,
+            asynchronous_database=True)
         self.mnemosyne.components.insert(0,
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\
@@ -294,7 +298,8 @@ class TestLogging(MnemosyneTest):
         self.mnemosyne.start_review()
         MnemosyneTest.teardown(self)
 
-        self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True)
+        self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True,
+            asynchronous_database=True)
         self.mnemosyne.components.insert(0,
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\
@@ -305,7 +310,8 @@ class TestLogging(MnemosyneTest):
         self.mnemosyne.start_review()
         MnemosyneTest.teardown(self)
 
-        self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True)
+        self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True,
+            asynchronous_database=True)
         self.mnemosyne.components.insert(0,
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\
@@ -331,7 +337,8 @@ class TestLogging(MnemosyneTest):
         self.config()["max_log_size_before_upload"] = 1
         MnemosyneTest.teardown(self)
 
-        self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True)
+        self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True,
+            asynchronous_database=True)
         self.mnemosyne.components.insert(0,
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\
@@ -342,7 +349,8 @@ class TestLogging(MnemosyneTest):
         self.mnemosyne.start_review()
         MnemosyneTest.teardown(self)
 
-        self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True)
+        self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True,
+            asynchronous_database=True)
         self.mnemosyne.components.insert(0,
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\

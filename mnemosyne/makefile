@@ -55,7 +55,7 @@ coverage: install-virtual-env
 	./bin/nosetests --with-coverage --cover-erase \
 	--cover-package=mnemosyne.libmnemosyne,openSM2sync
 	./bin/coverage html
-	firefox htmlcov/index.html
+	google-chrome htmlcov/index.html
 
 profile: install-virtual-env
 	echo "from hotshot import stats" > process_profile.py

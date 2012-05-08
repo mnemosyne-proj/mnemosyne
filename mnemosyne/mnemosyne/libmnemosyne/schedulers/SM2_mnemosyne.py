@@ -144,23 +144,30 @@ class SM2Mnemosyne(Scheduler):
             self._fact_ids_memorised = []
             self._fact_ids_memorised_expires_at = int(time.time()) + DAY
 
-    def set_initial_grade(self, card, grade):
+    def set_initial_grade(self, cards, grade):
 
-        """Note that even if the initial grading happens when adding a card, it
+        """Sets the initial grades for a set of sister cards, making sure
+        their next repetitions do no fall on the same day.
+
+        Note that even if the initial grading happens when adding a card, it
         is seen as a repetition.
 
         """
 
-        card.grade = grade
-        card.easiness = 2.5
-        card.acq_reps = 1
-        card.acq_reps_since_lapse = 1
-        card.last_rep = int(time.time())
         new_interval = self.calculate_initial_interval(grade)
         new_interval += self.calculate_interval_noise(new_interval)
-        card.next_rep = self.midnight_UTC(card.last_rep + new_interval)
-        self.log().repetition(card, scheduled_interval=0, actual_interval=0,
-                              thinking_time=0)
+        last_rep = int(time.time())
+        next_rep = self.midnight_UTC(last_rep + new_interval)
+        for card in cards:
+            card.grade = grade
+            card.easiness = 2.5
+            card.acq_reps = 1
+            card.acq_reps_since_lapse = 1
+            card.last_rep = last_rep
+            card.next_rep = next_rep
+            next_rep += DAY
+            self.log().repetition(card, scheduled_interval=0,
+                actual_interval=0, thinking_time=0)
 
     def calculate_initial_interval(self, grade):
 
@@ -182,6 +189,29 @@ class SM2Mnemosyne(Scheduler):
         else:
             noise = random.uniform(-0.05 * interval, 0.05 * interval)
         return int(noise)
+
+    def spread_sister_cards(self):
+
+        """During normal operation, the scheduler makes sure sister cards are
+        not scheduled on the same day. However, this can go wrong if the cards
+        are graded in an external program like MnemoDodo, which does not have
+        enough information to prevent this, or when learning late.
+
+        In these circumstances, this function makes sure the sister cards are
+        spread again.
+
+        """
+
+        for fact in self.database.facts():
+            due_dates = []
+            for card in self.database.cards_from_fact(fact):
+                due_date = card.next_rep
+                while card.next_rep in due_dates:
+                    due_date += DAY
+                due_dates.append(due_date)
+                if due_date != card.next_rep:
+                    card.next_rep = due_date
+                    self.database.update_card(card, repetition_only=True)
 
     def rebuild_queue(self, learn_ahead=False):
         db = self.database()

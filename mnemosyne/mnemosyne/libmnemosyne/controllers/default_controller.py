@@ -115,17 +115,14 @@ class DefaultController(Controller):
                   "/".join(fact[k] for k in card_type.required_fact_keys),
                   _("&Merge and edit"), _("&Add as is"), _("&Do not add"))
                 if answer == 0:  # Merge and edit.
-                    # Allow card type to modify fact if needed, before adding
-                    # it to the database.
-                    # TODO: remove once multiple meanings in Vocabulary are
-                    # implemented.
                     cards = card_type.create_sister_cards(fact)
                     db.add_fact(fact)
                     for card in cards:
                         card.tags = tags
                         db.add_card(card)
-                        if grade >= 2:
-                            self.scheduler().set_initial_grade(card, grade)
+                    if grade >= 2:
+                        self.scheduler().set_initial_grade(cards, grade)
+                        for card in cards:
                             db.update_card(card, repetition_only=True)
                     merged_fact_data = copy.copy(fact.data)
                     for duplicate in duplicates:
@@ -143,18 +140,15 @@ class DefaultController(Controller):
                     return
                 if answer == 2:  # Don't add.
                     return
-        # Allow card type to modify fact if needed, before adding
-        # it to the database.
-        # TODO: remove once multiple meanings in Vocabulary are
-        # implemented.
+        # Create cards.
         cards = card_type.create_sister_cards(fact)
         db.add_fact(fact)
-        # Create cards.
         for card in cards:
             card.tags = tags
             db.add_card(card)
-            if grade >= 2:
-                self.scheduler().set_initial_grade(card, grade)
+        if grade >= 2:
+            self.scheduler().set_initial_grade(cards, grade)
+            for card in cards:
                 db.update_card(card, repetition_only=True)
         if save:
             db.save()

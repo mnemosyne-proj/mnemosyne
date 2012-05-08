@@ -1,5 +1,5 @@
 -new cards with a >=2 grade can end up on the same day on first interactive rep
-replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug)
+replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug): add tests
 -scheduler.spread_sister_cards? Also after mnemododo import.
 -when learning late, related cards on the same day can happen
 
@@ -72,7 +72,6 @@ list = QApplication::topLevelWidgets();
 i = -1;
 
 -remove TMP adding of default o_id in sync
--remove TMP backdoor in default controller to allow card types to modify their facts
 
 -remind top level widget, and make those parent to error dialog? Now e.g. an error on the activate card
 widget will be centered on the main widget and not the activate cards dialog.

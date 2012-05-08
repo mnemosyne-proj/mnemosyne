@@ -22,9 +22,12 @@ class Scheduler(Component):
 
         pass
 
-    def set_initial_grade(self, card, grade):
+    def set_initial_grade(self, cards, grade):
 
-        """Called when cards are given their initial grade outside of the
+        """Sets the initial grades for a set of sister cards, making sure
+        their next repetitions do no fall on the same day.
+
+        Called when cards are given their initial grade outside of the
         review process, e.g. when the user gives an initial grade when
         adding a new card in the GUI. Therefore, 'unseen' is still left to
         True, as this card has not yet been seen in the interactive review
