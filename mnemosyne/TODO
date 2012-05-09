@@ -1,12 +1,11 @@
--new cards with a >=2 grade can end up on the same day on first interactive rep
-replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug): add tests
--scheduler.spread_sister_cards? Also after mnemododo import.
--when learning late, related cards on the same day can happen
-
 ### RC1
+
+-close LP bugs
 
 -tell beta users to make sure to install latest beta first
 -remove upgrade_beta_6.py, beta_7, etc... also in database
+
+-linux tarball
 
 -translations through website:
  https://help.launchpad.net/Translations/YourProject/Exports
@@ -14,6 +13,8 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug): add tes
 -remove mnemosyne/pyqt_ui/locale
 
 -upgrade website
+
+-workaround for non-latin sound files?
 
 ## Waiting for PyQt fixes:
 
@@ -25,8 +26,6 @@ replace set_initial_grade by set_initial_grades(cards)? (Gnome, LP bug): add tes
 -check 2 sound files again under W7, mail Patrick, update changelog
 
 ### Release
-
--workaround for non-latin sound files?
 
 -check sync timeout when both client and server check for updated media files.
 -media sentence card has wrong color on win. Are settings synced?

@@ -270,10 +270,13 @@ og [Hakon V]) lovet bort til hertug [Erik] av [Sverige]. Hun var da [ett] ar
 gammel...."""}
 
         cards = self.controller().create_new_cards(fact_data, card_type,
-                                          grade=-1, tag_names=["default"])
+                                          grade=3, tag_names=["default"])
 
+        next_reps = []
         for card in cards:
             assert card.question().count("[") == 1
+            next_reps.append(card.next_rep)
+        assert len(next_reps) == len(cards)
 
     def test_henrik_2(self):
         card_type = self.card_type_with_id("5")

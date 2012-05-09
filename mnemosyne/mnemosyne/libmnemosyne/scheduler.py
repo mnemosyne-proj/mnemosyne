@@ -48,8 +48,16 @@ class Scheduler(Component):
 
         raise NotImplementedError
 
-    def spread_sister_cards(self):
-        pass
+    def avoid_sister_cards(self, card):
+
+        """Change card.next_rep to make sure that the card is not scheduled
+        on the same day as a sister card.
+
+        Factored out here to allow this to be used by e.g. MnemoGogo.
+
+        """
+
+        raise NotImplementedError
 
     def rebuild_queue(self, learn_ahead=False):
 

@@ -1,4 +1,4 @@
-version = "beta-11-b"
+version = "2.0-RC1"
 
 if __name__ == "__main__":
     print version

@@ -99,12 +99,15 @@ clean:
 distrib: FORCE
 	make clean
 
-	# Unix.
-
 	cd mnemosyne/pyqt_ui && make
 
+	# LICENSE (2X) ChangeLog mnemosyne.desktop example_plugins example_scripts
+	# translations icons
+
+	rm -rf distrib
+
 	mkdir distrib
-	cp setup.py README LICENSE AUTHORS ChangeLog mnemosyne.desktop distrib
+	cp setup.py README LICENSE ChangeLog mnemosyne.desktop distrib
 
 	mkdir distrib/mnemosyne
 	cp mnemosyne/*.py distrib/mnemosyne
@@ -135,6 +138,7 @@ distrib: FORCE
 
 	V=`$(PYTHON) mnemosyne/version.py` && rm -R mnemosyne-$${V}
 
+distrib-WM: FORCE
 	# Windows Mobile.
 
 	mkdir distrib

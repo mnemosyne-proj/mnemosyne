@@ -190,6 +190,21 @@ class SM2Mnemosyne(Scheduler):
             noise = random.uniform(-0.05 * interval, 0.05 * interval)
         return int(noise)
 
+    def avoid_sister_cards(self, card):
+
+        """Change card.next_rep to make sure that the card is not scheduled
+        on the same day as a sister card.
+
+        Factored out here to allow this to be used by e.g. MnemoGogo.
+
+        """
+
+        # Keep normalising, as a day is not always exactly DAY seconds when
+        # there are leap seconds.
+        while self.database().sister_card_count_scheduled_between\
+            (card, card.next_rep, card.next_rep + DAY):
+            card.next_rep = self.midnight_UTC(card.next_rep + DAY)
+
     def spread_sister_cards(self):
 
         """During normal operation, the scheduler makes sure sister cards are
@@ -547,12 +562,7 @@ _("Your queue is running empty, so sisters of cards you just learned were added 
         card.last_rep = int(time.time())
         if new_grade >= 2:
             card.next_rep = self.midnight_UTC(card.last_rep + new_interval)
-            # Don't schedule sister cards on the same day. Keep normalising,
-            # as a day is not always exactly DAY seconds when there are leap
-            # seconds.
-            while self.database().sister_card_count_scheduled_between\
-                  (card, card.next_rep, card.next_rep + DAY):
-                card.next_rep = self.midnight_UTC(card.next_rep + DAY)
+            self.avoid_sister_cards(card)
         else:
             card.next_rep = int(time.time())
         # Warn if we learned a lot of new cards.
