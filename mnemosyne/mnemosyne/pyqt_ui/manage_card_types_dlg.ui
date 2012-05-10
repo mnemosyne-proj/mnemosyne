@@ -56,9 +56,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="cancel_button">
+        <widget class="QPushButton" name="exit_button">
          <property name="text">
-          <string>&amp;Cancel</string>
+          <string>E&amp;xit</string>
          </property>
         </widget>
        </item>
@@ -71,7 +71,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>cancel_button</sender>
+   <sender>exit_button</sender>
    <signal>clicked()</signal>
    <receiver>ManageCardTypesDlg</receiver>
    <slot>reject()</slot>

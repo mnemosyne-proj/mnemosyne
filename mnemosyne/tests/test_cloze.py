@@ -157,6 +157,33 @@ class TestCloze(MnemosyneTest):
         self.controller().edit_sister_cards(fact, new_fact_data, card_type,
             new_card_type, ["default"], {"f": "text"})
 
+    def test_convert_3(self):
+        card_type = self.card_type_with_id("2")
+
+        fact_data = {"f": "a b c", "b": "back"}
+
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])[0]
+
+
+        # Make sure the card is not the last one in the database, such that
+        # sqlite does not recycle its id.
+
+        fact_data = {"f": "__a b c", "b": "__back"}
+        self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])[0]
+
+        fact = card.fact
+        new_fact_data = {"text": "a [b] [c]"}
+
+        new_card_type = self.card_type_with_id("5")
+
+        global answer
+        answer = 0 # OK.
+
+        self.controller().edit_sister_cards(fact, new_fact_data, card_type,
+            new_card_type, ["default"], {"f": "text"})
+
 
     def test_convert_abort(self):
         card_type = self.card_type_with_id("5")

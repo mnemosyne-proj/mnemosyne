@@ -1,6 +1,9 @@
-### RC1
+-fix testsuite
+-when removing a card type, also remove the display settings of that card type
+-when checkboxing a plugin, the description pane should update
+-check if q empty message only appears once
 
--close LP bugs
+### RC2
 
 -tell beta users to make sure to install latest beta first
 -remove upgrade_beta_6.py, beta_7, etc... also in database
@@ -38,6 +41,8 @@
 -errors in scripting engine related to main_widget
 
 -make doc: errors related to _
+
+-queue is running empty, relax sister: prompt user what to do?
 
 -don't refresh review widget after edit window if no changes have been made (gnome) (LP bug)
 -after showing answer, exiting card browser hides answer again (Gnome, LP bug)
@@ -126,7 +131,6 @@ widget will be centered on the main widget and not the activate cards dialog.
 -Qt bug? Cannot restore scroll_to column in card browser after tag rename.
 -Qt bug? Cntl+a select all in card browser only selects all the prefetched entries
 -Qt bug? insertAtTop on tags combobox in add_cards does not seem to work
--Qt bug? choose named colours: crash
 -Qt bug? Windows: progress bars for sync often crash when they get called too quickly
  (reproduce: download_binary_database for HTTP 1.0)
 -Qt bug? cursor is always black, also on a black background
@@ -144,6 +148,7 @@ Milesteiner
 -Qt bug? images in map card type sometimes hang
 -Qt bug? multiple sounds per card under Windows does not work
 -Qt bug? text + linebreak + video + linebreak + text2 does not show text2
+-Qt bug? Windows titles not shown?
 
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 

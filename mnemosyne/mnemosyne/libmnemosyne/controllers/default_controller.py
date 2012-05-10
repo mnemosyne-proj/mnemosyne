@@ -225,6 +225,9 @@ class DefaultController(Controller):
                 self.delete_facts_and_their_cards([fact])
                 new_card = self.create_new_cards(new_fact_data,
                     new_card_type, grade=-1, tag_names=tag_names)[0]
+                # We've created a new fact here. Make sure the calling function
+                # has the information to reload the fact.
+                fact._id = new_card.fact._id
                 if is_currently_asked:
                     self.review_controller().card = new_card
                 return 0
@@ -261,10 +264,16 @@ class DefaultController(Controller):
         db = self.database()
         sch = self.scheduler()
         assert new_card_type.is_fact_data_valid(new_fact_data)
+        # Change the card type if needed. This does not take into account
+        # changes to fact yet, which will come just afterwards.
         result = self._change_card_type(fact, old_card_type, new_card_type,
             correspondence, new_fact_data)
         if result == -1:  # Aborted.
             return -1
+        # When there was no card type conversion possible, the cards had to
+        # be recreated from the new fact data. In that case, it is needed to
+        # reload the fact from the database.
+        fact = db.fact(fact._id, is_id_internal=True)
         # Update fact and create, delete and update cards.
         new_cards, edited_cards, deleted_cards = \
             new_card_type.edit_sister_cards(fact, new_fact_data)

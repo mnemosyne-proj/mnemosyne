@@ -779,6 +779,7 @@ class TestConvertCards(MnemosyneTest):
             assert card_2.grade == -1
             assert card_1.grade == 2
 
+
     def teardown(self):
         if os.path.exists("a.ogg"):
             os.remove("a.ogg")

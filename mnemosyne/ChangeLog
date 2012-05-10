@@ -1,33 +1,8 @@
--Tweaks with respect to scheduling of sister cards, avoiding to schedule them
- on the same day.
--Text files with tab-separated values can now be imported.
--Cloned card types can now be renamed and deleted.
--Warn when sister cards are being added to your queue to prevent it from
- running empty.
--You can now save a set of cards using a name of an existing set, and you will
- get the option of updating the previous set.
--When adding a new tag, the user gets the choice of whether this tag will be
- activated in the current saved set. Other saved sets will be left alone.
- Ditto for new card types.
--When the sync login fails, don't force a restore from backup on the next sync.
--Display progress bar when calculating long statistics.
--Reworked plugin dialog. Plugins can now also be installed through the GUI.
--Fix playing of sound files containing unicode characters. Unfortunately, due
- to a bug with Qt under Windows, this only works on Linux (reported by Barbara).
--Copy media directory when doing 'Save as..' (reported by Henrik).
--example plugin to lock down the UI (requested by Eugene Campbell).
--Bug fix when importing xml files with anonymous ids after importing an
- anynymous id file just before that (reported by Scott Youngman).
--Fix searching for [ and ] (reported by Scott Youngman).
--If you resume your pc from hibernation in the morning, the new day's cards are
- now added more quickly to your queue. This also makes sure there is more data
- available to calculate the past schedule.
--Make newlines outside of tables and latex tags work again (reported by Gnome)
--Fix bug converting existing cards to Cloze cards (reported by Jin Hale).
--'Untagged' now always shows up last in the tag tree, even if there are tags
- starting with a number
--For map cards, the answer is now again labeled 'Aswer:' as opposed to
- 'Question:'
+-fix errors when converting from a front-to-back card to a cloze card
+ (reported by Henrik).
+-fix errors when deleting a cloned card type with custom formatting
+ information (reported by Gnome).
+-minor UI tweaks.
 
 
 MNEMOSYNE 2.0
