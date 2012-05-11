@@ -277,11 +277,17 @@ class Client(Partner):
         client_info["render_chain"] = ""
         # Add optional program-specific information.
         client_info = self.database.append_to_sync_partner_info(client_info)
-        self.request_connection()
-        self.con.request("PUT", self.url("/login"),
-            self.text_format.repr_partner_info(client_info).\
-            encode("utf-8") + "\n")
-        response = self.con.getresponse()
+        # Try to establish a connection, but don't force a restore from backup
+        # if we can't login.
+        try:
+            self.request_connection()
+            self.con.request("PUT", self.url("/login"),
+                self.text_format.repr_partner_info(client_info).\
+                encode("utf-8") + "\n")
+            response = self.con.getresponse()
+        except Exception, e:
+            import sys; sys.stderr.write(str(e))
+            raise SyncError("Could not connect to server!")
         # Check for errors, but don't force a restore from backup if we can't
         # login.
         try:

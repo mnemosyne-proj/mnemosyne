@@ -407,6 +407,7 @@ class DefaultController(Controller):
     % (card_type.name, ))
             return
         fact_views = card_type.fact_views
+        self.config().delete_card_type_properties(card_type)
         self.database().delete_card_type(card_type)
         # Correct ordering for the sync protocol is deleting the fact views
         # last.

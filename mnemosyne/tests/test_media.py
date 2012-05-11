@@ -203,6 +203,7 @@ class TestMedia(MnemosyneTest):
                      "b": "answer"}
         self.controller().edit_sister_cards(card.fact, fact_data,
            card.card_type,  card_type, new_tag_names=["bla"], correspondence=None)
+        card = self.database().card(card._id, is_id_internal=True)
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "b.ogg")
         assert os.path.exists(full_path_in_media_dir)
         assert full_path not in card.fact.data["f"]
@@ -228,6 +229,8 @@ class TestMedia(MnemosyneTest):
                      "b": "answer"}
         self.controller().edit_sister_cards(card.fact, fact_data,
            card.card_type,  card_type, new_tag_names=["bla"], correspondence=None)
+        # Make sure we don't reuse existing objects.
+        card = self.database().card(card._id, is_id_internal=True)
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
         self.database().delete_unused_media_files(self.database().unused_media_files())
         assert not os.path.exists(full_path_in_media_dir)
@@ -258,6 +261,8 @@ class TestMedia(MnemosyneTest):
                      "b": "answer"}
         self.controller().edit_sister_cards(card.fact, fact_data,
            card.card_type, card_type, new_tag_names=["bla"], correspondence=None)
+        # Make sure we don't reuse existing objects.
+        card = self.database().card(card._id, is_id_internal=True)
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
         assert os.path.exists(full_path_in_media_dir) # Don't delete file.
         assert full_path_in_media_dir not in card.question()

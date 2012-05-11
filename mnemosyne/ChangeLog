@@ -2,7 +2,9 @@
  (reported by Henrik).
 -fix errors when deleting a cloned card type with custom formatting
  information (reported by Gnome).
--minor UI tweaks.
+-eliminated more cases where an unavailable sync server would result in the
+ need for a full sync afterwards.
+-minor UI tweaks (mostly reported by Gnome).
 
 
 MNEMOSYNE 2.0

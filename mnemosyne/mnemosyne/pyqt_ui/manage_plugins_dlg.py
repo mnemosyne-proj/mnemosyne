@@ -45,7 +45,7 @@ class ManagePluginsDlg(QtGui.QDialog, Ui_ManagePluginsDlg, ManagePluginsDialog):
             else:
                 list_item.setCheckState(QtCore.Qt.Unchecked)
             self.plugin_list.addItem(list_item)
-        self.plugin_list.itemActivated.connect(self.plugin_selected)
+        self.plugin_list.itemClicked.connect(self.plugin_selected)
         self.plugin_list.setCurrentRow(0)
         self.plugin_description.setText(self.plugins()[0].description)
         self.delete_button.setEnabled(\

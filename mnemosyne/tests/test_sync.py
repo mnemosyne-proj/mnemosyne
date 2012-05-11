@@ -428,6 +428,9 @@ class TestSync(object):
             "select count() from log").fetchone()[0] == 23
         assert self.server.is_sync_in_progress() == False
 
+        # TODO: fix race condition which requires this.
+        import time; time.sleep(3)
+
     def test_add_tag_controller(self):
 
         def test_server(self):
@@ -1431,6 +1434,10 @@ class TestSync(object):
 
         assert self.client.database.con.execute("select count() from log where event_type=?",
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 3
+
+
+        # TODO: fix race condition which requires this.
+        import time; time.sleep(3)
 
     def test_binary_download_no_old_reps(self):
 

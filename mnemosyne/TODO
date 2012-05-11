@@ -1,7 +1,9 @@
--fix testsuite
--when removing a card type, also remove the display settings of that card type
--when checkboxing a plugin, the description pane should update
--check if q empty message only appears once
+-fix test suite races
+
+-check coverage in configuration.py
+
+-remove relearn sister cards
+
 
 ### RC2
 
@@ -30,6 +32,8 @@
 
 ### Release
 
+-plugin for card types with prefilled data
+
 -check sync timeout when both client and server check for updated media files.
 -media sentence card has wrong color on win. Are settings synced?
 
@@ -49,10 +53,15 @@
 -try to avoid showing different card after exiting browser. Better reset_but_try_to_keep ...
 taking grade 0/1 cards as well into account?
 
+-Manage plugins,Select different plugins than was initially,Install new plugin,
+ then hit cancel,Selection gets reset (Gnome) (LP bug)
 -Cntr+C in Q&A main does not work. (Gnome) (LP bug)
 -Cntr+D shortcut in edit card doesn't work. (Gnome) (LP bug)
+-Cramming shortcuts with letters do not work (Gnome) (LP bug)
 -starting the program when no cards are shownn does not draw a border around the
  Q field
+
+-fix race condition in test_add_tag_behind_proxy(self) and similar
 
 -save tree state (which nodes are expanded or not) (Troy Guze)
 QModelIndexList QAbstractItemModel::persistentIndexList () const

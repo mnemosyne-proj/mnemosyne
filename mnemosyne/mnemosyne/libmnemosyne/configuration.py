@@ -258,7 +258,7 @@ class Configuration(Component, dict):
             print >> f, rand_uuid()
             f.close()
 
-    def set_card_type_property(self, property_name, property, card_type,
+    def set_card_type_property(self, property_name, property_value, card_type,
             fact_key=None):
 
         """Set a property (like font, colour, ..) for a certain card type.
@@ -275,7 +275,7 @@ class Configuration(Component, dict):
             raise KeyError
         if property_name in ["background_colour", "alignment",
                              "hide_pronunciation_field"]:
-            self[property_name][card_type.id] = property
+            self[property_name][card_type.id] = property_value
             return
         self[property_name].setdefault(card_type.id, {})
         for _fact_key in card_type.fact_keys():
@@ -285,7 +285,7 @@ class Configuration(Component, dict):
         else:
             fact_keys = [fact_key]
         for _fact_key in fact_keys:
-            self[property_name][card_type.id][_fact_key] = property
+            self[property_name][card_type.id][_fact_key] = property_value
 
     def card_type_property(self, property_name, card_type, fact_key=None,
                             default=None):
@@ -315,6 +315,12 @@ class Configuration(Component, dict):
             if old_value:
                 self.set_card_type_property(\
                     property_name, old_value, new_card_type)
+
+    def delete_card_type_properties(self, card_type):
+        for property_name in ["background_colour", "font", "font_colour",
+            "alignment", "hide_pronunciation_field"]:
+            if card_type.id in self[property_name]:
+                del self[property_name][card_type.id]
 
     def machine_id(self):
         return file(os.path.join(self.config_dir, "machine.id")).\

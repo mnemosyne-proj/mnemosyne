@@ -154,6 +154,18 @@ class TestCardType(MnemosyneTest):
         assert card_type_out.fact_views[1].a_on_top_of_q == \
                card_type_2.fact_views[1].a_on_top_of_q
 
+    def test_delete_with_formatting(self):
+        card_type = self.card_type_with_id("1")
+        card_type_1 = self.controller().clone_card_type(\
+            card_type, "1 clone")
+        card_type = self.card_type_with_id("2")
+        card_type_2 = self.controller().clone_card_type(\
+                      card_type, "2 clone")
+
+        self.config().set_card_type_property("background_colour", "black", card_type_1)
+
+        self.controller().delete_card_type(card_type_1)
+
     def test_cannot_delete(self):
         global last_error
         last_error = None

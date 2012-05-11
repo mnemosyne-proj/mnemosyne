@@ -55,6 +55,10 @@ class TipDlg(QtGui.QDialog, Ui_TipDlg, TipDialog):
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
+        if self.config()["show_daily_tips"] == True:
+            self.show_tips.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.show_tips.setCheckState(QtCore.Qt.Unchecked)
         # Note: the svg file does not seem to work under windows.
         #watermark = QtGui.QPixmap(":/mnemosyne/pixmaps/mnemosyne.svg").\
         #    scaledToHeight(200, QtCore.Qt.SmoothTransformation)
