@@ -135,7 +135,7 @@ class Client(Partner):
             if self.check_for_edited_local_media_files:
                 self.ui.set_progress_text("Checking for edited media files...")
                 self.database.check_for_edited_media_files()
-            socket.setdefaulttimeout(10)
+            socket.setdefaulttimeout(30)
             self.login(username, password)
             # Do a full sync after either the client or the server has restored
             # from a backup.
@@ -280,13 +280,13 @@ class Client(Partner):
         # Try to establish a connection, but don't force a restore from backup
         # if we can't login.
         try:
+            import sys; sys.stderr.write("client requesting connection ")
             self.request_connection()
             self.con.request("PUT", self.url("/login"),
                 self.text_format.repr_partner_info(client_info).\
                 encode("utf-8") + "\n")
             response = self.con.getresponse()
         except Exception, e:
-            import sys; sys.stderr.write(str(e))
             raise SyncError("Could not connect to server!")
         # Check for errors, but don't force a restore from backup if we can't
         # login.

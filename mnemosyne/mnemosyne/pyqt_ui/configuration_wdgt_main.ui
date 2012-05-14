@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>384</width>
-    <height>400</height>
+    <width>385</width>
+    <height>393</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -182,13 +182,6 @@
            </spacer>
           </item>
          </layout>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="memorise_sister_cards_on_same_day">
-          <property name="text">
-           <string>(Re)learn sister cards on the same day</string>
-          </property>
-         </widget>
         </item>
        </layout>
       </widget>

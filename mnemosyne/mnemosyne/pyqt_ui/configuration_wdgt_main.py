@@ -33,12 +33,6 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
             ["non_memorised_cards_in_hand"])
         self.save_after_n_reps.setValue(self.config()\
             ["save_after_n_reps"])
-        if self.config()["memorise_sister_cards_on_same_day"] == True:
-            self.memorise_sister_cards_on_same_day.setCheckState(\
-                QtCore.Qt.Checked)
-        else:
-            self.memorise_sister_cards_on_same_day.setCheckState(\
-                QtCore.Qt.Unchecked)
         if self.config()["media_autoplay"] == True:
             self.media_autoplay.setCheckState(QtCore.Qt.Checked)
         else:
@@ -94,11 +88,6 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
             self.non_memorised_cards.value()
         self.config()["save_after_n_reps"] = \
             self.save_after_n_reps.value()
-        if self.memorise_sister_cards_on_same_day.checkState() == \
-           QtCore.Qt.Checked:
-            self.config()["memorise_sister_cards_on_same_day"] = True
-        else:
-            self.config()["memorise_sister_cards_on_same_day"] = False
         if self.media_autoplay.checkState() == QtCore.Qt.Checked:
             self.config()["media_autoplay"] = True
         else:

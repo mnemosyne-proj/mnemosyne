@@ -108,7 +108,6 @@ class Configuration(Component, dict):
              "non_memorised_cards_in_hand": 10,
              "randomise_new_cards": False,
              "randomise_scheduled_cards": False,
-             "memorise_sister_cards_on_same_day": False,
              "show_intervals": "never",
              "only_editable_when_answer_shown": False,
              "show_tags_during_review": True,

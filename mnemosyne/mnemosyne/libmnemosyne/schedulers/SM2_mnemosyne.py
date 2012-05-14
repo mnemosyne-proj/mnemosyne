@@ -137,7 +137,6 @@ class SM2Mnemosyne(Scheduler):
         self._card_id_last = None
         self.stage = 1
         self.warned_about_too_many_cards = False
-        self.warned_about_relaxing_no_sister_cards_together = False
 
     def heartbeat(self):
         if time.time() > self._fact_ids_memorised_expires_at:
@@ -337,31 +336,22 @@ class SM2Mnemosyne(Scheduler):
                 sort_key = "random"
             else:
                 sort_key = ""
-            sisters_together = \
-                self.config()["memorise_sister_cards_on_same_day"]
-            for _card_id, _fact_id in db.cards_unseen(sort_key=sort_key,
-                                                      limit=min(limit, 50)):
-                if (    sisters_together and _fact_id not \
-                                            in self._fact_ids_in_queue) or \
-                   (not sisters_together and _fact_id not \
-                                            in self._fact_ids_in_queue \
-                          and _fact_id not in self._fact_ids_memorised):
+            # Preferentially keep away from sister cards for as long as
+            # possible.
+            for _card_id, _fact_id in db.cards_unseen(\
+                    sort_key=sort_key, limit=min(limit, 50)):
+                if _fact_id not in self._fact_ids_in_queue \
+                    and _fact_id not in self._fact_ids_memorised:
                     self._card_ids_in_queue.append(_card_id)
                     self._fact_ids_in_queue.append(_fact_id)
                     non_memorised_in_queue += 1
                     if non_memorised_in_queue == limit:
                         self.stage = 2
                         return
-            # If the queue is close to empty, relax the 'sister not together'
-            # requirement.
-            if not sisters_together and len(self._fact_ids_in_queue) <= 2:
-                if not self.warned_about_relaxing_no_sister_cards_together \
-                    and self.database().non_memorised_count() != 0:
-                    self.main_widget().show_information(\
-_("Your queue is running empty, so sisters of cards you just learned were added to the queue. If you don't want this to happen, add new cards to learn."))
-                    self.warned_about_relaxing_no_sister_cards_together = True
+            # If the queue is close to empty, start pulling in sister cards.
+            if len(self._fact_ids_in_queue) <= 2:
                 for _card_id, _fact_id in db.cards_unseen(\
-                    sort_key=sort_key, limit=min(limit, 50)):
+                        sort_key=sort_key, limit=min(limit, 50)):
                     if _fact_id not in self._fact_ids_in_queue:
                         self._card_ids_in_queue.append(_card_id)
                         self._fact_ids_in_queue.append(_fact_id)

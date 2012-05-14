@@ -116,6 +116,8 @@ class Server(Partner):
 
     def serve_until_stopped(self):
         try:
+            import sys; sys.stderr.write("server starting ")
+            print self.wsgi_server.ready
             self.wsgi_server.start()
         except KeyboardInterrupt:
             self.wsgi_server.stop()

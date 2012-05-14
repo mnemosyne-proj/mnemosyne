@@ -1,8 +1,8 @@
--fix test suite races
+-fix test suite races: make sure cherrypy wsgi server has started before
+ client starts emitting requests
+-remove stderr from client and server
 
--check coverage in configuration.py
-
--remove relearn sister cards
+-rebuild with latest qt, rework sound system?
 
 
 ### RC2
@@ -35,6 +35,8 @@
 -plugin for card types with prefilled data
 
 -check sync timeout when both client and server check for updated media files.
+ (was 10, is now 30)
+
 -media sentence card has wrong color on win. Are settings synced?
 
 -auto detect RTL http://dotancohen.com/howto/rtl_right_to_left.html (bug report)
