@@ -280,7 +280,6 @@ class Client(Partner):
         # Try to establish a connection, but don't force a restore from backup
         # if we can't login.
         try:
-            import sys; sys.stderr.write("client requesting connection ")
             self.request_connection()
             self.con.request("PUT", self.url("/login"),
                 self.text_format.repr_partner_info(client_info).\

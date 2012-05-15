@@ -1,16 +1,10 @@
--fix test suite races: make sure cherrypy wsgi server has started before
- client starts emitting requests
--remove stderr from client and server
+-cloze card to front-to-back, cancel procedure
 
 -rebuild with latest qt, rework sound system?
 
-
 ### RC2
 
--tell beta users to make sure to install latest beta first
 -remove upgrade_beta_6.py, beta_7, etc... also in database
-
--linux tarball
 
 -translations through website:
  https://help.launchpad.net/Translations/YourProject/Exports
@@ -114,6 +108,9 @@ widget will be centered on the main widget and not the activate cards dialog.
 -criterion to select last X added cards, useful for cramming
 
 -plugin to reset active cards to unlearned
+
+-really fix sync test suite races: after first client request fails and client
+ goes to sleep, sometimes server cannot create socket.
 
 -upgrade to qt after 4.8, retest progress bars
 -fix webserver, bundle it with install

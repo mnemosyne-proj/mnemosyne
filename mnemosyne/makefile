@@ -97,46 +97,12 @@ clean:
 	rm -f mnemosyne/libmnemosyne/*~ mnemosyne/libmnemosyne/*.pyc
 
 distrib: FORCE
-	make clean
-
+	rm -rf dist
+	cd po && make
 	cd mnemosyne/pyqt_ui && make
-
-	# LICENSE (2X) ChangeLog mnemosyne.desktop example_plugins example_scripts
-	# translations icons
-
-	rm -rf distrib
-
-	mkdir distrib
-	cp setup.py README LICENSE ChangeLog mnemosyne.desktop distrib
-
-	mkdir distrib/mnemosyne
-	cp mnemosyne/*.py distrib/mnemosyne
-
-	mkdir distrib/mnemosyne/libmnemosyne
-	cp mnemosyne/core/*.py distrib/mnemosyne/core
-
-	mkdir distrib/mnemosyne/pyqt_ui
-	cp mnemosyne/pyqt_ui/*.py distrib/mnemosyne/pyqt_ui
-	cp mnemosyne/pyqt_ui/*.ui distrib/mnemosyne/pyqt_ui
-	cp mnemosyne/pyqt_ui/mnemosyne distrib/mnemosyne/pyqt_ui
-
-	mkdir distrib/mnemosyne/pyqt_ui/locale
-	cp mnemosyne/pyqt_ui/locale/*.ts distrib/mnemosyne/pyqt_ui/locale
-	cp mnemosyne/pyqt_ui/locale/*.qm distrib/mnemosyne/pyqt_ui/locale
-
-	mkdir distrib/pixmaps
-	cp pixmaps/mnemosyne.png distrib/pixmaps
-	cp pixmaps/mnemosyne.icns distrib/pixmaps
-
-	mkdir distrib/plugins
-	cp plugins/README plugins/*.py distrib/plugins
-
-	V=`$(PYTHON) mnemosyne/version.py` && mv distrib mnemosyne-$${V}
-
-	V=`$(PYTHON) mnemosyne/version.py` && tar cvfz mnemosyne-$${V}.tgz \
-		mnemosyne-$${V}/*
-
-	V=`$(PYTHON) mnemosyne/version.py` && rm -R mnemosyne-$${V}
+	pwd
+	ls
+	./bin/python setup.py sdist
 
 distrib-WM: FORCE
 	# Windows Mobile.

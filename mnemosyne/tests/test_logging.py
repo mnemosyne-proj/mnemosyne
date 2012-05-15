@@ -321,6 +321,7 @@ class TestLogging(MnemosyneTest):
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.mnemosyne.start_review()
 
+
     def test_log_upload_bad_server(self):
         # Most reliable way of setting this variable is throug config.py, otherwise
         # it will stay alive in a dangling imported userconfig.

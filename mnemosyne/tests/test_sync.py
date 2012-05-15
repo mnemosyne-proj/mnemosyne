@@ -39,7 +39,7 @@ class Widget(MainWidget):
         global last_error
         last_error = error
         # Activate this for debugging.
-        sys.stderr.write(error)
+        #sys.stderr.write(error)
 
     def show_question(self, question, option0, option1, option2):
         #sys.stderr.write(question+'\n')
@@ -49,7 +49,7 @@ class Widget(MainWidget):
         return "default.db"
 
 
-PORT = 9922
+PORT = 9923
 
 class MyServer(Server, Thread):
 
@@ -173,7 +173,16 @@ class MyClient(Client):
         while not server_is_initialised:
             server_initialised.wait()
         server_initialised.release()
-        self.sync("localhost", PORT, self.user, self.password)
+        # The mechanism above turned out to be not enough, as Cherrypy also
+        # has an internal delay to start up the server.
+        global last_error
+        for i in range(20):
+            last_error = None
+            self.sync("localhost", PORT, self.user, self.password)
+            if not last_error or not "Could not connect to server" in last_error:
+                return
+            time.sleep(0.3)
+
 
 
 class TestSync(object):

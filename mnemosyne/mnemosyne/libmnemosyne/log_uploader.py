@@ -18,12 +18,12 @@ class LogUploader(Thread, Component):
     def __init__(self, component_manager):
         Thread.__init__(self)
         Component.__init__(self, component_manager)
-    
+
     def upload(self, filename):
-        
+
         """Upload a single file to our serverside CGI script.
         Based on code by Jeff Bauer, Aaron Watters, Jim Fulton.
-        
+
         """
 
         # Note: we could make the following code a lot cleaner by doing a HTTP
@@ -84,9 +84,9 @@ class LogUploader(Thread, Component):
                 filename = join(data_dir, "history", f)
                 self.upload(filename)
                 print >> upload_log, f
-                print _("done!")           
+                print _("done!")
         except:
             print _("Upload failed")
             print traceback_string()
         upload_log.close()
-        
+

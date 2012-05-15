@@ -223,6 +223,7 @@ class Mnemosyne(Component):
             self.main_widget().show_error(unicode(e))
         # If the front end programmer decides we never upload logs, we override
         # the user setting here.
+        self.config()["upload_science_logs"] = self.upload_science_logs
         if self.upload_science_logs is False:
             self.config()["upload_science_logs"] = False
         self.config()["interested_in_old_reps"] = self.interested_in_old_reps
