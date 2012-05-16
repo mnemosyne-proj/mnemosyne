@@ -1,0 +1,1780 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-16 10:15+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.9.0\n"
+
+#: #1
+msgid "Error in config.py:"
+msgstr "Greška u config.py:"
+
+#: #2
+msgid "Error when running plugin:"
+msgstr "Greška pri pokretanju dodatka:"
+
+#: #3
+msgid "Unable to load file."
+msgstr "Nemoguće učitati datoteku."
+
+#: #4
+msgid "Invalid file format."
+msgstr "Nevaljana vrsta datoteke."
+
+#: #5
+msgid "Unable to save file."
+msgstr "Nemoguće spremiti datoteku."
+
+#: #6
+msgid "Unable to parse XML:"
+msgstr "Nemoguće parsirati XML:"
+
+#: #7
+msgid "Unrecognised encoding."
+msgstr "Neprepoznato kodiranje."
+
+#: #8
+msgid "Missing answer on line:"
+msgstr "Nedostajajući odgovor u liniji:"
+
+#: #9
+msgid ""
+"Unable to load database.\n"
+"Creating tmp file."
+msgstr ""
+"Nemoguće otvoriti bazu podataka.\n"
+"Stvaranje tmp datoteke."
+
+#: #10
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: #11
+msgid "&OK"
+msgstr "&OK"
+
+#: #12
+msgid "File exists:"
+msgstr "Datoteka postoji:"
+
+#: #13
+msgid "&Overwrite"
+msgstr "&Prepiši"
+
+#: #14
+msgid "&Cancel"
+msgstr "&Odustani"
+
+#: #15
+msgid "Removed duplicates: "
+msgstr "Uklonjeni duplikati:"
+
+#: #16
+msgid ""
+"There are cards with different answers for question:\n"
+"\n"
+msgstr ""
+"Postoje kartice sa različitim odgovorima na pitanje:\n"
+"\n"
+
+#: #17
+msgid "&Merge and edit"
+msgstr "&Spoji i uredi"
+
+#: #18
+msgid "&Don't merge"
+msgstr "&Ne spajaj"
+
+#: #19
+msgid "Done!"
+msgstr "Gotovo!"
+
+#: #20
+msgid "You don't remember this card yet."
+msgstr "Još uvijek se ne sjećate ove kartice."
+
+#: #21
+msgid "Like '0', but it's getting more familiar."
+msgstr "Kao '0', ali postaje poznatija."
+
+#: #22
+msgid " Show it less often."
+msgstr "Prikazuj je rjeđe."
+
+#: #23
+msgid "You've memorised this card now,"
+msgstr "Upamtili ste ovu karticu sada,"
+
+#: #24
+msgid " and will probably remember it for a few days."
+msgstr "te ćete ju vjerojatno pamtiti nekoliko dana."
+
+#: #25
+msgid "You have forgotten this card completely."
+msgstr "Potpuno ste zaboravili ovu karticu."
+
+#: #26
+msgid "Barely correct answer. The interval was way too long."
+msgstr "Jedva točan odgovor. Interval je bio doista predug."
+
+#: #27
+msgid "Correct answer, but with much effort."
+msgstr "Točan odgovor, ali sa puno napora."
+
+#: #28
+msgid " The interval was probably too long."
+msgstr "Interval je vjerojatno predug."
+
+#: #29
+msgid "Correct answer, with some effort."
+msgstr "Točan odgovor, sa nešto napora."
+
+#: #30
+msgid " The interval was probably just right."
+msgstr "Interval je vjerojatno bio baš kako treba."
+
+#: #31
+msgid "Correct answer, but without any"
+msgstr "Točan odgovor, bez ikakvih"
+
+#: #32
+msgid " difficulties. The interval was probably too short."
+msgstr "poteškoća. Interval je vjerojatno bio prekratak."
+
+#: AboutDlg#1
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: AboutDlg#2
+msgid ""
+"Main author: Peter Bienstman\n"
+"\n"
+msgstr ""
+"Glavni autor: Peter Bienstman\n"
+"\n"
+
+#: AboutDlg#3
+msgid "More info: http://mnemosyne-proj.org\n"
+msgstr "Više informacija: http://mnemosyne-proj.org\n"
+
+#: AboutFrm#1
+msgid "About"
+msgstr "O programu"
+
+#: ActivateCategoriesFrm#1
+msgid "Activate categories"
+msgstr "Aktiviraj kategorije"
+
+#: ActivateCategoriesFrm#2
+msgid "Select the categories to activate:"
+msgstr "Odaberite kategorije za aktivaciju:"
+
+#: ActivateCategoriesFrm#3
+msgid "Activate none"
+msgstr "Aktiviraj ništa"
+
+#: ActivateCategoriesFrm#4
+msgid "Activate all"
+msgstr "Aktiviraj sve"
+
+#: ActivateCategoriesFrm#5
+msgid "&OK"
+msgstr "&U redu"
+
+#: ActivateCategoriesFrm#6
+msgid "Alt+O"
+msgstr "Alt+U"
+
+#: ActivateCategoriesFrm#7
+msgid "&Cancel"
+msgstr "&Odustani"
+
+#: AddItemsDlg#1
+msgid "<default>"
+msgstr "<pretpostavljeno>"
+
+#: AddItemsDlg#2
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: AddItemsDlg#3
+msgid "Abandon current card?"
+msgstr "Odustani od trenutne kartice?"
+
+#: AddItemsDlg#4
+msgid "&Yes"
+msgstr "&Da"
+
+#: AddItemsDlg#5
+msgid "&No"
+msgstr "&Ne"
+
+#: AddItemsDlg#6
+msgid "Question:"
+msgstr "Pitanje:"
+
+#: AddItemsDlg#7
+msgid "Answer:"
+msgstr "Odgovor:"
+
+#: AddItemsDlg#8
+msgid "Written form:"
+msgstr "Pisani oblik:"
+
+#: AddItemsDlg#9
+msgid "Translation:"
+msgstr "Prijevod:"
+
+#: AddItemsDlg#10
+msgid "Card is already in database.\n"
+msgstr "Kartica je već u bazi podataka."
+
+#: AddItemsDlg#11
+msgid "Duplicate not added."
+msgstr "Duplikat nije dodan."
+
+#: AddItemsDlg#12
+msgid "&OK"
+msgstr "&U redu"
+
+#: AddItemsDlg#13
+msgid "There are different answers for"
+msgstr "Postoje različiti odgovori na"
+
+#: AddItemsDlg#14
+msgid ""
+" this question:\n"
+"\n"
+msgstr ""
+"ovo pitanje:\n"
+"\n"
+
+#: AddItemsDlg#15
+msgid "&Merge and edit"
+msgstr "&Spoji i uredi"
+
+#: AddItemsDlg#16
+msgid "&Add as is"
+msgstr "&Dodaj kako jest"
+
+#: AddItemsDlg#17
+msgid "&Do not add"
+msgstr "&Ne dodaj"
+
+#: AddItemsFrm#1
+msgid "Add cards"
+msgstr "Dodaj kartice"
+
+#: AddItemsFrm#2
+msgid "Category:"
+msgstr "Kategorija:"
+
+#: AddItemsFrm#3
+msgid "Question:"
+msgstr "Pitanje:"
+
+#: AddItemsFrm#4
+msgid "Pronunciation:"
+msgstr "Izgovor:"
+
+#: AddItemsFrm#5
+msgid "Answer:"
+msgstr "Odgovor:"
+
+#: AddItemsFrm#6
+msgid "Add &vice versa too"
+msgstr "Dodaj i u &obratnom smjeru"
+
+#: AddItemsFrm#7
+msgid "Alt+V"
+msgstr "Alt+O"
+
+#: AddItemsFrm#8
+msgid "Select initial grade:"
+msgstr "Odaberite početnu ocjenu:"
+
+#: AddItemsFrm#9
+msgid "&0"
+msgstr "&0"
+
+#: AddItemsFrm#10
+msgid "Ctrl+0"
+msgstr "Ctrl+0"
+
+#: AddItemsFrm#11
+msgid "You don't remember this item yet or forgot it."
+msgstr "Još se ne možete sjetiti ovog ili ste zaboravili."
+
+#: AddItemsFrm#12
+msgid "&1"
+msgstr "&1"
+
+#: AddItemsFrm#13
+msgid "Ctrl+1"
+msgstr "Ctrl+1"
+
+#: AddItemsFrm#14
+msgid "Like '0', but the item is getting more familiar."
+msgstr "Kao '0', ali postaje poznatije."
+
+#: AddItemsFrm#15
+msgid "&2"
+msgstr "&2"
+
+#: AddItemsFrm#16
+msgid "Ctrl+2"
+msgstr "Ctrl+2"
+
+#: AddItemsFrm#17
+msgid ""
+"You've memorised this item now, and will probably remember it for a few "
+"days."
+msgstr "Upamtili ste ovo, te ćete se vjerojatno sjećati nekoliko dana."
+
+#: AddItemsFrm#18
+msgid "&3"
+msgstr "&3"
+
+#: AddItemsFrm#19
+msgid "Ctrl+3"
+msgstr "Ctrl+3"
+
+#: AddItemsFrm#20
+msgid ""
+"Correct answer, but with much effort. The interval was probably too long"
+msgstr "Točan odgovor, ali sa puno napora. Interval je vjerojatno bio predug"
+
+#: AddItemsFrm#21
+msgid "&4"
+msgstr "&4"
+
+#: AddItemsFrm#22
+msgid "Ctrl+4"
+msgstr "Ctrl+4"
+
+#: AddItemsFrm#23
+msgid "Correct answer, with some effort. The interval was probably just right."
+msgstr ""
+"Točan odgovor, sa nešto napora. Interval je vjerojatno bio baš kako treba."
+
+#: AddItemsFrm#24
+msgid "&5"
+msgstr "&5"
+
+#: AddItemsFrm#25
+msgid "Ctrl+5"
+msgstr "Ctrl+5"
+
+#: AddItemsFrm#26
+msgid ""
+"Correct answer, but without any difficulties. The interval was probably too "
+"short."
+msgstr ""
+"Točan odgovor, no bez ikakvih poteškoća. Interval je vjerojatno bio "
+"prekratak."
+
+#: AddItemsFrm#27
+msgid "Type question and answer, then pick initial grade."
+msgstr "Unesite pitane i odgovor, te odaberite početnu ocjenu."
+
+#: AddItemsFrm#28
+msgid "Preview"
+msgstr "Pregled"
+
+#: AddItemsFrm#29
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#: AddItemsFrm#30
+msgid "E&xit"
+msgstr "&Izlaz"
+
+#: AddItemsFrm#31
+msgid "Alt+X"
+msgstr "Alt+X"
+
+#: ChangeCategoryFrm#1
+msgid "Change category"
+msgstr "Promijeni kategoriju"
+
+#: ChangeCategoryFrm#2
+msgid "Category:"
+msgstr "Kategorija:"
+
+#: ChangeCategoryFrm#3
+msgid "&OK"
+msgstr "&U redu"
+
+#: ChangeCategoryFrm#4
+msgid "Alt+O"
+msgstr "Alt+U"
+
+#: ChangeCategoryFrm#5
+msgid "&Cancel"
+msgstr "&Odustani"
+
+#: ChangeCategoryFrm#6
+msgid "Alt+C"
+msgstr "Alt+O"
+
+#: ConfigurationFrm#1
+msgid "Mnemosyne configuration"
+msgstr "Postavke programa Mnemosyne"
+
+#: ConfigurationFrm#2
+msgid "Hover with the mouse over the buttons to get extra information."
+msgstr "Postavite miš iznad gumbi kako biste dobili dodatne informacije."
+
+#: ConfigurationFrm#3
+msgid "Appearance"
+msgstr "Izgled"
+
+#: ConfigurationFrm#4
+msgid "Set Q/A font"
+msgstr "Postavi font kartica"
+
+#: ConfigurationFrm#5
+msgid "Set the font used when showing single questions and answers"
+msgstr "Postavi font korišten pri prikazu jednog pitanja i odgovora"
+
+#: ConfigurationFrm#6
+msgid "Set list font"
+msgstr "Postavi font popisa"
+
+#: ConfigurationFrm#7
+msgid "Set the font used when showing the list of all the cards in the deck"
+msgstr "Postavi font korišten pri prikazu popisa svih kartica u špilu"
+
+#: ConfigurationFrm#8
+msgid "Increase size of non-latin characters by"
+msgstr "Povećaj veličinu nelatiničnih znakova za"
+
+#: ConfigurationFrm#9
+msgid ""
+"Sometimes complex glyphs are hard to read at the default latin font size"
+msgstr ""
+"Ponekad se kompleksni simboli teško čitljivi na standardnoj veličini "
+"latiničnog fonta"
+
+#: ConfigurationFrm#10
+msgid "point(s)"
+msgstr "točaka"
+
+#: ConfigurationFrm#11
+msgid "Log uploading"
+msgstr "Slanje loga"
+
+#: ConfigurationFrm#12
+msgid "Upload anonymous logs"
+msgstr "Šalji anonimni log"
+
+#: ConfigurationFrm#13
+msgid "Share anonymous statistics to contribute to memory research"
+msgstr "Dijeli anonimnu statistiku radi doprinosa istraživanju pamćenja"
+
+#: ConfigurationFrm#14
+msgid "Duplicate handling"
+msgstr "Upravljanje duplikatima"
+
+#: ConfigurationFrm#15
+msgid "Check for duplicates when adding new cards"
+msgstr "Provjeravaj duplikate pri dodavanju novih kartica"
+
+#: ConfigurationFrm#16
+msgid "Allow duplicates in different categories"
+msgstr "Dozvoli duplikate u različitim kategorijama"
+
+#: ConfigurationFrm#17
+msgid "Repetition process"
+msgstr "Proces ponavljanja"
+
+#: ConfigurationFrm#18
+msgid "Number of grade 0 cards to hold in your hand:"
+msgstr "Broj kartica ocijenjenih sa 0 koje držite u ruci:"
+
+#: ConfigurationFrm#19
+msgid ""
+"Note: this is NOT the number of grade 0 cards you want to memorise *per day*"
+msgstr ""
+"Napomena: ovo NIJE broj kartica ocijenjenih sa 0 koje želite upamtiti *po "
+"danu*"
+
+#: ConfigurationFrm#20
+msgid "Learn new cards in random order"
+msgstr "Učenje novih kartica u slučajnom poretku"
+
+#: ConfigurationFrm#21
+msgid "&OK"
+msgstr "&U redu"
+
+#: ConfigurationFrm#22
+msgid "Defaults"
+msgstr "Pretpostavljeno"
+
+#: ConfigurationFrm#23
+msgid "&Cancel"
+msgstr "&Odustani"
+
+#: EditItemFrm#1
+msgid "Edit card"
+msgstr "Uredi karticu"
+
+#: EditItemFrm#2
+msgid "Category:"
+msgstr "Kategorija:"
+
+#: EditItemFrm#3
+msgid "Question:"
+msgstr "Pitanje:"
+
+#: EditItemFrm#4
+msgid "Answer:"
+msgstr "Odgovor:"
+
+#: EditItemFrm#5
+msgid "&OK"
+msgstr "&U redu"
+
+#: EditItemFrm#6
+msgid "Alt+O"
+msgstr "Alt+U"
+
+#: EditItemFrm#7
+msgid "&Preview"
+msgstr "&Pregled"
+
+#: EditItemFrm#8
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#: EditItemFrm#9
+msgid "&Cancel"
+msgstr "&Odustani"
+
+#: EditItemFrm#10
+msgid "Alt+C"
+msgstr "Alt+O"
+
+#: EditItemsDlg#1
+msgid "Please wait..."
+msgstr "Molim pričekajte..."
+
+#: EditItemsDlg#2
+msgid "&Edit"
+msgstr "&Uredi"
+
+#: EditItemsDlg#3
+msgid "Ctrl+E"
+msgstr "Ctrl+E"
+
+#: EditItemsDlg#4
+msgid "&Preview"
+msgstr "&Pregled"
+
+#: EditItemsDlg#5
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#: EditItemsDlg#6
+msgid "&Add vice versa"
+msgstr "&Dodaj i obratni smjer"
+
+#: EditItemsDlg#7
+msgid "S&tatistics"
+msgstr "S&tatistika"
+
+#: EditItemsDlg#8
+msgid "Ctrl+T"
+msgstr "Ctrl+T"
+
+#: EditItemsDlg#9
+msgid "&Delete"
+msgstr "&Obriši"
+
+#: EditItemsDlg#10
+msgid "&Change category"
+msgstr "Promijeni kate&goriju"
+
+#: EditItemsDlg#11
+msgid "Add &vice versa"
+msgstr "&Dodaj i obratni smjer"
+
+#: EditItemsDlg#12
+msgid "Add vice versa of these cards?"
+msgstr "Dodaj i obratni smjer za ove kartice?"
+
+#: EditItemsDlg#13
+msgid "Add vice versa of this card?"
+msgstr "Dodaj i obratni smjer za ovu karticu?"
+
+#: EditItemsDlg#14
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: EditItemsDlg#15
+msgid ""
+"\n"
+"\n"
+"This could create duplicates if the vice "
+msgstr ""
+"\n"
+"\n"
+"Moguće je stvaranje duplikata ako je obratni"
+
+#: EditItemsDlg#16
+msgid ""
+"versas are already present, \n"
+"so you might want to run "
+msgstr ""
+"smjer već prisutan,\n"
+"pa biste mogli pokrenuti"
+
+#: EditItemsDlg#17
+msgid "clean duplicates' afterwards."
+msgstr "čišćenje duplikata naknadno."
+
+#: EditItemsDlg#18
+msgid "&Yes"
+msgstr "&Da"
+
+#: EditItemsDlg#19
+msgid "&No"
+msgstr "&Ne"
+
+#: EditItemsDlg#20
+msgid "Grade:"
+msgstr "Ocjena:"
+
+#: EditItemsDlg#21
+msgid "Easiness:"
+msgstr "Lakoća:"
+
+#: EditItemsDlg#22
+msgid "Repetitions:"
+msgstr "Ponavljanja:"
+
+#: EditItemsDlg#23
+msgid "Lapses:"
+msgstr "Propusta:"
+
+#: EditItemsDlg#24
+msgid "Days since last repetition:"
+msgstr "Dana od zadnjeg ponavljanja:"
+
+#: EditItemsDlg#25
+msgid "Days until next repetition:"
+msgstr "Dana do idućeg ponavljanja:"
+
+#: EditItemsDlg#26
+msgid "&OK"
+msgstr "&U redu"
+
+#: EditItemsDlg#27
+msgid "Delete these cards?"
+msgstr "Obrisati ove kartice?"
+
+#: EditItemsDlg#28
+msgid "Delete this card?"
+msgstr "Obrisati ovu karticu?"
+
+#: EditItemsDlg#29
+msgid "The text you entered was not found."
+msgstr "Tekst koji ste unijeli nije pronađen."
+
+#: EditItemsDlg#30
+msgid "&Find again"
+msgstr "&Traži ponovno"
+
+#: EditItemsDlg#31
+msgid "F"
+msgstr "T"
+
+#: EditItemsDlg#32
+msgid "&Find"
+msgstr "&Traži"
+
+#: EditItemsFrm#1
+msgid "Question"
+msgstr "Pitanje"
+
+#: EditItemsFrm#2
+msgid "Answer"
+msgstr "Odgovor"
+
+#: EditItemsFrm#3
+msgid "Category"
+msgstr "Kategorija"
+
+#: EditItemsFrm#4
+msgid "Edit deck"
+msgstr "Uredi špil"
+
+#: EditItemsFrm#5
+msgid "&Find"
+msgstr "&Traži"
+
+#: EditItemsFrm#6
+msgid "Alt+F"
+msgstr "Alt+T"
+
+#: EditItemsFrm#7
+msgid "To edit a card, right-click on it."
+msgstr "Kako biste uređivali karticu, desno kliknite na nju."
+
+#: EditItemsFrm#8
+msgid "E&xit"
+msgstr "&Izlaz"
+
+#: EditItemsFrm#9
+msgid "Alt+X"
+msgstr "Alt+I"
+
+#: ExportDlg#1
+msgid "All Files (*);;"
+msgstr "Sve datoteke (*);;"
+
+#: ExportDlg#2
+msgid "Export"
+msgstr "Izvoz"
+
+#: ExportFrm#1
+msgid "Export to file"
+msgstr "Izvoz u datoteku"
+
+#: ExportFrm#2
+msgid "File format:"
+msgstr "Format datoteke:"
+
+#: ExportFrm#3
+msgid "File to export to:"
+msgstr "Datoteka za izvoz:"
+
+#: ExportFrm#4
+msgid "&Browse"
+msgstr "&Pretraživanje"
+
+#: ExportFrm#5
+msgid "Categories to export:"
+msgstr "Kategorije za izvoz:"
+
+#: ExportFrm#6
+msgid "&Select all"
+msgstr "Odaberi &sve"
+
+#: ExportFrm#7
+msgid "Reset learning data on export"
+msgstr "Resetiraj podatke o učenju pri izvozu"
+
+#: ExportFrm#8
+msgid "&OK"
+msgstr "&U redu"
+
+#: ExportFrm#9
+msgid "Alt+O"
+msgstr "Alt+U"
+
+#: ExportFrm#10
+msgid "&Cancel"
+msgstr "&Odustani"
+
+#: ImportDlg#1
+msgid "<default>"
+msgstr "<pretpostavljeno>"
+
+#: ImportDlg#2
+msgid "All Files (*);;"
+msgstr "Sve datoteke (*);;"
+
+#: ImportDlg#3
+msgid "Import"
+msgstr "Uvoz"
+
+#: ImportFrm#1
+msgid "Import from file"
+msgstr "Uvoz iz datoteke"
+
+#: ImportFrm#2
+msgid "File format:"
+msgstr "Format datoteke:"
+
+#: ImportFrm#3
+msgid "File to import from:"
+msgstr "Datoteka za uvoz:"
+
+#: ImportFrm#4
+msgid "&Browse"
+msgstr "&Pretraživanje"
+
+#: ImportFrm#5
+msgid "Put cards without category into this category:"
+msgstr "Stavi kartice bez kategorije u ovu kategoriju:"
+
+#: ImportFrm#6
+msgid "Note: all cards will be added to the current database."
+msgstr "Napomena: sve kartice će biti dodane u trenutnu bazu podataka."
+
+#: ImportFrm#7
+msgid "Reset learning data on import"
+msgstr "Resetiraj podatke o učenju pri uvozu"
+
+#: ImportFrm#8
+msgid "&OK"
+msgstr "&U redu"
+
+#: ImportFrm#9
+msgid "Alt+O"
+msgstr "Alt+U"
+
+#: ImportFrm#10
+msgid "&Cancel"
+msgstr "&Odustani"
+
+#: MainDlg#1
+msgid "Mnemosyne databases (*.mem)"
+msgstr "Baze podataka programa Mnemosyne( *.mem)"
+
+#: MainDlg#2
+msgid "New"
+msgstr "Novo"
+
+#: MainDlg#3
+msgid "Please wait..."
+msgstr "Molim pričekajte..."
+
+#: MainDlg#4
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: MainDlg#5
+msgid "Delete current card?"
+msgstr "Obrisati trenutnu karticu?"
+
+#: MainDlg#6
+msgid "&Yes"
+msgstr "&Da"
+
+#: MainDlg#7
+msgid "&No"
+msgstr "&Ne"
+
+#: MainDlg#8
+msgid "Returns in "
+msgstr "Vraća se za"
+
+#: MainDlg#9
+msgid " day(s)."
+msgstr "dan(a)."
+
+#: MainDlg#10
+msgid "Next repetition: today."
+msgstr "Sljedeće ponavljanje: danas."
+
+#: MainDlg#11
+msgid "Next repetition: tomorrow."
+msgstr "Sljedeće ponavljanje: sutra."
+
+#: MainDlg#12
+msgid "Next repetition in "
+msgstr "Sljedeće ponavljanje za"
+
+#: MainDlg#13
+msgid " days."
+msgstr "dana."
+
+#: MainDlg#14
+msgid "Question:"
+msgstr "Pitanje:"
+
+#: MainDlg#15
+msgid "<default>"
+msgstr "<pretpostavljeno>"
+
+#: MainDlg#16
+msgid "Show answer"
+msgstr "Prikaži odgovor"
+
+#: MainDlg#17
+msgid "Learn ahead of schedule"
+msgstr "Prijevremeno učenje"
+
+#: MainDlg#18
+msgid "Pick days until next repetition:"
+msgstr "Odaberite dane prije sljedećeg ponavljanja:"
+
+#: MainDlg#19
+msgid "Grade your answer:"
+msgstr "Ocijenite vaš odgovor:"
+
+#: MainDlg#20
+msgid "Scheduled: "
+msgstr "U rasporedu:"
+
+#: MainDlg#21
+msgid "Not memorised: "
+msgstr "Nije upamćeno:"
+
+#: MainDlg#22
+msgid "All: "
+msgstr "Sve:"
+
+#: MainFrm#1
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: MainFrm#2
+msgid "Question:"
+msgstr "Pitanje:"
+
+#: MainFrm#3
+msgid "Answer:"
+msgstr "Odgovor:"
+
+#: MainFrm#4
+msgid "Show answer"
+msgstr "Kratak odgovor"
+
+#: MainFrm#5
+msgid "Grade your answer:"
+msgstr "Ocijenite vaš odgovor:"
+
+#: MainFrm#6
+msgid "&0"
+msgstr "&0"
+
+#: MainFrm#7
+msgid "0"
+msgstr "0"
+
+#: MainFrm#8
+msgid "&1"
+msgstr "&1"
+
+#: MainFrm#9
+msgid "1"
+msgstr "1"
+
+#: MainFrm#10
+msgid "&2"
+msgstr "&2"
+
+#: MainFrm#11
+msgid "2"
+msgstr "2"
+
+#: MainFrm#12
+msgid "&3"
+msgstr "&3"
+
+#: MainFrm#13
+msgid "3"
+msgstr "3"
+
+#: MainFrm#14
+msgid "&4"
+msgstr "&4"
+
+#: MainFrm#15
+msgid "4"
+msgstr "4"
+
+#: MainFrm#16
+msgid "&5"
+msgstr "&5"
+
+#: MainFrm#17
+msgid "5"
+msgstr "5"
+
+#: MainFrm#18
+msgid "&New"
+msgstr "&Novo"
+
+#: MainFrm#19
+msgid "."
+msgstr "."
+
+#: MainFrm#20
+msgid "Ctrl+N"
+msgstr "Ctrl+N"
+
+#: MainFrm#21
+msgid "&Open..."
+msgstr "&Otvori..."
+
+#: MainFrm#22
+msgid "Ctrl+O"
+msgstr "Ctrl+O"
+
+#: MainFrm#23
+msgid "&Save"
+msgstr "&Spremi"
+
+#: MainFrm#24
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#: MainFrm#25
+msgid "Save &As..."
+msgstr "Spremi k&ao..."
+
+#: MainFrm#26
+msgid "E&xit"
+msgstr "&Izađi"
+
+#: MainFrm#27
+msgid "About"
+msgstr "O programu"
+
+#: MainFrm#28
+msgid "&About"
+msgstr "&O programu"
+
+#: MainFrm#29
+msgid "Add cards"
+msgstr "Dodaj kartice"
+
+#: MainFrm#30
+msgid "&Add cards"
+msgstr "&Dodaj kartice"
+
+#: MainFrm#31
+msgid "Ctrl+A"
+msgstr "Ctrl+A"
+
+#: MainFrm#32
+msgid "Activate cate&gories"
+msgstr "Aktiviraj kate&gorije"
+
+#: MainFrm#33
+msgid "Ctrl+G"
+msgstr "Ctrl+G"
+
+#: MainFrm#34
+msgid "Edit deck"
+msgstr "Uredi špil"
+
+#: MainFrm#35
+msgid "Edit &deck"
+msgstr "Uredi &špil"
+
+#: MainFrm#36
+msgid "Ctrl+D"
+msgstr "Ctrl+D"
+
+#: MainFrm#37
+msgid "&Import"
+msgstr "&Uvoz"
+
+#: MainFrm#38
+msgid "&Export"
+msgstr "&Izvoz"
+
+#: MainFrm#39
+msgid "Show &toolbar"
+msgstr "Prikaži alatnu &traku"
+
+#: MainFrm#40
+msgid "Edit current card"
+msgstr "Uredi trenutnu karticu"
+
+#: MainFrm#41
+msgid "&Edit current card"
+msgstr "&Uredi trenutnu karticu"
+
+#: MainFrm#42
+msgid "Ctrl+E"
+msgstr "Ctrl+E"
+
+#: MainFrm#43
+msgid "Delete current card"
+msgstr "Obriši trenutnu karticu"
+
+#: MainFrm#44
+msgid "&Delete current card"
+msgstr "&Obriši trenutnu karticu"
+
+#: MainFrm#45
+msgid "Del"
+msgstr "Del"
+
+#: MainFrm#46
+msgid "&Clean duplicates"
+msgstr "&Očisti duplikate"
+
+#: MainFrm#47
+msgid "&Configure Mnemosyne"
+msgstr "&Konfiguriraj Mnemosyne"
+
+#: MainFrm#48
+msgid "Getting started"
+msgstr "Za početak"
+
+#: MainFrm#49
+msgid "&Getting started"
+msgstr "&Za početak"
+
+#: MainFrm#50
+msgid "Down, Down"
+msgstr "Dolje, dolje"
+
+#: MainFrm#51
+msgid "Enter"
+msgstr "Enter"
+
+#: MainFrm#52
+msgid "Return"
+msgstr "Return"
+
+#: MainFrm#53
+msgid "Space"
+msgstr "Space"
+
+#: MainFrm#54
+msgid "Ctrl+R"
+msgstr "Ctrl+R"
+
+#: MainFrm#55
+msgid "Show statistics"
+msgstr "Prikaži statistiku"
+
+#: MainFrm#56
+msgid "Show s&tatistics"
+msgstr "Prikaži s&tatistiku"
+
+#: MainFrm#57
+msgid "Ctrl+T"
+msgstr "Ctrl+T"
+
+#: MainFrm#58
+msgid "Tip of the day"
+msgstr "Savjet dana"
+
+#: MainFrm#59
+msgid "&Tip of the day"
+msgstr "Savje&t dana"
+
+#: MainFrm#60
+msgid "Main toolbar (Mnemosyne)"
+msgstr "Glavna alatna traka (Mnemosyne)"
+
+#: MainFrm#61
+msgid "&File"
+msgstr "&Datoteka"
+
+#: MainFrm#62
+msgid "&Deck"
+msgstr "&Špil"
+
+#: MainFrm#63
+msgid "&Settings"
+msgstr "&Postavke"
+
+#: MainFrm#64
+msgid "&Help"
+msgstr "&Pomoć"
+
+#: PreviewItemDlg#1
+msgid "<default>"
+msgstr "<pretpostavljeno>"
+
+#: PreviewItemDlg#2
+msgid "Question:"
+msgstr "Pitanje:"
+
+#: PreviewItemFrm#1
+msgid "Preview card"
+msgstr "Pregled kartice"
+
+#: PreviewItemFrm#2
+msgid "Question:"
+msgstr "Pitanje:"
+
+#: PreviewItemFrm#3
+msgid "Answer:"
+msgstr "Odgovor:"
+
+#: PreviewItemFrm#4
+msgid "&OK"
+msgstr "&U redu"
+
+#: PreviewItemFrm#5
+msgid "Alt+O"
+msgstr "Alt+U"
+
+#: ProductTourFrm#1
+msgid "Getting started"
+msgstr "Za početak"
+
+#: ProductTourFrm#2
+msgid ""
+"Greetings!\n"
+"\n"
+"I am Mnemosyne, a type of butterfly named after the Greek goddess of Memory. "
+"\n"
+"I can make it more efficient for you to memorise and remember answers to "
+"questions, by helping you focus on the cards you're most likely to forget "
+"and by not wasting your time on things you know well.\n"
+"\n"
+"For that, I'll decide when to ask you the questions, and you'll need to rate "
+"how well you remember the answers.\n"
+"\n"
+"Let's look at the meaning of these ratings now."
+msgstr ""
+"Pozdrav!\n"
+"\n"
+"Ja sam Mnemosyne, vrsta leptira nazvana po grčkoj božici pamćenja Mnemozini.\n"
+"\n"
+"Mogu vam olakšati pamćenje i sjećanje odgovora na pitanja tako što vam "
+"pomažem usredotočiti se na kartice koje ćete najvjerojatnije zaboravljati i "
+"ne gubiti vaše vrijeme na stvari koje dobro znate.\n"
+"\n"
+"Zbog toga ću odlučiti kada ću vas pitati pitanja, a vi ćete trebati "
+"ocjenjivati kako se dobro sjećate odgovora.\n"
+"\n"
+"Sada pogledajmo značenja tih ocjena."
+
+#: ProductTourFrm#3
+msgid "Introduction"
+msgstr "Uvod"
+
+#: ProductTourFrm#4
+msgid ""
+"Grades range from 0 to 5.\n"
+"\n"
+"Grades 0 and 1 are used if you don't know the answer yet, or if you have "
+"forgotten it. A card with grade 1 is starting to get more familiar than one "
+"with grade 0, and will be repeated less often.\n"
+"\n"
+"I will keep on asking you these questions until you give them a grade 2 or "
+"higher (the exact grade doesn't matter). Grade 2 basically means that you "
+"think you'll be able to remember the card for at least one or two days. It "
+"signals the transition between short and long term memory.\n"
+"\n"
+"I will schedule this card at some future date, when I think you'll still be "
+"able to remember it with some effort, without having forgotten it "
+"completely. This is the most efficient for the learning process."
+msgstr ""
+"Ocjene su u rasponu od 0 do 5.\n"
+"\n"
+"Ocjene 0 i 1 koriste se ako još uvijek ne znate odgovor ili ste ga "
+"zaboravili. Kartica sa ocjenom 1 počinje postajati poznatija od one sa "
+"ocjenom 0, te će se rjeđe ponavljati.\n"
+"\n"
+"Nastavit ću vam zadavati takva pitanja tako dugo dok ih ne ocijenite sa "
+"ocjenom 2 ili više (točna ocjena nije važna). Ocjena 2 ustvari znači da "
+"mislite da ćete se moći prisjetiti kartice barem jedan ili dva dana. Ona "
+"označava prijelaz iz kratkoročnog u dugoročno pamćenje.\n"
+"\n"
+"Rasporedit ću takvu karticu za neko buduće vrijeme, kada mislim da ćete se "
+"je još moći sjetiti uz nešto napora, bez da ste ju potpuno zaboravili. To je "
+"najučinkovitije za proces učenja."
+
+#: ProductTourFrm#5
+msgid "Grades 0-2"
+msgstr "Ocjene 0-2"
+
+#: ProductTourFrm#6
+msgid ""
+"If in the future I ask you the question too soon, and you're able to "
+"remember it without any effort, you rate the card a 5. I'll take this into "
+"account by waiting a lot longer before asking you this question again.\n"
+"\n"
+"If I get it just right, so that you remember it, albeit with some effort, "
+"you use grade 4.\n"
+"\n"
+"If on the other hand it takes you significant effort to remember the answer, "
+"and you think I've waited too long to ask you this question, then rate the "
+"card 3.\n"
+"\n"
+"If you fail to remember it altogether, rate it either 0 or 1, and I'll keep "
+"on asking you this question until you think you'll be able to remember it "
+"again for a few days."
+msgstr ""
+"Ako vam u budućnosti postavim pitanje prerano i moći ćete se prisjetiti "
+"odgovora bez napora, označit ćete karticu sa 5. Uzet ću to u obzir i "
+"pričekati puno duže prije nego vam opet postavim isto pitanje.\n"
+"\n"
+"Ukoliko ga postavim baš kako treba, pa ćete ga se moći sjetiti uz nešto "
+"napora, upotrijebit ćete ocjenu 4.\n"
+"\n"
+"Ako pak vam treba znatan napor kako biste se sjetili odgovora, i mislite da "
+"sam čekala predugo s odgovorom, označite karticu s 3.\n"
+"\n"
+"Ukoliko se uopće ne možete sjetiti odgovora, dajte ocjenu 0 ili 1, te ću "
+"nastaviti postavljati to pitanje tako dugo dok nećete misliti da ćete se "
+"moći sjetiti odgovora sljedećih nekoliko dana."
+
+#: ProductTourFrm#7
+msgid "Grades 3-5"
+msgstr "Ocjene 3-5"
+
+#: ProductTourFrm#8
+msgid ""
+"If you're into statistics, I can keep detailed logs of your revisions.\n"
+"\n"
+"Not only that, but if you want, I can upload transparently a completely "
+"anonymous version of these logs to a central site for analysis, so that you "
+"can help making me better. In this way, you also contribute to scientific "
+"research on long-term memory.\n"
+"\n"
+"Uncheck the following box if you do not want to do this."
+msgstr ""
+"Ako vas zanima statistika, mogu čuvati detaljan zapis vaših revizija.\n"
+"\n"
+"Ne samo to već, ako to želite, mogu i transparentno slati putpuno anonimnu "
+"verziju tih zapisa na središnju stranicu radi analize, kako biste me pomogli "
+"poboljšati. Na taj način, također možete pridonijeti znanstvenom "
+"istraživanju dugoročnog pamćenja.\n"
+"\n"
+"Odznačite sljedeću kućicu ako to ne želite."
+
+#: ProductTourFrm#9
+msgid "Upload anonymous logs"
+msgstr "Šalji anonimne logove"
+
+#: ProductTourFrm#10
+msgid ""
+"(You can always change this setting later using the 'Configure Mnemosyne' "
+"menu option.)"
+msgstr ""
+"(Uvijek možete promijeniti ovu postavku koristeći opciju 'Konfiguriraj "
+"Mnemosyne' u izborniku.)"
+
+#: ProductTourFrm#11
+msgid "Statistics"
+msgstr "Statistika"
+
+#: ProductTourFrm#12
+msgid ""
+"Now you're ready to start!\n"
+"<p>\n"
+"Add new cards by clicking on the icon with the 'plus' sign in the top left.\n"
+"<p>\n"
+"Remember, there is no need to worry about saving your work, I will do so "
+"automatically.\n"
+"<p>\n"
+"For best results, I suggest you do your revisions every day, although I'll "
+"try to cope as best I can if you postpone your revisions or if you want to "
+"learn ahead of time.\n"
+"<p>\n"
+"For more documentation, see http://www.mnemosyne-proj.sourceforge.net.\n"
+"<p>\n"
+"Happy learning!"
+msgstr ""
+"Sada ste spremni započeti!\n"
+"<p>\n"
+"Dodajte nove kartice klikom na ikonu sa znakom 'plus' u gornjem lijevom "
+"dijelu.\n"
+"<p>\n"
+"Sjetite se, ne morate brinuti o spremanju vašeg rada - ja ću to automatski "
+"raditi.\n"
+"<p>\n"
+"Za najbolje rezultate, predlažem vam svakodnevno ponavljenje. Trudit ću se "
+"prilagoditi najbolje što mogu ako odgodite ponavljanja ili poželite učiti "
+"prijevremeno.\n"
+"<p>\n"
+"Za više dokumentacije pogledajte http://www.mnemosyne-proj.sourceforge.net.\n"
+"<p>\n"
+"Sretno s učenjem!"
+
+#: ProductTourFrm#13
+msgid "Ready to start"
+msgstr "Spremni za početak"
+
+#: QTextEdit2#1
+msgid "Insert &image"
+msgstr "Umetni &sliku"
+
+#: QTextEdit2#2
+msgid "Ctrl+I"
+msgstr "Ctrl+I"
+
+#: QTextEdit2#3
+msgid "Insert &sound"
+msgstr "Umetni &zvuk"
+
+#: QTextEdit2#4
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#: QTextEdit2#5
+msgid "&3-sided input"
+msgstr "&3-strani unos"
+
+#: QTextEdit2#6
+msgid "Image files"
+msgstr "Slikovne datoteke"
+
+#: QTextEdit2#7
+msgid "Insert image"
+msgstr "Umetni sliku"
+
+#: QTextEdit2#8
+msgid "Sound files"
+msgstr "Zvukovne datoteke"
+
+#: QTextEdit2#9
+msgid "Insert sound"
+msgstr "Umetni zvuk"
+
+#: StatisticsDlg#1
+msgid ""
+"Scheduled cards for next week:\n"
+"\n"
+msgstr ""
+"Kartice u rasporedu za idući tjedan:\n"
+"\n"
+
+#: StatisticsDlg#2
+msgid "In"
+msgstr "U"
+
+#: StatisticsDlg#3
+msgid "day(s) :"
+msgstr "dan(a):"
+
+#: StatisticsDlg#4
+msgid ""
+"Number of cards with the following grades:\n"
+"\n"
+msgstr ""
+"Broj kartica sa sljedećim ocjenama:\n"
+"\n"
+
+#: StatisticsDlg#5
+msgid "Grade"
+msgstr "Ocjena"
+
+#: StatisticsDlg#6
+msgid "No current card."
+msgstr "Nema trenutne kartice."
+
+#: StatisticsDlg#7
+msgid "Grade:"
+msgstr "Ocjena:"
+
+#: StatisticsDlg#8
+msgid "Easiness:"
+msgstr "Lakoća:"
+
+#: StatisticsDlg#9
+msgid "Repetitions:"
+msgstr "Ponavljanja:"
+
+#: StatisticsDlg#10
+msgid "Lapses:"
+msgstr "Propusta:"
+
+#: StatisticsDlg#11
+msgid "Days since last repetition:"
+msgstr "Dana od zadnjeg ponavljanja:"
+
+#: StatisticsDlg#12
+msgid "Days until next repetition:"
+msgstr "Dana do idućeg ponavljanja:"
+
+#: StatisticsFrm#1
+msgid "Category"
+msgstr ""
+
+#: StatisticsFrm#2
+msgid "Cards"
+msgstr "Kartica"
+
+#: StatisticsFrm#3
+msgid "Statistics"
+msgstr "Statistika"
+
+#: StatisticsFrm#4
+msgid "Schedule"
+msgstr "Raspored"
+
+#: StatisticsFrm#5
+msgid "Grades"
+msgstr "Ocjena"
+
+#: StatisticsFrm#6
+msgid "Categories"
+msgstr "Kategorije"
+
+#: StatisticsFrm#7
+msgid "Current card"
+msgstr "Trenutna kartica"
+
+#: StatisticsFrm#8
+msgid "&OK"
+msgstr "&U redu"
+
+#: TipDlg#1
+msgid "For optimal results, it's best to do your repetitions every day."
+msgstr "Za optimalne rezultate, najbolje je svakodnevno ponavljati."
+
+#: TipDlg#2
+msgid ""
+"If you've been away for a few days, don't worry about your backlog. Do as "
+"many cards as you feel like to catch up, the rest will be automatically "
+"rescheduled to the future."
+msgstr ""
+"Ako ste bili odsutni nekoliko dana, ne brinite o zaostacima. Prođite koliko "
+"god kartica vam se da kako biste se dostigli, a ostatak će biti automatski "
+"preraspoređen za ubuduće."
+
+#: TipDlg#3
+msgid ""
+"The 'number of grade 0 cards to learn at once' setting determines how many "
+"new cards you are trying to learn at the same time. It does <b>not</b> tell "
+"you how many new cards you need to learn per day. You are the judge of that: "
+"you can learn more cards or less cards, depending on how you feel."
+msgstr ""
+"Postavka ''broj kartica ocijenjenih s 0 za naučiti odjednom' određuje koliko "
+"novih kartice pokušavate naučiti u isto vrijeme. <b>Ne</b> govori vam "
+"koliko novih kartica trebate naučiti u jednom danu. To određujete samo vi: "
+"možete naučiti više ili manje kartice, ovisno o tome kako se osjećate."
+
+#: TipDlg#4
+msgid ""
+"In summary, try to do your repetitions every day, but don't worry too much "
+"about getting the 'scheduled' counter to zero, and certainly not about "
+"getting the 'Not memorised' counter to zero."
+msgstr ""
+"Ukratko, pokušajte ponavljati svaki dan, no ne brinite previše o pomicanju "
+"'raspoređeno' brojača do nule, a pogotovo ne o pomicanju 'neupamćeno' "
+"brojača do nule."
+
+#: TipDlg#5
+msgid ""
+"Grade 1 cards are different from grade 0 cards in the sense that they show "
+"up less often and are not subject to the 'number of grade 0 cards to learn "
+"at once' setting."
+msgstr ""
+"Kartice s ocjenom 1 se razlikuju od onih s ocjenom 0 time što se rjeđe "
+"pokazuju, te ne potpadaju pod 'broj kartica ocijenjenih s 0 za naučiti "
+"odjednom' postavku."
+
+#: TipDlg#6
+msgid ""
+"You can use keyboard shortcuts to do your repetitions. Enter, Return or "
+"Space stand for the default action ('Show answer' or 'grade 4'). The number "
+"keys can be used for grading."
+msgstr ""
+"Možete koristiti tipkovničke kratice pri ponavljanu. Enter, Return ili Space "
+"znače pretpostavljenu radnju ('Prikaži odgovor' ili 'ocjena 4'). Tipke sa "
+"brojevima mogu se koristiti za ocjenjivanje."
+
+#: TipDlg#7
+msgid ""
+"You can select the categories you wish to study in the 'Activate categories' "
+"menu option."
+msgstr ""
+"Možete odabrati kategorije koje želite učiti koristeći opciju 'Aktiviraj "
+"kategorije' u izborniku."
+
+#: TipDlg#8
+msgid ""
+"It is recommended to put all your cards in a single database and use "
+"categories to organise them. Using 'Activate categories' is much more "
+"convenient than have to load and unload several databases."
+msgstr ""
+"Preporučeno je staviti sve vaše kartice u jednu bazu podataka, te koristiti "
+"kategorije kako biste ih organizirali. Korištenje opcije 'Aktiviraj "
+"kategorije' je puno lakše od učitavanja i uklanjanja više različitih baza "
+"podataka."
+
+#: TipDlg#9
+msgid ""
+"You can import cards in a wide variety of formats: tab delimited txt files, "
+"Supermemo files, ... ."
+msgstr ""
+"Možete uvoziti kartice u širokom rasponu različitih formata: txt datoteke "
+"odvojene tabulatorom, Supermemo datoteke, ... ."
+
+#: TipDlg#10
+msgid ""
+"If you have cards in Word or Excel, export them to tab delimited txt files "
+"with UTF-8 unicode encoding to be able to import them into Mnemosyne."
+msgstr ""
+"Ako imate kartice u Word ili Excel formatu, izvezite ih u txt datoteke "
+"odvojene tabulatorom sa UTF-8 unicode kodiranjem kako biste ih mogli uvesti "
+"u Mnemosyne."
+
+#: TipDlg#11
+msgid ""
+"If you want to print out your cards, export them to a txt file which you can "
+"then print from your favourite Word processor."
+msgstr ""
+"Ako želite ispisati vaše kartice, izvezite ih u txt datoteku koju tada "
+"možete ispisati iz vašeg omiljenog tekst uređivača."
+
+#: TipDlg#12
+msgid ""
+"You can share your cards with someone else by exporting them to XML and "
+"choosing the 'Reset learning data' option on export."
+msgstr ""
+"Možete dijeliti vaše kartice sa drugim ljudima izvozom u XML i odabirom "
+"'Resetiraj podatke o učenju' pri izvozu."
+
+#: TipDlg#13
+msgid ""
+"If you study a foreign language with a different script, the default font "
+"size is sometimes a bit small. If you want to increase the size of these "
+"characters but keep the size of English text, use the 'increase size of non-"
+"latin characters by X points' option."
+msgstr ""
+"Ako učite strani jezik sa drugačijim pismom, pretpostavljena veličine fonta "
+"je ponekad premala. Ako želite povećati veličinu tih znakova, no sačuvati "
+"veličinu teksta na vašem jeziku, koristite opciju 'Povećaj veličinu "
+"nelatiničnih znakova za X točaka'."
+
+#: TipDlg#14
+msgid ""
+"You can add images and sounds to your cards. Right-click on the question or "
+"answer field when editing a card to bring up a pop-up menu to do so."
+msgstr ""
+"Možete dodati slike i zvukove vašim karticama. Desno-kliknite na polje s "
+"pitanjem ili odgovorom pri uređivanju kartice kako biste dobili izbornik za "
+"tu namjenu."
+
+#: TipDlg#15
+msgid ""
+"It is recommended to keep your sound and image files inside your .mnemosyne "
+"directory. That way, it's easier to transfer your data between different "
+"computers."
+msgstr ""
+"Preporučeno je držati vaše zvukovne i slikovne datoteke unutar vašeg "
+".mnemosyne mape. Na taj način je lakše prenositi podatke među različitim "
+"računalima."
+
+#: TipDlg#16
+msgid ""
+"When adding a three-sided card, two regular cards will be created. One with "
+"as question the written form and as answer the pronunciation and the "
+"translation, and one with as question the translation and as answer the "
+"written form and the pronunciation."
+msgstr ""
+"Pri dodavanju trostrane kartice, dvije standardne kartice će biti stvorene. "
+"Jedna sa pisanim oblikom kao pitanjem i izgovorom te prijevodom kao "
+"odgovorom, te jedna sa prijevodom kao pitanjem i pisanim oblikom te "
+"izgovorom kao odgovorom."
+
+#: TipDlg#17
+msgid "You can use basic HTML tags in your cards to control their appearance."
+msgstr ""
+"Možete koristiti osnovne HTML tagove kako biste uredili izgled vaših "
+"kartica."
+
+#: TipDlg#18
+msgid ""
+"Mnemosyne can use LaTeX to render mathematical formulas, e.g. "
+"<$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
+msgstr ""
+"Mnemosyne može koristiti LaTeX za prikaz matematičkih formula, npr. "
+"<$>x^2+y^2=z^2</$>. (Za to vam su vam potrebne LaTeX i dvipng instalacije.)"
+
+#: TipDlg#19
+msgid ""
+"The best way to backup your data is to copy your .mnemosyne directory (if "
+"you follow the recommended procedure to keep all your files there) and move "
+"it to a different drive. Mnemosyne keeps automatic XML-based backups in "
+".mnemosyne/backups, but that won't help you if that drive dies... "
+msgstr ""
+"Najbolji način za čuvanje vaših podataka je kopiranje vašeg direktorija "
+".mnemosyne (ako slijedite preporučeni postupak i čuvate sve vaše datoteke "
+"tamo) na drugi disk. Mnemosyne čuva automatsku sigurnosnu kopiju temeljenu "
+"na XML zapisu u .mnemosyne/backups, no to vam neće pomoći ako taj disk "
+"prestane raditi..."
+
+#: TipDlg#20
+msgid ""
+"You can run Mnemosyne from a USB key. Copy C:\\Program Files\\Mnemosyne to "
+"your USB key, and then copy the .mnemosyne directory from your home "
+"directory to inside the Mnemosyne directory on the USB key."
+msgstr ""
+"Možete pokrenuti Mnemosyne sa USB diska. Kopirajte C:\\Program "
+"Files\\Mnemosyne na vaš USB disk, a tada kopirajte vašu .mnemosyne mapu iz "
+"vaše home mape u mapu Mnemosyne na vašem USB disku."
+
+#: TipDlg#21
+msgid ""
+"If you use Mnemosyne on multiple computers, there is a handy tool called "
+"Unison to help you synchronise your data. See the Mnemosyne website for more "
+"information."
+msgstr ""
+"Ako koristite Mnemosyne na više računala, postoji zgodan alat po imenu "
+"Unison koji vam pomaže sinkronizirati vaše podatke. Pogledajte internetsku "
+"stranicu programa Mnemosyne za više informacija."
+
+#: TipDlg#22
+msgid ""
+"You can sort the cards in the 'Edit Deck' dialog by answer or by category by "
+"clicking on the corresponding column title. Clicking again changes the sort "
+"order."
+msgstr ""
+"Možete sortirati kartice u 'Uredi špil' dijalogu prema odgovoru ili prema "
+"kategoriji klikom na odgovarajući naziv stupca. Ponovni klik mijenja "
+"redoslijed sortiranja."
+
+#: TipDlg#23
+msgid ""
+"If you want more fine-grained control over LaTeX's behaviour, see the "
+"explanation of the <$$>...</$$> and <latex>...</latex> tags on Mnemosyne's "
+"website."
+msgstr ""
+"Ukoliko želite finiju kontrolu nad ponašanjem programa LaTeX, proučite "
+"objašnjenja <$$>...</$$> i <latex>...</latex> tagova na internetskoj "
+"stranici programa Mnemosyne."
+
+#: TipDlg#24
+msgid ""
+"Advanced users can customise more of Mnemosyne by editing the config.py file "
+"in their .mnemosyne directory. They can also install plugins to customise "
+"Mnemosyne even further."
+msgstr ""
+"Napredni korisnici mogu prilagoditi veći dio programa Mnemosyne uređivanjem "
+"config.py datoteke u mapi .mnemosyne. Mogu i instalirati dodatke kako bi "
+"dodatno prilagodili program Mnemosyne."
+
+#: TipFrm#1
+msgid "Tip of the day"
+msgstr "Savjet dana"
+
+#: TipFrm#2
+msgid "<b>Did you know...?</b>"
+msgstr "<b>Jeste li znali...?</b>"
+
+#: TipFrm#3
+msgid "&Show tips on startup"
+msgstr "Prikazuj &savjete pri pokretanju"
+
+#: TipFrm#4
+msgid "Alt+S"
+msgstr "Alt+S"
+
+#: TipFrm#5
+msgid "&Previous"
+msgstr "&Prethodni"
+
+#: TipFrm#6
+msgid "Alt+P"
+msgstr "Alt+P"
+
+#: TipFrm#7
+msgid "&Next"
+msgstr "Slje&deći"
+
+#: TipFrm#8
+msgid "Alt+N"
+msgstr "Alt+D"
+
+#: TipFrm#9
+msgid "&Close"
+msgstr "&Zatvori"
+
+#: TipFrm#10
+msgid "Alt+C"
+msgstr "Alt+Z"

@@ -163,4 +163,6 @@ class UpgradeBeta6(Component):
             self.database().add_card_type(card_type)
             self.component_manager.register(card_type)
         con.commit()
+        con.close()
+        con = None
 

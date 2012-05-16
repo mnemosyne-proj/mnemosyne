@@ -1,0 +1,2107 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-16 10:17+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.9.0\n"
+
+#: #1
+#, fuzzy
+msgid "Error in config.py:"
+msgstr "Erro em config.py:"
+
+#: #2
+#, fuzzy
+msgid "Error when running plugin:"
+msgstr "Erro ao executar plugin:"
+
+#: #3
+#, fuzzy
+msgid "Unable to load file."
+msgstr "Não foi possível abrir o arquivo."
+
+#: #4
+#, fuzzy
+msgid "Invalid file format."
+msgstr "Formato de arquivo inválido."
+
+#: #5
+#, fuzzy
+msgid "Unable to save file."
+msgstr "Não foi possível salvar o arquivo."
+
+#: #6
+#, fuzzy
+msgid "Unable to parse XML:"
+msgstr "Não foi possível converter o XML:"
+
+#: #7
+#, fuzzy
+msgid "Unrecognised encoding."
+msgstr "Codificação desconhecida."
+
+#: #8
+#, fuzzy
+msgid "Missing answer on line:"
+msgstr "Falta resposta na linha:"
+
+#: #9
+#, fuzzy
+msgid ""
+"Unable to load database.\n"
+"Creating tmp file."
+msgstr ""
+"Não foi possível carregar a base de dados.\n"
+"Criando arquivo temporário."
+
+#: #10
+#, fuzzy
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: #11
+#, fuzzy
+msgid "&OK"
+msgstr "&OK"
+
+#: #12
+#, fuzzy
+msgid "File exists:"
+msgstr "Arquivo já existe:"
+
+#: #13
+#, fuzzy
+msgid "&Overwrite"
+msgstr "&Sobrescrever"
+
+#: #14
+#, fuzzy
+msgid "&Cancel"
+msgstr "&Cancelar"
+
+#: #15
+#, fuzzy
+msgid "Removed duplicates: "
+msgstr "Remover duplicatas: "
+
+#: #16
+#, fuzzy
+msgid ""
+"There are cards with different answers for question:\n"
+"\n"
+msgstr "Existem cartões com diferentes respostas para a questão:"
+
+#: #17
+#, fuzzy
+msgid "&Merge and edit"
+msgstr "&Mesclar e editar"
+
+#: #18
+#, fuzzy
+msgid "&Don't merge"
+msgstr "&Não mesclar"
+
+#: #19
+#, fuzzy
+msgid "Done!"
+msgstr "Pronto!"
+
+#: #20
+#, fuzzy
+msgid "You don't remember this card yet."
+msgstr "Você ainda não memorizou este cartão."
+
+#: #21
+#, fuzzy
+msgid "Like '0', but it's getting more familiar."
+msgstr "Como '0', mas está se familiarizando."
+
+#: #22
+#, fuzzy
+msgid " Show it less often."
+msgstr "Mostrar com menor freqüência."
+
+#: #23
+#, fuzzy
+msgid "You've memorised this card now,"
+msgstr "Você memorizou este cartão,"
+
+#: #24
+#, fuzzy
+msgid " and will probably remember it for a few days."
+msgstr " e provavelmente irá lembrá-lo por alguns dias."
+
+#: #25
+#, fuzzy
+msgid "You have forgotten this card completely."
+msgstr "Você esqueceu este cartão."
+
+#: #26
+#, fuzzy
+msgid "Barely correct answer. The interval was way too long."
+msgstr "Resposta correta com dificuldade. O intervalo foi muito longo."
+
+#: #27
+#, fuzzy
+msgid "Correct answer, but with much effort."
+msgstr "Resposta correta, mas com muito esforço."
+
+#: #28
+#, fuzzy
+msgid " The interval was probably too long."
+msgstr " O intervalo provavelmente foi muito longo."
+
+#: #29
+#, fuzzy
+msgid "Correct answer, with some effort."
+msgstr "Resposta correta, com algum esforço."
+
+#: #30
+#, fuzzy
+msgid " The interval was probably just right."
+msgstr "O intervalo provavelmente foi correto."
+
+#: #31
+#, fuzzy
+msgid "Correct answer, but without any"
+msgstr "Resposta correta, mas sem nenhuma dificuldade."
+
+#: #32
+#, fuzzy
+msgid " difficulties. The interval was probably too short."
+msgstr "O intervalo provavelmente foi muito curto."
+
+#: AboutDlg#1
+#, fuzzy
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: AboutDlg#2
+#, fuzzy
+msgid ""
+"Main author: Peter Bienstman\n"
+"\n"
+msgstr "Autor principal: Peter Bienstman"
+
+#: AboutDlg#3
+#, fuzzy
+msgid "More info: http://mnemosyne-proj.org\n"
+msgstr "Mais informações: http://mnemosyne-proj.org"
+
+#: AboutFrm#1
+#, fuzzy
+msgid "About"
+msgstr "Sobre"
+
+#: ActivateCategoriesFrm#1
+#, fuzzy
+msgid "Activate categories"
+msgstr "Habilitar categorias"
+
+#: ActivateCategoriesFrm#2
+#, fuzzy
+msgid "Select the categories to activate:"
+msgstr "Escolha as categorias que deseja habilitar:"
+
+#: ActivateCategoriesFrm#3
+#, fuzzy
+msgid "Activate none"
+msgstr "Não habilitar nenhuma"
+
+#: ActivateCategoriesFrm#4
+#, fuzzy
+msgid "Activate all"
+msgstr "Habilitar todas"
+
+#: ActivateCategoriesFrm#5
+#, fuzzy
+msgid "&OK"
+msgstr "&OK"
+
+#: ActivateCategoriesFrm#6
+#, fuzzy
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ActivateCategoriesFrm#7
+#, fuzzy
+msgid "&Cancel"
+msgstr "&Cancelar"
+
+#: AddItemsDlg#1
+#, fuzzy
+msgid "<default>"
+msgstr "<padrão>"
+
+#: AddItemsDlg#2
+#, fuzzy
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: AddItemsDlg#3
+#, fuzzy
+msgid "Abandon current card?"
+msgstr "Abandonar cartão?"
+
+#: AddItemsDlg#4
+#, fuzzy
+msgid "&Yes"
+msgstr "&Sim"
+
+#: AddItemsDlg#5
+#, fuzzy
+msgid "&No"
+msgstr "&Não"
+
+#: AddItemsDlg#6
+#, fuzzy
+msgid "Question:"
+msgstr "Questão:"
+
+#: AddItemsDlg#7
+#, fuzzy
+msgid "Answer:"
+msgstr "Resposta:"
+
+#: AddItemsDlg#8
+#, fuzzy
+msgid "Written form:"
+msgstr "Forma escrita:"
+
+#: AddItemsDlg#9
+#, fuzzy
+msgid "Translation:"
+msgstr "Tradução:"
+
+#: AddItemsDlg#10
+#, fuzzy
+msgid "Card is already in database.\n"
+msgstr "Cartão já está na base de dados."
+
+#: AddItemsDlg#11
+#, fuzzy
+msgid "Duplicate not added."
+msgstr "Duplicata não adicionada."
+
+#: AddItemsDlg#12
+#, fuzzy
+msgid "&OK"
+msgstr "&OK"
+
+#: AddItemsDlg#13
+#, fuzzy
+msgid "There are different answers for"
+msgstr "Existem respostas diferentes para"
+
+#: AddItemsDlg#14
+#, fuzzy
+msgid ""
+" this question:\n"
+"\n"
+msgstr " esta questão:"
+
+#: AddItemsDlg#15
+#, fuzzy
+msgid "&Merge and edit"
+msgstr "&Mesclar e editar"
+
+#: AddItemsDlg#16
+#, fuzzy
+msgid "&Add as is"
+msgstr "&Adicionar assim mesmo"
+
+#: AddItemsDlg#17
+#, fuzzy
+msgid "&Do not add"
+msgstr "&Não adicionar"
+
+#: AddItemsFrm#1
+#, fuzzy
+msgid "Add cards"
+msgstr "Adicionar cartões"
+
+#: AddItemsFrm#2
+#, fuzzy
+msgid "Category:"
+msgstr "Categoria:"
+
+#: AddItemsFrm#3
+#, fuzzy
+msgid "Question:"
+msgstr "Questão:"
+
+#: AddItemsFrm#4
+#, fuzzy
+msgid "Pronunciation:"
+msgstr "Pronúncia:"
+
+#: AddItemsFrm#5
+#, fuzzy
+msgid "Answer:"
+msgstr "Resposta:"
+
+#: AddItemsFrm#6
+#, fuzzy
+msgid "Add &vice versa too"
+msgstr "Adicionar &vice versa também"
+
+#: AddItemsFrm#7
+#, fuzzy
+msgid "Alt+V"
+msgstr "Alt+V"
+
+#: AddItemsFrm#8
+#, fuzzy
+msgid "Select initial grade:"
+msgstr "Escolha o nível inicial:"
+
+#: AddItemsFrm#9
+#, fuzzy
+msgid "&0"
+msgstr "&0"
+
+#: AddItemsFrm#10
+#, fuzzy
+msgid "Ctrl+0"
+msgstr "Ctrl+0"
+
+#: AddItemsFrm#11
+#, fuzzy
+msgid "You don't remember this item yet or forgot it."
+msgstr "Você ainda não memorizou este cartão ou o esqueceu."
+
+#: AddItemsFrm#12
+#, fuzzy
+msgid "&1"
+msgstr "&1"
+
+#: AddItemsFrm#13
+#, fuzzy
+msgid "Ctrl+1"
+msgstr "Ctrl+1"
+
+#: AddItemsFrm#14
+#, fuzzy
+msgid "Like '0', but the item is getting more familiar."
+msgstr "Como o '0', mas está se familiarizando com o item."
+
+#: AddItemsFrm#15
+#, fuzzy
+msgid "&2"
+msgstr "&2"
+
+#: AddItemsFrm#16
+#, fuzzy
+msgid "Ctrl+2"
+msgstr "Ctrl+2"
+
+#: AddItemsFrm#17
+#, fuzzy
+msgid ""
+"You've memorised this item now, and will probably remember it for a few "
+"days."
+msgstr ""
+"Você memorizou este item, e provavelmente irá lembrar-se dele por alguns "
+"dias."
+
+#: AddItemsFrm#18
+#, fuzzy
+msgid "&3"
+msgstr "&3"
+
+#: AddItemsFrm#19
+#, fuzzy
+msgid "Ctrl+3"
+msgstr "Ctrl+3"
+
+#: AddItemsFrm#20
+#, fuzzy
+msgid ""
+"Correct answer, but with much effort. The interval was probably too long"
+msgstr ""
+"Resposta correta, mas com muito esforço. O intervalo provavelmente foi muito "
+"longo."
+
+#: AddItemsFrm#21
+#, fuzzy
+msgid "&4"
+msgstr "&4"
+
+#: AddItemsFrm#22
+#, fuzzy
+msgid "Ctrl+4"
+msgstr "Ctrl+4"
+
+#: AddItemsFrm#23
+#, fuzzy
+msgid "Correct answer, with some effort. The interval was probably just right."
+msgstr ""
+"Resposta correta, com algum esforço. O intervalo provavelmente foi correto."
+
+#: AddItemsFrm#24
+#, fuzzy
+msgid "&5"
+msgstr "&5"
+
+#: AddItemsFrm#25
+#, fuzzy
+msgid "Ctrl+5"
+msgstr "Ctrl+5"
+
+#: AddItemsFrm#26
+#, fuzzy
+msgid ""
+"Correct answer, but without any difficulties. The interval was probably too "
+"short."
+msgstr ""
+"Resposta correta, mas sem nenhuma dificuldade. O intervalo provavelmente foi "
+"muito curto."
+
+#: AddItemsFrm#27
+#, fuzzy
+msgid "Type question and answer, then pick initial grade."
+msgstr "Digite a questão e a resposta, e escolha o nível inicial."
+
+#: AddItemsFrm#28
+#, fuzzy
+msgid "&Preview"
+msgstr "&Pré visualizar"
+
+#: AddItemsFrm#29
+#, fuzzy
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#: AddItemsFrm#30
+#, fuzzy
+msgid "E&xit"
+msgstr "&Sair"
+
+#: AddItemsFrm#31
+#, fuzzy
+msgid "Alt+X"
+msgstr "Alt+X"
+
+#: ChangeCategoryFrm#1
+#, fuzzy
+msgid "Change category"
+msgstr "Mudar categoria"
+
+#: ChangeCategoryFrm#2
+#, fuzzy
+msgid "Category:"
+msgstr "Categoria:"
+
+#: ChangeCategoryFrm#3
+#, fuzzy
+msgid "&OK"
+msgstr "&OK"
+
+#: ChangeCategoryFrm#4
+#, fuzzy
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ChangeCategoryFrm#5
+#, fuzzy
+msgid "&Cancel"
+msgstr "&Cancelar"
+
+#: ChangeCategoryFrm#6
+#, fuzzy
+msgid "Alt+C"
+msgstr "Alt+C"
+
+#: ConfigurationFrm#1
+#, fuzzy
+msgid "Mnemosyne configuration"
+msgstr "Configurações do Mnemosyne"
+
+#: ConfigurationFrm#2
+#, fuzzy
+msgid "Hover with the mouse over the buttons to get extra information."
+msgstr "Posicione o mouse sobre as opções para obter informações adicionais."
+
+#: ConfigurationFrm#3
+#, fuzzy
+msgid "Appearance"
+msgstr "Aparência"
+
+#: ConfigurationFrm#4
+#, fuzzy
+msgid "Set Q/A font"
+msgstr "Fonte das Q/R"
+
+#: ConfigurationFrm#5
+#, fuzzy
+msgid "Set the font used when showing single questions and answers"
+msgstr "Escolher a fonte a ser utilizada quando mostrando questões e respostas"
+
+#: ConfigurationFrm#6
+#, fuzzy
+msgid "Set list font"
+msgstr "Fonte em listas"
+
+#: ConfigurationFrm#7
+#, fuzzy
+msgid "Set the font used when showing the list of all the cards in the deck"
+msgstr ""
+"Escolher a fonte a ser utilizada quando mostrando a lista de todos os "
+"cartões"
+
+#: ConfigurationFrm#8
+#, fuzzy
+msgid "Increase size of non-latin characters by"
+msgstr "Aumentar o tamanho de caracteres não-latinos em"
+
+#: ConfigurationFrm#9
+#, fuzzy
+msgid ""
+"Sometimes complex glyphs are hard to read at the default latin font size"
+msgstr ""
+"Algumas vezes símbolos complexos são difíceis de se ler com o tamanho padrão "
+"das fontes latinas"
+
+#: ConfigurationFrm#10
+#, fuzzy
+msgid "point(s)"
+msgstr "ponto(s)"
+
+#: ConfigurationFrm#11
+#, fuzzy
+msgid "Log uploading"
+msgstr "Envio de utilização"
+
+#: ConfigurationFrm#12
+#, fuzzy
+msgid "Upload anonymous logs"
+msgstr "Enviar dados de utilização anonimamente"
+
+#: ConfigurationFrm#13
+#, fuzzy
+msgid "Share anonymous statistics to contribute to memory research"
+msgstr ""
+"Compartilhar estatísticas anonimamente para contribuir com a pesquisa de "
+"memorização"
+
+#: ConfigurationFrm#14
+#, fuzzy
+msgid "Duplicate handling"
+msgstr "Tratamento de duplicatas"
+
+#: ConfigurationFrm#15
+#, fuzzy
+msgid "Check for duplicates when adding new cards"
+msgstr "Verificar duplicatas ao adicionar novos cartões"
+
+#: ConfigurationFrm#16
+#, fuzzy
+msgid "Allow duplicates in different categories"
+msgstr "Permitir duplicatas em categorias diferentes"
+
+#: ConfigurationFrm#17
+#, fuzzy
+msgid "Repetition process"
+msgstr "Processo de repetição"
+
+#: ConfigurationFrm#18
+#, fuzzy
+msgid "Number of grade 0 cards to learn at once:"
+msgstr "Número de cartões nível 0 para aprender simultaneamente:"
+
+#: ConfigurationFrm#19
+#, fuzzy
+msgid ""
+"Note: this is NOT the number of grade 0 cards you want to memorise *per day*"
+msgstr ""
+"Nota: este NÃO é o número de cartões de nível 0 que você quer memorizar *por "
+"dia*"
+
+#: ConfigurationFrm#20
+#, fuzzy
+msgid "&OK"
+msgstr "&OK"
+
+#: ConfigurationFrm#21
+#, fuzzy
+msgid "Defaults"
+msgstr "Padrões"
+
+#: ConfigurationFrm#22
+#, fuzzy
+msgid "&Cancel"
+msgstr "&Cancelar"
+
+#: EditItemFrm#1
+#, fuzzy
+msgid "Edit card"
+msgstr "Editar cartão"
+
+#: EditItemFrm#2
+#, fuzzy
+msgid "Category:"
+msgstr "Categoria:"
+
+#: EditItemFrm#3
+#, fuzzy
+msgid "Question:"
+msgstr "Questão:"
+
+#: EditItemFrm#4
+#, fuzzy
+msgid "Answer:"
+msgstr "Resposta:"
+
+#: EditItemFrm#5
+#, fuzzy
+msgid "&OK"
+msgstr "&OK"
+
+#: EditItemFrm#6
+#, fuzzy
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: EditItemFrm#7
+#, fuzzy
+msgid "&Preview"
+msgstr "&Pré visualizar"
+
+#: EditItemFrm#8
+#, fuzzy
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#: EditItemFrm#9
+#, fuzzy
+msgid "&Cancel"
+msgstr "&Cancelar"
+
+#: EditItemFrm#10
+#, fuzzy
+msgid "Alt+C"
+msgstr "Alt+C"
+
+#: EditItemsDlg#1
+#, fuzzy
+msgid "Please wait..."
+msgstr "Por favor aguarde..."
+
+#: EditItemsDlg#2
+#, fuzzy
+msgid "&Edit"
+msgstr "&Editar"
+
+#: EditItemsDlg#3
+#, fuzzy
+msgid "Ctrl+E"
+msgstr "Ctrl+E"
+
+#: EditItemsDlg#4
+#, fuzzy
+msgid "&Preview"
+msgstr "&Pré visualizar"
+
+#: EditItemsDlg#5
+#, fuzzy
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#: EditItemsDlg#6
+#, fuzzy
+msgid "&Add vice versa"
+msgstr "&Adicionar vice versa"
+
+#: EditItemsDlg#7
+#, fuzzy
+msgid "S&tatistics"
+msgstr "Es&tatísticas"
+
+#: EditItemsDlg#8
+#, fuzzy
+msgid "Ctrl+T"
+msgstr "Ctrl+T"
+
+#: EditItemsDlg#9
+#, fuzzy
+msgid "&Delete"
+msgstr "&Apagar"
+
+#: EditItemsDlg#10
+#, fuzzy
+msgid "&Change category"
+msgstr "&Mudar categoria"
+
+#: EditItemsDlg#11
+#, fuzzy
+msgid "Add &vice versa"
+msgstr "Adicionar &vice versa"
+
+#: EditItemsDlg#12
+#, fuzzy
+msgid "Add vice versa of these cards?"
+msgstr "Adicionar vice versa a estes cartões?"
+
+#: EditItemsDlg#13
+#, fuzzy
+msgid "Add vice versa of this card?"
+msgstr "Adicionar vice versa a este cartão?"
+
+#: EditItemsDlg#14
+#, fuzzy
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: EditItemsDlg#15
+#, fuzzy
+msgid ""
+"\n"
+"\n"
+"This could create duplicates if the vice "
+msgstr "Isto pode criar duplicatas se os vice "
+
+#: EditItemsDlg#16
+#, fuzzy
+msgid ""
+"versas are already present, \n"
+"so you might want to run "
+msgstr ""
+"versas já existirem, \n"
+"então você pode querer executar a "
+
+#: EditItemsDlg#17
+#, fuzzy
+msgid "clean duplicates' afterwards."
+msgstr "limpeza de duplicatas depois."
+
+#: EditItemsDlg#18
+#, fuzzy
+msgid "&Yes"
+msgstr "&Sim"
+
+#: EditItemsDlg#19
+#, fuzzy
+msgid "&No"
+msgstr "&Não"
+
+#: EditItemsDlg#20
+#, fuzzy
+msgid "Grade:"
+msgstr "Nível:"
+
+#: EditItemsDlg#21
+#, fuzzy
+msgid "Easiness:"
+msgstr "Facilidade:"
+
+#: EditItemsDlg#22
+#, fuzzy
+msgid "Repetitions:"
+msgstr "Repetições:"
+
+#: EditItemsDlg#23
+#, fuzzy
+msgid "Lapses:"
+msgstr "Passagens:"
+
+#: EditItemsDlg#24
+#, fuzzy
+msgid "Days since last repetition:"
+msgstr "Dias desde a última repetição:"
+
+#: EditItemsDlg#25
+#, fuzzy
+msgid "Days until next repetition:"
+msgstr "Dias até a próxima repetição:"
+
+#: EditItemsDlg#26
+#, fuzzy
+msgid "&OK"
+msgstr "&OK"
+
+#: EditItemsDlg#27
+#, fuzzy
+msgid "Delete these cards?"
+msgstr "Apagar estes cartões?"
+
+#: EditItemsDlg#28
+#, fuzzy
+msgid "Delete this card?"
+msgstr "Apagar este cartão?"
+
+#: EditItemsDlg#29
+#, fuzzy
+msgid "The text you entered was not found."
+msgstr "O texto digitado não foi encontrado."
+
+#: EditItemsDlg#30
+#, fuzzy
+msgid "&Find again"
+msgstr "&Procurar novamente"
+
+#: EditItemsDlg#31
+#, fuzzy
+msgid "F"
+msgstr "P"
+
+#: EditItemsDlg#32
+#, fuzzy
+msgid "&Find"
+msgstr "&Procurar"
+
+#: EditItemsFrm#1
+#, fuzzy
+msgid "Question"
+msgstr "Questão"
+
+#: EditItemsFrm#2
+#, fuzzy
+msgid "Answer"
+msgstr "Resposta"
+
+#: EditItemsFrm#3
+#, fuzzy
+msgid "Category"
+msgstr "Categoria"
+
+#: EditItemsFrm#4
+#, fuzzy
+msgid "Edit deck"
+msgstr "Editar cartões"
+
+#: EditItemsFrm#5
+#, fuzzy
+msgid "&Find"
+msgstr "&Procurar"
+
+#: EditItemsFrm#6
+#, fuzzy
+msgid "To edit a card, right-click on it."
+msgstr "Para editar um cartão, clique com o botão direito sobre ele."
+
+#: EditItemsFrm#7
+#, fuzzy
+msgid "E&xit"
+msgstr "&Sair"
+
+#: EditItemsFrm#8
+#, fuzzy
+msgid "Alt+X"
+msgstr "Alt+X"
+
+#: ExportDlg#1
+#, fuzzy
+msgid "All Files (*);;"
+msgstr "Todos os arquivos (*);;"
+
+#: ExportDlg#2
+#, fuzzy
+msgid "Export"
+msgstr "Exportar"
+
+#: ExportFrm#1
+#, fuzzy
+msgid "Export to file"
+msgstr "Exportar para um arquivo"
+
+#: ExportFrm#2
+#, fuzzy
+msgid "File format:"
+msgstr "Formato do arquivo:"
+
+#: ExportFrm#3
+#, fuzzy
+msgid "File to export to:"
+msgstr "Arquivo para exportação:"
+
+#: ExportFrm#4
+#, fuzzy
+msgid "&Browse"
+msgstr "&Navegar"
+
+#: ExportFrm#5
+#, fuzzy
+msgid "Categories to export:"
+msgstr "Categorias a exportar:"
+
+#: ExportFrm#6
+#, fuzzy
+msgid "&Select all"
+msgstr "&Escolher todas"
+
+#: ExportFrm#7
+#, fuzzy
+msgid "Reset learning data on export"
+msgstr "Reiniciar dados de aprendizagem ao exportar"
+
+#: ExportFrm#8
+#, fuzzy
+msgid "&OK"
+msgstr "&OK"
+
+#: ExportFrm#9
+#, fuzzy
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ExportFrm#10
+#, fuzzy
+msgid "&Cancel"
+msgstr "&Cancelar"
+
+#: ImportDlg#1
+#, fuzzy
+msgid "<default>"
+msgstr "<padrão>"
+
+#: ImportDlg#2
+#, fuzzy
+msgid "All Files (*);;"
+msgstr "Todos os arquivos (*);;"
+
+#: ImportDlg#3
+#, fuzzy
+msgid "Import"
+msgstr "Importar"
+
+#: ImportFrm#1
+#, fuzzy
+msgid "Import from file"
+msgstr "Importar do arquivo"
+
+#: ImportFrm#2
+#, fuzzy
+msgid "File format:"
+msgstr "Formato do arquivo:"
+
+#: ImportFrm#3
+#, fuzzy
+msgid "File to import from:"
+msgstr "Arquivo a importar:"
+
+#: ImportFrm#4
+#, fuzzy
+msgid "&Browse"
+msgstr "&Navegar"
+
+#: ImportFrm#5
+#, fuzzy
+msgid "Put cards without category into this category:"
+msgstr "Colocar cartões sem categoria nesta categoria:"
+
+#: ImportFrm#6
+#, fuzzy
+msgid "Note: all cards will be added to the current database."
+msgstr "Nota: todos os cartões serão adicionados a base de dados."
+
+#: ImportFrm#7
+#, fuzzy
+msgid "Reset learning data on import"
+msgstr "Reiniciar dados de aprendizagem ao importar"
+
+#: ImportFrm#8
+#, fuzzy
+msgid "&OK"
+msgstr "&OK"
+
+#: ImportFrm#9
+#, fuzzy
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ImportFrm#10
+#, fuzzy
+msgid "&Cancel"
+msgstr "&Cancelar"
+
+#: MainDlg#1
+#, fuzzy
+msgid "Mnemosyne databases (*.mem)"
+msgstr "Bases de dados do Mnemosyne (*.mem)"
+
+#: MainDlg#2
+#, fuzzy
+msgid "New"
+msgstr "Nova"
+
+#: MainDlg#3
+#, fuzzy
+msgid "Please wait..."
+msgstr "Por favor aguarde..."
+
+#: MainDlg#4
+#, fuzzy
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: MainDlg#5
+#, fuzzy
+msgid "Delete current card?"
+msgstr "Apagar cartão atual?"
+
+#: MainDlg#6
+#, fuzzy
+msgid "&Yes"
+msgstr "&Sim"
+
+#: MainDlg#7
+#, fuzzy
+msgid "&No"
+msgstr "&Não"
+
+#: MainDlg#8
+#, fuzzy
+msgid "Returns in "
+msgstr "Retornar em "
+
+#: MainDlg#9
+#, fuzzy
+msgid " day(s)."
+msgstr " dia(s)."
+
+#: MainDlg#10
+#, fuzzy
+msgid "Next repetition: today."
+msgstr "Próxima repetição: hoje."
+
+#: MainDlg#11
+#, fuzzy
+msgid "Next repetition: tomorrow."
+msgstr "Próxima repetição: amanhã."
+
+#: MainDlg#12
+#, fuzzy
+msgid "Next repetition in "
+msgstr "Próxima repetição em "
+
+#: MainDlg#13
+#, fuzzy
+msgid " days."
+msgstr " dia(s)."
+
+#: MainDlg#14
+#, fuzzy
+msgid "Question:"
+msgstr "Questão:"
+
+#: MainDlg#15
+#, fuzzy
+msgid "<default>"
+msgstr "<padrão>"
+
+#: MainDlg#16
+#, fuzzy
+msgid "Show &answer"
+msgstr "Mostrar &resposta"
+
+#: MainDlg#17
+#, fuzzy
+msgid "Learn ahead of schedule"
+msgstr "Estudar além do agendado"
+
+#: MainDlg#18
+#, fuzzy
+msgid "Pick days until next repetition:"
+msgstr "Escolha os dias até a próxima repetição:"
+
+#: MainDlg#19
+#, fuzzy
+msgid "Grade your answer:"
+msgstr "Escolha o nível da sua resposta:"
+
+#: MainDlg#20
+#, fuzzy
+msgid "Scheduled: "
+msgstr "Agendados: "
+
+#: MainDlg#21
+#, fuzzy
+msgid "Not memorised: "
+msgstr "Não memorizados: "
+
+#: MainDlg#22
+#, fuzzy
+msgid "All: "
+msgstr "Todos: "
+
+#: MainFrm#1
+#, fuzzy
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: MainFrm#2
+#, fuzzy
+msgid "Question:"
+msgstr "Questão:"
+
+#: MainFrm#3
+#, fuzzy
+msgid "Answer:"
+msgstr "Resposta:"
+
+#: MainFrm#4
+#, fuzzy
+msgid "Show answer"
+msgstr "Mostrar resposta"
+
+#: MainFrm#5
+#, fuzzy
+msgid "Grade your answer:"
+msgstr "Escolha o nível da sua resposta:"
+
+#: MainFrm#6
+#, fuzzy
+msgid "&0"
+msgstr "&0"
+
+#: MainFrm#7
+#, fuzzy
+msgid "0"
+msgstr "0"
+
+#: MainFrm#8
+#, fuzzy
+msgid "&1"
+msgstr "&1"
+
+#: MainFrm#9
+#, fuzzy
+msgid "1"
+msgstr "1"
+
+#: MainFrm#10
+#, fuzzy
+msgid "&2"
+msgstr "&2"
+
+#: MainFrm#11
+#, fuzzy
+msgid "2"
+msgstr "2"
+
+#: MainFrm#12
+#, fuzzy
+msgid "&3"
+msgstr "&3"
+
+#: MainFrm#13
+#, fuzzy
+msgid "3"
+msgstr "3"
+
+#: MainFrm#14
+#, fuzzy
+msgid "&4"
+msgstr "&4"
+
+#: MainFrm#15
+#, fuzzy
+msgid "4"
+msgstr "4"
+
+#: MainFrm#16
+#, fuzzy
+msgid "&5"
+msgstr "&5"
+
+#: MainFrm#17
+#, fuzzy
+msgid "5"
+msgstr "5"
+
+#: MainFrm#18
+#, fuzzy
+msgid "&New"
+msgstr "&Novo"
+
+#: MainFrm#19
+#, fuzzy
+msgid "."
+msgstr "."
+
+#: MainFrm#20
+#, fuzzy
+msgid "Ctrl+N"
+msgstr "Ctrl+N"
+
+#: MainFrm#21
+#, fuzzy
+msgid "&Open..."
+msgstr "&Abrir..."
+
+#: MainFrm#22
+#, fuzzy
+msgid "Ctrl+O"
+msgstr "Ctrl+O"
+
+#: MainFrm#23
+#, fuzzy
+msgid "&Save"
+msgstr "&Salvar"
+
+#: MainFrm#24
+#, fuzzy
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#: MainFrm#25
+#, fuzzy
+msgid "Save &As..."
+msgstr "Salvar &Como..."
+
+#: MainFrm#26
+#, fuzzy
+msgid "E&xit"
+msgstr "Sai&r"
+
+#: MainFrm#27
+#, fuzzy
+msgid "About"
+msgstr "Sobre"
+
+#: MainFrm#28
+#, fuzzy
+msgid "&About"
+msgstr "&Sobre"
+
+#: MainFrm#29
+#, fuzzy
+msgid "Add cards"
+msgstr "Adicionar Cartões"
+
+#: MainFrm#30
+#, fuzzy
+msgid "&Add cards"
+msgstr "&Adicionar Cartões"
+
+#: MainFrm#31
+#, fuzzy
+msgid "Ctrl+A"
+msgstr "Ctrl+A"
+
+#: MainFrm#32
+#, fuzzy
+msgid "Activate cate&gories"
+msgstr "Ativar &categorias"
+
+#: MainFrm#33
+#, fuzzy
+msgid "Ctrl+G"
+msgstr "Ctrl+G"
+
+#: MainFrm#34
+#, fuzzy
+msgid "Edit deck"
+msgstr "Editar Cartões"
+
+#: MainFrm#35
+#, fuzzy
+msgid "Edit &deck"
+msgstr "&Editar Cartões"
+
+#: MainFrm#36
+#, fuzzy
+msgid "Ctrl+D"
+msgstr "Ctrl+D"
+
+#: MainFrm#37
+#, fuzzy
+msgid "&Import"
+msgstr "&Importar"
+
+#: MainFrm#38
+#, fuzzy
+msgid "&Export"
+msgstr "&Exportar"
+
+#: MainFrm#39
+#, fuzzy
+msgid "Show &toolbar"
+msgstr "Mostrar &Barra de Ferramentas"
+
+#: MainFrm#40
+#, fuzzy
+msgid "Edit current card"
+msgstr "Editar cartão atual"
+
+#: MainFrm#41
+#, fuzzy
+msgid "&Edit current card"
+msgstr "&Editar cartão atual"
+
+#: MainFrm#42
+#, fuzzy
+msgid "Ctrl+E"
+msgstr "Ctrl+E"
+
+#: MainFrm#43
+#, fuzzy
+msgid "Delete current card"
+msgstr "Apagar cartão atual"
+
+#: MainFrm#44
+#, fuzzy
+msgid "&Delete current card"
+msgstr "&Apagar cartão atual"
+
+#: MainFrm#45
+#, fuzzy
+msgid "Del"
+msgstr "Del"
+
+#: MainFrm#46
+#, fuzzy
+msgid "&Clean duplicates"
+msgstr "Apagar &duplicatas"
+
+#: MainFrm#47
+#, fuzzy
+msgid "&Configure Mnemosyne"
+msgstr "&Configurar Mnemosyne"
+
+#: MainFrm#48
+#, fuzzy
+msgid "Getting started"
+msgstr "Iniciando"
+
+#: MainFrm#49
+#, fuzzy
+msgid "&Getting started"
+msgstr "&Iniciando"
+
+#: MainFrm#50
+#, fuzzy
+msgid "Down, Down"
+msgstr "Down, Down"
+
+#: MainFrm#51
+#, fuzzy
+msgid "Enter"
+msgstr "Enter"
+
+#: MainFrm#52
+#, fuzzy
+msgid "Return"
+msgstr "Return"
+
+#: MainFrm#53
+#, fuzzy
+msgid "Space"
+msgstr "Space"
+
+#: MainFrm#54
+#, fuzzy
+msgid "Ctrl+R"
+msgstr "Ctrl+R"
+
+#: MainFrm#55
+#, fuzzy
+msgid "Show statistics"
+msgstr "Mostrar estatísticas"
+
+#: MainFrm#56
+#, fuzzy
+msgid "Show s&tatistics"
+msgstr "Mostrar &estatísticas"
+
+#: MainFrm#57
+#, fuzzy
+msgid "Ctrl+T"
+msgstr "Ctrl+T"
+
+#: MainFrm#58
+#, fuzzy
+msgid "Tip of the day"
+msgstr "Dica do dia"
+
+#: MainFrm#59
+#, fuzzy
+msgid "&Tip of the day"
+msgstr "&Dica do dia"
+
+#: MainFrm#60
+#, fuzzy
+msgid "Main toolbar (Mnemosyne)"
+msgstr "Barra de ferramentas principal (Mnemosyne)"
+
+#: MainFrm#61
+#, fuzzy
+msgid "&File"
+msgstr "&Arquivo"
+
+#: MainFrm#62
+#, fuzzy
+msgid "&Deck"
+msgstr "&Cartões"
+
+#: MainFrm#63
+#, fuzzy
+msgid "&Settings"
+msgstr "Confi&gurações"
+
+#: MainFrm#64
+#, fuzzy
+msgid "&Help"
+msgstr "A&juda"
+
+#: PreviewItemDlg#1
+#, fuzzy
+msgid "<default>"
+msgstr "<default>"
+
+#: PreviewItemDlg#2
+#, fuzzy
+msgid "Question:"
+msgstr "Questão:"
+
+#: PreviewItemFrm#1
+#, fuzzy
+msgid "Preview card"
+msgstr "Pré visualizar cartão"
+
+#: PreviewItemFrm#2
+#, fuzzy
+msgid "Question:"
+msgstr "Questão:"
+
+#: PreviewItemFrm#3
+#, fuzzy
+msgid "Answer:"
+msgstr "Resposta:"
+
+#: PreviewItemFrm#4
+#, fuzzy
+msgid "&OK"
+msgstr "&OK"
+
+#: PreviewItemFrm#5
+#, fuzzy
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ProductTourFrm#1
+#, fuzzy
+msgid "Getting started"
+msgstr "Iniciando"
+
+#: ProductTourFrm#2
+#, fuzzy
+msgid ""
+"Greetings!\n"
+"\n"
+"I am Mnemosyne, a type of butterfly named after the Greek goddess of Memory. "
+"\n"
+"I can make it more efficient for you to memorise and remember answers to "
+"questions, by helping you focus on the cards you're most likely to forget "
+"and by not wasting your time on things you know well.\n"
+"\n"
+"For that, I'll decide when to ask you the questions, and you'll need to rate "
+"how well you remember the answers.\n"
+"\n"
+"Let's look at the meaning of these ratings now."
+msgstr ""
+"Bem vindo!\n"
+"\n"
+"Eu sou Mnemosyne, um tipo de borboleta conhecido como o deus grego da "
+"Memória. \n"
+"\n"
+"Posso lhe tornar mais fácil o processo de memorizar respostas à questões, "
+"lhe auxiliando a focar-se em cartões que você ainda não memorizou, e não o "
+"fazendo perder tempo com coisas que você já sabe bem.\n"
+"\n"
+"Para isso, decidirei quando lhe fazer as questões, e você deverá avaliar o "
+"nível do quão bem você memorizou as respostas.\n"
+"\n"
+"Vejamos o significado dos níveis."
+
+#: ProductTourFrm#3
+#, fuzzy
+msgid "Introduction"
+msgstr "Introdução"
+
+#: ProductTourFrm#4
+#, fuzzy
+msgid ""
+"Grades range from 0 to 5.\n"
+"\n"
+"Grades 0 and 1 are used if you don't know the answer yet, or if you have "
+"forgotten it. A card with grade 1 is starting to get more familiar than one "
+"with grade 0, and will be repeated less often.\n"
+"\n"
+"I will keep on asking you these questions until you give them a grade 2 or "
+"higher (the exact grade doesn't matter). Grade 2 basically means that you "
+"think you'll be able to remember the card for at least one or two days. It "
+"signals the transition between short and long term memory.\n"
+"\n"
+"I will schedule this card at some future date, when I think you'll still be "
+"able to remember it with some effort, without having forgotten it "
+"completely. This is the most efficient for the learning process."
+msgstr ""
+"Níveis variam de 0 à 5.\n"
+"\n"
+"Os níveis 0 e 1 são utilizados se você ainda não memorizou a resposta ainda, "
+"ou se você a esqueceu. Um cartão com nível 1 está se tornando mais familiar "
+"do que um de nível 0, e será repetido com menor freqüência.\n"
+"\n"
+"Continuarei repetindo estas questões até que você a classifique como de "
+"nível 2 ou mais (o nível exato não importa). Nível 2 basicamente significa "
+"que você acha que conseguirá lembrar-se da resposta por pelo menos um ou "
+"dois dias. Ele demonstra a transição entre uma lembrança de curto e longo "
+"prazo.\n"
+"\n"
+"Agendarei este cartão para uma data futura, quando eu achar que você ainda "
+"conseguirá lembrar-se dele com algum esforço, sem tê-lo esquecido "
+"completamente. Este é o método mais eficiente em um processo de "
+"aprendizagem."
+
+#: ProductTourFrm#5
+#, fuzzy
+msgid "Grades 0-2"
+msgstr "Níveis 0-2"
+
+#: ProductTourFrm#6
+#, fuzzy
+msgid ""
+"If in the future I ask you the question too soon, and you're able to "
+"remember it without any effort, you rate the card a 5. I'll take this into "
+"account by waiting a lot longer before asking you this question again.\n"
+"\n"
+"If I get it just right, so that you remember it, albeit with some effort, "
+"you use grade 4.\n"
+"\n"
+"If on the other hand it takes you significant effort to remember the answer, "
+"and you think I've waited too long to ask you this question, then rate the "
+"card 3.\n"
+"\n"
+"If you fail to remember it altogether, rate it either 0 or 1, and I'll keep "
+"on asking you this question until you think you'll be able to remember it "
+"again for a few days."
+msgstr ""
+"Se futuramente eu lhe perguntar uma questão cedo demais, e você conseguir "
+"lembrar-se da resposta sem nenhuma dificuldade, você deve classificar o "
+"cartão como de nível 5. Levarei isto em conta aguardando um período maior "
+"antes de lhe fazer a pergunta novamente.\n"
+"\n"
+"Se eu acertar o período, de forma que você ainda consiga lembrar-se da "
+"resposta, mesmo que com alguma dificuldade, você deve classificá-la como de "
+"nível 4.\n"
+"\n"
+"No entanto se você levar um bom tempo para lembrar-se da resposta, e você "
+"achar que eu demorei demais para repetir a perguntar, você deve "
+"classificá-la como de nível 3.\n"
+"\n"
+"Se você não lembrar-se dela, classifique-a como de nível 0 ou 1, e "
+"continuarei repetindo a questão até que você consiga memorizá-la por alguns "
+"dias."
+
+#: ProductTourFrm#7
+#, fuzzy
+msgid "Grades 3-5"
+msgstr "Níveis 3-5"
+
+#: ProductTourFrm#8
+#, fuzzy
+msgid ""
+"If you're into statistics, I can keep detailed logs of your revisions.\n"
+"\n"
+"Not only that, but if you want, I can upload transparently a completely "
+"anonymous version of these logs to a central site for analysis, so that you "
+"can help making me better. In this way, you also contribute to scientific "
+"research on long-term memory.\n"
+"\n"
+"Uncheck the following box if you do not want to do this."
+msgstr ""
+"Se você gostar de estatísticas, posso manter registros detalhados de suas "
+"revisões.\n"
+"\n"
+"Não somente isso, mas se você quiser, posso enviar transparentemente e "
+"anonimamente estes registros para uma central de análise, assim você pode "
+"ajudar em me tornar cada vez melhor. Desta forma você também contribui para "
+"uma pesquisa científica sobre memórias a longo prazo.\n"
+"\n"
+"Desative a caixa abaixo se você não quiser fazer isto."
+
+#: ProductTourFrm#9
+#, fuzzy
+msgid "Upload anonymous logs"
+msgstr "Enviar registros anônimos"
+
+#: ProductTourFrm#10
+#, fuzzy
+msgid ""
+"(You can always change this setting later using the 'Configure Mnemosyne' "
+"menu option.)"
+msgstr ""
+"(Você pode alterar esta opção depois utilizando o menu de Configuração do "
+"Mnemosyne.)"
+
+#: ProductTourFrm#11
+#, fuzzy
+msgid "Statistics"
+msgstr "Estatísticas"
+
+#: ProductTourFrm#12
+#, fuzzy
+msgid ""
+"Now you're ready to start!\n"
+"<p>\n"
+"Add new cards by clicking on the icon with the 'plus' sign in the top left.\n"
+"<p>\n"
+"Remember, there is no need to worry about saving your work, I will do so "
+"automatically.\n"
+"<p>\n"
+"For best results, I suggest you do your revisions every day, although I'll "
+"try to cope as best I can if you postpone your revisions or if you want to "
+"learn ahead of time.\n"
+"<p>\n"
+"For more documentation, see http://www.mnemosyne-proj.sourceforge.net.\n"
+"<p>\n"
+"Happy learning!"
+msgstr ""
+"Agora você está pronto para começar!\n"
+"<p>\n"
+"Adicione novos cartões clicando no ícone com o sinal de 'mais' no canto "
+"superior esquerdo.\n"
+"<p>\n"
+"Lembre-se, você não precisa se preocupar em salvar seus trabalhos, farei "
+"isto automaticamente.\n"
+"<p>\n"
+"Para melhores resultados, sugiro você fazer suas revisões todos os dias, "
+"apesar de que tentarei lidar da melhor forma possível caso você adie suas "
+"revisões ou se quiser aprender mais durante um período.\n"
+"<p>\n"
+"Para maiores informações, visite http://www.mnemosyne-proj.sourceforge.net.\n"
+"<p>\n"
+"Boa aprendizagem!"
+
+#: ProductTourFrm#13
+#, fuzzy
+msgid "Ready to start"
+msgstr "Pronto para começar"
+
+#: QTextEdit2#1
+#, fuzzy
+msgid "Insert &image"
+msgstr "Inserir &imagem"
+
+#: QTextEdit2#2
+#, fuzzy
+msgid "Ctrl+I"
+msgstr "Ctrl+I"
+
+#: QTextEdit2#3
+#, fuzzy
+msgid "Insert &sound"
+msgstr "Inserir &som"
+
+#: QTextEdit2#4
+#, fuzzy
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#: QTextEdit2#5
+#, fuzzy
+msgid "&3-sided input"
+msgstr "Resposta com &3 partes"
+
+#: QTextEdit2#6
+#, fuzzy
+msgid "Image files"
+msgstr "Arquivos de imagem"
+
+#: QTextEdit2#7
+#, fuzzy
+msgid "Insert image"
+msgstr "Inserir imagem"
+
+#: QTextEdit2#8
+#, fuzzy
+msgid "Sound files"
+msgstr "Arquivos de som"
+
+#: QTextEdit2#9
+#, fuzzy
+msgid "Insert sound"
+msgstr "Inserir som"
+
+#: StatisticsDlg#1
+#, fuzzy
+msgid ""
+"Scheduled cards for the next days:\n"
+"\n"
+msgstr ""
+"Cartões agendados para os próximos dias:\n"
+"\n"
+
+#: StatisticsDlg#2
+#, fuzzy
+msgid "In"
+msgstr "Em"
+
+#: StatisticsDlg#3
+#, fuzzy
+msgid "day(s) :"
+msgstr "dia(s) :"
+
+#: StatisticsDlg#4
+#, fuzzy
+msgid ""
+"Number of cards with the following grades:\n"
+"\n"
+msgstr ""
+"Número de cartões nos seguintes níveis:\n"
+"\n"
+
+#: StatisticsDlg#5
+#, fuzzy
+msgid "Grade"
+msgstr "Nível"
+
+#: StatisticsFrm#1
+#, fuzzy
+msgid "Category"
+msgstr "Categoria"
+
+#: StatisticsFrm#2
+#, fuzzy
+msgid "Cards"
+msgstr "Cartões"
+
+#: StatisticsFrm#3
+#, fuzzy
+msgid "Statistics"
+msgstr "Estatísticas"
+
+#: StatisticsFrm#4
+#, fuzzy
+msgid "Schedule"
+msgstr "Agenda"
+
+#: StatisticsFrm#5
+#, fuzzy
+msgid "Grades"
+msgstr "Níveis"
+
+#: StatisticsFrm#6
+#, fuzzy
+msgid "Categories"
+msgstr "Categorias"
+
+#: StatisticsFrm#7
+#, fuzzy
+msgid "&OK"
+msgstr "&OK"
+
+#: TipDlg#1
+#, fuzzy
+msgid "For optimal results, it's best to do your repetitions every day."
+msgstr "Para melhores resultados, faça as repetições todos os dias."
+
+#: TipDlg#2
+#, fuzzy
+msgid ""
+"If you've been away for a few days, don't worry about your backlog. Do as "
+"many cards as you feel like to catch up, the rest will be automatically "
+"rescheduled to the future."
+msgstr ""
+"Se você deixar de fazer por alguns dias, não se preocupe sobre seu atraso. "
+"Faça quantos cartões conseguir, os outros serão automaticamente reagendados "
+"para uma data futura."
+
+#: TipDlg#3
+#, fuzzy
+msgid ""
+"The 'number of grade 0 cards to learn at once' setting determines how many "
+"new cards you are trying to learn at the same time. It does <b>not</b> tell "
+"you how many new cards you need to learn per day. You are the judge of that: "
+"you can learn more cards or less cards, depending on how you feel."
+msgstr ""
+"A opção 'número de cartões de nível 0 para aprender simultaneamente' "
+"determina quantos novos cartões você irá tentar aprender simultaneamente. "
+"Ela <b>não</b> determina quantos novos cartões você precisa aprender por "
+"dia. Você é quem diz isso: você pode aprender mais ou menos cartões, "
+"dependendo de como estiver se sentindo."
+
+#: TipDlg#4
+#, fuzzy
+msgid ""
+"In summary, try to do your repetitions every day, but don't worry too much "
+"about getting the 'scheduled' counter to zero, and certainly not about "
+"getting the 'Not memorised' counter to zero."
+msgstr ""
+"Resumindo, tente fazer as repetições todos os dias, mas não se preocupe "
+"muito em deixar o contador de itens agendados em zero, e nem o contador de "
+"itens já memorizados."
+
+#: TipDlg#5
+#, fuzzy
+msgid ""
+"Grade 1 cards are different from grade 0 cards in the sense that they show "
+"up less often and are not subject to the 'number of grade 0 cards to learn "
+"at once' setting."
+msgstr ""
+"Cartões de nível 1 se diferencial de cartões de nível 0 pelo fato de que "
+"eles aparecem com menor freqüência e não são sujeitos a opção 'número de "
+"cartões de nível 0 para aprender simultaneamente'."
+
+#: TipDlg#6
+#, fuzzy
+msgid ""
+"You can use keyboard shortcuts to do your repetitions. Enter, Return or "
+"Space stand for the default action ('Show answer' or 'grade 4'). The number "
+"keys can be used for grading."
+msgstr ""
+"Você pode utilizar atalhos de teclado para fazer suas repetições. Enter, "
+"Return e a Barra de Espaço ativam a ação padrão ('Mostrar resposta' ou "
+"'nível 4'). As teclas numéricas podem ser utilizadas para fazer a "
+"classificação das respostas."
+
+#: TipDlg#7
+#, fuzzy
+msgid ""
+"You can select the categories you wish to study in the 'Activate categories' "
+"menu option."
+msgstr ""
+"Você pode escolher as categorias que deseja estudar na opção do menu 'Ativar "
+"Categorias'."
+
+#: TipDlg#8
+#, fuzzy
+msgid ""
+"It is recommended to put all your cards in a single database and use "
+"categories to organise them. Using 'Activate categories' is much more "
+"convenient than have to load and unload several databases."
+msgstr ""
+"É recomendável colocar todos os seus cartões em uma mesma base de dados e "
+"utilizar categorias para organizá-los. Utilizar a opção 'Ativar categorias' "
+"é muito mais conveniente do que ter que abrir diversas bases de dados."
+
+#: TipDlg#9
+#, fuzzy
+msgid ""
+"You can import cards in a wide variety of formats: tab delimited txt files, "
+"Supermemo files, ... ."
+msgstr ""
+"Você pode importar cartões em vários formatos: arquivos de texto delimitados "
+"por tabulações, arquivos do Supermemo, ... ."
+
+#: TipDlg#10
+#, fuzzy
+msgid ""
+"If you have cards in Word or Excel, export them to tab delimited txt files "
+"with UTF-8 unicode encoding to be able to import them into Mnemosyne."
+msgstr ""
+"Se você tiver cartões no Word ou Excel Word or Excel, exporte-os para "
+"arquivos de texto delimitados por tabulações com codificação UTF-8 para "
+"importá-los para o Mnemosyne."
+
+#: TipDlg#11
+#, fuzzy
+msgid ""
+"If you want to print out your cards, export them to a txt file which you can "
+"then print from your favourite Word processor."
+msgstr ""
+"Se quiser imprimir seus cartões, exporte-os para um arquivo de texto e você "
+"pode imprimí-los utilizando seu editor de textos favorito."
+
+#: TipDlg#12
+#, fuzzy
+msgid ""
+"You can share your cards with someone else by exporting them to XML and "
+"choosing the 'Reset learning data' option on export."
+msgstr ""
+"Você pode compartilhar seus cartões com outras pessoas exportando-os para um "
+"arquivo XML e escolhendo a opção 'Reiniciar dados de aprendizagem' ao "
+"exportar."
+
+#: TipDlg#13
+#, fuzzy
+msgid ""
+"If you study a foreign language with a different script, the default font "
+"size is sometimes a bit small. If you want to increase the size of these "
+"characters but keep the size of English text, use the 'increase size of non-"
+"latin characters by X points' option."
+msgstr ""
+"Se você estiver estudando uma língua estrangeira que utilize caracteres "
+"diferentes, o tamanho padrão das fontes pode ser pequeno demais. Se você "
+"quiser aumentar o tamanho destes caracteres mas manter o tamanho normal das "
+"fontes atuais, utilize a opção 'Aumentar tamanho dos caracteres não latinos "
+"em X pontos'."
+
+#: TipDlg#14
+#, fuzzy
+msgid ""
+"You can add images and sounds to your cards. Right-click on the question or "
+"answer field when editing a card to bring up a pop-up menu to do so."
+msgstr ""
+"Você pode inserir imagens e sons a seus cartões. Clique com o botão direito "
+"na questão ou resposta enquanto estiver editando-a para mostrar o menu com "
+"as opções."
+
+#: TipDlg#15
+#, fuzzy
+msgid ""
+"It is recommended to keep your sound and image files inside your .mnemosyne "
+"directory. That way, it's easier to transfer your data between different "
+"computers."
+msgstr ""
+"É recomendado manter seus arquivos de som e imagem dentro de seu diretório "
+"do.mnemosyne. Desta forma, será mais simples transferir dados entre "
+"diferentes computadores."
+
+#: TipDlg#16
+#, fuzzy
+msgid ""
+"When adding a three-sided card, two regular cards will be created. One with "
+"as question the written form and as answer the pronunciation and the "
+"translation, and one with as question the translation and as answer the "
+"written form and the pronunciation."
+msgstr ""
+"Quando estiver adicionando um cartão de 3 partes, dois cartões normais serão "
+"criados. Um tendo como questão a forma escrita e a resposta com a forma de "
+"pronúncia e a tradução, e outro tendo como questão a tradução e como "
+"resposta a forma escrita e a forma de pronúncia."
+
+#: TipDlg#17
+#, fuzzy
+msgid "You can use basic HTML tags in your cards to control their appearance."
+msgstr ""
+"Você pode utilizar tags HTML básicas em seus cartões para formatar sua "
+"aparência."
+
+#: TipDlg#18
+#, fuzzy
+msgid ""
+"Mnemosyne can use LaTeX to render mathematical formulas, e.g. "
+"<$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
+msgstr ""
+"Mnemosyne pode utilizar o LaTeX para renderizar fórmular matemáticas, por "
+"exemplo <$>x^2+y^2=z^2</$>. (Para isto, você precisa ter o LaTeX e o dvipng "
+"instalados.)"
+
+#: TipDlg#19
+#, fuzzy
+msgid ""
+"The best way to backup your data is to copy your .mnemosyne directory (if "
+"you follow the recommended procedure to keep all your files there) and move "
+"it to a different drive. Mnemosyne keeps automatic XML-based backups in "
+".mnemosyne/backups, but that won't help you if that drive dies... "
+msgstr ""
+"A melhor forma de fazer uma cópia de segurança de seus dados é copiar o seu "
+"diretório .mnemosyne (se você seguir a recomendação de manter todos os seus "
+"arquivos neste diretório) e copiá-lo para um dispositivo diferente. O "
+"Mnemosyne mantém uma cópia automática em forma de XML no diretório "
+".mnemosyne/backups, mas isto não te ajudará caso você perca os seus dados... "
+""
+
+#: TipDlg#20
+#, fuzzy
+msgid ""
+"You can run Mnemosyne from a USB key. Copy C:\\Program Files\\Mnemosyne to "
+"your USB key, and then copy the .mnemosyne directory from your home "
+"directory to inside the Mnemosyne directory on the USB key."
+msgstr ""
+"Você pode executar o Mnemosyne à partir de um dispositivo USB. Copie "
+"C:\\Arquivos de Programas\\Mnemosyne para seu dispositivo USB, e então copie o "
+"diretório .mnemosyne da sua pasta pessoal para dentro do diretório do "
+"Mnemosyne no dispositivo USB."
+
+#: TipDlg#21
+#, fuzzy
+msgid ""
+"If you use Mnemosyne on multiple computers, there is a handy tool called "
+"Unison to help you synchronise your data. See the Mnemosyne website for more "
+"information."
+msgstr ""
+"Se você utiliza o Mnemosyne em múltiplos computadores, existe uma ferramente "
+"que pode lhe auxiliar chamada Unison, que mantém seus dados sincronizados. "
+"Você pode obter mais informações no website do Mnemosyne."
+
+#: TipDlg#22
+#, fuzzy
+msgid ""
+"You can sort the cards in the 'Edit Deck' dialog by answer or by category by "
+"clicking on the corresponding column title. Clicking again changes the sort "
+"order."
+msgstr ""
+"Você pode organizar seus cartões na janela 'Editar Cartões' por resposta ou "
+"categoria clicando no título da coluna correspondente. Clicando novamente "
+"altera a ordem de organização."
+
+#: TipDlg#23
+#, fuzzy
+msgid ""
+"If you want more fine-grained control over LaTeX's behaviour, see the "
+"explanation of the <$$>...</$$> and <latex>...</latex> tags on Mnemosyne's "
+"website."
+msgstr ""
+"Se você quiser mais controle sobre o comportamento do LaTeX, verifique uma "
+"explicação sobre as tags <$$>...</$$> e <latex>...</latex> no website do "
+"Mnemosyne."
+
+#: TipDlg#24
+#, fuzzy
+msgid ""
+"Advanced users can customise more of Mnemosyne by editing the config.py file "
+"in their .mnemosyne directory. They can also install plugins to customise "
+"Mnemosyne even further."
+msgstr ""
+"Usuários avançados pode customizar o Mnemosyne editando o arquivo config.py "
+"no diretório .mnemosyne. També é possível instalar plugins ara customizar "
+"ainda mais o Mnemosyne."
+
+#: TipFrm#1
+#, fuzzy
+msgid "Tip of the day"
+msgstr "Dica do dia"
+
+#: TipFrm#2
+#, fuzzy
+msgid "<b>Did you know...?</b>"
+msgstr "<b>Você sabia...?</b>"
+
+#: TipFrm#3
+#, fuzzy
+msgid "&Show tips on startup"
+msgstr "&Mostrar dicas ao iniciar"
+
+#: TipFrm#4
+#, fuzzy
+msgid "Alt+S"
+msgstr "Alt+S"
+
+#: TipFrm#5
+#, fuzzy
+msgid "&Previous"
+msgstr "&Anterior"
+
+#: TipFrm#6
+#, fuzzy
+msgid "Alt+P"
+msgstr "Alt+P"
+
+#: TipFrm#7
+#, fuzzy
+msgid "&Next"
+msgstr "&Próxima"
+
+#: TipFrm#8
+#, fuzzy
+msgid "Alt+N"
+msgstr "Alt+N"
+
+#: TipFrm#9
+#, fuzzy
+msgid "&Close"
+msgstr "&Fechar"
+
+#: TipFrm#10
+#, fuzzy
+msgid "Alt+C"
+msgstr "Alt+C"

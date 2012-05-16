@@ -1,0 +1,1790 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-16 10:14+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.9.0\n"
+
+#: #1
+msgid "Error in config.py:"
+msgstr "Chyba v config.py:"
+
+#: #2
+msgid "Error when running plugin:"
+msgstr "Chyba v běžícím pluginu:"
+
+#: #3
+msgid "Unable to load file."
+msgstr "Nepodařilo se nahrát soubor."
+
+#: #4
+msgid "Invalid file format."
+msgstr "Špatný formát souboru."
+
+#: #5
+msgid "Unable to save file."
+msgstr "Nepodařilo se uložit soubor."
+
+#: #6
+msgid "Unable to parse XML:"
+msgstr "Nepodařilo se parsovat XML:"
+
+#: #7
+msgid "Unrecognised encoding."
+msgstr "Neznámé kódování."
+
+#: #8
+msgid "Missing answer on line:"
+msgstr "Chybí odpověď na řádku:"
+
+#: #9
+msgid ""
+"Unable to load database.\n"
+"Creating tmp file."
+msgstr ""
+"Nepodařilo se nahrát databázi.\n"
+"Vytvářím tmp soubor."
+
+#: #10
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: #11
+msgid "&OK"
+msgstr "&OK"
+
+#: #12
+msgid "File exists:"
+msgstr "Soubor existuje:"
+
+#: #13
+msgid "&Overwrite"
+msgstr "&Přepsat"
+
+#: #14
+msgid "&Cancel"
+msgstr "&Zrušit"
+
+#: #15
+msgid "Removed duplicates: "
+msgstr "Odebrané duplicitní kartičky: "
+
+#: #16
+msgid ""
+"There are cards with different answers for question:\n"
+"\n"
+msgstr "Existují karty s různými odpověďmi na otázku:"
+
+#: #17
+msgid "&Merge and edit"
+msgstr "&Sloučit a editovat"
+
+#: #18
+msgid "&Don't merge"
+msgstr "&Neslučovat"
+
+#: #19
+msgid "Done!"
+msgstr "Hotovo!"
+
+#: #20
+msgid "You don't remember this card yet."
+msgstr "Tuto kartu jste si zatím nezapamatoval(a)."
+
+#: #21
+msgid "Like '0', but it's getting more familiar."
+msgstr "Jako '0', ale už vám to připadá povědomé."
+
+#: #22
+msgid " Show it less often."
+msgstr "Neukazovat tak často."
+
+#: #23
+msgid "You've memorised this card now,"
+msgstr "Tuto kartu jste si právě zapamatoval(a)"
+
+#: #24
+msgid " and will probably remember it for a few days."
+msgstr " a pravděpodobně si ji několik dnů budete pamatovat."
+
+#: #25
+msgid "You have forgotten this card completely."
+msgstr "Tuto kartu jste kompletně zapomněl(a)."
+
+#: #26
+msgid "Barely correct answer. The interval was way too long."
+msgstr "Téměř správná odpověď. Interval byl příliš dlouhý."
+
+#: #27
+msgid "Correct answer, but with much effort."
+msgstr "Správná odpověď, ale s velkým úsilím."
+
+#: #28
+msgid " The interval was probably too long."
+msgstr " Interval byl pravděpodobně moc dlouhý."
+
+#: #29
+msgid "Correct answer, with some effort."
+msgstr "Správná odpověď, i když s určitým úsilím."
+
+#: #30
+msgid " The interval was probably just right."
+msgstr " Interval byl pravděpodobně odpovídající."
+
+#: #31
+msgid "Correct answer, but without any"
+msgstr "Správná odpověď bez jakýchkoliv"
+
+#: #32
+msgid " difficulties. The interval was probably too short."
+msgstr " potíží. Interval byl pravděpodobně moc krátký."
+
+#: AboutDlg#1
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: AboutDlg#2
+msgid ""
+"Main author: Peter Bienstman\n"
+"\n"
+msgstr ""
+"Hlavní autor: Peter Bienstman\n"
+"\n"
+
+#. (obsolete)
+#: AboutDlg#3
+msgid "More info: http://mnemosyne-proj.sourceforge.net\n"
+msgstr "Více informací: http://mnemosyne-proj.sourceforge.net\n"
+
+#: AboutDlg#4
+msgid "More info: http://mnemosyne-proj.org\n"
+msgstr "Více informací: http://mnemosyne-proj.org\n"
+
+#: AboutFrm#1
+msgid "About"
+msgstr "O programu"
+
+#: ActivateCategoriesFrm#1
+msgid "Activate categories"
+msgstr "Aktivovat kategorie"
+
+#: ActivateCategoriesFrm#2
+msgid "Select the categories to activate:"
+msgstr "Vyberte, které kategorie aktivovat:"
+
+#: ActivateCategoriesFrm#3
+msgid "Activate none"
+msgstr "Neaktivovat žádné"
+
+#: ActivateCategoriesFrm#4
+msgid "Activate all"
+msgstr "Aktivovat všechny"
+
+#: ActivateCategoriesFrm#5
+msgid "&OK"
+msgstr "&OK"
+
+#: ActivateCategoriesFrm#6
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ActivateCategoriesFrm#7
+msgid "&Cancel"
+msgstr "&Zrušit"
+
+#: AddItemsDlg#1
+msgid "<default>"
+msgstr "<default>"
+
+#: AddItemsDlg#2
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: AddItemsDlg#3
+msgid "Abandon current card?"
+msgstr "Zahodit tuto kartu?"
+
+#: AddItemsDlg#4
+msgid "&Yes"
+msgstr "&Ano"
+
+#: AddItemsDlg#5
+msgid "&No"
+msgstr "&Ne"
+
+#: AddItemsDlg#6
+msgid "Question:"
+msgstr "Otázka:"
+
+#: AddItemsDlg#7
+msgid "Answer:"
+msgstr "Odpověď:"
+
+#: AddItemsDlg#8
+msgid "Written form:"
+msgstr "Psaná forma:"
+
+#: AddItemsDlg#9
+msgid "Translation:"
+msgstr "Překlad:"
+
+#: AddItemsDlg#10
+msgid "Card is already in database.\n"
+msgstr "Karta již je v databázi."
+
+#: AddItemsDlg#11
+msgid "Duplicate not added."
+msgstr "Duplikát nebyl přidán."
+
+#: AddItemsDlg#12
+msgid "&OK"
+msgstr "&OK"
+
+#: AddItemsDlg#13
+msgid "There are different answers for"
+msgstr "Existují různé odpovědi na"
+
+#: AddItemsDlg#14
+msgid ""
+" this question:\n"
+"\n"
+msgstr ""
+" tuto otázku:\n"
+"\n"
+
+#: AddItemsDlg#15
+msgid "&Merge and edit"
+msgstr "&Sloučit a editovat"
+
+#: AddItemsDlg#16
+msgid "&Add as is"
+msgstr "&Přidat jak je"
+
+#: AddItemsDlg#17
+msgid "&Do not add"
+msgstr "&Nepřidávat"
+
+#: AddItemsFrm#1
+msgid "Add cards"
+msgstr "Přidat karty"
+
+#: AddItemsFrm#2
+msgid "Category:"
+msgstr "Kategorie:"
+
+#: AddItemsFrm#3
+msgid "Question:"
+msgstr "Otázka:"
+
+#: AddItemsFrm#4
+msgid "Pronunciation:"
+msgstr "Výslovnost:"
+
+#: AddItemsFrm#5
+msgid "Answer:"
+msgstr "Odpověď:"
+
+#: AddItemsFrm#6
+msgid "Add &vice versa too"
+msgstr "Přidat i &obráceně (odpověď -> otázka)"
+
+#: AddItemsFrm#7
+msgid "Alt+V"
+msgstr "Alt+V"
+
+#: AddItemsFrm#8
+msgid "Select initial grade:"
+msgstr "Vyberte počáteční stupeň:"
+
+#: AddItemsFrm#9
+msgid "&0"
+msgstr "&0"
+
+#: AddItemsFrm#10
+msgid "Ctrl+0"
+msgstr "Ctrl+0"
+
+#: AddItemsFrm#11
+msgid "You don't remember this item yet or forgot it."
+msgstr "Tuto položku jste si ještě nezapamatoval(a) nebo zapomněl(a)."
+
+#: AddItemsFrm#12
+msgid "&1"
+msgstr "&1"
+
+#: AddItemsFrm#13
+msgid "Ctrl+1"
+msgstr "Ctrl+1"
+
+#: AddItemsFrm#14
+msgid "Like '0', but the item is getting more familiar."
+msgstr "Jako '0', ale už vám to připadá povědomé."
+
+#: AddItemsFrm#15
+msgid "&2"
+msgstr "&2"
+
+#: AddItemsFrm#16
+msgid "Ctrl+2"
+msgstr "Ctrl+2"
+
+#: AddItemsFrm#17
+msgid ""
+"You've memorised this item now, and will probably remember it for a few "
+"days."
+msgstr ""
+"Tuto kartu jste si právě zapamatoval(a) a pravděpodobně si ji několik dnů "
+"budete pamatovat."
+
+#: AddItemsFrm#18
+msgid "&3"
+msgstr "&3"
+
+#: AddItemsFrm#19
+msgid "Ctrl+3"
+msgstr "Ctrl+3"
+
+#: AddItemsFrm#20
+msgid ""
+"Correct answer, but with much effort. The interval was probably too long"
+msgstr ""
+"Správná odpověď, ale s velkým úsilím. Interval byl pravděpodobně moc dlouhý"
+
+#: AddItemsFrm#21
+msgid "&4"
+msgstr "&4"
+
+#: AddItemsFrm#22
+msgid "Ctrl+4"
+msgstr "Ctrl+4"
+
+#: AddItemsFrm#23
+msgid "Correct answer, with some effort. The interval was probably just right."
+msgstr ""
+"Správná odpověď, i když s určitým úsilím. Interval byl pravděpodobně akorát."
+
+#: AddItemsFrm#24
+msgid "&5"
+msgstr "&5"
+
+#: AddItemsFrm#25
+msgid "Ctrl+5"
+msgstr "Ctrl+5"
+
+#: AddItemsFrm#26
+msgid ""
+"Correct answer, but without any difficulties. The interval was probably too "
+"short."
+msgstr ""
+"Správná odpověď bez jakýchkoliv potíží. Interval byl pravděpodobně moc "
+"krátký."
+
+#: AddItemsFrm#27
+msgid "Type question and answer, then pick initial grade."
+msgstr "Napište otázku a odpověď a zvolte počáteční stupeň."
+
+#. (obsolete)
+#: AddItemsFrm#28
+msgid "&Preview"
+msgstr "&Náhled"
+
+#: AddItemsFrm#29
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#: AddItemsFrm#30
+msgid "E&xit"
+msgstr "&Konec"
+
+#: AddItemsFrm#31
+msgid "Alt+X"
+msgstr "Alt+X"
+
+#: AddItemsFrm#32
+msgid "Preview"
+msgstr "Náhled"
+
+#: ChangeCategoryFrm#1
+msgid "Change category"
+msgstr "Změnit kategorii"
+
+#: ChangeCategoryFrm#2
+msgid "Category:"
+msgstr "Kategorie:"
+
+#: ChangeCategoryFrm#3
+msgid "&OK"
+msgstr "&OK"
+
+#: ChangeCategoryFrm#4
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ChangeCategoryFrm#5
+msgid "&Cancel"
+msgstr "&Zrušit"
+
+#: ChangeCategoryFrm#6
+msgid "Alt+C"
+msgstr "Alt+C"
+
+#: ConfigurationFrm#1
+msgid "Mnemosyne configuration"
+msgstr "Nastavení Mnemosyne"
+
+#: ConfigurationFrm#2
+msgid "Hover with the mouse over the buttons to get extra information."
+msgstr "Pro získání dalších informací najeďte myší nad tlačítka."
+
+#: ConfigurationFrm#3
+msgid "Appearance"
+msgstr "Vzhled"
+
+#: ConfigurationFrm#4
+msgid "Set Q/A font"
+msgstr "Nastavit Q/A fonty"
+
+#: ConfigurationFrm#5
+msgid "Set the font used when showing single questions and answers"
+msgstr "Nastavení fontu použitého při zobrazení jednotlivých otázek a odpovědí"
+
+#: ConfigurationFrm#6
+msgid "Set list font"
+msgstr "Nastavení fontu seznamu"
+
+#: ConfigurationFrm#7
+msgid "Set the font used when showing the list of all the cards in the deck"
+msgstr "Nastavení fontu použitého při zobrazení seznamu všech karet"
+
+#: ConfigurationFrm#8
+msgid "Increase size of non-latin characters by"
+msgstr "Zvětšit velikost ne-latin znaků o"
+
+#: ConfigurationFrm#9
+msgid ""
+"Sometimes complex glyphs are hard to read at the default latin font size"
+msgstr "Při původní velikosti latin fontu se komplexní glyfy někdy špatně čtou"
+
+#: ConfigurationFrm#10
+msgid "point(s)"
+msgstr "bod(ů)"
+
+#: ConfigurationFrm#11
+msgid "Log uploading"
+msgstr "Posílání logů"
+
+#: ConfigurationFrm#12
+msgid "Upload anonymous logs"
+msgstr "Posílat anonymní logy"
+
+#: ConfigurationFrm#13
+msgid "Share anonymous statistics to contribute to memory research"
+msgstr "Sdílet anonymní statistiky a tím přispívat na výzkum paměti"
+
+#: ConfigurationFrm#14
+msgid "Duplicate handling"
+msgstr "Zacházení s duplicitními kartičkami"
+
+#: ConfigurationFrm#15
+msgid "Check for duplicates when adding new cards"
+msgstr "Kontrolovat duplikáty při přidávání nových kartiček"
+
+#: ConfigurationFrm#16
+msgid "Allow duplicates in different categories"
+msgstr "Povolit duplicitní kartičky v různých kategoriích"
+
+#: ConfigurationFrm#17
+msgid "Repetition process"
+msgstr "Proces opakování"
+
+#: ConfigurationFrm#18
+msgid "Number of grade 0 cards to learn at once:"
+msgstr "Počet karet s hodnocením 0 pro okamžité učení:"
+
+#: ConfigurationFrm#19
+msgid ""
+"Note: this is NOT the number of grade 0 cards you want to memorise *per day*"
+msgstr ""
+"Pozn.: toto NENÍ počet karet se hodnocením 0, které se chcete naučit *za "
+"den*"
+
+#: ConfigurationFrm#20
+msgid "&OK"
+msgstr "&OK"
+
+#: ConfigurationFrm#21
+msgid "Defaults"
+msgstr "Původní"
+
+#: ConfigurationFrm#22
+msgid "&Cancel"
+msgstr "&Zrušit"
+
+#: ConfigurationFrm#23
+msgid "Learn new cards in random order"
+msgstr "Učit se nové kartičky v náhodném pořadí"
+
+#: EditItemFrm#1
+msgid "Edit card"
+msgstr "Editovat kartu"
+
+#: EditItemFrm#2
+msgid "Category:"
+msgstr "Kategorie:"
+
+#: EditItemFrm#3
+msgid "Question:"
+msgstr "Otázka:"
+
+#: EditItemFrm#4
+msgid "Answer:"
+msgstr "Odpověď:"
+
+#: EditItemFrm#5
+msgid "&OK"
+msgstr "&OK"
+
+#: EditItemFrm#6
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: EditItemFrm#7
+msgid "&Preview"
+msgstr "&Náhled"
+
+#: EditItemFrm#8
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#: EditItemFrm#9
+msgid "&Cancel"
+msgstr "&Zrušit"
+
+#: EditItemFrm#10
+msgid "Alt+C"
+msgstr "Alt+C"
+
+#: EditItemsDlg#1
+msgid "Please wait..."
+msgstr "Čekejte prosím..."
+
+#: EditItemsDlg#2
+msgid "&Edit"
+msgstr "&Editovat"
+
+#: EditItemsDlg#3
+msgid "Ctrl+E"
+msgstr "Ctrl+E"
+
+#: EditItemsDlg#4
+msgid "&Preview"
+msgstr "&Náhled"
+
+#: EditItemsDlg#5
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#: EditItemsDlg#6
+msgid "&Add vice versa"
+msgstr "&Přidat i opak"
+
+#: EditItemsDlg#7
+msgid "S&tatistics"
+msgstr "S&tatistika"
+
+#: EditItemsDlg#8
+msgid "Ctrl+T"
+msgstr "Ctrl+T"
+
+#: EditItemsDlg#9
+msgid "&Delete"
+msgstr "&Smazat"
+
+#: EditItemsDlg#10
+msgid "&Change category"
+msgstr "&Změnit kategorii"
+
+#: EditItemsDlg#11
+msgid "Add &vice versa"
+msgstr "Přidat i &opak"
+
+#: EditItemsDlg#12
+msgid "Add vice versa of these cards?"
+msgstr "Přidat opak těchto karet?"
+
+#: EditItemsDlg#13
+msgid "Add vice versa of this card?"
+msgstr "Přidat opak této karty?"
+
+#: EditItemsDlg#14
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: EditItemsDlg#15
+msgid ""
+"\n"
+"\n"
+"This could create duplicates if the vice "
+msgstr ""
+"\n"
+"\n"
+"Tímto se mohou vytvořit duplikáty pokud "
+
+#: EditItemsDlg#16
+msgid ""
+"versas are already present, \n"
+"so you might want to run "
+msgstr ""
+"již existují opaky,\n"
+"takže by jste potom měl(a) provést "
+
+#: EditItemsDlg#17
+msgid "clean duplicates' afterwards."
+msgstr "'Odstranit duplicitní kartičky'."
+
+#: EditItemsDlg#18
+msgid "&Yes"
+msgstr "&Ano"
+
+#: EditItemsDlg#19
+msgid "&No"
+msgstr "&Ne"
+
+#: EditItemsDlg#20
+msgid "Grade:"
+msgstr "Hodnocení:"
+
+#: EditItemsDlg#21
+msgid "Easiness:"
+msgstr "Jednoduchost:"
+
+#: EditItemsDlg#22
+msgid "Repetitions:"
+msgstr "Opakování:"
+
+#: EditItemsDlg#23
+msgid "Lapses:"
+msgstr "Zapomenutí:"
+
+#: EditItemsDlg#24
+msgid "Days since last repetition:"
+msgstr "Dnů od posledního opakování:"
+
+#: EditItemsDlg#25
+msgid "Days until next repetition:"
+msgstr "Dnů do dalšího opakování:"
+
+#: EditItemsDlg#26
+msgid "&OK"
+msgstr "&OK"
+
+#: EditItemsDlg#27
+msgid "Delete these cards?"
+msgstr "Smazat tyto karty?"
+
+#: EditItemsDlg#28
+msgid "Delete this card?"
+msgstr "Smazat tuto kartu?"
+
+#: EditItemsDlg#29
+msgid "The text you entered was not found."
+msgstr "Vložený text nebyl nalezen."
+
+#: EditItemsDlg#30
+msgid "&Find again"
+msgstr "&Hledat znovu"
+
+#: EditItemsDlg#31
+msgid "F"
+msgstr "F"
+
+#: EditItemsDlg#32
+msgid "&Find"
+msgstr "&Hledat"
+
+#: EditItemsFrm#1
+msgid "Question"
+msgstr "Otázka"
+
+#: EditItemsFrm#2
+msgid "Answer"
+msgstr "Odpověď"
+
+#: EditItemsFrm#3
+msgid "Category"
+msgstr "Kategorie"
+
+#: EditItemsFrm#4
+msgid "Edit deck"
+msgstr "Editovat karty"
+
+#: EditItemsFrm#5
+msgid "&Find"
+msgstr "&Najít"
+
+#: EditItemsFrm#6
+msgid "To edit a card, right-click on it."
+msgstr "Pro editaci karty použijte pravé tlačítko myši."
+
+#: EditItemsFrm#7
+msgid "E&xit"
+msgstr "&Konec"
+
+#: EditItemsFrm#8
+msgid "Alt+X"
+msgstr "Alt+X"
+
+#: EditItemsFrm#9
+msgid "Alt+F"
+msgstr "Alt+F"
+
+#: ExportDlg#1
+msgid "All Files (*);;"
+msgstr "Všechny soubory (*);;"
+
+#: ExportDlg#2
+msgid "Export"
+msgstr "Export"
+
+#: ExportFrm#1
+msgid "Export to file"
+msgstr "Export do souboru"
+
+#: ExportFrm#2
+msgid "File format:"
+msgstr "Formát souboru:"
+
+#: ExportFrm#3
+msgid "File to export to:"
+msgstr "Exportovat do souboru:"
+
+#: ExportFrm#4
+msgid "&Browse"
+msgstr "&Procházet"
+
+#: ExportFrm#5
+msgid "Categories to export:"
+msgstr "Exportovat kategorie:"
+
+#: ExportFrm#6
+msgid "&Select all"
+msgstr "&Vybrat vše"
+
+#: ExportFrm#7
+msgid "Reset learning data on export"
+msgstr "Resetovat učební proces při exportu"
+
+#: ExportFrm#8
+msgid "&OK"
+msgstr "&OK"
+
+#: ExportFrm#9
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ExportFrm#10
+msgid "&Cancel"
+msgstr "&Zrušit"
+
+#: ImportDlg#1
+msgid "<default>"
+msgstr "<default>"
+
+#: ImportDlg#2
+msgid "All Files (*);;"
+msgstr "Všechny soubory (*);;"
+
+#: ImportDlg#3
+msgid "Import"
+msgstr "Import"
+
+#: ImportFrm#1
+msgid "Import from file"
+msgstr "Import ze souboru"
+
+#: ImportFrm#2
+msgid "File format:"
+msgstr "Formát souboru:"
+
+#: ImportFrm#3
+msgid "File to import from:"
+msgstr "Importovat ze souboru:"
+
+#: ImportFrm#4
+msgid "&Browse"
+msgstr "&Procházet"
+
+#: ImportFrm#5
+msgid "Put cards without category into this category:"
+msgstr "Karty bez kategorie vložit do kategorie:"
+
+#: ImportFrm#6
+msgid "Note: all cards will be added to the current database."
+msgstr "Pozn.: všechny karty budou přidány do současné databáze."
+
+#: ImportFrm#7
+msgid "Reset learning data on import"
+msgstr "Resetovat učební proces při importu"
+
+#: ImportFrm#8
+msgid "&OK"
+msgstr "&OK"
+
+#: ImportFrm#9
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ImportFrm#10
+msgid "&Cancel"
+msgstr "&Zrušit"
+
+#: MainDlg#1
+msgid "Mnemosyne databases (*.mem)"
+msgstr "Mnemosyne databáze (*.mem)"
+
+#: MainDlg#2
+msgid "New"
+msgstr "Nová"
+
+#: MainDlg#3
+msgid "Please wait..."
+msgstr "Čekejte prosím..."
+
+#: MainDlg#4
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: MainDlg#5
+msgid "Delete current card?"
+msgstr "Smazat tuto kartu?"
+
+#: MainDlg#6
+msgid "&Yes"
+msgstr "&Ano"
+
+#: MainDlg#7
+msgid "&No"
+msgstr "&Ne"
+
+#: MainDlg#8
+msgid "Returns in "
+msgstr "Ukáže se za "
+
+#: MainDlg#9
+msgid " day(s)."
+msgstr " dnů."
+
+#: MainDlg#10
+msgid "Next repetition: today."
+msgstr "Další opakování: dnes."
+
+#: MainDlg#11
+msgid "Next repetition: tomorrow."
+msgstr "Další opakování: zítra."
+
+#: MainDlg#12
+msgid "Next repetition in "
+msgstr "Další opakování za "
+
+#: MainDlg#13
+msgid " days."
+msgstr " dnů."
+
+#: MainDlg#14
+msgid "Question:"
+msgstr "Otázka:"
+
+#: MainDlg#15
+msgid "<default>"
+msgstr "<default>"
+
+#. (obsolete)
+#: MainDlg#16
+msgid "Show &answer"
+msgstr "Ukázat &odpověď"
+
+#: MainDlg#17
+msgid "Learn ahead of schedule"
+msgstr "Učit se navíc"
+
+#: MainDlg#18
+msgid "Pick days until next repetition:"
+msgstr "Vyberte počet dnů do dalšího opakování:"
+
+#: MainDlg#19
+msgid "Grade your answer:"
+msgstr "Ohodnoťte svou odpověď:"
+
+#: MainDlg#20
+msgid "Scheduled: "
+msgstr "Naplánovaných: "
+
+#: MainDlg#21
+msgid "Not memorised: "
+msgstr "Nezapamatovaných: "
+
+#: MainDlg#22
+msgid "All: "
+msgstr "Všech: "
+
+#: MainDlg#23
+msgid "Show answer"
+msgstr "Ukázat odpověď"
+
+#: MainFrm#1
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: MainFrm#2
+msgid "Question:"
+msgstr "Otázka:"
+
+#: MainFrm#3
+msgid "Answer:"
+msgstr "Odpověď:"
+
+#: MainFrm#4
+msgid "Show answer"
+msgstr "Ukázat odpověď"
+
+#: MainFrm#5
+msgid "Grade your answer:"
+msgstr "Ohodnoťte svou odpověď:"
+
+#: MainFrm#6
+msgid "&0"
+msgstr "&0"
+
+#: MainFrm#7
+msgid "0"
+msgstr "0"
+
+#: MainFrm#8
+msgid "&1"
+msgstr "&1"
+
+#: MainFrm#9
+msgid "1"
+msgstr "1"
+
+#: MainFrm#10
+msgid "&2"
+msgstr "&2"
+
+#: MainFrm#11
+msgid "2"
+msgstr "2"
+
+#: MainFrm#12
+msgid "&3"
+msgstr "&3"
+
+#: MainFrm#13
+msgid "3"
+msgstr "3"
+
+#: MainFrm#14
+msgid "&4"
+msgstr "&4"
+
+#: MainFrm#15
+msgid "4"
+msgstr "4"
+
+#: MainFrm#16
+msgid "&5"
+msgstr "&5"
+
+#: MainFrm#17
+msgid "5"
+msgstr "5"
+
+#: MainFrm#18
+msgid "&New"
+msgstr "&Nová"
+
+#: MainFrm#19
+msgid "."
+msgstr "."
+
+#: MainFrm#20
+msgid "Ctrl+N"
+msgstr "Ctrl+N"
+
+#: MainFrm#21
+msgid "&Open..."
+msgstr "&Otevřít"
+
+#: MainFrm#22
+msgid "Ctrl+O"
+msgstr "Ctrl+O"
+
+#: MainFrm#23
+msgid "&Save"
+msgstr "&Uložit"
+
+#: MainFrm#24
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#: MainFrm#25
+msgid "Save &As..."
+msgstr "Uložit j&ako"
+
+#: MainFrm#26
+msgid "E&xit"
+msgstr "&Konec"
+
+#: MainFrm#27
+msgid "About"
+msgstr "O"
+
+#: MainFrm#28
+msgid "&About"
+msgstr "&O"
+
+#: MainFrm#29
+msgid "Add cards"
+msgstr "Přidat karty"
+
+#: MainFrm#30
+msgid "&Add cards"
+msgstr "Přid&at karty"
+
+#: MainFrm#31
+msgid "Ctrl+A"
+msgstr "Ctrl+A"
+
+#. (obsolete)
+#: MainFrm#32
+msgid "Act&ivate categories"
+msgstr "Akt&ivovat kategorie"
+
+#: MainFrm#33
+msgid "Edit deck"
+msgstr "Editovat karty"
+
+#: MainFrm#34
+msgid "Edit &deck"
+msgstr "E&ditovat karty"
+
+#: MainFrm#35
+msgid "Ctrl+D"
+msgstr "Ctrl+D"
+
+#: MainFrm#36
+msgid "&Import"
+msgstr "&Importovat"
+
+#: MainFrm#37
+msgid "&Export"
+msgstr "&Exportovat"
+
+#: MainFrm#38
+msgid "Show &toolbar"
+msgstr "Zobrazovat nástrojovou lištu"
+
+#: MainFrm#39
+msgid "Edit current card"
+msgstr "Editovat tuto kartu"
+
+#: MainFrm#40
+msgid "&Edit current card"
+msgstr "&Editovat tuto kartu"
+
+#: MainFrm#41
+msgid "Ctrl+E"
+msgstr "Ctrl+E"
+
+#: MainFrm#42
+msgid "Delete current card"
+msgstr "Smazat tuto kartu"
+
+#: MainFrm#43
+msgid "&Delete current card"
+msgstr "&Smazat tuto kartu"
+
+#: MainFrm#44
+msgid "Del"
+msgstr "Del"
+
+#: MainFrm#45
+msgid "&Clean duplicates"
+msgstr "&Odstranit duplicitní kartičky"
+
+#: MainFrm#46
+msgid "&Configure Mnemosyne"
+msgstr "&Konfigurovat Mnemosyne"
+
+#: MainFrm#47
+msgid "Getting started"
+msgstr "Jak začít"
+
+#: MainFrm#48
+msgid "&Getting started"
+msgstr "&Jak začít"
+
+#: MainFrm#49
+msgid "Down, Down"
+msgstr "Dolů, Dolů"
+
+#: MainFrm#50
+msgid "Enter"
+msgstr "Enter"
+
+#: MainFrm#51
+msgid "Return"
+msgstr "Return"
+
+#: MainFrm#52
+msgid "Space"
+msgstr "Space"
+
+#: MainFrm#53
+msgid "Ctrl+R"
+msgstr "Ctrl+R"
+
+#: MainFrm#54
+msgid "Show statistics"
+msgstr "Ukázat statistiky"
+
+#: MainFrm#55
+msgid "Show s&tatistics"
+msgstr "Ukázat s&tatistiky"
+
+#: MainFrm#56
+msgid "Ctrl+T"
+msgstr "Ctrl+T"
+
+#: MainFrm#57
+msgid "Tip of the day"
+msgstr "Tip dne"
+
+#: MainFrm#58
+msgid "&Tip of the day"
+msgstr "&Tip dne"
+
+#: MainFrm#59
+msgid "Main toolbar (Mnemosyne)"
+msgstr "Hlavní nástrojová lišta (Mnemosyne)"
+
+#: MainFrm#60
+msgid "&File"
+msgstr "&Databáze"
+
+#: MainFrm#61
+msgid "&Deck"
+msgstr "&Karty"
+
+#: MainFrm#62
+msgid "&Settings"
+msgstr "&Nastavení"
+
+#: MainFrm#63
+msgid "&Help"
+msgstr "&Nápověda"
+
+#: MainFrm#64
+msgid "Activate cate&gories"
+msgstr "Akt&ivovat kategorie"
+
+#: MainFrm#65
+msgid "Ctrl+G"
+msgstr "Ctrl+G"
+
+#: PreviewItemDlg#1
+msgid "<default>"
+msgstr "<default>"
+
+#: PreviewItemDlg#2
+msgid "Question:"
+msgstr "Otázka:"
+
+#: PreviewItemFrm#1
+msgid "Preview card"
+msgstr "Předchozí karta"
+
+#: PreviewItemFrm#2
+msgid "Question:"
+msgstr "Otázka:"
+
+#: PreviewItemFrm#3
+msgid "Answer:"
+msgstr "Odpověď:"
+
+#: PreviewItemFrm#4
+msgid "&OK"
+msgstr "&OK"
+
+#: PreviewItemFrm#5
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ProductTourFrm#1
+msgid "Getting started"
+msgstr "Jak začít"
+
+#: ProductTourFrm#2
+msgid ""
+"Greetings!\n"
+"\n"
+"I am Mnemosyne, a type of butterfly named after the Greek goddess of Memory. "
+"\n"
+"I can make it more efficient for you to memorise and remember answers to "
+"questions, by helping you focus on the cards you're most likely to forget "
+"and by not wasting your time on things you know well.\n"
+"\n"
+"For that, I'll decide when to ask you the questions, and you'll need to rate "
+"how well you remember the answers.\n"
+"\n"
+"Let's look at the meaning of these ratings now."
+msgstr ""
+"Ahojky!\n"
+"\n"
+"Já jsem Mnemosyne, druh motýla pojmenovaný po řecké bohyni paměti.\n"
+"\n"
+"Můžu vám pomoct si zapamatovat odpovědi na otázky tím, že se zaměříme na "
+"karty s otázkami, které zapomínáte a nebudeme tak plýtvat časem na věci, "
+"které znáte dobře.\n"
+"\n"
+"Já rozhodnu, kdy se vás budu ptát na otázky a vy potom ohodnotíte, jak dobře "
+"si pamatujete odpovědi.\n"
+"\n"
+"Teď se podíváme na možnosti hodnocení."
+
+#: ProductTourFrm#3
+msgid "Introduction"
+msgstr "Úvod"
+
+#: ProductTourFrm#4
+msgid ""
+"Grades range from 0 to 5.\n"
+"\n"
+"Grades 0 and 1 are used if you don't know the answer yet, or if you have "
+"forgotten it. A card with grade 1 is starting to get more familiar than one "
+"with grade 0, and will be repeated less often.\n"
+"\n"
+"I will keep on asking you these questions until you give them a grade 2 or "
+"higher (the exact grade doesn't matter). Grade 2 basically means that you "
+"think you'll be able to remember the card for at least one or two days. It "
+"signals the transition between short and long term memory.\n"
+"\n"
+"I will schedule this card at some future date, when I think you'll still be "
+"able to remember it with some effort, without having forgotten it "
+"completely. This is the most efficient for the learning process."
+msgstr ""
+"Rozsah hodnocení je od 0 do 5.\n"
+"\n"
+"Hodnocení 0 a 1 použijte pokud neznáte odpověď nebo jste ji zapomněli. Karta "
+"s hodnocením 1 vám připadá povědomější než karta s ohodnocením 0 a proto "
+"nebude opakována tak často.\n"
+"\n"
+"Tyto (vámi ohodnocené jako 0 nebo 1) karty vám budu ukazovat tak dlouho, "
+"dokud jim nedáte hodnocení 2 nebo vyšší. Hodnocení 2 v podstatě znamená, že "
+"si myslíte, že si dokážete tuto kartu alespoň na den či dva zapamatovat. To "
+"signalizuje přechod mezi krátkodobou a dlouhodobou pamětí.\n"
+"\n"
+"Já potom tuto kartu naplánuji na určité datum v budoucnu, kdy si myslím, že "
+"si ji stále ještě dokážete s určitým úsilím vybavit (ještě na ni úplně "
+"nezapomenete). Toto je pro učební proces velmi důležité."
+
+#: ProductTourFrm#5
+msgid "Grades 0-2"
+msgstr "Hodnocení 0 až 2"
+
+#: ProductTourFrm#6
+msgid ""
+"If in the future I ask you the question too soon, and you're able to "
+"remember it without any effort, you rate the card a 5. I'll take this into "
+"account by waiting a lot longer before asking you this question again.\n"
+"\n"
+"If I get it just right, so that you remember it, albeit with some effort, "
+"you use grade 4.\n"
+"\n"
+"If on the other hand it takes you significant effort to remember the answer, "
+"and you think I've waited too long to ask you this question, then rate the "
+"card 3.\n"
+"\n"
+"If you fail to remember it altogether, rate it either 0 or 1, and I'll keep "
+"on asking you this question until you think you'll be able to remember it "
+"again for a few days."
+msgstr ""
+"Pokud vám v budoucnu položím otázku příliš brzo a vy na ni dokážete bez "
+"jakýchkoliv potíží odpovědět, dejte kartě hodnocení 5. Já to vezmu v potaz a "
+"příště počkám mnohem déle, než vám tuto otázku znovu položím.\n"
+"\n"
+"Pokud se trefím do správného okamžiku a vy dokážete na otázku správně "
+"odpovědět i když s určitým úsilím, dejte kartě hodnocení 4.\n"
+"\n"
+"Pokud vám to dá pořádně zabrat než si vybavíte odpověď a myslíte si, že jsem "
+"s položením otázky čekal příliš dlouho, dejte kartě hodnocení 3.\n"
+"\n"
+"Pokud si nemůžete vzpomenout vůbec, ohodnoťte ji 0 nebo 1 a já se vás na ni "
+"budu ptát tak dlouho, dokud si nebudete myslet, že si ji opět dokážete na "
+"několik dnů zapamatovat."
+
+#: ProductTourFrm#7
+msgid "Grades 3-5"
+msgstr "Hodnocení 3 až 5"
+
+#: ProductTourFrm#8
+msgid ""
+"If you're into statistics, I can keep detailed logs of your revisions.\n"
+"\n"
+"Not only that, but if you want, I can upload transparently a completely "
+"anonymous version of these logs to a central site for analysis, so that you "
+"can help making me better. In this way, you also contribute to scientific "
+"research on long-term memory.\n"
+"\n"
+"Uncheck the following box if you do not want to do this."
+msgstr ""
+"Pokud máte zájem o statistiky, je možné udržovat podrobné záznamy učebního "
+"procesu.\n"
+"\n"
+"Krom toho můžu uploadovat kompletně anonymní verze těchto záznamů  na "
+"centrální stránky, takže mi pomůžete mě vylepšovat. Tím také přispějete k "
+"vědeckému výzkumu dlouhodobé paměti.\n"
+"\n"
+"Odznačte následující rámeček, pokud nemáte zájem o výše uvedené možnosti."
+
+#: ProductTourFrm#9
+msgid "Upload anonymous logs"
+msgstr "Uploadovat anonymní logy"
+
+#: ProductTourFrm#10
+msgid ""
+"(You can always change this setting later using the 'Configure Mnemosyne' "
+"menu option.)"
+msgstr ""
+"(Toto nastavení můžete kdykoliv později změnit v menu v 'Konfigurovat "
+"Mnemosyne')"
+
+#: ProductTourFrm#11
+msgid "Statistics"
+msgstr "Statistiky"
+
+#: ProductTourFrm#12
+msgid ""
+"Now you're ready to start!\n"
+"<p>\n"
+"Add new cards by clicking on the icon with the 'plus' sign in the top left.\n"
+"<p>\n"
+"Remember, there is no need to worry about saving your work, I will do so "
+"automatically.\n"
+"<p>\n"
+"For best results, I suggest you do your revisions every day, although I'll "
+"try to cope as best I can if you postpone your revisions or if you want to "
+"learn ahead of time.\n"
+"<p>\n"
+"For more documentation, see http://www.mnemosyne-proj.sourceforge.net.\n"
+"<p>\n"
+"Happy learning!"
+msgstr ""
+"Nyní jste připraveni začít!\n"
+"<p>\n"
+"Nové karty přidáte kliknutím na ikonu vlevo nahoře (se znakem 'plus'). \n"
+"<p>\n"
+"O ukládání vaší práce se starat nemusíte, to já budu dělat automaticky.\n"
+"<p>\n"
+"Nejlepších výsledků dosáhnete, pokud budete opakovat každý den. Budu ale "
+"dělat, co je v mých silách i pokud opakování odložíte nebo se rozhodnete "
+"naučit se něco navíc.\n"
+"<p>\n"
+"Další dokumentace viz. http://mnemosyne-proj.org\n"
+"<p>\n"
+"Šťastné učení!"
+
+#: ProductTourFrm#13
+msgid "Ready to start"
+msgstr "Připraveni začít"
+
+#: QTextEdit2#1
+msgid "Insert &image"
+msgstr "Vlož&it obrázek"
+
+#: QTextEdit2#2
+msgid "Ctrl+I"
+msgstr "Ctrl+I"
+
+#: QTextEdit2#3
+msgid "Insert &sound"
+msgstr "Vložit &zvuk"
+
+#: QTextEdit2#4
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#: QTextEdit2#5
+msgid "&3-sided input"
+msgstr "&3-stranná karta (zápis, výslovnost, překlad)"
+
+#: QTextEdit2#6
+msgid "Image files"
+msgstr "Soubory s obrázky"
+
+#: QTextEdit2#7
+msgid "Insert image"
+msgstr "Vložit obrázek"
+
+#: QTextEdit2#8
+msgid "Sound files"
+msgstr "Soubory se zvuky"
+
+#: QTextEdit2#9
+msgid "Insert sound"
+msgstr "Vložit zvuk"
+
+#: StatisticsDlg#1
+msgid ""
+"Scheduled cards for the next days:\n"
+"\n"
+msgstr ""
+"Karty naplánované na následující dny:\n"
+"        \n"
+
+#: StatisticsDlg#2
+msgid "In"
+msgstr "Za"
+
+#: StatisticsDlg#3
+msgid "day(s) :"
+msgstr "den(dnů) :"
+
+#: StatisticsDlg#4
+msgid ""
+"Number of cards with the following grades:\n"
+"\n"
+msgstr ""
+"Počty karet s danými hodnoceními:\n"
+"        \n"
+
+#: StatisticsDlg#5
+msgid "Grade"
+msgstr "Hodnocení"
+
+#: StatisticsDlg#6
+msgid "No current card."
+msgstr "Není žádná aktuální karta"
+
+#: StatisticsDlg#7
+msgid "Grade:"
+msgstr "Hodnocení:"
+
+#: StatisticsDlg#8
+msgid "Easiness:"
+msgstr "Jednoduchost:"
+
+#: StatisticsDlg#9
+msgid "Repetitions:"
+msgstr "Opakování:"
+
+#: StatisticsDlg#10
+msgid "Lapses:"
+msgstr "Zapomenutí:"
+
+#: StatisticsDlg#11
+msgid "Days since last repetition:"
+msgstr "Dnů od posledního opakování:"
+
+#: StatisticsDlg#12
+msgid "Days until next repetition:"
+msgstr "Dnů do dalšího opakování:"
+
+#: StatisticsFrm#1
+msgid "Category"
+msgstr "Kategorie"
+
+#: StatisticsFrm#2
+msgid "Cards"
+msgstr "Karty"
+
+#: StatisticsFrm#3
+msgid "Statistics"
+msgstr "Statistiky"
+
+#: StatisticsFrm#4
+msgid "Schedule"
+msgstr "Rozvrh"
+
+#: StatisticsFrm#5
+msgid "Grades"
+msgstr "Hodnocení"
+
+#: StatisticsFrm#6
+msgid "Categories"
+msgstr "Kategorie"
+
+#: StatisticsFrm#7
+msgid "&OK"
+msgstr "&OK"
+
+#: StatisticsFrm#8
+msgid "Current card"
+msgstr "Aktuální karta"
+
+#: TipDlg#1
+msgid "For optimal results, it's best to do your repetitions every day."
+msgstr "Pro optimální výsledky je nejlepší opakovat každý den."
+
+#: TipDlg#2
+msgid ""
+"If you've been away for a few days, don't worry about your backlog. Do as "
+"many cards as you feel like to catch up, the rest will be automatically "
+"rescheduled to the future."
+msgstr ""
+"Pokud jste několik dnů vynechali, nemějte strach z nahromaděných nedodělků. "
+"Udělejte tolik karet, na kolik se cítíte a zbytek bude automaticky "
+"přeplánován do budoucna."
+
+#: TipDlg#3
+msgid ""
+"The 'number of grade 0 cards to learn at once' setting determines how many "
+"new cards you are trying to learn at the same time. It does <b>not</b> tell "
+"you how many new cards you need to learn per day. You are the judge of that: "
+"you can learn more cards or less cards, depending on how you feel."
+msgstr ""
+"Nastavení 'Počet karet s hodnocením 0 pro okamžité učení' udává kolik "
+"neprobraných karet se budete učit najednou. Rozhodně <b>ne</b>určuje kolik "
+"nových karet se máte naučit za den. To si rozhodnete sami: můžete se naučit "
+"více nebo méně, záleží na Vás."
+
+#: TipDlg#4
+msgid ""
+"In summary, try to do your repetitions every day, but don't worry too much "
+"about getting the 'scheduled' counter to zero, and certainly not about "
+"getting the 'Not memorised' counter to zero."
+msgstr ""
+"Pokuste se opakovat každý den. Není ale vždy nutné dostat čítač "
+"'naplánovaných' karet na nulu a už vůbec ne čítač 'nezapamatovaných' karet."
+
+#: TipDlg#5
+msgid ""
+"Grade 1 cards are different from grade 0 cards in the sense that they show "
+"up less often and are not subject to the 'number of grade 0 cards to learn "
+"at once' setting."
+msgstr ""
+"Karty s hodnocením 1 se liší od karet s hodnocením 0 v tom smyslu, že se "
+"nezobrazují tak často a také se s nimi nepočítá v nastavení 'Počet karet s "
+"hodnocením 0 pro okamžité učení'."
+
+#: TipDlg#6
+msgid ""
+"You can use keyboard shortcuts to do your repetitions. Enter, Return or "
+"Space stand for the default action ('Show answer' or 'grade 4'). The number "
+"keys can be used for grading."
+msgstr ""
+"K opakování můžete používat klávesové zkratky: Enter ukáže odpověď a "
+"mezerník ohodnotí kartu stupněm 4. Hodnotit lze i numerickými klávesami."
+
+#: TipDlg#7
+msgid ""
+"You can select the categories you wish to study in the 'Activate categories' "
+"menu option."
+msgstr ""
+"Kategorie, které chcete studovat je možné vybrat v menu v 'Aktivovat "
+"kategorie'."
+
+#: TipDlg#8
+msgid ""
+"It is recommended to put all your cards in a single database and use "
+"categories to organise them. Using 'Activate categories' is much more "
+"convenient than have to load and unload several databases."
+msgstr ""
+"Je doporučeno dávat všechny karty do jedné databáze a k jejich organizaci "
+"používat kategorie. Použití možnosti 'Aktivovat kategorie' je pohodlnější, "
+"než nahrávání různých databází."
+
+#: TipDlg#9
+msgid ""
+"You can import cards in a wide variety of formats: tab delimited txt files, "
+"Supermemo files, ... ."
+msgstr ""
+"Je možné importovat karty různých formátů: txt soubory s hesly oddělenými "
+"tabulátorem, soubory ve formátu programu Supermemo, aj."
+
+#: TipDlg#10
+msgid ""
+"If you have cards in Word or Excel, export them to tab delimited txt files "
+"with UTF-8 unicode encoding to be able to import them into Mnemosyne."
+msgstr ""
+"Jestliže máte kartičky ve Wordu nebo Excelu a chcete je importovat do "
+"Mnemosyne, tak je exportujte do txt souboru s hesly oddělenými tabulátorem a "
+"UTF-8 kódováním."
+
+#: TipDlg#11
+msgid ""
+"If you want to print out your cards, export them to a txt file which you can "
+"then print from your favourite Word processor."
+msgstr ""
+"Pokud chcete vaše kartičky vytisknout, exportujte je do txt souboru, který "
+"pak můžete vytisknout."
+
+#: TipDlg#12
+msgid ""
+"You can share your cards with someone else by exporting them to XML and "
+"choosing the 'Reset learning data' option on export."
+msgstr ""
+"Pokud chcete sdílet s někým své kartičky, exportujte je do XML (současně "
+"vyberte možnost 'Resetovat učební proces')."
+
+#: TipDlg#13
+msgid ""
+"If you study a foreign language with a different script, the default font "
+"size is sometimes a bit small. If you want to increase the size of these "
+"characters but keep the size of English text, use the 'increase size of non-"
+"latin characters by X points' option."
+msgstr ""
+"Pokud studujete cizí jazyk s jiným písmem, může být přednastavená velikost "
+"fontu menší. Jestliže chcete zvětšit velikost těchto znaků, ale ponechat "
+"velikost textu ve vašem jazyce, použijte možnost 'Zvětšit velikost ne-latin "
+"znaků o X bodů'."
+
+#: TipDlg#14
+msgid ""
+"You can add images and sounds to your cards. Right-click on the question or "
+"answer field when editing a card to bring up a pop-up menu to do so."
+msgstr ""
+"Do karet je možné přidávat také obrázky a zvuky. Během editace nebo při "
+"přidávání karty, klikněte v editačním okně karty pravým tlačítkem myši na "
+"pole s otázkou nebo odpovědí a v menu vyberte jednu z možností."
+
+#: TipDlg#15
+msgid ""
+"It is recommended to keep your sound and image files inside your .mnemosyne "
+"directory. That way, it's easier to transfer your data between different "
+"computers."
+msgstr ""
+"Doporučuje se nechávat soubory s obrázky a zvuky uvnitř vašeho .mnemosyne "
+"adresáře (adresář, kde jsou uloženy databáze). Snadněji se vám pak budou "
+"přenášet data mezi počítači."
+
+#: TipDlg#16
+msgid ""
+"When adding a three-sided card, two regular cards will be created. One with "
+"as question the written form and as answer the pronunciation and the "
+"translation, and one with as question the translation and as answer the "
+"written form and the pronunciation."
+msgstr ""
+"Při přidávání karty můžete zvolit 3-strannou kartu (psaná forma, výslovnost, "
+"překlad) a to tak, že kliknete pravým tlačítkem myši na pole s otázkou a "
+"vyberete možnost '3-stranná karta'. Když přidáváte kartu se 3 stranami, "
+"budou vytvořeny a přidány dvě karty. V první kartě bude v otázce zápis "
+"(slovíčka) a v odpovědi výslovnost a překlad. V druhé kartě bude v otázce "
+"překlad a v odpovědi zápis a výslovnost."
+
+#: TipDlg#17
+msgid "You can use basic HTML tags in your cards to control their appearance."
+msgstr "V kartičkách můžete pro upravování vzhledu používat HTML tagy."
+
+#: TipDlg#18
+msgid ""
+"Mnemosyne can use LaTeX to render mathematical formulas, e.g. "
+"<$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
+msgstr ""
+"Mnemosyne umí používat LaTeX k vytváření matematických vzorců, např. "
+"<$>x^2+y^2=z^2</$>. (K tomu ale ještě musíte mít nainstalován LaTeX a "
+"dvipng.)"
+
+#: TipDlg#19
+msgid ""
+"The best way to backup your data is to copy your .mnemosyne directory (if "
+"you follow the recommended procedure to keep all your files there) and move "
+"it to a different drive. Mnemosyne keeps automatic XML-based backups in "
+".mnemosyne/backups, but that won't help you if that drive dies... "
+msgstr ""
+"Nejlepší cestou k zálohování vašich dat je kopírovat váš .mnemosyne adresář "
+"(za předpokladu, že se držíte doporučení a máte všechny soubory v tomto "
+"adresáři) na jiný disk. Mnemosyne sice automaticky vytváří XML zálohy v "
+".mnemosyne/backups, to vám ale při poruše disku nebude moc platné. "
+
+#: TipDlg#20
+msgid ""
+"You can run Mnemosyne from a USB key. Copy C:\\Program Files\\Mnemosyne to "
+"your USB key, and then copy the .mnemosyne directory from your home "
+"directory to inside the Mnemosyne directory on the USB key."
+msgstr ""
+"Mnemosyne je možné mít a spouštět z USB klíčenky. Stačí zkopírovat adresář "
+"C:\\Program Files\\Mnemosyne na klíčenku a do něj adresář .mnemosyne z vašeho "
+"domovského adresáře."
+
+#: TipDlg#21
+msgid ""
+"If you use Mnemosyne on multiple computers, there is a handy tool called "
+"Unison to help you synchronise your data. See the Mnemosyne website for more "
+"information."
+msgstr ""
+"Pokud používáte Mnemosyne na více počítačích, může se vám hodit nástroj "
+"Unison, který je určený pro synchronizaci vašich dat. Více informací najdete "
+"na stránkách Mnemosyne (nebo na http://www.cis.upenn.edu/~bcpierce/unison)."
+
+#: TipDlg#22
+msgid ""
+"You can sort the cards in the 'Edit Deck' dialog by answer or by category by "
+"clicking on the corresponding column title. Clicking again changes the sort "
+"order."
+msgstr ""
+"V menu v 'Editovat karty' můžete karty třídit podle odpovědi nebo podle "
+"kategorie tak, že kliknete na příslušný nadpis sloupce."
+
+#: TipDlg#23
+msgid ""
+"If you want more fine-grained control over LaTeX's behaviour, see the "
+"explanation of the <$$>...</$$> and <latex>...</latex> tags on Mnemosyne's "
+"website."
+msgstr "Více informací o LaTeXu v Mnemosyne najdete na www stránkách Mnemosyne."
+
+#: TipDlg#24
+msgid ""
+"Advanced users can customise more of Mnemosyne by editing the config.py file "
+"in their .mnemosyne directory. They can also install plugins to customise "
+"Mnemosyne even further."
+msgstr ""
+"Pokročilí uživatelé si mohou nastavit Mnemosyne editací souboru config.py v "
+".mnemosyne adresáři. Je možné také instalovat pluginy, které dále mění "
+"chování Mnemosyne."
+
+#: TipFrm#1
+msgid "Tip of the day"
+msgstr "Tip dne"
+
+#: TipFrm#2
+msgid "<b>Did you know...?</b>"
+msgstr "<b>Věděli jste, že ...?</b>"
+
+#: TipFrm#3
+msgid "&Show tips on startup"
+msgstr "Ukazovat tipy při &startu"
+
+#: TipFrm#4
+msgid "Alt+S"
+msgstr "Alt+S"
+
+#: TipFrm#5
+msgid "&Previous"
+msgstr "&Předchozí"
+
+#: TipFrm#6
+msgid "Alt+P"
+msgstr "Alt+P"
+
+#: TipFrm#7
+msgid "&Next"
+msgstr "&Další"
+
+#: TipFrm#8
+msgid "Alt+N"
+msgstr "Alt+N"
+
+#: TipFrm#9
+msgid "&Close"
+msgstr "&Zavřít"
+
+#: TipFrm#10
+msgid "Alt+C"
+msgstr "Alt+C"

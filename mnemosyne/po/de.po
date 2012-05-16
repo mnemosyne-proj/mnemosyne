@@ -4,9 +4,9 @@
 #
 #
 # Stephan Maseizik <st.mase@web.de>, 14.02.2012
-# Corrected a few typos in the german translation. 
-# Mainly there were a couple of blank spaces between 
-# two words missing. 
+# Corrected a few typos in the german translation.
+# Mainly there were a couple of blank spaces between
+# two words missing.
 #
 
 

@@ -160,9 +160,9 @@ class DefaultController(Controller):
         self.stopwatch().pause()
         self.flush_sync_server()
         review_controller = self.review_controller()
+        # This dialog calls 'edit_sister_cards' at some point.
         self.component_manager.current("edit_card_dialog")\
             (review_controller.card, self.component_manager).activate()
-        # This dialog calls 'edit_sister_cards' at some point.
         review_controller.reload_counters()
         # Our current card could have disappeared from the database here,
         # e.g. when converting a front-to-back card to a cloze card, which
@@ -210,6 +210,7 @@ class DefaultController(Controller):
                     card.card_type = new_card_type
                     card.fact_view = new_fact_view_for[card.fact_view]
                     db.update_card(card)
+                return 0
             else:
                 if warn:
                     answer = self.main_widget().show_question(\

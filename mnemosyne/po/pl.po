@@ -1,0 +1,2720 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-16 10:17+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.9.0\n"
+
+#: #1
+#, fuzzy
+msgid "Error in config.py:"
+msgstr "Błąd w pliku konfiguracyjnym config.py:"
+
+#: #2
+#, fuzzy
+msgid "Error when running plugin:"
+msgstr "Błąd podczas uruchamiania wtyczki:"
+
+#: #3
+#, fuzzy
+msgid "Unable to load file."
+msgstr "Nie można załadować pliku."
+
+#: #4
+#, fuzzy
+msgid "Invalid file format."
+msgstr "Nieprawidłowy format pliku."
+
+#: #5
+#, fuzzy
+msgid "Unable to save file."
+msgstr "Nie można zapisać pliku."
+
+#: #6
+#, fuzzy
+msgid "Unable to parse XML:"
+msgstr "Błąd składni XML:"
+
+#: #7
+#, fuzzy
+msgid "Unrecognised encoding."
+msgstr "Niepoprawne kodowanie."
+
+#: #8
+#, fuzzy
+msgid "Missing answer on line:"
+msgstr "Brakująca odpowiedź w lini:"
+
+#: #9
+#, fuzzy
+msgid ""
+"Unable to load database.\n"
+"Creating tmp file."
+msgstr ""
+"Nie można załadować pliku bazy danych.\n"
+"Tworzenie pliku tymczasowego \"tmp\"."
+
+#: #10
+#, fuzzy
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: #11
+#, fuzzy
+msgid "&OK"
+msgstr "&OK"
+
+#: #12
+#, fuzzy
+msgid "File exists:"
+msgstr "Plik istnieje:"
+
+#: #13
+#, fuzzy
+msgid "&Overwrite"
+msgstr "&Zastąp"
+
+#: #14
+#, fuzzy
+msgid "&Cancel"
+msgstr "&Anuluj"
+
+#: #15
+#, fuzzy
+msgid "Removed duplicates: "
+msgstr "Usunięte duplikaty:"
+
+#: #16
+#, fuzzy
+msgid ""
+"There are cards with different answers for question:\n"
+"\n"
+msgstr "Istnieją już karty z innymi odpowiedziami na pytanie:"
+
+#: #17
+#, fuzzy
+msgid "&Merge and edit"
+msgstr "&Scal i edytuj"
+
+#: #18
+#, fuzzy
+msgid "&Don't merge"
+msgstr "&Nie scalaj"
+
+#: #19
+#, fuzzy
+msgid "Done!"
+msgstr "Zakończono!"
+
+#: #20
+#, fuzzy
+msgid "You don't remember this card yet."
+msgstr "Karta nie została jeszcze zapamiętana."
+
+#: #21
+#, fuzzy
+msgid "Like '0', but it's getting more familiar."
+msgstr "Informacja znana, jednak niezapamiętana."
+
+#: #22
+#, fuzzy
+msgid " Show it less often."
+msgstr " Wyświetlaj rzadziej."
+
+#: #23
+#, fuzzy
+msgid "You've memorised this card now,"
+msgstr "Informacja zapamiętana"
+
+#: #24
+#, fuzzy
+msgid " and will probably remember it for a few days."
+msgstr " i pozostanie w pamięci przez około 2 dni."
+
+#: #25
+#, fuzzy
+msgid "You have forgotten this card completely."
+msgstr "Karta niezapamiętana."
+
+#: #26
+#, fuzzy
+msgid "Barely correct answer. The interval was way too long."
+msgstr "Odpowiedź zawierała błędy. Przerwa między powtórkami była zbyt długa."
+
+#: #27
+#, fuzzy
+msgid "Correct answer, but with much effort."
+msgstr "Poprawna odpowiedź udzielona z wielkim wysiłkiem."
+
+#: #28
+#, fuzzy
+msgid " The interval was probably too long."
+msgstr " Przerwa między powtórkami była zbyt długa."
+
+#: #29
+#, fuzzy
+msgid "Correct answer, with some effort."
+msgstr "Poprawna odpowiedź udzielona bez znaczącego wysiłku."
+
+#: #30
+#, fuzzy
+msgid " The interval was probably just right."
+msgstr " Przerwa między powtórkami jest odpowiednia."
+
+#: #31
+#, fuzzy
+msgid "Correct answer, but without any"
+msgstr "Poprawna odpowiedź udzielona"
+
+#: #32
+#, fuzzy
+msgid " difficulties. The interval was probably too short."
+msgstr " z łatwością. Przerwa między powtórkami była zbyt krótka."
+
+#: AboutDlg#1
+#, fuzzy
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: AboutDlg#2
+#, fuzzy
+msgid ""
+"Main author: Peter Bienstman\n"
+"\n"
+msgstr "Autor programu: Peter Bienstman "
+
+#. (obsolete)
+#: AboutDlg#3
+msgid " More info: http://mnemosyne-proj.sourceforge.net\n"
+msgstr ""
+"Dodatkowe informacje można uzyskać na stronie: http://mnemosyne-"
+"proj.sourceforge.net"
+
+#: AboutDlg#4
+msgid "More info: http://mnemosyne-proj.org\n"
+msgstr ""
+
+#. (obsolete)
+#: AboutFrm#1
+msgid "About"
+msgstr "Informacje"
+
+#. (obsolete)
+#: ActivateCategoriesFrm#1
+msgid "Activate categories"
+msgstr "Aktywuj kategorie"
+
+#. (obsolete)
+#: ActivateCategoriesFrm#2
+msgid "Select the categories to activate:"
+msgstr "Zaznacz kategorie do aktywacji:"
+
+#. (obsolete)
+#: ActivateCategoriesFrm#3
+msgid "Activate none"
+msgstr "Dezaktywuj wszystkie"
+
+#. (obsolete)
+#: ActivateCategoriesFrm#4
+msgid "Activate all"
+msgstr "Aktywuj wszystkie"
+
+#. (obsolete)
+#: ActivateCategoriesFrm#5
+msgid "&OK"
+msgstr "&OK"
+
+#. (obsolete)
+#: ActivateCategoriesFrm#6
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#. (obsolete)
+#: ActivateCategoriesFrm#7
+msgid "&Cancel"
+msgstr "&Anuluj"
+
+#: AddCardsDlg#1
+#, fuzzy
+msgid "<default>"
+msgstr "<domyślny>"
+
+#: AddCardsDlg#2
+#, fuzzy
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: AddCardsDlg#3
+#, fuzzy
+msgid "Abandon current card?"
+msgstr "Porzucić kartę?"
+
+#: AddCardsDlg#4
+#, fuzzy
+msgid "&Yes"
+msgstr "&Tak"
+
+#: AddCardsDlg#5
+#, fuzzy
+msgid "&No"
+msgstr "&Nie"
+
+#: AddCardsDlg#6
+#, fuzzy
+msgid "Card is already in database.\n"
+msgstr "Dana karta znajduje się już w bazie."
+
+#: AddCardsDlg#7
+#, fuzzy
+msgid "Duplicate not added."
+msgstr "Duplikat nie został dodany."
+
+#: AddCardsDlg#8
+#, fuzzy
+msgid "&OK"
+msgstr "&OK"
+
+#: AddCardsDlg#9
+#, fuzzy
+msgid "There are different answers for"
+msgstr "W bazie znajdują się inne odpowiedzi udzielone na"
+
+#: AddCardsDlg#10
+#, fuzzy
+msgid ""
+" this question:\n"
+"\n"
+msgstr "pytanie:"
+
+#: AddCardsDlg#11
+#, fuzzy
+msgid "&Merge and edit"
+msgstr "&Scal i edytuj"
+
+#: AddCardsDlg#12
+#, fuzzy
+msgid "&Add as is"
+msgstr "&Dodaj nie zmienione"
+
+#: AddCardsDlg#13
+#, fuzzy
+msgid "&Do not add"
+msgstr "&Nie dodawaj"
+
+#: AddCardsDlg#14
+#, fuzzy
+msgid "Add cards"
+msgstr "Dodaj kartę"
+
+#: AddCardsDlg#15
+msgid "Card type:"
+msgstr ""
+
+#: AddCardsDlg#16
+#, fuzzy
+msgid "Category:"
+msgstr "Kategoria:"
+
+#: AddCardsDlg#17
+#, fuzzy
+msgid "Select initial grade:"
+msgstr "Wybierz ocenę początkową:"
+
+#: AddCardsDlg#18
+#, fuzzy
+msgid "0"
+msgstr "0"
+
+#: AddCardsDlg#19
+#, fuzzy
+msgid "Ctrl+0"
+msgstr "Ctrl+0"
+
+#: AddCardsDlg#20
+#, fuzzy
+msgid "1"
+msgstr "1"
+
+#: AddCardsDlg#21
+#, fuzzy
+msgid "Ctrl+1"
+msgstr "Ctrl+1"
+
+#: AddCardsDlg#22
+#, fuzzy
+msgid "2"
+msgstr "2"
+
+#: AddCardsDlg#23
+#, fuzzy
+msgid "Ctrl+2"
+msgstr "Ctrl+2"
+
+#: AddCardsDlg#24
+#, fuzzy
+msgid "3"
+msgstr "3"
+
+#: AddCardsDlg#25
+#, fuzzy
+msgid "Ctrl+3"
+msgstr "Ctrl+3"
+
+#: AddCardsDlg#26
+#, fuzzy
+msgid "4"
+msgstr "4"
+
+#: AddCardsDlg#27
+#, fuzzy
+msgid "Ctrl+4"
+msgstr "Ctrl+4"
+
+#: AddCardsDlg#28
+#, fuzzy
+msgid "5"
+msgstr "5"
+
+#: AddCardsDlg#29
+#, fuzzy
+msgid "Ctrl+5"
+msgstr "Ctrl+5"
+
+#: AddCardsDlg#30
+#, fuzzy
+msgid "&Preview"
+msgstr "&Podgląd"
+
+#: AddCardsDlg#31
+msgid "E&xit"
+msgstr ""
+
+#. (obsolete)
+#: AddCardsFrm#1
+msgid "Add cards"
+msgstr "Dodaj kartę"
+
+#. (obsolete)
+#: AddCardsFrm#2
+msgid "Category:"
+msgstr "Kategoria:"
+
+#. (obsolete)
+#: AddCardsFrm#3
+msgid "Select initial grade:"
+msgstr "Wybierz ocenę początkową:"
+
+#. (obsolete)
+#: AddCardsFrm#4
+msgid "0"
+msgstr "0"
+
+#. (obsolete)
+#: AddCardsFrm#5
+msgid "Ctrl+0"
+msgstr "Ctrl+0"
+
+#. (obsolete)
+#: AddCardsFrm#6
+msgid "1"
+msgstr "1"
+
+#. (obsolete)
+#: AddCardsFrm#7
+msgid "Ctrl+1"
+msgstr "Ctrl+1"
+
+#. (obsolete)
+#: AddCardsFrm#8
+msgid "2"
+msgstr "2"
+
+#. (obsolete)
+#: AddCardsFrm#9
+msgid "Ctrl+2"
+msgstr "Ctrl+2"
+
+#. (obsolete)
+#: AddCardsFrm#10
+msgid "3"
+msgstr "3"
+
+#. (obsolete)
+#: AddCardsFrm#11
+msgid "Ctrl+3"
+msgstr "Ctrl+3"
+
+#. (obsolete)
+#: AddCardsFrm#12
+msgid "4"
+msgstr "4"
+
+#. (obsolete)
+#: AddCardsFrm#13
+msgid "Ctrl+4"
+msgstr "Ctrl+4"
+
+#. (obsolete)
+#: AddCardsFrm#14
+msgid "5"
+msgstr "5"
+
+#. (obsolete)
+#: AddCardsFrm#15
+msgid "Ctrl+5"
+msgstr "Ctrl+5"
+
+#. (obsolete)
+#: AddCardsFrm#16
+msgid "&Preview"
+msgstr "&Podgląd"
+
+#. (obsolete)
+#: AddItemsDlg#1
+msgid "<default>"
+msgstr "<domyślny>"
+
+#. (obsolete)
+#: AddItemsDlg#2
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#. (obsolete)
+#: AddItemsDlg#3
+msgid "Abandon current card?"
+msgstr "Porzucić kartę?"
+
+#. (obsolete)
+#: AddItemsDlg#4
+msgid "&Yes"
+msgstr "&Tak"
+
+#. (obsolete)
+#: AddItemsDlg#5
+msgid "&No"
+msgstr "&Nie"
+
+#. (obsolete)
+#: AddItemsDlg#6
+msgid "Question:"
+msgstr "Pytanie:"
+
+#. (obsolete)
+#: AddItemsDlg#7
+msgid "Answer:"
+msgstr "Odpowiedź:"
+
+#. (obsolete)
+#: AddItemsDlg#8
+msgid "Written form:"
+msgstr "Forma pisemna:"
+
+#. (obsolete)
+#: AddItemsDlg#9
+msgid "Translation:"
+msgstr "Tłumaczenie:"
+
+#. (obsolete)
+#: AddItemsDlg#10
+msgid "Card is already in database.\n"
+msgstr "Dana karta znajduje się już w bazie."
+
+#. (obsolete)
+#: AddItemsDlg#11
+msgid "Duplicate not added."
+msgstr "Duplikat nie został dodany."
+
+#. (obsolete)
+#: AddItemsDlg#12
+msgid "&OK"
+msgstr "&OK"
+
+#. (obsolete)
+#: AddItemsDlg#13
+msgid "There are different answers for"
+msgstr "W bazie znajdują się inne odpowiedzi udzielone na"
+
+#. (obsolete)
+#: AddItemsDlg#14
+msgid ""
+" this question:\n"
+"\n"
+msgstr "pytanie:"
+
+#. (obsolete)
+#: AddItemsDlg#15
+msgid "&Merge and edit"
+msgstr "&Scal i edytuj"
+
+#. (obsolete)
+#: AddItemsDlg#16
+msgid "&Add as is"
+msgstr "&Dodaj nie zmienione"
+
+#. (obsolete)
+#: AddItemsDlg#17
+msgid "&Do not add"
+msgstr "&Nie dodawaj"
+
+#. (obsolete)
+#: AddItemsFrm#1
+msgid "Add cards"
+msgstr "Dodaj kartę"
+
+#. (obsolete)
+#: AddItemsFrm#2
+msgid "Category:"
+msgstr "Kategoria:"
+
+#. (obsolete)
+#: AddItemsFrm#3
+msgid "Question:"
+msgstr "Pytanie:"
+
+#. (obsolete)
+#: AddItemsFrm#4
+msgid "Pronunciation:"
+msgstr "Wymowa:"
+
+#. (obsolete)
+#: AddItemsFrm#5
+msgid "Answer:"
+msgstr "Odpowiedź:"
+
+#. (obsolete)
+#: AddItemsFrm#6
+msgid "Add &vice versa too"
+msgstr "Dodaj &odwrotną"
+
+#. (obsolete)
+#: AddItemsFrm#7
+msgid "Alt+V"
+msgstr "Alt+V"
+
+#. (obsolete)
+#: AddItemsFrm#8
+msgid "Select initial grade:"
+msgstr "Wybierz ocenę początkową:"
+
+#. (obsolete)
+#: AddItemsFrm#9
+msgid "&0"
+msgstr "&0"
+
+#. (obsolete)
+#: AddItemsFrm#10
+msgid "Ctrl+0"
+msgstr "Ctrl+0"
+
+#. (obsolete)
+#: AddItemsFrm#11
+msgid "You don't remember this item yet or forgot it."
+msgstr "Informacja niezapamiętana lub zapomniana."
+
+#. (obsolete)
+#: AddItemsFrm#12
+msgid "&1"
+msgstr "&1"
+
+#. (obsolete)
+#: AddItemsFrm#13
+msgid "Ctrl+1"
+msgstr "Ctrl+1"
+
+#. (obsolete)
+#: AddItemsFrm#14
+msgid "Like '0', but the item is getting more familiar."
+msgstr "Informacja znana, jednak niezapamiętana."
+
+#. (obsolete)
+#: AddItemsFrm#15
+msgid "&2"
+msgstr "&2"
+
+#. (obsolete)
+#: AddItemsFrm#16
+msgid "Ctrl+2"
+msgstr "Ctrl+2"
+
+#. (obsolete)
+#: AddItemsFrm#17
+msgid ""
+"You've memorised this item now, and will probably remember it for a few "
+"days."
+msgstr "Informacja zapamiętana i pozostanie w pamięci przez około 2 dni."
+
+#. (obsolete)
+#: AddItemsFrm#18
+msgid "&3"
+msgstr "&3"
+
+#. (obsolete)
+#: AddItemsFrm#19
+msgid "Ctrl+3"
+msgstr "Ctrl+3"
+
+#. (obsolete)
+#: AddItemsFrm#20
+msgid ""
+"Correct answer, but with much effort. The interval was probably too long"
+msgstr ""
+"Poprawna odpowiedź udzielona z wielkim wysiłkiem. Przerwa między powtórkami "
+"była zbyt długa."
+
+#. (obsolete)
+#: AddItemsFrm#21
+msgid "&4"
+msgstr "&4"
+
+#. (obsolete)
+#: AddItemsFrm#22
+msgid "Ctrl+4"
+msgstr "Ctrl+4"
+
+#. (obsolete)
+#: AddItemsFrm#23
+msgid "Correct answer, with some effort. The interval was probably just right."
+msgstr ""
+"Poprawna odpowiedź udzielona bez znaczącego wysiłku. Przerwa między "
+"powtórkami jest odpowiednia."
+
+#. (obsolete)
+#: AddItemsFrm#24
+msgid "&5"
+msgstr "&5"
+
+#. (obsolete)
+#: AddItemsFrm#25
+msgid "Ctrl+5"
+msgstr "Ctrl+5"
+
+#. (obsolete)
+#: AddItemsFrm#26
+msgid ""
+"Correct answer, but without any difficulties. The interval was probably too "
+"short."
+msgstr ""
+"Poprawna odpowiedź udzielona z łatwością.Przerwa między powtórkami była za "
+"krótka."
+
+#. (obsolete)
+#: AddItemsFrm#27
+msgid "Type question and answer, then pick initial grade."
+msgstr "Wpisz pytanie oraz odpowiedź, a następnie wybierz ocenę."
+
+#. (obsolete)
+#: AddItemsFrm#28
+msgid "&Preview"
+msgstr "&Podgląd"
+
+#. (obsolete)
+#: AddItemsFrm#29
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#. (obsolete)
+#: AddItemsFrm#30
+msgid "E&xit"
+msgstr "Wy&jście"
+
+#. (obsolete)
+#: AddItemsFrm#31
+msgid "Alt+X"
+msgstr "Alt+X"
+
+#: CardTwoSidedWdgt#1
+msgid "Question:"
+msgstr ""
+
+#: CardTwoSidedWdgt#2
+#, fuzzy
+msgid "Answer:"
+msgstr "Odpowiedź:"
+
+#: CardTwoSidedWdgt#3
+#, fuzzy
+msgid "Add &vice versa too"
+msgstr "Dodaj &odwrotną"
+
+#. (obsolete)
+#: ChangeCategoryFrm#1
+msgid "Change category"
+msgstr "Zmień kategorię"
+
+#. (obsolete)
+#: ChangeCategoryFrm#2
+msgid "Category:"
+msgstr "Kategoria:"
+
+#. (obsolete)
+#: ChangeCategoryFrm#3
+msgid "&OK"
+msgstr "&OK"
+
+#. (obsolete)
+#: ChangeCategoryFrm#4
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#. (obsolete)
+#: ChangeCategoryFrm#5
+msgid "&Cancel"
+msgstr "&Anuluj"
+
+#. (obsolete)
+#: ChangeCategoryFrm#6
+msgid "Alt+C"
+msgstr "Alt+C"
+
+#. (obsolete)
+#: ConfigurationFrm#1
+msgid "Mnemosyne configuration"
+msgstr "Preferencje"
+
+#. (obsolete)
+#: ConfigurationFrm#2
+msgid "Hover with the mouse over the buttons to get extra information."
+msgstr ""
+"Aby uzyskać więcej informacji na temat przycisku zatrzymaj nad nim kursor "
+"myszy."
+
+#. (obsolete)
+#: ConfigurationFrm#3
+msgid "Appearance"
+msgstr "Wygląd"
+
+#. (obsolete)
+#: ConfigurationFrm#4
+msgid "Set Q/A font"
+msgstr "Ustaw czcionkę pytań i odpowiedzi"
+
+#. (obsolete)
+#: ConfigurationFrm#5
+msgid "Set the font used when showing single questions and answers"
+msgstr "Ustaw czcionkę, przy pomocy której wyświetlane są pytania i odpowiedzi."
+
+#. (obsolete)
+#: ConfigurationFrm#6
+msgid "Set list font"
+msgstr "Ustaw czcionkę edytora zestawu kart"
+
+#. (obsolete)
+#: ConfigurationFrm#7
+msgid "Set the font used when showing the list of all the cards in the deck"
+msgstr ""
+"Ustaw czcionkę, przy pomocy której wyświetlany jest tekst w edytorze zestawu "
+"kart"
+
+#. (obsolete)
+#: ConfigurationFrm#8
+msgid "Increase size of non-latin characters by"
+msgstr "Zwiększ rozmiar znaków pochodzenia innego niż łacińskie o"
+
+#. (obsolete)
+#: ConfigurationFrm#9
+msgid ""
+"Sometimes complex glyphs are hard to read at the default latin font size"
+msgstr ""
+"Korzystanie z domyślnego rozmiaru czcionki łacińskiej może powodować, że w "
+"niektóre złożne znaki języków obcych będą trudne do odczytania"
+
+#. (obsolete)
+#: ConfigurationFrm#10
+msgid "point(s)"
+msgstr "punkt(y/ów)"
+
+#. (obsolete)
+#: ConfigurationFrm#11
+msgid "Log uploading"
+msgstr "Przesyłanie dziennika"
+
+#. (obsolete)
+#: ConfigurationFrm#12
+msgid "Upload anonymous logs"
+msgstr "Przesyłaj anonimowe dane dziennika powtórek"
+
+#. (obsolete)
+#: ConfigurationFrm#13
+msgid "Share anonymous statistics to contribute to memory research"
+msgstr "Udostępnij anonimowe statystyki do celów badań nad pamięcią"
+
+#. (obsolete)
+#: ConfigurationFrm#14
+msgid "Duplicate handling"
+msgstr "Obsługa duplikatów"
+
+#. (obsolete)
+#: ConfigurationFrm#15
+msgid "Check for duplicates when adding new cards"
+msgstr "Sprawdzaj czy dodawana karta już istnieje"
+
+#. (obsolete)
+#: ConfigurationFrm#16
+msgid "Allow duplicates in different categories"
+msgstr ""
+"Zezwalaj na duplikację kart jeśli znajdują się w oddzielnych kategoriach"
+
+#. (obsolete)
+#: ConfigurationFrm#17
+msgid "Repetition process"
+msgstr "Przebieg powtórek"
+
+#. (obsolete)
+#: ConfigurationFrm#18
+msgid "Number of grade 0 cards to learn at once:"
+msgstr "Ilość przeznaczonych do zapamiętania kart, które otrzymały ocenę 0:"
+
+#. (obsolete)
+#: ConfigurationFrm#19
+msgid ""
+"Note: this is NOT the number of grade 0 cards you want to memorise *per day*"
+msgstr ""
+"Uwaga: jest to ogólna ilość przeznaczonych do zapamiętania kart, które "
+"otrzymały ocenę 0"
+
+#. (obsolete)
+#: ConfigurationFrm#20
+msgid "&OK"
+msgstr "&OK"
+
+#. (obsolete)
+#: ConfigurationFrm#21
+msgid "Defaults"
+msgstr "Domyślne"
+
+#. (obsolete)
+#: ConfigurationFrm#22
+msgid "&Cancel"
+msgstr "&Anuluj"
+
+#. (obsolete)
+#: EditItemFrm#1
+msgid "Edit card"
+msgstr "Edytuj kartę"
+
+#. (obsolete)
+#: EditItemFrm#2
+msgid "Category:"
+msgstr "Kategoria:"
+
+#. (obsolete)
+#: EditItemFrm#3
+msgid "Question:"
+msgstr "Pytanie:"
+
+#. (obsolete)
+#: EditItemFrm#4
+msgid "Answer:"
+msgstr "Odpowiedź:"
+
+#. (obsolete)
+#: EditItemFrm#5
+msgid "&OK"
+msgstr "&OK"
+
+#. (obsolete)
+#: EditItemFrm#6
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#. (obsolete)
+#: EditItemFrm#7
+msgid "&Preview"
+msgstr "&Podgląd"
+
+#. (obsolete)
+#: EditItemFrm#8
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#. (obsolete)
+#: EditItemFrm#9
+msgid "&Cancel"
+msgstr "&Anuluj"
+
+#. (obsolete)
+#: EditItemFrm#10
+msgid "Alt+C"
+msgstr "Alt+C"
+
+#. (obsolete)
+#: EditItemsDlg#1
+msgid "Please wait..."
+msgstr "Proszę czekać..."
+
+#. (obsolete)
+#: EditItemsDlg#2
+msgid "&Edit"
+msgstr "&Edycja"
+
+#. (obsolete)
+#: EditItemsDlg#3
+msgid "Ctrl+E"
+msgstr "Ctrl+E"
+
+#. (obsolete)
+#: EditItemsDlg#4
+msgid "&Preview"
+msgstr "&Podgląd"
+
+#. (obsolete)
+#: EditItemsDlg#5
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#. (obsolete)
+#: EditItemsDlg#6
+msgid "&Add vice versa"
+msgstr "Dodaj &odwrotną"
+
+#. (obsolete)
+#: EditItemsDlg#7
+msgid "S&tatistics"
+msgstr "S&tatystyki"
+
+#. (obsolete)
+#: EditItemsDlg#8
+msgid "Ctrl+T"
+msgstr "Ctrl+T"
+
+#. (obsolete)
+#: EditItemsDlg#9
+msgid "&Delete"
+msgstr "&Usuń"
+
+#. (obsolete)
+#: EditItemsDlg#10
+msgid "&Change category"
+msgstr "&Zmień kategorię"
+
+#. (obsolete)
+#: EditItemsDlg#11
+msgid "Add &vice versa"
+msgstr "Dodaj &odwrotną"
+
+#. (obsolete)
+#: EditItemsDlg#12
+msgid "Add vice versa of these cards?"
+msgstr "Czy dodać odwrotności wybranych kart?"
+
+#. (obsolete)
+#: EditItemsDlg#13
+msgid "Add vice versa of this card?"
+msgstr "Czy dodać odwrotność karty?"
+
+#. (obsolete)
+#: EditItemsDlg#14
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#. (obsolete)
+#: EditItemsDlg#15
+msgid ""
+"\n"
+"\n"
+"This could create duplicates if the vice "
+msgstr ""
+"\n"
+"\n"
+"W wypadku istnienia odwrotności kart "
+
+#. (obsolete)
+#: EditItemsDlg#16
+msgid ""
+"versas are already present, \n"
+"so you might want to run "
+msgstr ""
+"wybrana czynność spowoduje powstanie duplikatów. \n"
+"Konieczne może być"
+
+#. (obsolete)
+#: EditItemsDlg#17
+msgid "clean duplicates' afterwards."
+msgstr "ich usunięcie."
+
+#. (obsolete)
+#: EditItemsDlg#18
+msgid "&Yes"
+msgstr "&Tak"
+
+#. (obsolete)
+#: EditItemsDlg#19
+msgid "&No"
+msgstr "&Nie"
+
+#. (obsolete)
+#: EditItemsDlg#20
+msgid "Grade:"
+msgstr "Ocena:"
+
+#. (obsolete)
+#: EditItemsDlg#21
+msgid "Easiness:"
+msgstr "Łatwość:"
+
+#. (obsolete)
+#: EditItemsDlg#22
+msgid "Repetitions:"
+msgstr "Powtórki:"
+
+#. (obsolete)
+#: EditItemsDlg#23
+msgid "Lapses:"
+msgstr "Pomyłki:"
+
+#. (obsolete)
+#: EditItemsDlg#24
+msgid "Days since last repetition:"
+msgstr "Liczba dni, które upłynęły od ostatniej powtórki:"
+
+#. (obsolete)
+#: EditItemsDlg#25
+msgid "Days until next repetition:"
+msgstr "Liczba dni pozostałych do rozpoczęcia powtórki:"
+
+#. (obsolete)
+#: EditItemsDlg#26
+msgid "&OK"
+msgstr "&OK"
+
+#. (obsolete)
+#: EditItemsDlg#27
+msgid "Delete these cards?"
+msgstr "Czy usunąć wybrane karty?"
+
+#. (obsolete)
+#: EditItemsDlg#28
+msgid "Delete this card?"
+msgstr "Czy usunąć wybraną kartę?"
+
+#. (obsolete)
+#: EditItemsDlg#29
+msgid "The text you entered was not found."
+msgstr "Wprowadzony tekst nie został odnaleziony."
+
+#. (obsolete)
+#: EditItemsDlg#30
+msgid "&Find again"
+msgstr "&Szukaj ponownie"
+
+#. (obsolete)
+#: EditItemsDlg#31
+msgid "F"
+msgstr "F"
+
+#. (obsolete)
+#: EditItemsDlg#32
+msgid "&Find"
+msgstr "&Szukaj"
+
+#. (obsolete)
+#: EditItemsFrm#1
+msgid "Question"
+msgstr "Pytanie"
+
+#. (obsolete)
+#: EditItemsFrm#2
+msgid "Answer"
+msgstr "Odpowiedź"
+
+#. (obsolete)
+#: EditItemsFrm#3
+msgid "Category"
+msgstr "Kategoria"
+
+#. (obsolete)
+#: EditItemsFrm#4
+msgid "Edit deck"
+msgstr "Edytuj zestaw kart"
+
+#. (obsolete)
+#: EditItemsFrm#5
+msgid "&Find"
+msgstr "&Znajdź"
+
+#. (obsolete)
+#: EditItemsFrm#6
+msgid "To edit a card, right-click on it."
+msgstr "Kliknij prawym przyciskiem myszy aby edytować kartę."
+
+#. (obsolete)
+#: EditItemsFrm#7
+msgid "E&xit"
+msgstr "Za&mknij"
+
+#. (obsolete)
+#: EditItemsFrm#8
+msgid "Alt+X"
+msgstr "Alt+X"
+
+#: ExportDlg#1
+#, fuzzy
+msgid "All Files (*);;"
+msgstr "Wszytkie pliki (*);;"
+
+#: ExportDlg#2
+#, fuzzy
+msgid "Export"
+msgstr "Eksportuj"
+
+#. (obsolete)
+#: ExportFrm#1
+msgid "Export to file"
+msgstr "Eksportuj do pliku"
+
+#. (obsolete)
+#: ExportFrm#2
+msgid "File format:"
+msgstr "Format pliku:"
+
+#. (obsolete)
+#: ExportFrm#3
+msgid "File to export to:"
+msgstr "Eksportuj do:"
+
+#. (obsolete)
+#: ExportFrm#4
+msgid "&Browse"
+msgstr "&Przeglądaj"
+
+#. (obsolete)
+#: ExportFrm#5
+msgid "Categories to export:"
+msgstr "Eksportuj kategorie:"
+
+#. (obsolete)
+#: ExportFrm#6
+msgid "&Select all"
+msgstr "&Zaznacz wszystkie"
+
+#. (obsolete)
+#: ExportFrm#7
+msgid "Reset learning data on export"
+msgstr "Podczas eksportowania usuń dane dotyczące powtórek"
+
+#. (obsolete)
+#: ExportFrm#8
+msgid "&OK"
+msgstr "&OK"
+
+#. (obsolete)
+#: ExportFrm#9
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#. (obsolete)
+#: ExportFrm#10
+msgid "&Cancel"
+msgstr "&Anuluj"
+
+#: ImportDlg#1
+#, fuzzy
+msgid "<default>"
+msgstr "<domyślny>"
+
+#: ImportDlg#2
+#, fuzzy
+msgid "All Files (*);;"
+msgstr "Wszytkie pliki (*);;"
+
+#: ImportDlg#3
+#, fuzzy
+msgid "Import"
+msgstr "Importuj"
+
+#. (obsolete)
+#: ImportFrm#1
+msgid "Import from file"
+msgstr "Importuj z pliku"
+
+#. (obsolete)
+#: ImportFrm#2
+msgid "File format:"
+msgstr "Format pliku:"
+
+#. (obsolete)
+#: ImportFrm#3
+msgid "File to import from:"
+msgstr "Wybierz plik, z którego zostaną zaimportowane dane:"
+
+#. (obsolete)
+#: ImportFrm#4
+msgid "&Browse"
+msgstr "&Przeglądaj"
+
+#. (obsolete)
+#: ImportFrm#5
+msgid "Put cards without category into this category:"
+msgstr "Karty pozbawione kategorii przypisz do kategorii:"
+
+#. (obsolete)
+#: ImportFrm#6
+msgid "Note: all cards will be added to the current database."
+msgstr "Uwaga: wszystkie karty zostaną dodane do obecnie wykorzystywanej bazy."
+
+#. (obsolete)
+#: ImportFrm#7
+msgid "Reset learning data on import"
+msgstr "Podczas importowania, usuń dane dotyczące powtórek"
+
+#. (obsolete)
+#: ImportFrm#8
+msgid "&OK"
+msgstr "&OK"
+
+#. (obsolete)
+#: ImportFrm#9
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#. (obsolete)
+#: ImportFrm#10
+msgid "&Cancel"
+msgstr "&Anuluj"
+
+#. (obsolete)
+#: MainDlg#1
+msgid "Mnemosyne databases (*.mem)"
+msgstr "baza danych programu Mnemosyne (*.mem)"
+
+#. (obsolete)
+#: MainDlg#2
+msgid "New"
+msgstr "Nowy"
+
+#. (obsolete)
+#: MainDlg#3
+msgid "Please wait..."
+msgstr "Proszę czekać..."
+
+#. (obsolete)
+#: MainDlg#4
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#. (obsolete)
+#: MainDlg#5
+msgid "Delete current card?"
+msgstr "Czy na pewno chcesz usunąć zaznaczoną kartę?"
+
+#. (obsolete)
+#: MainDlg#6
+msgid "&Yes"
+msgstr "&Tak"
+
+#. (obsolete)
+#: MainDlg#7
+msgid "&No"
+msgstr "&Nie"
+
+#. (obsolete)
+#: MainDlg#8
+msgid "Returns in "
+msgstr "Karta zostanie wyświetlona ponownie w ciągu"
+
+#. (obsolete)
+#: MainDlg#9
+msgid " day(s)."
+msgstr " dni(a)."
+
+#. (obsolete)
+#: MainDlg#10
+msgid "Next repetition: today."
+msgstr "Kolejna powtórka: dzisiaj."
+
+#. (obsolete)
+#: MainDlg#11
+msgid "Next repetition: tomorrow."
+msgstr "Kolejna powtórka: jutro."
+
+#. (obsolete)
+#: MainDlg#12
+msgid "Next repetition in "
+msgstr "Kolejna powtórka za najbliższe"
+
+#. (obsolete)
+#: MainDlg#13
+msgid " days."
+msgstr " dni."
+
+#. (obsolete)
+#: MainDlg#14
+msgid "Question:"
+msgstr "Pytanie z kategorii:"
+
+#. (obsolete)
+#: MainDlg#15
+msgid "<default>"
+msgstr "<domyślny>"
+
+#. (obsolete)
+#: MainDlg#16
+msgid "Show &answer"
+msgstr "Pokaż &odpowiedź"
+
+#. (obsolete)
+#: MainDlg#17
+msgid "Learn ahead of schedule"
+msgstr "Nauka przed wyznaczonym czasem"
+
+#. (obsolete)
+#: MainDlg#18
+msgid "Pick days until next repetition:"
+msgstr "Wybierz liczbę dni pozostałych do następnej powtórki:"
+
+#. (obsolete)
+#: MainDlg#19
+msgid "Grade your answer:"
+msgstr "Oceń odpowiedź:"
+
+#. (obsolete)
+#: MainDlg#20
+msgid "Scheduled: "
+msgstr "Zaplanowanych:"
+
+#. (obsolete)
+#: MainDlg#21
+msgid "Not memorised: "
+msgstr "Niezapamiętanych:"
+
+#. (obsolete)
+#: MainDlg#22
+msgid "All: "
+msgstr "Wszystkich: "
+
+#. (obsolete)
+#: MainFrm#1
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#. (obsolete)
+#: MainFrm#2
+msgid "Question:"
+msgstr "Pytanie:"
+
+#. (obsolete)
+#: MainFrm#3
+msgid "Answer:"
+msgstr "Odpowiedź:"
+
+#. (obsolete)
+#: MainFrm#4
+msgid "Show answer"
+msgstr "Pokaż odpowiedź"
+
+#. (obsolete)
+#: MainFrm#5
+msgid "Grade your answer:"
+msgstr "Oceń odpowiedź:"
+
+#. (obsolete)
+#: MainFrm#6
+msgid "&0"
+msgstr "&0"
+
+#. (obsolete)
+#: MainFrm#7
+msgid "0"
+msgstr "0"
+
+#. (obsolete)
+#: MainFrm#8
+msgid "&1"
+msgstr "&1"
+
+#. (obsolete)
+#: MainFrm#9
+msgid "1"
+msgstr "1"
+
+#. (obsolete)
+#: MainFrm#10
+msgid "&2"
+msgstr "&2"
+
+#. (obsolete)
+#: MainFrm#11
+msgid "2"
+msgstr "2"
+
+#. (obsolete)
+#: MainFrm#12
+msgid "&3"
+msgstr "&3"
+
+#. (obsolete)
+#: MainFrm#13
+msgid "3"
+msgstr "3"
+
+#. (obsolete)
+#: MainFrm#14
+msgid "&4"
+msgstr "&4"
+
+#. (obsolete)
+#: MainFrm#15
+msgid "4"
+msgstr "4"
+
+#. (obsolete)
+#: MainFrm#16
+msgid "&5"
+msgstr "&5"
+
+#. (obsolete)
+#: MainFrm#17
+msgid "5"
+msgstr "5"
+
+#. (obsolete)
+#: MainFrm#18
+msgid "&New"
+msgstr "&Nowy"
+
+#. (obsolete)
+#: MainFrm#19
+msgid "."
+msgstr "."
+
+#. (obsolete)
+#: MainFrm#20
+msgid "Ctrl+N"
+msgstr "Ctrl+N"
+
+#. (obsolete)
+#: MainFrm#21
+msgid "&Open..."
+msgstr "&Otwórz..."
+
+#. (obsolete)
+#: MainFrm#22
+msgid "Ctrl+O"
+msgstr "Ctrl+O"
+
+#. (obsolete)
+#: MainFrm#23
+msgid "&Save"
+msgstr "&Zapisz"
+
+#. (obsolete)
+#: MainFrm#24
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#. (obsolete)
+#: MainFrm#25
+msgid "Save &As..."
+msgstr "Zapisz &jako..."
+
+#. (obsolete)
+#: MainFrm#26
+msgid "E&xit"
+msgstr "Za&mknij"
+
+#. (obsolete)
+#: MainFrm#27
+msgid "About"
+msgstr "Informacje"
+
+#. (obsolete)
+#: MainFrm#28
+msgid "&About"
+msgstr "&Informacje"
+
+#. (obsolete)
+#: MainFrm#29
+msgid "Add cards"
+msgstr "Dodaj kartę"
+
+#. (obsolete)
+#: MainFrm#30
+msgid "&Add cards"
+msgstr "&Dodaj kartę"
+
+#. (obsolete)
+#: MainFrm#31
+msgid "Ctrl+A"
+msgstr "Ctrl+A"
+
+#. (obsolete)
+#: MainFrm#32
+msgid "Act&ivate categories"
+msgstr "Akt&ywuj kategorie"
+
+#. (obsolete)
+#: MainFrm#33
+msgid "Edit deck"
+msgstr "Edytuj zestaw kart"
+
+#. (obsolete)
+#: MainFrm#34
+msgid "Edit &deck"
+msgstr "Edytuj zestaw &kart"
+
+#. (obsolete)
+#: MainFrm#35
+msgid "Ctrl+D"
+msgstr "Ctrl+D"
+
+#. (obsolete)
+#: MainFrm#36
+msgid "&Import"
+msgstr "&Importuj"
+
+#. (obsolete)
+#: MainFrm#37
+msgid "&Export"
+msgstr "&Eksportuj"
+
+#. (obsolete)
+#: MainFrm#38
+msgid "Show &toolbar"
+msgstr "Pokaż &pasek narzędzi"
+
+#. (obsolete)
+#: MainFrm#39
+msgid "Edit current card"
+msgstr "Edytuj kartę"
+
+#. (obsolete)
+#: MainFrm#40
+msgid "&Edit current card"
+msgstr "&Edytuj kartę"
+
+#. (obsolete)
+#: MainFrm#41
+msgid "Ctrl+E"
+msgstr "Ctrl+E"
+
+#. (obsolete)
+#: MainFrm#42
+msgid "Delete current card"
+msgstr "Usuń kartę"
+
+#. (obsolete)
+#: MainFrm#43
+msgid "&Delete current card"
+msgstr "&Usuń kartę"
+
+#. (obsolete)
+#: MainFrm#44
+msgid "Del"
+msgstr "Del"
+
+#. (obsolete)
+#: MainFrm#45
+msgid "&Clean duplicates"
+msgstr "&Usuń duplikaty"
+
+#. (obsolete)
+#: MainFrm#46
+msgid "&Configure Mnemosyne"
+msgstr "&Ustawienia Mnemosyne"
+
+#. (obsolete)
+#: MainFrm#47
+msgid "Getting started"
+msgstr "Wprowadzenie"
+
+#. (obsolete)
+#: MainFrm#48
+msgid "&Getting started"
+msgstr "&Wprowadzenie"
+
+#. (obsolete)
+#: MainFrm#49
+msgid "Down, Down"
+msgstr "W dół"
+
+#. (obsolete)
+#: MainFrm#50
+msgid "Enter"
+msgstr "Wprowadź"
+
+#. (obsolete)
+#: MainFrm#51
+msgid "Return"
+msgstr "Powrót"
+
+#. (obsolete)
+#: MainFrm#52
+msgid "Space"
+msgstr "Spacja"
+
+#. (obsolete)
+#: MainFrm#53
+msgid "Ctrl+R"
+msgstr "Ctrl+R"
+
+#. (obsolete)
+#: MainFrm#54
+msgid "Show statistics"
+msgstr "Wyświetl statystyki"
+
+#. (obsolete)
+#: MainFrm#55
+msgid "Show s&tatistics"
+msgstr "Wyświetl s&tatystyki"
+
+#. (obsolete)
+#: MainFrm#56
+msgid "Ctrl+T"
+msgstr "Ctrl+T"
+
+#. (obsolete)
+#: MainFrm#57
+msgid "Tip of the day"
+msgstr "Porada dnia"
+
+#. (obsolete)
+#: MainFrm#58
+msgid "&Tip of the day"
+msgstr "&Porada dnia"
+
+#. (obsolete)
+#: MainFrm#59
+msgid "Main toolbar (Mnemosyne)"
+msgstr "Główny pasek narzędzi (Mnemosyne)"
+
+#. (obsolete)
+#: MainFrm#60
+msgid "&File"
+msgstr "&Plik"
+
+#. (obsolete)
+#: MainFrm#61
+msgid "&Deck"
+msgstr "&Zestaw"
+
+#. (obsolete)
+#: MainFrm#62
+msgid "&Settings"
+msgstr "&Ustawienia"
+
+#. (obsolete)
+#: MainFrm#63
+msgid "&Help"
+msgstr "&Pomoc"
+
+#. (obsolete)
+#: MainFrm#64
+msgid "Activate cate&gories"
+msgstr "Aktywuj kate&gorie"
+
+#. (obsolete)
+#: MainFrm#65
+msgid "Ctrl+G"
+msgstr "Ctrl+G"
+
+#. (obsolete)
+#: MainFrm#66
+msgid "Show &answer"
+msgstr "Pokaż &odpowiedź"
+
+#: MainWindow#1
+#, fuzzy
+msgid "Mnemosyne databases (*.mem)"
+msgstr "baza danych programu Mnemosyne (*.mem)"
+
+#: MainWindow#2
+#, fuzzy
+msgid "New"
+msgstr "Nowy"
+
+#: MainWindow#3
+#, fuzzy
+msgid "Please wait..."
+msgstr "Proszę czekać..."
+
+#: MainWindow#4
+#, fuzzy
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: MainWindow#5
+#, fuzzy
+msgid "Delete current card?"
+msgstr "Czy na pewno chcesz usunąć zaznaczoną kartę?"
+
+#: MainWindow#6
+#, fuzzy
+msgid "&Yes"
+msgstr "&Tak"
+
+#: MainWindow#7
+#, fuzzy
+msgid "&No"
+msgstr "&Nie"
+
+#: MainWindow#8
+#, fuzzy
+msgid "Returns in "
+msgstr "Karta zostanie wyświetlona ponownie w ciągu"
+
+#: MainWindow#9
+#, fuzzy
+msgid " day(s)."
+msgstr " dni(a)."
+
+#: MainWindow#10
+#, fuzzy
+msgid "Next repetition: today."
+msgstr "Kolejna powtórka: dzisiaj."
+
+#: MainWindow#11
+#, fuzzy
+msgid "Next repetition: tomorrow."
+msgstr "Kolejna powtórka: jutro."
+
+#: MainWindow#12
+#, fuzzy
+msgid "Next repetition in "
+msgstr "Kolejna powtórka za najbliższe"
+
+#: MainWindow#13
+#, fuzzy
+msgid " days."
+msgstr " dni."
+
+#: MainWindow#14
+msgid "Question:"
+msgstr ""
+
+#: MainWindow#15
+#, fuzzy
+msgid "<default>"
+msgstr "<domyślny>"
+
+#: MainWindow#16
+#, fuzzy
+msgid "Show &answer"
+msgstr "Pokaż &odpowiedź"
+
+#: MainWindow#17
+#, fuzzy
+msgid "Learn ahead of schedule"
+msgstr "Nauka przed wyznaczonym czasem"
+
+#: MainWindow#18
+#, fuzzy
+msgid "Pick days until next repetition:"
+msgstr "Wybierz liczbę dni pozostałych do następnej powtórki:"
+
+#: MainWindow#19
+#, fuzzy
+msgid "Grade your answer:"
+msgstr "Oceń odpowiedź:"
+
+#: MainWindow#20
+#, fuzzy
+msgid "Scheduled: "
+msgstr "Zaplanowanych:"
+
+#: MainWindow#21
+#, fuzzy
+msgid "Not memorised: "
+msgstr "Niezapamiętanych:"
+
+#: MainWindow#22
+#, fuzzy
+msgid "All: "
+msgstr "Wszystkich: "
+
+#: MainWindow#23
+#, fuzzy
+msgid "Answer:"
+msgstr "Odpowiedź:"
+
+#: MainWindow#24
+#, fuzzy
+msgid "0"
+msgstr "0"
+
+#: MainWindow#25
+#, fuzzy
+msgid "1"
+msgstr "1"
+
+#: MainWindow#26
+#, fuzzy
+msgid "2"
+msgstr "2"
+
+#: MainWindow#27
+#, fuzzy
+msgid "3"
+msgstr "3"
+
+#: MainWindow#28
+#, fuzzy
+msgid "4"
+msgstr "4"
+
+#: MainWindow#29
+#, fuzzy
+msgid "5"
+msgstr "5"
+
+#: MainWindow#30
+#, fuzzy
+msgid "&File"
+msgstr "&Plik"
+
+#: MainWindow#31
+#, fuzzy
+msgid "&Deck"
+msgstr "&Zestaw"
+
+#: MainWindow#32
+#, fuzzy
+msgid "&Settings"
+msgstr "&Ustawienia"
+
+#: MainWindow#33
+#, fuzzy
+msgid "&Help"
+msgstr "&Pomoc"
+
+#: MainWindow#34
+msgid "toolBar"
+msgstr ""
+
+#: MainWindow#35
+#, fuzzy
+msgid "Activate cate&gories"
+msgstr "Aktywuj kate&gorie"
+
+#: MainWindow#36
+#, fuzzy
+msgid "Ctrl+G"
+msgstr "Ctrl+G"
+
+#: MainWindow#37
+#, fuzzy
+msgid "&Add cards"
+msgstr "&Dodaj kartę"
+
+#: MainWindow#38
+#, fuzzy
+msgid "Ctrl+A"
+msgstr "Ctrl+A"
+
+#: MainWindow#39
+#, fuzzy
+msgid "&Clean duplicates"
+msgstr "&Usuń duplikaty"
+
+#: MainWindow#40
+#, fuzzy
+msgid "&Configure Mnemosyne"
+msgstr "&Ustawienia Mnemosyne"
+
+#: MainWindow#41
+msgid "default"
+msgstr ""
+
+#: MainWindow#42
+#, fuzzy
+msgid "&Delete current card"
+msgstr "&Usuń kartę"
+
+#: MainWindow#43
+msgid "Backspace"
+msgstr ""
+
+#: MainWindow#44
+#, fuzzy
+msgid "&Edit current card"
+msgstr "&Edytuj kartę"
+
+#: MainWindow#45
+#, fuzzy
+msgid "Ctrl+E"
+msgstr "Ctrl+E"
+
+#: MainWindow#46
+#, fuzzy
+msgid "Edit &deck"
+msgstr "Edytuj zestaw &kart"
+
+#: MainWindow#47
+#, fuzzy
+msgid "Ctrl+D"
+msgstr "Ctrl+D"
+
+#: MainWindow#48
+#, fuzzy
+msgid "&Export"
+msgstr "&Eksportuj"
+
+#: MainWindow#49
+msgid "E&xit"
+msgstr ""
+
+#: MainWindow#50
+#, fuzzy
+msgid "&New"
+msgstr "&Nowy"
+
+#: MainWindow#51
+#, fuzzy
+msgid "Ctrl+N"
+msgstr "Ctrl+N"
+
+#: MainWindow#52
+#, fuzzy
+msgid "&Open..."
+msgstr "&Otwórz..."
+
+#: MainWindow#53
+#, fuzzy
+msgid "Ctrl+O"
+msgstr "Ctrl+O"
+
+#: MainWindow#54
+#, fuzzy
+msgid "&Save"
+msgstr "&Zapisz"
+
+#: MainWindow#55
+#, fuzzy
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#: MainWindow#56
+msgid "Save &as..."
+msgstr ""
+
+#: MainWindow#57
+#, fuzzy
+msgid "&About"
+msgstr "&Informacje"
+
+#: MainWindow#58
+#, fuzzy
+msgid "&Import"
+msgstr "&Importuj"
+
+#: MainWindow#59
+msgid "pressEnter"
+msgstr ""
+
+#: MainWindow#60
+#, fuzzy
+msgid "Enter"
+msgstr "Wprowadź"
+
+#: MainWindow#61
+msgid "pressR"
+msgstr ""
+
+#: MainWindow#62
+msgid "R"
+msgstr ""
+
+#: MainWindow#63
+msgid "pressReturn"
+msgstr ""
+
+#: MainWindow#64
+#, fuzzy
+msgid "Return"
+msgstr "Powrót"
+
+#: MainWindow#65
+msgid "pressSpace"
+msgstr ""
+
+#: MainWindow#66
+#, fuzzy
+msgid "Space"
+msgstr "Spacja"
+
+#: MainWindow#67
+#, fuzzy
+msgid "&Getting started"
+msgstr "&Wprowadzenie"
+
+#: MainWindow#68
+#, fuzzy
+msgid "Show s&tatistics"
+msgstr "Wyświetl s&tatystyki"
+
+#: MainWindow#69
+#, fuzzy
+msgid "Ctrl+T"
+msgstr "Ctrl+T"
+
+#: MainWindow#70
+#, fuzzy
+msgid "Show &toolbar"
+msgstr "Pokaż &pasek narzędzi"
+
+#: MainWindow#71
+#, fuzzy
+msgid "&Tip of the day"
+msgstr "&Porada dnia"
+
+#. (obsolete)
+#: PreviewItemDlg#1
+msgid "<default>"
+msgstr "<domyślny>"
+
+#. (obsolete)
+#: PreviewItemDlg#2
+msgid "Question:"
+msgstr "Pytanie:"
+
+#. (obsolete)
+#: PreviewItemFrm#1
+msgid "Preview card"
+msgstr "Podgląd karty"
+
+#. (obsolete)
+#: PreviewItemFrm#2
+msgid "Question:"
+msgstr "Pytanie:"
+
+#. (obsolete)
+#: PreviewItemFrm#3
+msgid "Answer:"
+msgstr "Odpowiedź:"
+
+#. (obsolete)
+#: PreviewItemFrm#4
+msgid "&OK"
+msgstr "&OK"
+
+#. (obsolete)
+#: PreviewItemFrm#5
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#. (obsolete)
+#: ProductTourFrm#1
+msgid "Getting started"
+msgstr "Wprowadzenie"
+
+#. (obsolete)
+#: ProductTourFrm#2
+msgid ""
+"Greetings!\n"
+"\n"
+"I am Mnemosyne, a type of butterfly named after the Greek goddess of Memory. "
+"\n"
+"I can make it more efficient for you to memorise and remember answers to "
+"questions, by helping you focus on the cards you're most likely to forget "
+"and by not wasting your time on things you know well.\n"
+"\n"
+"For that, I'll decide when to ask you the questions, and you'll need to rate "
+"how well you remember the answers.\n"
+"\n"
+"Let's look at the meaning of these ratings now."
+msgstr ""
+"Witaj!\n"
+"\n"
+"Jestem programem Mnemosyne nazwanym tak od imienia greckiej boginii pamięci.\n"
+"\n"
+"Pomagam w zapamiętywaniu wyświetlając pytania odnośnie tylko tych "
+"informacji, które mogą zostać zapomniane.\n"
+"\n"
+"Jednak abym mógł wykonywać swoje zadanie dobrze ważne jest abyś oceniał "
+"swoje odpowiedzi według proponowanej przeze mnie skali.\n"
+"\n"
+"Przyjrzyjmy się jej bliżej."
+
+#. (obsolete)
+#: ProductTourFrm#3
+msgid "Introduction"
+msgstr "Wprowadzenie"
+
+#. (obsolete)
+#: ProductTourFrm#4
+msgid ""
+"Grades range from 0 to 5.\n"
+"\n"
+"Grades 0 and 1 are used if you don't know the answer yet, or if you have "
+"forgotten it. A card with grade 1 is starting to get more familiar than one "
+"with grade 0, and will be repeated less often.\n"
+"\n"
+"I will keep on asking you these questions until you give them a grade 2 or "
+"higher (the exact grade doesn't matter). Grade 2 basically means that you "
+"think you'll be able to remember the card for at least one or two days. It "
+"signals the transition between short and long term memory.\n"
+"\n"
+"I will schedule this card at some future date, when I think you'll still be "
+"able to remember it with some effort, without having forgotten it "
+"completely. This is the most efficient for the learning process."
+msgstr ""
+"Oceny mieszczą się w zakresie od 0 do 5.\n"
+"\n"
+"Przy pomocy 0 i 1 oznaczane są karty zawierające informacje nieznane lub "
+"niezapamiętane. Kartę z oceną 1 traktuję jako już znaną, lecz jeszcze "
+"niezapamiętaną.\n"
+"\n"
+"Dlatego pytania, na które udzielone odpowiedzi otrzymają ocenę 0 oraz 1 będę "
+"zadawał dopóki dopóty otrzymają ocenę wyższą, np. 2. Dwójka oznacza, że "
+"zapamiętasz kartę na czas około 2 dni. Ocena ta sygnalizuje, że informacja "
+"przechodzi z pamięci krótkotrwałej do długotrwałej.\n"
+"\n"
+"Zaplanuję powtórkę na dzień, w którym jak sądzę będziesz jeszcze pamiętał tę "
+"kartę, choć przypomnienie jej może sprawić Ci już kłopoty. Takie "
+"rozplanowywanie jest jednym z najbardziej efektywnych sposobów przyswajania "
+"wiedzy."
+
+#. (obsolete)
+#: ProductTourFrm#5
+msgid "Grades 0-2"
+msgstr "Oceny od 0 do 2"
+
+#. (obsolete)
+#: ProductTourFrm#6
+msgid ""
+"If in the future I ask you the question too soon, and you're able to "
+"remember it without any effort, you rate the card a 5. I'll take this into "
+"account by waiting a lot longer before asking you this question again.\n"
+"\n"
+"If I get it just right, so that you remember it, albeit with some effort, "
+"you use grade 4.\n"
+"\n"
+"If on the other hand it takes you significant effort to remember the answer, "
+"and you think I've waited too long to ask you this question, then rate the "
+"card 3.\n"
+"\n"
+"If you fail to remember it altogether, rate it either 0 or 1, and I'll keep "
+"on asking you this question until you think you'll be able to remember it "
+"again for a few days."
+msgstr ""
+"Jeśli zdarzy się, że bez kłopotu udzielisz odpowiedzi na zadane pytanie to "
+"oceń kartę na 5. Oznacza to, że pytanie zadałem zbyt wcześnie, dlatego "
+"następną powtórkę zaplanuję na dalszy termin.\n"
+"\n"
+"Z drugiej strony, jeśli w udzielenie odpowiedzi włożyłeś nieco wysiłku, oceń "
+"ją na 4.\n"
+"\n"
+"Pozostała jeszcze ocena 3, z której skorzystaj gdy udzielenie odpowiedzi "
+"sprawia ci wiele kłopotów i uważasz, że czekałem zbyt długo z zadaniem "
+"pytania.\n"
+"\n"
+"Jeśli całkiem zapomniałeś jak brzmi odpowiedź na dane pytanie to oceń ją na "
+"0 lub 1. Wtedy daną informację będę powtarzał do momentu, aż otrzyma ocenę "
+"wyższą."
+
+#. (obsolete)
+#: ProductTourFrm#7
+msgid "Grades 3-5"
+msgstr "Oceny od 3 do 5"
+
+#. (obsolete)
+#: ProductTourFrm#8
+msgid ""
+"If you're into statistics, I can keep detailed logs of your revisions.\n"
+"\n"
+"Not only that, but if you want, I can upload transparently a completely "
+"anonymous version of these logs to a central site for analysis, so that you "
+"can help making me better. In this way, you also contribute to scientific "
+"research on long-term memory.\n"
+"\n"
+"Uncheck the following box if you do not want to do this."
+msgstr ""
+"Jeśli lubisz śledzić postępy to na pewno ucieszy cię informacja, że potrafię "
+"prowadzić dziennik powtórek.\n"
+"\n"
+"Za twoją zgodą mogę przesyłać jego anonimową wersję na stronę projektu.  W "
+"ten sposób nie tylko pomagasz mi stawać się coraz lepszym, ale też "
+"przyczyniasz się do rozwoju badań naukowych nad pamięcią długotrwałą.\n"
+"\n"
+"Odznacz to pole wyboru jeśli nie wyrażasz zgody."
+
+#. (obsolete)
+#: ProductTourFrm#9
+msgid "Upload anonymous logs"
+msgstr "Przesyłaj anonimowe dane dziennika powtórek"
+
+#. (obsolete)
+#: ProductTourFrm#10
+msgid ""
+"(You can always change this setting later using the 'Configure Mnemosyne' "
+"menu option.)"
+msgstr ""
+"(Zawsze możesz dokonać zmiany tego ustawienia w menu opcji \"Ustawienia "
+"Mnemosyne\".)"
+
+#. (obsolete)
+#: ProductTourFrm#11
+msgid "Statistics"
+msgstr "Statystyki"
+
+#. (obsolete)
+#: ProductTourFrm#12
+msgid ""
+"Now you're ready to start!\n"
+"<p>\n"
+"Add new cards by clicking on the icon with the 'plus' sign in the top left.\n"
+"<p>\n"
+"Remember, there is no need to worry about saving your work, I will do so "
+"automatically.\n"
+"<p>\n"
+"For best results, I suggest you do your revisions every day, although I'll "
+"try to cope as best I can if you postpone your revisions or if you want to "
+"learn ahead of time.\n"
+"<p>\n"
+"For more documentation, see http://www.mnemosyne-proj.sourceforge.net.\n"
+"<p>\n"
+"Happy learning!"
+msgstr ""
+"Możemy zaczynać!\n"
+"<p>\n"
+"Aby dodać nową kartę kliknij na ikonę plusa znajdującą się w lewym górnym "
+"rogu.\n"
+"<p>\n"
+"Pamiętaj, że wszelkie zmiany zapisuję automatycznie, więc nie musisz "
+"zaprzątać sobie tym głowy.\n"
+"<p>\n"
+"W celu osiągnięcia najlepszych rezultatów staraj się robić powtórki "
+"codziennie. Jednak jeśli przełożysz je na później lub powtórzysz przed "
+"czasem, to zrobię wszystko co w mojej mocy aby zapamiętywanie nadal było jak "
+"najefektywniejsze.\n"
+"<p>\n"
+"Aby uzyskać więcej informacji przejdź do witryny: http://www.mnemosyne-"
+"proj.sourceforge.net\n"
+"<p>\n"
+"Przyjemnej nauki!"
+
+#. (obsolete)
+#: ProductTourFrm#13
+msgid "Ready to start"
+msgstr "Zaczynamy"
+
+#: QTextEdit2#1
+#, fuzzy
+msgid "Insert &image"
+msgstr "Wstaw &obraz"
+
+#: QTextEdit2#2
+#, fuzzy
+msgid "Ctrl+I"
+msgstr "Ctrl+I"
+
+#: QTextEdit2#3
+#, fuzzy
+msgid "Insert &sound"
+msgstr "Wstaw &dźwięk"
+
+#: QTextEdit2#4
+#, fuzzy
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#: QTextEdit2#5
+#, fuzzy
+msgid "&3-sided input"
+msgstr "&Karta podzielona na trzy części"
+
+#: QTextEdit2#6
+#, fuzzy
+msgid "Image files"
+msgstr "Pliki obrazów"
+
+#: QTextEdit2#7
+#, fuzzy
+msgid "Insert image"
+msgstr "Wstaw obraz"
+
+#: QTextEdit2#8
+#, fuzzy
+msgid "Sound files"
+msgstr "Pliki dźwięków"
+
+#: QTextEdit2#9
+#, fuzzy
+msgid "Insert sound"
+msgstr "Wstaw dźwięk"
+
+#: StatisticsDlg#1
+#, fuzzy
+msgid ""
+"Scheduled cards for the next days:\n"
+"\n"
+msgstr ""
+"Ilość kart przeznaczonych do powtórki:\n"
+"\n"
+
+#: StatisticsDlg#2
+#, fuzzy
+msgid "In"
+msgstr "W ciągu"
+
+#: StatisticsDlg#3
+#, fuzzy
+msgid "day(s) :"
+msgstr "dni(a) :"
+
+#: StatisticsDlg#4
+#, fuzzy
+msgid ""
+"Number of cards with the following grades:\n"
+"\n"
+msgstr ""
+"Ilość kart, które otrzymały ocenę:\n"
+"\n"
+
+#: StatisticsDlg#5
+#, fuzzy
+msgid "Grade"
+msgstr "Ocena"
+
+#. (obsolete)
+#: StatisticsFrm#1
+msgid "Category"
+msgstr "Kategoria"
+
+#. (obsolete)
+#: StatisticsFrm#2
+msgid "Cards"
+msgstr "Kart"
+
+#. (obsolete)
+#: StatisticsFrm#3
+msgid "Statistics"
+msgstr "Statystyki"
+
+#. (obsolete)
+#: StatisticsFrm#4
+msgid "Schedule"
+msgstr "Harmonogram"
+
+#. (obsolete)
+#: StatisticsFrm#5
+msgid "Grades"
+msgstr "Oceny"
+
+#. (obsolete)
+#: StatisticsFrm#6
+msgid "Categories"
+msgstr "Kategorie"
+
+#. (obsolete)
+#: StatisticsFrm#7
+msgid "&OK"
+msgstr "&OK"
+
+#: TipDlg#1
+#, fuzzy
+msgid "For optimal results, it's best to do your repetitions every day."
+msgstr "Aby osiągnąć najlepsze rezultaty staraj się robić powtórki codziennie."
+
+#: TipDlg#2
+#, fuzzy
+msgid ""
+"If you've been away for a few days, don't worry about your backlog. Do as "
+"many cards as you feel like to catch up, the rest will be automatically "
+"rescheduled to the future."
+msgstr ""
+"Nie musisz martwić się zaległościami jeśli program nie był uruchamiany przez "
+"dłuższy czas. Zaległe powtórki zostaną automatycznie wyświetlone w "
+"odpowiednim terminie w przyszłości."
+
+#: TipDlg#3
+#, fuzzy
+msgid ""
+"The 'number of grade 0 cards to learn at once' setting determines how many "
+"new cards you are trying to learn at the same time. It does <b>not</b> tell "
+"you how many new cards you need to learn per day. You are the judge of that: "
+"you can learn more cards or less cards, depending on how you feel."
+msgstr ""
+"Opcja \"Ilość przeznaczonych do zapamiętania kart, które otrzymały ocenę 0\" "
+"określa ilość kart przeznaczonych do nauki w tym samym czasie. <b>Nie</b> "
+"jest to ilość kart przeznaczonych do nauki dziennie, gdyż jest ona dowolna i "
+"zależna od twoich chęci."
+
+#: TipDlg#4
+#, fuzzy
+msgid ""
+"In summary, try to do your repetitions every day, but don't worry too much "
+"about getting the 'scheduled' counter to zero, and certainly not about "
+"getting the 'Not memorised' counter to zero."
+msgstr ""
+"Podsumujmy wszystkie rady: pamiętaj aby powtórki wykonywać codziennie i nie "
+"przejmuj się jeśli wskaźniki \"zaplanowanych\" oraz \"niezapamiętanych\" nadal "
+"wyświetlają pewną liczbę nie przyswojonych informacji. Ich przeznaczeniem "
+"jest informować, a nie zmuszać do dalszej nauki, która zależy tylko i "
+"wyłącznie od twoich chęci. "
+
+#: TipDlg#5
+#, fuzzy
+msgid ""
+"Grade 1 cards are different from grade 0 cards in the sense that they show "
+"up less often and are not subject to the 'number of grade 0 cards to learn "
+"at once' setting."
+msgstr ""
+"Karty, które otrzymały ocenę 1 różnią się od kart ocenionych na 0 tym, że "
+"pokazują się rzadziej i nie podlegają regule ustawienia \"ilość kart "
+"przeznaczonych do zapamiętania w tym samym czasie\"."
+
+#: TipDlg#6
+#, fuzzy
+msgid ""
+"You can use keyboard shortcuts to do your repetitions. Enter, Return or "
+"Space stand for the default action ('Show answer' or 'grade 4'). The number "
+"keys can be used for grading."
+msgstr ""
+"Podczas powtórek możesz korzystać ze skrótów klawiszowych. Naciśnięcie "
+"klawiszy Enter, Return oraz Spacja powoduje wykonanie podstawowej czynności, "
+"takiej jak \"Pokaż odpowiedź\" lub \"ocena 4\", natomiast klawisze numeryczne "
+"odpowadają poszczególnym ocenom."
+
+#: TipDlg#7
+#, fuzzy
+msgid ""
+"You can select the categories you wish to study in the 'Activate categories' "
+"menu option."
+msgstr ""
+"Możesz dokonać wyboru kategorii których chcesz się uczyć za pomocą opcji "
+"\"Aktywuj kategorie\"."
+
+#: TipDlg#8
+#, fuzzy
+msgid ""
+"It is recommended to put all your cards in a single database and use "
+"categories to organise them. Using 'Activate categories' is much more "
+"convenient than have to load and unload several databases."
+msgstr ""
+"Zaleca się trzymanie wszystkich kart w jednej bazie danych i ogranizowanie "
+"ich przy pomocy kategorii, ponieważ jest to dużo prostsze od ciągłego "
+"wczytywania i zapisywania wielu baz danych."
+
+#: TipDlg#9
+#, fuzzy
+msgid ""
+"You can import cards in a wide variety of formats: tab delimited txt files, "
+"Supermemo files, ... ."
+msgstr ""
+"Importować można karty zapisane w wielu formatach plików takich jak plik "
+"tekstowy rodzielany znakami tabulacji, plik programu Supermemo i inne."
+
+#: TipDlg#10
+#, fuzzy
+msgid ""
+"If you have cards in Word or Excel, export them to tab delimited txt files "
+"with UTF-8 unicode encoding to be able to import them into Mnemosyne."
+msgstr ""
+"Aby importować karty w formacie Word lub Excel uprzednio zapisz je "
+"jako\"tekst rozdzielany znakami tabulacji\" z kodowaniem UTF-8."
+
+#: TipDlg#11
+#, fuzzy
+msgid ""
+"If you want to print out your cards, export them to a txt file which you can "
+"then print from your favourite Word processor."
+msgstr ""
+"Aby wydrukować karty wyeksportuj je jako plik tekstowy, który następnie "
+"otwórz i wydrukuj za pomocą ulubionego edytora tekstu."
+
+#: TipDlg#12
+#, fuzzy
+msgid ""
+"You can share your cards with someone else by exporting them to XML and "
+"choosing the 'Reset learning data' option on export."
+msgstr ""
+"Aby dzielić się swoimi kartami z innymi, wyeksportuj je do pliku XML "
+"zaznaczając opcję \"Usuń dane dotyczące powtórek\"."
+
+#: TipDlg#13
+#, fuzzy
+msgid ""
+"If you study a foreign language with a different script, the default font "
+"size is sometimes a bit small. If you want to increase the size of these "
+"characters but keep the size of English text, use the 'increase size of non-"
+"latin characters by X points' option."
+msgstr ""
+"Jeśli uczysz się języka obcego, którego litery różnią się znacznie od "
+"dotychczas ci znanych, domyślna czcionka może okazać się nieczytelna. Aby "
+"zwiększyć rozmiar znaków języka którego się uczysz jednocześnie zachowujac "
+"rozmiar angielskich liter, zaznacz opcję \"zwiększ rozmiar znaków innych niż "
+"łaciskie o X punktów\"."
+
+#: TipDlg#14
+#, fuzzy
+msgid ""
+"You can add images and sounds to your cards. Right-click on the question or "
+"answer field when editing a card to bring up a pop-up menu to do so."
+msgstr ""
+"Podczas edycji karty możesz dodawać pliki graficzne oraz dzwięki poprzez "
+"kliknięcie prawym przyciskiem myszy na polu pytania lub odpowiedzi i "
+"wybranie odpowiedniej opcji w menu podręcznym."
+
+#: TipDlg#15
+#, fuzzy
+msgid ""
+"It is recommended to keep your sound and image files inside your .mnemosyne "
+"directory. That way, it's easier to transfer your data between different "
+"computers."
+msgstr ""
+"Przenoszenie danych między komputerami staje się o wiele łatwiejsze jeśli "
+"pliki graficzne oraz dzwięki zapisywane są i przechowywane wewnątrz katalogu "
+".mnemosyne."
+
+#: TipDlg#16
+#, fuzzy
+msgid ""
+"When adding a three-sided card, two regular cards will be created. One with "
+"as question the written form and as answer the pronunciation and the "
+"translation, and one with as question the translation and as answer the "
+"written form and the pronunciation."
+msgstr ""
+"Podczas dodawania karty podzielonej na trzy części dodawane są do bazy dwie "
+"zwykłe karty. W pierwszej z nich jako pytanie służy informacja na temat "
+"formy pisemnej, na które odpowiedzią jest jej wymowa oraz tłumaczenie. W "
+"drugiej karcie jako pytanie służy informacja na temat tłumaczenia, a "
+"odpowiedzią na nie jest jego forma pisemna i wymowa."
+
+#: TipDlg#17
+#, fuzzy
+msgid "You can use basic HTML tags in your cards to control their appearance."
+msgstr "Wygląd kart może być zmieniany za pomocą podstawowych znaczników HTML."
+
+#: TipDlg#18
+#, fuzzy
+msgid ""
+"Mnemosyne can use LaTeX to render mathematical formulas, e.g. "
+"<$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
+msgstr ""
+"Mnemosyne może wykorzystywać oprogramowanie LaTeX do zapisywania równań "
+"matematycznych takich jak <$>x^2+y^2=z^2</$> (Aby było to możliwe należy "
+"uprzednio zainstalować zarówno \"LaTeX\" jaki i \"dvipng\")."
+
+#. (obsolete)
+#: TipDlg#19
+msgid ""
+"The best way to backup your data is to copy your .mnemosyne directory (if "
+"you follow the recommended procedure to keep all your files there) and move "
+"it to a different drive. Mnemosyne keeps automatic XML-based backups in "
+".mnemosyne/backups, but that won't help you if that drive dies... "
+msgstr ""
+"Mnemosyne automatycznie wykonuje kopię zapasową bazy danych i umieszcza ją w "
+"katalogu .mnemosyne/backups, jednak w razie uszkodzenia dysku procedura ta "
+"nie chroni przed utratą danych. Dlatego zalecane jest wykonywanie kopii "
+"zapasowej poprzez skopiowanie folderu .mnemosyne na inny nośnik (jeśli "
+"wszystkie pliki powiązane z bazą przechowywane są w katalogu głównym "
+"programu wystarczy tylko go skopiować w porządane miejsce) "
+
+#: TipDlg#20
+#, fuzzy
+msgid ""
+"You can run Mnemosyne from a USB key. Copy C:\\Program Files\\Mnemosyne to "
+"your USB key, and then copy the .mnemosyne directory from your home "
+"directory to inside the Mnemosyne directory on the USB key."
+msgstr ""
+"Aby uruchomić program Mnemosyne z dysku USB skopiuj folder C:\\Program "
+"Files\\Mnemosyne na dysk USB a następnie umieść w nim katalog .mnemosyne, "
+"który znajduje się na komputerze."
+
+#: TipDlg#21
+#, fuzzy
+msgid ""
+"If you use Mnemosyne on multiple computers, there is a handy tool called "
+"Unison to help you synchronise your data. See the Mnemosyne website for more "
+"information."
+msgstr ""
+"Dla osób, które korzystają z programu Mnemosyne na wielu komputerach "
+"przygotowano specjalny program \"Unision\" mający na celu ułatwienie procesu "
+"synchronizacji danych. Więcej szczegółów znajduje się na stronie Mnemosyne."
+
+#: TipDlg#22
+#, fuzzy
+msgid ""
+"You can sort the cards in the 'Edit Deck' dialog by answer or by category by "
+"clicking on the corresponding column title. Clicking again changes the sort "
+"order."
+msgstr ""
+"W oknie \"Edytuj zestaw kart\" można sortować dane według odpowiedzi lub "
+"kategorii klikając na odpowiednią nazwę kolumny. Ponowne kliknięcie zmienia "
+"kolejność sortowania elementów."
+
+#: TipDlg#23
+#, fuzzy
+msgid ""
+"If you want more fine-grained control over LaTeX's behaviour, see the "
+"explanation of the <$$>...</$$> and <latex>...</latex> tags on Mnemosyne's "
+"website."
+msgstr ""
+"Bardziej zaawansowane polecenia programu LaTeX dostępne są za pomocą "
+"znaczników <$$>...</$$> oraz <latex>...</latex> i zostały szczegółowo "
+"omówione na stronie Mnemosyne."
+
+#: TipDlg#24
+#, fuzzy
+msgid ""
+"Advanced users can customise more of Mnemosyne by editing the config.py file "
+"in their .mnemosyne directory. They can also install plugins to customise "
+"Mnemosyne even further."
+msgstr ""
+"Zaawansowani użytkownicy Mnemosyne mogą dostosowywać program do swoich "
+"potrzeb poprzez instalację dodatkowych wtyczek lub edycję znajdującego się w "
+"katalogu .mnemosyne pliku konfiguracyjnego \"config.spy\"."
+
+#: TipDlg#25
+msgid ""
+"The best way to backup your data is to copy your .mnemosyne directory (if "
+"you follow the recommended procedure to keep all your files there) and move "
+"it to a different drive. Mnemosyne keeps automatic XML-based backups in "
+".mnemosyne/backups, but that won't help you if that drive dies..."
+msgstr ""
+
+#. (obsolete)
+#: TipFrm#1
+msgid "Tip of the day"
+msgstr "Porada dnia"
+
+#. (obsolete)
+#: TipFrm#2
+msgid "<b>Did you know...?</b>"
+msgstr "<b>Czy wiesz, że...?</b>"
+
+#. (obsolete)
+#: TipFrm#3
+msgid "&Show tips on startup"
+msgstr "&Pokazuj porady podczas uruchamiania programu"
+
+#. (obsolete)
+#: TipFrm#4
+msgid "Alt+S"
+msgstr "Alt+S"
+
+#. (obsolete)
+#: TipFrm#5
+msgid "&Previous"
+msgstr "&Poprzednia"
+
+#. (obsolete)
+#: TipFrm#6
+msgid "Alt+P"
+msgstr "Alt+P"
+
+#. (obsolete)
+#: TipFrm#7
+msgid "&Next"
+msgstr "&Następna"
+
+#. (obsolete)
+#: TipFrm#8
+msgid "Alt+N"
+msgstr "Alt+N"
+
+#. (obsolete)
+#: TipFrm#9
+msgid "&Close"
+msgstr "&Zamknij"
+
+#. (obsolete)
+#: TipFrm#10
+msgid "Alt+C"
+msgstr "Alt+C"

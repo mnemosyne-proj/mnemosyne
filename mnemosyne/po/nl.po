@@ -1,0 +1,3098 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-16 10:17+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.9.0\n"
+
+#: #1
+#, fuzzy
+msgid "Error in config.py:"
+msgstr "Fout in config.py:"
+
+#: #2
+#, fuzzy
+msgid "Error when running plugin:"
+msgstr "Fout bij het uitvoeren van plugin:"
+
+#: #3
+#, fuzzy
+msgid "Unable to load file."
+msgstr "Kon bestand niet laden."
+
+#: #4
+#, fuzzy
+msgid "Invalid file format."
+msgstr "Ongeldig bestandsformaat."
+
+#: #5
+#, fuzzy
+msgid "Unable to save file."
+msgstr "Kon bestand niet opslaan."
+
+#: #6
+#, fuzzy
+msgid "Unable to parse XML:"
+msgstr "Kon XML niet parsen:"
+
+#: #7
+#, fuzzy
+msgid "Unrecognised encoding."
+msgstr "Onbekende encodering."
+
+#: #8
+#, fuzzy
+msgid "Missing answer on line:"
+msgstr "Antwoord ontbreekt op regel:"
+
+#: #9
+#, fuzzy
+msgid ""
+"Unable to load database.\n"
+"Creating tmp file."
+msgstr ""
+"Kon gegevensbank niet laden.\n"
+"Ik creëer tmp bestand."
+
+#: #10
+#, fuzzy
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: #11
+#, fuzzy
+msgid "&OK"
+msgstr "&OK"
+
+#: #12
+#, fuzzy
+msgid "File exists:"
+msgstr "Bestand bestaat:"
+
+#: #13
+#, fuzzy
+msgid "&Overwrite"
+msgstr "&Overschrijven"
+
+#: #14
+#, fuzzy
+msgid "Removed duplicates: "
+msgstr "Duplicaten verwijderd: "
+
+#: #15
+#, fuzzy
+msgid ""
+"There are cards with different answers for question:\n"
+"\n"
+msgstr ""
+"Er zijn kaarten met andere antwoord voor vraag:\n"
+"\n"
+
+#: #16
+#, fuzzy
+msgid "&Merge and edit"
+msgstr "&Samenvoegen en bewerken"
+
+#: #17
+#, fuzzy
+msgid "&Don't merge"
+msgstr "&Niet samenvoegen"
+
+#: #18
+#, fuzzy
+msgid "Done!"
+msgstr "Klaar!"
+
+#: #19
+#, fuzzy
+msgid "You don't remember this card yet."
+msgstr "Je kent deze kaart nog niet."
+
+#: #20
+#, fuzzy
+msgid "Like '0', but it's getting more familiar."
+msgstr "Als '0', maar het wordt iets duidelijker."
+
+#: #21
+#, fuzzy
+msgid " Show it less often."
+msgstr " Toon het minder vaak."
+
+#: #22
+#, fuzzy
+msgid "You've memorised this card now,"
+msgstr "Je hebt deze kaart nu onthouden,"
+
+#: #23
+#, fuzzy
+msgid " and will probably remember it for a few days."
+msgstr " en zult het waarschijnlijk blijven onthouden voor een aantal dagen."
+
+#: #24
+#, fuzzy
+msgid "You have forgotten this card completely."
+msgstr "Deze kaart ben je volledig vergeten."
+
+#: #25
+#, fuzzy
+msgid "Barely correct answer. The interval was way too long."
+msgstr "Nauwelijks correct antwoord. Het tijdsinterval was veel te lang."
+
+#: #26
+#, fuzzy
+msgid "Correct answer, but with much effort."
+msgstr "Correct antwoord, maar met enige moeite."
+
+#: #27
+#, fuzzy
+msgid " The interval was probably too long."
+msgstr " Het interval was waarschijnlijk te lang."
+
+#: #28
+#, fuzzy
+msgid "Correct answer, with some effort."
+msgstr "Correct antwoord, met enige moeite."
+
+#: #29
+#, fuzzy
+msgid " The interval was probably just right."
+msgstr " Het tijdsinterval was vermoedelijk precies juist."
+
+#: #30
+#, fuzzy
+msgid "Correct answer, but without any"
+msgstr "Correct antwoord, maar zonder enige"
+
+#: #31
+#, fuzzy
+msgid " difficulties. The interval was probably too short."
+msgstr " moeite. Het interval was waarschijnlijk te kort."
+
+#: #32
+msgid "&Cancel"
+msgstr ""
+
+#: AboutDlg#1
+#, fuzzy
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: AboutDlg#2
+#, fuzzy
+msgid ""
+"Main author: Peter Bienstman\n"
+"\n"
+msgstr ""
+"Hoofd programmeur: Peter Bienstman\n"
+"\n"
+
+#. (obsolete)
+#: AboutDlg#3
+msgid "More info: http://mnemosyne-proj.sourceforge.net\n"
+msgstr "Voor meer informatie: http://mnemosyne-proj.sourceforge.net\n"
+
+#: AboutDlg#4
+msgid "More info: http://mnemosyne-proj.org\n"
+msgstr ""
+
+#. (obsolete)
+#: AboutFrm#1
+msgid "About"
+msgstr "Over"
+
+#. (obsolete)
+#: ActivateCategoriesFrm#1
+msgid "Activate categories"
+msgstr "Activeer categorieën"
+
+#. (obsolete)
+#: ActivateCategoriesFrm#2
+msgid "Select the categories to activate:"
+msgstr "Selecteer de te activeren categorieën:"
+
+#. (obsolete)
+#: ActivateCategoriesFrm#3
+msgid "Activate none"
+msgstr "Activeer geen"
+
+#. (obsolete)
+#: ActivateCategoriesFrm#4
+msgid "Activate all"
+msgstr "Activeer alle"
+
+#. (obsolete)
+#: ActivateCategoriesFrm#5
+msgid "&OK"
+msgstr "&OK"
+
+#. (obsolete)
+#: ActivateCategoriesFrm#6
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#. (obsolete)
+#: ActivateCategoriesFrm#7
+msgid "&Cancel"
+msgstr "&Annuleer"
+
+#: AddCardsDlg#1
+#, fuzzy
+msgid "<default>"
+msgstr "<standaard>"
+
+#: AddCardsDlg#2
+#, fuzzy
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: AddCardsDlg#3
+#, fuzzy
+msgid "Abandon current card?"
+msgstr "Huidige kaart opgeven?"
+
+#: AddCardsDlg#4
+#, fuzzy
+msgid "&Yes"
+msgstr "&Ja"
+
+#: AddCardsDlg#5
+#, fuzzy
+msgid "&No"
+msgstr "&Nee"
+
+#: AddCardsDlg#6
+#, fuzzy
+msgid "Card is already in database.\n"
+msgstr "Kaart is reeds in de gegevensbank aanwezig.\n"
+
+#: AddCardsDlg#7
+#, fuzzy
+msgid "Duplicate not added."
+msgstr "Duplikaat niet toegevoegd."
+
+#: AddCardsDlg#8
+#, fuzzy
+msgid "&OK"
+msgstr "&OK"
+
+#: AddCardsDlg#9
+#, fuzzy
+msgid "There are different answers for"
+msgstr "Er zijn verschillende antwoorden voor"
+
+#: AddCardsDlg#10
+#, fuzzy
+msgid ""
+" this question:\n"
+"\n"
+msgstr ""
+" deze vraag:\n"
+"\n"
+
+#: AddCardsDlg#11
+#, fuzzy
+msgid "&Merge and edit"
+msgstr "&Samenvoegen en bewerken"
+
+#: AddCardsDlg#12
+#, fuzzy
+msgid "&Add as is"
+msgstr "&Toevoegen in deze vorm"
+
+#: AddCardsDlg#13
+#, fuzzy
+msgid "&Do not add"
+msgstr "&Niet toevoegen"
+
+#: AddCardsDlg#14
+msgid "Add cards"
+msgstr ""
+
+#: AddCardsDlg#15
+msgid "Card type:"
+msgstr ""
+
+#: AddCardsDlg#16
+#, fuzzy
+msgid "Category:"
+msgstr "Categorie:"
+
+#: AddCardsDlg#17
+#, fuzzy
+msgid "Select initial grade:"
+msgstr "Kies eerste beoordeling:"
+
+#: AddCardsDlg#18
+#, fuzzy
+msgid "0"
+msgstr "0"
+
+#: AddCardsDlg#19
+#, fuzzy
+msgid "Ctrl+0"
+msgstr "Ctrl+0"
+
+#: AddCardsDlg#20
+#, fuzzy
+msgid "1"
+msgstr "1"
+
+#: AddCardsDlg#21
+#, fuzzy
+msgid "Ctrl+1"
+msgstr "Ctrl+1"
+
+#: AddCardsDlg#22
+#, fuzzy
+msgid "2"
+msgstr "2"
+
+#: AddCardsDlg#23
+#, fuzzy
+msgid "Ctrl+2"
+msgstr "Ctrl+2"
+
+#: AddCardsDlg#24
+#, fuzzy
+msgid "3"
+msgstr "3"
+
+#: AddCardsDlg#25
+#, fuzzy
+msgid "Ctrl+3"
+msgstr "Ctrl+3"
+
+#: AddCardsDlg#26
+#, fuzzy
+msgid "4"
+msgstr "4"
+
+#: AddCardsDlg#27
+#, fuzzy
+msgid "Ctrl+4"
+msgstr "Ctrl+4"
+
+#: AddCardsDlg#28
+#, fuzzy
+msgid "5"
+msgstr "5"
+
+#: AddCardsDlg#29
+#, fuzzy
+msgid "Ctrl+5"
+msgstr "Ctrl+5"
+
+#: AddCardsDlg#30
+#, fuzzy
+msgid "&Preview"
+msgstr "&Voorvertoning"
+
+#: AddCardsDlg#31
+msgid "E&xit"
+msgstr ""
+
+#. (obsolete)
+#: AddCardsFrm#1
+msgid "Category:"
+msgstr "Categorie:"
+
+#. (obsolete)
+#: AddCardsFrm#2
+msgid "Select initial grade:"
+msgstr "Kies eerste beoordeling:"
+
+#. (obsolete)
+#: AddCardsFrm#3
+msgid "0"
+msgstr "0"
+
+#. (obsolete)
+#: AddCardsFrm#4
+msgid "Ctrl+0"
+msgstr "Ctrl+0"
+
+#. (obsolete)
+#: AddCardsFrm#5
+msgid "1"
+msgstr "1"
+
+#. (obsolete)
+#: AddCardsFrm#6
+msgid "Ctrl+1"
+msgstr "Ctrl+1"
+
+#. (obsolete)
+#: AddCardsFrm#7
+msgid "2"
+msgstr "2"
+
+#. (obsolete)
+#: AddCardsFrm#8
+msgid "Ctrl+2"
+msgstr "Ctrl+2"
+
+#. (obsolete)
+#: AddCardsFrm#9
+msgid "3"
+msgstr "3"
+
+#. (obsolete)
+#: AddCardsFrm#10
+msgid "Ctrl+3"
+msgstr "Ctrl+3"
+
+#. (obsolete)
+#: AddCardsFrm#11
+msgid "4"
+msgstr "4"
+
+#. (obsolete)
+#: AddCardsFrm#12
+msgid "Ctrl+4"
+msgstr "Ctrl+4"
+
+#. (obsolete)
+#: AddCardsFrm#13
+msgid "5"
+msgstr "5"
+
+#. (obsolete)
+#: AddCardsFrm#14
+msgid "Ctrl+5"
+msgstr "Ctrl+5"
+
+#. (obsolete)
+#: AddCardsFrm#15
+msgid "&Preview"
+msgstr "&Voorvertoning"
+
+#. (obsolete)
+#: AddCardsFrm#16
+msgid "E&xit"
+msgstr "&Afsluiten"
+
+#. (obsolete)
+#: AddItemsDlg#1
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#. (obsolete)
+#: AddItemsDlg#2
+msgid "Abandon current card?"
+msgstr "Wilt u de huidige kaart permanent verwijderen?"
+
+#. (obsolete)
+#: AddItemsDlg#3
+msgid "&Yes"
+msgstr "&Ja"
+
+#. (obsolete)
+#: AddItemsDlg#4
+msgid "&No"
+msgstr "&Nee"
+
+#. (obsolete)
+#: AddItemsDlg#5
+msgid "Question:"
+msgstr "Vraag:"
+
+#. (obsolete)
+#: AddItemsDlg#6
+msgid "Answer:"
+msgstr "Antwoord:"
+
+#. (obsolete)
+#: AddItemsDlg#7
+msgid "Written form:"
+msgstr "Geschreven vorm:"
+
+#. (obsolete)
+#: AddItemsDlg#8
+msgid "Translation:"
+msgstr "Vertaling:"
+
+#. (obsolete)
+#: AddItemsDlg#9
+msgid "Card is already in database.\n"
+msgstr "Kaart is reeds in de gegevensbank aanwezig.\n"
+
+#. (obsolete)
+#: AddItemsDlg#10
+msgid "Duplicate not added."
+msgstr "Duplikaat niet toegevoegd."
+
+#. (obsolete)
+#: AddItemsDlg#11
+msgid "&OK"
+msgstr "&OK"
+
+#. (obsolete)
+#: AddItemsDlg#12
+msgid "There are different answers for"
+msgstr "Er zijn verschillende antwoorden voor"
+
+#. (obsolete)
+#: AddItemsDlg#13
+msgid ""
+" this question:\n"
+"\n"
+msgstr ""
+" deze vraag:\n"
+"\n"
+
+#. (obsolete)
+#: AddItemsDlg#14
+msgid "&Merge and edit"
+msgstr "&Samenvoegen en bewerken"
+
+#. (obsolete)
+#: AddItemsDlg#15
+msgid "&Add as is"
+msgstr "&Toevoegen in deze vorm"
+
+#. (obsolete)
+#: AddItemsDlg#16
+msgid "&Do not add"
+msgstr "&Niet toevoegen"
+
+#. (obsolete)
+#: AddItemsFrm#1
+msgid "Add cards"
+msgstr "Kaarten toevoegen"
+
+#. (obsolete)
+#: AddItemsFrm#2
+msgid "Category:"
+msgstr "Categorie:"
+
+#. (obsolete)
+#: AddItemsFrm#3
+msgid "Question:"
+msgstr "Vraag:"
+
+#. (obsolete)
+#: AddItemsFrm#4
+msgid "Pronunciation:"
+msgstr "Uitspraak:"
+
+#. (obsolete)
+#: AddItemsFrm#5
+msgid "Answer:"
+msgstr "Antwoord:"
+
+#. (obsolete)
+#: AddItemsFrm#6
+msgid "Add &vice versa too"
+msgstr "Voeg &omgekeerd toe"
+
+#. (obsolete)
+#: AddItemsFrm#7
+msgid "Alt+V"
+msgstr "Alt+V"
+
+#. (obsolete)
+#: AddItemsFrm#8
+msgid "Select initial grade:"
+msgstr "Kies eerste beoordeling:"
+
+#. (obsolete)
+#: AddItemsFrm#9
+msgid "&0"
+msgstr "&0"
+
+#. (obsolete)
+#: AddItemsFrm#10
+msgid "Ctrl+0"
+msgstr "Ctrl+0"
+
+#. (obsolete)
+#: AddItemsFrm#11
+msgid "You don't remember this item yet or forgot it."
+msgstr "Je kunt het antwoord niet onthouden of je bent het vergeten."
+
+#. (obsolete)
+#: AddItemsFrm#12
+msgid "&1"
+msgstr "&1"
+
+#. (obsolete)
+#: AddItemsFrm#13
+msgid "Ctrl+1"
+msgstr "Ctrl+1"
+
+#. (obsolete)
+#: AddItemsFrm#14
+msgid "Like '0', but the item is getting more familiar."
+msgstr "Als '0', maar de kaart wordt enigszins bekender."
+
+#. (obsolete)
+#: AddItemsFrm#15
+msgid "&2"
+msgstr "&2"
+
+#. (obsolete)
+#: AddItemsFrm#16
+msgid "Ctrl+2"
+msgstr "Ctrl+2"
+
+#. (obsolete)
+#: AddItemsFrm#17
+msgid ""
+"You've memorised this item now, and will probably remember it for a few "
+"days."
+msgstr ""
+"Je hebt de kaart onthouden en zult het waarschijnlijk voor enkele dagen "
+"blijven onthouden."
+
+#. (obsolete)
+#: AddItemsFrm#18
+msgid "&3"
+msgstr "&3"
+
+#. (obsolete)
+#: AddItemsFrm#19
+msgid "Ctrl+3"
+msgstr "Ctrl+3"
+
+#. (obsolete)
+#: AddItemsFrm#20
+msgid ""
+"Correct answer, but with much effort. The interval was probably too long"
+msgstr ""
+"Juiste antwoord, maar met behoorlijke moeite. De tijdsspanne was "
+"waarschijnlijk te groot"
+
+#. (obsolete)
+#: AddItemsFrm#21
+msgid "&4"
+msgstr "&4"
+
+#. (obsolete)
+#: AddItemsFrm#22
+msgid "Ctrl+4"
+msgstr "Ctrl+4"
+
+#. (obsolete)
+#: AddItemsFrm#23
+msgid "Correct answer, with some effort. The interval was probably just right."
+msgstr ""
+"Juiste antwoord, met enige moeite. De tijdsspanne was waarschijnlijk precies "
+"goed."
+
+#. (obsolete)
+#: AddItemsFrm#24
+msgid "&5"
+msgstr "&5"
+
+#. (obsolete)
+#: AddItemsFrm#25
+msgid "Ctrl+5"
+msgstr "Ctrl+5"
+
+#. (obsolete)
+#: AddItemsFrm#26
+msgid ""
+"Correct answer, but without any difficulties. The interval was probably too "
+"short."
+msgstr ""
+"Juiste antwoord, maar zonder enige problemen. Het tijdsinterval was "
+"waarschijnlijk te kort."
+
+#. (obsolete)
+#: AddItemsFrm#27
+msgid "Type question and answer, then pick initial grade."
+msgstr "Geef vraag en antwoord en kies een eerste beoordeling."
+
+#. (obsolete)
+#: AddItemsFrm#28
+msgid "&Preview"
+msgstr "&Voorvertoning"
+
+#. (obsolete)
+#: AddItemsFrm#29
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#. (obsolete)
+#: AddItemsFrm#30
+msgid "E&xit"
+msgstr "&Afsluiten"
+
+#. (obsolete)
+#: AddItemsFrm#31
+msgid "Alt+X"
+msgstr "Alt+X"
+
+#: CardTwoSidedWdgt#1
+#, fuzzy
+msgid "Question:"
+msgstr "Vraag:"
+
+#: CardTwoSidedWdgt#2
+msgid "Answer:"
+msgstr ""
+
+#: CardTwoSidedWdgt#3
+#, fuzzy
+msgid "Add &vice versa too"
+msgstr "Voeg &omgekeerd toe"
+
+#. (obsolete)
+#: ChangeCategoryFrm#1
+msgid "Change category"
+msgstr "Verander categorie"
+
+#. (obsolete)
+#: ChangeCategoryFrm#2
+msgid "Category:"
+msgstr "Categorie:"
+
+#. (obsolete)
+#: ChangeCategoryFrm#3
+msgid "&OK"
+msgstr "&OK"
+
+#. (obsolete)
+#: ChangeCategoryFrm#4
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#. (obsolete)
+#: ChangeCategoryFrm#5
+msgid "&Cancel"
+msgstr "&Cancel"
+
+#. (obsolete)
+#: ChangeCategoryFrm#6
+msgid "Alt+C"
+msgstr "Alt+C"
+
+#. (obsolete)
+#: ConfigurationFrm#1
+msgid "Mnemosyne configuration"
+msgstr "Mnemosyne configuratie"
+
+#. (obsolete)
+#: ConfigurationFrm#2
+msgid "Hover with the mouse over the buttons to get extra information."
+msgstr ""
+"Sta met de muiscursor enige tijd stil over de knoppen, om meer informatie te "
+"krijgen."
+
+#. (obsolete)
+#: ConfigurationFrm#3
+msgid "Appearance"
+msgstr "Uiterlijk"
+
+#. (obsolete)
+#: ConfigurationFrm#4
+msgid "Set Q/A font"
+msgstr "Stel Vraag en Antwoord lettertype in"
+
+#. (obsolete)
+#: ConfigurationFrm#5
+msgid "Set the font used when showing single questions and answers"
+msgstr ""
+"Stel het lettertype in voor het weergeven van losse vragen en antwoorden"
+
+#. (obsolete)
+#: ConfigurationFrm#6
+msgid "Set list font"
+msgstr "Stel het lettertype van de lijst in"
+
+#. (obsolete)
+#: ConfigurationFrm#7
+msgid "Set the font used when showing the list of all the cards in the deck"
+msgstr ""
+"Stel het lettertype in voor het weergeven van een lijst van alle kaarten"
+
+#. (obsolete)
+#: ConfigurationFrm#8
+msgid "Increase size of non-latin characters by"
+msgstr "Vergroot de non-latin letters met"
+
+#. (obsolete)
+#: ConfigurationFrm#9
+msgid ""
+"Sometimes complex glyphs are hard to read at the default latin font size"
+msgstr ""
+"Soms zijn complexe symbolen moeilijk te lezen in de standaard "
+"lettertypegrootte"
+
+#. (obsolete)
+#: ConfigurationFrm#10
+msgid "point(s)"
+msgstr "punt(en)"
+
+#. (obsolete)
+#: ConfigurationFrm#11
+msgid "Log uploading"
+msgstr "Log uploaden"
+
+#. (obsolete)
+#: ConfigurationFrm#12
+msgid "Upload anonymous logs"
+msgstr "Uploaden van anonieme logbestanden"
+
+#. (obsolete)
+#: ConfigurationFrm#13
+msgid "Share anonymous statistics to contribute to memory research"
+msgstr "Deel anonieme statistieken om mee te helpen aan geheugenonderzoek"
+
+#. (obsolete)
+#: ConfigurationFrm#14
+msgid "Duplicate handling"
+msgstr "Behandeling duplicaten"
+
+#. (obsolete)
+#: ConfigurationFrm#15
+msgid "Check for duplicates when adding new cards"
+msgstr "Controleer op duplicaten bij het toevoegen van nieuwe kaarten"
+
+#. (obsolete)
+#: ConfigurationFrm#16
+msgid "Allow duplicates in different categories"
+msgstr "Sta duplicaten toe in verschillende categorieën"
+
+#. (obsolete)
+#: ConfigurationFrm#17
+msgid "Repetition process"
+msgstr "Herhalingsproces"
+
+#. (obsolete)
+#: ConfigurationFrm#18
+msgid "Number of grade 0 cards to learn at once:"
+msgstr "Aantal 0 beoordelingskaarten in eenmaal te leren:"
+
+#. (obsolete)
+#: ConfigurationFrm#19
+msgid ""
+"Note: this is NOT the number of grade 0 cards you want to memorise *per day*"
+msgstr ""
+"Let op: dit in NIET het aantal kaarten met beoordeling 0 welke je *per dag* "
+"wil leren"
+
+#. (obsolete)
+#: ConfigurationFrm#20
+msgid "&OK"
+msgstr "&OK"
+
+#. (obsolete)
+#: ConfigurationFrm#21
+msgid "Defaults"
+msgstr "Standaard"
+
+#. (obsolete)
+#: ConfigurationFrm#22
+msgid "&Cancel"
+msgstr "&Annuleer"
+
+#. (obsolete)
+#: EditItemFrm#1
+msgid "Edit card"
+msgstr "Bewerk kaart"
+
+#. (obsolete)
+#: EditItemFrm#2
+msgid "Category:"
+msgstr "Categorie:"
+
+#. (obsolete)
+#: EditItemFrm#3
+msgid "Question:"
+msgstr "Vraag:"
+
+#. (obsolete)
+#: EditItemFrm#4
+msgid "Answer:"
+msgstr "Antwoord:"
+
+#. (obsolete)
+#: EditItemFrm#5
+msgid "&OK"
+msgstr "&OK"
+
+#. (obsolete)
+#: EditItemFrm#6
+msgid "Alt+O"
+msgstr "Alt+0"
+
+#. (obsolete)
+#: EditItemFrm#7
+msgid "&Preview"
+msgstr "&Voorvertoning"
+
+#. (obsolete)
+#: EditItemFrm#8
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#. (obsolete)
+#: EditItemFrm#9
+msgid "&Cancel"
+msgstr "&Annuleer"
+
+#. (obsolete)
+#: EditItemFrm#10
+msgid "Alt+C"
+msgstr "Alt+A"
+
+#. (obsolete)
+#: EditItemsDlg#1
+msgid "Please wait..."
+msgstr "Een moment..."
+
+#. (obsolete)
+#: EditItemsDlg#2
+msgid "&Edit"
+msgstr "&Bewerk"
+
+#. (obsolete)
+#: EditItemsDlg#3
+msgid "Ctrl+E"
+msgstr "Ctrl+B"
+
+#. (obsolete)
+#: EditItemsDlg#4
+msgid "&Preview"
+msgstr "&Voorvertoning"
+
+#. (obsolete)
+#: EditItemsDlg#5
+msgid "Ctrl+P"
+msgstr "Ctrl+V"
+
+#. (obsolete)
+#: EditItemsDlg#6
+msgid "&Add vice versa"
+msgstr "&Voeg omgekeerd toe"
+
+#. (obsolete)
+#: EditItemsDlg#7
+msgid "S&tatistics"
+msgstr "&Statistieken"
+
+#. (obsolete)
+#: EditItemsDlg#8
+msgid "Ctrl+T"
+msgstr "Ctrl+S"
+
+#. (obsolete)
+#: EditItemsDlg#9
+msgid "&Delete"
+msgstr "&Verwijder"
+
+#. (obsolete)
+#: EditItemsDlg#10
+msgid "&Change category"
+msgstr "Ve&rander categorie"
+
+#. (obsolete)
+#: EditItemsDlg#11
+msgid "Add &vice versa"
+msgstr "Voeg &omgekeerd toe"
+
+#. (obsolete)
+#: EditItemsDlg#12
+msgid "Add vice versa of these cards?"
+msgstr "Voeg omkeerde vraagstelling toe voor deze kaarten?"
+
+#. (obsolete)
+#: EditItemsDlg#13
+msgid "Add vice versa of this card?"
+msgstr "Voeg omkeerde vraagstelling toe voor deze kaart?"
+
+#. (obsolete)
+#: EditItemsDlg#14
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#. (obsolete)
+#: EditItemsDlg#15
+msgid ""
+"\n"
+"\n"
+"This could create duplicates if the vice "
+msgstr ""
+"\n"
+"\n"
+"Dit zou duplicaten kunnen toevoegen als de omgekeerde "
+
+#. (obsolete)
+#: EditItemsDlg#16
+msgid ""
+"versas are already present, \n"
+"so you might want to run "
+msgstr ""
+"kaarten al aanwezig zijn. \n"
+"dus wellicht wilt u "
+
+#. (obsolete)
+#: EditItemsDlg#17
+msgid "clean duplicates' afterwards."
+msgstr "'verwijderen duplicaten' uitvoeren na afloop."
+
+#. (obsolete)
+#: EditItemsDlg#18
+msgid "&Yes"
+msgstr "&Ja"
+
+#. (obsolete)
+#: EditItemsDlg#19
+msgid "&No"
+msgstr "&Nee"
+
+#. (obsolete)
+#: EditItemsDlg#20
+msgid "Grade:"
+msgstr "Beoordeling:"
+
+#. (obsolete)
+#: EditItemsDlg#21
+msgid "Easiness:"
+msgstr "Eenvoud:"
+
+#. (obsolete)
+#: EditItemsDlg#22
+msgid "Repetitions:"
+msgstr "Herhalingen:"
+
+#. (obsolete)
+#: EditItemsDlg#23
+msgid "Lapses:"
+msgstr "Uitvoeringen:"
+
+#. (obsolete)
+#: EditItemsDlg#24
+msgid "Days since last repetition:"
+msgstr "Aantal dagen vanaf laatste bevraging:"
+
+#. (obsolete)
+#: EditItemsDlg#25
+msgid "Days until next repetition:"
+msgstr "Dagen tot volgende bevraging:"
+
+#. (obsolete)
+#: EditItemsDlg#26
+msgid "&OK"
+msgstr "&OK"
+
+#. (obsolete)
+#: EditItemsDlg#27
+msgid "Delete these cards?"
+msgstr "Verwijder deze kaarten?"
+
+#. (obsolete)
+#: EditItemsDlg#28
+msgid "Delete this card?"
+msgstr "Verwijder deze kaart?"
+
+#. (obsolete)
+#: EditItemsDlg#29
+msgid "The text you entered was not found."
+msgstr "De ingevoerde tekst werd niet gevonden."
+
+#. (obsolete)
+#: EditItemsDlg#30
+msgid "&Find again"
+msgstr "&Zoek opnieuw"
+
+#. (obsolete)
+#: EditItemsDlg#31
+msgid "F"
+msgstr "Z"
+
+#. (obsolete)
+#: EditItemsDlg#32
+msgid "&Find"
+msgstr "&Zoek"
+
+#. (obsolete)
+#: EditItemsFrm#1
+msgid "Question"
+msgstr "Vraag"
+
+#. (obsolete)
+#: EditItemsFrm#2
+msgid "Answer"
+msgstr "Antwoord"
+
+#. (obsolete)
+#: EditItemsFrm#3
+msgid "Category"
+msgstr "Categorie"
+
+#. (obsolete)
+#: EditItemsFrm#4
+msgid "Edit deck"
+msgstr "Bewerk kaartenbak"
+
+#. (obsolete)
+#: EditItemsFrm#5
+msgid "&Find"
+msgstr "&Zoek"
+
+#. (obsolete)
+#: EditItemsFrm#6
+msgid "To edit a card, right-click on it."
+msgstr "Klik rechts om een kaart te bewerken."
+
+#. (obsolete)
+#: EditItemsFrm#7
+msgid "E&xit"
+msgstr "&Afsluiten"
+
+#. (obsolete)
+#: EditItemsFrm#8
+msgid "Alt+X"
+msgstr "Alt+A"
+
+#: ExportDlg#1
+#, fuzzy
+msgid "All Files (*);;"
+msgstr "Alle bestanden (*);;"
+
+#: ExportDlg#2
+#, fuzzy
+msgid "Export"
+msgstr "Exporteer"
+
+#. (obsolete)
+#: ExportFrm#1
+msgid "Export to file"
+msgstr "Exporteer naar bestand"
+
+#. (obsolete)
+#: ExportFrm#2
+msgid "File format:"
+msgstr "Bestandsformaat:"
+
+#. (obsolete)
+#: ExportFrm#3
+msgid "File to export to:"
+msgstr "Bestand om naar te exporteren:"
+
+#. (obsolete)
+#: ExportFrm#4
+msgid "&Browse"
+msgstr "&Blader"
+
+#. (obsolete)
+#: ExportFrm#5
+msgid "Categories to export:"
+msgstr "Te exporteren categorieën:"
+
+#. (obsolete)
+#: ExportFrm#6
+msgid "&Select all"
+msgstr "&Selecteer alles"
+
+#. (obsolete)
+#: ExportFrm#7
+msgid "Reset learning data on export"
+msgstr "Verwijder leergegevens tijdens export"
+
+#. (obsolete)
+#: ExportFrm#8
+msgid "&OK"
+msgstr "&OK"
+
+#. (obsolete)
+#: ExportFrm#9
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#. (obsolete)
+#: ExportFrm#10
+msgid "&Cancel"
+msgstr "&Annuleer"
+
+#: ImportDlg#1
+#, fuzzy
+msgid "All Files (*);;"
+msgstr "Alle bestanden (*);;"
+
+#: ImportDlg#2
+#, fuzzy
+msgid "Import"
+msgstr "Importeer"
+
+#: ImportDlg#3
+#, fuzzy
+msgid "<default>"
+msgstr "<standaard>"
+
+#. (obsolete)
+#: ImportFrm#1
+msgid "Import from file"
+msgstr "Importeer uit bestand"
+
+#. (obsolete)
+#: ImportFrm#2
+msgid "File format:"
+msgstr "Bestandsformaat:"
+
+#. (obsolete)
+#: ImportFrm#3
+msgid "File to import from:"
+msgstr "Importeer uit bestand:"
+
+#. (obsolete)
+#: ImportFrm#4
+msgid "&Browse"
+msgstr "&Blader"
+
+#. (obsolete)
+#: ImportFrm#5
+msgid "Put cards without category into this category:"
+msgstr "Stop categorieloze kaarten in deze categorie:"
+
+#. (obsolete)
+#: ImportFrm#6
+msgid "Note: all cards will be added to the current database."
+msgstr ""
+"Let op: alle kaarten zullen aan de huidige gegevensbank toegevoerd worden."
+
+#. (obsolete)
+#: ImportFrm#7
+msgid "Reset learning data on import"
+msgstr "Verwijder leergegevens tijdens import"
+
+#. (obsolete)
+#: ImportFrm#8
+msgid "&OK"
+msgstr "&OK"
+
+#. (obsolete)
+#: ImportFrm#9
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#. (obsolete)
+#: ImportFrm#10
+msgid "&Cancel"
+msgstr "&Annuleer"
+
+#. (obsolete)
+#: MainDlg#1
+msgid "Mnemosyne databases (*.mem)"
+msgstr "Mnemosyne gegevensbanken (*.mem)"
+
+#. (obsolete)
+#: MainDlg#2
+msgid "Please wait..."
+msgstr "Een moment..."
+
+#. (obsolete)
+#: MainDlg#3
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#. (obsolete)
+#: MainDlg#4
+msgid "Delete current card?"
+msgstr "Verwijder huidige kaart?"
+
+#. (obsolete)
+#: MainDlg#5
+msgid "&Yes"
+msgstr "&Ja"
+
+#. (obsolete)
+#: MainDlg#6
+msgid "&No"
+msgstr "&Nee"
+
+#. (obsolete)
+#: MainDlg#7
+msgid "Returns in "
+msgstr "Komt over "
+
+#. (obsolete)
+#: MainDlg#8
+msgid " day(s)."
+msgstr "dag(en) terug."
+
+#. (obsolete)
+#: MainDlg#9
+msgid "Next repetition: today."
+msgstr "Volgende bevraging: vandaag."
+
+#. (obsolete)
+#: MainDlg#10
+msgid "Next repetition: tomorrow."
+msgstr "Volgende bevraging: morgen."
+
+#. (obsolete)
+#: MainDlg#11
+msgid "Next repetition in "
+msgstr "Volgende bevraging over "
+
+#. (obsolete)
+#: MainDlg#12
+msgid "Question:"
+msgstr "Vraag:"
+
+#. (obsolete)
+#: MainDlg#13
+msgid "<default>"
+msgstr "<standaard>"
+
+#. (obsolete)
+#: MainDlg#14
+msgid "Show &answer"
+msgstr "Toon &antwoord"
+
+#. (obsolete)
+#: MainDlg#15
+msgid "Learn ahead of schedule"
+msgstr "Leer vooruit op schema"
+
+#. (obsolete)
+#: MainDlg#16
+msgid "Pick days until next repetition:"
+msgstr "Aantal dagen tot volgende bevraging:"
+
+#. (obsolete)
+#: MainDlg#17
+msgid "Grade your answer:"
+msgstr "Beoordeel uw antwoord:"
+
+#. (obsolete)
+#: MainDlg#18
+msgid "Scheduled: "
+msgstr "Geroosterd: "
+
+#. (obsolete)
+#: MainDlg#19
+msgid "Not memorised: "
+msgstr "Niet onthouden: "
+
+#. (obsolete)
+#: MainDlg#20
+msgid "All: "
+msgstr "Alle: "
+
+#. (obsolete)
+#: MainDlg#21
+msgid "New"
+msgstr "Nieuw"
+
+#. (obsolete)
+#: MainDlg#22
+msgid " days."
+msgstr " dagen."
+
+#. (obsolete)
+#: MainDlg#23
+msgid "0"
+msgstr "0"
+
+#. (obsolete)
+#: MainDlg#24
+msgid "1"
+msgstr "1"
+
+#. (obsolete)
+#: MainDlg#25
+msgid "2"
+msgstr "2"
+
+#. (obsolete)
+#: MainDlg#26
+msgid "3"
+msgstr "3"
+
+#. (obsolete)
+#: MainDlg#27
+msgid "4"
+msgstr "4"
+
+#. (obsolete)
+#: MainDlg#28
+msgid "5"
+msgstr "5"
+
+#. (obsolete)
+#: MainDlg#29
+msgid "&File"
+msgstr "&Bestand"
+
+#. (obsolete)
+#: MainDlg#30
+msgid "&Deck"
+msgstr "&Kaartenbak"
+
+#. (obsolete)
+#: MainDlg#31
+msgid "&Settings"
+msgstr "&Instellingen"
+
+#. (obsolete)
+#: MainDlg#32
+msgid "&Help"
+msgstr "&Help"
+
+#. (obsolete)
+#: MainDlg#33
+msgid "Activate cate&gories"
+msgstr "Act&iveer categorieën"
+
+#. (obsolete)
+#: MainDlg#34
+msgid "Ctrl+G"
+msgstr "Ctrl+G"
+
+#. (obsolete)
+#: MainDlg#35
+msgid "&Add cards"
+msgstr "&Voeg kaarten toe"
+
+#. (obsolete)
+#: MainDlg#36
+msgid "Ctrl+A"
+msgstr "Ctrl+V"
+
+#. (obsolete)
+#: MainDlg#37
+msgid "&Clean duplicates"
+msgstr "Verwijder d&uplicaten"
+
+#. (obsolete)
+#: MainDlg#38
+msgid "&Configure Mnemosyne"
+msgstr "&Configureer Mnemosyne"
+
+#. (obsolete)
+#: MainDlg#39
+msgid "&Delete current card"
+msgstr "Ver&wijder deze kaart"
+
+#. (obsolete)
+#: MainDlg#40
+msgid "&Edit current card"
+msgstr "Bewerk &deze kaart"
+
+#. (obsolete)
+#: MainDlg#41
+msgid "Edit &deck"
+msgstr "Bewerk &kaartenbak"
+
+#. (obsolete)
+#: MainDlg#42
+msgid "Ctrl+D"
+msgstr "Ctrl+K"
+
+#. (obsolete)
+#: MainDlg#43
+msgid "&Export"
+msgstr "&Exporteer"
+
+#. (obsolete)
+#: MainDlg#44
+msgid "&New"
+msgstr "&Nieuw"
+
+#. (obsolete)
+#: MainDlg#45
+msgid "Ctrl+N"
+msgstr "Ctrl+N"
+
+#. (obsolete)
+#: MainDlg#46
+msgid "&Open..."
+msgstr "&Open..."
+
+#. (obsolete)
+#: MainDlg#47
+msgid "Ctrl+O"
+msgstr "Ctrl+O"
+
+#. (obsolete)
+#: MainDlg#48
+msgid "&Save"
+msgstr "&Bewaar"
+
+#. (obsolete)
+#: MainDlg#49
+msgid "&About"
+msgstr "&Over"
+
+#. (obsolete)
+#: MainDlg#50
+msgid "&Import"
+msgstr "&Importeer"
+
+#. (obsolete)
+#: MainDlg#51
+msgid "Enter"
+msgstr "Enter"
+
+#. (obsolete)
+#: MainDlg#52
+msgid "Return"
+msgstr "Return"
+
+#. (obsolete)
+#: MainDlg#53
+msgid "Space"
+msgstr "Space\n"
+
+#. (obsolete)
+#: MainDlg#54
+msgid "&Getting started"
+msgstr "Eerste s&tappen"
+
+#. (obsolete)
+#: MainDlg#55
+msgid "Show s&tatistics"
+msgstr "Toon stat&istieken"
+
+#. (obsolete)
+#: MainDlg#56
+msgid "Show &toolbar"
+msgstr "Toon &toolbar"
+
+#. (obsolete)
+#: MainDlg#57
+msgid "&Tip of the day"
+msgstr "&Tip van de dag"
+
+#. (obsolete)
+#: MainFrm#1
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#. (obsolete)
+#: MainFrm#2
+msgid "Question:"
+msgstr "Vraag:"
+
+#. (obsolete)
+#: MainFrm#3
+msgid "Answer:"
+msgstr "Anwoord:"
+
+#. (obsolete)
+#: MainFrm#4
+msgid "Show answer"
+msgstr "Toon anwoord"
+
+#. (obsolete)
+#: MainFrm#5
+msgid "Grade your answer:"
+msgstr "Beoordeel jouw antwoord:"
+
+#. (obsolete)
+#: MainFrm#6
+msgid "&0"
+msgstr "&0"
+
+#. (obsolete)
+#: MainFrm#7
+msgid "0"
+msgstr "0"
+
+#. (obsolete)
+#: MainFrm#8
+msgid "&1"
+msgstr "&1"
+
+#. (obsolete)
+#: MainFrm#9
+msgid "1"
+msgstr "1"
+
+#. (obsolete)
+#: MainFrm#10
+msgid "&2"
+msgstr "&2"
+
+#. (obsolete)
+#: MainFrm#11
+msgid "2"
+msgstr "2"
+
+#. (obsolete)
+#: MainFrm#12
+msgid "&3"
+msgstr "&3"
+
+#. (obsolete)
+#: MainFrm#13
+msgid "3"
+msgstr "3"
+
+#. (obsolete)
+#: MainFrm#14
+msgid "&4"
+msgstr "&4"
+
+#. (obsolete)
+#: MainFrm#15
+msgid "4"
+msgstr "4"
+
+#. (obsolete)
+#: MainFrm#16
+msgid "&5"
+msgstr "&5"
+
+#. (obsolete)
+#: MainFrm#17
+msgid "5"
+msgstr "5"
+
+#. (obsolete)
+#: MainFrm#18
+msgid "&New"
+msgstr "&Nieuw"
+
+#. (obsolete)
+#: MainFrm#19
+msgid "."
+msgstr "."
+
+#. (obsolete)
+#: MainFrm#20
+msgid "Ctrl+N"
+msgstr "Ctrl+N"
+
+#. (obsolete)
+#: MainFrm#21
+msgid "&Open..."
+msgstr "&Open..."
+
+#. (obsolete)
+#: MainFrm#22
+msgid "Ctrl+O"
+msgstr "Ctrl+O"
+
+#. (obsolete)
+#: MainFrm#23
+msgid "&Save"
+msgstr "&Bewaar"
+
+#. (obsolete)
+#: MainFrm#24
+msgid "Ctrl+S"
+msgstr "Ctrl+B"
+
+#. (obsolete)
+#: MainFrm#25
+msgid "Save &As..."
+msgstr "Bewaar &Als..."
+
+#. (obsolete)
+#: MainFrm#26
+msgid "E&xit"
+msgstr "A&fsluiten"
+
+#. (obsolete)
+#: MainFrm#27
+msgid "About"
+msgstr "Over"
+
+#. (obsolete)
+#: MainFrm#28
+msgid "&About"
+msgstr "&Over"
+
+#. (obsolete)
+#: MainFrm#29
+msgid "Add cards"
+msgstr "Voeg kaarten toe"
+
+#. (obsolete)
+#: MainFrm#30
+msgid "&Add cards"
+msgstr "&Voeg kaarten toe"
+
+#. (obsolete)
+#: MainFrm#31
+msgid "Ctrl+A"
+msgstr "Ctrl+V"
+
+#. (obsolete)
+#: MainFrm#32
+msgid "Act&ivate categories"
+msgstr "Act&iveer categorieën"
+
+#. (obsolete)
+#: MainFrm#33
+msgid "Edit deck"
+msgstr "Bewerk kaartenbak"
+
+#. (obsolete)
+#: MainFrm#34
+msgid "Edit &deck"
+msgstr "Bewerk &kaartenbak"
+
+#. (obsolete)
+#: MainFrm#35
+msgid "Ctrl+D"
+msgstr "Ctrl+K"
+
+#. (obsolete)
+#: MainFrm#36
+msgid "&Import"
+msgstr "&Importeer"
+
+#. (obsolete)
+#: MainFrm#37
+msgid "&Export"
+msgstr "&Exporteer"
+
+#. (obsolete)
+#: MainFrm#38
+msgid "Show &toolbar"
+msgstr "Toon &toolbar"
+
+#. (obsolete)
+#: MainFrm#39
+msgid "Edit current card"
+msgstr "Bewerk deze kaart"
+
+#. (obsolete)
+#: MainFrm#40
+msgid "&Edit current card"
+msgstr "Bewerk &deze kaart"
+
+#. (obsolete)
+#: MainFrm#41
+msgid "Ctrl+E"
+msgstr "Ctrl+D"
+
+#. (obsolete)
+#: MainFrm#42
+msgid "Delete current card"
+msgstr "Verwijder deze kaart"
+
+#. (obsolete)
+#: MainFrm#43
+msgid "&Delete current card"
+msgstr "Ver&wijder deze kaart"
+
+#. (obsolete)
+#: MainFrm#44
+msgid "Del"
+msgstr "Verw"
+
+#. (obsolete)
+#: MainFrm#45
+msgid "&Clean duplicates"
+msgstr "Verwijder d&uplicaten"
+
+#. (obsolete)
+#: MainFrm#46
+msgid "&Configure Mnemosyne"
+msgstr "&Configureer Mnemosyne"
+
+#. (obsolete)
+#: MainFrm#47
+msgid "Getting started"
+msgstr "Eerste stappen"
+
+#. (obsolete)
+#: MainFrm#48
+msgid "&Getting started"
+msgstr "Eerste s&tappen"
+
+#. (obsolete)
+#: MainFrm#49
+msgid "Down, Down"
+msgstr "Onder, Onder"
+
+#. (obsolete)
+#: MainFrm#50
+msgid "Enter"
+msgstr "Enter"
+
+#. (obsolete)
+#: MainFrm#51
+msgid "Return"
+msgstr "Return"
+
+#. (obsolete)
+#: MainFrm#52
+msgid "Space"
+msgstr "Space\n"
+
+#. (obsolete)
+#: MainFrm#53
+msgid "Ctrl+R"
+msgstr "Ctrl+R"
+
+#. (obsolete)
+#: MainFrm#54
+msgid "Show statistics"
+msgstr "Toon statistieken"
+
+#. (obsolete)
+#: MainFrm#55
+msgid "Show s&tatistics"
+msgstr "Toon stat&istieken"
+
+#. (obsolete)
+#: MainFrm#56
+msgid "Ctrl+T"
+msgstr "Ctrl+I"
+
+#. (obsolete)
+#: MainFrm#57
+msgid "Tip of the day"
+msgstr "Tip van de dag"
+
+#. (obsolete)
+#: MainFrm#58
+msgid "&Tip of the day"
+msgstr "&Tip van de dag"
+
+#. (obsolete)
+#: MainFrm#59
+msgid "Main toolbar (Mnemosyne)"
+msgstr "Hoofd toolbar (Mnemosyne)"
+
+#. (obsolete)
+#: MainFrm#60
+msgid "&File"
+msgstr "&Bestand"
+
+#. (obsolete)
+#: MainFrm#61
+msgid "&Deck"
+msgstr "&Kaartenbak"
+
+#. (obsolete)
+#: MainFrm#62
+msgid "&Settings"
+msgstr "&Instellingen"
+
+#. (obsolete)
+#: MainFrm#63
+msgid "&Help"
+msgstr "&Help"
+
+#. (obsolete)
+#: MainFrm#64
+msgid "Activate cate&gories"
+msgstr "Act&iveer categorieën"
+
+#. (obsolete)
+#: MainFrm#65
+msgid "Ctrl+G"
+msgstr "Ctrl+G"
+
+#. (obsolete)
+#: MainFrm#66
+msgid "Show &answer"
+msgstr "Toon &antwoord"
+
+#: MainWindow#1
+#, fuzzy
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#: MainWindow#2
+#, fuzzy
+msgid "Question:"
+msgstr "Vraag:"
+
+#: MainWindow#3
+#, fuzzy
+msgid "Show &answer"
+msgstr "Toon &antwoord"
+
+#: MainWindow#4
+#, fuzzy
+msgid "0"
+msgstr "0"
+
+#: MainWindow#5
+#, fuzzy
+msgid "1"
+msgstr "1"
+
+#: MainWindow#6
+#, fuzzy
+msgid "2"
+msgstr "2"
+
+#: MainWindow#7
+#, fuzzy
+msgid "3"
+msgstr "3"
+
+#: MainWindow#8
+#, fuzzy
+msgid "4"
+msgstr "4"
+
+#: MainWindow#9
+#, fuzzy
+msgid "5"
+msgstr "5"
+
+#: MainWindow#10
+#, fuzzy
+msgid "&File"
+msgstr "&Bestand"
+
+#: MainWindow#11
+#, fuzzy
+msgid "&Deck"
+msgstr "&Kaartenbak"
+
+#: MainWindow#12
+#, fuzzy
+msgid "&Settings"
+msgstr "&Instellingen"
+
+#: MainWindow#13
+#, fuzzy
+msgid "&Help"
+msgstr "&Help"
+
+#: MainWindow#14
+#, fuzzy
+msgid "Activate cate&gories"
+msgstr "Act&iveer categorieën"
+
+#: MainWindow#15
+#, fuzzy
+msgid "Ctrl+G"
+msgstr "Ctrl+G"
+
+#: MainWindow#16
+#, fuzzy
+msgid "&Add cards"
+msgstr "&Voeg kaarten toe"
+
+#: MainWindow#17
+#, fuzzy
+msgid "Ctrl+A"
+msgstr "Ctrl+V"
+
+#: MainWindow#18
+#, fuzzy
+msgid "&Clean duplicates"
+msgstr "Verwijder d&uplicaten"
+
+#: MainWindow#19
+#, fuzzy
+msgid "&Configure Mnemosyne"
+msgstr "&Configureer Mnemosyne"
+
+#: MainWindow#20
+#, fuzzy
+msgid "&Delete current card"
+msgstr "Ver&wijder deze kaart"
+
+#: MainWindow#21
+#, fuzzy
+msgid "&Edit current card"
+msgstr "Bewerk &deze kaart"
+
+#: MainWindow#22
+#, fuzzy
+msgid "Edit &deck"
+msgstr "Bewerk &kaartenbak"
+
+#: MainWindow#23
+#, fuzzy
+msgid "Ctrl+D"
+msgstr "Ctrl+K"
+
+#: MainWindow#24
+#, fuzzy
+msgid "&Export"
+msgstr "&Exporteer"
+
+#: MainWindow#25
+#, fuzzy
+msgid "&New"
+msgstr "&Nieuw"
+
+#: MainWindow#26
+#, fuzzy
+msgid "Ctrl+N"
+msgstr "Ctrl+N"
+
+#: MainWindow#27
+#, fuzzy
+msgid "&Open..."
+msgstr "&Open..."
+
+#: MainWindow#28
+#, fuzzy
+msgid "Ctrl+O"
+msgstr "Ctrl+O"
+
+#: MainWindow#29
+#, fuzzy
+msgid "&Save"
+msgstr "&Bewaar"
+
+#: MainWindow#30
+#, fuzzy
+msgid "&About"
+msgstr "&Over"
+
+#: MainWindow#31
+#, fuzzy
+msgid "&Import"
+msgstr "&Importeer"
+
+#: MainWindow#32
+#, fuzzy
+msgid "Enter"
+msgstr "Enter"
+
+#: MainWindow#33
+#, fuzzy
+msgid "Return"
+msgstr "Return"
+
+#: MainWindow#34
+#, fuzzy
+msgid "Space"
+msgstr "Space\n"
+
+#: MainWindow#35
+#, fuzzy
+msgid "&Getting started"
+msgstr "Eerste s&tappen"
+
+#: MainWindow#36
+#, fuzzy
+msgid "Show s&tatistics"
+msgstr "Toon stat&istieken"
+
+#: MainWindow#37
+#, fuzzy
+msgid "Show &toolbar"
+msgstr "Toon &toolbar"
+
+#: MainWindow#38
+#, fuzzy
+msgid "&Tip of the day"
+msgstr "&Tip van de dag"
+
+#: MainWindow#39
+#, fuzzy
+msgid "Mnemosyne databases (*.mem)"
+msgstr "Mnemosyne gegevensbanken (*.mem)"
+
+#: MainWindow#40
+#, fuzzy
+msgid "New"
+msgstr "Nieuw"
+
+#: MainWindow#41
+#, fuzzy
+msgid "Please wait..."
+msgstr "Een moment..."
+
+#: MainWindow#42
+#, fuzzy
+msgid "Delete current card?"
+msgstr "Verwijder huidige kaart?"
+
+#: MainWindow#43
+#, fuzzy
+msgid "&Yes"
+msgstr "&Ja"
+
+#: MainWindow#44
+#, fuzzy
+msgid "&No"
+msgstr "&Nee"
+
+#: MainWindow#45
+#, fuzzy
+msgid "Returns in "
+msgstr "Komt over "
+
+#: MainWindow#46
+#, fuzzy
+msgid " day(s)."
+msgstr "dag(en) terug."
+
+#: MainWindow#47
+#, fuzzy
+msgid "Next repetition: today."
+msgstr "Volgende bevraging: vandaag."
+
+#: MainWindow#48
+#, fuzzy
+msgid "Next repetition: tomorrow."
+msgstr "Volgende bevraging: morgen."
+
+#: MainWindow#49
+#, fuzzy
+msgid "Next repetition in "
+msgstr "Volgende bevraging over "
+
+#: MainWindow#50
+#, fuzzy
+msgid " days."
+msgstr " dagen."
+
+#: MainWindow#51
+#, fuzzy
+msgid "<default>"
+msgstr "<standaard>"
+
+#: MainWindow#52
+#, fuzzy
+msgid "Learn ahead of schedule"
+msgstr "Leer vooruit op schema"
+
+#: MainWindow#53
+#, fuzzy
+msgid "Pick days until next repetition:"
+msgstr "Aantal dagen tot volgende bevraging:"
+
+#: MainWindow#54
+#, fuzzy
+msgid "Grade your answer:"
+msgstr "Beoordeel uw antwoord:"
+
+#: MainWindow#55
+#, fuzzy
+msgid "Scheduled: "
+msgstr "Geroosterd: "
+
+#: MainWindow#56
+#, fuzzy
+msgid "Not memorised: "
+msgstr "Niet onthouden: "
+
+#: MainWindow#57
+#, fuzzy
+msgid "All: "
+msgstr "Alle: "
+
+#: MainWindow#58
+msgid "Answer:"
+msgstr ""
+
+#: MainWindow#59
+msgid "toolBar"
+msgstr ""
+
+#: MainWindow#60
+msgid "default"
+msgstr ""
+
+#: MainWindow#61
+msgid "Backspace"
+msgstr ""
+
+#: MainWindow#62
+msgid "Ctrl+E"
+msgstr ""
+
+#: MainWindow#63
+msgid "E&xit"
+msgstr ""
+
+#: MainWindow#64
+#, fuzzy
+msgid "Ctrl+S"
+msgstr "Ctrl+B"
+
+#: MainWindow#65
+msgid "Save &as..."
+msgstr ""
+
+#: MainWindow#66
+msgid "pressEnter"
+msgstr ""
+
+#: MainWindow#67
+msgid "pressR"
+msgstr ""
+
+#: MainWindow#68
+msgid "R"
+msgstr ""
+
+#: MainWindow#69
+msgid "pressReturn"
+msgstr ""
+
+#: MainWindow#70
+msgid "pressSpace"
+msgstr ""
+
+#: MainWindow#71
+msgid "Ctrl+T"
+msgstr ""
+
+#. (obsolete)
+#: PreviewItemDlg#1
+msgid "Question:"
+msgstr "Vraag:"
+
+#. (obsolete)
+#: PreviewItemFrm#1
+msgid "Preview card"
+msgstr "Voorvertoning kaart"
+
+#. (obsolete)
+#: PreviewItemFrm#2
+msgid "Question:"
+msgstr "Vraag:"
+
+#. (obsolete)
+#: PreviewItemFrm#3
+msgid "Answer:"
+msgstr "Antwoord:"
+
+#. (obsolete)
+#: PreviewItemFrm#4
+msgid "&OK"
+msgstr "&OK"
+
+#. (obsolete)
+#: PreviewItemFrm#5
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#. (obsolete)
+#: ProductTourFrm#1
+msgid "Getting started"
+msgstr "Eerste stappen"
+
+#. (obsolete)
+#: ProductTourFrm#2
+msgid ""
+"Greetings!\n"
+"\n"
+"I am Mnemosyne, a type of butterfly named after the Greek goddess of Memory. "
+"\n"
+"I can make it more efficient for you to memorise and remember answers to "
+"questions, by helping you focus on the cards you're most likely to forget "
+"and by not wasting your time on things you know well.\n"
+"\n"
+"For that, I'll decide when to ask you the questions, and you'll need to rate "
+"how well you remember the answers.\n"
+"\n"
+"Let's look at the meaning of these ratings now."
+msgstr ""
+"Goedendag!\n"
+"Ik ben Mnemosyne, een vlinder vernoemd naar de Griekse godin van het "
+"geheugen. \n"
+"\n"
+"De antwoorden die je vaker vergeet stel ik je vaker en antwoorden op vragen "
+"die je goed kent laat ik je verder geen tijd op verliezen door ze te vaak te "
+"vragen. Daardoor wordt het voor jij meer efficient om de antwoorden op "
+"vragen te onthouden.\n"
+"\n"
+"Om dat goed te kunnen doen, vraag ik je om een beoordeling te geven van het "
+"antwoord dat je geeft op iedere vraag.\n"
+"\n"
+"Laten we eens kijken naar deze beoordelingen."
+
+#. (obsolete)
+#: ProductTourFrm#3
+msgid "Introduction"
+msgstr "Introductie"
+
+#. (obsolete)
+#: ProductTourFrm#4
+msgid ""
+"Grades range from 0 to 5.\n"
+"\n"
+"Grades 0 and 1 are used if you don't know the answer yet, or if you have "
+"forgotten it. A card with grade 1 is starting to get more familiar than one "
+"with grade 0, and will be repeated less often.\n"
+"\n"
+"I will keep on asking you these questions until you give them a grade 2 or "
+"higher (the exact grade doesn't matter). Grade 2 basically means that you "
+"think you'll be able to remember the card for at least one or two days. It "
+"signals the transition between short and long term memory.\n"
+"\n"
+"I will schedule this card at some future date, when I think you'll still be "
+"able to remember it with some effort, without having forgotten it "
+"completely. This is the most efficient for the learning process."
+msgstr ""
+"Beoordelingen van 0 tot 5.\n"
+"\n"
+"De '0' en '1' beoordelingen worden gebruikt als je het antwoord nog niet "
+"kent of dat je het opnieuw vergeten bent. Een kaart met beoordeling '1' "
+"wordt al enigszins meer bekend dan een '0' en zal minder vaak herhaald "
+"worden.\n"
+"\n"
+"Ik zal deze vragen blijven stellen totdat je ze een beoordeling '2' of hoger "
+"geeft (het maakt niet uit welke preciese beoordeling). Beoordeling '2' "
+"betekend dat je denkt de kaart op z'n minst 2 dagen kunnen onthouden. Het "
+"geeft de transitie van korte- naar langetermijn geheugen aan.\n"
+"\n"
+"Hierna zal ik de kaart ergens in de toekomst roosteren, op een moment dat ik "
+"denk dat je hem onthouden zou moeten hebben met enige moeite, zonder dat je "
+"het volledig vergeten bent. Dit is het meest efficient voor het leerproces."
+
+#. (obsolete)
+#: ProductTourFrm#5
+msgid "Grades 0-2"
+msgstr "Beoordelingen 0-2"
+
+#. (obsolete)
+#: ProductTourFrm#6
+msgid ""
+"If in the future I ask you the question too soon, and you're able to "
+"remember it without any effort, you rate the card a 5. I'll take this into "
+"account by waiting a lot longer before asking you this question again.\n"
+"\n"
+"If I get it just right, so that you remember it, albeit with some effort, "
+"you use grade 4.\n"
+"\n"
+"If on the other hand it takes you significant effort to remember the answer, "
+"and you think I've waited too long to ask you this question, then rate the "
+"card 3.\n"
+"\n"
+"If you fail to remember it altogether, rate it either 0 or 1, and I'll keep "
+"on asking you this question until you think you'll be able to remember it "
+"again for a few days."
+msgstr ""
+"Als ik je een bepaalde vraag te snel stel en je kunt het beantwoorden zonder "
+"enige moeie, geef het dan een '5' als beoordeling. Dit neem ik mee voor de "
+"volgende keer door een stuk langer te wachten voordat ik je de vraag opnieuw "
+"stel.\n"
+"\n"
+"Als ik het precies goed doe, zodanig dat je het met enige moeite kunt "
+"onthouden, gebruik dan een '4' als beoordeling.\n"
+"\n"
+"Kost het echter bijzonder veel moeite om het juiste antwoord bij de vraag te "
+"vinden en denk je dat ik te lang heb gewacht met het stellen van deze "
+"vraag, beooldeel het dan met een '3'.\n"
+"\n"
+"Ben je het helemaal vergeten, geef het dan een '0' of een '1' en ik zal je "
+"de vraag stellen totdat je denkt het te kunnen onthouden gedurende een "
+"aantal dagen."
+
+#. (obsolete)
+#: ProductTourFrm#7
+msgid "Grades 3-5"
+msgstr "Beoordelingen 3-5"
+
+#. (obsolete)
+#: ProductTourFrm#8
+msgid ""
+"If you're into statistics, I can keep detailed logs of your revisions.\n"
+"\n"
+"Not only that, but if you want, I can upload transparently a completely "
+"anonymous version of these logs to a central site for analysis, so that you "
+"can help making me better. In this way, you also contribute to scientific "
+"research on long-term memory.\n"
+"\n"
+"Uncheck the following box if you do not want to do this."
+msgstr ""
+"Houdt je van statistiek? Ik kan een gedetaileerd log bijhouden van jouw "
+"revisies.\n"
+"\n"
+"Daarnaast kan ik, mocht je dat willen, een anoniem log sturen naar een "
+"centrale locatie ter analyse, zodat jij kunt helpen mij beter te maken. Op "
+"deze manier kun je ook je steentje bijdragen aan lange-termijn "
+"geheugenonderzoek.\n"
+"\n"
+"Klik het volgende aankruisvak aan, mocht je dit willen."
+
+#. (obsolete)
+#: ProductTourFrm#9
+msgid "Upload anonymous logs"
+msgstr "Verstuur een anonieme log"
+
+#. (obsolete)
+#: ProductTourFrm#10
+msgid ""
+"(You can always change this setting later using the 'Configure Mnemosyne' "
+"menu option.)"
+msgstr ""
+"(Je kunt dit later altijd veranderen in het 'Configureer Mnemosyne' dialoog)"
+
+#. (obsolete)
+#: ProductTourFrm#11
+msgid "Statistics"
+msgstr "Statistieken"
+
+#. (obsolete)
+#: ProductTourFrm#12
+msgid ""
+"Now you're ready to start!\n"
+"<p>\n"
+"Add new cards by clicking on the icon with the 'plus' sign in the top left.\n"
+"<p>\n"
+"Remember, there is no need to worry about saving your work, I will do so "
+"automatically.\n"
+"<p>\n"
+"For best results, I suggest you do your revisions every day, although I'll "
+"try to cope as best I can if you postpone your revisions or if you want to "
+"learn ahead of time.\n"
+"<p>\n"
+"For more documentation, see <a href =\"http://mnemosyne-"
+"proj.sourceforge.net\">http://www.mnemosyne-proj.sourceforge.net</a>\n"
+"<p>\n"
+"Happy learning!"
+msgstr ""
+"Je bent nu klaar voor de start!\n"
+"<p>\n"
+"Voeg nieuwe kaarten toe door op het 'plus' icoon te klikken, linksbovenaan.\n"
+"<p>\n"
+"Je hoeft je niet druk te maken om alles steeds op te slaan, ik zal dat "
+"automatisch doen.\n"
+"<p>\n"
+"De beste resultaten krijg je als je iedere dag een aantal keer door de "
+"geroosterde vragen loopt, alhoewel ik ook mijn best doe als je besluit dit "
+"uit te stellen, of vooruit wilt lopen op de vragen.\n"
+"\n"
+"Voor meer documentatie, bekijk <a href='http://mnemosyne-"
+"proj.sourceforge.net\">http://mnemosyne-proj.sourceforge.net\"</a>\n"
+"<p>\n"
+"Veel plezier met leren!"
+
+#. (obsolete)
+#: ProductTourFrm#13
+msgid "Ready to start"
+msgstr "Klaar om te starten"
+
+#. (obsolete)
+#: ProductTourFrm#14
+msgid ""
+"Now you're ready to start!\n"
+"<p>\n"
+"Add new cards by clicking on the icon with the 'plus' sign in the top left.\n"
+"<p>\n"
+"Remember, there is no need to worry about saving your work, I will do so "
+"automatically.\n"
+"<p>\n"
+"For best results, I suggest you do your revisions every day, although I'll "
+"try to cope as best I can if you postpone your revisions or if you want to "
+"learn ahead of time.\n"
+"<p>\n"
+"For more documentation, see http://www.mnemosyne-proj.sourceforge.net.\n"
+"<p>\n"
+"Happy learning!"
+msgstr ""
+"Je bent nu klaar voor de start!\n"
+"<p>\n"
+"Voeg nieuwe kaarten toe door op het 'plus' icoon te klikken, links bovenaan.\n"
+"<p>\n"
+"Je hoeft je niet druk te maken om alles steeds op te slaan, ik zal dat "
+"automatisch doen.\n"
+"<p>\n"
+"De beste resultaten krijg je als je iedere dag een aantal keer door de "
+"geroosterde vragen loopt, alhoewel ik ook mijn best doe als je besluit dit "
+"uit te stellen, of vooruit wilt lopen op de vragen.\n"
+"\n"
+"Voor meer documentatie, bekijk http://mnemosyne-proj.sourceforge.net.\n"
+"<p>\n"
+"Veel plezier met leren!"
+
+#: QTextEdit2#1
+#, fuzzy
+msgid "Insert &image"
+msgstr "Voeg &afbeelding toe"
+
+#: QTextEdit2#2
+#, fuzzy
+msgid "Ctrl+I"
+msgstr "Ctrl+a"
+
+#: QTextEdit2#3
+#, fuzzy
+msgid "Insert &sound"
+msgstr "Voeg &geluid toe"
+
+#: QTextEdit2#4
+#, fuzzy
+msgid "Ctrl+S"
+msgstr "Ctrl+g"
+
+#: QTextEdit2#5
+#, fuzzy
+msgid "&3-sided input"
+msgstr "&3-kants invoer"
+
+#: QTextEdit2#6
+#, fuzzy
+msgid "Image files"
+msgstr "Afbeeldingsbestanden"
+
+#: QTextEdit2#7
+#, fuzzy
+msgid "Insert image"
+msgstr "Voeg afbeelding toe"
+
+#: QTextEdit2#8
+#, fuzzy
+msgid "Sound files"
+msgstr "Geluidsbestanden"
+
+#: QTextEdit2#9
+#, fuzzy
+msgid "Insert sound"
+msgstr "Voeg geluid toe"
+
+#: StatisticsDlg#1
+#, fuzzy
+msgid ""
+"Scheduled cards for the next days:\n"
+"\n"
+msgstr ""
+"Geroosterde kaarten voor de volgende dagen:\n"
+"\n"
+
+#: StatisticsDlg#2
+#, fuzzy
+msgid "In"
+msgstr "Over"
+
+#: StatisticsDlg#3
+#, fuzzy
+msgid "day(s) :"
+msgstr "dag(en):"
+
+#: StatisticsDlg#4
+#, fuzzy
+msgid ""
+"Number of cards with the following grades:\n"
+"\n"
+msgstr ""
+"Aantal kaarten met de volgende beoordeling:\n"
+"\n"
+
+#: StatisticsDlg#5
+#, fuzzy
+msgid "Grade"
+msgstr "Beoordeling"
+
+#. (obsolete)
+#: StatisticsFrm#1
+msgid "Category"
+msgstr "Categorie"
+
+#. (obsolete)
+#: StatisticsFrm#2
+msgid "Cards"
+msgstr "Kaarten"
+
+#. (obsolete)
+#: StatisticsFrm#3
+msgid "Statistics"
+msgstr "Statistieken"
+
+#. (obsolete)
+#: StatisticsFrm#4
+msgid "Schedule"
+msgstr "Rooster"
+
+#. (obsolete)
+#: StatisticsFrm#5
+msgid "Grades"
+msgstr "Beoordelingen"
+
+#. (obsolete)
+#: StatisticsFrm#6
+msgid "Categories"
+msgstr "Categorieën"
+
+#. (obsolete)
+#: StatisticsFrm#7
+msgid "&OK"
+msgstr "&OK"
+
+#: TipDlg#1
+#, fuzzy
+msgid "For optimal results, it's best to do your repetitions every day."
+msgstr ""
+"De beste resultaten behaal je als je iedere dag door de geroosterde kaarten "
+"gaat."
+
+#: TipDlg#2
+#, fuzzy
+msgid ""
+"If you've been away for a few days, don't worry about your backlog. Do as "
+"many cards as you feel like to catch up, the rest will be automatically "
+"rescheduled to the future."
+msgstr ""
+"Als je een aantal dagen weggeweest bent, maak je dan niet te druk. "
+"Beantwoord zoveel vragen als je zelf denkt dat goed is om weer in schema te "
+"komen, de rest van de kaarten worden automatisch heringedeeld in het "
+"rooster."
+
+#: TipDlg#3
+#, fuzzy
+msgid ""
+"The 'number of grade 0 cards to learn at once' setting determines how many "
+"new cards you are trying to learn at the same time. It does <b>not</b> tell "
+"you how many new cards you need to learn per day. You are the judge of that: "
+"you can learn more cards or less cards, depending on how you feel."
+msgstr ""
+"De 'Aantal 0 beoordelingskaarten in eenmaal te leren:' instelling bepaald "
+"hoeveel nieuwe kaarten je in eenmaal probeert te leren. Het stelt echter "
+"<b>niet</b> het aantal nieuw te leren kaarten per dag in. Jij bepaald zelf "
+"hoeveel nieuwe kaarten je wilt leren per dag, aan de hand van hoe jij je "
+"erover voelt."
+
+#: TipDlg#4
+#, fuzzy
+msgid ""
+"In summary, try to do your repetitions every day, but don't worry too much "
+"about getting the 'scheduled' counter to zero, and certainly not about "
+"getting the 'Not memorised' counter to zero."
+msgstr ""
+"Samenvattend, probeer iedere dag de geroosterde kaarten te doen, maar maak "
+"je niet al te druk om de 'geroosterd' teller op nul te krijgen, en al "
+"helemaal niet om de 'niet onthouden' teller op nul te krijgen."
+
+#: TipDlg#5
+#, fuzzy
+msgid ""
+"Grade 1 cards are different from grade 0 cards in the sense that they show "
+"up less often and are not subject to the 'number of grade 0 cards to learn "
+"at once' setting."
+msgstr ""
+"Beoordeling '1' kaarten verschillen van beoordeling '0' kaarten omdat ze "
+"minder vaak bevraagd worden en omdat ze niet meedoen aan het 'aantal "
+"beoordeling '0' kaarten te leren in eenmaal' instelling."
+
+#: TipDlg#6
+#, fuzzy
+msgid ""
+"You can use keyboard shortcuts to do your repetitions. Enter, Return or "
+"Space stand for the default action ('Show answer' or 'grade 4'). The number "
+"keys can be used for grading."
+msgstr ""
+"Je kunt toetsenbord-snelkoppelingen gebruiken om het je makkelijker te "
+"maken. Enter, Return of spatie geeft de standaard actie ('Toon antwoord' of "
+"'beoordeling 4'). De nummertoetsen kunnen gebruikt worden voor de "
+"beoordeling."
+
+#: TipDlg#7
+#, fuzzy
+msgid ""
+"You can select the categories you wish to study in the 'Activate categories' "
+"menu option."
+msgstr ""
+"Door naar 'Activeer categorieën' te gaan in het menu, kun je specifieke "
+"categorieëen selecteren die je beter wil bestuderen."
+
+#: TipDlg#8
+#, fuzzy
+msgid ""
+"It is recommended to put all your cards in a single database and use "
+"categories to organise them. Using 'Activate categories' is much more "
+"convenient than have to load and unload several databases."
+msgstr ""
+"Het is aan te raden om alle kaarten in één grote gegevensbank te plaatsen en "
+"categorieën te gebruiken om ze te organiseren. Gebruik van 'Activeer "
+"categorieën' is een stuk handiger dan het laden en opslaan van verschillende "
+"gegevensbanken."
+
+#: TipDlg#9
+#, fuzzy
+msgid ""
+"You can import cards in a wide variety of formats: tab delimited txt files, "
+"Supermemo files, ... ."
+msgstr ""
+"Je kunt kaarten importeren uit een boel verschillende formaten: tab "
+"gescheiden tekstbestanden, Supermemo bestanden, ... ."
+
+#: TipDlg#10
+#, fuzzy
+msgid ""
+"If you have cards in Word or Excel, export them to tab delimited txt files "
+"with UTF-8 unicode encoding to be able to import them into Mnemosyne."
+msgstr ""
+"Als je je kaarten in Word of Excel hebt staan, exporteer ze dan tab "
+"gescheiden met UTF-8 unicode encoding, zodat je ze kunt importeren in "
+"Mnemosyne."
+
+#: TipDlg#11
+#, fuzzy
+msgid ""
+"If you want to print out your cards, export them to a txt file which you can "
+"then print from your favourite Word processor."
+msgstr ""
+"Als je je kaarten wilt uitprinten, sla ze dan op als een txt bestand en open "
+"ze met je favoriete document processor (Word/OpenOffice)."
+
+#: TipDlg#12
+#, fuzzy
+msgid ""
+"You can share your cards with someone else by exporting them to XML and "
+"choosing the 'Reset learning data' option on export."
+msgstr ""
+"Je kunt kaarten met iemand delen door ze te exporteren als XML en de optie "
+"'Verwijder leergegevens tijdens export' te kiezen."
+
+#: TipDlg#13
+#, fuzzy
+msgid ""
+"If you study a foreign language with a different script, the default font "
+"size is sometimes a bit small. If you want to increase the size of these "
+"characters but keep the size of English text, use the 'increase size of non-"
+"latin characters by X points' option."
+msgstr ""
+"Als je vreemde talen leert met een ander schrift, dan is de standaard "
+"lettertypegrootte soms enigszins te klein. Als je deze karakters groter wilt "
+"weergeven, maar normale engelse tekst hetzelfde wilt houden, gebruik dan de "
+"\"vergroot non-latin letters met X punten\" optie."
+
+#: TipDlg#14
+#, fuzzy
+msgid ""
+"You can add images and sounds to your cards. Right-click on the question or "
+"answer field when editing a card to bring up a pop-up menu to do so."
+msgstr ""
+"Je kunt ook afbeeldingen en geluiden toevoegen aan je kaarten. Klik rechts "
+"in het vraag of antwoordveld als je een kaart aan het bewerken bent, en een "
+"pop-up menu verschijnt welke je de mogelijkheid geeft deze onderdelen toe te "
+"voegen."
+
+#: TipDlg#15
+#, fuzzy
+msgid ""
+"It is recommended to keep your sound and image files inside your .mnemosyne "
+"directory. That way, it's easier to transfer your data between different "
+"computers."
+msgstr ""
+"We raden aan om geluid en beeldbestanden in je .mnemosyne map op te slaan. "
+"Daardoor is het eenvoudiger je gegevens te versturen of te delen tussen "
+"verschillende computers."
+
+#: TipDlg#16
+#, fuzzy
+msgid ""
+"When adding a three-sided card, two regular cards will be created. One with "
+"as question the written form and as answer the pronunciation and the "
+"translation, and one with as question the translation and as answer the "
+"written form and the pronunciation."
+msgstr ""
+"Als je een drie-zijdige kaart toevoegd, zullen er twee normale kaarten "
+"worden aangemaakt. Eén met de vraag in geschreven vorm en als antwoord de "
+"uitspraak en vertaling, een andere met de vraag vertaald en het antwoord in "
+"geschreven vorm en de uitspraak."
+
+#: TipDlg#17
+#, fuzzy
+msgid "You can use basic HTML tags in your cards to control their appearance."
+msgstr ""
+"Je kunt standaard HTML tags gebruiken in je kaarten om de presentatie te "
+"veranderen."
+
+#: TipDlg#18
+#, fuzzy
+msgid ""
+"Mnemosyne can use LaTeX to render mathematical formulas, e.g. "
+"<$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
+msgstr ""
+"Mnemosyne kan LaTeX gebruiken om mathematische formulen weer te geven, bijv. "
+"<$>x^2+y^2=z^2</$>. (Hiervoor moeten LaTeX en dvipng geïnstalleerd zijn.)"
+
+#. (obsolete)
+#: TipDlg#19
+msgid ""
+"The best way to backup your data is to copy your .mnemosyne directory (if "
+"you follow the recommended procedure to keep all your files there) and move "
+"it to a different drive. Mnemosyne keeps automatic XML-based backups in "
+".mnemosyne/backups, but that won't help you if that drive dies... "
+msgstr ""
+"Voor een backup van je gegevens kun je het beste je .mnemosyne directory "
+"kopieëren (mits je al je bestanden daar opslaat) naar een andere schijf. "
+"Mnemosyne slaat automatisch XML-gebasseerde backups op in "
+".mnemosyne/backups, maar dat helpt niets als je schijf het begeeft... "
+
+#: TipDlg#20
+#, fuzzy
+msgid ""
+"You can run Mnemosyne from a USB key. Copy C:\\Program Files\\Mnemosyne to "
+"your USB key, and then copy the .mnemosyne directory from your home "
+"directory to inside the Mnemosyne directory on the USB key."
+msgstr ""
+"Je kunt Mnemosyne draaien vanaf een USB sleuten. Kopieer C:\\Program "
+"Files\\Mnemosyne naar je USB sleutel en kopieer daarna de .mnemosyne map naar "
+"de Mnemosyne map op de USB sleutel."
+
+#: TipDlg#21
+#, fuzzy
+msgid ""
+"If you use Mnemosyne on multiple computers, there is a handy tool called "
+"Unison to help you synchronise your data. See the Mnemosyne website for more "
+"information."
+msgstr ""
+"Als je Mnemosyne gebruikt op meerdere computers, dan is er een handig "
+"tooltje genaamd Unison dat je kan helpen om je gegevens gesynchroniseerd te "
+"houden. Bekijk de Mnemosyne website voor meer gegevens."
+
+#: TipDlg#22
+#, fuzzy
+msgid ""
+"You can sort the cards in the 'Edit Deck' dialog by answer or by category by "
+"clicking on the corresponding column title. Clicking again changes the sort "
+"order."
+msgstr ""
+"Je kunt de kaarten in het 'Bewerk kaartenbak' dialoog sorteren op antwoord "
+"of categorie door te klikken op de desbetreffende kolomtitel. Nogmaals "
+"klikken op de titel draait de sortering om."
+
+#: TipDlg#23
+#, fuzzy
+msgid ""
+"If you want more fine-grained control over LaTeX's behaviour, see the "
+"explanation of the <$$>...</$$> and <latex>...</latex> tags on Mnemosyne's "
+"website."
+msgstr ""
+"Als je meer gedetaileerde controle wilt hebben over LaTeX, zie dan de uitleg "
+"over de <$$>...</$$> en <latex>...</latex> tags op de Mnemosyne website."
+
+#: TipDlg#24
+#, fuzzy
+msgid ""
+"Advanced users can customise more of Mnemosyne by editing the config.py file "
+"in their .mnemosyne directory. They can also install plugins to customise "
+"Mnemosyne even further."
+msgstr ""
+"Gevorderde gebruikers kunnen Mnemosyne verder aanpassen door de config.py "
+"bestand in hun .mnemosyne map aan te passen. Ze kunnen ook plugins "
+"installeren om Mnemosyne nog dieper aan te passen."
+
+#: TipDlg#25
+msgid ""
+"The best way to backup your data is to copy your .mnemosyne directory (if "
+"you follow the recommended procedure to keep all your files there) and move "
+"it to a different drive. Mnemosyne keeps automatic XML-based backups in "
+".mnemosyne/backups, but that won't help you if that drive dies..."
+msgstr ""
+
+#. (obsolete)
+#: TipFrm#1
+msgid "Tip of the day"
+msgstr "Tip van de dag"
+
+#. (obsolete)
+#: TipFrm#2
+msgid "<b>Did you know...?</b>"
+msgstr "<b>Wist je dat...?</b>"
+
+#. (obsolete)
+#: TipFrm#3
+msgid "&Show tips on startup"
+msgstr "&Toon tips bij het starten"
+
+#. (obsolete)
+#: TipFrm#4
+msgid "Alt+S"
+msgstr "Alt+T"
+
+#. (obsolete)
+#: TipFrm#5
+msgid "&Previous"
+msgstr "&Vorige"
+
+#. (obsolete)
+#: TipFrm#6
+msgid "Alt+P"
+msgstr "Alt+V"
+
+#. (obsolete)
+#: TipFrm#7
+msgid "&Next"
+msgstr "V&olgende"
+
+#. (obsolete)
+#: TipFrm#8
+msgid "Alt+N"
+msgstr "Alt+O"
+
+#. (obsolete)
+#: TipFrm#9
+msgid "&Close"
+msgstr "&Sluiten"
+
+#. (obsolete)
+#: TipFrm#10
+msgid "Alt+C"
+msgstr "Alt+S"
+
+#. (obsolete)
+#: qApp#1
+msgid "Error in config.py:"
+msgstr "Fout in config.py:"
+
+#. (obsolete)
+#: qApp#2
+msgid "Error when running plugin:"
+msgstr "Fout bij het uitvoeren van plugin:"
+
+#. (obsolete)
+#: qApp#3
+msgid "Unable to load file."
+msgstr "Kon bestand niet laden."
+
+#. (obsolete)
+#: qApp#4
+msgid "Invalid file format."
+msgstr "Ongeldig bestandsformaat."
+
+#. (obsolete)
+#: qApp#5
+msgid "Unable to save file."
+msgstr "Kon bestand niet opslaan."
+
+#. (obsolete)
+#: qApp#6
+msgid "Unable to parse XML:"
+msgstr "Kon XML niet parsen:"
+
+#. (obsolete)
+#: qApp#7
+msgid "Unrecognised encoding."
+msgstr "Onbekende encodering."
+
+#. (obsolete)
+#: qApp#8
+msgid "Missing answer on line:"
+msgstr "Antwoord ontbreekt op regel:"
+
+#. (obsolete)
+#: qApp#9
+msgid ""
+"Unable to load database.\n"
+"Creating tmp file."
+msgstr ""
+"Kon gegevensbank niet laden.\n"
+"Ik creëer tmp bestand."
+
+#. (obsolete)
+#: qApp#10
+msgid "Mnemosyne"
+msgstr "Mnemosyne"
+
+#. (obsolete)
+#: qApp#11
+msgid "&OK"
+msgstr "&OK"
+
+#. (obsolete)
+#: qApp#12
+msgid "File exists:"
+msgstr "Bestand bestaat:"
+
+#. (obsolete)
+#: qApp#13
+msgid "&Overwrite"
+msgstr "&Overschrijven"
+
+#. (obsolete)
+#: qApp#14
+msgid "&Cancel"
+msgstr "&Annuleer"
+
+#. (obsolete)
+#: qApp#15
+msgid "Removed duplicates: "
+msgstr "Duplicaten verwijderd: "
+
+#. (obsolete)
+#: qApp#16
+msgid ""
+"There are cards with different answers for question:\n"
+"\n"
+msgstr ""
+"Er zijn kaarten met andere antwoord voor vraag:\n"
+"\n"
+
+#. (obsolete)
+#: qApp#17
+msgid "&Merge and edit"
+msgstr "&Samenvoegen en bewerken"
+
+#. (obsolete)
+#: qApp#18
+msgid "&Don't merge"
+msgstr "&Niet samenvoegen"
+
+#. (obsolete)
+#: qApp#19
+msgid "Done!"
+msgstr "Klaar!"
+
+#. (obsolete)
+#: qApp#20
+msgid "You don't remember this card yet."
+msgstr "Je kent deze kaart nog niet."
+
+#. (obsolete)
+#: qApp#21
+msgid "Like '0', but it's getting more familiar."
+msgstr "Als '0', maar het wordt iets duidelijker."
+
+#. (obsolete)
+#: qApp#22
+msgid " Show it less often."
+msgstr " Toon het minder vaak."
+
+#. (obsolete)
+#: qApp#23
+msgid "You've memorised this card now,"
+msgstr "Je hebt deze kaart nu onthouden,"
+
+#. (obsolete)
+#: qApp#24
+msgid " and will probably remember it for a few days."
+msgstr " en zult het waarschijnlijk blijven onthouden voor een aantal dagen."
+
+#. (obsolete)
+#: qApp#25
+msgid "You have forgotten this card completely."
+msgstr "Deze kaart ben je volledig vergeten."
+
+#. (obsolete)
+#: qApp#26
+msgid "Barely correct answer. The interval was way too long."
+msgstr "Nauwelijks correct antwoord. Het tijdsinterval was veel te lang."
+
+#. (obsolete)
+#: qApp#27
+msgid "Correct answer, but with much effort."
+msgstr "Correct antwoord, maar met enige moeite."
+
+#. (obsolete)
+#: qApp#28
+msgid " The interval was probably too long."
+msgstr " Het interval was waarschijnlijk te lang."
+
+#. (obsolete)
+#: qApp#29
+msgid "Correct answer, with some effort."
+msgstr "Correct antwoord, met enige moeite."
+
+#. (obsolete)
+#: qApp#30
+msgid " The interval was probably just right."
+msgstr " Het tijdsinterval was vermoedelijk precies juist."
+
+#. (obsolete)
+#: qApp#31
+msgid "Correct answer, but without any"
+msgstr "Correct antwoord, maar zonder enige"
+
+#. (obsolete)
+#: qApp#32
+msgid " difficulties. The interval was probably too short."
+msgstr " moeite. Het interval was waarschijnlijk te kort."
+
+#. (obsolete)
+#: qApp#33
+msgid " days."
+msgstr " dagen."

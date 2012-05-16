@@ -1,30 +1,23 @@
--cloze card to front-to-back, cancel procedure
+-pg up/down in plugin manager should update description pane
+-rebuild with earlier qt
+-rework sound system. Mail Barbara (unicode), Patrick (2 files)
 
--rebuild with latest qt, rework sound system?
+-sort languages
+-language name in unicode?
+-translations through website: https://help.launchpad.net/Translations/YourProject/Exports
+-pt_BR etc supported on website?
+-what happens with obsolete entries?
+-add pot update to distrib in makefile
 
 ### RC2
 
--remove upgrade_beta_6.py, beta_7, etc... also in database
-
--translations through website:
- https://help.launchpad.net/Translations/YourProject/Exports
--see if 1.x translations can be reused
--remove mnemosyne/pyqt_ui/locale
-
--upgrade website
-
--workaround for non-latin sound files?
-
-## Waiting for PyQt fixes:
-
--https://bugreports.qt-project.org/browse/QTBUG-22883
--If something was fixed by upgrading to the new Qt, check if we need to install
- the old mnemosyne first in order to get these benefits. If so, enforce uninstall
- in installer?
--check sound with unicode, mail Barbara
--check 2 sound files again under W7, mail Patrick, update changelog
+-update website
 
 ### Release
+
+-remove upgrade_beta_6.py, beta_7, etc... also in database
+
+-option to add multiple tags on import (Barbara)
 
 -plugin for card types with prefilled data
 
@@ -56,6 +49,9 @@ taking grade 0/1 cards as well into account?
 -Cramming shortcuts with letters do not work (Gnome) (LP bug)
 -starting the program when no cards are shownn does not draw a border around the
  Q field
+
+-when creating a new tag in the hierarchy, and the parents of the hierachy are disabled,
+ disable the new tag too. (LP bug Gnome)
 
 -fix race condition in test_add_tag_behind_proxy(self) and similar
 

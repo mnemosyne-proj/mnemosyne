@@ -65,7 +65,8 @@ class CompactDatabaseDlg(QtGui.QDialog, Ui_CompactDatabaseDlg,
             self.thread = CompactThread(self)
             self.thread.compact_finished_signal.connect(self.finish_compact)
             self.thread.start()
-        QtGui.QDialog.accept(self)
+        else:
+            QtGui.QDialog.accept(self)
 
     def finish_compact(self):
         self.main_widget().close_progress()

@@ -1,0 +1,1786 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-16 10:15+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.9.0\n"
+
+#: #1
+msgid "Error in config.py:"
+msgstr "Eraro en config.py:"
+
+#: #2
+msgid "Error when running plugin:"
+msgstr "Eraro en la kromprograma lanĉo:"
+
+#: #3
+msgid "Unable to load file."
+msgstr "La dosiero ne povas ŝarĝiĝi."
+
+#: #4
+msgid "Invalid file format."
+msgstr "Tiu dosierformo estas nevalida."
+
+#: #5
+msgid "Unable to save file."
+msgstr "La dosiero ne povas konserviĝi."
+
+#: #6
+msgid "Unable to parse XML:"
+msgstr "La XML ne povas sintakse analiziĝi."
+
+#: #7
+msgid "Unrecognised encoding."
+msgstr "Tiu kodoprezento estas nerekonita."
+
+#: #8
+msgid "Missing answer on line:"
+msgstr "Respondo estas manka ĉe la linio:"
+
+#: #9
+msgid ""
+"Unable to load database.\n"
+"Creating tmp file."
+msgstr ""
+"La datumbazo ne povas ŝarĝebliĝi.\n"
+"Mnemozino nun kreas tmp-dosieron."
+
+#: #10
+msgid "Mnemosyne"
+msgstr "Mnemozino"
+
+#: #11
+msgid "&OK"
+msgstr "&Akcepti"
+
+#: #12
+msgid "File exists:"
+msgstr "La dosiero ekzistas:"
+
+#: #13
+msgid "&Overwrite"
+msgstr "&Anstataŭigi"
+
+#: #14
+msgid "&Cancel"
+msgstr "&Rezigni"
+
+#: #15
+msgid "Removed duplicates: "
+msgstr "Duobloj forviŝiĝis: "
+
+#: #16
+msgid ""
+"There are cards with different answers for question:\n"
+"\n"
+msgstr ""
+"Ekzistas kartoj kun malsamaj respondoj al jena demando:\n"
+"\n"
+
+#: #17
+msgid "&Merge and edit"
+msgstr "&Kunfandi kaj redakti"
+
+#: #18
+msgid "&Don't merge"
+msgstr "&Ne kunfandi"
+
+#: #19
+msgid "Done!"
+msgstr "Farita!"
+
+#: #20
+msgid "You don't remember this card yet."
+msgstr "Vi ne jam scias la respondon al ĉi tiu karto."
+
+#: #21
+msgid "Like '0', but it's getting more familiar."
+msgstr "Simila al 0, sed vi plikonadas ĝin."
+
+#: #22
+msgid " Show it less often."
+msgstr "Montru ĝin pli malofte."
+
+#: #23
+msgid "You've memorised this card now,"
+msgstr "Nun vi scias tiun karton,"
+
+#: #24
+msgid " and will probably remember it for a few days."
+msgstr "kaj probable vi memoros ĝin dum kelkaj tagoj."
+
+#: #25
+msgid "You have forgotten this card completely."
+msgstr "Vi tute forgesis ĉi tiun karton."
+
+#: #26
+msgid "Barely correct answer. The interval was way too long."
+msgstr "Via apenaŭ memoris la respondon; la intertempo estis multe tro longa."
+
+#: #27
+msgid "Correct answer, but with much effort."
+msgstr "Vi memoris la ĝustan respondon, sed per multa peno."
+
+#: #28
+msgid " The interval was probably too long."
+msgstr "La intertempo probable estis tro longa."
+
+#: #29
+msgid "Correct answer, with some effort."
+msgstr "Vi memoris la ĝustan respondo per iom da peno."
+
+#: #30
+msgid " The interval was probably just right."
+msgstr "La intertempo probable estis ĝusta."
+
+#: #31
+msgid "Correct answer, but without any"
+msgstr "Vi sciis la ĝustan respondon, sed sen ia"
+
+#: #32
+msgid " difficulties. The interval was probably too short."
+msgstr " malfacilo. La intertempo probable estis tro mallonga."
+
+#: AboutDlg#1
+msgid "Mnemosyne"
+msgstr "Mnemozino"
+
+#: AboutDlg#2
+msgid ""
+"Main author: Peter Bienstman\n"
+"\n"
+msgstr ""
+"Ĉefa aŭtoro: Peter BIENSTMAN\n"
+"\n"
+
+#: AboutDlg#3
+msgid "More info: http://mnemosyne-proj.org\n"
+msgstr "Pli da informaĵo ekzistas ĉe http://mnemosyne-proj.org.\n"
+
+#: AboutFrm#1
+msgid "About"
+msgstr "Pri"
+
+#: ActivateCategoriesFrm#1
+msgid "Activate categories"
+msgstr "Aktivigi kategoriojn"
+
+#: ActivateCategoriesFrm#2
+msgid "Select the categories to activate:"
+msgstr "Elektu la kategoriojn, kiujn vi volas aktivigi:"
+
+#: ActivateCategoriesFrm#3
+msgid "Activate none"
+msgstr "Aktivigi neniujn"
+
+#: ActivateCategoriesFrm#4
+msgid "Activate all"
+msgstr "Aktivigi ĉiujn"
+
+#: ActivateCategoriesFrm#5
+msgid "&OK"
+msgstr "&Akcepti"
+
+#: ActivateCategoriesFrm#6
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ActivateCategoriesFrm#7
+msgid "&Cancel"
+msgstr "&Rezigni"
+
+#: AddItemsDlg#1
+msgid "<default>"
+msgstr "Defaŭlto"
+
+#: AddItemsDlg#2
+msgid "Mnemosyne"
+msgstr "Mnemozino"
+
+#: AddItemsDlg#3
+msgid "Abandon current card?"
+msgstr "Ĉu vi ja volas forigi tiun karton?"
+
+#: AddItemsDlg#4
+msgid "&Yes"
+msgstr "&Jes"
+
+#: AddItemsDlg#5
+msgid "&No"
+msgstr "&Ne"
+
+#: AddItemsDlg#6
+msgid "Question:"
+msgstr "Demando:"
+
+#: AddItemsDlg#7
+msgid "Answer:"
+msgstr "Respondo:"
+
+#: AddItemsDlg#8
+msgid "Written form:"
+msgstr "Skribata formo:"
+
+#: AddItemsDlg#9
+msgid "Translation:"
+msgstr "Traduko:"
+
+#: AddItemsDlg#10
+msgid "Card is already in database.\n"
+msgstr "Tiu karto jam estas en la datumbazo.\n"
+
+#: AddItemsDlg#11
+msgid "Duplicate not added."
+msgstr "La duoblo ne aldoniĝis."
+
+#: AddItemsDlg#12
+msgid "&OK"
+msgstr "&Akcepti"
+
+#: AddItemsDlg#13
+msgid "There are different answers for"
+msgstr "Ekzistas malsamaj respondoj por"
+
+#: AddItemsDlg#14
+msgid ""
+" this question:\n"
+"\n"
+msgstr ""
+" jena demando:\n"
+"\n"
+
+#: AddItemsDlg#15
+msgid "&Merge and edit"
+msgstr "&Kunfandi kaj redakti"
+
+#: AddItemsDlg#16
+msgid "&Add as is"
+msgstr "&Aldoni, kiel jam estas"
+
+#: AddItemsDlg#17
+msgid "&Do not add"
+msgstr "&Ne aldoni"
+
+#: AddItemsFrm#1
+msgid "Add cards"
+msgstr "Aldoni kartojn"
+
+#: AddItemsFrm#2
+msgid "Category:"
+msgstr "Kategorio:"
+
+#: AddItemsFrm#3
+msgid "Question:"
+msgstr "Demando:"
+
+#: AddItemsFrm#4
+msgid "Pronunciation:"
+msgstr "Elparolo:"
+
+#: AddItemsFrm#5
+msgid "Answer:"
+msgstr "Respondo:"
+
+#: AddItemsFrm#6
+msgid "Add &vice versa too"
+msgstr "Ankaŭ &malon aldoni"
+
+#: AddItemsFrm#7
+msgid "Alt+V"
+msgstr "Alt+V"
+
+#: AddItemsFrm#8
+msgid "Select initial grade:"
+msgstr "Elektu komencan rangon:"
+
+#: AddItemsFrm#9
+msgid "&0"
+msgstr "&0"
+
+#: AddItemsFrm#10
+msgid "Ctrl+0"
+msgstr "Stir+0"
+
+#: AddItemsFrm#11
+msgid "You don't remember this item yet or forgot it."
+msgstr "Aŭ vi ne jam scias ĉi tiun karton, aŭ vi forgesis ĝin."
+
+#: AddItemsFrm#12
+msgid "&1"
+msgstr "&1"
+
+#: AddItemsFrm#13
+msgid "Ctrl+1"
+msgstr "Stir+1"
+
+#: AddItemsFrm#14
+msgid "Like '0', but the item is getting more familiar."
+msgstr "Simila al 0, sed vi plikonadas ĝin."
+
+#: AddItemsFrm#15
+msgid "&2"
+msgstr "&2"
+
+#: AddItemsFrm#16
+msgid "Ctrl+2"
+msgstr "Stir+2"
+
+#: AddItemsFrm#17
+msgid ""
+"You've memorised this item now, and will probably remember it for a few "
+"days."
+msgstr "Nun vi scias tiun karton, kaj probable vi memoros ĝin dum kelkaj tagoj."
+
+#: AddItemsFrm#18
+msgid "&3"
+msgstr "&3"
+
+#: AddItemsFrm#19
+msgid "Ctrl+3"
+msgstr "Stir+3"
+
+#: AddItemsFrm#20
+msgid ""
+"Correct answer, but with much effort. The interval was probably too long"
+msgstr ""
+"Vi memoris la ĝustan respondon, sed kun multa peno. La intertempo probable "
+"estis tro longa."
+
+#: AddItemsFrm#21
+msgid "&4"
+msgstr "&4"
+
+#: AddItemsFrm#22
+msgid "Ctrl+4"
+msgstr "Stir+4"
+
+#: AddItemsFrm#23
+msgid "Correct answer, with some effort. The interval was probably just right."
+msgstr ""
+"Vi memoris la ĝustan respondo per iom da peno. La intertempo probable estis "
+"ĝusta."
+
+#: AddItemsFrm#24
+msgid "&5"
+msgstr "&5"
+
+#: AddItemsFrm#25
+msgid "Ctrl+5"
+msgstr "Stir+5"
+
+#: AddItemsFrm#26
+msgid ""
+"Correct answer, but without any difficulties. The interval was probably too "
+"short."
+msgstr ""
+"Vi sciis la ĝustan respondon, sed sen ia malfacilo. La intertempo probable "
+"estis tro mallonga."
+
+#: AddItemsFrm#27
+msgid "Type question and answer, then pick initial grade."
+msgstr "Tajpu la demandon kaj la respondon, kaj poste elektu komencan rangon."
+
+#: AddItemsFrm#28
+msgid "Preview"
+msgstr "Antaŭmontri"
+
+#: AddItemsFrm#29
+msgid "Ctrl+P"
+msgstr "Stir+P"
+
+#: AddItemsFrm#30
+msgid "E&xit"
+msgstr "&Fini"
+
+#: AddItemsFrm#31
+msgid "Alt+X"
+msgstr "Alt+X"
+
+#: ChangeCategoryFrm#1
+msgid "Change category"
+msgstr "Ŝanĝi kategorion"
+
+#: ChangeCategoryFrm#2
+msgid "Category:"
+msgstr "Kategorio:"
+
+#: ChangeCategoryFrm#3
+msgid "&OK"
+msgstr "&Akcepti"
+
+#: ChangeCategoryFrm#4
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ChangeCategoryFrm#5
+msgid "&Cancel"
+msgstr "&Rezigni"
+
+#: ChangeCategoryFrm#6
+msgid "Alt+C"
+msgstr "Alt+C"
+
+#: ConfigurationFrm#1
+msgid "Mnemosyne configuration"
+msgstr "Mnemozina agordo"
+
+#: ConfigurationFrm#2
+msgid "Hover with the mouse over the buttons to get extra information."
+msgstr "Ŝvebu per la muso super la butonoj por legi pli da informaĵo."
+
+#: ConfigurationFrm#3
+msgid "Appearance"
+msgstr "Apero"
+
+#: ConfigurationFrm#4
+msgid "Set Q/A font"
+msgstr "Elekti la demandan kaj respondan tiparon"
+
+#: ConfigurationFrm#5
+msgid "Set the font used when showing single questions and answers"
+msgstr "Elekti la tiparon por unuopaj demandoj kaj respondoj"
+
+#: ConfigurationFrm#6
+msgid "Set list font"
+msgstr "Elekti la listan tiparon"
+
+#: ConfigurationFrm#7
+msgid "Set the font used when showing the list of all the cards in the deck"
+msgstr "Elekti la tiparon por la listo de ĉioj en la kartaro"
+
+#: ConfigurationFrm#8
+msgid "Increase size of non-latin characters by"
+msgstr "Pligrandigi mallatinajn signojn po"
+
+#: ConfigurationFrm#9
+msgid ""
+"Sometimes complex glyphs are hard to read at the default latin font size"
+msgstr ""
+"Kelkfoje malsimplaj signoj estas apenaŭ legeblaj, kiam ili estas tro "
+"malgrandaj."
+
+#: ConfigurationFrm#10
+msgid "point(s)"
+msgstr "gradoj"
+
+#: ConfigurationFrm#11
+msgid "Log uploading"
+msgstr "Protokola alŝutado"
+
+#: ConfigurationFrm#12
+msgid "Upload anonymous logs"
+msgstr "Alŝuti anonimajn protokolojn"
+
+#: ConfigurationFrm#13
+msgid "Share anonymous statistics to contribute to memory research"
+msgstr ""
+"Disdoni anonimajn statistikojn por kontribui al la esplorado pri la memoro"
+
+#: ConfigurationFrm#14
+msgid "Duplicate handling"
+msgstr "Trakto pri duoblojn"
+
+#: ConfigurationFrm#15
+msgid "Check for duplicates when adding new cards"
+msgstr "Serĉi duoblojn dum aldoni novajn kartojn"
+
+#: ConfigurationFrm#16
+msgid "Allow duplicates in different categories"
+msgstr "Permesi duoblojn en malsamaj kategorioj"
+
+#: ConfigurationFrm#17
+msgid "Repetition process"
+msgstr "Ripetada procedo"
+
+#: ConfigurationFrm#18
+msgid "Number of grade 0 cards to hold in your hand:"
+msgstr "Nombro da 0-rangaj kartoj por teni en la mano:"
+
+#: ConfigurationFrm#19
+msgid ""
+"Note: this is NOT the number of grade 0 cards you want to memorise *per day*"
+msgstr ""
+"(Jen né estas la nombro da 0-rangaj kartoj, kiun vi volas ekmemori en unu "
+"tago.)"
+
+#: ConfigurationFrm#20
+msgid "Learn new cards in random order"
+msgstr "Lerni novajn kartojn en hazarda ordo."
+
+#: ConfigurationFrm#21
+msgid "&OK"
+msgstr "&Akcepti"
+
+#: ConfigurationFrm#22
+msgid "Defaults"
+msgstr "Defaŭltoj"
+
+#: ConfigurationFrm#23
+msgid "&Cancel"
+msgstr "&Rezigni"
+
+#: EditItemFrm#1
+msgid "Edit card"
+msgstr "Redakti la karton"
+
+#: EditItemFrm#2
+msgid "Category:"
+msgstr "Kategorio:"
+
+#: EditItemFrm#3
+msgid "Question:"
+msgstr "Demando:"
+
+#: EditItemFrm#4
+msgid "Answer:"
+msgstr "Respondo:"
+
+#: EditItemFrm#5
+msgid "&OK"
+msgstr "&Akcepti"
+
+#: EditItemFrm#6
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: EditItemFrm#7
+msgid "&Preview"
+msgstr "&Antaŭmontri"
+
+#: EditItemFrm#8
+msgid "Ctrl+P"
+msgstr "Stir+P"
+
+#: EditItemFrm#9
+msgid "&Cancel"
+msgstr "&Rezigni"
+
+#: EditItemFrm#10
+msgid "Alt+C"
+msgstr "Alt+C"
+
+#: EditItemsDlg#1
+msgid "Please wait..."
+msgstr "Bonvolu atendi . . ."
+
+#: EditItemsDlg#2
+msgid "&Edit"
+msgstr "&Redakti"
+
+#: EditItemsDlg#3
+msgid "Ctrl+E"
+msgstr "Stir+E"
+
+#: EditItemsDlg#4
+msgid "&Preview"
+msgstr "&Antaŭmontri"
+
+#: EditItemsDlg#5
+msgid "Ctrl+P"
+msgstr "Stir+P"
+
+#: EditItemsDlg#6
+msgid "&Add vice versa"
+msgstr "&Aldoni malojn"
+
+#: EditItemsDlg#7
+msgid "S&tatistics"
+msgstr "Vidi s&tatistikojn"
+
+#: EditItemsDlg#8
+msgid "Ctrl+T"
+msgstr "Stir+T"
+
+#: EditItemsDlg#9
+msgid "&Delete"
+msgstr "&Forviŝi"
+
+#: EditItemsDlg#10
+msgid "&Change category"
+msgstr "&Ŝanĝi kategorion"
+
+#: EditItemsDlg#11
+msgid "Add &vice versa"
+msgstr "&Aldoni malojn"
+
+#: EditItemsDlg#12
+msgid "Add vice versa of these cards?"
+msgstr "Ĉu vi volas aldoni la malojn de tiuj kartoj?"
+
+#: EditItemsDlg#13
+msgid "Add vice versa of this card?"
+msgstr "Ĉu vi volas aldoni la malo de tiu karto?"
+
+#: EditItemsDlg#14
+msgid "Mnemosyne"
+msgstr "Mnemozino"
+
+#: EditItemsDlg#15
+msgid ""
+"\n"
+"\n"
+"This could create duplicates if the vice "
+msgstr ""
+"\n"
+"\n"
+"La proceso kreos duoblojn, se la maloj "
+
+#: EditItemsDlg#16
+msgid ""
+"versas are already present, \n"
+"so you might want to run "
+msgstr ""
+"jam ekzistas; \n"
+"vi devus forigi duoblojn"
+
+#: EditItemsDlg#17
+msgid "clean duplicates' afterwards."
+msgstr "poste."
+
+#: EditItemsDlg#18
+msgid "&Yes"
+msgstr "&Jes"
+
+#: EditItemsDlg#19
+msgid "&No"
+msgstr "&Ne"
+
+#: EditItemsDlg#20
+msgid "Grade:"
+msgstr "Rango:"
+
+#: EditItemsDlg#21
+msgid "Easiness:"
+msgstr "Facileco:"
+
+#: EditItemsDlg#22
+msgid "Repetitions:"
+msgstr "Ripetoj:"
+
+#: EditItemsDlg#23
+msgid "Lapses:"
+msgstr "Eraroj:"
+
+#: EditItemsDlg#24
+msgid "Days since last repetition:"
+msgstr "Tagoj post lasta ripeto:"
+
+#: EditItemsDlg#25
+msgid "Days until next repetition:"
+msgstr "Tagoj antaŭ sekva ripeto:"
+
+#: EditItemsDlg#26
+msgid "&OK"
+msgstr "&Akcepti"
+
+#: EditItemsDlg#27
+msgid "Delete these cards?"
+msgstr "Ĉu vi volas forviŝi tiujn kartojn?"
+
+#: EditItemsDlg#28
+msgid "Delete this card?"
+msgstr "Ĉu vi volas forviŝi tiun karton?"
+
+#: EditItemsDlg#29
+msgid "The text you entered was not found."
+msgstr "La tekston, kiun vi tajpis, ne ekzistas."
+
+#: EditItemsDlg#30
+msgid "&Find again"
+msgstr "&Retrovi"
+
+#: EditItemsDlg#31
+msgid "F"
+msgstr "F"
+
+#: EditItemsDlg#32
+msgid "&Find"
+msgstr "&Trovi"
+
+#: EditItemsFrm#1
+msgid "Question"
+msgstr "Demando"
+
+#: EditItemsFrm#2
+msgid "Answer"
+msgstr "Respondo"
+
+#: EditItemsFrm#3
+msgid "Category"
+msgstr "Kategorio"
+
+#: EditItemsFrm#4
+msgid "Edit deck"
+msgstr "Redakti la kartaron"
+
+#: EditItemsFrm#5
+msgid "&Find"
+msgstr "&Trovi"
+
+#: EditItemsFrm#6
+msgid "Alt+F"
+msgstr "Alt+F"
+
+#: EditItemsFrm#7
+msgid "To edit a card, right-click on it."
+msgstr "Por redakti la karton dekstre alklaku ĝin."
+
+#: EditItemsFrm#8
+msgid "E&xit"
+msgstr "&Fini"
+
+#: EditItemsFrm#9
+msgid "Alt+X"
+msgstr "Alt+X"
+
+#: ExportDlg#1
+msgid "All Files (*);;"
+msgstr "Ĉiujn dosierojn (*);;"
+
+#: ExportDlg#2
+msgid "Export"
+msgstr "Elporti"
+
+#: ExportFrm#1
+msgid "Export to file"
+msgstr "Elporti al dosiero"
+
+#: ExportFrm#2
+msgid "File format:"
+msgstr "Dosierformo:"
+
+#: ExportFrm#3
+msgid "File to export to:"
+msgstr "Elportu ĉi tien:"
+
+#: ExportFrm#4
+msgid "&Browse"
+msgstr "&Foliumi"
+
+#: ExportFrm#5
+msgid "Categories to export:"
+msgstr "Elportu ĉi tiujn kategoriojn:"
+
+#: ExportFrm#6
+msgid "&Select all"
+msgstr "&Elekti ĉiujn"
+
+#: ExportFrm#7
+msgid "Reset learning data on export"
+msgstr "Forigi la lernajn datumojn en la elportita dosiero"
+
+#: ExportFrm#8
+msgid "&OK"
+msgstr "&Akcepti"
+
+#: ExportFrm#9
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ExportFrm#10
+msgid "&Cancel"
+msgstr "&Rezigni"
+
+#: ImportDlg#1
+msgid "<default>"
+msgstr "Defaŭlto"
+
+#: ImportDlg#2
+msgid "All Files (*);;"
+msgstr "Ĉiujn dosierojn (*);;"
+
+#: ImportDlg#3
+msgid "Import"
+msgstr "Enporti"
+
+#: ImportFrm#1
+msgid "Import from file"
+msgstr "Enporti el dosiero"
+
+#: ImportFrm#2
+msgid "File format:"
+msgstr "Dosierformo:"
+
+#: ImportFrm#3
+msgid "File to import from:"
+msgstr "Enportu el ĉi tiu dosiero:"
+
+#: ImportFrm#4
+msgid "&Browse"
+msgstr "&Foliumi"
+
+#: ImportFrm#5
+msgid "Put cards without category into this category:"
+msgstr "Metu senkategoriajn kartojn en ĉi tiun kategorion:"
+
+#: ImportFrm#6
+msgid "Note: all cards will be added to the current database."
+msgstr "(Ĉiuj kartoj aldoniĝos en la nunan datumbazon.)"
+
+#: ImportFrm#7
+msgid "Reset learning data on import"
+msgstr "Forigi la lernajn datumojn en la enportita dosiero"
+
+#: ImportFrm#8
+msgid "&OK"
+msgstr "&Akcepti"
+
+#: ImportFrm#9
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ImportFrm#10
+msgid "&Cancel"
+msgstr "Rezigni"
+
+#: MainDlg#1
+msgid "Mnemosyne databases (*.mem)"
+msgstr "Mnemozinaj datumbazoj (*.mem)"
+
+#: MainDlg#2
+msgid "New"
+msgstr "Novan"
+
+#: MainDlg#3
+msgid "Please wait..."
+msgstr "Bonvolu atendi . . ."
+
+#: MainDlg#4
+msgid "Mnemosyne"
+msgstr "Mnemozino"
+
+#: MainDlg#5
+msgid "Delete current card?"
+msgstr "Ĉu vi volas forviŝi tiun karton?"
+
+#: MainDlg#6
+msgid "&Yes"
+msgstr "&Jes"
+
+#: MainDlg#7
+msgid "&No"
+msgstr "&Ne"
+
+#: MainDlg#8
+msgid "Returns in "
+msgstr "Ĉi tiu karto reaperos post "
+
+#: MainDlg#9
+msgid " day(s)."
+msgstr " tagoj."
+
+#: MainDlg#10
+msgid "Next repetition: today."
+msgstr "Sekva ripeto: hodiaŭ"
+
+#: MainDlg#11
+msgid "Next repetition: tomorrow."
+msgstr "Sekva ripeto: morgau"
+
+#: MainDlg#12
+msgid "Next repetition in "
+msgstr "Sekva ripetado post "
+
+#: MainDlg#13
+msgid " days."
+msgstr " tagoj"
+
+#: MainDlg#14
+msgid "Question:"
+msgstr "Demando:"
+
+#: MainDlg#15
+msgid "<default>"
+msgstr "Defaŭlto"
+
+#: MainDlg#16
+msgid "Show answer"
+msgstr "Vidi respondon"
+
+#: MainDlg#17
+msgid "Learn ahead of schedule"
+msgstr "Antaŭlerni"
+
+#: MainDlg#18
+msgid "Pick days until next repetition:"
+msgstr "Elekti tagojn antaŭ la sekva ripeto:"
+
+#: MainDlg#19
+msgid "Grade your answer:"
+msgstr "Rangigi vian respondon:"
+
+#: MainDlg#20
+msgid "Scheduled: "
+msgstr "Planataj: "
+
+#: MainDlg#21
+msgid "Not memorised: "
+msgstr "Nekonataj: "
+
+#: MainDlg#22
+msgid "All: "
+msgstr "Ĉiuj: "
+
+#: MainFrm#1
+msgid "Mnemosyne"
+msgstr "Mnemozino"
+
+#: MainFrm#2
+msgid "Question:"
+msgstr "Demando:"
+
+#: MainFrm#3
+msgid "Answer:"
+msgstr "Respondo:"
+
+#: MainFrm#4
+msgid "Show answer"
+msgstr "Vidi respondon"
+
+#: MainFrm#5
+msgid "Grade your answer:"
+msgstr "Rangigi vian respondon:"
+
+#: MainFrm#6
+msgid "&0"
+msgstr "&0"
+
+#: MainFrm#7
+msgid "0"
+msgstr "0"
+
+#: MainFrm#8
+msgid "&1"
+msgstr "&1"
+
+#: MainFrm#9
+msgid "1"
+msgstr "1"
+
+#: MainFrm#10
+msgid "&2"
+msgstr "&2"
+
+#: MainFrm#11
+msgid "2"
+msgstr "2"
+
+#: MainFrm#12
+msgid "&3"
+msgstr "&3"
+
+#: MainFrm#13
+msgid "3"
+msgstr "3"
+
+#: MainFrm#14
+msgid "&4"
+msgstr "&4"
+
+#: MainFrm#15
+msgid "4"
+msgstr "4"
+
+#: MainFrm#16
+msgid "&5"
+msgstr "&5"
+
+#: MainFrm#17
+msgid "5"
+msgstr "5"
+
+#: MainFrm#18
+msgid "&New"
+msgstr "&Nova"
+
+#: MainFrm#19
+msgid "."
+msgstr "."
+
+#: MainFrm#20
+msgid "Ctrl+N"
+msgstr "Stir+N"
+
+#: MainFrm#21
+msgid "&Open..."
+msgstr "&Malfermi . . ."
+
+#: MainFrm#22
+msgid "Ctrl+O"
+msgstr "Stir+O"
+
+#: MainFrm#23
+msgid "&Save"
+msgstr "&Konservi"
+
+#: MainFrm#24
+msgid "Ctrl+S"
+msgstr "Stir+S"
+
+#: MainFrm#25
+msgid "Save &As..."
+msgstr "Konservi &kiel . . ."
+
+#: MainFrm#26
+msgid "E&xit"
+msgstr "&Fini"
+
+#: MainFrm#27
+msgid "About"
+msgstr "Pri"
+
+#: MainFrm#28
+msgid "&About"
+msgstr "&Pri"
+
+#: MainFrm#29
+msgid "Add cards"
+msgstr "Aldoni kartojn"
+
+#: MainFrm#30
+msgid "&Add cards"
+msgstr "&Aldoni kartojn"
+
+#: MainFrm#31
+msgid "Ctrl+A"
+msgstr "Stir+A"
+
+#: MainFrm#32
+msgid "Activate cate&gories"
+msgstr "Aktivigi kate&goriojn"
+
+#: MainFrm#33
+msgid "Ctrl+G"
+msgstr "Stir+G"
+
+#: MainFrm#34
+msgid "Edit deck"
+msgstr "Redakti la kartaron"
+
+#: MainFrm#35
+msgid "Edit &deck"
+msgstr "Redakti la &kartaron"
+
+#: MainFrm#36
+msgid "Ctrl+D"
+msgstr "Stir+D"
+
+#: MainFrm#37
+msgid "&Import"
+msgstr "&Enporti"
+
+#: MainFrm#38
+msgid "&Export"
+msgstr "E&lporti"
+
+#: MainFrm#39
+msgid "Show &toolbar"
+msgstr "Vidi &ilobreton"
+
+#: MainFrm#40
+msgid "Edit current card"
+msgstr "Redakti nunan karton"
+
+#: MainFrm#41
+msgid "&Edit current card"
+msgstr "&Redakti nunan karton"
+
+#: MainFrm#42
+msgid "Ctrl+E"
+msgstr "Stir+E"
+
+#: MainFrm#43
+msgid "Delete current card"
+msgstr "Forviŝi nunan karton"
+
+#: MainFrm#44
+msgid "&Delete current card"
+msgstr "&Forviŝi nunan karton"
+
+#: MainFrm#45
+msgid "Del"
+msgstr "For"
+
+#: MainFrm#46
+msgid "&Clean duplicates"
+msgstr "Forigi &duoblojn"
+
+#: MainFrm#47
+msgid "&Configure Mnemosyne"
+msgstr "&Agordi Mnemozinon"
+
+#: MainFrm#48
+msgid "Getting started"
+msgstr "Kiel ekuzi"
+
+#: MainFrm#49
+msgid "&Getting started"
+msgstr "&Kiel ekuzi"
+
+#: MainFrm#50
+msgid "Down, Down"
+msgstr "Malsupren"
+
+#: MainFrm#51
+msgid "Enter"
+msgstr "Enigklavo"
+
+#: MainFrm#52
+msgid "Return"
+msgstr "Enenklavo"
+
+#: MainFrm#53
+msgid "Space"
+msgstr "Spacetklavo"
+
+#: MainFrm#54
+msgid "Ctrl+R"
+msgstr "Stir+R"
+
+#: MainFrm#55
+msgid "Show statistics"
+msgstr "Vidi statistikojn"
+
+#: MainFrm#56
+msgid "Show s&tatistics"
+msgstr "Vidi s&tatistikojn"
+
+#: MainFrm#57
+msgid "Ctrl+T"
+msgstr "Stir+T"
+
+#: MainFrm#58
+msgid "Tip of the day"
+msgstr "Konsileto de la tago"
+
+#: MainFrm#59
+msgid "&Tip of the day"
+msgstr "&Konsileto de la tago"
+
+#: MainFrm#60
+msgid "Main toolbar (Mnemosyne)"
+msgstr "Ĉefa ilobreto (Mnemozino)"
+
+#: MainFrm#61
+msgid "&File"
+msgstr "&Dosiero"
+
+#: MainFrm#62
+msgid "&Deck"
+msgstr "&Kartaro"
+
+#: MainFrm#63
+msgid "&Settings"
+msgstr "&Agordoj"
+
+#: MainFrm#64
+msgid "&Help"
+msgstr "&Helpo"
+
+#: PreviewItemDlg#1
+msgid "<default>"
+msgstr "Defaŭlto"
+
+#: PreviewItemDlg#2
+msgid "Question:"
+msgstr "Demando:"
+
+#: PreviewItemFrm#1
+msgid "Preview card"
+msgstr "Antaŭmontri karton"
+
+#: PreviewItemFrm#2
+msgid "Question:"
+msgstr "Demando:"
+
+#: PreviewItemFrm#3
+msgid "Answer:"
+msgstr "Respondo:"
+
+#: PreviewItemFrm#4
+msgid "&OK"
+msgstr "&Akcepti"
+
+#: PreviewItemFrm#5
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ProductTourFrm#1
+msgid "Getting started"
+msgstr "&Kiel ekuzi"
+
+#: ProductTourFrm#2
+msgid ""
+"Greetings!\n"
+"\n"
+"I am Mnemosyne, a type of butterfly named after the Greek goddess of Memory. "
+"\n"
+"I can make it more efficient for you to memorise and remember answers to "
+"questions, by helping you focus on the cards you're most likely to forget "
+"and by not wasting your time on things you know well.\n"
+"\n"
+"For that, I'll decide when to ask you the questions, and you'll need to rate "
+"how well you remember the answers.\n"
+"\n"
+"Let's look at the meaning of these ratings now."
+msgstr ""
+"Saluton!\n"
+"\n"
+"Mi estas Mnemozinospeco de papilio, kiu havas la saman nomon, kiel la greka "
+"diino de memoro.\n"
+"\n"
+"Mi povas helpi vin koni kaj memori la respondojn al demandoj ŝpare: kun mi "
+"vi pripensos la kartoj, pri kiuj vi forgesemas. Vi ne malŝpari vian tempon "
+"pri tio, kion vi scias bone.\n"
+"\n"
+"Do mi decidos, kiam mi devus montri al vi la demandojn; kaj vi devos rangigi "
+"vian respondojn al la demandoj.\n"
+"\n"
+"Nuntempe rigardu ni la signifojn de tiuj rangoj."
+
+#: ProductTourFrm#3
+msgid "Introduction"
+msgstr "Enkonduko"
+
+#: ProductTourFrm#4
+msgid ""
+"Grades range from 0 to 5.\n"
+"\n"
+"Grades 0 and 1 are used if you don't know the answer yet, or if you have "
+"forgotten it. A card with grade 1 is starting to get more familiar than one "
+"with grade 0, and will be repeated less often.\n"
+"\n"
+"I will keep on asking you these questions until you give them a grade 2 or "
+"higher (the exact grade doesn't matter). Grade 2 basically means that you "
+"think you'll be able to remember the card for at least one or two days. It "
+"signals the transition between short and long term memory.\n"
+"\n"
+"I will schedule this card at some future date, when I think you'll still be "
+"able to remember it with some effort, without having forgotten it "
+"completely. This is the most efficient for the learning process."
+msgstr ""
+"Rangoj estas el 0 ĝis 5.\n"
+"\n"
+"Oni uzas rangojn 0 kaj 1, se oni ne jam scias la respondon, aŭ se oni "
+"forgesis ĝin. Karton kun grado 1 oni pli ekkonadas ol karton kun grado 0, "
+"kaj mi ripetos ĝin pli malofte.\n"
+"\n"
+"Mi demandados ĉi tiujn demandojn, ĝis ke vi asignos al ilin rangon 2 aŭ pli "
+"altan rangon (la ĝusta rango ne gravas). Rango 2 signifas, ke vi pensas, ke "
+"vi povos memori la karton dum almenaŭ unu aŭ du tagoj. La dua rango estas la "
+"transiro inter longtempa memoro kaj mallongtempa memoro.\n"
+"\n"
+"Mi planos ĉi tiun karton por la tempo, kiam mi pensos, ke vi povas memori la "
+"respondon per iu peno, sed ne post vi tute forgesos ĝin. Ĉi tiu estas la "
+"plej ŝpara metodo de lerno."
+
+#: ProductTourFrm#5
+msgid "Grades 0-2"
+msgstr "Rangoj 0-2"
+
+#: ProductTourFrm#6
+msgid ""
+"If in the future I ask you the question too soon, and you're able to "
+"remember it without any effort, you rate the card a 5. I'll take this into "
+"account by waiting a lot longer before asking you this question again.\n"
+"\n"
+"If I get it just right, so that you remember it, albeit with some effort, "
+"you use grade 4.\n"
+"\n"
+"If on the other hand it takes you significant effort to remember the answer, "
+"and you think I've waited too long to ask you this question, then rate the "
+"card 3.\n"
+"\n"
+"If you fail to remember it altogether, rate it either 0 or 1, and I'll keep "
+"on asking you this question until you think you'll be able to remember it "
+"again for a few days."
+msgstr ""
+"Se mi tro baldaŭ demandi, kaj vi povas memori la respondon tute senpene, "
+"rangigu la karton 5. Tiam mi atendos pli longtempe, antaŭ mi remontri al vi "
+"ĉi tiun demandon.\n"
+"\n"
+"Se mi montros la karton ĉe la ĝusta tempo, por ke vi memoras la respondon "
+"kun iom da peno, uzu la rangon 4.\n"
+"\n"
+"Se anstataŭe vi memoros la respondon tro pene, kaj vi pensos, ke mi atendis "
+"tro longtempe, antaŭ mi demandis la karton, uzu la rangon 3.\n"
+"\n"
+"Se vi tute ne memoros la respondon, rangigu ĝin aŭ 0 aŭ 1; mi demandados la "
+"karton, ĝis ke vi pensos, ke vi povas memori ĝin dum kelkaj tagoj."
+
+#: ProductTourFrm#7
+msgid "Grades 3-5"
+msgstr "Rangoj 3-5"
+
+#: ProductTourFrm#8
+msgid ""
+"If you're into statistics, I can keep detailed logs of your revisions.\n"
+"\n"
+"Not only that, but if you want, I can upload transparently a completely "
+"anonymous version of these logs to a central site for analysis, so that you "
+"can help making me better. In this way, you also contribute to scientific "
+"research on long-term memory.\n"
+"\n"
+"Uncheck the following box if you do not want to do this."
+msgstr ""
+"Se vi estas statistikema, mi povas konservi detalajn protokolojn de viaj "
+"pliboniĝado.\n"
+"\n"
+"Ne tion solan mi povas fari: se vi volas, mi alŝutados senpercepte tute "
+"anoniman version de tiuj protokoloj al centra retejo por analizo; tiel mi "
+"plibonigos min. Vi ankaŭ tiel kontribuos al scienca esploro pri longtempa "
+"memoro.\n"
+"\n"
+"Malŝaltu jenan markobutonon, se vi ne volas, ke mi faros tion."
+
+#: ProductTourFrm#9
+msgid "Upload anonymous logs"
+msgstr "Alŝuti anonimajn protokolojn"
+
+#: ProductTourFrm#10
+msgid ""
+"(You can always change this setting later using the 'Configure Mnemosyne' "
+"menu option.)"
+msgstr ""
+"(Vi ĉiam povas ŝanĝi ĉi tiun agordon per la “Agordi Mnemozinon” menuopcio.)"
+
+#: ProductTourFrm#11
+msgid "Statistics"
+msgstr "Statistikoj"
+
+#: ProductTourFrm#12
+msgid ""
+"Now you're ready to start!\n"
+"<p>\n"
+"Add new cards by clicking on the icon with the 'plus' sign in the top left.\n"
+"<p>\n"
+"Remember, there is no need to worry about saving your work, I will do so "
+"automatically.\n"
+"<p>\n"
+"For best results, I suggest you do your revisions every day, although I'll "
+"try to cope as best I can if you postpone your revisions or if you want to "
+"learn ahead of time.\n"
+"<p>\n"
+"For more documentation, see http://www.mnemosyne-proj.sourceforge.net.\n"
+"<p>\n"
+"Happy learning!"
+msgstr ""
+"Nun vi povas ekuzi min!\n"
+"<p>\n"
+"Aldonu novajn kartojn per la “plus” bildsimbolo ĉe la supromaldekstro de la "
+"fenestro.\n"
+"<p>\n"
+"Memoru: vi ne povas konservi vian laboron. Mi mem faros tion.\n"
+"<p>\n"
+"Se vi volas havi la plej bonajn rezultojn, uzu min ĉiutage. Mi penos tamen "
+"fari bone, eĉ se vi prokrastos aŭ antaŭlernos.\n"
+"<p>\n"
+"Se vi volas vidi pli da dokumentado, iru al http://www.mnemosyne-"
+"proj.sourceforge.net.\n"
+"<p>\n"
+"Feliĉan lernadon!"
+
+#: ProductTourFrm#13
+msgid "Ready to start"
+msgstr "Ek!"
+
+#: QTextEdit2#1
+msgid "Insert &image"
+msgstr "Enmeti &bildon"
+
+#: QTextEdit2#2
+msgid "Ctrl+I"
+msgstr "Stir+I"
+
+#: QTextEdit2#3
+msgid "Insert &sound"
+msgstr "Enmeti &sonon"
+
+#: QTextEdit2#4
+msgid "Ctrl+S"
+msgstr "Stir+S"
+
+#: QTextEdit2#5
+msgid "&3-sided input"
+msgstr "Aldoni &tri-flankajn kartojn"
+
+#: QTextEdit2#6
+msgid "Image files"
+msgstr "Bildaj dosieroj"
+
+#: QTextEdit2#7
+msgid "Insert image"
+msgstr "Enmeti bildon"
+
+#: QTextEdit2#8
+msgid "Sound files"
+msgstr "Sonaj dosieroj"
+
+#: QTextEdit2#9
+msgid "Insert sound"
+msgstr "Enmeti sonon"
+
+#. (obsolete)
+#: StatisticsDlg#1
+msgid "Scheduled cards for next week: "
+msgstr "Planataj kartoj por la sekva semajno: "
+
+#: StatisticsDlg#2
+msgid "In"
+msgstr "Post"
+
+#: StatisticsDlg#3
+msgid "day(s) :"
+msgstr "tagoj:"
+
+#. (obsolete)
+#: StatisticsDlg#4
+msgid "Number of cards with the following grades: "
+msgstr "Nombro da kartoj kun tiujn rangojn: "
+
+#: StatisticsDlg#5
+msgid "Grade"
+msgstr "Rango"
+
+#: StatisticsDlg#6
+msgid "No current card."
+msgstr "Neniu nuna karto."
+
+#: StatisticsDlg#7
+msgid "Grade:"
+msgstr "Rango:"
+
+#: StatisticsDlg#8
+msgid "Easiness:"
+msgstr "Facileco:"
+
+#: StatisticsDlg#9
+msgid "Repetitions:"
+msgstr "Ripetoj:"
+
+#: StatisticsDlg#10
+msgid "Lapses:"
+msgstr "Eraroj:"
+
+#: StatisticsDlg#11
+msgid "Days since last repetition:"
+msgstr "Tagoj post la lasta ripeto:"
+
+#: StatisticsDlg#12
+msgid "Days until next repetition:"
+msgstr "Tagoj antaŭ la sekva ripeto:"
+
+#: StatisticsDlg#13
+msgid ""
+"Scheduled cards for next week:\n"
+"\n"
+msgstr ""
+
+#: StatisticsDlg#14
+msgid ""
+"Number of cards with the following grades:\n"
+"\n"
+msgstr ""
+
+#: StatisticsFrm#1
+msgid "Category"
+msgstr "Kategorio"
+
+#: StatisticsFrm#2
+msgid "Cards"
+msgstr "Kartoj"
+
+#: StatisticsFrm#3
+msgid "Statistics"
+msgstr "Statistikoj"
+
+#: StatisticsFrm#4
+msgid "Schedule"
+msgstr "Plano"
+
+#: StatisticsFrm#5
+msgid "Grades"
+msgstr "Rangoj"
+
+#: StatisticsFrm#6
+msgid "Categories"
+msgstr "Kategorioj"
+
+#: StatisticsFrm#7
+msgid "Current card"
+msgstr "Nuna karto"
+
+#: StatisticsFrm#8
+msgid "&OK"
+msgstr "&Akcept"
+
+#: TipDlg#1
+msgid "For optimal results, it's best to do your repetitions every day."
+msgstr "Se vi volas havi la plej bonajn rezultojn, ripetadu ĉiutage."
+
+#: TipDlg#2
+msgid ""
+"If you've been away for a few days, don't worry about your backlog. Do as "
+"many cards as you feel like to catch up, the rest will be automatically "
+"rescheduled to the future."
+msgstr ""
+"Se vi forestis dum kelkaj tagoj, ne zorgas. Laboru tiom, kiom vi volas; la "
+"kartoj, kiun vi ne volas respondi, replaniĝos aŭtomate."
+
+#: TipDlg#3
+msgid ""
+"The 'number of grade 0 cards to learn at once' setting determines how many "
+"new cards you are trying to learn at the same time. It does <b>not</b> tell "
+"you how many new cards you need to learn per day. You are the judge of that: "
+"you can learn more cards or less cards, depending on how you feel."
+msgstr ""
+"La “Nombro da 0-rangaj kartoj por teni en la mano” agordo decidas kiom da "
+"novaj kartoj vi penos lerni samtempe. Ĝi <b>ne</b> decidas kiom da kartoj vi "
+"devus lerni en unu tago. Ví devas juĝi tion: vi povas lerni pli kartojn aŭ "
+"malpli kartojn, dependante je via stato."
+
+#: TipDlg#4
+msgid ""
+"In summary, try to do your repetitions every day, but don't worry too much "
+"about getting the 'scheduled' counter to zero, and certainly not about "
+"getting the 'Not memorised' counter to zero."
+msgstr ""
+"Mallonge, penu ripetadi ĉiutage; sed ne tro zorgu pri malpligrandigadi la "
+"“Planataj” nombrilon ĝis nul, kaj certe ne pri malpligrandigadi la "
+"“Nekonataj” nombrilon ĝis nul."
+
+#: TipDlg#5
+msgid ""
+"Grade 1 cards are different from grade 0 cards in the sense that they show "
+"up less often and are not subject to the 'number of grade 0 cards to learn "
+"at once' setting."
+msgstr ""
+"Kartoj 1-rangaj estas malsamaj, kiel 0-rangaj: ili aperas pli malofte, kaj "
+"ili ne influas la “Nombro da 0-rangaj kartoj por teni en la mano” agordon."
+
+#: TipDlg#6
+msgid ""
+"You can use keyboard shortcuts to do your repetitions. Enter, Return or "
+"Space stand for the default action ('Show answer' or 'grade 4'). The number "
+"keys can be used for grading."
+msgstr ""
+"Vi ankaŭ povas uzi la klavaron. La eniga klavo kaj la spaceta klavo "
+"efektivigi la defaŭltan faron (“Vidi respondon” aŭ la rango 4). Numerkavojn "
+"oni ankaŭ povas uzi."
+
+#: TipDlg#7
+msgid ""
+"You can select the categories you wish to study in the 'Activate categories' "
+"menu option."
+msgstr ""
+"Vi povas elekti la kategoriojn, kiujn vi volas studi, per la “Aktivigi "
+"kategoriojn” menuagordo."
+
+#: TipDlg#8
+msgid ""
+"It is recommended to put all your cards in a single database and use "
+"categories to organise them. Using 'Activate categories' is much more "
+"convenient than have to load and unload several databases."
+msgstr ""
+"Estas rekomendate, ke vi metas ĉiujn viajn kartojn en unu datumbazo kaj uzas "
+"kategoriojn por organizi ilin. Uzi “Aktivigi kategoriojn” estas ege pli "
+"oportune ol ŝalti kaj malŝalti multajn diversajn datumbazojn."
+
+#: TipDlg#9
+msgid ""
+"You can import cards in a wide variety of formats: tab delimited txt files, "
+"Supermemo files, ... ."
+msgstr ""
+"Vi povas enporti kartojn el multaj dosierformoj: XML dosieroj, tab-limigitaj "
+"TXT dosieroj ktp."
+
+#: TipDlg#10
+msgid ""
+"If you have cards in Word or Excel, export them to tab delimited txt files "
+"with UTF-8 unicode encoding to be able to import them into Mnemosyne."
+msgstr ""
+"Se vi havas kartojn en Word aŭ Excel, elportu ilin al tab-limigitaj TXT "
+"dosieroj kun la UTF-8 kodoprezento; tiam vi povos porti ilin en Mnemozinon."
+
+#: TipDlg#11
+msgid ""
+"If you want to print out your cards, export them to a txt file which you can "
+"then print from your favourite Word processor."
+msgstr ""
+"Se vi volas presi viajn kartojn, elportu ilin al TXT dosiero; tion vi povos "
+"presi per via plej ŝatata verkilo."
+
+#: TipDlg#12
+msgid ""
+"You can share your cards with someone else by exporting them to XML and "
+"choosing the 'Reset learning data' option on export."
+msgstr ""
+"Vi povas havigi iun alian viajn kartojn per elporti ilin al XML post elekti "
+"la “Forigi la lernajn datumojn en la elportita dosiero” agordon."
+
+#: TipDlg#13
+msgid ""
+"If you study a foreign language with a different script, the default font "
+"size is sometimes a bit small. If you want to increase the size of these "
+"characters but keep the size of English text, use the 'increase size of non-"
+"latin characters by X points' option."
+msgstr ""
+"Se vi studas alilandan ligvon, kiu uzas skribmetodon, kiun vi ne bone scias, "
+"la defaŭlta tipara grando estas kelkfoje tro malgranda. Se vi volas "
+"pligrandigi tiujn signojn sed ne anglan tekston, uzu la “Pligrandigi "
+"mallatinajn signojn po . . . gradoj” agordon."
+
+#: TipDlg#14
+msgid ""
+"You can add images and sounds to your cards. Right-click on the question or "
+"answer field when editing a card to bring up a pop-up menu to do so."
+msgstr ""
+"Vi ja povas aldoni bildojn kaj sonojn en viajn kartojn! Dekstre alklaku la "
+"demandan aŭ respondan tajpujon, kiam vi redaktas karton; poste elektas la "
+"ĝustan butonon el la menuo, kiu aperas."
+
+#: TipDlg#15
+msgid ""
+"It is recommended to keep your sound and image files inside your .mnemosyne "
+"directory. That way, it's easier to transfer your data between different "
+"computers."
+msgstr ""
+"Estas rekomendate, ke vi konservas viajn sonajn kaj bildajn dosierojn en "
+"vian “.mnemosyne” dosierujon. Tiel estas pli facile transigi viajn datumojn "
+"inter diversajn komputilojn."
+
+#: TipDlg#16
+msgid ""
+"When adding a three-sided card, two regular cards will be created. One with "
+"as question the written form and as answer the pronunciation and the "
+"translation, and one with as question the translation and as answer the "
+"written form and the pronunciation."
+msgstr ""
+"Kiam vi aldonas tri-flankajn kartojn, du normalajn kartojn estas kreitaj. "
+"Unu havas la skribatan formon, kiel la demandon, kaj la elparolon kaj "
+"tradukon, kiel la respondon; la alia havas la tradukon, kiel la demandon, "
+"kaj la skribatan formon kaj elparolon, kiel la respondon."
+
+#: TipDlg#17
+msgid "You can use basic HTML tags in your cards to control their appearance."
+msgstr ""
+"Vi ja povas uzi bazajn etikedojn de HTML en viaj kartoj por kontroli ilian "
+"aspekton."
+
+#: TipDlg#18
+msgid ""
+"Mnemosyne can use LaTeX to render mathematical formulas, e.g. "
+"<$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
+msgstr ""
+"Mnemozino povas uzi LaTeX por vidigi matematikajn formulojn, ekz. "
+"<$>x^2+y^2=z^2</$>. (Por tion LaTeX kaj dvipng devas esti instalitaj.)"
+
+#: TipDlg#19
+msgid ""
+"The best way to backup your data is to copy your .mnemosyne directory (if "
+"you follow the recommended procedure to keep all your files there) and move "
+"it to a different drive. Mnemosyne keeps automatic XML-based backups in "
+".mnemosyne/backups, but that won't help you if that drive dies... "
+msgstr ""
+"La plej bona metodo por enarkivigi viajn datumojn estas kopii vian "
+"“.mnemosyne” dosierujon (se vi metas ĉiujn viajn dosierojn tie, kiel estas "
+"rekomendate) kaj movi ĝin en alian diskingon. Mnemozino ja aŭtomate "
+"konservas enarkivigojn uzante XML en “.mnemosyne/backups”—sed tio ne helpus "
+"ĝin, se via durdisko rompiĝus!"
+
+#: TipDlg#20
+msgid ""
+"You can run Mnemosyne from a USB key. Copy C:\\Program Files\\Mnemosyne to "
+"your USB key, and then copy the .mnemosyne directory from your home "
+"directory to inside the Mnemosyne directory on the USB key."
+msgstr ""
+"Vi povas uzi Mnemozinon sole per poŝmemorilo. Kopiu “C:\\Program "
+"Files\\Mnemosyne” al via poŝmemorilo, kaj poste kopiu la “.mnemosyne” "
+"dosierujon el via hejmdosierujo en la “Mnemosyne” dosierujon de la "
+"poŝmemorilo."
+
+#: TipDlg#21
+msgid ""
+"If you use Mnemosyne on multiple computers, there is a handy tool called "
+"Unison to help you synchronise your data. See the Mnemosyne website for more "
+"information."
+msgstr ""
+"Se vi volas uzi Mnemozinon ĉe diversajn komputilojn, ekzistas oportuna ilo "
+"nomata Unison por helpi vin sinkronigi viajn datumojn. Iru al la Mnemozina "
+"retpaĝaro por plua informaĵo."
+
+#: TipDlg#22
+msgid ""
+"You can sort the cards in the 'Edit Deck' dialog by answer or by category by "
+"clicking on the corresponding column title. Clicking again changes the sort "
+"order."
+msgstr ""
+"Vi povas ordigi la kartojn en la “Redakti la karton” dialogujo laŭ respondo "
+"aŭ laŭ kategorio per alklaki la ĝustan kolumnan titolon. Reklakado ŝanĝas la "
+"ordon (kreske aŭ malkreske)."
+
+#: TipDlg#23
+msgid ""
+"If you want more fine-grained control over LaTeX's behaviour, see the "
+"explanation of the <$$>...</$$> and <latex>...</latex> tags on Mnemosyne's "
+"website."
+msgstr ""
+"Se vi volas pli precizan kontrolon pri la konduto de LaTeX, vidu la klarigon "
+"de la <$$>...</$$> and <latex>...</latex> etikedoj ĉe la Mnemozina "
+"retpaĝaro."
+
+#: TipDlg#24
+msgid ""
+"Advanced users can customise more of Mnemosyne by editing the config.py file "
+"in their .mnemosyne directory. They can also install plugins to customise "
+"Mnemosyne even further."
+msgstr ""
+"Progresemaj uzantoj povas plu akomodi Mnemozinon per redakti la “config.py” "
+"dosieron en la “.mnemosyne” dosierujo. Oni ankaŭ povas instali "
+"kromprogramojn por tajlori Mnemozinon eĉ plu."
+
+#: TipFrm#1
+msgid "Tip of the day"
+msgstr "Konsileto de la tago"
+
+#: TipFrm#2
+msgid "<b>Did you know...?</b>"
+msgstr "<b>Ĉu vi sciis...?</b>"
+
+#: TipFrm#3
+msgid "&Show tips on startup"
+msgstr "&Vidi konsiletojn dum lanĉo"
+
+#: TipFrm#4
+msgid "Alt+S"
+msgstr "Alt+S"
+
+#: TipFrm#5
+msgid "&Previous"
+msgstr "&Laste"
+
+#: TipFrm#6
+msgid "Alt+P"
+msgstr "Alt+P"
+
+#: TipFrm#7
+msgid "&Next"
+msgstr "&Sekve"
+
+#: TipFrm#8
+msgid "Alt+N"
+msgstr "Alt+N"
+
+#: TipFrm#9
+msgid "&Close"
+msgstr "&Fermu"
+
+#: TipFrm#10
+msgid "Alt+C"
+msgstr "Alt+C"

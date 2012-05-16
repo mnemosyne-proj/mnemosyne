@@ -2,7 +2,7 @@
 # translator.py <Peter.Bienstman@UGent.be>
 #               <Johannes.Baiter@gmail.com>
 #
-    
+
 from mnemosyne.libmnemosyne.component import Component
 
 class Translator(Component):
@@ -49,13 +49,13 @@ class Translator(Component):
     def translate_ui(self, language):
 
         """To be overridden by a GUI to do GUI-specific translation."""
-        
+
         pass
 
     def __call__(self, text):
 
         """Used to do translations / mark translatable strings by _("...")."""
-        
+
         return self._translator(text)
 
 
@@ -174,6 +174,7 @@ language_name_for_iso6931_code = {
     "my": "Burmese",
     "na": "Nauruan",
     "nb": "Norwegian Bokm\xc3\xa5l",
+    "nb_no": "Norwegian Bokm\xc3\xa5l",
     "nd": "Northern Ndebele",
     "ne": "Nepali",
     "ng": "Ndonga",
@@ -193,6 +194,7 @@ language_name_for_iso6931_code = {
     "pl": "Polish",
     "ps": "Pashto language, Pashto",
     "pt": "Portuguese",
+    "pt_BR": "Portuguese (Brazil)",
     "qu": "Quechua",
     "rm": "Romansh",
     "rn": "Rundi",
@@ -245,7 +247,11 @@ language_name_for_iso6931_code = {
     "yo": "Yoruba",
     "za": "Zhuang, Chuang",
     "zh": "Chinese",
-    "zu": "Zulu" 
+    "zh_CN": "Chinese (mainland)",
+    "zh_HK": "Chinese (Hong Kong)",
+    "zh_SG": "Chinese (Singapore)",
+    "zh_TW": "Chinese (Taiwan)",
+    "zu": "Zulu"
 }
 
 

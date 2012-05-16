@@ -1,0 +1,1734 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-16 10:16+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.9.0\n"
+
+#: #1
+msgid "Error in config.py:"
+msgstr "config.pyのエラー:"
+
+#: #2
+msgid "Error when running plugin:"
+msgstr "pluginのエラー:"
+
+#: #3
+msgid "Unable to load file."
+msgstr "ファイルをロードできません。"
+
+#: #4
+msgid "Invalid file format."
+msgstr "ファイルの種類は認めらてりません。"
+
+#: #5
+msgid "Unable to save file."
+msgstr "ファイルを保存できません。"
+
+#: #6
+msgid "Unable to parse XML:"
+msgstr "XMLは読み込みできません:"
+
+#: #7
+msgid "Unrecognised encoding."
+msgstr "文字エンコーディングが不明です。"
+
+#: #8
+msgid "Missing answer on line:"
+msgstr "この行目に答えが行方不明:"
+
+#: #9
+msgid ""
+"Unable to load database.\n"
+"Creating tmp file."
+msgstr ""
+"データベースをロードすることができません。\n"
+"TMPファイルを作成しています。"
+
+#: #10
+msgid "Mnemosyne"
+msgstr "覚エテチョウ"
+
+#: #11
+msgid "&OK"
+msgstr "&OK"
+
+#: #12
+msgid "File exists:"
+msgstr "既に同じ名前のファイルが存在している:"
+
+#: #13
+msgid "&Overwrite"
+msgstr "&上書きする"
+
+#: #14
+msgid "&Cancel"
+msgstr "&キャンセル"
+
+#: #15
+msgid "Removed duplicates: "
+msgstr "同じカードを削除しました: "
+
+#: #16
+msgid ""
+"There are cards with different answers for question:\n"
+"\n"
+msgstr "この質問は二つ以上答えがあります:\n"
+
+#: #17
+msgid "&Merge and edit"
+msgstr "&結合して編集する"
+
+#: #18
+msgid "&Don't merge"
+msgstr "&結合しない"
+
+#: #19
+msgid "Done!"
+msgstr "終わりました!"
+
+#: #20
+msgid "You don't remember this card yet."
+msgstr "このカードはまだ覚えっていません。"
+
+#: #21
+msgid "Like '0', but it's getting more familiar."
+msgstr "「０」に似ているが、どんどんと慣れ親しんでいきます。"
+
+#: #22
+msgid " Show it less often."
+msgstr " 今からあまり見せないようにします。"
+
+#: #23
+msgid "You've memorised this card now,"
+msgstr "今このカードのことを記憶しましたから"
+
+#: #24
+msgid " and will probably remember it for a few days."
+msgstr "おそらく数日は覚えているでしょう。"
+
+#: #25
+msgid "You have forgotten this card completely."
+msgstr "このカードのことを完全に忘れてしまいました。"
+
+#: #26
+msgid "Barely correct answer. The interval was way too long."
+msgstr "かろうじて、正解。休止期間はあまりにも長すぎます。"
+
+#: #27
+msgid "Correct answer, but with much effort."
+msgstr "かなりの努力をして正解。"
+
+#: #28
+msgid " The interval was probably too long."
+msgstr "休止期間はおそらく長すぎます。"
+
+#: #29
+msgid "Correct answer, with some effort."
+msgstr "いくつかの努力をしての正解。"
+
+#: #30
+msgid " The interval was probably just right."
+msgstr "休止期間はおそらく正しい。"
+
+#: #31
+msgid "Correct answer, but without any"
+msgstr "何の困難も無く正解。この休止期間は"
+
+#: #32
+msgid " difficulties. The interval was probably too short."
+msgstr "おそらく短すぎます。"
+
+#: AboutDlg#1
+msgid "Mnemosyne"
+msgstr "覚エテチョウ (Mnemosyne)"
+
+#: AboutDlg#2
+msgid ""
+"Main author: Peter Bienstman\n"
+"\n"
+msgstr ""
+"著者: Peter Bienstman\n"
+"\n"
+
+#. (obsolete)
+#: AboutDlg#3
+msgid "More info: http://mnemosyne-proj.sourceforge.net\n"
+msgstr "サイト: http://mnemosyne-proj.sourceforge.net\n"
+
+#: AboutDlg#4
+msgid "More info: http://mnemosyne-proj.org\n"
+msgstr ""
+"ウェブサイト：　http://mnemosyne-proj.org\n"
+"日本語：http://www.ushigaeru.com/oboetechou\n"
+
+#: AboutFrm#1
+msgid "About"
+msgstr "覚エテチョウについて"
+
+#: ActivateCategoriesFrm#1
+msgid "Activate categories"
+msgstr "カテゴリーを選択する"
+
+#: ActivateCategoriesFrm#2
+msgid "Select the categories to activate:"
+msgstr "カテゴリーを選択してください:"
+
+#: ActivateCategoriesFrm#3
+msgid "Activate none"
+msgstr "どれも選択しない"
+
+#: ActivateCategoriesFrm#4
+msgid "Activate all"
+msgstr "すべてを選択"
+
+#: ActivateCategoriesFrm#5
+msgid "&OK"
+msgstr "&OK"
+
+#: ActivateCategoriesFrm#6
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ActivateCategoriesFrm#7
+msgid "&Cancel"
+msgstr "&キャンセル"
+
+#: AddItemsDlg#1
+msgid "<default>"
+msgstr "<デフォルト>"
+
+#: AddItemsDlg#2
+msgid "Mnemosyne"
+msgstr "覚エテチョウ"
+
+#: AddItemsDlg#3
+msgid "Abandon current card?"
+msgstr "このカードを消してもよろしいですか?"
+
+#: AddItemsDlg#4
+msgid "&Yes"
+msgstr "&はい"
+
+#: AddItemsDlg#5
+msgid "&No"
+msgstr "&いいえ"
+
+#: AddItemsDlg#6
+msgid "Question:"
+msgstr "質問:"
+
+#: AddItemsDlg#7
+msgid "Answer:"
+msgstr "答え:"
+
+#: AddItemsDlg#8
+msgid "Written form:"
+msgstr "スペル:"
+
+#: AddItemsDlg#9
+msgid "Translation:"
+msgstr "意味:"
+
+#: AddItemsDlg#10
+msgid "Card is already in database.\n"
+msgstr "このカードは既にデータベースに記録しています。"
+
+#: AddItemsDlg#11
+msgid "Duplicate not added."
+msgstr "同じカードを追加しませんでした。"
+
+#: AddItemsDlg#12
+msgid "&OK"
+msgstr "&OK"
+
+#: AddItemsDlg#13
+msgid "There are different answers for"
+msgstr "この質問は"
+
+#: AddItemsDlg#14
+msgid ""
+" this question:\n"
+"\n"
+msgstr "二つ以上答えがあります:\n"
+
+#: AddItemsDlg#15
+msgid "&Merge and edit"
+msgstr "&結合して編集する"
+
+#: AddItemsDlg#16
+msgid "&Add as is"
+msgstr "&このままで追加する"
+
+#: AddItemsDlg#17
+msgid "&Do not add"
+msgstr "&追加しない"
+
+#: AddItemsFrm#1
+msgid "Add cards"
+msgstr "カードを追加する"
+
+#: AddItemsFrm#2
+msgid "Category:"
+msgstr "カテゴリー:"
+
+#: AddItemsFrm#3
+msgid "Question:"
+msgstr "質問:"
+
+#: AddItemsFrm#4
+msgid "Pronunciation:"
+msgstr "発音:"
+
+#: AddItemsFrm#5
+msgid "Answer:"
+msgstr "答え:"
+
+#: AddItemsFrm#6
+msgid "Add &vice versa too"
+msgstr "&逆カード（答え・質問順番）も追加する"
+
+#: AddItemsFrm#7
+msgid "Alt+V"
+msgstr "Alt+V"
+
+#: AddItemsFrm#8
+msgid "Select initial grade:"
+msgstr "最初のグレード:"
+
+#: AddItemsFrm#9
+msgid "&0"
+msgstr "&0"
+
+#: AddItemsFrm#10
+msgid "Ctrl+0"
+msgstr "Ctrl+0"
+
+#: AddItemsFrm#11
+msgid "You don't remember this item yet or forgot it."
+msgstr "まだ覚えっていません。あるいは、忘れました."
+
+#: AddItemsFrm#12
+msgid "&1"
+msgstr "&1"
+
+#: AddItemsFrm#13
+msgid "Ctrl+1"
+msgstr "Ctrl+1"
+
+#: AddItemsFrm#14
+msgid "Like '0', but the item is getting more familiar."
+msgstr "「０」に似ているが、どんどんと慣れ親しんでいきます。"
+
+#: AddItemsFrm#15
+msgid "&2"
+msgstr "&2"
+
+#: AddItemsFrm#16
+msgid "Ctrl+2"
+msgstr "Ctrl+2"
+
+#: AddItemsFrm#17
+msgid ""
+"You've memorised this item now, and will probably remember it for a few "
+"days."
+msgstr "今このカードのことを記憶しましたから、おそらく数日は覚えているでしょう。"
+
+#: AddItemsFrm#18
+msgid "&3"
+msgstr "&3"
+
+#: AddItemsFrm#19
+msgid "Ctrl+3"
+msgstr "Ctrl+3"
+
+#: AddItemsFrm#20
+msgid ""
+"Correct answer, but with much effort. The interval was probably too long"
+msgstr "かなりの努力をかけて正解。休止期間はおそらく長すぎます"
+
+#: AddItemsFrm#21
+msgid "&4"
+msgstr "&4"
+
+#: AddItemsFrm#22
+msgid "Ctrl+4"
+msgstr "Ctrl+4"
+
+#: AddItemsFrm#23
+msgid "Correct answer, with some effort. The interval was probably just right."
+msgstr "適当な努力をかけての正解。休止期間はおそらく正しい。"
+
+#: AddItemsFrm#24
+msgid "&5"
+msgstr "&5"
+
+#: AddItemsFrm#25
+msgid "Ctrl+5"
+msgstr "Ctrl+5"
+
+#: AddItemsFrm#26
+msgid ""
+"Correct answer, but without any difficulties. The interval was probably too "
+"short."
+msgstr "何の困難も無く正解。休止期間はおそらく短すぎます。"
+
+#: AddItemsFrm#27
+msgid "Type question and answer, then pick initial grade."
+msgstr "質問と答えを記入し、最初のグレードを選択する."
+
+#. (obsolete)
+#: AddItemsFrm#28
+msgid "&Preview"
+msgstr "&プレービュー"
+
+#: AddItemsFrm#29
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#: AddItemsFrm#30
+msgid "E&xit"
+msgstr "&閉じる"
+
+#: AddItemsFrm#31
+msgid "Alt+X"
+msgstr "Alt+X"
+
+#: AddItemsFrm#32
+msgid "Preview"
+msgstr "プレービュー"
+
+#: ChangeCategoryFrm#1
+msgid "Change category"
+msgstr "カテゴリーを選択する"
+
+#: ChangeCategoryFrm#2
+msgid "Category:"
+msgstr "カテゴリー:"
+
+#: ChangeCategoryFrm#3
+msgid "&OK"
+msgstr "&OK"
+
+#: ChangeCategoryFrm#4
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ChangeCategoryFrm#5
+msgid "&Cancel"
+msgstr "&キャンセル"
+
+#: ChangeCategoryFrm#6
+msgid "Alt+C"
+msgstr "Alt+C"
+
+#: ConfigurationFrm#1
+msgid "Mnemosyne configuration"
+msgstr "覚エテチョウの設定"
+
+#: ConfigurationFrm#2
+msgid "Hover with the mouse over the buttons to get extra information."
+msgstr "マウスをボタンの上にとどめると、もっと詳しい説明が表示されます。"
+
+#: ConfigurationFrm#3
+msgid "Appearance"
+msgstr "表示設定"
+
+#: ConfigurationFrm#4
+msgid "Set Q/A font"
+msgstr "質問・答えのフォントを選ぶ"
+
+#: ConfigurationFrm#5
+msgid "Set the font used when showing single questions and answers"
+msgstr "質問と解答を表示するには使用フォントを選ぶ"
+
+#: ConfigurationFrm#6
+msgid "Set list font"
+msgstr "リストフォントを選ぶ"
+
+#: ConfigurationFrm#7
+msgid "Set the font used when showing the list of all the cards in the deck"
+msgstr "カードデータベースに入っているカードの一覧を表示するには使用フォントを選ぶ"
+
+#: ConfigurationFrm#8
+msgid "Increase size of non-latin characters by"
+msgstr "ラテン系言語ではない文字の容量を"
+
+#: ConfigurationFrm#9
+msgid ""
+"Sometimes complex glyphs are hard to read at the default latin font size"
+msgstr "時々ラテン系言語以外の言葉は読みにくいので、ここでラテン系言語以外の文字を調整するのができる"
+
+#: ConfigurationFrm#10
+msgid "point(s)"
+msgstr "X点によって増やす"
+
+#: ConfigurationFrm#11
+msgid "Log uploading"
+msgstr "匿名ログ設定"
+
+#: ConfigurationFrm#12
+msgid "Upload anonymous logs"
+msgstr "匿名データをアップロード"
+
+#: ConfigurationFrm#13
+msgid "Share anonymous statistics to contribute to memory research"
+msgstr "暗記研究のために匿名データをアップロードする"
+
+#: ConfigurationFrm#14
+msgid "Duplicate handling"
+msgstr "まったく同じカードの対応設定"
+
+#: ConfigurationFrm#15
+msgid "Check for duplicates when adding new cards"
+msgstr "新しいカードを記入する時、まったく同じカードがあるかどうかチェックする"
+
+#: ConfigurationFrm#16
+msgid "Allow duplicates in different categories"
+msgstr "違うカテゴリーにまったく同じカードを認める"
+
+#: ConfigurationFrm#17
+msgid "Repetition process"
+msgstr "カードの復讐設定"
+
+#. (obsolete)
+#: ConfigurationFrm#18
+msgid "Number of grade 0 cards to learn at once:"
+msgstr "グレード０カードの枚数の同時習得:"
+
+#: ConfigurationFrm#19
+msgid ""
+"Note: this is NOT the number of grade 0 cards you want to memorise *per day*"
+msgstr "注意：ただしい、これはグレード０カードの一日中の復讐できる枚数ではない。*"
+
+#: ConfigurationFrm#20
+msgid "&OK"
+msgstr "&OK"
+
+#: ConfigurationFrm#21
+msgid "Defaults"
+msgstr "デフォルト"
+
+#: ConfigurationFrm#22
+msgid "&Cancel"
+msgstr "&キャンセル"
+
+#: ConfigurationFrm#23
+msgid "Learn new cards in random order"
+msgstr "新しいカードを無作為順番で習う"
+
+#: ConfigurationFrm#24
+msgid "Number of grade 0 cards to hold in your hand:"
+msgstr "グレード０カードの同時習得枚数:"
+
+#: EditItemFrm#1
+msgid "Edit card"
+msgstr "カードを編集する"
+
+#: EditItemFrm#2
+msgid "Category:"
+msgstr "カテゴリー:"
+
+#: EditItemFrm#3
+msgid "Question:"
+msgstr "質問:"
+
+#: EditItemFrm#4
+msgid "Answer:"
+msgstr "答え:"
+
+#: EditItemFrm#5
+msgid "&OK"
+msgstr "&OK"
+
+#: EditItemFrm#6
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: EditItemFrm#7
+msgid "&Preview"
+msgstr "&プレービュー"
+
+#: EditItemFrm#8
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#: EditItemFrm#9
+msgid "&Cancel"
+msgstr "&キャンセル"
+
+#: EditItemFrm#10
+msgid "Alt+C"
+msgstr "Alt+C"
+
+#: EditItemsDlg#1
+msgid "Please wait..."
+msgstr "少々お待ちください…"
+
+#: EditItemsDlg#2
+msgid "&Edit"
+msgstr "&編集"
+
+#: EditItemsDlg#3
+msgid "Ctrl+E"
+msgstr "Ctrl+E"
+
+#: EditItemsDlg#4
+msgid "&Preview"
+msgstr "&プレービュー"
+
+#: EditItemsDlg#5
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#: EditItemsDlg#6
+msgid "&Add vice versa"
+msgstr "&逆カードも追加する"
+
+#: EditItemsDlg#7
+msgid "S&tatistics"
+msgstr "統&計"
+
+#: EditItemsDlg#8
+msgid "Ctrl+T"
+msgstr "Ctrl+T"
+
+#: EditItemsDlg#9
+msgid "&Delete"
+msgstr "&消す"
+
+#: EditItemsDlg#10
+msgid "&Change category"
+msgstr "&カテゴリーを変える"
+
+#: EditItemsDlg#11
+msgid "Add &vice versa"
+msgstr "&逆カードも追加する"
+
+#: EditItemsDlg#12
+msgid "Add vice versa of these cards?"
+msgstr "これらのカードの逆カードも追加してもよろしいですか?"
+
+#: EditItemsDlg#13
+msgid "Add vice versa of this card?"
+msgstr "このカードの逆カードも追加してもよろしいですか?"
+
+#: EditItemsDlg#14
+msgid "Mnemosyne"
+msgstr "覚エテチョウ"
+
+#: EditItemsDlg#15
+msgid ""
+"\n"
+"\n"
+"This could create duplicates if the vice "
+msgstr ""
+"\n"
+"逆カードが既に存在している場合には、"
+
+#: EditItemsDlg#16
+msgid ""
+"versas are already present, \n"
+"so you might want to run "
+msgstr "同じカードを作成することがあるので、\n"
+
+#: EditItemsDlg#17
+msgid "clean duplicates' afterwards."
+msgstr "直後に「まったく同じカードを削除する」 を実行するのを勧めします。"
+
+#: EditItemsDlg#18
+msgid "&Yes"
+msgstr "&はい"
+
+#: EditItemsDlg#19
+msgid "&No"
+msgstr "&いいえ"
+
+#: EditItemsDlg#20
+msgid "Grade:"
+msgstr "グレード:"
+
+#: EditItemsDlg#21
+msgid "Easiness:"
+msgstr "難易度:"
+
+#: EditItemsDlg#22
+msgid "Repetitions:"
+msgstr "復習した回数:"
+
+#: EditItemsDlg#23
+msgid "Lapses:"
+msgstr "忘れた回数:"
+
+#: EditItemsDlg#24
+msgid "Days since last repetition:"
+msgstr "復習した日から日数:"
+
+#: EditItemsDlg#25
+msgid "Days until next repetition:"
+msgstr "もう一度復習する日まで日数:"
+
+#: EditItemsDlg#26
+msgid "&OK"
+msgstr "&OK"
+
+#: EditItemsDlg#27
+msgid "Delete these cards?"
+msgstr "このカードを消してもよろしいですか?"
+
+#: EditItemsDlg#28
+msgid "Delete this card?"
+msgstr "このカードを消してもよろしいですか?"
+
+#: EditItemsDlg#29
+msgid "The text you entered was not found."
+msgstr "入力されたテキストは見つかりませんでした。"
+
+#: EditItemsDlg#30
+msgid "&Find again"
+msgstr "&再検索"
+
+#: EditItemsDlg#31
+msgid "F"
+msgstr "F"
+
+#: EditItemsDlg#32
+msgid "&Find"
+msgstr "&検索"
+
+#: EditItemsFrm#1
+msgid "Question"
+msgstr "質問"
+
+#: EditItemsFrm#2
+msgid "Answer"
+msgstr "答え"
+
+#: EditItemsFrm#3
+msgid "Category"
+msgstr "カテゴリー"
+
+#: EditItemsFrm#4
+msgid "Edit deck"
+msgstr "カードのデータベース"
+
+#: EditItemsFrm#5
+msgid "&Find"
+msgstr "&検索"
+
+#: EditItemsFrm#6
+msgid "To edit a card, right-click on it."
+msgstr "カードを編集するには、右クリックしてください。"
+
+#: EditItemsFrm#7
+msgid "E&xit"
+msgstr "&閉じる"
+
+#: EditItemsFrm#8
+msgid "Alt+X"
+msgstr "Alt+X"
+
+#: EditItemsFrm#9
+msgid "Alt+F"
+msgstr "Alt+F"
+
+#: ExportDlg#1
+msgid "All Files (*);;"
+msgstr "全ファイル　(*);;"
+
+#: ExportDlg#2
+msgid "Export"
+msgstr "エクスポート"
+
+#: ExportFrm#1
+msgid "Export to file"
+msgstr "ファイルにエクスポート"
+
+#: ExportFrm#2
+msgid "File format:"
+msgstr "ファイルの種類:"
+
+#: ExportFrm#3
+msgid "File to export to:"
+msgstr "エクスポート先のファイル:"
+
+#: ExportFrm#4
+msgid "&Browse"
+msgstr "&選ぶ"
+
+#: ExportFrm#5
+msgid "Categories to export:"
+msgstr "エクスポートするカテゴリー:"
+
+#: ExportFrm#6
+msgid "&Select all"
+msgstr "&すべてを選択"
+
+#: ExportFrm#7
+msgid "Reset learning data on export"
+msgstr "復習データをリセットする"
+
+#: ExportFrm#8
+msgid "&OK"
+msgstr "&OK"
+
+#: ExportFrm#9
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ExportFrm#10
+msgid "&Cancel"
+msgstr "&キャンセル"
+
+#: ImportDlg#1
+msgid "<default>"
+msgstr "<デフォルト>"
+
+#: ImportDlg#2
+msgid "All Files (*);;"
+msgstr "全ファイル　(*);;"
+
+#: ImportDlg#3
+msgid "Import"
+msgstr "インポート"
+
+#: ImportFrm#1
+msgid "Import from file"
+msgstr "ファイルからインポート"
+
+#: ImportFrm#2
+msgid "File format:"
+msgstr "ファイルの種類:"
+
+#: ImportFrm#3
+msgid "File to import from:"
+msgstr "インポート元のファイル:"
+
+#: ImportFrm#4
+msgid "&Browse"
+msgstr "&選ぶ"
+
+#: ImportFrm#5
+msgid "Put cards without category into this category:"
+msgstr "カテゴリーが設定されていないカードをこのカテゴリーに入れる:"
+
+#: ImportFrm#6
+msgid "Note: all cards will be added to the current database."
+msgstr "注： 全カードが現在使用中のデータベースに書き込まれます。"
+
+#: ImportFrm#7
+msgid "Reset learning data on import"
+msgstr "復習データをリセットする"
+
+#: ImportFrm#8
+msgid "&OK"
+msgstr "&OK"
+
+#: ImportFrm#9
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ImportFrm#10
+msgid "&Cancel"
+msgstr "&キャンセル"
+
+#: MainDlg#1
+msgid "Mnemosyne databases (*.mem)"
+msgstr "覚エテチョウデータベース(*.mem)"
+
+#: MainDlg#2
+msgid "New"
+msgstr "新しいデータベース"
+
+#: MainDlg#3
+msgid "Please wait..."
+msgstr "少々お待ちください…"
+
+#: MainDlg#4
+msgid "Mnemosyne"
+msgstr "覚エテチョウ"
+
+#: MainDlg#5
+msgid "Delete current card?"
+msgstr "このカードを消してもよろしいですか?"
+
+#: MainDlg#6
+msgid "&Yes"
+msgstr "&はい"
+
+#: MainDlg#7
+msgid "&No"
+msgstr "&いいえ"
+
+#: MainDlg#8
+msgid "Returns in "
+msgstr "次は　"
+
+#: MainDlg#9
+msgid " day(s)."
+msgstr "日の後。 "
+
+#: MainDlg#10
+msgid "Next repetition: today."
+msgstr "次：今日。"
+
+#: MainDlg#11
+msgid "Next repetition: tomorrow."
+msgstr "次：明日。"
+
+#: MainDlg#12
+msgid "Next repetition in "
+msgstr "次は後"
+
+#: MainDlg#13
+msgid " days."
+msgstr "　日。"
+
+#: MainDlg#14
+msgid "Question:"
+msgstr "質問:"
+
+#: MainDlg#15
+msgid "<default>"
+msgstr "<デフォルト>"
+
+#. (obsolete)
+#: MainDlg#16
+msgid "Show &answer"
+msgstr "&答えを表示する"
+
+#: MainDlg#17
+msgid "Learn ahead of schedule"
+msgstr "カードをスケジュールより早く復習する（おすすめではない）"
+
+#: MainDlg#18
+msgid "Pick days until next repetition:"
+msgstr "次の復習のため何日間を選びなさい:"
+
+#: MainDlg#19
+msgid "Grade your answer:"
+msgstr "グレード:"
+
+#: MainDlg#20
+msgid "Scheduled: "
+msgstr "今日のカード: "
+
+#: MainDlg#21
+msgid "Not memorised: "
+msgstr "まだ覚えっていないカード: "
+
+#: MainDlg#22
+msgid "All: "
+msgstr "合計:"
+
+#: MainDlg#23
+msgid "Show answer"
+msgstr "答え表示"
+
+#: MainFrm#1
+msgid "Mnemosyne"
+msgstr "覚エテチョウ"
+
+#: MainFrm#2
+msgid "Question:"
+msgstr "質問:"
+
+#: MainFrm#3
+msgid "Answer:"
+msgstr "答え:"
+
+#: MainFrm#4
+msgid "Show answer"
+msgstr "答えを表示"
+
+#: MainFrm#5
+msgid "Grade your answer:"
+msgstr "グレード:"
+
+#: MainFrm#6
+msgid "&0"
+msgstr "&0"
+
+#: MainFrm#7
+msgid "0"
+msgstr "0"
+
+#: MainFrm#8
+msgid "&1"
+msgstr "&1"
+
+#: MainFrm#9
+msgid "1"
+msgstr "1"
+
+#: MainFrm#10
+msgid "&2"
+msgstr "&2"
+
+#: MainFrm#11
+msgid "2"
+msgstr "2"
+
+#: MainFrm#12
+msgid "&3"
+msgstr "&3"
+
+#: MainFrm#13
+msgid "3"
+msgstr "3"
+
+#: MainFrm#14
+msgid "&4"
+msgstr "&4"
+
+#: MainFrm#15
+msgid "4"
+msgstr "4"
+
+#: MainFrm#16
+msgid "&5"
+msgstr "&5"
+
+#: MainFrm#17
+msgid "5"
+msgstr "5"
+
+#: MainFrm#18
+msgid "&New"
+msgstr "&新しいデータベース"
+
+#: MainFrm#19
+msgid "."
+msgstr "."
+
+#: MainFrm#20
+msgid "Ctrl+N"
+msgstr "Ctrl+N"
+
+#: MainFrm#21
+msgid "&Open..."
+msgstr "&データベースを開く..."
+
+#: MainFrm#22
+msgid "Ctrl+O"
+msgstr "Ctrl+O"
+
+#: MainFrm#23
+msgid "&Save"
+msgstr "&保存"
+
+#: MainFrm#24
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#: MainFrm#25
+msgid "Save &As..."
+msgstr "&別名で保存する..."
+
+#: MainFrm#26
+msgid "E&xit"
+msgstr "&閉じる"
+
+#: MainFrm#27
+msgid "About"
+msgstr "覚エテチョウについて"
+
+#: MainFrm#28
+msgid "&About"
+msgstr "&覚エテチョウについて"
+
+#: MainFrm#29
+msgid "Add cards"
+msgstr "カードを追加する"
+
+#: MainFrm#30
+msgid "&Add cards"
+msgstr "&カードを追加する"
+
+#: MainFrm#31
+msgid "Ctrl+A"
+msgstr "Ctrl+A"
+
+#: MainFrm#32
+msgid "Activate cate&gories"
+msgstr "&カテゴリーを選択する"
+
+#: MainFrm#33
+msgid "Ctrl+G"
+msgstr "Ctrl+G"
+
+#: MainFrm#34
+msgid "Edit deck"
+msgstr "カードリストを表示する"
+
+#: MainFrm#35
+msgid "Edit &deck"
+msgstr "&カードリストを表示する"
+
+#: MainFrm#36
+msgid "Ctrl+D"
+msgstr "Ctrl+D"
+
+#: MainFrm#37
+msgid "&Import"
+msgstr "&インポート"
+
+#: MainFrm#38
+msgid "&Export"
+msgstr "&エクスポート"
+
+#: MainFrm#39
+msgid "Show &toolbar"
+msgstr "&ツールバーを表示する"
+
+#: MainFrm#40
+msgid "Edit current card"
+msgstr "このカードを編集する"
+
+#: MainFrm#41
+msgid "&Edit current card"
+msgstr "&このカードを編集する"
+
+#: MainFrm#42
+msgid "Ctrl+E"
+msgstr "Ctrl+E"
+
+#: MainFrm#43
+msgid "Delete current card"
+msgstr "このカードを消す"
+
+#: MainFrm#44
+msgid "&Delete current card"
+msgstr "&このカードを消す"
+
+#: MainFrm#45
+msgid "Del"
+msgstr "Del"
+
+#: MainFrm#46
+msgid "&Clean duplicates"
+msgstr "&まったく同じカードを削除する"
+
+#: MainFrm#47
+msgid "&Configure Mnemosyne"
+msgstr "&覚エテチョウの設定"
+
+#: MainFrm#48
+msgid "Getting started"
+msgstr "初めに"
+
+#: MainFrm#49
+msgid "&Getting started"
+msgstr "&初めに"
+
+#: MainFrm#50
+msgid "Down, Down"
+msgstr "Down, Down"
+
+#: MainFrm#51
+msgid "Enter"
+msgstr "Enter"
+
+#: MainFrm#52
+msgid "Return"
+msgstr "Return"
+
+#: MainFrm#53
+msgid "Space"
+msgstr "Space"
+
+#: MainFrm#54
+msgid "Ctrl+R"
+msgstr "Ctrl+R"
+
+#: MainFrm#55
+msgid "Show statistics"
+msgstr "統計を表示する"
+
+#: MainFrm#56
+msgid "Show s&tatistics"
+msgstr "&統計を表示する"
+
+#: MainFrm#57
+msgid "Ctrl+T"
+msgstr "Ctrl+T"
+
+#: MainFrm#58
+msgid "Tip of the day"
+msgstr "今日のヒント"
+
+#: MainFrm#59
+msgid "&Tip of the day"
+msgstr "&今日のヒント"
+
+#: MainFrm#60
+msgid "Main toolbar (Mnemosyne)"
+msgstr "メーンツールバー(覚エテチョウ)"
+
+#: MainFrm#61
+msgid "&File"
+msgstr "&ファイル"
+
+#: MainFrm#62
+msgid "&Deck"
+msgstr "&カードのデータベース"
+
+#: MainFrm#63
+msgid "&Settings"
+msgstr "&設定"
+
+#: MainFrm#64
+msgid "&Help"
+msgstr "&ヘルプ"
+
+#: PreviewItemDlg#1
+msgid "<default>"
+msgstr "<デフォルト>"
+
+#: PreviewItemDlg#2
+msgid "Question:"
+msgstr "質問:"
+
+#: PreviewItemFrm#1
+msgid "Preview card"
+msgstr "カードをプレービューする"
+
+#: PreviewItemFrm#2
+msgid "Question:"
+msgstr "質問:"
+
+#: PreviewItemFrm#3
+msgid "Answer:"
+msgstr "答え:"
+
+#: PreviewItemFrm#4
+msgid "&OK"
+msgstr "&OK"
+
+#: PreviewItemFrm#5
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ProductTourFrm#1
+msgid "Getting started"
+msgstr "初めに"
+
+#: ProductTourFrm#2
+msgid ""
+"Greetings!\n"
+"\n"
+"I am Mnemosyne, a type of butterfly named after the Greek goddess of Memory. "
+"\n"
+"I can make it more efficient for you to memorise and remember answers to "
+"questions, by helping you focus on the cards you're most likely to forget "
+"and by not wasting your time on things you know well.\n"
+"\n"
+"For that, I'll decide when to ask you the questions, and you'll need to rate "
+"how well you remember the answers.\n"
+"\n"
+"Let's look at the meaning of these ratings now."
+msgstr ""
+"あたしの名前はムネモシュネ、記憶の女神よ。\n"
+"\n"
+"あなたの暗記を一生懸命お手伝いします！よろしくね。\n"
+"\n"
+"あなたがいろんな事を簡単に覚えて、すぐに思い出せるようにしてあげる。\n"
+"\n"
+"よく知っているカードには時間をかけず、苦手なカードに集中できるように、あたしが質問を選びます。あなたは、どれだけ答えを覚えていたか、グレードを答えてね。 "
+""
+
+#: ProductTourFrm#3
+msgid "Introduction"
+msgstr "グレードの紹介"
+
+#: ProductTourFrm#4
+msgid ""
+"Grades range from 0 to 5.\n"
+"\n"
+"Grades 0 and 1 are used if you don't know the answer yet, or if you have "
+"forgotten it. A card with grade 1 is starting to get more familiar than one "
+"with grade 0, and will be repeated less often.\n"
+"\n"
+"I will keep on asking you these questions until you give them a grade 2 or "
+"higher (the exact grade doesn't matter). Grade 2 basically means that you "
+"think you'll be able to remember the card for at least one or two days. It "
+"signals the transition between short and long term memory.\n"
+"\n"
+"I will schedule this card at some future date, when I think you'll still be "
+"able to remember it with some effort, without having forgotten it "
+"completely. This is the most efficient for the learning process."
+msgstr ""
+"グレードは0～5まであります。グレードが上がるにつれ出題頻度が下がります。\n"
+"\n"
+"0…完全に忘れていた\n"
+"1…ほとんど忘れていた\n"
+"2…数日なら覚えていられそう\n"
+"3…なんとか覚えた\n"
+"4…ほぼ完璧\n"
+"5…簡単すぎた"
+
+#: ProductTourFrm#5
+msgid "Grades 0-2"
+msgstr "グレードについて"
+
+#: ProductTourFrm#6
+msgid ""
+"If in the future I ask you the question too soon, and you're able to "
+"remember it without any effort, you rate the card a 5. I'll take this into "
+"account by waiting a lot longer before asking you this question again.\n"
+"\n"
+"If I get it just right, so that you remember it, albeit with some effort, "
+"you use grade 4.\n"
+"\n"
+"If on the other hand it takes you significant effort to remember the answer, "
+"and you think I've waited too long to ask you this question, then rate the "
+"card 3.\n"
+"\n"
+"If you fail to remember it altogether, rate it either 0 or 1, and I'll keep "
+"on asking you this question until you think you'll be able to remember it "
+"again for a few days."
+msgstr ""
+"グレード0、1は、あなたがグレード2を付けるまで何回も復習します。紙の単語カードと同じです。\n"
+"グレード2以上は「覚えているから今日はおしまい」ということになり、翌日以降の適切な時に、あたしが出題します。\n"
+"\n"
+"グレード3は2よりも間隔を開けて出題します。\n"
+"\n"
+"グレード４は努力の結果覚えられたということ。あたしのお手伝いが良かったとも言えるわね。\n"
+"\n"
+"グレード5はあなたには簡単すぎるから、ごくたまに出題するわ。\n"
+"\n"
+"科学者の研究によると、これが一番効率的なやり方なんですって!"
+
+#: ProductTourFrm#7
+msgid "Grades 3-5"
+msgstr "グレードのリスト"
+
+#: ProductTourFrm#8
+msgid ""
+"If you're into statistics, I can keep detailed logs of your revisions.\n"
+"\n"
+"Not only that, but if you want, I can upload transparently a completely "
+"anonymous version of these logs to a central site for analysis, so that you "
+"can help making me better. In this way, you also contribute to scientific "
+"research on long-term memory.\n"
+"\n"
+"Uncheck the following box if you do not want to do this."
+msgstr ""
+"あなたの復習についての統計は詳細に記録しています。\n"
+"\n"
+"お望みなら、その記録を、匿名で、ホスト側にアップロードして、分析していかがでしょうか。\n"
+"\n"
+"そうしますと、あなたの復習データが、長期記憶に関する科学的研究に資することにもなります。\n"
+"\n"
+"もしあなたの復習データを匿名でアップロードすることをお望みでないなら、下記のボックスのチェックマークをオフにしてください。"
+
+#: ProductTourFrm#9
+msgid "Upload anonymous logs"
+msgstr "匿名データをアップロードする"
+
+#: ProductTourFrm#10
+msgid ""
+"(You can always change this setting later using the 'Configure Mnemosyne' "
+"menu option.)"
+msgstr "(いつでも「覚エテチョウの設定」で変えることができます.)"
+
+#: ProductTourFrm#11
+msgid "Statistics"
+msgstr "統計"
+
+#: ProductTourFrm#12
+msgid ""
+"Now you're ready to start!\n"
+"<p>\n"
+"Add new cards by clicking on the icon with the 'plus' sign in the top left.\n"
+"<p>\n"
+"Remember, there is no need to worry about saving your work, I will do so "
+"automatically.\n"
+"<p>\n"
+"For best results, I suggest you do your revisions every day, although I'll "
+"try to cope as best I can if you postpone your revisions or if you want to "
+"learn ahead of time.\n"
+"<p>\n"
+"For more documentation, see http://www.mnemosyne-proj.sourceforge.net.\n"
+"<p>\n"
+"Happy learning!"
+msgstr ""
+"では、始めましょう！\n"
+"<p>\n"
+"新しいカードを追加するには、左上にある「+」ボタンをクリックしてください。\n"
+"<p>\n"
+"保存する心配はありません。あたしが自動的にします。\n"
+"<p>\n"
+"良い結果のために、毎日復習することをお勧めいたします。\n"
+"<p>\n"
+"ウェブサイトもご覧ください！\n"
+"英語：http://www.mnemosyne-proj.org\n"
+"日本語：http://www.ushigaeru.com/oboetechou\n"
+"<p>\n"
+"勉強楽しんでくださいね!"
+
+#: ProductTourFrm#13
+msgid "Ready to start"
+msgstr "準備OK"
+
+#: QTextEdit2#1
+msgid "Insert &image"
+msgstr "&イメージを挿入する"
+
+#: QTextEdit2#2
+msgid "Ctrl+I"
+msgstr "Ctrl+I"
+
+#: QTextEdit2#3
+msgid "Insert &sound"
+msgstr "&音声ファイルを挿入する"
+
+#: QTextEdit2#4
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#: QTextEdit2#5
+msgid "&3-sided input"
+msgstr "&3面インプット"
+
+#: QTextEdit2#6
+msgid "Image files"
+msgstr "写真ファイル"
+
+#: QTextEdit2#7
+msgid "Insert image"
+msgstr "イメージを挿入する"
+
+#: QTextEdit2#8
+msgid "Sound files"
+msgstr "音声ファイル"
+
+#: QTextEdit2#9
+msgid "Insert sound"
+msgstr "音声ファイルを挿入する"
+
+#. (obsolete)
+#: StatisticsDlg#1
+msgid ""
+"Scheduled cards for the next days:\n"
+"\n"
+msgstr "今度復習する予定のカード:\n"
+
+#: StatisticsDlg#2
+msgid "In"
+msgstr "今日から"
+
+#: StatisticsDlg#3
+msgid "day(s) :"
+msgstr "日後:"
+
+#: StatisticsDlg#4
+msgid ""
+"Number of cards with the following grades:\n"
+"\n"
+msgstr ""
+"グレード順でカードの枚数: \n"
+"\n"
+
+#: StatisticsDlg#5
+msgid "Grade"
+msgstr "グレード"
+
+#: StatisticsDlg#6
+msgid "No current card."
+msgstr "カードが選択されていない。"
+
+#: StatisticsDlg#7
+msgid "Grade:"
+msgstr "グレード:"
+
+#: StatisticsDlg#8
+msgid "Easiness:"
+msgstr "難易度:"
+
+#: StatisticsDlg#9
+msgid "Repetitions:"
+msgstr "復習した回数:"
+
+#: StatisticsDlg#10
+msgid "Lapses:"
+msgstr "忘れた回数:"
+
+#: StatisticsDlg#11
+msgid "Days since last repetition:"
+msgstr "最後に復習した日からの日数:"
+
+#: StatisticsDlg#12
+msgid "Days until next repetition:"
+msgstr "もう一度復習する日までの日数:\n"
+
+#: StatisticsDlg#13
+msgid ""
+"Scheduled cards for next week:\n"
+"\n"
+msgstr ""
+"今度復習する予定のカード:\n"
+"\n"
+
+#: StatisticsFrm#1
+msgid "Category"
+msgstr "カテゴリー"
+
+#: StatisticsFrm#2
+msgid "Cards"
+msgstr "カード"
+
+#: StatisticsFrm#3
+msgid "Statistics"
+msgstr "統計"
+
+#: StatisticsFrm#4
+msgid "Schedule"
+msgstr "スケジュール"
+
+#: StatisticsFrm#5
+msgid "Grades"
+msgstr "グレード"
+
+#: StatisticsFrm#6
+msgid "Categories"
+msgstr "カテゴリー"
+
+#: StatisticsFrm#7
+msgid "&OK"
+msgstr "&OK"
+
+#: StatisticsFrm#8
+msgid "Current card"
+msgstr "選択されたカード"
+
+#: TipDlg#1
+msgid "For optimal results, it's best to do your repetitions every day."
+msgstr "毎日カードの復習をしたほうがお勧めです."
+
+#: TipDlg#2
+msgid ""
+"If you've been away for a few days, don't worry about your backlog. Do as "
+"many cards as you feel like to catch up, the rest will be automatically "
+"rescheduled to the future."
+msgstr ""
+"もし、二三日復習しなかったら、無理しないでください。できるだけカードを復習して、その後自動的に覚エテチョウが残っているカードを延期するので、ご安心してく"
+"ださい。"
+
+#: TipDlg#3
+msgid ""
+"The 'number of grade 0 cards to learn at once' setting determines how many "
+"new cards you are trying to learn at the same time. It does <b>not</b> tell "
+"you how many new cards you need to learn per day. You are the judge of that: "
+"you can learn more cards or less cards, depending on how you feel."
+msgstr "毎日何枚カードを記憶するのは自分自身で決めることです。"
+
+#: TipDlg#4
+msgid ""
+"In summary, try to do your repetitions every day, but don't worry too much "
+"about getting the 'scheduled' counter to zero, and certainly not about "
+"getting the 'Not memorised' counter to zero."
+msgstr "毎日復習ができるように頑張ってください。しかし、それができなかったら、心配しないでください。"
+
+#: TipDlg#5
+msgid ""
+"Grade 1 cards are different from grade 0 cards in the sense that they show "
+"up less often and are not subject to the 'number of grade 0 cards to learn "
+"at once' setting."
+msgstr ""
+"グレード１のカードはグレード０のカードとは異なります。現れる頻度がグレード０のものより少ないのです。\n"
+"また、グレード１のカードには、「グレード０のカードの同時習得枚数」設定用外です。"
+
+#: TipDlg#6
+msgid ""
+"You can use keyboard shortcuts to do your repetitions. Enter, Return or "
+"Space stand for the default action ('Show answer' or 'grade 4'). The number "
+"keys can be used for grading."
+msgstr ""
+"キーボードのショートカットを使って復習ができます。\n"
+"Enter、Return, Spaceはデフォルト動作（答えを示す または グレード４）を示しています。\n"
+"数字キーは成績をつけることに使用できます。"
+
+#: TipDlg#7
+msgid ""
+"You can select the categories you wish to study in the 'Activate categories' "
+"menu option."
+msgstr "「カードのデータベース」の「カテゴリーを選択する」で、復習したいカテゴリーを選ぶことができます。"
+
+#: TipDlg#8
+msgid ""
+"It is recommended to put all your cards in a single database and use "
+"categories to organise them. Using 'Activate categories' is much more "
+"convenient than have to load and unload several databases."
+msgstr "全カードをひとつのデータベースに入れ、カテゴリーで分けることをお勧めいたします。"
+
+#: TipDlg#9
+msgid ""
+"You can import cards in a wide variety of formats: tab delimited txt files, "
+"Supermemo files, ... ."
+msgstr ""
+"いろんなファイルの種類からカードをインポートすることができます。\n"
+"タブ区切りのテキストファイル（.txt)や、スーパーメモファイルなど、その他いろいろインポートすることができます。"
+
+#: TipDlg#10
+msgid ""
+"If you have cards in Word or Excel, export them to tab delimited txt files "
+"with UTF-8 unicode encoding to be able to import them into Mnemosyne."
+msgstr ""
+"お持ちのワード又はエクセルのファイルの種類のカードを覚エテチョウにインポートしたい場合は、いったん、ユニコード(UTF-8)文字エンコーディングでカンマ"
+"区切りのテキストファイルにエクスポートするのがお勧めです。"
+
+#: TipDlg#11
+msgid ""
+"If you want to print out your cards, export them to a txt file which you can "
+"then print from your favourite Word processor."
+msgstr "カードを印刷する場合には、txt ファイルにエキスポートしてください。txtファイルは、好きなワープロで印刷することができます。"
+
+#: TipDlg#12
+msgid ""
+"You can share your cards with someone else by exporting them to XML and "
+"choosing the 'Reset learning data' option on export."
+msgstr "自分のカードを他の人に共有するためには、XMLにエクスポートし、オプションで「復習データをリセットする」を選んでください。"
+
+#: TipDlg#13
+msgid ""
+"If you study a foreign language with a different script, the default font "
+"size is sometimes a bit small. If you want to increase the size of these "
+"characters but keep the size of English text, use the 'increase size of non-"
+"latin characters by X points' option."
+msgstr "「ラテン系言語ではない文字」の設定で英語と日本語の文字を違う大きさで表示することができます。"
+
+#: TipDlg#14
+msgid ""
+"You can add images and sounds to your cards. Right-click on the question or "
+"answer field when editing a card to bring up a pop-up menu to do so."
+msgstr "カードにイメージや音声ファイルを入れることができます。 カード編集画面の質問・答え上で右クリックするとメニューが出ますのでご利用下さい。"
+
+#: TipDlg#15
+msgid ""
+"It is recommended to keep your sound and image files inside your .mnemosyne "
+"directory. That way, it's easier to transfer your data between different "
+"computers."
+msgstr ""
+"音声、映像ファイルを覚エテチョウの媒体ディレクトリに保存されることをお勧めいたします。そうすれば、データを他のコンピュータで移送することが容易になります"
+"。"
+
+#: TipDlg#16
+msgid ""
+"When adding a three-sided card, two regular cards will be created. One with "
+"as question the written form and as answer the pronunciation and the "
+"translation, and one with as question the translation and as answer the "
+"written form and the pronunciation."
+msgstr ""
+"3面カード（単語または熟語のつづり、発音、意味をワンセットにしたカード）を追加すると、2つの通常カードが生成されます。\n"
+"ひとつは問題として（単語または熟語の）つづりを、解答として発音と意味を収録したもの、もうひとつは問題として意味を、解答としてつづりと発音を収録したもので"
+"す。"
+
+#: TipDlg#17
+msgid "You can use basic HTML tags in your cards to control their appearance."
+msgstr "簡単なHTMLタグを使って好みのカード表示に変えることができます。"
+
+#: TipDlg#18
+msgid ""
+"Mnemosyne can use LaTeX to render mathematical formulas, e.g. "
+"<$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
+msgstr ""
+"覚エテチョウならば、LaTeXを使って，<$>x^2+y^2=z^2</$>のような数学公式をレンダリングできます。(これには，LaTeXとdvipng"
+"をインストールしておく必要があります)"
+
+#: TipDlg#19
+msgid ""
+"The best way to backup your data is to copy your .mnemosyne directory (if "
+"you follow the recommended procedure to keep all your files there) and move "
+"it to a different drive. Mnemosyne keeps automatic XML-based backups in "
+".mnemosyne/backups, but that won't help you if that drive dies... "
+msgstr "データのバックアップを取るお勧めの方法は、.mnemosyneディレクトリをコピーして、それを異なるドライブの方へ動かすことです。..."
+
+#: TipDlg#20
+msgid ""
+"You can run Mnemosyne from a USB key. Copy C:\\Program Files\\Mnemosyne to "
+"your USB key, and then copy the .mnemosyne directory from your home "
+"directory to inside the Mnemosyne directory on the USB key."
+msgstr ""
+"USBキーから覚エテチョウを実行することができます。\n"
+"USBキーに「C:\\Program Files\\Mnemosyne」をコピーしてください。\n"
+"次に、ホームディレクトリから.mnemosyneディレクトリーをUSBキーの中のmnemosyneディレクトリーにコピーしてください。"
+
+#: TipDlg#21
+msgid ""
+"If you use Mnemosyne on multiple computers, there is a handy tool called "
+"Unison to help you synchronise your data. See the Mnemosyne website for more "
+"information."
+msgstr ""
+"複数のコンピューターから覚エテチョウを利用される方には、Unisonという、個人データをシンクロさせる便利なツールがあります。 "
+"詳しくは覚エテチョウのウェブサイトをご覧ください。"
+
+#: TipDlg#22
+msgid ""
+"You can sort the cards in the 'Edit Deck' dialog by answer or by category by "
+"clicking on the corresponding column title. Clicking again changes the sort "
+"order."
+msgstr ""
+" 「カードリストを表示する」で、欄の名前をクリックしてカテゴリーを出すことで、カードを並び替えることができます。２回クリックすると、並び替える順番を逆に"
+"することができます。"
+
+#: TipDlg#23
+msgid ""
+"If you want more fine-grained control over LaTeX's behaviour, see the "
+"explanation of the <$$>...</$$> and <latex>...</latex> tags on Mnemosyne's "
+"website."
+msgstr ""
+"LaTeXを上手に使うため、覚エテチョウのウェブサイトにある<$$>...</$$>タグと<latex>...</latex>タグの説明をご覧ください。"
+
+#: TipDlg#24
+msgid ""
+"Advanced users can customise more of Mnemosyne by editing the config.py file "
+"in their .mnemosyne directory. They can also install plugins to customise "
+"Mnemosyne even further."
+msgstr "config.pyファイルで覚エテチョウ設定よりカスタマイズすることができます。そして、pluginで他の機能を追加することができます。"
+
+#: TipFrm#1
+msgid "Tip of the day"
+msgstr "今日のヒント"
+
+#: TipFrm#2
+msgid "<b>Did you know...?</b>"
+msgstr "<b>ご存知ですか...?</b>"
+
+#: TipFrm#3
+msgid "&Show tips on startup"
+msgstr "&始めに「今日のヒント」を表示する"
+
+#: TipFrm#4
+msgid "Alt+S"
+msgstr "Alt+S"
+
+#: TipFrm#5
+msgid "&Previous"
+msgstr "&前のヒント"
+
+#: TipFrm#6
+msgid "Alt+P"
+msgstr "Alt+P"
+
+#: TipFrm#7
+msgid "&Next"
+msgstr "&次のヒント"
+
+#: TipFrm#8
+msgid "Alt+N"
+msgstr "Alt+N"
+
+#: TipFrm#9
+msgid "&Close"
+msgstr "&閉じる"
+
+#: TipFrm#10
+msgid "Alt+C"
+msgstr "Alt+C"
