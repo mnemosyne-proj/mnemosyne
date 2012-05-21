@@ -163,5 +163,37 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>plugin_list</sender>
+   <signal>currentItemChanged(QListWidgetItem*,QListWidgetItem*)</signal>
+   <receiver>ManagePluginsDlg</receiver>
+   <slot>plugin_selected()()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>190</x>
+     <y>125</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>190</x>
+     <y>243</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>plugin_list</sender>
+   <signal>itemClicked(QListWidgetItem*)</signal>
+   <receiver>ManagePluginsDlg</receiver>
+   <slot>plugin_selected()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>190</x>
+     <y>125</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>190</x>
+     <y>243</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>

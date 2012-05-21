@@ -45,9 +45,12 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
             self.upload_science_logs.setCheckState(QtCore.Qt.Checked)
         else:
             self.upload_science_logs.setCheckState(QtCore.Qt.Unchecked)
-        self.languages.addItem("English")
+        language_names = ["English"]
         for language in self.translator().supported_languages():
-            self.languages.addItem(language_name_for_iso6931_code[language])
+            language_names.append(language_name_for_iso6931_code[language])
+        language_names.sort()
+        for language_name in language_names:
+            self.languages.addItem(language_name)
         self.languages.setCurrentIndex(self.languages.findText(\
             language_name_for_iso6931_code[self.config()["ui_language"]]))
         self.media_autoplay.stateChanged.connect(self.changed_media_autoplay)

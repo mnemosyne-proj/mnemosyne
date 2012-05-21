@@ -45,13 +45,15 @@ class ManagePluginsDlg(QtGui.QDialog, Ui_ManagePluginsDlg, ManagePluginsDialog):
             else:
                 list_item.setCheckState(QtCore.Qt.Unchecked)
             self.plugin_list.addItem(list_item)
-        self.plugin_list.itemClicked.connect(self.plugin_selected)
         self.plugin_list.setCurrentRow(0)
         self.plugin_description.setText(self.plugins()[0].description)
         self.delete_button.setEnabled(\
             self.plugins()[0].__class__.__name__ in self.can_be_deleted)
 
-    def plugin_selected(self, list_item):
+    def plugin_selected(self, list_item, dummy=None):
+        # If we get there through activating of the item, make sure we move
+        # the selection to the activated item.
+        self.plugin_list.setCurrentItem(list_item)
         plugin = self.plugin_with_name[unicode(list_item.text())]
         self.plugin_description.setText(plugin.description)
         self.delete_button.setEnabled(\

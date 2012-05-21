@@ -326,13 +326,15 @@ class DefaultController(Controller):
                     new_fact_data[new_fact_key] = fact[old_fact_key]
                 assert new_card_type.is_fact_data_valid(new_fact_data)
                 fact.data = new_fact_data
-                db.update_fact(fact)
             else:
                 new_fact_data = fact.data
             result = self._change_card_type(fact, old_card_type,
                 new_card_type, correspondence, new_fact_data, warn)
             if result == -1:
+                w.close_progress()
                 return
+            if correspondence:
+                db.update_fact(fact)
             warn = False
             w.increase_progress(1)
         db.save()

@@ -319,3 +319,41 @@ third in 2008"""}
 
         for card in cards:
             assert card.question().count("[") == 1
+
+    def test_convert_many(self):
+        card_type = self.card_type_with_id("5")
+        fact_data = {"text": "[a] [b]"}
+
+        cards = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])
+
+        fact = cards[0].fact
+
+        global answer
+        answer = 0 # OK
+
+        self.controller().change_card_type([fact], card_type,
+            self.card_type_with_id("1"), correspondence={"text": "f"})
+
+        fact = self.database().fact(fact._id, is_id_internal=True)
+        assert "text" not in fact.data
+        assert "f" in fact.data
+
+    def test_convert_many_cancel(self):
+        card_type = self.card_type_with_id("5")
+        fact_data = {"text": "[a] [b]"}
+
+        cards = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])
+
+        fact = cards[0].fact
+
+        global answer
+        answer = 1 # cancel
+
+        self.controller().change_card_type([fact], card_type,
+            self.card_type_with_id("1"), correspondence={"text": "f"})
+
+        fact = self.database().fact(fact._id, is_id_internal=True)
+        assert "text" in fact.data
+        assert "f" not in fact.data

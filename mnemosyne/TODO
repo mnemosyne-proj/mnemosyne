@@ -1,13 +1,58 @@
--pg up/down in plugin manager should update description pane
--rebuild with earlier qt
--rework sound system. Mail Barbara (unicode), Patrick (2 files)
+-log file permissions
+    class Stderr(object):
+        softspace = 0
+        _file   = None
+        _fname  = os.path.join(os.getcwd(), 'error.log')
+        _error  = None
+        _editor = os.path.expandvars("$WINDIR\\explorer.exe")
 
--sort languages
--language name in unicode?
+        def _showLog(self):
+           from os import system
+           if self._file:
+              self._file.close()
+              self._file = None
+           system('start "" /B "%s" "%s"' % (self._editor, self._fname))
+
+        def write(self, text, alert=sys._MessageBox, fname=_fname):
+            if self._file is None and self._error is None:
+                self._fname = fname
+                try:
+                    self._file = open(fname, 'w')
+                except Exception as details:
+                    self._error = details
+                    import atexit
+                    atexit.register(alert, 0,
+                                    "The logfile '%s' could not be opened:\n %s" % \
+                                    (fname, details),
+                                    "Errors occurred")
+                else:
+                    import atexit
+                    if os.path.exists(self._editor):
+                        atexit.register(self._showLog)
+                    else:
+                        atexit.register(alert, 0,
+                                        "See the logfile '%s' for details" % fname,
+                                        "Errors occurred")
+
+            if self._file is not None:
+                self._file.write(text)
+                self._file.flush()
+
+        def flush(self):
+            if self._file is not None:
+                self._file.flush()
+
+    sys.stderr = Stderr()
+
+
 -translations through website: https://help.launchpad.net/Translations/YourProject/Exports
 -pt_BR etc supported on website?
 -what happens with obsolete entries?
 -add pot update to distrib in makefile
+
+-rebuild with earlier qt
+-rework sound system. Mail Barbara (unicode), Patrick (2 files)
+
 
 ### RC2
 

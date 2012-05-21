@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>346</width>
-    <height>144</height>
+    <height>148</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -210,6 +210,22 @@
     <hint type="destinationlabel">
      <x>172</x>
      <y>89</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saved_sets</sender>
+   <signal>currentItemChanged(QListWidgetItem*,QListWidgetItem*)</signal>
+   <receiver>ActivateCardsDlg</receiver>
+   <slot>load_set()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>172</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>172</x>
+     <y>73</y>
     </hint>
    </hints>
   </connection>

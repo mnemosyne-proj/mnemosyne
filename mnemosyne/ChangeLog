@@ -1,3 +1,5 @@
+-Fix bug when cancelling convertion of card types from card browser
+ (reported by Hendrik).
 -Fix crash when compacting database (reported by Barbara).
 -Import translations from Mnemosyne 1.x.
 -'(Re)learn sister cards on the same day' is now always set to false and that

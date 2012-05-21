@@ -147,7 +147,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
             QtCore.Qt.MatchExactly)[0]
         self.saved_sets.setCurrentItem(item)
 
-    def load_set(self, item):
+    def load_set(self, item, dummy=None):
         name = unicode(item.text())
         criterion = self.criteria_by_name[name]
         self.tab_widget.setCurrentWidget(self.widget_for_criterion_type\
