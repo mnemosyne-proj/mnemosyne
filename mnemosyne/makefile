@@ -30,7 +30,6 @@ install-and-run-virtual-env: install-virtual-env
 install-virtual-env:
 	cd mnemosyne/pyqt_ui && make
 	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
-	cd po && make
 	./bin/python setup.py develop
 
 setup:
@@ -39,10 +38,12 @@ setup:
 	./bin/easy_install coverage
 
 install-system:
-	#cd mnemosyne/libmnemosyne/docs && make html
+	# Also rebuilds the docs and the translations.
+	cd mnemosyne/libmnemosyne/docs && make html
 	cd mnemosyne/pyqt_ui && make clean
 	cd mnemosyne/pyqt_ui && make
 	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
+	cd po && make update
 	cd po && make
 	$(PYTHON) setup.py install $(INSTALL_OPTS)
 	rm -f -R build
@@ -99,9 +100,8 @@ clean:
 distrib: FORCE
 	rm -rf dist
 	cd po && make
+	cd mnemosyne/libmnemosyne/docs && make html
 	cd mnemosyne/pyqt_ui && make
-	pwd
-	ls
 	./bin/python setup.py sdist
 
 distrib-WM: FORCE

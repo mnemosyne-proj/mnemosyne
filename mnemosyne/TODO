@@ -45,10 +45,11 @@
     sys.stderr = Stderr()
 
 
--translations through website: https://help.launchpad.net/Translations/YourProject/Exports
--pt_BR etc supported on website?
--what happens with obsolete entries?
--add pot update to distrib in makefile
+
+-what happens with fuzzy matches on the website? Remove fuzzy matching in update script?
+-automatic import, also for new languages
+
+-plugin for interval multiplication factor
 
 -rebuild with earlier qt
 -rework sound system. Mail Barbara (unicode), Patrick (2 files)
@@ -79,6 +80,10 @@
 -errors in scripting engine related to main_widget
 
 -make doc: errors related to _
+
+-card templates
+
+-user voice
 
 -queue is running empty, relax sister: prompt user what to do?
 
