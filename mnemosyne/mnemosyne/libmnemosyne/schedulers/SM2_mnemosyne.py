@@ -204,29 +204,6 @@ class SM2Mnemosyne(Scheduler):
             (card, card.next_rep, card.next_rep + DAY):
             card.next_rep = self.midnight_UTC(card.next_rep + DAY)
 
-    def spread_sister_cards(self):
-
-        """During normal operation, the scheduler makes sure sister cards are
-        not scheduled on the same day. However, this can go wrong if the cards
-        are graded in an external program like MnemoDodo, which does not have
-        enough information to prevent this, or when learning late.
-
-        In these circumstances, this function makes sure the sister cards are
-        spread again.
-
-        """
-
-        for fact in self.database.facts():
-            due_dates = []
-            for card in self.database.cards_from_fact(fact):
-                due_date = card.next_rep
-                while card.next_rep in due_dates:
-                    due_date += DAY
-                due_dates.append(due_date)
-                if due_date != card.next_rep:
-                    card.next_rep = due_date
-                    self.database.update_card(card, repetition_only=True)
-
     def rebuild_queue(self, learn_ahead=False):
         db = self.database()
         if not db.is_loaded() or not db.active_count():

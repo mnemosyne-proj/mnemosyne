@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-23 10:29+CEST\n"
+"POT-Creation-Date: 2012-05-24 09:03+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,13 +124,6 @@ msgstr ""
 msgid "Map"
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/map.py:19
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/map.py:19
-#: ../mnemosyne/libmnemosyne/card_types/map.py:19
-#, fuzzy
-msgid "Location"
-msgstr "Kiejtés:"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/map.py:20
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/map.py:20
 #: ../mnemosyne/libmnemosyne/card_types/map.py:20
@@ -142,30 +135,6 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/card_types/map.py:21
 msgid "Marked map"
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/map.py:24
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/vocabulary.py:24
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/example_plugins/new_card_type.py:18
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/map.py:24
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/vocabulary.py:24
-#: ../mnemosyne/example_plugins/new_card_type.py:18
-#: ../mnemosyne/libmnemosyne/card_types/map.py:24
-#: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:24
-#, fuzzy
-msgid "Recognition"
-msgstr "Feleltetések száma:"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/map.py:30
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/vocabulary.py:29
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/example_plugins/new_card_type.py:24
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/map.py:30
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/vocabulary.py:29
-#: ../mnemosyne/example_plugins/new_card_type.py:24
-#: ../mnemosyne/libmnemosyne/card_types/map.py:30
-#: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:29
-#, fuzzy
-msgid "Production"
-msgstr "Bevezető"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/map.py:52
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/map.py:52
@@ -189,13 +158,6 @@ msgstr ""
 msgid "Foreign word or expression"
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/vocabulary.py:19
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/vocabulary.py:19
-#: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:19
-#, fuzzy
-msgid "Pronunciation"
-msgstr "Kiejtés:"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/vocabulary.py:20
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/vocabulary.py:20
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:20
@@ -207,20 +169,6 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:21
 msgid "Notes"
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/configuration.py:179
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/configuration.py:179
-#: ../mnemosyne/libmnemosyne/configuration.py:179
-#, fuzzy
-msgid "Error in config:"
-msgstr "Hiba a config.py fájlban:"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/configuration.py:188
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/configuration.py:188
-#: ../mnemosyne/libmnemosyne/configuration.py:188
-#, fuzzy
-msgid "Unable to save config file:"
-msgstr "Nem lehet elmenteni a fájlt."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/configuration.py:342
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/configuration.py:342
@@ -279,24 +227,6 @@ msgstr "Hiba a config.py fájlban:"
 #: ../mnemosyne/pyqt_ui/tip_after_starting_n_times.py:31
 msgid "Mnemosyne"
 msgstr "Mnemosyne"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:111
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:111
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:111
-#, fuzzy
-msgid ""
-"Card is already in database.\n"
-"Duplicate not added."
-msgstr "A kártya már benne van az adatbázisban.\n"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:114
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:114
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:114
-#, fuzzy
-msgid ""
-"There is already data present for:\n"
-"\n"
-msgstr "A kártya már benne van az adatbázisban.\n"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:116
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:116
@@ -549,27 +479,6 @@ msgstr ""
 msgid "Delete this card?"
 msgstr "Törli ezt a kártyát?"
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:350
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:350
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:353
-#, fuzzy
-msgid "Delete this card and 1 sister card?"
-msgstr "Törli ezt a kártyát?"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:354
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:354
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:357
-#, fuzzy
-msgid "Delete this card and"
-msgstr "Törli ezt a kártyát?"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:355
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:355
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:358
-#, fuzzy
-msgid "sister cards?"
-msgstr "Kártya szerkesztése"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:358
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/browse_cards_dlg.py:353
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tag_tree_wdgt.py:141
@@ -584,13 +493,6 @@ msgstr "Kártya szerkesztése"
 #: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:61
 msgid "&Delete"
 msgstr "Tö&rlés"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:381
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:381
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:384
-#, fuzzy
-msgid "Card type name already exists."
-msgstr "A kártya már benne van az adatbázisban.\n"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:401
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:401
@@ -610,51 +512,11 @@ msgstr ""
 msgid "Cannot rename a system card type."
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:426
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:426
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:429
-#, fuzzy
-msgid "This card type name is already in use."
-msgstr "A kártya már benne van az adatbázisban.\n"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:432
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:432
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:435
-#, fuzzy
-msgid ""
-"It is recommended to put all your cards in a single database. Using tags to "
-"determine which cards to study is much more convenient than having to load "
-"and unload several databases."
-msgstr ""
-"Javasolt, hogy Ön egy adatbázisba vigye fel a kártyáit és inkább "
-"kategóriákat használjon a szervezésükhöz. A 'Kategóriák aktiválása' menüpont "
-"használata sokkal kényelmesebb adatbázisok egyenkénti betöltögetésénél."
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:443
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:473
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:530
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:443
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:473
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:530
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:446
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:476
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:533
-#, fuzzy
-msgid "Mnemosyne databases"
-msgstr "Mnemosyne adatbázisok (*.mem)"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:444
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:444
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:447
 msgid "New"
 msgstr "Új"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:450
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:450
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:453
-#, fuzzy
-msgid "Creating new database..."
-msgstr "A kártya már benne van az adatbázisban.\n"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:479
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:479
@@ -664,38 +526,6 @@ msgid ""
 "Note that this will result in conflicts during the next sync, which need to "
 "be resolved by a full sync."
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:480
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/databases/SQLite.py:589
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/databases/SQLite.py:1044
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:96
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:480
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/databases/SQLite.py:589
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/databases/SQLite.py:1044
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:96
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:483
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:589
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1044
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:96
-#, fuzzy
-msgid "No"
-msgstr "&Nem"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:480
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/databases/SQLite.py:589
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/databases/SQLite.py:1044
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:96
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:480
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/databases/SQLite.py:589
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/databases/SQLite.py:1044
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:96
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:483
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:589
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1044
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:96
-#, fuzzy
-msgid "Yes"
-msgstr "&Igen"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:576
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:576
@@ -721,20 +551,6 @@ msgstr "Hangfájlok"
 msgid "Insert sound"
 msgstr "Hang beszúrása"
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:606
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:606
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:609
-#, fuzzy
-msgid "Video files"
-msgstr "Képfájlok"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:608
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:608
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:611
-#, fuzzy
-msgid "Insert video"
-msgstr "Kép beszúrása"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:651
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:651
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:654
@@ -758,13 +574,6 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:826
 msgid "For instructions on how to download Mnemosyne's source,"
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:824
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:824
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:827
-#, fuzzy
-msgid "go to http://www.mnemosyne-proj.org"
-msgstr "További információ: http://mnemosyne-proj.org"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/databases/SQLite.py:262
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/databases/SQLite.py:262
@@ -812,28 +621,6 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:49
 msgid "Unable to load file."
 msgstr "Nem lehet betölteni a fájlt."
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/databases/SQLite.py:366
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:36
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/databases/SQLite.py:366
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:36
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:366
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:36
-#, fuzzy
-msgid "Unable to load file, query failed"
-msgstr "Nem lehet betölteni a fájlt."
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/databases/SQLite.py:369
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:39
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/databases/SQLite.py:369
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:39
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:369
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:39
-#, fuzzy
-msgid "Unable to load file: database version mismatch."
-msgstr ""
-"Nem lehet betölteni az adatbázist.\n"
-"Átmeneti (tmp) fájl lesz létrehozva."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/databases/SQLite.py:447
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/databases/SQLite.py:447
@@ -918,30 +705,6 @@ msgstr ""
 msgid "Importing cards..."
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:24
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:24
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:24
-#, fuzzy
-msgid "Mnemosyne 1.x *.mem files"
-msgstr "Mnemosyne adatbázisok (*.mem)"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:25
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:25
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:25
-#, fuzzy
-msgid "Mnemosyne 1.x *.mem databases (*.mem)"
-msgstr "Mnemosyne adatbázisok (*.mem)"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:73
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:62
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:73
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:62
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:73
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:62
-#, fuzzy
-msgid "Unable to open file."
-msgstr "Nem lehet betölteni a fájlt."
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:79
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:79
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:79
@@ -971,13 +734,6 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:18
 msgid "Mnemosyne 1.x XML files"
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:59
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:59
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:59
-#, fuzzy
-msgid "Unable to parse file:"
-msgstr "Nem lehet az XML-t elemezni:"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:96
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:96
@@ -1011,52 +767,17 @@ msgstr ""
 msgid "Tab-separated text files (*.txt)"
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/tsv.py:41
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/tsv.py:41
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:41
-#, fuzzy
-msgid "Could not load file."
-msgstr "Nem lehet betölteni a fájlt."
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/tsv.py:53
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/tsv.py:53
 #: ../mnemosyne/libmnemosyne/file_formats/tsv.py:53
 msgid "Could not determine encoding."
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/tsv.py:74
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/tsv.py:74
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:74
-#, fuzzy
-msgid "Missing answer on line:\n"
-msgstr "Hiányzó válasz a következő sorban:"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/filters/latex.py:85
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/filters/latex.py:85
 #: ../mnemosyne/libmnemosyne/filters/latex.py:85
 msgid "Problem with latex. Are latex and dvipng installed?"
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/log_uploader.py:83
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/log_uploader.py:83
-#: ../mnemosyne/libmnemosyne/log_uploader.py:83
-#, fuzzy
-msgid "Uploading"
-msgstr "Naplófeltöltés"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/log_uploader.py:87
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/log_uploader.py:87
-#: ../mnemosyne/libmnemosyne/log_uploader.py:87
-#, fuzzy
-msgid "done!"
-msgstr "Kész!"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/log_uploader.py:89
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/log_uploader.py:89
-#: ../mnemosyne/libmnemosyne/log_uploader.py:89
-#, fuzzy
-msgid "Upload failed"
-msgstr "Nem lehet betölteni a fájlt."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/logger.py:200
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/logger.py:200
@@ -1100,74 +821,11 @@ msgstr ""
 msgid "You don't remember this card yet."
 msgstr "Ön még nem emlékszik erre a kártyára."
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:20
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:20
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:20
-#, fuzzy
-msgid "Like '0', but it's getting more familiar. Show it less often."
-msgstr "Mint a '0'-ás, de már kezd ismerős lenni."
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:22
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:22
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:22
-#, fuzzy
-msgid "You've memorised this card now, and might remember it tomorrow."
-msgstr ""
-"Ezt a kártyát Ön most megjegyezte és valószínűleg emlékezni fog rá pár napig."
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:24
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:24
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:24
-#, fuzzy
-msgid "You've memorised this card now, and should remember it tomorrow."
-msgstr ""
-"Ezt a kártyát Ön most megjegyezte és valószínűleg emlékezni fog rá pár napig."
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:26
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:26
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:26
-#, fuzzy
-msgid "You've memorised this card now, and might remember it in 2 days."
-msgstr ""
-"Ezt a kártyát Ön most megjegyezte és valószínűleg emlékezni fog rá pár napig."
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:28
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:28
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:28
-#, fuzzy
-msgid "You've memorised this card now, and should remember it in 2 days."
-msgstr ""
-"Ezt a kártyát Ön most megjegyezte és valószínűleg emlékezni fog rá pár napig."
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:31
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:31
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:31
-#, fuzzy
-msgid "You've forgotten this card completely."
-msgstr "Ön teljesen elfelejtette ezt a kártyát."
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:33
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:33
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:33
-#, fuzzy
-msgid "You've forgotten this card."
-msgstr "Ön teljesen elfelejtette ezt a kártyát."
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:35
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:35
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:35
 msgid "Barely correct answer. The interval was way too long."
 msgstr "Szűkösen jó válasz. Az időköz túlságosan hosszú volt."
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:37
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:37
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:37
-#, fuzzy
-msgid ""
-"Correct answer, but with much effort. The interval was probably too long."
-msgstr ""
-"Helyes válasz, de csak komoly erőfeszítés árán. Az időköz valószínűleg "
-"hosszabb volt a kelleténél"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
@@ -1199,16 +857,6 @@ msgid ""
 "Use 'Learn ahead of schedule' sparingly. For cramming before an exam, it's "
 "much better to use the cramming scheduler plugin"
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:146
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:33
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:146
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:33
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:146
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:33
-#, fuzzy
-msgid "Returns in"
-msgstr "Visszatér "
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:147
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:34
@@ -1243,16 +891,6 @@ msgstr " nap múlva."
 msgid "Next repetition in "
 msgstr "Következő feleltetés "
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:196
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/preview_cards_dlg.py:65
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:196
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/preview_cards_dlg.py:65
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:196
-#: ../mnemosyne/pyqt_ui/preview_cards_dlg.py:65
-#, fuzzy
-msgid "Question: "
-msgstr "Kérdés:"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:223
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:226
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:229
@@ -1285,27 +923,6 @@ msgstr "Válassza ki a következő feleltetésig hátralevő napokat:"
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:109
 msgid "Grade your answer:"
 msgstr "Osztályozza le a válaszát:"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:248
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:248
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:248
-#, fuzzy
-msgid ""
-"You appear to have missed some reviews. Don't worry too much about this "
-"backlog, and do as many cards as you feel comfortable with to catch up each "
-"day. Mnemosyne will automatically reschedule your cards such that the most "
-"urgent ones are shown first."
-msgstr ""
-"Amennyiben Ön pár nap használatot kihagyna, ne aggódjon a menetrendjéről! A "
-"felzárkózás érdekében válaszoljon meg annyi kártyát amennyit csak jól esik - "
-"a többi automatikusan átütemeződik későbbre."
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:562
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:562
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:562
-#, fuzzy
-msgid "You've memorised 15 new or failed cards."
-msgstr "Ezt a kártyát Ön most megjegyezte"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:563
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:563
@@ -1342,13 +959,6 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:616
 msgid "in 1 month"
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:619
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:619
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:619
-#, fuzzy
-msgid "days"
-msgstr " nap múlva."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:621
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:621
@@ -1409,13 +1019,6 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:665
 msgid "years ago"
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/cards_added.py:11
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/cards_added.py:11
-#: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:11
-#, fuzzy
-msgid "Cards added"
-msgstr "Kártya"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/cards_added.py:19
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/retention_score.py:19
@@ -1499,60 +1102,6 @@ msgstr ""
 msgid "Grade"
 msgstr "Jegy"
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/current_card.py:32
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/easiness.py:11
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/browse_cards_dlg.py:596
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:260
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/current_card.py:32
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/easiness.py:11
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/browse_cards_dlg.py:596
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:260
-#: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:32
-#: ../mnemosyne/libmnemosyne/statistics_pages/easiness.py:11
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:596
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:260
-#, fuzzy
-msgid "Easiness"
-msgstr "Nehézség:"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/current_card.py:33
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/current_card.py:33
-#: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:33
-#, fuzzy
-msgid "Repetitions"
-msgstr "Feleltetések száma:"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/current_card.py:35
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/browse_cards_dlg.py:598
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/current_card.py:35
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/browse_cards_dlg.py:598
-#: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:35
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:598
-#, fuzzy
-msgid "Lapses"
-msgstr "Botlások száma:"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/current_card.py:36
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/current_card.py:36
-#: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:36
-#, fuzzy
-msgid "Scheduled interval"
-msgstr "Ütemezett: "
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/current_card.py:38
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/current_card.py:38
-#: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:38
-#, fuzzy
-msgid "Last repetition"
-msgstr "Következő feleltetés "
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/current_card.py:40
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/current_card.py:40
-#: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:40
-#, fuzzy
-msgid "Next repetition"
-msgstr "Következő feleltetés "
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/current_card.py:42
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/current_card.py:42
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:42
@@ -1564,16 +1113,6 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:44
 msgid "Total thinking time (secs)"
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/easiness.py:17
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/grades.py:17
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/easiness.py:17
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/grades.py:17
-#: ../mnemosyne/libmnemosyne/statistics_pages/easiness.py:17
-#: ../mnemosyne/libmnemosyne/statistics_pages/grades.py:17
-#, fuzzy
-msgid "All cards"
-msgstr "Kártyák felvitele"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/easiness.py:21
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/grades.py:21
@@ -1595,13 +1134,6 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:237
 msgid "Grades"
 msgstr "Jegyek"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/retention_score.py:11
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/retention_score.py:11
-#: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:11
-#, fuzzy
-msgid "Retention score"
-msgstr "Feleltetési folyamat"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/schedule.py:11
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/schedule.py:11
@@ -1687,15 +1219,6 @@ msgstr ""
 msgid "Mnemosyne 2.x now stores its data here:"
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/about_dlg.py:29
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/about_dlg.py:29
-#: ../mnemosyne/pyqt_ui/about_dlg.py:29
-#, fuzzy
-msgid "Main author: Peter Bienstman"
-msgstr ""
-"Főprogramozó: Peter Bienstman\n"
-"\n"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/about_dlg.py:31
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/about_dlg.py:31
 #: ../mnemosyne/pyqt_ui/about_dlg.py:31
@@ -1703,16 +1226,6 @@ msgid ""
 "Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-proj."
 "org</a> for more information and source code."
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:87
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/manage_plugins_dlg.py:93
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/activate_cards_dlg.py:87
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/manage_plugins_dlg.py:93
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:87
-#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:95
-#, fuzzy
-msgid "Delete"
-msgstr "Tö&rlés"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:88
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/activate_cards_dlg.py:88
@@ -1741,13 +1254,6 @@ msgstr ""
 msgid "You can right-click on the name of a saved set to rename or delete it."
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:122
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/activate_cards_dlg.py:122
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:122
-#, fuzzy
-msgid "Delete this set?"
-msgstr "Törli ezt a kártyát?"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/add_cards_dlg.py:28
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:29
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/add_cards_dlg.py:28
@@ -1767,20 +1273,6 @@ msgid ""
 "You can organise tags in a hierarchy by using :: as separator, e.g. My book::"
 "Lesson 1."
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/add_cards_dlg.py:30
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:31
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/add_cards_dlg.py:30
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:31
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:30 ../mnemosyne/pyqt_ui/tip_dlg.py:31
-#, fuzzy
-msgid ""
-"You can add images and sounds to your cards. Right-click on an input field "
-"when editing a card to bring up a pop-up menu to do so."
-msgstr ""
-"Csatolhat képeket és hangokat is kártyáihoz. Ehhez egy kártya "
-"szerkesztésekor kattintson a jobb egérgombbal a kérdés vagy a válasz "
-"mezőjére, majd válassza ki az előbukkanó menüből a megfelelőt."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/add_cards_dlg.py:31
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:33
@@ -1950,20 +1442,6 @@ msgstr "&Szerkeszt"
 msgid "&Preview"
 msgstr "&Előnézet"
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/browse_cards_dlg.py:358
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/browse_cards_dlg.py:358
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:358
-#, fuzzy
-msgid "Change card &type"
-msgstr "Kategória módosítása"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/browse_cards_dlg.py:362
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/browse_cards_dlg.py:362
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:362
-#, fuzzy
-msgid "&Add tags"
-msgstr "&Felvesz változatlanul"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/browse_cards_dlg.py:365
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/browse_cards_dlg.py:365
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:365
@@ -2003,13 +1481,6 @@ msgstr "Kérdés"
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/browse_cards_dlg.py:595
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/browse_cards_dlg.py:595
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:595
-#, fuzzy
-msgid "Next rep"
-msgstr "&Következő"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/browse_cards_dlg.py:595
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/browse_cards_dlg.py:595
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:595
 msgid "Tags"
 msgstr ""
 
@@ -2026,15 +1497,6 @@ msgid ""
 "Acquisition\n"
 "reps"
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/browse_cards_dlg.py:598
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/browse_cards_dlg.py:598
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:598
-#, fuzzy
-msgid ""
-"Retention\n"
-"reps"
-msgstr "Feleltetési folyamat"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/browse_cards_dlg.py:599
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/browse_cards_dlg.py:599
@@ -2063,23 +1525,6 @@ msgstr ""
 msgid "%d cards shown, of which %d active."
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/card_type_tree_wdgt.py:72
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/card_type_tree_wdgt.py:72
-#: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:72
-#, fuzzy
-msgid "Delete these card types?"
-msgstr "Törli ezeket a kártyákat?"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/card_type_tree_wdgt.py:74
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/manage_card_types_dlg.py:61
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/card_type_tree_wdgt.py:74
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/manage_card_types_dlg.py:61
-#: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:74
-#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:61
-#, fuzzy
-msgid "Delete this card type?"
-msgstr "Törli ezt a kártyát?"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/card_type_tree_wdgt.py:104
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/card_type_tree_wdgt.py:104
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:104
@@ -2092,13 +1537,6 @@ msgstr ""
 msgid "Compacting database..."
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:22
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:22
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:22
-#, fuzzy
-msgid "Card appearance"
-msgstr "Megjelenés"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:35
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:48
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:35
@@ -2107,20 +1545,6 @@ msgstr "Megjelenés"
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:48
 msgid "<all card types>"
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:79
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:79
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:79
-#, fuzzy
-msgid "Select font"
-msgstr "Lista betűstílusa"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:84
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:84
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:84
-#, fuzzy
-msgid "Select colour"
-msgstr "Az össze&s kijelölése"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:219
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:219
@@ -2139,16 +1563,6 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:18
 msgid "General"
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/configuration_wdgt_main.py:61
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:63
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/configuration_wdgt_main.py:61
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:63
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:64
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:63
-#, fuzzy
-msgid "Reset current tab to defaults?"
-msgstr "Törli a jelenlegi kártyát?"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:28
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:28
@@ -2231,20 +1645,6 @@ msgstr ""
 msgid "You are not allowed to cancel the merging."
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/edit_card_dlg.py:137
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/edit_card_dlg.py:137
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:137
-#, fuzzy
-msgid "Abandon changes to current card?"
-msgstr "Felhagy a jelenlegi kártyával?"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/import_dlg.py:75
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/import_dlg.py:75
-#: ../mnemosyne/pyqt_ui/import_dlg.py:75
-#, fuzzy
-msgid "File does not exist."
-msgstr "A fájl már létezik:"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/manage_card_types_dlg.py:51
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/manage_card_types_dlg.py:51
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:51
@@ -2266,26 +1666,6 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:93
 msgid "and not just deactivate it?"
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/manage_plugins_dlg.py:93
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/manage_plugins_dlg.py:93
-#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:95
-#, fuzzy
-msgid "Cancel"
-msgstr "&Mégsem"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/qt_sync_server.py:71
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/qt_sync_server.py:162
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/qt_sync_server.py:169
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/qt_sync_server.py:71
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/qt_sync_server.py:162
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/qt_sync_server.py:169
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:71
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:162
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:169
-#, fuzzy
-msgid "Unable to start sync server."
-msgstr "Nem lehet elmenteni a fájlt."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/qt_sync_server.py:163
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/qt_sync_server.py:163
@@ -2332,13 +1712,6 @@ msgstr "&Hang beszúrása"
 msgid "Ctrl+S"
 msgstr "Ctrl+S"
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/qtextedit2.py:32
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/qtextedit2.py:32
-#: ../mnemosyne/pyqt_ui/qtextedit2.py:32
-#, fuzzy
-msgid "Insert vi&deo"
-msgstr "Kép beszúrása"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/qtextedit2.py:33
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:194
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/qtextedit2.py:33
@@ -2353,30 +1726,6 @@ msgstr "Ctrl+P"
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:37
 msgid "&Hide pronunciation key for this card type"
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/review_wdgt.py:340
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/review_wdgt.py:340
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:340
-#, fuzzy
-msgid "Scheduled: %d "
-msgstr "Ütemezett: "
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/review_wdgt.py:341
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/review_wdgt.py:341
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:341
-#, fuzzy
-msgid "Not memorised: %d "
-msgstr "Nem memorizált: "
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/review_wdgt.py:342
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/review_wdgt_cramming.py:56
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/review_wdgt.py:342
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/review_wdgt_cramming.py:56
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:342
-#: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:56
-#, fuzzy
-msgid "Active: %d "
-msgstr "Az összes aktiválása"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/review_wdgt_cramming.py:15
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/review_wdgt_cramming.py:38
@@ -2407,13 +1756,6 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:55
 msgid "Unseen: %d "
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/statistics_dlg.py:96
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/statistics_dlg.py:96
-#: ../mnemosyne/pyqt_ui/statistics_dlg.py:96
-#, fuzzy
-msgid "Default"
-msgstr "Alapértelmezés"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:114
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:232
@@ -2523,19 +1865,6 @@ msgid ""
 "session."
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:20
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:20
-#: ../mnemosyne/pyqt_ui/tip_dlg.py:20
-#, fuzzy
-msgid ""
-"If you've been away for a few days, don't worry about your backlog. Do as "
-"many cards as you feel like to catch up, the rest will be automatically "
-"rescheduled to the future in the most optimal way."
-msgstr ""
-"Amennyiben Ön pár nap használatot kihagyna, ne aggódjon a menetrendjéről! A "
-"felzárkózás érdekében válaszoljon meg annyi kártyát amennyit csak jól esik - "
-"a többi automatikusan átütemeződik későbbre."
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:21
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:21
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:21
@@ -2545,47 +1874,6 @@ msgid ""
 "scheduling these on the same day."
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:22
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:22
-#: ../mnemosyne/pyqt_ui/tip_dlg.py:22
-#, fuzzy
-msgid ""
-"The 'number of non-memorised cards to hold in your hand' setting determines "
-"how many cards you are trying to (re)learn at the same time. It does <b>not</"
-"b> tell you how many new cards you need to learn per day. You are the judge "
-"of that: you can learn more cards or less cards, depending on how you feel."
-msgstr ""
-"Az 'egyszerre kézben tartott 0-ás osztályzatú kártyák száma' beállítás azt "
-"adja meg, hogy Ön hány új kártyát próbál tanulni egyszerre. Vagyis <b>nem</"
-"b> azt adja meg, hogy hány új kártyát kell megtanulnia egy nap. Ezt Önnek "
-"kell mérlegelnie: tanulhat többet is és kevesebbet is, attól függően hogy "
-"milyen hangulatban van."
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:23
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:23
-#: ../mnemosyne/pyqt_ui/tip_dlg.py:23
-#, fuzzy
-msgid ""
-"In summary, try to do your repetitions every day, but don't worry too much "
-"about getting the 'Scheduled' counter to zero, and certainly not about "
-"getting the 'Not memorised' counter to zero."
-msgstr ""
-"Összefoglalva: próbáljon minden nap gyakorolni, de azért ne törje magát "
-"túlzottan az 'ütemezett' számláló lenullázásával, legfőképp ne a 'Nem "
-"memorizált' számláló lenullázásával!."
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:24
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:24
-#: ../mnemosyne/pyqt_ui/tip_dlg.py:24
-#, fuzzy
-msgid ""
-"Grade 1 cards are different from grade 0 cards in the sense that they show "
-"up less often."
-msgstr ""
-"Az 1-es osztályzatú kártyák annyiban különböznek a 0-ás osztályzatúaktól, "
-"hogy ritkábban jönnek elő és nem vonatkozik rájuk az 'egyszerre kézben "
-"tartott 0-ás osztályzatú kártyák száma' beállítás."
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:25
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:25
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:25
@@ -2593,43 +1881,6 @@ msgid ""
 "Use 'Learn ahead of schedule' sparingly. For cramming before an exam, it's "
 "much better to use the cramming scheduler plugin."
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:26
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:26
-#: ../mnemosyne/pyqt_ui/tip_dlg.py:26
-#, fuzzy
-msgid ""
-"You can use keyboard shortcuts to do your repetitions. Enter, Return or "
-"Space stand for the default action. The number keys can be used for grading."
-msgstr ""
-"Használhat billentyűkombinációkat is a feleltetések során. Az Enter, a "
-"Return (kocsi vissza) és a szóköz billentyű bármelyikének benyomása az "
-"alapértelmezett műveletet hajtja végre ('Mutasd a választ' illetve '4-es "
-"osztályzat'). A számgombok benyomásával pedig osztályozhat."
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:27
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:27
-#: ../mnemosyne/pyqt_ui/tip_dlg.py:27
-#, fuzzy
-msgid ""
-"You can select which cards you wish to study in the '(De)activate cards' "
-"menu option."
-msgstr ""
-"Kiválaszthatja azokat a kategóriákat amelyekből tanulni szeretne a "
-"'Kategóriák aktiválása' menüpontban."
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:28
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:28
-#: ../mnemosyne/pyqt_ui/tip_dlg.py:28
-#, fuzzy
-msgid ""
-"It is recommended to put all your cards in a single database and use tag to "
-"organise them. Using '(De)activate cards' is much more convenient than "
-"having to load and unload several databases."
-msgstr ""
-"Javasolt, hogy Ön egy adatbázisba vigye fel a kártyáit és inkább "
-"kategóriákat használjon a szervezésükhöz. A 'Kategóriák aktiválása' menüpont "
-"használata sokkal kényelmesebb adatbázisok egyenkénti betöltögetésénél."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:32
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:32
@@ -2702,34 +1953,6 @@ msgstr ""
 "A Mnemosyne képes LeTeX segítségével matematikai formulák megjelenítésére, "
 "pl. <$>x^2+y^2=z^2</$>. (Ehhez telepítenie kell LaTeX-et és dvipng-t.)"
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:46
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:46
-#: ../mnemosyne/pyqt_ui/tip_dlg.py:46
-#, fuzzy
-msgid ""
-"The best way to backup your data is to copy your mnemosyne data directory "
-"and move it to a different drive. Mnemosyne keeps automatic backups, but "
-"that won't help you if that drive dies..."
-msgstr ""
-"Adatainak biztonsági mentésének legjobb módja az, ha lemásolja a .mnemosyne "
-"könyvtárát (amennyiben Ön követi azt az ajánlást, miszerint minden fájlt ott "
-"kell tartani) és a másolatot egy másik meghajtón helyezi el. A Mnemosyne "
-"automatikus XML-alapú biztonsági mentéseket tart a .mnemosyne/backups "
-"mappában, de ez nem nyújt védelmet arra az esetre, ha maga a meghajtó "
-"hibásodna meg... "
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:47
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:47
-#: ../mnemosyne/pyqt_ui/tip_dlg.py:47
-#, fuzzy
-msgid ""
-"You can sort the cards in the 'Browse cards' dialog by by clicking on a "
-"column title. Clicking again changes the sort order."
-msgstr ""
-"Úgy rendezheti kártyáit a 'Pakli szerkesztése' párbeszédablakban válasz vagy "
-"kategória szerint, hogy a megfelelő fejlécre kattint. Egy ismételt kattintás "
-"megfordítja a rendezés sorrendjét."
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:48
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:48
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:48
@@ -2760,19 +1983,6 @@ msgid ""
 "For optimal performance, run 'File - Compact' from time to time, especially "
 "after deleting many cards."
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:52
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:52
-#: ../mnemosyne/pyqt_ui/tip_dlg.py:52
-#, fuzzy
-msgid ""
-"Advanced users can customise more of Mnemosyne by editing the config.py file "
-"in their mnemosyne directory. They can also install additional plugins to "
-"customise Mnemosyne even further."
-msgstr ""
-"A haladó felhasználók a Mnemosyne-ből még többet személyre szabhatnak a ."
-"mnemosyne mappában lévő config.py fájl szerkesztésével. Telepíthetnek "
-"bővítményeket is, amivel további testreszabásra nyílik lehetőség."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_about_dlg.py:81
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_tip_dlg.py:105
@@ -2945,13 +2155,6 @@ msgstr ""
 msgid "Delete unused media files"
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_dlg.py:58
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_dlg.py:58
-#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:58
-#, fuzzy
-msgid "&Defaults"
-msgstr "Alapértelmezés"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:129
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:129
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:129
@@ -2976,13 +2179,6 @@ msgstr ""
 msgid "Left"
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:133
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:133
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:133
-#, fuzzy
-msgid "Center"
-msgstr "Enter"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:134
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:134
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:134
@@ -2995,26 +2191,12 @@ msgstr ""
 msgid "Increase size of non-latin characters by"
 msgstr "Nem-latin betűk nagyobbítása"
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:136
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:136
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:136
-#, fuzzy
-msgid "points."
-msgstr "ponttal"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:137
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:137
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:137
 msgid ""
 "(This setting will be overridden in card types cloned from 'Vocabulary'.)"
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:126
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:126
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:126
-#, fuzzy
-msgid "Scheduler"
-msgstr "Ütemterv"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:127
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:127
@@ -3028,23 +2210,6 @@ msgstr ""
 msgid "in the order they were added"
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:129
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:132
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:129
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:132
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:129
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:132
-#, fuzzy
-msgid "in random order"
-msgstr "Új kártyák véletlenszerű sorrendben tanulása"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:130
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:130
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:130
-#, fuzzy
-msgid "Review memorised cards"
-msgstr "Ezt a kártyát Ön most megjegyezte"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:131
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:131
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:131
@@ -3057,25 +2222,11 @@ msgstr ""
 msgid "Hold"
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:134
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:134
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:134
-#, fuzzy
-msgid "non-memorised cards in your hand"
-msgstr "Egyszerre kézben tartott 0-ás osztályzatú kártyák száma:"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:135
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:135
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:135
 msgid "Autosave after"
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:136
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:136
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:136
-#, fuzzy
-msgid "repetitions"
-msgstr "Feleltetések száma:"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:137
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:137
@@ -3100,13 +2251,6 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:140
 msgid "Science"
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:141
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:141
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:141
-#, fuzzy
-msgid "Upload anonymous science logs"
-msgstr "Anonim naplók feltöltése"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:142
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:142
@@ -3183,47 +2327,11 @@ msgstr ""
 msgid "not having any of these tags:"
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:52
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:52
-#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:52
-#, fuzzy
-msgid "Delete these unused media files?"
-msgstr "Törli ezeket a kártyákat?"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:91
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:91
 #: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:91
 msgid "Introduction"
 msgstr "Bevezető"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:92
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:92
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:92
-#, fuzzy
-msgid ""
-"Welcome to Mnemosyne, a flash card program named both after the Greek "
-"goddess of Memory and a type of butterfly.\n"
-"\n"
-"Mnemosyne makes it more efficient to study, focusing on the cards you're "
-"most likely to forget and not wasting your time on things you know well.\n"
-"\n"
-"For that, Mnemosyne decides when to show you the cards, and you'll need to "
-"rate how well you remember them.\n"
-"\n"
-"Let's look at the meaning of these ratings now."
-msgstr ""
-"Üdvözlet!\n"
-"\n"
-"Mnemosyne vagyok, egy, a memória görög istennőjéről elnevezett lepke.\n"
-"\n"
-"Hatékonyabbá tehetem az Ön számára kérdésekhez tartozó válaszok megtanulását "
-"azáltal, hogy segítek a legfelejthetőbb kártyákra összpontosítani, és nem "
-"pazarolni az idejét olyasmire amit már jól tud.\n"
-"\n"
-"Ezért én döntöm el hogy mikor teszem fel a kérdéseket, és Önnek értékelnie "
-"kell hogy mennyire jól emlékszik a válaszokra.\n"
-"\n"
-"Nézzük most át, hogy mit jelentenek ezek az értékelések!"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:93
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:93
@@ -3231,85 +2339,11 @@ msgstr ""
 msgid "Memorising new cards"
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:94
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:94
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:94
-#, fuzzy
-msgid ""
-"Grades range from 0 to 5.\n"
-"\n"
-"When you are learning new cards, use grades 0 and 1 to signal that you have "
-"not yet memorised them. Grade 1 cards are becoming more familiar than grade "
-"0 cards, and will be repeated less often.\n"
-"\n"
-"These cards will be repeatedly shown until you give them a grade 2 or "
-"higher. This means that you've memorised the card and that you'll be able to "
-"remember it for one or two days. The 'Not memorised' counter will decrease "
-"by one.\n"
-"\n"
-"This card will be scheduled at some future date, when you're likely still be "
-"able to remember it with some effort, without having forgotten it "
-"completely. This is most efficient for the learning process.\n"
-msgstr ""
-"Az osztályzatok 0-tól 5-ig mennek.\n"
-"\n"
-"0-ás és 1-es osztályzatot Ön akkor használjon, amennyiben nem tudja még a "
-"választ, vagy már elfelejtette. Egy 1-es osztályzatú kártya már kezd "
-"ismerősebbnek érződni egy 0-áshoz képest, és ritkábban lesz ismételve.\n"
-"\n"
-"Addig teszem fel ezeket a kérdések újra, amíg Ön nem ad rájuk legalább 2-es "
-"osztályzatot (a pontos jegy ehhez nem számít). A 2-es osztályzat annyit "
-"tesz, hogy Ön úgy érzi már fog tudni emlékezni a kártyára legalább egy-két "
-"napig. Ez jelzi a rövid- és a hosszú távú memória közti átmenetet.\n"
-"\n"
-"Akkorra ütemezem ezt a kártyát a jövőben, amikorra úgy gondolom, hogy Ön még "
-"képes lesz rá emlékezni megfelelő erőfeszítéssel anélkül, hogy azt teljesen "
-"elfejtené. Így a leghatékonyabb a tanulási folyamat tekintetében."
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:95
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:95
 #: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:95
 msgid "Reviewing previously memorised cards"
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:96
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:96
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:96
-#, fuzzy
-msgid ""
-"If you study these cards again tomorrow, the 'Scheduled' counter will tell "
-"you how many previously memorised cards you need to review. These are grade "
-"2 to 5 cards.\n"
-"\n"
-"If a card reappears too soon, and you're able to remember it without any "
-"effort, rate the card a 5. The interval to see this card again will be a lot "
-"longer.\n"
-"\n"
-"If the interval is just right, so that you remember it, albeit with some "
-"effort, use grade 4.\n"
-"\n"
-"If, however, it takes you significant effort to remember the answer, and you "
-"think the interval was too long, then rate the card 3 or even 2.\n"
-"\n"
-"If you fail to remember it altogether, rate it either 0 or 1, and after you "
-"have finished reviewing all the scheduled cards, it will appear repeatedly "
-"until you think you'll be able to remember it again for a few days."
-msgstr ""
-"Amennyiben a jövőben túl korán tenném fel a kérdést, és emiatt Ön "
-"gondolkodás nélkül rávágja a választ, akkor értékelje a kártyát 5-össel. Ezt "
-"figyelembe véve jóval többet fogok várni az adott kérdés újbóli "
-"feltételéig.\n"
-"\n"
-"Ha pont eltalálom, vagyis ha pont megfelelő erőfeszítésbe kerül Önnek a "
-"válasz, akkor értékelje a kártyát 4-essel.\n"
-"\n"
-"Ellenben ha Önnek jelentős erőfeszítésbe kerül előhívni a választ, és úgy "
-"gondolja, hogy túl sokat vártam a kérdés feltételéig, akkor értékelje a "
-"kártyát 3-assal.\n"
-"\n"
-"Amennyiben egyáltalán nem emlékszik rá, osztályozzon 0-ás vagy 1-es "
-"értékeléssel, és én addig ismétlem ezt a kérdést, mígnem Ön úgy gondolja, "
-"hogy fog már rá emlékezni pár napig."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:97
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:97
@@ -3317,80 +2351,11 @@ msgstr ""
 msgid "Statistics"
 msgstr "Statisztika"
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:98
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:98
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:98
-#, fuzzy
-msgid ""
-"If you're into statistics, Mnemosyne keeps detailed logs of your revisions.\n"
-"\n"
-"Not only that, but if you want, Mnemosyne can upload transparently a "
-"completely anonymous version of these logs to a central site for analysis, "
-"so that you can help making the scheduling algorithm better. In this way, "
-"you also contribute to scientific research on long-term memory.\n"
-"\n"
-"Uncheck the following box if you do not want to do this."
-msgstr ""
-"Amennyiben Önt érdekli a statisztika, tudok részletes naplókat vezetni a "
-"munkameneteiről.\n"
-"\n"
-"Ezen felül még, amennyiben Ön is hozzájárul, fel tudok tölteni egy teljesen "
-"névtelenített változatot ezekből a naplókból vizsgálatok céljára egy "
-"központi tárolóba, hogy ezáltal Ön segíthessen engem jobbá tenni. Ezúton Ön "
-"még a hosszútávú emlékezéssel kapcsolatos tudományos kutatásokat is "
-"támogatja.\n"
-"\n"
-"Törölje a pipát a következő jelölőnégyzetből amennyiben Ön ehhez nem járul "
-"hozzá."
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:99
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:99
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:99
-#, fuzzy
-msgid "Upload anonymous logs (can be changed later)"
-msgstr "Anonim naplók feltöltése"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:100
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:100
 #: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:100
 msgid "Ready to start"
 msgstr "Kezdhetjük"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:101
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:101
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:101
-#, fuzzy
-msgid ""
-"Now you're ready to start!\n"
-"\n"
-"Add new cards by clicking on the icon with the 'plus' sign in the top left.\n"
-"\n"
-"Remember, there is no need to worry about saving your work, this will be "
-"done automatically.\n"
-"\n"
-"For best results, it's suggested to do your revisions every day, although "
-"Mnemosyne will try to cope if you've missed a few days.\n"
-"\n"
-"For more documentation, see http://www.mnemosyne-proj.org.\n"
-"\n"
-"Happy learning!"
-msgstr ""
-"Ön most már kezdésre kész!\n"
-"<p>\n"
-"Új kártyák felviteléhez kattintson a bal felső sarokban lévő 'plusz'-jeles "
-"ikonra.\n"
-"<p>\n"
-"Emlékeztetem, hogy nincs szükség munkájának folytonos mentésére, mivel én "
-"ezt megteszem automatikusan.\n"
-"<p>\n"
-"A legjobb eredmény érdekében azt javaslom, hogy végezzen naponta "
-"munkameneteket, bár én megteszek minden tőlem telhetőt annak kezelésére, ha "
-"Ön akár elhalasztaná, akár előrehozná a tanulását.\n"
-"<p>\n"
-"További dokumentációért látogassa meg a következő weboldalt: http://www."
-"mnemosyne-proj.org/ .\n"
-"<p>\n"
-"Jó tanulást!"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_import_dlg.py:89
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_import_dlg.py:89
@@ -3440,45 +2405,17 @@ msgstr "&Súgó"
 msgid "&File"
 msgstr "&Fájl"
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:191
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:191
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:191
-#, fuzzy
-msgid "&Cards"
-msgstr "Kártya"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:192
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:192
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:192
-#, fuzzy
-msgid "toolBar"
-msgstr "&Eszköztár mutatása"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:193
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:193
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:193
 msgid "(De)a&ctivate cards..."
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:195
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:195
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:195
-#, fuzzy
-msgid "&Add cards..."
-msgstr "Kártyák &felvitele"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:196
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:196
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:196
 msgid "Ctrl+A"
 msgstr "Ctrl+F"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:197
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:197
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:197
-#, fuzzy
-msgid "&Configure Mnemosyne..."
-msgstr "Mnemosyne &beállítások"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:198
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:198
@@ -3492,39 +2429,11 @@ msgstr "Jelenlegi kártya tö&rlése"
 msgid "Backspace"
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:200
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:200
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:200
-#, fuzzy
-msgid "&Edit current card..."
-msgstr "Jelenlegi kártya &szerkesztése"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:201
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:201
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:201
 msgid "Ctrl+E"
 msgstr "Ctrl+S"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:202
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:202
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:202
-#, fuzzy
-msgid "&Browse cards..."
-msgstr "&Tallózás"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:203
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:203
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:203
-#, fuzzy
-msgid "Ctrl+B"
-msgstr "Ctrl+0"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:204
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:204
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:204
-#, fuzzy
-msgid "&Export..."
-msgstr "&Exportálás"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:205
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:62
@@ -3537,13 +2446,6 @@ msgstr "&Exportálás"
 #: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:75
 msgid "E&xit"
 msgstr "&Bezár"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:206
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:206
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:206
-#, fuzzy
-msgid "&New..."
-msgstr "Ú&j"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:207
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:207
@@ -3569,38 +2471,17 @@ msgstr "Ctrl+M"
 msgid "&Save"
 msgstr "Menté&s"
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:212
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:212
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:212
-#, fuzzy
-msgid "Save &as..."
-msgstr "Me&ntés másként..."
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:213
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:213
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:213
 msgid "&About"
 msgstr "&Névjegy"
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:214
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:214
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:214
-#, fuzzy
-msgid "&Import..."
-msgstr "&Importálás"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:215
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:215
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:215
 msgid "&Getting started"
 msgstr "&Bevezető"
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:216
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:216
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:216
-#, fuzzy
-msgid "Show s&tatistics..."
-msgstr "S&tatisztikák mutatása"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:217
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:217
@@ -3638,13 +2519,6 @@ msgstr ""
 msgid "S&ync..."
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:223
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:223
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:223
-#, fuzzy
-msgid "Ctrl+Y"
-msgstr "Ctrl+0"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:224
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:224
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:224
@@ -3669,25 +2543,11 @@ msgstr ""
 msgid "Installed plugins (active and inactive):"
 msgstr ""
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:69
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:69
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:71
-#, fuzzy
-msgid "Plugin description:"
-msgstr "Kiejtés:"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:71
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:71
 #: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:73
 msgid "&Install new plugin"
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:72
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:72
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:74
-#, fuzzy
-msgid "&Delete plugin"
-msgstr "Tö&rlés"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:91
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:91
@@ -3713,13 +2573,6 @@ msgstr "Kérdés:"
 msgid "Answer:"
 msgstr "Válasz:"
 
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:94
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:94
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:94
-#, fuzzy
-msgid "&Previous sister card"
-msgstr "Kártya előnézete"
-
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:95
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:95
 #: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:95
@@ -3743,13 +2596,6 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:52
 msgid "Enter new tag name:"
 msgstr ""
-
-#: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_review_wdgt.py:108
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_review_wdgt.py:108
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:108
-#, fuzzy
-msgid "Show &answer"
-msgstr "Mutasd a választ"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_review_wdgt.py:110
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_review_wdgt.py:111
@@ -3864,12 +2710,6 @@ msgstr "Alt+K"
 #: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:104
 msgid "&Close"
 msgstr "&Bezár"
-
-#: ../dist/Mnemosyne-2.0-RC1/mnemosyne/example_plugins/avg_grade_statistics.py:61
-#: ../mnemosyne/example_plugins/avg_grade_statistics.py:61
-#, fuzzy
-msgid "Average grades of scheduled cards"
-msgstr "Ütemterv előtti tanulás"
 
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/example_plugins/new_card_type.py:13
 #: ../mnemosyne/example_plugins/new_card_type.py:13

@@ -1,3 +1,7 @@
+-norwegian
+-automatic import, also for new languages
+-delete unmaintained langs (amharic, brazilian)
+
 -log file permissions
     class Stderr(object):
         softspace = 0
@@ -43,11 +47,6 @@
                 self._file.flush()
 
     sys.stderr = Stderr()
-
-
-
--what happens with fuzzy matches on the website? Remove fuzzy matching in update script?
--automatic import, also for new languages
 
 -plugin for interval multiplication factor
 
