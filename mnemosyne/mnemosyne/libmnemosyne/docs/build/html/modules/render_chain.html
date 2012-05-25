@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>RenderChain &mdash; libmnemosyne v2.0 documentation</title>
+    <title>RenderChain &mdash; libmnemosyne 2.0 documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
+    <link rel="top" title="libmnemosyne 2.0 documentation" href="../index.html" />
     <link rel="next" title="Filter" href="filter.html" />
     <link rel="prev" title="CardTypeConverter" href="card_type_converter.html" /> 
   </head>
@@ -42,7 +45,7 @@
         <li class="right" >
           <a href="card_type_converter.html" title="CardTypeConverter"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -67,9 +70,24 @@ card type specific.</p>
 &#8216;renderers&#8217;: list or Renderer classes</p>
 <p>Plugins can add Filters or Renderers for a new card type to a chain at run
 time.</p>
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.component_type">
+<tt class="descname">component_type</tt><em class="property"> = 'render_chain'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.component_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.filter">
 <tt class="descname">filter</tt><big>(</big><em>filter_class</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.filter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.filters">
+<tt class="descname">filters</tt><em class="property"> = []</em><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.filters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.id">
+<tt class="descname">id</tt><em class="property"> = 'default'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -121,6 +139,11 @@ in this list.)</p>
 <tt class="descname">renderer_for_card_type</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.renderer_for_card_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.renderers">
+<tt class="descname">renderers</tt><em class="property"> = []</em><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.renderers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.unregister_filter">
 <tt class="descname">unregister_filter</tt><big>(</big><em>filter_class</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.unregister_filter" title="Permalink to this definition">¶</a></dt>
@@ -157,7 +180,7 @@ in this list.)</p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -186,13 +209,13 @@ in this list.)</p>
         <li class="right" >
           <a href="card_type_converter.html" title="CardTypeConverter"
              >previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Feb 26, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on May 25, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

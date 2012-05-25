@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Hook &mdash; libmnemosyne v2.0 documentation</title>
+    <title>Hook &mdash; libmnemosyne 2.0 documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
+    <link rel="top" title="libmnemosyne 2.0 documentation" href="../index.html" />
     <link rel="next" title="LogUploader" href="log_uploader.html" />
     <link rel="prev" title="FileFormat" href="file_format.html" /> 
   </head>
@@ -42,7 +45,7 @@
         <li class="right" >
           <a href="file_format.html" title="FileFormat"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -66,31 +69,31 @@ hook points:</p>
 <col width="46%" />
 </colgroup>
 <tbody valign="top">
-<tr><td>&#8216;after_load&#8217;</td>
+<tr class="row-odd"><td>&#8216;after_load&#8217;</td>
 <td>in database.load</td>
 </tr>
-<tr><td>&#8216;after_backup&#8217;</td>
+<tr class="row-even"><td>&#8216;after_backup&#8217;</td>
 <td>in database.backup</td>
 </tr>
-<tr><td>&#8216;before_unload&#8217;</td>
+<tr class="row-odd"><td>&#8216;before_unload&#8217;</td>
 <td>in database.unload</td>
 </tr>
-<tr><td>&#8216;configuration_defaults&#8217;</td>
+<tr class="row-even"><td>&#8216;configuration_defaults&#8217;</td>
 <td>in configuration.set_defaults</td>
 </tr>
-<tr><td>&#8216;before_repetititon&#8217;</td>
+<tr class="row-odd"><td>&#8216;before_repetititon&#8217;</td>
 <td>in SM2_mnemosyne.grade_answer
 extra argument: card</td>
 </tr>
-<tr><td>&#8216;after_repetititon&#8217;</td>
+<tr class="row-even"><td>&#8216;after_repetititon&#8217;</td>
 <td>in SM2_mnemosyne.grade_answer
 extra argument: card</td>
 </tr>
-<tr><td>&#8216;dynamically_create_media_files&#8217;</td>
+<tr class="row-odd"><td>&#8216;dynamically_create_media_files&#8217;</td>
 <td>in SQLite_sync
 extra argument: data</td>
 </tr>
-<tr><td>&#8216;delete_unused_media_files&#8217;</td>
+<tr class="row-even"><td>&#8216;delete_unused_media_files&#8217;</td>
 <td>in SQLite_sync</td>
 </tr>
 </tbody>
@@ -98,6 +101,11 @@ extra argument: data</td>
 </div></blockquote>
 <p>It is the &#8216;run&#8217; method that will get called at the corresponding point
 in the program.</p>
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.hook.Hook.component_type">
+<tt class="descname">component_type</tt><em class="property"> = 'hook'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.hook.Hook.component_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.hook.Hook.run">
 <tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.hook.Hook.run" title="Permalink to this definition">¶</a></dt>
@@ -127,7 +135,7 @@ in the program.</p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -156,13 +164,13 @@ in the program.</p>
         <li class="right" >
           <a href="file_format.html" title="FileFormat"
              >previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Feb 26, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on May 25, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

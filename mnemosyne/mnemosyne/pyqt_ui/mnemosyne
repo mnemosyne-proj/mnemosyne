@@ -6,7 +6,25 @@
 
 import os
 import sys
-import ctypes
+
+# Custom error handling on Windows.
+
+if sys.platform == "win32":
+
+    import ctypes
+
+    class Stderr(object):
+
+        # Note: it would be nice to queue the messages and display them
+        # using atexit, but but atexit does not seem to run.
+
+        def write(self, text):
+            if text.strip():
+                MessageBox = ctypes.windll.user32.MessageBoxA
+                MessageBox(None, text, "Mnemosyne", 0)
+
+    sys.stderr = Stderr()
+
 from optparse import OptionParser
 
 from PyQt4.QtGui import QApplication

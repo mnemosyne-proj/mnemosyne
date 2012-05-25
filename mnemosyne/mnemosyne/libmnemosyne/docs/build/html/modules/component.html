@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Component &mdash; libmnemosyne v2.0 documentation</title>
+    <title>Component &mdash; libmnemosyne 2.0 documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
+    <link rel="top" title="libmnemosyne 2.0 documentation" href="../index.html" />
     <link rel="next" title="ComponentManager" href="component_manager.html" />
     <link rel="prev" title="Libmnemosyne overview" href="../index.html" /> 
   </head>
@@ -42,7 +45,7 @@
         <li class="right" >
           <a href="../index.html" title="Libmnemosyne overview"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -79,6 +82,16 @@ because it hold a reference to the user&#8217;s component manager.</p>
 constructor, as many component make use of it in their __init__ method.
 This means that derived components should always call the
 Component.__init__ if they provide their own constructor.</p>
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.component.Component.IMMEDIATELY">
+<tt class="descname">IMMEDIATELY</tt><em class="property"> = 0</em><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.IMMEDIATELY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.component.Component.LATER">
+<tt class="descname">LATER</tt><em class="property"> = 1</em><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.LATER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.component.Component.activate">
 <tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.activate" title="Permalink to this definition">¶</a></dt>
@@ -95,6 +108,11 @@ components on which it relies have not yet been registered.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.component.Component.card_types">
 <tt class="descname">card_types</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.card_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.component.Component.component_type">
+<tt class="descname">component_type</tt><em class="property"> = ''</em><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.component_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -127,6 +145,11 @@ change the database (e.g. adding a card). Otherwise, if these
 sessions close later during program shutdown, their backup
 restoration will override the changes.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.component.Component.instantiate">
+<tt class="descname">instantiate</tt><em class="property"> = 0</em><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.instantiate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.component.Component.log">
@@ -182,6 +205,11 @@ controller.</p>
 <tt class="descname">translator</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.translator" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.component.Component.used_for">
+<tt class="descname">used_for</tt><em class="property"> = None</em><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.used_for" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -206,7 +234,7 @@ controller.</p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -235,13 +263,13 @@ controller.</p>
         <li class="right" >
           <a href="../index.html" title="Libmnemosyne overview"
              >previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Feb 26, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on May 25, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

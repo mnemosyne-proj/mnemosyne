@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Filter &mdash; libmnemosyne v2.0 documentation</title>
+    <title>Filter &mdash; libmnemosyne 2.0 documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
+    <link rel="top" title="libmnemosyne 2.0 documentation" href="../index.html" />
     <link rel="next" title="Renderer" href="renderer.html" />
     <link rel="prev" title="RenderChain" href="render_chain.html" /> 
   </head>
@@ -42,7 +45,7 @@
         <li class="right" >
           <a href="render_chain.html" title="RenderChain"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -63,6 +66,11 @@ useful for many different card types.</p>
 <p>The filters are executed in the order they are listed in the RenderChain.
 If you really need to make sure that your filter runs before the
 rest, set &#8216;in_front=True&#8217; as argument in &#8216;render_chain.register_filter&#8217;.</p>
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.filter.Filter.component_type">
+<tt class="descname">component_type</tt><em class="property"> = 'filter'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.component_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.filter.Filter.run">
 <tt class="descname">run</tt><big>(</big><em>text</em>, <em>card</em>, <em>fact_key</em>, <em>**render_args</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.run" title="Permalink to this definition">¶</a></dt>
@@ -92,7 +100,7 @@ rest, set &#8216;in_front=True&#8217; as argument in &#8216;render_chain.registe
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -121,13 +129,13 @@ rest, set &#8216;in_front=True&#8217; as argument in &#8216;render_chain.registe
         <li class="right" >
           <a href="render_chain.html" title="RenderChain"
              >previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Feb 26, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on May 25, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

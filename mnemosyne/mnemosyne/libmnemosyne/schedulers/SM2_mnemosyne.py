@@ -244,7 +244,8 @@ class SM2Mnemosyne(Scheduler):
         limit = self.config()["non_memorised_cards_in_hand"]
         non_memorised_in_queue = 0
         if self.stage == 2:
-            for _card_id, _fact_id in db.cards_to_relearn(grade=1):
+            for _card_id, _fact_id in db.cards_to_relearn(grade=1,
+                sort_key="-interval"):
                 if _fact_id not in self._fact_ids_in_queue:
                     if non_memorised_in_queue < limit:
                         self._card_ids_in_queue.append(_card_id)
@@ -252,7 +253,8 @@ class SM2Mnemosyne(Scheduler):
                         non_memorised_in_queue += 1
                     if non_memorised_in_queue == limit:
                         break
-            for _card_id, _fact_id in db.cards_to_relearn(grade=0):
+            for _card_id, _fact_id in db.cards_to_relearn(grade=0,
+                sort_key="-interval"):
                 if _fact_id not in self._fact_ids_in_queue:
                     if non_memorised_in_queue < limit:
                         self._card_ids_in_queue.append(_card_id)

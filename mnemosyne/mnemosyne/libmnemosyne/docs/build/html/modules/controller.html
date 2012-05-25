@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Controller &mdash; libmnemosyne v2.0 documentation</title>
+    <title>Controller &mdash; libmnemosyne 2.0 documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
+    <link rel="top" title="libmnemosyne 2.0 documentation" href="../index.html" />
     <link rel="next" title="ReviewController" href="review_controller.html" />
     <link rel="prev" title="Renderer" href="renderer.html" /> 
   </head>
@@ -42,7 +45,7 @@
         <li class="right" >
           <a href="renderer.html" title="Renderer"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -75,6 +78,11 @@ dialog can use to perform GUI-independent operations.</p>
 <tt class="descname">clone_card_type</tt><big>(</big><em>card_type</em>, <em>clone_name</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.clone_card_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.controller.Controller.component_type">
+<tt class="descname">component_type</tt><em class="property"> = 'controller'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.component_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.create_new_cards">
 <tt class="descname">create_new_cards</tt><big>(</big><em>fact_data</em>, <em>card_type</em>, <em>grade</em>, <em>tag_names</em>, <em>check_for_duplicates=True</em>, <em>save=True</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.create_new_cards" title="Permalink to this definition">¶</a></dt>
@@ -96,6 +104,11 @@ dialog can use to perform GUI-independent operations.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.controller.Controller.delete_plugin">
+<tt class="descname">delete_plugin</tt><big>(</big><em>plugin</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.delete_plugin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.edit_sister_cards">
 <tt class="descname">edit_sister_cards</tt><big>(</big><em>fact</em>, <em>new_fact_data</em>, <em>old_card_type</em>, <em>new_card_type</em>, <em>new_tag_names</em>, <em>correspondence</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.edit_sister_cards" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -107,13 +120,13 @@ dialog can use to perform GUI-independent operations.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.controller.Controller.save_file">
-<tt class="descname">save_file</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.save_file" title="Permalink to this definition">¶</a></dt>
+<dt id="mnemosyne.libmnemosyne.controller.Controller.install_plugin">
+<tt class="descname">install_plugin</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.install_plugin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.controller.Controller.show_activate_plugins_dialog">
-<tt class="descname">show_activate_plugins_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_activate_plugins_dialog" title="Permalink to this definition">¶</a></dt>
+<dt id="mnemosyne.libmnemosyne.controller.Controller.save_file">
+<tt class="descname">save_file</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.save_file" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -175,6 +188,11 @@ filetypes.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.show_manage_card_types_dialog">
 <tt class="descname">show_manage_card_types_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_manage_card_types_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.controller.Controller.show_manage_plugins_dialog">
+<tt class="descname">show_manage_plugins_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_manage_plugins_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -241,7 +259,7 @@ filetypes.</p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -270,13 +288,13 @@ filetypes.</p>
         <li class="right" >
           <a href="renderer.html" title="Renderer"
              >previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Feb 26, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on May 25, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

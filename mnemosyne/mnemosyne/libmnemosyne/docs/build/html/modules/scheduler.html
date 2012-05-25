@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Scheduler &mdash; libmnemosyne v2.0 documentation</title>
+    <title>Scheduler &mdash; libmnemosyne 2.0 documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
+    <link rel="top" title="libmnemosyne 2.0 documentation" href="../index.html" />
     <link rel="next" title="Stopwatch" href="stopwatch.html" />
     <link rel="prev" title="Plugin" href="plugin.html" /> 
   </head>
@@ -42,7 +45,7 @@
         <li class="right" >
           <a href="plugin.html" title="Plugin"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -62,12 +65,25 @@
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.avoid_sister_cards">
+<tt class="descname">avoid_sister_cards</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.avoid_sister_cards" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change card.next_rep to make sure that the card is not scheduled
+on the same day as a sister card.</p>
+<p>Factored out here to allow this to be used by e.g. MnemoGogo.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.card_count_scheduled_n_days_from_now">
 <tt class="descname">card_count_scheduled_n_days_from_now</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.card_count_scheduled_n_days_from_now" title="Permalink to this definition">¶</a></dt>
 <dd><p>Yesterday: n=-1, today: n=0, tomorrow: n=1, ... .</p>
 <p>Is not implemented in the database, because this could need internal
 scheduler information.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.component_type">
+<tt class="descname">component_type</tt><em class="property"> = 'scheduler'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.component_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.grade_answer">
@@ -99,6 +115,11 @@ the previous one?</p>
 <tt class="descname">last_rep_to_interval_string</tt><big>(</big><em>last_rep</em>, <em>now=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.last_rep_to_interval_string" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts last_rep to a string like &#8216;yesterday&#8217;, &#8216;2 weeks ago&#8217;, ...</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.name">
+<tt class="descname">name</tt><em class="property"> = ''</em><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.next_card">
@@ -142,8 +163,10 @@ becoming invalid, e.g. when cards have been deleted in the GUI.
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.set_initial_grade">
-<tt class="descname">set_initial_grade</tt><big>(</big><em>card</em>, <em>grade</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.set_initial_grade" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called when cards are given their initial grade outside of the
+<tt class="descname">set_initial_grade</tt><big>(</big><em>cards</em>, <em>grade</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.set_initial_grade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the initial grades for a set of sister cards, making sure
+their next repetitions do no fall on the same day.</p>
+<p>Called when cards are given their initial grade outside of the
 review process, e.g. when the user gives an initial grade when
 adding a new card in the GUI. Therefore, &#8216;unseen&#8217; is still left to
 True, as this card has not yet been seen in the interactive review
@@ -182,7 +205,7 @@ but all the relevant information can still be parsed from them.)</p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -211,13 +234,13 @@ but all the relevant information can still be parsed from them.)</p>
         <li class="right" >
           <a href="plugin.html" title="Plugin"
              >previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Feb 26, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on May 25, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

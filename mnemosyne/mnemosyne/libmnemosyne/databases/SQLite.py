@@ -1311,6 +1311,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             return "random()"
         elif sort_key == "interval":
             return "next_rep - last_rep"
+        elif sort_key == "-interval":
+            return "last_rep - next_rep"
         else:
             return sort_key
 

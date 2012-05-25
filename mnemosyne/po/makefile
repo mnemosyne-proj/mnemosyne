@@ -10,15 +10,13 @@ LANGS = ../mo/cs/LC_MESSAGES/mnemosyne.mo \
 	../mo/id/LC_MESSAGES/mnemosyne.mo \
 	../mo/it/LC_MESSAGES/mnemosyne.mo \
 	../mo/ja/LC_MESSAGES/mnemosyne.mo \
-	../mo/nb_no/LC_MESSAGES/mnemosyne.mo \
+	../mo/nb_NO/LC_MESSAGES/mnemosyne.mo \
 	../mo/nl/LC_MESSAGES/mnemosyne.mo \
 	../mo/pl/LC_MESSAGES/mnemosyne.mo \
-	../mo/pt_BR/LC_MESSAGES/mnemosyne.mo \
 	../mo/ru/LC_MESSAGES/mnemosyne.mo \
 	../mo/tr/LC_MESSAGES/mnemosyne.mo \
 	../mo/zh_CN/LC_MESSAGES/mnemosyne.mo \
 	../mo/zh_HK/LC_MESSAGES/mnemosyne.mo \
-	../mo/zh_SG/LC_MESSAGES/mnemosyne.mo \
 	../mo/zh_TW/LC_MESSAGES/mnemosyne.mo
 
 default: $(LANGS)

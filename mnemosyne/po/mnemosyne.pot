@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-05-25 08:22+CEST\n"
+"POT-Creation-Date: 2012-05-25 16:42+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1360,14 +1360,14 @@ msgstr ""
 #:
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:562
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:562
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:539
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:541
 msgid "You've memorised 15 new or failed cards."
 msgstr ""
 
 #:
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:563
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:563
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:540
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:542
 msgid "If you do this for many days, you could get a big workload later."
 msgstr ""
 
@@ -1378,44 +1378,44 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:609
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:613
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:618
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:586
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:590
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:595
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:588
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:592
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:597
 msgid "in"
 msgstr ""
 
 #:
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:610
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:610
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:587
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:589
 msgid "years"
 msgstr ""
 
 #:
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:614
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:614
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:591
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:593
 msgid "months"
 msgstr ""
 
 #:
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:616
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:616
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:593
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:595
 msgid "in 1 month"
 msgstr ""
 
 #:
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:619
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:619
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:596
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:598
 msgid "days"
 msgstr ""
 
 #:
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:621
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:621
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:598
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:600
 msgid "tomorrow"
 msgstr ""
 
@@ -1424,8 +1424,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:653
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:623
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:653
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:600
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:630
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:602
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:632
 msgid "today"
 msgstr ""
 
@@ -1434,8 +1434,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:655
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:625
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:655
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:602
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:632
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:604
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:634
 msgid "yesterday"
 msgstr ""
 
@@ -1444,8 +1444,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:657
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:627
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:657
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:604
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:634
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:606
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:636
 msgid "days ago"
 msgstr ""
 
@@ -1454,8 +1454,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:659
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:629
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:659
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:606
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:636
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:608
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:638
 msgid "1 month ago"
 msgstr ""
 
@@ -1464,8 +1464,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:662
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:632
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:662
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:609
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:639
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:611
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:641
 msgid "months ago"
 msgstr ""
 
@@ -1474,8 +1474,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:665
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:635
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:665
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:612
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:642
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:614
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:644
 msgid "years ago"
 msgstr ""
 

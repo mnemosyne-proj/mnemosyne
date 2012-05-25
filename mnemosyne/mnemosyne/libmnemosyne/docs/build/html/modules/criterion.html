@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Criterion &mdash; libmnemosyne v2.0 documentation</title>
+    <title>Criterion &mdash; libmnemosyne 2.0 documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
+    <link rel="top" title="libmnemosyne 2.0 documentation" href="../index.html" />
     <link rel="next" title="How to write a new frontend" href="how_to_write_a_new_frontend.html" />
     <link rel="prev" title="StatisticsPage" href="statistics_page.html" /> 
   </head>
@@ -42,7 +45,7 @@
         <li class="right" >
           <a href="statistics_page.html" title="StatisticsPage"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -61,6 +64,16 @@ active, i.e. included in the review process.</p>
 <p>The available criteria are stored as classes in the component_manager,
 the actual instances together with their data are stored in the database.</p>
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.criterion.Criterion.active_card_type_added">
+<tt class="descname">active_card_type_added</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.active_card_type_added" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.criterion.Criterion.active_tag_added">
+<tt class="descname">active_tag_added</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.active_tag_added" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.apply_to_card">
 <tt class="descname">apply_to_card</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.apply_to_card" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the card active or not depending on the criterion. Does not
@@ -73,13 +86,18 @@ destroyed, such that Criteria can update their status if needed.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.criterion.Criterion.card_type_added">
-<tt class="descname">card_type_added</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.card_type_added" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.card_type_deleted">
 <tt class="descname">card_type_deleted</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.card_type_deleted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.criterion.Criterion.component_type">
+<tt class="descname">component_type</tt><em class="property"> = 'criterion'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.component_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.criterion.Criterion.criterion_type">
+<tt class="descname">criterion_type</tt><em class="property"> = ''</em><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.criterion_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -99,6 +117,21 @@ of _ids.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.criterion.Criterion.deactivated_card_type_added">
+<tt class="descname">deactivated_card_type_added</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.deactivated_card_type_added" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.criterion.Criterion.deactivated_tag_added">
+<tt class="descname">deactivated_tag_added</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.deactivated_tag_added" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.criterion.Criterion.instantiate">
+<tt class="descname">instantiate</tt><em class="property"> = 1</em><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.instantiate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.is_empty">
 <tt class="descname">is_empty</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.is_empty" title="Permalink to this definition">¶</a></dt>
 <dd><p>Used to prevent people from creating a criterion which can never
@@ -113,11 +146,6 @@ contain any cards (e.g. disabling all card types).</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.set_data_from_sync_string">
 <tt class="descname">set_data_from_sync_string</tt><big>(</big><em>data_string</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.set_data_from_sync_string" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.criterion.Criterion.tag_added">
-<tt class="descname">tag_added</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.tag_added" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -139,6 +167,11 @@ backend.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.criterion.CriterionApplier.apply_to_database">
 <tt class="descname">apply_to_database</tt><big>(</big><em>criterion</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.CriterionApplier.apply_to_database" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.criterion.CriterionApplier.component_type">
+<tt class="descname">component_type</tt><em class="property"> = 'criterion_applier'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.CriterionApplier.component_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -165,7 +198,7 @@ backend.</p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -194,13 +227,13 @@ backend.</p>
         <li class="right" >
           <a href="statistics_page.html" title="StatisticsPage"
              >previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Feb 26, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on May 25, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>CardType &mdash; libmnemosyne v2.0 documentation</title>
+    <title>CardType &mdash; libmnemosyne 2.0 documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
+    <link rel="top" title="libmnemosyne 2.0 documentation" href="../index.html" />
     <link rel="next" title="Card" href="card.html" />
     <link rel="prev" title="TagTree" href="tag_tree.html" /> 
   </head>
@@ -42,7 +45,7 @@
         <li class="right" >
           <a href="tag_tree.html" title="TagTree"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -79,11 +82,16 @@ types needing hidden keys, dynamically generated keys, ... .</p>
 <p>The functions &#8216;create_sister_cards&#8217; and &#8216;edit_sister_cards&#8217; can be
 overridden by card types which can have a varying number of fact views,
 e.g. the cloze card type.</p>
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.component_type">
+<tt class="descname">component_type</tt><em class="property"> = 'card_type'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.component_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.create_sister_cards">
 <tt class="descname">create_sister_cards</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.create_sister_cards" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initial grading of cards and storing in the database should not happen
-here, but is done in the main controller.</p>
+<dd><p>Initial grading of cards and storing in the database should not
+happen here, but is done in the main controller.</p>
 </dd></dl>
 
 <dl class="method">
@@ -96,6 +104,11 @@ account in the database storage.</p>
 <p>Initial grading of cards and storing in the database should not happen
 here, but is done in the main controller.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.extra_data">
+<tt class="descname">extra_data</tt><em class="property"> = {}</em><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.extra_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.fact_data">
@@ -130,11 +143,36 @@ a dictionary with this correspondence.</p>
 <tt class="descname">fact_keys</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.fact_keys" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.fact_keys_and_names">
+<tt class="descname">fact_keys_and_names</tt><em class="property"> = None</em><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.fact_keys_and_names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.fact_views">
+<tt class="descname">fact_views</tt><em class="property"> = None</em><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.fact_views" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.id">
+<tt class="descname">id</tt><em class="property"> = '-1'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.is_fact_data_valid">
 <tt class="descname">is_fact_data_valid</tt><big>(</big><em>fact_data</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.is_fact_data_valid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if all the required keys are present.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.keyboard_shortcuts">
+<tt class="descname">keyboard_shortcuts</tt><em class="property"> = {}</em><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.keyboard_shortcuts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.name">
+<tt class="descname">name</tt><em class="property"> = ''</em><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.render_answer">
@@ -144,6 +182,16 @@ a dictionary with this correspondence.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.render_question">
 <tt class="descname">render_question</tt><big>(</big><em>card</em>, <em>render_chain='default'</em>, <em>**render_args</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.render_question" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.required_fact_keys">
+<tt class="descname">required_fact_keys</tt><em class="property"> = None</em><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.required_fact_keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.unique_fact_keys">
+<tt class="descname">unique_fact_keys</tt><em class="property"> = None</em><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.unique_fact_keys" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -170,7 +218,7 @@ a dictionary with this correspondence.</p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -199,13 +247,13 @@ a dictionary with this correspondence.</p>
         <li class="right" >
           <a href="tag_tree.html" title="TagTree"
              >previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Feb 26, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on May 25, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>
