@@ -2,15 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-25 16:42+CEST\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-05-25 18:51+0000\n"
+"PO-Revision-Date: 2012-05-24 23:16+0000\n"
+"Last-Translator: Peter Bienstman <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.9.0\n"
+"X-Launchpad-Export-Date: 2012-05-27 04:40+0000\n"
+"X-Generator: Launchpad (build 15288)\n"
+"Language: \n"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/__init__.py:264
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/__init__.py:277
@@ -1121,7 +1122,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
-msgid "Correct answer, with some effort. The interval was probably just right."
+msgid ""
+"Correct answer, with some effort. The interval was probably just right."
 msgstr ""
 "Risposta corretta, con un po' di fatica. Probabilmente l'intervallo era "
 "giusto."
@@ -1631,8 +1633,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/about_dlg.py:31
 #: ../mnemosyne/pyqt_ui/about_dlg.py:31
 msgid ""
-"Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-proj."
-"org</a> for more information and source code."
+"Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-"
+"proj.org</a> for more information and source code."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:87
@@ -1668,7 +1670,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:118
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/activate_cards_dlg.py:118
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:118
-msgid "You can right-click on the name of a saved set to rename or delete it."
+msgid ""
+"You can right-click on the name of a saved set to rename or delete it."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:122
@@ -1693,8 +1696,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:30
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:29 ../mnemosyne/pyqt_ui/tip_dlg.py:30
 msgid ""
-"You can organise tags in a hierarchy by using :: as separator, e.g. My book::"
-"Lesson 1."
+"You can organise tags in a hierarchy by using :: as separator, e.g. My "
+"book::Lesson 1."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/add_cards_dlg.py:30
@@ -2452,9 +2455,10 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:22
 msgid ""
 "The 'number of non-memorised cards to hold in your hand' setting determines "
-"how many cards you are trying to (re)learn at the same time. It does <b>not</"
-"b> tell you how many new cards you need to learn per day. You are the judge "
-"of that: you can learn more cards or less cards, depending on how you feel."
+"how many cards you are trying to (re)learn at the same time. It does "
+"<b>not</b> tell you how many new cards you need to learn per day. You are "
+"the judge of that: you can learn more cards or less cards, depending on how "
+"you feel."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:23
@@ -2556,27 +2560,27 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:43
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:43
 msgid ""
-"In the 'Add cards' dialog, use Tab to move between different fields, Ctrl"
-"+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
+"In the 'Add cards' dialog, use Tab to move between different fields, "
+"Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:44
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:44
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:44
 msgid ""
-"In the 'Edit card' dialog, use Tab to move between different fields and Ctrl"
-"+Enter to close the dialog."
+"In the 'Edit card' dialog, use Tab to move between different fields and "
+"Ctrl+Enter to close the dialog."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:45
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:45
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:45
 msgid ""
-"Mnemosyne can use LaTeX to render mathematical formulas, e.g. <"
-"$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
+"Mnemosyne can use LaTeX to render mathematical formulas, e.g. "
+"<$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
 msgstr ""
-"Mnemosyne può usare LaTeX per rappresentare formule matematiche, ad es. <"
-"$>x^2+y^2=z^2</$>. (LaTex e dvipng devono essere installati)"
+"Mnemosyne può usare LaTeX per rappresentare formule matematiche, ad es. "
+"<$>x^2+y^2=z^2</$>. (LaTex e dvipng devono essere installati)"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:46
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:46
@@ -3647,464 +3651,3 @@ msgstr ""
 #: ../tests/test_translator.py:32
 msgid "This is a test."
 msgstr ""
-
-#~ msgid "Invalid file format."
-#~ msgstr "Formato del file non valido."
-
-#~ msgid "Unrecognised encoding."
-#~ msgstr "Codifica sconosciuta."
-
-#~ msgid "&Overwrite"
-#~ msgstr "&Sovrascrivi"
-
-#~ msgid "Removed duplicates: "
-#~ msgstr "Duplicati rimossi:"
-
-#~ msgid ""
-#~ "There are cards with different answers for question:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Sono presenti carte con differenti risposte per la domanda:\n"
-#~ "\n"
-
-#~ msgid "&Don't merge"
-#~ msgstr "&Non unire"
-
-#~ msgid " Show it less often."
-#~ msgstr " Mostrala meno spesso."
-
-#~ msgid " and will probably remember it for a few days."
-#~ msgstr " e probabilmente la ricorderai per alcuni giorni."
-
-#~ msgid "Correct answer, but with much effort."
-#~ msgstr "Risposta corretta, ma con molta fatica."
-
-#~ msgid " The interval was probably too long."
-#~ msgstr " Probabilmente l'intervallo era troppo lungo."
-
-#~ msgid "Correct answer, with some effort."
-#~ msgstr "Risposta corretta, con un po' di fatica."
-
-#~ msgid " The interval was probably just right."
-#~ msgstr " Probabilmente l'intervallo era giusto."
-
-#~ msgid "Correct answer, but without any"
-#~ msgstr "Risposta corretta, ma senza nessuna"
-
-#~ msgid " difficulties. The interval was probably too short."
-#~ msgstr " difficoltà. Probabilmente l'intervallo era troppo breve."
-
-#~ msgid "About"
-#~ msgstr "Informazioni"
-
-#~ msgid "Activate categories"
-#~ msgstr "Attiva categorie"
-
-#~ msgid "Select the categories to activate:"
-#~ msgstr "Seleziona le categorie da attivare:"
-
-#~ msgid "Activate none"
-#~ msgstr "Disattivale tutte"
-
-#~ msgid "<default>"
-#~ msgstr "<predefinita>"
-
-#~ msgid "Written form:"
-#~ msgstr "Forma scritta:"
-
-#~ msgid "Translation:"
-#~ msgstr "Traduzione:"
-
-#~ msgid "Duplicate not added."
-#~ msgstr "Duplicato non aggiunto."
-
-#~ msgid "There are different answers for"
-#~ msgstr "Ci sono differenti risposte per"
-
-#~ msgid ""
-#~ " this question:\n"
-#~ "\n"
-#~ msgstr ""
-#~ " questa domanda:\n"
-#~ "\n"
-
-#~ msgid "Category:"
-#~ msgstr "Categoria:"
-
-#~ msgid "Add &vice versa too"
-#~ msgstr "Aggiungi anche la carta &opposta"
-
-#~ msgid "Alt+V"
-#~ msgstr "Alt+V"
-
-#~ msgid "&0"
-#~ msgstr "&0"
-
-#~ msgid "You don't remember this item yet or forgot it."
-#~ msgstr "Ancora non ricordi questo elemento o lo hai dimenticato."
-
-#~ msgid "&1"
-#~ msgstr "&1"
-
-#~ msgid "Ctrl+1"
-#~ msgstr "Ctrl+1"
-
-#~ msgid "Like '0', but the item is getting more familiar."
-#~ msgstr "Come '0', ma l'elemento sta diventando più familiare."
-
-#~ msgid "Ctrl+2"
-#~ msgstr "Ctrl+2"
-
-#~ msgid "Ctrl+3"
-#~ msgstr "Ctrl+3"
-
-#~ msgid "Ctrl+4"
-#~ msgstr "Ctrl+4"
-
-#~ msgid "Ctrl+5"
-#~ msgstr "Ctrl+5"
-
-#~ msgid "Type question and answer, then pick initial grade."
-#~ msgstr "Scrivi domanda e risposta, poi scegli il grado iniziale."
-
-#~ msgid "Preview"
-#~ msgstr "Anteprima"
-
-#~ msgid "Ctrl+P"
-#~ msgstr "Ctrl+P"
-
-#~ msgid "Alt+X"
-#~ msgstr "Alt+X"
-
-#~ msgid "Mnemosyne configuration"
-#~ msgstr "Configurazione Mnemosyne"
-
-#~ msgid "Hover with the mouse over the buttons to get extra information."
-#~ msgstr "Rimani col mouse sopra i pulsanti per ottenere più informazioni."
-
-#~ msgid "Set Q/A font"
-#~ msgstr "Imposta font per domande/risposte"
-
-#~ msgid "Set the font used when showing single questions and answers"
-#~ msgstr ""
-#~ "Imposta il font usato quando vengono mostrate singole domande e risposte"
-
-#~ msgid "Set the font used when showing the list of all the cards in the deck"
-#~ msgstr ""
-#~ "Imposta il font utilizzato quando viene mostrato l'elenco di tutte le "
-#~ "carte nel mazzo"
-
-#~ msgid ""
-#~ "Sometimes complex glyphs are hard to read at the default latin font size"
-#~ msgstr ""
-#~ "A volte glifi complessi sono difficili da leggere alla dimensione "
-#~ "predefinita del font latino"
-
-#~ msgid "Share anonymous statistics to contribute to memory research"
-#~ msgstr ""
-#~ "Invia statistiche anonime per contribuire alla ricerca sulla memoria"
-
-#~ msgid "Duplicate handling"
-#~ msgstr "Trattamento duplicati"
-
-#~ msgid "Check for duplicates when adding new cards"
-#~ msgstr ""
-#~ "Controlla la presenza di duplicati quando vengono aggiunte nuove carte"
-
-#~ msgid "Allow duplicates in different categories"
-#~ msgstr "Consenti duplicati in categorie differenti"
-
-#~ msgid ""
-#~ "Note: this is NOT the number of grade 0 cards you want to memorise *per "
-#~ "day*"
-#~ msgstr ""
-#~ "Nota: questo NON è il numero di carte con grado 0 che vuoi memorizzare "
-#~ "*per giorno*"
-
-#~ msgid "Please wait..."
-#~ msgstr "Attendere prego..."
-
-#~ msgid "&Add vice versa"
-#~ msgstr "Aggiungi &opposta"
-
-#~ msgid "S&tatistics"
-#~ msgstr "&Statistiche"
-
-#~ msgid "&Change category"
-#~ msgstr "&Cambia categoria"
-
-#~ msgid "Add &vice versa"
-#~ msgstr "Aggiungi &opposta"
-
-#~ msgid "Add vice versa of these cards?"
-#~ msgstr "Aggiungere le carte opposte?"
-
-#~ msgid "Add vice versa of this card?"
-#~ msgstr "Aggiungere la carta opposta?"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "This could create duplicates if the vice "
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Questa operazione potrebbe creare duplicati "
-
-#~ msgid ""
-#~ "versas are already present, \n"
-#~ "so you might want to run "
-#~ msgstr ""
-#~ "se le carte opposte sono già presenti, così \n"
-#~ "successivamente potresti voler eseguire "
-
-#~ msgid "clean duplicates' afterwards."
-#~ msgstr "'Pulisci duplicati'."
-
-#~ msgid "Grade:"
-#~ msgstr "Grado:"
-
-#~ msgid "Days since last repetition:"
-#~ msgstr "Giorni dall'ultima ripetizione:"
-
-#~ msgid "Days until next repetition:"
-#~ msgstr "Giorni alla prossima ripetizione:"
-
-#~ msgid "The text you entered was not found."
-#~ msgstr "Il testo che hai inserito non è stato trovato."
-
-#~ msgid "&Find again"
-#~ msgstr "&Trova"
-
-#~ msgid "F"
-#~ msgstr "F"
-
-#~ msgid "&Find"
-#~ msgstr "&Trova"
-
-#~ msgid "Category"
-#~ msgstr "Categoria"
-
-#~ msgid "Edit deck"
-#~ msgstr "Modifica mazzo"
-
-#~ msgid "Alt+F"
-#~ msgstr "Alt+F"
-
-#~ msgid "To edit a card, right-click on it."
-#~ msgstr "Per modificare una carta, clicca col tasto destro su di essa."
-
-#~ msgid "All Files (*);;"
-#~ msgstr "Tutti i file (*);;"
-
-#~ msgid "Export"
-#~ msgstr "Esporta"
-
-#~ msgid "Export to file"
-#~ msgstr "Esporta in un file"
-
-#~ msgid "File to export to:"
-#~ msgstr "File a cui esportare:"
-
-#~ msgid "Categories to export:"
-#~ msgstr "Categorie da esportare:"
-
-#~ msgid "Reset learning data on export"
-#~ msgstr "Azzera le statistiche di apprendimento per le carte in esportazione"
-
-#~ msgid "Import"
-#~ msgstr "Importa"
-
-#~ msgid "Import from file"
-#~ msgstr "Importa da un file"
-
-#~ msgid "Put cards without category into this category:"
-#~ msgstr "Metti le carte senza categoria in questa categoria:"
-
-#~ msgid "Note: all cards will be added to the current database."
-#~ msgstr "Nota: tulle le carte verranno aggiunte all'archivio corrente."
-
-#~ msgid "Reset learning data on import"
-#~ msgstr "Azzera le statistiche di apprendimento per le carte in importazione"
-
-#~ msgid "All: "
-#~ msgstr "Tutte: "
-
-#~ msgid "."
-#~ msgstr "."
-
-#~ msgid "Activate cate&gories"
-#~ msgstr "Attiva cate&gorie"
-
-#~ msgid "Ctrl+G"
-#~ msgstr "Ctrl+G"
-
-#~ msgid "Edit &deck"
-#~ msgstr "&Modifica mazzo"
-
-#~ msgid "Edit current card"
-#~ msgstr "Modifica carta corrente"
-
-#~ msgid "Delete current card"
-#~ msgstr "Elimina carta corrente"
-
-#~ msgid "Del"
-#~ msgstr "Del"
-
-#~ msgid "&Clean duplicates"
-#~ msgstr "&Pulisci duplicati"
-
-#~ msgid "Getting started"
-#~ msgstr "Primi passi"
-
-#~ msgid "Down, Down"
-#~ msgstr "Down, Down"
-
-#~ msgid "Return"
-#~ msgstr "Return"
-
-#~ msgid "Space"
-#~ msgstr "Space"
-
-#~ msgid "Ctrl+R"
-#~ msgstr "Ctrl+R"
-
-#~ msgid "Show statistics"
-#~ msgstr "Mostra statistiche"
-
-#~ msgid "Tip of the day"
-#~ msgstr "Consiglio del giorno"
-
-#~ msgid "Main toolbar (Mnemosyne)"
-#~ msgstr "Barra degli strumenti principale (Mnemosyne)"
-
-#~ msgid "&Deck"
-#~ msgstr "&Mazzo"
-
-#~ msgid "Grades 0-2"
-#~ msgstr "Gradi 0-2"
-
-#~ msgid "Grades 3-5"
-#~ msgstr "Gradi 3-5"
-
-#~ msgid ""
-#~ "(You can always change this setting later using the 'Configure Mnemosyne' "
-#~ "menu option.)"
-#~ msgstr ""
-#~ "(Puoi sempre cambiare questa impostazione in seguito usando la voce di "
-#~ "menù 'Configura Mnemosyne')"
-
-#~ msgid "&3-sided input"
-#~ msgstr "Carta a 3 &facce"
-
-#~ msgid ""
-#~ "Scheduled cards for next week:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Carte programmate per la prossima settimana:\n"
-#~ "\n"
-
-#~ msgid "In"
-#~ msgstr "In"
-
-#~ msgid "day(s) :"
-#~ msgstr "giorni:"
-
-#~ msgid ""
-#~ "Number of cards with the following grades:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Numero di carte con i seguenti gradi:\n"
-#~ "\n"
-
-#~ msgid "Categories"
-#~ msgstr "Categorie"
-
-#~ msgid ""
-#~ "You can import cards in a wide variety of formats: tab delimited txt "
-#~ "files, Supermemo files, ... ."
-#~ msgstr ""
-#~ "Puoi importare carte in un'ampia varietà di formati: file txt delimitati "
-#~ "da tabulazioni, file di Supermemo, ..."
-
-#~ msgid ""
-#~ "If you have cards in Word or Excel, export them to tab delimited txt "
-#~ "files with UTF-8 unicode encoding to be able to import them into "
-#~ "Mnemosyne."
-#~ msgstr ""
-#~ "Se hai carte in Word o Excel, per essere in grado di importarle in "
-#~ "Mnemosyne esportale in file di testo delimitati da tabulazioni con "
-#~ "codifica unicode UTF-8."
-
-#~ msgid ""
-#~ "If you want to print out your cards, export them to a txt file which you "
-#~ "can then print from your favourite Word processor."
-#~ msgstr ""
-#~ "Se vuoi stampare le tue carte, esportale in un file di testo in modo da "
-#~ "poterle stampare col tuo programma di elaborazione testi preferito."
-
-#~ msgid ""
-#~ "You can share your cards with someone else by exporting them to XML and "
-#~ "choosing the 'Reset learning data' option on export."
-#~ msgstr ""
-#~ "Puoi condividere le tue carte con altri esportandole in formato XML e "
-#~ "scegliendo l'opzione 'Azzera le statistiche di apprendimento per le carte "
-#~ "in esportazione'."
-
-#~ msgid ""
-#~ "If you study a foreign language with a different script, the default font "
-#~ "size is sometimes a bit small. If you want to increase the size of these "
-#~ "characters but keep the size of English text, use the 'increase size of "
-#~ "non-latin characters by X points' option."
-#~ msgstr ""
-#~ "Se studi una lingua straniera che utilizza caratteri differenti, la "
-#~ "dimensione predefinita a volte può risultare un po' piccola. Se vuoi "
-#~ "aumentare la dimensione di questi caratteri ma mantenere la dimensione "
-#~ "del testo Italiano, usa l'opzione 'Incrementa dimensione caratteri non "
-#~ "latini di X punti'."
-
-#~ msgid ""
-#~ "It is recommended to keep your sound and image files inside your ."
-#~ "mnemosyne directory. That way, it's easier to transfer your data between "
-#~ "different computers."
-#~ msgstr ""
-#~ "Si raccomanda di tenere i file dei suoni e delle immagini all'interno "
-#~ "della propria cartella .mnemosyne. In questo modo, è più semplice "
-#~ "trasferire i tuoi dati tra differenti computer."
-
-#~ msgid ""
-#~ "When adding a three-sided card, two regular cards will be created. One "
-#~ "with as question the written form and as answer the pronunciation and the "
-#~ "translation, and one with as question the translation and as answer the "
-#~ "written form and the pronunciation."
-#~ msgstr ""
-#~ "Quando si aggiungono carte a tre facce, verranno create due carte. Una "
-#~ "con una domanda relativa alla forma scritta e come risposta la pronuncia "
-#~ "e la traduzione, e un'altra con una domanda relativa alla traduzione e "
-#~ "come risposta la forma scritta e la pronuncia."
-
-#~ msgid ""
-#~ "You can use basic HTML tags in your cards to control their appearance."
-#~ msgstr ""
-#~ "Nelle tue carte puoi usare tag HTML di base per controllare il loro "
-#~ "aspetto."
-
-#~ msgid ""
-#~ "You can run Mnemosyne from a USB key. Copy C:\\Program Files\\Mnemosyne "
-#~ "to your USB key, and then copy the .mnemosyne directory from your home "
-#~ "directory to inside the Mnemosyne directory on the USB key."
-#~ msgstr ""
-#~ "Puoi eseguire Mnemosyne da una chiave USB. Copia la cartella di "
-#~ "installazione di Mnemosyne (su Windows, solitamente in C:\\Programmi"
-#~ "\\Mnemosyne) sulla tua chiave USB, e poi effettua una copia della "
-#~ "cartella .mnemosyne che si trova nella tua cartella personale mettendola "
-#~ "all'interno della cartella Mnemosyne sulla chiave USB."
-
-#~ msgid ""
-#~ "If you use Mnemosyne on multiple computers, there is a handy tool called "
-#~ "Unison to help you synchronise your data. See the Mnemosyne website for "
-#~ "more information."
-#~ msgstr ""
-#~ "Se usi Mnemosyne su più computer, c'è un comodo strumento chiamato Unison "
-#~ "per aiutarti a sincronizzare i tuoi dati. Vedi il sito web di Mnemosyne "
-#~ "per maggiori informazioni."

@@ -2,15 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-25 16:42+CEST\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-05-25 18:51+0000\n"
+"PO-Revision-Date: 2012-05-24 23:14+0000\n"
+"Last-Translator: Peter Bienstman <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.9.0\n"
+"X-Launchpad-Export-Date: 2012-05-27 04:40+0000\n"
+"X-Generator: Launchpad (build 15288)\n"
+"Language: \n"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/__init__.py:264
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/__init__.py:277
@@ -31,7 +32,7 @@ msgstr "Chyba v běžícím pluginu:"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/__init__.py:297
 #: ../mnemosyne/libmnemosyne/__init__.py:298
 msgid "Creating temporary database."
-msgstr ""
+msgstr "Vytvářím dočasnou databázi."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/both_ways.py:15
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/both_ways.py:15
@@ -134,13 +135,13 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/map.py:20
 #: ../mnemosyne/libmnemosyne/card_types/map.py:20
 msgid "Blank map"
-msgstr ""
+msgstr "Slepá mapa"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/map.py:21
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/map.py:21
 #: ../mnemosyne/libmnemosyne/card_types/map.py:21
 msgid "Marked map"
-msgstr ""
+msgstr "Doplněná mapa"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/map.py:24
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/vocabulary.py:24
@@ -190,13 +191,13 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/vocabulary.py:19
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:19
 msgid "Pronunciation"
-msgstr ""
+msgstr "Výslovnost"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/vocabulary.py:20
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/vocabulary.py:20
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:20
 msgid "Meaning"
-msgstr ""
+msgstr "Význam"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/vocabulary.py:21
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/vocabulary.py:21
@@ -208,7 +209,7 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/configuration.py:179
 #: ../mnemosyne/libmnemosyne/configuration.py:179
 msgid "Error in config:"
-msgstr ""
+msgstr "Chyba v konfiguraci"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/configuration.py:188
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/configuration.py:188
@@ -1121,7 +1122,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
-msgid "Correct answer, with some effort. The interval was probably just right."
+msgid ""
+"Correct answer, with some effort. The interval was probably just right."
 msgstr ""
 "Správná odpověď, i když s určitým úsilím. Interval byl pravděpodobně akorát."
 
@@ -1630,8 +1632,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/about_dlg.py:31
 #: ../mnemosyne/pyqt_ui/about_dlg.py:31
 msgid ""
-"Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-proj."
-"org</a> for more information and source code."
+"Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-"
+"proj.org</a> for more information and source code."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:87
@@ -1667,7 +1669,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:118
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/activate_cards_dlg.py:118
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:118
-msgid "You can right-click on the name of a saved set to rename or delete it."
+msgid ""
+"You can right-click on the name of a saved set to rename or delete it."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:122
@@ -1692,8 +1695,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:30
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:29 ../mnemosyne/pyqt_ui/tip_dlg.py:30
 msgid ""
-"You can organise tags in a hierarchy by using :: as separator, e.g. My book::"
-"Lesson 1."
+"You can organise tags in a hierarchy by using :: as separator, e.g. My "
+"book::Lesson 1."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/add_cards_dlg.py:30
@@ -2449,9 +2452,10 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:22
 msgid ""
 "The 'number of non-memorised cards to hold in your hand' setting determines "
-"how many cards you are trying to (re)learn at the same time. It does <b>not</"
-"b> tell you how many new cards you need to learn per day. You are the judge "
-"of that: you can learn more cards or less cards, depending on how you feel."
+"how many cards you are trying to (re)learn at the same time. It does "
+"<b>not</b> tell you how many new cards you need to learn per day. You are "
+"the judge of that: you can learn more cards or less cards, depending on how "
+"you feel."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:23
@@ -2553,27 +2557,28 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:43
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:43
 msgid ""
-"In the 'Add cards' dialog, use Tab to move between different fields, Ctrl"
-"+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
+"In the 'Add cards' dialog, use Tab to move between different fields, "
+"Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:44
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:44
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:44
 msgid ""
-"In the 'Edit card' dialog, use Tab to move between different fields and Ctrl"
-"+Enter to close the dialog."
+"In the 'Edit card' dialog, use Tab to move between different fields and "
+"Ctrl+Enter to close the dialog."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:45
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:45
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:45
 msgid ""
-"Mnemosyne can use LaTeX to render mathematical formulas, e.g. <"
-"$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
+"Mnemosyne can use LaTeX to render mathematical formulas, e.g. "
+"<$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
 msgstr ""
-"Mnemosyne umí používat LaTeX k vytváření matematických vzorců, např. <"
-"$>x^2+y^2=z^2</$>. (K tomu ale ještě musíte mít nainstalován LaTeX a dvipng.)"
+"Mnemosyne umí používat LaTeX k vytváření matematických vzorců, např. "
+"<$>x^2+y^2=z^2</$>. (K tomu ale ještě musíte mít nainstalován LaTeX a "
+"dvipng.)"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:46
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:46
@@ -3642,456 +3647,3 @@ msgstr ""
 #: ../tests/test_translator.py:32
 msgid "This is a test."
 msgstr ""
-
-#~ msgid "Invalid file format."
-#~ msgstr "Špatný formát souboru."
-
-#~ msgid "Unrecognised encoding."
-#~ msgstr "Neznámé kódování."
-
-#~ msgid "&Overwrite"
-#~ msgstr "&Přepsat"
-
-#~ msgid "Removed duplicates: "
-#~ msgstr "Odebrané duplicitní kartičky: "
-
-#~ msgid ""
-#~ "There are cards with different answers for question:\n"
-#~ "\n"
-#~ msgstr "Existují karty s různými odpověďmi na otázku:"
-
-#~ msgid "&Don't merge"
-#~ msgstr "&Neslučovat"
-
-#~ msgid " Show it less often."
-#~ msgstr "Neukazovat tak často."
-
-#~ msgid " and will probably remember it for a few days."
-#~ msgstr " a pravděpodobně si ji několik dnů budete pamatovat."
-
-#~ msgid "Correct answer, but with much effort."
-#~ msgstr "Správná odpověď, ale s velkým úsilím."
-
-#~ msgid " The interval was probably too long."
-#~ msgstr " Interval byl pravděpodobně moc dlouhý."
-
-#~ msgid "Correct answer, with some effort."
-#~ msgstr "Správná odpověď, i když s určitým úsilím."
-
-#~ msgid " The interval was probably just right."
-#~ msgstr " Interval byl pravděpodobně odpovídající."
-
-#~ msgid "Correct answer, but without any"
-#~ msgstr "Správná odpověď bez jakýchkoliv"
-
-#~ msgid " difficulties. The interval was probably too short."
-#~ msgstr " potíží. Interval byl pravděpodobně moc krátký."
-
-#~ msgid "More info: http://mnemosyne-proj.sourceforge.net\n"
-#~ msgstr "Více informací: http://mnemosyne-proj.sourceforge.net\n"
-
-#~ msgid "About"
-#~ msgstr "O programu"
-
-#~ msgid "Activate categories"
-#~ msgstr "Aktivovat kategorie"
-
-#~ msgid "Select the categories to activate:"
-#~ msgstr "Vyberte, které kategorie aktivovat:"
-
-#~ msgid "Activate none"
-#~ msgstr "Neaktivovat žádné"
-
-#~ msgid "<default>"
-#~ msgstr "<default>"
-
-#~ msgid "Written form:"
-#~ msgstr "Psaná forma:"
-
-#~ msgid "Translation:"
-#~ msgstr "Překlad:"
-
-#~ msgid "Duplicate not added."
-#~ msgstr "Duplikát nebyl přidán."
-
-#~ msgid "There are different answers for"
-#~ msgstr "Existují různé odpovědi na"
-
-#~ msgid ""
-#~ " this question:\n"
-#~ "\n"
-#~ msgstr ""
-#~ " tuto otázku:\n"
-#~ "\n"
-
-#~ msgid "Category:"
-#~ msgstr "Kategorie:"
-
-#~ msgid "Add &vice versa too"
-#~ msgstr "Přidat i &obráceně (odpověď -> otázka)"
-
-#~ msgid "Alt+V"
-#~ msgstr "Alt+V"
-
-#~ msgid "&0"
-#~ msgstr "&0"
-
-#~ msgid "You don't remember this item yet or forgot it."
-#~ msgstr "Tuto položku jste si ještě nezapamatoval(a) nebo zapomněl(a)."
-
-#~ msgid "&1"
-#~ msgstr "&1"
-
-#~ msgid "Ctrl+1"
-#~ msgstr "Ctrl+1"
-
-#~ msgid "Like '0', but the item is getting more familiar."
-#~ msgstr "Jako '0', ale už vám to připadá povědomé."
-
-#~ msgid "Ctrl+2"
-#~ msgstr "Ctrl+2"
-
-#~ msgid "Ctrl+3"
-#~ msgstr "Ctrl+3"
-
-#~ msgid "Ctrl+4"
-#~ msgstr "Ctrl+4"
-
-#~ msgid "Ctrl+5"
-#~ msgstr "Ctrl+5"
-
-#~ msgid "Type question and answer, then pick initial grade."
-#~ msgstr "Napište otázku a odpověď a zvolte počáteční stupeň."
-
-#~ msgid "Ctrl+P"
-#~ msgstr "Ctrl+P"
-
-#~ msgid "Alt+X"
-#~ msgstr "Alt+X"
-
-#~ msgid "Preview"
-#~ msgstr "Náhled"
-
-#~ msgid "Mnemosyne configuration"
-#~ msgstr "Nastavení Mnemosyne"
-
-#~ msgid "Hover with the mouse over the buttons to get extra information."
-#~ msgstr "Pro získání dalších informací najeďte myší nad tlačítka."
-
-#~ msgid "Set Q/A font"
-#~ msgstr "Nastavit Q/A fonty"
-
-#~ msgid "Set the font used when showing single questions and answers"
-#~ msgstr ""
-#~ "Nastavení fontu použitého při zobrazení jednotlivých otázek a odpovědí"
-
-#~ msgid "Set the font used when showing the list of all the cards in the deck"
-#~ msgstr "Nastavení fontu použitého při zobrazení seznamu všech karet"
-
-#~ msgid ""
-#~ "Sometimes complex glyphs are hard to read at the default latin font size"
-#~ msgstr ""
-#~ "Při původní velikosti latin fontu se komplexní glyfy někdy špatně čtou"
-
-#~ msgid "Share anonymous statistics to contribute to memory research"
-#~ msgstr "Sdílet anonymní statistiky a tím přispívat na výzkum paměti"
-
-#~ msgid "Duplicate handling"
-#~ msgstr "Zacházení s duplicitními kartičkami"
-
-#~ msgid "Check for duplicates when adding new cards"
-#~ msgstr "Kontrolovat duplikáty při přidávání nových kartiček"
-
-#~ msgid "Allow duplicates in different categories"
-#~ msgstr "Povolit duplicitní kartičky v různých kategoriích"
-
-#~ msgid "Number of grade 0 cards to learn at once:"
-#~ msgstr "Počet karet s hodnocením 0 pro okamžité učení:"
-
-#~ msgid ""
-#~ "Note: this is NOT the number of grade 0 cards you want to memorise *per "
-#~ "day*"
-#~ msgstr ""
-#~ "Pozn.: toto NENÍ počet karet se hodnocením 0, které se chcete naučit *za "
-#~ "den*"
-
-#~ msgid "Please wait..."
-#~ msgstr "Čekejte prosím..."
-
-#~ msgid "&Add vice versa"
-#~ msgstr "&Přidat i opak"
-
-#~ msgid "S&tatistics"
-#~ msgstr "S&tatistika"
-
-#~ msgid "&Change category"
-#~ msgstr "&Změnit kategorii"
-
-#~ msgid "Add &vice versa"
-#~ msgstr "Přidat i &opak"
-
-#~ msgid "Add vice versa of these cards?"
-#~ msgstr "Přidat opak těchto karet?"
-
-#~ msgid "Add vice versa of this card?"
-#~ msgstr "Přidat opak této karty?"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "This could create duplicates if the vice "
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Tímto se mohou vytvořit duplikáty pokud "
-
-#~ msgid ""
-#~ "versas are already present, \n"
-#~ "so you might want to run "
-#~ msgstr ""
-#~ "již existují opaky,\n"
-#~ "takže by jste potom měl(a) provést "
-
-#~ msgid "clean duplicates' afterwards."
-#~ msgstr "'Odstranit duplicitní kartičky'."
-
-#~ msgid "Grade:"
-#~ msgstr "Hodnocení:"
-
-#~ msgid "Days since last repetition:"
-#~ msgstr "Dnů od posledního opakování:"
-
-#~ msgid "Days until next repetition:"
-#~ msgstr "Dnů do dalšího opakování:"
-
-#~ msgid "The text you entered was not found."
-#~ msgstr "Vložený text nebyl nalezen."
-
-#~ msgid "&Find again"
-#~ msgstr "&Hledat znovu"
-
-#~ msgid "F"
-#~ msgstr "F"
-
-#~ msgid "&Find"
-#~ msgstr "&Hledat"
-
-#~ msgid "Category"
-#~ msgstr "Kategorie"
-
-#~ msgid "Edit deck"
-#~ msgstr "Editovat karty"
-
-#~ msgid "To edit a card, right-click on it."
-#~ msgstr "Pro editaci karty použijte pravé tlačítko myši."
-
-#~ msgid "Alt+F"
-#~ msgstr "Alt+F"
-
-#~ msgid "All Files (*);;"
-#~ msgstr "Všechny soubory (*);;"
-
-#~ msgid "Export"
-#~ msgstr "Export"
-
-#~ msgid "Export to file"
-#~ msgstr "Export do souboru"
-
-#~ msgid "File to export to:"
-#~ msgstr "Exportovat do souboru:"
-
-#~ msgid "Categories to export:"
-#~ msgstr "Exportovat kategorie:"
-
-#~ msgid "Reset learning data on export"
-#~ msgstr "Resetovat učební proces při exportu"
-
-#~ msgid "Import"
-#~ msgstr "Import"
-
-#~ msgid "Import from file"
-#~ msgstr "Import ze souboru"
-
-#~ msgid "Put cards without category into this category:"
-#~ msgstr "Karty bez kategorie vložit do kategorie:"
-
-#~ msgid "Note: all cards will be added to the current database."
-#~ msgstr "Pozn.: všechny karty budou přidány do současné databáze."
-
-#~ msgid "Reset learning data on import"
-#~ msgstr "Resetovat učební proces při importu"
-
-#~ msgid "All: "
-#~ msgstr "Všech: "
-
-#~ msgid "."
-#~ msgstr "."
-
-#~ msgid "Act&ivate categories"
-#~ msgstr "Akt&ivovat kategorie"
-
-#~ msgid "Edit &deck"
-#~ msgstr "E&ditovat karty"
-
-#~ msgid "Edit current card"
-#~ msgstr "Editovat tuto kartu"
-
-#~ msgid "Delete current card"
-#~ msgstr "Smazat tuto kartu"
-
-#~ msgid "Del"
-#~ msgstr "Del"
-
-#~ msgid "&Clean duplicates"
-#~ msgstr "&Odstranit duplicitní kartičky"
-
-#~ msgid "Getting started"
-#~ msgstr "Jak začít"
-
-#~ msgid "Down, Down"
-#~ msgstr "Dolů, Dolů"
-
-#~ msgid "Return"
-#~ msgstr "Return"
-
-#~ msgid "Space"
-#~ msgstr "Space"
-
-#~ msgid "Ctrl+R"
-#~ msgstr "Ctrl+R"
-
-#~ msgid "Show statistics"
-#~ msgstr "Ukázat statistiky"
-
-#~ msgid "Tip of the day"
-#~ msgstr "Tip dne"
-
-#~ msgid "Main toolbar (Mnemosyne)"
-#~ msgstr "Hlavní nástrojová lišta (Mnemosyne)"
-
-#~ msgid "&Deck"
-#~ msgstr "&Karty"
-
-#~ msgid "Activate cate&gories"
-#~ msgstr "Akt&ivovat kategorie"
-
-#~ msgid "Ctrl+G"
-#~ msgstr "Ctrl+G"
-
-#~ msgid "Grades 0-2"
-#~ msgstr "Hodnocení 0 až 2"
-
-#~ msgid "Grades 3-5"
-#~ msgstr "Hodnocení 3 až 5"
-
-#~ msgid ""
-#~ "(You can always change this setting later using the 'Configure Mnemosyne' "
-#~ "menu option.)"
-#~ msgstr ""
-#~ "(Toto nastavení můžete kdykoliv později změnit v menu v 'Konfigurovat "
-#~ "Mnemosyne')"
-
-#~ msgid "&3-sided input"
-#~ msgstr "&3-stranná karta (zápis, výslovnost, překlad)"
-
-#~ msgid "In"
-#~ msgstr "Za"
-
-#~ msgid "day(s) :"
-#~ msgstr "den(dnů) :"
-
-#~ msgid ""
-#~ "Number of cards with the following grades:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Počty karet s danými hodnoceními:\n"
-#~ "        \n"
-
-#~ msgid "Categories"
-#~ msgstr "Kategorie"
-
-#~ msgid ""
-#~ "You can import cards in a wide variety of formats: tab delimited txt "
-#~ "files, Supermemo files, ... ."
-#~ msgstr ""
-#~ "Je možné importovat karty různých formátů: txt soubory s hesly oddělenými "
-#~ "tabulátorem, soubory ve formátu programu Supermemo, aj."
-
-#~ msgid ""
-#~ "If you have cards in Word or Excel, export them to tab delimited txt "
-#~ "files with UTF-8 unicode encoding to be able to import them into "
-#~ "Mnemosyne."
-#~ msgstr ""
-#~ "Jestliže máte kartičky ve Wordu nebo Excelu a chcete je importovat do "
-#~ "Mnemosyne, tak je exportujte do txt souboru s hesly oddělenými "
-#~ "tabulátorem a UTF-8 kódováním."
-
-#~ msgid ""
-#~ "If you want to print out your cards, export them to a txt file which you "
-#~ "can then print from your favourite Word processor."
-#~ msgstr ""
-#~ "Pokud chcete vaše kartičky vytisknout, exportujte je do txt souboru, "
-#~ "který pak můžete vytisknout."
-
-#~ msgid ""
-#~ "You can share your cards with someone else by exporting them to XML and "
-#~ "choosing the 'Reset learning data' option on export."
-#~ msgstr ""
-#~ "Pokud chcete sdílet s někým své kartičky, exportujte je do XML (současně "
-#~ "vyberte možnost 'Resetovat učební proces')."
-
-#~ msgid ""
-#~ "If you study a foreign language with a different script, the default font "
-#~ "size is sometimes a bit small. If you want to increase the size of these "
-#~ "characters but keep the size of English text, use the 'increase size of "
-#~ "non-latin characters by X points' option."
-#~ msgstr ""
-#~ "Pokud studujete cizí jazyk s jiným písmem, může být přednastavená "
-#~ "velikost fontu menší. Jestliže chcete zvětšit velikost těchto znaků, ale "
-#~ "ponechat velikost textu ve vašem jazyce, použijte možnost 'Zvětšit "
-#~ "velikost ne-latin znaků o X bodů'."
-
-#~ msgid ""
-#~ "It is recommended to keep your sound and image files inside your ."
-#~ "mnemosyne directory. That way, it's easier to transfer your data between "
-#~ "different computers."
-#~ msgstr ""
-#~ "Doporučuje se nechávat soubory s obrázky a zvuky uvnitř vašeho .mnemosyne "
-#~ "adresáře (adresář, kde jsou uloženy databáze). Snadněji se vám pak budou "
-#~ "přenášet data mezi počítači."
-
-#~ msgid ""
-#~ "When adding a three-sided card, two regular cards will be created. One "
-#~ "with as question the written form and as answer the pronunciation and the "
-#~ "translation, and one with as question the translation and as answer the "
-#~ "written form and the pronunciation."
-#~ msgstr ""
-#~ "Při přidávání karty můžete zvolit 3-strannou kartu (psaná forma, "
-#~ "výslovnost, překlad) a to tak, že kliknete pravým tlačítkem myši na pole "
-#~ "s otázkou a vyberete možnost '3-stranná karta'. Když přidáváte kartu se 3 "
-#~ "stranami, budou vytvořeny a přidány dvě karty. V první kartě bude v "
-#~ "otázce zápis (slovíčka) a v odpovědi výslovnost a překlad. V druhé kartě "
-#~ "bude v otázce překlad a v odpovědi zápis a výslovnost."
-
-#~ msgid ""
-#~ "You can use basic HTML tags in your cards to control their appearance."
-#~ msgstr "V kartičkách můžete pro upravování vzhledu používat HTML tagy."
-
-#~ msgid ""
-#~ "You can run Mnemosyne from a USB key. Copy C:\\Program Files\\Mnemosyne "
-#~ "to your USB key, and then copy the .mnemosyne directory from your home "
-#~ "directory to inside the Mnemosyne directory on the USB key."
-#~ msgstr ""
-#~ "Mnemosyne je možné mít a spouštět z USB klíčenky. Stačí zkopírovat "
-#~ "adresář C:\\Program Files\\Mnemosyne na klíčenku a do něj adresář ."
-#~ "mnemosyne z vašeho domovského adresáře."
-
-#~ msgid ""
-#~ "If you use Mnemosyne on multiple computers, there is a handy tool called "
-#~ "Unison to help you synchronise your data. See the Mnemosyne website for "
-#~ "more information."
-#~ msgstr ""
-#~ "Pokud používáte Mnemosyne na více počítačích, může se vám hodit nástroj "
-#~ "Unison, který je určený pro synchronizaci vašich dat. Více informací "
-#~ "najdete na stránkách Mnemosyne (nebo na http://www.cis.upenn.edu/"
-#~ "~bcpierce/unison)."

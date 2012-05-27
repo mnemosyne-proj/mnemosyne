@@ -2,15 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-25 16:42+CEST\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-05-25 18:51+0000\n"
+"PO-Revision-Date: 2012-05-24 23:13+0000\n"
+"Last-Translator: Peter Bienstman <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.9.0\n"
+"X-Launchpad-Export-Date: 2012-05-27 04:40+0000\n"
+"X-Generator: Launchpad (build 15288)\n"
+"Language: \n"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/__init__.py:264
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/__init__.py:277
@@ -1121,7 +1122,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
-msgid "Correct answer, with some effort. The interval was probably just right."
+msgid ""
+"Correct answer, with some effort. The interval was probably just right."
 msgstr ""
 "Točan odgovor, sa nešto napora. Interval je vjerojatno bio baš kako treba."
 
@@ -1166,7 +1168,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:147
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:34
 msgid " day(s)."
-msgstr "dan(a)."
+msgstr " dan(a)."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:151
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:151
@@ -1184,13 +1186,13 @@ msgstr "Sljedeće ponavljanje: sutra."
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
 msgid " days."
-msgstr "dana."
+msgstr " dana."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
 msgid "Next repetition in "
-msgstr "Sljedeće ponavljanje za"
+msgstr "Sljedeće ponavljanje za "
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:196
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/preview_cards_dlg.py:65
@@ -1630,8 +1632,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/about_dlg.py:31
 #: ../mnemosyne/pyqt_ui/about_dlg.py:31
 msgid ""
-"Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-proj."
-"org</a> for more information and source code."
+"Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-"
+"proj.org</a> for more information and source code."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:87
@@ -1667,7 +1669,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:118
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/activate_cards_dlg.py:118
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:118
-msgid "You can right-click on the name of a saved set to rename or delete it."
+msgid ""
+"You can right-click on the name of a saved set to rename or delete it."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:122
@@ -1692,8 +1695,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:30
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:29 ../mnemosyne/pyqt_ui/tip_dlg.py:30
 msgid ""
-"You can organise tags in a hierarchy by using :: as separator, e.g. My book::"
-"Lesson 1."
+"You can organise tags in a hierarchy by using :: as separator, e.g. My "
+"book::Lesson 1."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/add_cards_dlg.py:30
@@ -2449,9 +2452,10 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:22
 msgid ""
 "The 'number of non-memorised cards to hold in your hand' setting determines "
-"how many cards you are trying to (re)learn at the same time. It does <b>not</"
-"b> tell you how many new cards you need to learn per day. You are the judge "
-"of that: you can learn more cards or less cards, depending on how you feel."
+"how many cards you are trying to (re)learn at the same time. It does "
+"<b>not</b> tell you how many new cards you need to learn per day. You are "
+"the judge of that: you can learn more cards or less cards, depending on how "
+"you feel."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:23
@@ -2553,27 +2557,27 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:43
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:43
 msgid ""
-"In the 'Add cards' dialog, use Tab to move between different fields, Ctrl"
-"+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
+"In the 'Add cards' dialog, use Tab to move between different fields, "
+"Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:44
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:44
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:44
 msgid ""
-"In the 'Edit card' dialog, use Tab to move between different fields and Ctrl"
-"+Enter to close the dialog."
+"In the 'Edit card' dialog, use Tab to move between different fields and "
+"Ctrl+Enter to close the dialog."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:45
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:45
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:45
 msgid ""
-"Mnemosyne can use LaTeX to render mathematical formulas, e.g. <"
-"$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
+"Mnemosyne can use LaTeX to render mathematical formulas, e.g. "
+"<$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
 msgstr ""
-"Mnemosyne može koristiti LaTeX za prikaz matematičkih formula, npr. <"
-"$>x^2+y^2=z^2</$>. (Za to vam su vam potrebne LaTeX i dvipng instalacije.)"
+"Mnemosyne može koristiti LaTeX za prikaz matematičkih formula, npr. "
+"<$>x^2+y^2=z^2</$>. (Za to vam su vam potrebne LaTeX i dvipng instalacije.)"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:46
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:46
@@ -3644,455 +3648,3 @@ msgstr ""
 #: ../tests/test_translator.py:32
 msgid "This is a test."
 msgstr ""
-
-#~ msgid "Invalid file format."
-#~ msgstr "Nevaljana vrsta datoteke."
-
-#~ msgid "Unrecognised encoding."
-#~ msgstr "Neprepoznato kodiranje."
-
-#~ msgid "&Overwrite"
-#~ msgstr "&Prepiši"
-
-#~ msgid "Removed duplicates: "
-#~ msgstr "Uklonjeni duplikati:"
-
-#~ msgid ""
-#~ "There are cards with different answers for question:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Postoje kartice sa različitim odgovorima na pitanje:\n"
-#~ "\n"
-
-#~ msgid "&Don't merge"
-#~ msgstr "&Ne spajaj"
-
-#~ msgid " Show it less often."
-#~ msgstr "Prikazuj je rjeđe."
-
-#~ msgid " and will probably remember it for a few days."
-#~ msgstr "te ćete ju vjerojatno pamtiti nekoliko dana."
-
-#~ msgid "Correct answer, but with much effort."
-#~ msgstr "Točan odgovor, ali sa puno napora."
-
-#~ msgid " The interval was probably too long."
-#~ msgstr "Interval je vjerojatno predug."
-
-#~ msgid "Correct answer, with some effort."
-#~ msgstr "Točan odgovor, sa nešto napora."
-
-#~ msgid " The interval was probably just right."
-#~ msgstr "Interval je vjerojatno bio baš kako treba."
-
-#~ msgid "Correct answer, but without any"
-#~ msgstr "Točan odgovor, bez ikakvih"
-
-#~ msgid " difficulties. The interval was probably too short."
-#~ msgstr "poteškoća. Interval je vjerojatno bio prekratak."
-
-#~ msgid "About"
-#~ msgstr "O programu"
-
-#~ msgid "Activate categories"
-#~ msgstr "Aktiviraj kategorije"
-
-#~ msgid "Select the categories to activate:"
-#~ msgstr "Odaberite kategorije za aktivaciju:"
-
-#~ msgid "Activate none"
-#~ msgstr "Aktiviraj ništa"
-
-#~ msgid "<default>"
-#~ msgstr "<pretpostavljeno>"
-
-#~ msgid "Written form:"
-#~ msgstr "Pisani oblik:"
-
-#~ msgid "Translation:"
-#~ msgstr "Prijevod:"
-
-#~ msgid "Duplicate not added."
-#~ msgstr "Duplikat nije dodan."
-
-#~ msgid "There are different answers for"
-#~ msgstr "Postoje različiti odgovori na"
-
-#~ msgid ""
-#~ " this question:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "ovo pitanje:\n"
-#~ "\n"
-
-#~ msgid "Category:"
-#~ msgstr "Kategorija:"
-
-#~ msgid "Add &vice versa too"
-#~ msgstr "Dodaj i u &obratnom smjeru"
-
-#~ msgid "Alt+V"
-#~ msgstr "Alt+O"
-
-#~ msgid "&0"
-#~ msgstr "&0"
-
-#~ msgid "You don't remember this item yet or forgot it."
-#~ msgstr "Još se ne možete sjetiti ovog ili ste zaboravili."
-
-#~ msgid "&1"
-#~ msgstr "&1"
-
-#~ msgid "Ctrl+1"
-#~ msgstr "Ctrl+1"
-
-#~ msgid "Like '0', but the item is getting more familiar."
-#~ msgstr "Kao '0', ali postaje poznatije."
-
-#~ msgid "Ctrl+2"
-#~ msgstr "Ctrl+2"
-
-#~ msgid "Ctrl+3"
-#~ msgstr "Ctrl+3"
-
-#~ msgid "Ctrl+4"
-#~ msgstr "Ctrl+4"
-
-#~ msgid "Ctrl+5"
-#~ msgstr "Ctrl+5"
-
-#~ msgid "Type question and answer, then pick initial grade."
-#~ msgstr "Unesite pitane i odgovor, te odaberite početnu ocjenu."
-
-#~ msgid "Preview"
-#~ msgstr "Pregled"
-
-#~ msgid "Ctrl+P"
-#~ msgstr "Ctrl+P"
-
-#~ msgid "Alt+X"
-#~ msgstr "Alt+X"
-
-#~ msgid "Mnemosyne configuration"
-#~ msgstr "Postavke programa Mnemosyne"
-
-#~ msgid "Hover with the mouse over the buttons to get extra information."
-#~ msgstr "Postavite miš iznad gumbi kako biste dobili dodatne informacije."
-
-#~ msgid "Set Q/A font"
-#~ msgstr "Postavi font kartica"
-
-#~ msgid "Set the font used when showing single questions and answers"
-#~ msgstr "Postavi font korišten pri prikazu jednog pitanja i odgovora"
-
-#~ msgid "Set the font used when showing the list of all the cards in the deck"
-#~ msgstr "Postavi font korišten pri prikazu popisa svih kartica u špilu"
-
-#~ msgid ""
-#~ "Sometimes complex glyphs are hard to read at the default latin font size"
-#~ msgstr ""
-#~ "Ponekad se kompleksni simboli teško čitljivi na standardnoj veličini "
-#~ "latiničnog fonta"
-
-#~ msgid "Share anonymous statistics to contribute to memory research"
-#~ msgstr "Dijeli anonimnu statistiku radi doprinosa istraživanju pamćenja"
-
-#~ msgid "Duplicate handling"
-#~ msgstr "Upravljanje duplikatima"
-
-#~ msgid "Check for duplicates when adding new cards"
-#~ msgstr "Provjeravaj duplikate pri dodavanju novih kartica"
-
-#~ msgid "Allow duplicates in different categories"
-#~ msgstr "Dozvoli duplikate u različitim kategorijama"
-
-#~ msgid ""
-#~ "Note: this is NOT the number of grade 0 cards you want to memorise *per "
-#~ "day*"
-#~ msgstr ""
-#~ "Napomena: ovo NIJE broj kartica ocijenjenih sa 0 koje želite upamtiti *po "
-#~ "danu*"
-
-#~ msgid "Please wait..."
-#~ msgstr "Molim pričekajte..."
-
-#~ msgid "&Add vice versa"
-#~ msgstr "&Dodaj i obratni smjer"
-
-#~ msgid "S&tatistics"
-#~ msgstr "S&tatistika"
-
-#~ msgid "&Change category"
-#~ msgstr "Promijeni kate&goriju"
-
-#~ msgid "Add &vice versa"
-#~ msgstr "&Dodaj i obratni smjer"
-
-#~ msgid "Add vice versa of these cards?"
-#~ msgstr "Dodaj i obratni smjer za ove kartice?"
-
-#~ msgid "Add vice versa of this card?"
-#~ msgstr "Dodaj i obratni smjer za ovu karticu?"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "This could create duplicates if the vice "
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Moguće je stvaranje duplikata ako je obratni"
-
-#~ msgid ""
-#~ "versas are already present, \n"
-#~ "so you might want to run "
-#~ msgstr ""
-#~ "smjer već prisutan,\n"
-#~ "pa biste mogli pokrenuti"
-
-#~ msgid "clean duplicates' afterwards."
-#~ msgstr "čišćenje duplikata naknadno."
-
-#~ msgid "Grade:"
-#~ msgstr "Ocjena:"
-
-#~ msgid "Days since last repetition:"
-#~ msgstr "Dana od zadnjeg ponavljanja:"
-
-#~ msgid "Days until next repetition:"
-#~ msgstr "Dana do idućeg ponavljanja:"
-
-#~ msgid "The text you entered was not found."
-#~ msgstr "Tekst koji ste unijeli nije pronađen."
-
-#~ msgid "&Find again"
-#~ msgstr "&Traži ponovno"
-
-#~ msgid "F"
-#~ msgstr "T"
-
-#~ msgid "&Find"
-#~ msgstr "&Traži"
-
-#~ msgid "Category"
-#~ msgstr "Kategorija"
-
-#~ msgid "Edit deck"
-#~ msgstr "Uredi špil"
-
-#~ msgid "Alt+F"
-#~ msgstr "Alt+T"
-
-#~ msgid "To edit a card, right-click on it."
-#~ msgstr "Kako biste uređivali karticu, desno kliknite na nju."
-
-#~ msgid "All Files (*);;"
-#~ msgstr "Sve datoteke (*);;"
-
-#~ msgid "Export"
-#~ msgstr "Izvoz"
-
-#~ msgid "Export to file"
-#~ msgstr "Izvoz u datoteku"
-
-#~ msgid "File to export to:"
-#~ msgstr "Datoteka za izvoz:"
-
-#~ msgid "Categories to export:"
-#~ msgstr "Kategorije za izvoz:"
-
-#~ msgid "Reset learning data on export"
-#~ msgstr "Resetiraj podatke o učenju pri izvozu"
-
-#~ msgid "Import"
-#~ msgstr "Uvoz"
-
-#~ msgid "Import from file"
-#~ msgstr "Uvoz iz datoteke"
-
-#~ msgid "Put cards without category into this category:"
-#~ msgstr "Stavi kartice bez kategorije u ovu kategoriju:"
-
-#~ msgid "Note: all cards will be added to the current database."
-#~ msgstr "Napomena: sve kartice će biti dodane u trenutnu bazu podataka."
-
-#~ msgid "Reset learning data on import"
-#~ msgstr "Resetiraj podatke o učenju pri uvozu"
-
-#~ msgid "All: "
-#~ msgstr "Sve:"
-
-#~ msgid "."
-#~ msgstr "."
-
-#~ msgid "Activate cate&gories"
-#~ msgstr "Aktiviraj kate&gorije"
-
-#~ msgid "Ctrl+G"
-#~ msgstr "Ctrl+G"
-
-#~ msgid "Edit &deck"
-#~ msgstr "Uredi &špil"
-
-#~ msgid "Edit current card"
-#~ msgstr "Uredi trenutnu karticu"
-
-#~ msgid "Delete current card"
-#~ msgstr "Obriši trenutnu karticu"
-
-#~ msgid "Del"
-#~ msgstr "Del"
-
-#~ msgid "&Clean duplicates"
-#~ msgstr "&Očisti duplikate"
-
-#~ msgid "Getting started"
-#~ msgstr "Za početak"
-
-#~ msgid "Down, Down"
-#~ msgstr "Dolje, dolje"
-
-#~ msgid "Return"
-#~ msgstr "Return"
-
-#~ msgid "Space"
-#~ msgstr "Space"
-
-#~ msgid "Ctrl+R"
-#~ msgstr "Ctrl+R"
-
-#~ msgid "Show statistics"
-#~ msgstr "Prikaži statistiku"
-
-#~ msgid "Tip of the day"
-#~ msgstr "Savjet dana"
-
-#~ msgid "Main toolbar (Mnemosyne)"
-#~ msgstr "Glavna alatna traka (Mnemosyne)"
-
-#~ msgid "&Deck"
-#~ msgstr "&Špil"
-
-#~ msgid "Grades 0-2"
-#~ msgstr "Ocjene 0-2"
-
-#~ msgid "Grades 3-5"
-#~ msgstr "Ocjene 3-5"
-
-#~ msgid ""
-#~ "(You can always change this setting later using the 'Configure Mnemosyne' "
-#~ "menu option.)"
-#~ msgstr ""
-#~ "(Uvijek možete promijeniti ovu postavku koristeći opciju 'Konfiguriraj "
-#~ "Mnemosyne' u izborniku.)"
-
-#~ msgid "&3-sided input"
-#~ msgstr "&3-strani unos"
-
-#~ msgid ""
-#~ "Scheduled cards for next week:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Kartice u rasporedu za idući tjedan:\n"
-#~ "\n"
-
-#~ msgid "In"
-#~ msgstr "U"
-
-#~ msgid "day(s) :"
-#~ msgstr "dan(a):"
-
-#~ msgid ""
-#~ "Number of cards with the following grades:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Broj kartica sa sljedećim ocjenama:\n"
-#~ "\n"
-
-#~ msgid "Categories"
-#~ msgstr "Kategorije"
-
-#~ msgid ""
-#~ "You can import cards in a wide variety of formats: tab delimited txt "
-#~ "files, Supermemo files, ... ."
-#~ msgstr ""
-#~ "Možete uvoziti kartice u širokom rasponu različitih formata: txt datoteke "
-#~ "odvojene tabulatorom, Supermemo datoteke, ... ."
-
-#~ msgid ""
-#~ "If you have cards in Word or Excel, export them to tab delimited txt "
-#~ "files with UTF-8 unicode encoding to be able to import them into "
-#~ "Mnemosyne."
-#~ msgstr ""
-#~ "Ako imate kartice u Word ili Excel formatu, izvezite ih u txt datoteke "
-#~ "odvojene tabulatorom sa UTF-8 unicode kodiranjem kako biste ih mogli "
-#~ "uvesti u Mnemosyne."
-
-#~ msgid ""
-#~ "If you want to print out your cards, export them to a txt file which you "
-#~ "can then print from your favourite Word processor."
-#~ msgstr ""
-#~ "Ako želite ispisati vaše kartice, izvezite ih u txt datoteku koju tada "
-#~ "možete ispisati iz vašeg omiljenog tekst uređivača."
-
-#~ msgid ""
-#~ "You can share your cards with someone else by exporting them to XML and "
-#~ "choosing the 'Reset learning data' option on export."
-#~ msgstr ""
-#~ "Možete dijeliti vaše kartice sa drugim ljudima izvozom u XML i odabirom "
-#~ "'Resetiraj podatke o učenju' pri izvozu."
-
-#~ msgid ""
-#~ "If you study a foreign language with a different script, the default font "
-#~ "size is sometimes a bit small. If you want to increase the size of these "
-#~ "characters but keep the size of English text, use the 'increase size of "
-#~ "non-latin characters by X points' option."
-#~ msgstr ""
-#~ "Ako učite strani jezik sa drugačijim pismom, pretpostavljena veličine "
-#~ "fonta je ponekad premala. Ako želite povećati veličinu tih znakova, no "
-#~ "sačuvati veličinu teksta na vašem jeziku, koristite opciju 'Povećaj "
-#~ "veličinu nelatiničnih znakova za X točaka'."
-
-#~ msgid ""
-#~ "It is recommended to keep your sound and image files inside your ."
-#~ "mnemosyne directory. That way, it's easier to transfer your data between "
-#~ "different computers."
-#~ msgstr ""
-#~ "Preporučeno je držati vaše zvukovne i slikovne datoteke unutar vašeg ."
-#~ "mnemosyne mape. Na taj način je lakše prenositi podatke među različitim "
-#~ "računalima."
-
-#~ msgid ""
-#~ "When adding a three-sided card, two regular cards will be created. One "
-#~ "with as question the written form and as answer the pronunciation and the "
-#~ "translation, and one with as question the translation and as answer the "
-#~ "written form and the pronunciation."
-#~ msgstr ""
-#~ "Pri dodavanju trostrane kartice, dvije standardne kartice će biti "
-#~ "stvorene. Jedna sa pisanim oblikom kao pitanjem i izgovorom te prijevodom "
-#~ "kao odgovorom, te jedna sa prijevodom kao pitanjem i pisanim oblikom te "
-#~ "izgovorom kao odgovorom."
-
-#~ msgid ""
-#~ "You can use basic HTML tags in your cards to control their appearance."
-#~ msgstr ""
-#~ "Možete koristiti osnovne HTML tagove kako biste uredili izgled vaših "
-#~ "kartica."
-
-#~ msgid ""
-#~ "You can run Mnemosyne from a USB key. Copy C:\\Program Files\\Mnemosyne "
-#~ "to your USB key, and then copy the .mnemosyne directory from your home "
-#~ "directory to inside the Mnemosyne directory on the USB key."
-#~ msgstr ""
-#~ "Možete pokrenuti Mnemosyne sa USB diska. Kopirajte C:\\Program Files"
-#~ "\\Mnemosyne na vaš USB disk, a tada kopirajte vašu .mnemosyne mapu iz "
-#~ "vaše home mape u mapu Mnemosyne na vašem USB disku."
-
-#~ msgid ""
-#~ "If you use Mnemosyne on multiple computers, there is a handy tool called "
-#~ "Unison to help you synchronise your data. See the Mnemosyne website for "
-#~ "more information."
-#~ msgstr ""
-#~ "Ako koristite Mnemosyne na više računala, postoji zgodan alat po imenu "
-#~ "Unison koji vam pomaže sinkronizirati vaše podatke. Pogledajte "
-#~ "internetsku stranicu programa Mnemosyne za više informacija."

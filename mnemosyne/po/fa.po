@@ -2,15 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-25 16:42+CEST\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-05-25 18:51+0000\n"
+"PO-Revision-Date: 2012-05-26 10:00+0000\n"
+"Last-Translator: Ahmad <activepost@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.9.0\n"
+"X-Launchpad-Export-Date: 2012-05-27 04:40+0000\n"
+"X-Generator: Launchpad (build 15288)\n"
+"Language: \n"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/__init__.py:264
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/__init__.py:277
@@ -25,19 +26,19 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:701
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:343
 msgid "Error when running plugin:"
-msgstr ""
+msgstr "خطا در زمان اجرای افزونه"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/__init__.py:297
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/__init__.py:297
 #: ../mnemosyne/libmnemosyne/__init__.py:298
 msgid "Creating temporary database."
-msgstr ""
+msgstr "در حال ساخت بانک اطلاعات موقتی"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/both_ways.py:15
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/both_ways.py:15
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:15
 msgid "Front-to-back and back-to-front"
-msgstr ""
+msgstr "رو-به-پشت و پشت-به-رو"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/both_ways.py:18
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/front_to_back.py:16
@@ -46,7 +47,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:18
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:16
 msgid "Front"
-msgstr ""
+msgstr "رو"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/both_ways.py:19
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/front_to_back.py:17
@@ -55,7 +56,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:19
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:17
 msgid "Back"
-msgstr ""
+msgstr "پشت"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/both_ways.py:22
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/front_to_back.py:20
@@ -64,13 +65,13 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:22
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:20
 msgid "Front-to-back"
-msgstr ""
+msgstr "رو-به-پشت"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/both_ways.py:27
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/both_ways.py:27
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:27
 msgid "Back-to-front"
-msgstr ""
+msgstr "پشت-به-رو"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/cloze.py:39
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/cloze.py:120
@@ -79,7 +80,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:39
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:120
 msgid "Cloze deletion"
-msgstr ""
+msgstr "جاخالی"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/cloze.py:41
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:50
@@ -88,13 +89,13 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:41
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:50
 msgid "Text"
-msgstr ""
+msgstr "متن‌"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/cloze.py:44
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/cloze.py:44
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:44
 msgid "Cloze"
-msgstr ""
+msgstr "جاخالی"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/cloze.py:121
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/cloze.py:121
@@ -107,13 +108,13 @@ msgid ""
 "Paris\".\n"
 "\n"
 "Editing the text will automatically update all sister cards."
-msgstr ""
+msgstr "نوعی کارت که در متن آن جای خالی وجود دارد."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/front_to_back.py:13
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/front_to_back.py:13
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:13
 msgid "Front-to-back only"
-msgstr ""
+msgstr "فقط رو-به-پشت"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/map.py:16
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/map.py:51
@@ -122,25 +123,25 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/card_types/map.py:16
 #: ../mnemosyne/libmnemosyne/card_types/map.py:51
 msgid "Map"
-msgstr ""
+msgstr "نقشه"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/map.py:19
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/map.py:19
 #: ../mnemosyne/libmnemosyne/card_types/map.py:19
 msgid "Location"
-msgstr ""
+msgstr "موقعیت"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/map.py:20
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/map.py:20
 #: ../mnemosyne/libmnemosyne/card_types/map.py:20
 msgid "Blank map"
-msgstr ""
+msgstr "نقشه خالی"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/map.py:21
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/map.py:21
 #: ../mnemosyne/libmnemosyne/card_types/map.py:21
 msgid "Marked map"
-msgstr ""
+msgstr "نقشه علامت گذاری شده"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/map.py:24
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/vocabulary.py:24
@@ -151,7 +152,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/card_types/map.py:24
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:24
 msgid "Recognition"
-msgstr ""
+msgstr "تشخیص"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/map.py:30
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/vocabulary.py:29
@@ -162,7 +163,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/card_types/map.py:30
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:29
 msgid "Production"
-msgstr ""
+msgstr "تولید"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/map.py:52
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/map.py:52
@@ -172,55 +173,55 @@ msgid ""
 "\n"
 "Displays the answer map on top of the question map, rather than below it as "
 "a second map."
-msgstr ""
+msgstr "نوعی کارت برای یادگیری مکانها روی یک نقشه"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/vocabulary.py:15
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/vocabulary.py:15
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:15
 msgid "Vocabulary"
-msgstr ""
+msgstr "واژگان"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/vocabulary.py:18
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/vocabulary.py:18
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:18
 msgid "Foreign word or expression"
-msgstr ""
+msgstr "لغتها و عبارتهای خارجی"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/vocabulary.py:19
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/vocabulary.py:19
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:19
 msgid "Pronunciation"
-msgstr ""
+msgstr "تلفظ"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/vocabulary.py:20
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/vocabulary.py:20
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:20
 msgid "Meaning"
-msgstr ""
+msgstr "معنی"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/vocabulary.py:21
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/vocabulary.py:21
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:21
 msgid "Notes"
-msgstr ""
+msgstr "یادداشت‌ها"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/configuration.py:179
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/configuration.py:179
 #: ../mnemosyne/libmnemosyne/configuration.py:179
 msgid "Error in config:"
-msgstr ""
+msgstr "خطا در تنظیم:"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/configuration.py:188
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/configuration.py:188
 #: ../mnemosyne/libmnemosyne/configuration.py:188
 msgid "Unable to save config file:"
-msgstr ""
+msgstr "ناتوان در ذخیره فایل تنظیمات:"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/configuration.py:342
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/configuration.py:342
 #: ../mnemosyne/libmnemosyne/configuration.py:342
 msgid "Error in config.py:"
-msgstr ""
+msgstr "خطا در فایل config.py:"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:65
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/about_dlg.py:28
@@ -280,7 +281,7 @@ msgstr "(Mnemosyne) نموساین"
 msgid ""
 "Card is already in database.\n"
 "Duplicate not added."
-msgstr ""
+msgstr "کارت از قبل در بانک اطلاعاتی وجود دارد."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:114
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:114
@@ -289,6 +290,8 @@ msgid ""
 "There is already data present for:\n"
 "\n"
 msgstr ""
+"از قبل اطلاعاتی وجود دارد برای:\n"
+"\n"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:116
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:116
@@ -1121,7 +1124,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
-msgid "Correct answer, with some effort. The interval was probably just right."
+msgid ""
+"Correct answer, with some effort. The interval was probably just right."
 msgstr "پاسخ صحیح٬ با سعی اندک. وقفه احتمالا عادی بود."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:41
@@ -1163,7 +1167,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:147
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:34
 msgid " day(s)."
-msgstr ".روز"
+msgstr " .روز"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:151
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:151
@@ -1181,13 +1185,13 @@ msgstr ".مرور بعدی: فردا"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
 msgid " days."
-msgstr "روز بعد."
+msgstr " روز بعد."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
 msgid "Next repetition in "
-msgstr "مرور بعدی در"
+msgstr "مرور بعدی در "
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:196
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/preview_cards_dlg.py:65
@@ -1627,8 +1631,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/about_dlg.py:31
 #: ../mnemosyne/pyqt_ui/about_dlg.py:31
 msgid ""
-"Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-proj."
-"org</a> for more information and source code."
+"Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-"
+"proj.org</a> for more information and source code."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:87
@@ -1664,7 +1668,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:118
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/activate_cards_dlg.py:118
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:118
-msgid "You can right-click on the name of a saved set to rename or delete it."
+msgid ""
+"You can right-click on the name of a saved set to rename or delete it."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:122
@@ -1689,8 +1694,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:30
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:29 ../mnemosyne/pyqt_ui/tip_dlg.py:30
 msgid ""
-"You can organise tags in a hierarchy by using :: as separator, e.g. My book::"
-"Lesson 1."
+"You can organise tags in a hierarchy by using :: as separator, e.g. My "
+"book::Lesson 1."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/add_cards_dlg.py:30
@@ -2446,9 +2451,10 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:22
 msgid ""
 "The 'number of non-memorised cards to hold in your hand' setting determines "
-"how many cards you are trying to (re)learn at the same time. It does <b>not</"
-"b> tell you how many new cards you need to learn per day. You are the judge "
-"of that: you can learn more cards or less cards, depending on how you feel."
+"how many cards you are trying to (re)learn at the same time. It does "
+"<b>not</b> tell you how many new cards you need to learn per day. You are "
+"the judge of that: you can learn more cards or less cards, depending on how "
+"you feel."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:23
@@ -2550,24 +2556,24 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:43
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:43
 msgid ""
-"In the 'Add cards' dialog, use Tab to move between different fields, Ctrl"
-"+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
+"In the 'Add cards' dialog, use Tab to move between different fields, "
+"Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:44
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:44
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:44
 msgid ""
-"In the 'Edit card' dialog, use Tab to move between different fields and Ctrl"
-"+Enter to close the dialog."
+"In the 'Edit card' dialog, use Tab to move between different fields and "
+"Ctrl+Enter to close the dialog."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:45
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:45
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:45
 msgid ""
-"Mnemosyne can use LaTeX to render mathematical formulas, e.g. <"
-"$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
+"Mnemosyne can use LaTeX to render mathematical formulas, e.g. "
+"<$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:46
@@ -3636,284 +3642,3 @@ msgstr ""
 #: ../tests/test_translator.py:32
 msgid "This is a test."
 msgstr ""
-
-#~ msgid "About"
-#~ msgstr "درباره"
-
-#~ msgid "Activate categories"
-#~ msgstr "مقوله‌های فعال"
-
-#~ msgid "Select the categories to activate:"
-#~ msgstr "مقوله‌هایی که می‌خواهید فعال کنید را انتخاب کنید:"
-
-#~ msgid "Activate none"
-#~ msgstr "هیچ کدام را فعال نکن"
-
-#~ msgid "Duplicate not added."
-#~ msgstr "نسخه دوم اضافه نشد."
-
-#~ msgid "There are different answers for"
-#~ msgstr "پاسخ‌های مختلفی برای این"
-
-#~ msgid ""
-#~ " this question:\n"
-#~ "\n"
-#~ msgstr "سؤال موجود است:\n"
-
-#~ msgid "<default>"
-#~ msgstr "<پیش فرض>"
-
-#~ msgid "Category:"
-#~ msgstr "مقوله"
-
-#~ msgid "Ctrl+1"
-#~ msgstr "Ctrl+1"
-
-#~ msgid "Ctrl+2"
-#~ msgstr "Ctrl+2"
-
-#~ msgid "Ctrl+3"
-#~ msgstr "Ctrl+3"
-
-#~ msgid "Ctrl+4"
-#~ msgstr "Ctrl+4"
-
-#~ msgid "Ctrl+5"
-#~ msgstr "Ctrl+5"
-
-#~ msgid "Written form:"
-#~ msgstr "نوشته شده از:"
-
-#~ msgid "Translation:"
-#~ msgstr "ترجمه:"
-
-#~ msgid "Add &vice versa too"
-#~ msgstr "کارت برعکس هم اضافه کن"
-
-#~ msgid "Alt+V"
-#~ msgstr "Alt+V"
-
-#~ msgid "&0"
-#~ msgstr "۰"
-
-#~ msgid "You don't remember this item yet or forgot it."
-#~ msgstr "شما این گزینه را هنوز به یاد نمی‌آورید."
-
-#~ msgid "&1"
-#~ msgstr "۱"
-
-#~ msgid "Like '0', but the item is getting more familiar."
-#~ msgstr "شبیه '۰' اما این گزینه آشناتر است."
-
-#~ msgid "Type question and answer, then pick initial grade."
-#~ msgstr "پرسش و پاسخ را تایپ کنید٬ سپس رتبه اولیه آن را انتخاب کنید."
-
-#~ msgid "Ctrl+P"
-#~ msgstr "Ctrl+P"
-
-#~ msgid "Alt+X"
-#~ msgstr "Alt+X"
-
-#~ msgid "Mnemosyne configuration"
-#~ msgstr "تنظیمات مموساین"
-
-#~ msgid "Hover with the mouse over the buttons to get extra information."
-#~ msgstr "موس را روی دکمه‌ها معلق نگه دارید تا اطلاعات مربوط به آن ظاهر شود."
-
-#~ msgid "Set Q/A font"
-#~ msgstr "فونت پرسش/پاسخ را انتخاب کنید"
-
-#~ msgid "Set the font used when showing single questions and answers"
-#~ msgstr ""
-#~ "فونتی که هنگام نمایش پرسش یا پاسخ تنها٬ استفاده می‌شود را انتخاب کنید"
-
-#~ msgid "Set the font used when showing the list of all the cards in the deck"
-#~ msgstr "فونتی را که هنگام نمایش لیست کارت‌ها استفاده می‌شود را انتخاب کنید"
-
-#~ msgid ""
-#~ "Sometimes complex glyphs are hard to read at the default latin font size"
-#~ msgstr ""
-#~ "گاهی اوقات اشکال بعضی حروف غیر لاتین در سایز فونت لاتین ناخوانا می‌شود."
-
-#~ msgid "Share anonymous statistics to contribute to memory research"
-#~ msgstr ""
-#~ "آمار کارکرد را به صورت بی‌نام برای کمک به تحقیقات حافظه به اشتراک بگذار"
-
-#~ msgid "Duplicate handling"
-#~ msgstr "اداره دونسخه‌ای‌ها"
-
-#~ msgid "Check for duplicates when adding new cards"
-#~ msgstr "هنگام اضافه کردن کارت‌های جدید امکان وجود نسخه المثنی را بررسی کن"
-
-#~ msgid "Allow duplicates in different categories"
-#~ msgstr "اجازه نسخه تکراری را در مقوله‌های مختلف بده"
-
-#~ msgid "Number of grade 0 cards to learn at once:"
-#~ msgstr "تعداد کارت‌های مرتبه »۰« برای یاد گرفتن با هم:"
-
-#~ msgid ""
-#~ "Note: this is NOT the number of grade 0 cards you want to memorise *per "
-#~ "day*"
-#~ msgstr "توجه: این میزان کارت‌هایی نیست که شما می‌خواهید روزانه حفظ کنید"
-
-#~ msgid "Please wait..."
-#~ msgstr "لطفا صبر کنید..."
-
-#~ msgid "&Add vice versa"
-#~ msgstr "برعکس را هم اضافه کن"
-
-#~ msgid "S&tatistics"
-#~ msgstr "آمار"
-
-#~ msgid "&Change category"
-#~ msgstr "تغییر مقوله"
-
-#~ msgid "Add &vice versa"
-#~ msgstr "برعکس را هم اضافه کن"
-
-#~ msgid "Add vice versa of these cards?"
-#~ msgstr "برعکس این کارت‌ها هم اضافه شود؟"
-
-#~ msgid "Add vice versa of this card?"
-#~ msgstr "برعکس این کارت هم اضافه شود؟"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "This could create duplicates if the vice "
-#~ msgstr "این ممکن است باعث اضافه شدن کارت‌های برعکسی شود"
-
-#~ msgid ""
-#~ "versas are already present, \n"
-#~ "so you might want to run "
-#~ msgstr "که قبلا موجود بوده٬ پس ممکن است بعدا شما بخواهید که تمیزکاری "
-
-#~ msgid "clean duplicates' afterwards."
-#~ msgstr ".دو نسخه‌ای‌ها را انجام دهید"
-
-#~ msgid "Grade:"
-#~ msgstr "مرتبه:"
-
-#~ msgid "Days since last repetition:"
-#~ msgstr "روزهای بعد از آخرین مرور:"
-
-#~ msgid "Days until next repetition:"
-#~ msgstr "روزهای قبل از مرور بعدی:"
-
-#~ msgid "The text you entered was not found."
-#~ msgstr "متنی که تایپ کردید پیدا نشد."
-
-#~ msgid "&Find again"
-#~ msgstr "یکبار دیگر بگرد"
-
-#~ msgid "F"
-#~ msgstr "F"
-
-#~ msgid "&Find"
-#~ msgstr "بگرد"
-
-#~ msgid "Category"
-#~ msgstr "مقوله"
-
-#~ msgid "Edit deck"
-#~ msgstr "ویرایش دسته کارت‌ها"
-
-#~ msgid "To edit a card, right-click on it."
-#~ msgstr "برای ویرایش یک کارت روی آن کلیک راست کنید."
-
-#~ msgid "Export to file"
-#~ msgstr "صادر به فایل"
-
-#~ msgid "File to export to:"
-#~ msgstr "فایلی که به آن صادر می‌کنید:"
-
-#~ msgid "Categories to export:"
-#~ msgstr "مقوله‌هایی که صادر می‌کنید:"
-
-#~ msgid "Reset learning data on export"
-#~ msgstr "اطلاعات مربوط به یادگیری را هنگام صادر کردن صفر کن"
-
-#~ msgid "Import from file"
-#~ msgstr "وارد کردن از طریق فایل"
-
-#~ msgid "Put cards without category into this category:"
-#~ msgstr "کارت‌های بدون مقوله را در این مقوله قرار بده:"
-
-#~ msgid "Note: all cards will be added to the current database."
-#~ msgstr "توجه: تمام کارت‌ها به داده‌های کنونی اضافه خواهد شد."
-
-#~ msgid "Reset learning data on import"
-#~ msgstr "اطلاعات مربوط به یادگیری را هنگام وارد کردن صفر کن"
-
-#~ msgid "All: "
-#~ msgstr "همه: "
-
-#~ msgid "."
-#~ msgstr "."
-
-#~ msgid "Save &As..."
-#~ msgstr "...ذخیره دیگر"
-
-#~ msgid "Activate cate&gories"
-#~ msgstr "مقوله‌های فعال"
-
-#~ msgid "Ctrl+G"
-#~ msgstr "Ctrl+G"
-
-#~ msgid "Edit &deck"
-#~ msgstr "ویرایش دسته کارت‌ها"
-
-#~ msgid "Show &toolbar"
-#~ msgstr "نوار ابزار را نشان بده"
-
-#~ msgid "Delete current card"
-#~ msgstr "حذف همین کارت"
-
-#~ msgid "Del"
-#~ msgstr "Del"
-
-#~ msgid "&Clean duplicates"
-#~ msgstr "تمیزکاری دونسخه‌ای‌ها"
-
-#~ msgid "Getting started"
-#~ msgstr "آشنا شدن با برنامه"
-
-#~ msgid "Down, Down"
-#~ msgstr "پاپین٬ پاپین"
-
-#~ msgid "Return"
-#~ msgstr "برگشت"
-
-#~ msgid "Space"
-#~ msgstr "Space"
-
-#~ msgid "Ctrl+R"
-#~ msgstr "Ctrl+R"
-
-#~ msgid "Show statistics"
-#~ msgstr "نمایش آمار"
-
-#~ msgid "Tip of the day"
-#~ msgstr "نکته روز"
-
-#~ msgid "Main toolbar (Mnemosyne)"
-#~ msgstr "نوار ابزار اصلی"
-
-#~ msgid "&Deck"
-#~ msgstr "دسته"
-
-#~ msgid "Grades 0-2"
-#~ msgstr "رتبه‌های ۰-۲"
-
-#~ msgid "Grades 3-5"
-#~ msgstr "رتبه‌های ۳-۵"
-
-#~ msgid ""
-#~ "(You can always change this setting later using the 'Configure Mnemosyne' "
-#~ "menu option.)"
-#~ msgstr ""
-#~ "(شما می‌توانید هر وقت که خواستید این تنظیم را از طریق منوی تنظیمات نموساین "
-#~ "تغییر دهید.)"
-
-#~ msgid "Categories"
-#~ msgstr "مقوله‌ها"

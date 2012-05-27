@@ -2,15 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-25 16:42+CEST\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-05-25 18:51+0000\n"
+"PO-Revision-Date: 2012-05-24 23:19+0000\n"
+"Last-Translator: Peter Bienstman <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.9.0\n"
+"X-Launchpad-Export-Date: 2012-05-27 04:40+0000\n"
+"X-Generator: Launchpad (build 15288)\n"
+"Language: \n"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/__init__.py:264
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/__init__.py:277
@@ -1121,7 +1122,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
-msgid "Correct answer, with some effort. The interval was probably just right."
+msgid ""
+"Correct answer, with some effort. The interval was probably just right."
 msgstr "正確的答案，需要稍作努力。間隔的時間可能正好。"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:41
@@ -1163,7 +1165,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:147
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:34
 msgid " day(s)."
-msgstr "天后傳回。"
+msgstr " 天后傳回。"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:151
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:151
@@ -1181,13 +1183,13 @@ msgstr "下次重複：明天。"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
 msgid " days."
-msgstr "天后。"
+msgstr " 天后。"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
 msgid "Next repetition in "
-msgstr "下次重複在"
+msgstr "下次重複在 "
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:196
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/preview_cards_dlg.py:65
@@ -1627,8 +1629,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/about_dlg.py:31
 #: ../mnemosyne/pyqt_ui/about_dlg.py:31
 msgid ""
-"Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-proj."
-"org</a> for more information and source code."
+"Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-"
+"proj.org</a> for more information and source code."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:87
@@ -1664,7 +1666,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:118
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/activate_cards_dlg.py:118
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:118
-msgid "You can right-click on the name of a saved set to rename or delete it."
+msgid ""
+"You can right-click on the name of a saved set to rename or delete it."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:122
@@ -1689,8 +1692,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:30
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:29 ../mnemosyne/pyqt_ui/tip_dlg.py:30
 msgid ""
-"You can organise tags in a hierarchy by using :: as separator, e.g. My book::"
-"Lesson 1."
+"You can organise tags in a hierarchy by using :: as separator, e.g. My "
+"book::Lesson 1."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/add_cards_dlg.py:30
@@ -2446,9 +2449,10 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:22
 msgid ""
 "The 'number of non-memorised cards to hold in your hand' setting determines "
-"how many cards you are trying to (re)learn at the same time. It does <b>not</"
-"b> tell you how many new cards you need to learn per day. You are the judge "
-"of that: you can learn more cards or less cards, depending on how you feel."
+"how many cards you are trying to (re)learn at the same time. It does "
+"<b>not</b> tell you how many new cards you need to learn per day. You are "
+"the judge of that: you can learn more cards or less cards, depending on how "
+"you feel."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:23
@@ -2550,24 +2554,24 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:43
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:43
 msgid ""
-"In the 'Add cards' dialog, use Tab to move between different fields, Ctrl"
-"+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
+"In the 'Add cards' dialog, use Tab to move between different fields, "
+"Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:44
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:44
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:44
 msgid ""
-"In the 'Edit card' dialog, use Tab to move between different fields and Ctrl"
-"+Enter to close the dialog."
+"In the 'Edit card' dialog, use Tab to move between different fields and "
+"Ctrl+Enter to close the dialog."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:45
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:45
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:45
 msgid ""
-"Mnemosyne can use LaTeX to render mathematical formulas, e.g. <"
-"$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
+"Mnemosyne can use LaTeX to render mathematical formulas, e.g. "
+"<$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:46
@@ -3636,281 +3640,3 @@ msgstr ""
 #: ../tests/test_translator.py:32
 msgid "This is a test."
 msgstr ""
-
-#~ msgid "About"
-#~ msgstr "關于"
-
-#~ msgid "Activate categories"
-#~ msgstr "啟動分類"
-
-#~ msgid "Select the categories to activate:"
-#~ msgstr "選取要啟動的分類："
-
-#~ msgid "Activate none"
-#~ msgstr "無一啟動"
-
-#~ msgid "<default>"
-#~ msgstr "<預設>"
-
-#~ msgid "Duplicate not added."
-#~ msgstr "重複項沒有被添加。"
-
-#~ msgid "There are different answers for"
-#~ msgstr "有不同答案回答了"
-
-#~ msgid ""
-#~ " this question:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "這個問題：\n"
-#~ "\n"
-
-#~ msgid "Category:"
-#~ msgstr "分類："
-
-#~ msgid "Ctrl+1"
-#~ msgstr "Ctrl+1"
-
-#~ msgid "Ctrl+2"
-#~ msgstr "Ctrl+2"
-
-#~ msgid "Ctrl+3"
-#~ msgstr "Ctrl+3"
-
-#~ msgid "Ctrl+4"
-#~ msgstr "Ctrl+4"
-
-#~ msgid "Ctrl+5"
-#~ msgstr "Ctrl+5"
-
-#~ msgid "Written form:"
-#~ msgstr "文字形式："
-
-#~ msgid "Translation:"
-#~ msgstr "翻譯："
-
-#~ msgid "Add &vice versa too"
-#~ msgstr "也添加相反卡片(&V)"
-
-#~ msgid "Alt+V"
-#~ msgstr "Alt+V"
-
-#~ msgid "&0"
-#~ msgstr "&0"
-
-#~ msgid "You don't remember this item yet or forgot it."
-#~ msgstr "你還不記得這張卡片或者忘記了。"
-
-#~ msgid "&1"
-#~ msgstr "&1"
-
-#~ msgid "Like '0', but the item is getting more familiar."
-#~ msgstr "類似于‘0’，但它正變得更熟悉。"
-
-#~ msgid "Type question and answer, then pick initial grade."
-#~ msgstr "匯入問題和答案，然后選取初始評分。"
-
-#~ msgid "Ctrl+P"
-#~ msgstr "Ctrl+P"
-
-#~ msgid "Alt+X"
-#~ msgstr "Alt+X"
-
-#~ msgid "Mnemosyne configuration"
-#~ msgstr "Mnemosyne 配置"
-
-#~ msgid "Hover with the mouse over the buttons to get extra information."
-#~ msgstr "把滑鼠指標懸停在按鈕上來獲得其餘資訊。"
-
-#~ msgid "Set Q/A font"
-#~ msgstr "設定問題／答案字型"
-
-#~ msgid "Set the font used when showing single questions and answers"
-#~ msgstr "設定用于察看單個問題和答案的字型"
-
-#~ msgid "Set the font used when showing the list of all the cards in the deck"
-#~ msgstr "設定用于察看卡片疊中所有卡片清單的字型"
-
-#~ msgid ""
-#~ "Sometimes complex glyphs are hard to read at the default latin font size"
-#~ msgstr "複雜的象徵式用預設的拉丁字型大小往往很難讀"
-
-#~ msgid "Share anonymous statistics to contribute to memory research"
-#~ msgstr "分享匿名統計資訊來為記憶研究做貢獻"
-
-#~ msgid "Duplicate handling"
-#~ msgstr "重複項處理"
-
-#~ msgid "Check for duplicates when adding new cards"
-#~ msgstr "添加新卡片時檢查重複項"
-
-#~ msgid "Allow duplicates in different categories"
-#~ msgstr "允許不同分類中有重複項"
-
-#~ msgid "Number of grade 0 cards to learn at once:"
-#~ msgstr "一次學習0分卡片數量："
-
-#~ msgid ""
-#~ "Note: this is NOT the number of grade 0 cards you want to memorise *per "
-#~ "day*"
-#~ msgstr "注意：這并不是你 *每天* 想要記下的0分卡片數量"
-
-#~ msgid "Please wait..."
-#~ msgstr "請稍候..."
-
-#~ msgid "&Add vice versa"
-#~ msgstr "添加相反卡片(&A)"
-
-#~ msgid "S&tatistics"
-#~ msgstr "統計(&T)"
-
-#~ msgid "&Change category"
-#~ msgstr "變更分類(&C)"
-
-#~ msgid "Add &vice versa"
-#~ msgstr "添加相反卡片(&V)"
-
-#~ msgid "Add vice versa of these cards?"
-#~ msgstr "為這些卡片添加相反卡片？"
-
-#~ msgid "Add vice versa of this card?"
-#~ msgstr "為這張卡片添加相反卡片？"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "This could create duplicates if the vice "
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "如果已經存在相反卡片，"
-
-#~ msgid ""
-#~ "versas are already present, \n"
-#~ "so you might want to run "
-#~ msgstr "就會產生重複卡片，因此之后你可能要執行"
-
-#~ msgid "clean duplicates' afterwards."
-#~ msgstr "清除重複卡片。"
-
-#~ msgid "Grade:"
-#~ msgstr "評分："
-
-#~ msgid "Days since last repetition:"
-#~ msgstr "自從上次重複的天數："
-
-#~ msgid "Days until next repetition:"
-#~ msgstr "直到下次重複的天數："
-
-#~ msgid "The text you entered was not found."
-#~ msgstr "你所匯入的字檔沒有找到。"
-
-#~ msgid "&Find again"
-#~ msgstr "再找(&F)"
-
-#~ msgid "F"
-#~ msgstr "F"
-
-#~ msgid "&Find"
-#~ msgstr "尋找(&F)"
-
-#~ msgid "Category"
-#~ msgstr "分類"
-
-#~ msgid "Edit deck"
-#~ msgstr "編輯卡片疊"
-
-#~ msgid "To edit a card, right-click on it."
-#~ msgstr "要編輯一張卡片，請右擊它。"
-
-#~ msgid "Export to file"
-#~ msgstr "導出到檔案"
-
-#~ msgid "File to export to:"
-#~ msgstr "導出到檔案："
-
-#~ msgid "Categories to export:"
-#~ msgstr "要導出的分類："
-
-#~ msgid "Reset learning data on export"
-#~ msgstr "導出時重置學習資料"
-
-#~ msgid "Import from file"
-#~ msgstr "從檔案導入"
-
-#~ msgid "Put cards without category into this category:"
-#~ msgstr "將沒有分類的卡片放到這個分類中："
-
-#~ msgid "Note: all cards will be added to the current database."
-#~ msgstr "注意：所有卡片將被添加到目前資料程式庫。"
-
-#~ msgid "Reset learning data on import"
-#~ msgstr "導入時重置學習資料"
-
-#~ msgid "All: "
-#~ msgstr "所有："
-
-#~ msgid "."
-#~ msgstr "."
-
-#~ msgid "Save &As..."
-#~ msgstr "存新檔(&A)..."
-
-#~ msgid "Activate cate&gories"
-#~ msgstr "啟動分類(&G)"
-
-#~ msgid "Edit &deck"
-#~ msgstr "編輯卡片疊(&D)"
-
-#~ msgid "Show &toolbar"
-#~ msgstr "察看工具軸(&T)"
-
-#~ msgid "Delete current card"
-#~ msgstr "移除目前卡片"
-
-#~ msgid "Del"
-#~ msgstr "Del"
-
-#~ msgid "&Clean duplicates"
-#~ msgstr "清除重複項(&C)"
-
-#~ msgid "Getting started"
-#~ msgstr "入門指引"
-
-#~ msgid "Down, Down"
-#~ msgstr "Down, Down"
-
-#~ msgid "Return"
-#~ msgstr "Return"
-
-#~ msgid "Space"
-#~ msgstr "Space"
-
-#~ msgid "Ctrl+R"
-#~ msgstr "Ctrl+R"
-
-#~ msgid "Show statistics"
-#~ msgstr "察看統計"
-
-#~ msgid "Tip of the day"
-#~ msgstr "今日說明"
-
-#~ msgid "Main toolbar (Mnemosyne)"
-#~ msgstr "主工具軸 (Mnemosyne)"
-
-#~ msgid "&Deck"
-#~ msgstr "卡片疊(&D)"
-
-#~ msgid "Grades 0-2"
-#~ msgstr "0-2分"
-
-#~ msgid "Grades 3-5"
-#~ msgstr "3-5分"
-
-#~ msgid ""
-#~ "(You can always change this setting later using the 'Configure Mnemosyne' "
-#~ "menu option.)"
-#~ msgstr "（以后你始終能變更這項設定，請用“配置 Mnemosyne”功能表項）"
-
-#~ msgid "Categories"
-#~ msgstr "分類"

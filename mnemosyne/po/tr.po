@@ -2,15 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-25 16:42+CEST\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-05-25 18:51+0000\n"
+"PO-Revision-Date: 2012-05-24 23:19+0000\n"
+"Last-Translator: Peter Bienstman <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.9.0\n"
+"X-Launchpad-Export-Date: 2012-05-27 04:40+0000\n"
+"X-Generator: Launchpad (build 15288)\n"
+"Language: \n"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/__init__.py:264
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/__init__.py:277
@@ -294,7 +295,7 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:116
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:116
 msgid "&Add as is"
-msgstr "&Ekle "
+msgstr "&Ekle"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:116
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:116
@@ -1061,7 +1062,7 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:18
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:18
 msgid "You don't remember this card yet."
-msgstr "Bu kartı henüz hatırlamıyorsunuz. "
+msgstr "Bu kartı henüz hatırlamıyorsunuz."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:20
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:20
@@ -1121,10 +1122,11 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
-msgid "Correct answer, with some effort. The interval was probably just right."
+msgid ""
+"Correct answer, with some effort. The interval was probably just right."
 msgstr ""
 "Doğru yanıt ve az çaba gerekti. Yanıt süresi büyük olasılıkla tam doğru "
-"uzunluktaydı. "
+"uzunluktaydı."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:41
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:41
@@ -1134,7 +1136,7 @@ msgid ""
 "short."
 msgstr ""
 "Doğru yanıt ve hiç zorluk çekmediniz. Yanıt süresi büyük olasılıkla çok "
-"kısaydı. "
+"kısaydı."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:104
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:104
@@ -1631,8 +1633,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/about_dlg.py:31
 #: ../mnemosyne/pyqt_ui/about_dlg.py:31
 msgid ""
-"Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-proj."
-"org</a> for more information and source code."
+"Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-"
+"proj.org</a> for more information and source code."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:87
@@ -1668,7 +1670,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:118
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/activate_cards_dlg.py:118
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:118
-msgid "You can right-click on the name of a saved set to rename or delete it."
+msgid ""
+"You can right-click on the name of a saved set to rename or delete it."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:122
@@ -1693,8 +1696,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:30
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:29 ../mnemosyne/pyqt_ui/tip_dlg.py:30
 msgid ""
-"You can organise tags in a hierarchy by using :: as separator, e.g. My book::"
-"Lesson 1."
+"You can organise tags in a hierarchy by using :: as separator, e.g. My "
+"book::Lesson 1."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/add_cards_dlg.py:30
@@ -2418,8 +2421,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:18
 msgid "For optimal results, it's best to do your repetitions every day."
 msgstr ""
-"Optimum sonucu alabilmek için en iyi yol, tekrarlarınızı her gün "
-"yapmanızdır. "
+"Optimum sonucu alabilmek için en iyi yol, tekrarlarınızı her gün yapmanızdır."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:19
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:19
@@ -2452,9 +2454,10 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:22
 msgid ""
 "The 'number of non-memorised cards to hold in your hand' setting determines "
-"how many cards you are trying to (re)learn at the same time. It does <b>not</"
-"b> tell you how many new cards you need to learn per day. You are the judge "
-"of that: you can learn more cards or less cards, depending on how you feel."
+"how many cards you are trying to (re)learn at the same time. It does "
+"<b>not</b> tell you how many new cards you need to learn per day. You are "
+"the judge of that: you can learn more cards or less cards, depending on how "
+"you feel."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:23
@@ -2556,24 +2559,24 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:43
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:43
 msgid ""
-"In the 'Add cards' dialog, use Tab to move between different fields, Ctrl"
-"+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
+"In the 'Add cards' dialog, use Tab to move between different fields, "
+"Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:44
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:44
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:44
 msgid ""
-"In the 'Edit card' dialog, use Tab to move between different fields and Ctrl"
-"+Enter to close the dialog."
+"In the 'Edit card' dialog, use Tab to move between different fields and "
+"Ctrl+Enter to close the dialog."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:45
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:45
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:45
 msgid ""
-"Mnemosyne can use LaTeX to render mathematical formulas, e.g. <"
-"$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
+"Mnemosyne can use LaTeX to render mathematical formulas, e.g. "
+"<$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
 msgstr ""
 "Mnemosyne matematiksel formülleri mümkün kılmak için LaTeX kullanabilir, "
 "örn. <$>x^2+y^2=z^2</$>. (Bunun için LaTeX ve dvipng yüklenmiş olmalı.)"
@@ -2605,7 +2608,7 @@ msgid ""
 msgstr ""
 "LaTeX'in davranışları üzerinde daha ince ayarlı kontrol istiyorsanız, "
 "Mnemosyne internet sitesindeki <$$>...</$$> ve <latex>...</latex> "
-"etiketlerinin açıklamalarına bakınız. "
+"etiketlerinin açıklamalarına bakınız."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:49
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:49
@@ -3647,453 +3650,3 @@ msgstr ""
 #: ../tests/test_translator.py:32
 msgid "This is a test."
 msgstr ""
-
-#~ msgid "Invalid file format."
-#~ msgstr "Geçersiz dosya biçimi."
-
-#~ msgid "Unrecognised encoding."
-#~ msgstr "Tanımlanmamış kodlama."
-
-#~ msgid "&Overwrite"
-#~ msgstr "Ü&stüneyaz"
-
-#~ msgid "Removed duplicates: "
-#~ msgstr "Silinmiş kopyalar: "
-
-#~ msgid ""
-#~ "There are cards with different answers for question:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Şu sorular için farklı yanıtlarda kartlar bulunmakta:\n"
-#~ "\n"
-
-#~ msgid "&Don't merge"
-#~ msgstr "&Birleştirme"
-
-#~ msgid " Show it less often."
-#~ msgstr " Daha az sıklıkla göster."
-
-#~ msgid " and will probably remember it for a few days."
-#~ msgstr " ve büyük olasılıkla bir kaç gün hatırlayacaksınız."
-
-#~ msgid "Correct answer, but with much effort."
-#~ msgstr "Doğru yanıt fakat büyük çaba gerekti. "
-
-#~ msgid " The interval was probably too long."
-#~ msgstr " Muhtemelen çok uzun sürdü. "
-
-#~ msgid "Correct answer, with some effort."
-#~ msgstr "Doğru yanıt, bir miktar çaba gerekti. "
-
-#~ msgid " The interval was probably just right."
-#~ msgstr " Zaman aralığı büyük olasılıkla doğru uzunluktaydı."
-
-#~ msgid "Correct answer, but without any"
-#~ msgstr "Doğru yanıt, herhangi bir "
-
-#~ msgid " difficulties. The interval was probably too short."
-#~ msgstr " zorluk çekmeden... Büyük olasılıkla çok kısa süre gerekti. "
-
-#~ msgid "About"
-#~ msgstr "Hakkında"
-
-#~ msgid "Activate categories"
-#~ msgstr "Kategorileri etkinleştir"
-
-#~ msgid "Select the categories to activate:"
-#~ msgstr "Etkinleşecek kategorileri seç:"
-
-#~ msgid "Activate none"
-#~ msgstr "Hiçbirini etkinleştirme"
-
-#~ msgid "<default>"
-#~ msgstr "<varsayılan>"
-
-#~ msgid "Written form:"
-#~ msgstr "Yazım şekli:"
-
-#~ msgid "Translation:"
-#~ msgstr "Çevirisi:"
-
-#~ msgid "Duplicate not added."
-#~ msgstr "Çift kopya eklenmedi. "
-
-#~ msgid "There are different answers for"
-#~ msgstr "Bu soru için farklı yanıtlar"
-
-#~ msgid ""
-#~ " this question:\n"
-#~ "\n"
-#~ msgstr ""
-#~ " bulunmakta:\n"
-#~ "\n"
-
-#~ msgid "Category:"
-#~ msgstr "Kategori:"
-
-#~ msgid "Add &vice versa too"
-#~ msgstr "Karşılıklı olarak &ekle"
-
-#~ msgid "Alt+V"
-#~ msgstr "Alt+E"
-
-#~ msgid "&0"
-#~ msgstr "&0"
-
-#~ msgid "You don't remember this item yet or forgot it."
-#~ msgstr "Bu öğeyi henüz aklınızda tutamadınız ya da unuttunuz. "
-
-#~ msgid "&1"
-#~ msgstr "&1"
-
-#~ msgid "Ctrl+1"
-#~ msgstr "Ctrl+1"
-
-#~ msgid "Like '0', but the item is getting more familiar."
-#~ msgstr "'0' gibi, fakat bu öğe size daha tanıdık gelmeye başladı."
-
-#~ msgid "Ctrl+2"
-#~ msgstr "Ctrl+2"
-
-#~ msgid "Ctrl+3"
-#~ msgstr "Ctrl+3"
-
-#~ msgid "Ctrl+4"
-#~ msgstr "Ctrl+4"
-
-#~ msgid "Ctrl+5"
-#~ msgstr "Ctrl+5"
-
-#~ msgid "Type question and answer, then pick initial grade."
-#~ msgstr "Soru ve yanıtı yazın ve sonra başlangıç derecesini seçin."
-
-#~ msgid "Preview"
-#~ msgstr "Önizleme"
-
-#~ msgid "Ctrl+P"
-#~ msgstr "Ctrl+P"
-
-#~ msgid "Alt+X"
-#~ msgstr "Alt+K"
-
-#~ msgid "Mnemosyne configuration"
-#~ msgstr "Mnemosyne ayarları"
-
-#~ msgid "Hover with the mouse over the buttons to get extra information."
-#~ msgstr "Fazladan bilgi edinmek için fare ile tuşların üzerinde gezinin. "
-
-#~ msgid "Set Q/A font"
-#~ msgstr "Soru/Yanıt yazı tipini ayarlayın"
-
-#~ msgid "Set the font used when showing single questions and answers"
-#~ msgstr "Tek soru ve yanıtının gösterilirkenki yazı tipini ayarlayın"
-
-#~ msgid "Set the font used when showing the list of all the cards in the deck"
-#~ msgstr "Destedeki tüm kartları listelerkenki yazı tipini belirleyin"
-
-#~ msgid ""
-#~ "Sometimes complex glyphs are hard to read at the default latin font size"
-#~ msgstr ""
-#~ "Karmaşık karakterlerin, varsayılan latin yazı tipi büyüklüğünde okunması "
-#~ "bazen zordur"
-
-#~ msgid "Share anonymous statistics to contribute to memory research"
-#~ msgstr ""
-#~ "Hafıza araştırmasına katkıda bulunmak için isimsiz istatistikleri paylaş"
-
-#~ msgid "Duplicate handling"
-#~ msgstr "Çift kopya yönetimi"
-
-#~ msgid "Check for duplicates when adding new cards"
-#~ msgstr "Yeni kartları eklerken çift kopyaları kontrol et"
-
-#~ msgid "Allow duplicates in different categories"
-#~ msgstr "Farklı kategorilerde çift kopyalara izin ver"
-
-#~ msgid ""
-#~ "Note: this is NOT the number of grade 0 cards you want to memorise *per "
-#~ "day*"
-#~ msgstr ""
-#~ "Not: bu *günde* ezberlemek istediğiniz derece 0 kart sayısı DEĞİLDİR"
-
-#~ msgid "Please wait..."
-#~ msgstr "Lütfen bekleyin..."
-
-#~ msgid "&Add vice versa"
-#~ msgstr "&Tersini ekle"
-
-#~ msgid "S&tatistics"
-#~ msgstr "İ&statistikler"
-
-#~ msgid "&Change category"
-#~ msgstr "&Kategori değiştir"
-
-#~ msgid "Add &vice versa"
-#~ msgstr "Tersini &ekle"
-
-#~ msgid "Add vice versa of these cards?"
-#~ msgstr "Bu kartların tersi de eklensin mi?"
-
-#~ msgid "Add vice versa of this card?"
-#~ msgstr "Bu kartın tersi de eklensin mi?"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "This could create duplicates if the vice "
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Eğer bunun tersi varsa "
-
-#~ msgid ""
-#~ "versas are already present, \n"
-#~ "so you might want to run "
-#~ msgstr ""
-#~ "çift kopyaya yol açar,\n"
-#~ "bu yüzden daha sonra "
-
-#~ msgid "clean duplicates' afterwards."
-#~ msgstr "'çift kopyaları temizle'yi çalıştırabilirsiniz. "
-
-#~ msgid "Grade:"
-#~ msgstr "Derece:"
-
-#~ msgid "Days since last repetition:"
-#~ msgstr "Son tekrardan sonra geçen gün sayısı:"
-
-#~ msgid "Days until next repetition:"
-#~ msgstr "Bir sonraki tekrara kalan gün sayısı:"
-
-#~ msgid "The text you entered was not found."
-#~ msgstr "Eklediğiniz yazı bulunamadı."
-
-#~ msgid "&Find again"
-#~ msgstr "&Tekrar bul"
-
-#~ msgid "F"
-#~ msgstr "B"
-
-#~ msgid "&Find"
-#~ msgstr "&Bul"
-
-#~ msgid "Category"
-#~ msgstr "Kategori"
-
-#~ msgid "Edit deck"
-#~ msgstr "Desteyi düzenle"
-
-#~ msgid "Alt+F"
-#~ msgstr "Alt+B"
-
-#~ msgid "To edit a card, right-click on it."
-#~ msgstr "Bir kartı düzenlemek için, üzerine sağ tıklayın."
-
-#~ msgid "All Files (*);;"
-#~ msgstr "Tüm Dosyalar(*);;"
-
-#~ msgid "Export"
-#~ msgstr "Dışa aktar"
-
-#~ msgid "Export to file"
-#~ msgstr "Dışa bir dosyaya aktar"
-
-#~ msgid "File to export to:"
-#~ msgstr "Dışa aktarılacak dosya:"
-
-#~ msgid "Categories to export:"
-#~ msgstr "Dışa aktarılacak kategoriler:"
-
-#~ msgid "Reset learning data on export"
-#~ msgstr "Dışa aktarımda öğrenme verilerini sıfırla"
-
-#~ msgid "Import"
-#~ msgstr "İçe aktar"
-
-#~ msgid "Import from file"
-#~ msgstr "Bir dosyadan içe aktar"
-
-#~ msgid "Put cards without category into this category:"
-#~ msgstr "Kategorisiz kartları bu kategoriye koy:"
-
-#~ msgid "Note: all cards will be added to the current database."
-#~ msgstr "Not: Bütün kartlar şu anki veritabanına eklenecek."
-
-#~ msgid "Reset learning data on import"
-#~ msgstr "İçe aktarmada öğrenme verilerini sıfırla"
-
-#~ msgid "All: "
-#~ msgstr "Hepsi: "
-
-#~ msgid "."
-#~ msgstr "."
-
-#~ msgid "Activate cate&gories"
-#~ msgstr "Kategorileri &etkinleştir"
-
-#~ msgid "Ctrl+G"
-#~ msgstr "Ctrl+E"
-
-#~ msgid "Edit &deck"
-#~ msgstr "&Desteyi düzenle"
-
-#~ msgid "Edit current card"
-#~ msgstr "Geçerli kartı düzenle"
-
-#~ msgid "Delete current card"
-#~ msgstr "Geçerli kartı sil"
-
-#~ msgid "Del"
-#~ msgstr "Sil"
-
-#~ msgid "&Clean duplicates"
-#~ msgstr "&Çift kopyaları temizle"
-
-#~ msgid "Getting started"
-#~ msgstr "Başlarken"
-
-#~ msgid "Down, Down"
-#~ msgstr "Aşağı, Aşağı"
-
-#~ msgid "Return"
-#~ msgstr "Return"
-
-#~ msgid "Space"
-#~ msgstr "Space"
-
-#~ msgid "Ctrl+R"
-#~ msgstr "Ctrl+R"
-
-#~ msgid "Show statistics"
-#~ msgstr "İstatistikleri göster"
-
-#~ msgid "Tip of the day"
-#~ msgstr "Günün ipucu bilgisi"
-
-#~ msgid "Main toolbar (Mnemosyne)"
-#~ msgstr "Ana araç çubuğu (Mnemosyne)"
-
-#~ msgid "&Deck"
-#~ msgstr "&Deste"
-
-#~ msgid "Grades 0-2"
-#~ msgstr "Dereceler 0-2"
-
-#~ msgid "Grades 3-5"
-#~ msgstr "Dereceler 3-5"
-
-#~ msgid ""
-#~ "(You can always change this setting later using the 'Configure Mnemosyne' "
-#~ "menu option.)"
-#~ msgstr ""
-#~ "(Bu ayarlamayı daha sonra 'Mnemosyne'i ayarla' menü seçeneğiyle "
-#~ "değiştirebilirsiniz. )"
-
-#~ msgid "&3-sided input"
-#~ msgstr "&3-yönlü girdi"
-
-#~ msgid ""
-#~ "Scheduled cards for next week:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Gelecek haftaya programlanmış kartlar:\n"
-#~ "\n"
-
-#~ msgid "day(s) :"
-#~ msgstr "gün(ler):"
-
-#~ msgid ""
-#~ "Number of cards with the following grades:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "İlgili derecelerdeki kart sayısı:\n"
-#~ "\n"
-
-#~ msgid "Categories"
-#~ msgstr "Kategoriler"
-
-#~ msgid ""
-#~ "You can import cards in a wide variety of formats: tab delimited txt "
-#~ "files, Supermemo files, ... ."
-#~ msgstr ""
-#~ "Kartları pek çok biçimde içe aktarabilirsiniz: tab ile ayrılmış txt "
-#~ "dosyası, Supermemo dosyası, ... . "
-
-#~ msgid ""
-#~ "If you have cards in Word or Excel, export them to tab delimited txt "
-#~ "files with UTF-8 unicode encoding to be able to import them into "
-#~ "Mnemosyne."
-#~ msgstr ""
-#~ "Word ya da Excel'de kartlarınız varsa, UTF-8 unicode karakter kodlaması "
-#~ "ile tab ile ayrılmış txt (tab deliminated txt) dosyası olarak dışa "
-#~ "aktarın ki böylece Mnemosyne'de içe aktarabilesiniz."
-
-#~ msgid ""
-#~ "If you want to print out your cards, export them to a txt file which you "
-#~ "can then print from your favourite Word processor."
-#~ msgstr ""
-#~ "Eğer kartlarınızı çıktısını almak istiyorsanız, txt dosyası olarak dışa "
-#~ "aktarın; böylece favori Word işlemciniz ile çıktı alabilirsiniz. "
-
-#~ msgid ""
-#~ "You can share your cards with someone else by exporting them to XML and "
-#~ "choosing the 'Reset learning data' option on export."
-#~ msgstr ""
-#~ "XML olarak dışa aktarıp ve 'öğrenme verilerini sıfırla' seçeneğini de "
-#~ "seçerek kartlarınızı başkalarıyla paylaşabilirsiniz. "
-
-#~ msgid ""
-#~ "If you study a foreign language with a different script, the default font "
-#~ "size is sometimes a bit small. If you want to increase the size of these "
-#~ "characters but keep the size of English text, use the 'increase size of "
-#~ "non-latin characters by X points' option."
-#~ msgstr ""
-#~ "Başka bir yazı düzeni(betik) olan yabancı bir dil çalışıyorsanız, "
-#~ "varsayılan yazı tipi büyüklüğü bazen biraz küçük olur. Türkçe yazıların "
-#~ "büyüklüğü aynı kalırken, bu karakterlerin büyüklüğünü arttırmak "
-#~ "isterseniz; 'latin olmayan karakterleri boyutunu X punto kadar büyüt' "
-#~ "seçeneğini kullanın. "
-
-#~ msgid ""
-#~ "It is recommended to keep your sound and image files inside your ."
-#~ "mnemosyne directory. That way, it's easier to transfer your data between "
-#~ "different computers."
-#~ msgstr ""
-#~ "Ses ve resim dosyalarınızı .mnemosyne dizininde saklamanız önerilir. "
-#~ "Böylece, verilerinizi bilgisayarlar arasında transfer etmeniz kolaylaşır. "
-
-#~ msgid ""
-#~ "When adding a three-sided card, two regular cards will be created. One "
-#~ "with as question the written form and as answer the pronunciation and the "
-#~ "translation, and one with as question the translation and as answer the "
-#~ "written form and the pronunciation."
-#~ msgstr ""
-#~ "Üç-yüzlü kart eklerken iki sıradan kart oluşturulur. Birinin soru "
-#~ "kısmında yazılışı, yanıt kısmında ise telaffuzu ve çevirisi; bir "
-#~ "diğerinde ise soru kısmında çevirisi, yanıt kısmında yazışı ve telaffuzu "
-#~ "olur."
-
-#~ msgid ""
-#~ "You can use basic HTML tags in your cards to control their appearance."
-#~ msgstr ""
-#~ "Görünümlerini değiştirmek için kartlarınızda temel HTML etiketlerini "
-#~ "kullanabilirsiniz. "
-
-#~ msgid ""
-#~ "You can run Mnemosyne from a USB key. Copy C:\\Program Files\\Mnemosyne "
-#~ "to your USB key, and then copy the .mnemosyne directory from your home "
-#~ "directory to inside the Mnemosyne directory on the USB key."
-#~ msgstr ""
-#~ "Mnemosyne'i USB anahtarıyla çalıştırabilirsiniz. C:\\Program Files"
-#~ "\\Mnemosyne'i USB anahtarınıza kopyalayın ve daha sonra .mnemosyne "
-#~ "dizinini ana dizininizden USB anahtarındaki Mnemosyne dizininin içine "
-#~ "kopyalayın. "
-
-#~ msgid ""
-#~ "If you use Mnemosyne on multiple computers, there is a handy tool called "
-#~ "Unison to help you synchronise your data. See the Mnemosyne website for "
-#~ "more information."
-#~ msgstr ""
-#~ "Eğer Mnemosyne'i çok sayıda bilgisayarda kullanıyorsanız, Unision isimli "
-#~ "kullanışlı bir programla verilerinizi eşleyebilirsiniz. Daha fazla bilgi "
-#~ "için Mnemosyne internet sayfasına bakınız. "

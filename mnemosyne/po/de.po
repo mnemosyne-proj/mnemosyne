@@ -11,12 +11,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.0-pre\n"
-"POT-Creation-Date: 2012-05-25 16:42+CEST\n"
-"PO-Revision-Date: 2011-09-27 14:43+CEST\n"
-"Last-Translator: Johannes Baiter <johannes.baiter@gmail.com>\n"
-"Language: German\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-25 18:51+0000\n"
+"PO-Revision-Date: 2012-05-26 11:39+0000\n"
+"Last-Translator: mase <Unknown>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-05-27 04:40+0000\n"
+"X-Generator: Launchpad (build 15288)\n"
+"Language: German\n"
 "Generated-By: pygettext.py 1.5\n"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/__init__.py:264
@@ -598,24 +603,26 @@ msgstr "Ein Kartentyp diesen Namens existiert bereits."
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:404
 msgid "Card type %s is in use or is a system card type, cannot delete it."
 msgstr ""
+"Kartentyp %s ist in Gebrauch oder es handelt sich um einen Systemkatentyp. "
+"Kartentyp kann nicht gelöscht werden."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:406
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:406
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:409
 msgid "Card type %s has clones, cannot delete it."
-msgstr ""
+msgstr "Kartentyp %s hat Klone, er kann nicht gelöscht werden."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:421
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:421
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:424
 msgid "Cannot rename a system card type."
-msgstr ""
+msgstr "Ein Systemkartentyp kann nicht umbenannt werden."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:426
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:426
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:429
 msgid "This card type name is already in use."
-msgstr ""
+msgstr "Dieser Kartentyp ist schon in Gebrauch."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:432
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:432
@@ -736,7 +743,7 @@ msgstr "Video einfügen"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:651
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:654
 msgid "Install plugin"
-msgstr ""
+msgstr "Plugin installieren"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:651
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:651
@@ -748,7 +755,7 @@ msgstr "Plugins"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:676
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:679
 msgid "No plugin found!"
-msgstr ""
+msgstr "Kein Plugin gefunden!"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:823
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:823
@@ -769,6 +776,8 @@ msgid ""
 "Putting a database on a network drive is forbidden under Windows to avoid "
 "data corruption. Mnemosyne will now close."
 msgstr ""
+"Eine Datenbank auf einem Laufwerk im Netzwerk abzulegen wird unter Windows "
+"unterbunden, um Datenverlust vorzubeugen. Mnemosyne wird nun beendet."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/databases/SQLite.py:346
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/databases/SQLite.py:346
@@ -852,6 +861,8 @@ msgid ""
 "Media filename rather long. This could cause problems using this file on a "
 "different OS."
 msgstr ""
+"Der Name der Mediendatei ist sehr lang. Das könnte auf anderen "
+"Betriebssystemen Probleme verursachen."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/databases/SQLite_media.py:115
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/databases/SQLite_media.py:115
@@ -900,6 +911,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:40
 msgid "These cards seem to have been imported before. Aborting..."
 msgstr ""
+"Diese Karten sind scheinbar schon zuvor importiert worden. Abbruch..."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:42
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:32
@@ -923,7 +935,7 @@ msgstr "Mnemosyne 1.x *.mem Dateien"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:25
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:25
 msgid "Mnemosyne 1.x *.mem databases (*.mem)"
-msgstr ""
+msgstr "Mnemosyne 1.x *.mem Datenbanken (*.mem)"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:73
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:62
@@ -956,7 +968,7 @@ msgstr "Ignoriere nicht lesbare Dateien:<br/>"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:17
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:17
 msgid "Mnemosyne 1.x *.XML files"
-msgstr ""
+msgstr "mnemosyne 1.x *.XML Dateien"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:18
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:18
@@ -968,7 +980,7 @@ msgstr "Mnemosyne 1.x XML dateien"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:59
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:59
 msgid "Unable to parse file:"
-msgstr ""
+msgstr "Datei kann nicht eingelesen werden:"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:96
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:96
@@ -977,6 +989,8 @@ msgid ""
 "This XML file contains learning data. It's best to import this from a mem "
 "file, in order to preserve historical statistics. Continue?"
 msgstr ""
+"Diese XML-Datei enthält Lerndaten. Es wird empfohlen diese aus einer MEM-"
+"Datei zu importieren um vergangene Statistiken zu erhalten. Fortfahren?"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:264
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:264
@@ -1006,19 +1020,19 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/tsv.py:41
 #: ../mnemosyne/libmnemosyne/file_formats/tsv.py:41
 msgid "Could not load file."
-msgstr ""
+msgstr "Die Datei lässt sich nicht laden."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/tsv.py:53
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/tsv.py:53
 #: ../mnemosyne/libmnemosyne/file_formats/tsv.py:53
 msgid "Could not determine encoding."
-msgstr ""
+msgstr "Die Kodierung konnte nicht ermittelt werden."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/tsv.py:74
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/tsv.py:74
 #: ../mnemosyne/libmnemosyne/file_formats/tsv.py:74
 msgid "Missing answer on line:\n"
-msgstr ""
+msgstr "Fehlende Antwort in Zeile:\n"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/filters/latex.py:85
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/filters/latex.py:85
@@ -1145,7 +1159,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
-msgid "Correct answer, with some effort. The interval was probably just right."
+msgid ""
+"Correct answer, with some effort. The interval was probably just right."
 msgstr ""
 "Richtige Antwort, mit etwas Mühe. Der Abstand war wahrscheinlich gerade "
 "richtig."
@@ -1224,7 +1239,7 @@ msgstr "Nächste Wiederholung in "
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:196
 #: ../mnemosyne/pyqt_ui/preview_cards_dlg.py:65
 msgid "Question: "
-msgstr "Frage:"
+msgstr "Frage: "
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:223
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:226
@@ -1501,7 +1516,7 @@ msgstr "Falsch beantwortet"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/current_card.py:36
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:36
 msgid "Scheduled interval"
-msgstr ""
+msgstr "geplantes Intervall"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/current_card.py:38
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/current_card.py:38
@@ -1573,61 +1588,61 @@ msgstr "Lernplan"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/schedule.py:24
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:24
 msgid "Next week (active cards only)"
-msgstr ""
+msgstr "Nächste Woche (nur aktivierte Karten)"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/schedule.py:25
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/schedule.py:25
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:25
 msgid "Next month (active cards only)"
-msgstr ""
+msgstr "Nächsten Monat (nur aktivierte Karten)"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/schedule.py:26
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/schedule.py:26
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:26
 msgid "Next 3 months (active cards only)"
-msgstr ""
+msgstr "Nächsten drei Monate (nur aktiviere Karten)"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/schedule.py:27
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/schedule.py:27
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:27
 msgid "Next 6 months (active cards only)"
-msgstr ""
+msgstr "Nächsten sechs Monate (nur aktivierte Karten)"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/schedule.py:28
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/schedule.py:28
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:28
 msgid "Next year (active cards only)"
-msgstr ""
+msgstr "Nächstes Jahr (nur aktivierte Karten)"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/schedule.py:29
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/schedule.py:29
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:29
 msgid "Last week (all cards)"
-msgstr ""
+msgstr "Letzte Woche (alle Karten)"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/schedule.py:30
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/schedule.py:30
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:30
 msgid "Last month (all cards)"
-msgstr ""
+msgstr "Letzten Monat (alle Karten)"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/schedule.py:31
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/schedule.py:31
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:31
 msgid "Last 3 months (all cards)"
-msgstr ""
+msgstr "Letzten drei Monate (alle Karten)"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/schedule.py:32
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/schedule.py:32
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:32
 msgid "Last 6 months (all cards)"
-msgstr ""
+msgstr "Letzten sechs Monate (alle Karten)"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/statistics_pages/schedule.py:33
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/statistics_pages/schedule.py:33
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:33
 msgid "Last year (all cards)"
-msgstr ""
+msgstr "Letztes Jahr (alle Karten)"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/tag_tree.py:41
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/tag_tree.py:41
@@ -1657,9 +1672,11 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/about_dlg.py:31
 #: ../mnemosyne/pyqt_ui/about_dlg.py:31
 msgid ""
-"Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-proj."
-"org</a> for more information and source code."
+"Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-"
+"proj.org</a> for more information and source code."
 msgstr ""
+"Für weitergehende Informationen und den Source Code siehe <a "
+"href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-proj.org</a>."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:87
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/manage_plugins_dlg.py:93
@@ -1694,7 +1711,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:118
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/activate_cards_dlg.py:118
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:118
-msgid "You can right-click on the name of a saved set to rename or delete it."
+msgid ""
+"You can right-click on the name of a saved set to rename or delete it."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:122
@@ -1719,8 +1737,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:30
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:29 ../mnemosyne/pyqt_ui/tip_dlg.py:30
 msgid ""
-"You can organise tags in a hierarchy by using :: as separator, e.g. My book::"
-"Lesson 1."
+"You can organise tags in a hierarchy by using :: as separator, e.g. My "
+"book::Lesson 1."
 msgstr ""
 "Tags können in Hierarchien angelegt werden indem man '::' als Trennzeichen "
 "verwendet. Zum Beispiel: 'Mein Lehrbuch::Lektion 1'."
@@ -1748,9 +1766,9 @@ msgid ""
 "pronunciation field, you can hide it by right-clicking on it and using the "
 "pop-up menu."
 msgstr ""
-"Sollte für einen bestimmten Kartentyp, der aus dem 'Vokabular'-Typ "
-"erzeugtwurde, kein 'Aussprache'-Feld benötigt werden, kann man es per "
-"Rechtsklicküber das Pop-Up Menü verbergen."
+"Sollte für einen bestimmten Kartentyp, der aus dem 'Vokabular'-Typ erzeugt "
+"wurde, kein 'Aussprache'-Feld benötigt werden, kann man es per Rechtsklick "
+"über das Pop-Up Menü verbergen."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/add_cards_dlg.py:32
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/add_cards_dlg.py:32
@@ -1947,7 +1965,7 @@ msgstr "Die ausgewählten Karten sollten vom selben Kartentyp sein."
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/browse_cards_dlg.py:574
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:574
 msgid "Database error: "
-msgstr "Datenbankfehler:"
+msgstr "Datenbankfehler: "
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/browse_cards_dlg.py:594
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/browse_cards_dlg.py:594
@@ -2019,6 +2037,8 @@ msgid ""
 "slower. Next time you start the card browser, the table will be unsorted "
 "again."
 msgstr ""
+"Sortierung der Tabelle gewählt. Vorgänge im Karten-Browser könnten jetzt "
+"langsamer sein. Beim nächsten Start wird die Tabelle wieder unsortiert sein."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/browse_cards_dlg.py:732
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/browse_cards_dlg.py:732
@@ -2051,7 +2071,7 @@ msgstr "Alle Kartentypen (%d)"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/compact_database_dlg.py:63
 #: ../mnemosyne/pyqt_ui/compact_database_dlg.py:63
 msgid "Compacting database..."
-msgstr ""
+msgstr "Komprimiere Datenbank..."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:22
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:22
@@ -2198,7 +2218,7 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/import_dlg.py:75
 #: ../mnemosyne/pyqt_ui/import_dlg.py:75
 msgid "File does not exist."
-msgstr ""
+msgstr "Datei nicht vorhanden."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/manage_card_types_dlg.py:51
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/manage_card_types_dlg.py:51
@@ -2219,19 +2239,19 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/manage_plugins_dlg.py:90
 #: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:92
 msgid "Are you sure you want to delete the plugin"
-msgstr ""
+msgstr "Möchtest du das Plugin wirklich löschen"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/manage_plugins_dlg.py:91
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/manage_plugins_dlg.py:91
 #: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:93
 msgid "and not just deactivate it?"
-msgstr ""
+msgstr "oder nur deaktivieren?"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/manage_plugins_dlg.py:93
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/manage_plugins_dlg.py:93
 #: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:95
 msgid "Cancel"
-msgstr ""
+msgstr "Abrechen"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/qt_sync_server.py:71
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/qt_sync_server.py:162
@@ -2315,13 +2335,13 @@ msgstr "&Aussprachesc&hlüssel für diesen Kartentypen verbergen"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/review_wdgt.py:340
 #: ../mnemosyne/pyqt_ui/review_wdgt.py:340
 msgid "Scheduled: %d "
-msgstr "Vorgemerkt: %d"
+msgstr "Vorgemerkt: %d "
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/review_wdgt.py:341
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/review_wdgt.py:341
 #: ../mnemosyne/pyqt_ui/review_wdgt.py:341
 msgid "Not memorised: %d "
-msgstr "Nicht gelernt: %d"
+msgstr "Nicht gelernt: %d "
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/review_wdgt.py:342
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/review_wdgt_cramming.py:56
@@ -2330,7 +2350,7 @@ msgstr "Nicht gelernt: %d"
 #: ../mnemosyne/pyqt_ui/review_wdgt.py:342
 #: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:56
 msgid "Active: %d "
-msgstr "Aktiv: %d"
+msgstr "Aktiv: %d "
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/review_wdgt_cramming.py:15
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/review_wdgt_cramming.py:38
@@ -2354,13 +2374,13 @@ msgstr "&Richtig"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/review_wdgt_cramming.py:54
 #: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:54
 msgid "Wrong: %d "
-msgstr "Falsch: %d"
+msgstr "Falsch: %d "
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/review_wdgt_cramming.py:55
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/review_wdgt_cramming.py:55
 #: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:55
 msgid "Unseen: %d "
-msgstr "Noch nicht bewertet: %d"
+msgstr "Noch nicht bewertet: %d "
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/statistics_dlg.py:96
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/statistics_dlg.py:96
@@ -2438,15 +2458,15 @@ msgid ""
 "needs to be the server. So, first enable a sync server here, and then start "
 "the sync from the mobile device."
 msgstr ""
-"Hier kann dieser Rechner mit einem Server synchronisiert werden."
+"Hier kann dieser Rechner mit einem Server synchronisiert werden. "
 "Selbstverständlich muss auf diesem Server ein Serverprogramm laufen, das aus "
 "den Einstellungen des Servers heraus gestartet werden kann.\n"
 "\n"
 "Soll jedoch ein mobiles Gerät mit diesem Rechner synchronisiert werden, ist "
 "dies der falsche Weg. In diesem Fall muss der gegenwärtige Rechner als "
-"Serverfungieren. Es it also notwendig die Serversoftware auf diesem Rechner "
-"zustarten und dann den Sychronisationsvorgang von dem mobilen Gerät in Gang "
-"zu setzen."
+"Serverfungieren. Es ist also notwendig die Serversoftware auf diesem Rechner "
+"zu starten und dann den Sychronisationsvorgang von dem mobilen Gerät aus in "
+"Gang zu setzen."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tag_tree_wdgt.py:133
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:60
@@ -2455,7 +2475,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:133
 #: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:60
 msgid "&Rename"
-msgstr ""
+msgstr "&Umbenennen"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tag_tree_wdgt.py:182
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tag_tree_wdgt.py:182
@@ -2516,9 +2536,10 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:22
 msgid ""
 "The 'number of non-memorised cards to hold in your hand' setting determines "
-"how many cards you are trying to (re)learn at the same time. It does <b>not</"
-"b> tell you how many new cards you need to learn per day. You are the judge "
-"of that: you can learn more cards or less cards, depending on how you feel."
+"how many cards you are trying to (re)learn at the same time. It does "
+"<b>not</b> tell you how many new cards you need to learn per day. You are "
+"the judge of that: you can learn more cards or less cards, depending on how "
+"you feel."
 msgstr ""
 "Die Einstellung 'Anzahl an noch nicht gemerkten Karten die auf einmal "
 "gelernt werden' legt fest, wieviele neue Karten zur selben Zeit versucht "
@@ -2602,10 +2623,10 @@ msgid ""
 "specifically for this card type without disturbing your other cards."
 msgstr ""
 "Von bestehenden Kartentypen können 'Klone' erstellt werden. Dies erlaubt es "
-"Karten dieses Typs unabhängig von Karten des Ursprungstypes zu formatieren."
-"Zum Beispiel könnte man einen Klon des 'Vokabular'-Typs erstellen, ihn "
-"'Thai'nennen und eine spezielle Thai-Schriftart speziell für diesen "
-"Kartentyp einstellen, ohne die anderen 'Vokabular' Karten automatisch "
+"Karten dieses Typs unabhängig von Karten des Ursprungstypes zu "
+"formatieren.Zum Beispiel könnte man einen Klon des 'Vokabular'-Typs "
+"erstellen, ihn 'Thai'nennen und eine spezielle Thai-Schriftart speziell für "
+"diesen Kartentyp einstellen, ohne die anderen 'Vokabular' Karten automatisch "
 "mitzuverändern."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:34
@@ -2640,7 +2661,7 @@ msgid ""
 "Sync', but first enable a sync server in the configuration dialog, and then "
 "start the sync from the mobile device."
 msgstr ""
-"Soll jedoch ein mobiles Gerät mit diesem Rechner synchronisiert werden, "
+" Soll jedoch ein mobiles Gerät mit diesem Rechner synchronisiert werden, "
 "sollte nicht 'Datei - Sychronisieren' verwendet werden, sondern der "
 "Sychronisations-Server im Einstellungsdialog aktiviert und dann der "
 "Sychronisationsvorgang von dem mobilen Gerät aus in Gang gesetzt werden."
@@ -2657,27 +2678,27 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:43
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:43
 msgid ""
-"In the 'Add cards' dialog, use Tab to move between different fields, Ctrl"
-"+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
+"In the 'Add cards' dialog, use Tab to move between different fields, "
+"Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:44
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:44
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:44
 msgid ""
-"In the 'Edit card' dialog, use Tab to move between different fields and Ctrl"
-"+Enter to close the dialog."
+"In the 'Edit card' dialog, use Tab to move between different fields and "
+"Ctrl+Enter to close the dialog."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:45
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:45
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:45
 msgid ""
-"Mnemosyne can use LaTeX to render mathematical formulas, e.g. <"
-"$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
+"Mnemosyne can use LaTeX to render mathematical formulas, e.g. "
+"<$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
 msgstr ""
-"Mnemosyne kann LaTeX verwenden um mathematische Formeln zu setzen, z.B.<"
-"$>x^2+y^2=z^2</$>. (Hierfür müssen LaTeX und dvipng installiert sein.)"
+"Mnemosyne kann LaTeX verwenden um mathematische Formeln zu setzen, "
+"z.B.<$>x^2+y^2=z^2</$>. (Hierfür müssen LaTeX und dvipng installiert sein.)"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:46
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/tip_dlg.py:46
@@ -2745,6 +2766,9 @@ msgid ""
 "in their mnemosyne directory. They can also install additional plugins to "
 "customise Mnemosyne even further."
 msgstr ""
+"Fortgeschrittene Benutzer können Mnemosyne noch mehr anpassen, indem sie die "
+"config.py Datei in ihrem Mnemosyne-Verzeichnis bearbeiten. Ebenfalls können "
+"zusätzliche Plugins installiert werden, um Mnemosyne noch mehr zu erweitern."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_about_dlg.py:81
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_tip_dlg.py:105
@@ -2753,7 +2777,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/ui_about_dlg.py:81
 #: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:105
 msgid "Alt+C"
-msgstr ""
+msgstr "Alt+C"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:80
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:80
@@ -2819,7 +2843,7 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_add_cards_dlg.py:113
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:113
 msgid "&2"
-msgstr ""
+msgstr "&2"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_add_cards_dlg.py:114
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_add_cards_dlg.py:114
@@ -2831,7 +2855,7 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_add_cards_dlg.py:115
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:115
 msgid "&3"
-msgstr ""
+msgstr "&3"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_add_cards_dlg.py:116
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_add_cards_dlg.py:116
@@ -2843,7 +2867,7 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_add_cards_dlg.py:117
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:117
 msgid "&4"
-msgstr ""
+msgstr "&4"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_add_cards_dlg.py:118
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_add_cards_dlg.py:118
@@ -2855,7 +2879,7 @@ msgstr ""
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_add_cards_dlg.py:119
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:119
 msgid "&5"
-msgstr ""
+msgstr "&5"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_add_cards_dlg.py:121
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_edit_card_dlg.py:84
@@ -2864,7 +2888,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:121
 #: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:84
 msgid "&Exit"
-msgstr ""
+msgstr "&Beenden"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_browse_cards_dlg.py:54
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_browse_cards_dlg.py:54
@@ -3022,25 +3046,25 @@ msgstr "dringendste zuerst"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:133
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:133
 msgid "Hold"
-msgstr ""
+msgstr "Halte"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:134
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:134
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:134
 msgid "non-memorised cards in your hand"
-msgstr ""
+msgstr "noch nicht gemerkte Karten auf der Hand"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:135
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:135
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:135
 msgid "Autosave after"
-msgstr ""
+msgstr "Automatisches Sichern nach"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:136
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:136
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:136
 msgid "repetitions"
-msgstr ""
+msgstr "Wiederholungen"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:137
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:137
@@ -3151,7 +3175,7 @@ msgstr "mit keinem dieser Tags:"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:52
 #: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:52
 msgid "Delete these unused media files?"
-msgstr ""
+msgstr "Sollen diese ungenutzten Media-Dateien gelöscht werden?"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:91
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_getting_started_dlg.py:91
@@ -3303,7 +3327,7 @@ msgstr "&Durchsuchen"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_import_dlg.py:92
 #: ../mnemosyne/pyqt_ui/ui_import_dlg.py:92
 msgid "Add additional tag to cards:"
-msgstr ""
+msgstr "Zusätzlichen Tag zu Karten hinzufügen:"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_import_dlg.py:94
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_import_dlg.py:94
@@ -3630,7 +3654,7 @@ msgstr "Antwort zeigen"
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:110
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:111
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_review_wdgt.py:112
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_review_wdgt.py:113
@@ -3639,7 +3663,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:112
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:113
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_review_wdgt.py:114
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_review_wdgt.py:115
@@ -3681,7 +3705,7 @@ msgstr "5"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_sync_dlg.py:87
 #: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:87
 msgid "Server:"
-msgstr ""
+msgstr "Server"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_sync_dlg.py:91
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_sync_dlg.py:91
@@ -3705,7 +3729,7 @@ msgstr "Tips beim &Start anzeigen"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_tip_dlg.py:99
 #: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:99
 msgid "Alt+S"
-msgstr ""
+msgstr "Alt+S"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_tip_dlg.py:100
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_tip_dlg.py:100
@@ -3717,7 +3741,7 @@ msgstr "&Zurück"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_tip_dlg.py:101
 #: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:101
 msgid "Alt+P"
-msgstr ""
+msgstr "Alt+P"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_tip_dlg.py:102
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_tip_dlg.py:102
@@ -3729,7 +3753,7 @@ msgstr "&Nächster"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_tip_dlg.py:103
 #: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:103
 msgid "Alt+N"
-msgstr ""
+msgstr "Alt+N"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_tip_dlg.py:104
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_tip_dlg.py:104
@@ -3753,173 +3777,8 @@ msgstr "Datenverzeichnis"
 
 #: ../tests/test_translator.py:25
 msgid "foo"
-msgstr ""
+msgstr "foo"
 
 #: ../tests/test_translator.py:32
 msgid "This is a test."
 msgstr "Dies ist ein Test."
-
-#~ msgid "A card type for learning locations on a map"
-#~ msgstr "Ein Kartentyp um Orte auf einer Landkarte zu lernen."
-
-#~ msgid "Failed to parse time - using zero."
-#~ msgstr "Zeit nicht lesbar - verwende Null."
-
-#~ msgid "mktime failed - using zero."
-#~ msgstr "mktime fehlgeschlagen - verwende Null."
-
-#~ msgid "Supermemo for Palm through smconv.pl"
-#~ msgstr "Supermemo für Palm über smconv.pl"
-
-#~ msgid "XML files (*.xml *.XML)"
-#~ msgstr "XML DAteien (*.xml *.XML)"
-
-#~ msgid "Text with tab separated Q/A"
-#~ msgstr "Text mit Frage/Antwort durch Tabs getrennt"
-
-#~ msgid "Text files (*.txt *.TXT)"
-#~ msgstr "Textdateien (+.txt *.TXT)"
-
-#~ msgid "Text with Q and A each on separate line"
-#~ msgstr "Text mit Frage und Antwort auf jeweils eigenen Zeilen"
-
-#~ msgid "Interval"
-#~ msgstr "Abstand"
-
-#~ msgid "Next week"
-#~ msgstr "Nächste Woche"
-
-#~ msgid "Next month"
-#~ msgstr "Nächster Monat"
-
-#~ msgid "Next 3 months"
-#~ msgstr "Die nächsten drei Monate"
-
-#~ msgid "Next 6 months"
-#~ msgstr "Die nächstne sechs Monate"
-
-#~ msgid "Next year"
-#~ msgstr "Nächstes Jahr"
-
-#~ msgid "Name"
-#~ msgstr "Name"
-
-#~ msgid "Abandon changes?"
-#~ msgstr "Änderungen verwerfen?"
-
-#~ msgid "This name already exists."
-#~ msgstr "Dieser Name existiert bereits."
-
-#~ msgid "Re&name"
-#~ msgstr "Umbe&nennen"
-
-#~ msgid "Re&move"
-#~ msgstr "&Entfernen"
-
-#~ msgid "Remove these tags?"
-#~ msgstr "Diese Tags entfernen?"
-
-#~ msgid "Remove this tag?"
-#~ msgstr "Diesen Tag entfernen?"
-
-#~ msgid "Activate cards"
-#~ msgstr "Karten aktivieren"
-
-#~ msgid "Add cards"
-#~ msgstr "Karten hinzufügen"
-
-#~ msgid "Add tags"
-#~ msgstr "T&ags hinzufügen"
-
-#~ msgid "Browse cards"
-#~ msgstr "Karten durchsuchen"
-
-#~ msgid "Card set name"
-#~ msgstr "Name des Kartensets"
-
-#~ msgid "Change card type"
-#~ msgstr "Karten&typ ändern"
-
-#~ msgid "Clone card type"
-#~ msgstr "Karten&typ klonen"
-
-#~ msgid "Cloned card types in use:"
-#~ msgstr "Geklonte Kartentypen in Benutzung:"
-
-#~ msgid "Configuration"
-#~ msgstr "Einstellungen"
-
-#~ msgid "Form"
-#~ msgstr "Form"
-
-#~ msgid "(Re)learn sister cards on the same day"
-#~ msgstr "Schwesterkarten am selben Tag lernen/wiederholen"
-
-#~ msgid "Language (requires restart)"
-#~ msgstr "Sprache (Neustart der Anwendung erforderlich)"
-
-#~ msgid "Convert card type data"
-#~ msgstr "Kartentypdaten konvertieren"
-
-#~ msgid "Activate cards from these card types:"
-#~ msgstr "Aktiviere Karten von diesem Typ:"
-
-#~ msgid "Edit card"
-#~ msgstr "Karte bearbeiten"
-
-#~ msgid "Wizard"
-#~ msgstr "Assistent"
-
-#~ msgid "Grades 0-2"
-#~ msgstr "Bewertungen von 0 bis 2"
-
-#~ msgid "Grades 3-5"
-#~ msgstr "Bewertungen von 3 bis 5"
-
-#~ msgid "Import from file"
-#~ msgstr "Aus Datei importieren"
-
-#~ msgid "Set card &appearance..."
-#~ msgstr "Kartendarstellung einstellen..."
-
-#~ msgid "Preview cards"
-#~ msgstr "Karten&vorschau"
-
-#~ msgid "Remove tags"
-#~ msgstr "Tags entfe&rnen"
-
-#~ msgid "Rename tag"
-#~ msgstr "Tag umbenennen"
-
-#~ msgid "Sync with server"
-#~ msgstr "Mit Server synchronisieren"
-
-#~ msgid "Tip of the day"
-#~ msgstr "Tip des Tages"
-
-#~ msgid "Mnemosyne 1.x *.xml files"
-#~ msgstr "Mnemosyne 1.x *.xml Dateien"
-
-#~ msgid "Ctrl+Return"
-#~ msgstr "Strg+Enter"
-
-#~ msgid "Ctrl+2"
-#~ msgstr "Strg+2"
-
-#~ msgid "Ctrl+3"
-#~ msgstr "Strg+3"
-
-#~ msgid "Ctrl+4"
-#~ msgstr "Strg+4"
-
-#~ msgid "Ctrl+5"
-#~ msgstr "Strg+5"
-
-#~ msgid "Put cards without category into this category:"
-#~ msgstr "Karten ohne Tags mit diesen Tags versehen:"
-
-#~ msgid "Note: all cards will be added to the current database."
-#~ msgstr "Beachte: Alle Karten werden zur momentanen Datenbank hinzugefügt."
-
-#~ msgid "Reset learning data on import"
-#~ msgstr "Lernverlauf beim Import zurücksetzen"
