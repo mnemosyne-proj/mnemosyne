@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-25 18:51+0000\n"
-"PO-Revision-Date: 2012-05-26 20:54+0000\n"
+"POT-Creation-Date: 2012-05-27 04:51+0000\n"
+"PO-Revision-Date: 2012-05-27 12:26+0000\n"
 "Last-Translator: Geir <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-05-27 04:40+0000\n"
+"X-Launchpad-Export-Date: 2012-05-28 05:18+0000\n"
 "X-Generator: Launchpad (build 15288)\n"
 "Language: \n"
 
@@ -739,19 +739,19 @@ msgstr "Sett inn video"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:651
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:654
 msgid "Install plugin"
-msgstr "Installer programutvidelser"
+msgstr "Installer programtillegg"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:651
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:651
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:654
 msgid "Plugins"
-msgstr "Programutvidelser"
+msgstr "Programtillegg"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:676
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:676
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:679
 msgid "No plugin found!"
-msgstr "Fant ingen programutvidelser!"
+msgstr "Fant ingen programtillegg!"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/controllers/default_controller.py:823
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/controllers/default_controller.py:823
@@ -3604,7 +3604,7 @@ msgstr "&Dagens tips"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:219
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:219
 msgid "Manage &plugins..."
-msgstr "Håndter &programtillegg"
+msgstr "Håndter &programtillegg..."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/ui_main_wdgt.py:220
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/ui_main_wdgt.py:220
