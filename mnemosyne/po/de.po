@@ -13,13 +13,13 @@ msgstr ""
 "Project-Id-Version: 2.0-pre\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-05-27 04:51+0000\n"
-"PO-Revision-Date: 2012-05-28 14:14+0000\n"
-"Last-Translator: mase <Unknown>\n"
+"PO-Revision-Date: 2012-05-29 08:07+0000\n"
+"Last-Translator: Johannes Baiter <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-05-29 04:46+0000\n"
+"X-Launchpad-Export-Date: 2012-05-30 05:21+0000\n"
 "X-Generator: Launchpad (build 15316)\n"
 "Language: German\n"
 "Generated-By: pygettext.py 1.5\n"
@@ -185,6 +185,10 @@ msgid ""
 "Displays the answer map on top of the question map, rather than below it as "
 "a second map."
 msgstr ""
+"Ein Kartentyp um Orte auf einer Landkarte zu lernen.\n"
+"\n"
+"Legt die Antwortkarte über die Fragekarte, anstatt sie darunter als zweite "
+"Karte anzuzeigen."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/card_types/vocabulary.py:15
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/card_types/vocabulary.py:15
@@ -846,13 +850,13 @@ msgstr "Warnung: Erstellung einer Sicherung fehlgeschlagen für"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/databases/SQLite.py:588
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:588
 msgid "Make tag '%s' active in saved set '%s'?"
-msgstr ""
+msgstr "Tag '%s' in gesichertem Set '%s' aktivieren?"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/databases/SQLite.py:1043
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/databases/SQLite.py:1043
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1043
 msgid "Make new card type active in saved set '%s'?"
-msgstr ""
+msgstr "Neuen Kartentyp in gesichertem Set '%s' aktivieren?"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/databases/SQLite_media.py:112
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/databases/SQLite_media.py:112
@@ -1008,13 +1012,13 @@ msgstr "SuperMemo7 Textdateien (*.txt *.TXT)"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/tsv.py:23
 #: ../mnemosyne/libmnemosyne/file_formats/tsv.py:23
 msgid "Tab-separated text files"
-msgstr ""
+msgstr "Tabulator-separierte Textdateien"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/tsv.py:24
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/tsv.py:24
 #: ../mnemosyne/libmnemosyne/file_formats/tsv.py:24
 msgid "Tab-separated text files (*.txt)"
-msgstr ""
+msgstr "Tabulator-separierte Textdateien (*.txt)"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/file_formats/tsv.py:41
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/file_formats/tsv.py:41
@@ -1077,6 +1081,8 @@ msgid ""
 "Cannot deactivate, there are cards with this card type (or a clone of it) in "
 "the database."
 msgstr ""
+"Deaktivierung nicht möglich, es befinden sich Karten dieses Types (oder "
+"eines Klones) in der Datenbank."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/plugins/cramming_plugin.py:14
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/plugins/cramming_plugin.py:14
@@ -1093,6 +1099,11 @@ msgid ""
 "\n"
 "To return to the original scheduler, just deactivate this plugin."
 msgstr ""
+"Bearbeitet alle aktiven Karten in zufälliger Reihenfolge ohne sie in die "
+"zukünftige Planung miteinzubeziehen.\n"
+"\n"
+"Um zum Standard-Planer zurückzukehren genügt es, dieses Plugin zu "
+"deaktivieren"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:18
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:18
@@ -1181,6 +1192,8 @@ msgstr ""
 msgid ""
 "You have no more work for today. Either add more cards or come back tomorrow."
 msgstr ""
+"Für heute gibt es nichts mehr zu tun. Füge entweder neue Karten hinzu oder "
+"warte bis morgen."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:113
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:113
@@ -1189,6 +1202,9 @@ msgid ""
 "Use 'Learn ahead of schedule' sparingly. For cramming before an exam, it's "
 "much better to use the cramming scheduler plugin"
 msgstr ""
+"'Im Voraus lernen' sparsam benutzen. Um schnell viel Stoff vor einer Prüfung "
+"zu lernen ist es sehr viel sinnvoller das 'Cramming Scheduler' Plugin zu "
+"benutzen"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:146
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:33
@@ -1283,6 +1299,10 @@ msgid ""
 "day. Mnemosyne will automatically reschedule your cards such that the most "
 "urgent ones are shown first."
 msgstr ""
+"Scheinbar wurden einige Wiederholungen vergessen. Dies ist nicht weiter "
+"schlimm, lerne einfach so viele Karten, wie du dich wohlfühlst, um jeden Tag "
+"ein bisschen aufzuholen. Mnemosyne wird die Karten automatisch so einplanen "
+"dass die dringendsten zuerst erscheinen."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:562
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:562
@@ -1666,7 +1686,7 @@ msgstr "Mnemosyne 2.x speichert seine Daten nun hier:"
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/about_dlg.py:29
 #: ../mnemosyne/pyqt_ui/about_dlg.py:29
 msgid "Main author: Peter Bienstman"
-msgstr ""
+msgstr "Hauptentwickler: Peter Bienstman"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/about_dlg.py:31
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/about_dlg.py:31
@@ -1700,13 +1720,13 @@ msgstr "Umbenennen"
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:95
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:175
 msgid "This set can never contain any cards!"
-msgstr ""
+msgstr "Dieses Set kann niemals Karten enthalten!"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:102
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/activate_cards_dlg.py:102
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:102
 msgid "Update this set?"
-msgstr ""
+msgstr "Dieses Set aktualisieren?"
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:118
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/activate_cards_dlg.py:118
@@ -1714,6 +1734,8 @@ msgstr ""
 msgid ""
 "You can right-click on the name of a saved set to rename or delete it."
 msgstr ""
+"Per Rechtsklick auf den Namen eines gesicherten Sets kann es umbenannt oder "
+"gelöscht werden."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/activate_cards_dlg.py:122
 #: ../dist/Mnemosyne-2.0-RC1/mnemosyne/pyqt_ui/activate_cards_dlg.py:122
@@ -1730,6 +1752,8 @@ msgid ""
 "You can add multiple tags to a card by separating tags with a comma in the "
 "'Tag(s)' input field."
 msgstr ""
+"Mit einem Komma im 'Tag(s)' Eingabefeld können mehrere Tags zu einer Karte "
+"hinzugefügt werden."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/add_cards_dlg.py:29
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/tip_dlg.py:30
@@ -1778,6 +1802,10 @@ msgid ""
 "for 'Yet to learn', and Ctrl+2, etc. for the grades. For 'Edit card', use "
 "Ctrl-Enter to close."
 msgstr ""
+"Mit der Tab-Taste kann zwischen den Feldern gewechselt werden. Für 'Karten "
+"hinzufügen' wählt Strg+Enter 'Noch zu lernen' aus, Strg+2, usw für die "
+"einzelnen Bewertungen. Für \"Karte bearbeiten\" kann Strg+Enter verwendet "
+"werden um den Dialog zu schließen."
 
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/add_cards_dlg.py:246
 #: ../dist/Mnemosyne-2.0-RC1/build/lib.linux-x86_64-2.7/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:224
