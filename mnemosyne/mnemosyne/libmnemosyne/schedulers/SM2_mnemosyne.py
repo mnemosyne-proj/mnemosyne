@@ -409,6 +409,12 @@ class SM2Mnemosyne(Scheduler):
         # duplicate.
         return len(self._card_ids_in_queue) >= 3
 
+    def interval_multiplication_factor(self, card, interval):
+
+        """Allow plugin to easily scale the scheduled interval."""
+
+        return 1.0
+
     def grade_answer(self, card, new_grade, dry_run=False):
         # The dry run mode is typically used to determine the intervals
         # for the different grades, so we don't want any side effects
@@ -519,6 +525,8 @@ class SM2Mnemosyne(Scheduler):
                 # that actual_interval becomes 0.
                 if new_interval < DAY:
                     new_interval = DAY
+        # Allow plugins to modify new_interval by multiplying it.
+        new_interval *= self.interval_multiplication_factor(card, new_interval)
         new_interval = int(new_interval)
         # When doing a dry run, stop here and return the scheduled interval.
         if dry_run:

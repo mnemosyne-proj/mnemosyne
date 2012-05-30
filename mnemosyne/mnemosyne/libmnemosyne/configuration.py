@@ -234,9 +234,9 @@ class Configuration(Component, dict):
         join = os.path.join
         # Create paths.
         if not exists(self.data_dir):
-            os.mkdir(self.data_dir)
+            os.makedirs(self.data_dir)
         if not exists(self.config_dir):
-            os.mkdir(self.config_dir)
+            os.makedirs(self.config_dir)
         for directory in ["history", "plugins", "backups"]:
             if not exists(join(self.data_dir, directory)):
                 os.mkdir(join(self.data_dir, directory))

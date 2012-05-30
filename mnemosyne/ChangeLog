@@ -1,3 +1,4 @@
+-Fix bug preview card formatting for cloze cards (reported by Gnome).
 -Fix bug when cancelling convertion of card types from card browser
  (reported by Hendrik).
 -Fix crash when compacting database (reported by Barbara).

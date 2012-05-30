@@ -139,6 +139,7 @@ class QAOptimalSplit(object):
 
     def silence_media(self, text):
         text = text.replace("<div id='player'>", "")
+        text = text.replace("<audio scr", "<audio_off src")
         return text.replace("<video src", "<video_off src")
 
     def set_question(self, text):
