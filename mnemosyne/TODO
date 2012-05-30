@@ -1,11 +1,7 @@
--pruned strings
--norwegian
-
--plugin for interval multiplication factor
-
--rebuild with earlier qt
--rework sound system. Mail Barbara (unicode), Patrick (2 files)
-
+-unicode filenames
+-dont play answer side already
+-remove audio options under windows
+-Mail Barbara (unicode), Patrick (2 files)
 
 ### RC2
 
@@ -17,7 +13,7 @@
 
 -option to add multiple tags on import (Barbara)
 
--plugin for card types with prefilled data
+-plugin for card types with prefilled data?
 
 -check sync timeout when both client and server check for updated media files.
  (was 10, is now 30)
@@ -31,13 +27,16 @@
 
 -errors in scripting engine related to main_widget
 
+-plugin for interval multiplication factor
+
 -make doc: errors related to _
 
--card templates
+-card templates?
 
 -user voice
 
--queue is running empty, relax sister: prompt user what to do?
+-only use default value for 'all card types' in configuration dialog if the
+ settings are actually the same (gnome, LP bug)
 
 -don't refresh review widget after edit window if no changes have been made (gnome) (LP bug)
 -after showing answer, exiting card browser hides answer again (Gnome, LP bug)
@@ -99,6 +98,8 @@ widget will be centered on the main widget and not the activate cards dialog.
 -bundle more of the example plugins?
 
 -'duplicate card' option in menu and browser? Or as plugin?
+
+-remove hack to preview cloze cards in card type appearance.
 
 -bundle grades criterion? add criterion names i.e. type. Fix bug saving sets.
  Other mechanism to skip scheduled cards? What happens to saved set after

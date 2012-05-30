@@ -10,7 +10,7 @@ LANGS = ../mo/cs/LC_MESSAGES/mnemosyne.mo \
 	../mo/id/LC_MESSAGES/mnemosyne.mo \
 	../mo/it/LC_MESSAGES/mnemosyne.mo \
 	../mo/ja/LC_MESSAGES/mnemosyne.mo \
-	../mo/nb_NO/LC_MESSAGES/mnemosyne.mo \
+	../mo/nb/LC_MESSAGES/mnemosyne.mo \
 	../mo/nl/LC_MESSAGES/mnemosyne.mo \
 	../mo/pl/LC_MESSAGES/mnemosyne.mo \
 	../mo/ru/LC_MESSAGES/mnemosyne.mo \
