@@ -2,6 +2,8 @@
 # configuration_wdgt_main.py <Peter.Bienstman@UGent.be>
 #
 
+import sys
+
 from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _, \
@@ -54,6 +56,8 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
         self.languages.setCurrentIndex(self.languages.findText(\
             language_name_for_iso6931_code[self.config()["ui_language"]]))
         self.media_autoplay.stateChanged.connect(self.changed_media_autoplay)
+        if sys.platform == "win32":
+            self.audio_box.hide()
 
     def changed_media_autoplay(self, state):
         if state == QtCore.Qt.Unchecked:

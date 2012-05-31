@@ -205,7 +205,10 @@ class SM2Controller(ReviewController):
             # allows it to optimise its layout.
             w.set_question(self.card.question(self.render_chain))
             if not self.card.fact_view.a_on_top_of_q:
-                w.set_answer(self.card.answer(self.render_chain))
+                print "hi"
+                print self.render_chain
+                w.set_answer(self.card.answer(self.render_chain, no_sound=True))
+                print 'done'
             w.reveal_question()
         # Show answer.
         if self.card is None or self.state == "SELECT SHOW":
