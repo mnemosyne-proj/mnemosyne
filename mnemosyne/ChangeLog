@@ -1,3 +1,5 @@
+-New sound system under Windows to work around Qt bugs, supporting multiple
+ sound files per card and sound files with unicode filenames.
 -Fix bug preview card formatting for cloze cards (reported by Gnome).
 -Fix bug when cancelling convertion of card types from card browser
  (reported by Hendrik).
@@ -49,9 +51,7 @@ Major user-visible changes:
  cards on your phone, and both sets of changes will be merged seamlessly.
  Can sync with more than 1 partner. Optimised for speed and memory useage
  on mobile devices. First implementation by Ed Bartosh and Max Usachev.
--Mnemosyne comes with a webserver to do remote reviews over a browser. It is
- not yet integrated in the GUI, you need to run the 'mnemosyne-webserver'
- program. It also has no security yet.
+
 
 Other changes:
 
@@ -64,26 +64,24 @@ Other changes:
 -Plugins can now be turned on and off through the GUI.
 -Windows use scroll bar when the data does not fit.
 -Vhen importing a sound or an image, a copy is made to the
- .mnemosyne directory. This saves some confusing explaining to new users about
- the difference between relative and absolute paths.
+ mnemosyne data directory. This saves some confusing explaining to new users
+ about the difference between relative and absolute paths.
 -Mnemosyne can now save after each reviewed card. Default is to only save after
  10 reps, to save battery.
 -Avoid showing the same card twice in a row during review.
--Added option "learn new related cards in same session".
 -Replaced 'number of grade 0 cards to hold in your hand' by 'number of non
  memorised cards to hold in your hand', so that the limit now works on the
  total of grade 0 and 1 cards. Default value is 10.
 -Warn if the user memorises over 15 new cards in a session.
--The keyboard shortcuts for the reviewing process no long auto-repeat.
--Hooked up the machinery to allow embedding video in cards, but on my machine
- only the sound plays. Hopefully, later versions of Qt will fix this.
+-The keyboard shortcuts for the reviewing process no longer auto-repeat.
 -Added option to control whether media (sound/video) gets started automatically
- when displaying a card.
--Added option to display a media control (play/pause/slider)
+ when displaying a card (Currently not on Windows due to Qt bug).
+-Added option to display a media control (play/pause/slider) (Currently not on
+ Windows due to Qt bug).
 -Improved backup scheme. Users can now restore from backups using the
  File - Open menu, as opposed to first decompressing a file outside of
  Mnemosyne.
--Importing from xml files has been sped up considerably (Johannes Baiter)
+-Importing from XML files has been sped up considerably (Johannes Baiter)
 -The learing history is now stored in an SQL database, allowing to calculate
  more statistics.
 -The plugin mechanism encompasses also the statistics, configuration and card
@@ -99,12 +97,7 @@ Other changes:
 -Intelligent sorting of categories containing numbers, so that you no longer
  have to call a category 'Lesson 01' instead of 'Lesson '1 to get the correct
  ordering (Mike Appleby).
--Uses Phonon as sound backend instead of PyGame (Louis Cyphre).
 
-
--Croatian translation by Ilija Pavlic
--Indonesian translation by Prabowo Murti
--Russian translation by Denis Zhuravlyov
 
 Mnemosyne 1.2.2 : 2010-01-29
 

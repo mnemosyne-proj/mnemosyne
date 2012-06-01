@@ -92,7 +92,6 @@ class Card(CompareOnId):
             (self, render_chain, **render_args)
 
     def answer(self, render_chain="default", **render_args):
-        print render_args
         return self.card_type.render_answer\
             (self, render_chain, **render_args)
 

@@ -731,5 +731,4 @@ class TestScheduler(MnemosyneTest):
             showed_cards.add(self.review_controller().card._id)
             self.review_controller().grade_answer(0)
 
-        print len(showed_cards)
         assert len(showed_cards) == 4

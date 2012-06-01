@@ -22,6 +22,9 @@ class MplayerAudio(Filter):
     """Play sound externally in mplayer under Windows."""
 
     def run(self, text, card, fact_key, **render_args):
+        if "no_side_effects" in render_args and \
+            render_args["no_side_effects"] == True:
+            return text
         if not re_audio.search(text):
             return text
         sound_files = []
