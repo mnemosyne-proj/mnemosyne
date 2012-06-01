@@ -1,11 +1,6 @@
--unicode filenames
--dont play answer side already
--remove audio options under windows
--Mail Barbara (unicode), Patrick (2 files)
-
-### RC2
-
+-user voice
 -update website
+-google analytics
 
 ### Release
 
@@ -32,8 +27,6 @@
 -make doc: errors related to _
 
 -card templates?
-
--user voice
 
 -only use default value for 'all card types' in configuration dialog if the
  settings are actually the same (gnome, LP bug)

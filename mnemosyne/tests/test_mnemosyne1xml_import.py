@@ -19,7 +19,6 @@ class Widget(MainWidget):
         self.review_controller().reset()
 
     def show_information(self, message):
-        #print message
         if message.startswith("Warning: "):
             return 0
         if message.startswith("Ignoring unparsable file"):
@@ -33,7 +32,6 @@ class Widget(MainWidget):
     def show_error(self, message):
         global last_error
         last_error = message
-        #print message
         if message.startswith("These cards seem to have been imported before"):
             return
         if message.startswith("Unable to open"):

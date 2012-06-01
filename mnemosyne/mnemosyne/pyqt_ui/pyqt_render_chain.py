@@ -13,7 +13,8 @@ from mnemosyne.libmnemosyne.filters.expand_paths import ExpandPaths
 from mnemosyne.libmnemosyne.filters.escape_to_html import EscapeToHtml
 from mnemosyne.libmnemosyne.filters.non_latin_font_size_increase import \
      NonLatinFontSizeIncrease
-from mnemosyne.pyqt_ui.mplayer_audio import MplayerAudio
+if sys.platform == "win32":
+    from mnemosyne.pyqt_ui.mplayer_audio import MplayerAudio
 
 class PyQtRenderChain(RenderChain):
 

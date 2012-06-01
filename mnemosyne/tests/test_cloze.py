@@ -274,7 +274,6 @@ class TestCloze(MnemosyneTest):
         cards = self.database().cards_from_fact(fact)
 
         question = cards[0].question()
-        print question, cards[0].extra_data, cards[0].fact.data
         assert "[...]" in question
         assert "consumerism" not in question
         assert "consumerist" not in question

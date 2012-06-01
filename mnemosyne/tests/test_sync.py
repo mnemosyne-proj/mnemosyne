@@ -323,9 +323,6 @@ class TestSync(object):
         tag = self.client.mnemosyne.database().\
               get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
         self.client.do_sync(); assert last_error is None
-        print self.client.mnemosyne.database().con.execute(\
-            "select count(distinct object_id) from log where event_type=?",
-               (EventTypes.LOADED_DATABASE, )).fetchone()[0]
         assert self.client.mnemosyne.database().con.execute(\
             "select count(distinct object_id) from log where event_type=?",
                (EventTypes.LOADED_DATABASE, )).fetchone()[0] == 4
@@ -2474,7 +2471,6 @@ class TestSync(object):
             db = self.mnemosyne.database()
             criterion = db.criterion(self.criterion_id,
                 is_id_internal=False)
-            print criterion.data_to_string()
             assert criterion.data_to_string() == "(set([]), set([2, 4]), set([3]))"
 
         self.server = MyServer()
