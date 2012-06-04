@@ -47,7 +47,7 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         if not allow_cancel:
             self.exit_button.setVisible(False)
         self.card = card
-        self.initialise_card_types_combobox(self.card.card_type.name)
+        self.initialise_card_types_combobox(_(self.card.card_type.name))
         self.update_tags_combobox(self.card.tag_string())
         state = self.config()["edit_card_dlg_state"]
         if state:

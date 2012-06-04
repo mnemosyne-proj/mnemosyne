@@ -30,7 +30,8 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
     def changeEvent(self, event):
         if event.type() == QtCore.QEvent.LanguageChange:
             self.retranslateUi(self)
-        QtGui.QMainWindow.changeEvent(self, event)
+        else:
+            QtGui.QMainWindow.changeEvent(self, event)
 
     def createPopupMenu(self):
         # Don't create a silly popup menu saying ('toolBar').
@@ -48,6 +49,7 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         self.timer.timeout.connect(self.controller_heartbeat)
         self.timer.start(1000)  # 1 sec.
         self.start_review()
+        self.retranslateUi(self)
 
     def controller_heartbeat(self):
         # Need late binding to allow for inheritance.

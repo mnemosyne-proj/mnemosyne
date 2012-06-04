@@ -27,9 +27,9 @@ class AboutDlg(QtGui.QDialog, Ui_AboutDlg, AboutDialog):
         self.watermark.setPixmap(watermark)
         self.about_label.setText("<b>" + _("Mnemosyne") + " " + version + "</b><br><br>" + \
            _("Main author: Peter Bienstman") + "<br><br>" + \
-           _("""Invaluable contributions from many people are acknowledged <a href="http://www.mnemosyne-proj.org/contributing.php">here</a>.""" + "<br><br>") + \
+           _("""Invaluable contributions from many people are acknowledged <a href="http://www.mnemosyne-proj.org/contributing.php">here</a>.""") + "<br><br>" + \
            _("""Go to <a href="http://www.mnemosyne-proj.org">http://www.mnemosyne-proj.org</a> for more information and source code."""))
-        
+
     def activate(self):
         AboutDialog.activate(self)
         self.show()

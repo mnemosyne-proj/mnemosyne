@@ -1,17 +1,24 @@
 # Choose the correct python and virtualenv commands:
 
-PYTHON     := python
-VIRTUALENV := virtualenv
+PYTHON      := python
+VIRTUALENV  := virtualenv
+SPHINXBUILD := sphinx-build
 
-ifeq (1,$(shell python2 -c "print(1)" 2>&- )) # true if `python2` exists
-  PYTHON     := python2
+# If `python2` exists:
+ifeq (1,$(shell python2 -c "print(1)" 2>&- ))
+  PYTHON      := python2
 endif
-ifneq (,$(shell virtualenv2 --version 2>&- )) # true if `virtualenv2` exists
-  VIRTUALENV := virtualenv2
+# If `virtualenv2` exists:
+ifneq (,$(shell virtualenv2 --version 2>&- ))
+  VIRTUALENV  := virtualenv2
 endif
+# If "--system-site-packages" supported:
 ifneq (,$(shell $(VIRTUALENV) --system-site-packages --version 2>&- ))
-                                              # true if "--system-site-packages" supported
-  VIRTUALENV += --system-site-packages
+  VIRTUALENV  += --system-site-packages
+endif
+# If `sphinx-build2` exists:
+ifneq (,$(shell command -v sphinx-build2 2>&- ))
+  SPHINXBUILD := sphinx-build2
 endif
 
 export PYTHON  # pass the variable to sub-makefiles through the environment
@@ -39,7 +46,7 @@ setup:
 
 install-system:
 	# Also rebuilds the docs and the translations.
-	cd mnemosyne/libmnemosyne/docs && make html
+	cd mnemosyne/libmnemosyne/docs && make SPHINXBUILD=$(SPHINXBUILD) html
 	cd mnemosyne/pyqt_ui && make clean
 	cd mnemosyne/pyqt_ui && make
 	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc

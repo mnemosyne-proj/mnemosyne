@@ -199,8 +199,13 @@ class BarChartDaysWdgt(PlotStatisticsWdgt):
 
 
 class ScheduleWdgt(BarChartDaysWdgt):
+
     title = _("Number of cards scheduled")
     used_for = Schedule
+
+    def activate(self):
+        super(ScheduleWdgt, self).activate()
+        self.title = _(self.title)
 
 
 class RetentionScoreWdgt(BarChartDaysWdgt):
@@ -209,6 +214,10 @@ class RetentionScoreWdgt(BarChartDaysWdgt):
     colour = "green"
     title = _("Retention score (%)")
     y_max = 100
+
+    def activate(self):
+        super(RetentionScoreWdgt, self).activate()
+        self.title = _(self.title)
 
 
 class CardsAddedWdgt(BarChartDaysWdgt):

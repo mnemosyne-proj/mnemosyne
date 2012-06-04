@@ -6,7 +6,7 @@ import os
 import sys
 
 from PyQt4.QtCore import QTranslator, QCoreApplication
-    
+
 from mnemosyne.libmnemosyne.translators.gettext_translator \
      import GetTextTranslator
 
