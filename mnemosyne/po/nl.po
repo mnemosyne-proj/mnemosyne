@@ -2,50 +2,46 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< TREE
-"POT-Creation-Date: 2012-06-01 21:07+CEST\n"
-=======
-"POT-Creation-Date: 2012-06-04 21:05+CEST\n"
->>>>>>> MERGE-SOURCE
-"PO-Revision-Date: 2012-05-24 23:18+0000\n"
-"Last-Translator: Peter Bienstman <Unknown>\n"
+"POT-Creation-Date: 2012-06-04 21:12+CEST\n"
+"PO-Revision-Date: 2012-06-03 08:20+0000\n"
+"Last-Translator: Sander Hoogendoorn <sander.hoogendoorn@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-05-28 05:18+0000\n"
-"X-Generator: Launchpad (build 15288)\n"
+"X-Launchpad-Export-Date: 2012-06-04 04:37+0000\n"
+"X-Generator: Launchpad (build 15353)\n"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:27
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:19
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:19
 msgid "Last week"
-msgstr ""
+msgstr "Afgelopen week"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:28
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:20
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:20
 msgid "Last month"
-msgstr ""
+msgstr "Afgelopen maand"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:29
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:21
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:21
 msgid "Last 3 months"
-msgstr ""
+msgstr "Afgelopen 3 maanden"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:30
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:22
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:22
 msgid "Last 6 months"
-msgstr ""
+msgstr "Afgelopen 6 maanden"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:31
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:23
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:23
 msgid "Last year"
-msgstr ""
+msgstr "Afgelopen jaar"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:61
 msgid "Average grades of scheduled cards"
@@ -57,12 +53,12 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:241
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:264
 msgid "No stats available."
-msgstr ""
+msgstr "Geen statistieken beschikbaar"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:98
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:184
 msgid "Days"
-msgstr ""
+msgstr "dagen"
 
 #: ../mnemosyne/example_plugins/new_card_type.py:13
 msgid "Vocabulary (decorated)"
@@ -72,7 +68,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/card_types/map.py:24
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:24
 msgid "Recognition"
-msgstr ""
+msgstr "Herkenning"
 
 #: ../mnemosyne/example_plugins/new_card_type.py:24
 #: ../mnemosyne/libmnemosyne/card_types/map.py:30
@@ -89,7 +85,7 @@ msgstr "Fout bij het uitvoeren van plugin:"
 
 #: ../mnemosyne/libmnemosyne/__init__.py:298
 msgid "Creating temporary database."
-msgstr ""
+msgstr "Creëren tijdelijke database"
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:15
 msgid "Front-to-back and back-to-front"
@@ -98,12 +94,12 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:18
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:16
 msgid "Front"
-msgstr ""
+msgstr "Voorzijde"
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:19
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:17
 msgid "Back"
-msgstr ""
+msgstr "Achterzijde"
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:22
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:20
@@ -122,7 +118,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:41
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:50
 msgid "Text"
-msgstr ""
+msgstr "Tekst"
 
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:44
 msgid "Cloze"
@@ -150,7 +146,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:19
 msgid "Location"
-msgstr ""
+msgstr "Locatie"
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:20
 msgid "Blank map"
@@ -178,11 +174,11 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:19
 msgid "Pronunciation"
-msgstr ""
+msgstr "Uitspraak"
 
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:20
 msgid "Meaning"
-msgstr ""
+msgstr "Betekenis"
 
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:21
 msgid "Notes"
@@ -190,7 +186,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/configuration.py:179
 msgid "Error in config:"
-msgstr ""
+msgstr "Fout in configuratie:"
 
 #: ../mnemosyne/libmnemosyne/configuration.py:188
 msgid "Unable to save config file:"
@@ -317,7 +313,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:354
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:359
 msgid "Are you sure you want to do this,"
-msgstr ""
+msgstr "Weet u zeker dat u dit wilt doen,"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:245
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:355
@@ -343,7 +339,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:357
 msgid "Delete this card and"
-msgstr ""
+msgstr "Verwijder deze kaart en"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:358
 msgid "sister cards?"
@@ -395,7 +391,7 @@ msgstr "Nieuw"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:453
 msgid "Creating new database..."
-msgstr ""
+msgstr "Aanmaken nieuwe database..."
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:482
 msgid ""
@@ -409,26 +405,26 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1044
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:96
 msgid "No"
-msgstr ""
+msgstr "Nee"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:483
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:589
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1044
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:96
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:579
 msgid "Image files"
-msgstr ""
+msgstr "Afbeeldingen"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:581
 msgid "Insert image"
-msgstr ""
+msgstr "Afbeelding invoegen"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:594
 msgid "Sound files"
-msgstr ""
+msgstr "Geluidsbestanden"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:596
 msgid "Insert sound"
@@ -436,23 +432,23 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:609
 msgid "Video files"
-msgstr ""
+msgstr "Videobestanden"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:611
 msgid "Insert video"
-msgstr ""
+msgstr "Video invoegen"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:654
 msgid "Install plugin"
-msgstr ""
+msgstr "Plug-in installeren"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:654
 msgid "Plugins"
-msgstr ""
+msgstr "Plug-ins"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:679
 msgid "No plugin found!"
-msgstr ""
+msgstr "Geen plug-in gevonden!"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:826
 msgid "For instructions on how to download Mnemosyne's source,"
@@ -460,7 +456,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:827
 msgid "go to http://www.mnemosyne-proj.org"
-msgstr ""
+msgstr "ga naar http://www.mnemosyne-proj.org"
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:262
 msgid ""
@@ -2276,7 +2272,7 @@ msgstr "5"
 
 #: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:87
 msgid "Server:"
-msgstr ""
+msgstr "Server:"
 
 #: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:91
 msgid "Check for changed media files on client"
@@ -2316,7 +2312,7 @@ msgstr "&Sluiten"
 
 #: ../tests/benchmark_pyqt.py:30
 msgid "data directory"
-msgstr ""
+msgstr "data map"
 
 #: ../tests/test_translator.py:25
 msgid "foo"
@@ -2324,4 +2320,4 @@ msgstr ""
 
 #: ../tests/test_translator.py:32
 msgid "This is a test."
-msgstr ""
+msgstr "Dit is een test."

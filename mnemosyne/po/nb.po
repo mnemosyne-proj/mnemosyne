@@ -2,20 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< TREE
-"POT-Creation-Date: 2012-06-01 21:07+CEST\n"
-=======
-"POT-Creation-Date: 2012-06-04 21:05+CEST\n"
->>>>>>> MERGE-SOURCE
-"PO-Revision-Date: 2012-05-27 12:26+0000\n"
+"POT-Creation-Date: 2012-06-04 21:12+CEST\n"
+"PO-Revision-Date: 2012-06-02 09:41+0000\n"
 "Last-Translator: Geir <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-05-28 05:18+0000\n"
-"X-Generator: Launchpad (build 15288)\n"
+"X-Launchpad-Export-Date: 2012-06-03 04:47+0000\n"
+"X-Generator: Launchpad (build 15342)\n"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:27
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:19
@@ -1822,7 +1818,7 @@ msgstr "Korttype"
 #: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:63
 #: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:81
 msgid "Tags:"
-msgstr "Tagger:"
+msgstr "Tagg(er):"
 
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:109
 msgid "Select initial grade:"
@@ -1830,7 +1826,7 @@ msgstr "Velg utgangsnivå:"
 
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:110
 msgid "You have yet to learn this."
-msgstr "Du har lært dette."
+msgstr "Du skal lære dette."
 
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:111
 msgid "&Yet to learn"
@@ -2133,7 +2129,7 @@ msgid ""
 "able to remember it with some effort, without having forgotten it "
 "completely. This is most efficient for the learning process.\n"
 msgstr ""
-"Graderingen skjer fra 0 til 0.\n"
+"Graderingen skjer fra 0 til 5.\n"
 "\n"
 "Når du lærer nye kort så signaliserer grad 0 og 1 at du ennå ikke har lært "
 "dem. Grad 1 begynner å bli mer kjent enn grad 0 kort, og vil vises "
@@ -2201,7 +2197,7 @@ msgid ""
 "\n"
 "Uncheck the following box if you do not want to do this."
 msgstr ""
-"Dersom du liker statistikk, Mnemosyne vil føre detaljerte logger over din "
+"Dersom du kan statistikk - Mnemosyne vil føre detaljerte logger over din "
 "revisjon.\n"
 "\n"
 "Ikke bare det, men hvis du vil kan Mnemosyne laste opp anonyme versjoner av "
@@ -2371,7 +2367,7 @@ msgstr "&Komme igang"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:216
 msgid "Show s&tatistics..."
-msgstr "Show &statistikk..."
+msgstr "Vis &statistikk..."
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:217
 msgid "Ctrl+T"
@@ -2551,9 +2547,3 @@ msgstr "Dette er en test."
 
 #~ msgid "No duplicate in new fact_keys_and_names allowed."
 #~ msgstr "Ingen duplikater i den nye fact_keys_and_names tillatt."
-
-#~ msgid "Reset all card types to default?"
-#~ msgstr "Nullstill alle korttypene til standard?"
-
-#~ msgid "Reset '%s' to default?"
-#~ msgstr "Nullstill '%s' til standard?"

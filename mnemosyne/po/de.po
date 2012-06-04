@@ -12,22 +12,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.0-pre\n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< TREE
-"POT-Creation-Date: 2012-06-01 21:07+CEST\n"
+"POT-Creation-Date: 2012-06-04 21:12+CEST\n"
 "PO-Revision-Date: 2012-05-29 08:07+0000\n"
 "Last-Translator: Johannes Baiter <Unknown>\n"
-=======
-"POT-Creation-Date: 2012-06-04 21:05+CEST\n"
-"PO-Revision-Date: 2012-05-26 11:39+0000\n"
-"Last-Translator: mase <Unknown>\n"
->>>>>>> MERGE-SOURCE
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: German\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-05-30 05:21+0000\n"
-"X-Generator: Launchpad (build 15316)\n"
+"X-Launchpad-Export-Date: 2012-06-02 05:35+0000\n"
+"X-Generator: Launchpad (build 15342)\n"
 "Generated-By: pygettext.py 1.5\n"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:27
@@ -2492,12 +2486,6 @@ msgstr "foo"
 #: ../tests/test_translator.py:32
 msgid "This is a test."
 msgstr "Dies ist ein Test."
-
-#~ msgid "Reset all card types to default?"
-#~ msgstr "Alle Kartentypen auf Standard zurücksetzen?"
-
-#~ msgid "Reset '%s' to default?"
-#~ msgstr "'%s' auf Standard zurücksetzen?"
 
 #~ msgid "No duplicate in new fact_keys_and_names allowed."
 #~ msgstr "Keine Duplikate in neuen fact_keys_and_names erlaubt."
