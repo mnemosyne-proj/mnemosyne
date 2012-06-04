@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.0-pre\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-01 09:58+CEST\n"
+"POT-Creation-Date: 2012-06-04 21:05+CEST\n"
 "PO-Revision-Date: 2012-05-26 11:39+0000\n"
 "Last-Translator: mase <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,8 +61,8 @@ msgstr ""
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:68
 #: ../mnemosyne/example_plugins/pie_chart_statistics.py:31
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:114
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:232
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:255
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:241
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:264
 msgid "No stats available."
 msgstr "Keine Statistiken verfügbar."
 
@@ -219,8 +219,8 @@ msgstr "Fehler in config.py:"
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:56
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:68
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:136
-#: ../mnemosyne/pyqt_ui/main_wdgt.py:60 ../mnemosyne/pyqt_ui/main_wdgt.py:63
-#: ../mnemosyne/pyqt_ui/main_wdgt.py:67 ../mnemosyne/pyqt_ui/main_wdgt.py:90
+#: ../mnemosyne/pyqt_ui/main_wdgt.py:62 ../mnemosyne/pyqt_ui/main_wdgt.py:65
+#: ../mnemosyne/pyqt_ui/main_wdgt.py:69 ../mnemosyne/pyqt_ui/main_wdgt.py:92
 #: ../mnemosyne/pyqt_ui/tip_after_starting_n_times.py:31
 msgid "Mnemosyne"
 msgstr "Mnemosyne"
@@ -299,7 +299,7 @@ msgstr "&Abbrechen"
 #: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:70
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:58
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:70
-#: ../mnemosyne/pyqt_ui/main_wdgt.py:60 ../mnemosyne/pyqt_ui/main_wdgt.py:68
+#: ../mnemosyne/pyqt_ui/main_wdgt.py:62 ../mnemosyne/pyqt_ui/main_wdgt.py:70
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:61
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:186
 #: ../mnemosyne/pyqt_ui/ui_about_dlg.py:80
@@ -915,7 +915,7 @@ msgstr "Bewertung"
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:32
 #: ../mnemosyne/libmnemosyne/statistics_pages/easiness.py:11
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:596
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:260
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:269
 msgid "Easiness"
 msgstr "Schwierigkeit"
 
@@ -960,7 +960,7 @@ msgid "Untagged"
 msgstr "Ohne Tags"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/grades.py:11
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:237
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:246
 msgid "Grades"
 msgstr "Bewertung"
 
@@ -1028,6 +1028,12 @@ msgstr "Mnemosyne 2.x speichert seine Daten nun hier:"
 msgid "Main author: Peter Bienstman"
 msgstr ""
 
+#: ../mnemosyne/pyqt_ui/about_dlg.py:30
+msgid ""
+"Invaluable contributions from many people are acknowledged <a href=\"http://"
+"www.mnemosyne-proj.org/contributing.php\">here</a>."
+msgstr ""
+
 #: ../mnemosyne/pyqt_ui/about_dlg.py:31
 msgid ""
 "Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-proj."
@@ -1037,7 +1043,7 @@ msgstr ""
 "www.mnemosyne-proj.org\">http://www.mnemosyne-proj.org</a>."
 
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:87
-#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:95
+#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:97
 msgid "Delete"
 msgstr "Löschen"
 
@@ -1390,15 +1396,15 @@ msgstr ""
 "erstellen und eine spezielle Thai-Schriftart für diesen Kartentypen "
 "einstellen ohne die anderen Karten des Typs 'Vokabular' zu verändern."
 
-#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:92
+#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:94
 msgid "Are you sure you want to delete the plugin"
 msgstr "Möchtest du das Plugin wirklich löschen"
 
-#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:93
+#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:95
 msgid "and not just deactivate it?"
 msgstr "oder nur deaktivieren?"
 
-#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:95
+#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:97
 msgid "Cancel"
 msgstr "Abrechen"
 
@@ -1485,24 +1491,24 @@ msgstr "Noch nicht bewertet: %d "
 msgid "Default"
 msgstr "Standard"
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:202
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:203
 msgid "Number of cards scheduled"
 msgstr "Anzahl an eingeplanten Karten"
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:210
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:215
 msgid "Retention score (%)"
 msgstr "Gedächtnisgrad (%)"
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:218
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:227
 msgid "Number of cards added"
 msgstr "Anzahl neuer Karten"
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:236
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:259
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:245
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:268
 msgid "Number of cards"
 msgstr "Anzahl an Karten"
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:239
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:248
 msgid "Not seen"
 msgstr "Ungesehen"
 

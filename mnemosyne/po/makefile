@@ -31,6 +31,6 @@ clean:
 
 update:
 	cd ../mnemosyne/pyqt_ui && make
-	pygettext -o mnemosyne.pot ..
+	$(PYTHON) ./pygettext -o mnemosyne.pot ..
 	$(PYTHON) ./update_trans.py
 

@@ -1,19 +1,8 @@
--New sound system under Windows to work around Qt bugs, supporting multiple
- sound files per card and sound files with unicode filenames.
--Fix bug preview card formatting for cloze cards (reported by Gnome).
--Fix bug when cancelling convertion of card types from card browser
- (reported by Hendrik).
--Fix crash when compacting database (reported by Barbara).
--Import translations from Mnemosyne 1.x.
--'(Re)learn sister cards on the same day' is now always set to false and that
- option has been removed from the configuration screen.
--fix errors when converting from a front-to-back card to a cloze card
- (reported by Henrik).
--fix errors when deleting a cloned card type with custom formatting
- information (reported by Gnome).
--eliminated more cases where an unavailable sync server would result in the
- need for a full sync afterwards.
--minor UI tweaks (mostly reported by Gnome).
+-Various translation related bugfixes (reported by Gnome and Henrik).
+-Fix crash after cancelling plugin import (reported by Stephan Maseizik).
+-Windows fix for systems where other apps registered mimetypes with unicode
+ keys (e.g. Russian sytems with Quicktime installed) (reported by Sergey
+ Pogosyan)
 
 
 MNEMOSYNE 2.0
