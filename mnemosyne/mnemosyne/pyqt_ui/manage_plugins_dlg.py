@@ -34,19 +34,19 @@ class ManagePluginsDlg(QtGui.QDialog, Ui_ManagePluginsDlg, ManagePluginsDialog):
         self.previously_active = {}
         self.plugin_with_name = {}
         for plugin in self.plugins():
-            list_item = QtGui.QListWidgetItem(plugin.name)
+            list_item = QtGui.QListWidgetItem(_(plugin.name))
             list_item.setFlags(list_item.flags() | QtCore.Qt.ItemIsUserCheckable)
-            self.plugin_with_name[plugin.name] = plugin
+            self.plugin_with_name[_(plugin.name)] = plugin
             active = \
                 plugin.__class__.__name__ in self.config()["active_plugins"]
-            self.previously_active[plugin.name] = active
+            self.previously_active[_(plugin.name)] = active
             if active:
                 list_item.setCheckState(QtCore.Qt.Checked)
             else:
                 list_item.setCheckState(QtCore.Qt.Unchecked)
             self.plugin_list.addItem(list_item)
         self.plugin_list.setCurrentRow(0)
-        self.plugin_description.setText(self.plugins()[0].description)
+        self.plugin_description.setText(_(self.plugins()[0].description))
         self.delete_button.setEnabled(\
             self.plugins()[0].__class__.__name__ in self.can_be_deleted)
 
@@ -57,7 +57,7 @@ class ManagePluginsDlg(QtGui.QDialog, Ui_ManagePluginsDlg, ManagePluginsDialog):
         # the selection to the activated item.
         self.plugin_list.setCurrentItem(list_item)
         plugin = self.plugin_with_name[unicode(list_item.text())]
-        self.plugin_description.setText(plugin.description)
+        self.plugin_description.setText(_(plugin.description))
         self.delete_button.setEnabled(\
             plugin.__class__.__name__ in self.can_be_deleted)
 

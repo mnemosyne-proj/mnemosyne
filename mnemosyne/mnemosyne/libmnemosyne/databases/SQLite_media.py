@@ -107,6 +107,8 @@ class SQLiteMedia(object):
 
         for match in re_src.finditer("".join(fact.data.values())):
             filename = match.group(1)
+            if filename.startswith("http:"):
+                continue
             if len(filename) > 200:
                 self.main_widget().show_information(\
 _("Media filename rather long. This could cause problems using this file on a different OS."))

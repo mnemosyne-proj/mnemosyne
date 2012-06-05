@@ -1,3 +1,5 @@
+-Fix Windows support for external media files referenced by a http: tags
+ (requested by Patrick de Metz).
 -Various translation related bugfixes (reported by Gnome and Henrik).
 -Fix crash after cancelling plugin import (reported by Stephan Maseizik).
 -Windows fix for systems where other apps registered mimetypes with unicode
