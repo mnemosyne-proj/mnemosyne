@@ -1,4 +1,6 @@
-INSTALLATION:
+INSTALLATION FROM SOURCE:
+
+1) LINUX
 
 First install the following dependencies:
 
@@ -8,5 +10,27 @@ First install the following dependencies:
  latex is installed.
 -Matplotlib (http://matplotlib.sourceforge.net/)
 -EasyInstall from http://peak.telecommunity.com/DevCenter/EasyInstall
+-Type 'python setup.py install' as root.
+-Run the application by typing 'mnemosyne'.
+
+2) MAC OS/X
+
+Supported Versions of Mac OS X
+
+-Mac OS 10.6.x (Snow Leopard)
+-Mac OS 10.7.x (Lion)
+
+Installing from Source using MacPorts
+
+MacPorts can be used to install the dependencies for Mnemosye.
+
+-Download and install the latest version of MacPorts.
+-Open the Terminal.
+-Make sure you are using the latest version of MacPorts:
+-sudo port selfupdate
+-Install the dependencies for Mnemosyne:
+-sudo port install bzr python27 qt4-mac py27-pyqt4 py27-sip py27-matplotlib py27-virtualenv py27-distribute py-cherrypy3 python_select py-virtualenvwrapper
+-If this is your first time setting up MacPorts, you will need to set the version of python:
+ sudo port select python python27
 -Type 'python setup.py install' as root.
 -Run the application by typing 'mnemosyne'.

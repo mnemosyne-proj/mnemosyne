@@ -12,16 +12,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.0-pre\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-04 21:12+CEST\n"
-"PO-Revision-Date: 2012-05-29 08:07+0000\n"
-"Last-Translator: Johannes Baiter <Unknown>\n"
+"POT-Creation-Date: 2012-06-06 15:28+CEST\n"
+"PO-Revision-Date: 2012-06-04 20:52+0000\n"
+"Last-Translator: mase <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: German\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-06-02 05:35+0000\n"
-"X-Generator: Launchpad (build 15342)\n"
+"X-Launchpad-Export-Date: 2012-06-05 04:54+0000\n"
+"X-Generator: Launchpad (build 15353)\n"
 "Generated-By: pygettext.py 1.5\n"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:27
@@ -218,6 +218,8 @@ msgstr "Fehler in config.py:"
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:226
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:83
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:89
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:56
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:68
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:56
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:68
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:136
@@ -297,6 +299,8 @@ msgstr "&Abbrechen"
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:76
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:85
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:90
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:58
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:70
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:58
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:70
 #: ../mnemosyne/pyqt_ui/main_wdgt.py:62 ../mnemosyne/pyqt_ui/main_wdgt.py:70
@@ -304,8 +308,6 @@ msgstr "&Abbrechen"
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:186
 #: ../mnemosyne/pyqt_ui/ui_about_dlg.py:80
 #: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:82
-#: ../mnemosyne/pyqt_ui/ui_activate_plugins_dlg.py:34
-#: ../mnemosyne/pyqt_ui/ui_activate_plugins_dlg.py:49
 #: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:64
 #: ../mnemosyne/pyqt_ui/ui_card_set_name_dlg.py:46
 #: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:61
@@ -539,7 +541,7 @@ msgstr "Tag '%s' in gesichertem Set '%s' aktivieren?"
 msgid "Make new card type active in saved set '%s'?"
 msgstr "Neuen Kartentyp in gesichertem Set '%s' aktivieren?"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:112
+#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:114
 msgid ""
 "Media filename rather long. This could cause problems using this file on a "
 "different OS."
@@ -547,7 +549,7 @@ msgstr ""
 "Der Name der Mediendatei ist sehr lang. Das könnte auf anderen "
 "Betriebssystemen Probleme verursachen."
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:115
+#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:117
 msgid "Missing media file!"
 msgstr "Fehlende Mediendatei!"
 
@@ -1305,12 +1307,12 @@ msgstr "%d Karten gezeigt von denen %d aktiv sind."
 
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:72
 msgid "Delete these card types?"
-msgstr ""
+msgstr "Diese Kartentypen löschen?"
 
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:74
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:61
 msgid "Delete this card type?"
-msgstr ""
+msgstr "Diesen Kartentyp löschen?"
 
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:104
 msgid "All card types (%d)"
@@ -1374,19 +1376,27 @@ msgstr "Server läuft jetzt auf "
 msgid "Server stopped."
 msgstr "Server gestoppt."
 
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:39
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:51
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:78
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:39
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:51
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:78
 msgid "<none>"
 msgstr "<keine>"
 
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:57
-msgid "No duplicate in new keys allowed."
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:57
+msgid "No duplicate in new fact_keys_and_names allowed."
 msgstr ""
 
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:69
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:69
 msgid "A required field is missing."
 msgstr "Ein benötigtes Feld fehlt."
+
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:57
+msgid "No duplicate in new keys allowed."
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:86
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:99
@@ -1595,8 +1605,8 @@ msgid ""
 "scheduling these on the same day."
 msgstr ""
 "Schwesterkarten sind Karten die auf den selben Informationen basieren, z.B. "
-"eine Vorne-Hinten Karte und die entsprechende Hinten-Vorne Karte. "
-"Mnemosyneversucht zu vermeiden zwei solcher Karten am selben Tag einzuplanen."
+"eine Vorne-Hinten Karte und die entsprechende Hinten-Vorne Karte. Mnemosyne "
+"versucht zu vermeiden zwei solcher Karten am selben Tag einzuplanen."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:22
 msgid ""
@@ -1805,11 +1815,6 @@ msgstr "Gespeicherte Sets:"
 msgid "&Save this set for later use"
 msgstr "Dieses Set für später &speichern"
 
-#: ../mnemosyne/pyqt_ui/ui_activate_plugins_dlg.py:23
-#: ../mnemosyne/pyqt_ui/ui_activate_plugins_dlg.py:48
-msgid "(De)activate plugins"
-msgstr ""
-
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:107
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:128
 #: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:80
@@ -1896,33 +1901,10 @@ msgstr "Geklont aus:"
 msgid "Clone name:"
 msgstr "Name des Klons:"
 
-#: ../mnemosyne/pyqt_ui/ui_cloned_card_types_list_dlg.py:23
-#: ../mnemosyne/pyqt_ui/ui_cloned_card_types_list_dlg.py:56
-msgid "Cloned card types"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_cloned_card_types_list_dlg.py:29
-#: ../mnemosyne/pyqt_ui/ui_cloned_card_types_list_dlg.py:57
-msgid "Cloned card types in use:"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_cloned_card_types_list_dlg.py:38
-#: ../mnemosyne/pyqt_ui/ui_cloned_card_types_list_dlg.py:58
-msgid "&Add clone"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_cloned_card_types_list_dlg.py:44
-#: ../mnemosyne/pyqt_ui/ui_cloned_card_types_list_dlg.py:59
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:205
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:62
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:75
-msgid "E&xit"
-msgstr "Be&enden"
-
 #: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:54
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:225
 msgid "Compact database"
-msgstr ""
+msgstr "Datenbank komprimieren"
 
 #: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:55
 msgid "Delete unused media files"
@@ -2032,7 +2014,7 @@ msgstr "Lernverlauf in anonymisierter Form zu Forschungszwecken hochladen"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:142
 msgid "Language"
-msgstr ""
+msgstr "Sprache"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_sync_server.py:69
 msgid "Allow other devices to sync with this computer"
@@ -2271,6 +2253,12 @@ msgstr "Strg+B"
 msgid "&Export..."
 msgstr "&Export..."
 
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:205
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:62
+#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:75
+msgid "E&xit"
+msgstr "Be&enden"
+
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:206
 msgid "&New..."
 msgstr "&Neu..."
@@ -2487,5 +2475,5 @@ msgstr "foo"
 msgid "This is a test."
 msgstr "Dies ist ein Test."
 
-#~ msgid "No duplicate in new fact_keys_and_names allowed."
-#~ msgstr "Keine Duplikate in neuen fact_keys_and_names erlaubt."
+#~ msgid "(De)activate plugins"
+#~ msgstr "(De)aktiviere Plugins"
