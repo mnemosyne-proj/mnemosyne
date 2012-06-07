@@ -256,6 +256,8 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
     def closeEvent(self, event):
         # Generated when clicking the window's close button.
         self._store_state()
+        event.ignore()
+        self.reject()
 
     def accept(self):
         # 'accept' does not generate a close event.

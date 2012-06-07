@@ -79,8 +79,8 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         # Generated when clicking the window's close button.
         self._store_state()
         if self.allow_cancel:
-            event.accept()
-            QtGui.QDialog.reject(self)
+            event.ignore()
+            self.reject()
         else:
             self.main_widget().show_information(\
                 _("You are not allowed to cancel the merging."))
