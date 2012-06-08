@@ -20,7 +20,7 @@ class ReviewWdgt(ReviewWidget):
     the same location for easy ergonomic access.
 
     """
-    
+
     def __init__(self, component_manager):
         ReviewWidget.__init__(self, component_manager)
         self.question_label = ""
@@ -30,33 +30,36 @@ class ReviewWdgt(ReviewWidget):
         self.answer_label = _("Answer:")
         self.is_answer_box_visible = True
         self.show_button = ""
-        self.is_show_button_enabled = True              
+        self.is_show_button_enabled = True
         self.is_grade_buttons_enabled = False
         self.status_bar = ""
         self.template = Template(file(os.path.join("mnemosyne", "webserver",
-            "review_page.html").read()))
-        
+            "review_page.html")).read())
+
+    def redraw_now(self):
+        pass
+
     def show_answer(self):
         self.review_controller().show_answer()
-           
+
     def grade_answer(self, grade):
         self.review_controller().grade_answer(grade)
-        
+
     def set_question_box_visible(self, is_visible):
         self.is_question_box_visible = is_visible
-            
+
     def set_answer_box_visible(self, is_visible):
         self.is_answer_box_visible = is_visible
-        
+
     def set_question_label(self, text):
         self.question_label = text
-        
+
     def set_question(self, text):
         self.question = text
-        
+
     def set_answer(self, text):
         self.answer = text
-        
+
     def clear_question(self):
 		self.question = ""
 
@@ -69,7 +72,7 @@ class ReviewWdgt(ReviewWidget):
 
     def set_grades_enabled(self, is_enabled):
         self.is_grade_buttons_enabled = is_enabled
-        
+
     def set_default_grade(self, grade):
         pass
 
@@ -88,14 +91,14 @@ class ReviewWdgt(ReviewWidget):
         buttons = ""
         if self.is_grade_buttons_enabled:
             buttons = ""
-            for i in range(6):                
+            for i in range(6):
                 buttons += """
                   <td>
                     <form action="" method="post">
                       <input type="submit" name="grade" accesskey="%d"
                        value="%d">
                     </form>
-                  </td>""" % (i, i)               
+                  </td>""" % (i, i)
         if self.is_show_button_enabled:
             buttons = """
               <td>

@@ -9,4 +9,4 @@ class NoTranslator(Translator):
 
     def set_translator(self, language):
         pass
-    
+

@@ -1,12 +1,31 @@
 -migrate launchpad to user voice
--update website
+-no comments
 -google analytics
 
+
 ### Release
+
+-implement duplicate checking. Also synonym checking? Add then standard tags.
+-autorun after import, browse with edit, but not sync
+-do review_controller.rebuild_queue, reload counter after clean duplicates?
+
+-bundle grades criterion? add criterion names i.e. type. Fix bug saving sets.
+ Other mechanism to skip scheduled cards? What happens to saved set after
+ disabling plugin?
+-criterion to select last X added cards, useful for cramming
+
+-import
+-on import, activate plugins, create card types if necessary
+-on import don't add cards for which card type is not present
+-for mnemosyne 2 cards format, on import, ignore or update cards which were already imported?
+-warn when importing card type with duplicate id
+-make sure after import all sync events fire
 
 -remove upgrade_beta_6.py, beta_7, etc... also in database
 
 -option to add multiple tags on import (Barbara)
+
+-fix webserver (response not saved, no colours), bundle it with install
 
 -plugin for card types with prefilled data?
 
@@ -77,10 +96,6 @@ widget will be centered on the main widget and not the activate cards dialog.
 
 -binary database upload: configuration changes (fonts, ...) are not applied
 
--implement duplicate checking. Also synonym checking? Add then standard tags.
--autorun after import, browse with edit, but not sync
--do review_controller.rebuild_queue, reload counter after clean duplicates?
-
 -if last card had unequal split, learn ahead of schedule message does not go
  back to 50/50 split.
 
@@ -94,18 +109,12 @@ widget will be centered on the main widget and not the activate cards dialog.
 
 -remove hack to preview cloze cards in card type appearance.
 
--bundle grades criterion? add criterion names i.e. type. Fix bug saving sets.
- Other mechanism to skip scheduled cards? What happens to saved set after
- disabling plugin?
--criterion to select last X added cards, useful for cramming
-
 -plugin to reset active cards to unlearned
 
 -really fix sync test suite races: after first client request fails and client
  goes to sleep, sometimes server cannot create socket.
 
 -upgrade to qt after 4.8, retest progress bars
--fix webserver, bundle it with install
 
 -make statistics refer to active cards only. Profile. (Dan Schmidt)
 
@@ -164,19 +173,8 @@ Milesteiner
 
 -Faq about how to pronounce Mnemosyne
 
--docs on keyboard shortcuts on website: grade buttons to 'show answer', PageUp/PageDown to scroll
- question/answer, PageUp/PageDown to change cards in preview/edit started from card browser, control+R replay media
--updated grading info on new website, to match new first run wizard
-
 -Optimisation: Adding a tag to a set of cards which already have this tag
  generates unneccesary log events
-
--import
--on import, activate plugins, create card types if necessary
--on import don't add cards for which card type is not present
--for mnemosyne 2 cards format, on import, ignore or update cards which were already imported?
--warn when importing card type with duplicate id
--make sure after import all sync events fire
 
 -card appearance: show preview live?
 
@@ -206,9 +204,6 @@ Milesteiner
 -kivy, python for android
 
 -scrape from websites: https://bitbucket.org/nosklo/supymemo/downloads
-
--documentation on config.py: if you need to change this, send developers a line
- so that we know this is used a lot.
 
 -also allow scrolling webview widgets using up and down keys? Will probably require global
  event filter and slow everything down
@@ -251,8 +246,6 @@ Milesteiner
 -have hierarchy in plugin names
 
 -heising card type (radical, number of strokes)
-
--auto vacuum after every N openings? What about WM? clean_orphaned_static_media_files
 
 -http://www.mblondel.org/journal/2008/08/01/web-canvas/
 
@@ -393,12 +386,6 @@ a good alternative, as it does not obey selection coloring
 -option purge history, refactor logging test. Should only happen in no other sync partners are
  interested in it
 
--website redesign? like http://hanzim.com/download.php
-
--card type with prefilled fields
-
--update ohloh?
-
 -synchronise history folder to guard against mobile clients not uploading their
  logs, even though they set upload_logs=True?
 
@@ -407,9 +394,6 @@ a good alternative, as it does not obey selection coloring
 -better supermemo import
 
 -API for statusbar widgets
-
--get rid of mp3 clip prevention? mp3 clip prevention for multiple sound files per card?
-
 
 -detect wrong current date (last review in the future or way past)
 
@@ -444,31 +428,6 @@ http://lost-theory.org/python/ltchinese/
 -control B format character in supermemo import?
 
 -make autosuggest in tag dialog also work for the second tag after the comma.
-
-
-Windows Mobile client:
-
-If your phone has a touchscreen use the pocket pc version. Otherwise try the
-smartphone version.
-
--integrate sync
--add full html header to standard renderer. Still need MW table hack?
--test and time renderer on MW. Need to cache it?
--test no_pregenerated_data on WM
--repaint_now useful?
--better way of making default actions visible? Call layout()?
--hook up scheduler rollover
--document save after n rep
--cramming widget, cache counters
--implement hide question
--icon
--more complete question box implementation
--installer
--set basedir in registry key
--install only pyc files
--mark card
--button color
--sonud: http://watersprite.awardspace.com/python/
 
 
 Multiuser statistics analysis:

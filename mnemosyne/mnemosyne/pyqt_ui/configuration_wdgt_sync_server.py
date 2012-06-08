@@ -42,7 +42,7 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
             self.server_status.setText(_("Server running on ") + \
                 localhost_IP() + ".")
         else:
-            self.server_status.setText(_("Server NOT running."))   
+            self.server_status.setText(_("Server NOT running."))
 
     def is_server_running(self):
         timeout = socket.getdefaulttimeout()
@@ -68,7 +68,7 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
         self.username.setText("")
         self.password.setText("")
         self.check_for_edited_local_media_files.setChecked(False)
-                
+
     def apply(self):
         self.config()["run_sync_server"] = self.run_sync_server.isChecked()
         self.config()["port_for_sync_as_server"] = self.port.value()
@@ -82,11 +82,11 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
             if not self.initially_running and self.is_server_running():
                 QtGui.QMessageBox.information(None, _("Mnemosyne"),
                     _("Server now running on ") + localhost_IP() + ".",
-                   _("&OK"), "", "", 0, -1)                
+                   _("&OK"), "", "", 0, -1)
         else:
             self.component_manager.current("sync_server").deactivate()
             if self.initially_running and not self.is_server_running():
                 QtGui.QMessageBox.information(None, _("Mnemosyne"),
                     _("Server stopped."), _("&OK"), "", "", 0, -1)
-    
-            
+
+
