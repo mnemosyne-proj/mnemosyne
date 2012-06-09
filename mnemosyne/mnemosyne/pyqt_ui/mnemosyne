@@ -91,8 +91,6 @@ if options.webserver == True:
 
     port = 8513
     data_dir = config.data_dir
-    data_dir = \
-    "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/dot_mnemosyne2"
     filename = "default.db"
 
     disclaimer = """Prototype of Mnemosyne web server. It works, but is not yet integrated in the desktop application, and has no security."""
