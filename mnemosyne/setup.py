@@ -214,8 +214,7 @@ setup(name = "Mnemosyne",
       data_files = data_files,
       scripts = ["mnemosyne/pyqt_ui/mnemosyne", "mnemosyne/webserver/mnemosyne-webserver"],
       # py2exe
-      windows = [{#"console": "mnemosyne/webserver/mnemosyne-webserver",
-                  "script": "mnemosyne/pyqt_ui/mnemosyne",
+      windows = [{"script": "mnemosyne/pyqt_ui/mnemosyne",
                   "icon_resources": [(1, "pixmaps/mnemosyne.ico")]}],
       cmdclass = {"py2exe": build_installer},
       # py2app

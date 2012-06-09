@@ -33,8 +33,59 @@ class ReviewWdgt(ReviewWidget):
         self.is_show_button_enabled = True
         self.is_grade_buttons_enabled = False
         self.status_bar = ""
-        self.template = Template(file(os.path.join("mnemosyne", "webserver",
-            "review_page.html")).read())
+        self.template = Template("""
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Mnemosyne</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+table {
+  width: 100%;
+  border: 1px solid black;
+  padding: 1em;
+}
+table.buttonarea {
+  border: 0;
+  padding: 0;
+  background-color: white;
+}
+input {
+  width: 100%;
+}
+$card_css
+</style>
+</head>
+<body>
+
+<table class="buttonarea">
+  <tr>
+  $buttons
+  </tr>
+</table>
+
+<p>$question_label</p>
+
+<table id="mnem">
+  <tr>
+    <td>$question</td>
+  </tr>
+</table>
+
+<p>$answer_label</p>
+
+<table id="mnem">
+  <tr>
+    <td>$answer</td>
+  </tr>
+</table>
+
+<p>$status_bar</p>
+
+</body>
+</html>
+""")
 
     def redraw_now(self):
         pass

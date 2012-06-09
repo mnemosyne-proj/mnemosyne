@@ -43,6 +43,7 @@ setup:
 	$(VIRTUALENV) --python=$(PYTHON) .
 	./bin/easy_install nose
 	./bin/easy_install coverage
+	cd po && make
 
 install-system:
 	# Also rebuilds the docs and the translations.

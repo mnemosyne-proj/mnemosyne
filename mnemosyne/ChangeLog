@@ -31,7 +31,7 @@ Major user-visible changes:
 -Sync protocol, to synchronise a mobile device to your desktop client. Fully
  bidirectional, i.e. you can add new cards on your desktop and review old
  cards on your phone, and both sets of changes will be merged seamlessly.
- Can sync with more than 1 partner. Optimised for speed and memory useage
+ Can sync with more than 1 partner. Optimised for speed and memory usage
  on mobile devices. First implementation by Ed Bartosh and Max Usachev.
 
 
@@ -64,7 +64,7 @@ Other changes:
  File - Open menu, as opposed to first decompressing a file outside of
  Mnemosyne.
 -Importing from XML files has been sped up considerably (Johannes Baiter)
--The learing history is now stored in an SQL database, allowing to calculate
+-The learning history is now stored in an SQL database, allowing to calculate
  more statistics.
 -The plugin mechanism encompasses also the statistics, configuration and card
  activation screens.

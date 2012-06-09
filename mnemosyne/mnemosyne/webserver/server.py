@@ -63,14 +63,20 @@ class Server(WSGIServer):
         self.mnemosyne.initialise(data_dir, filename, automatic_upgrades=False)
         self.mnemosyne.review_controller().set_render_chain("webserver")
         self.mnemosyne.start_review()
-
+        self.save_after_n_reps = self.mnemosyne.config()["save_after_n_reps"]
+        self.mnemosyne.config()["save_after_n_reps"] = 1
+        
     def serve_until_stopped(self):
-        while not self.stopped:
-            # We time out every 0.25 seconds, so that we changing
-            # self.stopped can have an effect.
-            if select.select([self.socket], [], [], 0.25)[0]:
-                self.handle_request()
-        self.socket.close()
+        try:
+            while not self.stopped:
+                # We time out every 0.25 seconds, so that we changing
+                # self.stopped can have an effect.
+                if select.select([self.socket], [], [], 0.25)[0]:
+                    self.handle_request()
+        finally:
+            self.socket.close()
+            self.mnemosyne.config()["save_after_n_reps"] = \
+                self.save_after_n_reps
     
     def stop(self):
         self.stopped = True
@@ -113,7 +119,6 @@ class Server(WSGIServer):
             return None
 
     # Adapted from SimpleHTTPServer:
-
     def guess_type(self, path):
         base, ext = os.path.splitext(path)
         if ext in self.extensions_map:
