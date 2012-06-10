@@ -10,6 +10,7 @@ from mnemosyne.webserver.webserver_renderer import WebserverRenderer
 from mnemosyne.libmnemosyne.filters.escape_to_html import EscapeToHtml
 from mnemosyne.libmnemosyne.filters.non_latin_font_size_increase import \
      NonLatinFontSizeIncrease
+     
 
 
 class WebserverRenderChain(RenderChain):

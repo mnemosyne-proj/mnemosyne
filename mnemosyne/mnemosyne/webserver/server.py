@@ -62,9 +62,13 @@ class Server(WSGIServer):
              "WebserverRenderChain"))
         self.mnemosyne.initialise(data_dir, filename, automatic_upgrades=False)
         self.mnemosyne.review_controller().set_render_chain("webserver")
-        self.mnemosyne.start_review()
         self.save_after_n_reps = self.mnemosyne.config()["save_after_n_reps"]
         self.mnemosyne.config()["save_after_n_reps"] = 1
+        
+        #from mnemosyne.webserver.gogorender import Gogorender
+        #self.mnemosyne.render_chain("webserver").register_at_back(Gogorender)
+
+        self.mnemosyne.start_review()
         
     def serve_until_stopped(self):
         try:
