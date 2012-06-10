@@ -65,9 +65,12 @@ class Server(WSGIServer):
         self.save_after_n_reps = self.mnemosyne.config()["save_after_n_reps"]
         self.mnemosyne.config()["save_after_n_reps"] = 1
         
-        #from mnemosyne.webserver.gogorender import Gogorender
-        #self.mnemosyne.render_chain("webserver").register_at_back(Gogorender)
-
+        from mnemosyne.webserver.gogorender import Gogorender
+        self.mnemosyne.render_chain("webserver").register_at_back(Gogorender)
+        from mnemosyne.libmnemosyne.filters.non_latin_font_size_increase import \
+            NonLatinFontSizeIncrease
+        self.mnemosyne.render_chain("webserver").unregister_filter(NonLatinFontSizeIncrease)
+        
         self.mnemosyne.start_review()
         
     def serve_until_stopped(self):

@@ -89,9 +89,6 @@ class Gogorender(Filter):
         Filter.__init__(self, component_manager)
         self.reconfigure()
         self.debug = component_manager.debug_file != None
-
-        a = QtGui.QApplication(sys.argv)
-        a.exec_()
         
     def setting(self, key):
         try:
@@ -299,6 +296,13 @@ class Gogorender(Filter):
         return ''.join(r)
 
     def run(self, text, card, fact_key, **render_args):
+        for i in range(len(text)):
+            if  0x0600 <= ord(text[i]) <= 0x0652:
+                text = text[::-1]
+                break
+        return text
+        
+        
         doc = QTextDocument()
         doc.setUndoRedoEnabled(False)
         doc.setDocumentMargin(0.0)
