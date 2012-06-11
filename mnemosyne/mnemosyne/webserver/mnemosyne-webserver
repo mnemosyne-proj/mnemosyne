@@ -15,18 +15,9 @@ def localhost_IP():
     s.connect(("google.com", 8000))
     return s.getsockname()[0]
 
-# Initialise enough from mnemosyne to get the datadir.
-
-from mnemosyne.libmnemosyne.translators.gettext_translator \
-    import GetTextTranslator
-t = GetTextTranslator(None)
-
-from mnemosyne.libmnemosyne.configuration import Configuration
-config = Configuration(None)
-config.determine_dirs()
 
 port = 8513
-data_dir = config.data_dir
+data_dir = None # Default.
 #data_dir = \
 #"/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/dot_mnemosyne2"
 filename = "default.db"
@@ -36,7 +27,6 @@ the desktop application, and has no security.
 """
 
 print disclaimer
-print "Serving", os.path.join(data_dir, filename)
 print "Server listening on http://" + localhost_IP() + ":" + str(port)
 
 from mnemosyne.webserver.server import Server
