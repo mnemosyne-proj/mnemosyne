@@ -213,10 +213,10 @@ class QtSyncServer(Component, QtCore.QObject):
     def load_database(self):
         mutex.lock()
         try:
-            self.database().load(self.config()["path"])
+            self.database().load(self.config()["last_database"])
         except sqlite3.ProgrammingError: # Database locked in server thread.
             database_released.wait(mutex)
-            self.database().load(self.config()["path"])
+            self.database().load(self.config()["last_database"])
         self.log().loaded_database()
         self.review_controller().reset_but_try_to_keep_current_card()
         self.review_controller().update_dialog(redraw_all=True)

@@ -108,7 +108,7 @@ class UpgradeBeta6(Component):
 
     def run(self, filename):
         if not filename:
-            filename = self.config()["path"]
+            filename = self.config()["last_database"]
         filename = expand_path(filename, self.config().data_dir)
         if not os.path.exists(filename):
             return

@@ -3602,10 +3602,10 @@ class TestSync(object):
             pass
 
         def fill_server_database(self):
-            old_path = self.mnemosyne.config()["path"]
+            old_path = self.mnemosyne.config()["last_database"]
             self.mnemosyne.database().save(\
                 os.path.join(os.path.abspath("dot_sync_server"), "backup.db"))
-            self.mnemosyne.config()["path"] = old_path
+            self.mnemosyne.config()["last_database"] = old_path
             fact_data = {"f": "question2",
                          "b": "answer2"}
             card_type = self.mnemosyne.card_type_with_id("1")

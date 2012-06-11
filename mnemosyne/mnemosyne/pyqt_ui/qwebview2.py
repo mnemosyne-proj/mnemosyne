@@ -13,7 +13,8 @@ class QWebView2(QtWebKit.QWebView):
     """
 
     def focusInEvent(self, event):
-        self.parent().restore_focus()
+        if hasattr(self.parent(), "restore_focus"):
+            self.parent().restore_focus()
         QtWebKit.QWebView.focusInEvent(self, event)
 
     def contextMenuEvent(self, event):

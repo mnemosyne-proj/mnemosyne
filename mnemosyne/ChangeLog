@@ -1,3 +1,16 @@
+RC4:
+
+-Fix translation bug involving importing of files (reported by Gnome).
+-Fix context menu and block drag and drop in Preview cards (reported by Gnome).
+-Fix regression where if the current active set of cards was not a saved set,
+ it would not get displayed as such in the activate cards dialog (reported by
+ Henrik).
+-Fix harmless errors in saved set dialog (reported by Henrik, Scott Youngman,
+ Gnome).
+-Mnemosyne can now be run a webserver to reviewing over http. Start the
+ mnemosyne-webserver executable and follow the instructions.
+
+
 MNEMOSYNE 2.0
 
 Four years in the making, this is essentially a complete rewrite of the old
@@ -33,6 +46,9 @@ Major user-visible changes:
  cards on your phone, and both sets of changes will be merged seamlessly.
  Can sync with more than 1 partner. Optimised for speed and memory usage
  on mobile devices. First implementation by Ed Bartosh and Max Usachev.
+-Prototype webserver for reviews through a browser. Should be functional, but
+ contains no security and is not yet integrated with the GUI. Start the
+ mnemosyne-webserver executable and follow the instructions.
 
 
 Other changes:
@@ -45,9 +61,9 @@ Other changes:
 -Added card type for maps, and for cloze deletion.
 -Plugins can now be turned on and off through the GUI.
 -Windows use scroll bar when the data does not fit.
--Vhen importing a sound or an image, a copy is made to the
- mnemosyne data directory. This saves some confusing explaining to new users
- about the difference between relative and absolute paths.
+-When importing a sound or an image, a copy is made to the mnemosyne data
+ directory. This saves some confusing explaining to new users about the
+ difference between relative and absolute paths.
 -Mnemosyne can now save after each reviewed card. Default is to only save after
  10 reps, to save battery.
 -Avoid showing the same card twice in a row during review.

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-06 15:28+CEST\n"
+"POT-Creation-Date: 2012-06-11 13:43+CEST\n"
 "PO-Revision-Date: 2012-05-24 23:13+0000\n"
 "Last-Translator: Peter Bienstman <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -184,15 +184,15 @@ msgstr ""
 msgid "Notes"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/configuration.py:179
+#: ../mnemosyne/libmnemosyne/configuration.py:180
 msgid "Error in config:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/configuration.py:188
+#: ../mnemosyne/libmnemosyne/configuration.py:189
 msgid "Unable to save config file:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/configuration.py:342
+#: ../mnemosyne/libmnemosyne/configuration.py:343
 msgid "Error in config.py:"
 msgstr "Greška u config.py:"
 
@@ -249,8 +249,8 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:219
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:246
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:362
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:103
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:123
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:105
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:125
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:472
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:76
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:61
@@ -272,8 +272,8 @@ msgid "&Cancel"
 msgstr "&Odustani"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:219
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:103
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:123
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:105
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:125
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:472
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:76
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:85
@@ -298,7 +298,7 @@ msgstr "&Odustani"
 #: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:82
 #: ../mnemosyne/pyqt_ui/ui_import_dlg.py:93
 #: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:72
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:96
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:100
 #: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:55
 #: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:53
 #: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:53
@@ -1001,29 +1001,29 @@ msgid ""
 "org</a> for more information and source code."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:87
-#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:97
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:89
+#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:98
 msgid "Delete"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:88
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:90
 msgid "Rename"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:95
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:175
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:97
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:179
 msgid "This set can never contain any cards!"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:102
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:104
 msgid "Update this set?"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:118
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:120
 msgid "You can right-click on the name of a saved set to rename or delete it."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:122
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:124
 msgid "Delete this set?"
 msgstr ""
 
@@ -1320,7 +1320,7 @@ msgstr ""
 msgid "Abandon changes to current card?"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/import_dlg.py:75
+#: ../mnemosyne/pyqt_ui/import_dlg.py:76
 msgid "File does not exist."
 msgstr ""
 
@@ -1332,15 +1332,15 @@ msgid ""
 "specifically for this card type without disturbing your other cards."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:94
+#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:95
 msgid "Are you sure you want to delete the plugin"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:95
+#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:96
 msgid "and not just deactivate it?"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:97
+#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:98
 msgid "Cancel"
 msgstr ""
 
@@ -1389,7 +1389,7 @@ msgid "Ctrl+D"
 msgstr "Ctrl+D"
 
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:37
-msgid "&Hide pronunciation key for this card type"
+msgid "&Hide pronunciation field for this card type"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/review_wdgt.py:341
@@ -2194,25 +2194,25 @@ msgstr ""
 msgid "&Delete plugin"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:91
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:95
 msgid "(fact view name)"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:92
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:96
 msgid "Question:"
 msgstr "Pitanje:"
 
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:93
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:97
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:107
 #: ../mnemosyne/webserver/review_wdgt.py:30
 msgid "Answer:"
 msgstr "Odgovor:"
 
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:94
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:98
 msgid "&Previous sister card"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:95
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:99
 msgid "&Next sister card"
 msgstr ""
 

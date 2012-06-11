@@ -82,16 +82,16 @@ class TestRenderChain(MnemosyneTest):
                 return type(x) == ty
             return eq
 
-        self.render_chain().register_at_front(MyFilter1)
+        self.render_chain().register_filter_at_front(MyFilter1)
         assert "666" in card.question()
 
-        self.render_chain().register_at_front(MyFilter2, [MyFilter1.__name__])
+        self.render_chain().register_filter_at_front(MyFilter2, [MyFilter1.__name__])
         assert "[666]" in card.question()
 
-        self.render_chain().register_at_back(MyFilter3, [MyFilter2.__name__])
+        self.render_chain().register_filter_at_back(MyFilter3, [MyFilter2.__name__])
         assert "[(666)]" in card.question()
 
-        self.render_chain().register_at_front(MyFilter4, [MyFilter3.__name__])
+        self.render_chain().register_filter_at_front(MyFilter4, [MyFilter3.__name__])
         assert "[{(666)}]" in card.question()
 
         assert type(self.render_chain()._filters[0]) \

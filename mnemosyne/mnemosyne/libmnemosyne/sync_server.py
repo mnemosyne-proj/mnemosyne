@@ -38,7 +38,7 @@ class SyncServer(Component, Server):
                password == self.config()["remote_access_password"]
 
     def load_database(self, database_name):
-        self.previous_database = self.config()["path"]
+        self.previous_database = self.config()["last_database"]
         if self.previous_database != database_name:
             if not os.path.exists(expand_path(database_name,
                 self.config().data_dir)):

@@ -23,6 +23,14 @@ class InnoScript:
             self.dist_dir += "\\"
         self.name = name
         self.version = version
+
+        # Hack to include webserver, which does not seem to get picked up
+        # automatically.
+        mnemosyne_exe = windows_exe_files[0]
+        mnemosyne_webserver_exe = mnemosyne_exe.\
+            replace("mnemosyne.exe", "mnemosyne-webserver.exe")
+        windows_exe_files = [mnemosyne_exe, mnemosyne_webserver_exe]
+
         self.windows_exe_files = [self.chop(p) for p in windows_exe_files]
         self.lib_files = [self.chop(p) for p in lib_files]
 
@@ -50,8 +58,12 @@ class InnoScript:
         print >> ofi
 
         print >> ofi, r"[Icons]"
-        for path in self.windows_exe_files:
-            print >> ofi, r'Name: "{group}\%s"; Filename: "{app}\%s"' \
+        path = self.windows_exe_files[0]
+        print >> ofi, r'Name: "{group}\%s"; Filename: "{app}\%s"' \
+                            % (self.name, path),
+        print >> ofi, ' ; WorkingDir: {app}'
+        path = self.windows_exe_files[1]
+        print >> ofi, r'Name: "{group}\%s webserver"; Filename: "{app}\%s"' \
                             % (self.name, path),
         print >> ofi, ' ; WorkingDir: {app}'
         print >> ofi, 'Name: "{group}\Uninstall %s"; Filename: "{uninstallexe}"'\
@@ -90,6 +102,8 @@ class build_installer(py2exe):
         lib_dir = self.lib_dir
         dist_dir = self.dist_dir
         # Create the Installer, using the files py2exe has created.
+        # Hack to include webserver, which does not seem to get picked up
+        # automatically.
         script = InnoScript("Mnemosyne", lib_dir, dist_dir,
                             self.windows_exe_files, self.lib_files,
                             version=mnemosyne.version.version)
@@ -215,6 +229,8 @@ setup(name = "Mnemosyne",
       scripts = ["mnemosyne/pyqt_ui/mnemosyne", "mnemosyne/webserver/mnemosyne-webserver"],
       # py2exe
       windows = [{"script": "mnemosyne/pyqt_ui/mnemosyne",
+                  "icon_resources": [(1, "pixmaps/mnemosyne.ico")]}],
+      console = [{"script": "mnemosyne/webserver/mnemosyne-webserver",
                   "icon_resources": [(1, "pixmaps/mnemosyne.ico")]}],
       cmdclass = {"py2exe": build_installer},
       # py2app

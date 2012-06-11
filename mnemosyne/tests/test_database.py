@@ -54,7 +54,7 @@ class TestDatabase(MnemosyneTest):
         old_fact = old_card.fact
         self.database().unload()
 
-        self.database().load(self.config()["path"])
+        self.database().load(self.config()["last_database"])
         assert self.database().fact_count() == 1
         card = self.database().card(old_card._id, is_id_internal=True)
         fact = card.fact
@@ -192,7 +192,7 @@ class TestDatabase(MnemosyneTest):
         self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])
 
-        self.database().new(self.config()["path"])
+        self.database().new(self.config()["last_database"])
 
         assert self.database().fact_count() == 0
 
@@ -247,7 +247,7 @@ class TestDatabase(MnemosyneTest):
 
         self.mnemosyne.finalise = dont_finalise
 
-        self.database().load(self.config()["path"])
+        self.database().load(self.config()["last_database"])
 
     def infinity(self):
         return 1/0
@@ -290,7 +290,7 @@ class TestDatabase(MnemosyneTest):
             clear_component_managers()
         self.mnemosyne.finalise = dont_finalise
 
-        self.database().load(self.config()["path"])
+        self.database().load(self.config()["last_database"])
 
 
     def test_save_as(self):
@@ -299,9 +299,9 @@ class TestDatabase(MnemosyneTest):
         card_type = self.card_type_with_id("1")
         self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])
-        new_name = self.config()["path"] + ".bak"
-        assert self.database().save(self.config()["path"] + ".bak") != -1
-        assert self.config()["path"] == new_name
+        new_name = self.config()["last_database"] + ".bak"
+        assert self.database().save(self.config()["last_database"] + ".bak") != -1
+        assert self.config()["last_database"] == new_name
         assert new_name != expand_path(new_name, self.config().data_dir)
 
     def test_duplicates_for_fact(self):
@@ -362,7 +362,7 @@ class TestDatabase(MnemosyneTest):
                                               grade=-1, tag_names=["default"])
         self.database().unload()
         self.database().version = "Wrong"
-        self.database().load(self.config()["path"])
+        self.database().load(self.config()["last_database"])
 
     def test_vacuum(self):
         fact_data = {"f": "question",
@@ -373,7 +373,7 @@ class TestDatabase(MnemosyneTest):
         for count in range(6):
             self.database().save()
             self.database().unload()
-            self.database().load(self.config()["path"])
+            self.database().load(self.config()["last_database"])
 
     def test_schedule_on_same_day(self):
         fact_data = {"f": "question",

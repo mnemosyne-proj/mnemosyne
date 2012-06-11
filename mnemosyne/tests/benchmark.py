@@ -39,7 +39,7 @@ def startup():
     mnemosyne.start_review()
 
 def create_database():
-    mnemosyne.database().new(mnemosyne.config()["path"])
+    mnemosyne.database().new(mnemosyne.config()["last_database"])
     for i in range(number_of_facts):
         fact_data = {"f": "question" + str(i),
                      "b": "answer" + str(i)}

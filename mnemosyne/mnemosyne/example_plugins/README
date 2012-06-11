@@ -32,6 +32,8 @@ illustrating to plugin writers on how to achieve certain functionality.
 
  * filter.py: modifying question and answer text on the fly.
 
+ * reverse_arabic.py: another filter.
+
 In order to package a plugin for easy installation by the user, just compress
 your .py file and all the other files it requires in a zip file, and change
 the extension from .zip to .plugin.

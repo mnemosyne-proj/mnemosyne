@@ -43,9 +43,6 @@ parser.add_option("--no-upgrades", dest="automatic_upgrades",
 parser.add_option("--debug", dest="debug_file",
 		  help="log debug information to FILE",
 		  metavar="FILE", default=None)
-parser.add_option("--webserver", dest="webserver",
-                  action="store_true", help="run as webserver",
-                  default=False)		  
 (options, args) = parser.parse_args()
 
 # Check if we have to override the data_dir determined in libmnemosyne,
@@ -65,44 +62,6 @@ if len(args) > 0:
     filename = os.path.abspath(args[0])
 else:
     filename = None
-
-# Running as webserver.
-if options.webserver == True:
-
-    import socket
-
-    # Hack to determine local IP.
-
-    from openSM2sync.server import realsocket
-    def localhost_IP():
-        s = realsocket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("google.com", 8000))
-        return s.getsockname()[0]
-
-    # Initialise enough from mnemosyne to get the datadir.
-
-    from mnemosyne.libmnemosyne.translators.gettext_translator \
-        import GetTextTranslator
-    t = GetTextTranslator(None)
-
-    from mnemosyne.libmnemosyne.configuration import Configuration
-    config = Configuration(None)
-    config.determine_dirs()
-
-    port = 8513
-    data_dir = config.data_dir
-    #data_dir = "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/dot_mnemosyne2"
-    filename = "default.db"
-
-    disclaimer = """Prototype of Mnemosyne web server. It works, but is not yet integrated in the desktop application, and has no security."""
-
-    print disclaimer
-    print "Serving", os.path.join(data_dir, filename)
-    print "Server listening on http://" + localhost_IP() + ":" + str(port)
-
-    from mnemosyne.webserver.server import Server
-    server = Server(port, data_dir, filename)
-    server.serve_until_stopped()
 
 # Load the Mnemosyne library.
 mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True)

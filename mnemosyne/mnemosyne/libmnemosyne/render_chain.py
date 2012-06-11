@@ -48,7 +48,7 @@ class RenderChain(Component):
             self._renderers.append(renderer)
             self._renderer_for_card_type[renderer.used_for] = renderer
 
-    def register_at_front(self, filter_class, after=[]):
+    def register_filter_at_front(self, filter_class, after=[]):
 
         """Register a filter at the very front of the render chain, but after
            a list of other filters already in the chain. The list should
@@ -67,7 +67,7 @@ class RenderChain(Component):
                 pos = i + 1
         self._filters.insert(pos, filter)
 
-    def register_at_back(self, filter_class, before=[]):
+    def register_filter_at_back(self, filter_class, before=[]):
 
         """Register a filter at the back of the render chain, but before
            a list of other filters already in the chain. The list should
@@ -91,9 +91,9 @@ class RenderChain(Component):
         """'filter_class' should be a class, not an instance."""
 
         if in_front:
-            self.register_at_front(filter_class)
+            self.register_filter_at_front(filter_class)
         else:
-            self.register_at_back(filter_class)
+            self.register_filter_at_back(filter_class)
 
     def filter(self, filter_class):
         for filter_i in self._filters:

@@ -285,13 +285,13 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         return self._path
 
     def name(self):
-        return os.path.basename(self.config()["path"])
+        return os.path.basename(self.config()["last_database"])
 
     def display_name(self):
         if not self.is_loaded():
             return None
         else:
-            return os.path.basename(self.config()["path"]).\
+            return os.path.basename(self.config()["last_database"]).\
                    split(self.database().suffix)[0]
 
     def compact(self):
@@ -315,7 +315,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             ("version", self.version))
         self.con.execute("""insert into partnerships(partner, _last_log_id)
             values(?,?)""", ("log.txt", 0))
-        self.config()["path"] = \
+        self.config()["last_database"] = \
             contract_path(self._path, self.config().data_dir)
         # Create __UNTAGGED__ tag
         tag = Tag("__UNTAGGED__", "__UNTAGGED__")
@@ -401,7 +401,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self.component_manager.register(card_type)
         # Finalise.
         self._current_criterion = self.criterion(1, is_id_internal=True)
-        self.config()["path"] = contract_path(path, self.config().data_dir)
+        self.config()["last_database"] = contract_path(path, self.config().data_dir)
         for f in self.component_manager.all("hook", "after_load"):
             f.run()
         # We don't log the database load here, but in libmnemosyne.__init__,
@@ -423,7 +423,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         if dest_path != self._path:
             shutil.copy(self._path, dest_path)
             self._path = dest_path
-        self.config()["path"] = contract_path(path, self.config().data_dir)
+        self.config()["last_database"] = contract_path(path, self.config().data_dir)
         # We don't log every save, as that could result in an event after
         # card repetitions.
 
@@ -461,7 +461,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
 
     def restore(self, path):
         self.abandon()
-        db_path = expand_path(self.config()["path"], self.config().data_dir)
+        db_path = expand_path(self.config()["last_database"], self.config().data_dir)
         shutil.copy(path, db_path)
         self.load(db_path)
         # We need to indicate that a full sync needs to happen on the next

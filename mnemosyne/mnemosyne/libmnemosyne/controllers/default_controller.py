@@ -458,7 +458,7 @@ class DefaultController(Controller):
             import shutil
             shutil.rmtree(filename + "_media")
         db.new(filename)
-        db.load(self.config()["path"])
+        db.load(self.config()["last_database"])
         self.log().loaded_database()
         self.review_controller().reset()
         self.review_controller().update_dialog()
@@ -471,7 +471,7 @@ class DefaultController(Controller):
         self.flush_sync_server()
         db = self.database()
         data_dir = self.config().data_dir
-        old_path = expand_path(self.config()["path"], data_dir)
+        old_path = expand_path(self.config()["last_database"], data_dir)
         filename = self.main_widget().get_filename_to_open(path=old_path,
             filter=_("Mnemosyne databases") + " (*%s)" % db.suffix)
         if not filename:
@@ -527,7 +527,7 @@ class DefaultController(Controller):
             self.config()["single_database_help_shown"] = True
         self.flush_sync_server()
         suffix = self.database().suffix
-        old_path = expand_path(self.config()["path"], self.config().data_dir)
+        old_path = expand_path(self.config()["last_database"], self.config().data_dir)
         old_media_dir = self.database().media_dir()
         filename = self.main_widget().get_filename_to_save(path=old_path,
             filter=_("Mnemosyne databases") + " (*%s)" % suffix)

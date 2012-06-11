@@ -75,6 +75,8 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
             item = self.saved_sets.findItems(active_name,
                 QtCore.Qt.MatchExactly)[0]
             self.saved_sets.setCurrentItem(item)
+        else:
+            self.saved_sets.clearSelection()
         splitter_sizes = self.splitter.sizes()
         if self.saved_sets.count() == 0:
             self.splitter.setSizes([0, sum(splitter_sizes)])
@@ -148,6 +150,8 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         self.saved_sets.setCurrentItem(item)
 
     def load_set(self, item, dummy=None):
+        if item is None or dummy is None:  # Sometimes Qt fires spurious events.
+            return
         name = unicode(item.text())
         criterion = self.criteria_by_name[name]
         self.tab_widget.setCurrentWidget(self.widget_for_criterion_type\

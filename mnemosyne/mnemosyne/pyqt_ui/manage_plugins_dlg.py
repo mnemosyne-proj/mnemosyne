@@ -51,7 +51,7 @@ class ManagePluginsDlg(QtGui.QDialog, Ui_ManagePluginsDlg, ManagePluginsDialog):
             self.plugins()[0].__class__.__name__ in self.can_be_deleted)
 
     def plugin_selected(self, list_item, dummy=None):
-        if list_item is None: # Can happen after cancelling plugin import.
+        if list_item is None: # Sometimes Qt fires spurious events.
             return
         # If we get there through activating of the item, make sure we move
         # the selection to the activated item.

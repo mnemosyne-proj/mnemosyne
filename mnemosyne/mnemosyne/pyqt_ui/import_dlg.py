@@ -11,7 +11,7 @@ from mnemosyne.libmnemosyne.ui_components.dialogs import ImportDialog
 
 
 class ImportDlg(QtGui.QDialog, Ui_ImportDlg, ImportDialog):
-    
+
     def __init__(self, component_manager):
         ImportDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
@@ -25,7 +25,7 @@ class ImportDlg(QtGui.QDialog, Ui_ImportDlg, ImportDialog):
                 current_index = i
             i += 1
         if current_index is not None:
-            self.file_formats.setCurrentIndex(current_index)             
+            self.file_formats.setCurrentIndex(current_index)
         # Extra tag.
         i = 0
         current_index = None
@@ -43,14 +43,15 @@ class ImportDlg(QtGui.QDialog, Ui_ImportDlg, ImportDialog):
 
     def file_format_changed(self):
         self.filename_box.setText("")
-            
+
     def activate(self):
         ImportDialog.activate(self)
         self.exec_()
 
     def format(self):
         for _format in self.component_manager.all("file_format"):
-            if _(_format.description) == self.file_formats.currentText():
+            if _(_format.description) == \
+                unicode(self.file_formats.currentText()):
                 return _format
 
     def browse(self):
@@ -60,7 +61,7 @@ class ImportDlg(QtGui.QDialog, Ui_ImportDlg, ImportDialog):
         self.filename_box.setText(filename)
         if filename:
             self.config()["import_dir"] = os.path.dirname(filename)
-        
+
     def accept(self):
         filename = unicode(self.filename_box.text())
         if filename and os.path.exists(filename):

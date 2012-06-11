@@ -1,9 +1,16 @@
 -migrate launchpad to user voice
+-favicon
+-jumping header
 -no comments
 -google analytics
 
 
 ### Release
+
+-Overnight issues if card browser or edit card dialog is left open (reported
+ by Henrik)
+
+-migrate webserver to cherrypy
 
 -implement duplicate checking. Also synonym checking? Add then standard tags.
 -autorun after import, browse with edit, but not sync

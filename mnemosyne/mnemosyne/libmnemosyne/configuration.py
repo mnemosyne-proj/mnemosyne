@@ -87,7 +87,8 @@ class Configuration(Component, dict):
         """
 
         for key, value in \
-            {"path": self.database().default_name + self.database().suffix,
+            {"last_database": \
+                self.database().default_name + self.database().suffix,
              "first_run": True,
              "import_img_dir": self.data_dir,
              "import_sound_dir": self.data_dir,

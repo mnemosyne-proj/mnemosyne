@@ -134,6 +134,7 @@ $card_css
             (scheduled_count, non_memorised_count, active_count)
 
     def to_html(self):
+        self.controller().heartbeat()
         card_css = ""
         card = self.review_controller().card
         if card:

@@ -42,7 +42,7 @@ WSGIRequestHandler.log_message = dont_log
 
 class Server(WSGIServer):
 
-    def __init__(self, port, data_dir, filename):        
+    def __init__(self, port, data_dir, filename):
         WSGIServer.__init__(self, ("", port), WSGIRequestHandler)
         self.set_app(self.wsgi_app)
         self.stopped = False
@@ -64,15 +64,8 @@ class Server(WSGIServer):
         self.mnemosyne.review_controller().set_render_chain("webserver")
         self.save_after_n_reps = self.mnemosyne.config()["save_after_n_reps"]
         self.mnemosyne.config()["save_after_n_reps"] = 1
-        
-        from mnemosyne.webserver.gogorender import Gogorender
-        self.mnemosyne.render_chain("webserver").register_at_back(Gogorender)
-        from mnemosyne.libmnemosyne.filters.non_latin_font_size_increase import \
-            NonLatinFontSizeIncrease
-        self.mnemosyne.render_chain("webserver").unregister_filter(NonLatinFontSizeIncrease)
-        
         self.mnemosyne.start_review()
-        
+
     def serve_until_stopped(self):
         try:
             while not self.stopped:
@@ -84,13 +77,13 @@ class Server(WSGIServer):
             self.socket.close()
             self.mnemosyne.config()["save_after_n_reps"] = \
                 self.save_after_n_reps
-    
+
     def stop(self):
         self.stopped = True
 
-    def wsgi_app(self, environ, start_response):        
+    def wsgi_app(self, environ, start_response):
         # All our request return to the root page, so if the path is '/', return
-        # the html of the review widget.        
+        # the html of the review widget.
         filename = environ["PATH_INFO"]
         if filename == "/":
             # Process clicked buttons in the form.
@@ -102,14 +95,14 @@ class Server(WSGIServer):
                 self.mnemosyne.review_widget().grade_answer(grade)
             # Serve the web page.
             response_headers = [("Content-type", "text/html")]
-            start_response("200 OK", response_headers)        
+            start_response("200 OK", response_headers)
             return [self.mnemosyne.review_widget().to_html()]
         # We need to serve a media file.
         else:
             media_file = self.open_media_file(filename)
             if media_file is None:
                 response_headers = [("Content-type", "text/html")]
-                start_response("404 File not found", response_headers)  
+                start_response("404 File not found", response_headers)
                 return ["404 File not found"]
             else:
                 response_headers = [("Content-type", self.guess_type(filename))]
@@ -138,6 +131,6 @@ class Server(WSGIServer):
 
     # Try to read system mimetypes.
     if not mimetypes.inited:
-        mimetypes.init() 
+        mimetypes.init()
     extensions_map = mimetypes.types_map.copy()
     extensions_map.update({"": "application/octet-stream"})  # Default.
