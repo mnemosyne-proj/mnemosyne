@@ -1,14 +1,6 @@
-RC4:
-
--Fix translation bug involving importing of files (reported by Gnome).
--Fix context menu and block drag and drop in Preview cards (reported by Gnome).
--Fix regression where if the current active set of cards was not a saved set,
- it would not get displayed as such in the activate cards dialog (reported by
- Henrik).
--Fix harmless errors in saved set dialog (reported by Henrik, Scott Youngman,
- Gnome).
--Mnemosyne can now be run a webserver to reviewing over http. Start the
- mnemosyne-webserver executable and follow the instructions.
+-Webserver now serves the last used database, not the default database.
+-Don't reset the cramming scheduler when exiting from configuration (reported
+ by Doug).
 
 
 MNEMOSYNE 2.0

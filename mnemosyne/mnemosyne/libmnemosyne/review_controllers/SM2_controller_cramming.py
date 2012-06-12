@@ -43,7 +43,7 @@ class SM2ControllerCramming(SM2Controller):
 
     def update_counters(self, old_grade, new_grade):
         pass
-    
+
     def update_grades_area(self):
         self.widget.set_grades_enabled(self.grades_enabled)
         if self.grades_enabled:

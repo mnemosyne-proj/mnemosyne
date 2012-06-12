@@ -1,4 +1,3 @@
--migrate launchpad to user voice
 -favicon
 -jumping header
 -no comments
@@ -10,7 +9,7 @@
 -Overnight issues if card browser or edit card dialog is left open (reported
  by Henrik)
 
--migrate webserver to cherrypy
+-migrate webserver to cherrypy, recheck audio files
 
 -implement duplicate checking. Also synonym checking? Add then standard tags.
 -autorun after import, browse with edit, but not sync
@@ -31,8 +30,6 @@
 -remove upgrade_beta_6.py, beta_7, etc... also in database
 
 -option to add multiple tags on import (Barbara)
-
--fix webserver (response not saved, no colours), bundle it with install
 
 -plugin for card types with prefilled data?
 
@@ -73,8 +70,6 @@ taking grade 0/1 cards as well into account?
 -when creating a new tag in the hierarchy, and the parents of the hierachy are disabled,
  disable the new tag too. (LP bug Gnome)
 
--fix race condition in test_add_tag_behind_proxy(self) and similar
-
 -save tree state (which nodes are expanded or not) (Troy Guze)
 QModelIndexList QAbstractItemModel::persistentIndexList () const
 bool isExpanded ( const QModelIndex & index ) const
@@ -107,6 +102,7 @@ widget will be centered on the main widget and not the activate cards dialog.
  back to 50/50 split.
 
 -migrate science server machine
+-fix race condition in test_sync where dot_sync_test does not get created
 
 -circadian rythm plugin
 -plugin to move basedir to dropbox?

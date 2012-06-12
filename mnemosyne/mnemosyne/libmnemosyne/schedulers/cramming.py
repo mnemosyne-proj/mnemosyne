@@ -13,11 +13,6 @@ class Cramming(SM2Mnemosyne):
 
     name = "cramming"
 
-    def reset(self):
-        SM2Mnemosyne.reset(self)
-        if self.database().is_loaded():
-            self.database().set_scheduler_data(self.UNSEEN)
-
     def rebuild_queue(self, learn_ahead=False):
         db = self.database()
         if not db.is_loaded() or not db.active_count():
@@ -45,7 +40,8 @@ class Cramming(SM2Mnemosyne):
             if len(self._card_ids_in_queue):
                 return
         # Start again.
-        self.reset()
+        self.database().set_scheduler_data(self.UNSEEN)
+        self.stage = 1
         self.rebuild_queue()
 
     def grade_answer(self, card, new_grade, dry_run=False):

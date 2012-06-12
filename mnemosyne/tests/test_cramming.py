@@ -60,29 +60,56 @@ class TestCrammingScheduler(MnemosyneTest):
                      grade=2, tag_names=["default"])[0]
         card_4.next_rep -= 1000
         self.database().update_card(card_4)
+        self.review_controller().start_review()
 
         assert self.database().scheduler_data_count(Cramming.UNSEEN) == 4
         assert self.database().scheduler_data_count(Cramming.WRONG) == 0
-        card = self.scheduler().next_card()
-        self.scheduler().grade_answer(card, 0)
-        self.database().update_card(card)
+        self.review_controller().grade_answer(0)
         assert self.database().scheduler_data_count(Cramming.UNSEEN) == 3
         assert self.database().scheduler_data_count(Cramming.WRONG) == 1
-        card = self.scheduler().next_card()
-        self.scheduler().grade_answer(card, 5)
-        self.database().update_card(card)
+        self.review_controller().grade_answer(5)
         assert self.database().scheduler_data_count(Cramming.UNSEEN) == 2
         assert self.database().scheduler_data_count(Cramming.WRONG) == 1
         # Fail the cards a couple of times.
         for i in range(8):
-            card = self.scheduler().next_card()
-            self.scheduler().grade_answer(card, 0)
-            self.database().update_card(card)
+            self.review_controller().grade_answer(0)
         # Pass the cards a couple of times.
         for i in range(8):
-            card = self.scheduler().next_card()
-            self.scheduler().grade_answer(card, 5)
-            self.database().update_card(card)
+            self.review_controller().grade_answer(5)
+
+    def test_reset(self):
+        from mnemosyne.libmnemosyne.schedulers.cramming import Cramming
+
+        card_type = self.card_type_with_id("1")
+
+        fact_data = {"f": "1", "b": "b"}
+        card_1 = self.controller().create_new_cards(fact_data, card_type,
+                     grade=-1, tag_names=["default"])[0]
+        fact_data = {"f": "2", "b": "b"}
+        card_2 = self.controller().create_new_cards(fact_data, card_type,
+                     grade=-1, tag_names=["default"])[0]
+        fact_data = {"f": "3", "b": "b"}
+        card_3 = self.controller().create_new_cards(fact_data, card_type,
+                     grade=2, tag_names=["default"])[0]
+        fact_data = {"f": "4", "b": "b"}
+        card_4 = self.controller().create_new_cards(fact_data, card_type,
+                     grade=2, tag_names=["default"])[0]
+        card_4.next_rep -= 1000
+        self.database().update_card(card_4)
+        self.review_controller().start_review()
+
+        assert self.database().scheduler_data_count(Cramming.UNSEEN) == 4
+        assert self.database().scheduler_data_count(Cramming.WRONG) == 0
+        assert self.review_controller().counters() == (0, 4, 4)
+        self.review_controller().grade_answer(0)
+        assert self.database().scheduler_data_count(Cramming.UNSEEN) == 3
+        assert self.database().scheduler_data_count(Cramming.WRONG) == 1
+        assert self.review_controller().counters() == (1, 3, 4)
+        self.review_controller().reset_but_try_to_keep_current_card()
+        self.review_controller().update_dialog(redraw_all=True)
+        assert self.database().scheduler_data_count(Cramming.UNSEEN) == 3
+        assert self.database().scheduler_data_count(Cramming.WRONG) == 1
+        assert self.review_controller().counters() == (1, 3, 4)
 
     def test_2(self):
         card_type = self.card_type_with_id("1")

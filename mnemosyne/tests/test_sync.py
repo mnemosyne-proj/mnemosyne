@@ -4,6 +4,7 @@
 
 import os
 import sys
+import time
 import shutil
 import httplib
 from nose.tools import raises
@@ -106,7 +107,11 @@ class MyServer(Server, Thread):
         server_is_initialised = True
         server_initialised.notify()
         server_initialised.release()
-        self.serve_until_stopped()
+        try:
+            self.serve_until_stopped()
+        except: # Socket not ready.
+            time.sleep(0.3)
+            self.serve_until_stopped()
         # Also running the actual tests we need to do inside this thread and
         # not in the main thread, again because of sqlite access restrictions.
         # However, if the asserts fail in this thread, nose won't flag them as
