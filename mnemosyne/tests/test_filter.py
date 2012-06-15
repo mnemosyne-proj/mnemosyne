@@ -8,6 +8,7 @@ from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne.filter import Filter
 from mnemosyne.libmnemosyne.filters.html5_video import Html5Video
 from mnemosyne.libmnemosyne.filters.html5_audio import Html5Audio
+from mnemosyne.libmnemosyne.filters.add_RTL_marker import AddRTLMarker
 from mnemosyne.libmnemosyne.filters.escape_to_html import EscapeToHtml
 
 class TestFilter(MnemosyneTest):
@@ -53,3 +54,10 @@ class TestFilter(MnemosyneTest):
 
          assert f.run("a\nb", None, None) == "a<br>b"
          assert f.run("<latex>a\nb<\latex>", None, None) == "<latex>a\nb<\latex>"
+
+    def test_add_RT_marker(self):
+
+        f = AddRTLMarker(self.mnemosyne.component_manager)
+
+        assert "&rlm;" in f.run(unichr(0x0591), None, None)
+        assert "&rlm;" not in f.run(unichr(0x0491), None, None)

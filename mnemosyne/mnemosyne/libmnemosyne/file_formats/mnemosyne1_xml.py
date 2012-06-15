@@ -25,7 +25,7 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
         self.anon_to_id = {}
 
     def do_import(self, filename, extra_tag_name=None):
-        self.import_dir = os.path.dirname(os.path.abspath(filename))
+        FileFormat.do_import(self, filename, extra_tag_name)
         w = self.main_widget()
         # The import process generates card log entries which have new 2.0
         # ids as opposed to their old 1.x ids, so we need to delete them

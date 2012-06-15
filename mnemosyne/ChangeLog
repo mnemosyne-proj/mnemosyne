@@ -1,3 +1,6 @@
+-Fix interaction between punctuation and Arabic and Hebrew (reported by Eliyahu
+ Switzer, Ansgar Bohmann).
+-Fix bug importing txt files containing media references (reported by Gnome).
 -Webserver now serves the last used database, not the default database.
 -Don't reset the cramming scheduler when exiting from configuration (reported
  by Doug).

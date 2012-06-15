@@ -1,7 +1,7 @@
+Website:
+
 -favicon
--jumping header
--no comments
--google analytics
+
 
 
 ### Release
@@ -12,8 +12,7 @@
 -migrate webserver to cherrypy, recheck audio files
 
 -implement duplicate checking. Also synonym checking? Add then standard tags.
--autorun after import, browse with edit, but not sync
--do review_controller.rebuild_queue, reload counter after clean duplicates?
+-autorun after import, browse with edit?, but not sync
 
 -bundle grades criterion? add criterion names i.e. type. Fix bug saving sets.
  Other mechanism to skip scheduled cards? What happens to saved set after
@@ -31,14 +30,14 @@
 
 -option to add multiple tags on import (Barbara)
 
+-"Mnemosyne method"
+
 -plugin for card types with prefilled data?
 
 -check sync timeout when both client and server check for updated media files.
  (was 10, is now 30)
 
 -media sentence card has wrong color on win. Are settings synced?
-
--auto detect RTL http://dotancohen.com/howto/rtl_right_to_left.html (bug report)
 
 -insert latex tags shortcut and menu (phyTech)
 -flash format <object type="application/x-shockwave-flash" data="foo.swf" />
@@ -67,15 +66,14 @@ taking grade 0/1 cards as well into account?
 -starting the program when no cards are shownn does not draw a border around the
  Q field
 
+-add up and down arrows on browsing through the preview window?
+
 -when creating a new tag in the hierarchy, and the parents of the hierachy are disabled,
  disable the new tag too. (LP bug Gnome)
 
 -save tree state (which nodes are expanded or not) (Troy Guze)
 QModelIndexList QAbstractItemModel::persistentIndexList () const
 bool isExpanded ( const QModelIndex & index ) const
-
--after config change, tag label disappears (probably interaction with
- translation infrastructure)
 
 -activate cards: 'having any of these tags:' is not aligned with tag with tag tree
 -layout of "add clone" is not optimal under Windows

@@ -30,6 +30,7 @@ class Tsv(FileFormat, MediaPreprocessor):
         MediaPreprocessor.__init__(self, component_manager)
 
     def do_import(self, filename, extra_tag_name=None):
+        FileFormat.do_import(self, filename, extra_tag_name)
         # Open txt file. Use Universal line ending detection.
         f = None
         try:

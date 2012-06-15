@@ -35,7 +35,7 @@ class RetentionScore(PlotStatisticsPage):
             self.x = range(-365, 1, 1)
         else:
             raise AttributeError, "Invalid variant"
-        self.main_widget().set_progress_text("Calculating statistics...")
+        self.main_widget().set_progress_text(_("Calculating statistics..."))
         self.main_widget().set_progress_range(len(self.x))
         self.main_widget().set_progress_update_interval(3)
         self.y = []

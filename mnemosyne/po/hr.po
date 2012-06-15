@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-12 08:29+CEST\n"
+"POT-Creation-Date: 2012-06-15 09:06+CEST\n"
 "PO-Revision-Date: 2012-05-24 23:13+0000\n"
 "Last-Translator: Peter Bienstman <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -611,15 +611,15 @@ msgstr ""
 msgid "Tab-separated text files (*.txt)"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:41
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:42
 msgid "Could not load file."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:53
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:54
 msgid "Could not determine encoding."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:74
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:75
 msgid "Missing answer on line:\n"
 msgstr ""
 
@@ -854,6 +854,12 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:11
 msgid "Cards added"
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:38
+#: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:38
+#: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:58
+msgid "Calculating statistics..."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:12
@@ -1299,7 +1305,7 @@ msgid "<none>"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:57
-msgid "No duplicate in new fact_keys_and_names allowed."
+msgid "No duplicate in new fact keys allowed."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:69
