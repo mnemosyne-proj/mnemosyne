@@ -1,12 +1,4 @@
--Fix interaction between punctuation and Arabic and Hebrew (reported by Eliyahu
- Switzer, Ansgar Bohmann).
--Fix bug importing txt files containing media references (reported by Gnome).
--Webserver now serves the last used database, not the default database.
--Don't reset the cramming scheduler when exiting from configuration (reported
- by Doug).
-
-
-MNEMOSYNE 2.0
+Mnemosyne 2.0 : 2012-06-16
 
 Four years in the making, this is essentially a complete rewrite of the old
 1.x codebase, with a new, clean design, consisting of components that can be
