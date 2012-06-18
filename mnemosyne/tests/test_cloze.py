@@ -356,3 +356,15 @@ third in 2008"""}
         fact = self.database().fact(fact._id, is_id_internal=True)
         assert "text" in fact.data
         assert "f" not in fact.data
+
+    def test_hint(self):
+        card_type = self.card_type_with_id("5")
+        fact_data = {"text": """bla [cloze:hint]"""}
+
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])[0]
+
+        assert "cloze" not in card.question()
+        assert "hint" in card.question()
+        assert "cloze" in card.answer()
+        assert "hint" not in card.answer()

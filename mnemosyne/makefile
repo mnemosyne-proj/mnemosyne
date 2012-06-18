@@ -79,6 +79,20 @@ gui-profile:
 benchmark: install-virtual-env
 	./bin/python tests/benchmark.py
 
+osx:
+	# make sure there are no existing build files
+	sudo rm -rf build/ dist/
+	# build the app with py2app
+	sudo python setup.py py2app
+	# add a blank qt.conf so that the system will used the bundled qt instead of the system qt if the system already has qt installed
+	sudo touch dist/Mnemosyne.app/Contents/Resources/qt.conf
+	# copy qt_menu.nib directory: the application will not launch without this (assumes qt was installed with MacPorts)
+	sudo cp -R /opt/local/lib/Resources/qt_menu.nib dist/Mnemosyne.app/Contents/Resources/qt_menu.nib
+	# create the directory for the translations
+	sudo mkdir dist/Mnemosyne.app/Contents/Resources/share
+	# add the translations
+	sudo cp -R mo dist/Mnemosyne.app/Contents/Resources/share/locale
+
 wm: install-virtual-env
 	cp mnemosyne/ppygui_ui/ppygui_ui/*.py mnemosyne/ppygui_ui/
 	./bin/python mnemosyne/ppygui_ui/Mnemosyne\ Mobile.py

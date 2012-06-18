@@ -11,7 +11,7 @@ class ReverseArabic(Filter):
 
     def run(self, text, card, fact_key, **render_args):
         for i in range(len(text)):
-            if  0x0600 <= ord(text[i]) <= 0x06FF:
+            if 0x0590 <= ord(text[i]) <= 0x06FF:
                 text = text[::-1]
                 break
         return text

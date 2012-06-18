@@ -1,10 +1,6 @@
-Website:
+-update docs on cloze card type and vocabulary cloze
 
--favicon
-
-
-
-### Release
+-test merge and edit cards
 
 -Overnight issues if card browser or edit card dialog is left open (reported
  by Henrik)

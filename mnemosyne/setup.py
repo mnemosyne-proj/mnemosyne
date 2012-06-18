@@ -160,13 +160,24 @@ build_path = os.path.join(base_path, "build")
 setup_requires = []
 
 # py2app (OS X).
+
 py2app_options = {
-    "argv_emulation": True,
-    "includes": "sip,qt,cPickle,md5,logging,shutil,xml.sax,\
-                  xml.sax.drivers2.drv_pyexpat",
-    "resources": "mnemosyne",
-    "iconfile": "pixmaps/mnemosyne.icns"
-}
+"argv_emulation": True,
+"includes": "sip,numpy,cherrypy,cPickle,md5,logging,shutil,xml.sax",
+"iconfile": "pixmaps/mnemosyne.icns",
+"packages": "mnemosyne,mnemosyne.pyqt_ui,mnemosyne.libmnemosyne, \
+    mnemosyne.libmnemosyne.translators, mnemosyne.libmnemosyne.card_types, \
+    mnemosyne.libmnemosyne.databases, mnemosyne.libmnemosyne.file_formats, \
+    mnemosyne.libmnemosyne.filters, mnemosyne.libmnemosyne.loggers, \
+    mnemosyne.libmnemosyne.plugins, mnemosyne.libmnemosyne.renderers, \
+    mnemosyne.libmnemosyne.render_chains, mnemosyne.libmnemosyne.schedulers, \
+    mnemosyne.libmnemosyne.controllers, mnemosyne.libmnemosyne.ui_components, \
+    mnemosyne.libmnemosyne.statistics_pages, \
+    mnemosyne.libmnemosyne.review_controllers, \
+    mnemosyne.libmnemosyne.criteria, mnemosyne.libmnemosyne.upgrades, \
+    mnemosyne.script,mnemosyne.webserver, openSM2sync, \
+    openSM2sync.binary_formats, openSM2sync.text_formats" }
+
 py2app_app = ["build/Mnemosyne.py"]
 if "py2app" in sys.argv:
     setup_requires.append("py2app")

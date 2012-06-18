@@ -54,6 +54,8 @@ class Cloze(CardType):
 
     def fact_data(self, card):
         cloze = card.extra_data["cloze"]
+        if ":" in cloze:
+            cloze_without_hint, hint = cloze.split(":", 1)
         cursor = 0
         current_index = -1
         question = card.fact["text"]
@@ -64,11 +66,16 @@ class Cloze(CardType):
                 question = question[:cursor] + \
                     question[cursor:].replace(cloze, "__CLOZE__", 1)
                 question = question.replace("[", "").replace("]", "")
-                question = question.replace("__CLOZE__", "[...]")
+                if ":" in cloze:
+                    question = question.replace("__CLOZE__", "[" + hint + "]")
+                    answer = cloze_without_hint
+                else:
+                    question = question.replace("__CLOZE__", "[...]")
+                    answer = cloze
                 break
             else:
                 cursor += 1
-        return {"f": question, "b": card.extra_data["cloze"]}
+        return {"f": question, "b": answer}
 
     def create_sister_cards(self, fact):
         cards = []
@@ -120,5 +127,6 @@ class ClozePlugin(Plugin):
     name = _("Cloze deletion")
     description = _("""A card type blanking out certain fragments in a text.\n
 E.g., the text \"The capital of [France] is [Paris]\", will give cards with questions \"The capital of France is [...].\" and \"The capital of [...] is Paris\".\n
-Editing the text will automatically update all sister cards.""")
+Editing the text will automatically update all sister cards.\n\nYou can also specify hints, e.g. [cloze:hint] will show
+ [hint] in the question as opposed to [...].""")
     components = [Cloze]
