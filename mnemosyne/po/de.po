@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.0-pre\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-15 09:06+CEST\n"
+"POT-Creation-Date: 2012-06-15 21:15+CEST\n"
 "PO-Revision-Date: 2012-06-04 20:52+0000\n"
 "Last-Translator: mase <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -218,8 +218,6 @@ msgstr "Fehler in config.py:"
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:226
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:83
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:89
-#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:56
-#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:68
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:56
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:68
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:136
@@ -299,8 +297,6 @@ msgstr "&Abbrechen"
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:76
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:85
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:90
-#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:58
-#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:70
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:58
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:70
 #: ../mnemosyne/pyqt_ui/main_wdgt.py:62 ../mnemosyne/pyqt_ui/main_wdgt.py:70
@@ -1382,27 +1378,19 @@ msgstr "Server läuft jetzt auf "
 msgid "Server stopped."
 msgstr "Server gestoppt."
 
-#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:39
-#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:51
-#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:78
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:39
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:51
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:78
 msgid "<none>"
 msgstr "<keine>"
 
-#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:57
-msgid "No duplicate in new fact keys allowed."
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:69
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:69
-msgid "A required field is missing."
-msgstr "Ein benötigtes Feld fehlt."
-
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:57
 msgid "No duplicate in new keys allowed."
 msgstr ""
+
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:69
+msgid "A required field is missing."
+msgstr "Ein benötigtes Feld fehlt."
 
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:86
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:99

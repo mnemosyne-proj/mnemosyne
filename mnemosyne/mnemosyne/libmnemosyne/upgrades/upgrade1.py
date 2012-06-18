@@ -62,14 +62,18 @@ class Upgrade1(Component):
         for key, value in cPickle.load(config_file).iteritems():
             old_config[key] = value
         # Migrate configuration settings.
-        self.config()["user_id"] = old_config["user_id"]
-        self.config()["upload_science_logs"] = old_config["upload_logs"]
-        self.config()["non_latin_font_size_increase"] \
+        if "user_id" in old_config:
+            self.config()["user_id"] = old_config["user_id"]
+        if "upload_logs" in old_config:
+            self.config()["upload_science_logs"] = old_config["upload_logs"]
+        if "non_latin_font_size_increase" in old_config:
+            self.config()["non_latin_font_size_increase"] \
             = old_config["non_latin_font_size_increase"]
         for card_type in self.card_types():
-            self.config().set_card_type_property("font",
+            if "QA_font" in old_config:
+                self.config().set_card_type_property("font",
                 old_config["QA_font"], card_type)
-        if old_config["left_align"]:
+        if "left_align" in old_config and old_config["left_align"]:
             for card_type in self.card_types():
                 self.config().set_card_type_property("alignment",
                     "left", card_type)
@@ -80,8 +84,9 @@ class Upgrade1(Component):
         for filename, setting in setting_for_file.iteritems():
             full_filename = join(old_data_dir, "latex", filename)
             self.config()[setting] = ""
-            for line in file(full_filename):
-                self.config()[setting] += line
+            if os.path.exists(full_filename):
+                for line in file(full_filename):
+                    self.config()[setting] += line
         # Copy over everything that does not interfere with Mnemosyne 2.
         new_data_dir = self.config().data_dir
         new_media_dir = self.database().media_dir()
