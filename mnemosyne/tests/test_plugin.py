@@ -155,10 +155,10 @@ class TestPlugin(MnemosyneTest):
         filename = os.path.join(os.getcwd(), "tests", "files", "hide_toolbar.plugin")
         self.controller().install_plugin()
         assert os.path.exists(os.path.join(os.getcwd(), "dot_test", "plugins", "plugin_data"))
-        assert len(self.plugins()) == 4
+        assert len(self.plugins()) == 5
         # Try to install twice.
         self.controller().install_plugin()
-        assert len(self.plugins()) == 4
+        assert len(self.plugins()) == 5
         # Uninstall.
         for plugin in self.plugins():
             if plugin.__class__.__name__ == "HideToolbarPlugin":
@@ -167,10 +167,10 @@ class TestPlugin(MnemosyneTest):
         assert not os.path.exists(os.path.join(os.getcwd(), "dot_test", "plugins", "plugin_data"))
         assert not os.path.exists(os.path.join(os.getcwd(), "dot_test", "plugins", "HideToolbarPlugin.manifest"))
         assert os.path.exists(os.path.join(os.getcwd(), "dot_test", "plugins"))
-        assert len(self.plugins()) == 3
+        assert len(self.plugins()) == 4
         # Try to reinstall immediately.
         self.controller().install_plugin()
-        assert len(self.plugins()) == 4
+        assert len(self.plugins()) == 5
 
     def test_install_plugin_cancel(self):
         global filename

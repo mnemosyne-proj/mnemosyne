@@ -95,6 +95,8 @@ class Mnemosyne(Component):
           "MapPlugin"),
          ("mnemosyne.libmnemosyne.card_types.cloze",
           "ClozePlugin"),
+         ("mnemosyne.libmnemosyne.card_types.sentence",
+          "SentencePlugin"),
          ("mnemosyne.libmnemosyne.criteria.default_criterion",
           "DefaultCriterion"),
          ("mnemosyne.libmnemosyne.databases.SQLite_criterion_applier",

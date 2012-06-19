@@ -10,7 +10,7 @@ from mnemosyne.libmnemosyne.card_type_converter import CardTypeConverter
 
 
 class Vocabulary(CardType):
-    
+
     id = "3"
     name = _("Vocabulary")
 
@@ -29,7 +29,7 @@ class Vocabulary(CardType):
     v2 = FactView(_("Production"), "3.2")
     v2.q_fact_keys = ["m_1"]
     v2.a_fact_keys = ["f", "p_1", "n"]
-    
+
     fact_views = [v1, v2]
     unique_fact_keys = ["f"]
     required_fact_keys = ["f", "m_1"]
@@ -47,7 +47,7 @@ class FrontToBackToVocabulary(CardTypeConverter):
             cards[0].fact_view = new_card_type.fact_views[1]
         else:
             cards[0].fact_view = new_card_type.fact_views[0]
-        # Create back-to-front view.        
+        # Create back-to-front view.
         if "f" in correspondence and correspondence["f"] == "m_1":
             new_card = Card(new_card_type, cards[0].fact,
                 new_card_type.fact_views[0])
@@ -112,7 +112,7 @@ class VocabularyToBothWays(CardTypeConverter):
                 if "f" in correspondence and correspondence["f"] == "f":
                     card.fact_view = new_card_type.fact_views[0]
                 else:
-                    card.fact_view = new_card_type.fact_views[1]                    
+                    card.fact_view = new_card_type.fact_views[1]
             elif card.fact_view == old_card_type.fact_views[1]:
                 if "f" in correspondence and correspondence["f"] == "f":
                     card.fact_view = new_card_type.fact_views[1]

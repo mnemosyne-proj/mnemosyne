@@ -9,6 +9,7 @@ from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
+from mnemosyne.libmnemosyne.card_types._cloze import get_q_a_from_cloze
 
 cloze_re = re.compile(r"\[(.+?)\]", re.DOTALL)
 
@@ -53,28 +54,8 @@ class Cloze(CardType):
         return bool(cloze_re.search(fact_data["text"]))
 
     def fact_data(self, card):
-        cloze = card.extra_data["cloze"]
-        if ":" in cloze:
-            cloze_without_hint, hint = cloze.split(":", 1)
-        cursor = 0
-        current_index = -1
-        question = card.fact["text"]
-        while True:
-            cursor = question.find("[", cursor)
-            current_index += 1
-            if current_index == card.extra_data["index"]:
-                question = question[:cursor] + \
-                    question[cursor:].replace(cloze, "__CLOZE__", 1)
-                question = question.replace("[", "").replace("]", "")
-                if ":" in cloze:
-                    question = question.replace("__CLOZE__", "[" + hint + "]")
-                    answer = cloze_without_hint
-                else:
-                    question = question.replace("__CLOZE__", "[...]")
-                    answer = cloze
-                break
-            else:
-                cursor += 1
+        question, answer = get_q_a_from_cloze\
+            (card.fact["text"], card.extra_data["index"])
         return {"f": question, "b": answer}
 
     def create_sister_cards(self, fact):

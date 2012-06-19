@@ -1,6 +1,11 @@
--update docs on cloze card type and vocabulary cloze
+-update edit_sister_cards
+-add tests
+-update docs on cloze card type and sentence card type
+
 
 -test merge and edit cards
+
+-RTL marker adding in card browser
 
 -Overnight issues if card browser or edit card dialog is left open (reported
  by Henrik)
@@ -25,8 +30,6 @@
 -remove upgrade_beta_6.py, beta_7, etc... also in database
 
 -option to add multiple tags on import (Barbara)
-
--"Mnemosyne method"
 
 -plugin for card types with prefilled data?
 
