@@ -9,7 +9,6 @@ from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
-from mnemosyne.libmnemosyne.card_types._cloze import get_q_a_from_cloze
 
 cloze_re = re.compile(r"\[(.+?)\]", re.DOTALL)
 
@@ -53,8 +52,44 @@ class Cloze(CardType):
     def is_fact_data_valid(self, fact_data):
         return bool(cloze_re.search(fact_data["text"]))
 
+    def _q_a_from_cloze(self, text, index):
+
+        """Auxiliary function used by other card types to return question
+        and answer for the cloze with a given index in a text which can have
+        the following form:
+
+        La [casa:house] es [grande:big]
+
+        Use 'index=-1' to get the cloze text without brackets and without
+        hints.
+
+        """
+        cursor = 0
+        current_index = 0
+        question = text
+        answer = None
+        while True:
+            cursor = text.find("[", cursor)
+            if cursor == -1:
+                break
+            cloze = text[cursor + 1:text.find("]", cursor)]
+            if ":" in cloze:
+                cloze_without_hint, hint = cloze.split(":", 1)
+            else:
+                cloze_without_hint, hint = cloze, "..."
+            if current_index == index:
+                question = question.replace(\
+                    "[" + cloze + "]", "[" + hint + "]", 1)
+                answer = cloze_without_hint
+            else:
+                question = question.replace(\
+                    "[" + cloze + "]", cloze_without_hint, 1)
+            cursor += 1
+            current_index += 1
+        return question, answer
+
     def fact_data(self, card):
-        question, answer = get_q_a_from_cloze\
+        question, answer = self._q_a_from_cloze\
             (card.fact["text"], card.extra_data["index"])
         return {"f": question, "b": answer}
 
@@ -67,40 +102,52 @@ class Cloze(CardType):
             cards.append(card)
         return cards
 
-    def edit_sister_cards(self, fact, new_fact_data):
+    def _edit_clozes(self, fact, new_fact_data,
+                    cloze_fact_key, cloze_fact_view):
+
+        """Auxiliary function used by other card types to when editing clozes.
+        Should take into account that not all fact views are cloze-based.
+
+        """
+
         new_cards, edited_cards, deleted_cards = [], [], []
-        if "text" in fact.data.keys():
-            old_clozes = cloze_re.findall(fact["text"])
-        else:  # Coming from card type conversion.
-            old_clozes = []
-        new_clozes = cloze_re.findall(new_fact_data["text"])
+        old_clozes = cloze_re.findall(fact[cloze_fact_key])
+        new_clozes = cloze_re.findall(new_fact_data[cloze_fact_key])
         # If the number of clozes is equal, just edit the existing cards.
         if len(old_clozes) == len(new_clozes):
             for card in self.database().cards_from_fact(fact):
-                index = card.extra_data["index"]
-                card.extra_data["cloze"] = new_clozes[index]
+                if "cloze" in card.extra_data:
+                    index = card.extra_data["index"]
+                    card.extra_data["cloze"] = new_clozes[index]
                 edited_cards.append(card)
         # If not, things are a little more complicated.
         else:
             new_clozes_processed = set()
             for card in self.database().cards_from_fact(fact):
-                old_cloze  = card.extra_data["cloze"]
-                index = card.extra_data["index"]
-                if old_cloze in new_clozes:
-                    new_index = new_clozes.index(old_cloze)
-                    card.extra_data["cloze"] = new_clozes[new_index]
-                    card.extra_data["index"] = new_index
-                    new_clozes_processed.add(new_clozes[new_index])
-                    edited_cards.append(card)
+                if "cloze" in card.extra_data:
+                    old_cloze = card.extra_data["cloze"]
+                    index = card.extra_data["index"]
+                    if old_cloze in new_clozes:
+                        new_index = new_clozes.index(old_cloze)
+                        card.extra_data["cloze"] = new_clozes[new_index]
+                        card.extra_data["index"] = new_index
+                        new_clozes_processed.add(new_clozes[new_index])
+                        edited_cards.append(card)
+                    else:
+                        deleted_cards.append(card)
                 else:
-                    deleted_cards.append(card)
+                    edited_cards.append(card)
             for new_cloze in set(new_clozes).difference(new_clozes_processed):
                 new_index = new_clozes.index(new_cloze)
-                card = Card(self, fact, self.fact_views[0])
+                card = Card(self, fact, cloze_fact_view)
                 card.extra_data["cloze"] = new_cloze
                 card.extra_data["index"] = new_index
                 new_cards.append(card)
         return new_cards, edited_cards, deleted_cards
+
+    def edit_sister_cards(self, fact, new_fact_data):
+        return self._edit_clozes(fact, new_fact_data,
+            "text", self.fact_views[0])
 
 
 class ClozePlugin(Plugin):

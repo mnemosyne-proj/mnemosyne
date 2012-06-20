@@ -6,3 +6,8 @@ within a script.
 * add_card.py: adding a card programatically
 
 * export_to_pdf.py: export the latest cards to a pdf file
+
+* import_rosetta_stone.py: import sound and pictures from rosetta stone to
+  a sentence card type
+
+* export_to_mp3.py: export today's audio to a single mp3.

@@ -73,7 +73,7 @@ class CardModel(QtSql.QSqlTableModel, Component):
     def data(self, index, role=QtCore.Qt.DisplayRole):
         if role == QtCore.Qt.TextColorRole:
             card_type_id_index = self.index(index.row(), CARD_TYPE_ID)
-            card_type_id = str(QtSql.QSqlTableModel.data(\
+            card_type_id = unicode(QtSql.QSqlTableModel.data(\
                 self, card_type_id_index).toString())
             colour = QtGui.QColor(QtCore.Qt.black)
             if card_type_id in self.font_colour_for_card_type_id:
@@ -81,7 +81,7 @@ class CardModel(QtSql.QSqlTableModel, Component):
             return QtCore.QVariant(colour)
         if role == QtCore.Qt.BackgroundColorRole:
             card_type_id_index = self.index(index.row(), CARD_TYPE_ID)
-            card_type_id = str(QtSql.QSqlTableModel.data(\
+            card_type_id = unicode(QtSql.QSqlTableModel.data(\
                 self, card_type_id_index).toString())
             if card_type_id in self.background_colour_for_card_type_id:
                 return QtCore.QVariant(\

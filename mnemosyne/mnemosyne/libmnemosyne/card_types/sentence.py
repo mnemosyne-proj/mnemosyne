@@ -10,12 +10,12 @@ from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
-from mnemosyne.libmnemosyne.card_types._cloze import get_q_a_from_cloze
+from mnemosyne.libmnemosyne.card_types.cloze import Cloze
 
 cloze_re = re.compile(r"\[(.+?)\]", re.DOTALL)
 
 
-class Sentence(CardType):
+class Sentence(Cloze):
 
     """A card type using sentences to study foreign languages.
 
@@ -54,16 +54,23 @@ class Sentence(CardType):
         proxies["a"] = "f"
         return proxies
 
+    def is_fact_data_valid(self, fact_data):
+        return CardType.is_fact_data_valid(self, fact_data)
+
     def fact_data(self, card):
         data = copy.copy(card.fact.data)
         # Recognition card.
-        if card.fact_view == self.v1:
-            question, answer = get_q_a_from_cloze\
+        if card.fact_view == self.fact_views[0]:
+            question, answer = self._q_a_from_cloze\
                 (card.fact["f"], -1)
         # Production card.
         else:
-            question, answer = get_q_a_from_cloze\
+            question, answer = self._q_a_from_cloze\
                 (card.fact["f"], card.extra_data["index"])
+            # Entire sentence clozed.
+            if question == "[...]" and "m_1" in data:
+                question = data["m_1"]
+                data["m_1"] = ""
         data["f"] = question
         data["a"] = answer
         return data
@@ -78,37 +85,8 @@ class Sentence(CardType):
         return cards
 
     def edit_sister_cards(self, fact, new_fact_data):
-        # TODO
-        new_cards, edited_cards, deleted_cards = [], [], []
-        old_clozes = cloze_re.findall(fact["f"])
-        new_clozes = cloze_re.findall(new_fact_data["f"])
-        # If the number of clozes is equal, just edit the existing cards.
-        if len(old_clozes) == len(new_clozes):
-            for card in self.database().cards_from_fact(fact):
-                index = card.extra_data["index"]
-                card.extra_data["cloze"] = new_clozes[index]
-                edited_cards.append(card)
-        # If not, things are a little more complicated.
-        else:
-            new_clozes_processed = set()
-            for card in self.database().cards_from_fact(fact):
-                old_cloze  = card.extra_data["cloze"]
-                index = card.extra_data["index"]
-                if old_cloze in new_clozes:
-                    new_index = new_clozes.index(old_cloze)
-                    card.extra_data["cloze"] = new_clozes[new_index]
-                    card.extra_data["index"] = new_index
-                    new_clozes_processed.add(new_clozes[new_index])
-                    edited_cards.append(card)
-                else:
-                    deleted_cards.append(card)
-            for new_cloze in set(new_clozes).difference(new_clozes_processed):
-                new_index = new_clozes.index(new_cloze)
-                card = Card(self, fact, self.fact_views[0])
-                card.extra_data["cloze"] = new_cloze
-                card.extra_data["index"] = new_index
-                new_cards.append(card)
-        return new_cards, edited_cards, deleted_cards
+        return self._edit_clozes(fact, new_fact_data,
+            "f", self.fact_views[1])
 
 
 class SentencePlugin(Plugin):

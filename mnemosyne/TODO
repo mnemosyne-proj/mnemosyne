@@ -1,7 +1,6 @@
--update edit_sister_cards
--add tests
--update docs on cloze card type and sentence card type
+-allow clone of cloze and sentences
 
+-update docs on cloze card type and sentence card type, cloze entire sentence
 
 -test merge and edit cards
 
@@ -32,6 +31,8 @@
 -option to add multiple tags on import (Barbara)
 
 -plugin for card types with prefilled data?
+
+-add idea for plugin to export today's audio
 
 -check sync timeout when both client and server check for updated media files.
  (was 10, is now 30)

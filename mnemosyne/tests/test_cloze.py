@@ -378,3 +378,14 @@ third in 2008"""}
 
         assert "bla [hint] other cloze" in card.question()
         assert "other hint" not in card.question()
+
+    def test_clone(self):
+        card_type = self.card_type_with_id("5")
+        card_type = self.controller().clone_card_type(\
+            card_type, ("5 clone"))
+        fact_data = {"text": """bla [cloze:hint] [other cloze:other_hint]"""}
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])[0]
+
+        assert "bla [hint] other cloze" in card.question()
+        assert "other hint" not in card.question()

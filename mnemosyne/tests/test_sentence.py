@@ -47,3 +47,64 @@ class TestSentence(MnemosyneTest):
         assert "La casa es grande" in cards[0].question()
         assert "La [house] es grande" in cards[1].question()
         assert "La casa es [big]" in cards[2].question()
+
+    def test_2(self):
+        card_type = self.card_type_with_id("6")
+        fact_data = {"f": "[sentence]", "m_1": "meaning"}
+        cards = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])
+        assert "meaning" in cards[1].question()
+        assert "[" not in cards[1].question()
+        assert "meaning" not in cards[1].answer()
+
+    def test_edit(self):
+        card_type = self.card_type_with_id("6")
+        fact_data = {"f": "La [casa:house] es [grande:big]"}
+        cards = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])
+        fact = cards[0].fact
+        fact_data = {"f": "[La casa es grande]"}
+        self.controller().edit_sister_cards(fact, fact_data, card_type,
+            card_type, new_tag_names=["default"], correspondence={})
+        cards = self.database().cards_from_fact(fact)
+        assert len(cards) == 2
+
+    def test_edit_2(self):
+        card_type = self.card_type_with_id("6")
+        fact_data = {"f": "La [casa:house] es [grande:big]"}
+        cards = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])
+        fact = cards[0].fact
+        fact_data = {"f": "[La casa] es grande"}
+        self.controller().edit_sister_cards(fact, fact_data, card_type,
+            card_type, new_tag_names=["default"], correspondence={})
+        cards = self.database().cards_from_fact(fact)
+        assert len(cards) == 2
+
+    def test_edit_3(self):
+        card_type = self.card_type_with_id("6")
+        fact_data = {"f": "La [casa:house] es [grande:big]"}
+        cards = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])
+        fact = cards[0].fact
+        fact_data = {"f": "[La casa] [es] [grande]"}
+        self.controller().edit_sister_cards(fact, fact_data, card_type,
+            card_type, new_tag_names=["default"], correspondence={})
+        cards = self.database().cards_from_fact(fact)
+        assert len(cards) == 4
+        for card in cards:
+            assert card.card_type.id == "6"
+        for card in cards[1:]:
+            assert card.fact_view.id == "6.2"
+
+    def test_clone(self):
+        card_type = self.card_type_with_id("6")
+        card_type = self.controller().clone_card_type(\
+            card_type, ("6 clone"))
+        fact_data = {"f": "La [casa:house] es [grande:big]"}
+        cards = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])
+        assert "La casa es grande" in cards[0].question()
+        assert "La [house] es grande" in cards[1].question()
+        assert "La casa es [big]" in cards[2].question()
+
