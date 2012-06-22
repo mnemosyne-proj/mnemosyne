@@ -1,4 +1,27 @@
--allow clone of cloze and sentences
+fact 5 card 1332, 1333, 1334
+
+-create clone without any cards, deactivate plugin, reload
+-don't allow to turn of card type plugin if child exists, even if it has no
+ cards.
+
+- time used_ids = \
+                self.con.execute("select distinct card_type_id from cards")
+
+
+-sync bug
+Traceback (innermost last):
+File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.0-py2.7.egg/openSM2sync/server.py", line 407, in put_client_log_entries
+for log_entry in element_loop:
+File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.0-py2.7.egg/openSM2sync/text_formats/xml_format.py", line 122, in parse_log_entries
+for event, element in context:
+File "<string>", line 91, in next
+ParseError: not well-formed (invalid token): line 14, column 36
+
+
+-double check sizing QA for TRS
+
+-tmp activate to only study certain tags, then going back to default erases all
+ tags
 
 -update docs on cloze card type and sentence card type, cloze entire sentence
 
@@ -6,8 +29,23 @@
 
 -RTL marker adding in card browser
 
+-previous font does not get shown correctly
+
+-save set: drop down box with previous sets?
+
+-after TRS, text sync got permission denied
+
+-with full sync, option to skip media sync
+
 -Overnight issues if card browser or edit card dialog is left open (reported
  by Henrik)
+
+-import
+-on import, activate plugins, create card types if necessary
+-on import don't add cards for which card type is not present
+-for mnemosyne 2 cards format, on import, ignore or update cards which were already imported?
+-warn when importing card type with duplicate id
+-make sure after import all sync events fire
 
 -migrate webserver to cherrypy, recheck audio files
 
@@ -18,13 +56,6 @@
  Other mechanism to skip scheduled cards? What happens to saved set after
  disabling plugin?
 -criterion to select last X added cards, useful for cramming
-
--import
--on import, activate plugins, create card types if necessary
--on import don't add cards for which card type is not present
--for mnemosyne 2 cards format, on import, ignore or update cards which were already imported?
--warn when importing card type with duplicate id
--make sure after import all sync events fire
 
 -remove upgrade_beta_6.py, beta_7, etc... also in database
 

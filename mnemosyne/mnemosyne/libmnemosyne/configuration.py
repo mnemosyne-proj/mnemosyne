@@ -49,12 +49,13 @@ backup_before_sync = True
 # Latex preamble. Note that for the pre- and postamble you need to use double
 # slashes instead of single slashes here, to have them escaped when Python
 # reads them in.
-latex_preamble = \"\"\"\\\\documentclass[12pt]{article}
-\\\\pagestyle{empty}
-\\\\begin{document}\"\"\"
+latex_preamble = r\"\"\"
+\documentclass[12pt]{article}
+\pagestyle{empty}
+\\begin{document}\"\"\"
 
 # Latex postamble.
-latex_postamble = "\\\\end{document}"
+latex_postamble = r\"\"\"\end{document}\"\"\"
 
 # Latex command.
 latex = "latex -interaction=nonstopmode"

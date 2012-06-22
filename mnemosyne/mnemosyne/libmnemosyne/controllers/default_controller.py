@@ -327,7 +327,7 @@ class DefaultController(Controller):
                 assert new_card_type.is_fact_data_valid(new_fact_data)
                 fact.data = new_fact_data
             else:
-                new_fact_data = fact.data
+                new_fact_data = copy.copy(fact.data)
             result = self._change_card_type(fact, old_card_type,
                 new_card_type, correspondence, new_fact_data, warn)
             if result == -1:

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-20 20:47+CEST\n"
+"POT-Creation-Date: 2012-06-21 11:02+CEST\n"
 "PO-Revision-Date: 2012-05-24 23:24+0000\n"
 "Last-Translator: Peter Bienstman <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -427,15 +427,15 @@ msgid ""
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:483
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:589
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1044
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:590
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1045
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:96
 msgid "No"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:483
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:589
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1044
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:590
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1045
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:96
 msgid "Yes"
 msgstr ""
@@ -521,15 +521,15 @@ msgstr ""
 msgid "Unable to load file: database version mismatch."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:447
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:448
 msgid "Warning: backup creation failed for"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:588
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:589
 msgid "Make tag '%s' active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1043
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1044
 msgid "Make new card type active in saved set '%s'?"
 msgstr ""
 

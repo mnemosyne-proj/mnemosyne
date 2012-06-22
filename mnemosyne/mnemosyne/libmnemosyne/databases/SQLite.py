@@ -368,26 +368,27 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             raise RuntimeError, \
                 _("Unable to load file: database version mismatch.")
         # Identify missing plugins for card types and their parents.
-        plugin_needed = set()
+        plugin_needed_ids = set()
         builtin_ids = set(card_type.id for card_type in self.card_types())
         # Sometimes corruption keeps the global_variables table intact,
         # but not the cards table...
         try:
-            used_ids = \
-                self.con.execute("select distinct card_type_id from cards")
+            used_ids = [cursor[0] for cursor in \
+                self.con.execute("select distinct card_type_id from cards")]
         except:
             raise RuntimeError, _("Unable to load file.") + traceback_string()
-        defined_in_database_ids = \
-            [cursor[0] for cursor in self.con.execute("select id from card_types")]
-        for cursor in used_ids:
-            id = cursor[0]
+        defined_in_database_ids = [cursor[0] for cursor in \
+            self.con.execute("select id from card_types")]
+        # Check if parents are missing plugins. We also need to do this for the
+        # defined ids, in case a card type has no cards.
+        for id in used_ids + defined_in_database_ids:
             while "::" in id: # Move up one level of the hierarchy.
                 id, child_name = id.rsplit("::", 1)
                 if id not in builtin_ids and id not in defined_in_database_ids:
-                    plugin_needed.add(id)
+                    plugin_needed_ids.add(id)
             if id not in builtin_ids and id not in defined_in_database_ids:
-                plugin_needed.add(id)
-        for card_type_id in plugin_needed:
+                plugin_needed_ids.add(id)
+        for card_type_id in plugin_needed_ids:
             try:
                 self._activate_plugin_for_card_type(card_type_id)
             except RuntimeError, exception:

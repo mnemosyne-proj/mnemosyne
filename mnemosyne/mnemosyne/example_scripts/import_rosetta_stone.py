@@ -14,14 +14,18 @@ import shutil
 from mnemosyne.script import Mnemosyne
 
 # 'data_dir = None' will use the default sysem location, edit as appropriate.
-data_dir = u'/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/dot_mnemosyne2'
+data_dir = None
 mnemosyne = Mnemosyne(data_dir)
 
-# Aswer 'no' when adding duplicate cards.
+# Answer questions coming from libmnemosyne.
 
 def show_question(question, option0, option1, option2):
+    # Aswer 'no' when adding duplicate cards.
     if question.startswith("There is already"):
         return 2
+    # Answer 'yes' for making tag active.
+    if question.startswith("Make tag"):
+        return 0
     else:
         raise NotImplementedError
 
@@ -65,7 +69,11 @@ def get_txt(directory, codec):
             # Determine sentences.
             txt_file = file(os.path.join(subdir,
                 [x for x in os.listdir(subdir) if x.endswith(".TXT")][0]))
-            entries = unicode(txt_file.read(), codec, errors="ignore")\
+            entries = unicode(txt_file.read(), codec, errors="ignore") \
+                .replace(unichr(336), "\'") \
+                .replace(unichr(213), "\'") \
+                .replace(unichr(210), "\"") \
+                .replace(unichr(211), "\"") \
                 .split("@")[1:-1]
             assert len(entries) == 40
             txt[unit][lesson] = entries
@@ -143,12 +151,11 @@ for unit in foreign_txt:
             print
             fact_data = {"f": "["+foreign_txt[unit][lesson][i] + "]",
                 "p_1": "<audio src=\"" + sound[unit][lesson][i] + "\">",
-                "m_1": native_txt[unit][lesson][i].replace(unichr(336), "\'") + \
+                "m_1": native_txt[unit][lesson][i] + \
                     "\n<img src=\"" + images[unit][lesson][i] + "\">"}
             mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=-1, tag_names=[tag_prefix + "::Unit " + str(unit)\
                 + "::Lesson " + str(lesson)])
         print
-
 
 mnemosyne.finalise()

@@ -23,7 +23,7 @@ SILENCE_FACTOR = 1.2 # Silence will be 120% of audio length.
 from mnemosyne.script import Mnemosyne
 
 # 'data_dir = None' will use the default sysem location, edit as appropriate.
-data_dir = u'/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/dot_mnemosyne2'
+data_dir = None
 mnemosyne = Mnemosyne(data_dir)
 
 # Use mplayer to determine the lenght of an mp3 file.
