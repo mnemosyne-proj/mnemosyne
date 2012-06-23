@@ -5,6 +5,7 @@
  "La [casa:house] es [grande:big]", you'll get three sister cards with the
  following questions: "La casa es grande", "La [house] es grande",
  "La casa es [big]"
+-Longer initial interval if the first grade you gave a card is 5.
 -Fix crashes in card browser with non-latin clone names (reported by Gabriel
  Benamouzig).
 -Further fixes for Hebrew (reported by Eliyahu Switzer).
