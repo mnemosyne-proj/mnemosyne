@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-06-21 11:02+CEST\n"
+"POT-Creation-Date: 2012-06-23 08:16+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -205,15 +205,15 @@ msgstr ""
 msgid "Foreign word or expression"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/configuration.py:180
+#: ../mnemosyne/libmnemosyne/configuration.py:181
 msgid "Error in config:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/configuration.py:189
+#: ../mnemosyne/libmnemosyne/configuration.py:190
 msgid "Unable to save config file:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/configuration.py:343
+#: ../mnemosyne/libmnemosyne/configuration.py:344
 msgid "Error in config.py:"
 msgstr ""
 

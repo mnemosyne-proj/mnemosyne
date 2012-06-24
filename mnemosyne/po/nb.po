@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-21 11:02+CEST\n"
+"POT-Creation-Date: 2012-06-23 08:16+CEST\n"
 "PO-Revision-Date: 2012-06-05 08:13+0000\n"
 "Last-Translator: Geir <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -211,15 +211,15 @@ msgstr "Vokabular"
 msgid "Foreign word or expression"
 msgstr "Fremmedord, ord eller utrykk"
 
-#: ../mnemosyne/libmnemosyne/configuration.py:180
+#: ../mnemosyne/libmnemosyne/configuration.py:181
 msgid "Error in config:"
 msgstr "Feil i konfigurasjon:"
 
-#: ../mnemosyne/libmnemosyne/configuration.py:189
+#: ../mnemosyne/libmnemosyne/configuration.py:190
 msgid "Unable to save config file:"
 msgstr "Klarte ikke å lagre konfigurasjonsfilen:"
 
-#: ../mnemosyne/libmnemosyne/configuration.py:343
+#: ../mnemosyne/libmnemosyne/configuration.py:344
 msgid "Error in config.py:"
 msgstr "Feil i config.py:"
 
