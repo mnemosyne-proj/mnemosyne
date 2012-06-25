@@ -217,7 +217,7 @@
    <sender>saved_sets</sender>
    <signal>currentItemChanged(QListWidgetItem*,QListWidgetItem*)</signal>
    <receiver>ActivateCardsDlg</receiver>
-   <slot>load_set()</slot>
+   <slot>change_set()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>172</x>

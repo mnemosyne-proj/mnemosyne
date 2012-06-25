@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mnemosyne-proj\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2012-06-23 08:16+CEST\n"
+"POT-Creation-Date: 2012-06-25 17:16+CEST\n"
 "PO-Revision-Date: 2012-05-24 06:55+0000\n"
 "Last-Translator: Peter Bienstman <Unknown>\n"
 "Language-Team: Amharic <am@li.org>\n"
@@ -1043,7 +1043,7 @@ msgid "Rename"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:97
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:179
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:197
 msgid "This set can never contain any cards!"
 msgstr ""
 

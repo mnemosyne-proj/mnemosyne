@@ -1,4 +1,3 @@
-
 -In cloze card types, you can now provide hints, e.g. [cloze:hint] will show
  [hint] in the question as opposed to [...]
 -Added Sentence card type plugin. If you put this in the 'Sentence' field:
@@ -6,6 +5,8 @@
  following questions: "La casa es grande", "La [house] es grande",
  "La casa es [big]"
 -Longer initial interval if the first grade you gave a card is 5.
+-Fix issue in Activate cards, where a set without a name and a saved set would
+ interfere.
 -Fix crashes in card browser with non-latin clone names (reported by Gabriel
  Benamouzig).
 -Further fixes for Hebrew (reported by Eliyahu Switzer).

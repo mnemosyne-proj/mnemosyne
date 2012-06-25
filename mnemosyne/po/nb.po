@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-23 08:16+CEST\n"
+"POT-Creation-Date: 2012-06-25 17:16+CEST\n"
 "PO-Revision-Date: 2012-06-05 08:13+0000\n"
 "Last-Translator: Geir <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1090,7 +1090,7 @@ msgid "Rename"
 msgstr "Endre navn"
 
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:97
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:179
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:197
 msgid "This set can never contain any cards!"
 msgstr "Dette settet kan aldri inneholde noen kort!"
 

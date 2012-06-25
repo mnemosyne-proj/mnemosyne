@@ -149,8 +149,22 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
             QtCore.Qt.MatchExactly)[0]
         self.saved_sets.setCurrentItem(item)
 
+        # load_set gets triggered by ItemActivated, but this does not happen
+        # when the user changes the sets through the arrow keys (Qt bug?).
+        # Therefore, we also catch currentItemChanged and forward it to
+        # change_set, but to prevent unwanted firing when loading the widget
+        # for the first time (which would erase the current criterion in case
+        # it is not a saved criterion), we discard this event if previous_item
+        # is None.
+        #
+        # To test when editing this code: initial start, with and without
+        # current criterion being a saved criterion, changing the set through
+        # clicking or through the arrows.
+
     def load_set(self, item, dummy=None):
-        if item is None or dummy is None:  # Sometimes Qt fires spurious events.
+        # Sometimes item is None, e.g. during the process of deleting a saved
+        # set, so we need to discard the event then.
+        if item is None:
             return
         name = unicode(item.text())
         criterion = self.criteria_by_name[name]
@@ -161,6 +175,10 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         item = self.saved_sets.findItems(criterion.name,
             QtCore.Qt.MatchExactly)[0]
         self.saved_sets.setCurrentItem(item)
+
+    def change_set(self, item, previous_item):
+        if previous_item is not None:
+            self.load_set(item)
 
     def _store_state(self):
         self.config()["activate_cards_dlg_state"] = \
