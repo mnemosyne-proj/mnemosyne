@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.0-pre\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-25 17:16+CEST\n"
+"POT-Creation-Date: 2012-06-26 13:24+CEST\n"
 "PO-Revision-Date: 2012-06-04 20:52+0000\n"
 "Last-Translator: mase <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -231,7 +231,7 @@ msgstr "Fehler in den Einstellungen:"
 msgid "Unable to save config file:"
 msgstr "Speichern der Konfigurationsdatei nicht möglich:"
 
-#: ../mnemosyne/libmnemosyne/configuration.py:344
+#: ../mnemosyne/libmnemosyne/configuration.py:348
 msgid "Error in config.py:"
 msgstr "Fehler in config.py:"
 
@@ -1300,19 +1300,15 @@ msgstr "Letzte Wiederholung"
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:597
 msgid ""
-"Acquisition\n"
+"Learning\n"
 "reps"
 msgstr ""
-"Wiederholungen\n"
-"bis zur Aneignung"
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:598
 msgid ""
-"Retention\n"
+"Review\n"
 "reps"
 msgstr ""
-"Wiederholungen\n"
-"seit Aneignung"
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:599
 msgid "Created"
@@ -1514,15 +1510,15 @@ msgstr "Strg+D"
 msgid "&Hide pronunciation field for this card type"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:341
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:344
 msgid "Scheduled: %d "
 msgstr "Vorgemerkt: %d "
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:342
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:345
 msgid "Not memorised: %d "
 msgstr "Nicht gelernt: %d "
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:343
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:346
 #: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:56
 msgid "Active: %d "
 msgstr "Aktiv: %d "
@@ -2504,6 +2500,20 @@ msgstr "foo"
 #: ../tests/test_translator.py:32
 msgid "This is a test."
 msgstr "Dies ist ein Test."
+
+#~ msgid ""
+#~ "Acquisition\n"
+#~ "reps"
+#~ msgstr ""
+#~ "Wiederholungen\n"
+#~ "bis zur Aneignung"
+
+#~ msgid ""
+#~ "Retention\n"
+#~ "reps"
+#~ msgstr ""
+#~ "Wiederholungen\n"
+#~ "seit Aneignung"
 
 #~ msgid ""
 #~ "A card type blanking out certain fragments in a text.\n"

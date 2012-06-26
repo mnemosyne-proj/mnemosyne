@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-25 17:16+CEST\n"
+"POT-Creation-Date: 2012-06-26 13:24+CEST\n"
 "PO-Revision-Date: 2012-05-24 23:17+0000\n"
 "Last-Translator: Peter Bienstman <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -216,7 +216,7 @@ msgstr ""
 msgid "Unable to save config file:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/configuration.py:344
+#: ../mnemosyne/libmnemosyne/configuration.py:348
 msgid "Error in config.py:"
 msgstr "Hiba a config.py fájlban:"
 
@@ -1218,13 +1218,13 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:597
 msgid ""
-"Acquisition\n"
+"Learning\n"
 "reps"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:598
 msgid ""
-"Retention\n"
+"Review\n"
 "reps"
 msgstr ""
 
@@ -1421,15 +1421,15 @@ msgstr "Ctrl+P"
 msgid "&Hide pronunciation field for this card type"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:341
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:344
 msgid "Scheduled: %d "
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:342
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:345
 msgid "Not memorised: %d "
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:343
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:346
 #: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:56
 msgid "Active: %d "
 msgstr ""

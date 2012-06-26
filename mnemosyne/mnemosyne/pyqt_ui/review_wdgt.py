@@ -138,9 +138,12 @@ class QAOptimalSplit(object):
             self.answer_box, answer_stretch + self.stretch_offset)
 
     def silence_media(self, text):
-        text = text.replace("<div id='player'>", "")
-        text = text.replace("<audio src", "<audio_off src")
-        return text.replace("<video src", "<video_off src")
+        # Silence media, but make sure the player widget still shows to get
+        # correct information about the geometry.
+        text = text.replace("var soundFiles = new Array(",
+                            "var soundFiles = new Array('off',")
+        text = text.replace("<audio src=\"", "<audio src=\"off")
+        return text.replace("<video src=\"", "<video src=\"off")
 
     def set_question(self, text):
         self.question_text = text

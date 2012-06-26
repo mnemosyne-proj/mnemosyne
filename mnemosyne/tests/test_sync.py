@@ -3522,6 +3522,32 @@ class TestSync(object):
         assert db.con.execute("select count() from log where event_type=?",
                (EventTypes.EDITED_SETTING, )).fetchone()[0] == 1
 
+    def test_setting_5(self):
+
+        def test_server(self):
+            assert self.mnemosyne.config().card_type_property("font",
+                self.mnemosyne.card_type_with_id("1"), "f") == "my_font"
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+
+        # Make sure database is not empty, otherwise we copy over the server
+        # database as initial sync.
+
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.client.mnemosyne.card_type_with_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+
+        self.client.mnemosyne.config().set_card_type_property\
+            ("font", "my_font", card_type)
+        self.client.mnemosyne.controller().save_file()
+        self.client.do_sync(); assert last_error is None
+
     def test_restore_backup(self):
 
         # Sync 1.

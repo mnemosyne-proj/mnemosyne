@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-25 17:16+CEST\n"
+"POT-Creation-Date: 2012-06-26 13:24+CEST\n"
 "PO-Revision-Date: 2012-06-05 08:13+0000\n"
 "Last-Translator: Geir <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -219,7 +219,7 @@ msgstr "Feil i konfigurasjon:"
 msgid "Unable to save config file:"
 msgstr "Klarte ikke å lagre konfigurasjonsfilen:"
 
-#: ../mnemosyne/libmnemosyne/configuration.py:344
+#: ../mnemosyne/libmnemosyne/configuration.py:348
 msgid "Error in config.py:"
 msgstr "Feil i config.py:"
 
@@ -1293,19 +1293,15 @@ msgstr "Forrige repetisjon"
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:597
 msgid ""
-"Acquisition\n"
+"Learning\n"
 "reps"
 msgstr ""
-"Anskaffelse\n"
-"repetisjoner"
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:598
 msgid ""
-"Retention\n"
+"Review\n"
 "reps"
 msgstr ""
-"Bibeholdelse\n"
-"repetisjoner"
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:599
 msgid "Created"
@@ -1509,15 +1505,15 @@ msgstr "Ctrl+D"
 msgid "&Hide pronunciation field for this card type"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:341
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:344
 msgid "Scheduled: %d "
 msgstr "Planlagt: %d "
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:342
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:345
 msgid "Not memorised: %d "
 msgstr "Ikke memorisert: %d "
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:343
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:346
 #: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:56
 msgid "Active: %d "
 msgstr "Aktive: %d "
@@ -2557,6 +2553,20 @@ msgstr "foo"
 #: ../tests/test_translator.py:32
 msgid "This is a test."
 msgstr "Dette er en test."
+
+#~ msgid ""
+#~ "Acquisition\n"
+#~ "reps"
+#~ msgstr ""
+#~ "Anskaffelse\n"
+#~ "repetisjoner"
+
+#~ msgid ""
+#~ "Retention\n"
+#~ "reps"
+#~ msgstr ""
+#~ "Bibeholdelse\n"
+#~ "repetisjoner"
 
 #~ msgid ""
 #~ "A card type blanking out certain fragments in a text.\n"

@@ -274,6 +274,10 @@ class Configuration(Component, dict):
         if property_name not in ["background_colour", "font", "font_colour",
             "alignment", "hide_pronunciation_field"]:
             raise KeyError
+        # With the nested directories, we don't fall back on self.__setitem__,
+        # so we have to log a event here ourselves.
+        if property_name in self.keys_to_sync:
+            self.log().edited_setting(property_name)
         if property_name in ["background_colour", "alignment",
                              "hide_pronunciation_field"]:
             self[property_name][card_type.id] = property_value

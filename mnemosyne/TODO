@@ -1,9 +1,3 @@
--double check sizing QA for TRS, both whith and without media player
-
--previous font does not get shown correctly. Multiplatform?
-
--time used_ids = self.con.execute("select distinct card_type_id from cards")
-
 -sync bug
 Traceback (innermost last):
 File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.0-py2.7.egg/openSM2sync/server.py", line 407, in put_client_log_entries
@@ -13,13 +7,13 @@ for event, element in context:
 File "<string>", line 91, in next
 ParseError: not well-formed (invalid token): line 14, column 36
 
+-revisit format proxy for sentences
+
 -don't allow to turn off card type plugin if child exists, even if it has no
  cards.
 -test for create clone without any cards, deactivate plugin, reload?
 
 -cr lf issue when importing from TRS?
-
--revisit format proxy for sentences
 
 -update docs on cloze card type and sentence card type, cloze entire sentence
 
@@ -64,8 +58,6 @@ Release 1.0.1
 
 -check sync timeout when both client and server check for updated media files.
  (was 10, is now 30)
-
--media sentence card has wrong color on win. Are settings synced?
 
 -insert latex tags shortcut and menu (phyTech)
 -flash format <object type="application/x-shockwave-flash" data="foo.swf" />
@@ -187,6 +179,8 @@ Milesteiner
 -Qt bug? multiple sounds per card under Windows does not work
 -Qt bug? text + linebreak + video + linebreak + text2 does not show text2
 -Qt bug? Windows titles not shown?
+-Qt bug? When setting Arial as initial font to the FontDialog, it is always
+ made bold.
 
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 

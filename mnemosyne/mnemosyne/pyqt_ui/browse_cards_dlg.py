@@ -594,8 +594,8 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         headers = {QUESTION: _("Question"), ANSWER: _("Answer"),
             TAGS: _("Tags"), GRADE: _("Grade"), NEXT_REP: _("Next rep"),
             LAST_REP: _("Last rep"), EASINESS: _("Easiness"),
-            ACQ_REPS: _("Acquisition\nreps"),
-            RET_REPS: _("Retention\nreps"), LAPSES: _("Lapses"),
+            ACQ_REPS: _("Learning\nreps"),
+            RET_REPS: _("Review\nreps"), LAPSES: _("Lapses"),
             CREATION_TIME: _("Created"), MODIFICATION_TIME: _("Modified")}
         for key, value in headers.iteritems():
               self.card_model.setHeaderData(key, QtCore.Qt.Horizontal,
