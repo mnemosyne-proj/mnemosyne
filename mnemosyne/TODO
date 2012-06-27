@@ -1,27 +1,15 @@
--sync bug
-Traceback (innermost last):
-File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.0-py2.7.egg/openSM2sync/server.py", line 407, in put_client_log_entries
-for log_entry in element_loop:
-File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.0-py2.7.egg/openSM2sync/text_formats/xml_format.py", line 122, in parse_log_entries
-for event, element in context:
-File "<string>", line 91, in next
-ParseError: not well-formed (invalid token): line 14, column 36
-
--revisit format proxy for sentences
+-revisit format proxy for sentences if sentence is completely clozed
+ (extra field?)
 
 -don't allow to turn off card type plugin if child exists, even if it has no
  cards.
 -test for create clone without any cards, deactivate plugin, reload?
 
--cr lf issue when importing from TRS?
-
 -update docs on cloze card type and sentence card type, cloze entire sentence
 
 -test merge and edit cards
 
--RTL marker adding in card browser
-
--save set: drop down box with previous sets?
+-save set: drop down box with previous sets
 
 
 Release 1.0.1
@@ -189,6 +177,9 @@ Milesteiner
 -add tests with unicode in data_dir
 
 -leech detection
+
+-adding facts with strange characters (e.g. chr(1) from TRS) trips up the sync
+ protocol
 
 -Pasting into card from other sources initially keeps the formatting. (Gnome) (LP bug)
 

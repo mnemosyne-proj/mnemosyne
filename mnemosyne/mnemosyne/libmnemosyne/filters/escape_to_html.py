@@ -21,11 +21,12 @@ class EscapeToHtml(Filter):
                     escape_breaks = False
                 if lower_text[i:].startswith("</" + tag):
                     escape_breaks = True
-            if lower_text[i] == "\n" and escape_breaks:
+            if (lower_text[i] == "\n" or lower_text[i] == "\r") \
+                and escape_breaks:
                 linebreak_positions.append(i)
         for linebreak_position in linebreak_positions:
-            text = text[:linebreak_position] + \
-                text[linebreak_position:].replace("\n", "<br>", 1)
+            text = text[:linebreak_position] + text[linebreak_position:]\
+                .replace("\n", "<br>", 1).replace("\r", "<br>", 1)
         # Escape hanging <.
         hanging = []
         open = 0

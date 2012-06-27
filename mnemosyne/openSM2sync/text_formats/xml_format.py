@@ -135,6 +135,7 @@ class XMLFormat(object):
                         # Should be string instead of None.
                         log_entry[child.tag] = ""
                 root.clear()  # Avoid taking up unnecessary memory.
+                #import sys; sys.stderr.write(str(log_entry).encode("utf-8"))
                 yield log_entry
 
     def repr_message(self, message, traceback=None):
