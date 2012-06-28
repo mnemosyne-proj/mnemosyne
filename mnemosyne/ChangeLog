@@ -10,6 +10,8 @@
  machines.
 -Fix issue in Activate cards, where a set without a name and a saved set would
  interfere.
+-The dialog where you name saved sets is now a combobox which also list the
+ current saved sets, to allow for easier updating of a saved set.
 -Longer initial interval if the first grade you gave a card is 5.
 -Fix crashes in card browser with non-latin clone names (reported by Gabriel
  Benamouzig).

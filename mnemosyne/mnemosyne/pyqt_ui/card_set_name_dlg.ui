@@ -24,12 +24,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="set_name">
-       <property name="minimumSize">
-        <size>
-         <width>150</width>
-         <height>0</height>
-        </size>
+      <widget class="QComboBox" name="set_name">
+       <property name="editable">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -67,12 +64,12 @@
   </connection>
   <connection>
    <sender>set_name</sender>
-   <signal>textChanged(QString)</signal>
+   <signal>editTextChanged(QString)</signal>
    <receiver>CardSetNameDlg</receiver>
    <slot>text_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>179</x>
+     <x>156</x>
      <y>17</y>
     </hint>
     <hint type="destinationlabel">

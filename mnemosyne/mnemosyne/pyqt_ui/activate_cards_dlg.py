@@ -97,7 +97,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
                 _("This set can never contain any cards!"))
             return
         CardSetNameDlg(self.component_manager, criterion,
-                       self.criteria_by_name.keys()).exec_()
+                       self.criteria_by_name.keys(), self).exec_()
         if not criterion.name:  # User cancelled.
             return
         if criterion.name in self.criteria_by_name.keys():

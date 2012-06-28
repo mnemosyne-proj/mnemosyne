@@ -1,15 +1,12 @@
--revisit format proxy for sentences if sentence is completely clozed
- (extra field?)
-
 -don't allow to turn off card type plugin if child exists, even if it has no
  cards.
 -test for create clone without any cards, deactivate plugin, reload?
 
--update docs on cloze card type and sentence card type, cloze entire sentence
-
 -test merge and edit cards
 
--save set: drop down box with previous sets
+-update docs on cloze card type and sentence card type, cloze entire sentence
+
+-reparent all dialog boxes
 
 
 Release 1.0.1
@@ -71,7 +68,7 @@ taking grade 0/1 cards as well into account?
 -Cntr+C in Q&A main does not work. (Gnome) (LP bug)
 -Cntr+D shortcut in edit card doesn't work. (Gnome) (LP bug)
 -Cramming shortcuts with letters do not work (Gnome) (LP bug)
--starting the program when no cards are shownn does not draw a border around the
+-starting the program when no cards are shown does not draw a border around the
  Q field
 
 -add up and down arrows on browsing through the preview window?
