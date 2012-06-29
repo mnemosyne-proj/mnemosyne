@@ -47,7 +47,6 @@ class TestPlugin(MnemosyneTest):
         from mnemosyne.libmnemosyne.plugin import Plugin
         p = Plugin(self.mnemosyne.component_manager)
 
-    @raises(NotImplementedError)
     def test_2(self):
 
         from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
@@ -77,6 +76,43 @@ class TestPlugin(MnemosyneTest):
         self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])
         p.deactivate() # Pops up an information box that this is not possible.
+        global last_error
+        assert last_error.startswith("Cannot deactivate")
+        last_error = ""
+
+    def test_deactivate_clone(self):
+
+        from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
+        from mnemosyne.libmnemosyne.plugin import Plugin
+
+        class MyCardType(FrontToBack):
+            id = "666"
+
+        class MyPlugin(Plugin):
+            name = "myplugin"
+            description = "MyPlugin"
+            components = [MyCardType]
+
+        p = MyPlugin(self.mnemosyne.component_manager)
+
+        old_length = len(self.card_types())
+        p.activate()
+        assert len(self.card_types()) == old_length + 1
+        p.deactivate()
+        assert len(self.card_types()) == old_length
+
+        p.activate()
+
+        card_type = self.mnemosyne.card_type_with_id("666")
+
+        self.mnemosyne.controller().clone_card_type(card_type, "new_name")
+
+        p.deactivate() # Pops up an information box that this is not possible.
+        global last_error
+        assert last_error.startswith("Cannot deactivate")
+        last_error = ""
+
+
 
     def test_3(self):
 

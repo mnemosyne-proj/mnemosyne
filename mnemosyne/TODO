@@ -1,20 +1,15 @@
--don't allow to turn off card type plugin if child exists, even if it has no
- cards.
--test for create clone without any cards, deactivate plugin, reload?
-
--test merge and edit cards
-
 -update docs on cloze card type and sentence card type, cloze entire sentence
 
 -reparent all dialog boxes
 
+-if dialog like edit card or browse cards is open on server, try to close it
+ when sync comes in or rollover happens (Henrik)
+
+-upgrade pyqt, recheck Qt bugs
 
 Release 1.0.1
 
 -with full sync, option to skip media sync
-
--Overnight issues if card browser or edit card dialog is left open (reported
- by Henrik)
 
 -import
 -on import, activate plugins, create card types if necessary
@@ -85,19 +80,7 @@ bool isExpanded ( const QModelIndex & index ) const
 -splitters on XP are not visible
 http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-between-qwidget-and-qtabwidget
 
--if dialog like edit card or browse cards is open on server, try to close it when sync comes in  (+findChildren
-QWidgetList list = QApplication::topLevelWidgets();
-for (int i = 0; did_close && i < list.size(); ++i) {
-w = list.at(i);
-if (w->isVisible() && w->windowType() != Qt::Desktop) {
-did_close = w->close();
-list = QApplication::topLevelWidgets();
-i = -1;
-
 -remove TMP adding of default o_id in sync
-
--remind top level widget, and make those parent to error dialog? Now e.g. an error on the activate card
-widget will be centered on the main widget and not the activate cards dialog.
 
 -binary database upload: configuration changes (fonts, ...) are not applied
 
@@ -137,8 +120,6 @@ widget will be centered on the main widget and not the activate cards dialog.
 
 -~ / `" key as a short cut for the "0 button" (Kent Stearman)
 
--F11 full screen (Dougie Nisbet)
-
 -add plugin example on card type specific renderer
 -add doc on how to write plugin to sfinx doc
 
@@ -170,7 +151,6 @@ Milesteiner
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 
 -windows: test unicode filenames in sync protocol
--test running from usb, update instructions
 -add tests with unicode in data_dir
 
 -leech detection
@@ -212,8 +192,6 @@ Milesteiner
 
 -pinyin sort
 
--kivy, python for android
-
 -scrape from websites: https://bitbucket.org/nosklo/supymemo/downloads
 
 -also allow scrolling webview widgets using up and down keys? Will probably require global
@@ -245,8 +223,6 @@ Milesteiner
 -plugin to store backups on dropbox
 
 -drag and drop in card browser, with tag tree
-
--larger interval for initial grade 5?
 
 -worthwhile to apply same tricks from card browser to criterion applier, i.e. inverting selection to
  go from 'in large set' to 'not in small set'? Max time 0.6 secs, so perhaps not needed that much
@@ -414,8 +390,8 @@ a good alternative, as it does not obey selection coloring
 -adding latex cards on non-latex device currently requires 2 syncs with main server to
  show the images
 
--add media to a card but then abandonig/editing the card keeps the media in media directory
- (they are not referenced in the database, though)
+-add media to a card but then abandoning/editing the card keeps the media in
+ media directory (they are not referenced in the database, though)
 
 -pythoscope? http://pypi.python.org/pypi/pythoscope/0.2.1
 http://pythoscope.org/
@@ -483,8 +459,6 @@ Multiuser statistics analysis:
 
 -auto identifying similar cards
 
--forward / backward when previewing cards in the database
-
 -clean up interval when importing from txt
 
 -paste from clipboard
@@ -513,8 +487,6 @@ Multiuser statistics analysis:
 -research papers: http://act-r.psy.cmu.edu/people/index.php?id=11
 
 -importing cards from rss feed
-
--clean obsolete latex images
 
 -investigate ridiculously large thinking times
 

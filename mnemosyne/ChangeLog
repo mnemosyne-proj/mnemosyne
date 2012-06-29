@@ -12,9 +12,13 @@
  interfere.
 -The dialog where you name saved sets is now a combobox which also list the
  current saved sets, to allow for easier updating of a saved set.
+-Message boxes are now centered over the current window (card browser, ...) as
+ opposed to the main window.
 -Longer initial interval if the first grade you gave a card is 5.
 -Fix crashes in card browser with non-latin clone names (reported by Gabriel
  Benamouzig).
+-Prevent uninstalling a card type plugin if a clone of that card type has been
+ created, even if it does not yet have any cards.
 -Further fixes for Hebrew (reported by Eliyahu Switzer).
 
 

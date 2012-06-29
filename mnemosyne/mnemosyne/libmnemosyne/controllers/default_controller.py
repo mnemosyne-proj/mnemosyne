@@ -113,7 +113,7 @@ class DefaultController(Controller):
                 answer = self.main_widget().show_question(\
                   _("There is already data present for:\n\n") +
                   "/".join(fact[k] for k in card_type.required_fact_keys),
-                  _("&Merge and edit"), _("&Add as is"), _("&Do not add"))
+                  _("&Merge and edit"), _("&Add anyway"), _("&Do not add"))
                 if answer == 0:  # Merge and edit.
                     cards = card_type.create_sister_cards(fact)
                     db.add_fact(fact)

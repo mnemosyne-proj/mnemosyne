@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-27 21:30+CEST\n"
+"POT-Creation-Date: 2012-06-29 17:12+CEST\n"
 "PO-Revision-Date: 2012-06-05 08:13+0000\n"
 "Last-Translator: Geir <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -235,8 +235,8 @@ msgstr "Feil i config.py:"
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:56
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:68
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:136
-#: ../mnemosyne/pyqt_ui/main_wdgt.py:62 ../mnemosyne/pyqt_ui/main_wdgt.py:65
-#: ../mnemosyne/pyqt_ui/main_wdgt.py:69 ../mnemosyne/pyqt_ui/main_wdgt.py:92
+#: ../mnemosyne/pyqt_ui/main_wdgt.py:69 ../mnemosyne/pyqt_ui/main_wdgt.py:72
+#: ../mnemosyne/pyqt_ui/main_wdgt.py:76 ../mnemosyne/pyqt_ui/main_wdgt.py:99
 #: ../mnemosyne/pyqt_ui/tip_after_starting_n_times.py:31
 msgid "Mnemosyne"
 msgstr "Mnemosyne"
@@ -258,8 +258,8 @@ msgstr ""
 "\n"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:116
-msgid "&Add as is"
-msgstr "&Legg til som det er"
+msgid "&Add anyway"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:116
 msgid "&Do not add"
@@ -314,7 +314,7 @@ msgstr "&Avbryt"
 #: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:70
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:58
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:70
-#: ../mnemosyne/pyqt_ui/main_wdgt.py:62 ../mnemosyne/pyqt_ui/main_wdgt.py:70
+#: ../mnemosyne/pyqt_ui/main_wdgt.py:69 ../mnemosyne/pyqt_ui/main_wdgt.py:77
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:61
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:186
 #: ../mnemosyne/pyqt_ui/ui_about_dlg.py:80
@@ -696,7 +696,7 @@ msgstr "Venter på at opplasters tråd skal stoppe..."
 msgid "Done!"
 msgstr "Ferdig!"
 
-#: ../mnemosyne/libmnemosyne/plugin.py:92
+#: ../mnemosyne/libmnemosyne/plugin.py:98
 msgid ""
 "Cannot deactivate, there are cards with this card type (or a clone of it) in "
 "the database."
@@ -2553,6 +2553,9 @@ msgstr "foo"
 #: ../tests/test_translator.py:32
 msgid "This is a test."
 msgstr "Dette er en test."
+
+#~ msgid "&Add as is"
+#~ msgstr "&Legg til som det er"
 
 #~ msgid ""
 #~ "Acquisition\n"

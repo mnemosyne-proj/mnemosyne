@@ -79,7 +79,7 @@ gui-profile:
 benchmark: install-virtual-env
 	./bin/python tests/benchmark.py
 
-osx:
+osx: 	# Contributed by Patrick Kenny
 	# make sure there are no existing build files
 	sudo rm -rf build/ dist/
 	# build the app with py2app
@@ -92,6 +92,14 @@ osx:
 	sudo mkdir dist/Mnemosyne.app/Contents/Resources/share
 	# add the translations
 	sudo cp -R mo dist/Mnemosyne.app/Contents/Resources/share/locale
+	# by default, qt looks in the plugins directory in the root folder
+	sudo mkdir dist/Mnemosyne.app/Contents/plugins
+	# copy the dylib into plugins
+	sudo cp -R /opt/local/share/qt4/plugins/sqldrivers/libqsqlite.dylib dist/Mnemosyne.app/Contents/plugins
+	# dylib must be relinked to use the bundled copy of Qt and not the system copy
+	sudo install_name_tool -change /opt/local/lib/libsqlite3.0.dylib @executable_path/../Frameworks/libsqlite3.0.8.6.dylib Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
+	sudo install_name_tool -change /opt/local/lib/libQtSql.4.dylib @executable_path/../Frameworks/libQtSql.4.dylib Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
+	sudo install_name_tool -change /opt/local/lib/libQtCore.4.dylib @executable_path/../Frameworks/libQtCore.4.dylib Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
 
 wm: install-virtual-env
 	cp mnemosyne/ppygui_ui/ppygui_ui/*.py mnemosyne/ppygui_ui/

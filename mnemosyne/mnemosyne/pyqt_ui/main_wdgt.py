@@ -58,15 +58,22 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
     def set_window_title(self, text):
         self.setWindowTitle(text)
 
+    def top_window(self):
+        for widget in QtGui.QApplication.topLevelWidgets():
+            if not widget.__class__.__name__.startswith("Q") and \
+                widget.__class__.__name__ != "MainWdgt":
+                    return widget
+        return self
+
     def show_information(self, text):
-        QtGui.QMessageBox.information(self, _("Mnemosyne"), text, _("&OK"))
+        QtGui.QMessageBox.information(self.top_window(), _("Mnemosyne"), text, _("&OK"))
 
     def show_question(self, text, option0, option1, option2):
-        return QtGui.QMessageBox.question(self,  _("Mnemosyne"),
+        return QtGui.QMessageBox.question(self.top_window(),  _("Mnemosyne"),
             text, option0, option1, option2, 0, -1)
 
     def show_error(self, text):
-        QtGui.QMessageBox.critical(self, _("Mnemosyne"), text,
+        QtGui.QMessageBox.critical(self.top_window(), _("Mnemosyne"), text,
             _("&OK"), "", "", 0, -1)
 
     def default_font_size(self):
