@@ -27,7 +27,7 @@ class Upgrade1(Component):
             # Work around os.path.exists seeming to give wrong results on
             # OSX 10.6 (but not 10.7).
             new_data_dir = join(unicode(home), "Library", "Mnemosyne")
-            if os.path.exists(join(new_data_dir, "default.db"))
+            if os.path.exists(join(new_data_dir, "default.db")):
                 return
             old_data_dir = join(unicode(home), "Library", "Mnemosyne_1")
         else:
@@ -50,7 +50,7 @@ class Upgrade1(Component):
             backup_dir = join(unicode(home), "Library", "Mnemosyne_1")
             # Work around os.path.exists seeming to give wrong results on
             # OSX 10.6 (but not 10.7).
-            if os.path.exists(join(old_data_dir, "default.db"))
+            if os.path.exists(join(old_data_dir, "default.db")):
                 return            
             if os.path.exists(old_data_dir) and \
                 not os.path.exists(backup_dir):
