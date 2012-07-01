@@ -79,7 +79,9 @@ gui-profile:
 benchmark: install-virtual-env
 	./bin/python tests/benchmark.py
 
-osx: 	# Contributed by Patrick Kenny
+osx: 	# Contributed by Patrick Kenny.
+	# For some systems, you might need to replace 'python' with 'python2'
+	#
 	# make sure there are no existing build files
 	sudo rm -rf build/ dist/
 	# build the app with py2app
