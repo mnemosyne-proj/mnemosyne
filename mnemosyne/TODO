@@ -1,3 +1,17 @@
+-fix hanging bug:
+
+Change isolation level
+timeout=0?
+APSW
+
+related to saving? prefetch? QA split
+ machinery?
+
+
+Release 2.0.1
+
+-recheck Qt bugs
+
 -update docs on cloze card type and sentence card type, cloze entire sentence
 
 -reparent all dialog boxes
@@ -5,9 +19,9 @@
 -if dialog like edit card or browse cards is open on server, try to close it
  when sync comes in or rollover happens (Henrik)
 
--upgrade pyqt, recheck Qt bugs
+-initial picture not shown
 
-Release 1.0.1
+-Mnemosyne name not set in dialog windows, only in progress bars.
 
 -with full sync, option to skip media sync
 
@@ -20,6 +34,8 @@ Release 1.0.1
 
 -migrate webserver to cherrypy, recheck audio files
 
+-add debug information for conflict detection?
+
 -implement duplicate checking. Also synonym checking? Add then standard tags.
 -autorun after import, browse with edit?, but not sync
 
@@ -28,7 +44,13 @@ Release 1.0.1
  disabling plugin?
 -criterion to select last X added cards, useful for cramming
 
+-database sometimes locks automatically?
+
 -remove upgrade_beta_6.py, beta_7, etc... also in database
+
+-don't switch to text entry field when changing card type with the keys.
+
+-fix Alt 0 and 1 as alternative for Alt+Y to add yet to learn cards.
 
 -option to add multiple tags on import (Barbara)
 
@@ -93,6 +115,8 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -circadian rythm plugin
 -plugin to move basedir to dropbox?
 -bundle more of the example plugins?
+
+-RTL issues with mixed text, eg.  a (b ل)
 
 -'duplicate card' option in menu and browser? Or as plugin?
 
@@ -415,6 +439,7 @@ http://lost-theory.org/python/ltchinese/
 -control B format character in supermemo import?
 
 -make autosuggest in tag dialog also work for the second tag after the comma.
+ (see calibre implementation)
 
 
 Multiuser statistics analysis:

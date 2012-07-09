@@ -51,7 +51,7 @@ class Upgrade1(Component):
             # Work around os.path.exists seeming to give wrong results on
             # OSX 10.6 (but not 10.7).
             if os.path.exists(join(old_data_dir, "default.db")):
-                return            
+                return
             if os.path.exists(old_data_dir) and \
                 not os.path.exists(backup_dir):
                 shutil.move(old_data_dir, backup_dir)

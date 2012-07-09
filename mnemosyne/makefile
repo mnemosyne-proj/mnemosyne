@@ -80,12 +80,11 @@ benchmark: install-virtual-env
 	./bin/python tests/benchmark.py
 
 osx: 	# Contributed by Patrick Kenny.
-	# For some systems, you might need to replace 'python' with 'python2'
 	#
 	# make sure there are no existing build files
 	sudo rm -rf build/ dist/
 	# build the app with py2app
-	sudo python setup.py py2app
+	sudo $(PYTHON) setup.py py2app
 	# add a blank qt.conf so that the system will used the bundled qt instead of the system qt if the system already has qt installed
 	sudo touch dist/Mnemosyne.app/Contents/Resources/qt.conf
 	# copy qt_menu.nib directory: the application will not launch without this (assumes qt was installed with MacPorts)

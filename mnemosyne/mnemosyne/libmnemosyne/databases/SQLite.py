@@ -262,8 +262,10 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
 ("Putting a database on a network drive is forbidden under Windows to avoid data corruption. Mnemosyne will now close."))
                     sys.exit(-1)
             self._connection = sqlite3.connect(\
-                self._path, timeout=0.1, isolation_level="EXCLUSIVE")
+                self._path, isolation_level="EXCLUSIVE")
             self._connection.row_factory = sqlite3.Row
+            # http://www.mail-archive.com/sqlite-users@sqlite.org/msg34453.html
+            self._connection.execute("pragma journal_mode = persist;")
             # Should only be used to speed up the test suite.
             if self.config()["asynchronous_database"] == True:
                 self._connection.execute("pragma synchronous = off;")

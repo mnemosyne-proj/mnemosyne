@@ -220,6 +220,7 @@ packages = ["mnemosyne",
             ]
 
 py2exe_options = {
+    "unbuffered": True,
     "packages": ["mnemosyne", "numpy", "sip", "xml.sax", "xml.etree"],
     "optimize": 2,
     "includes": ["numpy", "sip", "xml.sax", "xml.etree", "PyQt4.QtNetwork"],
@@ -227,7 +228,7 @@ py2exe_options = {
                  "_fltkagg", "_gtk", "_gtkcairo", "tcl", "Tkconstants", "Tkinter",
                  "pydoc", "doctest", "test"],
     "dll_excludes": ["libgdk-win32-2.0-0.dll", "libgobject-2.0-0.dll",
-                     "tcl84.dll", "tk84.dll"]
+                     "tcl84.dll", "tk84.dll", "w9xpopen.exe"]
 }
 
 setup(name = "Mnemosyne",

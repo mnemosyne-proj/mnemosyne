@@ -19,7 +19,7 @@
  Benamouzig).
 -Prevent uninstalling a card type plugin if a clone of that card type has been
  created, even if it does not yet have any cards.
--Further fixes for Hebrew (reported by Eliyahu Switzer).
+-Further fixes for Hebrew (reported by Eliyahu Switzer and Chris).
 
 
 Mnemosyne 2.0 : 2012-06-16
