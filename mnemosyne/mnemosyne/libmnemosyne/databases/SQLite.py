@@ -209,7 +209,6 @@ from mnemosyne.libmnemosyne.databases.SQLite_media import SQLiteMedia
 from mnemosyne.libmnemosyne.databases.SQLite_logging import SQLiteLogging
 from mnemosyne.libmnemosyne.databases.SQLite_statistics import SQLiteStatistics
 
-
 class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
              SQLiteStatistics):
 
@@ -261,8 +260,13 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                     self.main_widget().show_error(_\
 ("Putting a database on a network drive is forbidden under Windows to avoid data corruption. Mnemosyne will now close."))
                     sys.exit(-1)
+            #self._connection = sqlite3.connect(\
+            #    self._path, isolation_level="EXCLUSIVE")
+
+            # TMP
             self._connection = sqlite3.connect(\
-                self._path, isolation_level="EXCLUSIVE")
+                self._path, timeout=0)
+
             self._connection.row_factory = sqlite3.Row
             # http://www.mail-archive.com/sqlite-users@sqlite.org/msg34453.html
             self._connection.execute("pragma journal_mode = persist;")

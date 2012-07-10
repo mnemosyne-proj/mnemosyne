@@ -128,7 +128,8 @@ class SM2Controller(ReviewController):
         old_grade = card_to_grade.grade
         self.update_counters(old_grade, grade)
         self.rep_count += 1
-        if self.scheduler().is_prefetch_allowed(card_to_grade):
+        #TMP
+        if 0: #self.scheduler().is_prefetch_allowed(card_to_grade):
             self.show_new_question()
             interval = self.scheduler().grade_answer(card_to_grade, grade)
             self.database().update_card(card_to_grade, repetition_only=True)

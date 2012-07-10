@@ -2,10 +2,19 @@
 
 Change isolation level
 timeout=0?
-APSW
+prefetch
+QA split
+(TMP)
+
+APSW (isolation level, higher level wrapper, row connection factory,
+    execute vs execute script, SELECT last_insert_rowid() last row id)
+
+if changing isolation level: how to detect if another instance is open?
 
 related to saving? prefetch? QA split
  machinery?
+
+check with windows logging machinery
 
 
 Release 2.0.1
