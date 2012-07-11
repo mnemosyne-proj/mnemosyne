@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-29 17:12+CEST\n"
+"POT-Creation-Date: 2012-07-11 10:08+CEST\n"
 "PO-Revision-Date: 2012-05-24 23:19+0000\n"
 "Last-Translator: Peter Bienstman <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,14 +78,14 @@ msgstr ""
 msgid "Production"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:267
-#: ../mnemosyne/libmnemosyne/__init__.py:280
+#: ../mnemosyne/libmnemosyne/__init__.py:269
+#: ../mnemosyne/libmnemosyne/__init__.py:282
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:701
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:343
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:349
 msgid "Error when running plugin:"
 msgstr "Eklentiyi çalıştırırken hata:"
 
-#: ../mnemosyne/libmnemosyne/__init__.py:300
+#: ../mnemosyne/libmnemosyne/__init__.py:302
 msgid "Creating temporary database."
 msgstr ""
 
@@ -427,15 +427,15 @@ msgid ""
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:483
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:590
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1045
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:603
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1058
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:96
 msgid "No"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:483
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:590
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1045
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:603
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1058
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:96
 msgid "Yes"
 msgstr ""
@@ -484,52 +484,52 @@ msgstr ""
 msgid "go to http://www.mnemosyne-proj.org"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:262
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:261
 msgid ""
 "Putting a database on a network drive is forbidden under Windows to avoid "
 "data corruption. Mnemosyne will now close."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:346
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:352
 msgid "Missing plugin for card type with id:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:360
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:366
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:30
 msgid "Another copy of Mnemosyne is still running."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:361
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:367
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:31
 msgid "Continuing is impossible and will lead to data loss!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:364
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:379
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:370
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:385
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:34
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:49
 msgid "Unable to load file."
 msgstr "Dosya yüklenemiyor."
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:366
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:372
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:36
 msgid "Unable to load file, query failed"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:369
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:375
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:39
 msgid "Unable to load file: database version mismatch."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:448
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:461
 msgid "Warning: backup creation failed for"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:589
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:602
 msgid "Make tag '%s' active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1044
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1057
 msgid "Make new card type active in saved set '%s'?"
 msgstr ""
 
@@ -573,6 +573,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:42
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:32
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:36
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:74
 msgid "Importing cards..."
 msgstr ""
 
@@ -617,6 +618,18 @@ msgstr ""
 msgid ""
 "This XML file contains learning data. It's best to import this from a mem "
 "file, in order to preserve historical statistics. Continue?"
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:20
+msgid "Mnemosyne 2.x *.cards files"
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:21
+msgid "Mnemosyne 2.x cards for sharing (*.cards)"
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:28
+msgid "Exporting cards..."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:264
@@ -755,52 +768,52 @@ msgid ""
 "much better to use the cramming scheduler plugin"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:146
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:147
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:33
 msgid "Returns in"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:147
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:148
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:34
 msgid " day(s)."
 msgstr " günde."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:151
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:152
 msgid "Next repetition: today."
 msgstr "Bir sonraki tekrar: bugün."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:153
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:154
 msgid "Next repetition: tomorrow."
 msgstr "Bir sonraki tekrar: yarın."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:156
 msgid " days."
 msgstr " gün sonra."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:156
 msgid "Next repetition in "
 msgstr "Bir sonraki tekrar "
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:196
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:197
 #: ../mnemosyne/pyqt_ui/preview_cards_dlg.py:65
 msgid "Question: "
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:226
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:229
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:232
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:227
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:230
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:233
 msgid "Show answer"
 msgstr "Yanıtı göster"
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:236
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:237
 msgid "Learn ahead of schedule"
 msgstr "Programın ilerisinde öğren"
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:255
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:256
 msgid "Pick days until next repetition:"
 msgstr "Bir sonraki tekrara kadarki günleri seç:"
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:257
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:258
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:109
 msgid "Grade your answer:"
 msgstr "Yanıtını derecelendir:"
@@ -1008,11 +1021,11 @@ msgstr ""
 msgid "All tags"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:129
+#: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:138
 msgid "Upgrade from Mnemosyne 1.x complete!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:130
+#: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:139
 msgid "Mnemosyne 2.x now stores its data here:"
 msgstr ""
 
@@ -1423,15 +1436,15 @@ msgstr "Ctrl+D"
 msgid "&Hide pronunciation field for this card type"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:344
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:350
 msgid "Scheduled: %d "
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:345
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:351
 msgid "Not memorised: %d "
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:346
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:352
 #: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:56
 msgid "Active: %d "
 msgstr ""

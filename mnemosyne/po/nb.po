@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-29 17:12+CEST\n"
+"POT-Creation-Date: 2012-07-11 10:08+CEST\n"
 "PO-Revision-Date: 2012-06-05 08:13+0000\n"
 "Last-Translator: Geir <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,14 +78,14 @@ msgstr "Gjenkjennelse"
 msgid "Production"
 msgstr "Produksjon"
 
-#: ../mnemosyne/libmnemosyne/__init__.py:267
-#: ../mnemosyne/libmnemosyne/__init__.py:280
+#: ../mnemosyne/libmnemosyne/__init__.py:269
+#: ../mnemosyne/libmnemosyne/__init__.py:282
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:701
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:343
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:349
 msgid "Error when running plugin:"
 msgstr "Feil ved kjøring av programtillegg:"
 
-#: ../mnemosyne/libmnemosyne/__init__.py:300
+#: ../mnemosyne/libmnemosyne/__init__.py:302
 msgid "Creating temporary database."
 msgstr "Oppretter midlertidig database."
 
@@ -442,15 +442,15 @@ msgstr ""
 "må løses ved å gjøre fullstendig synkronisering."
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:483
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:590
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1045
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:603
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1058
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:96
 msgid "No"
 msgstr "Nei"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:483
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:590
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1045
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:603
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1058
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:96
 msgid "Yes"
 msgstr "Ja"
@@ -499,7 +499,7 @@ msgstr "For instruksjoner på hvordan laste ned Mnemosyne sin kildekode"
 msgid "go to http://www.mnemosyne-proj.org"
 msgstr "gå til http://www.mnemosyne-proj.org"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:262
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:261
 msgid ""
 "Putting a database on a network drive is forbidden under Windows to avoid "
 "data corruption. Mnemosyne will now close."
@@ -507,46 +507,46 @@ msgstr ""
 "Å legge databasen på en nettverksstasjon er ikke lov under Windows for å "
 "unngå dataforvrenging. Mnemosyne vil nå lukkes."
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:346
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:352
 msgid "Missing plugin for card type with id:"
 msgstr "Mangler programtillegg for korttype med id:"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:360
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:366
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:30
 msgid "Another copy of Mnemosyne is still running."
 msgstr "En annen kopi av Mnemosyne kjører allerede."
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:361
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:367
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:31
 msgid "Continuing is impossible and will lead to data loss!"
 msgstr "Fortsettelse er umulig og vil føre til datatap!"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:364
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:379
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:370
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:385
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:34
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:49
 msgid "Unable to load file."
 msgstr "Klarte ikke åpne fil."
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:366
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:372
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:36
 msgid "Unable to load file, query failed"
 msgstr "Klarte ikke åpne fil, forespørsel feilet"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:369
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:375
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:39
 msgid "Unable to load file: database version mismatch."
 msgstr "Klaret ikke laste inn fil: ulik database versjon"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:448
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:461
 msgid "Warning: backup creation failed for"
 msgstr "Advarsel: backup feilet for"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:589
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:602
 msgid "Make tag '%s' active in saved set '%s'?"
 msgstr "Gjør tag '%s' aktiv i lagret sett '%s'?"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1044
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1057
 msgid "Make new card type active in saved set '%s'?"
 msgstr "Gjør ny korttype aktiv i lagret sett '%s'?"
 
@@ -596,6 +596,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:42
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:32
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:36
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:74
 msgid "Importing cards..."
 msgstr "Importerer kort..."
 
@@ -643,6 +644,18 @@ msgid ""
 msgstr ""
 "Denne XML filen inneholder læringsdata. Det er best å importere dette fra en "
 "mem fil, for å reservere historisk statestikk. Fortsette?"
+
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:20
+msgid "Mnemosyne 2.x *.cards files"
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:21
+msgid "Mnemosyne 2.x cards for sharing (*.cards)"
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:28
+msgid "Exporting cards..."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:264
 msgid "SuperMemo7 text in Q:/A: format"
@@ -793,52 +806,52 @@ msgstr ""
 "Bruk 'Lær foran plan' sparsomt. For pugging før en eksamen så er det mye "
 "bedre å bruke pugge planlegger programtillegget."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:146
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:147
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:33
 msgid "Returns in"
 msgstr "Returnerer om"
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:147
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:148
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:34
 msgid " day(s)."
 msgstr " dag(er)."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:151
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:152
 msgid "Next repetition: today."
 msgstr "Neste repetisjon: i dag."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:153
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:154
 msgid "Next repetition: tomorrow."
 msgstr "Neste repetisjon: i morgen."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:156
 msgid " days."
 msgstr " dager."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:156
 msgid "Next repetition in "
 msgstr "Neste repetisjon om "
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:196
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:197
 #: ../mnemosyne/pyqt_ui/preview_cards_dlg.py:65
 msgid "Question: "
 msgstr "Spørsmål: "
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:226
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:229
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:232
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:227
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:230
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:233
 msgid "Show answer"
 msgstr "Vis svar"
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:236
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:237
 msgid "Learn ahead of schedule"
 msgstr "Lær foran tidsskjema"
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:255
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:256
 msgid "Pick days until next repetition:"
 msgstr "Velg antall dager til neste repitisjon:"
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:257
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:258
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:109
 msgid "Grade your answer:"
 msgstr "Grader ditt svar:"
@@ -1052,11 +1065,11 @@ msgstr "Forrige år (aller kort)"
 msgid "All tags"
 msgstr "Alle tagger"
 
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:129
+#: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:138
 msgid "Upgrade from Mnemosyne 1.x complete!"
 msgstr "Oppgradering fra Mnemosyne 1.x ferdig!"
 
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:130
+#: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:139
 msgid "Mnemosyne 2.x now stores its data here:"
 msgstr "Mnemosyne 2.x lagrer nå data her:"
 
@@ -1505,15 +1518,15 @@ msgstr "Ctrl+D"
 msgid "&Hide pronunciation field for this card type"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:344
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:350
 msgid "Scheduled: %d "
 msgstr "Planlagt: %d "
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:345
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:351
 msgid "Not memorised: %d "
 msgstr "Ikke memorisert: %d "
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:346
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:352
 #: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:56
 msgid "Active: %d "
 msgstr "Aktive: %d "

@@ -6,6 +6,10 @@ prefetch
 QA split
 (TMP)
 
+hanging also happens when trying to display Q?
+
+heartbeat?
+
 APSW (isolation level, higher level wrapper, row connection factory,
     execute vs execute script, SELECT last_insert_rowid() last row id)
 
@@ -23,7 +27,7 @@ Release 2.0.1
 
 -update docs on cloze card type and sentence card type, cloze entire sentence
 
--reparent all dialog boxes
+-reparent all dialog boxes (doesn't seem to work for sync finished)
 
 -if dialog like edit card or browse cards is open on server, try to close it
  when sync comes in or rollover happens (Henrik)
@@ -33,6 +37,8 @@ Release 2.0.1
 -Mnemosyne name not set in dialog windows, only in progress bars.
 
 -with full sync, option to skip media sync
+
+-optimise away DISTINCT and do it at the python level
 
 -import
 -on import, activate plugins, create card types if necessary

@@ -418,6 +418,13 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         from mnemosyne.libmnemosyne.upgrades.upgrade_beta_11 import UpgradeBeta11
         UpgradeBeta11(self.component_manager).run()
 
+
+        # TMP
+        from mnemosyne.libmnemosyne.file_formats.mnemosyne2_cards import Mnemosyne2Cards
+
+        f = Mnemosyne2Cards(self.component_manager)
+        f.do_export('dummy')
+
     def save(self, path=None):
         # Update format.
         self.con.execute("update global_variables set value=? where key=?",
