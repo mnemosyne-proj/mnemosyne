@@ -54,7 +54,8 @@ parser.add_option("--debug", dest="debug_file",
 data_dir = None
 if options.data_dir != None:
     data_dir = os.path.abspath(options.data_dir)
-elif os.path.exists(os.path.join(os.getcwdu(), "mnemosyne")):
+elif os.path.exists(os.path.join(os.getcwdu(), "mnemosyne")) and \
+    os.path.isdir(os.path.join(os.getcwdu(), "mnemosyne")):
     data_dir = os.path.abspath(os.path.join(os.getcwdu(), "mnemosyne"))
 
 # Filename argument.

@@ -1,24 +1,8 @@
--fix hanging bug:
+-fix hanging bug
 
-Change isolation level
-timeout=0?
-prefetch
-QA split
-(TMP)
+check outside of py2exe
 
-hanging also happens when trying to display Q?
-
-heartbeat?
-
-APSW (isolation level, higher level wrapper, row connection factory,
-    execute vs execute script, SELECT last_insert_rowid() last row id)
-
-if changing isolation level: how to detect if another instance is open?
-
-related to saving? prefetch? QA split
- machinery?
-
-check with windows logging machinery
+"16:23:26.2507001","FreeCommander.exe","4660","FileSystemControl","D:\SY\Info\Mnemosyne","INVALID DEVICE REQUEST","Control: FSCTL_LMR_QUERY_DEBUG_INFO"
 
 
 Release 2.0.1
@@ -59,7 +43,7 @@ Release 2.0.1
  disabling plugin?
 -criterion to select last X added cards, useful for cramming
 
--database sometimes locks automatically?
+-apply button on edit window as called from the card browser?
 
 -remove upgrade_beta_6.py, beta_7, etc... also in database
 
@@ -514,9 +498,12 @@ Multiuser statistics analysis:
 
 -autoupgrade, or at least notify of available upgrade (needs a separate thread)
 
--bundle docs
+-Move to APSW? (isolation level, higher level wrapper, row connection factory,
+ execute vs execute script, SELECT last_insert_rowid() last row id)
+-if changing isolation level: how to detect if another instance is open?
 
--undo last grade + keyboard shortcut. Disable undo after logs have been purged
+-undo last grade + keyboard shortcut. Disable undo after logs have been purged.
+ or through SQL checkpointing after changing isolation level?
 
 -http://labs.trolltech.com/blogs/2009/03/12/wysiwyg-html-editor/
 

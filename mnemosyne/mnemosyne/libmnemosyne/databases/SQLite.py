@@ -260,13 +260,10 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                     self.main_widget().show_error(_\
 ("Putting a database on a network drive is forbidden under Windows to avoid data corruption. Mnemosyne will now close."))
                     sys.exit(-1)
-            #self._connection = sqlite3.connect(\
-            #    self._path, isolation_level="EXCLUSIVE")
-
-            # TMP
-            self._connection = sqlite3.connect(\
-                self._path, timeout=0)
-
+            # We use EXCLUSIVE isolation as a mechaninsm to prevent a second
+            # instance of Mnemosyne from opening the database.
+            self._connection = sqlite3.connect(
+                self._path, isolation_level="EXCLUSIVE")
             self._connection.row_factory = sqlite3.Row
             # http://www.mail-archive.com/sqlite-users@sqlite.org/msg34453.html
             self._connection.execute("pragma journal_mode = persist;")
@@ -417,13 +414,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # TMP
         from mnemosyne.libmnemosyne.upgrades.upgrade_beta_11 import UpgradeBeta11
         UpgradeBeta11(self.component_manager).run()
-
-
-        # TMP
-        from mnemosyne.libmnemosyne.file_formats.mnemosyne2_cards import Mnemosyne2Cards
-
-        f = Mnemosyne2Cards(self.component_manager)
-        f.do_export('dummy')
 
     def save(self, path=None):
         # Update format.

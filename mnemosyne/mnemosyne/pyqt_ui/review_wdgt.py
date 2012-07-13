@@ -74,10 +74,6 @@ class QAOptimalSplit(object):
         self.update_stretch_factors()
 
     def update_stretch_factors(self):
-
-        #TMP:
-        return
-
         total_height_available = self.question.height() + self.answer.height()
         # Correct the required heights of question and answer for the
         # presence of horizontal scrollbars.
@@ -151,17 +147,15 @@ class QAOptimalSplit(object):
 
     def set_question(self, text):
         self.question_text = text
-
-        #self.question_preview.page().setPreferredContentsSize(\
-        #    QtCore.QSize(self.question.size().width(), 1))
-        #self.question_preview.setHtml(self.silence_media(text))
+        self.question_preview.page().setPreferredContentsSize(\
+            QtCore.QSize(self.question.size().width(), 1))
+        self.question_preview.setHtml(self.silence_media(text))
 
     def set_answer(self, text):
         self.answer_text = text
-
-        #self.answer_preview.page().setPreferredContentsSize(\
-        #    QtCore.QSize(self.answer.size().width(), 1))
-        #self.answer_preview.setHtml(self.silence_media(text))
+        self.answer_preview.page().setPreferredContentsSize(\
+            QtCore.QSize(self.answer.size().width(), 1))
+        self.answer_preview.setHtml(self.silence_media(text))
 
     def reveal_question(self):
         self.question.setHtml(self.question_text)

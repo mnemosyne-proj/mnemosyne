@@ -70,7 +70,13 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
     def set_new_card(self, card):
         # Called from card browser.
         self.card = card
+        for i in range(self.card_types_widget.count()):
+            if unicode(self.card_types_widget.itemText(i)) \
+                == card.card_type.name:
+                self.card_types_widget.setCurrentIndex(i)
+                break
         self.update_card_widget(keep_data_from_previous_widget=False)
+        self.update_tags_combobox(self.card.tag_string())
 
     def _store_state(self):
         self.config()["edit_card_dlg_state"] = self.saveGeometry()

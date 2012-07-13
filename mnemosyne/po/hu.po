@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-11 10:08+CEST\n"
+"POT-Creation-Date: 2012-07-13 13:32+CEST\n"
 "PO-Revision-Date: 2012-05-24 23:17+0000\n"
 "Last-Translator: Peter Bienstman <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,7 +81,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/__init__.py:269
 #: ../mnemosyne/libmnemosyne/__init__.py:282
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:701
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:349
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:346
 msgid "Error when running plugin:"
 msgstr "Hiba a bővítmény futtatása közben:"
 
@@ -231,7 +231,7 @@ msgstr "Hiba a config.py fájlban:"
 #: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:68
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:56
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:68
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:136
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:142
 #: ../mnemosyne/pyqt_ui/main_wdgt.py:69 ../mnemosyne/pyqt_ui/main_wdgt.py:72
 #: ../mnemosyne/pyqt_ui/main_wdgt.py:76 ../mnemosyne/pyqt_ui/main_wdgt.py:99
 #: ../mnemosyne/pyqt_ui/tip_after_starting_n_times.py:31
@@ -427,15 +427,15 @@ msgid ""
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:483
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:603
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1058
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:593
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1048
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:96
 msgid "No"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:483
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:603
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1058
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:593
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1048
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:96
 msgid "Yes"
 msgstr ""
@@ -490,46 +490,46 @@ msgid ""
 "data corruption. Mnemosyne will now close."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:352
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:349
 msgid "Missing plugin for card type with id:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:366
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:363
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:30
 msgid "Another copy of Mnemosyne is still running."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:367
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:364
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:31
 msgid "Continuing is impossible and will lead to data loss!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:370
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:385
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:367
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:382
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:34
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:49
 msgid "Unable to load file."
 msgstr "Nem lehet betölteni a fájlt."
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:372
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:369
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:36
 msgid "Unable to load file, query failed"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:375
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:372
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:39
 msgid "Unable to load file: database version mismatch."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:461
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:451
 msgid "Warning: backup creation failed for"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:602
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:592
 msgid "Make tag '%s' active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1057
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1047
 msgid "Make new card type active in saved set '%s'?"
 msgstr ""
 
@@ -573,7 +573,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:42
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:32
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:36
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:74
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:123
 msgid "Importing cards..."
 msgstr ""
 
@@ -620,15 +620,15 @@ msgid ""
 "file, in order to preserve historical statistics. Continue?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:20
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:24
 msgid "Mnemosyne 2.x *.cards files"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:21
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:25
 msgid "Mnemosyne 2.x cards for sharing (*.cards)"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:28
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:32
 msgid "Exporting cards..."
 msgstr ""
 
@@ -766,52 +766,52 @@ msgid ""
 "much better to use the cramming scheduler plugin"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:147
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:146
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:33
 msgid "Returns in"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:148
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:147
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:34
 msgid " day(s)."
 msgstr " nap múlva."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:152
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:151
 msgid "Next repetition: today."
 msgstr "Következő feleltetés: ma."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:154
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:153
 msgid "Next repetition: tomorrow."
 msgstr "Következő feleltetés: holnap."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:156
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
 msgid " days."
 msgstr " nap múlva."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:156
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
 msgid "Next repetition in "
 msgstr "Következő feleltetés "
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:197
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:196
 #: ../mnemosyne/pyqt_ui/preview_cards_dlg.py:65
 msgid "Question: "
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:227
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:230
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:233
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:226
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:229
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:232
 msgid "Show answer"
 msgstr "Mutasd a választ"
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:237
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:236
 msgid "Learn ahead of schedule"
 msgstr "Ütemterv előtti tanulás"
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:256
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:255
 msgid "Pick days until next repetition:"
 msgstr "Válassza ki a következő feleltetésig hátralevő napokat:"
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:258
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:257
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:109
 msgid "Grade your answer:"
 msgstr "Osztályozza le a válaszát:"
@@ -1109,7 +1109,7 @@ msgstr "Felhagy a jelenlegi kártyával?"
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:227
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:68
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:63
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:138
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:144
 msgid "&No"
 msgstr "&Nem"
 
@@ -1117,7 +1117,7 @@ msgstr "&Nem"
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:227
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:68
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:63
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:138
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:144
 msgid "&Yes"
 msgstr "&Igen"
 
@@ -1353,12 +1353,12 @@ msgstr ""
 msgid "No duplicate in new keys allowed."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:86
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:99
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:92
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:105
 msgid "You are not allowed to cancel the merging."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:137
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:143
 msgid "Abandon changes to current card?"
 msgstr ""
 
@@ -1434,15 +1434,15 @@ msgstr "Ctrl+P"
 msgid "&Hide pronunciation field for this card type"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:350
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:344
 msgid "Scheduled: %d "
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:351
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:345
 msgid "Not memorised: %d "
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:352
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:346
 #: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:56
 msgid "Active: %d "
 msgstr ""
