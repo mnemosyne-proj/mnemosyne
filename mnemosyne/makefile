@@ -83,6 +83,11 @@ osx: 	# Contributed by Patrick Kenny.
 	#
 	# make sure there are no existing build files
 	sudo rm -rf build/ dist/
+	# build the UI and the translations
+	cd mnemosyne/pyqt_ui && make clean
+	cd mnemosyne/pyqt_ui && make
+	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
+	cd po && make
 	# build the app with py2app
 	sudo $(PYTHON) setup.py py2app
 	# add a blank qt.conf so that the system will used the bundled qt instead of the system qt if the system already has qt installed
@@ -92,15 +97,15 @@ osx: 	# Contributed by Patrick Kenny.
 	# create the directory for the translations
 	sudo mkdir dist/Mnemosyne.app/Contents/Resources/share
 	# add the translations
-	sudo cp -R mo dist/Mnemosyne.app/Contents/Resources/share/locale
+	sudo cp -R po dist/Mnemosyne.app/Contents/Resources/share/locale
 	# by default, qt looks in the plugins directory in the root folder
 	sudo mkdir dist/Mnemosyne.app/Contents/plugins
-	# copy the dylib into plugins
-	sudo cp -R /opt/local/share/qt4/plugins/sqldrivers/libqsqlite.dylib dist/Mnemosyne.app/Contents/plugins
+	# copy the dylib directory into plugins
+	sudo cp -R /opt/local/share/qt4/plugins/sqldrivers dist/Mnemosyne.app/Contents/plugins
 	# dylib must be relinked to use the bundled copy of Qt and not the system copy
-	sudo install_name_tool -change /opt/local/lib/libsqlite3.0.dylib @executable_path/../Frameworks/libsqlite3.0.8.6.dylib Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
-	sudo install_name_tool -change /opt/local/lib/libQtSql.4.dylib @executable_path/../Frameworks/libQtSql.4.dylib Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
-	sudo install_name_tool -change /opt/local/lib/libQtCore.4.dylib @executable_path/../Frameworks/libQtCore.4.dylib Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
+	sudo install_name_tool -change /opt/local/lib/libsqlite3.0.dylib @executable_path/../Frameworks/libsqlite3.0.8.6.dylib dist/Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
+	sudo install_name_tool -change /opt/local/lib/libQtSql.4.dylib @executable_path/../Frameworks/libQtSql.4.dylib dist/Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
+	sudo install_name_tool -change /opt/local/lib/libQtCore.4.dylib @executable_path/../Frameworks/libQtCore.4.dylib dist/Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
 
 wm: install-virtual-env
 	cp mnemosyne/ppygui_ui/ppygui_ui/*.py mnemosyne/ppygui_ui/
