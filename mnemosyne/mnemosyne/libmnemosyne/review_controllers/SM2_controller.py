@@ -144,7 +144,7 @@ class SM2Controller(ReviewController):
             import math
             days = int(math.ceil(interval / (24.0 * 60 * 60)))
             self.main_widget().set_status_bar_message(_("Returns in") + \
-                " " + str(interval) + _(" day(s)."))
+                " " + str(days) + _(" day(s)."))
 
     def next_rep_string(self, days):
         if days == 0:
