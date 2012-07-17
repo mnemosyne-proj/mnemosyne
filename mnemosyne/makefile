@@ -80,6 +80,7 @@ benchmark: install-virtual-env
 	./bin/python tests/benchmark.py
 
 osx: 	# Contributed by Patrick Kenny.
+	# You might need to making a pyrcc symlink from the Macports pyrcc4-x.x in /usr/bin 
 	#
 	# make sure there are no existing build files
 	sudo rm -rf build/ dist/
@@ -103,7 +104,7 @@ osx: 	# Contributed by Patrick Kenny.
 	# copy the dylib directory into plugins
 	sudo cp -R /opt/local/share/qt4/plugins/sqldrivers dist/Mnemosyne.app/Contents/plugins
 	# dylib must be relinked to use the bundled copy of Qt and not the system copy
-	sudo install_name_tool -change /opt/local/lib/libsqlite3.0.dylib @executable_path/../Frameworks/libsqlite3.0.8.6.dylib dist/Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
+	sudo install_name_tool -change /opt/local/lib/libsqlite3.0.dylib @executable_path/../Frameworks/libsqlite3.0.dylib dist/Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
 	sudo install_name_tool -change /opt/local/lib/libQtSql.4.dylib @executable_path/../Frameworks/libQtSql.4.dylib dist/Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
 	sudo install_name_tool -change /opt/local/lib/libQtCore.4.dylib @executable_path/../Frameworks/libQtCore.4.dylib dist/Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
 
