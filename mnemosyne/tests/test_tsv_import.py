@@ -30,7 +30,10 @@ class Widget(MainWidget):
             return 0
         raise NotImplementedError
 
-
+    def show_warning(self, message):
+        if message.startswith("media "):
+            return 0
+        raise NotImplementedError
 
 class TestTsvImport(MnemosyneTest):
 
@@ -113,3 +116,20 @@ class TestTsvImport(MnemosyneTest):
         self.review_controller().reset()
         assert u"\u00E0" in self.review_controller().card.question()
         assert last_error == ""
+
+    def test_media(self):
+        global last_error
+        file(os.path.join(os.getcwd(), "dot_test", "default.db_media", "a.png"), "w")
+        filename = os.path.join(os.getcwd(), "tests", "files", "tsv_media.txt")
+        self.tsv_importer().do_import(filename)
+        assert self.database().card_count() == 2
+        assert self.database().card_count_for_tags(\
+            [self.database().get_or_create_tag_with_name("MISSING_MEDIA")], False) == 1
+        assert last_error == ""
+
+    def teardown(self):
+        filename = \
+            os.path.join(os.getcwd(), "dot_test", "default.db_media", "a.png")
+        if os.path.exists(filename):
+            os.remove(filename)
+        MnemosyneTest.teardown(self)

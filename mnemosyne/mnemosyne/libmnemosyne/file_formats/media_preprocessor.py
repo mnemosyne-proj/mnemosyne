@@ -42,14 +42,18 @@ class MediaPreprocessor(Component):
         for fact_key in fact_data:
             for match in re_src.finditer(fact_data[fact_key]):
                 filename = match.group(1)
-                if not os.path.exists(filename) and \
-                    not os.path.exists(expand_path(filename, self.import_dir)):
+                if not os.path.exists(filename) \
+                    and not os.path.exists(\
+                        expand_path(filename, self.import_dir)) \
+                    and not os.path.exists(\
+                        expand_path(filename, self.database().media_dir())):
                     fact_data[fact_key] = \
                         fact_data[fact_key].replace(match.group(),
                         "src_missing=\"%s\"" % match.group(1))
                     missing_media = True
                     continue
-                if not os.path.isabs(filename):
+                if not os.path.isabs(filename) and not os.path.exists(\
+                        expand_path(filename, self.database().media_dir())):
                     source = expand_path(filename, self.import_dir)
                     dest = expand_path(filename, media_dir)
                     directory = os.path.dirname(dest)

@@ -1,15 +1,26 @@
--fix hanging bug
+-sqlite cache size?
 
-check outside of py2exe
 
-"16:23:26.2507001","FreeCommander.exe","4660","FileSystemControl","D:\SY\Info\Mnemosyne","INVALID DEVICE REQUEST","Control: FSCTL_LMR_QUERY_DEBUG_INFO"
+-update docs on cloze card type and sentence card type, cloze entire sentence
 
 
 Release 2.0.1
 
 -recheck Qt bugs
 
--update docs on cloze card type and sentence card type, cloze entire sentence
+-add -d option to webserver
+
+-linux: calculate long stat (like past year revision), then select stort stat.
+ Upon opening the program again, the stats seem to hang?
+
+-reverse arabic plugin no longer seems to work?
+
+-if the sync changed the appearance settings, the current card's question still
+ shows the old appearance
+
+-rework duplicate checking to allow adding dups if the user so desires
+
+-rework ltr cloze deletion, also check clozes with hints containing space
 
 -reparent all dialog boxes (doesn't seem to work for sync finished)
 
@@ -23,6 +34,12 @@ Release 2.0.1
 -with full sync, option to skip media sync
 
 -optimise away DISTINCT and do it at the python level
+
+-better use of transactions: This is because of the way SQLite uses its page cache.
+ If you put INSERT/UPDATE statements in a transaction it makes the modifications
+ in memory only and then writes them in bulk when you COMMIT.
+ If you don't have an explicit transaction SQLite puts an implicit transaction
+ around each INSERT, UPDATE, or DELETE.
 
 -import
 -on import, activate plugins, create card types if necessary
@@ -118,6 +135,8 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -RTL issues with mixed text, eg.  a (b ل)
 
 -'duplicate card' option in menu and browser? Or as plugin?
+
+-default input method/keyboard layout per field?
 
 -remove hack to preview cloze cards in card type appearance.
 

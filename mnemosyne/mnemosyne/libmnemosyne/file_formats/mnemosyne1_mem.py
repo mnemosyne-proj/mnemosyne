@@ -58,6 +58,7 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         # Detect inverses.
         db.link_inverse_cards()
         w.close_progress()
+        self.warned_about_missing_media = False
 
     def read_items_from_mnemosyne1_mem(self, filename):
         sys.modules["mnemosyne.core"] = object()

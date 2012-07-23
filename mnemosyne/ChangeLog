@@ -6,18 +6,20 @@
  "La casa es [big]"
 -Take size of media player widget (Linux only) into account when calculating
  the optimal split between question and answer.
--Fix bug where card appearance settings would not be synced between different
+-Fixed bug where card appearance settings would not be synced between different
  machines.
--Fix issue in Activate cards, where a set without a name and a saved set would
- interfere.
+-Fixed issue in Activate cards, where a set without a name and a saved set
+ would interfere.
 -The dialog where you name saved sets is now a combobox which also list the
  current saved sets, to allow for easier updating of a saved set.
 -Message boxes are now centered over the current window (card browser, ...) as
  opposed to the main window.
 -Longer initial interval if the first grade you gave a card is 5.
--Correctly update the tags and the card type when moving to the next card
- using PgDown from the card browser (reported by Chris).
--Fix crashes in card browser with non-latin clone names (reported by Gabriel
+-Fixed spurious firing of missing media detection (reported by Geir).
+-Fixed a few bugs when displaying the edit or preview windows from the card
+ browser and using PgUp and PgDown to move to the previous/next card (reported
+ by Chris Schmidt).
+-Fixed crashes in card browser with non-latin clone names (reported by Gabriel
  Benamouzig).
 -Prevent uninstalling a card type plugin if a clone of that card type has been
  created, even if it does not yet have any cards.

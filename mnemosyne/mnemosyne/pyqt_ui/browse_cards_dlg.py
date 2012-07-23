@@ -462,6 +462,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         elif up_down == PreviewCardsDlg.DOWN:
             shift = 1
         self.table.selectRow(current_row + shift)
+        self.preview_dlg.index = 0
         self.preview_dlg.cards = self.cards_from_single_selection()
         self.preview_dlg.tag_text = self.preview_dlg.cards[0].tag_string()
         self.preview_dlg.update_dialog()

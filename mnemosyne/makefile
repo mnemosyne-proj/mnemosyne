@@ -80,7 +80,7 @@ benchmark: install-virtual-env
 	./bin/python tests/benchmark.py
 
 osx: 	# Contributed by Patrick Kenny.
-	# You might need to making a pyrcc symlink from the Macports pyrcc4-x.x in /usr/bin 
+	# You might need to making a pyrcc symlink from the Macports pyrcc4-x.x in /usr/bin
 	#
 	# make sure there are no existing build files
 	sudo rm -rf build/ dist/

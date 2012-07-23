@@ -46,6 +46,7 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
             db.log_added_card(timestamp, item.id)
         self.database().link_inverse_cards()
         w.close_progress()
+        self.warned_about_missing_media = False
 
     def read_items_from_mnemosyne1_xml(self, filename):
         # Reset anonymiser when importing a new file, otherwise information

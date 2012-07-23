@@ -267,6 +267,10 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self._connection.row_factory = sqlite3.Row
             # http://www.mail-archive.com/sqlite-users@sqlite.org/msg34453.html
             self._connection.execute("pragma journal_mode = persist;")
+
+            # TMP
+            self._connection.execute("pragma cache_size=100")
+
             # Should only be used to speed up the test suite.
             if self.config()["asynchronous_database"] == True:
                 self._connection.execute("pragma synchronous = off;")

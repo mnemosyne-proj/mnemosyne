@@ -83,7 +83,10 @@ class Tsv(FileFormat, MediaPreprocessor):
                 card_type = self.card_type_with_id("1")
             else:
                 card_type = self.card_type_with_id("3")
-            self.preprocess_media(fact_data, [extra_tag_name])
+            self.preprocess_media(fact_data, tag_names)
             self.controller().create_new_cards(fact_data, card_type, grade=-1,
                 tag_names=tag_names, check_for_duplicates=False, save=False)
+            if _("MISSING_MEDIA") in tag_names:
+                tag_names.remove(_("MISSING_MEDIA"))
+        self.warned_about_missing_media = False
 
