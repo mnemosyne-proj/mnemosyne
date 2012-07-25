@@ -1,10 +1,22 @@
--sqlite cache size?
+-update changelog
 
+-check if restoring from backup with self.abandon really works, also after
+ pluggin the sqlite3 engine back in
+
+-rework mnemosyne level locking
 
 -update docs on cloze card type and sentence card type, cloze entire sentence
 
 
 Release 2.0.1
+
+-rework ltr cloze deletion, also check clozes with hints containing space
+
+-sync problem: tag b exists, card with tag a rename tag to a.b, edit card?, then
+rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict)
+
+-upon sync conflict, cannot seem to keep local history
+ (~/tmp/default-20120723-174915.db)
 
 -recheck Qt bugs
 
@@ -20,8 +32,6 @@ Release 2.0.1
 
 -rework duplicate checking to allow adding dups if the user so desires
 
--rework ltr cloze deletion, also check clozes with hints containing space
-
 -reparent all dialog boxes (doesn't seem to work for sync finished)
 
 -if dialog like edit card or browse cards is open on server, try to close it
@@ -34,12 +44,11 @@ Release 2.0.1
 -with full sync, option to skip media sync
 
 -optimise away DISTINCT and do it at the python level
-
--better use of transactions: This is because of the way SQLite uses its page cache.
- If you put INSERT/UPDATE statements in a transaction it makes the modifications
- in memory only and then writes them in bulk when you COMMIT.
- If you don't have an explicit transaction SQLite puts an implicit transaction
- around each INSERT, UPDATE, or DELETE.
+-better use of transactions: grading, import, upgrade, sync client and server,
+ dump to science log
+-more sqlite profiling
+ !./bin/python /home/pbienst/apswtrace.py ./bin/nosetests -v tests/test_sync.py:TestSync.test_add_tag
+-archive old learning data, check interplay with sync
 
 -import
 -on import, activate plugins, create card types if necessary
@@ -52,6 +61,11 @@ Release 2.0.1
 
 -add debug information for conflict detection?
 
+-paste from clipboard: popup asking to keep formatting or lose it.
+
+-option to pick location of backups in config? Also shows you where the datadir
+ is. Backup config too?
+
 -implement duplicate checking. Also synonym checking? Add then standard tags.
 -autorun after import, browse with edit?, but not sync
 
@@ -61,8 +75,6 @@ Release 2.0.1
 -criterion to select last X added cards, useful for cramming
 
 -apply button on edit window as called from the card browser?
-
--remove upgrade_beta_6.py, beta_7, etc... also in database
 
 -don't switch to text entry field when changing card type with the keys.
 
@@ -227,8 +239,6 @@ Milesteiner
 -removing plugin with criterion should not happen if it is in use.
 -warn when syncing and the other criterion plugin is not present?
 -make 'grade activity criterion' an official plugin? Add tests?
-
--archive old learning data, check interplay with sync
 
 -hook up all dialogs in UDP
 
@@ -516,10 +526,6 @@ Multiuser statistics analysis:
 -drag and drop of pictures, sound files
 
 -autoupgrade, or at least notify of available upgrade (needs a separate thread)
-
--Move to APSW? (isolation level, higher level wrapper, row connection factory,
- execute vs execute script, SELECT last_insert_rowid() last row id)
--if changing isolation level: how to detect if another instance is open?
 
 -undo last grade + keyboard shortcut. Disable undo after logs have been purged.
  or through SQL checkpointing after changing isolation level?

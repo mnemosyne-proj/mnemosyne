@@ -72,12 +72,12 @@ class SQLiteMedia(object):
     def check_for_edited_media_files(self):
         # Regular media files.
         new_hashes = {}
-        for sql_res in self.con.execute("select * from media"):
-            filename = sql_res["filename"]
+        for sql_res in self.con.execute("select filename, _hash from media"):
+            filename, hash = sql_res[0], sql_res[1]
             if not os.path.exists(expand_path(filename, self.media_dir())):
                 continue
             new_hash = self._media_hash(filename)
-            if sql_res["_hash"] != new_hash:
+            if hash != new_hash:
                 new_hashes[filename] = new_hash
         for filename, new_hash in new_hashes.iteritems():
             self.con.execute("update media set _hash=? where filename=?",

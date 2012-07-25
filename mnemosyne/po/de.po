@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.0-pre\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-23 10:34+CEST\n"
+"POT-Creation-Date: 2012-07-25 17:12+CEST\n"
 "PO-Revision-Date: 2012-06-04 20:52+0000\n"
 "Last-Translator: mase <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,14 +89,14 @@ msgstr "Erkennung"
 msgid "Production"
 msgstr "Produktion"
 
-#: ../mnemosyne/libmnemosyne/__init__.py:269
-#: ../mnemosyne/libmnemosyne/__init__.py:282
+#: ../mnemosyne/libmnemosyne/__init__.py:257
+#: ../mnemosyne/libmnemosyne/__init__.py:270
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:701
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:350
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:334
 msgid "Error when running plugin:"
 msgstr "Fehler beim Ausführen des Plugins:"
 
-#: ../mnemosyne/libmnemosyne/__init__.py:302
+#: ../mnemosyne/libmnemosyne/__init__.py:290
 msgid "Creating temporary database."
 msgstr "Erzeuge temporäre Datenbank."
 
@@ -457,15 +457,15 @@ msgstr ""
 "werden müssen."
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:483
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:597
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1052
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:581
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1050
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:97
 msgid "No"
 msgstr "Nein"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:483
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:597
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1052
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:581
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1050
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:97
 msgid "Yes"
 msgstr "Ja"
@@ -514,54 +514,32 @@ msgstr "Nähere Informationen wie man an den Quelltext von Mnemosyne"
 msgid "go to http://www.mnemosyne-proj.org"
 msgstr "sind unter http://www.mnemosyne-proj.org verfügbar"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:261
-msgid ""
-"Putting a database on a network drive is forbidden under Windows to avoid "
-"data corruption. Mnemosyne will now close."
-msgstr ""
-"Eine Datenbank auf einem Laufwerk im Netzwerk abzulegen wird unter Windows "
-"unterbunden, um Datenverlust vorzubeugen. Mnemosyne wird nun beendet."
-
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:353
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:337
 msgid "Missing plugin for card type with id:"
 msgstr "Fehlendes Plugin für Kartentyp mit ID:"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:367
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:30
-msgid "Another copy of Mnemosyne is still running."
-msgstr "Eine andere Instanz von Mnemosyne läuft noch."
-
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:368
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:31
-msgid "Continuing is impossible and will lead to data loss!"
-msgstr "Fortsetzen ist unmöglich und würde zu Datenverlust führen!"
-
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:356
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:371
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:386
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:34
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:49
 msgid "Unable to load file."
 msgstr "Laden der Datei nicht möglich."
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:373
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:36
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:358
 msgid "Unable to load file, query failed"
 msgstr "Laden der Datei nicht möglich, Abfrage fehlgeschlagen"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:376
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:39
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:361
 msgid "Unable to load file: database version mismatch."
 msgstr "Laden der Datei nicht möglich: Falsche Datenbankversion."
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:455
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:437
 msgid "Warning: backup creation failed for"
 msgstr "Warnung: Erstellung einer Sicherung fehlgeschlagen für"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:596
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:580
 msgid "Make tag '%s' active in saved set '%s'?"
 msgstr "Tag '%s' in gesichertem Set '%s' aktivieren?"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1051
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1049
 msgid "Make new card type active in saved set '%s'?"
 msgstr "Neuen Kartentyp in gesichertem Set '%s' aktivieren?"
 
@@ -581,6 +559,15 @@ msgstr "Fehlende Mediendatei!"
 msgid "Missing plugins for card types."
 msgstr "Fehlende Plugins für Kartentypen."
 
+#: ../mnemosyne/libmnemosyne/databases/_apsw.py:54
+#: ../mnemosyne/libmnemosyne/databases/_sqlite3.py:49
+msgid ""
+"Putting a database on a network drive is forbidden under Windows to avoid "
+"data corruption. Mnemosyne will now close."
+msgstr ""
+"Eine Datenbank auf einem Laufwerk im Netzwerk abzulegen wird unter Windows "
+"unterbunden, um Datenverlust vorzubeugen. Mnemosyne wird nun beendet."
+
 #: ../mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:90
 msgid "Cuecard .wcu"
 msgstr "Cuecard .wcu"
@@ -589,11 +576,13 @@ msgstr "Cuecard .wcu"
 msgid "Cuecard files (*.wcu *.WCU)"
 msgstr "Cuecard Dateien (*.wcu *.WCU)"
 
-#: ../mnemosyne/libmnemosyne/file_formats/media_preprocessor.py:60
+#: ../mnemosyne/libmnemosyne/file_formats/media_preprocessor.py:64
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:89
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:90
 msgid "MISSING_MEDIA"
 msgstr "FEHLENDE_MEDIEN"
 
-#: ../mnemosyne/libmnemosyne/file_formats/media_preprocessor.py:63
+#: ../mnemosyne/libmnemosyne/file_formats/media_preprocessor.py:67
 msgid ""
 "Warning: media files were missing. These cards have been tagged as "
 "MISSING_MEDIA. You must also change 'scr_missing' to 'scr' in the text of "
@@ -2513,6 +2502,12 @@ msgstr "foo"
 #: ../tests/test_translator.py:32
 msgid "This is a test."
 msgstr "Dies ist ein Test."
+
+#~ msgid "Another copy of Mnemosyne is still running."
+#~ msgstr "Eine andere Instanz von Mnemosyne läuft noch."
+
+#~ msgid "Continuing is impossible and will lead to data loss!"
+#~ msgstr "Fortsetzen ist unmöglich und würde zu Datenverlust führen!"
 
 #~ msgid "&Add as is"
 #~ msgstr "&Ohne Veränderung hinzufügen"

@@ -301,13 +301,13 @@ class TestAddCards(MnemosyneTest):
         self.controller().save_file()
 
         sql_res = self.database().con.execute(\
-            "select * from log where _id=14").fetchone()
-        assert sql_res["event_type"] == EventTypes.ADDED_CARD
-        assert sql_res["object_id"] is not None
+            "select event_type, object_id from log where _id=14").fetchone()
+        assert sql_res[0] == EventTypes.ADDED_CARD
+        assert sql_res[1] is not None
 
         sql_res = self.database().con.execute(\
-            "select * from log where _id=15").fetchone()
-        assert sql_res["event_type"] == EventTypes.REPETITION
+            "select event_type from log where _id=15").fetchone()
+        assert sql_res[0] == EventTypes.REPETITION
 
     def test_optional_keys(self):
         fact_data = {"f": "foreign",

@@ -363,10 +363,10 @@ class Client(Partner):
                 response = response.read()
                 message, traceback = self.text_format.parse_message(response)
                 message = message.lower()
-        if "server error" in message:
-            raise SeriousSyncError(message)
-        if "conflict" in message:
-            return "conflict"
+                if "server error" in message:
+                    raise SeriousSyncError(message)
+                if "conflict" in message:
+                    return "conflict"
         return "OK"
 
     def put_client_entire_database_binary(self):

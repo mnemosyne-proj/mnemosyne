@@ -63,6 +63,7 @@ class SQLiteLogging(object):
 
         timestamp = int(time.time())
         scheduled_count = 0
+        self.start_transaction()
         for n in range(1, 8):
             timestamp += DAY
             scheduled_count += \
@@ -72,6 +73,7 @@ class SQLiteLogging(object):
                 (EventTypes.LOADED_DATABASE, timestamp,
                 self.config().machine_id() + ".fut",
                 scheduled_count, -666, -666))
+        self.end_transaction()
 
     def log_added_card(self, timestamp, card_id):
         self.con.execute(\
@@ -211,49 +213,45 @@ class SQLiteLogging(object):
         sql_res = self.con.execute(\
             "select _last_log_id from partnerships where partner=?",
             ("log.txt", )).fetchone()
-        last_index = int(sql_res["_last_log_id"])
+        last_index = int(sql_res[0])
         index = 0
         # Loop over log entries and dump them to text file.
-        for cursor in self.con.execute(\
-            "select * from log where _id>?", (last_index, )):
-            index = int(cursor["_id"])
-            event_type = cursor["event_type"]
+        for cursor in self.con.execute("""select _id, event_type, timestamp,
+            object_id, grade, easiness, acq_reps, ret_reps, lapses,
+            acq_reps_since_lapse, ret_reps_since_lapse, scheduled_interval,
+            actual_interval, thinking_time, next_rep from log where _id>?""", (last_index, )):
+            index = int(cursor[0])
+            event_type = cursor[1]
             timestamp = time.strftime("%Y-%m-%d %H:%M:%S",
-                time.localtime(cursor["timestamp"]))
+                time.localtime(cursor[2]))
             if event_type == EventTypes.STARTED_PROGRAM:
                 print >> logfile, "%s : Program started : %s" \
-                      % (timestamp, cursor["object_id"])
+                      % (timestamp, cursor[3])
             elif event_type == EventTypes.STARTED_SCHEDULER:
                 print >> logfile, "%s : Scheduler : %s" \
-                      % (timestamp, cursor["object_id"])
+                      % (timestamp, cursor[3])
             elif event_type == EventTypes.LOADED_DATABASE:
                 print >> logfile, "%s : Loaded database %d %d %d" \
-                      % (timestamp, cursor["acq_reps"], cursor["ret_reps"],
-                         cursor["lapses"])
+                      % (timestamp, cursor[6], cursor[7], cursor[8])
             elif event_type == EventTypes.SAVED_DATABASE:
                 print >> logfile, "%s : Saved database %d %d %d" \
-                      % (timestamp, cursor["acq_reps"], cursor["ret_reps"],
-                         cursor["lapses"])
+                      % (timestamp, cursor[6], cursor[7], cursor[8])
             elif event_type == EventTypes.ADDED_CARD:
                 # Use dummy grade and interval, We log the first repetition
                 # separately anyhow.
                 print >> logfile, "%s : New item %s -1 -1" \
-                      % (timestamp, cursor["object_id"])
+                      % (timestamp, cursor[3])
             elif event_type == EventTypes.DELETED_CARD:
                 print >> logfile, "%s : Deleted item %s" \
-                      % (timestamp, cursor["object_id"])
+                      % (timestamp, cursor[3])
             elif event_type == EventTypes.REPETITION:
-                new_interval = int(cursor["next_rep"] - cursor["timestamp"])
+                new_interval = int(cursor[14] - cursor[2])
                 print >> logfile, \
               "%s : R %s %d %1.2f | %d %d %d %d %d | %d %d | %d %d | %1.1f" %\
-                         (timestamp, cursor["object_id"], cursor["grade"],
-                          cursor["easiness"], cursor["acq_reps"],
-                          cursor["ret_reps"], cursor["lapses"],
-                          cursor["acq_reps_since_lapse"],
-                          cursor["ret_reps_since_lapse"],
-                          cursor["scheduled_interval"],
-                          cursor["actual_interval"], new_interval,
-                          0, cursor["thinking_time"])
+                         (timestamp, cursor[3], cursor[4], cursor[5],
+                          cursor[6], cursor[7], cursor[8],cursor[9],
+                          cursor[10], cursor[11], cursor[12], new_interval,
+                          0, cursor[13])
             elif event_type == EventTypes.STOPPED_PROGRAM:
                 print >> logfile, "%s : Program stopped" % (timestamp, )
         # Update partnership index.
@@ -301,7 +299,7 @@ class SQLiteLogging(object):
     def offset_last_rep(self, card_id):
         sql_res = self.con.execute("""select offset, last_rep
            from _cards where _cards.id=?""", (card_id, )).fetchone()
-        return sql_res["offset"], sql_res["last_rep"]
+        return sql_res[0], sql_res[1]
 
     def change_card_id(self, card, new_id):
         self.con.execute("update cards set id=? where _id=?",
@@ -311,14 +309,14 @@ class SQLiteLogging(object):
         sql_res = self.con.execute("""select _id, acq_reps, lapses,
             acq_reps_since_lapse from cards where id=?""",
             (id, )).fetchone()
-        acq_reps = sql_res["acq_reps"] + offset
-        acq_reps_since_lapse = sql_res["acq_reps_since_lapse"]
-        if sql_res["lapses"] == 0:
+        acq_reps = sql_res[1] + offset
+        acq_reps_since_lapse = sql_res[3]
+        if sql_res[2] == 0:
             acq_reps_since_lapse += offset
         self.con.execute("""update cards set creation_time=?,
             modification_time=?, acq_reps=?, acq_reps_since_lapse=?
             where _id=?""", (creation_time, creation_time, acq_reps,
-            acq_reps_since_lapse, sql_res["_id"]))
+            acq_reps_since_lapse, sql_res[0]))
 
     def remove_card_log_entries_since(self, index):
         # Note that it is only safe to use this in case theses entries have

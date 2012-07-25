@@ -473,32 +473,32 @@ class TestMemImport(MnemosyneTest):
         sql_res = self.database().con.execute(\
             "select * from log where event_type=? and object_id='4c53e29a-f9e9-498b-8beb-d3a494f61bca.1.1'",
             (EventTypes.REPETITION, )).fetchone()
-        assert sql_res["grade"] == 5
-        assert sql_res["easiness"] == 2.5
-        assert sql_res["acq_reps"] == 1
-        assert sql_res["ret_reps"] == 0
-        assert sql_res["lapses"] == 0
-        assert sql_res["acq_reps_since_lapse"] == 1
-        assert sql_res["ret_reps_since_lapse"] == 0
-        assert sql_res["scheduled_interval"] == 0
-        assert sql_res["actual_interval"] == 0
-        assert sql_res["next_rep"] - sql_res["timestamp"] == 345600
-        assert sql_res["thinking_time"] == 0
+        assert sql_res[4] == 5
+        assert sql_res[5] == 2.5
+        assert sql_res[6] == 1
+        assert sql_res[7] == 0
+        assert sql_res[8] == 0
+        assert sql_res[9] == 1
+        assert sql_res[10] == 0
+        assert sql_res[11] == 0
+        assert sql_res[12] == 0
+        assert sql_res[14] - sql_res[2] == 345600
+        assert sql_res[13] == 0
         sql_res = self.database().con.execute(\
             """select * from log where event_type=? and object_id='4c53e29a-f9e9-498b-8beb-d3a494f61bca.1.1'
             order by _id desc limit 1""",
             (EventTypes.REPETITION, )).fetchone()
-        assert sql_res["grade"] == 2
-        assert sql_res["easiness"] == 2.5
-        assert sql_res["acq_reps"] == 1
-        assert sql_res["ret_reps"] == 1
-        assert sql_res["lapses"] == 0
-        assert sql_res["acq_reps_since_lapse"] == 1
-        assert sql_res["ret_reps_since_lapse"] == 1
-        assert sql_res["scheduled_interval"] == 302986
-        assert sql_res["actual_interval"] == 10
-        assert sql_res["next_rep"] - sql_res["timestamp"] == 475774
-        assert sql_res["thinking_time"] == 1
+        assert sql_res[4] == 2
+        assert sql_res[5] == 2.5
+        assert sql_res[6] == 1
+        assert sql_res[7] == 1
+        assert sql_res[8] == 0
+        assert sql_res[9] == 1
+        assert sql_res[10] == 1
+        assert sql_res[11] == 302986
+        assert sql_res[12] == 10
+        assert sql_res[14] - sql_res[2] == 475774
+        assert sql_res[13] == 1
 
     def test_logs_imported_1(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
@@ -577,17 +577,17 @@ class TestMemImport(MnemosyneTest):
         sql_res = self.database().con.execute(\
             "select * from log where event_type=?",
             (EventTypes.REPETITION, )).fetchone()
-        assert sql_res["grade"] == 1
-        assert sql_res["easiness"] == 2.36
-        assert sql_res["acq_reps"] == 23
-        assert sql_res["ret_reps"] == 8
-        assert sql_res["lapses"] == 2
-        assert sql_res["acq_reps_since_lapse"] == 0
-        assert sql_res["ret_reps_since_lapse"] == 0
-        assert sql_res["scheduled_interval"] == 89 * 24 * 60 * 60
-        assert sql_res["actual_interval"] == 0 # No last rep data.
-        assert sql_res["next_rep"] - sql_res["timestamp"] == 0
-        assert sql_res["thinking_time"] == 5
+        assert sql_res[4] == 1
+        assert sql_res[5] == 2.36
+        assert sql_res[6] == 23
+        assert sql_res[7] == 8
+        assert sql_res[8] == 2
+        assert sql_res[9] == 0
+        assert sql_res[10] == 0
+        assert sql_res[11] == 89 * 24 * 60 * 60
+        assert sql_res[12] == 0 # No last rep data.
+        assert sql_res[14] - sql_res[2] == 0
+        assert sql_res[13] == 5
 
     def test_restored_2(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)

@@ -202,17 +202,17 @@ class SQLiteSync(object):
         """Create log entry object in the format openSM2sync expects."""
 
         log_entry = LogEntry()
-        log_entry["type"] = sql_res["event_type"]
-        log_entry["time"] = sql_res["timestamp"]
-        o_id = sql_res["object_id"]
+        log_entry["type"] = sql_res[1]
+        log_entry["time"] = sql_res[2]
+        o_id = sql_res[3]
         if o_id:
             log_entry["o_id"] = o_id
         event_type = log_entry["type"]
         if event_type in (EventTypes.LOADED_DATABASE,
             EventTypes.SAVED_DATABASE):
-            log_entry["sch"] = sql_res["acq_reps"]
-            log_entry["n_mem"] = sql_res["ret_reps"]
-            log_entry["act"] = sql_res["lapses"]
+            log_entry["sch"] = sql_res[6]
+            log_entry["n_mem"] = sql_res[7]
+            log_entry["act"] = sql_res[8]
         elif event_type in (EventTypes.ADDED_CARD, EventTypes.EDITED_CARD):
             try:
                 # Note that some of these values (e.g. the repetition count) we
@@ -248,18 +248,18 @@ class SQLiteSync(object):
             except TypeError: # The object has been deleted at a later stage.
                 pass
         elif event_type == EventTypes.REPETITION:
-            log_entry["gr"] = sql_res["grade"]
-            log_entry["e"] = sql_res["easiness"]
-            log_entry["sch_i"] = sql_res["scheduled_interval"]
-            log_entry["act_i"] = sql_res["actual_interval"]
-            log_entry["th_t"] = sql_res["thinking_time"]
-            log_entry["ac_rp"] = sql_res["acq_reps"]
-            log_entry["rt_rp"] = sql_res["ret_reps"]
-            log_entry["lps"] = sql_res["lapses"]
-            log_entry["ac_rp_l"] = sql_res["acq_reps_since_lapse"]
-            log_entry["rt_rp_l"] = sql_res["ret_reps_since_lapse"]
-            log_entry["n_rp"] = sql_res["next_rep"]
-            log_entry["sch_data"] = sql_res["scheduler_data"]
+            log_entry["gr"] = sql_res[4]
+            log_entry["e"] = sql_res[5]
+            log_entry["sch_i"] = sql_res[11]
+            log_entry["act_i"] = sql_res[12]
+            log_entry["th_t"] = sql_res[13]
+            log_entry["ac_rp"] = sql_res[6]
+            log_entry["rt_rp"] = sql_res[7]
+            log_entry["lps"] = sql_res[8]
+            log_entry["ac_rp_l"] = sql_res[9]
+            log_entry["rt_rp_l"] = sql_res[10]
+            log_entry["n_rp"] = sql_res[14]
+            log_entry["sch_data"] = sql_res[15]
         elif event_type in (EventTypes.ADDED_TAG, EventTypes.EDITED_TAG):
             try:
                 tag = self.tag(log_entry["o_id"], is_id_internal=False)
@@ -270,7 +270,7 @@ class SQLiteSync(object):
                 pass
         elif event_type in (EventTypes.ADDED_MEDIA_FILE,
             EventTypes.EDITED_MEDIA_FILE, EventTypes.DELETED_MEDIA_FILE):
-            log_entry["fname"] = sql_res["object_id"]
+            log_entry["fname"] = sql_res[3]
             del log_entry["o_id"]
         elif event_type in (EventTypes.ADDED_FACT, EventTypes.EDITED_FACT):
             if self.sync_partner_info.get("capabilities") == "cards":
@@ -389,13 +389,13 @@ class SQLiteSync(object):
                 # Less future-proof version which just returns an empty shell.
                 # Make sure to set _id, though, as that will be used in
                 # actually deleting the card.
-                sql_res = self.con.execute("select * from cards where id=?",
+                sql_res = self.con.execute("select _id from cards where id=?",
                     (log_entry["o_id"], )).fetchone()
                 card_type = self.card_type_with_id("1")
                 fact = Fact({"f": "f", "b": "b"}, id="")
                 card = Card(card_type, fact, card_type.fact_views[0],
                     creation_time=0)
-                card._id = sql_res["_id"]
+                card._id = sql_res[0]
                 return card
         # Create an empty shell of card object that will be deleted later
         # during this sync.

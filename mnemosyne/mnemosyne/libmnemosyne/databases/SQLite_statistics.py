@@ -138,8 +138,8 @@ class SQLiteStatistics(object):
             where ?<=timestamp and timestamp<? and (event_type=? or
             event_type=?)""", (start_of_day, start_of_day + DAY,
             EventTypes.LOADED_DATABASE, EventTypes.SAVED_DATABASE)):
-            count = cursor["acq_reps"]
-            machine = cursor["object_id"]
+            count = cursor[0]
+            machine = cursor[1]
             # Future projected schedule. Check if machine exists to deal with
             # Mnemosyne versions before 201203.
             if machine and machine.endswith(".fut"):

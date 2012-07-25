@@ -162,19 +162,7 @@ class Mnemosyne(Component):
         # Loading the database should come after all user plugins have been
         # loaded, since these could be needed e.g. for a card type in the
         # database.
-
-        # TMP
-        from mnemosyne.libmnemosyne.upgrades.upgrade_beta_6 import UpgradeBeta6
-        UpgradeBeta6(self.component_manager).run(filename)
-
         self.load_database(filename)
-
-        # TMP
-        from mnemosyne.libmnemosyne.upgrades.upgrade_beta_7 import UpgradeBeta7
-        UpgradeBeta7(self.component_manager).run()
-        from mnemosyne.libmnemosyne.upgrades.upgrade_beta_8 import UpgradeBeta8
-        UpgradeBeta8(self.component_manager).run()
-
         # Only now that the database is loaded, we can start writing log
         # events to it. This is why we log started_scheduler and
         # loaded_database manually.

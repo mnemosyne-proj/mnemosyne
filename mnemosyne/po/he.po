@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-23 10:34+CEST\n"
+"POT-Creation-Date: 2012-07-25 17:12+CEST\n"
 "PO-Revision-Date: 2012-05-24 23:16+0000\n"
 "Last-Translator: Peter Bienstman <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,14 +78,14 @@ msgstr ""
 msgid "Production"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:269
-#: ../mnemosyne/libmnemosyne/__init__.py:282
+#: ../mnemosyne/libmnemosyne/__init__.py:257
+#: ../mnemosyne/libmnemosyne/__init__.py:270
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:701
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:350
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:334
 msgid "Error when running plugin:"
 msgstr "שגיאה בהרצת פלאג-אין:"
 
-#: ../mnemosyne/libmnemosyne/__init__.py:302
+#: ../mnemosyne/libmnemosyne/__init__.py:290
 msgid "Creating temporary database."
 msgstr ""
 
@@ -427,15 +427,15 @@ msgid ""
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:483
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:597
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1052
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:581
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1050
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:97
 msgid "No"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:483
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:597
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1052
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:581
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1050
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:97
 msgid "Yes"
 msgstr ""
@@ -484,52 +484,32 @@ msgstr ""
 msgid "go to http://www.mnemosyne-proj.org"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:261
-msgid ""
-"Putting a database on a network drive is forbidden under Windows to avoid "
-"data corruption. Mnemosyne will now close."
-msgstr ""
-
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:353
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:337
 msgid "Missing plugin for card type with id:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:367
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:30
-msgid "Another copy of Mnemosyne is still running."
-msgstr ""
-
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:368
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:31
-msgid "Continuing is impossible and will lead to data loss!"
-msgstr ""
-
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:356
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:371
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:386
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:34
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:49
 msgid "Unable to load file."
 msgstr "אין אפשרות לטעון את הקובץ."
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:373
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:36
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:358
 msgid "Unable to load file, query failed"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:376
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade_beta_6.py:39
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:361
 msgid "Unable to load file: database version mismatch."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:455
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:437
 msgid "Warning: backup creation failed for"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:596
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:580
 msgid "Make tag '%s' active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1051
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1049
 msgid "Make new card type active in saved set '%s'?"
 msgstr ""
 
@@ -547,6 +527,13 @@ msgstr ""
 msgid "Missing plugins for card types."
 msgstr ""
 
+#: ../mnemosyne/libmnemosyne/databases/_apsw.py:54
+#: ../mnemosyne/libmnemosyne/databases/_sqlite3.py:49
+msgid ""
+"Putting a database on a network drive is forbidden under Windows to avoid "
+"data corruption. Mnemosyne will now close."
+msgstr ""
+
 #: ../mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:90
 msgid "Cuecard .wcu"
 msgstr ""
@@ -555,11 +542,13 @@ msgstr ""
 msgid "Cuecard files (*.wcu *.WCU)"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/media_preprocessor.py:60
+#: ../mnemosyne/libmnemosyne/file_formats/media_preprocessor.py:64
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:89
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:90
 msgid "MISSING_MEDIA"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/media_preprocessor.py:63
+#: ../mnemosyne/libmnemosyne/file_formats/media_preprocessor.py:67
 msgid ""
 "Warning: media files were missing. These cards have been tagged as "
 "MISSING_MEDIA. You must also change 'scr_missing' to 'scr' in the text of "

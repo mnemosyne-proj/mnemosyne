@@ -339,10 +339,10 @@ class TestSync(object):
             tag = db.get_or_create_tag_with_name(unichr(0x628) + u'>&<abcd')
             assert tag.id == self.client_tag_id
             assert tag.name == unichr(0x628) + u">&<abcd"
-            sql_res = db.con.execute("select * from log where event_type=?",
+            sql_res = db.con.execute("select timestamp from log where event_type=?",
                (EventTypes.ADDED_TAG, )).fetchone()
-            assert self.tag_added_timestamp == sql_res["timestamp"]
-            assert type(sql_res["timestamp"]) == int
+            assert self.tag_added_timestamp == sql_res[0]
+            assert type(sql_res[0]) == int
             assert db.con.execute("select count() from log").fetchone()[0] == 23
 
         self.server = MyServer()
@@ -354,9 +354,9 @@ class TestSync(object):
               get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
         self.server.client_tag_id = tag.id
         sql_res = self.client.mnemosyne.database().con.execute(\
-            "select * from log where event_type=?", (EventTypes.ADDED_TAG,
+            "select timestamp from log where event_type=?", (EventTypes.ADDED_TAG,
              )).fetchone()
-        self.server.tag_added_timestamp = sql_res["timestamp"]
+        self.server.tag_added_timestamp = sql_res[0]
         assert type(self.server.tag_added_timestamp) == int
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
@@ -409,10 +409,10 @@ class TestSync(object):
             tag = db.get_or_create_tag_with_name(unichr(0x628) + u'>&<abcd')
             assert tag.id == self.client_tag_id
             assert tag.name == unichr(0x628) + u">&<abcd"
-            sql_res = db.con.execute("select * from log where event_type=?",
+            sql_res = db.con.execute("select timestamp from log where event_type=?",
                (EventTypes.ADDED_TAG, )).fetchone()
-            assert self.tag_added_timestamp == sql_res["timestamp"]
-            assert type(sql_res["timestamp"]) == int
+            assert self.tag_added_timestamp == sql_res[0]
+            assert type(sql_res[0]) == int
             assert db.con.execute("select count() from log").fetchone()[0] == 23
 
         self.server = MyServer()
@@ -426,9 +426,9 @@ class TestSync(object):
               get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
         self.server.client_tag_id = tag.id
         sql_res = self.client.mnemosyne.database().con.execute(\
-            "select * from log where event_type=?", (EventTypes.ADDED_TAG,
+            "select timestamp from log where event_type=?", (EventTypes.ADDED_TAG,
              )).fetchone()
-        self.server.tag_added_timestamp = sql_res["timestamp"]
+        self.server.tag_added_timestamp = sql_res[0]
         assert type(self.server.tag_added_timestamp) == int
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
@@ -446,10 +446,10 @@ class TestSync(object):
             tag = db.get_or_create_tag_with_name(unichr(0x628) + u'>&<abcd')
             assert tag.id == self.client_tag_id
             assert tag.name == unichr(0x628) + u">&<abcd"
-            sql_res = db.con.execute("select * from log where event_type=?",
+            sql_res = db.con.execute("select timestamp from log where event_type=?",
                (EventTypes.ADDED_TAG, )).fetchone()
-            assert self.tag_added_timestamp == sql_res["timestamp"]
-            assert type(sql_res["timestamp"]) == int
+            assert self.tag_added_timestamp == sql_res[0]
+            assert type(sql_res[0]) == int
             assert db.con.execute("select count() from log").fetchone()[0] == 23
 
         self.server = MyServer()
@@ -461,9 +461,9 @@ class TestSync(object):
               get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
         self.server.client_tag_id = tag.id
         sql_res = self.client.mnemosyne.database().con.execute(\
-            "select * from log where event_type=?", (EventTypes.ADDED_TAG,
+            "select timestamp from log where event_type=?", (EventTypes.ADDED_TAG,
              )).fetchone()
-        self.server.tag_added_timestamp = sql_res["timestamp"]
+        self.server.tag_added_timestamp = sql_res[0]
         assert type(self.server.tag_added_timestamp) == int
         self.client.mnemosyne.controller().save_file()
         self.client.mnemosyne.controller().sync("localhost", PORT,
@@ -807,18 +807,18 @@ class TestSync(object):
 
             rep =  db.con.execute("""select * from log where event_type=? order by
                 _id desc limit 1""", (EventTypes.REPETITION, )).fetchone()
-            assert rep["grade"] == 5
-            assert rep["easiness"] == 2.5
-            assert rep["acq_reps"] == 1
-            assert rep["ret_reps"] == 1
-            assert rep["lapses"] == 0
-            assert rep["ret_reps_since_lapse"] == 1
-            assert rep["ret_reps_since_lapse"] == 1
-            assert rep["scheduled_interval"] > 60*60
-            assert rep["actual_interval"] < 10
-            assert rep["next_rep"] - rep["timestamp"] > 60*60
-            assert rep["thinking_time"] < 10
-            assert rep["timestamp"] > 0
+            assert rep[4] == 5
+            assert rep[5] == 2.5
+            assert rep[6] == 1
+            assert rep[7] == 1
+            assert rep[8] == 0
+            assert rep[9] == 1
+            assert rep[10] == 1
+            assert rep[11] > 60*60
+            assert rep[12] < 10
+            assert rep[14] - rep[2] > 60*60
+            assert rep[13] < 10
+            assert rep[2] > 0
 
             assert db.con.execute("select count() from log").fetchone()[0] == 29
 
@@ -1157,8 +1157,8 @@ class TestSync(object):
             assert db.con.execute("select count() from log where event_type=?",
                 (EventTypes.EDITED_MEDIA_FILE, )).fetchone()[0] == 1
 
-            sql_res = db.con.execute("select * from media").fetchone()
-            assert sql_res["_hash"] == db._media_hash(sql_res["filename"])
+            sql_res = db.con.execute("select _hash, filename from media").fetchone()
+            assert sql_res[0] == db._media_hash(sql_res[1])
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -1180,8 +1180,8 @@ class TestSync(object):
         self.client.mnemosyne.controller().save_file()
 
         db = self.client.mnemosyne.database()
-        sql_res = db.con.execute("select * from media").fetchone()
-        assert sql_res["_hash"] == db._media_hash(sql_res["filename"])
+        sql_res = db.con.execute("select _hash, filename from media").fetchone()
+        assert sql_res[0] == db._media_hash(sql_res[1])
 
         # Sleep 1 sec to make sure the timestamp detection mechanism works.
         import time; time.sleep(1)
@@ -1192,8 +1192,8 @@ class TestSync(object):
 
         self.client.do_sync(); assert last_error is None
 
-        sql_res = db.con.execute("select * from media").fetchone()
-        assert sql_res["_hash"] == db._media_hash(sql_res["filename"])
+        sql_res = db.con.execute("select _hash, filename from media").fetchone()
+        assert sql_res[0] == db._media_hash(sql_res[1])
 
         assert db.con.execute("select count() from log where event_type=?",
             (EventTypes.EDITED_MEDIA_FILE, )).fetchone()[0] == 1
@@ -1512,11 +1512,10 @@ class TestSync(object):
 
         card = self.client.database.card(self.server.card.id, is_id_internal=False)
         assert len(card.tags) == 2
-        import sqlite3
         try:
             self.client.database.con.execute("select question from cards where id=?",
                                              (self.server.card.id, )).fetchone()
-        except sqlite3.OperationalError:
+        except:
             pass
 
     def test_xml_download_no_old_reps(self):
@@ -1571,10 +1570,10 @@ class TestSync(object):
             tag = db.get_or_create_tag_with_name(unichr(0x628) + u'>&<abcd')
             assert tag.id == self.client_tag_id
             assert tag.name == unichr(0x628) + u">&<abcd"
-            sql_res = db.con.execute("select * from log where event_type=?",
+            sql_res = db.con.execute("select timestamp from log where event_type=?",
                (EventTypes.ADDED_TAG, )).fetchone()
-            assert self.tag_added_timestamp == sql_res["timestamp"]
-            assert type(sql_res["timestamp"]) == int
+            assert self.tag_added_timestamp == sql_res[0]
+            assert type(sql_res[0]) == int
             assert db.con.execute("select count() from log").fetchone()[0] == 23
 
         self.server = MyServer(filename=unichr(0x628) + ".db")
@@ -1586,9 +1585,9 @@ class TestSync(object):
               get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
         self.server.client_tag_id = tag.id
         sql_res = self.client.mnemosyne.database().con.execute(\
-            "select * from log where event_type=?", (EventTypes.ADDED_TAG,
+            "select timestamp from log where event_type=?", (EventTypes.ADDED_TAG,
              )).fetchone()
-        self.server.tag_added_timestamp = sql_res["timestamp"]
+        self.server.tag_added_timestamp = sql_res[0]
         assert type(self.server.tag_added_timestamp) == int
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None

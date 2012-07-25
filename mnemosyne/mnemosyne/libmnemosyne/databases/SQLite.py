@@ -8,7 +8,6 @@ import time
 import copy
 import string
 import shutil
-import sqlite3
 import datetime
 
 from openSM2sync.log_entry import EventTypes
@@ -33,8 +32,6 @@ from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 # All times are Posix timestamps.
 
 SCHEMA = string.Template("""
-    begin;
-
     create table facts(
         _id integer primary key,
         id text,
@@ -194,8 +191,6 @@ $pregenerated_data
         keyboard_shortcuts text,
         extra_data text default ""
     );
-
-    commit;
 """)
 
 pregenerated_data = """
@@ -251,29 +246,10 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         """Connection to the database, lazily created."""
 
         if not self._connection:
-            # Make sure we don't put a database on a network drive under
-            # Windows: http://www.sqlite.org/lockingv3.html
-            if sys.platform == "win32":  # pragma: no cover
-                drive = os.path.splitdrive(self._path)[0]
-                import ctypes
-                if ctypes.windll.kernel32.GetDriveTypeW(u"%s\\" % drive) == 4:
-                    self.main_widget().show_error(_\
-("Putting a database on a network drive is forbidden under Windows to avoid data corruption. Mnemosyne will now close."))
-                    sys.exit(-1)
-            # We use EXCLUSIVE isolation as a mechaninsm to prevent a second
-            # instance of Mnemosyne from opening the database.
-            self._connection = sqlite3.connect(
-                self._path, isolation_level="EXCLUSIVE")
-            self._connection.row_factory = sqlite3.Row
-            # http://www.mail-archive.com/sqlite-users@sqlite.org/msg34453.html
-            self._connection.execute("pragma journal_mode = persist;")
-
-            # TMP
-            self._connection.execute("pragma cache_size=100")
-
-            # Should only be used to speed up the test suite.
-            if self.config()["asynchronous_database"] == True:
-                self._connection.execute("pragma synchronous = off;")
+            #from mnemosyne.libmnemosyne.databases._sqlite3 import _Sqlite3
+            #self._connection = _Sqlite3(self.component_manager, self._path)
+            from mnemosyne.libmnemosyne.databases._apsw import _APSW
+            self._connection = _APSW(self.component_manager, self._path)
         return self._connection
 
     def release_connection(self):
@@ -301,6 +277,12 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             return os.path.basename(self.config()["last_database"]).\
                    split(self.database().suffix)[0]
 
+    def start_transaction(self):
+        self.con.begin()
+
+    def end_transaction(self):
+        self.con.commit()
+
     def compact(self):
         self.con.execute("vacuum")
 
@@ -311,6 +293,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             os.remove(self._path)
         self.create_media_dir_if_needed()
         # Create tables.
+        self.start_transaction()
         if self.store_pregenerated_data:
             self.con.executescript(\
                 SCHEMA.substitute(pregenerated_data=pregenerated_data))
@@ -336,6 +319,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self._current_criterion.name = "__DEFAULT__"
         self._current_criterion._tag_ids_active.add(tag._id)
         self.add_criterion(self._current_criterion)
+        self.end_transaction()
 
     def _activate_plugin_for_card_type(self, card_type_id):
         found = False
@@ -359,19 +343,20 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self._path = expand_path(path, self.config().data_dir)
         self.create_media_dir_if_needed()
         # Check database version.
+
+       # Todo: rework locking
+       #self.main_widget().show_error(
+       #         _("Another copy of Mnemosyne is still running.") + "\n" + \
+       #         _("Continuing is impossible and will lead to data loss!"))
+
         try:
             sql_res = self.con.execute("""select value from global_variables
                 where key=?""", ("version", )).fetchone()
-        except sqlite3.OperationalError:
-            self.main_widget().show_error(
-                _("Another copy of Mnemosyne is still running.") + "\n" + \
-                _("Continuing is impossible and will lead to data loss!"))
-            sys.exit()
         except:
             raise RuntimeError, _("Unable to load file.") + traceback_string()
         if sql_res is None:
             raise RuntimeError, _("Unable to load file, query failed")
-        if sql_res["value"] != self.version:
+        if sql_res[0] != self.version:
             raise RuntimeError, \
                 _("Unable to load file: database version mismatch.")
         # Identify missing plugins for card types and their parents.
@@ -415,9 +400,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # We don't log the database load here, but in libmnemosyne.__init__,
         # as we prefer to log the start of the program first.
 
-        # TMP
-        from mnemosyne.libmnemosyne.upgrades.upgrade_beta_11 import UpgradeBeta11
-        UpgradeBeta11(self.component_manager).run()
 
     def save(self, path=None):
         # Update format.
@@ -502,6 +484,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         return True
 
     def abandon(self):
+        if self._connection:
+            self._connection.close()
         self._connection = None
         self._path = None
 
@@ -516,7 +500,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         try:
             sql_res = self.con.execute("""select value from global_variables
                 where key=?""", ("version", )).fetchone()
-        except sqlite3.ProgrammingError:
+        except:
             accessible = False
         return accessible
 
@@ -535,11 +519,11 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         else:
             return repr(extra_data)
 
-    def _construct_extra_data(self, sql_res, obj):
-        if sql_res["extra_data"] == "":
+    def _construct_extra_data(self, extra_data, obj):
+        if extra_data == "":
             obj.extra_data = {}
         else:
-            obj.extra_data = eval(sql_res["extra_data"])
+            obj.extra_data = eval(extra_data)
 
     #
     # Tags.
@@ -547,12 +531,12 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
 
     def get_or_create_tag_with_name(self, name):
         name = name.strip()
-        sql_res = self.con.execute("select * from tags where name=?",
-            (name, )).fetchone()
+        sql_res = self.con.execute("""select _id, id, name, extra_data from
+            tags where name=?""", (name, )).fetchone()
         if sql_res:
-            tag = Tag(sql_res["name"], sql_res["id"])
-            tag._id = sql_res["_id"]
-            self._construct_extra_data(sql_res, tag)
+            tag = Tag(sql_res[2], sql_res[1])
+            tag._id = sql_res[0]
+            self._construct_extra_data(sql_res[3], tag)
         else:
             tag = Tag(name)
             self.add_tag(tag)
@@ -567,10 +551,10 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         return tags
 
     def add_tag(self, tag):
-        _id = self.con.execute("""insert into tags(name, extra_data, id)
+        self.con.execute("""insert into tags(name, extra_data, id)
             values(?,?,?)""", (tag.name,
-            self._repr_extra_data(tag.extra_data), tag.id)).lastrowid
-        tag._id = _id
+            self._repr_extra_data(tag.extra_data), tag.id))
+        tag._id = self.con.last_insert_rowid()
         # No need to log creation of the __UNTAGGED__ tag during sync, nor the
         # adding of this tag to the default criterion. Each client will have
         # done so automatically.
@@ -613,14 +597,14 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
 
     def tag(self, id, is_id_internal):
         if is_id_internal:
-            sql_res = self.con.execute("select * from tags where _id=?",
-                                       (id, )).fetchone()
+            sql_res = self.con.execute("""select _id, id, name, extra_data
+                from tags where _id=?""", (id, )).fetchone()
         else:
-            sql_res = self.con.execute("select * from tags where id=?",
-                                       (id, )).fetchone()
-        tag = Tag(sql_res["name"], sql_res["id"])
-        tag._id = sql_res["_id"]
-        self._construct_extra_data(sql_res, tag)
+            sql_res = self.con.execute("""select _id, id, name, extra_data
+                from tags where id=?""", (id, )).fetchone()
+        tag = Tag(sql_res[2], sql_res[1])
+        tag._id = sql_res[0]
+        self._construct_extra_data(sql_res[3], tag)
         return tag
 
     def update_tag(self, tag):
@@ -663,7 +647,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 tags_for_card where _card_id=?""", (_card_id, )):
                 tag_name = self.con.execute(\
                     "select name from tags where _id=?",
-                    (cursor["_tag_id"], )).fetchone()[0]
+                    (cursor[0], )).fetchone()[0]
                 if tag_name != "__UNTAGGED__":
                     tag_names.append(tag_name)
             sorted_tag_names = sorted(tag_names, cmp=numeric_string_cmp)
@@ -742,12 +726,11 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
 
     def add_fact(self, fact):
         # Add fact to facts table.
-        _fact_id = self.con.execute("insert into facts(id) values(?)",
-            (fact.id, )).lastrowid
-        fact._id = _fact_id
+        self.con.execute("insert into facts(id) values(?)", (fact.id, ))
+        fact._id = self.con.last_insert_rowid()
         # Create data_for_fact.
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
-            values(?,?,?)""", ((_fact_id, fact_key, value)
+            values(?,?,?)""", ((fact._id, fact_key, value)
             for fact_key, value in fact.data.items() if value))
         self.log().added_fact(fact)
         # Process media files.
@@ -755,19 +738,19 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
 
     def fact(self, id, is_id_internal):
         if is_id_internal:
-            sql_res = self.con.execute("select * from facts where _id=?",
-                                       (id, )).fetchone()
+            sql_res = self.con.execute("""select _id, id, extra_data from
+                facts where _id=?""", (id, )).fetchone()
         else:
-            sql_res = self.con.execute("select * from facts where id=?",
-                                       (id, )).fetchone()
+            sql_res = self.con.execute("""select _id, id, extra_data from
+                facts where id=?""", (id, )).fetchone()
         # Create dictionary with fact.data.
-        fact_data = dict([(cursor["key"], cursor["value"]) for cursor in
-            self.con.execute("select * from data_for_fact where _fact_id=?",
-            (sql_res["_id"], ))])
+        fact_data = dict([(cursor[0], cursor[1]) for cursor in \
+            self.con.execute("""select key, value from data_for_fact where
+            _fact_id=?""", (sql_res[0], ))])
         # Create fact.
-        fact = Fact(fact_data, id=sql_res["id"])
-        fact._id = sql_res["_id"]
-        self._construct_extra_data(sql_res, fact)
+        fact = Fact(fact_data, id=sql_res[1])
+        fact._id = sql_res[0]
+        self._construct_extra_data(sql_res[2], fact)
         return fact
 
     def update_fact(self, fact):
@@ -798,7 +781,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         if len(card.tags) == 0:
            card.tags.add(self.get_or_create_tag_with_name("__UNTAGGED__"))
         self.current_criterion().apply_to_card(card)
-        _card_id = self.con.execute("""insert into cards(id, card_type_id,
+        self.con.execute("""insert into cards(id, card_type_id,
             _fact_id, fact_view_id, grade, next_rep, last_rep, easiness,
             acq_reps, ret_reps, lapses, acq_reps_since_lapse,
             ret_reps_since_lapse, creation_time, modification_time,
@@ -809,48 +792,60 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
             card.creation_time, card.modification_time,
             self._repr_extra_data(card.extra_data), card.scheduler_data,
-            card.active,)).lastrowid
-        card._id = _card_id
+            card.active,))
+        card._id = self.con.last_insert_rowid()
         if self.store_pregenerated_data:
             self.con.execute(\
                 "update cards set question=?, answer=?, tags=? where _id=?",
                 (card.question("plain_text"), card.answer("plain_text"),
-                card.tag_string(), _card_id))
+                card.tag_string(), card._id))
         # Link card to its tags. The tags themselves have already been created
         # by default_controller calling get_or_create_tag_with_name.
         # Note: using executemany here is often slower here as cards mostly
         # have 0 or 1 tags.
         for tag in card.tags:
             self.con.execute("""insert into tags_for_card(_tag_id,
-                _card_id) values(?,?)""", (tag._id, _card_id))
+                _card_id) values(?,?)""", (tag._id, card._id))
         self.log().added_card(card)
 
     def card(self, id, is_id_internal):
+        query = """select _id, id, card_type_id, _fact_id, fact_view_id,
+            grade, next_rep, last_rep, easiness, acq_reps, ret_reps, lapses,
+            acq_reps_since_lapse, ret_reps_since_lapse, creation_time,
+            modification_time, extra_data, scheduler_data, active from cards
+            where """
         if is_id_internal:
-            sql_res = self.con.execute("select * from cards where _id=?",
-                                       (id, )).fetchone()
+            sql_res = self.con.execute(query + "_id=?", (id, )).fetchone()
         else:
-            sql_res = self.con.execute("select * from cards where id=?",
-                                       (id, )).fetchone()
-        fact = self.fact(sql_res["_fact_id"], is_id_internal=True)
+            sql_res = self.con.execute(query + "id=?", (id, )).fetchone()
+        fact = self.fact(sql_res[3], is_id_internal=True)
         # Note that for the card type, we turn to the component manager as
         # opposed to this database, as we would otherwise miss the built-in
         # system card types
-        card_type = self.card_type_with_id(sql_res["card_type_id"])
+        card_type = self.card_type_with_id(sql_res[2])
         for fact_view in card_type.fact_views:
-            if fact_view.id == sql_res["fact_view_id"]:
+            if fact_view.id == sql_res[4]:
                 card = Card(card_type, fact, fact_view,
-                    creation_time=sql_res["creation_time"])
+                    creation_time=sql_res[14])
                 break
-        for attr in ("id", "_id", "grade", "next_rep", "last_rep", "easiness",
-            "acq_reps", "ret_reps", "lapses", "acq_reps_since_lapse",
-            "ret_reps_since_lapse", "modification_time", "scheduler_data",
-            "active"):
-            setattr(card, attr, sql_res[attr])
-        self._construct_extra_data(sql_res, card)
+        card._id = sql_res[0]
+        card.id = sql_res[1]
+        card.grade = sql_res[5]
+        card.next_rep = sql_res[6]
+        card.last_rep = sql_res[7]
+        card.easiness = sql_res[8]
+        card.acq_reps = sql_res[9]
+        card.ret_reps = sql_res[10]
+        card.lapses = sql_res[11]
+        card.acq_reps_since_lapse = sql_res[12]
+        card.ret_reps_since_lapse = sql_res[13]
+        card.modification_time = sql_res[15]
+        self._construct_extra_data(sql_res[16], card)
+        card.scheduler_data = sql_res[17]
+        card.active = sql_res[18]
         for cursor in self.con.execute("""select _tag_id from tags_for_card
-            where _card_id=?""", (sql_res["_id"], )):
-            card.tags.add(self.tag(cursor["_tag_id"], is_id_internal=True))
+            where _card_id=?""", (card._id, )):
+            card.tags.add(self.tag(cursor[0], is_id_internal=True))
         return card
 
     def update_card(self, card, repetition_only=False):
@@ -911,7 +906,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         for _card_id in _card_ids:
             query += str(_card_id) + ","
         query = query[:-1] + ")"
-        return [self.tag(cursor["_tag_id"], is_id_internal=True) \
+        return [self.tag(cursor[0], is_id_internal=True) \
                 for cursor in self.con.execute(query)]
 
     def add_tag_to_cards_with_internal_ids(self, tag, _card_ids):
@@ -987,15 +982,18 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     def fact_view(self, id, is_id_internal):
         # Since there are so few of them, we don't use internal _ids.
         # ids should be unique too.
-        sql_res = self.con.execute("select * from fact_views where id=?",
-                 (id, )).fetchone()
-        fact_view = FactView(sql_res["name"], sql_res["id"])
-        for attr in ("q_fact_keys", "a_fact_keys", "q_fact_key_decorators",
-            "a_fact_key_decorators"):
-            setattr(fact_view, attr, eval(sql_res[attr]))
-        for attr in ["a_on_top_of_q", "type_answer"]:
-            setattr(fact_view, attr, bool(sql_res[attr]))
-        self._construct_extra_data(sql_res, fact_view)
+        sql_res = self.con.execute("""select id, name, q_fact_keys,
+            a_fact_keys, q_fact_key_decorators, a_fact_key_decorators,
+            a_on_top_of_q, type_answer, extra_data from fact_views
+            where id=?""", (id, )).fetchone()
+        fact_view = FactView(sql_res[1], sql_res[0])
+        fact_view.q_fact_keys = eval(sql_res[2])
+        fact_view.a_fact_keys = eval(sql_res[3])
+        fact_view.q_fact_key_decorators = eval(sql_res[4])
+        fact_view.a_fact_key_decorators = eval(sql_res[5])
+        fact_view.a_on_top_of_q = bool(sql_res[6])
+        fact_view.type_answer = bool(sql_res[7])
+        self._construct_extra_data(sql_res[8], fact_view)
         return fact_view
 
     def update_fact_view(self, fact_view):
@@ -1073,17 +1071,19 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             parent = self.card_type(parent_id, is_id_internal=-1)
         else:
             parent = CardType(self.component_manager)
-        sql_res = self.con.execute("select * from card_types where id=?",
-                                   (id, )).fetchone()
+        sql_res = self.con.execute("""select name, fact_keys_and_names,
+            unique_fact_keys, required_fact_keys, fact_view_ids,
+            keyboard_shortcuts, extra_data from card_types where id=?""",
+            (id, )).fetchone()
         card_type = type(mangle(id), (parent.__class__, ),
-            {"name": sql_res["name"], "id": id})(self.component_manager)
-        for attr in ("fact_keys_and_names", "unique_fact_keys",
-                     "required_fact_keys", "keyboard_shortcuts"):
-            setattr(card_type, attr, eval(sql_res[attr]))
-        self._construct_extra_data(sql_res, card_type)
+            {"name": sql_res[0], "id": id})(self.component_manager)
+        card_type.fact_keys_and_names = eval(sql_res[1])
+        card_type.unique_fact_keys = eval(sql_res[2])
+        card_type.required_fact_keys = eval(sql_res[3])
+        card_type.keyboard_shortcuts = eval(sql_res[5])
+        self._construct_extra_data(sql_res[6], card_type)
         card_type.fact_views = [self.fact_view(fact_view_id,
-            is_id_internal=False) for fact_view_id in \
-            eval(sql_res["fact_view_ids"])]
+            is_id_internal=False) for fact_view_id in eval(sql_res[4])]
         return card_type
 
     def is_user_card_type(self, card_type):
@@ -1138,10 +1138,10 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     #
 
     def add_criterion(self, criterion):
-        _id = self.con.execute("""insert into criteria (id, name, type, data)
+        self.con.execute("""insert into criteria (id, name, type, data)
             values(?,?,?,?)""", (criterion.id, criterion.name,
-            criterion.criterion_type, criterion.data_to_string())).lastrowid
-        criterion._id = _id
+            criterion.criterion_type, criterion.data_to_string()))
+        criterion._id = self.con.last_insert_rowid()
         # No need to log creation of the default criterion during sync. Each
         # client will have done so automatically.
         if criterion.id != "__DEFAULT__":
@@ -1149,19 +1149,19 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
 
     def criterion(self, id, is_id_internal):
         if is_id_internal:
-            sql_res = self.con.execute("select * from criteria where _id=?",
-                (id, )).fetchone()
+            sql_res = self.con.execute("""select _id, id, name, type, data
+                from criteria where _id=?""", (id, )).fetchone()
         else:
-            sql_res = self.con.execute("select * from criteria where id=?",
-                (id, )).fetchone()
+            sql_res = self.con.execute("""select _id, id, name, type, data
+                from criteria where id=?""", (id, )).fetchone()
         for criterion_class in \
             self.component_manager.all("criterion"):
-            if criterion_class.criterion_type == sql_res["type"]:
+            if criterion_class.criterion_type == sql_res[3]:
                 criterion = \
-                    criterion_class(self.component_manager, sql_res["id"])
-                criterion._id = sql_res["_id"]
-                criterion.name = sql_res["name"]
-                criterion.set_data_from_string(sql_res["data"])
+                    criterion_class(self.component_manager, sql_res[1])
+                criterion._id = sql_res[0]
+                criterion.name = sql_res[2]
+                criterion.set_data_from_string(sql_res[4])
                 return criterion
 
     def update_criterion(self, criterion):
@@ -1249,13 +1249,13 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # cases there could be more than one _fact_id for the same value.
         # However, it can quickly give us a set of candidates which can be
         # refined later.
-        _fact_id_for_front = dict([(cursor["value"], cursor["_fact_id"]) \
+        _fact_id_for_front = dict([(cursor[0], cursor[1]) \
             for cursor in self.con.execute(\
             "select value, _fact_id from data_for_fact where key='f'")])
-        _fact_id_for_back = dict([(cursor["value"], cursor["_fact_id"]) \
+        _fact_id_for_back = dict([(cursor[0], cursor[1]) \
             for cursor in self.con.execute(\
             "select value, _fact_id from data_for_fact where key='b'")])
-        _card_id_for__fact_id = dict([(cursor["_fact_id"], cursor["_id"]) \
+        _card_id_for__fact_id = dict([(cursor[1], cursor[0]) \
             for cursor in self.con.execute(\
             "select _id, _fact_id from cards where card_type_id='1'")])
         # First do a quick and dirty detection of candidate inverses, then
