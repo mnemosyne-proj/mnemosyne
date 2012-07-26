@@ -63,7 +63,7 @@ class SQLiteLogging(object):
 
         timestamp = int(time.time())
         scheduled_count = 0
-        self.start_transaction()
+        self.begin_transaction()
         for n in range(1, 8):
             timestamp += DAY
             scheduled_count += \

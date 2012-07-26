@@ -124,7 +124,7 @@ if sys.platform == "win32": # For py2exe.
                   (r"mpl-data\fonts\ttf", glob.glob(r"C:\Python27\Lib\site-packages\matplotlib\mpl-data\fonts\ttf\*.*")),
                   ("phonon_backend", ["C:\Python27\Lib\site-packages\PyQt4\plugins\phonon_backend\phonon_ds94.dll"]),
                   ("imageformats", glob.glob(r"C:\Python27\Lib\site-packages\PyQt4\plugins\imageformats\*.dll")),
-                  ("sqldrivers", ["C:\Python27\Lib\site-packages\PyQt4\plugins\sqldrivers\qsqlite4.dll"]),
+                  #("sqldrivers", ["C:\Python27\Lib\site-packages\PyQt4\plugins\sqldrivers\qsqlite4.dll"]),
                   ("", glob.glob(r"C:\mplayer\*.*"))
                   ]
 elif sys.platform == "darwin": # For py2app.
@@ -226,9 +226,9 @@ py2exe_options = {
     "includes": ["numpy", "sip", "xml.sax", "xml.etree", "PyQt4.QtNetwork"],
     "excludes": ["_gtkagg", "_tkagg", "_agg2", "_cairo", "_cocoaagg",
                  "_fltkagg", "_gtk", "_gtkcairo", "tcl", "Tkconstants", "Tkinter",
-                 "pydoc", "doctest", "test"],
+                 "pydoc", "doctest", "test", "sqlite3"],
     "dll_excludes": ["libgdk-win32-2.0-0.dll", "libgobject-2.0-0.dll",
-                     "tcl84.dll", "tk84.dll", "w9xpopen.exe"]
+                     "tcl84.dll", "tk84.dll", "w9xpopen.exe", "sqlite3.dll"]
 }
 
 setup(name = "Mnemosyne",

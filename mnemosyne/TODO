@@ -1,9 +1,31 @@
 -update changelog
 
+-better transactions
+
+-ask on psql mailing list
+
+-reenable card browser: setup.py, browse_cards.py, mnemosyne
+-reenable flush sync server, sync server itself
+
+-run through debugger remotely from Python source install?
+
+-latex card type id error.
+
+-why do we always requery number of active cards?
+
+-add retry timeout for apsw
+
+-interplay with reset sync server?
+
+-make sure that media dir gets created if it does not exist (trigger from
+ preview from the card browser)
+
 -check if restoring from backup with self.abandon really works, also after
  pluggin the sqlite3 engine back in
 
 -rework mnemosyne level locking
+
+-speedup sync
 
 -update docs on cloze card type and sentence card type, cloze entire sentence
 
@@ -22,7 +44,7 @@ rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict)
 
 -add -d option to webserver
 
--linux: calculate long stat (like past year revision), then select stort stat.
+-linux: calculate long stat (like past year revision), then select short stat.
  Upon opening the program again, the stats seem to hang?
 
 -reverse arabic plugin no longer seems to work?

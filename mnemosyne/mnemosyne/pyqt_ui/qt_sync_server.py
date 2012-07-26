@@ -5,7 +5,6 @@
 import os
 import sys
 import socket
-import sqlite3
 
 from PyQt4 import QtCore
 
@@ -204,7 +203,7 @@ class QtSyncServer(Component, QtCore.QObject):
         # already has access, we just ignore this.
         try:
             self.database().release_connection()
-        except sqlite3.ProgrammingError: # Database locked in server thread.
+        except: # Database locked in server thread.
             pass
         self.thread.server_has_connection = True
         database_released.wakeAll()
@@ -214,7 +213,7 @@ class QtSyncServer(Component, QtCore.QObject):
         mutex.lock()
         try:
             self.database().load(self.config()["last_database"])
-        except sqlite3.ProgrammingError: # Database locked in server thread.
+        except: # Database locked in server thread.
             database_released.wait(mutex)
             self.database().load(self.config()["last_database"])
         self.log().loaded_database()

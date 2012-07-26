@@ -130,6 +130,8 @@ class Component(object):
 
         """
 
+        return
+
         server = self.component_manager.current("sync_server")
         if server:
             server.flush()

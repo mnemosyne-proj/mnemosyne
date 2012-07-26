@@ -277,7 +277,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             return os.path.basename(self.config()["last_database"]).\
                    split(self.database().suffix)[0]
 
-    def start_transaction(self):
+    def begin_transaction(self):
         self.con.begin()
 
     def end_transaction(self):
@@ -293,7 +293,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             os.remove(self._path)
         self.create_media_dir_if_needed()
         # Create tables.
-        self.start_transaction()
+        self.begin_transaction()
         if self.store_pregenerated_data:
             self.con.executescript(\
                 SCHEMA.substitute(pregenerated_data=pregenerated_data))
