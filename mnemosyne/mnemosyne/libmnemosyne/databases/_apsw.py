@@ -54,12 +54,16 @@ class _APSW(Component):
 ("Putting a database on a network drive is forbidden under Windows to avoid data corruption. Mnemosyne will now close."))
                 sys.exit(-1)
         self.connection = apsw.Connection(path)
+        self.connection.setbusytimeout(250)
         cursor = self.connection.cursor()
         # http://www.mail-archive.com/sqlite-users@sqlite.org/msg34453.html
         cursor.execute("pragma journal_mode = persist;")
         # Should only be used to speed up the test suite.
         if self.config()["asynchronous_database"] == True:
             cursor.execute("pragma synchronous = off;")
+        # Always start a transaction and only commit when 'commit' is called
+        # explicitly.
+        cursor.execute("begin;")
 
     def executescript(self, script):
         self.connection.cursor().execute(script)
@@ -73,9 +77,6 @@ class _APSW(Component):
     def last_insert_rowid(self):
         return self.connection.last_insert_rowid()
 
-    def begin(self):
-        self.connection.cursor().execute("begin;")
-
     def commit(self):
         try:
             return self.connection.cursor().execute("commit;")
@@ -84,6 +85,7 @@ class _APSW(Component):
                 pass
             else:
                 raise e
+        self.connection.cursor().execute("begin;")
 
     def close(self):
         self.connection.close()

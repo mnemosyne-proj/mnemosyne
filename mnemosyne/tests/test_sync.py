@@ -83,7 +83,7 @@ class MyServer(Server, Thread):
         self.mnemosyne.database().load(database_name)
         return self.mnemosyne.database()
 
-    def unload_database(self, database):
+    def unload_database(self, database_name):
         self.mnemosyne.database().release_connection()
 
     def run(self):
@@ -98,7 +98,7 @@ class MyServer(Server, Thread):
         self.mnemosyne.review_controller().reset()
         if hasattr(self, "fill_server_database"):
             self.fill_server_database(self)
-        self.mnemosyne.database().release_connection()
+        self.unload_database(self.filename)
         Server.__init__(self, self.mnemosyne.config().machine_id(),
                         PORT, self.mnemosyne.main_widget())
         if not self.binary_download:

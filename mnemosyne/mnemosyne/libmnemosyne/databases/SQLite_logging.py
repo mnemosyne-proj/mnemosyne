@@ -63,7 +63,6 @@ class SQLiteLogging(object):
 
         timestamp = int(time.time())
         scheduled_count = 0
-        self.begin_transaction()
         for n in range(1, 8):
             timestamp += DAY
             scheduled_count += \
@@ -73,7 +72,6 @@ class SQLiteLogging(object):
                 (EventTypes.LOADED_DATABASE, timestamp,
                 self.config().machine_id() + ".fut",
                 scheduled_count, -666, -666))
-        self.end_transaction()
 
     def log_added_card(self, timestamp, card_id):
         self.con.execute(\

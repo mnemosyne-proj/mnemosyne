@@ -166,7 +166,16 @@ class Mnemosyne(Component):
         # Only now that the database is loaded, we can start writing log
         # events to it. This is why we log started_scheduler and
         # loaded_database manually.
-        self.log().started_program()
+        try:
+            self.log().started_program()
+        except Exception, e:
+            if "lock" in str(e):
+                from mnemosyne.libmnemosyne.translator import _
+                self.main_widget().show_error(\
+                    _("Another copy of Mnemosyne is accessing this database."))
+                sys.exit(-1)
+            else:
+                raise e
         self.log().started_scheduler()
         self.log().loaded_database()
         self.log().future_schedule()
@@ -220,17 +229,6 @@ class Mnemosyne(Component):
 
         self.config()["interested_in_old_reps"] = self.interested_in_old_reps
         self.config()["asynchronous_database"] = self.asynchronous_database
-
-
-
-
-        # TMP beta 7.
-        if self.config()["ui_language"] is None:
-            self.config()["ui_language"] = "en"
-
-
-
-
         # Activate other components.
         for component in ["log", "translator", "database", "scheduler",
                           "controller"]:

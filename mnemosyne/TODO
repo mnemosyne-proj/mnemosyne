@@ -1,47 +1,35 @@
--update changelog
-
--better transactions
+-update changelog if hanging bug is fixed
 
 -ask on psql mailing list, remove comments in sister_card_scheduled_between
 
 -latex card type id error
 
--add retry timeout for apsw
-
--make sure that media dir gets created if it does not exist (trigger from
- preview from the card browser)
-
--check if restoring from backup with self.abandon really works, also after
- pluggin the sqlite3 engine back in
-
--rework mnemosyne level locking
-
 -update docs on cloze card type and sentence card type, cloze entire sentence
+
+-confirm if sync and edit are sped up now.
+
+-update translations, check for new translations
 
 
 Release 2.0.1
+
+-check if sync server not running results in serious error?
 
 -rework ltr cloze deletion, also check clozes with hints containing space
 
 -sync problem: tag b exists, card with tag a rename tag to a.b, edit card?, then
 rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict)
 
--upon sync conflict, cannot seem to keep local history
- (~/tmp/default-20120723-174915.db)
-
 -recheck Qt bugs
-
--add -d option to webserver
 
 -linux: calculate long stat (like past year revision), then select short stat.
  Upon opening the program again, the stats seem to hang?
 
 -reverse arabic plugin no longer seems to work?
+ http://mpcabd.igeex.biz/python-arabic-text-reshaper/
 
 -if the sync changed the appearance settings, the current card's question still
  shows the old appearance
-
--rework duplicate checking to allow adding dups if the user so desires
 
 -reparent all dialog boxes (doesn't seem to work for sync finished)
 
@@ -50,13 +38,13 @@ rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict)
 
 -initial picture not shown
 
+-filename argument in mnemosyne and mnemosyne-webserver does not work
+
 -Mnemosyne name not set in dialog windows, only in progress bars.
 
 -with full sync, option to skip media sync
 
 -optimise away DISTINCT and do it at the python level
--better use of transactions: grading, import, upgrade, sync client and server,
- dump to science log
 -more sqlite profiling
  !./bin/python /home/pbienst/apswtrace.py ./bin/nosetests -v tests/test_sync.py:TestSync.test_add_tag
 -archive old learning data, check interplay with sync
@@ -104,6 +92,8 @@ rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict)
 -flash format <object type="application/x-shockwave-flash" data="foo.swf" />
 
 -errors in scripting engine related to main_widget
+
+-replace locking mechanism by switching to running instance of Mnemosyne?
 
 -plugin for interval multiplication factor
 

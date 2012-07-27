@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-25 17:12+CEST\n"
+"POT-Creation-Date: 2012-07-27 13:49+CEST\n"
 "PO-Revision-Date: 2012-05-24 23:16+0000\n"
 "Last-Translator: Peter Bienstman <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,14 +78,18 @@ msgstr ""
 msgid "Production"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:257
-#: ../mnemosyne/libmnemosyne/__init__.py:270
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:701
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:334
+#: ../mnemosyne/libmnemosyne/__init__.py:175
+msgid "Another copy of Mnemosyne is accessing this database."
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/__init__.py:255
+#: ../mnemosyne/libmnemosyne/__init__.py:268
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:704
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:326
 msgid "Error when running plugin:"
 msgstr "Ошибка в плагине:"
 
-#: ../mnemosyne/libmnemosyne/__init__.py:290
+#: ../mnemosyne/libmnemosyne/__init__.py:288
 msgid "Creating temporary database."
 msgstr ""
 
@@ -238,41 +242,41 @@ msgstr "Ошибка в config.py:"
 msgid "Mnemosyne"
 msgstr "Mnemosyne"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:111
-msgid ""
-"Card is already in database.\n"
-"Duplicate not added."
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:112
+msgid "Identical card is already in database."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:114
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:113
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:119
+msgid "&Add anyway"
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:113
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:119
+msgid "&Do not add"
+msgstr "&Не добавлять"
+
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:117
 msgid ""
 "There is already data present for:\n"
 "\n"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:116
-msgid "&Add anyway"
-msgstr ""
-
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:116
-msgid "&Do not add"
-msgstr "&Не добавлять"
-
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:116
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:119
 msgid "&Merge and edit"
 msgstr "&Объединить и редактировать"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:217
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:220
 msgid "Can't preserve history when converting between these card types."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:218
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:221
 msgid "The learning history of the cards will be reset."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:219
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:246
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:362
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:222
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:249
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:365
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:105
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:125
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:473
@@ -295,7 +299,7 @@ msgstr ""
 msgid "&Cancel"
 msgstr "О&тменить"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:219
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:222
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:105
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:125
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:473
@@ -331,185 +335,185 @@ msgstr "О&тменить"
 msgid "&OK"
 msgstr "&OK"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:243
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:246
 msgid "This will delete cards and their history."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:244
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:354
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:359
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:247
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:357
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:362
 msgid "Are you sure you want to do this,"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:245
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:355
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:360
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:248
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:358
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:363
 msgid "and not just deactivate cards in the 'Activate cards' dialog?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:246
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:249
 msgid "&Proceed and delete"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:319
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:322
 msgid "Converting cards..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:351
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:354
 msgid "Delete this card?"
 msgstr "Удалить эту карточку?"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:353
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:356
 msgid "Delete this card and 1 sister card?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:357
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:360
 msgid "Delete this card and"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:358
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:361
 msgid "sister cards?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:361
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:364
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:353
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:141
 #: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:61
 msgid "&Delete"
 msgstr "&Удалить"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:384
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:387
 msgid "Card type name already exists."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:404
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:407
 msgid "Card type %s is in use or is a system card type, cannot delete it."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:409
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:412
 msgid "Card type %s has clones, cannot delete it."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:424
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:427
 msgid "Cannot rename a system card type."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:429
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:432
 msgid "This card type name is already in use."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:435
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:438
 msgid ""
 "It is recommended to put all your cards in a single database. Using tags to "
 "determine which cards to study is much more convenient than having to load "
 "and unload several databases."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:446
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:476
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:533
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:449
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:479
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:536
 msgid "Mnemosyne databases"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:447
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:450
 msgid "New"
 msgstr "Новая"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:453
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:456
 msgid "Creating new database..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:482
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:485
 msgid ""
 "Do you want to restore from this backup?\n"
 "Note that this will result in conflicts during the next sync, which need to "
 "be resolved by a full sync."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:483
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:581
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1050
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:486
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:569
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1038
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:97
 msgid "No"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:483
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:581
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1050
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:486
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:569
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1038
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:97
 msgid "Yes"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:579
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:582
 msgid "Image files"
 msgstr "Файлы изображений"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:581
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:584
 msgid "Insert image"
 msgstr "Вставить картинку"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:594
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:597
 msgid "Sound files"
 msgstr "Звуковые файлы"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:596
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:599
 msgid "Insert sound"
 msgstr "Вставить звук"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:609
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:612
 msgid "Video files"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:611
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:614
 msgid "Insert video"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:654
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:657
 msgid "Install plugin"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:654
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:657
 msgid "Plugins"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:679
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:682
 msgid "No plugin found!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:826
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:829
 msgid "For instructions on how to download Mnemosyne's source,"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:827
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:830
 msgid "go to http://www.mnemosyne-proj.org"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:337
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:329
 msgid "Missing plugin for card type with id:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:356
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:371
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:342
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:357
 msgid "Unable to load file."
 msgstr "Не могу загрузить файл."
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:358
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:344
 msgid "Unable to load file, query failed"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:361
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:347
 msgid "Unable to load file: database version mismatch."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:437
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:424
 msgid "Warning: backup creation failed for"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:580
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:568
 msgid "Make tag '%s' active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1049
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1037
 msgid "Make new card type active in saved set '%s'?"
 msgstr ""
 
@@ -1375,21 +1379,21 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:71
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:162
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:169
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:70
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:161
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:168
 msgid "Unable to start sync server."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:163
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:162
 msgid "There still seems to be an old server running on the requested port."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:164
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:163
 msgid "Terminate that process and try again."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:170
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:169
 msgid "You don't have the permission to use the requested port."
 msgstr ""
 

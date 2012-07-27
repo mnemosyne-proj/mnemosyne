@@ -54,6 +54,9 @@ class _Sqlite3(Component):
         # Should only be used to speed up the test suite.
         if self.config()["asynchronous_database"] == True:
             self.connection.execute("pragma synchronous = off;")
+        # Always start a transaction and only commit when 'commit' is called
+        # explicitly.
+        self.connection.execute("begin;")
 
     def executescript(self, script):
         if self.DEBUG:
@@ -83,9 +86,6 @@ class _Sqlite3(Component):
 
     def last_insert_rowid(self):
         return self._cursor.lastrowid
-
-    def begin(self):
-        self.connection.execute("begin;")
 
     def commit(self):
         return self.connection.commit()

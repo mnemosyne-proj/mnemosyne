@@ -277,12 +277,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             return os.path.basename(self.config()["last_database"]).\
                    split(self.database().suffix)[0]
 
-    def begin_transaction(self):
-        self.con.begin()
-
-    def end_transaction(self):
-        self.con.commit()
-
     def compact(self):
         self.con.execute("vacuum")
 
@@ -293,7 +287,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             os.remove(self._path)
         self.create_media_dir_if_needed()
         # Create tables.
-        self.begin_transaction()
         if self.store_pregenerated_data:
             self.con.executescript(\
                 SCHEMA.substitute(pregenerated_data=pregenerated_data))
@@ -319,7 +312,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self._current_criterion.name = "__DEFAULT__"
         self._current_criterion._tag_ids_active.add(tag._id)
         self.add_criterion(self._current_criterion)
-        self.end_transaction()
 
     def _activate_plugin_for_card_type(self, card_type_id):
         found = False
@@ -343,12 +335,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self._path = expand_path(path, self.config().data_dir)
         self.create_media_dir_if_needed()
         # Check database version.
-
-       # Todo: rework locking
-       #self.main_widget().show_error(
-       #         _("Another copy of Mnemosyne is still running.") + "\n" + \
-       #         _("Continuing is impossible and will lead to data loss!"))
-
         try:
             sql_res = self.con.execute("""select value from global_variables
                 where key=?""", ("version", )).fetchone()
@@ -394,17 +380,17 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self.component_manager.register(card_type)
         # Finalise.
         self._current_criterion = self.criterion(1, is_id_internal=True)
-        self.config()["last_database"] = contract_path(path, self.config().data_dir)
+        self.config()["last_database"] \
+            = contract_path(path, self.config().data_dir)
         for f in self.component_manager.all("hook", "after_load"):
             f.run()
         # We don't log the database load here, but in libmnemosyne.__init__,
         # as we prefer to log the start of the program first.
 
-
     def save(self, path=None):
         # Update format.
         self.con.execute("update global_variables set value=? where key=?",
-                         (self.version, "version" ))
+            (self.version, "version"))
         # Save database and copy it to different location if needed.
         self.con.commit()
         if not path:
@@ -413,7 +399,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         if dest_path != self._path:
             shutil.copy(self._path, dest_path)
             self._path = dest_path
-        self.config()["last_database"] = contract_path(path, self.config().data_dir)
+        self.config()["last_database"] \
+            = contract_path(path, self.config().data_dir)
         # We don't log every save, as that could result in an event after
         # card repetitions.
 
@@ -451,7 +438,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
 
     def restore(self, path):
         self.abandon()
-        db_path = expand_path(self.config()["last_database"], self.config().data_dir)
+        db_path = expand_path(\
+            self.config()["last_database"], self.config().data_dir)
         shutil.copy(path, db_path)
         self.load(db_path)
         # We need to indicate that a full sync needs to happen on the next
@@ -476,7 +464,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self.log().dump_to_science_log()
             self.backup()  # Saves too.
             self._connection.close()
-        except:
+        except Exception, e:
             pass
         finally:
             self._connection = None

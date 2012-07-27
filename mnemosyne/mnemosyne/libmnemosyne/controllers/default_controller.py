@@ -104,17 +104,22 @@ class DefaultController(Controller):
         if check_for_duplicates:
             duplicates = db.duplicates_for_fact(fact, card_type)
             if len(duplicates) != 0:
+                answer = None
                 for duplicate in duplicates:
                     # Duplicates only checks equality of unique keys.
                     if duplicate.data == fact_data:
-                        self.main_widget().show_information(\
-                    _("Card is already in database.\nDuplicate not added."))
-                        return
-                answer = self.main_widget().show_question(\
-                  _("There is already data present for:\n\n") +
-                  "/".join(fact[k] for k in card_type.required_fact_keys),
-                  _("&Merge and edit"), _("&Add anyway"), _("&Do not add"))
-                if answer == 0:  # Merge and edit.
+                        answer = self.main_widget().show_question(\
+                            _("Identical card is already in database."),
+                            _("&Do not add"), _("&Add anyway"), "")
+                        break
+                if answer is None:
+                    answer = self.main_widget().show_question(\
+                    _("There is already data present for:\n\n") +
+                    "/".join(fact[k] for k in card_type.required_fact_keys),
+                    _("&Do not add"), _("&Add anyway"), _("&Merge and edit"))
+                if answer == 0:  # Do not add.
+                    return
+                if answer == 2:  # Merge and edit.
                     cards = card_type.create_sister_cards(fact)
                     db.add_fact(fact)
                     for card in cards:
@@ -137,8 +142,6 @@ class DefaultController(Controller):
                     self.component_manager.current("edit_card_dialog")\
                         (card, self.component_manager, allow_cancel=False).\
                         activate()
-                    return
-                if answer == 2:  # Don't add.
                     return
         # Create cards.
         cards = card_type.create_sister_cards(fact)

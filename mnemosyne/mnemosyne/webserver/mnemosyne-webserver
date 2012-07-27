@@ -6,6 +6,9 @@
 
 import os
 import socket
+from optparse import OptionParser
+
+port = 8513
 
 # Hack to determine local IP.
 
@@ -15,12 +18,32 @@ def localhost_IP():
     s.connect(("google.com", 8000))
     return s.getsockname()[0]
 
+# Parse options.
 
-port = 8513
-data_dir = None # Default.
-#data_dir = \
-#"/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/dot_mnemosyne2"
-filename = None # Default. "default.db"
+parser = OptionParser()
+parser.usage = "%prog [<database_file>]"
+parser.add_option("-d", "--datadir", dest="data_dir",
+                  help="data directory", default=None)
+(options, args) = parser.parse_args()
+
+# Check if we have to override the data_dir determined in libmnemosyne,
+# either because we explicitly specified a data_dir on the command line,
+# or because there is a mnemosyne directory present in the current directory.
+# The latter is handy when Mnemosyne is run from a USB key, so that there
+# is no need to refer to a drive letter which can change from computer to
+# computer.
+data_dir = None
+if options.data_dir != None:
+    data_dir = os.path.abspath(options.data_dir)
+elif os.path.exists(os.path.join(os.getcwdu(), "mnemosyne")) and \
+    os.path.isdir(os.path.join(os.getcwdu(), "mnemosyne")):
+    data_dir = os.path.abspath(os.path.join(os.getcwdu(), "mnemosyne"))
+
+# Filename argument.
+if len(args) > 0:
+    filename = os.path.abspath(args[0])
+else:
+    filename = None
 
 disclaimer = """Prototype of Mnemosyne web server. It works, but is not yet integrated in
 the desktop application, and has no security.

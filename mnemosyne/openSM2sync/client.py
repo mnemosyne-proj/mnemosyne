@@ -219,7 +219,8 @@ class Client(Partner):
             result = results[result]
         else:
             message += "Your client only stores part of the server " + \
-                "database, so you can only fetch the remote version."
+                "database or uses a different software version, " + \
+                "so you can only fetch the remote version."
             result = self.ui.show_question(message,
                 "Fetch remote version", "Cancel", "")
             results = {0: "KEEP_REMOTE", 1: "CANCEL"}

@@ -19,11 +19,17 @@
 -Fixed a few bugs when displaying the edit or preview windows from the card
  browser and using PgUp and PgDown to move to the previous/next card (reported
  by Chris Schmidt).
+-When adding a duplicate card, rather than forbidden the user to add it, ask
+ the user if he really wants to do this (requested by Laurent Humblet).
+-The webserver now supports the -d option to specify the data directory
+ (requested by Sirius533).
 -Fixed crashes in card browser with non-latin clone names (reported by Gabriel
  Benamouzig).
 -Prevent uninstalling a card type plugin if a clone of that card type has been
  created, even if it does not yet have any cards.
 -Further fixes for Hebrew (reported by Eliyahu Switzer and Chris).
+-Upgraded many of the libraries on which Mnemosyne depends (PyQt, numpy,
+ matplotlib, sqlite)
 
 
 Mnemosyne 2.0 : 2012-06-16
