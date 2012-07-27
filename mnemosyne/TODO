@@ -6,7 +6,11 @@
 
 -update docs on cloze card type and sentence card type, cloze entire sentence
 
--confirm if sync and edit are sped up now.
+-migrate binary database sync and mnemosyne1 import back to sqlite?
+-apsw issues with slow sync and occasionally slow insert: after requesting
+ the connection by the server, perhaps a transaction is not started?
+-recheck sync locking
+-document this in sqlite
 
 -update translations, check for new translations
 
