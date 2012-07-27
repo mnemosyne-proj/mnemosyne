@@ -65,8 +65,6 @@ class _APSW(Component):
         self.connection.cursor().execute(script)
 
     def execute(self, sql, *args):
-        #print sql, args
-        self.main_widget().show_information(sql + str(*args))
         return _APSWCursor(self.connection.cursor().execute(sql, *args))
 
     def executemany(self, sql, *args):
@@ -81,7 +79,6 @@ class _APSW(Component):
     def commit(self):
         try:
             return self.connection.cursor().execute("commit;")
-            self.main_widget().show_information("commit")
         except apsw.SQLError, e:
             if "cannot commit - no transaction is active" in str(e):
                 pass

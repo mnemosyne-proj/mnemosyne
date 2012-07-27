@@ -104,10 +104,17 @@ class SQLiteStatistics(object):
 
         """
 
-        return self.con.execute("""select count() from cards where active=1
-            and grade>=2 and ?<=next_rep and next_rep<? and _id<>? and _id in
-            (select _id from cards where _fact_id=?)""",
-            (start, stop, card._id, card.fact._id)).fetchone()[0]
+        # This version occasionally hangs under windows.
+
+        #return self.con.execute("""select count() from cards where active=1
+        #    and grade>=2 and ?<=next_rep and next_rep<? and _id<>? and _id in
+        #    (select _id from cards where _fact_id=?)""",
+        #    (start, stop, card._id, card.fact._id)).fetchone()[0]
+
+        return self.con.execute("""select count() from cards where _id in
+            (select _id from cards where _fact_id=?) and active=1
+            and grade>=2 and ?<=next_rep and next_rep<? and _id<>?""",
+            (card.fact._id, start, stop, card._id)).fetchone()[0]
 
     def card_count_scheduled_between(self, start, stop):
         return self.con.execute(\

@@ -124,7 +124,7 @@ if sys.platform == "win32": # For py2exe.
                   (r"mpl-data\fonts\ttf", glob.glob(r"C:\Python27\Lib\site-packages\matplotlib\mpl-data\fonts\ttf\*.*")),
                   ("phonon_backend", ["C:\Python27\Lib\site-packages\PyQt4\plugins\phonon_backend\phonon_ds94.dll"]),
                   ("imageformats", glob.glob(r"C:\Python27\Lib\site-packages\PyQt4\plugins\imageformats\*.dll")),
-                  #("sqldrivers", ["C:\Python27\Lib\site-packages\PyQt4\plugins\sqldrivers\qsqlite4.dll"]),
+                  ("sqldrivers", ["C:\Python27\Lib\site-packages\PyQt4\plugins\sqldrivers\qsqlite4.dll"]),
                   ("", glob.glob(r"C:\mplayer\*.*"))
                   ]
 elif sys.platform == "darwin": # For py2app.

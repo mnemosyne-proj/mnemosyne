@@ -91,8 +91,8 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.add_cards_dlg",
                              "AddCardsDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.edit_card_dlg",
                              "EditCardDlg"))
-#mnemosyne.components.append(("mnemosyne.pyqt_ui.browse_cards_dlg",
-#                             "BrowseCardsDlg"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.browse_cards_dlg",
+                             "BrowseCardsDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.activate_cards_dlg",
                              "ActivateCardsDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.manage_card_types_dlg",
@@ -121,8 +121,8 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_dlg",
                              "ConfigurationDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.sync_dlg",
                              "SyncDlg"))
-#mnemosyne.components.append(("mnemosyne.pyqt_ui.qt_sync_server",
-#                             "QtSyncServer"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.qt_sync_server",
+                             "QtSyncServer"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_wdgt_main",
                              "ConfigurationWdgtMain"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_wdgt_card_appearance",
