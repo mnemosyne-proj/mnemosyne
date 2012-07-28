@@ -7,6 +7,7 @@
 # backend with an APSW backend.
 #
 
+import os
 import sys
 import time
 import sqlite3
@@ -42,7 +43,7 @@ class _Sqlite3(Component):
         # Make sure we don't put a database on a network drive under Windows:
         # http://www.sqlite.org/lockingv3.html
         if sys.platform == "win32":  # pragma: no cover
-            drive = os.path.splitdrive(self._path)[0]
+            drive = os.path.splitdrive(path)[0]
             import ctypes
             if ctypes.windll.kernel32.GetDriveTypeW(u"%s\\" % drive) == 4:
                 self.main_widget().show_error(_\
@@ -54,9 +55,6 @@ class _Sqlite3(Component):
         # Should only be used to speed up the test suite.
         if self.config()["asynchronous_database"] == True:
             self.connection.execute("pragma synchronous = off;")
-        # Always start a transaction and only commit when 'commit' is called
-        # explicitly.
-        self.connection.execute("begin;")
 
     def executescript(self, script):
         if self.DEBUG:

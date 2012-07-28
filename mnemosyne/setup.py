@@ -226,9 +226,9 @@ py2exe_options = {
     "includes": ["numpy", "sip", "xml.sax", "xml.etree", "PyQt4.QtNetwork"],
     "excludes": ["_gtkagg", "_tkagg", "_agg2", "_cairo", "_cocoaagg",
                  "_fltkagg", "_gtk", "_gtkcairo", "tcl", "Tkconstants", "Tkinter",
-                 "pydoc", "doctest", "test", "sqlite3"],
+                 "pydoc", "doctest", "test"], #, "sqlite3"],
     "dll_excludes": ["libgdk-win32-2.0-0.dll", "libgobject-2.0-0.dll",
-                     "tcl84.dll", "tk84.dll", "w9xpopen.exe", "sqlite3.dll"]
+                     "tcl84.dll", "tk84.dll", "w9xpopen.exe"] #, "sqlite3.dll"]
 }
 
 setup(name = "Mnemosyne",
