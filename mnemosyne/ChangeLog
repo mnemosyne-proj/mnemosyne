@@ -29,7 +29,7 @@
  created, even if it does not yet have any cards.
 -Further fixes for Hebrew (reported by Eliyahu Switzer and Chris).
 -Upgraded many of the libraries on which Mnemosyne depends (PyQt, numpy,
- matplotlib, sqlite)
+ matplotlib)
 
 
 Mnemosyne 2.0 : 2012-06-16

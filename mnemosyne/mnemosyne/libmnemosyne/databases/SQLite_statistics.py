@@ -116,14 +116,30 @@ class SQLiteStatistics(object):
         #    and grade>=2 and ?<=next_rep and next_rep<? and _id<>?""",
         #    (card.fact._id, start, stop, card._id)).fetchone()[0]
 
+        #_card_ids = [cursor[0] for cursor in self.con.execute(\
+        #    "select _id from cards where _fact_id=?", (card.fact._id, ))]
+        #query = "select count() from cards where _id in ("
+        #for _card_id in _card_ids:
+        #    query += str(_card_id) + ","
+        #query = query[:-1] + """) and active=1 and grade>=2 and
+        #    ?<=next_rep and next_rep<? and _id<>?"""
+        #return self.con.execute(query, (start, stop, card._id)).fetchone()[0]
+
         _card_ids = [cursor[0] for cursor in self.con.execute(\
             "select _id from cards where _fact_id=?", (card.fact._id, ))]
-        query = "select count() from cards where _id in ("
+        if len(_card_ids) == 1: # No sister cards
+            return 0
+        query = "select active, grade, next_rep from cards where _id in ("
         for _card_id in _card_ids:
-            query += str(_card_id) + ","
-        query = query[:-1] + """) and active=1 and grade>=2 and
-            ?<=next_rep and next_rep<? and _id<>?"""
-        return self.con.execute(query, (start, stop, card._id)).fetchone()[0]
+            if _card_id != card._id:
+                query += str(_card_id) + ","
+        query = query[:-1] + """)"""
+        count = 0
+        for cursor in self.con.execute(query):
+            if cursor[0] == True and cursor[1] >= 2 \
+                and start <= cursor[2] < stop:
+                count += 1
+        return count        
 
     def card_count_scheduled_between(self, start, stop):
         return self.con.execute(\

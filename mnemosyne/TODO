@@ -1,5 +1,9 @@
 -update changelog if hanging bug is fixed
 
+-recheck testsuite for sync hangs?
+
+-rename sister_card_count_scheduled_between
+
 -ask on psql mailing list, remove comments in sister_card_scheduled_between
 
 -latex card type id error
@@ -52,6 +56,7 @@ rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict)
 -more sqlite profiling
  !./bin/python /home/pbienst/apswtrace.py ./bin/nosetests -v tests/test_sync.py:TestSync.test_add_tag
 -archive old learning data, check interplay with sync
+-index on cards._fact_id to speed up e.g. sister_card_count_scheduled_between
 
 -import
 -on import, activate plugins, create card types if necessary
