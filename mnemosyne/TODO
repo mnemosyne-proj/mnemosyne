@@ -2,7 +2,10 @@
 
 -recheck testsuite for sync hangs?
 
--rename sister_card_count_scheduled_between
+-update docs in sister_card_count_scheduled_between, add todo check for most
+ efficient version
+
+-double check where midnight utc is used
 
 -ask on psql mailing list, remove comments in sister_card_scheduled_between
 

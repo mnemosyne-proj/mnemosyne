@@ -44,6 +44,11 @@ class SM2Mnemosyne(Scheduler):
         this function will return the timestamp corresponding to
         2012/1/1 00;00 UTC.
 
+        Important: the timestamp needs to have the meaning of local time,
+        not e.g. UTC, so calling midnight_UTC twice will give unexpected
+        results.
+
+
         """
 
         # Create a time tuple containing the local date only, i.e. throwing
@@ -197,12 +202,10 @@ class SM2Mnemosyne(Scheduler):
         Factored out here to allow this to be used by e.g. MnemoGogo.
 
         """
-
-        # Keep normalising, as a day is not always exactly DAY seconds when
-        # there are leap seconds.
+        
         while self.database().sister_card_count_scheduled_between\
             (card, card.next_rep, card.next_rep + DAY):
-            card.next_rep = self.midnight_UTC(card.next_rep + DAY)
+            card.next_rep += DAY
 
     def rebuild_queue(self, learn_ahead=False):
         db = self.database()
