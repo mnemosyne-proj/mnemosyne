@@ -2,50 +2,50 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-27 22:15+CEST\n"
-"PO-Revision-Date: 2012-05-26 10:00+0000\n"
-"Last-Translator: Ahmad <activepost@gmail.com>\n"
+"POT-Creation-Date: 2012-07-27 18:21+0000\n"
+"PO-Revision-Date: 2012-06-10 17:06+0000\n"
+"Last-Translator: NiMa Taheri <nima.trueway@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-06-05 04:54+0000\n"
-"X-Generator: Launchpad (build 15353)\n"
+"X-Launchpad-Export-Date: 2012-07-28 04:58+0000\n"
+"X-Generator: Launchpad (build 15694)\n"
+"Language: \n"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:27
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:19
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:19
 msgid "Last week"
-msgstr ""
+msgstr "هفته‌ی قبل"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:28
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:20
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:20
 msgid "Last month"
-msgstr ""
+msgstr "طی ماه قبل"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:29
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:21
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:21
 msgid "Last 3 months"
-msgstr ""
+msgstr "طی ۳ ماه گذشته"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:30
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:22
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:22
 msgid "Last 6 months"
-msgstr ""
+msgstr "طی ۶ ماه گذشته"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:31
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:23
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:23
 msgid "Last year"
-msgstr ""
+msgstr "طی سال گذشته"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:61
 msgid "Average grades of scheduled cards"
-msgstr ""
+msgstr "نمره‌ی میانگین کارت‌های زمان‌بندی‌شده"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:68
 #: ../mnemosyne/example_plugins/pie_chart_statistics.py:31
@@ -53,16 +53,16 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:241
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:264
 msgid "No stats available."
-msgstr ""
+msgstr "آماری موجود نیست"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:98
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:184
 msgid "Days"
-msgstr ""
+msgstr "روز"
 
 #: ../mnemosyne/example_plugins/new_card_type.py:13
 msgid "Vocabulary (decorated)"
-msgstr ""
+msgstr "لغت (با آرایش مخصوص)"
 
 #: ../mnemosyne/example_plugins/new_card_type.py:18
 #: ../mnemosyne/libmnemosyne/card_types/map.py:24
@@ -151,7 +151,7 @@ msgstr "فقط رو-به-پشت"
 #: ../mnemosyne/libmnemosyne/card_types/map.py:16
 #: ../mnemosyne/libmnemosyne/card_types/map.py:51
 msgid "Map"
-msgstr "نقشه"
+msgstr "نگاشت"
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:19
 msgid "Location"
@@ -159,11 +159,11 @@ msgstr "موقعیت"
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:20
 msgid "Blank map"
-msgstr "نقشه خالی"
+msgstr "نگاشت خالی"
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:21
 msgid "Marked map"
-msgstr "نقشه علامت گذاری شده"
+msgstr "نگاشت علامت‌خورده"
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:52
 msgid ""
@@ -171,7 +171,11 @@ msgid ""
 "\n"
 "Displays the answer map on top of the question map, rather than below it as "
 "a second map."
-msgstr "نوعی کارت برای یادگیری مکانها روی یک نقشه"
+msgstr ""
+"نوعی کارت برای یادگیری مکان‌ها روی نقشه\n"
+"\n"
+"نقشه‌ی جواب، در بالای نقشه‌ی سوال نمایش داده می‌شود تا اینکه در زیر آن به "
+"عنوان نقشه‌ی دوم قرار گیرد."
 
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:30
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:33
@@ -192,7 +196,7 @@ msgstr "معنی"
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:36
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:21
 msgid "Notes"
-msgstr "یادداشت‌ها"
+msgstr "توضیحات"
 
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:95
 msgid ""
@@ -206,23 +210,23 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:15
 msgid "Vocabulary"
-msgstr "واژگان"
+msgstr "لغت"
 
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:18
 msgid "Foreign word or expression"
-msgstr "لغتها و عبارتهای خارجی"
+msgstr "لغت یا عبارت خارجی"
 
 #: ../mnemosyne/libmnemosyne/configuration.py:181
 msgid "Error in config:"
-msgstr "خطا در تنظیم:"
+msgstr "خطا در تنظیمات"
 
 #: ../mnemosyne/libmnemosyne/configuration.py:190
 msgid "Unable to save config file:"
-msgstr "ناتوان در ذخیره فایل تنظیمات:"
+msgstr "مشکل در هنگام ذخیره‌ی تنظیمات"
 
 #: ../mnemosyne/libmnemosyne/configuration.py:348
 msgid "Error in config.py:"
-msgstr "خطا در فایل config.py:"
+msgstr "در فایل «config.py» اشکال وجود دارد"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:65
 #: ../mnemosyne/pyqt_ui/about_dlg.py:28
@@ -231,6 +235,8 @@ msgstr "خطا در فایل config.py:"
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:226
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:83
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:89
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:56
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:68
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:56
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:68
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:146
@@ -306,6 +312,8 @@ msgstr "انصراف"
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:76
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:85
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:90
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:58
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:70
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:58
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:70
 #: ../mnemosyne/pyqt_ui/main_wdgt.py:69 ../mnemosyne/pyqt_ui/main_wdgt.py:77
@@ -735,7 +743,8 @@ msgid ""
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
-msgid "Correct answer, with some effort. The interval was probably just right."
+msgid ""
+"Correct answer, with some effort. The interval was probably just right."
 msgstr "پاسخ صحیح٬ با سعی اندک. وقفه احتمالا عادی بود."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:41
@@ -1022,14 +1031,14 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/about_dlg.py:30
 msgid ""
-"Invaluable contributions from many people are acknowledged <a href=\"http://"
-"www.mnemosyne-proj.org/contributing.php\">here</a>."
+"Invaluable contributions from many people are acknowledged <a "
+"href=\"http://www.mnemosyne-proj.org/contributing.php\">here</a>."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/about_dlg.py:31
 msgid ""
-"Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-proj."
-"org</a> for more information and source code."
+"Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-"
+"proj.org</a> for more information and source code."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:89
@@ -1051,7 +1060,8 @@ msgid "Update this set?"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:120
-msgid "You can right-click on the name of a saved set to rename or delete it."
+msgid ""
+"You can right-click on the name of a saved set to rename or delete it."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:124
@@ -1066,8 +1076,8 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:29 ../mnemosyne/pyqt_ui/tip_dlg.py:30
 msgid ""
-"You can organise tags in a hierarchy by using :: as separator, e.g. My book::"
-"Lesson 1."
+"You can organise tags in a hierarchy by using :: as separator, e.g. My "
+"book::Lesson 1."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:30 ../mnemosyne/pyqt_ui/tip_dlg.py:31
@@ -1320,18 +1330,26 @@ msgstr ""
 msgid "Server stopped."
 msgstr ""
 
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:39
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:51
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:78
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:39
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:51
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:78
 msgid "<none>"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:57
-msgid "No duplicate in new keys allowed."
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:57
+msgid "No duplicate in new fact keys allowed."
 msgstr ""
 
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:69
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:69
 msgid "A required field is missing."
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:57
+msgid "No duplicate in new keys allowed."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:96
@@ -1523,9 +1541,10 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:22
 msgid ""
 "The 'number of non-memorised cards to hold in your hand' setting determines "
-"how many cards you are trying to (re)learn at the same time. It does <b>not</"
-"b> tell you how many new cards you need to learn per day. You are the judge "
-"of that: you can learn more cards or less cards, depending on how you feel."
+"how many cards you are trying to (re)learn at the same time. It does "
+"<b>not</b> tell you how many new cards you need to learn per day. You are "
+"the judge of that: you can learn more cards or less cards, depending on how "
+"you feel."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:23
@@ -1603,20 +1622,20 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:43
 msgid ""
-"In the 'Add cards' dialog, use Tab to move between different fields, Ctrl"
-"+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
+"In the 'Add cards' dialog, use Tab to move between different fields, "
+"Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:44
 msgid ""
-"In the 'Edit card' dialog, use Tab to move between different fields and Ctrl"
-"+Enter to close the dialog."
+"In the 'Edit card' dialog, use Tab to move between different fields and "
+"Ctrl+Enter to close the dialog."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:45
 msgid ""
-"Mnemosyne can use LaTeX to render mathematical formulas, e.g. <"
-"$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
+"Mnemosyne can use LaTeX to render mathematical formulas, e.g. "
+"<$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:46
@@ -2331,21 +2350,3 @@ msgstr ""
 #: ../tests/test_translator.py:32
 msgid "This is a test."
 msgstr ""
-
-#~ msgid ""
-#~ "Card is already in database.\n"
-#~ "Duplicate not added."
-#~ msgstr "کارت از قبل در بانک اطلاعاتی وجود دارد."
-
-#~ msgid "&Add as is"
-#~ msgstr "به همان صورت اضافه کن"
-
-#~ msgid ""
-#~ "A card type blanking out certain fragments in a text.\n"
-#~ "\n"
-#~ "E.g., the text \"The capital of [France] is [Paris]\", will give cards "
-#~ "with questions \"The capital of France is [...].\" and \"The capital of "
-#~ "[...] is Paris\".\n"
-#~ "\n"
-#~ "Editing the text will automatically update all sister cards."
-#~ msgstr "نوعی کارت که در متن آن جای خالی وجود دارد."

@@ -2,6 +2,7 @@ LANGS = ../mo/cs/LC_MESSAGES/mnemosyne.mo \
 	../mo/da/LC_MESSAGES/mnemosyne.mo \
 	../mo/de/LC_MESSAGES/mnemosyne.mo \
 	../mo/eo/LC_MESSAGES/mnemosyne.mo \
+	../mo/es/LC_MESSAGES/mnemosyne.mo \
 	../mo/fa/LC_MESSAGES/mnemosyne.mo \
 	../mo/fr/LC_MESSAGES/mnemosyne.mo \
 	../mo/he/LC_MESSAGES/mnemosyne.mo \
@@ -13,10 +14,13 @@ LANGS = ../mo/cs/LC_MESSAGES/mnemosyne.mo \
 	../mo/nb/LC_MESSAGES/mnemosyne.mo \
 	../mo/nl/LC_MESSAGES/mnemosyne.mo \
 	../mo/pl/LC_MESSAGES/mnemosyne.mo \
+	../mo/pt_BR/LC_MESSAGES/mnemosyne.mo \
+	../mo/pt/LC_MESSAGES/mnemosyne.mo \
 	../mo/ru/LC_MESSAGES/mnemosyne.mo \
 	../mo/tr/LC_MESSAGES/mnemosyne.mo \
 	../mo/zh_CN/LC_MESSAGES/mnemosyne.mo \
 	../mo/zh_HK/LC_MESSAGES/mnemosyne.mo \
+	../mo/zh_SG/LC_MESSAGES/mnemosyne.mo \
 	../mo/zh_TW/LC_MESSAGES/mnemosyne.mo
 
 default: $(LANGS)
@@ -31,6 +35,4 @@ clean:
 
 update:
 	cd ../mnemosyne/pyqt_ui && make
-	$(PYTHON) ./pygettext -o mnemosyne.pot ..
-	$(PYTHON) ./update_trans.py
-
+	pygettext -o mnemosyne.pot ..

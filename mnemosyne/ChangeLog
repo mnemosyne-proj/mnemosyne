@@ -1,3 +1,7 @@
+Mnemosyne 2.0.1 :
+
+-Fix occasional hang during review (Thanks to Scott Youngman and Chris Shanks
+ for helping to debug this).
 -In cloze card types, you can now provide hints, e.g. [cloze:hint] will show
  [hint] in the question as opposed to [...]
 -Added Sentence card type plugin. If you put this in the 'Sentence' field:
@@ -19,7 +23,7 @@
 -Fixed a few bugs when displaying the edit or preview windows from the card
  browser and using PgUp and PgDown to move to the previous/next card (reported
  by Chris Schmidt).
--When adding a duplicate card, rather than forbidden the user to add it, ask
+-When adding a duplicate card, rather than forbidding the user to add it, ask
  the user if he really wants to do this (requested by Laurent Humblet).
 -The webserver now supports the -d option to specify the data directory
  (requested by Sirius533).
@@ -30,6 +34,7 @@
 -Further fixes for Hebrew (reported by Eliyahu Switzer and Chris).
 -Upgraded many of the libraries on which Mnemosyne depends (PyQt, numpy,
  matplotlib)
+-Updated user contributed translations.
 
 
 Mnemosyne 2.0 : 2012-06-16

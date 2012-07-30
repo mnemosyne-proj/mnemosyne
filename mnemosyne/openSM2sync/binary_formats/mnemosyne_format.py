@@ -3,8 +3,8 @@
 #
 
 import os
-import apsw
 import shutil
+import sqlite3
 import tempfile
 
 from openSM2sync.log_entry import EventTypes
@@ -28,15 +28,15 @@ class MnemosyneFormat(object):
         shutil.copy(self.database._path, self.tmp_name)
         # Delete old reps if needed.
         if not interested_in_old_reps:
-            con = apsw.Connection(self.tmp_name)
-            con.cursor().execute("delete from log where event_type=?",
+            con = sqlite3.connect(self.tmp_name)
+            con.execute("delete from log where event_type=?",
                 (EventTypes.REPETITION, ))
-            con.cursor().execute("vacuum")
+            con.execute("vacuum")
             con.close()
         # Delete pregerated data if needed.
         if not store_pregenerated_data:
-            con = apsw.Connection(self.tmp_name)
-            con.cursor().execute("""
+            con = sqlite3.connect(self.tmp_name)
+            con.executescript("""
             begin;
             drop index i_cards;
             create table cards_new(

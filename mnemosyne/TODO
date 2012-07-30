@@ -1,40 +1,15 @@
--update changelog if hanging bug is fixed
-
--recheck testsuite for sync hangs?
-
--update docs in sister_card_count_scheduled_between, add todo check for most
- efficient version
-
--double check where midnight utc is used
-
--ask on psql mailing list, remove comments in sister_card_scheduled_between
-
--latex card type id error
-
--update docs on cloze card type and sentence card type, cloze entire sentence
-
--migrate binary database sync and mnemosyne1 import back to sqlite?
--apsw issues with slow sync and occasionally slow insert: after requesting
- the connection by the server, perhaps a transaction is not started?
--recheck sync locking
--document this in sqlite
-
--update translations, check for new translations
+-latex card type id errors
 
 
 Release 2.0.1
 
--check if sync server not running results in serious error?
+-2.x export format
 
 -rework ltr cloze deletion, also check clozes with hints containing space
+<p dir="rtl">
 
 -sync problem: tag b exists, card with tag a rename tag to a.b, edit card?, then
 rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict)
-
--recheck Qt bugs
-
--linux: calculate long stat (like past year revision), then select short stat.
- Upon opening the program again, the stats seem to hang?
 
 -reverse arabic plugin no longer seems to work?
  http://mpcabd.igeex.biz/python-arabic-text-reshaper/
@@ -59,7 +34,9 @@ rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict)
 -more sqlite profiling
  !./bin/python /home/pbienst/apswtrace.py ./bin/nosetests -v tests/test_sync.py:TestSync.test_add_tag
 -archive old learning data, check interplay with sync
--index on cards._fact_id to speed up e.g. sister_card_count_scheduled_between
+-index on cards._fact_id to speed up e.g. sister_card_count_scheduled_between?
+-profile different versions of sister_card_count_scheduled_between
+-try apsw again, but make sure every statement is inside a transaction
 
 -import
 -on import, activate plugins, create card types if necessary
@@ -157,8 +134,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -plugin to move basedir to dropbox?
 -bundle more of the example plugins?
 
--RTL issues with mixed text, eg.  a (b ل)
-
 -'duplicate card' option in menu and browser? Or as plugin?
 
 -default input method/keyboard layout per field?
@@ -170,12 +145,7 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -really fix sync test suite races: after first client request fails and client
  goes to sleep, sometimes server cannot create socket.
 
--upgrade to qt after 4.8, retest progress bars
-
 -make statistics refer to active cards only. Profile. (Dan Schmidt)
-
--test upgrade on OSX: remove library/Mnemosyne2, make sure you have 1.x in library/Mnemosyne.
- after upgrade there should be 2.0 files in library/Mnemosyne and a backup in library/Mnemosyne_1
 
 -Windows makefile: ln -s pyuic4.bat pyuic, full path to python, py2exe needed, rename mnemosyne to mnemosyne.py, numpy
 -py2exe: downloads 64 bit by default
@@ -208,8 +178,6 @@ Milesteiner
 <ul><li>Focuses 20 to 30cm away</li>
   <li>Eyes wander and occasionally cross</li>
 </ul>
--Qt bug? images in map card type sometimes hang
--Qt bug? multiple sounds per card under Windows does not work
 -Qt bug? text + linebreak + video + linebreak + text2 does not show text2
 -Qt bug? Windows titles not shown?
 -Qt bug? When setting Arial as initial font to the FontDialog, it is always
@@ -545,15 +513,9 @@ Multiuser statistics analysis:
 
 -http://labs.trolltech.com/blogs/2009/03/12/wysiwyg-html-editor/
 
--integrate Mnemosyne analysis, advanced statistics, history,
- forgetting index, histogram of grades and intervals... (look at graphs
- in JMemorize)
-
 -research papers: http://act-r.psy.cmu.edu/people/index.php?id=11
 
 -importing cards from rss feed
-
--investigate ridiculously large thinking times
 
 -determine import / export file type based on suffix
  (i.e. remove file format field)? Probably not possible, as

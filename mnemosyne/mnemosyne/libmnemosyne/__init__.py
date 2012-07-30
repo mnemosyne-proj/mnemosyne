@@ -172,8 +172,9 @@ class Mnemosyne(Component):
             if "lock" in str(e):
                 from mnemosyne.libmnemosyne.translator import _
                 self.main_widget().show_error(\
-                    _("Another copy of Mnemosyne is accessing this database."))
-                sys.exit(-1)
+                 _("Another copy of Mnemosyne is still running.") + "\n" + \
+                 _("Continuing is impossible and will lead to data loss!"))
+                sys.exit()
             else:
                 raise e
         self.log().started_scheduler()

@@ -12,16 +12,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.0-pre\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-27 22:15+CEST\n"
-"PO-Revision-Date: 2012-06-04 20:52+0000\n"
-"Last-Translator: mase <Unknown>\n"
+"POT-Creation-Date: 2012-07-27 18:21+0000\n"
+"PO-Revision-Date: 2012-07-29 14:37+0000\n"
+"Last-Translator: Hendrik Liebscher <henni2012@googlemail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: German\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-06-05 04:54+0000\n"
-"X-Generator: Launchpad (build 15353)\n"
+"X-Launchpad-Export-Date: 2012-07-30 04:55+0000\n"
+"X-Generator: Launchpad (build 15702)\n"
+"Language: German\n"
 "Generated-By: pygettext.py 1.5\n"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:27
@@ -102,7 +102,7 @@ msgstr "Fehler beim Ausführen des Plugins:"
 
 #: ../mnemosyne/libmnemosyne/__init__.py:288
 msgid "Creating temporary database."
-msgstr "Erzeuge temporäre Datenbank."
+msgstr "Temporäre Datenbank wird erzeugt."
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:15
 msgid "Front-to-back and back-to-front"
@@ -192,7 +192,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:33
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:94
 msgid "Sentence"
-msgstr ""
+msgstr "Satz"
 
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:34
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:19
@@ -246,6 +246,8 @@ msgstr "Fehler in config.py:"
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:226
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:83
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:89
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:56
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:68
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:56
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:68
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:146
@@ -323,6 +325,8 @@ msgstr "&Abbrechen"
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:76
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:85
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:90
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:58
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:70
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:58
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:70
 #: ../mnemosyne/pyqt_ui/main_wdgt.py:69 ../mnemosyne/pyqt_ui/main_wdgt.py:77
@@ -352,7 +356,7 @@ msgstr "&OK"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:246
 msgid "This will delete cards and their history."
-msgstr "Hierdurch werden alle Karten und ihr Verlauf gelöscht."
+msgstr "Hierdurch werden alle Karten und ihre Verläufe gelöscht."
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:247
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:357
@@ -592,7 +596,8 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:40
 msgid "These cards seem to have been imported before. Aborting..."
-msgstr "Diese Karten sind scheinbar schon zuvor importiert worden. Abbruch..."
+msgstr ""
+"Diese Karten sind scheinbar schon zuvor importiert worden. Abbruch..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:42
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:32
@@ -656,7 +661,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:32
 msgid "Exporting cards..."
-msgstr ""
+msgstr "Exportiere Karten …"
 
 #: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:264
 msgid "SuperMemo7 text in Q:/A: format"
@@ -778,7 +783,8 @@ msgstr ""
 "Richtige Antwort, aber mit viel Mühe. Der Abstand war wahrscheinlich zu lang."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
-msgid "Correct answer, with some effort. The interval was probably just right."
+msgid ""
+"Correct answer, with some effort. The interval was probably just right."
 msgstr ""
 "Richtige Antwort, mit etwas Mühe. Der Abstand war wahrscheinlich gerade "
 "richtig."
@@ -1080,17 +1086,17 @@ msgstr "Hauptentwickler: Peter Bienstman"
 
 #: ../mnemosyne/pyqt_ui/about_dlg.py:30
 msgid ""
-"Invaluable contributions from many people are acknowledged <a href=\"http://"
-"www.mnemosyne-proj.org/contributing.php\">here</a>."
+"Invaluable contributions from many people are acknowledged <a "
+"href=\"http://www.mnemosyne-proj.org/contributing.php\">here</a>."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/about_dlg.py:31
 msgid ""
-"Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-proj."
-"org</a> for more information and source code."
+"Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-"
+"proj.org</a> for more information and source code."
 msgstr ""
-"Für weitergehende Informationen und den Source Code siehe <a href=\"http://"
-"www.mnemosyne-proj.org\">http://www.mnemosyne-proj.org</a>."
+"Für weitergehende Informationen und den Source Code siehe <a "
+"href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-proj.org</a>."
 
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:89
 #: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:97
@@ -1111,7 +1117,8 @@ msgid "Update this set?"
 msgstr "Dieses Set aktualisieren?"
 
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:120
-msgid "You can right-click on the name of a saved set to rename or delete it."
+msgid ""
+"You can right-click on the name of a saved set to rename or delete it."
 msgstr ""
 "Per Rechtsklick auf den Namen eines gesicherten Sets kann es umbenannt oder "
 "gelöscht werden."
@@ -1130,8 +1137,8 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:29 ../mnemosyne/pyqt_ui/tip_dlg.py:30
 msgid ""
-"You can organise tags in a hierarchy by using :: as separator, e.g. My book::"
-"Lesson 1."
+"You can organise tags in a hierarchy by using :: as separator, e.g. My "
+"book::Lesson 1."
 msgstr ""
 "Tags können in Hierarchien angelegt werden indem man '::' als Trennzeichen "
 "verwendet. Zum Beispiel: 'Mein Lehrbuch::Lektion 1'."
@@ -1402,19 +1409,27 @@ msgstr "Server läuft jetzt auf "
 msgid "Server stopped."
 msgstr "Server gestoppt."
 
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:39
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:51
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:78
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:39
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:51
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:78
 msgid "<none>"
 msgstr "<keine>"
 
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:57
-msgid "No duplicate in new keys allowed."
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:57
+msgid "No duplicate in new fact keys allowed."
 msgstr ""
 
+#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:69
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:69
 msgid "A required field is missing."
 msgstr "Ein benötigtes Feld fehlt."
+
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:57
+msgid "No duplicate in new keys allowed."
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:96
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:109
@@ -1629,9 +1644,10 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:22
 msgid ""
 "The 'number of non-memorised cards to hold in your hand' setting determines "
-"how many cards you are trying to (re)learn at the same time. It does <b>not</"
-"b> tell you how many new cards you need to learn per day. You are the judge "
-"of that: you can learn more cards or less cards, depending on how you feel."
+"how many cards you are trying to (re)learn at the same time. It does "
+"<b>not</b> tell you how many new cards you need to learn per day. You are "
+"the judge of that: you can learn more cards or less cards, depending on how "
+"you feel."
 msgstr ""
 "Die Einstellung 'Anzahl an noch nicht gemerkten Karten die auf einmal "
 "gelernt werden' legt fest, wieviele neue Karten zur selben Zeit versucht "
@@ -1701,10 +1717,10 @@ msgid ""
 "specifically for this card type without disturbing your other cards."
 msgstr ""
 "Von bestehenden Kartentypen können 'Klone' erstellt werden. Dies erlaubt es "
-"Karten dieses Typs unabhängig von Karten des Ursprungstypes zu formatieren."
-"Zum Beispiel könnte man einen Klon des 'Vokabular'-Typs erstellen, ihn "
-"'Thai'nennen und eine spezielle Thai-Schriftart speziell für diesen "
-"Kartentyp einstellen, ohne die anderen 'Vokabular' Karten automatisch "
+"Karten dieses Typs unabhängig von Karten des Ursprungstypes zu "
+"formatieren.Zum Beispiel könnte man einen Klon des 'Vokabular'-Typs "
+"erstellen, ihn 'Thai'nennen und eine spezielle Thai-Schriftart speziell für "
+"diesen Kartentyp einstellen, ohne die anderen 'Vokabular' Karten automatisch "
 "mitzuverändern."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:34
@@ -1746,23 +1762,23 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:43
 msgid ""
-"In the 'Add cards' dialog, use Tab to move between different fields, Ctrl"
-"+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
+"In the 'Add cards' dialog, use Tab to move between different fields, "
+"Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:44
 msgid ""
-"In the 'Edit card' dialog, use Tab to move between different fields and Ctrl"
-"+Enter to close the dialog."
+"In the 'Edit card' dialog, use Tab to move between different fields and "
+"Ctrl+Enter to close the dialog."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:45
 msgid ""
-"Mnemosyne can use LaTeX to render mathematical formulas, e.g. <"
-"$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
+"Mnemosyne can use LaTeX to render mathematical formulas, e.g. "
+"<$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
 msgstr ""
-"Mnemosyne kann LaTeX verwenden um mathematische Formeln zu setzen, z.B.<"
-"$>x^2+y^2=z^2</$>. (Hierfür müssen LaTeX und dvipng installiert sein.)"
+"Mnemosyne kann LaTeX verwenden um mathematische Formeln zu setzen, "
+"z.B.<$>x^2+y^2=z^2</$>. (Hierfür müssen LaTeX und dvipng installiert sein.)"
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:46
 msgid ""
@@ -1798,7 +1814,7 @@ msgstr ""
 msgid "For optimal performance, keep your drives defragmented."
 msgstr ""
 "Für optimale Leistung wird empfohlen die Festplatten regelmäßig zu "
-"defragmentieren"
+"defragmentieren."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:50
 msgid "For optimal performance, do not put your database on a network drive."
@@ -2492,49 +2508,3 @@ msgstr "foo"
 #: ../tests/test_translator.py:32
 msgid "This is a test."
 msgstr "Dies ist ein Test."
-
-#~ msgid ""
-#~ "Card is already in database.\n"
-#~ "Duplicate not added."
-#~ msgstr ""
-#~ "Karte befindet sich bereits in der Datenbank.\n"
-#~ "Duplikat wird nicht hinzugefügt."
-
-#~ msgid "Another copy of Mnemosyne is still running."
-#~ msgstr "Eine andere Instanz von Mnemosyne läuft noch."
-
-#~ msgid "Continuing is impossible and will lead to data loss!"
-#~ msgstr "Fortsetzen ist unmöglich und würde zu Datenverlust führen!"
-
-#~ msgid "&Add as is"
-#~ msgstr "&Ohne Veränderung hinzufügen"
-
-#~ msgid ""
-#~ "Acquisition\n"
-#~ "reps"
-#~ msgstr ""
-#~ "Wiederholungen\n"
-#~ "bis zur Aneignung"
-
-#~ msgid ""
-#~ "Retention\n"
-#~ "reps"
-#~ msgstr ""
-#~ "Wiederholungen\n"
-#~ "seit Aneignung"
-
-#~ msgid ""
-#~ "A card type blanking out certain fragments in a text.\n"
-#~ "\n"
-#~ "E.g., the text \"The capital of [France] is [Paris]\", will give cards "
-#~ "with questions \"The capital of France is [...].\" and \"The capital of "
-#~ "[...] is Paris\".\n"
-#~ "\n"
-#~ "Editing the text will automatically update all sister cards."
-#~ msgstr "Ein Kartentyp, der bestimmte Textstellen ausblendet."
-
-#~ msgid "&Hide pronunciation key for this card type"
-#~ msgstr "&Aussprachesc&hlüssel für diesen Kartentypen verbergen"
-
-#~ msgid "(De)activate plugins"
-#~ msgstr "(De)aktiviere Plugins"
