@@ -19,6 +19,8 @@ Mnemosyne 2.0.1 :
 -Message boxes are now centered over the current window (card browser, ...) as
  opposed to the main window.
 -Longer initial interval if the first grade you gave a card is 5.
+-Fixing card merging losing information on Vocabulary card types (reported by
+ Stephan Maseizik).
 -Fixed spurious firing of missing media detection (reported by Geir).
 -Fixed a few bugs when displaying the edit or preview windows from the card
  browser and using PgUp and PgDown to move to the previous/next card (reported

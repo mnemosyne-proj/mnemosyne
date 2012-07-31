@@ -4,6 +4,14 @@
 Release 2.0.1
 
 -2.x export format
+-test, coverage, xml only first
+-creation date (log_entry(c_time) set to special value, like -666)
+-if fact exists, overwrite. What about cards in this case? Ignore?
+-move sql query to database layer. Single function or not?
+-media files, bundled in single files
+-metadata
+
+-A, A::B issues (see bug report Gnome)
 
 -rework ltr cloze deletion, also check clozes with hints containing space
 <p dir="rtl">
@@ -53,6 +61,9 @@ rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict)
 
 -option to pick location of backups in config? Also shows you where the datadir
  is. Backup config too?
+
+-When making a changes in the selection in the (de)activate dialog, the warning
+ that you have learned 15 cards does not show
 
 -implement duplicate checking. Also synonym checking? Add then standard tags.
 -autorun after import, browse with edit?, but not sync

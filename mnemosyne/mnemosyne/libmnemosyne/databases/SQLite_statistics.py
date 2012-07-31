@@ -104,7 +104,7 @@ class SQLiteStatistics(object):
 
         """
 
-        # These versions occasionally hangs:
+        # TODO: profile to determine the most efficient version
 
         #return self.con.execute("""select count() from cards where active=1
         #    and grade>=2 and ?<=next_rep and next_rep<? and _id<>? and _id in
@@ -139,7 +139,7 @@ class SQLiteStatistics(object):
             if cursor[0] == True and cursor[1] >= 2 \
                 and start <= cursor[2] < stop:
                 count += 1
-        return count        
+        return count
 
     def card_count_scheduled_between(self, start, stop):
         return self.con.execute(\

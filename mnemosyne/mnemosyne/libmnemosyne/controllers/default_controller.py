@@ -132,8 +132,9 @@ class DefaultController(Controller):
                     merged_fact_data = copy.copy(fact.data)
                     for duplicate in duplicates:
                         for fact_key in fact_data:
-                            if fact_key not in card_type.required_fact_keys \
-                                and fact_key in duplicate.data:
+                            if fact_key in duplicate.data and \
+                                merged_fact_data[fact_key] != \
+                                    duplicate[fact_key]:
                                 merged_fact_data[fact_key] += " / " \
                                     + duplicate[fact_key]
                     self.delete_facts_and_their_cards(duplicates)

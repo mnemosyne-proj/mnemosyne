@@ -27,81 +27,116 @@ class Mnemosyne2Cards(FileFormat):
     export_possible = True
 
     def do_export(self, filename):
-        #FileFormat.do_export(self, filename)
+        FileFormat.do_export(self, filename)
         w = self.main_widget()
         w.set_progress_text(_("Exporting cards..."))
-
         self.con = self.database().con
-
-        import time
-        t = time.time()
-
-        # TODO: move these queries to SQLite python filese
-
-        # Get active facts (working with python sets turns out to be more
+        # Active facts (working with python sets turns out to be more
         # efficient than a 'distinct' statement in SQL).
         _fact_ids = list(set([cursor[0] for cursor in self.con.execute(\
             "select _fact_id from cards where active=1")]))
-
-        # Get the active cards and their inactive sister cards.
-        # (We need to log them to communicate the card type too)
-
+        # Active cards and their inactive sister cards.
+        # (We need to log cards too instead of just facts, otherwise we cannot
+        # communicate the card type.)
         _card_ids = [cursor[0] for cursor in self.con.execute(\
             """select _id from cards where _fact_id in
             (select _fact_id from cards where active=1)""")]
-
-        # Get tags belonging to the active cards.
+        # Tags belonging to the active cards.
         tags = self.database().tags_from_cards_with_internal_ids(_card_ids)
-
-        # Get card types needed for the active cards (no need to include
-        # inactive sister cards here, as they share the same card type).
-        card_type_ids = list(set([cursor[0] for cursor in self.con.execute(\
+        # Card types of the active cards (no need to include inactive sister
+        # cards here, as they share the same card type).
+        active_card_type_ids = list(set([cursor[0] for cursor in \
+            self.con.execute(\
             "select card_type_id from cards where active=1")]))
-        # TODO: add parent card types
-
-        # TODO; fact views
-
-        print time.time() - t
-
-        t = time.time()
-
-        # Get media files for active cards.
+        # Also add parent card types, even if they are not active at the
+        # moment.
+        defined_in_database_ids = [cursor[0] for cursor in \
+            self.con.execute("select id from card_types")]
+        parent_card_type_ids = set()
+        for id in active_card_type_ids:
+            while "::" in id: # Move up one level of the hierarchy.
+                id, child_name = id.rsplit("::", 1)
+                if id in defined_in_database_ids and \
+                    id not in active_card_type_ids:
+                    parent_card_type_ids.add(id)
+        # Fact views.
+        fact_view_ids = []
+        for card_type_id in active_card_type_ids + parent_card_type_ids:
+            fact_view_ids += [eval(self.con.execute(\
+                "select fact_view_ids from card_types where id=?",
+                (card_type_id, )).fetchone()[0])]]
+        # Media files for active cards.
         self.database().dynamically_create_media_files()
-        media_files = set()
+        media_filenames = set()
         for result in self.con.execute(\
             """select value from data_for_fact where _fact_id in (select
             _fact_id from cards where active=1) and value like '%src=%'"""):
             for match in re_src.finditer(result[0]):
-                media_files.add(match.group(1))
-
-        print 'media', time.time() - t
-
-
+                media_filenames.add(match.group(1))
         # Generate log entries.
-
+        number_of_entries = len(tags) + len(fact_view_ids) + \
+            len(active_card_type_ids) + len(parent_card_type_ids) + \
+            len(media_filenames) + len(_card_ids) + len(_fact_ids)
+        outfile = file("cards.xml", "w")
         xml_format = XMLFormat()
-
+        outfile.write(xml_format.log_entries_header(number_of_entries))
         for tag in tags:
             # can reuse sqlite sync, but id vs _id, extra data
             log_entry = LogEntry()
             log_entry["type"] = EventTypes.ADDED_TAG
             log_entry["o_id"] = tag.id
             log_entry["name"] = tag.name
-            print xml_format.repr_log_entry(log_entry)
-
-        # for card type, fact views, media, we can reuse sqlite sync
-
+            outfile.write(xml_format.repr_log_entry(log_entry))
+        for fact_view_id in fact_view_ids:
+            fact_view = self.fact_view(log_entry["o_id"], is_id_internal=False)
+            log_entry = LogEntry()
+            log_entry["type"] = EventTypes.ADDED_FACT_VIEW
+            log_entry["o_id"] = fact_view.id
+            log_entry["name"] = fact_view.name
+            log_entry["q_fact_keys"] = repr(fact_view.q_fact_keys)
+            log_entry["a_fact_keys"] = repr(fact_view.a_fact_keys)
+            log_entry["q_fact_key_decorators"] = \
+                repr(fact_view.q_fact_key_decorators)
+            log_entry["a_fact_key_decorators"] = \
+                repr(fact_view.a_fact_key_decorators)
+            log_entry["a_on_top_of_q"] = repr(fact_view.a_on_top_of_q)
+            log_entry["type_answer"] = repr(fact_view.type_answer)
+            if fact_view.extra_data:
+                log_entry["extra"] = repr(fact_view.extra_data)
+            outfile.write(xml_format.repr_log_entry(log_entry))
+        for card_type_id in active_card_type_ids + parent_card_type_ids:
+            card_type = self.card_type(log_entry["o_id"], is_id_internal=False)
+            log_entry = LogEntry()
+            log_entry["type"] = EventTypes.ADDED_CARD_TYPE
+            log_entry["o_id"] = card_type.id
+            log_entry["name"] = card_type.name
+            log_entry["fact_keys_and_names"] = \
+                repr(card_type.fact_keys_and_names)
+            log_entry["fact_views"] = repr([fact_view.id for fact_view \
+                in card_type.fact_views])
+            log_entry["unique_fact_keys"] = \
+                repr(card_type.unique_fact_keys)
+            log_entry["required_fact_keys"] = \
+                repr(card_type.required_fact_keys)
+            log_entry["keyboard_shortcuts"] = \
+                repr(card_type.keyboard_shortcuts)
+            if card_type.extra_data:
+                log_entry["extra"] = repr(card_type.extra_data)
+            outfile.write(xml_format.repr_log_entry(log_entry))
+        for media_filename in media_filenames:
+            log_entry = LogEntry()
+            log_entry["type"] = EventTypes.ADDED_MEDIA_FILE
+            log_entry["fname"] = media_filename
+            outfile.write(xml_format.repr_log_entry(log_entry))
         for _fact_id in _fact_ids:
-            # can reuse, but need to spoof capabilities
             fact = self.database().fact(_fact_id, is_id_internal=True)
             log_entry = LogEntry()
             log_entry["type"] = EventTypes.ADDED_FACT
             log_entry["o_id"] = fact.id
             for fact_key, value in fact.data.iteritems():
                 log_entry[fact_key] = value
-            print xml_format.repr_log_entry(log_entry)
+            outfile.write(xml_format.repr_log_entry(log_entry)
         for _card_id in _card_ids:
-            # can reuse, but only needs limited data.
             card = self.database().card(_card_id, is_id_internal=True)
             log_entry = LogEntry()
             log_entry["type"] = EventTypes.ADDED_CARD
@@ -109,22 +144,18 @@ class Mnemosyne2Cards(FileFormat):
             log_entry["fact"] = card.fact.id
             log_entry["fact_v"] = card.fact_view.id
             log_entry["tags"] = ",".join([tag.id for tag in card.tags])
-            print xml_format.repr_log_entry(log_entry)
-
-
-        # TODO: metadata
-
-
+            outfile.write(xml_format.repr_log_entry(log_entry))
+        outfile.write(xml_format.log_entries_footer())
+        outfile.close()
         w.close_progress()
 
     def do_import(self, filename, extra_tag_name=None):
         FileFormat.do_import(self, filename, extra_tag_name)
         w = self.main_widget()
         w.set_progress_text(_("Importing cards..."))
+        for log_entry in xml_format.parse_log_entries(file(filename)):
+            self.database().apply_log_entry(log_entry)
 
-        # set database.syncing to true. Rename it to importing?
 
 
-        # TODO: creation date should be import date, not export date.
 
-        # TODO: if fact exists, overwrite

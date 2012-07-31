@@ -48,7 +48,6 @@ class SM2Mnemosyne(Scheduler):
         not e.g. UTC, so calling midnight_UTC twice will give unexpected
         results.
 
-
         """
 
         # Create a time tuple containing the local date only, i.e. throwing
@@ -202,7 +201,7 @@ class SM2Mnemosyne(Scheduler):
         Factored out here to allow this to be used by e.g. MnemoGogo.
 
         """
-        
+
         while self.database().sister_card_count_scheduled_between\
             (card, card.next_rep, card.next_rep + DAY):
             card.next_rep += DAY
