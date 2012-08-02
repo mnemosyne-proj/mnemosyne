@@ -64,7 +64,7 @@ class Mnemosyne2Cards(FileFormat):
         for card_type_id in active_card_type_ids + parent_card_type_ids:
             fact_view_ids += [eval(self.con.execute(\
                 "select fact_view_ids from card_types where id=?",
-                (card_type_id, )).fetchone()[0])]]
+                (card_type_id, )).fetchone()[0])]
         # Media files for active cards.
         self.database().dynamically_create_media_files()
         media_filenames = set()
@@ -135,7 +135,7 @@ class Mnemosyne2Cards(FileFormat):
             log_entry["o_id"] = fact.id
             for fact_key, value in fact.data.iteritems():
                 log_entry[fact_key] = value
-            outfile.write(xml_format.repr_log_entry(log_entry)
+            outfile.write(xml_format.repr_log_entry(log_entry))
         for _card_id in _card_ids:
             card = self.database().card(_card_id, is_id_internal=True)
             log_entry = LogEntry()
