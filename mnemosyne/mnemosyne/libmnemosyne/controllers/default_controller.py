@@ -113,9 +113,27 @@ class DefaultController(Controller):
                             _("&Do not add"), _("&Add anyway"), "")
                         break
                 if answer is None:
-                    answer = self.main_widget().show_question(\
-                    _("There is already data present for:\n\n") +
-                    "/".join(fact[k] for k in card_type.required_fact_keys),
+                    question = \
+                        _("There is already data present for this card:\n\n")
+                    existing_fact_data = {}
+                    for fact_key in card_type.fact_keys():
+                        existing_fact_data[fact_key] = ""
+                    for duplicate in duplicates:
+                        if duplicate.data == fact.data:
+                            continue
+                        for fact_key in fact_data:
+                            if fact_key in duplicate.data and \
+                                duplicate[fact_key] not in \
+                                existing_fact_data[fact_key]:
+                                if len(existing_fact_data[fact_key]) != 0:
+                                    existing_fact_data[fact_key] += " / "
+                                existing_fact_data[fact_key] +=  \
+                                    duplicate[fact_key]
+                    for fact_key, fact_key_name in \
+                        card_type.fact_keys_and_names:
+                        question += _(fact_key_name) + ": " + \
+                            existing_fact_data[fact_key] + "\n"
+                    answer = self.main_widget().show_question(question,
                     _("&Do not add"), _("&Add anyway"), _("&Merge and edit"))
                 if answer == 0:  # Do not add.
                     return
@@ -133,8 +151,8 @@ class DefaultController(Controller):
                     for duplicate in duplicates:
                         for fact_key in fact_data:
                             if fact_key in duplicate.data and \
-                                merged_fact_data[fact_key] != \
-                                    duplicate[fact_key]:
+                                duplicate[fact_key] not in \
+                                    merged_fact_data[fact_key]:
                                 merged_fact_data[fact_key] += " / " \
                                     + duplicate[fact_key]
                     self.delete_facts_and_their_cards(duplicates)
@@ -427,8 +445,8 @@ class DefaultController(Controller):
             self.main_widget().show_error(\
             _("Cannot rename a system card type."))
             return
-        for card_type in self.card_types():
-            if card_type.name == new_name:
+        for card_type_ in self.card_types():
+            if card_type_.name == new_name:
                 self.main_widget().show_error(\
                 _("This card type name is already in use."))
                 return

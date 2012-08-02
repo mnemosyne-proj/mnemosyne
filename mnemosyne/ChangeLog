@@ -8,6 +8,7 @@ Mnemosyne 2.0.1 :
  "La [casa:house] es [grande:big]", you'll get three sister cards with the
  following questions: "La casa es grande", "La [house] es grande",
  "La casa es [big]"
+-Fix bug where the wrong clone would be renamed (reported by Herman Gunn).
 -Take size of media player widget (Linux only) into account when calculating
  the optimal split between question and answer.
 -Fixed bug where card appearance settings would not be synced between different
@@ -21,6 +22,8 @@ Mnemosyne 2.0.1 :
 -Longer initial interval if the first grade you gave a card is 5.
 -Fixing card merging losing information on Vocabulary card types (reported by
  Stephan Maseizik).
+-Before merging cards, more information is presented on the data that is
+ already in the database (requested by Stephan Maseizik).
 -Fixed spurious firing of missing media detection (reported by Geir).
 -Fixed a few bugs when displaying the edit or preview windows from the card
  browser and using PgUp and PgDown to move to the previous/next card (reported

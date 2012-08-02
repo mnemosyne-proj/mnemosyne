@@ -120,6 +120,34 @@ class TestCardType(MnemosyneTest):
                                                       is_id_internal=False)
         assert card_type_orig.fact_views[0].type_answer == False
 
+    def test_rename_two_clones(self):
+        card_type = self.card_type_with_id("1")
+        card_type_1 = self.controller().clone_card_type(\
+            card_type, "1 clone")
+        card_type = self.card_type_with_id("2")
+        card_type_2 = self.controller().clone_card_type(\
+                      card_type, "2 clone")
+
+        self.controller().rename_card_type(card_type_1, "1 clone new")
+
+        assert set([c.name for c in self.card_types() if \
+            self.database().is_user_card_type(c)]) == \
+            set(["1 clone new", "2 clone"])
+
+    def test_rename_two_clones_b(self):
+        card_type = self.card_type_with_id("1")
+        card_type_1 = self.controller().clone_card_type(\
+            card_type, "1 clone")
+        card_type = self.card_type_with_id("2")
+        card_type_2 = self.controller().clone_card_type(\
+                      card_type, "2 clone")
+
+        self.controller().rename_card_type(card_type_2, "2 clone new")
+
+        assert set([c.name for c in self.card_types() if \
+            self.database().is_user_card_type(c)]) == \
+            set(["1 clone", "2 clone new"])
+
     def test_delete(self):
         card_type = self.card_type_with_id("1")
         card_type_1 = self.controller().clone_card_type(\
