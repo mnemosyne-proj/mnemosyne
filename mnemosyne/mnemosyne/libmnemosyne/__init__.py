@@ -119,8 +119,8 @@ class Mnemosyne(Component):
           "Mnemosyne1Mem"),
          ("mnemosyne.libmnemosyne.file_formats.mnemosyne1_xml",
           "Mnemosyne1XML"),
-         #("mnemosyne.libmnemosyne.file_formats.mnemosyne2_cards",
-         # "Mnemosyne2Cards"),
+         ("mnemosyne.libmnemosyne.file_formats.mnemosyne2_cards",
+          "Mnemosyne2Cards"),
          ("mnemosyne.libmnemosyne.file_formats.tsv",
           "Tsv")]
         self.extra_components_for_plugin = {}

@@ -14,10 +14,12 @@ from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 class Widget(MainWidget):
 
     def show_question(self, question, option0, option1, option2):
-        if option0 == "&Proceed and delete":
-            return 0
-        if option0 == "&OK": # Reset learning history
-            return 0
+        if question.startswith("This will delete cards and their history"):
+            return 0  # Proceed and delete":
+        if question.startswith("Can't preserve history when converting"):
+            return 0  # Reset learning history
+        if question.startswith("Identical card is already in database"):
+            return  0 # Do not add
         raise NotImplementedError
 
 
@@ -46,6 +48,12 @@ class TestConvertCards(MnemosyneTest):
             ("mnemosyne_test", "TestReviewWidget"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
         self.review_controller().reset()
+
+        from mnemosyne.libmnemosyne.card_types.map import MapPlugin
+        for plugin in self.plugins():
+            if isinstance(plugin, MapPlugin):
+                plugin.activate()
+                break
 
     def test_1_to_2(self):
         fact_data = {"f": "question",
@@ -779,6 +787,28 @@ class TestConvertCards(MnemosyneTest):
             assert card_2.grade == -1
             assert card_1.grade == 2
 
+    def test_convert_duplicates(self):
+        card_type_map = self.card_type_with_id("4")
+        fact_data = {"loc": "test",
+                     "blank": "test1",
+                     "marked": "test2"}
+        card = self.controller().create_new_cards(fact_data,
+            card_type_map, grade=2, tag_names=["default"])[0]
+
+        card_type = self.card_type_with_id("1")
+        fact_data = {"f": "test1",
+                     "b": "test2"}
+        card = self.controller().create_new_cards(fact_data,
+            card_type, grade=2, tag_names=["default"])[0]
+
+        correspondence = {"f": "blank", "b": "marked"}
+
+        new_fact_data = {"loc": "test",
+                     "blank": "test1",
+                     "marked": "test2"}
+
+        self.controller().edit_sister_cards(card.fact, new_fact_data, card_type,
+            card_type_map, new_tag_names=["default"], correspondence=correspondence)
 
     def teardown(self):
         if os.path.exists("a.ogg"):

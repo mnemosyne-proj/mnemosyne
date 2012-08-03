@@ -1,3 +1,10 @@
+-Made RTL handling for Arabic and Hebrew more robust.
+-Fix crash when cancelling duplicate insertion while converting cards
+ (reported by Gnome).
+-Also translate key names when converting between card types (reported by
+ Gnome).
+
+
 Mnemosyne 2.0.1 : 2012-08-02
 
 -Fix occasional hang during review (Thanks to Scott Youngman and Chris Shanks

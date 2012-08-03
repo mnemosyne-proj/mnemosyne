@@ -1,6 +1,5 @@
 include README setup.py ChangeLog mnemosyne.desktop mnemosyne/libmnemosyne/LICENSE
 include openSM2sync/LICENSE
-include mnemosyne/webserver/review_page.html
 include mnemosyne/example_plugins/*.py mnemosyne/example_plugins/README
 include mnemosyne/example_scripts/*.py mnemosyne/example_scripts/README
 include mnemosyne/pyqt_ui/pixmaps/* pixmaps/*

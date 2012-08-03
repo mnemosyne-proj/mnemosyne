@@ -1,8 +1,3 @@
--translate card type field names in convert dialog (bug report Gnome)
-
--interplay between conversion and duplicate checking bug (Gnome)
-
--2.x export format
 -test, coverage, xml only first
 -creation date (log_entry(c_time) set to special value, like -666)
 -if fact exists, overwrite. What about cards in this case? Ignore?
@@ -10,14 +5,16 @@
 -media files, bundled in single files
 -metadata
 
+-rework ltr cloze deletion, also check clozes with hints containing space
+<p dir="rtl">سمعتُ (dat)
+علي
+update docs, rename AddRTLMarker to RTLHandler
+
 -keeping key pressed on show answer also grades card
 
 -A, A::B issues (see bug report Gnome)
 
 -don't reset non memorised count when editing cards
-
--rework ltr cloze deletion, also check clozes with hints containing space
-<p dir="rtl">
 
 -sync problem: tag b exists, card with tag a rename tag to a.b, edit card?, then
 rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict)

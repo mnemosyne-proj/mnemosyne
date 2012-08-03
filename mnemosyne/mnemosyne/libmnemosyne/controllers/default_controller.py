@@ -246,13 +246,16 @@ class DefaultController(Controller):
                    self.review_controller().card in cards_from_fact
                 tag_names = cards_from_fact[0].tag_string().split(", ")
                 self.delete_facts_and_their_cards([fact])
-                new_card = self.create_new_cards(new_fact_data,
-                    new_card_type, grade=-1, tag_names=tag_names)[0]
+                new_cards = self.create_new_cards(new_fact_data,
+                    new_card_type, grade=-1, tag_names=tag_names)
+                # User cancelled in create_new_cards.
+                if new_cards is None:
+                    return -1
                 # We've created a new fact here. Make sure the calling function
                 # has the information to reload the fact.
-                fact._id = new_card.fact._id
+                fact._id = new_cards[0].fact._id
                 if is_currently_asked:
-                    self.review_controller().card = new_card
+                    self.review_controller().card = new_cards[0]
                 return 0
         else:
             for card in cards_from_fact:

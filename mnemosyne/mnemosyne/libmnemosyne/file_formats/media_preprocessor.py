@@ -64,5 +64,5 @@ class MediaPreprocessor(Component):
             tag_names.append(_("MISSING_MEDIA"))
             if not self.warned_about_missing_media:
                 self.main_widget().show_information(\
- _("Warning: media files were missing. These cards have been tagged as MISSING_MEDIA. You must also change 'scr_missing' to 'scr' in the text of these cards."))
+ _("Warning: media files were missing. These cards have been tagged as MISSING_MEDIA. You must also change 'src_missing' to 'src' in the text of these cards."))
                 self.warned_about_missing_media = True
