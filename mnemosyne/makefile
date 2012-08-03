@@ -98,7 +98,7 @@ osx: 	# Contributed by Patrick Kenny.
 	# create the directory for the translations
 	sudo mkdir dist/Mnemosyne.app/Contents/Resources/share
 	# add the translations
-	sudo cp -R po dist/Mnemosyne.app/Contents/Resources/share/locale
+	sudo cp -R mo dist/Mnemosyne.app/Contents/Resources/share/locale
 	# by default, qt looks in the plugins directory in the root folder
 	sudo mkdir dist/Mnemosyne.app/Contents/plugins
 	# copy the dylib directory into plugins

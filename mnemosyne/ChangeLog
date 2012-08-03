@@ -1,4 +1,4 @@
-Mnemosyne 2.0.1 :
+Mnemosyne 2.0.1 : 2012-08-02
 
 -Fix occasional hang during review (Thanks to Scott Youngman and Chris Shanks
  for helping to debug this).

@@ -1,7 +1,6 @@
--latex card type id errors
+-translate card type field names in convert dialog (bug report Gnome)
 
-
-Release 2.0.1
+-interplay between conversion and duplicate checking bug (Gnome)
 
 -2.x export format
 -test, coverage, xml only first
@@ -11,7 +10,11 @@ Release 2.0.1
 -media files, bundled in single files
 -metadata
 
+-keeping key pressed on show answer also grades card
+
 -A, A::B issues (see bug report Gnome)
+
+-don't reset non memorised count when editing cards
 
 -rework ltr cloze deletion, also check clozes with hints containing space
 <p dir="rtl">
