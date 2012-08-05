@@ -132,6 +132,26 @@ class TestMedia(MnemosyneTest):
             "select count() from log where event_type=?",
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 1
 
+    def test_audio_start_stop(self):
+        file("a.ogg", "w")
+        full_path = os.path.abspath("a.ogg")
+        fact_data = {"f": "<audio src=\"%s\" start=\"1\" stop=\"3\">" % full_path,
+                     "b": "answer"}
+        card_type = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=-1, tag_names=["default"])[0]
+        full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
+        # Make sure we don't reuse existing objects.
+        card = self.database().card(card._id, is_id_internal=True)
+        assert os.path.exists(full_path_in_media_dir)
+        assert full_path not in card.fact.data["f"]
+        assert full_path_in_media_dir not in card.fact.data["f"]
+        assert full_path not in card.question()
+        assert full_path_in_media_dir in card.question()
+        assert self.database().con.execute(\
+            "select count() from log where event_type=?",
+            (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 1    
+
     def test_external_media(self):
         fact_data = {"f": "<img src=\"http://www.chine-nouvelle.com/jdd/public/ct/pinyinaudio/shu4.mp3\"",
                      "b": "answer"}

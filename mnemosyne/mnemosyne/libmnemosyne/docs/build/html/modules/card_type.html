@@ -54,148 +54,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-mnemosyne.libmnemosyne.card_type">
-<span id="cardtype"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">CardType</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.card_type" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType">
-<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.card_type.</tt><tt class="descname">CardType</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType" title="Permalink to this definition">¶</a></dt>
-<dd><p>A card type groups a number of fact views on a certain fact, thereby
-forming a set of sister cards.</p>
-<p>A card type needs an id as well as a name, because the name can change
-for different translations.</p>
-<p>Inherited card types should have ids where :: separates the different
-levels of the hierarchy, e.g. parent_id::child_id.</p>
-<p>The keys from the fact are also given more verbose names here. This is
-not done in fact.py, on one hand to save space in the database, and on
-the other hand to allow the possibility that different card types give
-different names to the same key. (E.g. foreign word&#8217; could be called
-&#8216;French&#8217; in a French card type, or &#8216;pronunciation&#8217; could be called
-&#8216;reading&#8217; in a Kanji card type.) This is done in self.fact_keys_and_names,
-which is a list of the form [(fact_key, fact_key_name)]. It is tempting
-to use a dictionary here, but we can&#8217;t do that since ordering is
-important.</p>
-<p>Keys which need to be different for all facts belonging to this card
-type are listed in &#8216;unique_fact_keys&#8217;.</p>
-<p>Note that a fact could contain more data than those listed in the card
-type&#8217;s &#8216;fact_keys_and_names&#8217; variable, which could be useful for card
-types needing hidden keys, dynamically generated keys, ... .</p>
-<p>The functions &#8216;create_sister_cards&#8217; and &#8216;edit_sister_cards&#8217; can be
-overridden by card types which can have a varying number of fact views,
-e.g. the cloze card type.</p>
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.component_type">
-<tt class="descname">component_type</tt><em class="property"> = 'card_type'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.component_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.create_sister_cards">
-<tt class="descname">create_sister_cards</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.create_sister_cards" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initial grading of cards and storing in the database should not
-happen here, but is done in the main controller.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.edit_sister_cards">
-<tt class="descname">edit_sister_cards</tt><big>(</big><em>fact</em>, <em>new_fact_data</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.edit_sister_cards" title="Permalink to this definition">¶</a></dt>
-<dd><p>If for the card type this operation results in edited, added or
-deleted card data apart from the edited fact data from which they
-derive, these should be returned here, so that they can be taken into
-account in the database storage.</p>
-<p>Initial grading of cards and storing in the database should not happen
-here, but is done in the main controller.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.extra_data">
-<tt class="descname">extra_data</tt><em class="property"> = {}</em><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.extra_data" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.fact_data">
-<tt class="descname">fact_data</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.fact_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the data in fact of a card. Normally. this is just
-&#8216;card.fact.data&#8217;, but specialty card types (e.g. the cloze card type)
-can override this.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.fact_key_format_proxies">
-<tt class="descname">fact_key_format_proxies</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.fact_key_format_proxies" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sometimes, a card type can dynamically create a key when
-generating a question or an answer (see e.g. the cloze card type).
-Since the user cannot specify how this key should be formatted, it
-should be formatted like an other, static key. This function returns
-a dictionary with this correspondence.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.fact_key_names">
-<tt class="descname">fact_key_names</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.fact_key_names" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.fact_key_with_name">
-<tt class="descname">fact_key_with_name</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.fact_key_with_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.fact_keys">
-<tt class="descname">fact_keys</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.fact_keys" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.fact_keys_and_names">
-<tt class="descname">fact_keys_and_names</tt><em class="property"> = None</em><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.fact_keys_and_names" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.fact_views">
-<tt class="descname">fact_views</tt><em class="property"> = None</em><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.fact_views" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.id">
-<tt class="descname">id</tt><em class="property"> = '-1'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.is_fact_data_valid">
-<tt class="descname">is_fact_data_valid</tt><big>(</big><em>fact_data</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.is_fact_data_valid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check if all the required keys are present.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.keyboard_shortcuts">
-<tt class="descname">keyboard_shortcuts</tt><em class="property"> = {}</em><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.keyboard_shortcuts" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.name">
-<tt class="descname">name</tt><em class="property"> = ''</em><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.render_answer">
-<tt class="descname">render_answer</tt><big>(</big><em>card</em>, <em>render_chain='default'</em>, <em>**render_args</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.render_answer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.render_question">
-<tt class="descname">render_question</tt><big>(</big><em>card</em>, <em>render_chain='default'</em>, <em>**render_args</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.render_question" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.required_fact_keys">
-<tt class="descname">required_fact_keys</tt><em class="property"> = None</em><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.required_fact_keys" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.unique_fact_keys">
-<tt class="descname">unique_fact_keys</tt><em class="property"> = None</em><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.unique_fact_keys" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+  <div class="section" id="cardtype">
+<h1><tt class="xref py py-mod docutils literal"><span class="pre">CardType</span></tt><a class="headerlink" href="#cardtype" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -209,7 +69,7 @@ a dictionary with this correspondence.</p>
                         title="previous chapter"><tt class="docutils literal"><span class="pre">TagTree</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="card.html"
-                        title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">Card</span></tt></a></p>
+                        title="next chapter"><tt class="docutils literal"><span class="pre">Card</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/modules/card_type.txt"
@@ -252,7 +112,7 @@ a dictionary with this correspondence.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jun 01, 2012.
+      Last updated on Aug 05, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

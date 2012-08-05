@@ -5,6 +5,8 @@
 -media files, bundled in single files
 -metadata
 
+-test start/stop audio on windows
+
 -rework ltr cloze deletion, also check clozes with hints containing space
 <p dir="rtl">سمعتُ (dat)
 علي

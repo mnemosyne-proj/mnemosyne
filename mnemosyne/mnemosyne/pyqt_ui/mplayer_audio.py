@@ -9,8 +9,13 @@ import subprocess
 
 from mnemosyne.libmnemosyne.filter import Filter
 
-re_audio = re.compile(r"""<audio src=\"(.+?)\">""", re.DOTALL | re.IGNORECASE)
-
+re_audio = re.compile(r"""<audio src=\"(.+?)\"(.*)>""",
+    re.DOTALL | re.IGNORECASE)
+re_start = re.compile(r"""start=\"(.+?)\"""",
+    re.DOTALL | re.IGNORECASE)
+re_stop = re.compile(r"""stop=\"(.+?)\"""",
+    re.DOTALL | re.IGNORECASE)
+    
 # Don't show batch window.
 info = subprocess.STARTUPINFO()
 info.dwFlags |= subprocess.STARTF_USESHOWWINDOW
@@ -41,7 +46,19 @@ class MplayerAudio(Filter):
                 index += 1
                 sound_file = new_name
             sound_files.append(sound_file)
+            start, stop = 0, 999999
+            if match.group(2):
+                start_match = re_start.search(match.group(2))
+                if start_match:
+                    start = float(start_match.group(1))
+                stop_match = re_stop.search(match.group(2))
+                if stop_match:
+                    stop = float(stop_match.group(1))
             text = text.replace(match.group(0), "")
-        subprocess.Popen(["mplayer.exe", "-ao", "win32"] + sound_files,
+        duration = stop - start
+        if duration > 400:
+            duration -= 300 # Compensate for mplayer overshoot.            
+        subprocess.Popen(["mplayer.exe", "-ao", "win32"] + sound_files + \
+            ["-ss", str(start), "-endpos", str(duration)],
             startupinfo=info)
         return text
