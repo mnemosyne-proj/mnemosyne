@@ -1,11 +1,13 @@
+-check contents of exported database manually
 -test, coverage, xml only first
--creation date (log_entry(c_time) set to special value, like -666)
 -if fact exists, overwrite. What about cards in this case? Ignore?
 -move sql query to database layer. Single function or not?
 -media files, bundled in single files
+-extra tag name
 -metadata
 
 -test start/stop audio on windows
+-test stop audio on linux
 
 -rework ltr cloze deletion, also check clozes with hints containing space
 <p dir="rtl">سمعتُ (dat)

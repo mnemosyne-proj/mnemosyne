@@ -5,6 +5,7 @@
 #
 
 import os
+import time
 
 from openSM2sync.log_entry import LogEntry
 from openSM2sync.log_entry import EventTypes
@@ -424,12 +425,17 @@ class SQLiteSync(object):
                     self._activate_plugin_for_card_type(log_entry["card_t"])
                     card_type = self.card_type_with_id(log_entry["card_t"])
                 except RuntimeError:
-                    self.card_types_to_instantiate_later.add(log_entry["card_t"])
+                    self.card_types_to_instantiate_later.add(\
+                        log_entry["card_t"])
                     card_type = self.card_type_with_id("1")
                     log_entry["fact_v"] = card_type.fact_views[0].id
             else:
                 card_type = self.card_type_with_id(log_entry["card_t"])
         fact = self.fact(log_entry["fact"], is_id_internal=False)
+        # When importing, replace the dummy creation time with the actual time.
+        if log_entry["c_time"] == -666:
+            log_entry["c_time"] = int(time.time())
+            log_entry["m_time"] = int(time.time())
         for fact_view in card_type.fact_views:
             if fact_view.id == log_entry["fact_v"]:
                 card = Card(card_type, fact, fact_view,
@@ -596,7 +602,8 @@ class SQLiteSync(object):
     def apply_log_entry(self, log_entry):
         self.syncing = True
         event_type = log_entry["type"]
-        self.log().timestamp = int(log_entry["time"])
+        if "time" in log_entry:
+            self.log().timestamp = int(log_entry["time"])
         # TMP measure to allow syncing partners which did not yet store
         # machine ids for LOADED_DATABASE and SAVED_DATABASE.
         if not "o_id" in log_entry:

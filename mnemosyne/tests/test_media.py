@@ -150,7 +150,7 @@ class TestMedia(MnemosyneTest):
         assert full_path_in_media_dir in card.question()
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
-            (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 1    
+            (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 1
 
     def test_external_media(self):
         fact_data = {"f": "<img src=\"http://www.chine-nouvelle.com/jdd/public/ct/pinyinaudio/shu4.mp3\"",

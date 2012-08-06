@@ -23,5 +23,9 @@ class FileFormat(Component):
         self.import_dir = os.path.dirname(os.path.abspath(filename))
 
     def do_export(self, filename, extra_tag_name=None):
-        raise NotImplementedError
+
+        """Make sure fileformats call this implementation first."""
+
+        self.export_dir = os.path.dirname(os.path.abspath(filename))
+
 
