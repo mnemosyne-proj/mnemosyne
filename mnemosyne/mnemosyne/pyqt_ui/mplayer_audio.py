@@ -15,7 +15,7 @@ re_start = re.compile(r"""start=\"(.+?)\"""",
     re.DOTALL | re.IGNORECASE)
 re_stop = re.compile(r"""stop=\"(.+?)\"""",
     re.DOTALL | re.IGNORECASE)
-    
+
 # Don't show batch window.
 info = subprocess.STARTUPINFO()
 info.dwFlags |= subprocess.STARTF_USESHOWWINDOW
@@ -57,7 +57,7 @@ class MplayerAudio(Filter):
             text = text.replace(match.group(0), "")
         duration = stop - start
         if duration > 400:
-            duration -= 300 # Compensate for mplayer overshoot.            
+            duration -= 300 # Compensate for mplayer overshoot.
         subprocess.Popen(["mplayer.exe", "-ao", "win32"] + sound_files + \
             ["-ss", str(start), "-endpos", str(duration)],
             startupinfo=info)

@@ -1,18 +1,14 @@
--check contents of exported database manually
--test, coverage, xml only first
+-make sure imported card is active
 -if fact exists, overwrite. What about cards in this case? Ignore?
+-what if tag exists?
 -move sql query to database layer. Single function or not?
 -media files, bundled in single files
 -extra tag name
 -metadata
 
--test start/stop audio on windows
--test stop audio on linux
-
 -rework ltr cloze deletion, also check clozes with hints containing space
-<p dir="rtl">سمعتُ (dat)
-علي
-update docs, rename AddRTLMarker to RTLHandler
+<p dir="rtl">سمعتُ (dat)علي
+update comments, check coverage,
 
 -keeping key pressed on show answer also grades card
 
@@ -20,8 +16,19 @@ update docs, rename AddRTLMarker to RTLHandler
 
 -don't reset non memorised count when editing cards
 
+-extra space below media player on production cards
+
 -sync problem: tag b exists, card with tag a rename tag to a.b, edit card?, then
-rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict)
+rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict for client)
+
+-other sync problem: server: ~/tmp/default-20120806-204415.db
+Traceback (innermost last):
+  File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.0.1-py2.7.egg/openSM2sync/s
+erver.py", line 481, in get_server_log_entries
+    yield buffer
+ GeneratorExit
+haal data van een paar dagen terug
+client: sqlite_sync: 399 card from log entry: none has no attribute __get__item
 
 -reverse arabic plugin no longer seems to work?
  http://mpcabd.igeex.biz/python-arabic-text-reshaper/

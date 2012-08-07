@@ -146,6 +146,7 @@ class Mnemosyne2Cards(FileFormat):
             card = db.card(_card_id, is_id_internal=True)
             log_entry = LogEntry()
             log_entry["type"] = EventTypes.ADDED_CARD
+            log_entry["o_id"] = card.id
             log_entry["card_t"] = card.card_type.id
             log_entry["fact"] = card.fact.id
             log_entry["fact_v"] = card.fact_view.id

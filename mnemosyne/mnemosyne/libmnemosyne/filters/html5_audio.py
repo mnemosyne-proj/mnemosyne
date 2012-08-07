@@ -12,7 +12,7 @@ re_audio = re.compile(r"""<audio src=\"(.+?)\"(.*)>""",
 re_start = re.compile(r"""start=\"(.+?)\"""",
     re.DOTALL | re.IGNORECASE)
 re_stop = re.compile(r"""stop=\"(.+?)\"""",
-    re.DOTALL | re.IGNORECASE)   
+    re.DOTALL | re.IGNORECASE)
 
 script = """
 <script type="text/javascript">
@@ -99,4 +99,5 @@ class Html5Audio(Filter):
             text = text.replace("autoplay = true", "autoplay = false")
         if self.config()["media_controls"] == False:
             text = text.replace("audioPlayer.controls = 'controls';", "")
+        print text
         return text

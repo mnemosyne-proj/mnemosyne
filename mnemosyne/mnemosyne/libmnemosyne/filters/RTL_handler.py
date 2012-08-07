@@ -1,13 +1,13 @@
 #
-# add_RTL_marker.py <Peter.Bienstman@UGent.be>
+# RTL_handler.py <Peter.Bienstman@UGent.be>
 #
 
 from mnemosyne.libmnemosyne.filter import Filter
 
 
-class AddRTLMarker(Filter):
+class RTLHandler(Filter):
 
-    """Add the RTL marker to Arabic and Hebrew text, such that punctuation
+    """Handle RTL for Arabic and Hebrew text, such that e.g. punctuation
     comes out alright.
 
     Should work e.g. for

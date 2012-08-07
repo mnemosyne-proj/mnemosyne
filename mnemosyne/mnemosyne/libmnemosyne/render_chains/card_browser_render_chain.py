@@ -7,7 +7,7 @@ from mnemosyne.libmnemosyne.renderers.html_css_card_browser \
      import HtmlCssCardBrowser
 from mnemosyne.libmnemosyne.filters.escape_to_html_for_card_browser \
      import EscapeToHtmlForCardBrowser
-from mnemosyne.libmnemosyne.filters.add_RTL_marker import AddRTLMarker
+from mnemosyne.libmnemosyne.filters.RTL_handler import RTLHandler
 
 
 class CardBrowserRenderChain(RenderChain):
@@ -18,6 +18,6 @@ class CardBrowserRenderChain(RenderChain):
 
     id = "card_browser"
 
-    filters = [EscapeToHtmlForCardBrowser, AddRTLMarker]
+    filters = [EscapeToHtmlForCardBrowser, RTLHandler]
     renderers = [HtmlCssCardBrowser]
 

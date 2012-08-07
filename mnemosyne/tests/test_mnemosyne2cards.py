@@ -28,7 +28,13 @@ class TestMnemosyne2Cards(MnemosyneTest):
         self.database().new("import.db")
         assert len([c for c in self.database().cards()]) == 0
         self.cards_format().do_import("test.cards")
+        self.database().save()
         assert len([c for c in self.database().cards()]) == 2
+        for _card_id, _fact_id in self.database().cards():
+            card = self.database().card(_card_id, is_id_internal=True)
+            #assert card.active == True
+            assert card.id
+
 
     def test_2(self):
         fact_data = {"f": "question",
@@ -38,6 +44,8 @@ class TestMnemosyne2Cards(MnemosyneTest):
             card_type, ("1 clone"))
         card_type = self.controller().clone_card_type(\
             card_type, ("1 clone cloned"))
+        card_type.extra_data = {1:1}
+        card_type.fact_views[0].extra_data = {2:2}
         card_1 = self.controller().create_new_cards(\
             fact_data, card_type, grade=-1, tag_names=["default"])
         self.database().save()
@@ -47,8 +55,10 @@ class TestMnemosyne2Cards(MnemosyneTest):
         self.database().new("import.db")
         assert len([c for c in self.database().cards()]) == 0
         self.cards_format().do_import("test.cards")
+        self.database().save()
         assert len([c for c in self.database().cards()]) == 1
 
     def teardown(self):
         if os.path.exists("test.cards"):
             os.remove("test.cards")
+        MnemosyneTest.teardown(self)
