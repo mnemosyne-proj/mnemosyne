@@ -151,7 +151,6 @@ class Mnemosyne2Cards(FileFormat):
             log_entry["fact"] = card.fact.id
             log_entry["fact_v"] = card.fact_view.id
             log_entry["tags"] = ",".join([tag.id for tag in card.tags])
-            log_entry["c_time"] = -666 # To be replace by import time.
             log_entry["gr"] = card.grade
             log_entry["e"] = card.easiness
             log_entry["ac_rp"] = card.acq_reps
@@ -178,7 +177,7 @@ class Mnemosyne2Cards(FileFormat):
         w.set_progress_range(number_of_entries)
         w.set_progress_update_interval(number_of_entries/50)
         for log_entry in element_loop:
-            self.database().apply_log_entry(log_entry)
+            self.database().apply_log_entry(log_entry, importing=True)
             w.increase_progress(1)
         w.set_progress_value(number_of_entries)
         if len(self.database().card_types_to_instantiate_later) != 0:

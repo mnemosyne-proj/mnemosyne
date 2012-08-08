@@ -335,6 +335,26 @@ class SQLiteSync(object):
             log_entry["value"] = repr(self.config()[log_entry["o_id"]])
         return log_entry
 
+    def add_tag_from_log_entry(self, log_entry):
+        if self.importing:
+            # If this tag has been imported before, don't do anything.
+            if self.con.execute("select count() from tags where id=?",
+                (log_entry["o_id"], )).fetchone()[0] != 0:
+                pass
+            # When importing for the first time, change the tag name if it
+            # clashes with an existing tag name. Note that we cannot create
+            # a new tag with a different id here, as that would break the
+            # tags that were added to the cards in the import file.
+            elif self.con.execute("select count() from tags where name=?",
+                (log_entry["name"], )).fetchone()[0] == 1:
+                self.main_widget().show_information(\
+            _("Tag '%s' already in database, renaming new tag to '%s (1)'" \
+                % (log_entry["name"], log_entry["name"])))
+                log_entry["name"] += " (1)"
+                self.add_tag(self.tag_from_log_entry(log_entry))
+        else:
+            self.add_tag(self.tag_from_log_entry(log_entry))
+
     def tag_from_log_entry(self, log_entry):
         # When deleting, the log entry only contains the tag's id, so we pull
         # the object from the database. This is a bit slower than just filling
@@ -432,8 +452,8 @@ class SQLiteSync(object):
             else:
                 card_type = self.card_type_with_id(log_entry["card_t"])
         fact = self.fact(log_entry["fact"], is_id_internal=False)
-        # When importing, replace the dummy creation time with the actual time.
-        if log_entry["c_time"] == -666:
+        # When importing, set the creation time to the current time.
+        if self.importing:
             log_entry["c_time"] = int(time.time())
             log_entry["m_time"] = int(time.time())
         for fact_view in card_type.fact_views:
@@ -599,8 +619,11 @@ class SQLiteSync(object):
                 id=?""", (criterion.id, )).fetchone()[0]
         return criterion
 
-    def apply_log_entry(self, log_entry):
-        self.syncing = True
+    def apply_log_entry(self, log_entry, importing=False):
+        if not importing:
+            self.syncing = True
+        else:
+            self.importing = True
         event_type = log_entry["type"]
         if "time" in log_entry:
             self.log().timestamp = int(log_entry["time"])
@@ -622,7 +645,7 @@ class SQLiteSync(object):
                 self.log().saved_database(log_entry["o_id"], log_entry["sch"],
                     log_entry["n_mem"], log_entry["act"])
             elif event_type == EventTypes.ADDED_TAG:
-                self.add_tag(self.tag_from_log_entry(log_entry))
+                self.add_tag_from_log_entry(log_entry)
             elif event_type == EventTypes.EDITED_TAG:
                 self.update_tag(self.tag_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_TAG:
@@ -678,4 +701,6 @@ class SQLiteSync(object):
         finally:
             self.log().timestamp = None
             self.syncing = False
+            self.importing = False
+
 

@@ -1,13 +1,17 @@
--make sure imported card is active
--if fact exists, overwrite. What about cards in this case? Ignore?
--what if tag exists?
+-if fact exists, overwrite. What if exporter also changed card type?
+ What about cards in this case? Ignore? What if user added tags to card?
 -move sql query to database layer. Single function or not?
 -media files, bundled in single files
+-check interplay with sync
 -extra tag name
 -metadata
+-look at code below for shared decks and remove
+-log name and version of imported database to automatically check for updates?
+
 
 -rework ltr cloze deletion, also check clozes with hints containing space
 <p dir="rtl">سمعتُ (dat)علي
+check cloze deletion at beginning of sentence, also with <<I whish I did not >>
 update comments, check coverage,
 
 -keeping key pressed on show answer also grades card
@@ -16,7 +20,7 @@ update comments, check coverage,
 
 -don't reset non memorised count when editing cards
 
--extra space below media player on production cards
+-extra space below media player on production cards in Sentence type
 
 -sync problem: tag b exists, card with tag a rename tag to a.b, edit card?, then
 rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict for client)

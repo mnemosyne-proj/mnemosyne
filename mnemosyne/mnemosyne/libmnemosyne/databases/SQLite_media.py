@@ -136,11 +136,11 @@ _("Media filename rather long. This could cause problems using this file on a di
                                 (filename, )).fetchone()[0] == 0:
                 self.con.execute("""insert into media(filename, _hash)
                     values(?,?)""", (filename, self._media_hash(filename)))
-                # When we are applying log entries during sync, the side
-                # effects of e.g. ADDED_FACT events should not generate
+                # When we are applying log entries during sync or import, the
+                # side effects of e.g. ADDED_FACT events should not generate
                 # additional ADDED_MEDIA_FILE events at the remote partner, so
                 # we disable the logging of these side effects in that case.
-                if not self.syncing:
+                if not self.syncing and not self.importing:
                     self.log().added_media_file(filename)
 
     def unused_media_files(self):
