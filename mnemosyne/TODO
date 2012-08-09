@@ -1,5 +1,8 @@
+-recheck and document 'if imported before and name in database'
+ isn't this always true
 -if fact exists, overwrite. What if exporter also changed card type?
  What about cards in this case? Ignore? What if user added tags to card?
+-check coverage in sqlite sync
 -move sql query to database layer. Single function or not?
 -media files, bundled in single files
 -check interplay with sync
