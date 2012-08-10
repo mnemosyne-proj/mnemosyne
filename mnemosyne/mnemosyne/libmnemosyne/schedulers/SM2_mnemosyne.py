@@ -543,7 +543,7 @@ class SM2Mnemosyne(Scheduler):
             card.next_rep = self.midnight_UTC(card.last_rep + new_interval)
             self.avoid_sister_cards(card)
         else:
-            card.next_rep = int(time.time())
+            card.next_rep = card.last_rep
         # Warn if we learned a lot of new cards.
         if len(self._fact_ids_memorised) == 15 and \
             self.warned_about_too_many_cards == False:
