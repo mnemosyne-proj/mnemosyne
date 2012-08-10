@@ -341,18 +341,19 @@ class SQLiteSync(object):
                 "select count() from tags where id=?",
                 (log_entry["o_id"], )).fetchone()[0] != 0
             same_name_in_database = self.con.execute(\
-                "select count() from tags where name=?",
-                (log_entry["name"], )).fetchone()[0] == 1
-            if already_imported and same_name_in_database:
-                return
-            if already_imported:
-                log_entry["type"] = EventTypes.EDITED_TAG
-                return self.update_tag(self.tag_from_log_entry(log_entry))
+                "select count() from tags where name=? and id!=?",
+                (log_entry["name"], log_entry["o_id"] )).fetchone()[0] == 1
             if same_name_in_database:
+                # Merging with the tag which is already in the database is more
+                # difficult, as then the tag links in the cards would need to
+                # be updated.
                 self.main_widget().show_information(\
             _("Tag '%s' already in database, renaming new tag to '%s (1)'" \
                 % (log_entry["name"], log_entry["name"])))
                 log_entry["name"] += " (1)"
+            if already_imported:
+                log_entry["type"] = EventTypes.EDITED_TAG
+                return self.update_tag(self.tag_from_log_entry(log_entry))
         self.add_tag(self.tag_from_log_entry(log_entry))
 
     def tag_from_log_entry(self, log_entry):
@@ -378,6 +379,17 @@ class SQLiteSync(object):
                 (tag.id, )).fetchone()[0]
         return tag
 
+    def add_fact_from_log_entry(self, log_entry):
+        if self.importing:
+            already_imported = self.con.execute(\
+                "select count() from facts where id=?",
+                (log_entry["o_id"], )).fetchone()[0] != 0
+            if already_imported:
+                log_entry["type"] = EventTypes.EDITED_FACT
+                return self.update_fact(\
+                    self.fact_from_log_entry(log_entry))
+        self.add_fact(self.fact_from_log_entry(log_entry))
+
     def fact_from_log_entry(self, log_entry):
         # Get fact object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_FACT:
@@ -392,6 +404,29 @@ class SQLiteSync(object):
             fact._id = self.con.execute("select _id from facts where id=?",
                 (fact.id, )).fetchone()[0]
         return fact
+
+    def add_card_from_log_entry(self, log_entry):
+        if self.importing:
+            already_imported = self.con.execute(\
+                "select count() from cards where id=?",
+                (log_entry["o_id"], )).fetchone()[0] != 0
+            if already_imported:
+                card = self.card_from_log_entry(log_entry)
+                card.modification_time = int(time.time())
+                for tag_id in log_entry["tags"].split(","):
+                    card.tags.add(self.tag(tag_id, is_id_internal=False))
+                card.card_type = self.card_type(\
+                    log_entry["card_t"], is_id_internal=False)
+                if self.is_user_card_type(card.card_type):
+                    card.fact_view = self.fact_view(\
+                        log_entry["fact_v"], is_id_internal=False)
+                else:
+                    for fact_view in card.card_type.fact_views:
+                        if fact_view.id == log_entry["fact_v"]:
+                            card.fact_view = fact_view
+                            break
+                return self.update_card(card)
+        self.add_card(self.card_from_log_entry(log_entry))
 
     def card_from_log_entry(self, log_entry):
         # We should not receive cards with question and answer data, only
@@ -548,17 +583,12 @@ class SQLiteSync(object):
             already_imported = self.con.execute(\
                 "select count() from fact_views where id=?",
                 (log_entry["o_id"], )).fetchone()[0] != 0
-            same_name_in_database = self.con.execute(\
-                "select count() from fact_views where name=?",
-                (log_entry["name"], )).fetchone()[0] == 1
-            if already_imported and same_name_in_database:
-                return
+            # No need to rename fact views here, as the user only names the
+            # card types.
             if already_imported:
                 log_entry["type"] = EventTypes.EDITED_FACT_VIEW
                 return self.update_fact_view(\
                     self.fact_view_from_log_entry(log_entry))
-            # No need to rename fact views here, as the user only names the
-            # card types.
         self.add_fact_view(self.fact_view_from_log_entry(log_entry))
 
     def fact_view_from_log_entry(self, log_entry):
@@ -587,19 +617,20 @@ class SQLiteSync(object):
                 "select count() from card_types where id=?",
                 (log_entry["o_id"], )).fetchone()[0] != 0
             same_name_in_database = self.con.execute(\
-                "select count() from card_types where name=?",
-                (log_entry["name"], )).fetchone()[0] == 1
-            if already_imported and same_name_in_database:
-                return
+                "select count() from card_types where name=? and id!=?",
+                (log_entry["name"], log_entry["o_id"] )).fetchone()[0] == 1
+            if same_name_in_database:
+                # Merging with the card type which is already in the database
+                # is more difficult, as then the card type links in the cards
+                # would need to be updated.
+                self.main_widget().show_information(\
+ _("Card type '%s' already in database, renaming new card type to '%s (1)'" \
+                % (log_entry["name"], log_entry["name"])))
+                log_entry["name"] += " (1)"
             if already_imported:
                 log_entry["type"] = EventTypes.EDITED_CARD_TYPE
                 return self.update_card_type(\
                     self.card_type_from_log_entry(log_entry))
-            if same_name_in_database:
-                self.main_widget().show_information(\
-  _("Card type '%s' already in database, renaming new card_type to '%s (1)'" \
-                % (log_entry["name"], log_entry["name"])))
-                log_entry["name"] += " (1)"
         self.add_card_type(self.card_type_from_log_entry(log_entry))
 
     def card_type_from_log_entry(self, log_entry):
@@ -690,13 +721,13 @@ class SQLiteSync(object):
             elif event_type == EventTypes.DELETED_TAG:
                 self.delete_tag(self.tag_from_log_entry(log_entry))
             elif event_type == EventTypes.ADDED_FACT:
-                self.add_fact(self.fact_from_log_entry(log_entry))
+                self.add_fact_from_log_entry(log_entry)
             elif event_type == EventTypes.EDITED_FACT:
                 self.update_fact(self.fact_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_FACT:
                 self.delete_fact(self.fact_from_log_entry(log_entry))
             elif event_type == EventTypes.ADDED_CARD:
-                self.add_card(self.card_from_log_entry(log_entry))
+                self.add_card_from_log_entry(log_entry)
             elif event_type == EventTypes.EDITED_CARD:
                 self.update_card(self.card_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_CARD:

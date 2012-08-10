@@ -175,6 +175,26 @@ class TestMnemosyne2Cards(MnemosyneTest):
         assert len(self.card_types()) == 5
         assert "renamed" not in [card_type.name for card_type in self.card_types()]
 
+    def test_update_fact(self):
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(\
+            fact_data, card_type, grade=-1, tag_names=["default"])
+
+        self.cards_format().do_export("test.cards")
+
+        self.database().new("import.db")
+        self.cards_format().do_import("test.cards")
+        _card_id, _fact_id = self.database().cards().next()
+        card = self.database().card(_card_id, is_id_internal=True)
+        card.fact["f"] = "edited"
+        self.database().update_fact(card.fact)
+        assert "edited" in card.question()
+        self.cards_format().do_import("test.cards")
+        _card_id, _fact_id = self.database().cards().next()
+        card = self.database().card(_card_id, is_id_internal=True)
+        assert "edited" not in card.question()
 
     def teardown(self):
         if os.path.exists("test.cards"):

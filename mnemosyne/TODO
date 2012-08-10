@@ -1,12 +1,8 @@
--recheck and document 'if imported before and name in database'
- isn't this always true
--if fact exists, overwrite. What if exporter also changed card type?
- What about cards in this case? Ignore? What if user added tags to card?
--check coverage in sqlite sync
 -move sql query to database layer. Single function or not?
 -media files, bundled in single files
--check interplay with sync
--extra tag name
+-double check interplay with sync
+-double check export and import on live database with learning data
+-extra tag name on import
 -metadata
 -look at code below for shared decks and remove
 -log name and version of imported database to automatically check for updates?
