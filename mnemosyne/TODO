@@ -1,5 +1,8 @@
--move sql query to database layer. Single function or not?
 -media files, bundled in single files
+-xml issues
+-zip file not created / compressed?
+-move mediafilenames directly into zip file.
+-move sql query to database layer. Single function or not?
 -double check interplay with sync
 -double check export and import on live database with learning data
 -extra tag name on import

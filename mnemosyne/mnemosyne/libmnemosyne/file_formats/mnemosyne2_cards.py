@@ -6,6 +6,9 @@ import os
 import re
 import sys
 import time
+import codecs
+import shutil
+import zipfile
 import cPickle
 
 from openSM2sync.log_entry import LogEntry
@@ -75,24 +78,35 @@ class Mnemosyne2Cards(FileFormat):
             _fact_id from cards where active=1) and value like '%src=%'"""):
             for match in re_src.finditer(result[0]):
                 media_filenames.add(match.group(1))
+        # Create media files.
+        if os.path.exists("tmp"):
+            shutil.rmtree("tmp")
+        # TODO: merge in zip creation.
+        export_media_dir = os.path.join("tmp", "media")
+        for media_filename in media_filenames:
+            dir_name = os.path.join(\
+                export_media_dir, os.path.dirname(media_filename))
+            if not os.path.exists(dir_name):
+                os.makedirs(dir_name)
+            print 'copy', os.path.join(self.database().media_dir(), media_filename), \
+                os.path.join(export_media_dir, media_filename)
+            shutil.copy(\
+                os.path.join(self.database().media_dir(), media_filename),
+                os.path.join(export_media_dir, media_filename))
         # Generate log entries.
         number_of_entries = len(tags) + len(fact_view_ids) + \
             len(card_type_ids) + len(media_filenames) + \
             len(_card_ids) + len(_fact_ids)
-        outfile = file("cards.xml", "w")
-
-        # TMP
-        outfile = file("test.cards", "w")
-
-
+        xml_file = file(os.path.join("tmp", "cards.xml"), "w")
         xml_format = XMLFormat()
-        outfile.write(xml_format.log_entries_header(number_of_entries))
+        xml_file.write(xml_format.log_entries_header(number_of_entries))
         for tag in tags:
             log_entry = LogEntry()
             log_entry["type"] = EventTypes.ADDED_TAG
             log_entry["o_id"] = tag.id
             log_entry["name"] = tag.name
-            outfile.write(xml_format.repr_log_entry(log_entry))
+            xml_file.write(xml_format.\
+                repr_log_entry(log_entry).encode("utf-8"))
         for fact_view_id in fact_view_ids:
             fact_view = db.fact_view(fact_view_id, is_id_internal=False)
             log_entry = LogEntry()
@@ -109,7 +123,8 @@ class Mnemosyne2Cards(FileFormat):
             log_entry["type_answer"] = repr(fact_view.type_answer)
             if fact_view.extra_data:
                 log_entry["extra"] = repr(fact_view.extra_data)
-            outfile.write(xml_format.repr_log_entry(log_entry))
+            xml_file.write(xml_format.\
+                repr_log_entry(log_entry).encode("utf-8"))
         for card_type_id in card_type_ids:
             card_type = db.card_type(card_type_id, is_id_internal=False)
             log_entry = LogEntry()
@@ -128,12 +143,14 @@ class Mnemosyne2Cards(FileFormat):
                 repr(card_type.keyboard_shortcuts)
             if card_type.extra_data:
                 log_entry["extra"] = repr(card_type.extra_data)
-            outfile.write(xml_format.repr_log_entry(log_entry))
+            xml_file.write(xml_format.\
+                repr_log_entry(log_entry).encode("utf-8"))
         for media_filename in media_filenames:
             log_entry = LogEntry()
             log_entry["type"] = EventTypes.ADDED_MEDIA_FILE
             log_entry["fname"] = media_filename
-            outfile.write(xml_format.repr_log_entry(log_entry))
+            xml_file.write(xml_format.\
+                repr_log_entry(log_entry).encode("utf-8"))
         for _fact_id in _fact_ids:
             fact = db.fact(_fact_id, is_id_internal=True)
             log_entry = LogEntry()
@@ -141,7 +158,8 @@ class Mnemosyne2Cards(FileFormat):
             log_entry["o_id"] = fact.id
             for fact_key, value in fact.data.iteritems():
                 log_entry[fact_key] = value
-            outfile.write(xml_format.repr_log_entry(log_entry))
+            xml_file.write(xml_format.\
+                repr_log_entry(log_entry).encode("utf-8"))
         for _card_id in _card_ids:
             card = db.card(_card_id, is_id_internal=True)
             log_entry = LogEntry()
@@ -160,9 +178,20 @@ class Mnemosyne2Cards(FileFormat):
             log_entry["rt_rp_l"] = card.ret_reps_since_lapse
             log_entry["l_rp"] = card.last_rep
             log_entry["n_rp"] = card.next_rep
-            outfile.write(xml_format.repr_log_entry(log_entry))
-        outfile.write(xml_format.log_entries_footer())
-        outfile.close()
+            xml_file.write(xml_format.\
+                repr_log_entry(log_entry).encode("utf-8"))
+        xml_file.write(xml_format.log_entries_footer())
+        xml_file.close()
+        # Make archive (Zipfile requires a .zip extension).
+        zip_file = zipfile.ZipFile(filename + ".zip", "w")
+        for dirname, dirnames, filenames in os.walk(u"tmp"):
+            for filename_ in filenames:
+                zip_file.write(os.path.join(dirname, filename_))
+        zip_file.close()
+        shutil.move(filename + ".zip",  filename)
+        shutil.rmtree("tmp")
+        print filename, os.path.abspath(filename)
+        1/0
         w.close_progress()
 
     def do_import(self, filename, extra_tag_name=None):
@@ -170,7 +199,7 @@ class Mnemosyne2Cards(FileFormat):
         w = self.main_widget()
         w.set_progress_text(_("Importing cards..."))
         self.database().card_types_to_instantiate_later = set()
-        element_loop = XMLFormat().parse_log_entries(file(filename))
+        element_loop = XMLFormat().parse_log_entries(file(filename, "r"))
         number_of_entries = int(element_loop.next())
         if number_of_entries == 0:
             return

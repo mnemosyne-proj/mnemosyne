@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-08-06 08:12+CEST\n"
+"POT-Creation-Date: 2012-08-13 13:23+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,7 +91,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/__init__.py:256
 #: ../mnemosyne/libmnemosyne/__init__.py:269
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:726
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:326
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:329
 msgid "Error when running plugin:"
 msgstr ""
 
@@ -424,15 +424,15 @@ msgid ""
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:508
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:569
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1038
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:573
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1043
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:97
 msgid "No"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:508
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:569
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1038
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:573
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1043
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:97
 msgid "Yes"
 msgstr ""
@@ -481,32 +481,32 @@ msgstr ""
 msgid "go to http://www.mnemosyne-proj.org"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:329
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:332
 msgid "Missing plugin for card type with id:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:342
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:357
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:345
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:360
 msgid "Unable to load file."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:344
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:347
 msgid "Unable to load file, query failed"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:347
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:350
 msgid "Unable to load file: database version mismatch."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:424
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:427
 msgid "Warning: backup creation failed for"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:568
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:572
 msgid "Make tag '%s' active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1037
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1042
 msgid "Make new card type active in saved set '%s'?"
 msgstr ""
 
@@ -518,7 +518,8 @@ msgstr ""
 msgid "Missing media file!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite_sync.py:116
+#: ../mnemosyne/libmnemosyne/databases/SQLite_sync.py:117
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:213
 msgid "Missing plugins for card types."
 msgstr ""
 
@@ -552,7 +553,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:42
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:32
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:36
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:155
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:200
 msgid "Importing cards..."
 msgstr ""
 
@@ -597,15 +598,15 @@ msgstr ""
 msgid "This XML file contains learning data. It's best to import this from a mem file, in order to preserve historical statistics. Continue?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:24
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:27
 msgid "Mnemosyne 2.x *.cards files"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:25
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:28
 msgid "Mnemosyne 2.x cards for sharing (*.cards)"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:32
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:36
 msgid "Exporting cards..."
 msgstr ""
 
@@ -886,16 +887,16 @@ msgid "Easiness"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:33
-msgid "Repetitions"
+msgid "Learning repetitions"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:35
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:599
-msgid "Lapses"
+msgid "Review repetitions"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:36
-msgid "Scheduled interval"
+#: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:37
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:599
+msgid "Lapses"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:38

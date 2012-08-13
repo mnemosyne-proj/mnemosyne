@@ -28,8 +28,8 @@ class RTLHandler(Filter):
 
     def run(self, text, card, fact_key, **render_args):
         # If we start with latin, we'll keep the paragraph ordering as ltr.
-        if text and not (0x0590 <= ord(text.lstrip("()[]{}")[0]) <= 0x06FF):
-            return text
+        #if text and not (0x0590 <= ord(text.lstrip("()[]{}")[0]) <= 0x06FF):
+        #    return text
         for i in range(len(text)):
             if 0x0590 <= ord(text[i]) <= 0x06FF:
                 return "<p dir=\"rtl\">" + text + "</p>"

@@ -196,6 +196,34 @@ class TestMnemosyne2Cards(MnemosyneTest):
         card = self.database().card(_card_id, is_id_internal=True)
         assert "edited" not in card.question()
 
+    def test_media(self):
+        filename_a = os.path.join(os.path.abspath("dot_test"),
+            "default.db_media", unichr(0x628) + u"a.ogg")
+        f = file(filename_a, "w")
+        print >> f, "a"
+        f.close()
+        os.mkdir(os.path.join(os.path.abspath("dot_test"),
+        "default.db_media", "b"))
+        filename_b = os.path.join(os.path.abspath("dot_test"),
+            "default.db_media", "b", unichr(0x628) + u"b.ogg")
+        f = file(filename_b, "w")
+        print >> f, "b"
+        f.close()
+
+        fact_data = {"f": "question\n<img src=\"%s\">" % (filename_a),
+                     "b": "question\n<img src=\"%s\">" % (filename_b)}
+        card_type = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(\
+            fact_data, card_type, grade=-1, tag_names=["default"])
+        self.cards_format().do_export("test.cards")
+
+        self.database().new("import.db")
+        self.cards_format().do_import("test.cards")
+        assert os.path.exists(os.path.join("import.db_media",
+            unichr(0x628) + u"a.ogg"))
+        assert os.path.exists(os.path.join("import.db_media",
+            "b", unichr(0x628) + u"b.ogg"))
+
     def teardown(self):
         if os.path.exists("test.cards"):
             os.remove("test.cards")
