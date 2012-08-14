@@ -66,7 +66,7 @@ class ConvertCardTypeKeysDlg(QtGui.QDialog, Ui_ConvertCardTypeKeysDlg):
                 if fact_key not in self.correspondence.values():
                     self.ok_button.setEnabled(False)
                     if len(self.correspondence) == \
-                       len(self.old_card_type.keys):
+                       len(self.old_card_type.fact_keys()):
                         QtGui.QMessageBox.critical(None, _("Mnemosyne"),
                             _("A required field is missing."),
                             _("&OK"), "", "", 0, -1)

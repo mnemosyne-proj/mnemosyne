@@ -78,26 +78,13 @@ class Mnemosyne2Cards(FileFormat):
             _fact_id from cards where active=1) and value like '%src=%'"""):
             for match in re_src.finditer(result[0]):
                 media_filenames.add(match.group(1))
-        # Create media files.
-        if os.path.exists("tmp"):
-            shutil.rmtree("tmp")
-        # TODO: merge in zip creation.
-        export_media_dir = os.path.join("tmp", "media")
-        for media_filename in media_filenames:
-            dir_name = os.path.join(\
-                export_media_dir, os.path.dirname(media_filename))
-            if not os.path.exists(dir_name):
-                os.makedirs(dir_name)
-            print 'copy', os.path.join(self.database().media_dir(), media_filename), \
-                os.path.join(export_media_dir, media_filename)
-            shutil.copy(\
-                os.path.join(self.database().media_dir(), media_filename),
-                os.path.join(export_media_dir, media_filename))
         # Generate log entries.
         number_of_entries = len(tags) + len(fact_view_ids) + \
             len(card_type_ids) + len(media_filenames) + \
             len(_card_ids) + len(_fact_ids)
-        xml_file = file(os.path.join("tmp", "cards.xml"), "w")
+        if os.path.dirname(filename):
+            os.chdir(os.path.dirname(filename))
+        xml_file = file("cards.xml", "w")
         xml_format = XMLFormat()
         xml_file.write(xml_format.log_entries_header(number_of_entries))
         for tag in tags:
@@ -183,23 +170,28 @@ class Mnemosyne2Cards(FileFormat):
         xml_file.write(xml_format.log_entries_footer())
         xml_file.close()
         # Make archive (Zipfile requires a .zip extension).
-        zip_file = zipfile.ZipFile(filename + ".zip", "w")
-        for dirname, dirnames, filenames in os.walk(u"tmp"):
-            for filename_ in filenames:
-                zip_file.write(os.path.join(dirname, filename_))
+        zip_file = zipfile.ZipFile(filename + ".zip", "w",
+            compression=zipfile.ZIP_DEFLATED)
+        zip_file.write("cards.xml")
+        for media_filename in media_filenames:
+            zip_file.write(\
+                os.path.join(self.database().media_dir(), media_filename),
+                media_filename)
         zip_file.close()
-        shutil.move(filename + ".zip",  filename)
-        shutil.rmtree("tmp")
-        print filename, os.path.abspath(filename)
-        1/0
+        os.rename(filename + ".zip", filename)
+        os.remove("cards.xml")
         w.close_progress()
 
     def do_import(self, filename, extra_tag_name=None):
         FileFormat.do_import(self, filename, extra_tag_name)
         w = self.main_widget()
         w.set_progress_text(_("Importing cards..."))
+        # Extract zipfile.
+        zip_file = zipfile.ZipFile(filename, "r")
+        zip_file.extractall(self.database().media_dir())
         self.database().card_types_to_instantiate_later = set()
-        element_loop = XMLFormat().parse_log_entries(file(filename, "r"))
+        xml_filename = os.path.join(self.database().media_dir(), "cards.xml")
+        element_loop = XMLFormat().parse_log_entries(file(xml_filename, "r"))
         number_of_entries = int(element_loop.next())
         if number_of_entries == 0:
             return
@@ -211,6 +203,7 @@ class Mnemosyne2Cards(FileFormat):
         w.set_progress_value(number_of_entries)
         if len(self.database().card_types_to_instantiate_later) != 0:
             raise RuntimeError, _("Missing plugins for card types.")
+        os.remove(xml_filename)
 
 
 

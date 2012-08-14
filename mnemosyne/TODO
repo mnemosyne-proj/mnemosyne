@@ -1,13 +1,8 @@
--media files, bundled in single files
--xml issues
--zip file not created / compressed?
--move mediafilenames directly into zip file.
 -move sql query to database layer. Single function or not?
 -double check interplay with sync
 -double check export and import on live database with learning data
 -extra tag name on import
 -metadata
--look at code below for shared decks and remove
 -log name and version of imported database to automatically check for updates?
 
 
@@ -41,6 +36,12 @@ client: sqlite_sync: 399 card from log entry: none has no attribute __get__item
 
 -if the sync changed the appearance settings, the current card's question still
  shows the old appearance
+
+-import db file
+
+-when converting f2b to map through the card browser 'change card type',
+ check if it's at all possible to convert (enough fields), before showing
+ correspondence dialog.
 
 -reparent all dialog boxes (doesn't seem to work for sync finished)
 
@@ -342,70 +343,6 @@ pylint:
 -move from httplib to urllib2 to make use of automatic proxy detection? However, could have
  an impact on performance/streaming upload.
 
--'shared deck' export
--is 'client_info["shared_dack"] the best way to signal this? Or have entirely new
- server API functions?
--make sure not send across learning data, e.g. by calling reset_learning_data on
- a copy in _log_entry() for card
--server.py
-    def open_shared_database(self, database_name, username):
-
-        """A shared database only contains log entries to specify the card
-        contents, not the learning data. Make sure this is read-only for
-        everybody except the original author. Can have side effects like
-        listing the shared deck on a website, ... .
-
-        """
--client.py
-
-    def upload_shared_database(self):
-        raise NotImplementedError
-
-        # client_info["shared_deck"] = True
-        # self.login(hostname, port, username, password)
-        # self.put_client_log_entries()
-        # self.put_client_media_files()
-        # no self.get_sync_finish(), no partnership update.
-
-        # Refactor put_client_log_entries to have arguments number_of_entries,
-        # entries, where entries is an iterator that does not pass through the
-        # log put rather only creates new cards and facts events.
-        # Ditto for media files.
-
-        # An upload always overrides the previous one. The alternative would be
-        # to have to generate artificial deletion events for cards which are
-        # still in the original author's database, but which he no longer wants
-        # to share.
-
-    def download_shared_database(self):
-        raise NotImplementedError
-
-        # client_info["shared_deck"] = True
-        # backup_file = self.database.backup()
-        # self.login(hostname, port, username, password)
-        # self.get_client_log_entries()
-        # self.get_client_media_files()
-
-        # download will never delete cards, even if they were in a previous
-        # version of the shared deck. TODO: is this good or bad? If we do want
-        # this, we do need to complicate the protocol and worry about creating
-        # artificial deletion events?
-
--    def card_from_log_entry(self, log_entry):
-        # When syncing from a shared deck, don't update repetition data, but do
-        # update fact views, card types, tags. (TODO: think about changing card
-        # types more carefully.) (TODO: make sure we don't override our own
-        # existing tags.)
-        # Note that shared cards do have the same id's across all users, this
-        # will give extra info for the science server (but means that in this
-        # case the science server will need to look at user_ids too to
-        # differentiate the cards.
--    def apply_log_entry(self, log_entry):
-        # When (re)downloading shared decks, there will be only ADDED_ events,
-        # not UPDATED_events. Convert the former to the latter if the objects
-        # were already in the database.
--make sure to enforce read-only, preferable through server itself, not through
- open_shared_database
 -if there are actual card based clients, remove pragma: no cover and test these as well
 
 -try adding images to card browser.

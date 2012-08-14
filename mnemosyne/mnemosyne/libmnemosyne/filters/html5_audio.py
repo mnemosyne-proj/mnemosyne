@@ -99,5 +99,4 @@ class Html5Audio(Filter):
             text = text.replace("autoplay = true", "autoplay = false")
         if self.config()["media_controls"] == False:
             text = text.replace("audioPlayer.controls = 'controls';", "")
-        print text
         return text

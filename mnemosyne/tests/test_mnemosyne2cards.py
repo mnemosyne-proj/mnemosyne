@@ -219,9 +219,9 @@ class TestMnemosyne2Cards(MnemosyneTest):
 
         self.database().new("import.db")
         self.cards_format().do_import("test.cards")
-        assert os.path.exists(os.path.join("import.db_media",
+        assert os.path.exists(os.path.join("dot_test", "import.db_media",
             unichr(0x628) + u"a.ogg"))
-        assert os.path.exists(os.path.join("import.db_media",
+        assert os.path.exists(os.path.join("dot_test", "import.db_media",
             "b", unichr(0x628) + u"b.ogg"))
 
     def teardown(self):
