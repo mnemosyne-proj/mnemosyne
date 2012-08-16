@@ -102,7 +102,9 @@ class SM2Mnemosyne(Scheduler):
 
         interval = card.next_rep - card.last_rep
         if card.grade < 2:
-            assert interval == 0
+            if interval != 0:
+                self.main_widget().show_error("Internal error: interval not zero.")
+            #assert interval == 0
             return interval
         interval += self.config()["day_starts_at"] * HOUR
         if time.localtime(time.time()).tm_isdst and time.daylight:
@@ -439,7 +441,7 @@ class SM2Mnemosyne(Scheduler):
             else:
                 timing = "ON TIME"
         # Calculate the previously scheduled interval, i.e. the interval that
-        # let up to this repetition.
+        # led up to this repetition.
         scheduled_interval = self.true_scheduled_interval(card)
         # If we memorise a card, keep track of its fact, so that we can avoid
         # pulling a sister card from the 'unseen' pile.

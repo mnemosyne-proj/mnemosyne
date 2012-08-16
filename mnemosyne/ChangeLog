@@ -1,11 +1,13 @@
+-Fix bug where active tags would sometimes not have a checkbox in the card
+ browser (reported by Gnome).
 -Made RTL handling for Arabic and Hebrew more robust.
 -audio tags now support start and stop arguments, e.g. <audio ...
  start="1" stop="2"> will play the sound file from 1 to 2 seconds.
 -Fix crash when cancelling duplicate insertion while converting cards
  (reported by Gnome).
 -Fix for rare hangs 'assert interval == 0' (reported by Tom Cato).
--Also translate key names when converting between card types (reported by
- Gnome).
+-Translation fixes when converting between card types (reported by Gnome and
+ Chris Schmidt).
 -Make terminology in 'Current card' statistics more consistent with the card
  browser (reported by Henrik Giaever).
 

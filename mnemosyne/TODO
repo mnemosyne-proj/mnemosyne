@@ -1,3 +1,5 @@
+select * from log where object_id='aTp8mqwX06a6LZGP21RaVc'
+
 -move sql query to database layer. Single function or not?
 -double check interplay with sync
 -double check export and import on live database with learning data

@@ -239,11 +239,15 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
                     node_item.setCheckState(0, QtCore.Qt.Unchecked)
         # Set active tags.
         else:
+            # We first set all the tags inactive. We cannot do this in the
+            # second branch of the upcoming 'if' statement, as then an
+            # inactive parent tag coming later in the list will deactivate
+            # active child tags coming earlier in the list.
+            for node_item in self.tag_for_node_item:
+                node_item.setCheckState(0, QtCore.Qt.Unchecked)
             for node_item, tag in self.tag_for_node_item.iteritems():
                 if tag._id in criterion._tag_ids_active:
                     node_item.setCheckState(0, QtCore.Qt.Checked)
-                else:
-                    node_item.setCheckState(0, QtCore.Qt.Unchecked)
         # Finalise.
         self.tree_wdgt.expandAll()
 
