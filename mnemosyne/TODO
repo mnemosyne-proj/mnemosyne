@@ -1,12 +1,15 @@
-select * from log where object_id='aTp8mqwX06a6LZGP21RaVc'
+
 
 -move sql query to database layer. Single function or not?
+-one time only warning that learning data is not preserved
+
 -double check interplay with sync
 -double check export and import on live database with learning data
 -extra tag name on import
--metadata
+
 -log name and version of imported database to automatically check for updates?
 
+-make sure you can only add tags to facts in the card browser
 
 -rework ltr cloze deletion, also check clozes with hints containing space
 <p dir="rtl">سمعتُ (dat)علي
@@ -32,6 +35,18 @@ erver.py", line 481, in get_server_log_entries
  GeneratorExit
 haal data van een paar dagen terug
 client: sqlite_sync: 399 card from log entry: none has no attribute __get__item
+
+-add tag to only one sister card, then to next sister card:
+  client: ~/tmp/default-20120817-161449.db
+server:
+Traceback (innermost last):
+  File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.0.1-py2.7.egg/openSM2sync/server.py", line 407, in put_client_log_entries
+    for log_entry in element_loop:
+  File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.0.1-py2.7.egg/openSM2sync/text_formats/xml_format.py", line 122, in parse_log_entries
+    for event, element in context:
+  File "<string>", line 91, in next
+ ParseError: not well-formed (invalid token): line 26, column 104
+
 
 -reverse arabic plugin no longer seems to work?
  http://mpcabd.igeex.biz/python-arabic-text-reshaper/

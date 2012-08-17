@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ExportDlg</class>
+ <widget class="QDialog" name="ExportDlg">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>293</width>
+    <height>142</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Export to file</string>
+  </property>
+  <layout class="QVBoxLayout">
+   <item>
+    <layout class="QVBoxLayout">
+     <item>
+      <widget class="QLabel" name="textLabel_5">
+       <property name="text">
+        <string>File format:</string>
+       </property>
+       <property name="wordWrap">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="file_formats">
+       <property name="editable">
+        <bool>false</bool>
+       </property>
+       <property name="autoCompletion">
+        <bool>true</bool>
+       </property>
+       <property name="duplicatesEnabled">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="textLabel1">
+       <property name="text">
+        <string>File to export to:</string>
+       </property>
+       <property name="wordWrap">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout">
+       <item>
+        <widget class="QLineEdit" name="filename_box"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="browse_button">
+         <property name="text">
+          <string>&amp;Browse</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout">
+       <item>
+        <widget class="QPushButton" name="ok_button">
+         <property name="text">
+          <string>&amp;OK</string>
+         </property>
+         <property name="shortcut">
+          <string>Alt+O</string>
+         </property>
+         <property name="default">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="spacer2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>201</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="cancel_button">
+         <property name="text">
+          <string>&amp;Cancel</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="default">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <tabstops>
+  <tabstop>filename_box</tabstop>
+  <tabstop>browse_button</tabstop>
+  <tabstop>file_formats</tabstop>
+  <tabstop>ok_button</tabstop>
+  <tabstop>cancel_button</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>cancel_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ExportDlg</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>browse_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ExportDlg</receiver>
+   <slot>browse()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>250</x>
+     <y>83</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>145</x>
+     <y>88</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ok_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ExportDlg</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>27</x>
+     <y>159</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>145</x>
+     <y>88</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>file_formats</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>ExportDlg</receiver>
+   <slot>file_format_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>145</x>
+     <y>35</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>145</x>
+     <y>88</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
