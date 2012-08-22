@@ -32,7 +32,7 @@ class Mnemosyne2Cards(FileFormat):
         metadata = self.controller().show_export_metadata_dialog()
         metadata_file = file("METADATA", "w")
         for key, value in metadata.iteritems():
-            print >> metadata_file, key + ":" + value
+            print >> metadata_file, key + ":" + value.strip()
         metadata_file.close()
         db = self.database()
         w = self.main_widget()
@@ -126,15 +126,15 @@ class Mnemosyne2Cards(FileFormat):
             log_entry["fact"] = card.fact.id
             log_entry["fact_v"] = card.fact_view.id
             log_entry["tags"] = ",".join([tag.id for tag in card.tags])
-            log_entry["gr"] = card.grade
-            log_entry["e"] = card.easiness
-            log_entry["ac_rp"] = card.acq_reps
-            log_entry["rt_rp"] = card.ret_reps
-            log_entry["lps"] = card.lapses
-            log_entry["ac_rp_l"] = card.acq_reps_since_lapse
-            log_entry["rt_rp_l"] = card.ret_reps_since_lapse
-            log_entry["l_rp"] = card.last_rep
-            log_entry["n_rp"] = card.next_rep
+            log_entry["gr"] = -1
+            log_entry["e"] = 2.5
+            log_entry["ac_rp"] = 0
+            log_entry["rt_rp"] = 0
+            log_entry["lps"] = 0
+            log_entry["ac_rp_l"] = 0
+            log_entry["rt_rp_l"] = 0
+            log_entry["l_rp"] = -1
+            log_entry["n_rp"] = -1
             xml_file.write(xml_format.\
                 repr_log_entry(log_entry).encode("utf-8"))
             w.increase_progress(1)
@@ -155,8 +155,14 @@ class Mnemosyne2Cards(FileFormat):
         os.remove("METADATA")
         w.close_progress()
 
-    def do_import(self, filename, extra_tag_name=None):
-        FileFormat.do_import(self, filename, extra_tag_name)
+    def do_import(self, filename, extra_tag_names=None):
+        FileFormat.do_import(self, filename, extra_tag_names)
+        if not extra_tag_names:
+            extra_tags = []
+        else:
+            extra_tags = [self.database().get_or_create_tag_with_name(\
+                tag_name.strip()) for tag_name in extra_tag_names.split(",")]
+        self.database().set_extra_tags_on_import(extra_tags)
         w = self.main_widget()
         w.set_progress_text(_("Importing cards..."))
         # Extract zipfile.
@@ -169,7 +175,7 @@ class Mnemosyne2Cards(FileFormat):
         for line in file(metadata_filename):
             key, value = line.split(":", 1)
             metadata[key] = value
-        self.controller().show_export_metadata_dialog(metadata)
+        self.controller().show_export_metadata_dialog(metadata, read_only=True)
         # Parse XML.
         self.database().card_types_to_instantiate_later = set()
         xml_filename = os.path.join(self.database().media_dir(), "cards.xml")
@@ -187,6 +193,6 @@ class Mnemosyne2Cards(FileFormat):
             raise RuntimeError, _("Missing plugins for card types.")
         os.remove(xml_filename)
         os.remove(metadata_filename)
-
+        w.close_progress()
 
 

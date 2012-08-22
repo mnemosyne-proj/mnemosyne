@@ -183,6 +183,9 @@ class SM2Controller(ReviewController):
         self.widget.redraw_now()  # Don't wait until disk activity dies down.
 
     def update_qa_area(self, redraw_all=False):
+        if redraw_all and self.card:
+            self.card = \
+                self.database().card(self.card._id, is_id_internal=True)
         w = self.widget
         # When the answer should be shown on top of the question, we draw the
         # answer in the question field to eliminate flicker.

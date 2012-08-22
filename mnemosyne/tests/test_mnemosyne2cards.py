@@ -14,6 +14,9 @@ class Widget(ExportMetadataDialog):
     def values(self):
         return {}
 
+    def set_read_only(self):
+        pass
+
 
 class TestMnemosyne2Cards(MnemosyneTest):
 
@@ -57,8 +60,9 @@ class TestMnemosyne2Cards(MnemosyneTest):
             card = self.database().card(_card_id, is_id_internal=True)
             assert card.active == True
             assert card.id
-        self.cards_format().do_import("test.cards")
+        self.cards_format().do_import("test.cards", "tag1, tag2")
         self.database().save()
+        assert len([tag.name for tag in self.database().tags()]) == 4
         assert len([c for c in self.database().cards()]) == 2
         for _card_id, _fact_id in self.database().cards():
             card = self.database().card(_card_id, is_id_internal=True)
@@ -219,6 +223,33 @@ class TestMnemosyne2Cards(MnemosyneTest):
         card = self.database().card(_card_id, is_id_internal=True)
         assert "edited" not in card.question()
 
+    def test_import_multiple(self):
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(\
+            fact_data, card_type, grade=-1, tag_names=["default"])[0]
+        self.cards_format().do_export("test.cards")
+        card.tags = set([self.database().get_or_create_tag_with_name("new_tag")])
+        self.database().update_card(card)
+        self.cards_format().do_export("test2.cards")
+        self.database().new("import.db")
+        self.cards_format().do_import("test.cards")
+        _card_id, _fact_id = self.database().cards().next()
+        card = self.database().card(_card_id, is_id_internal=True)
+        card.grade = 2
+        self.database().update_card(card)
+        self.cards_format().do_import("test2.cards")
+        card = self.database().card(_card_id, is_id_internal=True)
+        assert list(card.tags)[0].name == "new_tag"
+        assert card.grade == 2
+
+        self.cards_format().do_import("test2.cards")
+        card = self.database().card(_card_id, is_id_internal=True)
+        assert len(list(card.tags)) == 1
+        assert card.grade == 2
+
+
     def test_media(self):
         filename_a = os.path.join(os.path.abspath("dot_test"),
             "default.db_media", unichr(0x628) + u"a.ogg")
@@ -250,4 +281,6 @@ class TestMnemosyne2Cards(MnemosyneTest):
     def teardown(self):
         if os.path.exists("test.cards"):
             os.remove("test.cards")
+        if os.path.exists("test2.cards"):
+            os.remove("test2.cards")
         MnemosyneTest.teardown(self)

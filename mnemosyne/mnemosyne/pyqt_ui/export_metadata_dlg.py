@@ -46,6 +46,15 @@ class ExportMetadataDlg(QtGui.QDialog, Ui_ExportMetadataDlg,
         if "notes" in metadata:
             self.notes.setPlainText(metadata["notes"])
 
+    def set_read_only(self):
+        self.card_set_name.setReadOnly(True)
+        self.author_name.setReadOnly(True)
+        self.author_email.setReadOnly(True)
+        self.tags.setReadOnly(True)
+        self.date.setReadOnly(True)
+        self.revision.setReadOnly(True)
+        self.notes.setReadOnly(True)
+
     def values(self):
         metadata = {}
         metadata["card_set_name"] = unicode(self.card_set_name.text())

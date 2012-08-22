@@ -253,6 +253,9 @@ class SQLiteSync(object):
                 active_objects["media_filenames"].add(match.group(1))
         return active_objects
 
+    def set_extra_tags_on_import(self, tags):
+        self.extra_tags_on_import = tags
+
     def _log_entry(self, sql_res):
 
         """Create log entry object in the format openSM2sync expects."""
@@ -397,7 +400,7 @@ class SQLiteSync(object):
                 (log_entry["o_id"], )).fetchone()[0] != 0
             same_name_in_database = self.con.execute(\
                 "select count() from tags where name=? and id!=?",
-                (log_entry["name"], log_entry["o_id"] )).fetchone()[0] == 1
+                (log_entry["name"], log_entry["o_id"])).fetchone()[0] == 1
             if same_name_in_database:
                 # Merging with the tag which is already in the database is more
                 # difficult, as then the tag links in the cards would need to
@@ -466,10 +469,22 @@ class SQLiteSync(object):
                 "select count() from cards where id=?",
                 (log_entry["o_id"], )).fetchone()[0] != 0
             if already_imported:
+                orig_card = self.card(log_entry["o_id"], is_id_internal=False)
                 card = self.card_from_log_entry(log_entry)
+                card.grade = orig_card.grade
+                card.easiness = orig_card.easiness
+                card.acq_reps = orig_card.acq_reps
+                card.ret_reps = orig_card.ret_reps
+                card.lapses = orig_card.lapses
+                card.acq_reps_since_lapse = orig_card.acq_reps_since_lapse
+                card.ret_reps_since_lapse = orig_card.ret_reps_since_lapse
+                card.next_rep = orig_card.next_rep
+                card.last_rep = orig_card.last_rep
                 card.modification_time = int(time.time())
                 for tag_id in log_entry["tags"].split(","):
                     card.tags.add(self.tag(tag_id, is_id_internal=False))
+                for tag in self.extra_tags_on_import:
+                    card.tags.add(tag)
                 card.card_type = self.card_type(\
                     log_entry["card_t"], is_id_internal=False)
                 if self.is_user_card_type(card.card_type):
@@ -559,13 +574,21 @@ class SQLiteSync(object):
                 # worry about it now, this will be corrected by a later
                 # EDITED_CARD event.
                 pass
+        if self.importing:
+            for tag in self.extra_tags_on_import:
+                card.tags.add(tag)
         # Construct rest of card. The 'active' property does not need to be
         # handled here, as default criterion will be applied to the card
         # in the database functions.
         card.id = log_entry["o_id"]
-        if log_entry["type"] != EventTypes.ADDED_CARD:
-            card._id = self.con.execute("select _id from cards where id=?",
-                (card.id, )).fetchone()[0]
+        if (log_entry["type"] != EventTypes.ADDED_CARD) or self.importing:
+            try:
+                card._id = self.con.execute("select _id from cards where id=?",
+                    (card.id, )).fetchone()[0]
+            except TypeError:
+                # Importing a card for the first time, so it is not yet in the
+                # database.
+                pass
         card.modification_time = log_entry["m_time"]
         card.grade = log_entry["gr"]
         card.easiness = log_entry["e"]

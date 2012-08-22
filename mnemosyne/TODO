@@ -1,7 +1,8 @@
--double check interplay with sync
--double check export and import on live database with learning data
--extra tag name on import
--log name and version of imported database to automatically check for updates?
+-importing the same file twice duplicates the tags
+-try again with added tags on import
+-warn about importing twice?
+
+-option to add multiple tags on import (Barbara), also to gUI
 
 -make sure you can only add tags to facts in the card browser
 
@@ -105,8 +106,6 @@ Traceback (innermost last):
 -don't switch to text entry field when changing card type with the keys.
 
 -fix Alt 0 and 1 as alternative for Alt+Y to add yet to learn cards.
-
--option to add multiple tags on import (Barbara)
 
 -plugin for card types with prefilled data?
 

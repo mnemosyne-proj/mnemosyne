@@ -659,9 +659,6 @@ class DefaultController(Controller):
             (self.component_manager).activate()
         review_controller = self.review_controller()
         review_controller.reset_but_try_to_keep_current_card()
-        if review_controller.card is not None:
-            review_controller.card = self.database().card(\
-            review_controller.card._id, is_id_internal=True)
         review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
 
@@ -780,10 +777,9 @@ class DefaultController(Controller):
         self.log().saved_database()
         review_controller = self.review_controller()
         review_controller.reload_counters()
-        if review_controller.card is None:
-            review_controller.show_new_question()
-        else:
-            review_controller.update_status_bar_counters()
+        # Importing can edit the current card.
+        self.review_controller().reset_but_try_to_keep_current_card()
+        self.review_controller().update_dialog(redraw_all=True)
         self.stopwatch().unpause()
 
     def show_export_file_dialog(self):
@@ -793,13 +789,15 @@ class DefaultController(Controller):
             (self.component_manager).activate()
         self.stopwatch().unpause()
 
-    def show_export_metadata_dialog(self, metadata=None):
+    def show_export_metadata_dialog(self, metadata=None, read_only=False):
         self.stopwatch().pause()
         self.flush_sync_server()
         dialog = self.component_manager.current("export_metadata_dialog")\
             (self.component_manager)
         if metadata:
             dialog.set_values(metadata)
+        if read_only:
+            dialog.set_read_only()
         dialog.activate()
         self.stopwatch().unpause()
         return dialog.values()
