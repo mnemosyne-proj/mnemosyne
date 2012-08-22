@@ -20,6 +20,8 @@ class ImportDlg(QtGui.QDialog, Ui_ImportDlg, ImportDialog):
         i = 0
         current_index = None
         for format in self.component_manager.all("file_format"):
+            if not format.import_possible:
+                continue
             self.file_formats.addItem(_(format.description))
             if type(format) == self.config()["import_format"]:
                 current_index = i

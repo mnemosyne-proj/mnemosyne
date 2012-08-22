@@ -1,15 +1,11 @@
-
-
--move sql query to database layer. Single function or not?
--one time only warning that learning data is not preserved
-
 -double check interplay with sync
 -double check export and import on live database with learning data
 -extra tag name on import
-
 -log name and version of imported database to automatically check for updates?
 
 -make sure you can only add tags to facts in the card browser
+
+-remove debug code in card browser
 
 -rework ltr cloze deletion, also check clozes with hints containing space
 <p dir="rtl">سمعتُ (dat)علي
@@ -23,6 +19,10 @@ update comments, check coverage,
 -don't reset non memorised count when editing cards
 
 -extra space below media player on production cards in Sentence type
+
+-# in media filenames
+
+-when merging duplicate cards, merge tags also (Stephan Maseizik)
 
 -sync problem: tag b exists, card with tag a rename tag to a.b, edit card?, then
 rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict for client)
@@ -46,7 +46,6 @@ Traceback (innermost last):
     for event, element in context:
   File "<string>", line 91, in next
  ParseError: not well-formed (invalid token): line 26, column 104
-
 
 -reverse arabic plugin no longer seems to work?
  http://mpcabd.igeex.biz/python-arabic-text-reshaper/
@@ -80,13 +79,6 @@ Traceback (innermost last):
 -index on cards._fact_id to speed up e.g. sister_card_count_scheduled_between?
 -profile different versions of sister_card_count_scheduled_between
 -try apsw again, but make sure every statement is inside a transaction
-
--import
--on import, activate plugins, create card types if necessary
--on import don't add cards for which card type is not present
--for mnemosyne 2 cards format, on import, ignore or update cards which were already imported?
--warn when importing card type with duplicate id
--make sure after import all sync events fire
 
 -migrate webserver to cherrypy, recheck audio files
 
@@ -498,10 +490,6 @@ Multiuser statistics analysis:
 -research papers: http://act-r.psy.cmu.edu/people/index.php?id=11
 
 -importing cards from rss feed
-
--determine import / export file type based on suffix
- (i.e. remove file format field)? Probably not possible, as
- file dialogs only return filenames, not the chosen filter type.
 
 -swac plugin, smart.fm
 

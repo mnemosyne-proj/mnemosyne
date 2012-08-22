@@ -12,6 +12,7 @@ class FileFormat(Component):
 
     component_type = "file_format"
     description = ""
+    extension = "" # E.g. ".xml"
     filename_filter = ""  # E.g. "XML Files (*.xml *XML)"
     import_possible = False
     export_possible = False

@@ -3,7 +3,6 @@
 #
 
 import os
-import re
 import sys
 import time
 import codecs
@@ -19,82 +18,49 @@ from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.utils import MnemosyneError
 from mnemosyne.libmnemosyne.file_format import FileFormat
 
-re_src = re.compile(r"""src=['\"](.+?)['\"]""", re.DOTALL | re.IGNORECASE)
-
 
 class Mnemosyne2Cards(FileFormat):
 
     description = _("Mnemosyne 2.x *.cards files")
+    extension = ".cards"
     filename_filter = _("Mnemosyne 2.x cards for sharing (*.cards)")
     import_possible = True
     export_possible = True
 
     def do_export(self, filename):
         FileFormat.do_export(self, filename)
+        metadata = self.controller().show_export_metadata_dialog()
+        metadata_file = file("METADATA", "w")
+        for key, value in metadata.iteritems():
+            print >> metadata_file, key + ":" + value
+        metadata_file.close()
         db = self.database()
         w = self.main_widget()
         w.set_progress_text(_("Exporting cards..."))
-        # Active facts (working with python sets turns out to be more
-        # efficient than a 'distinct' statement in SQL).
-        _fact_ids = list(set([cursor[0] for cursor in db.con.execute(\
-            "select _fact_id from cards where active=1")]))
-        # Active cards and their inactive sister cards.
-        # (We need to log cards too instead of just facts, otherwise we cannot
-        # communicate the card type.)
-        _card_ids = [cursor[0] for cursor in db.con.execute(\
-            """select _id from cards where _fact_id in
-            (select _fact_id from cards where active=1)""")]
-        # Tags belonging to the active cards.
-        tags = db.tags_from_cards_with_internal_ids(_card_ids)
-        # User defined card types.
-        defined_in_database_ids = set([cursor[0] for cursor in \
-            db.con.execute("select id from card_types")])
-        # Card types of the active cards (no need to include inactive sister
-        # cards here, as they share the same card type).
-        active_card_type_ids = set([cursor[0] for cursor in db.con.execute(\
-            "select card_type_id from cards where active=1")]).\
-            intersection(defined_in_database_ids)
-        # Also add parent card types, even if they are not active at the
-        # moment.
-        parent_card_type_ids = set()
-        for id in active_card_type_ids:
-            while "::" in id: # Move up one level of the hierarchy.
-                id, child_name = id.rsplit("::", 1)
-                if id in defined_in_database_ids and \
-                    id not in active_card_type_ids:
-                    parent_card_type_ids.add(id)
-        card_type_ids = active_card_type_ids.union(parent_card_type_ids)
-        # Fact views.
-        fact_view_ids = []
-        for card_type_id in card_type_ids:
-            fact_view_ids += eval(db.con.execute(\
-                "select fact_view_ids from card_types where id=?",
-                (card_type_id, )).fetchone()[0])
-        # Media files for active cards.
-        db.dynamically_create_media_files()
-        media_filenames = set()
-        for result in db.con.execute(\
-            """select value from data_for_fact where _fact_id in (select
-            _fact_id from cards where active=1) and value like '%src=%'"""):
-            for match in re_src.finditer(result[0]):
-                media_filenames.add(match.group(1))
+        active_objects = db.active_objects_to_export()
         # Generate log entries.
-        number_of_entries = len(tags) + len(fact_view_ids) + \
-            len(card_type_ids) + len(media_filenames) + \
-            len(_card_ids) + len(_fact_ids)
+        number_of_entries = len(active_objects["tags"]) + \
+            len(active_objects["fact_view_ids"]) + \
+            len(active_objects["card_type_ids"]) + \
+            len(active_objects["media_filenames"]) + \
+            len(active_objects["_card_ids"]) + \
+            len(active_objects["_fact_ids"])
+        w.set_progress_range(number_of_entries)
+        w.set_progress_update_interval(number_of_entries/20)
         if os.path.dirname(filename):
             os.chdir(os.path.dirname(filename))
         xml_file = file("cards.xml", "w")
         xml_format = XMLFormat()
         xml_file.write(xml_format.log_entries_header(number_of_entries))
-        for tag in tags:
+        for tag in active_objects["tags"]:
             log_entry = LogEntry()
             log_entry["type"] = EventTypes.ADDED_TAG
             log_entry["o_id"] = tag.id
             log_entry["name"] = tag.name
             xml_file.write(xml_format.\
                 repr_log_entry(log_entry).encode("utf-8"))
-        for fact_view_id in fact_view_ids:
+            w.increase_progress(1)
+        for fact_view_id in active_objects["fact_view_ids"]:
             fact_view = db.fact_view(fact_view_id, is_id_internal=False)
             log_entry = LogEntry()
             log_entry["type"] = EventTypes.ADDED_FACT_VIEW
@@ -112,7 +78,8 @@ class Mnemosyne2Cards(FileFormat):
                 log_entry["extra"] = repr(fact_view.extra_data)
             xml_file.write(xml_format.\
                 repr_log_entry(log_entry).encode("utf-8"))
-        for card_type_id in card_type_ids:
+            w.increase_progress(1)
+        for card_type_id in active_objects["card_type_ids"]:
             card_type = db.card_type(card_type_id, is_id_internal=False)
             log_entry = LogEntry()
             log_entry["type"] = EventTypes.ADDED_CARD_TYPE
@@ -132,13 +99,15 @@ class Mnemosyne2Cards(FileFormat):
                 log_entry["extra"] = repr(card_type.extra_data)
             xml_file.write(xml_format.\
                 repr_log_entry(log_entry).encode("utf-8"))
-        for media_filename in media_filenames:
+            w.increase_progress(1)
+        for media_filename in active_objects["media_filenames"]:
             log_entry = LogEntry()
             log_entry["type"] = EventTypes.ADDED_MEDIA_FILE
             log_entry["fname"] = media_filename
             xml_file.write(xml_format.\
                 repr_log_entry(log_entry).encode("utf-8"))
-        for _fact_id in _fact_ids:
+            w.increase_progress(1)
+        for _fact_id in active_objects["_fact_ids"]:
             fact = db.fact(_fact_id, is_id_internal=True)
             log_entry = LogEntry()
             log_entry["type"] = EventTypes.ADDED_FACT
@@ -147,7 +116,8 @@ class Mnemosyne2Cards(FileFormat):
                 log_entry[fact_key] = value
             xml_file.write(xml_format.\
                 repr_log_entry(log_entry).encode("utf-8"))
-        for _card_id in _card_ids:
+            w.increase_progress(1)
+        for _card_id in active_objects["_card_ids"]:
             card = db.card(_card_id, is_id_internal=True)
             log_entry = LogEntry()
             log_entry["type"] = EventTypes.ADDED_CARD
@@ -167,19 +137,22 @@ class Mnemosyne2Cards(FileFormat):
             log_entry["n_rp"] = card.next_rep
             xml_file.write(xml_format.\
                 repr_log_entry(log_entry).encode("utf-8"))
+            w.increase_progress(1)
         xml_file.write(xml_format.log_entries_footer())
         xml_file.close()
         # Make archive (Zipfile requires a .zip extension).
         zip_file = zipfile.ZipFile(filename + ".zip", "w",
             compression=zipfile.ZIP_DEFLATED)
         zip_file.write("cards.xml")
-        for media_filename in media_filenames:
+        zip_file.write("METADATA")
+        for media_filename in active_objects["media_filenames"]:
             zip_file.write(\
                 os.path.join(self.database().media_dir(), media_filename),
                 media_filename)
         zip_file.close()
         os.rename(filename + ".zip", filename)
         os.remove("cards.xml")
+        os.remove("METADATA")
         w.close_progress()
 
     def do_import(self, filename, extra_tag_name=None):
@@ -189,6 +162,15 @@ class Mnemosyne2Cards(FileFormat):
         # Extract zipfile.
         zip_file = zipfile.ZipFile(filename, "r")
         zip_file.extractall(self.database().media_dir())
+        # Show metadata
+        metadata_filename = os.path.join(\
+            self.database().media_dir(), "METADATA")
+        metadata = {}
+        for line in file(metadata_filename):
+            key, value = line.split(":", 1)
+            metadata[key] = value
+        self.controller().show_export_metadata_dialog(metadata)
+        # Parse XML.
         self.database().card_types_to_instantiate_later = set()
         xml_filename = os.path.join(self.database().media_dir(), "cards.xml")
         element_loop = XMLFormat().parse_log_entries(file(xml_filename, "r"))
@@ -196,7 +178,7 @@ class Mnemosyne2Cards(FileFormat):
         if number_of_entries == 0:
             return
         w.set_progress_range(number_of_entries)
-        w.set_progress_update_interval(number_of_entries/50)
+        w.set_progress_update_interval(number_of_entries/20)
         for log_entry in element_loop:
             self.database().apply_log_entry(log_entry, importing=True)
             w.increase_progress(1)
@@ -204,7 +186,7 @@ class Mnemosyne2Cards(FileFormat):
         if len(self.database().card_types_to_instantiate_later) != 0:
             raise RuntimeError, _("Missing plugins for card types.")
         os.remove(xml_filename)
-
+        os.remove(metadata_filename)
 
 
 

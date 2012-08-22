@@ -84,6 +84,19 @@ class ImportDialog(Dialog):
     component_type = "import_dialog"
 
 
+class ExportDialog(Dialog):
+
+    component_type = "export_dialog"
+
+
+class ExportMetadataDialog(Dialog):
+
+    component_type = "export_metadata_dialog"
+
+    def values(self):
+        raise NotImplementedError
+
+
 class CompactDatabaseDialog(Dialog):
 
     component_type = "compact_database_dialog"

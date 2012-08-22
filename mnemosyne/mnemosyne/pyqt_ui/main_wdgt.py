@@ -176,6 +176,9 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
     def export_file(self):
         self.controller().show_export_file_dialog()
 
+    def import_file(self):
+        self.controller().show_import_file_dialog()
+
     def sync(self):
         self.controller().show_sync_dialog()
 

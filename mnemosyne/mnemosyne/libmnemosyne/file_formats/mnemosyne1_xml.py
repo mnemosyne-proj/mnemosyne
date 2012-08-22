@@ -15,6 +15,7 @@ from mnemosyne.libmnemosyne.file_formats.mnemosyne1 import Mnemosyne1
 class Mnemosyne1XML(FileFormat, Mnemosyne1):
 
     description = _("Mnemosyne 1.x *.XML files")
+    extension = ".xml"
     filename_filter = _("Mnemosyne 1.x XML files") + " (*.xml)"
     import_possible = True
     export_possible = False

@@ -59,6 +59,7 @@
     <addaction name="actionFileSaveAs"/>
     <addaction name="separator"/>
     <addaction name="actionImport"/>
+    <addaction name="actionExport"/>
     <addaction name="actionSync"/>
     <addaction name="actionCompact"/>
     <addaction name="separator"/>
@@ -483,6 +484,22 @@
    <signal>triggered()</signal>
    <receiver>MainWdgt</receiver>
    <slot>import_file</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>131</x>
+     <y>152</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionExport</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWdgt</receiver>
+   <slot>export_file</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>

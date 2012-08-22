@@ -22,6 +22,7 @@ re_sound = re.compile(r"""<sound src=\".+?\">""", re.DOTALL | re.IGNORECASE)
 class Mnemosyne1Mem(FileFormat, Mnemosyne1):
 
     description = _("Mnemosyne 1.x *.mem files")
+    extension = ".mem"
     filename_filter = _("Mnemosyne 1.x *.mem databases (*.mem)")
     import_possible = True
     export_possible = False

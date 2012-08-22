@@ -5,6 +5,7 @@
 #
 
 import os
+import re
 import time
 
 from openSM2sync.log_entry import LogEntry
@@ -17,6 +18,8 @@ from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
+
+re_src = re.compile(r"""src=['\"](.+?)['\"]""", re.DOTALL | re.IGNORECASE)
 
 # Simple named-tuple like class, to avoid the expensive creation a full card
 # object (Python 2.5 does not yet have a named tuple).
@@ -197,6 +200,58 @@ class SQLiteSync(object):
             if os.path.exists(expand_path(filename, self.media_dir())):
                 filenames.add(filename)
         return filenames
+
+    def active_objects_to_export(self):
+        active_objects = {}
+        # Active facts (working with python sets turns out to be more
+        # efficient than a 'distinct' statement in SQL).
+        active_objects["_fact_ids"] = list(\
+            set([cursor[0] for cursor in self.con.execute(\
+            "select _fact_id from cards where active=1")]))
+        # Active cards and their inactive sister cards.
+        # (We need to log cards too instead of just facts, otherwise we cannot
+        # communicate the card type.)
+        active_objects["_card_ids"] = \
+            [cursor[0] for cursor in self.con.execute(\
+            """select _id from cards where _fact_id in
+            (select _fact_id from cards where active=1)""")]
+        # Tags belonging to the active cards.
+        active_objects["tags"] = self.tags_from_cards_with_internal_ids(\
+            active_objects["_card_ids"])
+        # User defined card types.
+        defined_in_database_ids = set([cursor[0] for cursor in \
+            self.con.execute("select id from card_types")])
+        # Card types of the active cards (no need to include inactive sister
+        # cards here, as they share the same card type).
+        active_card_type_ids = set([cursor[0] for cursor in self.con.execute(\
+            "select card_type_id from cards where active=1")]).\
+            intersection(defined_in_database_ids)
+        # Also add parent card types, even if they are not active at the
+        # moment.
+        parent_card_type_ids = set()
+        for id in active_card_type_ids:
+            while "::" in id: # Move up one level of the hierarchy.
+                id, child_name = id.rsplit("::", 1)
+                if id in defined_in_database_ids and \
+                    id not in active_card_type_ids:
+                    parent_card_type_ids.add(id)
+        active_objects["card_type_ids"] = \
+            active_card_type_ids.union(parent_card_type_ids)
+        # Fact views.
+        active_objects["fact_view_ids"] = []
+        for card_type_id in active_objects["card_type_ids"]:
+            active_objects["fact_view_ids"] += eval(self.con.execute(\
+                "select fact_view_ids from card_types where id=?",
+                (card_type_id, )).fetchone()[0])
+        # Media files for active cards.
+        self.dynamically_create_media_files()
+        active_objects["media_filenames"] = set()
+        for result in self.con.execute(\
+            """select value from data_for_fact where _fact_id in (select
+            _fact_id from cards where active=1) and value like '%src=%'"""):
+            for match in re_src.finditer(result[0]):
+                active_objects["media_filenames"].add(match.group(1))
+        return active_objects
 
     def _log_entry(self, sql_res):
 

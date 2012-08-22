@@ -3,12 +3,35 @@
 #
 
 import os
+import shutil
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
+from mnemosyne.libmnemosyne.ui_components.dialogs import ExportMetadataDialog
+
+class Widget(ExportMetadataDialog):
+
+    def values(self):
+        return {}
 
 
 class TestMnemosyne2Cards(MnemosyneTest):
+
+    def setup(self):
+        shutil.rmtree("dot_test", ignore_errors=True)
+
+        self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
+            asynchronous_database=True)
+        self.mnemosyne.components.insert(0,
+           ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
+        self.mnemosyne.components.append(\
+            ("test_mnemosyne2cards", "Widget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.main_widget", "MainWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne_test", "TestReviewWidget"))
+        self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
+        self.review_controller().reset()
 
     def cards_format(self):
         for format in self.mnemosyne.component_manager.all("file_format"):

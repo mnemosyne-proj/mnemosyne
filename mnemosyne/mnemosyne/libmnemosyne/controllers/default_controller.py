@@ -789,8 +789,20 @@ class DefaultController(Controller):
     def show_export_file_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
-
+        self.component_manager.current("export_dialog")\
+            (self.component_manager).activate()
         self.stopwatch().unpause()
+
+    def show_export_metadata_dialog(self, metadata=None):
+        self.stopwatch().pause()
+        self.flush_sync_server()
+        dialog = self.component_manager.current("export_metadata_dialog")\
+            (self.component_manager)
+        if metadata:
+            dialog.set_values(metadata)
+        dialog.activate()
+        self.stopwatch().unpause()
+        return dialog.values()
 
     def show_sync_dialog(self):
         self.stopwatch().pause()

@@ -10,6 +10,8 @@ from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.ui_components.dialogs import *
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
+from mnemosyne.libmnemosyne.ui_components.dialogs import ExportDialog
+from mnemosyne.libmnemosyne.ui_components.dialogs import ExportMetadataDialog
 
 save_file = ""
 
@@ -26,6 +28,16 @@ class Widget(MainWidget):
     def show_question(self, question, option0, option1, option2):
         return answer
 
+class DataWidget(ExportMetadataDialog):
+
+    def values(self):
+        return {}
+
+class ExportWidget(ExportDialog):
+
+    pass
+
+
 
 class TestController(MnemosyneTest):
 
@@ -38,6 +50,10 @@ class TestController(MnemosyneTest):
             ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("test_controller", "Widget"))
+        self.mnemosyne.components.append(\
+            ("test_controller", "ExportWidget"))
+        self.mnemosyne.components.append(\
+            ("test_controller", "DataWidget"))
         self.mnemosyne.components.append(\
             ("mnemosyne_test", "TestReviewWidget"))
         self.mnemosyne.components.append(\

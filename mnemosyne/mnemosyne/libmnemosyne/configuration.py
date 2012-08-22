@@ -137,7 +137,9 @@ class Configuration(Component, dict):
              "warned_about_learning_ahead": False,
              "shown_backlog_help": False,
              "shown_schedule_help": False,
-             "asynchronous_database": False
+             "asynchronous_database": False,
+             "author_name": "",
+             "author_email": ""
             }.items():
             self.setdefault(key, value)
         # These keys will be shared in the sync protocol. Front-ends can
