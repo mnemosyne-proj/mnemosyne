@@ -16,7 +16,7 @@ class PyQtConfiguration(Hook):
              "last_used_tags_for_card_type_id": {},
              "import_dir": self.config().data_dir,
              "import_format": None,
-             "import_extra_tag_name": "",
+             "import_extra_tag_names": "",
              "export_dir": self.config().data_dir,
              "export_format": None,
              "sort_column": None,

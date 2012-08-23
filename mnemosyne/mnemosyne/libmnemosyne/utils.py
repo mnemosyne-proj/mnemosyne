@@ -182,6 +182,9 @@ class CompareOnId(object):
 
     """
 
+    def __hash__(self):
+        return hash(self.id)
+
     def __eq__(self, other):
         if isinstance(other, CompareOnId):
             return self.id == other.id

@@ -32,15 +32,18 @@ class ImportDlg(QtGui.QDialog, Ui_ImportDlg, ImportDialog):
         i = 0
         current_index = None
         for tag in self.database().tags():
+            if tag.name == self.config()["import_extra_tag_names"]:
+                current_index = i
             if tag.name != "__UNTAGGED__":
                 self.tags.addItem(tag.name)
                 i += 1
-            if tag.name == self.config()["import_extra_tag_name"]:
-                current_index = i
         if current_index is not None:
             self.tags.setCurrentIndex(current_index)
-        if self.config()["import_extra_tag_name"] == "":
+        if self.config()["import_extra_tag_names"] == "":
             self.tags.insertItem(0, "")
+            self.tags.setCurrentIndex(0)
+        if "," in self.config()["import_extra_tag_names"]:
+            self.tags.insertItem(0, self.config()["import_extra_tag_names"])
             self.tags.setCurrentIndex(0)
 
     def file_format_changed(self):
@@ -67,12 +70,12 @@ class ImportDlg(QtGui.QDialog, Ui_ImportDlg, ImportDialog):
     def accept(self):
         filename = unicode(self.filename_box.text())
         if filename and os.path.exists(filename):
-            extra_tag_name = unicode(self.tags.currentText())
-            self.config()["import_extra_tag_name"] = extra_tag_name
-            if not extra_tag_name:
-                extra_tag_name = None
+            extra_tag_names = unicode(self.tags.currentText())
+            self.config()["import_extra_tag_names"] = extra_tag_names
+            if not extra_tag_names:
+                extra_tag_names = None
             self.config()["import_format"] = type(self.format())
-            self.format().do_import(filename, extra_tag_name)
+            self.format().do_import(filename, extra_tag_names)
             QtGui.QDialog.accept(self)
         else:
             self.main_widget().show_error(_("File does not exist."))

@@ -481,6 +481,7 @@ class SQLiteSync(object):
                 card.next_rep = orig_card.next_rep
                 card.last_rep = orig_card.last_rep
                 card.modification_time = int(time.time())
+                card.tags = orig_card.tags
                 for tag_id in log_entry["tags"].split(","):
                     card.tags.add(self.tag(tag_id, is_id_internal=False))
                 for tag in self.extra_tags_on_import:

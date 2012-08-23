@@ -1,10 +1,10 @@
--importing the same file twice duplicates the tags
--try again with added tags on import
--warn about importing twice?
+-option to add multiple tags on import (Barbara), also to GUI
 
--option to add multiple tags on import (Barbara), also to gUI
+-text export
 
--make sure you can only add tags to facts in the card browser
+-seaching for \ hangs regular database (bug report Faemorleto)
+
+-make sure you can only add tags to facts in the card browser. feature or bug?
 
 -remove debug code in card browser
 

@@ -6,7 +6,7 @@ from mnemosyne.libmnemosyne.utils import rand_uuid, CompareOnId
 
 
 class Tag(CompareOnId):
-    
+
     """The tag name is the full name, including all levels of the hierarchy
     separated by ::.
 
@@ -16,7 +16,7 @@ class Tag(CompareOnId):
 
     Untagged cards are given the internal tag __UNTAGGED__, to allow for a
     fast implementation of applying criteria.
-    
+
     """
 
     def __init__(self, name, id=None):
