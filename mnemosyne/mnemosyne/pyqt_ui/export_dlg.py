@@ -47,7 +47,7 @@ class ExportDlg(QtGui.QDialog, Ui_ExportDlg, ExportDialog):
 
     def browse(self):
         export_dir = self.config()["export_dir"]
-        filename = self.main_widget().get_filename_to_open(export_dir,
+        filename = self.main_widget().get_filename_to_save(export_dir,
             _(self.format().filename_filter))
         self.filename_box.setText(filename)
         if filename:

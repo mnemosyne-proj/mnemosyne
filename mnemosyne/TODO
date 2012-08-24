@@ -13,6 +13,10 @@
 check cloze deletion at beginning of sentence, also with <<I whish I did not >>
 update comments, check coverage,
 
+
+release 2.1
+
+
 -keeping key pressed on show answer also grades card
 
 -A, A::B issues (see bug report Gnome)

@@ -29,6 +29,8 @@ class Mnemosyne2Cards(FileFormat):
 
     def do_export(self, filename):
         FileFormat.do_export(self, filename)
+        if os.path.dirname(filename):
+            os.chdir(os.path.dirname(filename))
         metadata = self.controller().show_export_metadata_dialog()
         metadata_file = file("METADATA", "w")
         for key, value in metadata.iteritems():
@@ -47,8 +49,6 @@ class Mnemosyne2Cards(FileFormat):
             len(active_objects["_fact_ids"])
         w.set_progress_range(number_of_entries)
         w.set_progress_update_interval(number_of_entries/20)
-        if os.path.dirname(filename):
-            os.chdir(os.path.dirname(filename))
         xml_file = file("cards.xml", "w")
         xml_format = XMLFormat()
         xml_file.write(xml_format.log_entries_header(number_of_entries))
@@ -145,11 +145,24 @@ class Mnemosyne2Cards(FileFormat):
             compression=zipfile.ZIP_DEFLATED)
         zip_file.write("cards.xml")
         zip_file.write("METADATA")
+        w.close_progress()
+        w.set_progress_text(_("Bundling media files..."))
+        number_of_media_files = len(active_objects["media_filenames"])
+        w.set_progress_range(number_of_media_files)
+        w.set_progress_update_interval(number_of_media_files/100)
         for media_filename in active_objects["media_filenames"]:
-            zip_file.write(\
-                os.path.join(self.database().media_dir(), media_filename),
-                media_filename)
+            full_path = os.path.normpath(\
+                os.path.join(self.database().media_dir(), media_filename))
+            if not os.path.exists(full_path):
+                self.main_widget().show_error(\
+                _("Missing filename: " + full_path))
+                continue
+            zip_file.write(full_path, media_filename,
+                compress_type=zipfile.ZIP_STORED)
+            w.increase_progress(1)
         zip_file.close()
+        if os.path.exists(filename):
+            os.remove(filename)
         os.rename(filename + ".zip", filename)
         os.remove("cards.xml")
         os.remove("METADATA")

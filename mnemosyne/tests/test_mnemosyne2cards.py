@@ -7,7 +7,28 @@ import shutil
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
+from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 from mnemosyne.libmnemosyne.ui_components.dialogs import ExportMetadataDialog
+
+last_error = None
+
+class MyMainWidget(MainWidget):
+
+
+    def show_information(self, info):
+        print info
+        #sys.stderr.write(info+'\n')
+
+    def show_error(self, error):
+        global last_error
+        last_error = error
+        # Activate this for debugging.
+        #sys.stderr.write(error)
+
+    def show_question(self, question, option0, option1, option2):
+        #sys.stderr.write(question+'\n')
+        return answer
+
 
 class Widget(ExportMetadataDialog):
 
@@ -30,7 +51,7 @@ class TestMnemosyne2Cards(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("test_mnemosyne2cards", "Widget"))
         self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.main_widget", "MainWidget"))
+            ("test_mnemosyne2cards", "MyMainWidget"))
         self.mnemosyne.components.append(\
             ("mnemosyne_test", "TestReviewWidget"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
@@ -48,6 +69,7 @@ class TestMnemosyne2Cards(MnemosyneTest):
         card_1, card_2 = self.controller().create_new_cards(\
             fact_data, card_type_2, grade=-1, tag_names=["default"])
         self.database().save()
+
 
         self.cards_format().do_export("test.cards")
 
@@ -186,6 +208,9 @@ class TestMnemosyne2Cards(MnemosyneTest):
             fact_data, card_type, grade=-1, tag_names=["default"])
         self.database().save()
 
+        filename = os.path.join(os.path.abspath("dot_test"), "test.cards")
+        file(filename, "w")
+
         self.cards_format().do_export("test.cards")
 
         self.database().new("import.db")
@@ -241,12 +266,14 @@ class TestMnemosyne2Cards(MnemosyneTest):
         self.database().update_card(card)
         self.cards_format().do_import("test2.cards")
         card = self.database().card(_card_id, is_id_internal=True)
-        assert list(card.tags)[0].name == "new_tag"
+        tag_names = [tag.name for tag in card.tags]
+        assert "new_tag" in tag_names
+        assert "default" in tag_names
         assert card.grade == 2
 
         self.cards_format().do_import("test2.cards")
         card = self.database().card(_card_id, is_id_internal=True)
-        assert len(list(card.tags)) == 1
+        assert len(list(card.tags)) == 2
         assert card.grade == 2
 
 
@@ -277,6 +304,32 @@ class TestMnemosyne2Cards(MnemosyneTest):
             unichr(0x628) + u"a.ogg"))
         assert os.path.exists(os.path.join("dot_test", "import.db_media",
             "b", unichr(0x628) + u"b.ogg"))
+
+    def test_missing_media(self):
+        filename_a = os.path.join(os.path.abspath("dot_test"),
+            "default.db_media", unichr(0x628) + u"a.ogg")
+        f = file(filename_a, "w")
+        print >> f, "a"
+        f.close()
+        os.mkdir(os.path.join(os.path.abspath("dot_test"),
+        "default.db_media", "b"))
+        filename_b = os.path.join(os.path.abspath("dot_test"),
+            "default.db_media", "b", unichr(0x628) + u"b.ogg")
+        f = file(filename_b, "w")
+        print >> f, "b"
+        f.close()
+
+        fact_data = {"f": "question\n<img src=\"%s\">" % (filename_a),
+                     "b": "question\n<img src=\"%s\">" % (filename_b)}
+        card_type = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(\
+            fact_data, card_type, grade=-1, tag_names=["default"])
+
+        os.remove(filename_a)
+        self.cards_format().do_export("test.cards")
+        global last_error
+        assert last_error.startswith("Missing")
+        last_error = None
 
     def teardown(self):
         if os.path.exists("test.cards"):

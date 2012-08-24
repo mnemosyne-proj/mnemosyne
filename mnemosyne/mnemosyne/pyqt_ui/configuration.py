@@ -2,6 +2,8 @@
 # configuration.py <Peter.Bienstman@UGent.be>
 #
 
+import os
+
 from mnemosyne.libmnemosyne.hook import Hook
 
 
@@ -14,10 +16,10 @@ class PyQtConfiguration(Hook):
             {"list_font": None,
              "last_used_card_type_id": "",
              "last_used_tags_for_card_type_id": {},
-             "import_dir": self.config().data_dir,
+             "import_dir": os.path.expanduser("~"),
              "import_format": None,
              "import_extra_tag_names": "",
-             "export_dir": self.config().data_dir,
+             "export_dir": os.path.expanduser("~"),
              "export_format": None,
              "sort_column": None,
              "sort_order": None,
