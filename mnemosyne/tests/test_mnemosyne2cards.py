@@ -57,6 +57,12 @@ class TestMnemosyne2Cards(MnemosyneTest):
         self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
         self.review_controller().reset()
 
+        from mnemosyne.libmnemosyne.card_types.cloze import ClozePlugin
+        for plugin in self.plugins():
+            if isinstance(plugin, ClozePlugin):
+                plugin.activate()
+                break
+
     def cards_format(self):
         for format in self.mnemosyne.component_manager.all("file_format"):
             if format.__class__.__name__ == "Mnemosyne2Cards":
@@ -164,13 +170,13 @@ class TestMnemosyne2Cards(MnemosyneTest):
         fact_data = {"f": "question",
                      "b": "answer"}
         card_type = self.card_type_with_id("1")
-        assert len(self.card_types()) == 3
-        card_type = self.controller().clone_card_type(\
-            card_type, ("1 clone"))
         assert len(self.card_types()) == 4
         card_type = self.controller().clone_card_type(\
-            card_type, ("1 clone cloned"))
+            card_type, ("1 clone"))
         assert len(self.card_types()) == 5
+        card_type = self.controller().clone_card_type(\
+            card_type, ("1 clone cloned"))
+        assert len(self.card_types()) == 6
         card_type.extra_data = {1:1}
         card_type.fact_views[0].extra_data = {2:2}
         card_1 = self.controller().create_new_cards(\
@@ -180,28 +186,28 @@ class TestMnemosyne2Cards(MnemosyneTest):
         self.cards_format().do_export("test.cards")
 
         self.database().new("import.db")
-        assert len(self.card_types()) == 3
+        assert len(self.card_types()) == 4
         card_type = self.card_type_with_id("1")
         card_type = self.controller().clone_card_type(\
             card_type, ("1 clone cloned"))
 
-        assert len(self.card_types()) == 4
+        assert len(self.card_types()) == 5
         self.cards_format().do_import("test.cards")
-        assert len(self.card_types()) == 6
+        assert len(self.card_types()) == 7
         self.cards_format().do_import("test.cards")
-        assert len(self.card_types()) == 6
+        assert len(self.card_types()) == 7
 
     def test_rename_card_type(self):
         fact_data = {"f": "question",
                      "b": "answer"}
         card_type = self.card_type_with_id("1")
-        assert len(self.card_types()) == 3
-        card_type = self.controller().clone_card_type(\
-            card_type, ("1 clone"))
         assert len(self.card_types()) == 4
         card_type = self.controller().clone_card_type(\
-            card_type, ("1 clone cloned"))
+            card_type, ("1 clone"))
         assert len(self.card_types()) == 5
+        card_type = self.controller().clone_card_type(\
+            card_type, ("1 clone cloned"))
+        assert len(self.card_types()) == 6
         card_type.extra_data = {1:1}
         card_type.fact_views[0].extra_data = {2:2}
         card_1 = self.controller().create_new_cards(\
@@ -215,16 +221,16 @@ class TestMnemosyne2Cards(MnemosyneTest):
 
         self.database().new("import.db")
         self.cards_format().do_import("test.cards")
-        assert len(self.card_types()) == 5
+        assert len(self.card_types()) == 6
         card_type = self.card_type_with_id("1::1 clone")
         card_type.name = "renamed"
         self.database().update_card_type(card_type)
         assert "renamed" in [card_type.name for card_type in self.card_types()]
         self.cards_format().do_import("test.cards")
-        assert len(self.card_types()) == 5
+        assert len(self.card_types()) == 6
         assert "renamed" not in [card_type.name for card_type in self.card_types()]
         self.cards_format().do_import("test.cards")
-        assert len(self.card_types()) == 5
+        assert len(self.card_types()) == 6
         assert "renamed" not in [card_type.name for card_type in self.card_types()]
 
     def test_update_fact(self):
@@ -276,6 +282,17 @@ class TestMnemosyne2Cards(MnemosyneTest):
         assert len(list(card.tags)) == 2
         assert card.grade == 2
 
+    def test_cloze(self):
+        fact_data = {"text": "que[sti]on"}
+        card_type = self.card_type_with_id("5")
+        card = self.controller().create_new_cards(\
+            fact_data, card_type, grade=-1, tag_names=["default"])[0]
+        self.cards_format().do_export("test.cards")
+        card.tags = set([self.database().get_or_create_tag_with_name("new_tag")])
+        self.database().new("import.db")
+        self.cards_format().do_import("test.cards")
+        _card_id, _fact_id = self.database().cards().next()
+        card = self.database().card(_card_id, is_id_internal=True)
 
     def test_media(self):
         filename_a = os.path.join(os.path.abspath("dot_test"),

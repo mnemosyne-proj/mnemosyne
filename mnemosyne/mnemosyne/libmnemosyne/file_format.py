@@ -23,10 +23,13 @@ class FileFormat(Component):
 
         self.import_dir = os.path.dirname(os.path.abspath(filename))
 
-    def do_export(self, filename, extra_tag_name=None):
+    def do_export(self, filename):
 
         """Make sure fileformats call this implementation first."""
 
-        self.export_dir = os.path.dirname(os.path.abspath(filename))
+        if not os.path.isabs(filename):
+            filename = os.path.join(self.config()["export_dir"], filename)
+        os.chdir(os.path.dirname(filename))
+
 
 

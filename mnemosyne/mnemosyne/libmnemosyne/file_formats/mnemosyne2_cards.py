@@ -29,8 +29,6 @@ class Mnemosyne2Cards(FileFormat):
 
     def do_export(self, filename):
         FileFormat.do_export(self, filename)
-        if os.path.dirname(filename):
-            os.chdir(os.path.dirname(filename))
         metadata = self.controller().show_export_metadata_dialog()
         metadata_file = file("METADATA", "w")
         for key, value in metadata.iteritems():
@@ -135,6 +133,8 @@ class Mnemosyne2Cards(FileFormat):
             log_entry["rt_rp_l"] = 0
             log_entry["l_rp"] = -1
             log_entry["n_rp"] = -1
+            if card.extra_data:
+                log_entry["extra"] = repr(card.extra_data)
             xml_file.write(xml_format.\
                 repr_log_entry(log_entry).encode("utf-8"))
             w.increase_progress(1)

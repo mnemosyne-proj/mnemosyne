@@ -139,7 +139,12 @@ class Configuration(Component, dict):
              "shown_schedule_help": False,
              "asynchronous_database": False,
              "author_name": "",
-             "author_email": ""
+             "author_email": "",
+             "import_dir": os.path.expanduser("~"),
+             "import_format": None,
+             "import_extra_tag_names": "",
+             "export_dir": os.path.expanduser("~"),
+             "export_format": None
             }.items():
             self.setdefault(key, value)
         # These keys will be shared in the sync protocol. Front-ends can
