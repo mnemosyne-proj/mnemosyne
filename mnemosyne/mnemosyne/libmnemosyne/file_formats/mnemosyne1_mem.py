@@ -27,8 +27,8 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
     import_possible = True
     export_possible = False
 
-    def do_import(self, filename, extra_tag_name=None):
-        FileFormat.do_import(self, filename, extra_tag_name)
+    def do_import(self, filename, extra_tag_names=None):
+        FileFormat.do_import(self, filename, extra_tag_names)
         w = self.main_widget()
         w.set_progress_text(_("Importing cards..."))
         db = self.database()
@@ -39,7 +39,7 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         log_index = db.current_log_index()
         try:
             self.read_items_from_mnemosyne1_mem(filename)
-            self.create_cards_from_mnemosyne1(extra_tag_name)
+            self.create_cards_from_mnemosyne1(extra_tag_names)
         except MnemosyneError:
             w.close_progress()
             return

@@ -28,7 +28,7 @@ class Mnemosyne1(MediaPreprocessor):
         class Item:
             pass
 
-    def create_cards_from_mnemosyne1(self, extra_tag_name):
+    def create_cards_from_mnemosyne1(self, extra_tag_names):
         w = self.main_widget()
         # See if the file was imported before.
         try:
@@ -50,16 +50,17 @@ class Mnemosyne1(MediaPreprocessor):
             self.items_by_id[item.id] = item
         for item in self.items:
             w.increase_progress(1)
-            self.create_card_from_item(item, extra_tag_name)
+            self.create_card_from_item(item, extra_tag_names)
         w.set_progress_value(len(self.items))
 
-    def create_card_from_item(self, item, extra_tag_name):
+    def create_card_from_item(self, item, extra_tag_names):
         # Create tag names.
         if item.cat.name == "<default>" or item.cat.name == "":
             item.cat.name = "__UNTAGGED__"
         tag_names = [item.cat.name]
-        if extra_tag_name:
-            tag_names.append(extra_tag_name)
+        if extra_tag_names:
+            tag_names += [tag_name.strip() for tag_name \
+                in extra_tag_names.split(",")]
         # Don't create 'secondary' cards here, but create them together with
         # the 'main' card, except when the 'main' card has been deleted.
         if item.id.endswith(".inv") or item.id.endswith(".tr.1"):

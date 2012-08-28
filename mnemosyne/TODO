@@ -1,21 +1,15 @@
--option to add multiple tags on import (Barbara), also to GUI
-
--text export
-
 -seaching for \ hangs regular database (bug report Faemorleto)
 
 -make sure you can only add tags to facts in the card browser. feature or bug?
 
--remove debug code in card browser
-
--rework ltr cloze deletion, also check clozes with hints containing space
-<p dir="rtl">سمعتُ (dat)علي
-check cloze deletion at beginning of sentence, also with <<I whish I did not >>
-update comments, check coverage,
-
+-update translations
 
 release 2.1
 
+-implement duplicate checking. Also synonym checking? Add then standard tags.
+-autorun after import, browse with edit?, but not sync
+
+-add remaining 1.x import formats
 
 -keeping key pressed on show answer also grades card
 
@@ -26,6 +20,8 @@ release 2.1
 -extra space below media player on production cards in Sentence type
 
 -# in media filenames
+
+-merging cards: should give an option to go back and edit
 
 -when merging duplicate cards, merge tags also (Stephan Maseizik)
 
@@ -96,9 +92,6 @@ Traceback (innermost last):
 
 -When making a changes in the selection in the (de)activate dialog, the warning
  that you have learned 15 cards does not show
-
--implement duplicate checking. Also synonym checking? Add then standard tags.
--autorun after import, browse with edit?, but not sync
 
 -bundle grades criterion? add criterion names i.e. type. Fix bug saving sets.
  Other mechanism to skip scheduled cards? What happens to saved set after

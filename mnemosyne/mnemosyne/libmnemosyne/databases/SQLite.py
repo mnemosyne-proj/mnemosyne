@@ -1323,6 +1323,13 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             select _id, _fact_id from cards order by %s limit ?"""
             % sort_key, (limit, )))
 
+    def active_cards(self, sort_key="", limit=-1):
+        sort_key = self._process_sort_key(sort_key)
+        return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
+            select _id, _fact_id from cards where
+            active=1 order by %s limit ?"""
+            % sort_key, (limit, )))
+
     def cards_due_for_ret_rep(self, timestamp, sort_key="", limit=-1):
         sort_key = self._process_sort_key(sort_key)
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""

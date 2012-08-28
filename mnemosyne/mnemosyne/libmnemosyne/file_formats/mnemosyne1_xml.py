@@ -25,8 +25,8 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
         Mnemosyne1.__init__(self, component_manager)
         self.anon_to_id = {}
 
-    def do_import(self, filename, extra_tag_name=None):
-        FileFormat.do_import(self, filename, extra_tag_name)
+    def do_import(self, filename, extra_tag_names=None):
+        FileFormat.do_import(self, filename, extra_tag_names)
         w = self.main_widget()
         # The import process generates card log entries which have new 2.0
         # ids as opposed to their old 1.x ids, so we need to delete them
@@ -36,7 +36,7 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
         try:
             w.set_progress_text(_("Importing cards..."))
             self.read_items_from_mnemosyne1_xml(filename)
-            self.create_cards_from_mnemosyne1(extra_tag_name)
+            self.create_cards_from_mnemosyne1(extra_tag_names)
         except MnemosyneError:
             w.close_progress()
             return

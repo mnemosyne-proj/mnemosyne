@@ -219,17 +219,14 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
         ignore_text_colour = bool(optionV4.state & QtGui.QStyle.State_Selected)
         search_string = index.model().search_string
         card = self.card(_id)
-        try:
-            if self.Q_or_A == QUESTION:
-                self.doc.setHtml(card.question(render_chain="card_browser",
+        if self.Q_or_A == QUESTION:
+            self.doc.setHtml(card.question(render_chain="card_browser",
                 ignore_text_colour=ignore_text_colour,
                 search_string=search_string))
-            else:
-                self.doc.setHtml(card.answer(render_chain="card_browser",
+        else:
+            self.doc.setHtml(card.answer(render_chain="card_browser",
                 ignore_text_colour=ignore_text_colour,
                 search_string=search_string))
-        except:
-            print _id
         # Paint the item without the text.
         optionV4.text = QtCore.QString()
         style.drawControl(QtGui.QStyle.CE_ItemViewItem, optionV4, painter)

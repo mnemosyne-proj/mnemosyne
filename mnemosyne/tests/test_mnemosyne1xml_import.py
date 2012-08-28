@@ -371,7 +371,7 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
         global answer
         answer = 0
         filename = os.path.join(os.getcwd(), "tests", "files", "tag.xml")
-        self.xml_importer().do_import(filename, extra_tag_name="extra")
+        self.xml_importer().do_import(filename, extra_tag_names="extra")
         self.review_controller().reset()
         assert len(self.review_controller().card.tags) == 2
 

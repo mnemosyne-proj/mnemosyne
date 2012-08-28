@@ -77,18 +77,18 @@ class TestMnemosyne2Cards(MnemosyneTest):
         self.database().save()
 
 
-        self.cards_format().do_export("test.cards")
+        self.cards_format().do_export(os.path.abspath("test.cards"))
 
         self.database().new("import.db")
         assert len([c for c in self.database().cards()]) == 0
-        self.cards_format().do_import("test.cards")
+        self.cards_format().do_import(os.path.abspath("test.cards"))
         self.database().save()
         assert len([c for c in self.database().cards()]) == 2
         for _card_id, _fact_id in self.database().cards():
             card = self.database().card(_card_id, is_id_internal=True)
             assert card.active == True
             assert card.id
-        self.cards_format().do_import("test.cards", "tag1, tag2")
+        self.cards_format().do_import(os.path.abspath("test.cards"), "tag1, tag2")
         self.database().save()
         assert len([tag.name for tag in self.database().tags()]) == 4
         assert len([c for c in self.database().cards()]) == 2
@@ -111,18 +111,18 @@ class TestMnemosyne2Cards(MnemosyneTest):
             fact_data, card_type, grade=-1, tag_names=["default"])
         self.database().save()
 
-        self.cards_format().do_export("test.cards")
+        self.cards_format().do_export(os.path.abspath("test.cards"))
 
         self.database().new("import.db")
         assert len([c for c in self.database().cards()]) == 0
-        self.cards_format().do_import("test.cards")
+        self.cards_format().do_import(os.path.abspath("test.cards"))
         self.database().save()
         assert len([c for c in self.database().cards()]) == 1
         for _card_id, _fact_id in self.database().cards():
             card = self.database().card(_card_id, is_id_internal=True)
             assert card.active == True
             assert card.id
-        self.cards_format().do_import("test.cards")
+        self.cards_format().do_import(os.path.abspath("test.cards"))
         self.database().save()
         assert len([c for c in self.database().cards()]) == 1
 
@@ -134,15 +134,15 @@ class TestMnemosyne2Cards(MnemosyneTest):
             fact_data, card_type, grade=-1, tag_names=["default"])
         self.database().save()
 
-        self.cards_format().do_export("test.cards")
+        self.cards_format().do_export(os.path.abspath("test.cards"))
 
         self.database().new("import.db")
         assert len([c for c in self.database().cards()]) == 0
         self.database().get_or_create_tag_with_name("default")
         assert len(self.database().tags()) == 2
-        self.cards_format().do_import("test.cards")
+        self.cards_format().do_import(os.path.abspath("test.cards"))
         assert len(self.database().tags()) == 3
-        self.cards_format().do_import("test.cards")
+        self.cards_format().do_import(os.path.abspath("test.cards"))
         assert len(self.database().tags()) == 3
 
     def test_rename_tags(self):
@@ -153,17 +153,17 @@ class TestMnemosyne2Cards(MnemosyneTest):
             fact_data, card_type, grade=-1, tag_names=["default"])
         self.database().save()
 
-        self.cards_format().do_export("test.cards")
+        self.cards_format().do_export(os.path.abspath("test.cards"))
 
         self.database().new("import.db")
         assert len([c for c in self.database().cards()]) == 0
-        self.cards_format().do_import("test.cards")
+        self.cards_format().do_import(os.path.abspath("test.cards"))
         assert len(self.database().tags()) == 2
         tag = self.database().get_or_create_tag_with_name("default")
         tag.name = "edited"
         self.database().update_tag(tag)
         assert self.database().tags()[0].name == "edited"
-        self.cards_format().do_import("test.cards")
+        self.cards_format().do_import(os.path.abspath("test.cards"))
         assert self.database().tags()[0].name == "default"
 
     def test_existing_card_type(self):
@@ -183,7 +183,7 @@ class TestMnemosyne2Cards(MnemosyneTest):
             fact_data, card_type, grade=-1, tag_names=["default"])
         self.database().save()
 
-        self.cards_format().do_export("test.cards")
+        self.cards_format().do_export(os.path.abspath("test.cards"))
 
         self.database().new("import.db")
         assert len(self.card_types()) == 4
@@ -192,9 +192,9 @@ class TestMnemosyne2Cards(MnemosyneTest):
             card_type, ("1 clone cloned"))
 
         assert len(self.card_types()) == 5
-        self.cards_format().do_import("test.cards")
+        self.cards_format().do_import(os.path.abspath("test.cards"))
         assert len(self.card_types()) == 7
-        self.cards_format().do_import("test.cards")
+        self.cards_format().do_import(os.path.abspath("test.cards"))
         assert len(self.card_types()) == 7
 
     def test_rename_card_type(self):
@@ -214,22 +214,22 @@ class TestMnemosyne2Cards(MnemosyneTest):
             fact_data, card_type, grade=-1, tag_names=["default"])
         self.database().save()
 
-        filename = os.path.join(os.path.abspath("dot_test"), "test.cards")
+        filename = os.path.join(os.path.abspath("dot_test"), os.path.abspath("test.cards"))
         file(filename, "w")
 
-        self.cards_format().do_export("test.cards")
+        self.cards_format().do_export(os.path.abspath("test.cards"))
 
         self.database().new("import.db")
-        self.cards_format().do_import("test.cards")
+        self.cards_format().do_import(os.path.abspath("test.cards"))
         assert len(self.card_types()) == 6
         card_type = self.card_type_with_id("1::1 clone")
         card_type.name = "renamed"
         self.database().update_card_type(card_type)
         assert "renamed" in [card_type.name for card_type in self.card_types()]
-        self.cards_format().do_import("test.cards")
+        self.cards_format().do_import(os.path.abspath("test.cards"))
         assert len(self.card_types()) == 6
         assert "renamed" not in [card_type.name for card_type in self.card_types()]
-        self.cards_format().do_import("test.cards")
+        self.cards_format().do_import(os.path.abspath("test.cards"))
         assert len(self.card_types()) == 6
         assert "renamed" not in [card_type.name for card_type in self.card_types()]
 
@@ -240,16 +240,16 @@ class TestMnemosyne2Cards(MnemosyneTest):
         card = self.controller().create_new_cards(\
             fact_data, card_type, grade=-1, tag_names=["default"])
 
-        self.cards_format().do_export("test.cards")
+        self.cards_format().do_export(os.path.abspath("test.cards"))
 
         self.database().new("import.db")
-        self.cards_format().do_import("test.cards")
+        self.cards_format().do_import(os.path.abspath("test.cards"))
         _card_id, _fact_id = self.database().cards().next()
         card = self.database().card(_card_id, is_id_internal=True)
         card.fact["f"] = "edited"
         self.database().update_fact(card.fact)
         assert "edited" in card.question()
-        self.cards_format().do_import("test.cards")
+        self.cards_format().do_import(os.path.abspath("test.cards"))
         _card_id, _fact_id = self.database().cards().next()
         card = self.database().card(_card_id, is_id_internal=True)
         assert "edited" not in card.question()
@@ -260,17 +260,17 @@ class TestMnemosyne2Cards(MnemosyneTest):
         card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(\
             fact_data, card_type, grade=-1, tag_names=["default"])[0]
-        self.cards_format().do_export("test.cards")
+        self.cards_format().do_export(os.path.abspath("test.cards"))
         card.tags = set([self.database().get_or_create_tag_with_name("new_tag")])
         self.database().update_card(card)
-        self.cards_format().do_export("test2.cards")
+        self.cards_format().do_export(os.path.abspath("test2.cards"))
         self.database().new("import.db")
-        self.cards_format().do_import("test.cards")
+        self.cards_format().do_import(os.path.abspath("test.cards"))
         _card_id, _fact_id = self.database().cards().next()
         card = self.database().card(_card_id, is_id_internal=True)
         card.grade = 2
         self.database().update_card(card)
-        self.cards_format().do_import("test2.cards")
+        self.cards_format().do_import(os.path.abspath("test2.cards"))
         card = self.database().card(_card_id, is_id_internal=True)
         tag_names = [tag.name for tag in card.tags]
         assert "new_tag" in tag_names
@@ -287,10 +287,10 @@ class TestMnemosyne2Cards(MnemosyneTest):
         card_type = self.card_type_with_id("5")
         card = self.controller().create_new_cards(\
             fact_data, card_type, grade=-1, tag_names=["default"])[0]
-        self.cards_format().do_export("test.cards")
+        self.cards_format().do_export(os.path.abspath("test.cards"))
         card.tags = set([self.database().get_or_create_tag_with_name("new_tag")])
         self.database().new("import.db")
-        self.cards_format().do_import("test.cards")
+        self.cards_format().do_import(os.path.abspath("test.cards"))
         _card_id, _fact_id = self.database().cards().next()
         card = self.database().card(_card_id, is_id_internal=True)
 
@@ -313,10 +313,10 @@ class TestMnemosyne2Cards(MnemosyneTest):
         card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(\
             fact_data, card_type, grade=-1, tag_names=["default"])
-        self.cards_format().do_export("test.cards")
+        self.cards_format().do_export(os.path.abspath("test.cards"))
 
         self.database().new("import.db")
-        self.cards_format().do_import("test.cards")
+        self.cards_format().do_import(os.path.abspath("test.cards"))
         assert os.path.exists(os.path.join("dot_test", "import.db_media",
             unichr(0x628) + u"a.ogg"))
         assert os.path.exists(os.path.join("dot_test", "import.db_media",
@@ -343,14 +343,14 @@ class TestMnemosyne2Cards(MnemosyneTest):
             fact_data, card_type, grade=-1, tag_names=["default"])
 
         os.remove(filename_a)
-        self.cards_format().do_export("test.cards")
+        self.cards_format().do_export(os.path.abspath("test.cards"))
         global last_error
         assert last_error.startswith("Missing")
         last_error = None
 
     def teardown(self):
-        if os.path.exists("test.cards"):
-            os.remove("test.cards")
+        if os.path.exists(os.path.abspath("test.cards")):
+            os.remove(os.path.abspath("test.cards"))
         if os.path.exists("test2.cards"):
             os.remove("test2.cards")
         MnemosyneTest.teardown(self)

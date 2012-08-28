@@ -2,6 +2,9 @@
  Supports importing an updated version of the same exported cards, so that
  authors can release updated versions of their cards fixing e.g. spelling
  mistakes.
+-Implemented txt export with tab-separated values.
+-You can now specify more than 1 tag to add during import
+ (requested by Barbara).
 -Fix bug where active tags would sometimes not have a checkbox in the card
  browser (reported by Gnome).
 -Made RTL handling for Arabic and Hebrew more robust.

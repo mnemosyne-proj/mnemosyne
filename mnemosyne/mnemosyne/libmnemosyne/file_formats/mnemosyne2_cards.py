@@ -28,7 +28,10 @@ class Mnemosyne2Cards(FileFormat):
     export_possible = True
 
     def do_export(self, filename):
-        FileFormat.do_export(self, filename)
+        self.orig_dir = os.getcwd()
+        if not os.path.isabs(filename):
+            filename = os.path.join(self.config()["export_dir"], filename)
+        os.chdir(os.path.dirname(filename))
         metadata = self.controller().show_export_metadata_dialog()
         metadata_file = file("METADATA", "w")
         for key, value in metadata.iteritems():
@@ -166,6 +169,7 @@ class Mnemosyne2Cards(FileFormat):
         os.rename(filename + ".zip", filename)
         os.remove("cards.xml")
         os.remove("METADATA")
+        os.chdir(self.orig_dir)
         w.close_progress()
 
     def do_import(self, filename, extra_tag_names=None):

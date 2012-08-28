@@ -2,6 +2,7 @@
 # tsv.py <Peter.Bienstman@UGent.be>
 #
 
+import os
 import re
 
 from mnemosyne.libmnemosyne.translator import _
@@ -24,14 +25,14 @@ class Tsv(FileFormat, MediaPreprocessor):
     extension = ".txt"
     filename_filter = _("Tab-separated text files (*.txt)")
     import_possible = True
-    export_possible = False
+    export_possible = True
 
     def __init__(self, component_manager):
         FileFormat.__init__(self, component_manager)
         MediaPreprocessor.__init__(self, component_manager)
 
-    def do_import(self, filename, extra_tag_name=None):
-        FileFormat.do_import(self, filename, extra_tag_name)
+    def do_import(self, filename, extra_tag_names=None):
+        FileFormat.do_import(self, filename, extra_tag_names)
         # Open txt file. Use Universal line ending detection.
         f = None
         try:
@@ -77,8 +78,9 @@ class Tsv(FileFormat, MediaPreprocessor):
                 return
         # Now that we know all the data is well-formed, create the cards.
         tag_names = []
-        if extra_tag_name:
-            tag_names.append(extra_tag_name)
+        if extra_tag_names:
+            tag_names += [tag_name.strip() for tag_name \
+                in extra_tag_names.split(",")]
         for fact_data in facts_data:
             if len(fact_data.keys()) == 2:
                 card_type = self.card_type_with_id("1")
@@ -90,4 +92,30 @@ class Tsv(FileFormat, MediaPreprocessor):
             if _("MISSING_MEDIA") in tag_names:
                 tag_names.remove(_("MISSING_MEDIA"))
         self.warned_about_missing_media = False
+
+    def process_string_for_text_export(self, text):
+        text = text.encode("utf-8").replace("\n", "<br>").replace("\t", " ")
+        if text == "":
+            text = "<br>"
+        return text
+
+    def do_export(self, filename):
+        if not os.path.isabs(filename):
+            filename = os.path.join(self.config()["export_dir"], filename)
+        db = self.database()
+        w = self.main_widget()
+        w.set_progress_text(_("Exporting cards..."))
+        number_of_cards = db.active_count()
+        w.set_progress_range(number_of_cards)
+        w.set_progress_update_interval(number_of_cards/50)
+        outfile = file(filename, "w")
+        for _card_id, _fact_id in db.active_cards():
+            card = db.card(_card_id, is_id_internal=True)
+            q = self.process_string_for_text_export(\
+                card.question(render_chain="plain_text"))
+            a = self.process_string_for_text_export(\
+                card.answer(render_chain="plain_text"))
+            outfile.write("%s\t%s\n" % (q, a))
+            w.increase_progress(1)
+        w.close_progress()
 

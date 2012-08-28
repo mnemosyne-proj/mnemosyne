@@ -126,10 +126,21 @@ class TestTsvImport(MnemosyneTest):
         assert self.database().card_count_for_tags(\
             [self.database().get_or_create_tag_with_name("MISSING_MEDIA")], False) == 1
         assert last_error == ""
+        fact_data = {"f": "question",
+                     "b": ""}
+        card_type = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(\
+            fact_data, card_type, grade=-1, tag_names=["default"])[0]
+        self.tsv_importer().do_export(os.path.join(os.getcwd(), "dot_test", "test.txt"))
+
 
     def teardown(self):
         filename = \
             os.path.join(os.getcwd(), "dot_test", "default.db_media", "a.png")
+        if os.path.exists(filename):
+            os.remove(filename)
+        filename = \
+            os.path.join(os.getcwd(), "dot_test", "test.txt")
         if os.path.exists(filename):
             os.remove(filename)
         MnemosyneTest.teardown(self)

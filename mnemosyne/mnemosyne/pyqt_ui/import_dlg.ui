@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>292</width>
-    <height>178</height>
+    <height>192</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Import from file</string>
   </property>
-  <layout class="QVBoxLayout">
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
     <layout class="QVBoxLayout">
      <item>
       <widget class="QLabel" name="textLabel_5">
@@ -69,7 +69,7 @@
      <item>
       <widget class="QLabel" name="textLabel2">
        <property name="text">
-        <string>Add additional tag to cards:</string>
+        <string>Add additional tag(s) to cards:</string>
        </property>
        <property name="wordWrap">
         <bool>false</bool>
