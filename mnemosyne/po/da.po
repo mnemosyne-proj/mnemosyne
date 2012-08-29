@@ -2,50 +2,50 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-27 18:21+0000\n"
-"PO-Revision-Date: 2012-05-24 23:24+0000\n"
-"Last-Translator: Peter Bienstman <Unknown>\n"
+"POT-Creation-Date: 2012-08-27 19:16+0000\n"
+"PO-Revision-Date: 2012-07-31 19:51+0000\n"
+"Last-Translator: Lars Josephsen <lars@josephsen.dk>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-07-28 04:57+0000\n"
-"X-Generator: Launchpad (build 15694)\n"
+"X-Launchpad-Export-Date: 2012-08-28 06:44+0000\n"
+"X-Generator: Launchpad (build 15864)\n"
 "Language: \n"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:27
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:19
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:19
 msgid "Last week"
-msgstr ""
+msgstr "Sidste uge"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:28
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:20
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:20
 msgid "Last month"
-msgstr ""
+msgstr "Sidste måned"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:29
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:21
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:21
 msgid "Last 3 months"
-msgstr ""
+msgstr "Sidste 3 måneder"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:30
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:22
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:22
 msgid "Last 6 months"
-msgstr ""
+msgstr "Sidste 6 måneder"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:31
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:23
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:23
 msgid "Last year"
-msgstr ""
+msgstr "Sidste år"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:61
 msgid "Average grades of scheduled cards"
-msgstr ""
+msgstr "Gennemsnitlig karakter på planlagte kort"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:68
 #: ../mnemosyne/example_plugins/pie_chart_statistics.py:31
@@ -53,82 +53,86 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:241
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:264
 msgid "No stats available."
-msgstr ""
+msgstr "Ingen statistik tilgængelig"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:98
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:184
 msgid "Days"
-msgstr ""
+msgstr "Dage"
 
 #: ../mnemosyne/example_plugins/new_card_type.py:13
 msgid "Vocabulary (decorated)"
-msgstr ""
+msgstr "Ordforråd (dekoreret)"
 
 #: ../mnemosyne/example_plugins/new_card_type.py:18
 #: ../mnemosyne/libmnemosyne/card_types/map.py:24
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:39
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:24
 msgid "Recognition"
-msgstr ""
+msgstr "Genkendelse"
 
 #: ../mnemosyne/example_plugins/new_card_type.py:24
 #: ../mnemosyne/libmnemosyne/card_types/map.py:30
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:44
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:29
 msgid "Production"
-msgstr ""
+msgstr "Produktion"
 
 #: ../mnemosyne/libmnemosyne/__init__.py:175
-msgid "Another copy of Mnemosyne is accessing this database."
-msgstr ""
+msgid "Another copy of Mnemosyne is still running."
+msgstr "En anden kopi af Mnemosyne kører stadig."
 
-#: ../mnemosyne/libmnemosyne/__init__.py:255
-#: ../mnemosyne/libmnemosyne/__init__.py:268
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:704
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:326
+#: ../mnemosyne/libmnemosyne/__init__.py:176
+msgid "Continuing is impossible and will lead to data loss!"
+msgstr "At fortsætte er umuligt og vil føre til datatab!"
+
+#: ../mnemosyne/libmnemosyne/__init__.py:256
+#: ../mnemosyne/libmnemosyne/__init__.py:269
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:723
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:329
 msgid "Error when running plugin:"
 msgstr "Fejl under kørsel af plugin:"
 
-#: ../mnemosyne/libmnemosyne/__init__.py:288
+#: ../mnemosyne/libmnemosyne/__init__.py:289
 msgid "Creating temporary database."
-msgstr ""
+msgstr "Opretter midlertidig database."
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:15
 msgid "Front-to-back and back-to-front"
-msgstr ""
+msgstr "Forside-til-bagside og bagside-til-forside"
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:18
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:16
 msgid "Front"
-msgstr ""
+msgstr "Forside"
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:19
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:17
 msgid "Back"
-msgstr ""
+msgstr "Bagside"
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:22
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:20
 msgid "Front-to-back"
-msgstr ""
+msgstr "Forside-til-bagside"
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:27
 msgid "Back-to-front"
-msgstr ""
+msgstr "Bagside-til-forside"
 
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:39
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:155
 msgid "Cloze deletion"
-msgstr ""
+msgstr "Hultest"
 
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:41
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:50
 msgid "Text"
-msgstr ""
+msgstr "Tekst"
 
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:44
 msgid "Cloze"
-msgstr ""
+msgstr "Hul"
 
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:156
 msgid ""
@@ -143,27 +147,37 @@ msgid ""
 "You can also specify hints, e.g. [cloze:hint] will show\n"
 " [hint] in the question as opposed to [...]."
 msgstr ""
+"En korttype hvor visse dele af tekstener fjernet.\n"
+"\n"
+"F.eks., teksten \"Hovedstaden i [Frankrig] er [Paris], vil give kort med "
+"spørgsmålene \"Hovedstaden i Frankrig er[...].\" og \"hovedstaden i [...] er "
+"Paris.\n"
+"\n"
+"Redigering af tekst vil automatisk opdatere alle søsterkort.\n"
+"\n"
+"Man kan også lave ledetråde, f.eks. [hul:ledetråd] vil vise\n"
+" [ledetråd] i spørgsmålet i stedet for [...]."
 
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:13
 msgid "Front-to-back only"
-msgstr ""
+msgstr "Kun forside-til-bagside"
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:16
 #: ../mnemosyne/libmnemosyne/card_types/map.py:51
 msgid "Map"
-msgstr ""
+msgstr "Kort"
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:19
 msgid "Location"
-msgstr ""
+msgstr "Sted"
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:20
 msgid "Blank map"
-msgstr ""
+msgstr "Tomt kort"
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:21
 msgid "Marked map"
-msgstr ""
+msgstr "Mærket kort"
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:52
 msgid ""
@@ -172,27 +186,30 @@ msgid ""
 "Displays the answer map on top of the question map, rather than below it as "
 "a second map."
 msgstr ""
+"En korttype for at lære steder på et kort.\n"
+"\n"
+"Viser svaret på samme sted som kortet, i stedet for under som et ekstra kort."
 
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:30
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:33
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:94
 msgid "Sentence"
-msgstr ""
+msgstr "Sætning"
 
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:34
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:19
 msgid "Pronunciation"
-msgstr ""
+msgstr "Udtale"
 
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:35
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:20
 msgid "Meaning"
-msgstr ""
+msgstr "Betydning"
 
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:36
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:21
 msgid "Notes"
-msgstr ""
+msgstr "Noter"
 
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:95
 msgid ""
@@ -203,38 +220,42 @@ msgid ""
 "E.g. if in the sentence field you write \"La [casa:house] es [grande:big]\", "
 "you'll get cards with questions like \"La [house] es grande\"."
 msgstr ""
+"En korttype, der bruger sætninger til at lære fremmedsprog.\n"
+"\n"
+"Udover simpel sætningsgenkendelse, kan man også lave produktionskort med "
+"hultest.\n"
+"F.eks. hvis man i sætningsfeltet skriver \"La [casa:hus] es "
+"[grande:stort]\", vil man få kort med spørgsmål som \"La [hus] es grande\"."
 
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:15
 msgid "Vocabulary"
-msgstr ""
+msgstr "Ordforråd"
 
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:18
 msgid "Foreign word or expression"
-msgstr ""
+msgstr "Ord eller udtryk på fremmedsprog"
 
-#: ../mnemosyne/libmnemosyne/configuration.py:181
+#: ../mnemosyne/libmnemosyne/configuration.py:188
 msgid "Error in config:"
-msgstr ""
+msgstr "Fejl i konfiguration"
 
-#: ../mnemosyne/libmnemosyne/configuration.py:190
+#: ../mnemosyne/libmnemosyne/configuration.py:197
 msgid "Unable to save config file:"
-msgstr ""
+msgstr "Kunne ikke gemme konfigurationsfilen:"
 
-#: ../mnemosyne/libmnemosyne/configuration.py:348
+#: ../mnemosyne/libmnemosyne/configuration.py:355
 msgid "Error in config.py:"
 msgstr "Fejl i config.py:"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:65
 #: ../mnemosyne/pyqt_ui/about_dlg.py:28
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:245
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:574
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:577
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:226
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:83
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:89
-#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:56
-#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:68
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:56
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:68
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:58
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:70
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:146
 #: ../mnemosyne/pyqt_ui/main_wdgt.py:69 ../mnemosyne/pyqt_ui/main_wdgt.py:72
 #: ../mnemosyne/pyqt_ui/main_wdgt.py:76 ../mnemosyne/pyqt_ui/main_wdgt.py:99
@@ -244,42 +265,43 @@ msgstr "Mnemosyne"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:112
 msgid "Identical card is already in database."
-msgstr ""
+msgstr "Identisk kort er allerede i databasen."
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:113
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:119
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:137
 msgid "&Add anyway"
-msgstr ""
+msgstr "&Tilføj alligevel"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:113
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:119
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:137
 msgid "&Do not add"
 msgstr "&Tilføj ikke"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:117
 msgid ""
-"There is already data present for:\n"
+"There is already data present for this card:\n"
 "\n"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:119
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:137
 msgid "&Merge and edit"
 msgstr "&Flet og rediger"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:220
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:239
 msgid "Can't preserve history when converting between these card types."
 msgstr ""
+"Kan ikke beholde kortets historik ved konvertering mellem disse korttyper."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:221
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:240
 msgid "The learning history of the cards will be reset."
-msgstr ""
+msgstr "Læringshistorikken for kortene vil blive nulstillet."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:222
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:249
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:365
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:241
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:271
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:387
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:105
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:125
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:473
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:476
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:76
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:61
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:186
@@ -291,6 +313,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:59
 #: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:73
 #: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:54
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:88
 #: ../mnemosyne/pyqt_ui/ui_import_dlg.py:95
 #: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:56
 #: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:54
@@ -299,17 +322,15 @@ msgstr ""
 msgid "&Cancel"
 msgstr "&Annuller"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:222
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:241
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:105
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:125
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:473
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:476
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:76
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:85
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:90
-#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:58
-#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:70
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:58
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:70
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:60
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:72
 #: ../mnemosyne/pyqt_ui/main_wdgt.py:69 ../mnemosyne/pyqt_ui/main_wdgt.py:77
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:61
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:186
@@ -324,6 +345,8 @@ msgstr "&Annuller"
 #: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:72
 #: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:53
 #: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:82
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:86
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:102
 #: ../mnemosyne/pyqt_ui/ui_import_dlg.py:93
 #: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:72
 #: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:100
@@ -335,345 +358,367 @@ msgstr "&Annuller"
 msgid "&OK"
 msgstr "&OK"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:246
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:268
 msgid "This will delete cards and their history."
-msgstr ""
+msgstr "Dette vil slette kortene og deres læringshistorie"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:247
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:357
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:362
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:269
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:379
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:384
 msgid "Are you sure you want to do this,"
-msgstr ""
+msgstr "Er du sikker på at du vil gøre dette,"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:248
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:358
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:363
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:270
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:380
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:385
 msgid "and not just deactivate cards in the 'Activate cards' dialog?"
-msgstr ""
+msgstr "og ikke bare deaktivere kortene i \"Aktiver kort\" dialogen?"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:249
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:271
 msgid "&Proceed and delete"
-msgstr ""
+msgstr "&Fortsæt og slet"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:322
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:344
 msgid "Converting cards..."
-msgstr ""
+msgstr "Konverterer kort..."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:354
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:376
 msgid "Delete this card?"
 msgstr "Slet dette kort?"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:356
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:378
 msgid "Delete this card and 1 sister card?"
-msgstr ""
+msgstr "Slet dette kort og et søsterkort?"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:360
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:382
 msgid "Delete this card and"
-msgstr ""
+msgstr "Slet dette kort og"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:361
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:383
 msgid "sister cards?"
-msgstr ""
+msgstr "søsterkort?"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:364
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:353
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:386
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:356
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:141
 #: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:61
 msgid "&Delete"
 msgstr "&Slet"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:387
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:409
 msgid "Card type name already exists."
-msgstr ""
+msgstr "Korttypenavn eksisterer allerede."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:407
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:429
 msgid "Card type %s is in use or is a system card type, cannot delete it."
 msgstr ""
+"Korttype %s er i brug eller er en systemkorttype, kan ikke slette det."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:412
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:434
 msgid "Card type %s has clones, cannot delete it."
-msgstr ""
+msgstr "Korttype %s har kloner, kan ikke slette det."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:427
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:449
 msgid "Cannot rename a system card type."
-msgstr ""
+msgstr "Kan ikke ændre navn på kort af typen systemkort."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:432
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:454
 msgid "This card type name is already in use."
-msgstr ""
+msgstr "Dette korts navn er allerede i brug."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:438
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:460
 msgid ""
 "It is recommended to put all your cards in a single database. Using tags to "
 "determine which cards to study is much more convenient than having to load "
 "and unload several databases."
 msgstr ""
+"Det anbefales at du lægger alle dine kort i en enkelt database. At bruge "
+"tags for at bestemme hvad du vil studere er meget mere praktisk end at læse "
+"flere databaser ind og gemme dem."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:449
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:479
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:536
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:471
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:501
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:558
 msgid "Mnemosyne databases"
-msgstr ""
+msgstr "Mnemosyne databaser"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:450
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:472
 msgid "New"
 msgstr "Ny"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:456
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:478
 msgid "Creating new database..."
-msgstr ""
+msgstr "Opretter ny database..."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:485
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:507
 msgid ""
 "Do you want to restore from this backup?\n"
 "Note that this will result in conflicts during the next sync, which need to "
 "be resolved by a full sync."
 msgstr ""
+"Vil du genoprette fra denne backup?\n"
+"Bemærk at dette vil resultere i konflikter under næste synkronisering, som "
+"må løses ved at lave  fuld synkronisering."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:486
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:569
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1038
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:97
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:508
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:573
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1043
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
+#: ../mnemosyne/pyqt_ui/export_dlg.py:64
 msgid "No"
-msgstr ""
+msgstr "Nej"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:486
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:569
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1038
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:97
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:508
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:573
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1043
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
+#: ../mnemosyne/pyqt_ui/export_dlg.py:64
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:582
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:604
 msgid "Image files"
 msgstr "Billedfiler"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:584
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:606
 msgid "Insert image"
 msgstr "Indsæt billede"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:597
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:619
 msgid "Sound files"
 msgstr "Lydfiler"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:599
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:621
 msgid "Insert sound"
 msgstr "Indsæt lyd"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:612
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:634
 msgid "Video files"
-msgstr ""
+msgstr "Videofiler"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:614
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:636
 msgid "Insert video"
-msgstr ""
+msgstr "Indsæt video"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:657
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:676
 msgid "Install plugin"
-msgstr ""
+msgstr "Installer plugin"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:657
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:676
 msgid "Plugins"
-msgstr ""
+msgstr "Plugins"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:682
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:701
 msgid "No plugin found!"
-msgstr ""
+msgstr "Ingen plugin fundet!"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:829
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:861
 msgid "For instructions on how to download Mnemosyne's source,"
-msgstr ""
+msgstr "For instruktioner på at hente Mnemosynes kildekode"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:830
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:862
 msgid "go to http://www.mnemosyne-proj.org"
-msgstr ""
+msgstr "gå til http://www.mnemosyne-proj.org"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:329
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:332
 msgid "Missing plugin for card type with id:"
-msgstr ""
+msgstr "Mangler plugin for korttype med id:"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:342
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:357
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:345
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:360
 msgid "Unable to load file."
 msgstr "Filen kunne ikke loades."
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:344
-msgid "Unable to load file, query failed"
-msgstr ""
-
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:347
+msgid "Unable to load file, query failed"
+msgstr "Kunne ikke åbne fil, forespørgsel gik galt"
+
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:350
 msgid "Unable to load file: database version mismatch."
-msgstr ""
+msgstr "Kunne ikke loade fil: forkert databaseversion."
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:424
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:427
 msgid "Warning: backup creation failed for"
-msgstr ""
+msgstr "Advarsel: backup gik galt for"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:568
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:572
 msgid "Make tag '%s' active in saved set '%s'?"
-msgstr ""
+msgstr "Gør tag '%s' aktiv i gemt sæt '%s'?"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1037
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1042
 msgid "Make new card type active in saved set '%s'?"
-msgstr ""
+msgstr "Gør ny korttype aktiv i gemt sæt '%s'?"
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:114
 msgid ""
 "Media filename rather long. This could cause problems using this file on a "
 "different OS."
 msgstr ""
+"Mediefilnavnet er temmelig langt. Dette kan skabe problemer med at bruge "
+"filen på et andet operativsystem."
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:117
 msgid "Missing media file!"
-msgstr ""
+msgstr "Mangler mediefil!"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite_sync.py:116
+#: ../mnemosyne/libmnemosyne/databases/SQLite_sync.py:120
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:206
 msgid "Missing plugins for card types."
-msgstr ""
+msgstr "Mangler plugin for korttyper."
 
 #: ../mnemosyne/libmnemosyne/databases/_apsw.py:54
-#: ../mnemosyne/libmnemosyne/databases/_sqlite3.py:49
+#: ../mnemosyne/libmnemosyne/databases/_sqlite3.py:50
 msgid ""
 "Putting a database on a network drive is forbidden under Windows to avoid "
 "data corruption. Mnemosyne will now close."
 msgstr ""
+"At lægge databasen på et netværksdrev er ikke tilladt under Windows for at "
+"undgå databeskadigelse. Mnemosyne vil nu lukke ned."
 
 #: ../mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:90
 msgid "Cuecard .wcu"
-msgstr ""
+msgstr "Cuecard .wcu"
 
 #: ../mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:91
 msgid "Cuecard files (*.wcu *.WCU)"
-msgstr ""
+msgstr "Cuecard filer (*.wcu *.WCU)"
 
 #: ../mnemosyne/libmnemosyne/file_formats/media_preprocessor.py:64
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:89
 #: ../mnemosyne/libmnemosyne/file_formats/tsv.py:90
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:91
 msgid "MISSING_MEDIA"
-msgstr ""
+msgstr "MEDIE_MANGLER"
 
 #: ../mnemosyne/libmnemosyne/file_formats/media_preprocessor.py:67
 msgid ""
 "Warning: media files were missing. These cards have been tagged as "
-"MISSING_MEDIA. You must also change 'scr_missing' to 'scr' in the text of "
+"MISSING_MEDIA. You must also change 'src_missing' to 'src' in the text of "
 "these cards."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:40
 msgid "These cards seem to have been imported before. Aborting..."
 msgstr ""
+"Disse kort ser ud til at være blevet importeret tidligere. Afbryder..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:42
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:32
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:36
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:123
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:33
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:37
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:180
 msgid "Importing cards..."
-msgstr ""
+msgstr "Importerer kort..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:24
 msgid "Mnemosyne 1.x *.mem files"
-msgstr ""
+msgstr "Mnemosyne 1.x *.mem filer"
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:25
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:26
 msgid "Mnemosyne 1.x *.mem databases (*.mem)"
-msgstr ""
+msgstr "Mnemosyne 1.x *.mem databaser (*.mem)"
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:74
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:63
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:75
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:64
 msgid "Unable to open file."
-msgstr ""
+msgstr "Kan ikke åbne fil."
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:80
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:81
 msgid "Importing history..."
-msgstr ""
+msgstr "Importerer historik..."
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:84
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:85
 msgid "No history found to import."
-msgstr ""
+msgstr "Fandt ingen korthistorie at importere"
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:114
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:115
 msgid "Ignoring unparsable files:<br/>"
-msgstr ""
+msgstr "Ignorer uforståelige filer:<br/>"
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:17
 msgid "Mnemosyne 1.x *.XML files"
-msgstr ""
+msgstr "Mnemosyne 1.x *.XML filer"
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:18
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:19
 msgid "Mnemosyne 1.x XML files"
-msgstr ""
+msgstr "Mnemosyne 1.x XML filer"
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:60
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:61
 msgid "Unable to parse file:"
-msgstr ""
+msgstr "Kunne ikke analysere fil:"
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:97
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 msgid ""
 "This XML file contains learning data. It's best to import this from a mem "
 "file, in order to preserve historical statistics. Continue?"
 msgstr ""
+"Denne XML fil indeholder læringsdata. Det er bedst at importere dette fra en "
+"mem fil, for at beholde historisk statistik. Fortsæt?"
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:24
 msgid "Mnemosyne 2.x *.cards files"
-msgstr ""
+msgstr "Mnemosyne 2.x *.cards filer"
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:25
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:26
 msgid "Mnemosyne 2.x cards for sharing (*.cards)"
-msgstr ""
+msgstr "Mnemosyne 2.x kort til deling (*.cards)"
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:32
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:39
 msgid "Exporting cards..."
+msgstr "Eksporterer kort..."
+
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:149
+msgid "Bundling media files..."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:264
 msgid "SuperMemo7 text in Q:/A: format"
-msgstr ""
+msgstr "SuperMemo7 tekst i spørgsmål:/svar: format"
 
 #: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:265
 msgid "SuperMemo7 text files (*.txt *.TXT)"
-msgstr ""
+msgstr "SuperMemo7 tekstfiler (*.txt *.TXT)"
 
 #: ../mnemosyne/libmnemosyne/file_formats/tsv.py:23
 msgid "Tab-separated text files"
-msgstr ""
+msgstr "Tekstfiler med spørsmål/svar adskilt med tab"
 
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:24
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:25
 msgid "Tab-separated text files (*.txt)"
-msgstr ""
+msgstr "Tekstfiler med spørgsmål/svar adskilt med tab (*.txt)"
 
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:42
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:43
 msgid "Could not load file."
-msgstr ""
+msgstr "Kunne ikke indlæse fil."
 
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:54
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:55
 msgid "Could not determine encoding."
-msgstr ""
+msgstr "Kunne ikke bestemme kodning."
 
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:75
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:76
 msgid "Missing answer on line:\n"
-msgstr ""
+msgstr "Mangler svar på linie:\n"
 
 #: ../mnemosyne/libmnemosyne/filters/latex.py:85
 msgid "Problem with latex. Are latex and dvipng installed?"
-msgstr ""
+msgstr "Problem med latex. Er latex og dvipng installeret?"
 
 #: ../mnemosyne/libmnemosyne/log_uploader.py:83
 msgid "Uploading"
-msgstr ""
+msgstr "Uploader"
 
 #: ../mnemosyne/libmnemosyne/log_uploader.py:87
 msgid "done!"
-msgstr ""
+msgstr "færdig"
 
 #: ../mnemosyne/libmnemosyne/log_uploader.py:89
 msgid "Upload failed"
-msgstr ""
+msgstr "Upload mislykkedes"
 
 #: ../mnemosyne/libmnemosyne/logger.py:200
 msgid "Waiting for uploader thread to stop..."
-msgstr ""
+msgstr "Venter på at uploadertråden stopper..."
 
 #: ../mnemosyne/libmnemosyne/logger.py:202
+#: ../mnemosyne/pyqt_ui/export_dlg.py:69
 msgid "Done!"
 msgstr "Færdig!"
 
@@ -682,10 +727,12 @@ msgid ""
 "Cannot deactivate, there are cards with this card type (or a clone of it) in "
 "the database."
 msgstr ""
+"Kan ikke deaktivere, der er kort med denne korttype (eller en klon af den) i "
+"databasen."
 
 #: ../mnemosyne/libmnemosyne/plugins/cramming_plugin.py:14
 msgid "Cramming scheduler"
-msgstr ""
+msgstr "Terpeplanlægger"
 
 #: ../mnemosyne/libmnemosyne/plugins/cramming_plugin.py:16
 msgid ""
@@ -694,6 +741,10 @@ msgid ""
 "\n"
 "To return to the original scheduler, just deactivate this plugin."
 msgstr ""
+"Gennemgår de aktive kort i tilfældig rækkefølge uden at gemme "
+"planlægingsinformation.\n"
+"\n"
+"For at returnere til den originale planlægger, deaktiver dette plugin."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:18
 msgid "You don't remember this card yet."
@@ -701,31 +752,31 @@ msgstr "Du kan ikke huske dette kort endnu."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:20
 msgid "Like '0', but it's getting more familiar. Show it less often."
-msgstr ""
+msgstr "Som '0', men begynder at blive mere kendt. Vis sjældnere."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:22
 msgid "You've memorised this card now, and might remember it tomorrow."
-msgstr ""
+msgstr "Du har lært kortet udenad nu, og vil måske huske det i morgen."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:24
 msgid "You've memorised this card now, and should remember it tomorrow."
-msgstr ""
+msgstr "Du har lært kortet udenad nu, og bør kunne huske det i morgen."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:26
 msgid "You've memorised this card now, and might remember it in 2 days."
-msgstr ""
+msgstr "Du har lært kortet udenad nu, og vil måske huske det om to dage."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:28
 msgid "You've memorised this card now, and should remember it in 2 days."
-msgstr ""
+msgstr "Du har lært kortet udenad nu, og bør kunne huske det om to dage."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:31
 msgid "You've forgotten this card completely."
-msgstr ""
+msgstr "Du har fuldstændigt glemt dette kort."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:33
 msgid "You've forgotten this card."
-msgstr ""
+msgstr "Du har glemt dette kort."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:35
 msgid "Barely correct answer. The interval was way too long."
@@ -735,6 +786,8 @@ msgstr "Langt fra korrekt svar. Intervallet var alt for langt."
 msgid ""
 "Correct answer, but with much effort. The interval was probably too long."
 msgstr ""
+"Rigtigt svar, men med for meget anstrengelse. Intervallet var sandsynligvis "
+"for langt."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
 msgid ""
@@ -751,17 +804,21 @@ msgstr "Rigtigt svar, men uden noget besvær. Intervallet var nok for kort."
 msgid ""
 "You have no more work for today. Either add more cards or come back tomorrow."
 msgstr ""
+"Du har ikke flere kort tilbage i dag. Læg flere kort til eller kom tilbage i "
+"morgen."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:113
 msgid ""
 "Use 'Learn ahead of schedule' sparingly. For cramming before an exam, it's "
 "much better to use the cramming scheduler plugin"
 msgstr ""
+"Brug 'Lær forud for skema' sparsomt. For at terpe før en eksamen er det "
+"meget bedre at bruge terpeplanlægger plugin'et."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:146
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:33
 msgid "Returns in"
-msgstr ""
+msgstr "Vender tilbage om"
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:147
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:34
@@ -784,111 +841,115 @@ msgstr " dage."
 msgid "Next repetition in "
 msgstr "Næste repetition om "
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:196
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:199
 #: ../mnemosyne/pyqt_ui/preview_cards_dlg.py:65
 msgid "Question: "
-msgstr ""
+msgstr "Spørgsmål: "
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:226
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:229
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:232
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:235
 msgid "Show answer"
 msgstr "Vis svar"
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:236
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:239
 msgid "Learn ahead of schedule"
 msgstr "Lær forud for skema"
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:255
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:258
 msgid "Pick days until next repetition:"
 msgstr "Vælg antal dage før næste repetition:"
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:257
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:260
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:109
 msgid "Grade your answer:"
-msgstr "Angiv grad for dit svar:"
+msgstr "Angiv karakter for dit svar:"
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:225
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:229
 msgid ""
 "You appear to have missed some reviews. Don't worry too much about this "
 "backlog, and do as many cards as you feel comfortable with to catch up each "
 "day. Mnemosyne will automatically reschedule your cards such that the most "
 "urgent ones are shown first."
 msgstr ""
+"Det ser ud som om du er sprunget over nogle gennemgange af kort. Lad være "
+"med at bekymre dig om kort, som har hobet sig op. Gør så mange kort som du "
+"har det godt med hver dag, for at indhente. Mnemosyne vil automatisk ændre "
+"planen, så de kort der haster mest kommer først."
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:549
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:553
 msgid "You've memorised 15 new or failed cards."
-msgstr ""
+msgstr "Du har lært 15 nye eller fejlede kort udenad."
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:550
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:554
 msgid "If you do this for many days, you could get a big workload later."
-msgstr ""
+msgstr "Hvis du gør dette mange dage i træk, får du meget arbejde senere."
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:596
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:600
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:605
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:604
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:609
 msgid "in"
-msgstr ""
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:597
-msgid "years"
-msgstr ""
+msgstr "i"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:601
+msgid "years"
+msgstr "år"
+
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:605
 msgid "months"
-msgstr ""
+msgstr "måneder"
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:603
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:607
 msgid "in 1 month"
-msgstr ""
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:606
-msgid "days"
-msgstr ""
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:608
-msgid "tomorrow"
-msgstr ""
+msgstr "om en måned"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:610
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:640
-msgid "today"
-msgstr ""
+msgid "days"
+msgstr "dage"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:612
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:642
-msgid "yesterday"
-msgstr ""
+msgid "tomorrow"
+msgstr "i morgen"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:614
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:644
-msgid "days ago"
-msgstr ""
+msgid "today"
+msgstr "i dag"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:616
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:646
+msgid "yesterday"
+msgstr "I går"
+
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:618
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:648
+msgid "days ago"
+msgstr "dage siden"
+
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:620
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:650
 msgid "1 month ago"
-msgstr ""
+msgstr "1 måned siden"
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:619
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:649
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:623
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:653
 msgid "months ago"
-msgstr ""
+msgstr "måneder siden"
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:622
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:652
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:626
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:656
 msgid "years ago"
-msgstr ""
+msgstr "år siden"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:11
 msgid "Cards added"
-msgstr ""
+msgstr "Kort tilføjet"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:38
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:38
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:58
 msgid "Calculating statistics..."
-msgstr ""
+msgstr "Beregner statistik"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:12
 msgid "Current card"
@@ -900,64 +961,64 @@ msgstr "Ingen kort."
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:29
 msgid "Unseen card, no statistics available yet."
-msgstr ""
+msgstr "Uset kort, ingen statistik tilgængelig."
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:31
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:596
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:599
 msgid "Grade"
-msgstr "Grad"
+msgstr "Karakter"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:32
 #: ../mnemosyne/libmnemosyne/statistics_pages/easiness.py:11
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:597
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:600
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:269
 msgid "Easiness"
-msgstr ""
+msgstr "Nemhed"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:33
-msgid "Repetitions"
+msgid "Learning repetitions"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:35
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:599
-msgid "Lapses"
+msgid "Review repetitions"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:36
-msgid "Scheduled interval"
+#: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:37
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:602
+msgid "Lapses"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:38
 msgid "Last repetition"
-msgstr ""
+msgstr "Sidste gentagelse"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:40
 msgid "Next repetition"
-msgstr ""
+msgstr "Næste gentagelse"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:42
 msgid "Average thinking time (secs)"
-msgstr ""
+msgstr "Gennemsnitlig tænketid (sekunder)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:44
 msgid "Total thinking time (secs)"
-msgstr ""
+msgstr "Sammenlagt tænketid (sekunder)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/easiness.py:17
 #: ../mnemosyne/libmnemosyne/statistics_pages/grades.py:17
 msgid "All cards"
-msgstr ""
+msgstr "Alle kort"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/easiness.py:21
 #: ../mnemosyne/libmnemosyne/statistics_pages/grades.py:21
 #: ../mnemosyne/libmnemosyne/tag_tree.py:58
 msgid "Untagged"
-msgstr ""
+msgstr "Uden Tags"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/grades.py:11
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:246
 msgid "Grades"
-msgstr "Grader"
+msgstr "Karakterer"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:11
 msgid "Retention score"
@@ -969,116 +1030,128 @@ msgstr "Plan"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:24
 msgid "Next week (active cards only)"
-msgstr ""
+msgstr "Næste uge (kun aktive kort)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:25
 msgid "Next month (active cards only)"
-msgstr ""
+msgstr "Næste måned"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:26
 msgid "Next 3 months (active cards only)"
-msgstr ""
+msgstr "Næste tre måneder (kun aktive kort)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:27
 msgid "Next 6 months (active cards only)"
-msgstr ""
+msgstr "Næste seks måneder (kun aktive kort)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:28
 msgid "Next year (active cards only)"
-msgstr ""
+msgstr "Næste år (kun aktive kort)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:29
 msgid "Last week (all cards)"
-msgstr ""
+msgstr "Sidste uge (alle kort)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:30
 msgid "Last month (all cards)"
-msgstr ""
+msgstr "Sidste måned (alle kort)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:31
 msgid "Last 3 months (all cards)"
-msgstr ""
+msgstr "Sidste tre måneder (alle kort)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:32
 msgid "Last 6 months (all cards)"
-msgstr ""
+msgstr "Sidste seks måneder (alle kort)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:33
 msgid "Last year (all cards)"
-msgstr ""
+msgstr "Sidste år (alle kort)"
 
 #: ../mnemosyne/libmnemosyne/tag_tree.py:41
 msgid "All tags"
-msgstr ""
+msgstr "Alle tags"
 
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:138
 msgid "Upgrade from Mnemosyne 1.x complete!"
-msgstr ""
+msgstr "Opgradering fra Mnemosyne 1.x færdig!"
 
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:139
 msgid "Mnemosyne 2.x now stores its data here:"
-msgstr ""
+msgstr "Mnemosyne 2.x gemmer nu data her:"
 
 #: ../mnemosyne/pyqt_ui/about_dlg.py:29
 msgid "Main author: Peter Bienstman"
-msgstr ""
+msgstr "Hovedudvikler: Peter Bienstman"
 
 #: ../mnemosyne/pyqt_ui/about_dlg.py:30
 msgid ""
 "Invaluable contributions from many people are acknowledged <a "
 "href=\"http://www.mnemosyne-proj.org/contributing.php\">here</a>."
 msgstr ""
+"Uvuderlige bidrag fra mange mennesker anerkendes <a "
+"href=\"http://www.mnemosyne-proj.org/contributing.php\">her</a>"
 
 #: ../mnemosyne/pyqt_ui/about_dlg.py:31
 msgid ""
 "Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-"
 "proj.org</a> for more information and source code."
 msgstr ""
+"Gå til <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-"
+"proj.org</a> for mere information og kildekode."
 
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:89
 #: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:97
 msgid "Delete"
-msgstr ""
+msgstr "Slet"
 
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:90
 msgid "Rename"
-msgstr ""
+msgstr "Omdøb"
 
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:97
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:197
 msgid "This set can never contain any cards!"
-msgstr ""
+msgstr "Dette sæt kan aldrig indeholde kort!"
 
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:104
 msgid "Update this set?"
-msgstr ""
+msgstr "Opdater dette sæt?"
 
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:120
 msgid ""
 "You can right-click on the name of a saved set to rename or delete it."
 msgstr ""
+"Du kan højreklikke på navnet af et gemt sæt for at omdøbe det eller slette "
+"det."
 
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:124
 msgid "Delete this set?"
-msgstr ""
+msgstr "Slet dette sæt?"
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:28 ../mnemosyne/pyqt_ui/tip_dlg.py:29
 msgid ""
 "You can add multiple tags to a card by separating tags with a comma in the "
 "'Tag(s)' input field."
 msgstr ""
+"Man kan tilføje flere tags til et kort ved at adskille tags med at komma, i "
+"'Tags' feltet."
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:29 ../mnemosyne/pyqt_ui/tip_dlg.py:30
 msgid ""
 "You can organise tags in a hierarchy by using :: as separator, e.g. My "
 "book::Lesson 1."
 msgstr ""
+"Man kan organisere tags hierarkisk ved at bruge :: som adskiller, f.eks. Min "
+"bog::Kapitel 1."
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:30 ../mnemosyne/pyqt_ui/tip_dlg.py:31
 msgid ""
 "You can add images and sounds to your cards. Right-click on an input field "
 "when editing a card to bring up a pop-up menu to do so."
 msgstr ""
+"Man kan tilføje billeder og lyd til kortene. Højreklik på et "
+"indtastningsfelt nårdu redigerer et kort for at få en pop-up menu."
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:31 ../mnemosyne/pyqt_ui/tip_dlg.py:33
 msgid ""
@@ -1086,6 +1159,9 @@ msgid ""
 "pronunciation field, you can hide it by right-clicking on it and using the "
 "pop-up menu."
 msgstr ""
+"Hvis man ikke har brug for udtalefeltet, for visse korttyper klonet fra "
+"Ordforråd, kan man skjule det ved at højreklikke på det og bruge pop-up "
+"menue."
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:32
 msgid ""
@@ -1093,6 +1169,9 @@ msgid ""
 "for 'Yet to learn', and Ctrl+2, etc. for the grades. For 'Edit card', use "
 "Ctrl-Enter to close."
 msgstr ""
+"Man kann bruge Tab for flytte mellem felterne. For 'Tilføj kort', brug "
+"Ctrl+Enter for 'Skal læres', og Ctrl+2, etc. for karaktergivning. For "
+"'Rediger kort', brug Ctrl+Enter for at lukke."
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:246
 msgid "Abandon current card?"
@@ -1116,155 +1195,169 @@ msgstr "&Ja"
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:111
 msgid "Yet to learn"
-msgstr ""
+msgstr "Skal læres"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:261
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:264
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:38
 msgid "Right-click on a tag name in the card browser to edit or delete it."
 msgstr ""
+"Højreklik på et tags navn i kortbrowseren for at redigere eller slette det."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:262
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:265
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:39
 msgid "Double-click on a card or tag name in the card browser to edit them."
 msgstr ""
+"Dobbeltklik på et kort eller et tags navn i kortbrowseren for at redigere "
+"dem."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:263
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:266
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:40
 msgid ""
 "You can reorder columns in the card browser by dragging the header label."
 msgstr ""
+"Man kan ændre rækkefølgen af kolonner i kortbrowseren ved at trække i "
+"kolonnenavnet."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:264
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:267
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:41
 msgid ""
 "You can resize columns in the card browser by dragging between the header "
 "labels."
 msgstr ""
+"Man kan ændre størrelsen af kolonerne i kortbrowseren ved at trække i "
+"kolonneskillelinien ved siden af kolonnenavnet."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:265
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:268
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:42
 msgid ""
 "When editing or previewing cards from the card browser, PageUp/PageDown can "
 "be used to move to the previous/next card."
 msgstr ""
+"Ved redigering eller forhåndsvisning af kort fra kortbrowseren, kan "
+"PageUp/PageDown bruges for at flytte til sidste/næste kort."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:266
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:269
 msgid ""
 "You change the relative size of the card list, card type tree and tag tree "
 "by dragging the dividers between them."
 msgstr ""
+"Man kan ændre den relative størrelse på kort kort i kortlisten, "
+"korttypetræet og tagtræet ved at trække i skillelinierne mellem dem."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:281
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:284
 msgid "Show cards from these card types:"
-msgstr ""
+msgstr "Vis kort fra disse korttyper:"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:292
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:295
 #: ../mnemosyne/pyqt_ui/ui_criterion_wdgt_default.py:41
 msgid "having any of these tags:"
-msgstr ""
+msgstr "som har nogen af disse tags:"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:299
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:302
 msgid "containing this text in the cards:"
-msgstr ""
+msgstr "indeholder denne tekst i kortene:"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:345
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:348
 msgid "&Edit"
 msgstr "&Rediger"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:349
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:352
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:120
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:138
 #: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:83
 msgid "&Preview"
 msgstr "&Forhåndsvisning"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:358
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:361
 msgid "Change card &type"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:362
-msgid "&Add tags"
-msgstr ""
+msgstr "Ændre kort &type"
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:365
+msgid "&Add tags"
+msgstr "&Tilføj tags"
+
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:368
 msgid "&Remove tags"
-msgstr ""
+msgstr "&Fjern tags"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:472
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:475
 msgid "Go ahead with delete? Sister cards will be deleted as well."
-msgstr ""
+msgstr "Fortsæt med sletning? Søsterkort vil også blive slettet."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:500
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:503
 msgid "The selected cards should have the same card type."
-msgstr ""
+msgstr "De valgte kort bør have samme korttype"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:575
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:578
 msgid "Database error: "
-msgstr ""
+msgstr "Databasefejl: "
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:595
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:598
 msgid "Answer"
 msgstr "Svar"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:595
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:598
 msgid "Question"
 msgstr "Spørgsmål"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:596
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:599
 msgid "Next rep"
-msgstr ""
+msgstr "Næste gennemgang"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:596
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:599
 msgid "Tags"
-msgstr ""
+msgstr "Tags"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:597
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:600
 msgid "Last rep"
-msgstr ""
+msgstr "Sidste gennemgang"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:598
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:601
 msgid ""
 "Learning\n"
 "reps"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:599
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:602
 msgid ""
 "Review\n"
 "reps"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:600
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:603
 msgid "Created"
-msgstr ""
+msgstr "Oprettet"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:600
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:603
 msgid "Modified"
-msgstr ""
+msgstr "Ændret"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:654
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:657
 msgid ""
 "You chose to sort this table. Operations in the card browser could now be "
 "slower. Next time you start the card browser, the table will be unsorted "
 "again."
 msgstr ""
+"Du har valgt at sortere denne tabel. Operationer i kortbrowseren kan nu være "
+"langsommere. Næste gang du starter kortbrowseren, vil tabellen være "
+"usorteret igen."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:733
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:736
 msgid "%d cards shown, of which %d active."
-msgstr ""
+msgstr "%d kort vises, hvoraf %d aktive"
 
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:72
 msgid "Delete these card types?"
-msgstr ""
+msgstr "Slet disse korttyper?"
 
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:74
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:61
 msgid "Delete this card type?"
-msgstr ""
+msgstr "Slet denne korttype?"
 
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:104
 msgid "All card types (%d)"
-msgstr ""
+msgstr "Alle korttyper (%d)"
 
 #: ../mnemosyne/pyqt_ui/compact_database_dlg.py:63
 msgid "Compacting database..."
@@ -1324,26 +1417,18 @@ msgstr ""
 msgid "Server stopped."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:39
-#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:51
-#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:78
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:39
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:51
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:78
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:53
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:81
 msgid "<none>"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:57
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:59
 msgid "No duplicate in new fact keys allowed."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/convert_card_type_fields_dlg.py:69
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:69
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:71
 msgid "A required field is missing."
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:57
-msgid "No duplicate in new keys allowed."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:96
@@ -1355,7 +1440,11 @@ msgstr ""
 msgid "Abandon changes to current card?"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/import_dlg.py:76
+#: ../mnemosyne/pyqt_ui/export_dlg.py:64
+msgid "File exists. Overwrite?"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/import_dlg.py:81
 msgid "File does not exist."
 msgstr ""
 
@@ -1410,7 +1499,7 @@ msgid "Insert &sound"
 msgstr "Indsæt &lyd"
 
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:31
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:211
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:213
 msgid "Ctrl+S"
 msgstr "Ctrl+G"
 
@@ -1419,7 +1508,7 @@ msgid "Insert vi&deo"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:33
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:194
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:196
 msgid "Ctrl+D"
 msgstr "Ctrl+D"
 
@@ -1701,6 +1790,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:108
 #: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:63
 #: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:81
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:100
 msgid "Tags:"
 msgstr ""
 
@@ -1762,6 +1852,7 @@ msgid "XXX cards selected, of which XXX active"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_card_set_name_dlg.py:45
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:95
 msgid "Card set name:"
 msgstr ""
 
@@ -1778,7 +1869,7 @@ msgid "Clone name:"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:54
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:225
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:227
 msgid "Compact database"
 msgstr ""
 
@@ -1939,6 +2030,49 @@ msgstr ""
 msgid "Delete these unused media files?"
 msgstr ""
 
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:82
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:89
+msgid "File format:"
+msgstr "Filformat:"
+
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:83
+msgid "File to export to:"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:84
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:91
+msgid "&Browse"
+msgstr "&Gennemse"
+
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:85
+msgid "(Only active cards will be exported, without learning data.)"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:87
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:94
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:96
+msgid "Author name:"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:97
+msgid "Author email:"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:98
+msgid "Date:"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:99
+msgid "Revision:"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:101
+msgid "Notes:"
+msgstr ""
+
 #: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:91
 msgid "Introduction"
 msgstr "Introduktion"
@@ -2045,165 +2179,153 @@ msgid ""
 "Happy learning!"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:89
-msgid "File format:"
-msgstr "Filformat:"
-
 #: ../mnemosyne/pyqt_ui/ui_import_dlg.py:90
 msgid "File to import from:"
 msgstr "Importer fra fil:"
-
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:91
-msgid "&Browse"
-msgstr "&Gennemse"
 
 #: ../mnemosyne/pyqt_ui/ui_import_dlg.py:92
 msgid "Add additional tag to cards:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:94
-msgid "Alt+O"
-msgstr "Alt+O"
-
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:188
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:190
 msgid "&Settings"
 msgstr "&Indstillinger"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:189
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:191
 msgid "&Help"
 msgstr "&Hjælp"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:190
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:192
 msgid "&File"
 msgstr "&Fil"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:191
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:193
 msgid "&Cards"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:192
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:194
 msgid "toolBar"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:193
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:195
 msgid "(De)a&ctivate cards..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:195
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:197
 msgid "&Add cards..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:196
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:198
 msgid "Ctrl+A"
 msgstr "Ctrl+T"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:197
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:199
 msgid "&Configure Mnemosyne..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:198
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:200
 msgid "&Delete current card"
 msgstr "&Slet dette kort"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:199
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:201
 msgid "Backspace"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:200
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:202
 msgid "&Edit current card..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:201
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:203
 msgid "Ctrl+E"
 msgstr "Ctrl+R"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:202
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:204
 msgid "&Browse cards..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:203
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:205
 msgid "Ctrl+B"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:204
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:206
 msgid "&Export..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:205
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:207
 #: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:62
 #: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:75
 msgid "E&xit"
 msgstr "Af&slut"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:206
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:208
 msgid "&New..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:207
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:209
 msgid "Ctrl+N"
 msgstr "Ctrl+N"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:208
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:210
 msgid "&Open..."
 msgstr "&Åben..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:209
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:211
 msgid "Ctrl+O"
 msgstr "Ctrl+Å"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:210
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:212
 msgid "&Save"
 msgstr "&Gem"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:212
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:214
 msgid "Save &as..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:213
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:215
 msgid "&About"
 msgstr "&Om"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:214
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:216
 msgid "&Import..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:215
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:217
 msgid "&Getting started"
 msgstr "&Kom igang"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:216
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:218
 msgid "Show s&tatistics..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:217
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:219
 msgid "Ctrl+T"
 msgstr "Ctrl+T"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:218
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:220
 msgid "&Tip of the day"
 msgstr "Dagens &/tip"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:219
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:221
 msgid "Manage &plugins..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:220
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:222
 msgid "Manage plugins"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:221
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:223
 msgid "&Manage card types..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:222
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:224
 msgid "S&ync..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:223
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:225
 msgid "Ctrl+Y"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:224
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:226
 msgid "Compact..."
 msgstr ""
 
@@ -2229,10 +2351,6 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:74
 msgid "&Delete plugin"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:95
-msgid "(fact view name)"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:96

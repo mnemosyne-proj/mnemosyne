@@ -1,11 +1,3 @@
--seaching for \ hangs regular database (bug report Faemorleto)
-
--make sure you can only add tags to facts in the card browser. feature or bug?
-
--update translations
-
-release 2.1
-
 -implement duplicate checking. Also synonym checking? Add then standard tags.
 -autorun after import, browse with edit?, but not sync
 
@@ -15,11 +7,16 @@ release 2.1
 
 -A, A::B issues (see bug report Gnome)
 
+-save cookies
+ http://stackoverflow.com/questions/3382640/how-can-i-load-session-information-into-qtwebkit
+
 -don't reset non memorised count when editing cards
 
 -extra space below media player on production cards in Sentence type
 
 -# in media filenames
+
+-speed up deletion of large number of cards from browser
 
 -merging cards: should give an option to go back and edit
 
@@ -53,6 +50,8 @@ Traceback (innermost last):
 
 -if the sync changed the appearance settings, the current card's question still
  shows the old appearance
+
+-Now you can add tags to cards instead of facts in the card browser. feature or bug?
 
 -import db file
 

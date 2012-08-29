@@ -5,6 +5,7 @@
 -Implemented txt export with tab-separated values.
 -You can now specify more than 1 tag to add during import
  (requested by Barbara).
+-Don't crash card browser when searching for \ (reported by Faemorleto).
 -Fix bug where active tags would sometimes not have a checkbox in the card
  browser (reported by Gnome).
 -Made RTL handling for Arabic and Hebrew more robust.
