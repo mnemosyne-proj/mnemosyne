@@ -11,6 +11,7 @@ except ImportError:
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
+from mnemosyne.libmnemosyne.utils import is_filesystem_case_insensitive
 from mnemosyne.libmnemosyne.utils import copy_file_to_dir, remove_empty_dirs_in
 
 re_src = re.compile(r"""src=['\"](.+?)['\"]""", re.DOTALL | re.IGNORECASE)
@@ -155,7 +156,10 @@ _("Media filename rather long. This could cause problems using this file on a di
         for result in self.con.execute(\
             "select value from data_for_fact where value like '%src=%'"):
             for match in re_src.finditer(result[0]):
-                files_in_db.add(match.group(1))
+                filename = match.group(1)
+                if is_filesystem_case_insensitive():
+                    filename = filename.lower()
+                files_in_db.add(filename)
         # Files in the media dir.
         files_in_media_dir = set()
         for root, dirnames, filenames in os.walk(self.media_dir()):
@@ -166,6 +170,8 @@ _("Media filename rather long. This could cause problems using this file on a di
                 # Paths are stored using unix convention.
                 if root:
                     filename = root + "/" + filename
+                if is_filesystem_case_insensitive():
+                    filename = filename.lower()
                 files_in_media_dir.add(filename)
         return files_in_media_dir - files_in_db
 

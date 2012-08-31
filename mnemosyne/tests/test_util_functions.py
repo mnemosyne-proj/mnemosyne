@@ -63,4 +63,7 @@ class TestUtilFunctions(object):
     def test_strip_tags(self):
         assert strip_tags("""<img = "">""") == ""
 
-        
+    def test_filesystem(self):
+        is_filesystem_case_insensitive()
+
+

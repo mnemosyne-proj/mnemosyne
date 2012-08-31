@@ -69,8 +69,8 @@ class HtmlCssCardBrowser(HtmlCss):
             css = colour_re.sub("", css)
         if "search_string" in render_args and render_args["search_string"]:
             search_string = render_args["search_string"]
-            for symbol in ["(", ")", "?", ".", "^", "*",
-                "$", "+", "[", "]", "\\"]:
+            for symbol in ["\\", "(", ")", "?", ".", "^", "*",
+                "$", "+", "[", "]"]:  # / needs to be listed first.
                 search_string = search_string.replace(symbol, "\\" + symbol)
             search_re = re.compile("(" + search_string + ")", re.IGNORECASE)
             for fact_key in fact_keys:

@@ -6,7 +6,7 @@ from mnemosyne_test import MnemosyneTest
 
 
 class TestHtmlCss(MnemosyneTest):
-     
+
     def test_1(self):
         self.config()["font"] = {'1': {"f": u'Courier New,10,-1,5,50,1,0,0,0,0',
                                        "b": u'Courier New,10,-1,5,25,2,0,0,0,0'},
@@ -25,7 +25,7 @@ class TestHtmlCss(MnemosyneTest):
                      "b": "answer"}
         card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
-                                          grade=-1, tag_names=["default"])[0]    
+                                          grade=-1, tag_names=["default"])[0]
         card_type = self.card_type_with_id("2")
         card2 = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
@@ -34,32 +34,33 @@ class TestHtmlCss(MnemosyneTest):
         card_type = self.card_type_with_id("3")
         card3 = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        
+
         card.question()
         card.answer()
         card.question("sync_to_card_only_client")
-        card.question("card_browser")        
+        card.question("card_browser")
         card.question("card_browser", ignore_text_colour=True)
 
         card2.question()
         card2.answer()
         card2.question("sync_to_card_only_client")
-        card2.question("card_browser")        
+        card2.question("card_browser")
         card2.question("card_browser", ignore_text_colour=True)
-       
+
         card3.question()
         card3.answer()
         card3.question("sync_to_card_only_client")
-        card3.question("card_browser")        
+        card3.question("card_browser")
         card3.question("card_browser", ignore_text_colour=True)
         card3.question("card_browser", search_string="(")
-        
+        card3.question("card_browser", search_string="\\")
+
     def test_2(self):
         fact_data = {"f": "question",
                      "b": "answer"}
         card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
-                                          grade=-1, tag_names=["default"])[0]    
+                                          grade=-1, tag_names=["default"])[0]
         card_type = self.card_type_with_id("2")
         card2 = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
@@ -68,24 +69,24 @@ class TestHtmlCss(MnemosyneTest):
         card_type = self.card_type_with_id("3")
         card3 = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        
+
         card.question()
         card.answer()
         card.question("sync_to_card_only_client")
-        card.question("card_browser")        
+        card.question("card_browser")
         card.question("card_browser", ignore_text_colour=True)
         card.question("card_browser", ignore_text_colour=True, search_string="e")
 
         card2.question()
         card2.answer()
         card2.question("sync_to_card_only_client")
-        card2.question("card_browser")        
+        card2.question("card_browser")
         card2.question("card_browser", ignore_text_colour=True)
         card2.question("card_browser", ignore_text_colour=True, search_string="e")
 
         card3.question()
         card3.answer()
         card3.question("sync_to_card_only_client")
-        card3.question("card_browser")        
+        card3.question("card_browser")
         card3.question("card_browser", ignore_text_colour=True)
         card3.question("card_browser", ignore_text_colour=True, search_string="e")

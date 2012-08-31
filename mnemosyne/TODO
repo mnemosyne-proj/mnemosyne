@@ -18,7 +18,7 @@
 
 -# in media filenames
 
--speed up deletion of large number of cards from browser
+-speed up deletion of large number of cards from browser (delete tag if unused, progress bar)
 
 -merging cards: should give an option to go back and edit
 

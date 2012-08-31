@@ -5,6 +5,8 @@
 -Implemented txt export with tab-separated values.
 -You can now specify more than 1 tag to add during import
  (requested by Barbara).
+-In 'edit cards', no longer warn about discarding changes if you did not make
+ any.
 -Don't crash card browser when searching for \ (reported by Faemorleto).
 -Fix bug where active tags would sometimes not have a checkbox in the card
  browser (reported by Gnome).
@@ -13,6 +15,8 @@
  start="1" stop="2"> will play the sound file from 1 to 2 seconds.
 -Fix crash when cancelling duplicate insertion while converting cards
  (reported by Gnome).
+-Make detection of unused media files more robust with case insensitive
+ filesystems (reported by Pawel Szerszon and Gnome).
 -Fix for rare hangs 'assert interval == 0' (reported by Tom Cato).
 -Translation fixes when converting between card types (reported by Gnome and
  Chris Schmidt).

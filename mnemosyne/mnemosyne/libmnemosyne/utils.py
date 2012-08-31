@@ -9,6 +9,7 @@ import cgi
 import sys
 import random
 import shutil
+import tempfile
 import traceback
 
 class MnemosyneError(Exception):
@@ -100,6 +101,13 @@ def remove_empty_dirs_in(path, level=0):
     # If the directory is empty, delete it.
     if level !=  0 and len(os.listdir(path)) == 0:
         os.rmdir(path)
+
+
+def is_filesystem_case_insensitive():
+    # By default mkstemp() creates a file with a name that begins with
+    # 'tmp' (lowercase)
+    tmphandle, tmppath = tempfile.mkstemp()
+    return os.path.exists(tmppath.upper())
 
 
 def numeric_string_cmp(s1, s2):

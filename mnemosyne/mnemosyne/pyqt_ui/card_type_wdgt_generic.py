@@ -21,6 +21,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         self.vboxlayout = QtGui.QVBoxLayout()
         self.fact_key_for_edit_box = {}
         self.top_edit_box = None
+        self.fact_data_before_edit = {}
         # Does this card type need to deal with the hiding of pronunciation
         # keys?
         if "p_1" not in self.card_type.fact_keys():
@@ -122,6 +123,9 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
                 return False
         return True
 
+    def is_changed(self):
+        return self.fact_data() != self.fact_data_before_edit
+
     def fact_data(self):
         _fact_data = {}
         for edit_box, fact_key in self.fact_key_for_edit_box.iteritems():
@@ -129,12 +133,14 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         return _fact_data
 
     def set_fact_data(self, fact_data):
+        self.fact_data_before_edit = fact_data
         if fact_data:
             for edit_box, fact_key in self.fact_key_for_edit_box.iteritems():
                 if fact_key in fact_data:
                     edit_box.setPlainText(fact_data[fact_key])
 
     def clear(self):
+        self.fact_data_before_edit = {}
         for edit_box in self.fact_key_for_edit_box:
             edit_box.setText("")
         self.top_edit_box.setFocus()
