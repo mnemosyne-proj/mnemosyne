@@ -33,7 +33,7 @@ class CurrentCard(HtmlStatisticsPage):
             self.html += _("Learning repetitions") + ": %d<br>" \
                 % card.acq_reps
             self.html += _("Review repetitions") + ": %d<br>" \
-                % card.acq_reps
+                % card.ret_reps
             self.html += _("Lapses") + ": %d<br>" % card.lapses
             self.html += _("Last repetition") + ": %s<br>" \
                 % self.scheduler().last_rep_to_interval_string(card.last_rep)

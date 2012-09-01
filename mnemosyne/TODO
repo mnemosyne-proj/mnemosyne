@@ -1,3 +1,19 @@
+-tag bug barbara
+
+-sync bug barbara
+
+-LP bug cancelling metadata
+
+-Chinese in stats
+
+-update translations
+
+-build issue windows
+
+
+
+Release 2.1
+
 -close bugs, uservoice
 
 -implement duplicate checking. Also synonym checking? Add then standard tags.
