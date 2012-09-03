@@ -20,7 +20,6 @@ LANGS = ../mo/cs/LC_MESSAGES/mnemosyne.mo \
 	../mo/tr/LC_MESSAGES/mnemosyne.mo \
 	../mo/zh_CN/LC_MESSAGES/mnemosyne.mo \
 	../mo/zh_HK/LC_MESSAGES/mnemosyne.mo \
-	../mo/zh_SG/LC_MESSAGES/mnemosyne.mo \
 	../mo/zh_TW/LC_MESSAGES/mnemosyne.mo
 
 default: $(LANGS)

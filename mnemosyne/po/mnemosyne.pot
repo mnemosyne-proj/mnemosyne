@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-08-29 11:28+CEST\n"
+"POT-Creation-Date: 2012-09-03 21:58+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -227,7 +227,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:65
 #: ../mnemosyne/pyqt_ui/about_dlg.py:28
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:245
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:246
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:574
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:226
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:83
@@ -515,16 +515,16 @@ msgstr ""
 msgid "Make new card type active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:114
+#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:115
 msgid "Media filename rather long. This could cause problems using this file on a different OS."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:117
+#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:118
 msgid "Missing media file!"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite_sync.py:120
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:210
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:213
 msgid "Missing plugins for card types."
 msgstr ""
 
@@ -558,7 +558,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:42
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:33
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:37
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:184
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:187
 msgid "Importing cards..."
 msgstr ""
 
@@ -611,12 +611,12 @@ msgstr ""
 msgid "Mnemosyne 2.x cards for sharing (*.cards)"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:42
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:45
 #: ../mnemosyne/libmnemosyne/file_formats/tsv.py:107
 msgid "Exporting cards..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:152
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:155
 msgid "Bundling media files..."
 msgstr ""
 
@@ -665,12 +665,12 @@ msgstr ""
 msgid "Upload failed"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/logger.py:200
+#: ../mnemosyne/libmnemosyne/logger.py:199
 msgid "Waiting for uploader thread to stop..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/logger.py:202
-#: ../mnemosyne/pyqt_ui/export_dlg.py:69
+#: ../mnemosyne/libmnemosyne/logger.py:201
+#: ../mnemosyne/pyqt_ui/export_dlg.py:70
 msgid "Done!"
 msgstr ""
 
@@ -1060,11 +1060,11 @@ msgstr ""
 msgid "You can use Tab to move between the fields. For 'Add cards', use Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades. For 'Edit card', use Ctrl-Enter to close."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:246
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:247
 msgid "Abandon current card?"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:246
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:247
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:227
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:68
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:63
@@ -1072,7 +1072,7 @@ msgstr ""
 msgid "&No"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:246
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:247
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:227
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:68
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:63
@@ -1559,8 +1559,16 @@ msgstr ""
 msgid "Advanced users can customise more of Mnemosyne by editing the config.py file in their mnemosyne directory. They can also install additional plugins to customise Mnemosyne even further."
 msgstr ""
 
+#: ../mnemosyne/pyqt_ui/tip_dlg.py:53
+msgid "You can follow the development of Mnemosyne at <a href=\"https://plus.google.com/b/112456861177827156549/112456861177827156549/posts\">Google+</a>."
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/tip_dlg.py:54
+msgid "You can request new features and vote for exisiting requests at <a href=\"https://mnemosyne.uservoice.com/\">uservoice</a>. This helps the developers decide what to work on next."
+msgstr ""
+
 #: ../mnemosyne/pyqt_ui/ui_about_dlg.py:81
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:105
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:106
 msgid "Alt+C"
 msgstr ""
 
@@ -2192,35 +2200,35 @@ msgstr ""
 msgid "Check for changed media files on client"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:97
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:98
 msgid "<b>Did you know...?</b>"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:98
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:99
 msgid "&Show tips on startup"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:99
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:100
 msgid "Alt+S"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:100
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:101
 msgid "&Previous"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:101
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:102
 msgid "Alt+P"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:102
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:103
 msgid "&Next"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:103
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:104
 msgid "Alt+N"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:104
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:105
 msgid "&Close"
 msgstr ""
 
