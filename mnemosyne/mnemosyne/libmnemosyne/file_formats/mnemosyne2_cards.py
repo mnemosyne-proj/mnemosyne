@@ -33,9 +33,12 @@ class Mnemosyne2Cards(FileFormat):
             filename = os.path.join(self.config()["export_dir"], filename)
         os.chdir(os.path.dirname(filename))
         metadata = self.controller().show_export_metadata_dialog()
+        if metadata is None:  # Cancelled.
+            os.chdir(self.orig_dir)
+            return -1
         metadata_file = file("METADATA", "w")
         for key, value in metadata.iteritems():
-            print >> metadata_file, key + ":" + value.strip()
+            print >> metadata_file, key + ":" + value.strip().encode("utf-8")
         metadata_file.close()
         db = self.database()
         w = self.main_widget()

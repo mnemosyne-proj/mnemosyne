@@ -193,10 +193,9 @@ class Logger(Component):
             f.close()
             os.remove(log_name)
 
-
     def deactivate(self):
         if self.upload_thread:
             from mnemosyne.libmnemosyne.translator import _
-            print _("Waiting for uploader thread to stop...")
+            print _("Waiting for uploader thread to stop...").encode("utf-8")
             self.upload_thread.join()
-            print _("Done!")
+            print _("Done!").encode("utf-8")

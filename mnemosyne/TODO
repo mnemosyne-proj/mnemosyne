@@ -2,8 +2,6 @@
 
 -sync bug barbara
 
--LP bug cancelling metadata
-
 -Chinese in stats
 
 -update translations
@@ -24,6 +22,8 @@ Release 2.1
 -keeping key pressed on show answer also grades card
 
 -A, A::B issues (see bug report Gnome)
+
+-change language from japanese: need to translate windows title again
 
 -save cookies
  http://stackoverflow.com/questions/3382640/how-can-i-load-session-information-into-qtwebkit

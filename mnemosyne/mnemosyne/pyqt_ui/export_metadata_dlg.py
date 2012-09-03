@@ -19,10 +19,11 @@ class ExportMetadataDlg(QtGui.QDialog, Ui_ExportMetadataDlg,
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowCloseButtonHint)
+            & ~ QtCore.Qt.WindowCloseButtonHint)  # Does not seem to work...
         self.author_name.setText(self.config()["author_name"])
         self.author_email.setText(self.config()["author_email"])
         self.date.setDate(QtCore.QDate.currentDate())
+        self.cancelled = False
 
     def activate(self):
         ExportMetadataDialog.activate(self)
@@ -55,7 +56,13 @@ class ExportMetadataDlg(QtGui.QDialog, Ui_ExportMetadataDlg,
         self.revision.setReadOnly(True)
         self.notes.setReadOnly(True)
 
+    def reject(self):
+        self.cancelled = True
+        return QtGui.QDialog.reject(self)
+
     def values(self):
+        if self.cancelled:
+            return None
         metadata = {}
         metadata["card_set_name"] = unicode(self.card_set_name.text())
         metadata["author_name"] = unicode(self.author_name.text())

@@ -1144,6 +1144,62 @@ class TestSync(object):
         self.client.do_sync(); assert last_error is None
         assert not os.path.exists(filename)
 
+    def test_edit_tag_2(self):
+        # First sync.
+
+        def test_server(self):
+            pass
+
+        def fill_server_database(self):
+            card_type = self.mnemosyne.card_type_with_id("1")
+            fact_data = {"f": "question",
+                         "b": "answer"}
+            self.card = self.mnemosyne.controller().create_new_cards(\
+                fact_data, card_type, grade=-1, tag_names=["xx::new::vb::test"])[0]
+            fact_data = {"f": "question2",
+                         "b": "answer2"}
+            self.mnemosyne.controller().create_new_cards(\
+                fact_data, card_type, grade=-1, tag_names=["xx::vb::test"])
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient()
+
+        self.client.do_sync(); assert last_error is None
+        card = self.server.card
+        self.client.mnemosyne.finalise()
+        self.server.stop()
+        self._wait_for_server_shutdown()
+
+        # Second sync.
+
+        def fill_server_database(self):
+            from mnemosyne.libmnemosyne.tag_tree import TagTree
+            self.tree = TagTree(self.mnemosyne.component_manager)
+            self.tree.rename_node("xx::new::vb::test", "xx::vb::test")
+
+        def test_server(self):
+            pass
+
+        self.server = MyServer(erase_previous=False, binary_download=False)
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient(erase_previous=False)
+        self.client.do_sync(); assert last_error is None
+
+        card = self.client.database.card(card._id, is_id_internal=True)
+        assert len(card.tags) == 1
+        assert list(card.tags)[0].name == "xx::vb::test"
+        assert self.client.database.con.execute(\
+            "select tags from cards where _id=?", (card._id,)).fetchone()[0] == "xx::vb::test"
+        assert self.client.database.con.execute(\
+            "select count() from tags_for_card").fetchone()[0] == 2
+
     def test_edit_media(self):
 
         def test_server(self):
