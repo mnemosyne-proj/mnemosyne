@@ -1190,6 +1190,7 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient(erase_previous=False)
+        print 'do sync-----------------'
         self.client.do_sync(); assert last_error is None
 
         card = self.client.database.card(card._id, is_id_internal=True)

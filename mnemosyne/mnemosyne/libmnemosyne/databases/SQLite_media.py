@@ -26,7 +26,8 @@ class SQLiteMedia(object):
     """
 
     def media_dir(self):
-        if self.config()["last_database"] == os.path.basename(self.config()["last_database"]):
+        if self.config()["last_database"] == \
+            os.path.basename(self.config()["last_database"]):
             return unicode(os.path.join(self.config().data_dir,
                 os.path.basename(self.config()["last_database"]) + "_media"))
         else:

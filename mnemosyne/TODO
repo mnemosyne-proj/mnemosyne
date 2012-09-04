@@ -1,8 +1,7 @@
--tag bug barbara
-
--sync bug barbara
-
 -Chinese in stats
+
+-/databases/SQLite_media.py", line 32, in media_dir
+ UnicodeDecodeError: 'ascii' codec can't decode byte 0xcc in position 32: ordinal not in range(128
 
 -update translations
 

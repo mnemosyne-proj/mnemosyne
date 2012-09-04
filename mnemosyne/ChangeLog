@@ -10,6 +10,7 @@
 -Don't crash card browser when searching for \ (reported by Faemorleto).
 -Fix bug where active tags would sometimes not have a checkbox in the card
  browser (reported by Gnome).
+-Fixed issues involving tag renaming and syncing (reported by Barbara).
 -Made RTL handling for Arabic and Hebrew more robust.
 -audio tags now support start and stop arguments, e.g. <audio ...
  start="1" stop="2"> will play the sound file from 1 to 2 seconds.

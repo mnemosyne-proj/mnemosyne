@@ -4,6 +4,7 @@
 
 from PyQt4 import QtGui
 
+from matplotlib import rcParams
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 
@@ -47,6 +48,9 @@ class PlotStatisticsWdgt(QtGui.QWidget, StatisticsWidget):
         self.canvas.setParent(self)
         self.axes = fig.add_subplot(111)
         self.canvas.updateGeometry()
+        if self.config()["ui_language"].lower().startswith("zh"):
+            rcParams['font.sans-serif'] = \
+                ["Microsoft YaHei", "WenQuanYi Zen Hei", "Ume P Gothic O5"]
 
     def display_message(self, text):
         self.axes.clear()

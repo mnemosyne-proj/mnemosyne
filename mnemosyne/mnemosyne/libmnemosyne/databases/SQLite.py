@@ -609,13 +609,29 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             tags where name=?""", (new_name, )).fetchone()[0] != 0:
             _existing_tag_id = self.con.execute("""select _id from tags where
             name=?""", (new_name, )).fetchone()[0]
-            if self.store_pregenerated_data:
-                _card_ids_affected = [cursor[0] for cursor in \
-                    self.con.execute(
-                    "select _card_id from tags_for_card where _tag_id=?",
-                    (tag._id, ))]
-            self.con.execute("""update tags_for_card set _tag_id=? where
-                _tag_id=?""", (_existing_tag_id, tag._id))
+            _card_ids_affected = [cursor[0] for cursor in self.con.execute(\
+                "select _card_id from tags_for_card where _tag_id=?",
+                (tag._id, ))]
+            for _card_id in _card_ids_affected:
+                # If the card already had a tag with the updated name, delete
+                # the other tag.
+                if self.con.execute("""select count() from tags_for_card where
+                    _tag_id=? and _card_id=?""", (_existing_tag_id, _card_id))\
+                    .fetchone()[0] > 0:
+                    self.con.execute("""delete from tags_for_card where
+                    _tag_id=? and _card_id=?""", (tag._id, _card_id))
+                # If not, update the link.
+                else:
+                    self.con.execute("""update tags_for_card set _tag_id=?
+                        where _tag_id=?""", (_existing_tag_id, tag._id))
+                # If the operations above caused the deletion of the original
+                # tag, we have not enough information in log to update the
+                # cards. Therefore, generate extra EDITED_CARD events, but
+                # don't duplicate these while syncing.
+                if not self.syncing:
+                    card_id = self.con.execute("""select id from cards where
+                    _id=?""", (_card_id, )).fetchone()[0]
+                    self.log_edited_card(time.time(), card_id)
             if self.store_pregenerated_data:
                 self._update_tag_strings(_card_ids_affected)
             self.delete_tag_if_unused(tag)
