@@ -1,12 +1,6 @@
--Chinese in stats
-
--/databases/SQLite_media.py", line 32, in media_dir
- UnicodeDecodeError: 'ascii' codec can't decode byte 0xcc in position 32: ordinal not in range(128
+-make sure Singapore is really removed
 
 -update translations
-
--build issue windows
-
 
 
 Release 2.1
@@ -69,6 +63,8 @@ Traceback (innermost last):
  shows the old appearance
 
 -Now you can add tags to cards instead of facts in the card browser. feature or bug?
+
+-menu option to copy database to USB key?
 
 -import db file
 

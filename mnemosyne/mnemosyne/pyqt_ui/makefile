@@ -1,3 +1,11 @@
+# If we are on cygwin:
+ifeq (1,$(shell /cygdrive/c/Python27/python.exe -c "print(1)" 2>&- ))
+  PYUIC4      := pyuic4.bat
+endif
+ifneq (1,$(shell /cygdrive/c/Python27/python.exe -c "print(1)" 2>&- ))
+  PYUIC4      := $(PYTHON) ./pyuic4
+endif
+
 WIDGETS = ui_main_wdgt.py ui_add_cards_dlg.py \
 	ui_edit_card_dlg.py \
 	ui_convert_card_type_keys_dlg.py ui_about_dlg.py \
@@ -17,15 +25,15 @@ default: $(WIDGETS) ui_review_wdgt.py ui_preview_cards_dlg.py
 	pyrcc4 mnemosyne.qrc -o mnemosyne_rc.py
 
 ui_review_wdgt.py: review_wdgt.ui
-	$(PYTHON) ./pyuic4 $< > tmp
+	$(PYUIC4) $< > tmp
 	sed -f fix_review_widget_ui.sed <  tmp > $@
 
 ui_preview_cards_dlg.py: preview_cards_dlg.ui
-	$(PYTHON) ./pyuic4 $< > tmp
+	$(PYUIC4) $< > tmp
 	sed -f fix_review_widget_ui.sed <  tmp > $@
 
 $(WIDGETS): ui_%.py: %.ui
-	$(PYTHON) ./pyuic4 $< > $@
+	$(PYUIC4) $< > $@
 
 clean:
 	rm -f *~ *.pyc

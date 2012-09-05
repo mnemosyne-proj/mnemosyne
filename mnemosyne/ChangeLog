@@ -18,6 +18,10 @@
  (reported by Gnome).
 -Make detection of unused media files more robust with case insensitive
  filesystems (reported by Pawel Szerszon and Gnome).
+-Fix error when resetting configuration to defaults (reported by
+ Pawel Szerszon).
+-Fix for missing Chinese labels in the statistics plots (reported by Bono
+ Shih).
 -Fix for rare hangs 'assert interval == 0' (reported by Tom Cato).
 -Translation fixes when converting between card types (reported by Gnome and
  Chris Schmidt).

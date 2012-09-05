@@ -72,8 +72,6 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
         self.scheduled_cards.setCurrentIndex(0)
         self.non_memorised_cards.setValue(10)
         self.save_after_n_reps.setValue(10)
-        self.memorise_sister_cards_on_same_day.setCheckState(\
-                QtCore.Qt.Unchecked)
         self.media_autoplay.setCheckState(QtCore.Qt.Checked)
         self.media_controls.setCheckState(QtCore.Qt.Unchecked)
         self.upload_science_logs.setCheckState(QtCore.Qt.Checked)

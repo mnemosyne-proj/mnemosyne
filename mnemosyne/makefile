@@ -8,6 +8,10 @@ SPHINXBUILD := sphinx-build
 ifeq (1,$(shell python2 -c "print(1)" 2>&- ))
   PYTHON      := python2
 endif
+# If we are on cygwin:
+ifeq (1,$(shell /cygdrive/c/Python27/python.exe -c "print(1)" 2>&- ))
+  PYTHON      := cygstart /cygdrive/c/Python27/python.exe
+endif
 # If `virtualenv2` exists:
 ifneq (,$(shell virtualenv2 --version 2>&- ))
   VIRTUALENV  := virtualenv2

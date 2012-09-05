@@ -23,11 +23,11 @@ class ConfigurationDlg(QtGui.QDialog, Ui_ConfigurationDlg, ConfigurationDialog):
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)        
-        for widget in self.component_manager.all("configuration_widget"):          
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+        for widget in self.component_manager.all("configuration_widget"):
             widget = widget(self.component_manager, parent=self)
             self.tab_widget.addTab(widget, _(widget.name))
-        self.tab_widget.tabBar().setVisible(self.tab_widget.count() > 1)     
+        self.tab_widget.tabBar().setVisible(self.tab_widget.count() > 1)
         widget_index = self.config()["previous_configuration_wdgt"]
         if widget_index >= self.tab_widget.count():
             widget_index = 0
@@ -37,7 +37,7 @@ class ConfigurationDlg(QtGui.QDialog, Ui_ConfigurationDlg, ConfigurationDialog):
         state = self.config()["configuration_dlg_state"]
         if state:
             self.restoreGeometry(state)
-            
+
     def activate(self):
         self.exec_()
 
@@ -47,7 +47,7 @@ class ConfigurationDlg(QtGui.QDialog, Ui_ConfigurationDlg, ConfigurationDialog):
     def closeEvent(self, event):
         # Generated when clicking the window's close button.
         self._store_state()
-        
+
     def accept(self):
         self.config()["previous_configuration_wdgt"] = \
             self.tab_widget.currentIndex()
@@ -60,9 +60,9 @@ class ConfigurationDlg(QtGui.QDialog, Ui_ConfigurationDlg, ConfigurationDialog):
         for index in range(self.tab_widget.count()):
             if hasattr(self.tab_widget.widget(index), "reject"):
                 self.tab_widget.widget(index).reject()
-        return QtGui.QDialog.reject(self)        
-    
+        return QtGui.QDialog.reject(self)
+
     def reset_to_defaults(self):
         self.tab_widget.currentWidget().reset_to_defaults()
-        
+
 
