@@ -2,10 +2,17 @@ Release 2.1, add release date to changelog
 
 -close bugs, uservoice
 
+
+-delete / backspace shortcut does not work (Dylan Gordhan)
+
 -implement duplicate checking. Also synonym checking? Add then standard tags.
 -autorun after import, browse with edit?, but not sync
 
 -add remaining 1.x import formats
+
+-first run: save set. Next time: tag pane is hidden.
+
+-rename card set dialog: prefill with existing name
 
 -keeping key pressed on show answer also grades card
 
@@ -79,6 +86,9 @@ Traceback (innermost last):
 -Mnemosyne name not set in dialog windows, only in progress bars.
 
 -with full sync, option to skip media sync
+
+-when in having sorted on a column, eliminate resorting to unsorted after
+ editing a card. Possible to get rid of unloading in python / reloading in Qt?
 
 -optimise away DISTINCT and do it at the python level
 -more sqlite profiling

@@ -127,6 +127,9 @@ class TestDatabase(MnemosyneTest):
             "select count() from log where event_type=?",
             (EventTypes.EDITED_CARD, )).fetchone()[0] == 1
 
+    def test_empty_argument(self):
+        assert self.database().tags_from_cards_with_internal_ids([]) == []
+
     def test_clones(self):
         fact_data = {"f": "question",
                      "b": "answer"}

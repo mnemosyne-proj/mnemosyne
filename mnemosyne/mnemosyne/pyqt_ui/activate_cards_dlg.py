@@ -138,7 +138,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         forbidden_names = self.criteria_by_name.keys()
         forbidden_names.remove(name)
         CardSetNameDlg(self.component_manager, criterion,
-                       forbidden_names).exec_()
+                       forbidden_names, self).exec_()
         if not criterion.name:  # User cancelled.
             criterion.name = name
             return

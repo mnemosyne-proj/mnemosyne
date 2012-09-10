@@ -16,6 +16,7 @@
  start="1" stop="2"> will play the sound file from 1 to 2 seconds.
 -Fix crash when cancelling duplicate insertion while converting cards
  (reported by Gnome).
+-Fix crash when renaming saved card sets (reported by Pawel Szerszon).
 -Make detection of unused media files more robust with case insensitive
  filesystems (reported by Pawel Szerszon and Gnome).
 -Fix error when resetting configuration to defaults (reported by

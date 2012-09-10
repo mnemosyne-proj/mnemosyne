@@ -909,6 +909,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # Since _card_ids can have many elements, we need to construct the
         # query without ? placeholders in order to prevent hitting sqlite
         # limitations.
+        if len(_card_ids) == 0:
+            return []
         query = \
             "select distinct _tag_id from tags_for_card where _card_id in ("
         for _card_id in _card_ids:
