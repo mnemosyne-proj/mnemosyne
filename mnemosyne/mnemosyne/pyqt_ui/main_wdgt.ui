@@ -75,6 +75,7 @@
     <addaction name="separator"/>
     <addaction name="actionBrowseCards"/>
     <addaction name="actionActivateCards"/>
+    <addaction name="actionFindDuplicates"/>
     <addaction name="actionManageTypes"/>
     <addaction name="separator"/>
     <addaction name="actionShowStatistics"/>
@@ -296,6 +297,11 @@
    </property>
    <property name="toolTip">
     <string>Compact database</string>
+   </property>
+  </action>
+  <action name="actionFindDuplicates">
+   <property name="text">
+    <string>Find duplicates</string>
    </property>
   </action>
  </widget>
@@ -628,6 +634,22 @@
    <signal>triggered()</signal>
    <receiver>MainWdgt</receiver>
    <slot>compact_database()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>246</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionFindDuplicates</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWdgt</receiver>
+   <slot>find_duplicates()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>

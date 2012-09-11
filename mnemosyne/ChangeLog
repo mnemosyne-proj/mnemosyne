@@ -1,3 +1,5 @@
+Mnemosyne 2.0.1 : 2012-09-10
+
 -New import/export format to share cards, which also bundles the media files.
  Supports importing an updated version of the same exported cards, so that
  authors can release updated versions of their cards fixing e.g. spelling

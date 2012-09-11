@@ -197,6 +197,9 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
     def activate_cards(self):
         self.controller().show_activate_cards_dialog()
 
+    def find_duplicates(self):
+        self.controller().find_duplicates()
+
     def manage_card_types(self):
         self.controller().show_manage_card_types_dialog()
 

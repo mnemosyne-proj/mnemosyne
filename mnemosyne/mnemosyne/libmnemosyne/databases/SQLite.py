@@ -1244,6 +1244,29 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 facts.append(self.fact(_fact_id, is_id_internal=True))
         return facts
 
+    def tag_all_duplicates(self):
+        _fact_ids_and_card_type_ids = set([])
+        for cursor in self.con.execute("""select _fact_id, card_type_id from
+            cards"""):
+            _fact_ids_and_card_type_ids.add((cursor[0], cursor[1]))
+        duplicate_facts = set([])
+        for _fact_id, card_type_id in _fact_ids_and_card_type_ids:
+            fact = self.fact(_fact_id, is_id_internal=True)
+            card_type = self.card_type_with_id(card_type_id)
+            for duplicate_fact in self.duplicates_for_fact(fact, card_type):
+                duplicate_facts.add(duplicate_fact)
+        card_count = 0
+        for fact in duplicate_facts:
+            for card in self.cards_from_fact(fact):
+                card.tags.add(self.get_or_create_tag_with_name(_("DUPLICATE")))
+                self.update_card(card)
+                card_count += 1
+        if card_count == 0:
+            self.main_widget().show_information(_("No duplicates found."))
+        else:
+            self.main_widget().show_information(\
+ _("Found %d duplicate cards. They have been given the tag 'DUPLICATE'''") % (card_count, ))
+
     def card_types_in_use(self):
         return [self.card_type_with_id(cursor[0]) for cursor in \
             self.con.execute ("select distinct card_type_id from cards")]

@@ -642,6 +642,16 @@ class DefaultController(Controller):
             filename = copy_file_to_dir(filename, media_dir)
             return filename
 
+    def show_browse_cards_dialog(self):
+        self.stopwatch().pause()
+        self.flush_sync_server()
+        self.component_manager.current("browse_cards_dialog")\
+            (self.component_manager).activate()
+        review_controller = self.review_controller()
+        review_controller.reset_but_try_to_keep_current_card()
+        review_controller.update_dialog(redraw_all=True)
+        self.stopwatch().unpause()
+
     def show_activate_cards_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
@@ -652,14 +662,13 @@ class DefaultController(Controller):
         review_controller.update_status_bar_counters()
         self.stopwatch().unpause()
 
-    def show_browse_cards_dialog(self):
+    def find_duplicates(self):
         self.stopwatch().pause()
         self.flush_sync_server()
-        self.component_manager.current("browse_cards_dialog")\
-            (self.component_manager).activate()
+        self.database().tag_all_duplicates()
         review_controller = self.review_controller()
         review_controller.reset_but_try_to_keep_current_card()
-        review_controller.update_dialog(redraw_all=True)
+        review_controller.update_status_bar_counters()
         self.stopwatch().unpause()
 
     def show_manage_plugins_dialog(self):

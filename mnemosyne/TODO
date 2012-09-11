@@ -1,16 +1,18 @@
-Release 2.1, add release date to changelog
+-progress bar, time
+-autorun after import, browse with edit?, but not after synchronise
+-add tests
 
--close bugs, uservoice
+-polish stats font (LP bug)
 
-
--delete / backspace shortcut does not work (Dylan Gordhan)
-
--implement duplicate checking. Also synonym checking? Add then standard tags.
--autorun after import, browse with edit?, but not sync
+-compact error onder windows (LP bug)
 
 -add remaining 1.x import formats
 
--first run: save set. Next time: tag pane is hidden.
+-popup explaining use of 'compact'
+
+-delete / backspace shortcut does not work (Dylan Gordhan)
+
+-first run: save set. Next time: tag pane is hidden (LP bug)
 
 -rename card set dialog: prefill with existing name
 
@@ -101,6 +103,8 @@ Traceback (innermost last):
 -migrate webserver to cherrypy, recheck audio files
 
 -add debug information for conflict detection?
+
+-synonym checking just like duplicate checking?
 
 -paste from clipboard: popup asking to keep formatting or lose it.
 
