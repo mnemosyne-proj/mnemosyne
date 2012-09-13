@@ -1,5 +1,7 @@
 -progress bar, time
 -extra index on _fact_id: time from 15 sec to 10 sec, no space increase in db
+ check if this helps with browser activities like adding, deleting tag
+-refactor
 -autorun after import, browse with edit?, but not after synchronise
 -add tests
 
