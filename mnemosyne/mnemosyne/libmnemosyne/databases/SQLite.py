@@ -1,4 +1,4 @@
-#
+#se
 # SQLite.py - Ed Bartosh <bartosh@gmail.com>, <Peter.Bienstman@UGent.be>
 #
 
@@ -1245,16 +1245,88 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         return facts
 
     def tag_all_duplicates(self):
+        # Find candidate duplicates, i.e. not yet taking into account that
+        # duplicates in different card types are allowed and that we only
+        # need to check the unique fact keys.
+        import time
+        t = time.time()
+        fields = {}
+        duplicate_candidates = set()
+        for key, value, _fact_id in self.con.execute(\
+            """select key, value, _fact_id from data_for_fact"""):
+            if key not in fields:
+                fields[key] = {}
+            if value in fields[key]:
+                duplicate_candidates.add(fields[key][value])
+                duplicate_candidates.add(_fact_id)
+            else:
+                fields[key][value] = _fact_id
+        print time.time() - t
+        print len(duplicate_candidates)
+
+
+        t = time.time()
+        duplicate_facts = set([])
+        for _fact_id in duplicate_candidates:
+            fact = self.fact(_fact_id, is_id_internal=True)
+            card_type_id = self.con.execute("""select card_type_id from cards
+                where _fact_id=?""", (_fact_id, )).fetchone()[0]
+            card_type = self.card_type_with_id(card_type_id)
+            for duplicate_fact in self.duplicates_for_fact(fact, card_type):
+                duplicate_facts.add(duplicate_fact)
+            #w.increase_progress(1)
+        card_count = 0
+        for fact in duplicate_facts:
+            for card in self.cards_from_fact(fact):
+                card.tags.add(self.get_or_create_tag_with_name(_("DUPLICATE")))
+                self.update_card(card)
+                card_count += 1
+        print time.time() - t
+        if card_count == 0:
+            self.main_widget().show_information(_("No duplicates found."))
+        else:
+            self.main_widget().show_information(\
+ _("Found %d duplicate cards. They have been given the tag 'DUPLICATE'''") % (card_count, ))
+
+
+
+
+        # Sort the candidates in card types. Note: this is currently slow
+        # because there is no index on _fact_id in cards.
+        t = time.time()
+        duplicates_in_card_type = {}
+        for _fact_id in duplicate_candidates:
+            card_type_id = self.con.execute("""select card_type_id from cards
+                where _fact_id=?""", (_fact_id, )).fetchone()[0]
+            if card_type_id not in duplicates_in_card_type:
+                duplicates_in_card_type[card_type_id] = []
+            duplicates_in_card_type[card_type_id].append(_fact_id)
+        print time.time() - t
+        print duplicates_in_card_type
+        # Check if the duplicates are really in the fields that should be
+        # unique.
+        for card_type_id in duplicates_in_card_type:
+            card_type = self.card_type_with_id(card_type_id)
+
+        1/0
+
+        #print duplicate_candidates
+        1/0
+        w = self.main_widget()
+        w.set_progress_text(_("Finding duplicates..."))
         _fact_ids_and_card_type_ids = set([])
         for cursor in self.con.execute("""select _fact_id, card_type_id from
             cards"""):
             _fact_ids_and_card_type_ids.add((cursor[0], cursor[1]))
+        w.set_progress_range(len(_fact_ids_and_card_type_ids))
+        w.set_progress_update_interval(50)
         duplicate_facts = set([])
         for _fact_id, card_type_id in _fact_ids_and_card_type_ids:
             fact = self.fact(_fact_id, is_id_internal=True)
             card_type = self.card_type_with_id(card_type_id)
             for duplicate_fact in self.duplicates_for_fact(fact, card_type):
                 duplicate_facts.add(duplicate_fact)
+            w.increase_progress(1)
         card_count = 0
         for fact in duplicate_facts:
             for card in self.cards_from_fact(fact):
