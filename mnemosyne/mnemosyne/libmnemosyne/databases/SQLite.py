@@ -1262,7 +1262,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             else:
                 fields[key][value] = _fact_id
         print time.time() - t
-        print len(duplicate_candidates)
         # Sort the candidates in card types.
         t = time.time()
         duplicates_in_card_type = {}
@@ -1273,7 +1272,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 duplicates_in_card_type[card_type_id] = []
             duplicates_in_card_type[card_type_id].append(_fact_id)
         print time.time() - t
-        print len(duplicates_in_card_type)
         # Check if the duplicates are really in the fields that should be
         # unique.
         t = time.time()
@@ -1284,26 +1282,30 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             for fact_key in self.card_type_with_id(card_type_id)\
                 .unique_fact_keys:
                 for i in range(len(facts)):
-                    for j in range(i, len(facts)):
+                    for j in range(i + 1, len(facts)):
                         if facts[i][fact_key] == facts[j][fact_key]:
                             duplicates.add(facts[i])
                             duplicates.add(facts[j])
         print time.time() - t
-        print len(duplicates)
         # Tagging.
         t = time.time()
         _card_ids = []
         for fact in duplicates:
             _card_ids += [cursor[0] for cursor in self.con.execute(\
                 "select _id from cards where _fact_id=?", (fact._id, ))]
-        self.add_tag_to_cards_with_internal_ids(\
-            self.get_or_create_tag_with_name(_("DUPLICATE")), _card_ids)
+        print time.time() - t
         if len(_card_ids) == 0:
             self.main_widget().show_information(_("No duplicates found."))
         else:
             self.main_widget().show_information(\
- _("Found %d duplicate cards. They have been given the tag 'DUPLICATE'''") \
+ _("Found %d duplicate cards. They have been given the tag 'DUPLICATE'.") \
             % (len(_card_ids), ))
+        # We add the tags after we showed the dialog box, as adding tags can
+        # trigger a dialog asking if DUPLICATE should be made active in the
+        # current set.
+        t = time.time()
+        self.add_tag_to_cards_with_internal_ids(\
+            self.get_or_create_tag_with_name(_("DUPLICATE")), _card_ids)
         print time.time() - t
 
     def card_types_in_use(self):

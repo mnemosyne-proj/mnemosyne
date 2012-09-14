@@ -40,6 +40,7 @@ class Cloze(CardType):
 
     fact_keys_and_names = [("text", _("Text"))]
     unique_fact_keys = ["text"]
+    required_fact_keys = ["text"]
 
     v = FactView(_("Cloze"), "5.1")
     v.q_fact_keys = ["f"]  # Generated on the fly.

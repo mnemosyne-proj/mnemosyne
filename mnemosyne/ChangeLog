@@ -1,3 +1,7 @@
+-Changing card types and deleting cards from the card browser is now faster.
+-Fix harmless error message when converting to Cloze cards in the card browser
+ (reported my Michael Campbell).
+
 Mnemosyne 2.0.1 : 2012-09-10
 
 -New import/export format to share cards, which also bundles the media files.
@@ -34,7 +38,7 @@ Mnemosyne 2.0.1 : 2012-09-10
 
 Mnemosyne 2.0.1 : 2012-08-02
 
--Fix occasional hang during review (Thanks to Scott Youngman and Chris Shanks
+-Fix occasional hang during review (Thanksto Scott Youngman and Chris Shanks
  for helping to debug this).
 -In cloze card types, you can now provide hints, e.g. [cloze:hint] will show
  [hint] in the question as opposed to [...]
