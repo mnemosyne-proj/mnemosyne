@@ -3,6 +3,7 @@
 #
 
 import os
+import shutil
 
 from nose.tools import raises
 
@@ -12,12 +13,37 @@ from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne.tag import Tag
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.utils import expand_path
+from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 HOUR = 60 * 60 # Seconds in an hour.
 DAY = 24 * HOUR # Seconds in a day.
 
+answer = None
+
+class Widget(MainWidget):
+
+    def show_question(self, question, option0, option1, option2):
+        #sys.stderr.write(question+'\n')
+        if question.startswith("Identical card is already in database"):
+            return answer
+        else:
+            raise NotImplementedError
+
 
 class TestDatabase(MnemosyneTest):
+
+    def setup(self):
+        shutil.rmtree("dot_test", ignore_errors=True)
+        self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
+            asynchronous_database=True)
+        self.mnemosyne.components.insert(0,
+            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
+        self.mnemosyne.components.append(\
+            ("test_database", "Widget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne_test", "TestReviewWidget"))
+        self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
+        self.review_controller().reset()
 
     def test_release(self):
         self.database().release_connection()
@@ -294,7 +320,6 @@ class TestDatabase(MnemosyneTest):
         self.mnemosyne.finalise = dont_finalise
 
         self.database().load(self.config()["last_database"])
-
 
     def test_save_as(self):
         fact_data = {"f": "question",
@@ -675,6 +700,32 @@ class TestDatabase(MnemosyneTest):
 
         for tag in self.database().tags_from_cards_with_internal_ids([2, 3]):
             assert tag._id in [2, 4]
+
+    def test_tag_all_duplicates(self):
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.card_type_with_id("1")
+        card_1 = self.controller().create_new_cards(fact_data, card_type,
+                                 grade=-1, tag_names=["a", "b"])[0]
+        self.database().tag_all_duplicates()
+        card_1 = self.database().card(card_1._id, is_id_internal=True)
+        assert "DUPLICATE" not in card_1.tag_string()
+        global answer
+        answer = 1 # Add anyway
+        card_2 = self.controller().create_new_cards(fact_data, card_type,
+                                 grade=-1, tag_names=["a", "b"])[0]
+        fact_data = {"f": "question2",
+                     "b": "answer"}
+        card_3 = self.controller().create_new_cards(fact_data, card_type,
+                                 grade=-1, tag_names=["a", "b"])[0]
+        answer = None
+        self.database().tag_all_duplicates()
+        card_1 = self.database().card(card_1._id, is_id_internal=True)
+        card_2 = self.database().card(card_2._id, is_id_internal=True)
+        card_3 = self.database().card(card_3._id, is_id_internal=True)
+        assert "DUPLICATE" in card_1.tag_string()
+        assert "DUPLICATE" in card_2.tag_string()
+        assert "DUPLICATE" not in card_3.tag_string()
 
     def test_is_accessible(self):
     #    from threading import Thread

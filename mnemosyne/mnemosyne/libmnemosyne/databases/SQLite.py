@@ -75,6 +75,7 @@ $pregenerated_data
     );
     create index i_cards on cards (id);
     create index i_cards_2 on cards (fact_view_id); /* for card type tree */
+    create index i_cards_3 on cards (_fact_id); /* for cards_from_fact */
 
     create table tags(
         _id integer primary key,
@@ -348,6 +349,9 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         if sql_res[0] != self.version:
             raise RuntimeError, \
                 _("Unable to load file: database version mismatch.")
+        # Upgrade.
+        self.con.execute("""create index if not exists
+            i_cards_3 on cards (_fact_id);""")
         # Identify missing plugins for card types and their parents.
         plugin_needed_ids = set()
         builtin_ids = set(card_type.id for card_type in self.card_types())
@@ -1245,55 +1249,47 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         return facts
 
     def tag_all_duplicates(self):
-        # Find candidate duplicates, i.e. not yet taking into account that
-        # duplicates in different card types are allowed and that we only
-        # need to check the unique fact keys.
-        import time
-        t = time.time()
-        fields = {}
-        duplicate_candidates = set()
+        # Find the _fact_ids of the candidate duplicates, i.e. not yet taking
+        # into account that duplicates in different card types are allowed and
+        # that we only need to check the unique fact keys. This preprocessing
+        # step speeds up the rest of the calculations.
+        _fact_ids = set()
+        _fact_id_for_data = {}
         for key, value, _fact_id in self.con.execute(\
             """select key, value, _fact_id from data_for_fact"""):
-            if key not in fields:
-                fields[key] = {}
-            if value in fields[key]:
-                duplicate_candidates.add(fields[key][value])
-                duplicate_candidates.add(_fact_id)
+            if key not in _fact_id_for_data:
+                _fact_id_for_data[key] = {}
+            if value in _fact_id_for_data[key]:
+                _fact_ids.add(_fact_id_for_data[key][value])
+                _fact_ids.add(_fact_id)
             else:
-                fields[key][value] = _fact_id
-        print time.time() - t
-        # Sort the candidates in card types.
-        t = time.time()
-        duplicates_in_card_type = {}
-        for _fact_id in duplicate_candidates:
+                _fact_id_for_data[key][value] = _fact_id
+        # Sort the candidates per card type.
+        _fact_ids_in_card_type = {}
+        for _fact_id in _fact_ids:
             card_type_id = self.con.execute("""select card_type_id from cards
                 where _fact_id=?""", (_fact_id, )).fetchone()[0]
-            if card_type_id not in duplicates_in_card_type:
-                duplicates_in_card_type[card_type_id] = []
-            duplicates_in_card_type[card_type_id].append(_fact_id)
-        print time.time() - t
+            if card_type_id not in _fact_ids_in_card_type:
+                _fact_ids_in_card_type[card_type_id] = []
+            _fact_ids_in_card_type[card_type_id].append(_fact_id)
         # Check if the duplicates are really in the fields that should be
         # unique.
-        t = time.time()
-        duplicates = set([])
-        for card_type_id in duplicates_in_card_type:
+        duplicate_facts = set([])
+        for card_type_id in _fact_ids_in_card_type:
             facts = [self.fact(_fact_id, is_id_internal=True) for _fact_id in \
-                duplicates_in_card_type[card_type_id]]
-            for fact_key in self.card_type_with_id(card_type_id)\
-                .unique_fact_keys:
+                _fact_ids_in_card_type[card_type_id]]
+            for fact_key in self.card_type_with_id(card_type_id).\
+                unique_fact_keys:
                 for i in range(len(facts)):
                     for j in range(i + 1, len(facts)):
                         if facts[i][fact_key] == facts[j][fact_key]:
-                            duplicates.add(facts[i])
-                            duplicates.add(facts[j])
-        print time.time() - t
-        # Tagging.
-        t = time.time()
+                            duplicate_facts.add(facts[i])
+                            duplicate_facts.add(facts[j])
+        # Tag the duplicate cards.
         _card_ids = []
-        for fact in duplicates:
+        for fact in duplicate_facts:
             _card_ids += [cursor[0] for cursor in self.con.execute(\
                 "select _id from cards where _fact_id=?", (fact._id, ))]
-        print time.time() - t
         if len(_card_ids) == 0:
             self.main_widget().show_information(_("No duplicates found."))
         else:
@@ -1303,10 +1299,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # We add the tags after we showed the dialog box, as adding tags can
         # trigger a dialog asking if DUPLICATE should be made active in the
         # current set.
-        t = time.time()
         self.add_tag_to_cards_with_internal_ids(\
             self.get_or_create_tag_with_name(_("DUPLICATE")), _card_ids)
-        print time.time() - t
 
     def card_types_in_use(self):
         return [self.card_type_with_id(cursor[0]) for cursor in \

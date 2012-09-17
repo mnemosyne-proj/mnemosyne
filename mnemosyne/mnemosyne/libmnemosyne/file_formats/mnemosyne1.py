@@ -45,6 +45,7 @@ class Mnemosyne1(MediaPreprocessor):
         self.map_plugin_activated = False
         self.items_by_id = {}
         for item in self.items:
+            item.id = str(item.id)
             if item.id in self.items_by_id:
                 item.id = "dup" + item.id
             self.items_by_id[item.id] = item

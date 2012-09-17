@@ -1,13 +1,12 @@
--extra index on _fact_id: add both to sqlite and to upgrade scheme
--refactor
--autorun after import, browse with edit?, but not after synchronise
--add tests
+-double click to activate card set
 
 -polish stats font (LP bug)
 
 -compact error onder windows (LP bug)
 
 -add remaining 1.x import formats
+
+-editing card from card browser, exit with edit still asks confirmation
 
 -popup explaining use of 'compact'
 
@@ -145,6 +144,10 @@ Traceback (innermost last):
 -make doc: errors related to _
 
 -card templates?
+
+-in case we haven't selected a card background colour explicitly, don't set
+ the empty card colour to white but to the systems windows background colour
+ scheme (reported by ialectum)
 
 -only use default value for 'all card types' in configuration dialog if the
  settings are actually the same (gnome, LP bug)

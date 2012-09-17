@@ -1,3 +1,4 @@
+-Added menu option to detect duplicates in the database.
 -Changing card types and deleting cards from the card browser is now faster.
 -Fix harmless error message when converting to Cloze cards in the card browser
  (reported my Michael Campbell).

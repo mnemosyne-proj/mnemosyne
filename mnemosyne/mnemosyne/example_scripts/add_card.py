@@ -4,7 +4,7 @@
 
 from mnemosyne.script import Mnemosyne
 
-# 'data_dir = None' will use the default sysem location, edit as appropriate.
+# 'data_dir = None' will use the default system location, edit as appropriate.
 data_dir = None
 mnemosyne = Mnemosyne(data_dir)
 
