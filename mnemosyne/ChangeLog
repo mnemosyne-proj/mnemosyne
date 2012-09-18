@@ -1,4 +1,6 @@
 -Added menu option to detect duplicates in the database.
+-Double-clicking on a saved set in 'Activate cards' now automatically selects
+ the set and closes the window (requested by Michael Campbell).
 -Changing card types and deleting cards from the card browser is now faster.
 -Fix harmless error message when converting to Cloze cards in the card browser
  (reported my Michael Campbell).

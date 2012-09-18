@@ -35,6 +35,7 @@ class TipDlg(QtGui.QDialog, Ui_TipDlg, TipDialog):
         self.tips.append(_("""Using 'File - Sync', you can sync this machine with a remote server. Of course, that remote computer needs to have a server running, which can be started from the configuration screen on that remote machine."""))
         self.tips.append(_(""" If you want to sync a mobile device with this computer, don't use 'File - Sync', but first enable a sync server in the configuration dialog, and then start the sync from the mobile device."""))
         self.tips.append(_("""In the 'Activate cards' dialog, you can right-click on a saved set to rename or delete it."""))
+        self.tips.append(_("""In the 'Activate cards' dialog, you can double-click on a saved set to activate it and close the dialog."""))
         self.tips.append(_("""Right-click on a tag name in the card browser to edit or delete it."""))
         self.tips.append(_("""Double-click on a card or tag name in the card browser to edit them."""))
         self.tips.append(_("""You can reorder columns in the card browser by dragging the header label."""))

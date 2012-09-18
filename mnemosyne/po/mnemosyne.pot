@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-09-17 16:36+CEST\n"
+"POT-Creation-Date: 2012-09-18 11:26+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -282,7 +282,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:76
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:61
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:186
-#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:84
+#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:85
 #: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:65
 #: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:62
 #: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:67
@@ -312,7 +312,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:61
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:186
 #: ../mnemosyne/pyqt_ui/ui_about_dlg.py:80
-#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:82
+#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:83
 #: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:64
 #: ../mnemosyne/pyqt_ui/ui_card_set_name_dlg.py:46
 #: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:61
@@ -1036,7 +1036,7 @@ msgid "Rename"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:97
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:197
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:201
 msgid "This set can never contain any cards!"
 msgstr ""
 
@@ -1584,11 +1584,11 @@ msgstr ""
 msgid "Alt+C"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:81
+#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:82
 msgid "Saved sets:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:83
+#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:84
 msgid "&Save this set for later use"
 msgstr ""
 

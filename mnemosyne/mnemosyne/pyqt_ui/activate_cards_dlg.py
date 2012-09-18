@@ -180,6 +180,10 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         if previous_item is not None:
             self.load_set(item)
 
+    def select_set_and_close(self, item):
+        self.load_set(item)
+        self.accept()
+
     def _store_state(self):
         self.config()["activate_cards_dlg_state"] = \
             self.saveGeometry()
@@ -196,6 +200,11 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
             self.main_widget().show_error(\
                 _("This set can never contain any cards!"))
             return
+        if self.saved_sets.count() != 0 and self.config()\
+            ["showed_help_on_double_clicking_sets"] == False:
+            self.main_widget().show_information(\
+_("You can double-click on the name of a saved set to activate it and close the dialog."))
+            self.config()["showed_help_on_double_clicking_sets"] = True
         # 'accept' does not generate a close event.
         self.database().set_current_criterion(criterion)
         self._store_state()

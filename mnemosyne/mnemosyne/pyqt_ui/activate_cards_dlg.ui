@@ -229,5 +229,21 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>saved_sets</sender>
+   <signal>itemDoubleClicked(QListWidgetItem*)</signal>
+   <receiver>ActivateCardsDlg</receiver>
+   <slot>select_set_and_close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>296</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>296</x>
+     <y>73</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>
