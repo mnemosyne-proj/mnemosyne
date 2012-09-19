@@ -1,11 +1,13 @@
 -Added menu option to detect duplicates in the database.
 -Double-clicking on a saved set in 'Activate cards' now automatically selects
  the set and closes the window (requested by Michael Campbell).
+-In 'edit cards', make more robust of no longer warning about discarding
+ changes if you did not make any.
 -Changing card types and deleting cards from the card browser is now faster.
 -Fix harmless error message when converting to Cloze cards in the card browser
  (reported my Michael Campbell).
 
-Mnemosyne 2.0.1 : 2012-09-10
+Mnemosyne 2.1 : 2012-09-10
 
 -New import/export format to share cards, which also bundles the media files.
  Supports importing an updated version of the same exported cards, so that

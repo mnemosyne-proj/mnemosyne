@@ -1,12 +1,12 @@
--double click to activate card set
-
 -polish stats font (LP bug)
 
 -compact error onder windows (LP bug)
 
 -add remaining 1.x import formats
 
--editing card from card browser, exit with edit still asks confirmation
+-speed up deletion of large number of cards from browser (delete tag if unused, progress bar)
+
+-time making backup of file before sync, both in and out of Python
 
 -popup explaining use of 'compact'
 
@@ -31,7 +31,6 @@
 
 -# in media filenames
 
--speed up deletion of large number of cards from browser (delete tag if unused, progress bar)
 
 -merging cards: should give an option to go back and edit
 

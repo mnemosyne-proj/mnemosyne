@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-09-18 11:26+CEST\n"
+"POT-Creation-Date: 2012-09-19 10:29+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -234,7 +234,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:89
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:58
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:70
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:146
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:153
 #: ../mnemosyne/pyqt_ui/main_wdgt.py:69 ../mnemosyne/pyqt_ui/main_wdgt.py:72
 #: ../mnemosyne/pyqt_ui/main_wdgt.py:76 ../mnemosyne/pyqt_ui/main_wdgt.py:99
 #: ../mnemosyne/pyqt_ui/tip_after_starting_n_times.py:31
@@ -1052,6 +1052,10 @@ msgstr ""
 msgid "Delete this set?"
 msgstr ""
 
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:206
+msgid "You can double-click on the name of a saved set to activate it and close the dialog."
+msgstr ""
+
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:28 ../mnemosyne/pyqt_ui/tip_dlg.py:29
 msgid "You can add multiple tags to a card by separating tags with a comma in the 'Tag(s)' input field."
 msgstr ""
@@ -1080,7 +1084,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:227
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:68
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:63
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:148
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:155
 msgid "&No"
 msgstr ""
 
@@ -1088,7 +1092,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:227
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:68
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:63
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:148
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:155
 msgid "&Yes"
 msgstr ""
 
@@ -1097,27 +1101,27 @@ msgid "Yet to learn"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:261
-#: ../mnemosyne/pyqt_ui/tip_dlg.py:38
+#: ../mnemosyne/pyqt_ui/tip_dlg.py:39
 msgid "Right-click on a tag name in the card browser to edit or delete it."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:262
-#: ../mnemosyne/pyqt_ui/tip_dlg.py:39
+#: ../mnemosyne/pyqt_ui/tip_dlg.py:40
 msgid "Double-click on a card or tag name in the card browser to edit them."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:263
-#: ../mnemosyne/pyqt_ui/tip_dlg.py:40
+#: ../mnemosyne/pyqt_ui/tip_dlg.py:41
 msgid "You can reorder columns in the card browser by dragging the header label."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:264
-#: ../mnemosyne/pyqt_ui/tip_dlg.py:41
+#: ../mnemosyne/pyqt_ui/tip_dlg.py:42
 msgid "You can resize columns in the card browser by dragging between the header labels."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:265
-#: ../mnemosyne/pyqt_ui/tip_dlg.py:42
+#: ../mnemosyne/pyqt_ui/tip_dlg.py:43
 msgid "When editing or previewing cards from the card browser, PageUp/PageDown can be used to move to the previous/next card."
 msgstr ""
 
@@ -1311,7 +1315,7 @@ msgstr ""
 msgid "You are not allowed to cancel the merging."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:147
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:154
 msgid "Abandon changes to current card?"
 msgstr ""
 
@@ -1531,51 +1535,55 @@ msgstr ""
 msgid "In the 'Activate cards' dialog, you can right-click on a saved set to rename or delete it."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/tip_dlg.py:43
-msgid "In the 'Add cards' dialog, use Tab to move between different fields, Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
+#: ../mnemosyne/pyqt_ui/tip_dlg.py:38
+msgid "In the 'Activate cards' dialog, you can double-click on a saved set to activate it and close the dialog."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:44
-msgid "In the 'Edit card' dialog, use Tab to move between different fields and Ctrl+Enter to close the dialog."
+msgid "In the 'Add cards' dialog, use Tab to move between different fields, Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:45
-msgid "Mnemosyne can use LaTeX to render mathematical formulas, e.g. <$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
+msgid "In the 'Edit card' dialog, use Tab to move between different fields and Ctrl+Enter to close the dialog."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:46
-msgid "The best way to backup your data is to copy your mnemosyne data directory and move it to a different drive. Mnemosyne keeps automatic backups, but that won't help you if that drive dies..."
+msgid "Mnemosyne can use LaTeX to render mathematical formulas, e.g. <$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:47
-msgid "You can sort the cards in the 'Browse cards' dialog by by clicking on a column title. Clicking again changes the sort order."
+msgid "The best way to backup your data is to copy your mnemosyne data directory and move it to a different drive. Mnemosyne keeps automatic backups, but that won't help you if that drive dies..."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:48
-msgid "If you want more fine-grained control over LaTeX's behaviour, see the explanation of the <$$>...</$$> and <latex>...</latex> tags on Mnemosyne's website."
+msgid "You can sort the cards in the 'Browse cards' dialog by by clicking on a column title. Clicking again changes the sort order."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:49
-msgid "For optimal performance, keep your drives defragmented."
+msgid "If you want more fine-grained control over LaTeX's behaviour, see the explanation of the <$$>...</$$> and <latex>...</latex> tags on Mnemosyne's website."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:50
-msgid "For optimal performance, do not put your database on a network drive."
+msgid "For optimal performance, keep your drives defragmented."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:51
-msgid "For optimal performance, run 'File - Compact' from time to time, especially after deleting many cards."
+msgid "For optimal performance, do not put your database on a network drive."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:52
-msgid "Advanced users can customise more of Mnemosyne by editing the config.py file in their mnemosyne directory. They can also install additional plugins to customise Mnemosyne even further."
+msgid "For optimal performance, run 'File - Compact' from time to time, especially after deleting many cards."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:53
-msgid "You can follow the development of Mnemosyne at <a href=\"https://plus.google.com/b/112456861177827156549/112456861177827156549/posts\">Google+</a>."
+msgid "Advanced users can customise more of Mnemosyne by editing the config.py file in their mnemosyne directory. They can also install additional plugins to customise Mnemosyne even further."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:54
+msgid "You can follow the development of Mnemosyne at <a href=\"https://plus.google.com/b/112456861177827156549/112456861177827156549/posts\">Google+</a>."
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/tip_dlg.py:55
 msgid "You can request new features and vote for exisiting requests at <a href=\"https://mnemosyne.uservoice.com/\">uservoice</a>. This helps the developers decide what to work on next."
 msgstr ""
 

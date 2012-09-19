@@ -142,7 +142,14 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
             QtGui.QDialog.accept(self)
 
     def reject(self):  # Override 'add cards' behaviour.
-        if self.card_type_widget.fact_data() != self.card.fact.data:
+        changed = False
+        for fact_key in self.card.fact.data:
+            if self.card_type_widget.fact_data()[fact_key] and \
+                self.card_type_widget.fact_data()[fact_key] \
+                != self.card.fact.data[fact_key]:
+                changed = True
+                break
+        if changed:
             status = QtGui.QMessageBox.warning(None, _("Mnemosyne"),
                 _("Abandon changes to current card?"),
                 _("&Yes"), _("&No"), "", 1, -1)
