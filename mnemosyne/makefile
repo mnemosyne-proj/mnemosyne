@@ -111,6 +111,29 @@ osx: 	# Contributed by Patrick Kenny.
 	sudo install_name_tool -change /opt/local/lib/libsqlite3.0.dylib @executable_path/../Frameworks/libsqlite3.0.dylib dist/Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
 	sudo install_name_tool -change /opt/local/lib/libQtSql.4.dylib @executable_path/../Frameworks/libQtSql.4.dylib dist/Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
 	sudo install_name_tool -change /opt/local/lib/libQtCore.4.dylib @executable_path/../Frameworks/libQtCore.4.dylib dist/Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
+	# add directory to plugins to allow for imageformats support (we don't add all imageformats automatically because they all have to be relinked with install_name_tool, which is a real pain, so we pick and choose the formats to support)
+	sudo mkdir dist/Mnemosyne.app/Contents/plugins/imageformats
+	# add GIF support
+	sudo cp -R /opt/local/share/qt4/plugins/imageformats/libqgif.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqgif.dylib
+	sudo install_name_tool -change /opt/local/lib/libQtGui.4.dylib @executable_path/../Frameworks/libQtGui.4.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqgif.dylib
+	sudo install_name_tool -change /opt/local/lib/libQtCore.4.dylib @executable_path/../Frameworks/libQtCore.4.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqgif.dylib
+	# add JPG support
+	sudo cp -R /opt/local/share/qt4/plugins/imageformats/libqjpeg.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqjpeg.dylib
+	sudo install_name_tool -change /opt/local/lib/libQtGui.4.dylib @executable_path/../Frameworks/libQtGui.4.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqjpeg.dylib
+	sudo install_name_tool -change /opt/local/lib/libQtCore.4.dylib @executable_path/../Frameworks/libQtCore.4.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqjpeg.dylib
+	sudo cp /opt/local/lib/libjpeg.8.dylib dist/Mnemosyne.app/Contents/Frameworks/libjpeg.8.dylib
+	sudo install_name_tool -change /opt/local/lib/libjpeg.8.dylib @executable_path/../Frameworks/libjpeg.8.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqjpeg.dylib
+	sudo install_name_tool -change /opt/local/lib/libjpeg.8.dylib @executable_path/../Frameworks/libjpeg.8.dylib dist/Mnemosyne.app/Contents/Frameworks/libjpeg.8.dylib
+	# add TIFF support
+	sudo cp -R /opt/local/share/qt4/plugins/imageformats/libqtiff.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqtiff.dylib
+	sudo install_name_tool -change /opt/local/lib/libQtGui.4.dylib @executable_path/../Frameworks/libQtGui.4.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqtiff.dylib
+	sudo install_name_tool -change /opt/local/lib/libQtCore.4.dylib @executable_path/../Frameworks/libQtCore.4.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqtiff.dylib
+	sudo cp /opt/local/lib/libtiff.3.dylib dist/Mnemosyne.app/Contents/Frameworks/libtiff.3.dylib
+	sudo install_name_tool -change /opt/local/lib/libtiff.3.dylib @executable_path/../Frameworks/libtiff.3.dylib dist/Mnemosyne.app/Contents/Frameworks/libtiff.3.dylib
+	sudo cp /opt/local/lib/libz.1.dylib dist/Mnemosyne.app/Contents/Frameworks/libz.1.dylib
+	sudo install_name_tool -change /opt/local/lib/libz.1.dylib @executable_path/../Frameworks/libz.1.dylib dist/Mnemosyne.app/Contents/Frameworks/libtiff.3.dylib
+	sudo install_name_tool -change /opt/local/lib/libjpeg.8.dylib @executable_path/../Frameworks/libjpeg.8.dylib dist/Mnemosyne.app/Contents/Frameworks/libtiff.3.dylib
+
 
 wm: install-virtual-env
 	cp mnemosyne/ppygui_ui/ppygui_ui/*.py mnemosyne/ppygui_ui/

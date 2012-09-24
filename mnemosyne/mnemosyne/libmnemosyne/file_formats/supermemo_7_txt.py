@@ -14,7 +14,7 @@ from mnemosyne.libmnemosyne.file_formats.media_preprocessor \
 re0 = re.compile(r"&#(.+?);", re.DOTALL | re.IGNORECASE)
 
 
-class SuperMemo7Txt(FileFormat):
+class SuperMemo7Txt(FileFormat, MediaPreprocessor):
 
     """Imports SuperMemo 7's text file format:
     A line starting with 'Q: ' holds a question, a line starting with 'A: '
@@ -38,7 +38,7 @@ class SuperMemo7Txt(FileFormat):
 
     def process_html_unicode(self, s):
 
-        "Parse html style escaped unicode (e.g. &#33267;)"
+        """Parse html style escaped unicode (e.g. &#33267;)"""
 
         for match in re0.finditer(s):
             u = unichr(int(match.group(1)))  # Integer part.
@@ -77,6 +77,11 @@ class SuperMemo7Txt(FileFormat):
         state = "CARD-START"
         next_state = None
         error = False
+        card_type = self.card_type_with_id("1")
+        tag_names = []
+        if extra_tag_names:
+            tag_names += [tag_name.strip() for tag_name \
+                in extra_tag_names.split(",")]
         while not error and state != "END-OF-FILE":
             line = self.read_line_sm7qa(f)
             # Perform the actions of the current state and calculate
@@ -170,7 +175,6 @@ class SuperMemo7Txt(FileFormat):
                     or (state == "ANSWER" and next_state == "CARD-START") \
                     or (state == "CARD-END" and next_state == "END-OF-FILE") \
                     or (state == "CARD-END" and next_state == "CARD-START") ):
-                card = Card()
                 # Grade information is not given directly in the file format.
                 # To make the transition to Mnemosyne smooth for a SuperMemo
                 # user, we make sure that all cards get queried in a similar
@@ -181,17 +185,25 @@ class SuperMemo7Txt(FileFormat):
                     # new cards", thus offering the user to learn as many new
                     # cards per session as desired.  We achieve a similar
                     # behaviour by grading the card -1.
-                    card.grade = -1
+                    grade = -1
                 elif repetitions == 1 and lapses > 0:
                     # The learner had a lapse with the last repetition.
                     # SuperMemo users will expect such cards to be queried
                     # during the next session.  Thus, to avoid confusion, we
                     # set the initial grade to 1.
-                    card.grade = 1
+                    grade = 1
                 else:
                     # There were either no lapses yet, or some successful
                     # repetitions since.
-                    card.grade = 4
+                    grade = 4
+                fact_data = {"q": saxutils.escape(question),
+                    "a": saxutils.escape(answer)}
+                self.preprocess_media(fact_data, tag_names)
+                card = self.controller().create_new_cards(fact_data, card_type,
+                    grade=grade, tag_names=tag_names,
+                    check_for_duplicates=False, save=False)
+                if _("MISSING_MEDIA") in tag_names:
+                    tag_names.remove(_("MISSING_MEDIA"))
                 card.easiness = easiness
                 # There is no possibility to calculate the correct values for
                 # card.acq_reps and card.ret_reps from the SuperMemo file
@@ -216,12 +228,9 @@ class SuperMemo7Txt(FileFormat):
                 card.last_rep = card.next_rep - interval
                 # The following information from SuperMemo is not used:
                 # UF, O_value
-                card.q = saxutils.escape(question)
-                card.a = saxutils.escape(answer)
-                card.cat = default_cat
-                card.new_id()
-                imported_cards.append(card)
+                self.database.update_card(card)
             state = next_state
+        self.warned_about_missing_media = False
         if error:
             self.main_widget().show_error(_("An error occured while parsing."))
 

@@ -53,8 +53,8 @@ class QTextEdit2(QtGui.QTextEdit):
             QtGui.QTextEdit.keyPressEvent(self, event)
 
     def insert_img(self):
-        filter = "(*.png *.gif *.jpg *.bmp *.jpeg *.svg" + \
-                 " *.PNG *.GIF *.jpg *.BMP *.JPEG *.SVG)"
+        filter = "(*.png *.gif *.jpg *.bmp *.jpeg *.svg *.tiff" + \
+                 " *.PNG *.GIF *.jpg *.BMP *.JPEG *.SVG *.TIFF)"
         filename = self.parent().controller().show_insert_img_dialog(filter)
         if filename:
             self.insertPlainText("<img src=\"" + filename + "\">")
