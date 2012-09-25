@@ -1,4 +1,5 @@
 -Added menu option to detect duplicates in the database.
+-Ported missing import file formats from 1.x: SuperMemo7 text.
 -Double-clicking on a saved set in 'Activate cards' now automatically selects
  the set and closes the window (requested by Michael Campbell).
 -In 'edit cards', make more robust of no longer warning about discarding

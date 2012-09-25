@@ -53,10 +53,10 @@ class TestSM7Import(MnemosyneTest):
 
     def test_1(self):
         global last_error
-        filename = os.path.join(os.getcwd(), "tests", "files", "nothere.tsv")
+        filename = os.path.join(os.getcwd(), "tests", "files", "sm7.txt")
         self.sm7_importer().do_import(filename)
         assert last_error is ""
-
+        assert len([c for c in self.database().cards()]) == 4
 
     def teardown(self):
         filename = \

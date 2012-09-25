@@ -13,6 +13,9 @@ from mnemosyne.libmnemosyne.file_formats.media_preprocessor \
 
 re0 = re.compile(r"&#(.+?);", re.DOTALL | re.IGNORECASE)
 
+HOUR = 60 * 60 # Seconds in an hour.
+DAY = 24 * HOUR # Seconds in a day.
+
 
 class SuperMemo7Txt(FileFormat, MediaPreprocessor):
 
@@ -96,7 +99,7 @@ class SuperMemo7Txt(FileFormat, MediaPreprocessor):
                     question = line[2:].strip()
                     repetitions = 0
                     lapses = 0
-                    easiness = avg_easiness
+                    easiness = 2.5
                     interval = 0
                     last = 0
                     next_state = "QUESTION"
@@ -140,12 +143,12 @@ class SuperMemo7Txt(FileFormat, MediaPreprocessor):
                             repetitions = int(attributes[0][4:])
                             lapses = int(attributes[1][4:])
                             easiness = float(attributes[2][3:])
-                            interval = int(attributes[4][4:])
+                            interval = int(attributes[4][4:]) * DAY
                             if attributes[5] == "LAST=0":
                                 last = 0
                             else:
-                                last = time.strptime\
-                                    (attributes[5][5:], "%d.%m.%y")
+                                last = int(time.mktime(time.strptime\
+                                    (attributes[5][5:], "%d.%m.%y")))
                         else:
                             error = True
                     next_state = "LEARNING-DATA"
@@ -180,28 +183,15 @@ class SuperMemo7Txt(FileFormat, MediaPreprocessor):
                 # user, we make sure that all cards get queried in a similar
                 # way as SuperMemo would have done it.
                 if repetitions == 0:
-                    # The card is new, there are no repetitions yet. SuperMemo
-                    # queries such cards in a dedicated learning mode "Memorize
-                    # new cards", thus offering the user to learn as many new
-                    # cards per session as desired.  We achieve a similar
-                    # behaviour by grading the card -1.
                     grade = -1
-                elif repetitions == 1 and lapses > 0:
-                    # The learner had a lapse with the last repetition.
-                    # SuperMemo users will expect such cards to be queried
-                    # during the next session.  Thus, to avoid confusion, we
-                    # set the initial grade to 1.
-                    grade = 1
                 else:
-                    # There were either no lapses yet, or some successful
-                    # repetitions since.
                     grade = 4
-                fact_data = {"q": saxutils.escape(question),
-                    "a": saxutils.escape(answer)}
+                fact_data = {"f": saxutils.escape(question),
+                    "b": saxutils.escape(answer)}
                 self.preprocess_media(fact_data, tag_names)
                 card = self.controller().create_new_cards(fact_data, card_type,
                     grade=grade, tag_names=tag_names,
-                    check_for_duplicates=False, save=False)
+                    check_for_duplicates=False, save=False)[0]
                 if _("MISSING_MEDIA") in tag_names:
                     tag_names.remove(_("MISSING_MEDIA"))
                 card.easiness = easiness
@@ -214,27 +204,12 @@ class SuperMemo7Txt(FileFormat, MediaPreprocessor):
                 # The following information is not reconstructed from
                 # SuperMemo: card.acq_reps_since_lapse
                 card.ret_reps_since_lapse = max(0, repetitions - 1)
-                # Calculate the dates for the last and next repetitions.
-                # The logic makes sure that the interval between last_rep and
-                # next_rep is kept.  To do this, it may happen that last_rep
-                # gets a negative value.
-                if last == 0:
-                    last_in_days = 0
-                else:
-                    last_absolute_sec = StartTime(time.mktime(last)).time
-                    last_relative_sec = last_absolute_sec - time_of_start.time
-                    last_in_days = last_relative_sec / 60. / 60. / 24.
-                card.next_rep = long(max( 0, last_in_days + interval))
-                card.last_rep = card.next_rep - interval
+                card.last_rep = self.scheduler().midnight_UTC(last)
+                card.next_rep = card.last_rep + interval
                 # The following information from SuperMemo is not used:
                 # UF, O_value
-                self.database.update_card(card)
+                self.database().update_card(card)
             state = next_state
         self.warned_about_missing_media = False
         if error:
             self.main_widget().show_error(_("An error occured while parsing."))
-
-
-
-
-
