@@ -32,8 +32,6 @@ class Smconv_XML(FileFormat, MediaPreprocessor):
       format these fields and to control whether they are part of  the
       question or of the answer. However this class assumes that the first
       field is the question and the second field is the answer.
-    - No error handling. If the XML is not well formed or if fields are
-      missing, the behaviour is unpredictable.
 
     """
 
@@ -43,38 +41,6 @@ class Smconv_XML(FileFormat, MediaPreprocessor):
     import_possible = True
     export_possible = False
 
-    def __init__(self, default_cat=None, reset_learning_data=False):
-        self.reading, self.text = {}, {}
-        self.reading["cat"] = False
-        self.reading["Q"] = False
-        self.reading["A"] = False
-        self.default_cat = default_cat
-        self.reset_learning_data = reset_learning_data
-        self.imported_items = []
-        self.lapses = 0
-        self.recalls = 0
-        self.difficulty = 40
-        self.difficulty_prev = 40
-        self.datecommit = ""
-        self.interval = 0
-        self.interval_prev = 0
-        self.commit = 0
-
-    def to_bool(self, string):
-        if string == "0":
-            return False
-        else:
-            return True
-
-    def reset_elements(self):
-        self.lapses = 0
-        self.recalls = 0
-        self.difficulty = 40
-        self.difficulty_prev = 40
-        self.datecommit = ""
-        self.interval = 0
-        self.interval_pref = 0
-
     def do_import(self, filename, extra_tag_names=None):
         FileFormat.do_import(self, filename, extra_tag_names)
         w = self.main_widget()
@@ -83,103 +49,69 @@ class Smconv_XML(FileFormat, MediaPreprocessor):
         except cElementTree.ParseError, e:
             w.show_error(_("Unable to parse file:") + str(e))
             return
-
-    def startElement(self, name, attrs):
-        global import_time_of_start
-        # I cannot guarantee, when the header will be read, so
-        # I use the epoch for now. Times will be normalized,
-        # once the whole database has been read.
-        if name == "card":
-            self.item = Item();
-            if attrs.get("commit"):
-                self.commit = attrs.get("commit")
-            if attrs.get("category"):
-                self.category = attrs.get("category")
-        elif name == "card_other":
-            if attrs.get("lapses"):
-                self.lapses = int(attrs.get("lapses"))
-            if attrs.get("recalls"):
-                self.recalls = int(attrs.get("recalls"))
-            if attrs.get("difficulty"):
-                self.difficulty = int(attrs.get("difficulty"))
-            if attrs.get("difficulty_prev"):
-                self.difficulty_prev = int(attrs.get("difficulty_prev"))
-            if attrs.get("datecommit"):
-                self.datecommit = attrs.get("datecommit")
-            if attrs.get("datenexttest"):
-                self.datenexttest = attrs.get("datenexttest")
-            if attrs.get("interval"):
-                self.interval = int(attrs.get("interval"))
-            if attrs.get("interval_prev"):
-                self.interval_prev = int(attrs.get("interval_prev"))
-        elif name == "card_field":
-            if attrs.get("idx") == "1":
-                self.reading["Q"] = True
-                self.text["Q"] = ""
-            if  attrs.get("idx") == "2":
-                self.reading["A"] = True
-                self.text["A"] = ""
-        elif name == "header":
-            if attrs.get("datecommit"):
-                start_time = attrs.get("datecommit")
-                try:
-                    struct_t = time.strptime(attrs.get("datecommit"),\
-                                             "%Y-%m-%d")
-                    t_sec = time.mktime(struct_t)
-                    import_time_of_start = StartTime(t_sec);
-                except:
-                    import_time_of_start = StartTime(0);
-        else: # Default action: do nothing.
-            return
-
-    def characters(self, ch):
-        for name in self.reading.keys():
-            if self.reading[name] == True:
-                self.text[name] += ch
-
-    def guess_grade(self):
-        # Very easy items are scarce in SM and must be easiest grade.
-        if self.difficulty < 10:
-            return 5
-        # Assign passing grades, based upon whether the difficulty has
-        # changed.
-        if self.difficulty > self.difficulty_prev:
-            return 2
-        if self.difficulty == self.difficulty_prev:
-            return 3
-        if self.difficulty < self.difficulty_prev:
-            return 4
-        # If the interval becomes shorter, it must have been a failure.
-        if self.interval < self.interval_prev:
-            return 1
-
-    def endElement(self, name):
-        if name == "card":
+        # Todo: remove
+        filedatecommit = tree.find("header").attrib["datecommit"]
+        try:
+            struct_t = time.strptime(filedatecommit, "%Y-%m-%d")
+            t_sec = time.mktime(struct_t)
+            import_time_of_start = StartTime(t_sec);
+        except:
+            import_time_of_start = StartTime(0);
+        self.items = []
+        for element in tree.find("cards").findall("card"):
+            category = card.attrib["category"]
+            commit = not (card.attrib["commit"] == "0")
+            for field in card.find("card_fields").findall("card_field"):
+                if field.attrib["idx"] == "1":
+                    question = field.text
+                else:
+                    answer = field.text
+            card_other = card.find("card_other")
+            datecommit = card_other.attrib["datecommit"]
+            datecreate = card_other.attrib["datecreate"]
+            datenexttest = card_other.attrib["datenexttest"]
+            difficulty = int(card_other.attrib["difficulty"]) #  Default: 40.
+            difficulty_prev = int(card_other.attrib["difficulty_prev"])
+            interval = int(card_other.attrib["interval"])
+            interval_prev = int(card_other.attrib["interval_prev"])
+            lapses = int(card_other.attrib["lapses"])
+            recalls = int(card_other.attrib["recalls"])
             # Try to derive an easines factor EF from [1.3 .. 3.2] from
             # difficulty d from [1% .. 100%].
             # The math below is set to translate
             # difficulty=100% --> easiness = 1.3
             # difficulty=40% --> easiness = 2.5
             # difficulty=1% --> easiness = 3.2
-            dp = self.difficulty * 0.01
+            dp = difficulty * 0.01
             # Small values should be easy, large ones hard.
             if dp > 0.4:
-                self.item.easiness = 1.28 - 1.32 * math.log(dp)
+                easiness = 1.28 - 1.32 * math.log(dp)
             else:
-                self.item.easiness = 4.2 - (1.139 * math.exp(dp))
+                easiness = 4.2 - (1.139 * math.exp(dp))
             # Grades are 0-5. In SM for Palm there are commited and uncommited
-            # cards. Uncommited cards go to grade 0.
+            # cards. Uncommited cards go to grade -1.
             # Otherwise try to extrapolate something from difficulty in SM
             # I have implemented guess_grade such, that the distribution of
             # grades looks reasonable for my test database of 4000 entries.
             # By "reasonable" I mean than most of the entries should be
             # at grade 4. I've been learning that database for 4 years, so the
             # cards should have converged by now.
-            if self.commit == False:
-                self.item.grade = 0
-            else:
-                self.item.grade = self.guess_grade()
-            self.item.lapses = self.lapses
+            if commit == False:
+                grade = -1
+            # Very easy items are scarce in SM and must be easiest grade.
+            elif difficulty < 10:
+                grade = 5
+            # Assign passing grades, based upon whether the difficulty has
+            # changed.
+            elif difficulty > difficulty_prev:
+                grade = 2
+            elif difficulty == difficulty_prev:
+                grade = 3
+            elif difficulty < difficulty_prev:
+                grade = 4
+            # If the interval becomes shorter, it must have been a failure.
+            if interval < interval_prev:
+                grade = 0
             # Handle dates, assume starttime to be the epoch.
             # Need to determine last_rep and next_rep.
             try:
@@ -191,25 +123,13 @@ class Smconv_XML(FileFormat, MediaPreprocessor):
                 t_sec = time.mktime(struct_t)
             except:
                 print "mktime failed - using zero."
-            self.item.next_rep = int(t_sec / 86400)
+            next_rep = int(t_sec / 86400)
             # last_rep is interval in days before next_rep.
-            self.item.last_rep = self.item.next_rep - self.interval
+            last_rep = next_rep - interval
             # Try to fill acquisiton reps and retention reps.
             # Since SM statistics are only available for commited
             # cards, I take acq_reps = 0 and ret_reps = lapses + recalls.
-            self.item.ret_reps = self.lapses + self.recalls
-            self.item.cat = get_category_by_name(self.category)
-            self.imported_items.append(self.item)
-        elif name == "card_field":
-            if self.reading["Q"]:
-                self.reading["Q"] = False
-                self.item.q = self.text["Q"]
-                self.text["Q"] = ""
-            if self.reading["A"]:
-                self.reading["A"] = False
-                self.item.a = self.text["A"]
-                self.text["A"] = ""
-        elif name == "smconv_pl":
+            ret_reps = lapses + recalls
             # During the import, there was no guarantee that the start time
             # has already been read. Now, at the smconv_pl closing tag, the
             # import_time_of_start variable has been set. Update all imported

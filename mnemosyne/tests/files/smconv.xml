@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="windows-1252"?>
+  <smconv_pl>
+    <cards>
+      <card category="Unfiled" commit="1">
+        <card_fields>
+          <card_field idx="1">la acera</card_field>
+          <card_field idx="2">sidewalk</card_field>
+        </card_fields>
+        <card_other datecommit="2004-11-04" datecreate="2001-05-10" datenexttest="2008-10-08" difficulty="60" difficulty_prev="65" interval="472" interval_prev="214" lapses="8" recalls="22" var1="0" var2="36" />
+      </card>
+      <card category="Unfiled" commit="1">
+        <card_fields>
+          <card_field idx="1">el acuerdo</card_field>
+          <card_field idx="2">agreement, accord</card_field>
+        </card_fields>
+        <card_other datecommit="2004-10-13" datecreate="2001-05-10" datenexttest="2009-02-23" difficulty="6" difficulty_prev="11" interval="640" interval_prev="188" lapses="1" recalls="10" var1="0" var2="36" />
+      </card>
+      <card category="Unfiled" commit="1">
+        <card_fields>
+          <card_field idx="1">el ademán</card_field>
+          <card_field idx="2">gesture</card_field>
+        </card_fields>
+       </card>
+    </cards>
+    <header datecommit="2004-10-13" datecreate="2000-05-12" name="Spanish" />
+  </smconv_pl>
