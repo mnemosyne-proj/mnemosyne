@@ -12,6 +12,8 @@ from mnemosyne.libmnemosyne.file_format import FileFormat
 from mnemosyne.libmnemosyne.file_formats.media_preprocessor \
     import MediaPreprocessor
 
+HOUR = 60 * 60 # Seconds in an hour.
+DAY = 24 * HOUR # Seconds in a day.
 
 class Smconv_XML(FileFormat, MediaPreprocessor):
 
@@ -49,15 +51,11 @@ class Smconv_XML(FileFormat, MediaPreprocessor):
         except cElementTree.ParseError, e:
             w.show_error(_("Unable to parse file:") + str(e))
             return
-        # Todo: remove
-        filedatecommit = tree.find("header").attrib["datecommit"]
-        try:
-            struct_t = time.strptime(filedatecommit, "%Y-%m-%d")
-            t_sec = time.mktime(struct_t)
-            import_time_of_start = StartTime(t_sec);
-        except:
-            import_time_of_start = StartTime(0);
-        self.items = []
+        card_type = self.card_type_with_id("1")
+        tag_names = []
+        if extra_tag_names:
+            tag_names += [tag_name.strip() for tag_name \
+                in extra_tag_names.split(",")]
         for element in tree.find("cards").findall("card"):
             category = card.attrib["category"]
             commit = not (card.attrib["commit"] == "0")
@@ -67,27 +65,8 @@ class Smconv_XML(FileFormat, MediaPreprocessor):
                 else:
                     answer = field.text
             card_other = card.find("card_other")
-            datecommit = card_other.attrib["datecommit"]
-            datecreate = card_other.attrib["datecreate"]
-            datenexttest = card_other.attrib["datenexttest"]
             difficulty = int(card_other.attrib["difficulty"]) #  Default: 40.
             difficulty_prev = int(card_other.attrib["difficulty_prev"])
-            interval = int(card_other.attrib["interval"])
-            interval_prev = int(card_other.attrib["interval_prev"])
-            lapses = int(card_other.attrib["lapses"])
-            recalls = int(card_other.attrib["recalls"])
-            # Try to derive an easines factor EF from [1.3 .. 3.2] from
-            # difficulty d from [1% .. 100%].
-            # The math below is set to translate
-            # difficulty=100% --> easiness = 1.3
-            # difficulty=40% --> easiness = 2.5
-            # difficulty=1% --> easiness = 3.2
-            dp = difficulty * 0.01
-            # Small values should be easy, large ones hard.
-            if dp > 0.4:
-                easiness = 1.28 - 1.32 * math.log(dp)
-            else:
-                easiness = 4.2 - (1.139 * math.exp(dp))
             # Grades are 0-5. In SM for Palm there are commited and uncommited
             # cards. Uncommited cards go to grade -1.
             # Otherwise try to extrapolate something from difficulty in SM
@@ -112,30 +91,39 @@ class Smconv_XML(FileFormat, MediaPreprocessor):
             # If the interval becomes shorter, it must have been a failure.
             if interval < interval_prev:
                 grade = 0
-            # Handle dates, assume starttime to be the epoch.
-            # Need to determine last_rep and next_rep.
-            try:
-                struct_t = time.strptime(self.datenexttest,"%Y-%m-%d")
-            except:
-                print "Failed to parse time - using zero."
-            t_sec = int(0)
-            try:
-                t_sec = time.mktime(struct_t)
-            except:
-                print "mktime failed - using zero."
-            next_rep = int(t_sec / 86400)
-            # last_rep is interval in days before next_rep.
+            # Construct card.
+            fact_data = {"f": question, "b": answer}
+            self.preprocess_media(fact_data, tag_names)
+            card = self.controller().create_new_cards(fact_data, card_type,
+                grade=grade, tag_names=tag_names + [category],
+                check_for_duplicates=False,
+                save=False)[0]
+            if _("MISSING_MEDIA") in tag_names:
+                tag_names.remove(_("MISSING_MEDIA"))
+            # TODO: create, commit
+            interval = int(card_other.attrib["interval"]) * DAY
+            interval_prev = int(card_other.attrib["interval_prev"]) * DAY
+            lapses = int(card_other.attrib["lapses"])
+            recalls = int(card_other.attrib["recalls"])
+            datecommit = card_other.attrib["datecommit"]
+            datecreate = card_other.attrib["datecreate"]
+            datenexttest = card_other.attrib["datenexttest"]
+            next_rep = self.scheduler().midnight_UTC(int(time.mktime(\
+                time.strptime(datenexttest,"%Y-%m-%d")))
             last_rep = next_rep - interval
             # Try to fill acquisiton reps and retention reps.
             # Since SM statistics are only available for commited
             # cards, I take acq_reps = 0 and ret_reps = lapses + recalls.
             ret_reps = lapses + recalls
-            # During the import, there was no guarantee that the start time
-            # has already been read. Now, at the smconv_pl closing tag, the
-            # import_time_of_start variable has been set. Update all imported
-            # items accordingly.
-            now = import_time_of_start.time
-            diff = int(now / 86400)
-            for i in self.imported_items:
-                i.next_rep = i.next_rep - diff
-                i.last_rep = i.last_rep - diff
+            # Try to derive an easines factor EF from [1.3 .. 3.2] from
+            # difficulty d from [1% .. 100%].
+            # The math below is set to translate
+            # difficulty=100% --> easiness = 1.3
+            # difficulty=40% --> easiness = 2.5
+            # difficulty=1% --> easiness = 3.2
+            dp = difficulty * 0.01
+            # Small values should be easy, large ones hard.
+            if dp > 0.4:
+                easiness = 1.28 - 1.32 * math.log(dp)
+            else:
+                easiness = 4.2 - (1.139 * math.exp(dp))

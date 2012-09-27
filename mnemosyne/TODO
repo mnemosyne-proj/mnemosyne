@@ -1,10 +1,10 @@
+-add remaining 1.x import formats
+
 -polish stats font (LP bug)
 
 -increase non-latin for vocabulary too?
 
 -compact error onder windows (LP bug)
-
--add remaining 1.x import formats
 
 -speed up deletion of large number of cards from browser (delete tag if unused, progress bar)
 
@@ -21,6 +21,10 @@
 -keeping key pressed on show answer also grades card
 
 -A, A::B issues (see bug report Gnome)
+
+-two tags: Biologi 2:::Genetikk:::DNA:::Bygning::mem and Biologi 2:::Genetikk
+ deselecting leaf tag deselects entire subtree (bug gnome)
+
 
 -change language from japanese: need to translate windows title again
 
