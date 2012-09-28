@@ -196,18 +196,15 @@ class SuperMemo7Txt(FileFormat, MediaPreprocessor):
                     tag_names.remove(_("MISSING_MEDIA"))
                 card.easiness = easiness
                 # There is no possibility to calculate the correct values for
-                # card.acq_reps and card.ret_reps from the SuperMemo file
-                # format.
+                # card.acq_reps and card.ret_reps from the SM file format.
                 card.acq_reps = 0
                 card.ret_reps = 0
                 card.lapses = lapses
-                # The following information is not reconstructed from
-                # SuperMemo: card.acq_reps_since_lapse
+                # card.acq_reps_since_lapse cannot be reconstructed from SM.
                 card.ret_reps_since_lapse = max(0, repetitions - 1)
                 card.last_rep = self.scheduler().midnight_UTC(last)
                 card.next_rep = card.last_rep + interval
-                # The following information from SuperMemo is not used:
-                # UF, O_value
+                # The following information from SM is not used: UF, O_value.
                 self.database().update_card(card)
             state = next_state
         self.warned_about_missing_media = False

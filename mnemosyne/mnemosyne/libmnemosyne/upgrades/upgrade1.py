@@ -121,9 +121,10 @@ class Upgrade1(Component):
         # cards, it will be easier for the user to fix his path errors after
         # the upgrade.
         for name in names:
-            if os.path.isdir(os.path.join(old_data_dir, name)):
-                shutil.copytree(join(old_data_dir, name),
-                                join(new_media_dir, name))
+            if os.path.isdir(join(old_data_dir, name)):
+                if not os.path.exists(join(new_data_dir, name)):
+                    shutil.copytree(join(old_data_dir, name),
+                                    join(new_media_dir, name))
             else:
                 shutil.copyfile(join(old_data_dir, name),
                                 join(new_media_dir, name))

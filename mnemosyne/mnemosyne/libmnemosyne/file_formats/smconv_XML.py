@@ -15,6 +15,7 @@ from mnemosyne.libmnemosyne.file_formats.media_preprocessor \
 HOUR = 60 * 60 # Seconds in an hour.
 DAY = 24 * HOUR # Seconds in a day.
 
+
 class Smconv_XML(FileFormat, MediaPreprocessor):
 
     """Import the xml file created by the smconv.pl script to Mnemosyne.
@@ -43,6 +44,10 @@ class Smconv_XML(FileFormat, MediaPreprocessor):
     import_possible = True
     export_possible = False
 
+    def __init__(self, component_manager):
+        FileFormat.__init__(self, component_manager)
+        MediaPreprocessor.__init__(self, component_manager)
+
     def do_import(self, filename, extra_tag_names=None):
         FileFormat.do_import(self, filename, extra_tag_names)
         w = self.main_widget()
@@ -57,16 +62,21 @@ class Smconv_XML(FileFormat, MediaPreprocessor):
             tag_names += [tag_name.strip() for tag_name \
                 in extra_tag_names.split(",")]
         for element in tree.find("cards").findall("card"):
-            category = card.attrib["category"]
-            commit = not (card.attrib["commit"] == "0")
-            for field in card.find("card_fields").findall("card_field"):
+            print element
+            category = element.attrib["category"]
+            commit = not (element.attrib["commit"] == "0")
+            for field in element.find("card_fields").findall("card_field"):
                 if field.attrib["idx"] == "1":
                     question = field.text
                 else:
                     answer = field.text
-            card_other = card.find("card_other")
-            difficulty = int(card_other.attrib["difficulty"]) #  Default: 40.
-            difficulty_prev = int(card_other.attrib["difficulty_prev"])
+            card_other = element.find("card_other")
+            if card_other is None:
+                difficulty = 40
+                difficulty_prev = 40
+            else:
+                difficulty = int(card_other.attrib["difficulty"])
+                difficulty_prev = int(card_other.attrib["difficulty_prev"])
             # Grades are 0-5. In SM for Palm there are commited and uncommited
             # cards. Uncommited cards go to grade -1.
             # Otherwise try to extrapolate something from difficulty in SM
@@ -89,6 +99,12 @@ class Smconv_XML(FileFormat, MediaPreprocessor):
             elif difficulty < difficulty_prev:
                 grade = 4
             # If the interval becomes shorter, it must have been a failure.
+            if card_other is None:
+                interval = 0
+                interval_prev = 0
+            else:
+                interval = int(card_other.attrib["interval"]) * DAY
+                interval_prev = int(card_other.attrib["interval_prev"]) * DAY
             if interval < interval_prev:
                 grade = 0
             # Construct card.
@@ -96,34 +112,34 @@ class Smconv_XML(FileFormat, MediaPreprocessor):
             self.preprocess_media(fact_data, tag_names)
             card = self.controller().create_new_cards(fact_data, card_type,
                 grade=grade, tag_names=tag_names + [category],
-                check_for_duplicates=False,
-                save=False)[0]
+                check_for_duplicates=False, save=False)[0]
             if _("MISSING_MEDIA") in tag_names:
                 tag_names.remove(_("MISSING_MEDIA"))
-            # TODO: create, commit
-            interval = int(card_other.attrib["interval"]) * DAY
-            interval_prev = int(card_other.attrib["interval_prev"]) * DAY
-            lapses = int(card_other.attrib["lapses"])
-            recalls = int(card_other.attrib["recalls"])
-            datecommit = card_other.attrib["datecommit"]
-            datecreate = card_other.attrib["datecreate"]
-            datenexttest = card_other.attrib["datenexttest"]
-            next_rep = self.scheduler().midnight_UTC(int(time.mktime(\
-                time.strptime(datenexttest,"%Y-%m-%d")))
-            last_rep = next_rep - interval
-            # Try to fill acquisiton reps and retention reps.
-            # Since SM statistics are only available for commited
-            # cards, I take acq_reps = 0 and ret_reps = lapses + recalls.
-            ret_reps = lapses + recalls
-            # Try to derive an easines factor EF from [1.3 .. 3.2] from
-            # difficulty d from [1% .. 100%].
-            # The math below is set to translate
-            # difficulty=100% --> easiness = 1.3
-            # difficulty=40% --> easiness = 2.5
-            # difficulty=1% --> easiness = 3.2
-            dp = difficulty * 0.01
-            # Small values should be easy, large ones hard.
-            if dp > 0.4:
-                easiness = 1.28 - 1.32 * math.log(dp)
-            else:
-                easiness = 4.2 - (1.139 * math.exp(dp))
+            if card_other is not None:
+                card.creation_time = int(time.mktime(time.strptime(\
+                    card_other.attrib["datecreate"], "%Y-%m-%d")))
+                card.modification_time = int(time.mktime(time.strptime(\
+                    card_other.attrib["datecommit"], "%Y-%m-%d")))
+                card.next_rep = self.scheduler().midnight_UTC(int(time.mktime(\
+                    time.strptime(card_other.attrib["datenexttest"],
+                    "%Y-%m-%d"))))
+                card.last_rep = card.next_rep - interval
+                card.lapses = int(card_other.attrib["lapses"])
+                # Try to fill acquisiton reps and retention reps.
+                # Since SM statistics are only available for commited
+                # cards, I take acq_reps = 0 and ret_reps = lapses + recalls.
+                card.ret_reps = card.lapses + int(card_other.attrib["recalls"])
+                # Try to derive an easines factor EF from [1.3 .. 3.2] from
+                # difficulty d from [1% .. 100%].
+                # The math below is set to translate
+                # difficulty=100% --> easiness = 1.3
+                # difficulty=40% --> easiness = 2.5
+                # difficulty=1% --> easiness = 3.2
+                dp = difficulty * 0.01
+                # Small values should be easy, large ones hard.
+                if dp > 0.4:
+                    card.easiness = 1.28 - 1.32 * math.log(dp)
+                else:
+                    card.easiness = 4.2 - 1.139 * math.exp(dp)
+                self.database().update_card(card)
+        self.warned_about_missing_media = False
