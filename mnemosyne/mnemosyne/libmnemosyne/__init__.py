@@ -126,7 +126,9 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.file_formats.supermemo_7_txt",
           "SuperMemo7Txt"),
          ("mnemosyne.libmnemosyne.file_formats.smconv_XML",
-          "Smconv_XML")]
+          "Smconv_XML"),
+         ("mnemosyne.libmnemosyne.file_formats.cuecard_wcu",
+          "CuecardWcu")]
         self.extra_components_for_plugin = {}
 
     def handle_exception(self, type, value, tb):

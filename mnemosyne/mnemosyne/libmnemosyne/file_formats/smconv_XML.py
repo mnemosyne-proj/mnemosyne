@@ -62,7 +62,6 @@ class Smconv_XML(FileFormat, MediaPreprocessor):
             tag_names += [tag_name.strip() for tag_name \
                 in extra_tag_names.split(",")]
         for element in tree.find("cards").findall("card"):
-            print element
             category = element.attrib["category"]
             commit = not (element.attrib["commit"] == "0")
             for field in element.find("card_fields").findall("card_field"):

@@ -1,8 +1,6 @@
--add remaining 1.x import formats
+-paste from clipboard: popup asking to keep formatting or lose it.
 
 -polish stats font (LP bug)
-
--increase non-latin for vocabulary too?
 
 -compact error onder windows (LP bug)
 
@@ -110,8 +108,6 @@ Traceback (innermost last):
 -add debug information for conflict detection?
 
 -synonym checking just like duplicate checking?
-
--paste from clipboard: popup asking to keep formatting or lose it.
 
 -option to pick location of backups in config? Also shows you where the datadir
  is. Backup config too?
