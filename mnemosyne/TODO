@@ -1,14 +1,18 @@
--paste from clipboard: popup asking to keep formatting or lose it.
+-A, A::B issues (see bug report Gnome)
+
+-two tags: Biologi 2:::Genetikk:::DNA:::Bygning::mem and Biologi 2:::Genetikk
+ deselecting leaf tag deselects entire subtree (bug gnome)
 
 -polish stats font (LP bug)
 
 -compact error onder windows (LP bug)
 
--speed up deletion of large number of cards from browser (delete tag if unused, progress bar)
-
 -time making backup of file before sync, both in and out of Python
 
 -popup explaining use of 'compact'
+
+-plugin to not change the remembered tag when changing the card type
+ (Michael Campbell))
 
 -delete / backspace shortcut does not work (Dylan Gordhan)
 
@@ -18,25 +22,15 @@
 
 -keeping key pressed on show answer also grades card
 
--A, A::B issues (see bug report Gnome)
-
--two tags: Biologi 2:::Genetikk:::DNA:::Bygning::mem and Biologi 2:::Genetikk
- deselecting leaf tag deselects entire subtree (bug gnome)
-
-
 -change language from japanese: need to translate windows title again
 
--save cookies
- http://stackoverflow.com/questions/3382640/how-can-i-load-session-information-into-qtwebkit
+-# in media filenames
 
 -don't reset non memorised count when editing cards
 
 -extra space below media player on production cards in Sentence type
 
--# in media filenames
-
-
--merging cards: should give an option to go back and edit
+-merging cards: should give an option to go back and edit?
 
 -when merging duplicate cards, merge tags also (Stephan Maseizik)
 
@@ -102,6 +96,9 @@ Traceback (innermost last):
 -index on cards._fact_id to speed up e.g. sister_card_count_scheduled_between?
 -profile different versions of sister_card_count_scheduled_between
 -try apsw again, but make sure every statement is inside a transaction
+
+-save cookies
+ http://stackoverflow.com/questions/3382640/how-can-i-load-session-information-into-qtwebkit
 
 -migrate webserver to cherrypy, recheck audio files
 

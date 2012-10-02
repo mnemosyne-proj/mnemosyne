@@ -21,6 +21,7 @@ class QTextEdit2(QtGui.QTextEdit):
 
         QtGui.QTextEdit.__init__(self, parent)
         self.pronunciation_hiding = pronunciation_hiding
+        self.setAcceptRichText(False)
 
     def contextMenuEvent(self, e):
         popup = self.createStandardContextMenu()

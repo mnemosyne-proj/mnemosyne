@@ -900,12 +900,13 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self.con.execute("""insert into tags_for_card(_tag_id,
                 _card_id) values(?,?)""", (tag._id, card._id))
 
-    def delete_card(self, card):
+    def delete_card(self, card, check_for_unused_tags=True):
         self.con.execute("delete from cards where _id=?", (card._id, ))
         self.con.execute("delete from tags_for_card where _card_id=?",
             (card._id, ))
-        for tag in card.tags:
-            self.delete_tag_if_unused(tag)
+        if check_for_unused_tags:
+            for tag in card.tags:
+                self.delete_tag_if_unused(tag)
         self.log().deleted_card(card)
         del card
 
