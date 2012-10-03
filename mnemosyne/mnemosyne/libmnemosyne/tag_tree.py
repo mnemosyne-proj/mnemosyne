@@ -41,18 +41,35 @@ class TagTree(Component, dict):
         self.display_name_for_node = {"__ALL__": _("All tags")}
         self.card_count_for_node = {}
         self.tag_for_node = {}
-        for tag in self.database().tags():
-            self.tag_for_node[tag.name] = tag
+        # Preprocess tag names such that each tag results in a leaf of the
+        # tree, i.e. if you have tags like "A::B" and "A", rename the latter
+        # to "A::Untagged".
+        tags = self.database().tags()
+        tag_names = [tag.name for tag in tags]
+        preprocessed_tag_name_for = {}
+        for tag in tags:
+            preprocessed_tag_name_for[tag] = tag.name
+            for other_tag_name in tag_names:
+                if other_tag_name.startswith(tag.name + "::") \
+                    and other_tag_name != tag.name:
+                    preprocessed_tag_name_for[tag] = \
+                        tag.name + "::" + _("Untagged")
+                    break
+        # Build the actual tag tree.
+        for tag in tags:
+            name = preprocessed_tag_name_for[tag]
+            self.tag_for_node[name] = tag
             parent = "__ALL__"
             partial_tag = ""
-            for node in tag.name.split("::"):
+            for node in name.split("::"):
                 if partial_tag:
                     partial_tag += "::"
                 partial_tag += node
                 if not partial_tag in self.display_name_for_node:
                     self[parent].append(partial_tag)
                     self[partial_tag] = []
-                    self.display_name_for_node[partial_tag] = node
+                    self.display_name_for_node[partial_tag] = \
+                        node.replace("::" + _("Untagged"), "")
                 parent = partial_tag
         if "__UNTAGGED__" in self.display_name_for_node:
             self.display_name_for_node["__UNTAGGED__"] = _("Untagged")

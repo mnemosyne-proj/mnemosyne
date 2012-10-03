@@ -40,7 +40,7 @@ class Widget(MainWidget):
         global last_error
         last_error = error
         # Activate this for debugging.
-        #sys.stderr.write(error)
+        sys.stderr.write(error)
 
     def show_question(self, question, option0, option1, option2):
         #sys.stderr.write(question+'\n')
@@ -1109,7 +1109,6 @@ class TestSync(object):
         card_type = self.client.mnemosyne.card_type_with_id("1")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["a"])[0]
-
 
         self.client.do_sync(); assert last_error is None
         self.client.mnemosyne.finalise()

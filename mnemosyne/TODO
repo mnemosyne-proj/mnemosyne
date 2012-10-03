@@ -1,4 +1,8 @@
+-double deletion in sync bug
+
 -A, A::B issues (see bug report Gnome)
+-also for renaming tags
+-test / coverage
 
 -two tags: Biologi 2:::Genetikk:::DNA:::Bygning::mem and Biologi 2:::Genetikk
  deselecting leaf tag deselects entire subtree (bug gnome)
@@ -56,6 +60,18 @@ Traceback (innermost last):
     for event, element in context:
   File "<string>", line 91, in next
  ParseError: not well-formed (invalid token): line 26, column 104
+
+- client-default-20121003-171342.db
+  File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.1-py2.7.egg/openSM2sync/client.py", line 398, in _download_log_entries
+    number_of_entries = int(element_loop.next())
+  File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.1-py2.7.egg/openSM2sync/text_formats/xml_format.py", line 118, in parse_log_entries
+    event, root = context.next()  # 'start' event on openSM2 tag.
+  File "<string>", line 100, in next
+  File "/usr/lib/python2.7/httplib.py", line 541, in read
+    return self._read_chunked(amt)
+  File "/usr/lib/python2.7/httplib.py", line 586, in _read_chunked
+    raise IncompleteRead(''.join(value))
+ IncompleteRead: IncompleteRead(169 bytes read)
 
 -reverse arabic plugin no longer seems to work?
  http://mpcabd.igeex.biz/python-arabic-text-reshaper/
