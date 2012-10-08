@@ -35,14 +35,9 @@ def contract_path(path, start):
 
     """
 
-    # Normalise paths and convert everything to lowercase on Windows.
-    # We avoid os.path.normcase here, so that we can test Windows paths
-    # even when running the testsuite under Linux.
+    # Normalise paths.
     path = os.path.normpath(path)
     start = os.path.normpath(start)
-    if (len(path) > 2) and (path[1] == ":"):
-        path = path.lower()
-        start = start.lower()
     # Do the actual detection.
     if _abs_path(path):
         try:
@@ -63,9 +58,9 @@ def expand_path(path, start):
     """
 
     if _abs_path(path):
-        return os.path.normcase(path)
+        return os.path.normpath(path)
     else:
-        return os.path.normcase(os.path.join(start, path))
+        return os.path.normpath(os.path.join(start, path))
 
 
 def copy_file_to_dir(filename, dirname):
@@ -75,8 +70,8 @@ def copy_file_to_dir(filename, dirname):
 
     """
 
-    filename = os.path.abspath(os.path.normcase(filename))
-    dirname = os.path.abspath(os.path.normcase(dirname))
+    filename = os.path.abspath(filename)
+    dirname = os.path.abspath(dirname)
     if filename.startswith(dirname):
         return contract_path(filename, dirname)
     dest_path = os.path.join(dirname, os.path.basename(filename))

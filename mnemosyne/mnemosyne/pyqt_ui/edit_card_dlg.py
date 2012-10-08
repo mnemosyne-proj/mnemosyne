@@ -144,7 +144,7 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
     def reject(self):  # Override 'add cards' behaviour.
         changed = False
         for fact_key in self.card.fact.data:
-            if self.card_type_widget.fact_data()[fact_key] and \
+            if fact_key in self.card_type_widget.fact_data() and \
                 self.card_type_widget.fact_data()[fact_key] \
                 != self.card.fact.data[fact_key]:
                 changed = True

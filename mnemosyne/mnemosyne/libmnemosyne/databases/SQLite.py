@@ -904,7 +904,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self.con.execute("delete from cards where _id=?", (card._id, ))
         self.con.execute("delete from tags_for_card where _card_id=?",
             (card._id, ))
-        if check_for_unused_tags:
+        if not self.syncing and check_for_unused_tags:
             for tag in card.tags:
                 self.delete_tag_if_unused(tag)
         self.log().deleted_card(card)

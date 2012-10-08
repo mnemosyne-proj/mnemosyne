@@ -1,4 +1,6 @@
--double deletion in sync bug
+-card type cancelling erases all (bug report Gnome)
+
+-mplayer video player
 
 -A, A::B issues (see bug report Gnome)
 -also for renaming tags
@@ -29,6 +31,8 @@
 -change language from japanese: need to translate windows title again
 
 -# in media filenames
+
+-cloze bug reports / uservoice
 
 -don't reset non memorised count when editing cards
 

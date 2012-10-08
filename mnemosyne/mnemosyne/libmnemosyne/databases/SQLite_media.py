@@ -200,6 +200,3 @@ _("Media filename rather long. This could cause problems using this file on a di
             f.run()
         remove_empty_dirs_in(self.media_dir())
 
-
-
-

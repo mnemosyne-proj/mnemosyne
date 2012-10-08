@@ -189,7 +189,7 @@
      <item>
       <widget class="QGroupBox" name="audio_box">
        <property name="title">
-        <string>Audio</string>
+        <string>Audio/video</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
