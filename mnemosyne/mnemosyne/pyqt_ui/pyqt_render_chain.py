@@ -16,6 +16,7 @@ from mnemosyne.libmnemosyne.filters.non_latin_font_size_increase import \
      NonLatinFontSizeIncrease
 if sys.platform == "win32":
     from mnemosyne.pyqt_ui.mplayer_audio import MplayerAudio
+    from mnemosyne.pyqt_ui.mplayer_video import MplayerVideo
 
 class PyQtRenderChain(RenderChain):
 
@@ -23,7 +24,7 @@ class PyQtRenderChain(RenderChain):
 
     if sys.platform == "win32":
         filters = [Latex, EscapeToHtml, ExpandPaths, MplayerAudio,
-            Html5Video, RTLHandler, NonLatinFontSizeIncrease]
+            MplayerVideo, RTLHandler, NonLatinFontSizeIncrease]
     else:
         filters = [Latex, EscapeToHtml, ExpandPaths, Html5Audio,
             Html5Video, RTLHandler, NonLatinFontSizeIncrease]
