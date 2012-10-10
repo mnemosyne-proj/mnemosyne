@@ -5,6 +5,8 @@
  the set and closes the window (requested by Michael Campbell).
 -Added support for video files under Windows (contrary to Linux, they will
  play in an external window using mplayer).
+-When you have both tags "A" and "A::B", the card browser will now show the
+ first tag as "A::Untagged".
 -In 'edit cards', make more robust of no longer warning about discarding
  changes if you did not make any.
 -Sped up deleting of large number of cards from the card browser.

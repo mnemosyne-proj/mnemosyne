@@ -6,7 +6,7 @@ Some information about the contents of the directories:
 -example_scripts: some example script for libmnemosyne.
 -script: very simple frontend, makes it easy to interface with libmnemosyne
  in scripts.
--pyqt_ui: the Qt frontend, written in Python, for use on desktop machines 
+-pyqt_ui: the Qt frontend, written in Python, for use on desktop machines
  under Windows, Linux and OSX.
 -ppygui_ui: the PocketPyGui frontend, for use on Windows Mobile.
 -webserver: the webserver frontend, to do reviews in your browser.

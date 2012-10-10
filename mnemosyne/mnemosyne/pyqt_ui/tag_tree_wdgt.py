@@ -54,7 +54,8 @@ class TagDelegate(QtGui.QStyledItemDelegate):
         # We display the full node (i.e. all levels including ::), so that
         # the hierarchy can be changed upon editing.
         node_index = index.model().index(index.row(), NODE, index.parent())
-        self.previous_node_name = index.model().data(node_index).toString()
+        self.previous_node_name = index.model().data(node_index).toString().\
+            replace("::" + _("Untagged"), "" )
         editor.setText(self.previous_node_name)
 
     def commit_and_close_editor(self):
@@ -167,7 +168,8 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             def __init__(self, old_tag_name):
                 QtGui.QDialog.__init__(self)
                 self.setupUi(self)
-                self.tag_name.setText(old_tag_name)
+                self.tag_name.setText(\
+                    old_tag_name.replace("::" + _("Untagged"), "" ))
 
         old_tag_name = nodes[0]
         dlg = RenameDlg(old_tag_name)
@@ -196,7 +198,8 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             node_item = QtGui.QTreeWidgetItem(qt_parent, [node_name, node], 0)
             node_item.setFlags(node_item.flags() | \
                 QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
-            if node not in ["__ALL__", "__UNTAGGED__"]:
+            if node not in ["__ALL__", "__UNTAGGED__"] and \
+                not "::" + _("Untagged") in node:
                 node_item.setFlags(node_item.flags() | \
                     QtCore.Qt.ItemIsEditable)
                 self.nodes_which_can_be_renamed.append(node)

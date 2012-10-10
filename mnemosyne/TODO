@@ -1,10 +1,3 @@
--A, A::B issues (see bug report Gnome)
--also for renaming tags
--test / coverage
-
--two tags: Biologi 2:::Genetikk:::DNA:::Bygning::mem and Biologi 2:::Genetikk
- deselecting leaf tag deselects entire subtree (bug gnome)
-
 -polish stats font (LP bug)
 
 -compact error onder windows (LP bug)
@@ -22,13 +15,13 @@
 
 -rename card set dialog: prefill with existing name
 
--keeping key pressed on show answer also grades card
+-keeping key pressed on show answer also grades card?
 
 -change language from japanese: need to translate windows title again
 
 -# in media filenames
 
--cloze bug reports / uservoice
+-close bug reports / uservoice
 
 -don't reset non memorised count when editing cards
 
