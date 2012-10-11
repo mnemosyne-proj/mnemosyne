@@ -141,7 +141,9 @@ class TestController(MnemosyneTest):
 
         self.controller().show_add_cards_dialog()
         self.controller().show_edit_card_dialog()
+        self.controller().show_insert_sound_dialog("")
         self.controller().show_insert_video_dialog("")
+        self.controller().show_insert_flash_dialog("")
         self.controller().show_download_source_dialog()
         self.controller().show_sync_dialog()
         self.controller().show_manage_plugins_dialog()

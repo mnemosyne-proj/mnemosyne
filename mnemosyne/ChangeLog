@@ -3,6 +3,8 @@
  Palm, Cuecard WCU.
 -Double-clicking on a saved set in 'Activate cards' now automatically selects
  the set and closes the window (requested by Michael Campbell).
+-Add "Insert Flash" option (Note: Flash needs to be installed on your system
+ for this to work) (requested by Gnome).
 -Added support for video files under Windows (contrary to Linux, they will
  play in an external window using mplayer).
 -When you have both tags "A" and "A::B", the card browser will now show the

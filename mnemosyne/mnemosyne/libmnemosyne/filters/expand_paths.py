@@ -13,7 +13,12 @@ class ExpandPaths(Filter):
     """Fill out relative paths for src tags (e.g. img src or sound src)."""
 
     def run(self, text, card, fact_key, **render_args):
-        i = text.lower().find("src")
+        text = self.expand_tag("src", text)
+        text = self.expand_tag("data", text) # For Flash.
+        return text
+
+    def expand_tag(self, tag, text):
+        i = text.lower().find(tag)
         while i != -1:
             start = text.find("\"", i)
             end = text.find("\"", start + 1)
@@ -27,5 +32,5 @@ class ExpandPaths(Filter):
                 text = text[:start+1] + "file://" + new_path + text[end:]
             # Since text is always longer now, we can start searching
             # from the previous end tag.
-            i = text.lower().find("src", end + 1)
+            i = text.lower().find(tag, end + 1)
         return text

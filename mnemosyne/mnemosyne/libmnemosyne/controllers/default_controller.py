@@ -655,6 +655,21 @@ class DefaultController(Controller):
             filename = copy_file_to_dir(filename, media_dir)
             return filename
 
+    def show_insert_flash_dialog(self, filter):
+        from mnemosyne.libmnemosyne.utils import copy_file_to_dir
+        data_dir, media_dir = self.config().data_dir, self.database().media_dir()
+        path = expand_path(self.config()["import_flash_dir"], data_dir)
+        filter = _("Flash files") + " " + filter
+        filename = self.main_widget().get_filename_to_open(\
+            path, filter, _("Insert Flash"))
+        if not filename:
+            return ""
+        else:
+            self.config()["import_flash_dir"] = contract_path(\
+                os.path.dirname(filename), data_dir)
+            filename = copy_file_to_dir(filename, media_dir)
+            return filename
+
     def show_browse_cards_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()

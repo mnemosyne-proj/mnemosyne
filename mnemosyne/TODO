@@ -1,3 +1,5 @@
+-flash format <object type="application/x-shockwave-flash" data="foo.swf" />
+
 -polish stats font (LP bug)
 
 -compact error onder windows (LP bug)
@@ -140,7 +142,6 @@ Traceback (innermost last):
  (was 10, is now 30)
 
 -insert latex tags shortcut and menu (phyTech)
--flash format <object type="application/x-shockwave-flash" data="foo.swf" />
 
 -errors in scripting engine related to main_widget
 

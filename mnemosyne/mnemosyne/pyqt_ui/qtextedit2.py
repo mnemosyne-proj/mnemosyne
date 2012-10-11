@@ -32,6 +32,8 @@ class QTextEdit2(QtGui.QTextEdit):
                         QtGui.QKeySequence(_("Ctrl+S")))
         popup.addAction(_("Insert vi&deo"), self.insert_video,
                         QtGui.QKeySequence(_("Ctrl+D")))
+        popup.addAction(_("Insert &Flash"), self.insert_flash,
+                        QtGui.QKeySequence(_("Ctrl+F")))
         if self.pronunciation_hiding in [True, False]:
             popup.addSeparator()
             self.hide_action = QtGui.QAction(\
@@ -73,5 +75,10 @@ class QTextEdit2(QtGui.QTextEdit):
         if filename:
             self.insertPlainText("<video src=\"" + filename + "\">")
 
-
-
+    def insert_flash(self):
+        filter = "(*.swf *.SWF)"
+        filename = self.parent().controller().show_insert_flash_dialog(filter)
+        if filename:
+            self.insertPlainText(\
+                "<object type=\"application/x-shockwave-flash\" data=\"" \
+                + filename + "\" />")
