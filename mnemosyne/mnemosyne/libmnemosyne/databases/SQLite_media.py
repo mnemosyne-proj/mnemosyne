@@ -152,13 +152,14 @@ _("Media filename rather long. This could cause problems using this file on a di
 
         """
 
+        case_insensitive = is_filesystem_case_insensitive()
         # Files referenced in the database.
         files_in_db = set()
         for result in self.con.execute(\
             "select value from data_for_fact where value like '%src=%'"):
             for match in re_src.finditer(result[0]):
                 filename = match.group(1)
-                if is_filesystem_case_insensitive():
+                if case_insensitive:
                     filename = filename.lower()
                 files_in_db.add(filename)
         # Files in the media dir.
@@ -171,7 +172,7 @@ _("Media filename rather long. This could cause problems using this file on a di
                 # Paths are stored using unix convention.
                 if root:
                     filename = root + "/" + filename
-                if is_filesystem_case_insensitive():
+                if case_insensitive:
                     filename = filename.lower()
                 files_in_media_dir.add(filename)
         return files_in_media_dir - files_in_db

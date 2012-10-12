@@ -14,11 +14,14 @@
 -Sped up deleting of large number of cards from the card browser.
 -When pasting into the "Add cards" or "Edit cards" dialog, respect the
  formatting of the card field.
+-Fix crash in 'Compact database' involving too many open files (reported by
+ Pawel Szerszon).
 -Changing card types and deleting cards from the card browser is now faster.
 -No longer convert filenames to lower case on Windows (requested by Michael
  Campbell).
 -Fix another crash involving duplicates while converting cards (reported by
  Gnome).
+-Fix displaying non-latin characters in statistics (reported by Pawel Szerszon).
 -Don't erase fields when cancelling a card type conversion (reported by Gnome).
 -Fix harmless error message when converting to Cloze cards in the card browser
  (reported by Michael Campbell).

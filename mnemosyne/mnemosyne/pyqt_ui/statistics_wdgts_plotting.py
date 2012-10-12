@@ -51,6 +51,8 @@ class PlotStatisticsWdgt(QtGui.QWidget, StatisticsWidget):
         if self.config()["ui_language"].lower().startswith("zh"):
             rcParams['font.sans-serif'] = \
                 ["Microsoft YaHei", "WenQuanYi Zen Hei", "Ume P Gothic O5"]
+        else:
+            rcParams['font.sans-serif'] = ["Arial"]
 
     def display_message(self, text):
         self.axes.clear()

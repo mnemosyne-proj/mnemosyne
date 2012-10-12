@@ -101,8 +101,12 @@ def remove_empty_dirs_in(path, level=0):
 def is_filesystem_case_insensitive():
     # By default mkstemp() creates a file with a name that begins with
     # 'tmp' (lowercase)
-    tmphandle, tmppath = tempfile.mkstemp()
-    return os.path.exists(tmppath.upper())
+    tmp_handle, tmp_path = tempfile.mkstemp()
+    tmp_file = os.fdopen(tmp_handle, "w")
+    result = os.path.exists(tmp_path.upper())
+    tmp_file.close()
+    os.remove(tmp_path)
+    return result
 
 
 def numeric_string_cmp(s1, s2):

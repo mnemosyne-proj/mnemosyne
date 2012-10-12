@@ -597,6 +597,7 @@ class DefaultController(Controller):
         self.component_manager.current("compact_database_dialog")\
             (self.component_manager).activate()
         self.review_controller().reset_but_try_to_keep_current_card()
+        self.main_widget().show_information(_("Done!"))
         self.stopwatch().unpause()
 
     def show_insert_img_dialog(self, filter):

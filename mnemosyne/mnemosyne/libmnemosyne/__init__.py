@@ -132,7 +132,9 @@ class Mnemosyne(Component):
         self.extra_components_for_plugin = {}
 
     def handle_exception(self, type, value, tb):
-        body = "Uncaught exception!\nTraceback (innermost last):\n"
+        body = "An unexpected error has occurred.\n" + \
+            "Please forward the following info to the developers:\n" + \
+            "Traceback (innermost last):\n"
         list = traceback.format_tb(tb, limit=None) + \
                traceback.format_exception_only(type, value)
         body = body + "%-20s %s" % ("".join(list[:-1]), list[-1])
