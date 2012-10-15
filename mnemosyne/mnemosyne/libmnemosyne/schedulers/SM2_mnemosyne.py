@@ -613,17 +613,17 @@ class SM2Mnemosyne(Scheduler):
         elif interval_days >= -1:
             return _("today")
         elif interval_days >= -2:
-            return _("yesterday")
+            return _("one day overdue")
         elif interval_days >= -31:
-            return str(int(-interval_days) - 1) + " " + _("days ago")
+            return str(int(-interval_days) - 1) + " " + _("days overdue")
         elif interval_days >= -62:
-            return _("1 month ago")
+            return _("1 month overdue")
         elif interval_days >= -365:
             interval_months = int(-interval_days/31)
-            return str(interval_months) + " " + _("months ago")
+            return str(interval_months) + " " + _("months overdue")
         else:
             interval_years = -interval_days/365.
-            return "%.1f " % interval_years +  _("years ago")
+            return "%.1f " % interval_years +  _("years overdue")
 
     def last_rep_to_interval_string(self, last_rep, now=None):
 

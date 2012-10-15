@@ -143,7 +143,9 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.export_metadata_dlg",
                              "ExportMetadataDlg"))
 mnemosyne.extra_components_for_plugin["CrammingPlugin"] = \
                             [("mnemosyne.pyqt_ui.review_wdgt_cramming",
-                             "ReviewWdgtCramming")]
+                             "ReviewWdgtCramming"),
+                             ("mnemosyne.pyqt_ui.configuration_wdgt_cramming",
+                             "ConfigurationWdgtCramming")]
 
 # Run Mnemosyne.
 mnemosyne.initialise(data_dir=data_dir, filename=filename,

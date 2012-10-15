@@ -1,4 +1,6 @@
--time making backup of file before sync, both in and out of Python
+-improve cramming scheduler: sort order, don't store state, status bar stats
+
+time making backup of file before sync, both in and out of Python
 
 -popup explaining use of 'compact'
 
