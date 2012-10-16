@@ -1,4 +1,4 @@
--improve cramming scheduler: sort order, don't store state, status bar stats
+-improve cramming scheduler: sort order, don't store state
 
 time making backup of file before sync, both in and out of Python
 
@@ -10,6 +10,8 @@ time making backup of file before sync, both in and out of Python
 -delete / backspace shortcut does not work (Dylan Gordhan)
 
 -first run: save set. Next time: tag pane is hidden (LP bug)
+
+-png display on first start (LP bug)
 
 -rename card set dialog: prefill with existing name
 

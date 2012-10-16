@@ -8,6 +8,7 @@ import cPickle
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.libmnemosyne.schedulers.cramming import RANDOM
 from mnemosyne.libmnemosyne.utils import rand_uuid, traceback_string
 
 config_py = \
@@ -111,6 +112,8 @@ class Configuration(Component, dict):
              "non_memorised_cards_in_hand": 10,
              "randomise_new_cards": False,
              "randomise_scheduled_cards": False,
+             "cramming_store_state": True,
+             "cramming_order": RANDOM,
              "show_intervals": "never",
              "only_editable_when_answer_shown": False,
              "show_tags_during_review": True,

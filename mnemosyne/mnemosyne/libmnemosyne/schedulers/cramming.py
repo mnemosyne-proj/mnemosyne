@@ -4,6 +4,11 @@
 
 from mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne import SM2Mnemosyne
 
+RANDOM = 0
+EARLIEST_FIRST = 1
+LATEST_FIRST = 2
+MOST_LAPSES_FIRST = 3
+
 
 class Cramming(SM2Mnemosyne):
 
