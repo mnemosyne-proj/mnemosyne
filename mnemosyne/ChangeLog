@@ -1,3 +1,6 @@
+(Note that for Windows users we recommend uninstalling the previous version
+before installing the new one.)
+
 -Added menu option to detect duplicates in the database.
 -Ported missing import file formats from 1.x: SuperMemo7 text, SuperMemo from
  Palm, Cuecard WCU.
@@ -14,6 +17,8 @@
 -Sped up deleting of large number of cards from the card browser.
 -When pasting into the "Add cards" or "Edit cards" dialog, respect the
  formatting of the card field.
+-Better support for non-latin characters in sound files under Windows (reported
+ by Raoul Pontecaille).
 -Fix crash in 'Compact database' involving too many open files (reported by
  Pawel Szerszon).
 -Changing card types and deleting cards from the card browser is now faster.

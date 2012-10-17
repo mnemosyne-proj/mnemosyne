@@ -40,7 +40,12 @@ class MplayerVideo(Filter):
             try:
                 video_file.decode("ascii")
             except UnicodeEncodeError:
-                new_name = unicode(os.path.join(self.database().media_dir(),
+                media_dir = self.database().media_dir()
+                try:
+                    media_dir.decode("ascii")
+                except:
+                    media_dir = "C:\\"
+                new_name = unicode(os.path.join(media_dir,
                     "___" + str(index) + "___.mp4"))
                 shutil.copy(video_file.replace("file:///", ""), new_name)
                 index += 1
