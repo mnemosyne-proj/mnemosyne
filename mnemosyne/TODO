@@ -1,8 +1,12 @@
 -improve cramming scheduler: sort order, don't store state
 
+-media start stop windows: could not convert string to float.
+
 time making backup of file before sync, both in and out of Python
 
 -popup explaining use of 'compact'
+
+-linebreaks in javascript (LP bug)
 
 -plugin to not change the remembered tag when changing the card type
  (Michael Campbell))
@@ -117,6 +121,8 @@ Traceback (innermost last):
 -migrate webserver to cherrypy, recheck audio files
 
 -add debug information for conflict detection?
+
+-automatic font size adjustment: http://www.spookandpuff.com/examples/dynamicTextSize.html
 
 -synonym checking just like duplicate checking?
 

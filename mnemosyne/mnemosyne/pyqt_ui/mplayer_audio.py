@@ -44,7 +44,12 @@ class MplayerAudio(Filter):
                 try:
                     media_dir.decode("ascii")
                 except:
-                    media_dir = "C:\\"
+                    import tempfile
+                    tmp_handle, tmp_path = tempfile.mkstemp()
+                    tmp_file = os.fdopen(tmp_handle, "w")
+                    media_dir = os.path.dirname(tmp_path)
+                    tmp_file.close()
+                    os.remove(tmp_path)
                 new_name = unicode(os.path.join(media_dir,
                     "___" + str(index) + "___.mp3"))
                 shutil.copy(sound_file.replace("file:///", ""), new_name)
