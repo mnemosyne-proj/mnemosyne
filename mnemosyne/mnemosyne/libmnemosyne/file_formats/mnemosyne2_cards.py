@@ -38,7 +38,8 @@ class Mnemosyne2Cards(FileFormat):
             return -1
         metadata_file = file("METADATA", "w")
         for key, value in metadata.iteritems():
-            print >> metadata_file, key + ":" + value.strip().encode("utf-8")
+            print >> metadata_file, key + ":" + \
+                value.strip().replace("\n", "<br>").encode("utf-8")
         metadata_file.close()
         db = self.database()
         w = self.main_widget()
@@ -194,7 +195,7 @@ class Mnemosyne2Cards(FileFormat):
         metadata = {}
         for line in file(metadata_filename):
             key, value = line.split(":", 1)
-            metadata[key] = value
+            metadata[key] = value.replace("<br>", "\n")
         self.controller().show_export_metadata_dialog(metadata, read_only=True)
         # Parse XML.
         self.database().card_types_to_instantiate_later = set()

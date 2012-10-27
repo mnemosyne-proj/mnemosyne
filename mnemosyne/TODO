@@ -1,5 +1,9 @@
 -improve cramming scheduler: sort order, don't store state
 
+-multiline notes, fix uploaded card sets
+
+-can cancel in upper right corner when showing card import info
+
 -media start stop windows: could not convert string to float.
 
 time making backup of file before sync, both in and out of Python

@@ -17,6 +17,7 @@ before installing the new one.)
 -Sped up deleting of large number of cards from the card browser.
 -When pasting into the "Add cards" or "Edit cards" dialog, respect the
  formatting of the card field.
+-Bug fix involving notes with multiple lines with exporting cards.
 -Better support for non-latin characters in sound files under Windows (reported
  by Raoul Pontecaille).
 -Fix crash in 'Compact database' involving too many open files (reported by
