@@ -125,6 +125,10 @@ class Mnemosyne1(MediaPreprocessor):
                 p_1, m_1 = "", item.a
             fact_data = {"f": item.q, "p_1": p_1, "m_1": m_1}
             self.preprocess_media(fact_data, tag_names)
+            if not fact_data["f"]:
+                fact_data["f"] = "<missing>"
+            if not fact_data["m_1"]:
+                fact_data["m_1"] = "<missing>"
             card_1, card_2 = self.controller().create_new_cards(fact_data,
                 card_type, grade=-1, tag_names=tag_names,
                 check_for_duplicates=False, save=False)
