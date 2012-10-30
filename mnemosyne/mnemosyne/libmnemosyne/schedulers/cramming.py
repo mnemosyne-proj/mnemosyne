@@ -18,6 +18,16 @@ class Cramming(SM2Mnemosyne):
 
     name = "cramming"
 
+    def __init__(self, component_manager):
+        SM2Mnemosyne.__init__(self, component_manager)
+        self.first_run = True
+
+    def reset(self):
+        if self.first_run and self.config()["cramming_store_state"] == False:
+            self.database().set_scheduler_data(self.UNSEEN)
+        self.first_run = False
+        SM2Mnemosyne.reset(self)
+
     def rebuild_queue(self, learn_ahead=False):
         db = self.database()
         if not db.is_loaded() or not db.active_count():
@@ -25,10 +35,19 @@ class Cramming(SM2Mnemosyne):
         self._card_ids_in_queue = []
         self._fact_ids_in_queue = []
         self.criterion = db.current_criterion()
+        # Determine sort key.
+        if self.config()["cramming_order"] == RANDOM:
+            sort_key = "random"
+        elif self.config()["cramming_order"] == EARLIEST_FIRST:
+            sort_key = "next_rep"
+        elif self.config()["cramming_order"] == LATEST_FIRST:
+            sort_key = "next_rep desc"
+        elif self.config()["cramming_order"] == MOST_LAPSES_FIRST:
+            sort_key = "lapses desc"
         # Stage 1 : do all the unseen cards.
         if self.stage == 1:
             for _card_id, _fact_id in db.cards_with_scheduler_data(self.UNSEEN,
-                                      sort_key="random", limit=25):
+                                      sort_key=sort_key, limit=25):
                 if _fact_id not in self._fact_ids_in_queue:
                     self._card_ids_in_queue.append(_card_id)
                     self._fact_ids_in_queue.append(_fact_id)
@@ -38,7 +57,7 @@ class Cramming(SM2Mnemosyne):
         # Stage 2: do the cards we got wrong.
         if self.stage == 2:
             for _card_id, _fact_id in db.cards_with_scheduler_data(self.WRONG,
-                                      sort_key="random", limit=25):
+                                      sort_key=sort_key, limit=25):
                 if _fact_id not in self._fact_ids_in_queue:
                     self._card_ids_in_queue.append(_card_id)
                     self._fact_ids_in_queue.append(_fact_id)

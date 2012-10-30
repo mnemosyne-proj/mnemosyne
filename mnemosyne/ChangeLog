@@ -2,6 +2,10 @@
 before installing the new one.)
 
 -Added menu option to detect duplicates in the database.
+-Made the cramming scheduler more configurable. Cards can now be studied in
+ random order, earliest first, lastest first or most lapses first. Also,
+ you have the option of whether to save the scheduler state or not when exiting
+ the program.
 -Ported missing import file formats from 1.x: SuperMemo7 text, SuperMemo from
  Palm, Cuecard WCU.
 -Double-clicking on a saved set in 'Activate cards' now automatically selects
