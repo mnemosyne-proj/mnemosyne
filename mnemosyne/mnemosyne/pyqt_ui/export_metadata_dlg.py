@@ -23,6 +23,7 @@ class ExportMetadataDlg(QtGui.QDialog, Ui_ExportMetadataDlg,
         self.author_name.setText(self.config()["author_name"])
         self.author_email.setText(self.config()["author_email"])
         self.date.setDate(QtCore.QDate.currentDate())
+        self.allow_cancel = True
         self.cancelled = False
 
     def activate(self):
@@ -55,6 +56,28 @@ class ExportMetadataDlg(QtGui.QDialog, Ui_ExportMetadataDlg,
         self.date.setReadOnly(True)
         self.revision.setReadOnly(True)
         self.notes.setReadOnly(True)
+        self.allow_cancel = False
+
+    def closeEvent(self, event):
+        # Generated when clicking the window's close button.
+        if self.allow_cancel:
+            event.ignore()
+            self.reject()
+        else:
+            event.ignore()
+
+    def keyPressEvent(self, event):
+        # Note: for the following to work reliably, there should be no
+        # shortcuts defined in the ui file.
+        if event.key() == QtCore.Qt.Key_Escape or (event.modifiers() in \
+            [QtCore.Qt.ControlModifier, QtCore.Qt.AltModifier] and \
+            event.key() == QtCore.Qt.Key_E):
+            if self.allow_cancel:
+                self.reject()
+            else:
+                event.ignore()
+        else:
+            QtGui.QDialog.keyPressEvent(self, event)
 
     def reject(self):
         self.cancelled = True

@@ -35,6 +35,7 @@ before installing the new one.)
  Gnome).
 -Fix displaying non-latin characters in statistics (reported by Pawel Szerszon).
 -Don't erase fields when cancelling a card type conversion (reported by Gnome).
+-Don't allow cancelling the import metadata information dialog.
 -Fix harmless error message when converting to Cloze cards in the card browser
  (reported by Michael Campbell).
 -Upgraded to lastest version of Qt/PyQt.

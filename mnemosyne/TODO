@@ -1,10 +1,8 @@
--multiline notes, fix uploaded card sets
+-first run: save set. Next time: tag pane is hidden (LP bug)
 
--can cancel in upper right corner when showing card import info
+-png display on first start (LP bug)
 
 -media start stop windows: could not convert string to float.
-
--time making backup of file before sync, both in and out of Python
 
 -popup explaining use of 'compact'
 
@@ -15,13 +13,7 @@
 
 -delete / backspace shortcut does not work (Dylan Gordhan)
 
--first run: save set. Next time: tag pane is hidden (LP bug)
-
--png display on first start (LP bug)
-
 -rename card set dialog: prefill with existing name
-
--extra space below media player on production cards in Sentence type
 
 -merging cards: should give an option to go back and edit?
 
@@ -31,6 +23,9 @@
 
 -close bug reports / uservoice
 
+-extra space below media player on production cards in Sentence types
+
+-time making backup of file before sync, both in and out of Python
 
 -# in media filenames
 
