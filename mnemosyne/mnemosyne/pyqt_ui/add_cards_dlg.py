@@ -143,8 +143,9 @@ class AddEditCards(TipAfterStartingNTimes):
             self.correspondence, check_required_fact_keys=False, parent=self)
         if dlg.exec_() != QtGui.QDialog.Accepted:
             # Set correspondence so as not to erase previous data.
-            self.correspondence = {key: key \
-                for key in self.card_type.fact_keys()}
+            self.correspondence = {}
+            for key in self.card_type.fact_keys():
+                self.correspondence[key] = key
             self.card_types_widget.setCurrentIndex(self.card_type_index)
             return
         else:
