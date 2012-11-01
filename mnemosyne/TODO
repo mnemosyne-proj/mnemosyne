@@ -6,10 +6,12 @@
 
 -popup explaining use of 'compact'
 
--linebreaks in javascript (LP bug)
-
 -plugin to not change the remembered tag when changing the card type
- (Michael Campbell))
+ (Michael Campbell)
+
+
+
+-close bug reports / uservoice
 
 -delete / backspace shortcut does not work (Dylan Gordhan)
 
@@ -19,9 +21,7 @@
 
 -when merging duplicate cards, merge tags also (Stephan Maseizik)
 
-
-
--close bug reports / uservoice
+-custom tag plugin (uservoice)
 
 -extra space below media player on production cards in Sentence types
 

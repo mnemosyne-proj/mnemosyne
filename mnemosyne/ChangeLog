@@ -6,6 +6,8 @@ before installing the new one.)
  random order, earliest first, lastest first or most lapses first. Also,
  you have the option of whether to save the scheduler state or not when exiting
  the program.
+-Fix errors coming from loading config files (reported by knutflatland and
+ many others).
 -Ported missing import file formats from 1.x: SuperMemo7 text, SuperMemo from
  Palm, Cuecard WCU.
 -Double-clicking on a saved set in 'Activate cards' now automatically selects
@@ -16,6 +18,7 @@ before installing the new one.)
  play in an external window using mplayer).
 -When you have both tags "A" and "A::B", the card browser will now show the
  first tag as "A::Untagged".
+-javascript can not contain line breaks (reported by iBayer and gnome).
 -In 'edit cards', make more robust of no longer warning about discarding
  changes if you did not make any.
 -Sped up deleting of large number of cards from the card browser.

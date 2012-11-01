@@ -187,6 +187,7 @@ class Configuration(Component, dict):
             for key, value in cPickle.load(config_file).iteritems():
                 self[key] = value
             self.set_defaults()
+            config_file.close()
         except:
             from mnemosyne.libmnemosyne.utils import traceback_string
             raise RuntimeError, _("Error in config:") \
@@ -196,6 +197,8 @@ class Configuration(Component, dict):
         try:
             config_file = file(os.path.join(self.config_dir, "config"), "wb")
             cPickle.dump(dict(self), config_file)
+            # http://mail.python.org/pipermail/tutor/2003-December/027185.html
+            config_file.close()
         except:
             from mnemosyne.libmnemosyne.utils import traceback_string
             raise RuntimeError, _("Unable to save config file:") \
