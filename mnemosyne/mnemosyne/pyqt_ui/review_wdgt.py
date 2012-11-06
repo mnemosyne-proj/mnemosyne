@@ -47,20 +47,22 @@ class QAOptimalSplit(object):
         self.required_question_size = self.question.size()
         self.required_answer_size = self.answer.size()
         self.is_answer_showing = False
-        self.first_time = True
+        self.times_resized = 0
 
     def resizeEvent(self, event):
         # Update stretch factors when changing the size of the window.
         self.set_question(self.question_text)
         self.set_answer(self.answer_text)
-        # To get this working the first time we start the program, we need to
-        # explicitly show the contents. We don't do this on subsequent resizes
-        # to prevent flicker and media replays.
-        if self.first_time:
-            self.first_time = False
+        # To get this working the first time we start the program (in general,
+        # the first one or two resize events, depending on whether or not we
+        # changed the window size), we need to explicitly show the contents.
+        # We don't do this on subsequent resizes to prevent flicker and media
+        # replays.
+        if self.times_resized < 2:
             self.reveal_question()
             if self.is_answer_showing:
                 self.reveal_answer()
+            self.times_resized += 1
         return QtGui.QWidget.resizeEvent(self, event)
 
     def question_preview_load_finished(self):

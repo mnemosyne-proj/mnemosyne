@@ -1,8 +1,6 @@
--first run: save set. Next time: tag pane is hidden (LP bug)
+-first run: save set. Next time: tag pane is hidden, check on Windows too (LP bug)
 
--png display on first start (LP bug)
-
--media start stop windows: could not convert string to float.
+-media start stop windows: could not convert string to float. Check on Windows
 
 -popup explaining use of 'compact'
 
@@ -34,6 +32,8 @@
 -keeping key pressed on show answer also grades card?
 
 -change language from japanese: need to translate windows title agains
+
+-support UFT 16?
 
 -sync problem: tag b exists, card with tag a rename tag to a.b, edit card?, then
 rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict for client)
