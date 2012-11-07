@@ -81,8 +81,9 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         if self.saved_sets.count() == 0:
             self.splitter.setSizes([0, sum(splitter_sizes)])
         else:
-            if splitter_sizes[0] == 0:
-                self.splitter.setSizes([100, sum(splitter_sizes)-100])
+            if splitter_sizes[0] == 0: # First time we add a set.
+                self.splitter.setSizes([0.3* sum(splitter_sizes),
+                    0.7 * sum(splitter_sizes)])
 
     def saved_sets_custom_menu(self, pos):
         menu = QtGui.QMenu()

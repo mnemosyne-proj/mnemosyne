@@ -32,6 +32,8 @@ before installing the new one.)
  by Raoul Pontecaille).
 -Fix crash in 'Compact database' involving too many open files (reported by
  Pawel Szerszon).
+-Fix situation where tag pane would be no longer visible after adding a first
+ saved card set.
 -Changing card types and deleting cards from the card browser is now faster.
 -No longer convert filenames to lower case on Windows (requested by Michael
  Campbell).

@@ -1,5 +1,3 @@
--first run: save set. Next time: tag pane is hidden, check on Windows too (LP bug)
-
 -media start stop windows: could not convert string to float. Check on Windows
 
 -popup explaining use of 'compact'

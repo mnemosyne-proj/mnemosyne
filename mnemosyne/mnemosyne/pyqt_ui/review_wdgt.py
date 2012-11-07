@@ -56,8 +56,8 @@ class QAOptimalSplit(object):
         # To get this working the first time we start the program (in general,
         # the first one or two resize events, depending on whether or not we
         # changed the window size), we need to explicitly show the contents.
-        # We don't do this on subsequent resizes to prevent flicker and media
-        # replays.
+        # (Qt bug?). We don't do this on subsequent resizes to prevent flicker
+        # and media replays.
         if self.times_resized < 2:
             self.reveal_question()
             if self.is_answer_showing:
