@@ -1,10 +1,9 @@
 -media start stop windows: could not convert string to float. Check on Windows
 
--popup explaining use of 'compact'
-
 -plugin to not change the remembered tag when changing the card type
  (Michael Campbell)
 
+-ask Patrick to test if OSX message pops up after upgrade.
 
 
 -close bug reports / uservoice
@@ -122,7 +121,7 @@ Traceback (innermost last):
 -synonym checking just like duplicate checking?
 
 -option to pick location of backups in config? Also shows you where the datadir
- is. Backup config too?
+ is. Backup config too? Or explicit 'backup' option?
 
 -When making a changes in the selection in the (de)activate dialog, the warning
  that you have learned 15 cards does not show

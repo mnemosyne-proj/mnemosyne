@@ -24,6 +24,7 @@ class CompactThread(QtCore.QThread):
     def __init__(self, mnemosyne):
         QtCore.QThread.__init__(self)
         self.mnemosyne = mnemosyne
+
     def run(self):
         try:
             self.mnemosyne.database().compact()
@@ -43,6 +44,10 @@ class CompactDatabaseDlg(QtGui.QDialog, Ui_CompactDatabaseDlg,
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
+        if not self.config()["compact_help_shown"]:
+            self.main_widget().show_information(\
+ _("Here, you can delete media files which are no longer used. You can also compact the database, but this is only relevant if you deleted a large number of cards."))
+            self.config()["compact_help_shown"] = True
 
     def activate(self):
         self.exec_()
@@ -70,4 +75,5 @@ class CompactDatabaseDlg(QtGui.QDialog, Ui_CompactDatabaseDlg,
 
     def finish_compact(self):
         self.main_widget().close_progress()
+        self.main_widget().show_information(_("Done!"))
         QtGui.QDialog.accept(self)

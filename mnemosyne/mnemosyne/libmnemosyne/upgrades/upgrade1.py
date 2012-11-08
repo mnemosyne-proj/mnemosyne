@@ -24,11 +24,7 @@ class Upgrade1(Component):
         # Determine old data_dir.
         home = os.path.expanduser("~")
         if sys.platform == "darwin":
-            # Work around os.path.exists seeming to give wrong results on
-            # OSX 10.6 (but not 10.7).
-            new_data_dir = join(unicode(home), "Library", "Mnemosyne")
-            if os.path.exists(join(new_data_dir, "default.db")):
-                return
+            # This is where backup_old_dir put the old data dir.
             old_data_dir = join(unicode(home), "Library", "Mnemosyne_1")
         else:
             try:
@@ -51,10 +47,21 @@ class Upgrade1(Component):
             # Work around os.path.exists seeming to give wrong results on
             # OSX 10.6 (but not 10.7).
             if os.path.exists(join(old_data_dir, "default.db")):
+                # Data was already backed up.
                 return
-            if os.path.exists(old_data_dir) and \
-                not os.path.exists(backup_dir):
-                shutil.move(old_data_dir, backup_dir)
+            if os.path.exists(old_data_dir):
+                if not os.path.exists(backup_dir):
+                    old_files = sorted(os.listdir(old_data_dir))
+                    shutil.move(old_data_dir, backup_dir)
+                    new_files = sorted(os.listdir(backup_dir))
+                    assert old_files == new_files
+                    self.main_widget().show_information(\
+                _("Your old 1.x files are now stored here:\n\n" + backup_dir))
+                else:
+                    self.main_widget().show_error(\
+_("Tried to backup your old 1.x files to %s, but that directory already exists.") \
+                    % (backup_dir,))
+                    sys.exit()
 
     def upgrade_from_old_data_dir(self, old_data_dir):
         join = os.path.join
@@ -105,7 +112,7 @@ class Upgrade1(Component):
             "DIRECTORY_NO_LONGER_USED_BY_MNEMOSYNE2", "error_log.txt",
             "latex", "plugins", "log.txt", "history"] \
             and not name.endswith(".mem")]
-        self.main_widget().set_progress_text("Copying files from 1.x...")
+        self.main_widget().set_progress_text(_("Copying files from 1.x..."))
         # By copying over the history folder and log.txt, we also completely
         # preserve the state of all the files that need to uploaded to the
         # science server.

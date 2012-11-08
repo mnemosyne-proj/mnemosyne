@@ -27,6 +27,7 @@ class PyQtConfiguration(Hook):
              "edit_card_dlg_state": None,
              "plugins_dlg_state": None,
              "clone_help_shown": False,
+             "compact_help_shown": False,
              "browse_cards_dlg_state": None,
              "browse_cards_dlg_splitter_1_state": None,
              "browse_cards_dlg_splitter_2_state": None,

@@ -431,31 +431,31 @@ class TestScheduler(MnemosyneTest):
         assert sch.next_rep_to_interval_string(\
             sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
             calendar.timegm(now.timetuple())) == \
-            "yesterday"
+            "1 day overdue"
 
         next_rep = now - datetime.timedelta(2)
         assert sch.next_rep_to_interval_string(\
             sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
             calendar.timegm(now.timetuple())) == \
-            "2 days ago"
+            "2 days overdue"
 
         next_rep = now - datetime.timedelta(32)
         assert sch.next_rep_to_interval_string(\
             sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
             calendar.timegm(now.timetuple())) == \
-            "1 month ago"
+            "1 month overdue"
 
         next_rep = now - datetime.timedelta(64)
         assert sch.next_rep_to_interval_string(\
             sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
             calendar.timegm(now.timetuple())) == \
-            "2 months ago"
+            "2 months overdue"
 
         next_rep = now - datetime.timedelta(365)
         assert sch.next_rep_to_interval_string(\
             sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
             calendar.timegm(now.timetuple())) == \
-            "1.0 years ago"
+            "1.0 years overdue"
 
     def test_next_rep_to_interval_string_2(self):
         os.environ["TZ"] = "Europe/Brussels"
@@ -484,19 +484,19 @@ class TestScheduler(MnemosyneTest):
         assert sch.next_rep_to_interval_string(next_rep, now) == "today"
 
         next_rep = sch.midnight_UTC(now - DAY)
-        assert sch.next_rep_to_interval_string(next_rep, now) == "yesterday"
+        assert sch.next_rep_to_interval_string(next_rep, now) == "1 day overdue"
 
         next_rep = sch.midnight_UTC(now - 2*DAY)
-        assert sch.next_rep_to_interval_string(next_rep, now) == "2 days ago"
+        assert sch.next_rep_to_interval_string(next_rep, now) == "2 days overdue"
 
         next_rep = sch.midnight_UTC(now - 32*DAY)
-        assert sch.next_rep_to_interval_string(next_rep, now) == "1 month ago"
+        assert sch.next_rep_to_interval_string(next_rep, now) == "1 month overdue"
 
         next_rep = sch.midnight_UTC(now - 64*DAY)
-        assert sch.next_rep_to_interval_string(next_rep, now) == "2 months ago"
+        assert sch.next_rep_to_interval_string(next_rep, now) == "2 months overdue"
 
         next_rep = sch.midnight_UTC(now - 366*DAY)
-        assert sch.next_rep_to_interval_string(next_rep, now) == "1.0 years ago"
+        assert sch.next_rep_to_interval_string(next_rep, now) == "1.0 years overdue"
 
     def test_last_rep_to_interval_string(self):
         os.environ["TZ"] = "Europe/Brussels"

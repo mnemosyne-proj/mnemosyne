@@ -154,7 +154,7 @@ class Mnemosyne(Component):
         """
 
         if debug_file:
-            self.component_manager.debug_file = open(debug_file, 'w', 0)
+            self.component_manager.debug_file = open(debug_file, "w", 0)
         self.register_components()
         # Upgrade if needed.
         if automatic_upgrades:

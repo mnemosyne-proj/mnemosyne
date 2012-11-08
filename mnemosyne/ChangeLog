@@ -39,6 +39,8 @@ before installing the new one.)
  Campbell).
 -Fix another crash involving duplicates while converting cards (reported by
  Gnome).
+-When upgrading from 1.x on OSX, explicitly tell the user where their 1.x
+ data was backed up.
 -Fix displaying non-latin characters in statistics (reported by Pawel Szerszon).
 -Don't erase fields when cancelling a card type conversion (reported by Gnome).
 -Don't allow cancelling the import metadata information dialog.

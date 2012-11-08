@@ -613,7 +613,7 @@ class SM2Mnemosyne(Scheduler):
         elif interval_days >= -1:
             return _("today")
         elif interval_days >= -2:
-            return _("one day overdue")
+            return _("1 day overdue")
         elif interval_days >= -31:
             return str(int(-interval_days) - 1) + " " + _("days overdue")
         elif interval_days >= -62:
