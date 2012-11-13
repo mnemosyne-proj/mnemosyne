@@ -18,7 +18,8 @@ class ExpandPaths(Filter):
         return text
 
     def expand_tag(self, tag, text):
-        i = text.lower().find(tag)
+        # Add "=" to make sure we don't match "Application Data".
+        i = text.lower().find(tag + "=")
         while i != -1:
             start = text.find("\"", i)
             end = text.find("\"", start + 1)

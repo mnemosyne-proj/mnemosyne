@@ -1,6 +1,15 @@
--media start stop windows: could not convert string to float. Check on Windows
+-default: last used tags, regardless of card type
+-plugin: prefilled tags behaviour
 
--plugin to not change the remembered tag when changing the card type
+-When creating new cards, prefill 'Tag(s)' with
+  -last used tags, regardless of card type
+  -last used tags for that card type
+
+When creating new cards, Mnemosyne normally prefills the 'tag(s)' field with the last value you used, regardless of card type.
+With this plugin, Mnemosyne will for each card type remember the last tags you used, such that e.g. Chinese cards get a
+prefilled tags like "My Chinese textbook::Chapter 10", whereas Front-to-Back cards get "European Captitals".
+
+
  (Michael Campbell)
 
 -ask Patrick to test if OSX message pops up after upgrade.
