@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-11-13 13:17+CET\n"
+"POT-Creation-Date: 2012-11-14 13:38+CET\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -227,7 +227,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:65
 #: ../mnemosyne/pyqt_ui/about_dlg.py:28
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:250
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:257
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:574
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:226
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:83
@@ -1145,11 +1145,11 @@ msgstr ""
 msgid "You can use Tab to move between the fields. For 'Add cards', use Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades. For 'Edit card', use Ctrl-Enter to close."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:251
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:258
 msgid "Abandon current card?"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:251
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:258
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:227
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_cramming.py:40
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:68
@@ -1158,7 +1158,7 @@ msgstr ""
 msgid "&No"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:251
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:258
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:227
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_cramming.py:40
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:68
@@ -1425,6 +1425,17 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:97
 msgid "Cancel"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/prefill_tag_behaviour_plugin.py:13
+msgid "Prefill tag behaviour"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/prefill_tag_behaviour_plugin.py:15
+msgid ""
+"When creating new cards, Mnemosyne normally prefills the 'Tag(s)' field with the last value you used, regardless of card type.\n"
+"\n"
+"With this plugin, Mnemosyne will for each card type remember the last tag you used, such that e.g. Chinese cards get a prefilled tag like \"My Chinese textbook::Chapter 10\", whereas Front-to-Back cards get \"European Capitals\"."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/qt_sync_server.py:70

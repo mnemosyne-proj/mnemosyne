@@ -133,8 +133,11 @@ class AddEditCards(TipAfterStartingNTimes):
                 [new_card_type.id] = ""
         if not unicode(self.tags.currentText()) \
             or self.card_type_widget.is_empty():
-            self.update_tags_combobox(self.config()\
-                ["last_used_tags_for_card_type_id"][new_card_type.id])
+            if not self.config()["is_last_used_tags_per_card_type"]:
+                self.update_tags_combobox(self.config()["last_used_tags"])
+            else:
+                self.update_tags_combobox(self.config()\
+                    ["last_used_tags_for_card_type_id"][new_card_type.id])
         if self.card_type.fact_keys().issubset(new_card_type.fact_keys()) or \
             self.card_type_widget.is_empty():
             self.update_card_widget()
@@ -185,8 +188,11 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
             self.config()["last_used_tags_for_card_type_id"]:
             self.config()["last_used_tags_for_card_type_id"]\
                 [last_used_card_type.id] = ""
-        self.update_tags_combobox(self.config()\
-           ["last_used_tags_for_card_type_id"][last_used_card_type.id])
+        if not self.config()["is_last_used_tags_per_card_type"]:
+            self.update_tags_combobox(self.config()["last_used_tags"])
+        else:
+            self.update_tags_combobox(self.config()\
+                ["last_used_tags_for_card_type_id"][last_used_card_type.id])
         self.grades = QtGui.QButtonGroup()
         # Negative indexes have special meanings in Qt, so we can't use -1 for
         # 'yet to learn'.
@@ -240,6 +246,7 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
         c.create_new_cards(fact_data, card_type, grade, tag_names, save=True)
         tag_text = ", ".join(tag_names)
         self.update_tags_combobox(tag_text)
+        self.config()["last_used_tags"] = tag_text
         self.config()["last_used_tags_for_card_type_id"][card_type.id] \
             = tag_text
         self.card_type_widget.clear()

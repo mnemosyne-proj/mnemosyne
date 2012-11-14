@@ -1,3 +1,5 @@
+Mnemosyne 2.2 :
+
 (Note that for Windows users we recommend uninstalling the previous version
 before installing the new one.)
 
@@ -6,6 +8,10 @@ before installing the new one.)
  random order, earliest first, lastest first or most lapses first. Also,
  you have the option of whether to save the scheduler state or not when exiting
  the program.
+-The way the tag field is prefilled for new cards is changed. By default, the
+ last used tag is used, regardless of card type. If you want the pre-2.2
+ behaviour, where the last used tag is remembered per card type, there is a
+ bundled plugin you can activate.
 -Fix errors coming from loading config files (reported by knutflatland and
  many others).
 -Ported missing import file formats from 1.x: SuperMemo7 text, SuperMemo from
@@ -18,7 +24,7 @@ before installing the new one.)
  play in an external window using mplayer).
 -When you have both tags "A" and "A::B", the card browser will now show the
  first tag as "A::Untagged".
--javascript can now contain line breaks (reported by iBayer and gnome).
+-Javascript can now contain line breaks (reported by iBayer and gnome).
 -In 'edit cards', make more robust of no longer warning about discarding
  changes if you did not make any.
 -Sped up deleting of large number of cards from the card browser.

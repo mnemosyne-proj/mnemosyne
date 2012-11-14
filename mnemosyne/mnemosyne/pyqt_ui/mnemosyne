@@ -141,6 +141,8 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.export_dlg",
                              "ExportDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.export_metadata_dlg",
                              "ExportMetadataDlg"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.prefill_tag_behaviour_plugin",
+                             "PrefillTagBehaviourPlugin"))
 mnemosyne.extra_components_for_plugin["CrammingPlugin"] = \
                             [("mnemosyne.pyqt_ui.review_wdgt_cramming",
                              "ReviewWdgtCramming"),

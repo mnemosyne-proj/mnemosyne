@@ -15,7 +15,9 @@ class PyQtConfiguration(Hook):
         for key, value in \
             {"list_font": None,
              "last_used_card_type_id": "",
+             "is_last_used_tags_per_card_type": False,
              "last_used_tags_for_card_type_id": {},
+             "last_used_tags": "",
              "sort_column": None,
              "sort_order": None,
              "previous_statistics_page": 0,
