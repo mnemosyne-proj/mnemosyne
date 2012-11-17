@@ -28,9 +28,11 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
         QtGui.QWidget.__init__(self, parent)
         self.setupUi(self)
         self.card_type_tree_wdgt = CardTypesTreeWdgt(component_manager, self)
-        self.gridLayout.addWidget(self.card_type_tree_wdgt, 1, 0, 1, 1)
+        # Bug in Qt: need to explicitly reset the text of this label.
+        self.label.setText(_("Activate cards from these card types:"))
+        self.gridLayout.addWidget(self.card_type_tree_wdgt, 1, 0)
         self.tag_tree_wdgt = TagsTreeWdgt(component_manager, self)
-        self.gridLayout.addWidget(self.tag_tree_wdgt, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.tag_tree_wdgt, 1, 1)
         self.parent_saved_sets = parent.saved_sets
         criterion = DefaultCriterion(self.component_manager)
         for tag in self.database().tags():

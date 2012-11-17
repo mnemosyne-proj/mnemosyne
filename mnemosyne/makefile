@@ -49,6 +49,15 @@ setup:
 	./bin/easy_install coverage
 	cd po && make
 
+setup-windows:
+	virtualenv --system-site-packages --python=C:/python27/python.exe .
+	Scripts\easy_install.exe nose
+	Scripts\easy_install.exe coverage
+
+install-virtual-env-windows:
+	Scripts\python.exe setup.py develop
+	Scripts\python.exe Scripts\mnemosyne -d dot_mnemosyne2
+
 install-system:
 	# Also rebuilds the docs and the translations.
 	cd mnemosyne/libmnemosyne/docs && make SPHINXBUILD=$(SPHINXBUILD) html
@@ -100,11 +109,11 @@ osx: 	# Contributed by Patrick Kenny.
 	# copy qt_menu.nib directory: the application will not launch without this (assumes qt was installed with MacPorts)
 	sudo cp -R /opt/local/lib/Resources/qt_menu.nib dist/Mnemosyne.app/Contents/Resources/qt_menu.nib
 	# create the directory for the translations
-	sudo mkdir dist/Mnemosyne.app/Contents/Resources/share
+	sudo mkdir -p dist/Mnemosyne.app/Contents/Resources/share
 	# add the translations
 	sudo cp -R mo dist/Mnemosyne.app/Contents/Resources/share/locale
 	# by default, qt looks in the plugins directory in the root folder
-	sudo mkdir dist/Mnemosyne.app/Contents/plugins
+	sudo mkdir -p dist/Mnemosyne.app/Contents/plugins
 	# copy the dylib directory into plugins
 	sudo cp -R /opt/local/share/qt4/plugins/sqldrivers dist/Mnemosyne.app/Contents/plugins
 	# dylib must be relinked to use the bundled copy of Qt and not the system copy
@@ -112,7 +121,7 @@ osx: 	# Contributed by Patrick Kenny.
 	sudo install_name_tool -change /opt/local/lib/libQtSql.4.dylib @executable_path/../Frameworks/libQtSql.4.dylib dist/Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
 	sudo install_name_tool -change /opt/local/lib/libQtCore.4.dylib @executable_path/../Frameworks/libQtCore.4.dylib dist/Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
 	# add directory to plugins to allow for imageformats support (we don't add all imageformats automatically because they all have to be relinked with install_name_tool, which is a real pain, so we pick and choose the formats to support)
-	sudo mkdir dist/Mnemosyne.app/Contents/plugins/imageformats
+	sudo mkdir -p dist/Mnemosyne.app/Contents/plugins/imageformats
 	# add GIF support
 	sudo cp -R /opt/local/share/qt4/plugins/imageformats/libqgif.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqgif.dylib
 	sudo install_name_tool -change /opt/local/lib/libQtGui.4.dylib @executable_path/../Frameworks/libQtGui.4.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqgif.dylib
