@@ -1,16 +1,25 @@
-1. Select all plugins
-2. Restart Mnemosyne
-
-Cramming scheduler is still enabled but Mnemosyne show the original
-scheduler. (LP bug)
-
 -flash tag bug (LP)
+
+-import bug Patrick
+
+-add help page on sync
 
 -update translations
 
 -close bug reports / uservoice
 
+-creation date is in the future?
+
+-Michael's post on website?
+
+-database with cloze card type, activate cloze plugin. Deactivating it
+ no longer works.
+
+-When deactivating card type in use, show name of the card type too.
+
 -delete / backspace shortcut does not work (Dylan Gordhan)
+
+-download plugin section is empty
 
 -rename card set dialog: prefill with existing name
 
@@ -25,6 +34,8 @@ scheduler. (LP bug)
 -time making backup of file before sync, both in and out of Python
 
 -# in media filenames
+
+-cntrl C for copy shortcut (uservoice)
 
 -don't reset non memorised count when editing cards
 
