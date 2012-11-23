@@ -86,6 +86,8 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.filters.latex",
           "CheckForUpdatedLatexFiles"),
          ("mnemosyne.libmnemosyne.filters.latex",
+          "LatexFilenamesFromData"),
+         ("mnemosyne.libmnemosyne.filters.latex",
           "DeleteUnusedLatexFiles"),
          ("mnemosyne.libmnemosyne.controllers.default_controller",
           "DefaultController"),

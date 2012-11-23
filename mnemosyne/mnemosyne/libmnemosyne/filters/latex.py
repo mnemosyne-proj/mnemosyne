@@ -35,6 +35,14 @@ class Latex(Filter):
     # 'rebuild latex cache' menu option, which would complicate the GUI for
     # the casual user.
 
+    def latex_img_filename(self, latex_command):
+        hash_input = latex_command.rstrip() + \
+            self.config()["latex_preamble"].rstrip() + \
+            self.config()["latex_postamble"].rstrip() + \
+            self.config()["dvipng"].rstrip() + \
+            self.config()["latex"].rstrip()
+        return = md5(hash_input.encode("utf-8")).hexdigest() + ".png"
+
     def create_latex_img_file(self, latex_command):
 
         """Creates png file from a latex command if needed. Returns path name
@@ -45,12 +53,7 @@ class Latex(Filter):
 
         """
 
-        hash_input = latex_command.rstrip() + \
-            self.config()["latex_preamble"].rstrip() + \
-            self.config()["latex_postamble"].rstrip() + \
-            self.config()["dvipng"].rstrip() + \
-            self.config()["latex"].rstrip()
-        img_name = md5(hash_input.encode("utf-8")).hexdigest() + ".png"
+        img_name = self.latex_img_filename(latex_command)
         latex_dir = os.path.join(self.database().media_dir(), "_latex")
         filename = os.path.join(latex_dir, img_name)
         rel_filename = "_latex" + "/" + img_name # To be stored in database.
@@ -124,6 +127,35 @@ class CheckForUpdatedLatexFiles(Hook):
     def run(self, data):
         # Takes 0.10 sec on 8000 card database.
         self.latex.run(data, None, None)
+
+
+class LatexFilenamesFromData(Hook):
+
+    # Used during export. Added here to keep all the latex functionality in
+    # a single file.
+
+    used_for = "active_dynamic_media_files"
+    tags = ["<latex>", "<$>", "<$$>"]
+
+    def __init__(self, component_manager):
+        Hook.__init__(self, component_manager)
+        self.latex = Latex(component_manager)
+
+    def run(self, data):
+        filenames = []
+        # Process <latex>...</latex> tags.
+        for match in re1.finditer(text):
+            filenames.append(self.latex.latex_img_filename(match.group(1)))
+        # Process <$>...</$> (equation) tags.
+        for match in re2.finditer(text):
+            filenames.append(\
+                self.latex.latex_img_filename("$" + match.group(1) + "$"))
+        # Process <$$>...</$$> (displaymath) tags.
+        for match in re3.finditer(text):
+            filenames.append(self.latex.latex_img_filename(\
+                "\\begin{displaymath}" + match.group(1) + \
+                "\\end{displaymath}"))
+        return filenames
 
 
 class DeleteUnusedLatexFiles(Hook):
