@@ -244,8 +244,7 @@ class SQLiteSync(object):
                 "select fact_view_ids from card_types where id=?",
                 (card_type_id, )).fetchone()[0])
         # Media files for active cards.
-        self.dynamically_create_media_files()
-        active_objects["media_filenames"] = set()
+        active_objects["media_filenames"] = self.active_dynamic_media_files()
         for result in self.con.execute(\
             """select value from data_for_fact where _fact_id in (select
             _fact_id from cards where active=1) and value like '%src=%'"""):

@@ -12,6 +12,8 @@ before installing the new one.)
  last used tag is used, regardless of card type. If you want the pre-2.2
  behaviour, where the last used tag is remembered per card type, there is a
  bundled plugin you can activate.
+-When exporting to the 'cards' format, the latex files are now pregenerated
+ and bundled (requested by Mark).
 -Fix errors coming from loading config files (reported by knutflatland and
  many others).
 -Ported missing import file formats from 1.x: SuperMemo7 text, SuperMemo from

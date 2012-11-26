@@ -41,7 +41,7 @@ class Latex(Filter):
             self.config()["latex_postamble"].rstrip() + \
             self.config()["dvipng"].rstrip() + \
             self.config()["latex"].rstrip()
-        return = md5(hash_input.encode("utf-8")).hexdigest() + ".png"
+        return md5(hash_input.encode("utf-8")).hexdigest() + ".png"
 
     def create_latex_img_file(self, latex_command):
 
@@ -142,17 +142,18 @@ class LatexFilenamesFromData(Hook):
         self.latex = Latex(component_manager)
 
     def run(self, data):
-        filenames = []
+        filenames = set()
         # Process <latex>...</latex> tags.
-        for match in re1.finditer(text):
-            filenames.append(self.latex.latex_img_filename(match.group(1)))
+        for match in re1.finditer(data):
+            filenames.add("_latex/" + \
+                self.latex.latex_img_filename(match.group(1)))
         # Process <$>...</$> (equation) tags.
-        for match in re2.finditer(text):
-            filenames.append(\
+        for match in re2.finditer(data):
+            filenames.add("_latex/" + \
                 self.latex.latex_img_filename("$" + match.group(1) + "$"))
         # Process <$$>...</$$> (displaymath) tags.
-        for match in re3.finditer(text):
-            filenames.append(self.latex.latex_img_filename(\
+        for match in re3.finditer(data):
+            filenames.add("_latex/" + self.latex.latex_img_filename(\
                 "\\begin{displaymath}" + match.group(1) + \
                 "\\end{displaymath}"))
         return filenames

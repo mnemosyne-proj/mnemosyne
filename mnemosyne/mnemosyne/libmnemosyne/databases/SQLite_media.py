@@ -94,22 +94,18 @@ class SQLiteMedia(object):
                 f.run(cursor[0])
 
     def active_dynamic_media_files(self):
-        import time
-        t = time.time()
         # Other media files, e.g. latex.
-        filenames = []
-        hook = self.component_manager.all("hook", "active_dynamic_media_files")
-        # Prefilter data we need to screen.
-        sql_command = """select value from data_for_fact where _fact_id in
-            (select _fact_id from cards where active=1) and """
-        for tag in hook.tags:
-            sql_command += """value like '%""" + tag + """%' and """
-        sql_command = sql_command[:-4]
-
-        for cursor in self.con.execute(sql_command):
-            filenames.extend(hook.run(cursor[0]))
-        print time.time() - t
-        print filenames
+        filenames = set()
+        for hook in self.component_manager.all\
+            ("hook", "active_dynamic_media_files"):
+            # Prefilter data we need to screen.
+            sql_command = """select value from data_for_fact where _fact_id in
+                (select _fact_id from cards where active=1) and ("""
+            for tag in hook.tags:
+                sql_command += """value like '%""" + tag + """%' or """
+            sql_command = sql_command[:-3] + ")"
+            for cursor in self.con.execute(sql_command):
+                filenames = filenames.union(hook.run(cursor[0]))
         return filenames
 
     def _process_media(self, fact):

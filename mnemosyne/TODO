@@ -1,5 +1,3 @@
--export latex images to cards file too (mailing list)
-
 -import bug Patrick
 
 -add help page on sync
@@ -9,6 +7,7 @@
 -close bug reports / uservoice
 
 -Thai numerals
+
 
 -LTR issues mixing latin and arabic in single field: e.g. von 'hdr' = anwesend sein (Ansgar Bohmann)
 
