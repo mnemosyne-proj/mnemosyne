@@ -1358,8 +1358,9 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             # Make sure they are truly duplicates, and not coming
             # from two values for the same key in 'fact_id_for_front' and
             # 'fact_id_for_back'.
-            if card_1.fact["f"] != card_2.fact["b"] or \
-                card_1.fact["b"] != card_2.fact["f"]:
+            if "b" in card_1.fact.data and "b" in card_2.fact.data and \
+                (card_1.fact["f"] != card_2.fact["b"] or \
+                card_1.fact["b"] != card_2.fact["f"]):
                 continue
             # Tags should be equal.
             if card_1.tag_string() != card_2.tag_string():

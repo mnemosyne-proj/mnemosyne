@@ -32,8 +32,8 @@ before installing the new one.)
 -Sped up deleting of large number of cards from the card browser.
 -When pasting into the "Add cards" or "Edit cards" dialog, respect the
  formatting of the card field.
--Be more robust against importing three-sided 1.x cards with missing
- information (reported by Chris Resnik).
+-Be more robust against importing 1.x cards with missing information (reported
+ by Chris Resnik and Patrick Kenny).
 -Bug fix involving notes with multiple lines with exporting cards.
 -Fix bug with picture sometimes not showing when first starting the program.
 -Better support for non-latin characters in sound files under Windows (reported
