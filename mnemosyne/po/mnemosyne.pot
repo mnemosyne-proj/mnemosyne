@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-11-14 13:38+CET\n"
+"POT-Creation-Date: 2012-12-04 09:20+CET\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,22 +80,22 @@ msgstr ""
 msgid "Production"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:183
+#: ../mnemosyne/libmnemosyne/__init__.py:185
 msgid "Another copy of Mnemosyne is still running."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:184
+#: ../mnemosyne/libmnemosyne/__init__.py:186
 msgid "Continuing is impossible and will lead to data loss!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:264
-#: ../mnemosyne/libmnemosyne/__init__.py:277
+#: ../mnemosyne/libmnemosyne/__init__.py:266
+#: ../mnemosyne/libmnemosyne/__init__.py:279
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:760
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:330
 msgid "Error when running plugin:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:297
+#: ../mnemosyne/libmnemosyne/__init__.py:299
 msgid "Creating temporary database."
 msgstr ""
 
@@ -543,11 +543,11 @@ msgstr ""
 msgid "DUPLICATE"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:116
+#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:131
 msgid "Media filename rather long. This could cause problems using this file on a different OS."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:119
+#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:134
 msgid "Missing media file!"
 msgstr ""
 
@@ -699,7 +699,7 @@ msgid ""
 "Missing answer on line:\n"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/filters/latex.py:85
+#: ../mnemosyne/libmnemosyne/filters/latex.py:88
 msgid "Problem with latex. Are latex and dvipng installed?"
 msgstr ""
 
@@ -1388,6 +1388,10 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:71
 msgid "A required field is missing."
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/criterion_wdgt_default.py:32
+msgid "Activate cards from these card types:"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:96

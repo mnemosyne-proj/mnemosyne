@@ -1,4 +1,4 @@
-version = "2.2-RC1"
+version = "2.2"
 
 if __name__ == "__main__":
     print version
