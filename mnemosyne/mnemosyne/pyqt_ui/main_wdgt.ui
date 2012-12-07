@@ -152,7 +152,7 @@
     <string>&amp;Delete current card</string>
    </property>
    <property name="shortcut">
-    <string>Backspace</string>
+    <string>Del</string>
    </property>
   </action>
   <action name="actionEditCurrentCard">

@@ -1,4 +1,9 @@
-Mnemosyne 2.2 :
+-Fix CTRL+F shortcut for inserting flash (reported by Gnome).
+-Backspace and delete shortcuts to delete the current card work again
+ (reported by Dylan Gordhan).
+
+
+Mnemosyne 2.2 : 2012-12-04
 
 (Note that for Windows users we recommend uninstalling the previous version
 before installing the new one.)

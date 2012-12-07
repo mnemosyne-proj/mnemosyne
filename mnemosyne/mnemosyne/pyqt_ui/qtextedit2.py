@@ -52,6 +52,9 @@ class QTextEdit2(QtGui.QTextEdit):
         elif event.key() == QtCore.Qt.Key_S and event.modifiers() == \
             QtCore.Qt.ControlModifier:
             self.insert_sound()
+        elif event.key() == QtCore.Qt.Key_F and event.modifiers() == \
+            QtCore.Qt.ControlModifier:
+            self.insert_flash()
         else:
             QtGui.QTextEdit.keyPressEvent(self, event)
 

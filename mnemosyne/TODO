@@ -1,14 +1,10 @@
--add help page on sync
-
--close bug reports / uservoice
-
 -Thai numerals
+
+-fix create media dir if needed for backups
 
 -LTR issues mixing latin and arabic in single field: e.g. von 'hdr' = anwesend sein (Ansgar Bohmann)
 
 -creation date is in the future?
-
--Michael's post on website?
 
 -database with cloze card type, activate cloze plugin. Deactivating it
  no longer works.
@@ -17,7 +13,6 @@
 
 -delete / backspace shortcut does not work (Dylan Gordhan)
 
--download plugin section is empty
 
 -rename card set dialog: prefill with existing name
 
@@ -26,6 +21,8 @@
 -when merging duplicate cards, merge tags also (Stephan Maseizik)
 
 -custom tag plugin (uservoice)
+
+-look at other uservoice issues
 
 -extra space below media player on production cards in Sentence types
 
@@ -39,7 +36,7 @@
 
 -keeping key pressed on show answer also grades card?
 
--change language from japanese: need to translate windows title agains
+-change language from japanese: need to translate windows title again
 
 -support UFT 16?
 

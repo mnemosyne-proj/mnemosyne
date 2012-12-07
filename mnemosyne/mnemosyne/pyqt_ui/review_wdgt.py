@@ -218,6 +218,7 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         QtGui.QWidget.changeEvent(self, event)
 
     def keyPressEvent(self, event):
+        print 'hi'
         if not event.isAutoRepeat() and event.key() in \
             [QtCore.Qt.Key_0, QtCore.Qt.Key_1, QtCore.Qt.Key_2,
             QtCore.Qt.Key_3, QtCore.Qt.Key_4, QtCore.Qt.Key_5] and \
@@ -230,6 +231,9 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         elif event.key() == QtCore.Qt.Key_R and \
             event.modifiers() == QtCore.Qt.ControlModifier:
             self.review_controller().update_dialog(redraw_all=True) # Replay media.
+        # Work around Qt issue.
+        elif event.key() in [QtCore.Qt.Key_Backspace, QtCore.Qt.Key_Delete]:
+            self.controller().delete_current_card()
         else:
             QtGui.QWidget.keyPressEvent(self, event)
 
