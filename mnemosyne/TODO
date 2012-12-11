@@ -1,18 +1,9 @@
 -Thai numerals
 
--fix create media dir if needed for backups
-
 -LTR issues mixing latin and arabic in single field: e.g. von 'hdr' = anwesend sein (Ansgar Bohmann)
-
--creation date is in the future?
 
 -database with cloze card type, activate cloze plugin. Deactivating it
  no longer works.
-
--When deactivating card type in use, show name of the card type too.
-
--delete / backspace shortcut does not work (Dylan Gordhan)
-
 
 -rename card set dialog: prefill with existing name
 
@@ -38,7 +29,37 @@
 
 -change language from japanese: need to translate windows title again
 
--support UFT 16?
+-in case we haven't selected a card background colour explicitly, don't set
+ the empty card colour to white but to the systems windows background colour
+ scheme (reported by ialectum)
+
+-only use default value for 'all card types' in configuration dialog if the
+ settings are actually the same (gnome, LP bug)
+
+-don't refresh review widget after edit window if no changes have been made (gnome) (LP bug)
+-after showing answer, exiting card browser hides answer again (Gnome, LP bug)
+-try to avoid showing different card after exiting browser. Better reset_but_try_to_keep ...
+taking grade 0/1 cards as well into account?
+
+-Manage plugins,Select different plugins than was initially,Install new plugin,
+ then hit cancel,Selection gets reset (Gnome) (LP bug)
+-Cntr+C in Q&A main does not work. (Gnome) (LP bug)
+-Cntr+D shortcut in edit card doesn't work. (Gnome) (LP bug)
+-Cramming shortcuts with letters do not work (Gnome) (LP bug)
+-starting the program when no cards are shown does not draw a border around the
+ Q field
+
+-when creating a new tag in the hierarchy, and the parents of the hierachy are disabled,
+ disable the new tag too. (LP bug Gnome)
+
+-save tree state (which nodes are expanded or not) (Troy Guze)
+QModelIndexList QAbstractItemModel::persistentIndexList () const
+bool isExpanded ( const QModelIndex & index ) const
+
+-activate cards: 'having any of these tags:' is not aligned with tag with tag tree
+-layout of "add clone" is not optimal under Windows
+-splitters on XP are not visible
+http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-between-qwidget-and-qtabwidget
 
 -sync problem: tag b exists, card with tag a rename tag to a.b, edit card?, then
 rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict for client)
@@ -76,6 +97,21 @@ Traceback (innermost last):
   File "/usr/lib/python2.7/httplib.py", line 586, in _read_chunked
     raise IncompleteRead(''.join(value))
  IncompleteRead: IncompleteRead(169 bytes read)
+
+
+ 20121210
+ Traceback (innermost last):
+  File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.2-py2.7.egg/openSM2sync/client.py", line 167, in sync
+    self.get_server_log_entries()
+  File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.2-py2.7.egg/openSM2sync/client.py", line 418, in get_server_log_entries
+    self._download_log_entries(response)
+  File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.2-py2.7.egg/openSM2sync/client.py", line 404, in _download_log_entries
+    self.database.apply_log_entry(log_entry)
+  File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.2-py2.7.egg/mnemosyne/libmnemosyne/databases/SQLite_sync.py", line 814, in apply_log_entry
+    self.delete_card(self.card_from_log_entry(log_entry))
+  File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.2-py2.7.egg/mnemosyne/libmnemosyne/databases/SQLite_sync.py", line 526, in card_from_log_entry
+    card._id = sql_res[0]
+ TypeError: 'NoneType' object has no attribute '__getitem__'
 
 -reverse arabic plugin no longer seems to work?
  http://mpcabd.igeex.biz/python-arabic-text-reshaper/
@@ -164,41 +200,9 @@ Traceback (innermost last):
 
 -card templates?
 
--in case we haven't selected a card background colour explicitly, don't set
- the empty card colour to white but to the systems windows background colour
- scheme (reported by ialectum)
+--add up and down arrows on browsing through the preview window?
 
--only use default value for 'all card types' in configuration dialog if the
- settings are actually the same (gnome, LP bug)
-
--don't refresh review widget after edit window if no changes have been made (gnome) (LP bug)
--after showing answer, exiting card browser hides answer again (Gnome, LP bug)
--try to avoid showing different card after exiting browser. Better reset_but_try_to_keep ...
-taking grade 0/1 cards as well into account?
-
--Manage plugins,Select different plugins than was initially,Install new plugin,
- then hit cancel,Selection gets reset (Gnome) (LP bug)
--Cntr+C in Q&A main does not work. (Gnome) (LP bug)
--Cntr+D shortcut in edit card doesn't work. (Gnome) (LP bug)
--Cramming shortcuts with letters do not work (Gnome) (LP bug)
--starting the program when no cards are shown does not draw a border around the
- Q field
-
--add up and down arrows on browsing through the preview window?
-
--when creating a new tag in the hierarchy, and the parents of the hierachy are disabled,
- disable the new tag too. (LP bug Gnome)
-
--save tree state (which nodes are expanded or not) (Troy Guze)
-QModelIndexList QAbstractItemModel::persistentIndexList () const
-bool isExpanded ( const QModelIndex & index ) const
-
--activate cards: 'having any of these tags:' is not aligned with tag with tag tree
--layout of "add clone" is not optimal under Windows
--splitters on XP are not visible
-http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-between-qwidget-and-qtabwidget
-
--remove TMP adding of default o_id in sync
+remove TMP adding of default o_id in sync
 
 -binary database upload: configuration changes (fonts, ...) are not applied
 
@@ -213,6 +217,8 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -bundle more of the example plugins?
 
 -'duplicate card' option in menu and browser? Or as plugin?
+
+-support UFT 16?
 
 -default input method/keyboard layout per field?
 
@@ -272,7 +278,6 @@ Milesteiner
 -adding facts with strange characters (e.g. chr(1) from TRS) trips up the sync
  protocol
 
--Pasting into card from other sources initially keeps the formatting. (Gnome) (LP bug)
 
 -text to speech plugin google
 

@@ -94,8 +94,9 @@ class Plugin(Component):
                             can_deactivate = False
                             break
                     if can_deactivate == False:
-                        self.main_widget().show_error(\
-    _("Cannot deactivate, there are cards with this card type (or a clone of it) in the database."))
+                        self.main_widget().show_error(_("Cannot deactivate") \
+                            + " '" + card_type.name + "'. " + \
+_("There are cards with this card type (or a clone of it) in the database."))
                         return False
                     for criterion in db.criteria():
                         criterion.card_type_deleted(component)

@@ -36,7 +36,7 @@ class SQLiteMedia(object):
     def create_media_dir_if_needed(self):
         media_dir = self.media_dir()
         if not os.path.exists(media_dir):
-            os.mkdir(media_dir)
+            os.makedirs(media_dir)
 
     def fact_contains_static_media_files(self, fact):
         # Could be part of fact.py, but is put here to have all media related

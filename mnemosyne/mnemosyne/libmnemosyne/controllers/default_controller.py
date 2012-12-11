@@ -541,7 +541,7 @@ class DefaultController(Controller):
             self.log().loaded_database()
             self.log().future_schedule()
         except Exception, e:
-            self.main_widget().show_exception(e)
+            self.main_widget().show_error(e)
             self.stopwatch().unpause()
             return
         self.review_controller().reset()

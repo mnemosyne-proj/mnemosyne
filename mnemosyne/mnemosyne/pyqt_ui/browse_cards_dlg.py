@@ -129,7 +129,7 @@ class CardModel(QtSql.QSqlTableModel, Component):
         if column in (CREATION_TIME, MODIFICATION_TIME):
             old_data = QtSql.QSqlTableModel.data(self, index, role).toInt()[0]
             return QtCore.QVariant(time.strftime(self.date_format,
-                time.gmtime(old_data)))
+                time.localtime(old_data)))
         return QtSql.QSqlTableModel.data(self, index, role)
 
 
