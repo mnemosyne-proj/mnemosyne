@@ -5,7 +5,7 @@
 import os
 import sys
 
-from PyQt4.QtCore import QTranslator, QCoreApplication
+from PyQt4.QtCore import QTranslator, QCoreApplication, QLocale
 
 from mnemosyne.libmnemosyne.translators.gettext_translator \
      import GetTextTranslator
@@ -29,6 +29,9 @@ class QtTranslator(GetTextTranslator):
                 self.qt_dir = os.path.join(sys.exec_prefix, "share", "qt4")
             else:
                 self.qt_dir = os.path.join("/usr", "share", "qt4")
+        # Avoid stuff like Thai numerals if the language is not explicitly
+        # set to Thai.
+        QLocale.setDefault(QLocale(QLocale.English, QLocale.UnitedStates))
 
     def translate_ui(self, language):
         app = QCoreApplication.instance()

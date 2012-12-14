@@ -1,3 +1,7 @@
+-More tweaks for RTL languages like Arabic and Hebrew (bug report by
+ Ansgar Bohmann)
+-On a Thai system, don't use Thai numerals in the card browser if the language
+ is set to English (request by Mark).
 -Take time zone information into account when displaying creation date of
  card in browser.
 -When trying to deactivate a card type in use, show name of the card type in
@@ -63,7 +67,7 @@ before installing the new one.)
 -Don't allow cancelling the import metadata information dialog.
 -Fix harmless error message when converting to Cloze cards in the card browser
  (reported by Michael Campbell).
--Upgraded to latest version of Qt/PyQt.
+-Upgraded to latest version of Qt/PyQt (4.9.5).
 
 
 Mnemosyne 2.1 : 2012-09-10

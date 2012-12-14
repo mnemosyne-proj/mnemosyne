@@ -1,7 +1,3 @@
--Thai numerals
-
--LTR issues mixing latin and arabic in single field: e.g. von 'hdr' = anwesend sein (Ansgar Bohmann)
-
 -database with cloze card type, activate cloze plugin. Deactivating it
  no longer works.
 

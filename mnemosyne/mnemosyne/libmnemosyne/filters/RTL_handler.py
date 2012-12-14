@@ -2,6 +2,8 @@
 # RTL_handler.py <Peter.Bienstman@UGent.be>
 #
 
+import string
+
 from mnemosyne.libmnemosyne.filter import Filter
 
 
@@ -19,8 +21,7 @@ class RTLHandler(Filter):
 
     [baa][alif]
 
-    The heuristic fails if the string also contains latin text, e.g.
-        <english> (<english> <arabic>)
+    <english> (<english> <arabic>)
 
     See http://dotancohen.com/howto/rtl_right_to_left.html
 
@@ -28,8 +29,11 @@ class RTLHandler(Filter):
 
     def run(self, text, card, fact_key, **render_args):
         # If we start with latin, we'll keep the paragraph ordering as ltr.
-        #if text and not (0x0590 <= ord(text.lstrip("()[]{}")[0]) <= 0x06FF):
-        #    return text
+        if len(text) <= 1:
+            return text
+        if text[0] in string.ascii_letters or text[1] in string.ascii_letters:
+            return text
+        # Otherwise, as soon as there is RTL, make everything RTL.
         for i in range(len(text)):
             if 0x0590 <= ord(text[i]) <= 0x06FF:
                 return "<p dir=\"rtl\">" + text + "</p>"
