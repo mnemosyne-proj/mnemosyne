@@ -6,7 +6,8 @@
  card in browser.
 -When trying to deactivate a card type in use, show name of the card type in
  the error message.
--Fix CTRL+F shortcut for inserting flash (reported by Gnome).
+-Fix CTRL+F shortcut for inserting flash and CTRL+C shortcut for copying.
+ (reported by Gnome).
 -Backspace and delete shortcuts to delete the current card work again
  (reported by Dylan Gordhan).
 

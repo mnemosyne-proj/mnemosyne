@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-12-04 09:20+CET\n"
+"POT-Creation-Date: 2012-12-14 11:23+CET\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -725,8 +725,12 @@ msgstr ""
 msgid "Done!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/plugin.py:98
-msgid "Cannot deactivate, there are cards with this card type (or a clone of it) in the database."
+#: ../mnemosyne/libmnemosyne/plugin.py:97
+msgid "Cannot deactivate"
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/plugin.py:99
+msgid "There are cards with this card type (or a clone of it) in the database."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/plugins/cramming_plugin.py:14
@@ -1498,15 +1502,15 @@ msgstr ""
 msgid "&Hide pronunciation field for this card type"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:346
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:350
 msgid "Scheduled: %d "
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:347
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:351
 msgid "Not memorised: %d "
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:348
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:352
 #: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:56
 msgid "Active: %d "
 msgstr ""
@@ -2147,7 +2151,7 @@ msgid "&Delete current card"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:205
-msgid "Backspace"
+msgid "Del"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:206

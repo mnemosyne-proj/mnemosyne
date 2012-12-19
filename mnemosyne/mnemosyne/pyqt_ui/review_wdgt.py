@@ -218,7 +218,6 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         QtGui.QWidget.changeEvent(self, event)
 
     def keyPressEvent(self, event):
-        print 'hi'
         if not event.isAutoRepeat() and event.key() in \
             [QtCore.Qt.Key_0, QtCore.Qt.Key_1, QtCore.Qt.Key_2,
             QtCore.Qt.Key_3, QtCore.Qt.Key_4, QtCore.Qt.Key_5] and \
@@ -231,6 +230,9 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         elif event.key() == QtCore.Qt.Key_R and \
             event.modifiers() == QtCore.Qt.ControlModifier:
             self.review_controller().update_dialog(redraw_all=True) # Replay media.
+        elif event.key() == QtCore.Qt.Key_C and \
+            event.modifiers() == QtCore.Qt.ControlModifier:
+            self.copy()
         # Work around Qt issue.
         elif event.key() in [QtCore.Qt.Key_Backspace, QtCore.Qt.Key_Delete]:
             self.controller().delete_current_card()
@@ -275,6 +277,13 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         y -= int(0.9*(frame.geometry().height()))
         #frame.scroll(x, y)  # Seems buggy 20111121.
         frame.evaluateJavaScript("window.scrollTo(%d, %d);" % (x, y))
+
+    def copy(self):
+        if self.review_controller().state == "SELECT SHOW":
+            webview = self.question
+        else:
+            webview = self.answer
+        webview.pageAction(QtWebKit.QWebPage.Copy).trigger()
 
     def show_answer(self):
         self.review_controller().show_answer()

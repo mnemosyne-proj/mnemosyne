@@ -1,6 +1,3 @@
--database with cloze card type, activate cloze plugin. Deactivating it
- no longer works.
-
 -rename card set dialog: prefill with existing name
 
 -merging cards: should give an option to go back and edit?
@@ -17,11 +14,7 @@
 
 -# in media filenames
 
--cntrl C for copy shortcut (uservoice)
-
 -don't reset non memorised count when editing cards
-
--keeping key pressed on show answer also grades card?
 
 -change language from japanese: need to translate windows title again
 
@@ -38,8 +31,7 @@
 taking grade 0/1 cards as well into account?
 
 -Manage plugins,Select different plugins than was initially,Install new plugin,
- then hit cancel,Selection gets reset (Gnome) (LP bug)
--Cntr+C in Q&A main does not work. (Gnome) (LP bug)
+ then hit cancel, Selection gets reset (Gnome) (LP bug)
 -Cntr+D shortcut in edit card doesn't work. (Gnome) (LP bug)
 -Cramming shortcuts with letters do not work (Gnome) (LP bug)
 -starting the program when no cards are shown does not draw a border around the

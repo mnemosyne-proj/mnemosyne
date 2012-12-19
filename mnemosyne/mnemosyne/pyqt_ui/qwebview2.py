@@ -4,6 +4,8 @@
 
 from PyQt4 import QtWebKit, QtGui
 
+from mnemosyne.libmnemosyne.translator import _
+
 
 class QWebView2(QtWebKit.QWebView):
 
@@ -19,6 +21,10 @@ class QWebView2(QtWebKit.QWebView):
 
     def contextMenuEvent(self, event):
         menu = QtGui.QMenu(self)
-        menu.addAction(self.pageAction(QtWebKit.QWebPage.Copy))
+        action = self.pageAction(QtWebKit.QWebPage.Copy)
+        # Note that to get the shortcut work, we need extra code in
+        # review_wdgt.py.
+        action.setShortcuts(QtGui.QKeySequence(_("Ctrl+C")))
+        menu.addAction(action)
         menu.exec_(self.mapToGlobal(event.pos()))
 
