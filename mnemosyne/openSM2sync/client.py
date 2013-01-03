@@ -208,7 +208,8 @@ class Client(Partner):
         if restored_from_backup:
             message = "The database was restored from a backup, either " + \
                 "automatically because of an aborted sync or manually by " + \
-                "the user.\nFor safety, a full sync needs to happen.\n"
+                "the user.\nFor safety, a full sync needs to happen and " + \
+                "you need to choose which copy of the database to keep.\n"
         else:
             message = "Conflicts detected during sync!"
         # Ask for conflict resolution direction.

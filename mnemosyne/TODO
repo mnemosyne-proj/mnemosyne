@@ -1,4 +1,10 @@
+-change card type progress bar conflicts with delete cards progress bars (add test, close bug)
+
 -rename card set dialog: prefill with existing name
+
+-fourth column for notes import in vocabulary
+
+-ltr issues: [They revealed]...
 
 -merging cards: should give an option to go back and edit?
 
