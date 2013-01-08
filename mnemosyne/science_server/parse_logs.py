@@ -4,6 +4,7 @@
 
 import os
 import sys
+import time
 import sqlite3
 
 from openSM2sync.log_entry import EventTypes
@@ -120,21 +121,21 @@ class LogDatabase(object):
             (self.parser.user_id, EventTypes.STARTED_SCHEDULER, int(timestamp),
             scheduler_name))
 
-    def log_loaded_database(self, timestamp, scheduled_count,
+    def log_loaded_database(self, timestamp, machine_id, scheduled_count,
         non_memorised_count, active_count):
         self.con.execute(\
-            """insert into log(user_id, event, timestamp, acq_reps, ret_reps,
-            lapses) values(?,?,?,?,?,?)""",
+            """insert into log(user_id, event, timestamp, object_id, acq_reps,
+            ret_reps, lapses) values(?,?,?,?,?,?,?)""",
             (self.parser.user_id, EventTypes.LOADED_DATABASE, int(timestamp),
-            scheduled_count, non_memorised_count, active_count))
+            machine_id, scheduled_count, non_memorised_count, active_count))
 
-    def log_saved_database(self, timestamp, scheduled_count,
+    def log_saved_database(self, timestamp, machine_id, scheduled_count,
         non_memorised_count, active_count):
         self.con.execute(\
-            """insert into log(user_id, event, timestamp, acq_reps, ret_reps,
-            lapses) values(?,?,?,?,?,?)""",
+            """insert into log(user_id, event, timestamp, object_id, acq_reps,
+            ret_reps, lapses) values(?,?,?,?,?,?,?)""",
             (self.parser.user_id, EventTypes.SAVED_DATABASE, int(timestamp),
-            scheduled_count, non_memorised_count, active_count))
+            machine_id, scheduled_count, non_memorised_count, active_count))
 
     def log_added_card(self, timestamp, card_id):
         self.con.execute(\
@@ -178,9 +179,26 @@ class LogDatabase(object):
     def update_card_after_log_import(self, id, creation_time, offset):
         pass
 
+    def dump_reps_to_txt_file(self, filename):
+        f = file(filename, "w")
+        for cursor in self.con.execute("select * from log where event=?",
+            (EventTypes.REPETITION, )):
+            print >> f, cursor["user_id"], time.strftime("%Y-%m-%d %H:%M:%S", \
+                time.localtime(cursor["timestamp"])), \
+            cursor["object_id"], cursor["grade"], cursor["easiness"], \
+            cursor["acq_reps"], cursor["ret_reps"], cursor["lapses"], \
+            cursor["acq_reps_since_lapse"], cursor["ret_reps_since_lapse"], \
+            cursor["scheduled_interval"], cursor["actual_interval"], \
+            cursor["thinking_time"], \
+            time.strftime("%Y-%m-%d %H:%M:%S", \
+                time.localtime(cursor["next_rep"])) \
 
 if __name__=="__main__":
-    if len(sys.argv) != 2:
-        print "Usage: %s <log_directory>" % sys.argv[0]
+    if len(sys.argv) not in [2, 3]:
+        print "Usage: %s <log_directory> [<txt_output_file>]" % sys.argv[0]
     else:
-        LogDatabase(log_dir=sys.argv[1]).parse_directory()
+        log = LogDatabase(log_dir=sys.argv[1])
+        log.parse_directory()
+        if len(sys.argv) == 3:
+            log.dump_reps_to_txt_file(filename=sys.argv[2])
+

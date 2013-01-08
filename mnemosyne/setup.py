@@ -175,7 +175,7 @@ py2app_options = {
     mnemosyne.libmnemosyne.statistics_pages, \
     mnemosyne.libmnemosyne.review_controllers, \
     mnemosyne.libmnemosyne.criteria, mnemosyne.libmnemosyne.upgrades, \
-    mnemosyne.script,mnemosyne.webserver, openSM2sync, \
+    mnemosyne.script, mnemosyne.webserver, openSM2sync, \
     openSM2sync.binary_formats, openSM2sync.text_formats" }
 
 py2app_app = ["build/Mnemosyne.py"]

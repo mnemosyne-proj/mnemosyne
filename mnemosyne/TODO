@@ -1,3 +1,5 @@
+-gwern latex export: like father, like son
+
 -change card type progress bar conflicts with delete cards progress bars (add test, close bug)
 
 -rename card set dialog: prefill with existing name

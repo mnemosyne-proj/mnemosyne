@@ -56,7 +56,7 @@ class Latex(Filter):
         img_name = self.latex_img_filename(latex_command)
         latex_dir = os.path.join(self.database().media_dir(), "_latex")
         filename = os.path.join(latex_dir, img_name)
-        rel_filename = "_latex" + "/" + img_name # To be stored in database.
+        rel_filename = "_latex" + "/" + img_name  # To be stored in database.
         if not os.path.exists(filename):
             if not os.path.exists(latex_dir):
                 os.mkdir(latex_dir)
@@ -145,15 +145,14 @@ class LatexFilenamesFromData(Hook):
         filenames = set()
         # Process <latex>...</latex> tags.
         for match in re1.finditer(data):
-            filenames.add("_latex/" + \
-                self.latex.latex_img_filename(match.group(1)))
+            filenames.add(self.latex.create_latex_img_file(match.group(1)))
         # Process <$>...</$> (equation) tags.
         for match in re2.finditer(data):
-            filenames.add("_latex/" + \
-                self.latex.latex_img_filename("$" + match.group(1) + "$"))
+            filenames.add(\
+                self.latex.create_latex_img_file("$" + match.group(1) + "$"))
         # Process <$$>...</$$> (displaymath) tags.
         for match in re3.finditer(data):
-            filenames.add("_latex/" + self.latex.latex_img_filename(\
+            filenames.add(self.latex.create_latex_img_file(\
                 "\\begin{displaymath}" + match.group(1) + \
                 "\\end{displaymath}"))
         return filenames
