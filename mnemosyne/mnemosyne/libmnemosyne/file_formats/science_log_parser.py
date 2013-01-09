@@ -284,7 +284,7 @@ class ScienceLogParser(object):
                 else:
                     actual_interval = 0
                 self.database.set_offset_last_rep(id, offset, self.timestamp)
-            except:
+            except TypeError:
                 # Make sure the card exists (e.g. due to missing logs).
                 offset = 0
                 actual_interval = 0

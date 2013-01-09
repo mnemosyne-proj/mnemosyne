@@ -22,6 +22,8 @@
 
 -# in media filenames
 
+-cards export: only warn once when overwriting
+
 -don't reset non memorised count when editing cards
 
 -change language from japanese: need to translate windows title again

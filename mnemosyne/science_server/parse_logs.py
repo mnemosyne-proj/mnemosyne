@@ -170,7 +170,7 @@ class LogDatabase(object):
             values(?,?,?)""",
             (card_id + self.parser.user_id, offset, int(last_rep)))
 
-    def get_offset_last_rep(self, card_id):
+    def offset_last_rep(self, card_id):
         sql_result = self.con.execute("""select offset, last_rep
            from _cards where _cards.id=?""",
            (card_id + self.parser.user_id, )).fetchone()
