@@ -245,7 +245,10 @@ class DefaultController(Controller):
                 is_currently_asked = \
                    self.review_controller().card in cards_from_fact
                 tag_names = cards_from_fact[0].tag_string().split(", ")
-                self.delete_facts_and_their_cards([fact])
+                # Don't use progress bars in the next call, as nested
+                # progress bars (e.g. from change_card_type) are not
+                # supported.
+                self.delete_facts_and_their_cards([fact], progress_bar=False)
                 new_cards = self.create_new_cards(new_fact_data,
                     new_card_type, grade=-1, tag_names=tag_names)
                 # User cancelled in create_new_cards.
@@ -393,27 +396,32 @@ class DefaultController(Controller):
         review_controller.show_new_question()
         self.stopwatch().unpause()
 
-    def delete_facts_and_their_cards(self, facts):
+    def delete_facts_and_their_cards(self, facts, progress_bar=True):
         db = self.database()
         w = self.main_widget()
-        w.set_progress_text(_("Deleting cards..."))
-        w.set_progress_range(len(facts))
-        w.set_progress_update_interval(50)
+        if progress_bar:
+            w.set_progress_text(_("Deleting cards..."))
+            w.set_progress_range(len(facts))
+            w.set_progress_update_interval(50)
         for fact in facts:
             for card in db.cards_from_fact(fact):
                 self.scheduler().remove_from_queue_if_present(card)
                 db.delete_card(card, check_for_unused_tags=False)
             db.delete_fact(fact)
-            w.increase_progress(1)
+            if progress_bar:
+                w.increase_progress(1)
         tags = db.tags()
-        w.set_progress_text(_("Checking for unused tags..."))
-        w.set_progress_range(len(tags))
+        if progress_bar:
+            w.set_progress_text(_("Checking for unused tags..."))
+            w.set_progress_range(len(tags))
         tags = db.tags()
         for tag in tags:
             db.delete_tag_if_unused(tag)
-            w.increase_progress(1)
+            if progress_bar:
+                w.increase_progress(1)
         db.save()
-        w.close_progress()
+        if progress_bar:
+            w.close_progress()
 
     def clone_card_type(self, card_type, clone_name):
         from mnemosyne.libmnemosyne.utils import mangle

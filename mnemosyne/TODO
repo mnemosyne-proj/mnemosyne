@@ -1,7 +1,3 @@
--gwern latex export: like father, like son
-
--change card type progress bar conflicts with delete cards progress bars (add test, close bug)
-
 -rename card set dialog: prefill with existing name
 
 -fourth column for notes import in vocabulary
@@ -23,6 +19,9 @@
 -# in media filenames
 
 -cards export: only warn once when overwriting
+
+-change card type for many facts which calls 'delete_facts_and_their_data'
+ does checking for unused tags multiple times.
 
 -don't reset non memorised count when editing cards
 

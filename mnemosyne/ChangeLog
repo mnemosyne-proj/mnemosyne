@@ -1,3 +1,7 @@
+-Fix crash when converting multiple cards at the same time between e.g.
+ Vocabulary card type and Map card type (reported by Gnome).
+-Fix bug in interaction between Latex system and exporting to the 'cards'
+ format (reported by Gwern).
 -More tweaks for RTL languages like Arabic and Hebrew (bug report by
  Ansgar Bohmann)
 -On a Thai system, don't use Thai numerals in the card browser if the language
