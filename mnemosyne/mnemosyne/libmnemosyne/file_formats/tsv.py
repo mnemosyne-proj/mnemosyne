@@ -68,8 +68,12 @@ class Tsv(FileFormat, MediaPreprocessor):
                 line = line[1:]
             fields = line.split("\t")
             if len(fields) >= 3:  # Vocabulary card.
-                facts_data.append({"f": fields[0], "p_1": fields[1],
-                    "m_1": fields[2]})
+                if len(fields) >= 4:
+                    facts_data.append({"f": fields[0], "p_1": fields[1],
+                        "m_1": fields[2], "n": fields[3]})
+                else:
+                    facts_data.append({"f": fields[0], "p_1": fields[1],
+                        "m_1": fields[2]})
             elif len(fields) == 2:  # Front-to-back only.
                 facts_data.append({"f": fields[0], "b": fields[1]})
             else:  # Malformed line.

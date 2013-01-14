@@ -117,6 +117,15 @@ class TestTsvImport(MnemosyneTest):
         assert u"\u00E0" in self.review_controller().card.question()
         assert last_error == ""
 
+    def test_8(self):
+        global last_error
+        filename = os.path.join(os.getcwd(), "tests", "files", "tsv_6.txt")
+        self.tsv_importer().do_import(filename, 'extra_tag_name')
+        assert self.database().card_count() == 2
+        self.review_controller().reset()
+        assert  self.review_controller().card.fact["n"] == "notes"
+        assert last_error == ""
+
     def test_media(self):
         global last_error
         file(os.path.join(os.getcwd(), "dot_test", "default.db_media", "a.png"), "w")

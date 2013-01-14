@@ -1,3 +1,5 @@
+-For txt import, a text file can now contain a fourth column which will be
+ mapped to the 'notes' field of a Vocabulary card.
 -Fix crash when converting multiple cards at the same time between e.g.
  Vocabulary card type and Map card type (reported by Gnome).
 -Fix bug in interaction between Latex system and exporting to the 'cards'
