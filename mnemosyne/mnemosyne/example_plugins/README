@@ -34,6 +34,9 @@ illustrating to plugin writers on how to achieve certain functionality.
 
  * reverse_arabic.py: another filter.
 
+ * custom_tag.py: intercepts custom tags like <my_tag src=\"filename\"> and
+   runs them in an external program.
+
 In order to package a plugin for easy installation by the user, just compress
 your .py file and all the other files it requires in a zip file, and change
 the extension from .zip to .plugin.

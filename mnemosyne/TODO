@@ -1,14 +1,10 @@
 -rename card set dialog: prefill with existing name
 
--fourth column for notes import in vocabulary
-
 -ltr issues: [They revealed]...
 
 -merging cards: should give an option to go back and edit?
 
--when merging duplicate cards, merge tags also (Stephan Maseizik)
-
--custom tag plugin (uservoice)
+-when merging duplicate cards, merge tags also (Stephan Maseizik
 
 -look at other uservoice issues
 
