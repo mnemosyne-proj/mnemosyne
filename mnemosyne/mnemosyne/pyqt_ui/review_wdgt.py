@@ -195,6 +195,13 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         self.grade_buttons.addButton(self.grade_4_button, 4)
         self.grade_buttons.addButton(self.grade_5_button, 5)
         self.grade_buttons.buttonClicked[int].connect(self.grade_answer)
+        # TODO: remove this once Qt bug is fixed.
+        self.setTabOrder(self.grade_1_button, self.grade_2_button)
+        self.setTabOrder(self.grade_2_button, self.grade_3_button)
+        self.setTabOrder(self.grade_3_button, self.grade_4_button)
+        self.setTabOrder(self.grade_4_button, self.grade_5_button)
+        self.setTabOrder(self.grade_5_button, self.grade_0_button)
+        self.setTabOrder(self.grade_0_button, self.grade_1_button)
         self.focus_widget = None
         self.sched = QtGui.QLabel("", parent.status_bar)
         self.notmem = QtGui.QLabel("", parent.status_bar)

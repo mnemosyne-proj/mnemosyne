@@ -4,7 +4,7 @@
 
 -merging cards: should give an option to go back and edit?
 
--when merging duplicate cards, merge tags also (Stephan Maseizik
+-when merging duplicate cards, merge tags also (Stephan Maseizik)
 
 -look at other uservoice issues
 
@@ -29,6 +29,9 @@
 
 -only use default value for 'all card types' in configuration dialog if the
  settings are actually the same (gnome, LP bug)
+
+-website font size under windows
+-crowd sourcing convertion of old decks
 
 -don't refresh review widget after edit window if no changes have been made (gnome) (LP bug)
 -after showing answer, exiting card browser hides answer again (Gnome, LP bug)
