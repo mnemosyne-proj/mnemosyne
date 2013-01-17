@@ -10,10 +10,15 @@
  is set to English (request by Mark).
 -Take time zone information into account when displaying creation date of
  card in browser.
+-When renaming a saved set, prefill the name field with the previous name of
+ the set.
 -When trying to deactivate a card type in use, show name of the card type in
  the error message.
--Fix CTRL+F shortcut for inserting flash and CTRL+C shortcut for copying.
- (reported by Gnome).
+-Fix CTRL+F shortcut for inserting flash, CTRL+D for inserting video, and
+ CTRL+C for copying (reported by Gnome).
+-Tab key now cycles through all the grade buttons (reported by Gnome).
+-Fix grading shortcuts R and W for 'right' and 'wrong' in the cramming
+ scheduler.
 -Backspace and delete shortcuts to delete the current card work again
  (reported by Dylan Gordhan).
 

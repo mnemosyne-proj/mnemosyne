@@ -136,12 +136,12 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
     def rename_set(self):
         name = unicode(self.saved_sets.currentItem().text())
         criterion = self.criteria_by_name[name]
-        forbidden_names = self.criteria_by_name.keys()
-        forbidden_names.remove(name)
+        criterion.name = name
+        other_names = self.criteria_by_name.keys()
+        other_names.remove(name)
         CardSetNameDlg(self.component_manager, criterion,
-                       forbidden_names, self).exec_()
-        if not criterion.name:  # User cancelled.
-            criterion.name = name
+                       other_names, self).exec_()
+        if criterion.name == name:  # User cancelled.
             return
         self.database().update_criterion(criterion)
         self.database().save()

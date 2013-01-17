@@ -20,10 +20,11 @@ class CardSetNameDlg(QtGui.QDialog, Ui_CardSetNameDlg, UiComponent):
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
         self.setupUi(self)
         self.criterion = criterion
-        self.set_name.addItem("")
+        self.set_name.addItem(criterion.name)
+        if criterion.name == "":
+            self.ok_button.setEnabled(False)
         for name in sorted(existing_names):
             self.set_name.addItem(name)
-        self.ok_button.setEnabled(False)
 
     def text_changed(self):
         if self.set_name.currentText():
@@ -32,7 +33,6 @@ class CardSetNameDlg(QtGui.QDialog, Ui_CardSetNameDlg, UiComponent):
             self.ok_button.setEnabled(False)
 
     def reject(self):
-        self.criterion.name = ""
         return QtGui.QDialog.reject(self)
 
     def accept(self):

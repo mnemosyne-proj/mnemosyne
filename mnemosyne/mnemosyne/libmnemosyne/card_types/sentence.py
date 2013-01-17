@@ -68,7 +68,7 @@ class Sentence(Cloze):
             question, answer = self._q_a_from_cloze\
                 (card.fact["f"], card.extra_data["index"])
             # Entire sentence clozed.
-            if question == "[...]" and "m_1" in data:
+            if question.strip() == "[...]" and "m_1" in data:
                 question = data["m_1"]
                 data["m_1"] = ""
         data["f"] = question

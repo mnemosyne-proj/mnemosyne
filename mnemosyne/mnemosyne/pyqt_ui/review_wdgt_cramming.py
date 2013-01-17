@@ -6,13 +6,13 @@ from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.review_wdgt import ReviewWdgt
-   
+
 
 class ReviewWdgtCramming(ReviewWdgt):
-    
+
     def __init__(self, component_manager):
         ReviewWdgt.__init__(self, component_manager)
-        self.grade_0_button.setText(_("&Wrong"))       
+        self.grade_0_button.setText(_("&Wrong"))
         self.grade_1_button.hide()
         self.line.hide()
         self.grade_2_button.hide()
@@ -38,20 +38,21 @@ class ReviewWdgtCramming(ReviewWdgt):
             self.grade_0_button.setText(_("&Wrong"))
             self.grade_5_button.setText(_("&Right"))
         QtGui.QWidget.changeEvent(self, event)
-        
+
     def keyPressEvent(self, event):
         if self.review_controller().state == "SELECT GRADE":
-            if event.key() in [QtCore.Qt.Key_0, QtCore.Qt.Key_1]:
+            if event.key() in [QtCore.Qt.Key_0, QtCore.Qt.Key_1,
+                QtCore.Qt.Key_W]:
                 return self.grade_answer(0)
             elif event.key() in [QtCore.Qt.Key_2, QtCore.Qt.Key_3,
-                QtCore.Qt.Key_4, QtCore.Qt.Key_5]:
+                QtCore.Qt.Key_4, QtCore.Qt.Key_5, QtCore.Qt.Key_R]:
                 return self.grade_answer(5)
         ReviewWdgt.keyPressEvent(self, event)
-        
+
     def update_status_bar_counters(self):
         wrong_count, unseen_count, active_count = \
                    self.review_controller().counters()
         self.wrong.setText(_("Wrong: %d ") % wrong_count)
         self.unseen.setText(_("Unseen: %d ") % unseen_count)
         self.active.setText(_("Active: %d ") % active_count)
-        
+
