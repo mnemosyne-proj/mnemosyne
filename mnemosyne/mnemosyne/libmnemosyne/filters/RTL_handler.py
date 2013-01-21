@@ -36,5 +36,5 @@ class RTLHandler(Filter):
         # Otherwise, as soon as there is RTL, make everything RTL.
         for i in range(len(text)):
             if 0x0590 <= ord(text[i]) <= 0x06FF:
-                return "<p dir=\"rtl\">" + text + "</p>"
+                return "<span dir=\"rtl\">" + text + "</span>"
         return text

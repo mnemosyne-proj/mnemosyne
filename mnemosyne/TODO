@@ -1,23 +1,16 @@
+-bug deleting tag
+
 -ltr issues: [They revealed]...
 
 -merging cards: should give an option to go back and edit?
 
 -when merging duplicate cards, merge tags also (Stephan Maseizik)
 
--look at other uservoice issues
-
--extra space below media player on production cards in Sentence types
-
 -time making backup of file before sync, both in and out of Python
 
 -# in media filenames
 
 -cards export: only warn once when overwriting
-
--change card type for many facts which calls 'delete_facts_and_their_data'
- does checking for unused tags multiple times.
-
--don't reset non memorised count when editing cards
 
 -change language from japanese: need to translate windows title again
 
@@ -28,32 +21,26 @@
 -only use default value for 'all card types' in configuration dialog if the
  settings are actually the same (gnome, LP bug)
 
--website font size under windows
--crowd sourcing convertion of old decks
-
 -don't refresh review widget after edit window if no changes have been made (gnome) (LP bug)
+
+-don't reset non memorised count when editing cards
+
 -after showing answer, exiting card browser hides answer again (Gnome, LP bug)
+
 -try to avoid showing different card after exiting browser. Better reset_but_try_to_keep ...
 taking grade 0/1 cards as well into account?
 
 -Manage plugins,Select different plugins than was initially,Install new plugin,
  then hit cancel, Selection gets reset (Gnome) (LP bug)
--Cntr+D shortcut in edit card doesn't work. (Gnome) (LP bug)
--Cramming shortcuts with letters do not work (Gnome) (LP bug)
--starting the program when no cards are shown does not draw a border around the
- Q field
 
 -when creating a new tag in the hierarchy, and the parents of the hierachy are disabled,
  disable the new tag too. (LP bug Gnome)
 
+-reparent all dialog boxes (doesn't seem to work for sync finished)
+
 -save tree state (which nodes are expanded or not) (Troy Guze)
 QModelIndexList QAbstractItemModel::persistentIndexList () const
 bool isExpanded ( const QModelIndex & index ) const
-
--activate cards: 'having any of these tags:' is not aligned with tag with tag tree
--layout of "add clone" is not optimal under Windows
--splitters on XP are not visible
-http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-between-qwidget-and-qtabwidget
 
 -sync problem: tag b exists, card with tag a rename tag to a.b, edit card?, then
 rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict for client)
@@ -66,8 +53,6 @@ erver.py", line 481, in get_server_log_entries
  GeneratorExit
 haal data van een paar dagen terug
 client: sqlite_sync: 399 card from log entry: none has no attribute __get__item
-
--catch File "mnemosyne\libmnemosyne\configuration.pyo", line 183, in load EOFError"?
 
 -add tag to only one sister card, then to next sister card:
   client: ~/tmp/default-20120817-161449.db
@@ -92,7 +77,6 @@ Traceback (innermost last):
     raise IncompleteRead(''.join(value))
  IncompleteRead: IncompleteRead(169 bytes read)
 
-
  20121210
  Traceback (innermost last):
   File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.2-py2.7.egg/openSM2sync/client.py", line 167, in sync
@@ -107,11 +91,30 @@ Traceback (innermost last):
     card._id = sql_res[0]
  TypeError: 'NoneType' object has no attribute '__getitem__'
 
+-website font size under windows
+-crowd sourcing convertion of old decks
+
+-look at other uservoice issues
+
+
+
+-starting the program when no cards are shown does not draw a border around the
+ Q field
+
 -reverse arabic plugin no longer seems to work?
  http://mpcabd.igeex.biz/python-arabic-text-reshaper/
 
+-activate cards: 'having any of these tags:' is not aligned with tag with tag tree
+-layout of "add clone" is not optimal under Windows
+-splitters on XP are not visible
+http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-between-qwidget-and-qtabwidget
+
 -if the sync changed the appearance settings, the current card's question still
  shows the old appearance
+
+-optimisation: change card type for many facts which calls
+ 'delete_facts_and_their_data'
+ does checking for unused tags multiple times.
 
 -Now you can add tags to cards instead of facts in the card browser. feature or bug?
 
@@ -123,12 +126,8 @@ Traceback (innermost last):
  check if it's at all possible to convert (enough fields), before showing
  correspondence dialog.
 
--reparent all dialog boxes (doesn't seem to work for sync finished)
-
 -if dialog like edit card or browse cards is open on server, try to close it
  when sync comes in or rollover happens (Henrik)
-
--initial picture not shown
 
 -filename argument in mnemosyne and mnemosyne-webserver does not work
 
