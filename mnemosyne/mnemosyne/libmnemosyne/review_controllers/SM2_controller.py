@@ -49,7 +49,7 @@ class SM2Controller(ReviewController):
         """
 
         self.card = None
-        self.state = "EMPTY"
+        self._state = "EMPTY"
         self.learning_ahead = False
         self.non_memorised_count = None
         self.scheduled_count = None
@@ -86,6 +86,14 @@ class SM2Controller(ReviewController):
             sch.remove_from_queue_if_present(self.card)
             sch.remove_from_queue_if_present(self.card)
 
+    def state(self):
+        # Useful to make sure e.g. that after editing a card, the
+        # 'show answer' state gets preserved.
+        return self._state
+
+    def set_state(self, state):
+        self._state = state
+
     def show_new_question(self):
         # Reload the counters if they have not yet been initialised. Also do
         # this if the active counter is zero, make sure it is really zero to
@@ -93,22 +101,22 @@ class SM2Controller(ReviewController):
         if self.active_count in [None, 0]:
             self.reload_counters()
         if not self.database().is_loaded() or self.active_count == 0:
-            self.state = "EMPTY"
+            self._state = "EMPTY"
             self.card = None
         else:
             self.card = self.scheduler().next_card(self.learning_ahead)
             if self.card is not None:
-                self.state = "SELECT SHOW"
+                self._state = "SELECT SHOW"
             else:
                 if self.config()["shown_schedule_help"] == False:
                     self.main_widget().show_information(_("You have no more work for today. Either add more cards or come back tomorrow."))
                     self.config()["shown_schedule_help"] = True
-                self.state = "SELECT AHEAD"
+                self._state = "SELECT AHEAD"
         self.update_dialog()
         self.stopwatch().start()
 
     def show_answer(self):
-        if self.state == "SELECT AHEAD":
+        if self._state == "SELECT AHEAD":
             if self.config()["warned_about_learning_ahead"] == False:
                 self.main_widget().show_information(_("Use 'Learn ahead of schedule' sparingly. For cramming before an exam, it's much better to use the cramming scheduler plugin"))
                 self.config()["warned_about_learning_ahead"] = True
@@ -116,7 +124,7 @@ class SM2Controller(ReviewController):
             self.show_new_question()
         else:
             self.stopwatch().stop()
-            self.state = "SELECT GRADE"
+            self._state = "SELECT GRADE"
         self.update_dialog()
 
     def grade_answer(self, grade):
@@ -203,7 +211,7 @@ class SM2Controller(ReviewController):
         # Show question.
         if self.card is None:
             w.clear_question()
-        elif self.state == "SELECT SHOW" or redraw_all == True:
+        elif self._state == "SELECT SHOW" or redraw_all == True:
             # Giving the widget info about the answer even before it is shown
             # allows it to optimise its layout.
             w.set_question(self.card.question(self.render_chain))
@@ -212,7 +220,7 @@ class SM2Controller(ReviewController):
                     self.render_chain, no_side_effects=True))
             w.reveal_question()
         # Show answer.
-        if self.card is None or self.state == "SELECT SHOW":
+        if self.card is None or self._state == "SELECT SHOW":
             w.clear_answer()
         else:
             if not self.card.fact_view.a_on_top_of_q:
@@ -225,16 +233,16 @@ class SM2Controller(ReviewController):
                 w.set_question(self.card.answer(self.render_chain))
                 w.reveal_question()
         # Update 'Show answer' button.
-        if self.state == "EMPTY":
+        if self._state == "EMPTY":
             show_enabled, default, text = False, False, _("Show answer")
             self.grades_enabled = False
-        elif self.state == "SELECT SHOW":
+        elif self._state == "SELECT SHOW":
             show_enabled, default, text = True,  True, _("Show answer")
             self.grades_enabled = False
-        elif self.state == "SELECT GRADE":
+        elif self._state == "SELECT GRADE":
             show_enabled, default, text = False, False, _("Show answer")
             self.grades_enabled = True
-        elif self.state == "SELECT AHEAD":
+        elif self._state == "SELECT AHEAD":
             show_enabled, default, text = True,  False, \
                 _("Learn ahead of schedule")
             self.grades_enabled = False
@@ -253,7 +261,7 @@ class SM2Controller(ReviewController):
         if self.grades_enabled:
             w.set_default_grade(default_grade)
         # Set title for grades box.
-        if self.state == "SELECT GRADE" and \
+        if self._state == "SELECT GRADE" and \
                self.config()["show_intervals"] == "buttons":
             w.set_grades_title(_("Pick days until next repetition:"))
         else:
@@ -261,7 +269,7 @@ class SM2Controller(ReviewController):
         # Set tooltips and texts for the grade buttons.
         for grade in range(0,6):
             # Tooltip.
-            if self.state == "SELECT GRADE" and \
+            if self._state == "SELECT GRADE" and \
                self.config()["show_intervals"] == "tooltips":
                 import math
                 interval = self.scheduler().process_answer(self.card, \
@@ -272,7 +280,7 @@ class SM2Controller(ReviewController):
             else:
                 w.set_grade_tooltip(grade, _(self.tooltip[phase][grade]))
             # Button text.
-            if self.state == "SELECT GRADE" and \
+            if self._state == "SELECT GRADE" and \
                self.config()["show_intervals"] == "buttons":
                 w.set_grade_text(grade, str(self.scheduler().process_answer(\
                                             self.card, grade, dry_run=True)))
@@ -282,7 +290,7 @@ class SM2Controller(ReviewController):
     def update_menu_bar(self):
         w = self.main_widget()
         if self.config()["only_editable_when_answer_shown"] == True:
-            if self.card and self.state == "SELECT GRADE":
+            if self.card and self._state == "SELECT GRADE":
                 w.enable_edit_current_card(True)
             else:
                 w.enable_edit_current_card(False)

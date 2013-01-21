@@ -129,6 +129,12 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
             unicode(self.tags.currentText()).split(',')]
         new_card_type_name = unicode(self.card_types_widget.currentText())
         new_card_type = self.card_type_by_name[new_card_type_name]
+        if new_fact_data == self.card.fact.data and \
+            ", ".join(new_tag_names) == self.card.tag_string() and \
+            new_card_type == self.card.card_type:
+                # No need to update the dialog.
+                QtGui.QDialog.reject(self)
+                return
         if self.before_apply_hook:
             self.before_apply_hook()
         status = self.controller().edit_sister_cards(self.card.fact,

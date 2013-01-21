@@ -43,6 +43,14 @@ class ReviewController(Component):
 
         raise NotImplementedError
 
+    def state(self):
+        # Useful to make sure e.g. that after editing a card, the
+        # 'show answer' state gets preserved.
+        raise NotImplementedError
+
+    def set_state(self, state):
+        raise NotImplementedError
+
     def show_new_question(self):
         raise NotImplementedError
 

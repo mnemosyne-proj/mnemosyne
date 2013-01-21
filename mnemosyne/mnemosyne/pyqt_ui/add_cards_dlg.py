@@ -33,7 +33,8 @@ class AddEditCards(TipAfterStartingNTimes):
 
     def activate(self):
         self.show_tip_after_starting_n_times()
-        self.exec_()
+        status = self.exec_()
+        return (status == QtGui.QDialog.Accepted)
 
     def initialise_card_types_combobox(self, current_card_type_name):
         # We calculate card_type_by_name here because these names can change

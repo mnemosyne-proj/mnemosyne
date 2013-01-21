@@ -1,14 +1,12 @@
--bug deleting tag
-
--ltr issues: [They revealed]...
-
--merging cards: should give an option to go back and edit?
-
 -when merging duplicate cards, merge tags also (Stephan Maseizik)
 
 -time making backup of file before sync, both in and out of Python
 
 -# in media filenames
+
+-fix Alt 0 and 1 as alternative for Alt+Y to add yet to learn cards.
+
+-~ / `" key as a short cut for the "0 button" (Kent Stearman)
 
 -cards export: only warn once when overwriting
 
@@ -21,12 +19,7 @@
 -only use default value for 'all card types' in configuration dialog if the
  settings are actually the same (gnome, LP bug)
 
--don't refresh review widget after edit window if no changes have been made (gnome) (LP bug)
-
--don't reset non memorised count when editing cards
-
 -after showing answer, exiting card browser hides answer again (Gnome, LP bug)
-
 -try to avoid showing different card after exiting browser. Better reset_but_try_to_keep ...
 taking grade 0/1 cards as well into account?
 
@@ -37,6 +30,9 @@ taking grade 0/1 cards as well into account?
  disable the new tag too. (LP bug Gnome)
 
 -reparent all dialog boxes (doesn't seem to work for sync finished)
+
+-if dialog like edit card or browse cards is open on server, try to close it
+ when sync comes in or rollover happens (Henrik)
 
 -save tree state (which nodes are expanded or not) (Troy Guze)
 QModelIndexList QAbstractItemModel::persistentIndexList () const
@@ -98,6 +94,10 @@ Traceback (innermost last):
 
 
 
+-ltr issues: [They revealed]...
+
+-merging cards: should give an option to go back and edit?
+
 -starting the program when no cards are shown does not draw a border around the
  Q field
 
@@ -125,9 +125,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -when converting f2b to map through the card browser 'change card type',
  check if it's at all possible to convert (enough fields), before showing
  correspondence dialog.
-
--if dialog like edit card or browse cards is open on server, try to close it
- when sync comes in or rollover happens (Henrik)
 
 -filename argument in mnemosyne and mnemosyne-webserver does not work
 
@@ -171,8 +168,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -apply button on edit window as called from the card browser?
 
 -don't switch to text entry field when changing card type with the keys.
-
--fix Alt 0 and 1 as alternative for Alt+Y to add yet to learn cards.
 
 -plugin for card types with prefilled data?
 
@@ -232,8 +227,6 @@ remove TMP adding of default o_id in sync
 -run test suite under windows
 -document on how to make mnemosyne scripts run on Windows
 
--~ / `" key as a short cut for the "0 button" (Kent Stearman)
-
 -add plugin example on card type specific renderer
 -add doc on how to write plugin to sfinx doc
 
@@ -270,7 +263,6 @@ Milesteiner
 
 -adding facts with strange characters (e.g. chr(1) from TRS) trips up the sync
  protocol
-
 
 -text to speech plugin google
 

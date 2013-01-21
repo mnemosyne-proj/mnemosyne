@@ -183,8 +183,12 @@ class DefaultController(Controller):
         self.flush_sync_server()
         review_controller = self.review_controller()
         # This dialog calls 'edit_sister_cards' at some point.
-        self.component_manager.current("edit_card_dialog")\
+        state = review_controller.state()
+        accepted = self.component_manager.current("edit_card_dialog")\
             (review_controller.card, self.component_manager).activate()
+        if not accepted:
+            self.stopwatch().unpause()
+            return
         review_controller.reload_counters()
         # Our current card could have disappeared from the database here,
         # e.g. when converting a front-to-back card to a cloze card, which
@@ -192,6 +196,7 @@ class DefaultController(Controller):
         if review_controller.card is None:
             review_controller.show_new_question()
         else:
+            review_controller.set_state(state)
             review_controller.card = self.database().card(\
                 review_controller.card._id, is_id_internal=True)
             # Our current card could have picked up a forbidden tag.
@@ -681,9 +686,9 @@ class DefaultController(Controller):
     def show_browse_cards_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
+        review_controller = self.review_controller()
         self.component_manager.current("browse_cards_dialog")\
             (self.component_manager).activate()
-        review_controller = self.review_controller()
         review_controller.reset_but_try_to_keep_current_card()
         review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
