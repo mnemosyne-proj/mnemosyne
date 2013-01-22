@@ -22,8 +22,8 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
         # Initialise widgets.
-        QtGui.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Delete),
-                        self.saved_sets, self.delete_set)
+        #QtGui.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Delete),
+        #                self.saved_sets, self.delete_set)
         criterion = self.database().current_criterion()
         self.criterion_classes = \
             self.component_manager.all("criterion")
@@ -52,6 +52,15 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         # Should go last, otherwise the selection of the saved sets pane will
         # always be cleared.
         self.update_saved_sets_pane()
+
+    def keyPressEvent(self, event):
+        print 'hi'
+        if event.key() in [QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace]:
+            print 'saved sets', self.saved_sets.currentItem()
+            print 'saved sets focus', self.saved_sets.focus
+            #print 'tag tree focus', self.tag_tree.focus
+        else:
+            QtGui.QDialog.keyPressEvent(self, event)
 
     def change_widget(self, index):
         self.saved_sets.clearSelection()

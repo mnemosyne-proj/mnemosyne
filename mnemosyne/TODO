@@ -1,3 +1,6 @@
+-pressing delete in activate cards: ambiguous between deleting tag
+ and deleting saved set (Gnome bug)
+
 -when merging duplicate cards, merge tags also (Stephan Maseizik)
 
 -time making backup of file before sync, both in and out of Python
