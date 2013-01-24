@@ -22,8 +22,6 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
         # Initialise widgets.
-        #QtGui.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Delete),
-        #                self.saved_sets, self.delete_set)
         criterion = self.database().current_criterion()
         self.criterion_classes = \
             self.component_manager.all("criterion")
@@ -54,13 +52,10 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         self.update_saved_sets_pane()
 
     def keyPressEvent(self, event):
-        print 'hi'
         if event.key() in [QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace]:
-            print 'saved sets', self.saved_sets.currentItem()
-            print 'saved sets focus', self.saved_sets.focus
-            #print 'tag tree focus', self.tag_tree.focus
+            self.delete_set()
         else:
-            QtGui.QDialog.keyPressEvent(self, event)
+            return QtGui.QDialog.keyPressEvent(self, event)
 
     def change_widget(self, index):
         self.saved_sets.clearSelection()
@@ -83,7 +78,8 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         if active_name:
             item = self.saved_sets.findItems(active_name,
                 QtCore.Qt.MatchExactly)[0]
-            self.saved_sets.setCurrentItem(item)
+            self.saved_sets.setCurrentItem(\
+                item, QtCore.QItemSelectionModel.Rows)
         else:
             self.saved_sets.clearSelection()
         splitter_sizes = self.splitter.sizes()
@@ -131,6 +127,8 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
             self.config()["showed_help_on_renaming_sets"] = True
 
     def delete_set(self):
+        if not self.saved_sets.currentItem():
+            return
         answer = self.main_widget().show_question(_("Delete this set?"),
             _("&OK"), _("&Cancel"), "")
         if answer == 1:  # Cancel.

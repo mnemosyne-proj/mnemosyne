@@ -1,6 +1,3 @@
--pressing delete in activate cards: ambiguous between deleting tag
- and deleting saved set (Gnome bug)
-
 -when merging duplicate cards, merge tags also (Stephan Maseizik)
 
 -time making backup of file before sync, both in and out of Python
@@ -64,6 +61,8 @@ Traceback (innermost last):
   File "<string>", line 91, in next
  ParseError: not well-formed (invalid token): line 26, column 104
 
+ditto for 20130123 line 127 column 248
+
 - client-default-20121003-171342.db
   File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.1-py2.7.egg/openSM2sync/client.py", line 398, in _download_log_entries
     number_of_entries = int(element_loop.next())
@@ -114,6 +113,9 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 
 -if the sync changed the appearance settings, the current card's question still
  shows the old appearance
+
+ -card browser, sort by creating date,selected multiple cards, add tag. Card list resets, but different multiple cards
+  are seleted, i.e. selection is not cleared.
 
 -optimisation: change card type for many facts which calls
  'delete_facts_and_their_data'

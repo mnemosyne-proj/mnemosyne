@@ -2,6 +2,11 @@
  mapped to the 'notes' field of a Vocabulary card.
 -Fix crash when converting multiple cards at the same time between e.g.
  Vocabulary card type and Map card type (reported by Gnome).
+-Unless the 'Prefill tag behaviour' plugin is active, changing card types will
+ never change the tag you already filled in, even if it's different from the
+ last used tag (reported by Gnome).
+-Fix crash pressing the 'Delete' key in the 'Activate cards' dialog (reported
+ by Gnome).
 -Fix bug in interaction between Latex system and exporting to the 'cards'
  format (reported by Gwern).
 -More tweaks for RTL languages like Arabic and Hebrew (bug report by
@@ -13,6 +18,7 @@
  card in browser.
 -When renaming a saved set, prefill the name field with the previous name of
  the set.
+-Don't reset selected plugin when importing a new plugin (reported by Gnome).
 -When trying to deactivate a card type in use, show name of the card type in
  the error message.
 -Fix CTRL+F shortcut for inserting flash, CTRL+D for inserting video, and

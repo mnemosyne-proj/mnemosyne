@@ -151,6 +151,8 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             self.menu_rename()
         elif event.key() in [QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace]:
             self.menu_delete()
+        else:
+            return QtGui.QDialog.keyPressEvent(self, event)
 
     def menu_rename(self):
         nodes = self.selected_nodes_which_can_be_renamed()

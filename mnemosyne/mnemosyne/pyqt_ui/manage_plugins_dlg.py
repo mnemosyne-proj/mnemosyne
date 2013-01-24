@@ -20,6 +20,7 @@ class ManagePluginsDlg(QtGui.QDialog, Ui_ManagePluginsDlg, ManagePluginsDialog):
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
+        self.last_selected_row = 0
         self.build_plugin_list()
         state = self.config()["plugins_dlg_state"]
         if state:
@@ -45,7 +46,7 @@ class ManagePluginsDlg(QtGui.QDialog, Ui_ManagePluginsDlg, ManagePluginsDialog):
             else:
                 list_item.setCheckState(QtCore.Qt.Unchecked)
             self.plugin_list.addItem(list_item)
-        self.plugin_list.setCurrentRow(0)
+        self.plugin_list.setCurrentRow(self.last_selected_row)
         self.plugin_description.setText(_(self.plugins()[0].description))
         self.delete_button.setEnabled(\
             self.plugins()[0].__class__.__name__ in self.can_be_deleted)
@@ -86,6 +87,7 @@ class ManagePluginsDlg(QtGui.QDialog, Ui_ManagePluginsDlg, ManagePluginsDialog):
         return QtGui.QDialog.accept(self)
 
     def install_plugin(self):
+        self.last_selected_row = self.plugin_list.currentRow()
         self.controller().install_plugin()
         self.build_plugin_list()
 

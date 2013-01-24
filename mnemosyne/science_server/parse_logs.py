@@ -181,17 +181,20 @@ class LogDatabase(object):
 
     def dump_reps_to_txt_file(self, filename):
         f = file(filename, "w")
-        for cursor in self.con.execute("select * from log where event=?",
-            (EventTypes.REPETITION, )):
-            print >> f, cursor["user_id"], time.strftime("%Y-%m-%d %H:%M:%S", \
+        for cursor in self.con.execute("select * from log"):
+            print >> f, cursor["user_id"], \
+                time.strftime("%Y-%m-%d %H:%M:%S", \
                 time.localtime(cursor["timestamp"])), \
-            cursor["object_id"], cursor["grade"], cursor["easiness"], \
-            cursor["acq_reps"], cursor["ret_reps"], cursor["lapses"], \
-            cursor["acq_reps_since_lapse"], cursor["ret_reps_since_lapse"], \
-            cursor["scheduled_interval"], cursor["actual_interval"], \
-            cursor["thinking_time"], \
-            time.strftime("%Y-%m-%d %H:%M:%S", \
-                time.localtime(cursor["next_rep"])) \
+                cursor["object_id"], cursor["grade"], \
+                cursor["easiness"], cursor["acq_reps"], \
+                cursor["ret_reps"], cursor["lapses"], \
+                cursor["acq_reps_since_lapse"], \
+                cursor["ret_reps_since_lapse"], \
+                cursor["scheduled_interval"], cursor["actual_interval"], \
+                cursor["thinking_time"], \
+                time.strftime("%Y-%m-%d %H:%M:%S", \
+                time.localtime(cursor["next_rep"])), \
+                cursor["event"]
 
 if __name__=="__main__":
     if len(sys.argv) not in [2, 3]:
