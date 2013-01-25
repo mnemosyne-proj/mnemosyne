@@ -1,3 +1,5 @@
+-grade key no longer doubles as show answer
+
 -when merging duplicate cards, merge tags also (Stephan Maseizik)
 
 -time making backup of file before sync, both in and out of Python
@@ -18,13 +20,6 @@
 
 -only use default value for 'all card types' in configuration dialog if the
  settings are actually the same (gnome, LP bug)
-
--after showing answer, exiting card browser hides answer again (Gnome, LP bug)
--try to avoid showing different card after exiting browser. Better reset_but_try_to_keep ...
-taking grade 0/1 cards as well into account?
-
--Manage plugins,Select different plugins than was initially,Install new plugin,
- then hit cancel, Selection gets reset (Gnome) (LP bug)
 
 -when creating a new tag in the hierarchy, and the parents of the hierachy are disabled,
  disable the new tag too. (LP bug Gnome)
