@@ -228,7 +228,7 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         if not event.isAutoRepeat() and event.key() in \
             [QtCore.Qt.Key_0, QtCore.Qt.Key_1, QtCore.Qt.Key_2,
             QtCore.Qt.Key_3, QtCore.Qt.Key_4, QtCore.Qt.Key_5] and \
-            self.review_controller().state == "SELECT SHOW":
+            self.review_controller().is_question_showing():
                 self.show_answer()
         elif event.key() == QtCore.Qt.Key_PageDown:
             self.scroll_down()
@@ -266,7 +266,7 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         </td></tr></table></body></html>"""
 
     def scroll_down(self):
-        if self.review_controller().state == "SELECT SHOW":
+        if self.review_controller().is_question_showing():
             frame = self.question.page().mainFrame()
         else:
             frame = self.answer.page().mainFrame()
@@ -276,7 +276,7 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         frame.evaluateJavaScript("window.scrollTo(%d, %d);" % (x, y))
 
     def scroll_up(self):
-        if self.review_controller().state == "SELECT SHOW":
+        if self.review_controller().is_question_showing():
             frame = self.question.page().mainFrame()
         else:
             frame = self.answer.page().mainFrame()
@@ -286,7 +286,7 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         frame.evaluateJavaScript("window.scrollTo(%d, %d);" % (x, y))
 
     def copy(self):
-        if self.review_controller().state == "SELECT SHOW":
+        if self.review_controller().is_question_showing():
             webview = self.question
         else:
             webview = self.answer

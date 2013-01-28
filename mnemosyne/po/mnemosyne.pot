@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-01-25 10:33+CET\n"
+"POT-Creation-Date: 2013-01-28 11:08+CET\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -210,7 +210,7 @@ msgid "Vocabulary"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:18
-msgid "Foreign word or expression"
+msgid "Foreign word or phrase"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/configuration.py:193

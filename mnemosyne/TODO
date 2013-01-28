@@ -1,4 +1,6 @@
--grade key no longer doubles as show answer
+-cntr c no longer works
+
+-fix custom tag plugin
 
 -when merging duplicate cards, merge tags also (Stephan Maseizik)
 

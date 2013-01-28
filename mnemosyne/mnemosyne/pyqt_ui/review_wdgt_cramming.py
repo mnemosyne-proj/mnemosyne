@@ -40,7 +40,7 @@ class ReviewWdgtCramming(ReviewWdgt):
         QtGui.QWidget.changeEvent(self, event)
 
     def keyPressEvent(self, event):
-        if self.review_controller().state == "SELECT GRADE":
+        if self.review_controller().is_answer_showing():
             if event.key() in [QtCore.Qt.Key_0, QtCore.Qt.Key_1,
                 QtCore.Qt.Key_W]:
                 return self.grade_answer(0)

@@ -15,7 +15,7 @@ class Vocabulary(CardType):
     name = _("Vocabulary")
 
     # List and name the keys.
-    fact_keys_and_names = [("f", _("Foreign word or expression")),
+    fact_keys_and_names = [("f", _("Foreign word or phrase")),
                            ("p_1", _("Pronunciation")),
                            ("m_1", _("Meaning")),
                            ("n", _("Notes"))]

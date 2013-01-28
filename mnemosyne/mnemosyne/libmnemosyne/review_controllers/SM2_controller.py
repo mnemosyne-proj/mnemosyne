@@ -323,7 +323,7 @@ class SM2Controller(ReviewController):
         self.widget.update_status_bar_counters()
 
     def is_question_showing(self):
-        return self.review_controller().state == "SELECT SHOW"
+        return self.review_controller()._state == "SELECT SHOW"
 
     def is_answer_showing(self):
-        return self.review_controller().state == "SELECT GRADE"
+        return self.review_controller()._state == "SELECT GRADE"
