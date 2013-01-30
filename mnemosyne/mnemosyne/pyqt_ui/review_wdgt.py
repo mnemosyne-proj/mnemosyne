@@ -145,7 +145,8 @@ class QAOptimalSplit(object):
         text = text.replace("var soundFiles = new Array(",
                             "var soundFiles = new Array('off',")
         text = text.replace("<audio src=\"", "<audio src=\"off")
-        return text.replace("<video src=\"", "<video src=\"off")
+        text = text.replace("<video src=\"", "<video src=\"off")
+        return text
 
     def set_question(self, text):
         self.question_text = text
