@@ -58,7 +58,7 @@ class DefaultController(Controller):
             self.log().deactivate()
             self.log().activate()
             self.config().save()
-            self.review_controller().reset_but_try_to_keep_current_card()
+            self.review_controller().reset()
             self.next_rollover = self.database().start_of_day_n_days_ago(n=-1)
 
     def update_title(self):

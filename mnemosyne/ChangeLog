@@ -3,6 +3,8 @@
 -When editing or browsing cards, don't reset the state of the scheduler such
  that you need to press 'show answer' again or such that a new card appears
  (reported by Gnome).
+-Correctly update flag 'hide pronunciation' in the popup menu (reported by
+ Tom Cato Amundsen).
 -Fix crash when converting multiple cards at the same time between e.g.
  Vocabulary card type and Map card type (reported by Gnome).
 -Unless the 'Prefill tag behaviour' plugin is active, changing card types will

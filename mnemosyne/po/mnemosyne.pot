@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-01-28 11:08+CET\n"
+"POT-Creation-Date: 2013-02-15 10:26+CET\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1506,15 +1506,15 @@ msgstr ""
 msgid "Ctrl+C"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:366
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:367
 msgid "Scheduled: %d "
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:367
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:368
 msgid "Not memorised: %d "
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:368
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:369
 #: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:57
 msgid "Active: %d "
 msgstr ""

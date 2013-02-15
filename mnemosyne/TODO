@@ -1,3 +1,5 @@
+-when deleting card, change default shortcut for confimation
+
 -when merging duplicate cards, merge tags also (Stephan Maseizik)
 
 -time making backup of file before sync, both in and out of Python
@@ -7,6 +9,8 @@
 -fix Alt 0 and 1 as alternative for Alt+Y to add yet to learn cards.
 
 -~ / `" key as a short cut for the "0 button" (Kent Stearman)
+
+-cntrl+f to focus search field (requested by abacus)
 
 -cards export: only warn once when overwriting
 

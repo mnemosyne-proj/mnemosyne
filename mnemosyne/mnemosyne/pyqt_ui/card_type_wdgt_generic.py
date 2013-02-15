@@ -21,6 +21,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         self.vboxlayout = QtGui.QVBoxLayout()
         self.fact_key_for_edit_box = {}
         self.top_edit_box = None
+        self.edit_boxes = []
         self.fact_data_before_edit = {}
         # Does this card type need to deal with the hiding of pronunciation
         # keys?
@@ -38,6 +39,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
                 self.pronunciation_label = l
                 self.pronunciation_label.setVisible(not pronunciation_hiding)
             t = QTextEdit2(self, pronunciation_hiding)
+            self.edit_boxes.append(t)
             t.setTabChangesFocus(True)
             t.setUndoRedoEnabled(True)
             t.setReadOnly(False)
@@ -82,7 +84,8 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
             checked, self.card_type)
         self.pronunciation_label.setVisible(not checked)
         self.pronunciation_box.setVisible(not checked)
-        self.pronunciation_box.pronunciation_hiding = checked
+        for edit_box in self.edit_boxes:
+            edit_box.pronunciation_hiding = checked
 
     def update_formatting(self, edit_box):
         # Font colour.
