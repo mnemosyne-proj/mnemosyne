@@ -373,3 +373,36 @@ class TestActivateCards(MnemosyneTest):
         c._tag_ids_active = set(["__UNTAGGED__"])
         c._tag_ids_forbidden = set([tag_id, "__UNTAGGED__"])
         assert c.is_empty() == True
+
+    def test_inactive_parent(self):
+
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type_1 = self.card_type_with_id("1")
+        self.controller().create_new_cards(fact_data, card_type_1,
+           grade=-1, tag_names=["dummy"])
+
+        fact_data = {"f": "question2",
+                     "b": "answer2"}
+        card_type_1 = self.card_type_with_id("1")
+        self.controller().create_new_cards(fact_data, card_type_1,
+           grade=-1, tag_names=["a"])
+
+        c = DefaultCriterion(self.mnemosyne.component_manager)
+        c.deactivated_card_type_fact_view_ids = set()
+        c._tag_ids_active = set([self.database().get_or_create_tag_with_name("dummy")._id])
+        c._tag_ids_forbidden = set([self.database().get_or_create_tag_with_name("a")._id])
+        self.database().set_current_criterion(c)
+        assert self.database().active_count() == 1
+
+        fact_data = {"f": "question3",
+                     "b": "answer3"}
+        self.controller().create_new_cards(fact_data, card_type_1,
+            grade=-1, tag_names=["a::b"])
+
+        assert self.database().active_count() == 1
+        fact_data = {"f": "question4",
+                     "b": "answer4"}
+        self.controller().create_new_cards(fact_data, card_type_1,
+            grade=-1, tag_names=["dummy::b"])
+        assert self.database().active_count() == 2

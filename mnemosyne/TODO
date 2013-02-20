@@ -2,6 +2,8 @@
 
 -when merging duplicate cards, merge tags also (Stephan Maseizik)
 
+-arabic [english]
+
 -time making backup of file before sync, both in and out of Python
 
 -# in media filenames

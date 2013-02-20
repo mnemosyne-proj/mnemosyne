@@ -64,6 +64,9 @@ class Criterion(Component):
     def deactivated_tag_added(self, tag):
         pass
 
+    def is_tag_active(self, tag):
+        pass
+
     def tag_deleted(self, tag):
         pass
 

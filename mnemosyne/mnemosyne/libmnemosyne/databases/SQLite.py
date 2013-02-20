@@ -569,8 +569,23 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 criterion.id != "__DEFAULT__":
                 saved_criterion = criterion
                 break
+        # If there is no explictly named criterion, we always activate the
+        # tag except when a parent is inactive.
         if not saved_criterion:
             criteria_to_activate_tag_in = [current_criterion]
+            existing_tag_for_name = {tag.name : tag for tag in self.tags()}
+            partial_tag_name = ""
+            for node in tag.name.split("::"):
+                partial_tag_name += node
+                if partial_tag_name != tag.name and \
+                    partial_tag_name in existing_tag_for_name:
+                    parent = existing_tag_for_name[partial_tag_name]
+                    if not current_criterion.is_tag_active(parent):
+                        criteria_to_activate_tag_in = []
+                        break
+                partial_tag_name += "::"
+            print criteria_to_activate_tag_in
+        # If there is a saved criterion active, we ask the user what to do.
         else:
             answer = self.main_widget().show_question(\
                 _("Make tag '%s' active in saved set '%s'?") % \

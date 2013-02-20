@@ -12,6 +12,10 @@
  last used tag (reported by Gnome).
 -Fix crash pressing the 'Delete' key in the 'Activate cards' dialog (reported
  by Gnome).
+-In case you are not using saved sets and create a new tag whose parent is
+ inactive, make the new tag inactive too. (If you have a saved set active,
+ you'll get a dialog box asking whether you want to activate that tag or not,
+ just like before) (reported by Gnome).
 -Fix bug in interaction between Latex system and exporting to the 'cards'
  format (reported by Gwern).
 -More tweaks for RTL languages like Arabic and Hebrew (bug report by
