@@ -391,9 +391,9 @@ class DefaultController(Controller):
                        + " " + _("sister cards?") + " " +\
                        _("Are you sure you want to do this,") + " " +\
           _("and not just deactivate cards in the 'Activate cards' dialog?")
-        answer = self.main_widget().show_question(question, _("&Delete"),
-                                          _("&Cancel"), "")
-        if answer == 1:  # Cancel.
+        answer = self.main_widget().show_question(question, _("&Cancel"),
+                                          _("&Delete"), "")
+        if answer == 0:  # Cancel.
             self.stopwatch().unpause()
             return
         self.delete_facts_and_their_cards([fact])

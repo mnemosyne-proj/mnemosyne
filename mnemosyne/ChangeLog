@@ -10,6 +10,9 @@
 -Unless the 'Prefill tag behaviour' plugin is active, changing card types will
  never change the tag you already filled in, even if it's different from the
  last used tag (reported by Gnome).
+-When changing the font for '<all card types>', make a more neutral choice
+ for default font in case currently different card types have different
+ fonts (reported by Gnome).
 -Fix crash pressing the 'Delete' key in the 'Activate cards' dialog (reported
  by Gnome).
 -In case you are not using saved sets and create a new tag whose parent is

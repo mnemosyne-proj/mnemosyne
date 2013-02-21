@@ -1,10 +1,6 @@
--when deleting card, change default shortcut for confimation
-
--when merging duplicate cards, merge tags also (Stephan Maseizik)
-
 -arabic [english]
 
--time making backup of file before sync, both in and out of Python
+-when merging duplicate cards, merge tags also (Stephan Maseizik)
 
 -# in media filenames
 
@@ -22,11 +18,7 @@
  the empty card colour to white but to the systems windows background colour
  scheme (reported by ialectum)
 
--only use default value for 'all card types' in configuration dialog if the
- settings are actually the same (gnome, LP bug)
-
--when creating a new tag in the hierarchy, and the parents of the hierachy are disabled,
- disable the new tag too. (LP bug Gnome)
+-Don't show "can't preserve history" when there is no history (uservoice)
 
 -reparent all dialog boxes (doesn't seem to work for sync finished)
 
@@ -35,7 +27,7 @@
 
 -save tree state (which nodes are expanded or not) (Troy Guze)
 QModelIndexList QAbstractItemModel::persistentIndexList () const
-bool isExpanded ( const QModelIndex & index ) const
+bool isExpanded ( const QModelIndex & index ) const (USERVOICE)
 
 -sync problem: tag b exists, card with tag a rename tag to a.b, edit card?, then
 rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict for client)
@@ -91,11 +83,8 @@ ditto for 20130123 line 127 column 248
 -website font size under windows
 -crowd sourcing convertion of old decks
 
--look at other uservoice issues
 
 
-
--ltr issues: [They revealed]...
 
 -merging cards: should give an option to go back and edit?
 
