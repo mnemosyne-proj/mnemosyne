@@ -252,15 +252,17 @@ class TestAddCards(MnemosyneTest):
                      "b": "answer"}
         card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
-                                              grade=-1, tag_names=["tag"])[0]
+                                              grade=-1, tag_names=["a", "b"])[0]
         global answer
-        answer = 0  # Merge.
+        answer = 2  # Merge.
         fact_data = {"f": "question",
                      "b": "answer2"}
-        self.controller().create_new_cards(fact_data, card_type,
-                                           grade=-1, tag_names=["tag"])
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                           grade=-1, tag_names=["b", "c"])[0]
+        assert len(card.tags) == 3
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
+
 
     def test_duplicate_3(self):
         fact_data = {"f": "question",
@@ -286,7 +288,7 @@ class TestAddCards(MnemosyneTest):
         fact_data = {"f": "question",
                      "b": "answer2"}
         global answer
-        answer = 2 # Don't add.
+        answer = 0 # Don't add.
         self.controller().create_new_cards(fact_data, card_type,
                                            grade=-1, tag_names=["tag"])
         assert self.database().fact_count() == 1

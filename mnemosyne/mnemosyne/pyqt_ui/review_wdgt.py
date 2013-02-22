@@ -227,10 +227,15 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
 
     def keyPressEvent(self, event):
         if not event.isAutoRepeat() and event.key() in \
-            [QtCore.Qt.Key_0, QtCore.Qt.Key_1, QtCore.Qt.Key_2,
-            QtCore.Qt.Key_3, QtCore.Qt.Key_4, QtCore.Qt.Key_5] and \
+            [QtCore.Qt.Key_QuoteLeft, QtCore.Qt.Key_0, QtCore.Qt.Key_1,
+            QtCore.Qt.Key_2, QtCore.Qt.Key_3, QtCore.Qt.Key_4,
+            QtCore.Qt.Key_5] and \
             self.review_controller().is_question_showing():
                 self.show_answer()
+        elif not event.isAutoRepeat() and event.key() \
+            == QtCore.Qt.Key_QuoteLeft and \
+            not self.review_controller().is_question_showing():
+            self.review_controller().grade_answer(0)
         elif event.key() == QtCore.Qt.Key_PageDown:
             self.scroll_down()
         elif event.key() == QtCore.Qt.Key_PageUp:

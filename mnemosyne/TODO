@@ -1,11 +1,3 @@
--when merging duplicate cards, merge tags also (Stephan Maseizik)
-
--fix Alt 0 and 1 as alternative for Alt+Y to add yet to learn cards.
-
--~ / `" key as a short cut for the "0 button" (Kent Stearman)
-
--cntrl+f to focus search field (requested by abacus)
-
 -in case we haven't selected a card background colour explicitly, don't set
  the empty card colour to white but to the systems windows background colour
  scheme (reported by ialectum)
@@ -73,6 +65,7 @@ ditto for 20130123 line 127 column 248
  TypeError: 'NoneType' object has no attribute '__getitem__'
 
 -merge translations
+-add ` key to website
 -website font size under windows
 -crowd sourcing convertion of old decks
 -cloze bugs / uservoice
@@ -240,6 +233,8 @@ Milesteiner
  made bold.
 -Qt bug? In default_criterion_widget, need to reinitialise text of label
 -Qt bug? When installing the translator, need to reset window title manually.
+-Qt bug? keypressEvent for 'yet to learn' works for enter, return, y, but not
+ 0 or 1.
 
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 

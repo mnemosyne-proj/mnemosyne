@@ -5,6 +5,7 @@
  (reported by Gnome).
 -Correctly update flag 'hide pronunciation' in the popup menu (reported by
  Tom Cato Amundsen).
+-When merging duplicate cards, merge tags also (requested by Stephan Maseizik).
 -Fix crash when converting multiple cards at the same time between e.g.
  Vocabulary card type and Map card type (reported by Gnome).
 -Unless the 'Prefill tag behaviour' plugin is active, changing card types will
@@ -13,6 +14,10 @@
 -When changing the font for '<all card types>', make a more neutral choice
  for default font in case currently different card types have different
  fonts (reported by Gnome).
+-The quote key to left of 1 (`) can now also be used as a short cut for grade 0
+ (requested by Kent Stearman).
+-In the card browser, CTRL+F can be used to focus the input on the search
+ field (requested by abacus).
 -Fix crash pressing the 'Delete' key in the 'Activate cards' dialog (reported
  by Gnome).
 -In case you are not using saved sets and create a new tag whose parent is

@@ -138,8 +138,11 @@ class DefaultController(Controller):
                 if answer == 0:  # Do not add.
                     return
                 if answer == 2:  # Merge and edit.
-                    cards = card_type.create_sister_cards(fact)
                     db.add_fact(fact)
+                    for duplicate in duplicates:
+                        for card in db.cards_from_fact(duplicate):
+                            tags.update(card.tags)
+                    cards = card_type.create_sister_cards(fact)
                     for card in cards:
                         card.tags = tags
                         db.add_card(card)
@@ -158,10 +161,11 @@ class DefaultController(Controller):
                     self.delete_facts_and_their_cards(duplicates)
                     card = db.cards_from_fact(fact)[0]
                     card.fact.data = merged_fact_data
+                    card.tags = tags
                     self.component_manager.current("edit_card_dialog")\
                         (card, self.component_manager, allow_cancel=False).\
                         activate()
-                    return
+                    return db.cards_from_fact(fact)
         # Create cards.
         cards = card_type.create_sister_cards(fact)
         db.add_fact(fact)

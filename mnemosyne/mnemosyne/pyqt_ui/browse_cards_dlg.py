@@ -383,6 +383,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         elif event.key() == QtCore.Qt.Key_P and \
             event.modifiers() == QtCore.Qt.ControlModifier:
             self.menu_preview()
+        elif event.key() == QtCore.Qt.Key_F and \
+            event.modifiers() == QtCore.Qt.ControlModifier:
+            self.search_box.setFocus()
         elif event.key() in [QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace]:
             self.menu_delete()
         else:
@@ -754,5 +757,3 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         self._store_state()
         self.unload_qt_database()
         return QtGui.QDialog.accept(self)
-
-
