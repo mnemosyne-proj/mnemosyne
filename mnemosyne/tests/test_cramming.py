@@ -13,8 +13,8 @@ from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 class Widget(MainWidget):
 
     def show_question(self, question, option0, option1, option2):
-        if option0 == "&Delete":
-            return 0
+        if option1 == "&Delete":
+            return 1
         raise NotImplementedError
 
 

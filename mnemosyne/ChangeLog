@@ -22,8 +22,10 @@
 -Fix bug in interaction between Latex system and exporting to the 'cards'
  format (reported by Gwern).
 -More tweaks for RTL languages like Arabic and Hebrew (bug report by
- Ansgar Bohmann)
+ Ansgar Bohmann).
 -No more superfluous empty lines for cards with RTL languages.
+-When changing languagues, translate the window title immediately, instead
+ of after reboot.
 -On a Thai system, don't use Thai numerals in the card browser if the language
  is set to English (request by Mark).
 -Take time zone information into account when displaying creation date of

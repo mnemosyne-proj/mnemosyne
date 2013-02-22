@@ -1,18 +1,10 @@
--arabic [english]
-
 -when merging duplicate cards, merge tags also (Stephan Maseizik)
-
--# in media filenames
 
 -fix Alt 0 and 1 as alternative for Alt+Y to add yet to learn cards.
 
 -~ / `" key as a short cut for the "0 button" (Kent Stearman)
 
 -cntrl+f to focus search field (requested by abacus)
-
--cards export: only warn once when overwriting
-
--change language from japanese: need to translate windows title again
 
 -in case we haven't selected a card background colour explicitly, don't set
  the empty card colour to white but to the systems windows background colour
@@ -80,9 +72,10 @@ ditto for 20130123 line 127 column 248
     card._id = sql_res[0]
  TypeError: 'NoneType' object has no attribute '__getitem__'
 
+-merge translations
 -website font size under windows
 -crowd sourcing convertion of old decks
-
+-cloze bugs / uservoice
 
 
 
@@ -246,6 +239,7 @@ Milesteiner
 -Qt bug? When setting Arial as initial font to the FontDialog, it is always
  made bold.
 -Qt bug? In default_criterion_widget, need to reinitialise text of label
+-Qt bug? When installing the translator, need to reset window title manually.
 
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 

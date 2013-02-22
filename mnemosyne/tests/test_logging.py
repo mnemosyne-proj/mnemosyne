@@ -14,7 +14,7 @@ class MyMainWidget(MainWidget):
 
     def show_question(self, question, b, c, d):
         if question == "Delete this card?":
-            return 0 # Yes
+            return 1 # Yes
         else:
             raise NotImplementedError
 

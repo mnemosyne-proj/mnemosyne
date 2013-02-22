@@ -23,7 +23,7 @@ class Widget(MainWidget):
 
     def show_question(self, question, a, b, c):
         if question.startswith("Delete"):
-            return 0
+            return 1
         else:
             return answer
 

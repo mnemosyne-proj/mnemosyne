@@ -61,3 +61,4 @@ class TestFilter(MnemosyneTest):
 
         f.run(unichr(0x0591), None, None)
         f.run(unichr(0x0491), None, None)
+        f.run("[a]" + unichr(0x0491), None, None)

@@ -584,7 +584,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                         criteria_to_activate_tag_in = []
                         break
                 partial_tag_name += "::"
-            print criteria_to_activate_tag_in
         # If there is a saved criterion active, we ask the user what to do.
         else:
             answer = self.main_widget().show_question(\

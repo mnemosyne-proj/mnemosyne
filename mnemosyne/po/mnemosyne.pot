@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-02-15 10:26+CET\n"
+"POT-Creation-Date: 2013-02-21 14:38+CET\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -229,7 +229,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/about_dlg.py:28
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:259
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:574
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:226
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:232
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:83
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:89
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:58
@@ -275,7 +275,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:246
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:279
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:395
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:394
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:111
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:133
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:473
@@ -375,7 +375,7 @@ msgstr ""
 msgid "sister cards?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:394
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:395
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:353
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:142
 #: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:61
@@ -435,16 +435,16 @@ msgid ""
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:534
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:577
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1066
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:591
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1080
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 #: ../mnemosyne/pyqt_ui/export_dlg.py:64
 msgid "No"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:534
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:577
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1066
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:591
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1080
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 #: ../mnemosyne/pyqt_ui/export_dlg.py:64
 msgid "Yes"
@@ -523,23 +523,23 @@ msgstr ""
 msgid "Warning: backup creation failed for"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:576
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:590
 msgid "Make tag '%s' active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1065
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1079
 msgid "Make new card type active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1295
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1309
 msgid "No duplicates found."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1298
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1312
 msgid "Found %d duplicate cards. They have been given the tag 'DUPLICATE'."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1304
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1318
 msgid "DUPLICATE"
 msgstr ""
 
@@ -548,6 +548,10 @@ msgid "Media filename rather long. This could cause problems using this file on 
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:134
+msgid "Filename contains '#', which could cause problems on some operating systems."
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:137
 msgid "Missing media file!"
 msgstr ""
 
@@ -1154,7 +1158,7 @@ msgid "Abandon current card?"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:260
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:227
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:233
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_cramming.py:40
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:68
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:63
@@ -1163,7 +1167,7 @@ msgid "&No"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:260
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:227
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:233
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_cramming.py:40
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:68
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:63
@@ -1338,11 +1342,11 @@ msgstr ""
 msgid "Select colour"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:222
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:228
 msgid "Reset all card types to default system font?"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:224
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:230
 msgid "Reset '%s' to default system font?"
 msgstr ""
 
