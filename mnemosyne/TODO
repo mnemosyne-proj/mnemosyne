@@ -64,6 +64,8 @@ ditto for 20130123 line 127 column 248
     card._id = sql_res[0]
  TypeError: 'NoneType' object has no attribute '__getitem__'
 
+-sync timeout while generating media files?
+
 -merge translations
 -add ` key to website
 -website font size under windows

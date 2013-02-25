@@ -122,7 +122,7 @@ class ConfigurationWdgtCardAppearance(QtGui.QWidget,
         if current_rgb:
             current_colour = QtGui.QColor(current_rgb)
         else:
-            current_colour = QtGui.QColor(QtCore.Qt.white)
+            current_colour = self.palette().color(QtGui.QPalette.Base)
         # Set new colour.
         colour = QtGui.QColorDialog.getColor(current_colour, self)
         if colour.isValid():

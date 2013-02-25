@@ -87,7 +87,8 @@ class CardModel(QtSql.QSqlTableModel, Component):
                 return QtCore.QVariant(\
                     self.background_colour_for_card_type_id[card_type_id])
             else:
-                return QtCore.QVariant(QtGui.QFont("white"))
+                return QtCore.QVariant(\
+                    QtGui.qApp.palette().color(QtGui.QPalette.Base))
         column = index.column()
         if role == QtCore.Qt.TextAlignmentRole and column not in \
             (QUESTION, ANSWER, TAGS):

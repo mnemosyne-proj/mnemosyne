@@ -253,7 +253,7 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
             QtGui.QWidget.keyPressEvent(self, event)
 
     def empty(self):
-        background = "white"
+        background = self.palette().color(QtGui.QPalette.Base).name()
         if self.review_controller().card:
             colour = self.config().card_type_property(\
             "background_colour", self.review_controller().card.card_type)

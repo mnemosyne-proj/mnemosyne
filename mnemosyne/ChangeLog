@@ -14,6 +14,8 @@
 -When changing the font for '<all card types>', make a more neutral choice
  for default font in case currently different card types have different
  fonts (reported by Gnome).
+-In case you don't explicitly select a background colour, use your theme's
+ background colour as opposed to white for empty cards (reported by ialectum).
 -The quote key to left of 1 (`) can now also be used as a short cut for grade 0
  (requested by Kent Stearman).
 -In the card browser, CTRL+F can be used to focus the input on the search

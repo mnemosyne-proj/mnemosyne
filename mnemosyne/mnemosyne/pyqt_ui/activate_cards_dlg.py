@@ -79,7 +79,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
             item = self.saved_sets.findItems(active_name,
                 QtCore.Qt.MatchExactly)[0]
             self.saved_sets.setCurrentItem(\
-                item, QtCore.QItemSelectionModel.Rows)
+                item, QtGui.QItemSelectionModel.Rows)
         else:
             self.saved_sets.clearSelection()
         splitter_sizes = self.splitter.sizes()
