@@ -244,12 +244,18 @@ class DefaultController(Controller):
                 return 0
             else:
                 if warn:
-                    answer = self.main_widget().show_question(\
+                    has_history = False
+                    for card in cards_from_fact:
+                        if card.acq_reps > 0:
+                            has_history = True
+                            break
+                    if has_history:
+                        answer = self.main_widget().show_question(\
          _("Can't preserve history when converting between these card types.")\
                  + " " + _("The learning history of the cards will be reset."),
                  _("&OK"), _("&Cancel"), "")
-                    if answer == 1:  # Cancel.
-                        return -1
+                        if answer == 1:  # Cancel.
+                            return -1
                 # Go ahead with conversion
                 is_currently_asked = \
                    self.review_controller().card in cards_from_fact

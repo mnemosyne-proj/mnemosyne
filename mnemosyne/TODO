@@ -1,9 +1,3 @@
--in case we haven't selected a card background colour explicitly, don't set
- the empty card colour to white but to the systems windows background colour
- scheme (reported by ialectum)
-
--Don't show "can't preserve history" when there is no history (uservoice)
-
 -reparent all dialog boxes (doesn't seem to work for sync finished)
 
 -if dialog like edit card or browse cards is open on server, try to close it
@@ -90,7 +84,7 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -if the sync changed the appearance settings, the current card's question still
  shows the old appearance
 
- -card browser, sort by creating date,selected multiple cards, add tag. Card list resets, but different multiple cards
+-card browser, sort by creating date,selected multiple cards, add tag. Card list resets, but different multiple cards
   are seleted, i.e. selection is not cleared.
 
 -optimisation: change card type for many facts which calls
@@ -169,9 +163,9 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 
 -card templates?
 
---add up and down arrows on browsing through the preview window?
+-add up and down arrows on browsing through the preview window?
 
-remove TMP adding of default o_id in sync
+-remove TMP adding of default o_id in sync
 
 -binary database upload: configuration changes (fonts, ...) are not applied
 

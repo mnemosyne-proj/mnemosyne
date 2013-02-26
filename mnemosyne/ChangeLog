@@ -22,6 +22,8 @@
  field (requested by abacus).
 -Fix crash pressing the 'Delete' key in the 'Activate cards' dialog (reported
  by Gnome).
+-When changing card types, only warn about losing history when there is actual
+ history present (reported by Gnome).
 -In case you are not using saved sets and create a new tag whose parent is
  inactive, make the new tag inactive too. (If you have a saved set active,
  you'll get a dialog box asking whether you want to activate that tag or not,
@@ -34,7 +36,7 @@
 -When changing languagues, translate the window title immediately, instead
  of after reboot.
 -On a Thai system, don't use Thai numerals in the card browser if the language
- is set to English (request by Mark).
+ is set to English (requested by Mark).
 -Take time zone information into account when displaying creation date of
  card in browser.
 -When renaming a saved set, prefill the name field with the previous name of
