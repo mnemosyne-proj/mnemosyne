@@ -198,7 +198,6 @@ class ConfigurationWdgtCardAppearance(QtGui.QWidget,
                 card_type)
         self.alignment.font().setWeight(50)
 
-
     def apply(self):
         self.config()["non_latin_font_size_increase"] = \
             self.non_latin_font_size_increase.value()
@@ -229,8 +228,8 @@ class ConfigurationWdgtCardAppearance(QtGui.QWidget,
         else:
             message = _("Reset '%s' to default system font?") \
                 % (_(self.affected_card_types[0].name))
-        result = QtGui.QMessageBox.question(None, _("Mnemosyne"), message,
-            _("&Yes"), _("&No"), "", 0, -1)
+        result = self.main_widget().show_question(\
+            message, _("&Yes"), _("&No"), "")
         if result == 1:
             return
         self.non_latin_font_size_increase.setValue(0)

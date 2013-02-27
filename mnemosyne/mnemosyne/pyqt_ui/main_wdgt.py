@@ -66,7 +66,8 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         return self
 
     def show_information(self, text):
-        QtGui.QMessageBox.information(self.top_window(), _("Mnemosyne"), text, _("&OK"))
+        QtGui.QMessageBox.information(self.top_window(), _("Mnemosyne"),
+            text, _("&OK"))
 
     def show_question(self, text, option0, option1, option2):
         return QtGui.QMessageBox.question(self.top_window(),  _("Mnemosyne"),

@@ -12,7 +12,7 @@ from mnemosyne.libmnemosyne.ui_components.dialogs import ManageCardTypesDialog
 
 
 class ManageCardTypesDlg(QtGui.QDialog, Ui_ManageCardTypesDlg,
-                            ManageCardTypesDialog):
+                        ManageCardTypesDialog):
 
     def __init__(self, component_manager):
         ManageCardTypesDialog.__init__(self, component_manager)

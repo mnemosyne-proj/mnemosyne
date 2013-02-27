@@ -173,7 +173,7 @@ DEFAULTKEYWORDS = ', '.join(default_keywords)
 EMPTYSTRING = ''
 
 
-
+
 # The normal pot-file header. msgmerge and Emacs's po-mode work better if it's
 # there.
 pot_header = _('''\
@@ -195,7 +195,7 @@ msgstr ""
 
 ''')
 
-
+
 def usage(code, msg=''):
     print >> sys.stderr, __doc__ % globals()
     if msg:
@@ -203,7 +203,7 @@ def usage(code, msg=''):
     sys.exit(code)
 
 
-
+
 escapes = []
 
 def make_escapes(pass_iso8859):
@@ -256,7 +256,7 @@ def normalize(s):
         s = '""\n"' + lineterm.join(lines) + '"'
     return s
 
-
+
 def containsAny(str, set):
     """Check whether 'str' contains ANY of the chars in 'set'"""
     return 1 in [c in str for c in set]
@@ -349,7 +349,7 @@ def getFilesForName(name):
 
     return []
 
-
+
 class TokenEater:
     def __init__(self, options):
         self.__options = options
@@ -501,7 +501,7 @@ class TokenEater:
                 print >> fp, 'msgstr ""\n'
 
 
-
+
 def main():
     global default_keywords
     try:
@@ -659,7 +659,7 @@ def main():
         if closep:
             fp.close()
 
-
+
 if __name__ == '__main__':
     main()
     # some more test strings

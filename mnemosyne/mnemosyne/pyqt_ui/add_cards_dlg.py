@@ -255,8 +255,8 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
     def reject(self):
         if not self.card_type_widget.is_empty() and \
             self.card_type_widget.is_changed():
-            status = QtGui.QMessageBox.warning(None, _("Mnemosyne"),
-                _("Abandon current card?"), _("&Yes"), _("&No"), "", 1, -1)
+            status = self.main_widget().show_question(\
+                _("Abandon current card?"), _("&Yes"), _("&No"), "")
             if status == 0:
                 QtGui.QDialog.reject(self)
                 return

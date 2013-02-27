@@ -36,7 +36,7 @@ __version__ = "1.1"
 MESSAGES = {}
 
 
-
+
 def usage(code, msg=''):
     print >> sys.stderr, __doc__
     if msg:
@@ -44,7 +44,7 @@ def usage(code, msg=''):
     sys.exit(code)
 
 
-
+
 def add(id, str, fuzzy):
     "Add a non-fuzzy translation to the dictionary."
     global MESSAGES
@@ -52,7 +52,7 @@ def add(id, str, fuzzy):
         MESSAGES[id] = str
 
 
-
+
 def generate():
     "Return the generated output."
     global MESSAGES
@@ -95,7 +95,7 @@ def generate():
     return output
 
 
-
+
 def make(filename, outfile):
     ID = 1
     STR = 2
@@ -171,7 +171,7 @@ def make(filename, outfile):
         print >> sys.stderr, msg
 
 
-
+
 def main():
     try:
         opts, args = getopt.getopt(sys.argv[1:], 'hVo:',

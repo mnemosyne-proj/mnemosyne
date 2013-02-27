@@ -14,7 +14,9 @@ class ChangeCardTypeDlg(QtGui.QDialog, Ui_ChangeCardTypeDlg, Component):
     def __init__(self, component_manager, current_card_type, return_values,
                  parent=None):
         Component.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, self.main_widget())
+        if parent is None:
+            parent = self.main_widget()
+        QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)

@@ -10,19 +10,21 @@ from mnemosyne.pyqt_ui.ui_add_tags_dlg import Ui_AddTagsDlg
 
 class AddTagsDlg(QtGui.QDialog, Ui_AddTagsDlg, AddEditCards):
 
-    def __init__(self, component_manager, return_values):
+    def __init__(self, component_manager, return_values, parent=None):
         AddEditCards.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, self.main_widget())
+        if parent is None:
+            parent = self.main_widget()
+        QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)        
+            & ~ QtCore.Qt.WindowContextHelpButtonHint)
         self.return_values = return_values
         self.update_tags_combobox("")
-        
+
     def accept(self):
         self.return_values["tag_names"] = [c.strip() for c in \
                      unicode(self.tags.currentText()).split(',')]
         return QtGui.QDialog.accept(self)
-    
+

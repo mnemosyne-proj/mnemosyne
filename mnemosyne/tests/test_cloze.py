@@ -191,7 +191,7 @@ class TestCloze(MnemosyneTest):
         fact_data = {"text": "a [b] [c]"}
 
         card = self.controller().create_new_cards(fact_data, card_type,
-                                          grade=-1, tag_names=["default"])[0]
+                                          grade=5, tag_names=["default"])[0]
 
         fact = card.fact
         card = self.database().cards_from_fact(fact)[0]
@@ -202,7 +202,6 @@ class TestCloze(MnemosyneTest):
         answer = 1 # Cancel.
         self.controller().change_card_type([fact], card_type, new_card_type,
                          {'text': 'f'})
-
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 2
 
@@ -343,7 +342,7 @@ third in 2008"""}
         fact_data = {"text": "[a] [b]"}
 
         cards = self.controller().create_new_cards(fact_data, card_type,
-                                          grade=-1, tag_names=["default"])
+                                          grade=5, tag_names=["default"])
 
         fact = cards[0].fact
 

@@ -426,7 +426,8 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         # table.doubleClicked event.
         cards = self.cards_from_single_selection()
         self.edit_dlg = self.component_manager.current("edit_card_dialog")\
-            (cards[0], self.component_manager, started_from_card_browser=True)
+            (cards[0], self.component_manager, started_from_card_browser=True,
+            parent=self)
         self.edit_dlg.before_apply_hook = self.unload_qt_database
         self.edit_dlg.page_up_down_signal.connect(self.page_up_down_edit)
         if self.edit_dlg.exec_() == QtGui.QDialog.Accepted:
@@ -534,7 +535,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         # from the dialog.
         return_values = {}
         from mnemosyne.pyqt_ui.add_tags_dlg import AddTagsDlg
-        dlg = AddTagsDlg(self.component_manager, return_values)
+        dlg = AddTagsDlg(self.component_manager, return_values, parent=self)
         if dlg.exec_() != QtGui.QDialog.Accepted:
             return
         # Add the tags.

@@ -1,5 +1,7 @@
 -reparent all dialog boxes (doesn't seem to work for sync finished)
 
+-Mnemosyne name not set in dialog windows, only in progress bars.
+
 -if dialog like edit card or browse cards is open on server, try to close it
  when sync comes in or rollover happens (Henrik)
 
@@ -58,8 +60,6 @@ ditto for 20130123 line 127 column 248
     card._id = sql_res[0]
  TypeError: 'NoneType' object has no attribute '__getitem__'
 
--sync timeout while generating media files?
-
 -merge translations
 -add ` key to website
 -website font size under windows
@@ -102,8 +102,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
  correspondence dialog.
 
 -filename argument in mnemosyne and mnemosyne-webserver does not work
-
--Mnemosyne name not set in dialog windows, only in progress bars.
 
 -with full sync, option to skip media sync
 

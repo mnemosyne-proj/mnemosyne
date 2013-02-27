@@ -25,7 +25,8 @@ class ConvertCardTypeKeysDlg(QtGui.QDialog, Ui_ConvertCardTypeKeysDlg):
         self.check_required_fact_keys = check_required_fact_keys
         self.comboboxes = {}
         index = 1
-        for old_fact_key, old_fact_key_name in old_card_type.fact_keys_and_names:
+        for old_fact_key, old_fact_key_name in \
+            old_card_type.fact_keys_and_names:
             label = QtGui.QLabel(self)
             label.setText(_(old_fact_key_name) + ":")
             font = QtGui.QFont()
@@ -34,7 +35,8 @@ class ConvertCardTypeKeysDlg(QtGui.QDialog, Ui_ConvertCardTypeKeysDlg):
             label.setFont(font)
             self.gridLayout.addWidget(label, index, 0, 1, 1)
             combobox = QtGui.QComboBox(self)
-            for new_fact_key, new_key_name in new_card_type.fact_keys_and_names:
+            for new_fact_key, new_key_name in \
+                new_card_type.fact_keys_and_names:
                 combobox.addItem(_(new_key_name))
             combobox.addItem(_("<none>"))
             combobox.setCurrentIndex(combobox.count()-1)
@@ -55,7 +57,7 @@ class ConvertCardTypeKeysDlg(QtGui.QDialog, Ui_ConvertCardTypeKeysDlg):
                 new_fact_key = \
                      self.new_card_type.fact_key_with_name(new_fact_key_name)
                 if new_fact_key in self.correspondence.values():
-                    QtGui.QMessageBox.critical(None, _("Mnemosyne"),
+                    QtGui.QMessageBox.critical(self, _("Mnemosyne"),
                         _("No duplicate in new fact keys allowed."),
                         _("&OK"), "", "", 0, -1)
                     self.ok_button.setEnabled(False)
@@ -67,7 +69,7 @@ class ConvertCardTypeKeysDlg(QtGui.QDialog, Ui_ConvertCardTypeKeysDlg):
                     self.ok_button.setEnabled(False)
                     if len(self.correspondence) == \
                        len(self.old_card_type.fact_keys()):
-                        QtGui.QMessageBox.critical(None, _("Mnemosyne"),
+                        QtGui.QMessageBox.critical(self, _("Mnemosyne"),
                             _("A required field is missing."),
                             _("&OK"), "", "", 0, -1)
                     return
@@ -83,4 +85,3 @@ class ConvertCardTypeKeysDlg(QtGui.QDialog, Ui_ConvertCardTypeKeysDlg):
                      self.new_card_type.fact_key_with_name(new_fact_key_name)
                 self.correspondence[old_fact_key] = new_fact_key
         QtGui.QDialog.accept(self)
-

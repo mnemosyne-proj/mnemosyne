@@ -30,12 +30,14 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         return False
 
     def __init__(self, card, component_manager, allow_cancel=True,
-                 started_from_card_browser=False):
+                 started_from_card_browser=False, parent=None):
         # Note: even though this is in essence an EditFactDlg, we don't use
         # 'fact' as argument, as 'fact' does not know anything about card
         # types.
         AddEditCards.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, self.main_widget())
+        if parent is None:
+            parent = self.main_widget()
+        QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
@@ -156,12 +158,10 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
                 changed = True
                 break
         if changed:
-            status = QtGui.QMessageBox.warning(None, _("Mnemosyne"),
-                _("Abandon changes to current card?"),
-                _("&Yes"), _("&No"), "", 1, -1)
+            status = self.main_widget().show_question(\
+                _("Abandon changes to current card?"), _("&Yes"), _("&No"), "")
             if status == 0:
                 QtGui.QDialog.reject(self)
                 return
         else:
            QtGui.QDialog.reject(self)
-

@@ -80,13 +80,10 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
         if self.config()["run_sync_server"]:
             self.component_manager.current("sync_server").activate()
             if not self.initially_running and self.is_server_running():
-                QtGui.QMessageBox.information(None, _("Mnemosyne"),
-                    _("Server now running on ") + localhost_IP() + ".",
-                   _("&OK"), "", "", 0, -1)
+                self.main_widget().show_information(\
+                    _("Server now running on ") + localhost_IP() + ".")
         else:
             self.component_manager.current("sync_server").deactivate()
             if self.initially_running and not self.is_server_running():
-                QtGui.QMessageBox.information(None, _("Mnemosyne"),
-                    _("Server stopped."), _("&OK"), "", "", 0, -1)
-
-
+                self.main_widget().show_information(\
+                    _("Server stopped."))

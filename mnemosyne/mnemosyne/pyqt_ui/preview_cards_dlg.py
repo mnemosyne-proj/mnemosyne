@@ -25,6 +25,8 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component,
         """
 
         Component.__init__(self, component_manager)
+        if parent is None:
+            parent = self.main_widget()
         QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
         QAOptimalSplit.__init__(self)

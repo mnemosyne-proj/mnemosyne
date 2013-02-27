@@ -10,7 +10,8 @@ from mnemosyne.pyqt_ui.ui_manage_plugins_dlg import Ui_ManagePluginsDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import ManagePluginsDialog
 
 
-class ManagePluginsDlg(QtGui.QDialog, Ui_ManagePluginsDlg, ManagePluginsDialog):
+class ManagePluginsDlg(QtGui.QDialog, Ui_ManagePluginsDlg,
+    ManagePluginsDialog):
 
     def __init__(self, component_manager):
         ManagePluginsDialog.__init__(self, component_manager)
@@ -36,7 +37,8 @@ class ManagePluginsDlg(QtGui.QDialog, Ui_ManagePluginsDlg, ManagePluginsDialog):
         self.plugin_with_name = {}
         for plugin in self.plugins():
             list_item = QtGui.QListWidgetItem(_(plugin.name))
-            list_item.setFlags(list_item.flags() | QtCore.Qt.ItemIsUserCheckable)
+            list_item.setFlags(list_item.flags() \
+                | QtCore.Qt.ItemIsUserCheckable)
             self.plugin_with_name[_(plugin.name)] = plugin
             active = \
                 plugin.__class__.__name__ in self.config()["active_plugins"]

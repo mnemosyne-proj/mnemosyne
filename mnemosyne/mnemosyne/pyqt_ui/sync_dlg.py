@@ -169,6 +169,13 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
         if self.can_reject:
             QtGui.QDialog.reject(self)
 
+    def top_window(self):
+        for widget in QtGui.QApplication.topLevelWidgets():
+            if not widget.__class__.__name__.startswith("Q") and \
+                widget.__class__.__name__ != "MainWdgt":
+                    return widget
+        return self
+
     def finish_sync(self):
         QtGui.QDialog.accept(self)
 
