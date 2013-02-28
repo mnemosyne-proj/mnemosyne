@@ -17,7 +17,7 @@ from mnemosyne.libmnemosyne.ui_components.dialogs import SyncDialog
 
 answer = None
 mutex = QtCore.QMutex()
-question_answered = QtCore.QWaitCondition()
+dialog_closed = QtCore.QWaitCondition()
 
 
 class SyncThread(QtCore.QThread):
@@ -60,18 +60,30 @@ class SyncThread(QtCore.QThread):
             self.mnemosyne.database().release_connection()
 
     def show_information(self, message):
+        mutex.lock()
         self.information_signal.emit(message)
+        if not answer:
+            dialog_closed.wait(mutex)
+        mutex.unlock()
+        return answer
 
     def show_error(self, error):
+        global answer
+        mutex.lock()
         self.error_signal.emit(error)
+        if not answer:
+            dialog_closed.wait(mutex)
+        answer = None
+        mutex.unlock()
 
     def show_question(self, question, option0, option1, option2):
+        global answer
         mutex.lock()
         self.question_signal.emit(question, option0, option1, option2)
         if not answer:
-            question_answered.wait(mutex)
+            dialog_closed.wait(mutex)
+        answer = None
         mutex.unlock()
-        return answer
 
     def set_progress_text(self, text):
         self.set_progress_text_signal.emit(text)
@@ -145,9 +157,9 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
         answer = None
         self.thread = SyncThread(self, server, port, username, password)
         self.thread.information_signal.connect(\
-            self.main_widget().show_information)
+            self.threaded_show_information)
         self.thread.error_signal.connect(\
-            self.main_widget().show_error)
+            self.threaded_show_error)
         self.thread.question_signal.connect(\
             self.threaded_show_question)
         self.thread.set_progress_text_signal.connect(\
@@ -169,20 +181,29 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
         if self.can_reject:
             QtGui.QDialog.reject(self)
 
-    def top_window(self):
-        for widget in QtGui.QApplication.topLevelWidgets():
-            if not widget.__class__.__name__.startswith("Q") and \
-                widget.__class__.__name__ != "MainWdgt":
-                    return widget
-        return self
-
     def finish_sync(self):
         QtGui.QDialog.accept(self)
+
+    def threaded_show_information(self, message):
+        global answer
+        mutex.lock()
+        self.main_widget().show_information(message)
+        answer = True
+        dialog_closed.wakeAll()
+        mutex.unlock()
+
+    def threaded_show_error(self, error):
+        global answer
+        mutex.lock()
+        self.main_widget().show_error(error)
+        answer = True
+        dialog_closed.wakeAll()
+        mutex.unlock()
 
     def threaded_show_question(self, question, option0, option1, option2):
         global answer
         mutex.lock()
         answer = self.main_widget().show_question(question, option0,
             option1, option2)
-        question_answered.wakeAll()
+        dialog_closed.wakeAll()
         mutex.unlock()

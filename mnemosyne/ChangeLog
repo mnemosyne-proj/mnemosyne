@@ -6,6 +6,8 @@
 -Correctly update flag 'hide pronunciation' in the popup menu (reported by
  Tom Cato Amundsen).
 -When merging duplicate cards, merge tags also (requested by Stephan Maseizik).
+-Fix regression where all the dialogs would have generic names ('mnemosyne')
+ as opposed to e.g. 'Add cards'.
 -Fix crash when converting multiple cards at the same time between e.g.
  Vocabulary card type and Map card type (reported by Gnome).
 -Unless the 'Prefill tag behaviour' plugin is active, changing card types will
@@ -20,6 +22,8 @@
  (requested by Kent Stearman).
 -In the card browser, CTRL+F can be used to focus the input on the search
  field (requested by abacus).
+-Improve the position of dialogs popping up from the card browser,
+ sync window, ... .
 -Fix crash pressing the 'Delete' key in the 'Activate cards' dialog (reported
  by Gnome).
 -When changing card types, only warn about losing history when there is actual

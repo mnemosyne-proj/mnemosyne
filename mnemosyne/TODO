@@ -1,7 +1,3 @@
--reparent all dialog boxes (doesn't seem to work for sync finished)
-
--Mnemosyne name not set in dialog windows, only in progress bars.
-
 -if dialog like edit card or browse cards is open on server, try to close it
  when sync comes in or rollover happens (Henrik)
 

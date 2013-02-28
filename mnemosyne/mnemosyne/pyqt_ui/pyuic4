@@ -3,12 +3,10 @@
 # pyuic4 <Johannes.Baiter@gmail.com>
 #
 
-#
 # This wraps PyQt4's uic to provide support for mnemosyne's own translation
 # infrastructure.
-# Most of the code is taken from a blogpost by mandel_macaque [1]
-# [1] http://www.themacaque.com/?p=816
-#
+# Most of the code is taken from a blogpost by mandel_macaque:
+# http://www.themacaque.com/?p=816
 
 import re
 import sys
@@ -18,10 +16,11 @@ from PyQt4 import QtCore
 
 
 class CompileUi(object):
+
     def compile_ui(self, ui_file):
-        # import the uic compiler from pyqt and generate the
-        # .py files something similar could be done with pyside
-        # but that is left as an exercise for the reader.
+        # Import the uic compiler from pyqt and generate the .py files.
+        # Something similar could be done with pyside but that is left as an
+        # exercise for the reader.
         self._wrapuic()
         from PyQt4 import uic
         # We're using BytesIO instead of StringIO, as PyQt still uses
@@ -37,13 +36,15 @@ class CompileUi(object):
         sys.stdout.write(output.read())
 
     def _fill_retranslate_method(self, source):
+
         """ Reads a python source file, scans for lines that contain
-            strings marked to be translated with getext, and adds those lines
-            to the "retranslateUi" method.
-            We need this helper method because newer PyQt versions (everything
-            after 4.8.3) just leave the 'retranslateUi' method empty.
+        strings marked to be translated with getext, and adds those lines
+        to the "retranslateUi" method.
+        We need this helper method because newer PyQt versions (everything
+        after 4.8.3) just leave the 'retranslateUi' method empty.
 
         """
+
         i18n_rexp = re.compile(r"^.*_\(.*\).*$")
         output = BytesIO()
         i18n_elements = []
@@ -55,9 +56,7 @@ class CompileUi(object):
             else:
                 if not i18n_elements and "def retranslateUi" not in line:
                     continue
-                # Skip the "pass" statement.
                 output.write(line)
-                source.next()
                 output.write("".join(i18n_elements))
         source.close()
         return output
@@ -65,13 +64,17 @@ class CompileUi(object):
     _wrappeduic = False
     @classmethod
     def _wrapuic(cls):
+
         """Wrap uic to use gettext's _() in place of tr()"""
+
         if cls._wrappeduic:
             return
         from PyQt4.uic.Compiler import compiler, qtproxies, indenter
 
         class _UICompiler(compiler.UICompiler):
+
             """Speciallized compiler for qt .ui files."""
+
             def createToplevelWidget(self, classname, widgetname):
                 o = indenter.getIndenter()
                 o.level = 0
@@ -88,6 +91,7 @@ class CompileUi(object):
 
         qtproxies.i18n_string = _i18n_string
         cls._wrappeduic = True
+
 
 if __name__ == '__main__':
     compiler = CompileUi()
