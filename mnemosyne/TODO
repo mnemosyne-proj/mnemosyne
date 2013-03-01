@@ -5,8 +5,13 @@
 QModelIndexList QAbstractItemModel::persistentIndexList () const
 bool isExpanded ( const QModelIndex & index ) const (USERVOICE)
 
+-hangs in finishing sync after conflict
+
+
 -sync problem: tag b exists, card with tag a rename tag to a.b, edit card?, then
 rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict for client)
+
+-sync timeout for creating media files is timeout during login?
 
 -other sync problem: server: ~/tmp/default-20120806-204415.db
 Traceback (innermost last):

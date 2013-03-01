@@ -64,8 +64,8 @@ class SyncThread(QtCore.QThread):
         self.information_signal.emit(message)
         if not answer:
             dialog_closed.wait(mutex)
+        answer = None
         mutex.unlock()
-        return answer
 
     def show_error(self, error):
         global answer
@@ -82,8 +82,8 @@ class SyncThread(QtCore.QThread):
         self.question_signal.emit(question, option0, option1, option2)
         if not answer:
             dialog_closed.wait(mutex)
-        answer = None
         mutex.unlock()
+        return answer
 
     def set_progress_text(self, text):
         self.set_progress_text_signal.emit(text)
