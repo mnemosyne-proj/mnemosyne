@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-03-01 17:48+CET\n"
+"POT-Creation-Date: 2013-03-04 12:13+CET\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,22 +80,22 @@ msgstr ""
 msgid "Production"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:185
+#: ../mnemosyne/libmnemosyne/__init__.py:187
 msgid "Another copy of Mnemosyne is still running."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:186
+#: ../mnemosyne/libmnemosyne/__init__.py:188
 msgid "Continuing is impossible and will lead to data loss!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:266
-#: ../mnemosyne/libmnemosyne/__init__.py:279
+#: ../mnemosyne/libmnemosyne/__init__.py:268
+#: ../mnemosyne/libmnemosyne/__init__.py:281
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:783
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:330
 msgid "Error when running plugin:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:299
+#: ../mnemosyne/libmnemosyne/__init__.py:301
 msgid "Creating temporary database."
 msgstr ""
 
@@ -123,7 +123,7 @@ msgid "Back-to-front"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:39
-#: ../mnemosyne/libmnemosyne/card_types/cloze.py:156
+#: ../mnemosyne/libmnemosyne/card_types/cloze.py:158
 msgid "Cloze deletion"
 msgstr ""
 
@@ -136,7 +136,7 @@ msgstr ""
 msgid "Cloze"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/card_types/cloze.py:157
+#: ../mnemosyne/libmnemosyne/card_types/cloze.py:159
 msgid ""
 "A card type blanking out certain fragments in a text.\n"
 "\n"
@@ -1561,7 +1561,7 @@ msgstr ""
 msgid "Not seen"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/sync_dlg.py:123
+#: ../mnemosyne/pyqt_ui/sync_dlg.py:125
 msgid ""
 "Here, you can sync this machine with a remote server. Of course, that remote computer needs to have a server running, which can be started from the configuration screen on that remote machine.\n"
 "\n"

@@ -167,3 +167,22 @@ class DeleteUnusedLatexFiles(Hook):
         latex_dir = os.path.join(self.database().media_dir(), "_latex")
         if os.path.exists(latex_dir):
             shutil.rmtree(latex_dir)
+
+
+class ProcessQAClozeLatex(Hook):
+
+    """Make sure we add latex tags to the answer of cloze cards."""
+
+    used_for = "process_q_a_cloze"
+
+    def run(self, question, answer):
+        if not "[...]" in question: # Sentence card type, recognition.
+            return question, answer
+        left, right = question.split("[...]")
+        if "<latex>" in left and "</latex>" in right:
+            answer = "<latex>" + answer + "</latex>"
+        elif "<$>" in left and "</$>" in right:
+            answer = "<$>" + answer + "</$>"
+        elif "<$$>" in left and "</$$>" in right:
+            answer = "<$$>" + answer + "</$$>"
+        return question, answer

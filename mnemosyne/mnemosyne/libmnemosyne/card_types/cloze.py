@@ -87,6 +87,8 @@ class Cloze(CardType):
                     "[" + cloze + "]", cloze_without_hint, 1)
             cursor += 1
             current_index += 1
+        for f in self.component_manager.all("hook", "process_q_a_cloze"):
+            question, answer = f.run(question, answer)
         return question, answer
 
     def fact_data(self, card):

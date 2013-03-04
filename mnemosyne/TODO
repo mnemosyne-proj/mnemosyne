@@ -1,3 +1,9 @@
+add test:
+
+-[Lorentz force law]
+<$>[\mathbf{F}]=[q]([\mathbf{E}]+[\mathbf{v}\times\mathbf{B}]</$>
+ requested by acdenh
+
 -if dialog like edit card or browse cards is open on server, try to close it
  when sync comes in or rollover happens (Henrik)
 
@@ -6,7 +12,6 @@ QModelIndexList QAbstractItemModel::persistentIndexList () const
 bool isExpanded ( const QModelIndex & index ) const (USERVOICE)
 
 -hangs in finishing sync after conflict
-
 
 -sync problem: tag b exists, card with tag a rename tag to a.b, edit card?, then
 rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict for client)

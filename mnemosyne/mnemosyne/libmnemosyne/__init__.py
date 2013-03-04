@@ -89,6 +89,8 @@ class Mnemosyne(Component):
           "LatexFilenamesFromData"),
          ("mnemosyne.libmnemosyne.filters.latex",
           "DeleteUnusedLatexFiles"),
+         ("mnemosyne.libmnemosyne.filters.latex",
+          "ProcessQAClozeLatex"),
          ("mnemosyne.libmnemosyne.controllers.default_controller",
           "DefaultController"),
          ("mnemosyne.libmnemosyne.review_controllers.SM2_controller",

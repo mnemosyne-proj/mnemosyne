@@ -8,6 +8,9 @@
 -When merging duplicate cards, merge tags also (requested by Stephan Maseizik).
 -Fix regression where all the dialogs would have generic names ('mnemosyne')
  as opposed to e.g. 'Add cards'.
+-Correctly format clozes in latex, e.g. [Lorentz force law]
+ <$>[\mathbf{F}]=[q]([\mathbf{E}]+[\mathbf{v}\times\mathbf{B}]</$>
+ ()requested by acdenh)
 -Fix crash when converting multiple cards at the same time between e.g.
  Vocabulary card type and Map card type (reported by Gnome).
 -Unless the 'Prefill tag behaviour' plugin is active, changing card types will

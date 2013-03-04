@@ -60,25 +60,27 @@ class SyncThread(QtCore.QThread):
             self.mnemosyne.database().release_connection()
 
     def show_information(self, message):
+        global answer
         mutex.lock()
+        answer = None
         self.information_signal.emit(message)
         if not answer:
             dialog_closed.wait(mutex)
-        answer = None
         mutex.unlock()
 
     def show_error(self, error):
         global answer
         mutex.lock()
+        answer = None
         self.error_signal.emit(error)
         if not answer:
             dialog_closed.wait(mutex)
-        answer = None
         mutex.unlock()
 
     def show_question(self, question, option0, option1, option2):
         global answer
         mutex.lock()
+        answer = None
         self.question_signal.emit(question, option0, option1, option2)
         if not answer:
             dialog_closed.wait(mutex)
@@ -153,8 +155,6 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
         self.cancel_button.setEnabled(False)
         # Do the actual sync in a separate thread.
         self.database().release_connection()
-        global answer
-        answer = None
         self.thread = SyncThread(self, server, port, username, password)
         self.thread.information_signal.connect(\
             self.threaded_show_information)
