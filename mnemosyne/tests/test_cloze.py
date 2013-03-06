@@ -165,7 +165,6 @@ class TestCloze(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
 
-
         # Make sure the card is not the last one in the database, such that
         # sqlite does not recycle its id.
 
@@ -388,3 +387,21 @@ third in 2008"""}
 
         assert "bla [hint] other cloze" in card.question()
         assert "other hint" not in card.question()
+
+    def test_latex(self):
+        card_type = self.card_type_with_id("5")
+
+        fact_data = {"text": """<$>[\mathbf{F}]=[q]([\mathbf{E}]+[\mathbf{v}\times\mathbf{B}]</$>"""}
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])[0]
+        assert "<img src" in card.answer()
+
+        fact_data = {"text": """<$$>[\mathbf{F}]=[q]([\mathbf{E}]+[\mathbf{v}\times\mathbf{B}]</$$>"""}
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])[0]
+        assert "<img src" in card.answer()
+
+        fact_data = {"text": """<latex>[\mathbf{F}]=[q]([\mathbf{E}]+[\mathbf{v}\times\mathbf{B}]</latex>"""}
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])[0]
+        assert "<img src" in card.answer()

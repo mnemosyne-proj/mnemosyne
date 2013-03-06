@@ -104,4 +104,3 @@ class MainWidget(UiComponent):
 
     def enable_browse_cards(self, is_enabled):
         pass
-

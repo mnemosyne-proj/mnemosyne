@@ -1,22 +1,9 @@
-add test:
-
--[Lorentz force law]
-<$>[\mathbf{F}]=[q]([\mathbf{E}]+[\mathbf{v}\times\mathbf{B}]</$>
- requested by acdenh
-
--if dialog like edit card or browse cards is open on server, try to close it
- when sync comes in or rollover happens (Henrik)
-
 -save tree state (which nodes are expanded or not) (Troy Guze)
 QModelIndexList QAbstractItemModel::persistentIndexList () const
 bool isExpanded ( const QModelIndex & index ) const (USERVOICE)
 
--hangs in finishing sync after conflict
-
 -sync problem: tag b exists, card with tag a rename tag to a.b, edit card?, then
 rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict for client)
-
--sync timeout for creating media files is timeout during login?
 
 -other sync problem: server: ~/tmp/default-20120806-204415.db
 Traceback (innermost last):
@@ -102,6 +89,8 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -menu option to copy database to USB key?
 
 -import db file
+
+-move to qt5?
 
 -when converting f2b to map through the card browser 'change card type',
  check if it's at all possible to convert (enough fields), before showing
@@ -337,6 +326,9 @@ Milesteiner
 
 -more plugin examples: file format, custom tag, activate all cards,
  last grade filter
+
+-if dialog like edit card or browse cards is open on server, try to close it
+ when sync comes in?
 
 -when pasting from a webpage, font formatting in 'add cards' is inconsistent.
 

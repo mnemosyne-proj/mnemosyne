@@ -276,6 +276,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
         self.saved_index = None
+        self.card_model = None
         # Set up card type tree.
         self.container_1 = QtGui.QWidget(self.splitter_1)
         self.layout_1 = QtGui.QVBoxLayout(self.container_1)
@@ -590,6 +591,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             = self.table.horizontalHeader().saveState()
         self.table.setModel(QtGui.QStandardItemModel())
         del self.card_model
+        self.card_model = None
         QtSql.QSqlDatabase.removeDatabase(\
             QtSql.QSqlDatabase.database().connectionName())
 
