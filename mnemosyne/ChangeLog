@@ -3,6 +3,8 @@
 -When editing or browsing cards, don't reset the state of the scheduler such
  that you need to press 'show answer' again or such that a new card appears
  (reported by Gnome).
+-Remember which tags where expanded/collapsed in the tag tree (requested a.o
+ by Troy Guze).
 -Correctly update flag 'hide pronunciation' in the popup menu (reported by
  Tom Cato Amundsen).
 -When merging duplicate cards, merge tags also (requested by Stephan Maseizik).

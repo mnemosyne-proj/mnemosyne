@@ -201,6 +201,8 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
     def closeEvent(self, event):
         # Generated when clicking the window's close button.
         self._store_state()
+        # This allows the state of the tag tree to be saved.
+        self.tab_widget.currentWidget().close()
 
     def accept(self):
         criterion = self.tab_widget.currentWidget().criterion()

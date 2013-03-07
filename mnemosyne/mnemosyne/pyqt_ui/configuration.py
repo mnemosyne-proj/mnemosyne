@@ -35,6 +35,7 @@ class PyQtConfiguration(Hook):
              "browse_cards_dlg_splitter_2_state": None,
              "browse_cards_dlg_table_settings": None,
              "browse_cards_dlg_sorting_warning_shown": False,
+             "tag_tree_wdgt_state": None,
              "statistics_dlg_state": None,
              "configuration_dlg_state": None,
              "activate_cards_dlg_state": None,

@@ -1,7 +1,3 @@
--save tree state (which nodes are expanded or not) (Troy Guze)
-QModelIndexList QAbstractItemModel::persistentIndexList () const
-bool isExpanded ( const QModelIndex & index ) const (USERVOICE)
-
 -sync problem: tag b exists, card with tag a rename tag to a.b, edit card?, then
 rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict for client)
 

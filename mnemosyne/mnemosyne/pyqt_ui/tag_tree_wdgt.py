@@ -253,8 +253,14 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             for node_item, tag in self.tag_for_node_item.iteritems():
                 if tag._id in criterion._tag_ids_active:
                     node_item.setCheckState(0, QtCore.Qt.Checked)
-        # Finalise.
+        # Restore state of the tree.
         self.tree_wdgt.expandAll()
+        collapsed = self.config()["tag_tree_wdgt_state"]
+        iterator = QtGui.QTreeWidgetItemIterator(self.tree_wdgt)
+        while iterator.value():
+            if unicode(iterator.value().text(1)) in collapsed:
+                iterator.value().setExpanded(False)
+            iterator += 1
 
     def checked_to_active_tags_in_criterion(self, criterion):
         for item, tag in self.tag_for_node_item.iteritems():
@@ -297,6 +303,14 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         self.save_criterion()
         if self.before_using_libmnemosyne_db_hook:
             self.before_using_libmnemosyne_db_hook()
+        # Store which nodes are collapsed.
+        collapsed = []
+        iterator = QtGui.QTreeWidgetItemIterator(self.tree_wdgt)
+        while iterator.value():
+            if not iterator.value().isExpanded():
+                collapsed.append(unicode(iterator.value().text(1)))
+            iterator += 1
+        self.config()["tag_tree_wdgt_state"] = collapsed
 
     def wakeup(self):
 
@@ -343,3 +357,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         self.hibernate()
         self.tag_tree = TagTree(self.component_manager)
         self.wakeup()
+
+    def closeEvent(self, event):
+        self.hibernate()
+

@@ -73,3 +73,7 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
 
     def criterion_changed(self):
         self.parent_saved_sets.clearSelection()
+
+    def closeEvent(self, event):
+        # This allows the state of the tag tree to be saved.
+        self.tag_tree_wdgt.close()

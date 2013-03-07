@@ -658,7 +658,8 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
 
     def horizontal_header_section_clicked(self, index):
         if not self.config()["browse_cards_dlg_sorting_warning_shown"]:
-            self.main_widget().show_information(_("You chose to sort this table. Operations in the card browser could now be slower. Next time you start the card browser, the table will be unsorted again."))
+            self.main_widget().show_information(\
+_("You chose to sort this table. Operations in the card browser could now be slower. Next time you start the card browser, the table will be unsorted again."))
             self.config()["browse_cards_dlg_sorting_warning_shown"] = True
 
     def activate(self):
@@ -750,6 +751,8 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         # Generated when clicking the window's close button.
         self._store_state()
         self.unload_qt_database()
+        # This allows the state of the tag tree to be saved.
+        self.tag_tree_wdgt.close()
 
     def reject(self):
         # Generated when pressing escape.
