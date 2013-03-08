@@ -256,6 +256,8 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         # Restore state of the tree.
         self.tree_wdgt.expandAll()
         collapsed = self.config()["tag_tree_wdgt_state"]
+        if collapsed is None:
+            collapsed = []
         iterator = QtGui.QTreeWidgetItemIterator(self.tree_wdgt)
         while iterator.value():
             if unicode(iterator.value().text(1)) in collapsed:

@@ -72,9 +72,12 @@ class SyncThread(QtCore.QThread):
         global answer
         mutex.lock()
         answer = None
+        print 'emitting error'
         self.error_signal.emit(error)
         if not answer:
+            print 'waiting for anser'
             dialog_closed.wait(mutex)
+        print 'done'
         mutex.unlock()
 
     def show_question(self, question, option0, option1, option2):
@@ -193,6 +196,7 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
         mutex.unlock()
 
     def threaded_show_error(self, error):
+        print 'threaded show error'
         global answer
         mutex.lock()
         self.main_widget().show_error(error)

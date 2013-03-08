@@ -1,7 +1,8 @@
--sync problem: tag b exists, card with tag a rename tag to a.b, edit card?, then
-rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict for client)
+-crashes when displaying error?
+-restoring from backup on server side gives thread violations
 
--other sync problem: server: ~/tmp/default-20120806-204415.db
+
+-sync problem: server: ~/tmp/default-20120806-204415.db
 Traceback (innermost last):
   File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.0.1-py2.7.egg/openSM2sync/s
 erver.py", line 481, in get_server_log_entries
@@ -9,6 +10,9 @@ erver.py", line 481, in get_server_log_entries
  GeneratorExit
 haal data van een paar dagen terug
 client: sqlite_sync: 399 card from log entry: none has no attribute __get__item
+
+-sync problem: tag b exists, card with tag a rename tag to a.b, edit card?, then
+rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict for client)
 
 -add tag to only one sister card, then to next sister card:
   client: ~/tmp/default-20120817-161449.db
@@ -48,6 +52,13 @@ ditto for 20130123 line 127 column 248
   File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.2-py2.7.egg/mnemosyne/libmnemosyne/databases/SQLite_sync.py", line 526, in card_from_log_entry
     card._id = sql_res[0]
  TypeError: 'NoneType' object has no attribute '__getitem__'
+
+
+
+
+-restore get_server_entire_database_binary
+
+
 
 -merge translations
 -add ` key to website
@@ -109,6 +120,10 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 
 -save cookies
  http://stackoverflow.com/questions/3382640/how-can-i-load-session-information-into-qtwebkit
+
+-Jiri Palacek: conflict resolution at card level, e.g. if 1 card causes conflict, but both
+ database a and b have different non-conflicting new cards, merge the non-conflicting cards
+ and keep one of the conflicting version.
 
 -migrate webserver to cherrypy, recheck audio files
 

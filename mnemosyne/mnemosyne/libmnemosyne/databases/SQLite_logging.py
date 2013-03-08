@@ -199,8 +199,12 @@ class SQLiteLogging(object):
             (EventTypes.EDITED_SETTING, int(timestamp), key))
 
     def current_log_index(self):
-        return self.con.execute(\
-            "select _id from log order by _id desc limit 1").fetchone()[0]
+        result = self.con.execute(\
+            "select _id from log order by _id desc limit 1")
+        if result:
+            return result.fetchone()[0]
+        else:
+            return 0
 
     def dump_to_science_log(self):
         if self.config()["upload_science_logs"] == False:
