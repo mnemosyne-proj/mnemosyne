@@ -249,7 +249,10 @@ class Server(Partner):
         if session:
             self.terminate_session_with_token(session.token)
         if traceback_string:
-            self.ui.show_error(traceback_string)
+            if "GeneratorExit" in traceback_string:
+                self.ui.show_error("The client terminated the connection.")
+            else:
+                self.ui.show_error(traceback_string)
             return self.text_format.repr_message("Internal server error",
                 traceback_string)
 

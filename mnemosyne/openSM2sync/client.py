@@ -446,7 +446,7 @@ class Client(Partner):
 
     def get_server_entire_database_binary(self):
 
-        #return self.get_server_entire_database()
+        return self.get_server_entire_database()
 
 
 

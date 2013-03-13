@@ -157,9 +157,8 @@ class Configuration(Component, dict):
              "alignment", "non_latin_font_size_increase",
              "hide_pronunciation_field", "non_memorised_cards_in_hand",
              "randomise_new_cards", "randomise_scheduled_cards",
-             "memorise_sister_cards_on_same_day", "ui_language",
-             "day_starts_at", "latex_preamble", "latex_postamble",
-             "latex", "dvipng"]
+             "ui_language", "day_starts_at", "latex_preamble",
+             "latex_postamble", "latex", "dvipng"]
         # If the user id is not set, it's either because this is the first run
         # of the program, or because the user deleted the config file. In the
         # latter case, we try to recuperate the id from the history files.

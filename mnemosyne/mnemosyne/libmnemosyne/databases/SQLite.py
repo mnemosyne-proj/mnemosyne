@@ -272,14 +272,14 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         return self._path
 
     def name(self):
-        return os.path.basename(self.config()["last_database"])
+        return os.path.basename(self._path)
 
     def display_name(self):
         if not self.is_loaded():
             return None
         else:
-            return os.path.basename(self.config()["last_database"]).\
-                   split(self.database().suffix)[0]
+            return os.path.basename(self._path).\
+                split(self.database().suffix)[0]
 
     def compact(self):
         self.con.execute("vacuum")
@@ -304,7 +304,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             values(?,?)""", ("log.txt", 0))
         self.config()["last_database"] = \
             contract_path(self._path, self.config().data_dir)
-        # Create __UNTAGGED__ tag
+        # Create __UNTAGGED__ tag.
         tag = Tag("__UNTAGGED__", "__UNTAGGED__")
         self.add_tag(tag)
         # Create default criterion.
@@ -345,7 +345,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         except:
             raise RuntimeError, _("Unable to load file.") + traceback_string()
         if sql_res is None:
-            raise RuntimeError, _("Unable to load file, query failed")
+            raise RuntimeError, _("Unable to load file, query failed.")
         if sql_res[0] != self.version:
             raise RuntimeError, \
                 _("Unable to load file: database version mismatch.")

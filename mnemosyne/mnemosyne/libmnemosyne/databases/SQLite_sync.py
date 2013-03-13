@@ -389,6 +389,8 @@ class SQLiteSync(object):
             except TypeError: # The object has been deleted at a later stage.
                 pass
         elif event_type == EventTypes.EDITED_SETTING:
+            if log_entry["o_id"] not in self.config():  # Obsolete entry.
+                return None
             log_entry["value"] = repr(self.config()[log_entry["o_id"]])
         return log_entry
 

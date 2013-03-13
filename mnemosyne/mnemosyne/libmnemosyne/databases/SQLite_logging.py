@@ -200,9 +200,9 @@ class SQLiteLogging(object):
 
     def current_log_index(self):
         result = self.con.execute(\
-            "select _id from log order by _id desc limit 1")
+            "select _id from log order by _id desc limit 1").fetchone()
         if result:
-            return result.fetchone()[0]
+            return result[0]
         else:
             return 0
 

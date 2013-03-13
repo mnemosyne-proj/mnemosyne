@@ -1,5 +1,21 @@
--crashes when displaying error?
--restoring from backup on server side gives thread violations
+-similar main widget overriding in server
+
+-client: Traceback (innermost last):
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/client.py", line 152, in sync
+    self.get_server_entire_database_binary()
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/client.py", line 449, in get_server_entire_database_binary
+    return self.get_server_entire_database()
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/client.py", line 437, in get_server_entire_database
+    self._download_log_entries(response)
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/client.py", line 407, in _download_log_entries
+    self.database.apply_log_entry(log_entry)
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/databases/SQLite_sync.py", line 804, in apply_log_entry
+    self.delete_tag(self.tag_from_log_entry(log_entry))
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/databases/SQLite_sync.py", line 424, in tag_from_log_entry
+    return self.tag(log_entry["o_id"], is_id_internal=False)
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/databases/SQLite.py", line 615, in tag
+    tag = Tag(sql_res[2], sql_res[1])
+ TypeError: 'NoneType' object has no attribute '__getitem__'
 
 
 -sync problem: server: ~/tmp/default-20120806-204415.db
@@ -8,8 +24,10 @@ Traceback (innermost last):
 erver.py", line 481, in get_server_log_entries
     yield buffer
  GeneratorExit
+
 haal data van een paar dagen terug
 client: sqlite_sync: 399 card from log entry: none has no attribute __get__item
+
 
 -sync problem: tag b exists, card with tag a rename tag to a.b, edit card?, then
 rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict for client)
@@ -55,6 +73,12 @@ ditto for 20130123 line 127 column 248
 
 
 
+-restoring from backup on server side gives thread violations
+
+-creating tmp database does not have name 'tmp'
+
+
+-restore missing media file check
 
 -restore get_server_entire_database_binary
 

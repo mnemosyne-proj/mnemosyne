@@ -54,10 +54,17 @@ class SyncThread(QtCore.QThread):
 
     def run(self):
         try:
+            # Libmnemosyne itself could also generate dialog messages, so
+            # we temporarily override the main_widget with the threaded
+            # routines in this class.
+            self.mnemosyne.component_manager.components\
+                [None]["main_widget"].append(self)
             self.mnemosyne.controller().sync(self.server, self.port,
                 self.username, self.password, ui=self)
         finally:
             self.mnemosyne.database().release_connection()
+            self.mnemosyne.component_manager.components\
+                [None]["main_widget"].pop()
 
     def show_information(self, message):
         global answer
@@ -72,12 +79,9 @@ class SyncThread(QtCore.QThread):
         global answer
         mutex.lock()
         answer = None
-        print 'emitting error'
         self.error_signal.emit(error)
         if not answer:
-            print 'waiting for anser'
             dialog_closed.wait(mutex)
-        print 'done'
         mutex.unlock()
 
     def show_question(self, question, option0, option1, option2):
@@ -136,6 +140,9 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
         if self.config()["server_for_sync_as_client"]:
             self.ok_button.setFocus()
         self.can_reject = True
+        # Since we will overwrite the true main widget in the thread, we need
+        # to save it here.
+        self.true_main_widget = self.main_widget()
 
     def activate(self):
         self.exec_()
@@ -166,17 +173,17 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
         self.thread.question_signal.connect(\
             self.threaded_show_question)
         self.thread.set_progress_text_signal.connect(\
-            self.main_widget().set_progress_text)
+            self.true_main_widget.set_progress_text)
         self.thread.set_progress_range_signal.connect(\
-            self.main_widget().set_progress_range)
+            self.true_main_widget.set_progress_range)
         self.thread.set_progress_update_interval_signal.connect(\
-            self.main_widget().set_progress_update_interval)
+            self.true_main_widget.set_progress_update_interval)
         self.thread.increase_progress_signal.connect(\
-            self.main_widget().increase_progress)
+            self.true_main_widget.increase_progress)
         self.thread.set_progress_value_signal.connect(\
-            self.main_widget().set_progress_value)
+            self.true_main_widget.set_progress_value)
         self.thread.close_progress_signal.connect(\
-            self.main_widget().close_progress)
+            self.true_main_widget.close_progress)
         self.thread.finished.connect(self.finish_sync)
         self.thread.start()
 
@@ -190,16 +197,15 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
     def threaded_show_information(self, message):
         global answer
         mutex.lock()
-        self.main_widget().show_information(message)
+        self.true_main_widget.show_information(message)
         answer = True
         dialog_closed.wakeAll()
         mutex.unlock()
 
     def threaded_show_error(self, error):
-        print 'threaded show error'
         global answer
         mutex.lock()
-        self.main_widget().show_error(error)
+        self.true_main_widget.show_error(error)
         answer = True
         dialog_closed.wakeAll()
         mutex.unlock()
@@ -207,7 +213,7 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
     def threaded_show_question(self, question, option0, option1, option2):
         global answer
         mutex.lock()
-        answer = self.main_widget().show_question(question, option0,
+        answer = self.true_main_widget.show_question(question, option0,
             option1, option2)
         dialog_closed.wakeAll()
         mutex.unlock()

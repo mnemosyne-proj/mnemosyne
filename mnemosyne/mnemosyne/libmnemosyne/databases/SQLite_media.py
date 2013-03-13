@@ -56,8 +56,10 @@ class SQLiteMedia(object):
 
         """
 
-        media_file = file(os.path.join(self.media_dir(),
-            os.path.normcase(filename)), "rb")
+        filename = os.path.join(self.media_dir(), os.path.normcase(filename))
+        if not os.path.exists(filename):
+            return "0"
+        media_file = file(filename, "rb")
         hasher = md5()
         while True:
             buffer = media_file.read(8096)
@@ -134,7 +136,7 @@ _("Media filename rather long. This could cause problems using this file on a di
 _("Filename contains '#', which could cause problems on some operating systems."))
             if not os.path.exists(filename) and \
                 not os.path.exists(expand_path(filename, self.media_dir())):
-                self.main_widget().show_error(_("Missing media file!"))
+                #self.main_widget().show_error(_("Missing media file!"))
                 for fact_key, value in fact.data.iteritems():
                     fact.data[fact_key] = \
                         fact.data[fact_key].replace(match.group(),

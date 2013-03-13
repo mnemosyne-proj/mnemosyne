@@ -42,6 +42,6 @@ class QtTranslator(GetTextTranslator):
         self.qt_translator.load(os.path.join(self.qt_dir, "translations",
             "qt_" + language + ".qm"))
         app.installTranslator(self.qt_translator)
-        # Workaround for Qt bug?
-        self.main_widget().setWindowTitle(self("Mnemosyne"))
+        # The title can also contain the database name.
+        self.controller().update_title()
 
