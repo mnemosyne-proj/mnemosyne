@@ -18,8 +18,12 @@ from mnemosyne.libmnemosyne.sync_server import SyncServer
 # either the sync server thread or the main thread is doing database
 # operations.
 
+answer = None
 mutex = QtCore.QMutex()
+dialog_closed = QtCore.QWaitCondition()
 database_released = QtCore.QWaitCondition()
+
+
 
 class ServerThread(QtCore.QThread, SyncServer):
 
@@ -49,6 +53,8 @@ class ServerThread(QtCore.QThread, SyncServer):
     sync_ended_signal = QtCore.pyqtSignal()
     information_signal = QtCore.pyqtSignal(QtCore.QString)
     error_signal = QtCore.pyqtSignal(QtCore.QString)
+    question_signal = QtCore.pyqtSignal(QtCore.QString, QtCore.QString,
+        QtCore.QString, QtCore.QString)
     set_progress_text_signal = QtCore.pyqtSignal(QtCore.QString)
     set_progress_range_signal = QtCore.pyqtSignal(int)
     set_progress_update_interval_signal = QtCore.pyqtSignal(int)
@@ -82,10 +88,16 @@ class ServerThread(QtCore.QThread, SyncServer):
             self.terminate_all_sessions() # Does its own locking.
             self.database().release_connection()
             self.server_has_connection = False
+            if self in self.component_manager.components[None]["main_widget"]:
+                self.component_manager.components[None]["main_widget"].pop()
         database_released.wakeAll()
 
     def load_database(self, database_name):
         mutex.lock()
+        # Libmnemosyne itself could also generate dialog messages, so
+        # we temporarily override the main_widget with the threaded
+        # routines in this class.
+        self.component_manager.components[None]["main_widget"].append(self)
         self.sync_started_signal.emit()
         if not self.server_has_connection:
             database_released.wait(mutex)
@@ -100,6 +112,8 @@ class ServerThread(QtCore.QThread, SyncServer):
             self.database().release_connection()
             self.server_has_connection = False
             database_released.wakeAll()
+        if self in self.component_manager.components[None]["main_widget"]:
+            self.component_manager.components[None]["main_widget"].pop()
         mutex.unlock()
         self.sync_ended_signal.emit()
 
@@ -111,11 +125,33 @@ class ServerThread(QtCore.QThread, SyncServer):
         self.server_has_connection = True
         mutex.unlock()
 
-    def show_information(self, information):
-        self.information_signal.emit(information)
+    def show_information(self, message):
+        global answer
+        mutex.lock()
+        answer = None
+        self.information_signal.emit(message)
+        if not answer:
+            dialog_closed.wait(mutex)
+        mutex.unlock()
 
     def show_error(self, error):
+        global answer
+        mutex.lock()
+        answer = None
         self.error_signal.emit(error)
+        if not answer:
+            dialog_closed.wait(mutex)
+        mutex.unlock()
+
+    def show_question(self, question, option0, option1, option2):
+        global answer
+        mutex.lock()
+        answer = None
+        self.question_signal.emit(question, option0, option1, option2)
+        if not answer:
+            dialog_closed.wait(mutex)
+        mutex.unlock()
+        return answer
 
     def set_progress_text(self, text):
         self.set_progress_text_signal.emit(text)
@@ -148,6 +184,9 @@ class QtSyncServer(Component, QtCore.QObject):
         Component.__init__(self, component_manager)
         QtCore.QObject.__init__(self)
         self.thread = None
+        # Since we will overwrite the true main widget in the thread, we need
+        # to save it here.
+        self.true_main_widget = self.main_widget()
 
     def activate(self):
         if self.config()["run_sync_server"]:
@@ -176,21 +215,23 @@ class QtSyncServer(Component, QtCore.QObject):
             self.thread.sync_ended_signal.connect(\
                 self.load_database)
             self.thread.information_signal.connect(\
-                self.main_widget().show_information)
+                self.threaded_show_information)
             self.thread.error_signal.connect(\
-                self.main_widget().show_error)
+                self.threaded_show_error)
+            self.thread.question_signal.connect(\
+                self.threaded_show_question)
             self.thread.set_progress_text_signal.connect(\
-                self.main_widget().set_progress_text)
+                self.true_main_widget.set_progress_text)
             self.thread.set_progress_range_signal.connect(\
-                self.main_widget().set_progress_range)
+                self.true_main_widget.set_progress_range)
             self.thread.set_progress_update_interval_signal.connect(\
-                self.main_widget().set_progress_update_interval)
+                self.true_main_widget.set_progress_update_interval)
             self.thread.increase_progress_signal.connect(\
-                self.main_widget().increase_progress)
+                self.true_main_widget.increase_progress)
             self.thread.set_progress_value_signal.connect(\
-                self.main_widget().set_progress_value)
+                self.true_main_widget.set_progress_value)
             self.thread.close_progress_signal.connect(\
-                self.main_widget().close_progress)
+                self.true_main_widget.close_progress)
             self.thread.start()
 
     def unload_database(self):
@@ -207,6 +248,7 @@ class QtSyncServer(Component, QtCore.QObject):
             pass
         self.thread.server_has_connection = True
         database_released.wakeAll()
+
         mutex.unlock()
 
     def load_database(self):
@@ -247,4 +289,26 @@ class QtSyncServer(Component, QtCore.QObject):
         self.thread.wait()
         self.thread = None
 
+    def threaded_show_information(self, message):
+        global answer
+        mutex.lock()
+        self.true_main_widget.show_information(message)
+        answer = True
+        dialog_closed.wakeAll()
+        mutex.unlock()
 
+    def threaded_show_error(self, error):
+        global answer
+        mutex.lock()
+        self.true_main_widget.show_error(error)
+        answer = True
+        dialog_closed.wakeAll()
+        mutex.unlock()
+
+    def threaded_show_question(self, question, option0, option1, option2):
+        global answer
+        mutex.lock()
+        answer = self.true_main_widget.show_question(question, option0,
+            option1, option2)
+        dialog_closed.wakeAll()
+        mutex.unlock()

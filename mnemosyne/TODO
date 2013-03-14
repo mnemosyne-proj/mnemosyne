@@ -1,4 +1,6 @@
--similar main widget overriding in server
+-restoring from backup on server side gives thread violations
+
+-creating tmp database does not have name 'tmp'
 
 -client: Traceback (innermost last):
   File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/client.py", line 152, in sync
@@ -72,10 +74,6 @@ ditto for 20130123 line 127 column 248
  TypeError: 'NoneType' object has no attribute '__getitem__'
 
 
-
--restoring from backup on server side gives thread violations
-
--creating tmp database does not have name 'tmp'
 
 
 -restore missing media file check
