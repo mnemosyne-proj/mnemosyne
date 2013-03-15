@@ -556,15 +556,15 @@ class DefaultController(Controller):
             db.backup()
             db.unload()
         except RuntimeError, error:
-            self.main_widget().show_error(unicode(error))
+            self.main_widget().show_error(unicode(error.message))
             self.stopwatch().unpause()
             return
         try:
             db.load(filename)
             self.log().loaded_database()
             self.log().future_schedule()
-        except Exception, e:
-            self.main_widget().show_error(e)
+        except Exception, error:
+            self.main_widget().show_error(unicode(error.message))
             self.stopwatch().unpause()
             return
         self.review_controller().reset()
@@ -578,7 +578,7 @@ class DefaultController(Controller):
             self.database().save()
             self.log().saved_database()
         except RuntimeError, error:
-            self.main_widget().show_error(unicode(error))
+            self.main_widget().show_error(unicode(error.message))
         self.stopwatch().unpause()
 
     def show_save_file_as_dialog(self):
@@ -607,7 +607,7 @@ class DefaultController(Controller):
             shutil.copytree(old_media_dir, new_media_dir)
             self.log().saved_database()
         except RuntimeError, error:
-            self.main_widget().show_error(unicode(error))
+            self.main_widget().show_error(unicode(error.message))
             self.stopwatch().unpause()
             return
         self.review_controller().update_dialog()

@@ -56,6 +56,7 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         self.controller().heartbeat()
 
     def set_window_title(self, text):
+        # Qt bug: seems to only work if no title was defined in the *.ui file.
         self.setWindowTitle(text)
 
     def top_window(self):

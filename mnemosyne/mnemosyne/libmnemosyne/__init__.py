@@ -137,7 +137,7 @@ class Mnemosyne(Component):
 
     def handle_exception(self, type, value, tb):
         body = "An unexpected error has occurred.\n" + \
-            "Please forward the following info to the developers:\n" + \
+            "Please forward the following info to the developers:\n\n" + \
             "Traceback (innermost last):\n"
         list = traceback.format_tb(tb, limit=None) + \
                traceback.format_exception_only(type, value)

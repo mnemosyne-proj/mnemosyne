@@ -16,9 +16,6 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
-  <property name="windowTitle">
-   <string>Mnemosyne</string>
-  </property>
   <property name="windowIcon">
    <iconset resource="mnemosyne.qrc">
     <normaloff>:/mnemosyne/pixmaps/mnemosyne.png</normaloff>:/mnemosyne/pixmaps/mnemosyne.png</iconset>
@@ -30,7 +27,7 @@
      <x>0</x>
      <y>0</y>
      <width>315</width>
-     <height>23</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Settings">

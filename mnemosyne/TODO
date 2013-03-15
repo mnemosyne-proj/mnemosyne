@@ -1,7 +1,3 @@
--restoring from backup on server side gives thread violations
-
--creating tmp database does not have name 'tmp'
-
 -client: Traceback (innermost last):
   File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/client.py", line 152, in sync
     self.get_server_entire_database_binary()
@@ -257,6 +253,8 @@ Milesteiner
 -Qt bug? When installing the translator, need to reset window title manually.
 -Qt bug? keypressEvent for 'yet to learn' works for enter, return, y, but not
  0 or 1.
+-Qt bug? main_widget.set_window_title seems to work only if no title was
+ defined in the ui file.
 
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 
