@@ -321,6 +321,8 @@ class SQLiteSync(object):
         elif event_type in (EventTypes.ADDED_TAG, EventTypes.EDITED_TAG):
             try:
                 tag = self.tag(log_entry["o_id"], is_id_internal=False)
+                if tag is None:
+                    return None
                 log_entry["name"] = tag.name
                 if tag.extra_data:
                     log_entry["extra"] = repr(tag.extra_data)
@@ -421,7 +423,11 @@ class SQLiteSync(object):
         # in harmless missing keys, but it is more robust against future
         # side effects of tag deletion.
         if log_entry["type"] == EventTypes.DELETED_TAG:
-            return self.tag(log_entry["o_id"], is_id_internal=False)
+            tag = self.tag(log_entry["o_id"], is_id_internal=False)
+            if tag is None:
+                self.main_widget().show_information(\
+_("Warning: deleting the same tag twice during sync. Inform the developers."))
+            return tag
         # If we are creating a tag that will be deleted at a later stage
         # during this sync, we are missing some (irrelevant) information
         # needed to properly create a tag object.
@@ -765,6 +771,11 @@ class SQLiteSync(object):
                 try:
                     criterion.set_data_from_sync_string(log_entry["data"])
                 except TypeError:
+                    pass
+                # TODO
+                except ValueError:
+                    pass
+                except AttributeError:
                     pass
         if log_entry["type"] != EventTypes.ADDED_CRITERION:
             criterion._id = self.con.execute("""select _id from criteria where

@@ -1,4 +1,4 @@
--client: Traceback (innermost last):
+Traceback (innermost last):
   File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/client.py", line 152, in sync
     self.get_server_entire_database_binary()
   File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/client.py", line 449, in get_server_entire_database_binary
@@ -7,22 +7,18 @@
     self._download_log_entries(response)
   File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/client.py", line 407, in _download_log_entries
     self.database.apply_log_entry(log_entry)
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/databases/SQLite_sync.py", line 804, in apply_log_entry
-    self.delete_tag(self.tag_from_log_entry(log_entry))
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/databases/SQLite_sync.py", line 424, in tag_from_log_entry
-    return self.tag(log_entry["o_id"], is_id_internal=False)
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/databases/SQLite.py", line 615, in tag
-    tag = Tag(sql_res[2], sql_res[1])
- TypeError: 'NoneType' object has no attribute '__getitem__'
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/databases/SQLite_sync.py", line 841, in apply_log_entry
+    self.add_fact_view_from_log_entry(log_entry)
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/databases/SQLite_sync.py", line 681, in add_fact_view_from_log_entry
+    self.add_fact_view(self.fact_view_from_log_entry(log_entry))
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/databases/SQLite.py", line 1010, in add_fact_view
+    self._repr_extra_data(fact_view.extra_data)))
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/databases/_sqlite3.py", line 71, in execute
+    self._cursor = self.connection.execute(sql, *args)
+ IntegrityError: column id is not unique
 
 
 -sync problem: server: ~/tmp/default-20120806-204415.db
-Traceback (innermost last):
-  File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.0.1-py2.7.egg/openSM2sync/s
-erver.py", line 481, in get_server_log_entries
-    yield buffer
- GeneratorExit
-
 haal data van een paar dagen terug
 client: sqlite_sync: 399 card from log entry: none has no attribute __get__item
 
@@ -70,7 +66,8 @@ ditto for 20130123 line 127 column 248
  TypeError: 'NoneType' object has no attribute '__getitem__'
 
 
-
+-deleting same tag twice, add test. do similar for other objects?
+-grep TODOs
 
 -restore missing media file check
 
