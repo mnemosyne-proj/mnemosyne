@@ -425,8 +425,7 @@ class SQLiteSync(object):
         if log_entry["type"] == EventTypes.DELETED_TAG:
             tag = self.tag(log_entry["o_id"], is_id_internal=False)
             if tag is None:
-                self.main_widget().show_information(\
-_("Warning: deleting the same tag twice during sync. Inform the developers."))
+                print "deleting the same tag twice during sync"
             return tag
         # If we are creating a tag that will be deleted at a later stage
         # during this sync, we are missing some (irrelevant) information
@@ -677,7 +676,10 @@ _("Warning: deleting the same tag twice during sync. Inform the developers."))
                 log_entry["type"] = EventTypes.EDITED_FACT_VIEW
                 return self.update_fact_view(\
                     self.fact_view_from_log_entry(log_entry))
-        self.add_fact_view(self.fact_view_from_log_entry(log_entry))
+        try:
+            self.add_fact_view(self.fact_view_from_log_entry(log_entry))
+        except:
+            print "creating same fact view twice during sync"
 
     def fact_view_from_log_entry(self, log_entry):
         # Get fact view object to be deleted now.
@@ -719,7 +721,10 @@ _("Warning: deleting the same tag twice during sync. Inform the developers."))
                 log_entry["type"] = EventTypes.EDITED_CARD_TYPE
                 return self.update_card_type(\
                     self.card_type_from_log_entry(log_entry))
-        self.add_card_type(self.card_type_from_log_entry(log_entry))
+        try:
+            self.add_card_type(self.card_type_from_log_entry(log_entry))
+        except:
+            print "creating same card type twice"
 
     def card_type_from_log_entry(self, log_entry):
         # Get card type object to be deleted now.
@@ -818,13 +823,19 @@ _("Warning: deleting the same tag twice during sync. Inform the developers."))
             elif event_type == EventTypes.EDITED_FACT:
                 self.update_fact(self.fact_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_FACT:
-                self.delete_fact(self.fact_from_log_entry(log_entry))
+                try:
+                    self.delete_fact(self.fact_from_log_entry(log_entry))
+                except TypeError:
+                    print 'deleting same fact twice'
             elif event_type == EventTypes.ADDED_CARD:
                 self.add_card_from_log_entry(log_entry)
             elif event_type == EventTypes.EDITED_CARD:
                 self.update_card(self.card_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_CARD:
-                self.delete_card(self.card_from_log_entry(log_entry))
+                try:
+                    self.delete_card(self.card_from_log_entry(log_entry))
+                except TypeError:
+                    print 'deleting same card twice'
             elif event_type == EventTypes.REPETITION:
                 self.apply_repetition(log_entry)
             elif event_type == EventTypes.ADDED_MEDIA_FILE:
@@ -861,9 +872,9 @@ _("Warning: deleting the same tag twice during sync. Inform the developers."))
                     self.config()[key] = value
                 else:
                     self.log_edited_setting(log_entry["time"], key)
+        except Exception, e:
+            print e
         finally:
             self.log().timestamp = None
             self.syncing = False
             self.importing = False
-
-

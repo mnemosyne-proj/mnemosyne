@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-03-15 11:01+CET\n"
+"POT-Creation-Date: 2013-03-25 08:55+CET\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -429,7 +429,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:544
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:591
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1080
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1082
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 #: ../mnemosyne/pyqt_ui/export_dlg.py:64
 msgid "No"
@@ -437,7 +437,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:544
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:591
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1080
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1082
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 #: ../mnemosyne/pyqt_ui/export_dlg.py:64
 msgid "Yes"
@@ -520,19 +520,19 @@ msgstr ""
 msgid "Make tag '%s' active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1079
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1081
 msgid "Make new card type active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1309
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1311
 msgid "No duplicates found."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1312
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1314
 msgid "Found %d duplicate cards. They have been given the tag 'DUPLICATE'."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1318
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1320
 msgid "DUPLICATE"
 msgstr ""
 
@@ -547,6 +547,10 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/databases/SQLite_sync.py:120
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:214
 msgid "Missing plugins for card types."
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/databases/SQLite_sync.py:429
+msgid "Warning: deleting the same tag twice during sync. Inform the developers."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/databases/_apsw.py:54

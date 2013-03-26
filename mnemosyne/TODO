@@ -1,34 +1,31 @@
 Traceback (innermost last):
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/client.py", line 152, in sync
-    self.get_server_entire_database_binary()
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/client.py", line 449, in get_server_entire_database_binary
-    return self.get_server_entire_database()
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/client.py", line 437, in get_server_entire_database
-    self._download_log_entries(response)
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/client.py", line 407, in _download_log_entries
-    self.database.apply_log_entry(log_entry)
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/databases/SQLite_sync.py", line 841, in apply_log_entry
-    self.add_fact_view_from_log_entry(log_entry)
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/databases/SQLite_sync.py", line 681, in add_fact_view_from_log_entry
-    self.add_fact_view(self.fact_view_from_log_entry(log_entry))
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/databases/SQLite.py", line 1010, in add_fact_view
-    self._repr_extra_data(fact_view.extra_data)))
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/databases/_sqlite3.py", line 71, in execute
-    self._cursor = self.connection.execute(sql, *args)
- IntegrityError: column id is not unique
+  File "./bin/mnemosyne", line 7, in <module>
+    execfile(__file__)
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/pyqt_ui/mnemosyne", line 164, in <module>
+    mnemosyne.finalise()
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/__init__.py", line 312, in finalise
+    server.deactivate()
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/pyqt_ui/qt_sync_server.py", line 288, in deactivate
+    self.thread.stop()
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/server.py", line 260, in stop
+    self.terminate_all_sessions()
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/server.py", line 245, in terminate_all_sessions
+    self.terminate_session_with_token(session_token)
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/server.py", line 218, in terminate_session_with_token
+    session.terminate()
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/server.py", line 80, in terminate
+    self.database.restore(self.backup_file)
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/databases/SQLite.py", line 447, in restore
+    self.abandon()
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/databases/SQLite.py", line 483, in abandon
+    self._connection.close()
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/databases/_sqlite3.py", line 93, in close
+    return self.connection.close()
+ ProgrammingError: SQLite objects created in a thread can only be used in that same thread.The object was created in thread id 140394390411008 and this is thread id 140394864551680
 
 
--sync problem: server: ~/tmp/default-20120806-204415.db
-haal data van een paar dagen terug
-client: sqlite_sync: 399 card from log entry: none has no attribute __get__item
+-cp /home/pbienst/tmp/default-20120817-161449.db dot_sync_server/default.db
 
-
--sync problem: tag b exists, card with tag a rename tag to a.b, edit card?, then
-rename tag to a, b. Cannot reproduce, see ~/tmp/default-20120723-xxx-conflict for client)
-
--add tag to only one sister card, then to next sister card:
-  client: ~/tmp/default-20120817-161449.db
-server:
 Traceback (innermost last):
   File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.0.1-py2.7.egg/openSM2sync/server.py", line 407, in put_client_log_entries
     for log_entry in element_loop:
@@ -37,9 +34,12 @@ Traceback (innermost last):
   File "<string>", line 91, in next
  ParseError: not well-formed (invalid token): line 26, column 104
 
-ditto for 20130123 line 127 column 248
+ParseError: not well-formed (invalid token): line 523251, column 104
 
-- client-default-20121003-171342.db
+
+-ditto for 20130123 line 127 column 248
+
+-client-default-20121003-171342.db
   File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.1-py2.7.egg/openSM2sync/client.py", line 398, in _download_log_entries
     number_of_entries = int(element_loop.next())
   File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.1-py2.7.egg/openSM2sync/text_formats/xml_format.py", line 118, in parse_log_entries
@@ -51,28 +51,18 @@ ditto for 20130123 line 127 column 248
     raise IncompleteRead(''.join(value))
  IncompleteRead: IncompleteRead(169 bytes read)
 
- 20121210
- Traceback (innermost last):
-  File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.2-py2.7.egg/openSM2sync/client.py", line 167, in sync
-    self.get_server_log_entries()
-  File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.2-py2.7.egg/openSM2sync/client.py", line 418, in get_server_log_entries
-    self._download_log_entries(response)
-  File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.2-py2.7.egg/openSM2sync/client.py", line 404, in _download_log_entries
-    self.database.apply_log_entry(log_entry)
-  File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.2-py2.7.egg/mnemosyne/libmnemosyne/databases/SQLite_sync.py", line 814, in apply_log_entry
-    self.delete_card(self.card_from_log_entry(log_entry))
-  File "/usr/local/lib/python2.7/dist-packages/Mnemosyne-2.2-py2.7.egg/mnemosyne/libmnemosyne/databases/SQLite_sync.py", line 526, in card_from_log_entry
-    card._id = sql_res[0]
- TypeError: 'NoneType' object has no attribute '__getitem__'
-
-
 -deleting same tag twice, add test. do similar for other objects?
+-base workaround on exceptions as opposed to null handling?
+
 -grep TODOs
+
+-'database was restored from backup': is not centered on dialog
 
 -restore missing media file check
 
 -restore get_server_entire_database_binary
 
+-timeout while waiting for media files ('sending media files on server')
 
 
 -merge translations
