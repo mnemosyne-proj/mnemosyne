@@ -423,10 +423,7 @@ class SQLiteSync(object):
         # in harmless missing keys, but it is more robust against future
         # side effects of tag deletion.
         if log_entry["type"] == EventTypes.DELETED_TAG:
-            tag = self.tag(log_entry["o_id"], is_id_internal=False)
-            if tag is None:
-                print "deleting the same tag twice during sync"
-            return tag
+            return self.tag(log_entry["o_id"], is_id_internal=False)
         # If we are creating a tag that will be deleted at a later stage
         # during this sync, we are missing some (irrelevant) information
         # needed to properly create a tag object.
@@ -777,11 +774,6 @@ class SQLiteSync(object):
                     criterion.set_data_from_sync_string(log_entry["data"])
                 except TypeError:
                     pass
-                # TODO
-                except ValueError:
-                    pass
-                except AttributeError:
-                    pass
         if log_entry["type"] != EventTypes.ADDED_CRITERION:
             criterion._id = self.con.execute("""select _id from criteria where
                 id=?""", (criterion.id, )).fetchone()[0]
@@ -823,19 +815,13 @@ class SQLiteSync(object):
             elif event_type == EventTypes.EDITED_FACT:
                 self.update_fact(self.fact_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_FACT:
-                try:
-                    self.delete_fact(self.fact_from_log_entry(log_entry))
-                except TypeError:
-                    print 'deleting same fact twice'
+                self.delete_fact(self.fact_from_log_entry(log_entry))
             elif event_type == EventTypes.ADDED_CARD:
                 self.add_card_from_log_entry(log_entry)
             elif event_type == EventTypes.EDITED_CARD:
                 self.update_card(self.card_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_CARD:
-                try:
-                    self.delete_card(self.card_from_log_entry(log_entry))
-                except TypeError:
-                    print 'deleting same card twice'
+                self.delete_card(self.card_from_log_entry(log_entry))
             elif event_type == EventTypes.REPETITION:
                 self.apply_repetition(log_entry)
             elif event_type == EventTypes.ADDED_MEDIA_FILE:
@@ -872,8 +858,6 @@ class SQLiteSync(object):
                     self.config()[key] = value
                 else:
                     self.log_edited_setting(log_entry["time"], key)
-        except Exception, e:
-            print e
         finally:
             self.log().timestamp = None
             self.syncing = False

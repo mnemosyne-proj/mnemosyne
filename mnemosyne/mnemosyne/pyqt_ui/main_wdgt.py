@@ -62,7 +62,8 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
     def top_window(self):
         for widget in QtGui.QApplication.topLevelWidgets():
             if not widget.__class__.__name__.startswith("Q") and \
-                widget.__class__.__name__ != "MainWdgt":
+                widget.__class__.__name__ != "MainWdgt" and \
+                widget.isVisible() == True:
                     return widget
         return self
 

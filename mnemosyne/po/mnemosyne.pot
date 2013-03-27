@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-03-25 08:55+CET\n"
+"POT-Creation-Date: 2013-03-27 12:16+CET\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -230,8 +230,8 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:584
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:60
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:72
-#: ../mnemosyne/pyqt_ui/main_wdgt.py:70 ../mnemosyne/pyqt_ui/main_wdgt.py:74
-#: ../mnemosyne/pyqt_ui/main_wdgt.py:78 ../mnemosyne/pyqt_ui/main_wdgt.py:101
+#: ../mnemosyne/pyqt_ui/main_wdgt.py:71 ../mnemosyne/pyqt_ui/main_wdgt.py:75
+#: ../mnemosyne/pyqt_ui/main_wdgt.py:79 ../mnemosyne/pyqt_ui/main_wdgt.py:102
 #: ../mnemosyne/pyqt_ui/tip_after_starting_n_times.py:31
 msgid "Mnemosyne"
 msgstr ""
@@ -301,7 +301,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:76
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:62
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:74
-#: ../mnemosyne/pyqt_ui/main_wdgt.py:71 ../mnemosyne/pyqt_ui/main_wdgt.py:79
+#: ../mnemosyne/pyqt_ui/main_wdgt.py:72 ../mnemosyne/pyqt_ui/main_wdgt.py:80
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:61
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:190
 #: ../mnemosyne/pyqt_ui/ui_about_dlg.py:81
@@ -429,7 +429,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:544
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:591
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1082
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1080
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 #: ../mnemosyne/pyqt_ui/export_dlg.py:64
 msgid "No"
@@ -437,7 +437,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:544
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:591
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1082
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1080
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 #: ../mnemosyne/pyqt_ui/export_dlg.py:64
 msgid "Yes"
@@ -520,19 +520,19 @@ msgstr ""
 msgid "Make tag '%s' active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1081
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1079
 msgid "Make new card type active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1311
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1309
 msgid "No duplicates found."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1314
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1312
 msgid "Found %d duplicate cards. They have been given the tag 'DUPLICATE'."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1320
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1318
 msgid "DUPLICATE"
 msgstr ""
 
@@ -544,13 +544,13 @@ msgstr ""
 msgid "Filename contains '#', which could cause problems on some operating systems."
 msgstr ""
 
+#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:139
+msgid "Missing media file!"
+msgstr ""
+
 #: ../mnemosyne/libmnemosyne/databases/SQLite_sync.py:120
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:214
 msgid "Missing plugins for card types."
-msgstr ""
-
-#: ../mnemosyne/libmnemosyne/databases/SQLite_sync.py:429
-msgid "Warning: deleting the same tag twice during sync. Inform the developers."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/databases/_apsw.py:54

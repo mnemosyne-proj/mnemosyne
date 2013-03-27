@@ -612,8 +612,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         else:
             sql_res = self.con.execute("""select _id, id, name, extra_data
                 from tags where id=?""", (id, )).fetchone()
-        if sql_res is None:
-            return None
         tag = Tag(sql_res[2], sql_res[1])
         tag._id = sql_res[0]
         self._construct_extra_data(sql_res[3], tag)
@@ -684,7 +682,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 (tag_string, _card_id))
 
     def delete_tag(self, tag):
-        if tag is None or tag.id == "__UNTAGGED__":
+        if tag.id == "__UNTAGGED__":
             return
         self.con.execute("delete from tags where _id=?", (tag._id, ))
         _card_ids_affected = [cursor[0] for cursor in self.con.execute(

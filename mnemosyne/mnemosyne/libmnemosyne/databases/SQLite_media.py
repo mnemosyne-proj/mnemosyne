@@ -136,7 +136,7 @@ _("Media filename rather long. This could cause problems using this file on a di
 _("Filename contains '#', which could cause problems on some operating systems."))
             if not os.path.exists(filename) and \
                 not os.path.exists(expand_path(filename, self.media_dir())):
-                #self.main_widget().show_error(_("Missing media file!"))
+                self.main_widget().show_error(_("Missing media file!"))
                 for fact_key, value in fact.data.iteritems():
                     fact.data[fact_key] = \
                         fact.data[fact_key].replace(match.group(),

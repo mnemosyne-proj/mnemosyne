@@ -248,7 +248,6 @@ class QtSyncServer(Component, QtCore.QObject):
             pass
         self.thread.server_has_connection = True
         database_released.wakeAll()
-
         mutex.unlock()
 
     def load_database(self):

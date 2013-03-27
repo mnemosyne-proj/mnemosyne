@@ -445,11 +445,6 @@ class Client(Partner):
             self.server_info["machine_id"])
 
     def get_server_entire_database_binary(self):
-
-        return self.get_server_entire_database()
-
-
-
         self.ui.set_progress_text("Getting entire binary database...")
         filename = self.database.path()
         self.database.abandon()
