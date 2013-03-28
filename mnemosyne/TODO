@@ -1,34 +1,3 @@
-Traceback (innermost last):
-  File "./bin/mnemosyne", line 7, in <module>
-    execfile(__file__)
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/pyqt_ui/mnemosyne", line 164, in <module>
-    mnemosyne.finalise()
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/__init__.py", line 312, in finalise
-    server.deactivate()
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/pyqt_ui/qt_sync_server.py", line 288, in deactivate
-    self.thread.stop()
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/server.py", line 260, in stop
-    self.terminate_all_sessions()
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/server.py", line 245, in terminate_all_sessions
-    self.terminate_session_with_token(session_token)
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/server.py", line 218, in terminate_session_with_token
-    session.terminate()
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/server.py", line 80, in terminate
-    self.database.restore(self.backup_file)
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/databases/SQLite.py", line 447, in restore
-    self.abandon()
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/databases/SQLite.py", line 483, in abandon
-    self._connection.close()
-  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/databases/_sqlite3.py", line 93, in close
-    return self.connection.close()
- ProgrammingError: SQLite objects created in a thread can only be used in that same thread.The object was created in thread id 140394390411008 and this is thread id 140394864551680
-
--make sure progress bars have right parent too
-
--timeout while waiting for media files ('sending media files on server')
-
-
-
 -merge translations
 -add ` key to website
 -website font size under windows
@@ -155,6 +124,11 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -'duplicate card' option in menu and browser? Or as plugin?
 
 -support UFT 16?
+
+-when the server thread hangs and the main program is terminated, the cleanup
+ code gets called from the main thread as opposed to from the server thread,
+ and will therefore fail. (The server thread should release its connection
+ itself)
 
 -default input method/keyboard layout per field?
 

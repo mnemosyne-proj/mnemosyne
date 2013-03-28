@@ -1,3 +1,8 @@
+Mnemosyne 2.2.1 :
+
+(Note that for Windows users we recommend uninstalling the previous version
+before installing the new one.)
+
 -For txt import, a text file can now contain a fourth column which will be
  mapped to the 'notes' field of a Vocabulary card.
 -When editing or browsing cards, don't reset the state of the scheduler such
@@ -64,9 +69,6 @@
 
 
 Mnemosyne 2.2 : 2012-12-04
-
-(Note that for Windows users we recommend uninstalling the previous version
-before installing the new one.)
 
 -Added menu option to detect duplicates in the database.
 -Made the cramming scheduler more configurable. Cards can now be studied in

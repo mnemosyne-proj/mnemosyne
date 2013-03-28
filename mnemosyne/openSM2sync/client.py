@@ -138,6 +138,7 @@ class Client(Partner):
             socket.setdefaulttimeout(10)
             self.login(username, password)
             # Generating media files at the server side could take some time.
+            self.con = None
             socket.setdefaulttimeout(15*60)
             # Do a full sync after either the client or the server has restored
             # from a backup.

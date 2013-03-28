@@ -98,7 +98,7 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
             self.progress_bar.close()
             self.progress_bar = None
         if not self.progress_bar:
-            self.progress_bar = QtGui.QProgressDialog(self)
+            self.progress_bar = QtGui.QProgressDialog(self.top_window())
             self.progress_bar.setWindowTitle(_("Mnemosyne"))
             self.progress_bar.setWindowModality(QtCore.Qt.WindowModal)
             self.progress_bar.setCancelButton(None)
