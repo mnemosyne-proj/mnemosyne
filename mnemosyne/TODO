@@ -1,3 +1,11 @@
+File "mnemosyne\libmnemosyne\databases\SQLite_media.pyo", line 39, in create_media_dir_if_needed
+File "os.pyo", line 150, in makedirs
+File "os.pyo", line 157, in makedirs
+WindowsError:[Error 21] The device is not ready: u'f:/
+
+-when changing to cloze from browser, have nice error if front does not contain
+ valid cloze
+
 -merge translations
 -add ` key to website
 -website font size under windows
@@ -36,6 +44,9 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -import db file
 
 -move to qt5?
+
+-cloze deletion in combination with latex or html does not pick up any open
+ environments
 
 -when converting f2b to map through the card browser 'change card type',
  check if it's at all possible to convert (enough fields), before showing
@@ -203,6 +214,8 @@ Milesteiner
 -store all xml as debug information during sync?
 
 -find and replace in card browser
+
+-way to escape [] in latex cloze cards, so as not be interpreted as cloze?
 
 -docs on dealing with synonyms and words which have multiple meanings (if implemented, update card converter too)
  check fonts for new meanings, check decorators
