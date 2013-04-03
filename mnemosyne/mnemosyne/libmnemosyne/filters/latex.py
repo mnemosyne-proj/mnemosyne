@@ -176,9 +176,10 @@ class ProcessQAClozeLatex(Hook):
     used_for = "process_q_a_cloze"
 
     def run(self, question, answer):
-        if not "[...]" in question: # Sentence card type, recognition.
+        if not "[" in question: # Sentence card type, recognition.
             return question, answer
-        left, right = question.split("[...]")
+        left, rest = question.split("[", 1)
+        hint, right = rest.split("]", 1)
         if "<latex>" in left and "</latex>" in right:
             answer = "<latex>" + answer + "</latex>"
         elif "<$>" in left and "</$>" in right:

@@ -337,7 +337,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         if self.is_loaded():
             self.unload()
         self._path = expand_path(path, self.config().data_dir)
-        self.create_media_dir_if_needed()
         # Check database version.
         try:
             sql_res = self.con.execute("""select value from global_variables
@@ -349,6 +348,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         if sql_res[0] != self.version:
             raise RuntimeError, \
                 _("Unable to load file: database version mismatch.")
+        self.create_media_dir_if_needed()
         # Upgrade.
         self.con.execute("""create index if not exists
             i_cards_3 on cards (_fact_id);""")

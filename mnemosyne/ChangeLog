@@ -20,6 +20,9 @@ before installing the new one.)
  ()requested by acdenh)
 -Fix crash when converting multiple cards at the same time between e.g.
  Vocabulary card type and Map card type (reported by Gnome).
+-No longer allow mass converting of cards to Cloze card types, as this
+ requires editing of the card content for each card anyhow (reported by Scott
+ Youngman).
 -Unless the 'Prefill tag behaviour' plugin is active, changing card types will
  never change the tag you already filled in, even if it's different from the
  last used tag (reported by Gnome).
