@@ -2,7 +2,7 @@
 -add ` key to website
 -website font size under windows
 -crowd sourcing convertion of old decks
--cloze bugs / uservoice
+-close bugs / uservoice
 
 
 
@@ -25,7 +25,9 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
   are seleted, i.e. selection is not cleared.
 
 -optimisation: change card type for many facts which calls
- 'delete_facts_and_their_data'
+ 'delete_fa
+
+ cts_and_their_data'
  does checking for unused tags multiple times.
 
 -Now you can add tags to cards instead of facts in the card browser. feature or bug?

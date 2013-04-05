@@ -51,7 +51,10 @@ class Cloze(CardType):
         return {"text": "text", "f": "text", "b": "text"}
 
     def is_fact_data_valid(self, fact_data):
-        return bool(cloze_re.search(fact_data["text"]))
+        text = fact_data["text"]
+        for f in self.component_manager.all("hook", "preprocess_cloze"):
+            text = f.run(text)
+        return bool(cloze_re.search(text))
 
     def _q_a_from_cloze(self, text, index):
 
@@ -65,6 +68,9 @@ class Cloze(CardType):
         hints.
 
         """
+
+        for f in self.component_manager.all("hook", "preprocess_cloze"):
+            text = f.run(text)
         cursor = 0
         current_index = 0
         question = text
@@ -87,7 +93,7 @@ class Cloze(CardType):
                     "[" + cloze + "]", cloze_without_hint, 1)
             cursor += 1
             current_index += 1
-        for f in self.component_manager.all("hook", "process_q_a_cloze"):
+        for f in self.component_manager.all("hook", "postprocess_q_a_cloze"):
             question, answer = f.run(question, answer)
         return question, answer
 
@@ -98,7 +104,10 @@ class Cloze(CardType):
 
     def create_sister_cards(self, fact):
         cards = []
-        for match in cloze_re.finditer(fact["text"]):
+        text = fact["text"]
+        for f in self.component_manager.all("hook", "preprocess_cloze"):
+            text = f.run(text)
+        for match in cloze_re.finditer(text):
             card = Card(self, fact, self.fact_views[0])
             card.extra_data["cloze"] = match.group(1)
             card.extra_data["index"] = len(cards)

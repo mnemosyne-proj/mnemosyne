@@ -380,7 +380,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
 
     def keyPressEvent(self, event):
         if len(self.table.selectionModel().selectedRows()) == 0:
-            return QtGui.QDialog.keyPressEvent(self, event)
+            QtGui.QDialog.keyPressEvent(self, event)
         if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return]:
             self.menu_edit()
         elif event.key() == QtCore.Qt.Key_E and \

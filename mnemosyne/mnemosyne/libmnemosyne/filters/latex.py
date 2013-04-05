@@ -64,7 +64,9 @@ class Latex(Filter):
             os.chdir(latex_dir)
             if os.path.exists("tmp1.png"):
                 os.remove("tmp1.png")
-            f = file("tmp.tex", 'w')
+            if os.path.exists("tmp.dvi"):
+                os.remove("tmp.dvi")
+            f = file("tmp.tex", "w")
             print >> f, self.config()["latex_preamble"]
             print >> f, latex_command.encode("utf-8")
             print >> f, self.config()["latex_postamble"]
@@ -169,17 +171,32 @@ class DeleteUnusedLatexFiles(Hook):
             shutil.rmtree(latex_dir)
 
 
-class ProcessQAClozeLatex(Hook):
+class PreprocessClozeLatex(Hook):
+
+    """Make sure we escape /left[ and /right]."""
+
+    used_for = "preprocess_cloze"
+
+    def run(self, text):
+        return text.replace("\\left[", "_LEFT_BRACKET_").\
+            replace("\\right]", "_RIGHT_BRACKET_")
+
+
+class PostprocessQAClozeLatex(Hook):
 
     """Make sure we add latex tags to the answer of cloze cards."""
 
-    used_for = "process_q_a_cloze"
+    used_for = "postprocess_q_a_cloze"
 
     def run(self, question, answer):
         if not "[" in question: # Sentence card type, recognition.
             return question, answer
         left, rest = question.split("[", 1)
         hint, right = rest.split("]", 1)
+        question = question.replace("_LEFT_BRACKET_", "\\left[",).\
+            replace("_RIGHT_BRACKET_", "\\right]",)
+        answer = answer.replace("_LEFT_BRACKET_", "\\left[",).\
+            replace("_RIGHT_BRACKET_", "\\right]",)
         if "<latex>" in left and "</latex>" in right:
             answer = "<latex>" + answer + "</latex>"
         elif "<$>" in left and "</$>" in right:

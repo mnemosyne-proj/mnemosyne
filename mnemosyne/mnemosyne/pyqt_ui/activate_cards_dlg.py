@@ -55,7 +55,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         if event.key() in [QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace]:
             self.delete_set()
         else:
-            return QtGui.QDialog.keyPressEvent(self, event)
+            QtGui.QDialog.keyPressEvent(self, event)
 
     def change_widget(self, index):
         self.saved_sets.clearSelection()

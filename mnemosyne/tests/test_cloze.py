@@ -405,3 +405,14 @@ third in 2008"""}
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
         assert "<img src" in card.answer()
+
+    def test_latex_2(self):
+        card_type = self.card_type_with_id("5")
+
+        fact_data = {"text": """<$>[a]\\left[b\\right]</$>"""}
+        cards = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])
+        assert len(cards) == 1
+        card = cards[0]
+        assert "<img src" in card.question()
+        assert "<img src" in card.answer()

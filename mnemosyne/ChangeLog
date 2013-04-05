@@ -17,7 +17,8 @@ before installing the new one.)
  as opposed to e.g. 'Add cards'.
 -Correctly format clozes in latex, e.g. [Lorentz force law]
  <$>[\mathbf{F}]=[q]([\mathbf{E}]+[\mathbf{v}\times\mathbf{B}]</$>
- ()requested by acdenh)
+ ()requested by acdenh). If you want literal [] in latex, use \left[
+ and \right].
 -Fix crash when converting multiple cards at the same time between e.g.
  Vocabulary card type and Map card type (reported by Gnome).
 -No longer allow mass converting of cards to Cloze card types, as this

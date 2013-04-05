@@ -23,7 +23,8 @@ class Hook(Component):
        'dynamically_create_media_files'        in SQLite_sync
                                                extra argument: data
        'delete_unused_media_files'             in SQLite_sync
-       'process_q_a_cloze'                     in cloze.py
+       'preprocess_cloze'                      in cloze.py
+       'postprocess_q_a_cloze'                 in cloze.py
        =====================================   ===============================
 
     It is the 'run' method that will get called at the corresponding point

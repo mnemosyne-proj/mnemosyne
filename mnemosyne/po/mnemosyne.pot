@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-03-28 16:07+CET\n"
+"POT-Creation-Date: 2013-04-05 10:54+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,22 +80,22 @@ msgstr ""
 msgid "Production"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:187
+#: ../mnemosyne/libmnemosyne/__init__.py:189
 msgid "Another copy of Mnemosyne is still running."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:188
+#: ../mnemosyne/libmnemosyne/__init__.py:190
 msgid "Continuing is impossible and will lead to data loss!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:268
-#: ../mnemosyne/libmnemosyne/__init__.py:281
+#: ../mnemosyne/libmnemosyne/__init__.py:270
+#: ../mnemosyne/libmnemosyne/__init__.py:283
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:783
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:330
 msgid "Error when running plugin:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:301
+#: ../mnemosyne/libmnemosyne/__init__.py:303
 msgid "Creating temporary database."
 msgstr ""
 
@@ -123,7 +123,7 @@ msgid "Back-to-front"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:39
-#: ../mnemosyne/libmnemosyne/card_types/cloze.py:158
+#: ../mnemosyne/libmnemosyne/card_types/cloze.py:167
 msgid "Cloze deletion"
 msgstr ""
 
@@ -136,7 +136,7 @@ msgstr ""
 msgid "Cloze"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/card_types/cloze.py:159
+#: ../mnemosyne/libmnemosyne/card_types/cloze.py:168
 msgid ""
 "A card type blanking out certain fragments in a text.\n"
 "\n"
@@ -499,16 +499,16 @@ msgstr ""
 msgid "Missing plugin for card type with id:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:346
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:345
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:364
 msgid "Unable to load file."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:348
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:347
 msgid "Unable to load file, query failed."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:351
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:350
 msgid "Unable to load file: database version mismatch."
 msgstr ""
 
@@ -696,7 +696,7 @@ msgid ""
 "Missing answer on line:\n"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/filters/latex.py:88
+#: ../mnemosyne/libmnemosyne/filters/latex.py:90
 msgid "Problem with latex. Are latex and dvipng installed?"
 msgstr ""
 
