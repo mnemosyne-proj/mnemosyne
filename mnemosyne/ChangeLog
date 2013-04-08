@@ -3,6 +3,10 @@ Mnemosyne 2.2.1 :
 (Note that for Windows users we recommend uninstalling the previous version
 before installing the new one.)
 
+-The premade cards from the old 1.x website have now all been converted to the
+ new 2.x cards format and put on the new website. This will make importing
+ much easier, as graphics are bundled (thanks to Patrick Kenny for the
+ conversion).
 -For txt import, a text file can now contain a fourth column which will be
  mapped to the 'notes' field of a Vocabulary card.
 -When editing or browsing cards, don't reset the state of the scheduler such

@@ -398,7 +398,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             QtGui.QDialog.keyPressEvent(self, event)
 
     def cards_from_single_selection(self):
-        index = self.table.selectionModel().selectedRows()[0]
+        selected_rows = self.table.selectionModel().selectedRows()
+        if len(selected_rows) == 0:
+            return []
+        index = rows[0]
         _fact_id_index = index.model().index(\
             index.row(), _FACT_ID, index.parent())
         _fact_id = index.model().data(_fact_id_index).toInt()[0]
@@ -430,6 +433,8 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         # 'index' gets passed if this function gets called through the
         # table.doubleClicked event.
         cards = self.cards_from_single_selection()
+        if len(cards) == 0:
+            return
         self.edit_dlg = self.component_manager.current("edit_card_dialog")\
             (cards[0], self.component_manager, started_from_card_browser=True,
             parent=self)
@@ -748,6 +753,7 @@ _("You chose to sort this table. Operations in the card browser could now be slo
             self.splitter_2.saveState()
 
     def closeEvent(self, event):
+        print 'close'
         # Generated when clicking the window's close button.
         self._store_state()
         self.unload_qt_database()
@@ -755,11 +761,13 @@ _("You chose to sort this table. Operations in the card browser could now be slo
         self.tag_tree_wdgt.close()
 
     def reject(self):
+        print 'reject'
         # Generated when pressing escape.
         self.unload_qt_database()
         return QtGui.QDialog.reject(self)
 
     def accept(self):
+        print 'accept'
         # 'accept' does not generate a close event.
         self._store_state()
         self.unload_qt_database()
