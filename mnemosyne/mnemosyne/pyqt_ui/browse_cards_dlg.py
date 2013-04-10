@@ -61,10 +61,15 @@ class CardModel(QtSql.QSqlTableModel, Component):
         self.background_colour_for_card_type_id = {}
         for card_type_id, rgb in \
             self.config()["background_colour"].iteritems():
+            # If the card type has been deleted since, don't bother.
+            if not card_type_id in self.component_manager.card_type_with_id:
+                continue
             self.background_colour_for_card_type_id[card_type_id] = \
                 QtGui.QColor(rgb)
         self.font_colour_for_card_type_id = {}
         for card_type_id in self.config()["font_colour"]:
+            if not card_type_id in self.component_manager.card_type_with_id:
+                continue
             first_key = \
                 self.card_type_with_id(card_type_id).fact_keys_and_names[0][0]
             self.font_colour_for_card_type_id[card_type_id] = QtGui.QColor(\
@@ -401,7 +406,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         selected_rows = self.table.selectionModel().selectedRows()
         if len(selected_rows) == 0:
             return []
-        index = rows[0]
+        index = selected_rows[0]
         _fact_id_index = index.model().index(\
             index.row(), _FACT_ID, index.parent())
         _fact_id = index.model().data(_fact_id_index).toInt()[0]
@@ -591,6 +596,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             sys.exit(1)
 
     def unload_qt_database(self):
+        # Don't save state twice when closing dialog.
+        if self.card_model is None:
+            return
         self.saved_index = self.table.indexAt(QtCore.QPoint(0,0))
         self.saved_selection = self.table.selectionModel().selectedRows()
         if not self.config()["start_card_browser_sorted"]:
@@ -753,7 +761,6 @@ _("You chose to sort this table. Operations in the card browser could now be slo
             self.splitter_2.saveState()
 
     def closeEvent(self, event):
-        print 'close'
         # Generated when clicking the window's close button.
         self._store_state()
         self.unload_qt_database()
@@ -761,13 +768,11 @@ _("You chose to sort this table. Operations in the card browser could now be slo
         self.tag_tree_wdgt.close()
 
     def reject(self):
-        print 'reject'
         # Generated when pressing escape.
         self.unload_qt_database()
         return QtGui.QDialog.reject(self)
 
     def accept(self):
-        print 'accept'
         # 'accept' does not generate a close event.
         self._store_state()
         self.unload_qt_database()

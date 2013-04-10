@@ -28,6 +28,8 @@ before installing the new one.)
 -No longer allow mass converting of cards to Cloze card types, as this
  requires editing of the card content for each card anyhow (reported by Scott
  Youngman).
+-Fix browser crash occuring after deleting a card type which had custom
+ formatting (reported by Tom Zerlau).
 -Unless the 'Prefill tag behaviour' plugin is active, changing card types will
  never change the tag you already filled in, even if it's different from the
  last used tag (reported by Gnome).

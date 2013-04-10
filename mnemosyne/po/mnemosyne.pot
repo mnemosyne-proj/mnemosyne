@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-04-05 10:54+CEST\n"
+"POT-Creation-Date: 2013-04-10 15:32+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -227,7 +227,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:65
 #: ../mnemosyne/pyqt_ui/about_dlg.py:28
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:584
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:594
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:60
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:72
 #: ../mnemosyne/pyqt_ui/main_wdgt.py:71 ../mnemosyne/pyqt_ui/main_wdgt.py:75
@@ -273,7 +273,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:404
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:111
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:133
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:483
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:493
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:76
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:61
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:190
@@ -297,7 +297,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:256
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:111
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:133
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:483
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:493
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:76
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:62
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:74
@@ -369,7 +369,7 @@ msgid "sister cards?"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:405
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:359
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:364
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:142
 #: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:62
 msgid "&Delete"
@@ -955,13 +955,13 @@ msgid "Unseen card, no statistics available yet."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:31
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:607
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:620
 msgid "Grade"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:32
 #: ../mnemosyne/libmnemosyne/statistics_pages/easiness.py:11
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:608
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:621
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:275
 msgid "Easiness"
 msgstr ""
@@ -975,7 +975,7 @@ msgid "Review repetitions"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:37
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:610
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:623
 msgid "Lapses"
 msgstr ""
 
@@ -1168,132 +1168,132 @@ msgstr ""
 msgid "&Yes"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:112
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:117
 msgid "Yet to learn"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:262
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:267
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:39
 msgid "Right-click on a tag name in the card browser to edit or delete it."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:263
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:268
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:40
 msgid "Double-click on a card or tag name in the card browser to edit them."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:264
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:269
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:41
 msgid "You can reorder columns in the card browser by dragging the header label."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:265
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:270
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:42
 msgid "You can resize columns in the card browser by dragging between the header labels."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:266
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:271
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:43
 msgid "When editing or previewing cards from the card browser, PageUp/PageDown can be used to move to the previous/next card."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:267
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:272
 msgid "You change the relative size of the card list, card type tree and tag tree by dragging the dividers between them."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:283
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:288
 msgid "Show cards from these card types:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:294
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:299
 #: ../mnemosyne/pyqt_ui/ui_criterion_wdgt_default.py:42
 msgid "having any of these tags:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:301
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:306
 msgid "containing this text in the cards:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:351
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:356
 msgid "&Edit"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:355
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:360
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:121
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:139
 #: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:84
 msgid "&Preview"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:364
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:369
 msgid "Change card &type"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:368
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:373
 msgid "&Add tags"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:371
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:376
 msgid "&Remove tags"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:482
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:492
 msgid "Go ahead with delete? Sister cards will be deleted as well."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:510
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:520
 msgid "The selected cards should have the same card type."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:585
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:595
 msgid "Database error: "
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:606
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:619
 msgid "Answer"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:606
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:619
 msgid "Question"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:607
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:620
 msgid "Next rep"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:607
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:620
 msgid "Tags"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:608
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:621
 msgid "Last rep"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:609
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:622
 msgid ""
 "Learning\n"
 "reps"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:610
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:623
 msgid ""
 "Review\n"
 "reps"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:611
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:624
 msgid "Created"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:611
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:624
 msgid "Modified"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:662
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:675
 msgid "You chose to sort this table. Operations in the card browser could now be slower. Next time you start the card browser, the table will be unsorted again."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:741
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:754
 msgid "%d cards shown, of which %d active."
 msgstr ""
 

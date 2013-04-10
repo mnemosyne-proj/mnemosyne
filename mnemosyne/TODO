@@ -1,12 +1,14 @@
--column widths are not saved
+-Tom's issue with card formatting
+
 
 -merge translations
 -add ` key to website
 -website font size under windows
--crowd sourcing convertion of old decks
 -close bugs / uservoice
 
 
+
+-fix multiple audio files and start/stop (Ansgar Bohmann)
 
 -merging cards: should give an option to go back and edit?
 
@@ -27,10 +29,7 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
   are seleted, i.e. selection is not cleared.
 
 -optimisation: change card type for many facts which calls
- 'delete_fa
-
- cts_and_their_data'
- does checking for unused tags multiple times.
+ 'delete_facts_and_their_data' does checking for unused tags multiple times.
 
 -Now you can add tags to cards instead of facts in the card browser. feature or bug?
 

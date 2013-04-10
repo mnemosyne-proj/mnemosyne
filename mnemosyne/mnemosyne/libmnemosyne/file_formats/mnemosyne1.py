@@ -56,7 +56,8 @@ class Mnemosyne1(MediaPreprocessor):
 
     def create_card_from_item(self, item, extra_tag_names):
         # Create tag names.
-        if item.cat.name == "<default>" or item.cat.name == "":
+        if item.cat.name == "<default>" or \
+            item.cat.name == "" or item.cat.name is None:
             item.cat.name = "__UNTAGGED__"
         tag_names = [item.cat.name]
         if extra_tag_names:

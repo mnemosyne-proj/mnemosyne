@@ -3,7 +3,7 @@ INSTALLATION FROM SOURCE:
 1) LINUX
 
 First install the following dependencies:
- 
+
 -Python 2.5 or later (http://www.python.org)
 -PyQt 4.5 or later
  (http://www.riverbankcomputing.co.uk/software/pyqt/download)
@@ -12,10 +12,10 @@ First install the following dependencies:
 -Matplotlib (http://matplotlib.sourceforge.net/)
 -EasyInstall (http://peak.telecommunity.com/DevCenter/EasyInstall)
 -CherryPy 3.2 or later (http://www.cherrypy.org)
- 
+
 Under Ubuntu, these dependencies can be resolved by installing the
 following packages:
- 
+
 python-cherrypy3 python-apsw python-setuptools python-virtualenv
 python-qt4-dev python-sip python-sip-dev pyqt4-dev-tools qt4-designer
 libqt4-sql python-qt4-sql libqt4-sql-sqlite python-matplotlib
@@ -25,7 +25,7 @@ To actually install mnemosyne:
 -Extraxt the .tar.gz file and change to its root directory (i.e.
  probably the directory where you found this README file).
 -Type 'python setup.py install' as root.
- 
+
 To test the installation:
 -Change to any other directory e.g. by typing 'cd ~'.
 -Run the application by typing 'mnemosyne'.
