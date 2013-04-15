@@ -1,14 +1,15 @@
--Tom's issue with card formatting
-
-
--merge translations
+-merge translations (del en_gb, am, sr )
 -add ` key to website
+-add docs about latex and cloze
+-set SF latest file
 -website font size under windows
 -close bugs / uservoice
 
 
 
 -fix multiple audio files and start/stop (Ansgar Bohmann)
+
+-add explanation box for 'save'
 
 -merging cards: should give an option to go back and edit?
 

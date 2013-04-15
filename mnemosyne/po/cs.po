@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-14 20:21+0000\n"
-"PO-Revision-Date: 2012-06-16 07:52+0000\n"
-"Last-Translator: fri <pavelfric@seznam.cz>\n"
+"POT-Creation-Date: 2013-04-10 19:01+0000\n"
+"PO-Revision-Date: 2013-03-28 21:09+0000\n"
+"Last-Translator: Zbyněk Schwarz <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-11-15 04:43+0000\n"
-"X-Generator: Launchpad (build 16265)\n"
+"X-Launchpad-Export-Date: 2013-04-11 05:09+0000\n"
+"X-Generator: Launchpad (build 16550)\n"
 "Language: \n"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:27
@@ -45,7 +45,7 @@ msgstr "Poslední rok"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:61
 msgid "Average grades of scheduled cards"
-msgstr ""
+msgstr "Průměrné známky naplánovaných karet"
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:68
 #: ../mnemosyne/example_plugins/pie_chart_statistics.py:31
@@ -62,79 +62,79 @@ msgstr "Dny"
 
 #: ../mnemosyne/example_plugins/new_card_type.py:13
 msgid "Vocabulary (decorated)"
-msgstr ""
+msgstr "Slovník (ozdobený)"
 
 #: ../mnemosyne/example_plugins/new_card_type.py:18
 #: ../mnemosyne/libmnemosyne/card_types/map.py:24
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:39
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:24
 msgid "Recognition"
-msgstr ""
+msgstr "Rozpoznání"
 
 #: ../mnemosyne/example_plugins/new_card_type.py:24
 #: ../mnemosyne/libmnemosyne/card_types/map.py:30
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:44
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:29
 msgid "Production"
-msgstr ""
+msgstr "Výroba"
 
-#: ../mnemosyne/libmnemosyne/__init__.py:183
+#: ../mnemosyne/libmnemosyne/__init__.py:189
 msgid "Another copy of Mnemosyne is still running."
-msgstr ""
+msgstr "Další kopie Mnemosyne stále běží"
 
-#: ../mnemosyne/libmnemosyne/__init__.py:184
+#: ../mnemosyne/libmnemosyne/__init__.py:190
 msgid "Continuing is impossible and will lead to data loss!"
-msgstr ""
+msgstr "Pokračovat je nemožné a povede ke ztrátám dat!"
 
-#: ../mnemosyne/libmnemosyne/__init__.py:264
-#: ../mnemosyne/libmnemosyne/__init__.py:277
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:760
+#: ../mnemosyne/libmnemosyne/__init__.py:270
+#: ../mnemosyne/libmnemosyne/__init__.py:283
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:783
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:330
 msgid "Error when running plugin:"
-msgstr "Chyba v běžícím pluginu:"
+msgstr "Chyba při spouštění zásuvného modulu:"
 
-#: ../mnemosyne/libmnemosyne/__init__.py:297
+#: ../mnemosyne/libmnemosyne/__init__.py:303
 msgid "Creating temporary database."
-msgstr "Vytvářím dočasnou databázi."
+msgstr "Vytváření dočasné databáze."
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:15
 msgid "Front-to-back and back-to-front"
-msgstr ""
+msgstr "Zepředu dozadu a zezadu dopředu"
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:18
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:16
 msgid "Front"
-msgstr ""
+msgstr "Zepředu"
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:19
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:17
 msgid "Back"
-msgstr ""
+msgstr "Dozadu"
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:22
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:20
 msgid "Front-to-back"
-msgstr ""
+msgstr "Zepředu dozadu"
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:27
 msgid "Back-to-front"
-msgstr ""
+msgstr "Zezadu dopředu"
 
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:39
-#: ../mnemosyne/libmnemosyne/card_types/cloze.py:156
+#: ../mnemosyne/libmnemosyne/card_types/cloze.py:167
 msgid "Cloze deletion"
-msgstr ""
+msgstr "Smazání doplňovačky"
 
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:41
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:50
 msgid "Text"
-msgstr ""
+msgstr "Text"
 
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:45
 msgid "Cloze"
-msgstr ""
+msgstr "Doplňovačka"
 
-#: ../mnemosyne/libmnemosyne/card_types/cloze.py:157
+#: ../mnemosyne/libmnemosyne/card_types/cloze.py:168
 msgid ""
 "A card type blanking out certain fragments in a text.\n"
 "\n"
@@ -147,27 +147,36 @@ msgid ""
 "You can also specify hints, e.g. [cloze:hint] will show\n"
 " [hint] in the question as opposed to [...]."
 msgstr ""
+"Typ karty s vynechanými částmi textu.\n"
+"\n"
+"Např. text \"Hlavní město [Francie] je [Paříž]\" vytvoří karty s otázkami "
+"\"Hlavní město Francie je [...].\" a \"Hlavní město [...] je Paříž\".\n"
+"\n"
+"Úprava textu automaticky aktualizuje všechny odvozené karty.\n"
+"\n"
+"Můžete také zadat nápovědy. např. [cloze:hint] zobrazí\n"
+" [nápověda] v otázce na rozdíl od [...]."
 
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:13
 msgid "Front-to-back only"
-msgstr ""
+msgstr "Pouze zepředu dozadu"
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:16
 #: ../mnemosyne/libmnemosyne/card_types/map.py:51
 msgid "Map"
-msgstr ""
+msgstr "Mapa"
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:19
 msgid "Location"
-msgstr ""
+msgstr "Umístění"
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:20
 msgid "Blank map"
-msgstr "Slepá mapa"
+msgstr "Prázdná mapa"
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:21
 msgid "Marked map"
-msgstr "Doplněná mapa"
+msgstr "Označená mapa"
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:52
 msgid ""
@@ -176,12 +185,16 @@ msgid ""
 "Displays the answer map on top of the question map, rather than below it as "
 "a second map."
 msgstr ""
+"Typ karty pro naučení míst na mapě.\n"
+"\n"
+"Zobrazí mapu odpovědi nad mapou otázky, namísto zobrazení pod ní jako druhá "
+"mapa."
 
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:30
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:33
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:94
 msgid "Sentence"
-msgstr ""
+msgstr "Věta"
 
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:34
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:19
@@ -196,7 +209,7 @@ msgstr "Význam"
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:36
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:21
 msgid "Notes"
-msgstr ""
+msgstr "Poznámky"
 
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:95
 msgid ""
@@ -207,51 +220,52 @@ msgid ""
 "E.g. if in the sentence field you write \"La [casa:house] es [grande:big]\", "
 "you'll get cards with questions like \"La [house] es grande\"."
 msgstr ""
+"Typ karty používající věty ke studiu cizích jazyků.\n"
+"\n"
+"Kromě prostého rozpoznání věty můžete také přidat výrobní karty pomocí "
+"vynechání z doplňovačky.\n"
+"Např. pokud napíšete pole věty \"La [casa:dům] es [grande:velký]\", "
+"dostanete karty s otázkami jako \"La [dům] es grande\"."
 
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:15
 msgid "Vocabulary"
-msgstr ""
+msgstr "Slovník"
 
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:18
-msgid "Foreign word or expression"
-msgstr ""
+msgid "Foreign word or phrase"
+msgstr "Cizí slovo nebo fráze"
 
-#: ../mnemosyne/libmnemosyne/configuration.py:193
+#: ../mnemosyne/libmnemosyne/configuration.py:192
 msgid "Error in config:"
-msgstr "Chyba v konfiguraci"
+msgstr "Chyba v nastavení:"
 
-#: ../mnemosyne/libmnemosyne/configuration.py:204
+#: ../mnemosyne/libmnemosyne/configuration.py:203
 msgid "Unable to save config file:"
-msgstr ""
+msgstr "Nelze uložit soubor nastavení:"
 
-#: ../mnemosyne/libmnemosyne/configuration.py:362
+#: ../mnemosyne/libmnemosyne/configuration.py:361
 msgid "Error in config.py:"
 msgstr "Chyba v config.py:"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:65
 #: ../mnemosyne/pyqt_ui/about_dlg.py:28
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:257
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:574
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:226
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:83
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:89
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:58
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:70
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:153
-#: ../mnemosyne/pyqt_ui/main_wdgt.py:69 ../mnemosyne/pyqt_ui/main_wdgt.py:72
-#: ../mnemosyne/pyqt_ui/main_wdgt.py:76 ../mnemosyne/pyqt_ui/main_wdgt.py:99
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:594
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:60
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:72
+#: ../mnemosyne/pyqt_ui/main_wdgt.py:71 ../mnemosyne/pyqt_ui/main_wdgt.py:75
+#: ../mnemosyne/pyqt_ui/main_wdgt.py:79 ../mnemosyne/pyqt_ui/main_wdgt.py:102
 #: ../mnemosyne/pyqt_ui/tip_after_starting_n_times.py:31
 msgid "Mnemosyne"
 msgstr "Mnemosyne"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:112
 msgid "Identical card is already in database."
-msgstr ""
+msgstr "V databázi již je stejná karta."
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:113
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:137
 msgid "&Add anyway"
-msgstr ""
+msgstr "&Přesto přidat"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:113
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:137
@@ -263,307 +277,324 @@ msgid ""
 "There is already data present for this card:\n"
 "\n"
 msgstr ""
+"V této kartě již existují data:\n"
+"\n"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:137
 msgid "&Merge and edit"
-msgstr "&Sloučit a editovat"
+msgstr "&Sloučit a upravit"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:239
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:254
 msgid "Can't preserve history when converting between these card types."
-msgstr ""
+msgstr "Nelze zachovat historii při převodu mezi těmito typy karet."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:240
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:255
 msgid "The learning history of the cards will be reset."
-msgstr ""
+msgstr "Historie učení pro tyto karty bude resetována."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:241
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:271
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:387
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:106
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:126
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:473
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:256
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:289
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:404
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:111
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:133
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:493
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:76
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:61
-#: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:188
-#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:85
-#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:65
-#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:62
-#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:67
-#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:57
-#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:59
-#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:73
-#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:54
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:88
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:95
-#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:56
-#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:54
-#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:54
-#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:93
+#: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:190
+#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:86
+#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:66
+#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:63
+#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:68
+#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:58
+#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:60
+#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:74
+#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:55
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:89
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:96
+#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:57
+#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:55
+#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:55
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:94
 msgid "&Cancel"
 msgstr "&Zrušit"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:241
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:106
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:126
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:473
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:256
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:111
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:133
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:493
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:76
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:85
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:90
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:60
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:72
-#: ../mnemosyne/pyqt_ui/main_wdgt.py:69 ../mnemosyne/pyqt_ui/main_wdgt.py:77
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:62
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:74
+#: ../mnemosyne/pyqt_ui/main_wdgt.py:72 ../mnemosyne/pyqt_ui/main_wdgt.py:80
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:61
-#: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:188
-#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:80
-#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:83
-#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:64
-#: ../mnemosyne/pyqt_ui/ui_card_set_name_dlg.py:46
-#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:61
-#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:66
-#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:56
-#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:57
-#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:72
-#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:53
-#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:82
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:86
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:102
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:93
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:72
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:100
-#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:55
-#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:53
-#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:53
-#: ../mnemosyne/pyqt_ui/ui_statistics_dlg.py:47
-#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:92
+#: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:190
+#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:81
+#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:84
+#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:65
+#: ../mnemosyne/pyqt_ui/ui_card_set_name_dlg.py:47
+#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:62
+#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:67
+#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:57
+#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:58
+#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:73
+#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:54
+#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:83
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:87
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:103
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:94
+#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:73
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:101
+#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:56
+#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:54
+#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:54
+#: ../mnemosyne/pyqt_ui/ui_statistics_dlg.py:48
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:93
 msgid "&OK"
 msgstr "&OK"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:268
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:286
 msgid "This will delete cards and their history."
-msgstr ""
+msgstr "Toto smaže karty a jejich historii."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:269
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:379
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:384
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:287
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:397
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:402
 msgid "Are you sure you want to do this,"
-msgstr ""
+msgstr "Opravdu chcete toto provést,"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:270
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:380
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:385
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:288
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:398
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:403
 msgid "and not just deactivate cards in the 'Activate cards' dialog?"
 msgstr ""
+"nechcete pouze kartu přestat používat v dialogovém okně 'Aktivace karet'?"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:271
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:289
 msgid "&Proceed and delete"
-msgstr ""
+msgstr "&Pokračovat a smazat"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:344
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:362
 msgid "Converting cards..."
-msgstr ""
+msgstr "Převádění karet..."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:376
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:394
 msgid "Delete this card?"
 msgstr "Smazat tuto kartu?"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:378
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:396
 msgid "Delete this card and 1 sister card?"
-msgstr ""
+msgstr "Smazat tuto kartu a 1 sesterskou kartu?"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:382
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:400
 msgid "Delete this card and"
-msgstr ""
+msgstr "Smazat tuto kartu a"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:383
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:401
 msgid "sister cards?"
-msgstr ""
+msgstr "sesterské karty?"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:386
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:353
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:405
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:364
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:142
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:61
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:62
 msgid "&Delete"
 msgstr "&Smazat"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:399
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:418
 msgid "Deleting cards..."
-msgstr ""
+msgstr "Mazání karet..."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:409
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:430
 msgid "Checking for unused tags..."
-msgstr ""
+msgstr "Kontrolování nepoužitých značek..."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:422
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:445
 msgid "Card type name already exists."
-msgstr ""
+msgstr "Název typu karty již existuje."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:442
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:465
 msgid "Card type %s is in use or is a system card type, cannot delete it."
-msgstr ""
+msgstr "Typ karty %s je již používán nebo je systémový typ, nelze ho smazat."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:447
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:470
 msgid "Card type %s has clones, cannot delete it."
-msgstr ""
+msgstr "Typ karty %s má kopie, nelze ho smazat."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:462
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:485
 msgid "Cannot rename a system card type."
-msgstr ""
+msgstr "Nelze přejmenovat systémový typ karty"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:467
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:490
 msgid "This card type name is already in use."
-msgstr ""
+msgstr "Tento typ karty již je používán."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:473
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:496
 msgid ""
 "It is recommended to put all your cards in a single database. Using tags to "
 "determine which cards to study is much more convenient than having to load "
 "and unload several databases."
 msgstr ""
+"Je doporučeno umístit všechny vaše karty do jedné databáze. Použitím značek "
+"zjistíte které karty se učit, což je jednodužší než načítat a uvolňovat "
+"několik databází."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:484
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:514
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:571
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:507
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:537
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:594
 msgid "Mnemosyne databases"
-msgstr ""
+msgstr "Databáze Mnemosyne"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:485
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:508
 msgid "New"
 msgstr "Nová"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:491
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:514
 msgid "Creating new database..."
-msgstr ""
+msgstr "Vytváření nové databáze..."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:520
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:543
 msgid ""
-"Do you want to restore from this backup?\n"
+"Do you want to replace your current database with one restored from this "
+"backup?\n"
 "Note that this will result in conflicts during the next sync, which need to "
 "be resolved by a full sync."
 msgstr ""
+"Chcete nahradit současnou databázi databází obnovenou ze zálohy?\n"
+"Nezapomeňte, že toto může mít za následek konflikty při příští "
+"synchronizaci, které je nutné vyřešit celkovou synchronizací."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:521
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:577
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1066
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:544
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:591
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1080
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 #: ../mnemosyne/pyqt_ui/export_dlg.py:64
 msgid "No"
-msgstr ""
+msgstr "Ne"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:521
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:577
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1066
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:544
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:591
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1080
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 #: ../mnemosyne/pyqt_ui/export_dlg.py:64
 msgid "Yes"
-msgstr ""
+msgstr "Ano"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:617
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:640
 msgid "Image files"
-msgstr "Soubory s obrázky"
+msgstr "Obrázkové soubory"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:619
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:642
 msgid "Insert image"
 msgstr "Vložit obrázek"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:632
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:655
 msgid "Sound files"
-msgstr "Soubory se zvuky"
+msgstr "Zvukové soubory"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:634
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:657
 msgid "Insert sound"
 msgstr "Vložit zvuk"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:647
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:670
 msgid "Video files"
-msgstr ""
+msgstr "Video soubory"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:649
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:672
 msgid "Insert video"
-msgstr ""
+msgstr "Vložit video"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:662
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:685
 msgid "Flash files"
-msgstr ""
+msgstr "Soubory Flash"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:664
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:687
 msgid "Insert Flash"
-msgstr ""
+msgstr "Vložit Flash"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:713
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:736
 msgid "Install plugin"
-msgstr ""
+msgstr "Nainstalovat zásuvný modul"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:713
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:736
 msgid "Plugins"
-msgstr ""
+msgstr "Zásuvné moduly"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:738
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:761
 msgid "No plugin found!"
-msgstr ""
+msgstr "Nenalezeny žádné zásuvné moduly!"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:898
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:921
 msgid "For instructions on how to download Mnemosyne's source,"
-msgstr ""
+msgstr "Pro pokyny jak stáhnout zdrojový kód Mnemosyne,"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:899
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:922
 msgid "go to http://www.mnemosyne-proj.org"
-msgstr ""
+msgstr "si prohlédněte http://www.mnemosyne-proj.org"
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:333
 msgid "Missing plugin for card type with id:"
-msgstr ""
+msgstr "Chybějící zás. modul pro typ karty s id:"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:346
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:345
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:364
 msgid "Unable to load file."
 msgstr "Nepodařilo se nahrát soubor."
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:348
-msgid "Unable to load file, query failed"
-msgstr ""
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:347
+msgid "Unable to load file, query failed."
+msgstr "Nelze načíst soubor, dotaz selhal."
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:351
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:350
 msgid "Unable to load file: database version mismatch."
-msgstr ""
+msgstr "Nelze načíst soubor: neshoda verze databáze."
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:431
 msgid "Warning: backup creation failed for"
-msgstr ""
+msgstr "Varování: selhalo vytvoření databáze pro"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:576
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:590
 msgid "Make tag '%s' active in saved set '%s'?"
-msgstr ""
+msgstr "Změnit značku '%s' na aktivní v uložené sadě '%s'?"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1065
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1079
 msgid "Make new card type active in saved set '%s'?"
-msgstr ""
+msgstr "Změnit nový typ karty na aktivní v uložené sadě '%s'?"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1295
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1309
 msgid "No duplicates found."
-msgstr ""
+msgstr "Nenalezeny žádné kopie."
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1298
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1312
 msgid "Found %d duplicate cards. They have been given the tag 'DUPLICATE'."
-msgstr ""
+msgstr "Nalezeno %d zkopírovaných karet. Byla jim dána značka 'KOPIE'."
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1304
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1318
 msgid "DUPLICATE"
-msgstr ""
+msgstr "KOPIE"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:116
+#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:133
 msgid ""
 "Media filename rather long. This could cause problems using this file on a "
 "different OS."
 msgstr ""
+"Název souboru média je se zdá být dlouhý. Jeho použití v jiných OS by mohlo "
+"způsobit problémy."
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:119
-msgid "Missing media file!"
+#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:136
+msgid ""
+"Filename contains '#', which could cause problems on some operating systems."
 msgstr ""
+"Název souboru obsahuje '#' což v některých operačních systémech může "
+"způsobit problémy."
+
+#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:139
+msgid "Missing media file!"
+msgstr "Chybí soubor média!"
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite_sync.py:120
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:214
 msgid "Missing plugins for card types."
-msgstr ""
+msgstr "Chybí zásuvný modul pro typy karet."
 
 #: ../mnemosyne/libmnemosyne/databases/_apsw.py:54
 #: ../mnemosyne/libmnemosyne/databases/_sqlite3.py:50
@@ -571,20 +602,22 @@ msgid ""
 "Putting a database on a network drive is forbidden under Windows to avoid "
 "data corruption. Mnemosyne will now close."
 msgstr ""
+"Umístěním databáze na síťovou jednotku je ve Windows zakázáno, aby se "
+"předešlo poškození dat. Mnemosyne bude nyní uzavřeno."
 
 #: ../mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:15
 msgid "Cuecard .wcu"
-msgstr ""
+msgstr "Cuecard .wcu"
 
 #: ../mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:17
 msgid "Cuecard files (*.wcu *.WCU)"
-msgstr ""
+msgstr "Soubory Cuecard (*.wcu *.WCU)"
 
 #: ../mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:31
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:61
 #: ../mnemosyne/libmnemosyne/file_formats/smconv_XML.py:57
 msgid "Unable to parse file:"
-msgstr ""
+msgstr "Nelze zpracovat soubor"
 
 #: ../mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:45
 #: ../mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:46
@@ -593,10 +626,10 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/file_formats/smconv_XML.py:116
 #: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:195
 #: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:196
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:92
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:93
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:96
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:97
 msgid "MISSING_MEDIA"
-msgstr ""
+msgstr "CHYBÍ_MÉDIUM"
 
 #: ../mnemosyne/libmnemosyne/file_formats/media_preprocessor.py:67
 msgid ""
@@ -604,135 +637,139 @@ msgid ""
 "MISSING_MEDIA. You must also change 'src_missing' to 'src' in the text of "
 "these cards."
 msgstr ""
+"Varování: soubory média chybí. Tyto karty byly označeny jako CHYBÍ_MÉDIUM. "
+"Musíte také změnit 'src_missing' na 'src'  textu těchto karet."
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:40
 msgid "These cards seem to have been imported before. Aborting..."
-msgstr ""
+msgstr "Vypadá tož, že tyto karty již byly importovány. Ukončování..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:42
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:33
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:37
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:188
 msgid "Importing cards..."
-msgstr ""
+msgstr "Importování karet..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:24
 msgid "Mnemosyne 1.x *.mem files"
-msgstr ""
+msgstr "Soubory Mnemosyne 1.x *.mem"
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:26
 msgid "Mnemosyne 1.x *.mem databases (*.mem)"
-msgstr ""
+msgstr "Databáze Mnemosyne 1.x *.mem (*.mem)"
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:75
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:64
 msgid "Unable to open file."
-msgstr ""
+msgstr "Nelze otevřít soubor."
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:81
 msgid "Importing history..."
-msgstr ""
+msgstr "Importování historie..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:85
 msgid "No history found to import."
-msgstr ""
+msgstr "Nenalezena žádná historie k importu"
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:115
 msgid "Ignoring unparsable files:<br/>"
-msgstr ""
+msgstr "Ignorování nezpracovatelných souborů:<br/>"
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:17
 msgid "Mnemosyne 1.x *.XML files"
-msgstr ""
+msgstr "Soubory Mnemosyne 1.x *.XML"
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:19
 msgid "Mnemosyne 1.x XML files"
-msgstr ""
+msgstr "XML soubory Mnemosyne 1.x"
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 msgid ""
 "This XML file contains learning data. It's best to import this from a mem "
 "file, in order to preserve historical statistics. Continue?"
 msgstr ""
+"Tento XML  soubor obsahuje data pro učení. Je nejlepší toto importovat ze "
+"souboru mem, abyste zachovali statistiku historie. Pokračovat?"
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:24
 msgid "Mnemosyne 2.x *.cards files"
-msgstr ""
+msgstr "Soubory Mnemosyne 2.x *.cards"
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:26
 msgid "Mnemosyne 2.x cards for sharing (*.cards)"
-msgstr ""
+msgstr "Karty Mnemosyne 2.x pro sdílení (*.cards)"
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:46
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:107
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:111
 msgid "Exporting cards..."
-msgstr ""
+msgstr "Exportování karet..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:156
 msgid "Bundling media files..."
-msgstr ""
+msgstr "Svazování mediálních souborů..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/smconv_XML.py:41
 msgid "Supermemo for Palm through smconv.pl"
-msgstr ""
+msgstr "Supermemo pro Palm přes smconv.pl"
 
 #: ../mnemosyne/libmnemosyne/file_formats/smconv_XML.py:43
 msgid "Supermemo for Palm XML files (*.xml *.XML)"
-msgstr ""
+msgstr "XML soubory Supermemo pro Palm (*.xml *.XML)"
 
 #: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:32
 msgid "SuperMemo7 text in Q:/A: format"
-msgstr ""
+msgstr "Text SuperMemo7 ve formátu Otázka:/Odpověď:"
 
 #: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:34
 msgid "SuperMemo7 text files (*.txt *.TXT)"
-msgstr ""
+msgstr "Textové soubory SuperMemo7 (*.txt *.TXT)"
 
 #: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:65
 #: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:78
 #: ../mnemosyne/libmnemosyne/file_formats/tsv.py:56
 msgid "Could not determine encoding."
-msgstr ""
+msgstr "Nelze zjistit kódování."
 
 #: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:212
 msgid "An error occured while parsing."
-msgstr ""
+msgstr "Při zpracování došlo k chybě."
 
 #: ../mnemosyne/libmnemosyne/file_formats/tsv.py:24
 msgid "Tab-separated text files"
-msgstr ""
+msgstr "Textové soubory oddělené tabulátorem"
 
 #: ../mnemosyne/libmnemosyne/file_formats/tsv.py:26
 msgid "Tab-separated text files (*.txt)"
-msgstr ""
+msgstr "Textové soubory oddělené tabulátorem  (*.txt)"
 
 #: ../mnemosyne/libmnemosyne/file_formats/tsv.py:44
 msgid "Could not load file."
-msgstr ""
+msgstr "Nelze načíst soubor."
 
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:77
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:81
 msgid "Missing answer on line:\n"
-msgstr ""
+msgstr "Chybějící odpověď na řádku:\n"
 
-#: ../mnemosyne/libmnemosyne/filters/latex.py:85
+#: ../mnemosyne/libmnemosyne/filters/latex.py:90
 msgid "Problem with latex. Are latex and dvipng installed?"
-msgstr ""
+msgstr "Problém s latex. Jsou latex a dvipng nainstalovány?"
 
 #: ../mnemosyne/libmnemosyne/log_uploader.py:83
 msgid "Uploading"
-msgstr ""
+msgstr "Nahrávání"
 
 #: ../mnemosyne/libmnemosyne/log_uploader.py:87
 msgid "done!"
-msgstr ""
+msgstr "dokončeno!"
 
 #: ../mnemosyne/libmnemosyne/log_uploader.py:89
 msgid "Upload failed"
-msgstr ""
+msgstr "Nahrávání selhalo"
 
 #: ../mnemosyne/libmnemosyne/logger.py:199
 msgid "Waiting for uploader thread to stop..."
-msgstr ""
+msgstr "Čekání na zastavení vlákna nahrávání..."
 
 #: ../mnemosyne/libmnemosyne/logger.py:201
 #: ../mnemosyne/pyqt_ui/compact_database_dlg.py:78
@@ -740,15 +777,18 @@ msgstr ""
 msgid "Done!"
 msgstr "Hotovo!"
 
-#: ../mnemosyne/libmnemosyne/plugin.py:98
+#: ../mnemosyne/libmnemosyne/plugin.py:97
+msgid "Cannot deactivate"
+msgstr "Nelze zakázat používání"
+
+#: ../mnemosyne/libmnemosyne/plugin.py:99
 msgid ""
-"Cannot deactivate, there are cards with this card type (or a clone of it) in "
-"the database."
-msgstr ""
+"There are cards with this card type (or a clone of it) in the database."
+msgstr "V databázi existují karty s tímto typem (nebo jeho kopií)."
 
 #: ../mnemosyne/libmnemosyne/plugins/cramming_plugin.py:14
 msgid "Cramming scheduler"
-msgstr ""
+msgstr "Plánovač pro šprtání"
 
 #: ../mnemosyne/libmnemosyne/plugins/cramming_plugin.py:16
 msgid ""
@@ -760,47 +800,54 @@ msgid ""
 "\n"
 "To return to the original scheduler, just deactivate this plugin."
 msgstr ""
+"Prochází aktivními kartami v náhodném pořadí, aniž by ukládal informace o "
+"plánování.\n"
+"\n"
+"Jakmile je tento modul zapnut, můžete ho nastavit v 'Nastavit Mnemosyne'.\n"
+"\n"
+"Pro návrat k původnímu plánovači stačí modul vypnout"
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:18
 msgid "You don't remember this card yet."
-msgstr "Tuto kartu jste si zatím nezapamatoval(a)."
+msgstr "Tuto kartu si zatím nepamatujete."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:20
 msgid "Like '0', but it's getting more familiar. Show it less often."
-msgstr ""
+msgstr "Stejné jako '0', ale začíná se vybavovat. Zobrazit méně často."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:22
 msgid "You've memorised this card now, and might remember it tomorrow."
-msgstr ""
+msgstr "Tuto kartu si již pamatujete a možná tomu tak bude i zítra."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:24
 msgid "You've memorised this card now, and should remember it tomorrow."
-msgstr ""
+msgstr "Tuto kartu si již pamatujete a mělo by tomu tak být i zítra."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:26
 msgid "You've memorised this card now, and might remember it in 2 days."
-msgstr ""
+msgstr "Tuto kartu si již pamatujete a možná tomu tak bude i za 2 dny."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:28
 msgid "You've memorised this card now, and should remember it in 2 days."
-msgstr ""
+msgstr "Tuto kartu si již pamatujete a mělo by tomu tak být i za 2 dny."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:31
 msgid "You've forgotten this card completely."
-msgstr ""
+msgstr "Tuto kartu jste zcela zapomněli."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:33
 msgid "You've forgotten this card."
-msgstr ""
+msgstr "Tuto kartu jste zapomněli."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:35
 msgid "Barely correct answer. The interval was way too long."
-msgstr "Téměř správná odpověď. Interval byl příliš dlouhý."
+msgstr "Stěží správná odpověď. Trvalo vám to příliš dlouho."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:37
 msgid ""
 "Correct answer, but with much effort. The interval was probably too long."
 msgstr ""
+"Správná odpověď bez většího úsilí. Interval bxl pravděpodobně příliš dlouhý."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
 msgid ""
@@ -816,66 +863,69 @@ msgstr ""
 "Správná odpověď bez jakýchkoliv potíží. Interval byl pravděpodobně moc "
 "krátký."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:104
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:129
 msgid ""
 "You have no more work for today. Either add more cards or come back tomorrow."
 msgstr ""
+"Dnes již máte procvičeno. Buď přidejte více karet, nebo začněte znovu zítra."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:113
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:138
 msgid ""
 "Use 'Learn ahead of schedule' sparingly. For cramming before an exam, it's "
 "much better to use the cramming scheduler plugin"
 msgstr ""
+"Používejte 'Učit se s předstihem' vzácně. Pro učení se před zkouškou je "
+"mnohem lepší použít modul pro šprtání."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:146
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:171
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:33
 msgid "Returns in"
-msgstr ""
+msgstr "Vrátí se za"
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:147
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:172
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:34
 msgid " day(s)."
 msgstr " dnů."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:151
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:176
 msgid "Next repetition: today."
 msgstr "Další opakování: dnes."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:153
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:178
 msgid "Next repetition: tomorrow."
 msgstr "Další opakování: zítra."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:180
 msgid " days."
 msgstr " dnů."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:155
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:180
 msgid "Next repetition in "
 msgstr "Další opakování za "
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:199
-#: ../mnemosyne/pyqt_ui/preview_cards_dlg.py:65
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:224
+#: ../mnemosyne/pyqt_ui/preview_cards_dlg.py:67
 msgid "Question: "
-msgstr ""
+msgstr "Otázka: "
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:229
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:232
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:235
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:254
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:257
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:260
 msgid "Show answer"
 msgstr "Ukázat odpověď"
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:239
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:264
 msgid "Learn ahead of schedule"
-msgstr "Učit se navíc"
+msgstr "Učit se s předstihem"
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:258
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:283
 msgid "Pick days until next repetition:"
 msgstr "Vyberte počet dnů do dalšího opakování:"
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:260
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:109
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:285
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:110
 msgid "Grade your answer:"
-msgstr "Ohodnoťte svou odpověď:"
+msgstr "Oznámkujte svou odpověď:"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:229
 msgid ""
@@ -884,153 +934,157 @@ msgid ""
 "day. Mnemosyne will automatically reschedule your cards such that the most "
 "urgent ones are shown first."
 msgstr ""
+"Vypadá to, že jste zmeškali určitá opakování. Nemusíte se obávat, že "
+"nebudete stíhat, zapamatujte si každý den tolik karet, kolik zvládnete, "
+"abyste zpoždění dohnali. Mnemosyne vaše karty automaticky znovu naplánuje "
+"tak, aby nejdůležitější byly zobrazeny první."
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:553
 msgid "You've memorised 15 new or failed cards."
-msgstr ""
+msgstr "Zapamatovali jste si 15 nových nebo nezvládnutých karet."
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:554
 msgid "If you do this for many days, you could get a big workload later."
-msgstr ""
+msgstr "Pokud toto budete dělat po mnoho dní, můžete zůstat pozadu."
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:600
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:604
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:609
 msgid "in"
-msgstr ""
+msgstr "za"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:601
 msgid "years"
-msgstr ""
+msgstr "let"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:605
 msgid "months"
-msgstr ""
+msgstr "měsíců"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:607
 msgid "in 1 month"
-msgstr ""
+msgstr "za 1 měsíc"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:610
 msgid "days"
-msgstr ""
+msgstr "dní"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:612
 msgid "tomorrow"
-msgstr ""
+msgstr "zítra"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:614
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:644
 msgid "today"
-msgstr ""
+msgstr "dnes"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:616
 msgid "1 day overdue"
-msgstr ""
+msgstr "1 den zpoždění"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:618
 msgid "days overdue"
-msgstr ""
+msgstr "dní zpoždění"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:620
 msgid "1 month overdue"
-msgstr ""
+msgstr "1 měsíc zpoždění"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:623
 msgid "months overdue"
-msgstr ""
+msgstr "měsíce zpoždění"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:626
 msgid "years overdue"
-msgstr ""
+msgstr "roky zpoždění"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:646
 msgid "yesterday"
-msgstr ""
+msgstr "včera"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:648
 msgid "days ago"
-msgstr ""
+msgstr "dnů zpět"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:650
 msgid "1 month ago"
-msgstr ""
+msgstr "Před měsícem"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:653
 msgid "months ago"
-msgstr ""
+msgstr "měsíců zpět"
 
 #: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:656
 msgid "years ago"
-msgstr ""
+msgstr "let zpět"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:11
 msgid "Cards added"
-msgstr ""
+msgstr "Karty přidány"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:38
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:38
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:58
 msgid "Calculating statistics..."
-msgstr ""
+msgstr "Vypočítávání statistik..."
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:12
 msgid "Current card"
-msgstr "Aktuální karta"
+msgstr "Současná karta"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:27
 msgid "No current card."
-msgstr "Není žádná aktuální karta"
+msgstr "Žádná současná karta"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:29
 msgid "Unseen card, no statistics available yet."
-msgstr ""
+msgstr "Nezobrazená karta, zatím žádné statistiky."
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:31
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:596
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:620
 msgid "Grade"
-msgstr "Hodnocení"
+msgstr "Známka"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:32
 #: ../mnemosyne/libmnemosyne/statistics_pages/easiness.py:11
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:597
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:621
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:275
 msgid "Easiness"
-msgstr ""
+msgstr "Snadnost"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:33
 msgid "Learning repetitions"
-msgstr ""
+msgstr "Opakování učení"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:35
 msgid "Review repetitions"
-msgstr ""
+msgstr "Opakování kontroly"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:37
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:599
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:623
 msgid "Lapses"
-msgstr ""
+msgstr "Chyb"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:38
 msgid "Last repetition"
-msgstr ""
+msgstr "Poslední opakování"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:40
 msgid "Next repetition"
-msgstr ""
+msgstr "Další opakování"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:42
 msgid "Average thinking time (secs)"
-msgstr ""
+msgstr "Průměrný doba přemýšlení (sek)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:44
 msgid "Total thinking time (secs)"
-msgstr ""
+msgstr "Celková doba přemýšlení (sek)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/easiness.py:17
 #: ../mnemosyne/libmnemosyne/statistics_pages/grades.py:17
 msgid "All cards"
-msgstr ""
+msgstr "Všechny karty"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/easiness.py:21
 #: ../mnemosyne/libmnemosyne/statistics_pages/grades.py:21
@@ -1038,19 +1092,19 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/tag_tree.py:72
 #: ../mnemosyne/libmnemosyne/tag_tree.py:75
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:58
-#: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:172
-#: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:202
+#: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:174
+#: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:204
 msgid "Untagged"
-msgstr ""
+msgstr "Neoznačeno"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/grades.py:11
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:252
 msgid "Grades"
-msgstr "Hodnocení"
+msgstr "Známky"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:11
 msgid "Retention score"
-msgstr ""
+msgstr "Paměťové skóre"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:11
 msgid "Schedule"
@@ -1058,131 +1112,148 @@ msgstr "Rozvrh"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:24
 msgid "Next week (active cards only)"
-msgstr ""
+msgstr "Další týden (pouze aktivní katrty)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:25
 msgid "Next month (active cards only)"
-msgstr ""
+msgstr "Příští měsíc (pouze aktivní karty)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:26
 msgid "Next 3 months (active cards only)"
-msgstr ""
+msgstr "Příští 3 měsíce (pouze aktivní karty)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:27
 msgid "Next 6 months (active cards only)"
-msgstr ""
+msgstr "Příštích 6 měsíců (pouze aktivní karty)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:28
 msgid "Next year (active cards only)"
-msgstr ""
+msgstr "Příští rok (pouze aktivní karty)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:29
 msgid "Last week (all cards)"
-msgstr ""
+msgstr "Minulý týden (všechny karty)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:30
 msgid "Last month (all cards)"
-msgstr ""
+msgstr "Minulý měsíc (všechny karty)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:31
 msgid "Last 3 months (all cards)"
-msgstr ""
+msgstr "Minulé 3 měsíce (všechny karty)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:32
 msgid "Last 6 months (all cards)"
-msgstr ""
+msgstr "Minulých 6 měsíců (všechny karty)"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:33
 msgid "Last year (all cards)"
-msgstr ""
+msgstr "Minulý rok (všechny karty)"
 
 #: ../mnemosyne/libmnemosyne/tag_tree.py:41
 msgid "All tags"
-msgstr ""
+msgstr "Všechny značky"
 
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:62
 msgid ""
 "Tried to backup your old 1.x files to %s, but that directory already exists."
 msgstr ""
+"Při pokusu o zálohování vašich starých souborů z verze 1.x do %s došlo k "
+"chybě, adresář existuje."
 
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:115
 msgid "Copying files from 1.x..."
-msgstr ""
+msgstr "Kopírování souborů z verze 1.x..."
 
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:146
 msgid "Upgrade from Mnemosyne 1.x complete!"
-msgstr ""
+msgstr "Aktualizace na Mnemosyne 1.x dokončena!"
 
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:147
 msgid "Mnemosyne 2.x now stores its data here:"
-msgstr ""
+msgstr "Mnemosyne 2.x nyní ukládá svá data zde:"
 
 #: ../mnemosyne/pyqt_ui/about_dlg.py:29
 msgid "Main author: Peter Bienstman"
-msgstr ""
+msgstr "Hlavní autor: Peter Bienstman"
 
 #: ../mnemosyne/pyqt_ui/about_dlg.py:30
 msgid ""
 "Invaluable contributions from many people are acknowledged <a "
 "href=\"http://www.mnemosyne-proj.org/contributing.php\">here</a>."
 msgstr ""
+"Neocenitelní lidé, kteří přispěli jsou zmíněni <a "
+"href=\"http://www.mnemosyne-proj.org/contributing.php\">zde</a>."
 
 #: ../mnemosyne/pyqt_ui/about_dlg.py:31
 msgid ""
 "Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-"
 "proj.org</a> for more information and source code."
 msgstr ""
+"Navštivte <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-"
+"proj.org</a> pro další informace a zdrojový kód."
 
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:90
-#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:97
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:95
+#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:101
 msgid "Delete"
-msgstr ""
+msgstr "Smazat"
 
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:91
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:96
 msgid "Rename"
-msgstr ""
+msgstr "Přejmenovat"
 
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:98
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:202
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:103
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:211
 msgid "This set can never contain any cards!"
-msgstr ""
+msgstr "Tato sada nikdy nemůže obsahovat karty!"
 
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:105
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:110
 msgid "Update this set?"
-msgstr ""
+msgstr "Aktualizovat tuto sadu?"
 
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:121
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:126
 msgid ""
 "You can right-click on the name of a saved set to rename or delete it."
 msgstr ""
+"Pro uložení nebo smazání sady stačí kliknout pravým tlačítkem myši na její "
+"jméno."
 
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:125
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:132
 msgid "Delete this set?"
-msgstr ""
+msgstr "Smazat tuto sadu?"
 
-#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:207
+#: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:216
 msgid ""
 "You can double-click on the name of a saved set to activate it and close the "
 "dialog."
 msgstr ""
+"Pro použití sady stačí poklepat levým tlačítkem myši na její jméno, čímž "
+"bude okno uzavřeno."
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:28 ../mnemosyne/pyqt_ui/tip_dlg.py:29
 msgid ""
 "You can add multiple tags to a card by separating tags with a comma in the "
 "'Tag(s)' input field."
 msgstr ""
+"Ve vstupním poli 'Značky' můžete pro kartu zadat více značek, pokud "
+"jednotlivé značky oddělíte čárkou."
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:29 ../mnemosyne/pyqt_ui/tip_dlg.py:30
 msgid ""
 "You can organise tags in a hierarchy by using :: as separator, e.g. My "
 "book::Lesson 1."
 msgstr ""
+"Značky můžete uspořádat do hierarchie použitím :: jako oddělovače, např. Má "
+"kniha::Lekce 1."
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:30 ../mnemosyne/pyqt_ui/tip_dlg.py:31
 msgid ""
 "You can add images and sounds to your cards. Right-click on an input field "
 "when editing a card to bring up a pop-up menu to do so."
 msgstr ""
+"Ke svým kartám můžete přidat obrázky i zvuky. Při úpravě karty klikněte "
+"pravým tlačítkem myši na pole vstupu a v zobrazené nabídce zvolte patřičnou "
+"volbu."
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:31 ../mnemosyne/pyqt_ui/tip_dlg.py:33
 msgid ""
@@ -1190,6 +1261,8 @@ msgid ""
 "pronunciation field, you can hide it by right-clicking on it and using the "
 "pop-up menu."
 msgstr ""
+"Pokud pro určité typy karet, kopírovaných ze Slovníku, nepotřebujete pole "
+"výslovnosti, můžete ho skrýt pomocí nabídky zobrazené pravým tlačítkem myši."
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:32
 msgid ""
@@ -1197,180 +1270,197 @@ msgid ""
 "for 'Yet to learn', and Ctrl+2, etc. for the grades. For 'Edit card', use "
 "Ctrl-Enter to close."
 msgstr ""
+"Pro přesun mezi poli můžete použít tabulátor. V 'Přidat karty' a 'Zatím "
+"nenaučeno' použijte Ctrl+Enter, a Ctrl+2 atd. pro známky. V 'Upravit kartu' "
+"použijte Ctrl-Enter pro uzavření."
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:258
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:259
 msgid "Abandon current card?"
 msgstr "Zahodit tuto kartu?"
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:258
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:227
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:259
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:232
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_cramming.py:40
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:68
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:63
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:155
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:162
 msgid "&No"
 msgstr "&Ne"
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:258
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:227
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:259
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:232
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_cramming.py:40
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:68
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:63
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:155
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:162
 msgid "&Yes"
 msgstr "&Ano"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:111
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:117
 msgid "Yet to learn"
-msgstr ""
+msgstr "Zatím nenaučeno"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:261
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:267
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:39
 msgid "Right-click on a tag name in the card browser to edit or delete it."
 msgstr ""
+"Pravým kliknutím myši na název značky v prohlížeči karet ji buď můžete "
+"smazat nebo upravit."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:262
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:268
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:40
 msgid "Double-click on a card or tag name in the card browser to edit them."
-msgstr ""
+msgstr "Pro úpravu karet nebo značek na ně poklepejte v prohlížeči karet."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:263
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:269
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:41
 msgid ""
 "You can reorder columns in the card browser by dragging the header label."
 msgstr ""
+"Sloupce můžete v prohlížeči karet uspořádat přetažením jejich názvy hlavičky."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:264
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:270
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:42
 msgid ""
 "You can resize columns in the card browser by dragging between the header "
 "labels."
-msgstr ""
+msgstr "Velikost sloupců můžete změnit tažením mezi jejich názvy hlavičky."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:265
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:271
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:43
 msgid ""
 "When editing or previewing cards from the card browser, PageUp/PageDown can "
 "be used to move to the previous/next card."
 msgstr ""
+"Při úpravě nebo náhledu karet v prohlížeči karet se můžete mezi nimi "
+"pohybovat pomocí PageUp/PageDown."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:266
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:272
 msgid ""
 "You change the relative size of the card list, card type tree and tag tree "
 "by dragging the dividers between them."
 msgstr ""
+"Měnit relativní velikost karty, stromu typu karet a stromu značek můžete "
+"měnit tažením rozdělovačů mezi nimi."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:281
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:288
 msgid "Show cards from these card types:"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:292
-#: ../mnemosyne/pyqt_ui/ui_criterion_wdgt_default.py:41
-msgid "having any of these tags:"
-msgstr ""
+msgstr "Zobrazit karty z těchto typů:"
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:299
+#: ../mnemosyne/pyqt_ui/ui_criterion_wdgt_default.py:42
+msgid "having any of these tags:"
+msgstr "mající jakoukoli z těchto značek:"
+
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:306
 msgid "containing this text in the cards:"
-msgstr ""
+msgstr "obsahující tento text v kartách:"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:345
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:356
 msgid "&Edit"
-msgstr "&Editovat"
+msgstr "&Upravit"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:349
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:120
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:138
-#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:83
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:360
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:121
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:139
+#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:84
 msgid "&Preview"
 msgstr "&Náhled"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:358
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:369
 msgid "Change card &type"
-msgstr ""
+msgstr "Změnit &typ karty"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:362
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:373
 msgid "&Add tags"
-msgstr ""
+msgstr "&Přidat značky"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:365
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:376
 msgid "&Remove tags"
-msgstr ""
+msgstr "&Odebrat značky"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:472
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:492
 msgid "Go ahead with delete? Sister cards will be deleted as well."
-msgstr ""
+msgstr "Pokračovat ve smazání? Sesterské karty budou také smazány."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:500
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:520
 msgid "The selected cards should have the same card type."
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:575
-msgid "Database error: "
-msgstr ""
+msgstr "Vybrané karty by měly mít stejný typ."
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:595
+msgid "Database error: "
+msgstr "Chyba databáze: "
+
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:619
 msgid "Answer"
 msgstr "Odpověď"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:595
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:619
 msgid "Question"
 msgstr "Otázka"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:596
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:620
 msgid "Next rep"
-msgstr ""
+msgstr "Další op"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:596
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:620
 msgid "Tags"
-msgstr ""
+msgstr "Značky"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:597
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:621
 msgid "Last rep"
-msgstr ""
+msgstr "Poslední op"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:598
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:622
 msgid ""
 "Learning\n"
 "reps"
 msgstr ""
+"Opakování\n"
+"učení"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:599
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:623
 msgid ""
 "Review\n"
 "reps"
 msgstr ""
+"Zkontrolovat\n"
+"opakování"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:600
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:624
 msgid "Created"
-msgstr ""
+msgstr "Vytvořeno"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:600
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:624
 msgid "Modified"
-msgstr ""
+msgstr "Změněno"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:654
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:675
 msgid ""
 "You chose to sort this table. Operations in the card browser could now be "
 "slower. Next time you start the card browser, the table will be unsorted "
 "again."
 msgstr ""
+"Zvolili jste uspořádat tuto tabulku. Operace v prohlížeči karet by nyní "
+"mohly být pomalejší. Při příštím spuštění prohlížeče karet bude tabulka "
+"znovu neuspořádaná."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:733
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:754
 msgid "%d cards shown, of which %d active."
-msgstr ""
+msgstr "Zobrazeno %d karet, z nichž %d je používáno."
 
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:72
 msgid "Delete these card types?"
-msgstr ""
+msgstr "Smazat tyto typy karet?"
 
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:74
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:61
 msgid "Delete this card type?"
-msgstr ""
+msgstr "Smazat tento typ karet?"
 
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:104
 msgid "All card types (%d)"
-msgstr ""
+msgstr "Všechny typy karet (%d)"
 
 #: ../mnemosyne/pyqt_ui/compact_database_dlg.py:49
 msgid ""
@@ -1378,100 +1468,107 @@ msgid ""
 "compact the database, but this is only relevant if you deleted a large "
 "number of cards."
 msgstr ""
+"Zde můžete smazat mediální soubory, které již nejsou používány. Můžete také "
+"komprimovat databázi, to se zvláště hodí při mazání velkého počtu karet."
 
 #: ../mnemosyne/pyqt_ui/compact_database_dlg.py:68
 msgid "Compacting database..."
-msgstr ""
+msgstr "Komprimování databáze..."
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:22
 msgid "Card appearance"
-msgstr ""
+msgstr "Vzhled karty"
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:35
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:48
 msgid "<all card types>"
-msgstr ""
+msgstr "<všechny typy karet>"
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:79
 msgid "Select font"
-msgstr ""
+msgstr "Výběr písma"
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:84
 msgid "Select colour"
-msgstr ""
+msgstr "Výběr barvy"
 
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:222
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:227
 msgid "Reset all card types to default system font?"
-msgstr ""
+msgstr "Resetovat typy písma u všech typů karet na výchozí?"
 
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:224
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:229
 msgid "Reset '%s' to default system font?"
-msgstr ""
+msgstr "Resetovat '%s' na výchozí systémové písmo?"
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_cramming.py:19
 msgid "Cramming"
-msgstr ""
+msgstr "Šprtání"
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_cramming.py:40
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:68
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:63
 msgid "Reset current tab to defaults?"
-msgstr ""
+msgstr "Resetovat současnou kartu na výchozí?"
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:20
 msgid "General"
-msgstr ""
+msgstr "Obecné"
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:28
 msgid "Sync server"
-msgstr ""
+msgstr "Synchronizovat server"
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:42
 msgid "Server running on "
-msgstr ""
+msgstr "Server je v provozu na "
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:45
 msgid "Server NOT running."
-msgstr ""
+msgstr "Server není spuštěn."
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:84
 msgid "Server now running on "
-msgstr ""
+msgstr "Server je nyní spuštěn na "
 
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:90
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_sync_server.py:89
 msgid "Server stopped."
-msgstr ""
+msgstr "Server zastaven"
 
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:39
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:53
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:81
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:41
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:55
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:83
 msgid "<none>"
-msgstr ""
+msgstr "<žádné>"
 
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:59
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:61
 msgid "No duplicate in new fact keys allowed."
-msgstr ""
+msgstr "V nových klíčích faktů nejsou povoleny žádné duplikáty."
 
-#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:71
+#: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:73
 msgid "A required field is missing."
-msgstr ""
+msgstr "Požadované pole chybí."
 
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:96
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:109
+#: ../mnemosyne/pyqt_ui/criterion_wdgt_default.py:32
+#: ../mnemosyne/pyqt_ui/ui_criterion_wdgt_default.py:41
+msgid "Activate cards from these card types:"
+msgstr "Používat karty z těchto typů:"
+
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:98
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:111
 msgid "You are not allowed to cancel the merging."
-msgstr ""
+msgstr "Nemáte oprávnění ke zrušení sloučení."
 
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:154
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:162
 msgid "Abandon changes to current card?"
-msgstr ""
+msgstr "Zahodit změny v současné kartě?"
 
 #: ../mnemosyne/pyqt_ui/export_dlg.py:64
 msgid "File exists. Overwrite?"
-msgstr ""
+msgstr "Soubor existuje. Chcete ho přepsat?"
 
 #: ../mnemosyne/pyqt_ui/import_dlg.py:81
 msgid "File does not exist."
-msgstr ""
+msgstr "Soubor neexistuje."
 
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:51
 msgid ""
@@ -1480,22 +1577,26 @@ msgid ""
 "can make a clone of 'Vocabulary', call it 'Thai' and set a Thai font "
 "specifically for this card type without disturbing your other cards."
 msgstr ""
+"Zde můžete vytvořit kopie existujících typů karet. To Vám umožňuje "
+"formátovat karty tohoto typu nezávisle od karet typu původního. Např. můžete "
+"vytvořit kopii 'Vocabulary', nazvat ho 'Thajština' a nastavit v něm thajské "
+"písmo aniž by to narušilo jiné karty."
 
-#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:94
+#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:98
 msgid "Are you sure you want to delete the plugin"
-msgstr ""
+msgstr "Opravdu chcete smazat tento zásuvný modul"
 
-#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:95
+#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:99
 msgid "and not just deactivate it?"
-msgstr ""
+msgstr "a ne jen přestat používat?"
 
-#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:97
+#: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:101
 msgid "Cancel"
-msgstr ""
+msgstr "Zrušit"
 
 #: ../mnemosyne/pyqt_ui/prefill_tag_behaviour_plugin.py:13
 msgid "Prefill tag behaviour"
-msgstr ""
+msgstr "Předvyplnit chování značky"
 
 #: ../mnemosyne/pyqt_ui/prefill_tag_behaviour_plugin.py:15
 msgid ""
@@ -1507,24 +1608,31 @@ msgid ""
 "textbook::Chapter 10\", whereas Front-to-Back cards get \"European "
 "Capitals\"."
 msgstr ""
+"Při vytváření nových karet Mnemosyne standardně předvyplní pole 'Značky' "
+"poslední použitou hodnotou, bez ohledu na typ karty.\n"
+"\n"
+"S tímto zásuvným modulem si Mnemosyne zapamatuje poslední značku pro každý "
+"typ karty, např. čínským kartám bude předvyplněna značka \"Moje učebnice "
+"čínštiny::Kapitola 10\", zatímco karty Zepředu-dozadu budou mít \"Hlavní "
+"města Evropy\"."
 
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:70
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:161
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:168
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:76
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:200
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:207
 msgid "Unable to start sync server."
-msgstr ""
+msgstr "Nelze spustit server synchronizace."
 
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:162
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:201
 msgid "There still seems to be an old server running on the requested port."
-msgstr ""
+msgstr "Zdá se, že na požadovaném portu je stále spuštěn starý server."
 
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:163
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:202
 msgid "Terminate that process and try again."
-msgstr ""
+msgstr "Ukončit proces a zkusit znovu."
 
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:169
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:208
 msgid "You don't have the permission to use the requested port."
-msgstr ""
+msgstr "Nemáte oprávnění použít požadovaný port."
 
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:29
 msgid "Insert &image"
@@ -1541,11 +1649,11 @@ msgstr "Vložit &zvuk"
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:32
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:217
 msgid "Ctrl+S"
-msgstr "Ctrl+S"
+msgstr "Ctrl+Z"
 
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:33
 msgid "Insert vi&deo"
-msgstr ""
+msgstr "Vložit vi&deo"
 
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:34
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:200
@@ -1554,73 +1662,77 @@ msgstr "Ctrl+D"
 
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:35
 msgid "Insert &Flash"
-msgstr ""
+msgstr "Vložit &Flash"
 
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:36
 msgid "Ctrl+F"
-msgstr ""
+msgstr "Ctrl+F"
 
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:40
 msgid "&Hide pronunciation field for this card type"
-msgstr ""
+msgstr "&Skrýt pole výslovnosti v tomto typu karty"
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:346
+#: ../mnemosyne/pyqt_ui/qwebview2.py:27
+msgid "Ctrl+C"
+msgstr "Ctrl+C"
+
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:372
 msgid "Scheduled: %d "
-msgstr ""
+msgstr "Naplánováno: %d "
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:347
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:373
 msgid "Not memorised: %d "
-msgstr ""
+msgstr "Nezapamatováno: %d "
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:348
-#: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:56
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:374
+#: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:57
 msgid "Active: %d "
-msgstr ""
+msgstr "Používáno: %d "
 
 #: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:15
 #: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:38
 msgid "&Wrong"
-msgstr ""
+msgstr "Š&patně"
 
 #: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:21
 #: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:39
 msgid "&Right"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:54
-msgid "Wrong: %d "
-msgstr ""
+msgstr "&Vpravo"
 
 #: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:55
+msgid "Wrong: %d "
+msgstr "Špatně: %d "
+
+#: ../mnemosyne/pyqt_ui/review_wdgt_cramming.py:56
 msgid "Unseen: %d "
-msgstr ""
+msgstr "Neviděno: %d "
 
 #: ../mnemosyne/pyqt_ui/statistics_dlg.py:96
 msgid "Default"
-msgstr ""
+msgstr "Výchozí"
 
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:209
 msgid "Number of cards scheduled"
-msgstr ""
+msgstr "Počet naplánovaných karet"
 
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:221
 msgid "Retention score (%)"
-msgstr ""
+msgstr "Skóre zapamatování (%)"
 
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:233
 msgid "Number of cards added"
-msgstr ""
+msgstr "Počet přidaných karet"
 
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:251
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:274
 msgid "Number of cards"
-msgstr ""
+msgstr "Počet karet"
 
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:254
 msgid "Not seen"
-msgstr ""
+msgstr "Neviděno"
 
-#: ../mnemosyne/pyqt_ui/sync_dlg.py:111
+#: ../mnemosyne/pyqt_ui/sync_dlg.py:132
 msgid ""
 "Here, you can sync this machine with a remote server. Of course, that remote "
 "computer needs to have a server running, which can be started from the "
@@ -1631,19 +1743,27 @@ msgid ""
 "needs to be the server. So, first enable a sync server here, and then start "
 "the sync from the mobile device."
 msgstr ""
+"Zde můžete synchronizovat tento stroj se vzdáleným serverem. Je "
+"samozřejmostí, aby vzdálený stroj měl server spuštěný, což lze provést z "
+"obrazovky nastavení na vzdáleném stroji.\n"
+"\n"
+"Pokud ale chcete synchronizovat mobilní zařízení s tímto strojem zde, pak "
+"byste  neměli používat volbu, kterou jste právě zvolili. V tomto případě "
+"musí být počítač serverem. Takže nejdříve zde zapněte synchronizační server "
+"a pak spusťte synchronizaci z mobilního zařízení."
 
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:134
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:60
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:61
 msgid "&Rename"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:184
-msgid "Delete these tags? Cards with these tags will not be deleted."
-msgstr ""
+msgstr "&Přejmenovat"
 
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:186
+msgid "Delete these tags? Cards with these tags will not be deleted."
+msgstr "Smazat tyto značky? Karty s těmito značkami smazány nebudou."
+
+#: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:188
 msgid "Delete this tag? Cards with this tag will not be deleted."
-msgstr ""
+msgstr "Smazat tuto značku? Karty s touto značkou smazány nebudou."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:18
 msgid "For optimal results, it's best to do your repetitions every day."
@@ -1654,6 +1774,7 @@ msgid ""
 "You don't need to finish all your daily scheduled repetitions in a single "
 "session."
 msgstr ""
+"Nemusíte dokončit všechna vaše naplánovaná denní opakování v jednom sezení."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:20
 msgid ""
@@ -1661,6 +1782,9 @@ msgid ""
 "many cards as you feel like to catch up, the rest will be automatically "
 "rescheduled to the future in the most optimal way."
 msgstr ""
+"Pokud jste byli pár dní pryč, nemusíte se obávat nedodělávek. Procvičte si "
+"tolik karet, kolik zmůžete, abyste  nedodělky dohonili, zbytek bude "
+"automaticky znovu naplánován do budoucna tím nejoptimálnějším způsobem."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:21
 msgid ""
@@ -1668,6 +1792,9 @@ msgid ""
 "to-back card and the corresponding back-to-front card. Mnemosyne will avoid "
 "scheduling these on the same day."
 msgstr ""
+"Sesterské karty jsou karty založené na stejných informací, např. karty "
+"zepředu-dozadu a odpovídající zezadu-dopředu. Mnemosyne se vyhýbá plánování "
+"těchto karet ve stejný den."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:22
 msgid ""
@@ -1677,6 +1804,10 @@ msgid ""
 "the judge of that: you can learn more cards or less cards, depending on how "
 "you feel."
 msgstr ""
+"Nastavení 'Počet nezapamatovaných karet které držet v ruce' označuje počet "
+"karet, které se snažíte (znovu) zapamatovat najednou. <b>Nesděluje</b> kolik "
+"karet se potřebujete naučit za den. To můžete posoudit pouze Vy: můžete se "
+"učit více i méně karet, záleží na vaší chuti."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:23
 msgid ""
@@ -1684,30 +1815,41 @@ msgid ""
 "about getting the 'Scheduled' counter to zero, and certainly not about "
 "getting the 'Not memorised' counter to zero."
 msgstr ""
+"Shrnuto, snažte se opakovat každý den, nestarejte se příliš o snížení "
+"počítadla 'Naplánováno' na nulu a už vůbec ne v případě počítadla "
+"'Nezapamatováno'."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:24
 msgid ""
 "Grade 1 cards are different from grade 0 cards in the sense that they show "
 "up less often."
 msgstr ""
+"Karty známky 1 se liší od karet známky 0 v tom smyslu, že jsou zobrazovány "
+"méně často."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:25
 msgid ""
 "Use 'Learn ahead of schedule' sparingly. For cramming before an exam, it's "
 "much better to use the cramming scheduler plugin."
 msgstr ""
+"Používejte 'Učit se s předstihem' vzácně. Pro učení se před zkouškou je "
+"mnohem lepší použít modul pro šprtání."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:26
 msgid ""
 "You can use keyboard shortcuts to do your repetitions. Enter, Return or "
 "Space stand for the default action. The number keys can be used for grading."
 msgstr ""
+"Pro opakování můžete použít klávesové zkratky. Enter i mezerník znamenají "
+"výchozí činnost. Numerické klávesy mohou být použity pro známkování."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:27
 msgid ""
 "You can select which cards you wish to study in the '(De)activate cards' "
 "menu option."
 msgstr ""
+"Karty, které chcete studovat, můžete zvolit ve volbě nabídky '(De)aktivovat "
+"karty'."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:28
 msgid ""
@@ -1715,6 +1857,9 @@ msgid ""
 "organise them. Using '(De)activate cards' is much more convenient than "
 "having to load and unload several databases."
 msgstr ""
+"Doporučuje se umístit všechny své karty do jediné databáze a použít značky "
+"pro jejich organizaci. Použití '(De)aktivovat karty' je pohodlnější než "
+"načítat a uvolňovat několik databází."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:32
 msgid ""
@@ -1723,6 +1868,10 @@ msgid ""
 "make a clone of 'Vocabulary', call it 'Thai' and set a Thai font "
 "specifically for this card type without disturbing your other cards."
 msgstr ""
+"Z existujících typů karet můžete udělat kopie. To Vám umožňuje formátovat "
+"karty tohoto typu nezávisle na kartách z původního typu. Např. můžete "
+"vytvořit kopii 'Slovníku', nazvat ho 'Thajština' a nastavit thajské písmo "
+"konkrétně na tento typ karty aniž byste narušili ostatní typy."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:34
 msgid ""
@@ -1730,6 +1879,9 @@ msgid ""
 "However, if you want all the fields in a certain card type to look the same, "
 "it's easier to use the 'Set card appearance' menu option."
 msgstr ""
+"Ve vašich kartách můžete použít základní značky HTML pro změnu jejich "
+"vzhledu. Pokud ale chcete, aby všechna pole určitého typu karty vypadala "
+"stejně, je snadnější použít volbu 'Nastavit vzhled karty' z nabídky."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:35
 msgid ""
@@ -1737,6 +1889,9 @@ msgid ""
 "course, that remote computer needs to have a server running, which can be "
 "started from the configuration screen on that remote machine."
 msgstr ""
+"Pomocí 'Soubor - Synchronizace' můžete synchronizovat tento stroj se "
+"vzdáleným serverem. Samozřejmě tento vzdálený počítač potřebuje mít spuštěn "
+"server, což můžete provést z obrazovky nastavení ve vzdáleném stroji."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:36
 msgid ""
@@ -1744,37 +1899,48 @@ msgid ""
 "Sync', but first enable a sync server in the configuration dialog, and then "
 "start the sync from the mobile device."
 msgstr ""
+" Pokud chcete synchronizovat mobilní zařízení s tímto počítačem, "
+"nepoužívejte 'Soubor - Synchronizace', ale nejdříve zapněte synchronizační "
+"server v okně nastavení a pak spusťte synchronizaci z mobilního zařízení."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:37
 msgid ""
 "In the 'Activate cards' dialog, you can right-click on a saved set to rename "
 "or delete it."
 msgstr ""
+"V dialogovém okně 'Aktivovat karty' můžete kliknout pravým tlačítkem na "
+"uloženou sadu pro její smazání nebo přejmenování."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:38
 msgid ""
 "In the 'Activate cards' dialog, you can double-click on a saved set to "
 "activate it and close the dialog."
 msgstr ""
+"V dialogovém okně 'Aktivovat karty' můžete dvojklikem na uloženou sadu ji "
+"aktivovat a zavřít okno."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:44
 msgid ""
 "In the 'Add cards' dialog, use Tab to move between different fields, "
 "Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
 msgstr ""
+"V dialogovém okně 'Přidat karty' použijte tabulátor k přesunu mezi různými "
+"poli, Ctrl+Enter pro 'Ještě nenaučeno', a Ctrl+2, atd. pro hodnocení."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:45
 msgid ""
 "In the 'Edit card' dialog, use Tab to move between different fields and "
 "Ctrl+Enter to close the dialog."
 msgstr ""
+"V dialogovém okně 'Přidat karty' použijte tabulátor k přesunu mezi různými "
+"poli a Ctrl+Enter pro uzavření okna."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:46
 msgid ""
 "Mnemosyne can use LaTeX to render mathematical formulas, e.g. "
 "<$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
 msgstr ""
-"Mnemosyne umí používat LaTeX k vytváření matematických vzorců, např. "
+"Mnemosyne umí používat LaTeX k vykreslení matematických vzorců, např. "
 "<$>x^2+y^2=z^2</$>. (K tomu ale ještě musíte mít nainstalován LaTeX a "
 "dvipng.)"
 
@@ -1784,12 +1950,17 @@ msgid ""
 "and move it to a different drive. Mnemosyne keeps automatic backups, but "
 "that won't help you if that drive dies..."
 msgstr ""
+"Nejlepší způsob jak vaše data zálohovat je zkopírovat váš datový adresář "
+"mnemosyne a přesunout ho na jinou jednotku. Mnemosyne vytváří automatické "
+"zálohy, ale to Vám nepomůže, pokud jednotka selže..."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:48
 msgid ""
 "You can sort the cards in the 'Browse cards' dialog by by clicking on a "
 "column title. Clicking again changes the sort order."
 msgstr ""
+"V dialogovém okně 'Procházet karty' můžete karty seřadit kliknutím na název "
+"sloupce. Kliknutím znovu změní způsob seřazení."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:49
 msgid ""
@@ -1797,21 +1968,24 @@ msgid ""
 "explanation of the <$$>...</$$> and <latex>...</latex> tags on Mnemosyne's "
 "website."
 msgstr ""
-"Více informací o LaTeXu v Mnemosyne najdete na www stránkách Mnemosyne."
+"Pokud chcete podrobnější kontrolu nad chováním LaTeX, prohlédněte si "
+"vysvětlení značek <$$>...</$$> a <latex>...</latex> na stránce Mnemosyne"
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:50
 msgid "For optimal performance, keep your drives defragmented."
-msgstr ""
+msgstr "Pro optimální výkon si udržujte jednotky defragmentované."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:51
 msgid "For optimal performance, do not put your database on a network drive."
-msgstr ""
+msgstr "Pro optimální výkon neumisťujte svoji databázi na síťovou jednotku."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:52
 msgid ""
 "For optimal performance, run 'File - Compact' from time to time, especially "
 "after deleting many cards."
 msgstr ""
+"Pro optimální výkon čas od času spusťte 'Soubor - Komprimovat', zvláště po "
+"smazání velkého množství karet."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:53
 msgid ""
@@ -1819,6 +1993,9 @@ msgid ""
 "in their mnemosyne directory. They can also install additional plugins to "
 "customise Mnemosyne even further."
 msgstr ""
+"Pokročilí uživatelé si mohou Mnemosyne dále přizpůsobit upravením souboru "
+"config.py v adresáři Mnemosyne. Můžou také nainstalovat další zásuvné moduly "
+"pro další přizpůsobení."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:54
 msgid ""
@@ -1826,6 +2003,9 @@ msgid ""
 "href=\"https://plus.google.com/b/112456861177827156549/112456861177827156549/"
 "posts\">Google+</a>."
 msgstr ""
+"Vývoj Mnemosyne můžete sledovat na <a "
+"href=\"https://plus.google.com/b/112456861177827156549/112456861177827156549/"
+"posts\">Google+</a>."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:55
 msgid ""
@@ -1833,338 +2013,414 @@ msgid ""
 "href=\"https://mnemosyne.uservoice.com/\">uservoice</a>. This helps the "
 "developers decide what to work on next."
 msgstr ""
+"Na <a href=\"https://mnemosyne.uservoice.com/\">uservoice</a> můžete žádat a "
+"hlasovat pro nové funkce. To pomáhá vývojářům se rozhodnout na co se zaměřit."
 
-#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:81
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:106
+#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:80
+msgid "About Mnemosyne"
+msgstr "O Mnemosyne"
+
+#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:82
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:107
 msgid "Alt+C"
 msgstr "Alt+C"
 
 #: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:82
-msgid "Saved sets:"
-msgstr ""
+msgid "(De)activate cards"
+msgstr "(De)aktivovat karty"
 
-#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:84
+#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:83
+msgid "Saved sets:"
+msgstr "Uložené sady:"
+
+#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:85
 msgid "&Save this set for later use"
-msgstr ""
+msgstr "&Uložit tuto sadu na později"
 
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:107
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:128
-#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:80
-msgid "Card type:"
-msgstr ""
+msgid "Add cards"
+msgstr "Přidat karty"
 
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:108
-#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:63
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:129
 #: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:81
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:100
-msgid "Tags:"
-msgstr ""
+msgid "Card type:"
+msgstr "Typ karty:"
 
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:109
+#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:64
+#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:82
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:101
+msgid "Tags:"
+msgstr "Značky:"
+
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:110
 msgid "Select initial grade:"
 msgstr "Vyberte počáteční stupeň:"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:110
-msgid "You have yet to learn this."
-msgstr ""
-
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:111
-msgid "&Yet to learn"
-msgstr ""
+msgid "You have yet to learn this."
+msgstr "Toto jste se zatím nenaučili."
 
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:112
-msgid "You know this, but just barely."
-msgstr ""
+msgid "&Yet to learn"
+msgstr "&Zatím nenaučeno"
 
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:113
+msgid "You know this, but just barely."
+msgstr "Umíte, ale jen taktak."
+
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:114
 msgid "&2"
 msgstr "&2"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:114
-msgid "You know this, but not very well."
-msgstr ""
-
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:115
+msgid "You know this, but not very well."
+msgstr "Umíte, ale ne moc dobře."
+
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:116
 msgid "&3"
 msgstr "&3"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:116
-msgid "You know this."
-msgstr ""
-
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:117
+msgid "You know this."
+msgstr "Umíte."
+
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:118
 msgid "&4"
 msgstr "&4"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:118
-msgid "You know this very well."
-msgstr ""
-
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:119
+msgid "You know this very well."
+msgstr "Umíte velmi dobře."
+
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:120
 msgid "&5"
 msgstr "&5"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:121
-#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:84
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:122
+#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:85
 msgid "&Exit"
-msgstr ""
+msgstr "&Ukončit"
+
+#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:63
+msgid "Add tags"
+msgstr "Přidat značky"
 
 #: ../mnemosyne/pyqt_ui/ui_browse_cards_dlg.py:54
-msgid "Select one or more cards and right-click for more actions."
-msgstr ""
+msgid "Browse cards"
+msgstr "Procházet karty"
 
 #: ../mnemosyne/pyqt_ui/ui_browse_cards_dlg.py:55
-msgid "XXX cards selected, of which XXX active"
+msgid "Select one or more cards and right-click for more actions."
 msgstr ""
+"Vybete jednu nebo více karet a pravým kliknutím myši zobrazíte další "
+"činnosti."
+
+#: ../mnemosyne/pyqt_ui/ui_browse_cards_dlg.py:56
+msgid "XXX cards selected, of which XXX active"
+msgstr "XXX kart vybráno, z nichž je XXX aktivních"
 
 #: ../mnemosyne/pyqt_ui/ui_card_set_name_dlg.py:45
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:95
+msgid "Card set name"
+msgstr "Název sady karet"
+
+#: ../mnemosyne/pyqt_ui/ui_card_set_name_dlg.py:46
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:96
 msgid "Card set name:"
-msgstr ""
+msgstr "Název sady karet:"
 
 #: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:60
+msgid "Change card type"
+msgstr "Změnit typ karty"
+
+#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:61
 msgid "New card type:"
-msgstr ""
+msgstr "Nový typ karet:"
 
 #: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:64
-msgid "Cloned from:"
-msgstr ""
+msgid "Clone card type"
+msgstr "Kopírovat typ karty"
 
 #: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:65
+msgid "Cloned from:"
+msgstr "Kopírováno z:"
+
+#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:66
 msgid "Clone name:"
-msgstr ""
+msgstr "Název kopie:"
 
 #: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:54
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:231
-msgid "Compact database"
-msgstr ""
+msgid "Compact"
+msgstr "Komprimovat"
 
 #: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:55
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:231
+msgid "Compact database"
+msgstr "Komprimace databáze"
+
+#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:56
 msgid "Delete unused media files"
-msgstr ""
+msgstr "Smazat nepoužívané mediální soubory"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:58
+#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:57
+msgid "Configuration"
+msgstr "Nastavení"
+
+#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:59
 msgid "&Defaults"
-msgstr ""
+msgstr "&Výchozí"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:129
-msgid "Background:"
-msgstr ""
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:128
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_cramming.py:79
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:126
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_sync_server.py:69
+msgid "Form"
+msgstr "Formulář"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:130
-msgid "Set colour"
-msgstr ""
+msgid "Background:"
+msgstr "Pozadí:"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:131
-msgid "Alignment:"
-msgstr ""
+msgid "Set colour"
+msgstr "Nastavit barvu"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:132
-msgid "Left"
-msgstr ""
+msgid "Alignment:"
+msgstr "Zarovnání:"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:133
-msgid "Center"
-msgstr ""
+msgid "Left"
+msgstr "Vlevo"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:134
-msgid "Right"
-msgstr ""
+msgid "Center"
+msgstr "Na střed"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:135
-msgid "Increase size of non-latin characters by"
-msgstr "Zvětšit velikost ne-latin znaků o"
+msgid "Right"
+msgstr "Vpravo"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:136
-msgid "points."
-msgstr ""
+msgid "Increase size of non-latin characters by"
+msgstr "Zvětšit velikost znaků mimo latinku o"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:137
+msgid "points."
+msgstr "bodů."
+
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:138
 msgid ""
 "(This setting will be overridden in card types cloned from 'Vocabulary'.)"
 msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_cramming.py:79
-msgid "Show cards"
-msgstr ""
+"(Toto nastavení lze potlačit v typech karet kopírovaných ze 'Slovníku'.)"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_cramming.py:80
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:129
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:132
-msgid "in random order"
-msgstr ""
+msgid "Show cards"
+msgstr "Zobrazit karty"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_cramming.py:81
-msgid "earliest scheduled first"
-msgstr ""
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:130
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:133
+msgid "in random order"
+msgstr "v náhodném pořadí"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_cramming.py:82
-msgid "lastest scheduled first"
-msgstr ""
+msgid "earliest scheduled first"
+msgstr "nejdříve naplánované první"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_cramming.py:83
-msgid "most lapses first"
-msgstr ""
+msgid "lastest scheduled first"
+msgstr "nejpozději naplánované první"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_cramming.py:84
-msgid "Remember which cards you've seen when restarting Mnemosyne."
-msgstr ""
+msgid "most lapses first"
+msgstr "nejchybovější první"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:126
-msgid "Scheduler"
-msgstr ""
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_cramming.py:85
+msgid "Remember which cards you've seen when restarting Mnemosyne."
+msgstr "Při restartu Mnemosyne si zapamatovat si které karty jste viděli."
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:127
-msgid "First show new cards"
-msgstr ""
+msgid "Scheduler"
+msgstr "Plánovač"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:128
-msgid "in the order they were added"
-msgstr ""
+msgid "First show new cards"
+msgstr "Nejdříve zobrazit nové karty"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:130
-msgid "Review memorised cards"
-msgstr ""
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:129
+msgid "in the order they were added"
+msgstr "v pořadí jakém byly přidány"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:131
-msgid "most urgent first"
-msgstr ""
+msgid "Review memorised cards"
+msgstr "Zkontrolovat zapamatované karty"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:133
-msgid "Hold"
-msgstr ""
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:132
+msgid "most urgent first"
+msgstr "nejdůležitější první"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:134
-msgid "non-memorised cards in your hand"
-msgstr ""
+msgid "Hold"
+msgstr "Podržet"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:135
-msgid "Autosave after"
-msgstr ""
+msgid "non-memorised cards in your hand"
+msgstr "nezapamatované karty ve vaší ruce"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:136
-msgid "repetitions"
-msgstr ""
+msgid "Autosave after"
+msgstr "Automaticky ukládat po"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:137
-msgid "Audio/video"
-msgstr ""
+msgid "repetitions"
+msgstr "opakováních"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:138
-msgid "Start automatically when displaying card"
-msgstr ""
+msgid "Audio/video"
+msgstr "Zvuk/video"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:139
-msgid "Show controls (pause, ...)"
-msgstr ""
+msgid "Start automatically when displaying card"
+msgstr "Spustit automaticky při zobrazení karty"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:140
-msgid "Science"
-msgstr ""
+msgid "Show controls (pause, ...)"
+msgstr "Zobrazit ovládání (pozastavení, ...)"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:141
-msgid "Upload anonymous science logs"
-msgstr ""
+msgid "Science"
+msgstr "Věda"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:142
-msgid "Language"
-msgstr ""
+msgid "Upload anonymous science logs"
+msgstr "Nahrávat anonymní vědecké záznamy"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_sync_server.py:69
-msgid "Allow other devices to sync with this computer"
-msgstr ""
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:143
+msgid "Language"
+msgstr "Jazyk"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_sync_server.py:70
-#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:88
-msgid "Username:"
-msgstr ""
+msgid "Allow other devices to sync with this computer"
+msgstr "Umožnit ostatním zařízením synchronizovat s tímto počítačem"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_sync_server.py:71
 #: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:89
-msgid "Password:"
-msgstr ""
+msgid "Username:"
+msgstr "Uživatelské jméno:"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_sync_server.py:72
 #: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:90
-msgid "Port:"
-msgstr ""
+msgid "Password:"
+msgstr "Heslo:"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_sync_server.py:73
-msgid "Check for changed media files on server"
-msgstr ""
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:91
+msgid "Port:"
+msgstr "Port:"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_sync_server.py:74
+msgid "Check for changed media files on server"
+msgstr "Zkontrolovat změněné mediální soubory na serveru"
+
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_sync_server.py:75
 msgid "Server status"
-msgstr ""
+msgstr "Stav serveru"
 
 #: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:69
-msgid "Set the correspondence between data in the old and the new card type:"
-msgstr ""
+msgid "Convert card type data"
+msgstr "Převést data typu karty"
 
 #: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:70
-msgid "Old:"
-msgstr ""
+msgid "Set the correspondence between data in the old and the new card type:"
+msgstr "Nastavit přiřazení mezi daty ve starém a novém typu karty:"
 
 #: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:71
-msgid "New:"
-msgstr ""
+msgid "Old:"
+msgstr "Staré:"
 
-#: ../mnemosyne/pyqt_ui/ui_criterion_wdgt_default.py:42
+#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:72
+msgid "New:"
+msgstr "Nové:"
+
+#: ../mnemosyne/pyqt_ui/ui_criterion_wdgt_default.py:43
 msgid "not having any of these tags:"
-msgstr ""
+msgstr "neobsahující ani jednu z těchto značek:"
 
 #: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:52
+msgid "Delete media"
+msgstr "Smazat média"
+
+#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:53
 msgid "Delete these unused media files?"
-msgstr ""
+msgstr "Smazat tyto nepoužité mediální soubory?"
+
+#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:80
+msgid "Edit card"
+msgstr "Upravit kartu"
 
 #: ../mnemosyne/pyqt_ui/ui_export_dlg.py:82
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:89
+msgid "Export to file"
+msgstr "Exportovat do souboru"
+
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:83
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:90
 msgid "File format:"
 msgstr "Formát souboru:"
 
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:83
-msgid "File to export to:"
-msgstr ""
-
 #: ../mnemosyne/pyqt_ui/ui_export_dlg.py:84
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:91
+msgid "File to export to:"
+msgstr "Soubor do kterého exportovat:"
+
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:85
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:92
 msgid "&Browse"
 msgstr "&Procházet"
 
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:85
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:86
 msgid "(Only active cards will be exported, without learning data.)"
-msgstr ""
+msgstr "(Pouze aktivní karty budou exportovány, bez dat o učení)"
 
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:87
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:94
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:88
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:95
 msgid "Alt+O"
 msgstr "Alt+O"
 
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:96
-msgid "Author name:"
-msgstr ""
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:95
+msgid "Export cards"
+msgstr "Exportovat karty"
 
 #: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:97
-msgid "Author email:"
-msgstr ""
+msgid "Author name:"
+msgstr "Jméno autora:"
 
 #: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:98
-msgid "Date:"
-msgstr ""
+msgid "Author email:"
+msgstr "E-mail autora:"
 
 #: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:99
-msgid "Revision:"
-msgstr ""
+msgid "Date:"
+msgstr "Datum:"
 
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:101
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:100
+msgid "Revision:"
+msgstr "Revize:"
+
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:102
 msgid "Notes:"
-msgstr ""
+msgstr "Poznámky:"
 
 #: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:91
+msgid "Wizard"
+msgstr "Průvodce"
+
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:92
 msgid "Introduction"
 msgstr "Úvod"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:92
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:93
 msgid ""
 "Welcome to Mnemosyne, a flash card program named both after the Greek "
 "goddess of Memory and a type of butterfly.\n"
@@ -2177,12 +2433,22 @@ msgid ""
 "\n"
 "Let's look at the meaning of these ratings now."
 msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:93
-msgid "Memorising new cards"
-msgstr ""
+"Vítejte v Mnemosyne, program obrázkových kartiček pojmenovaný po řecké "
+"bohyni a druhu motýla.\n"
+"\n"
+"Mnemosyne umožňuje zlepšit učení, soustředěním se na karty, které s největší "
+"pravděpodobností zapomenete a neztrácí váš čas věcmi, které dobře znáte.\n"
+"\n"
+"Aby toto mohlo fungovat, musíte karty, které Vám Mnemosyne ukáže, hodnotit "
+"podle toho, jak dobře si je pamatujete.\n"
+"\n"
+"Nyní se podíváme na význam těchto hodnocení."
 
 #: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:94
+msgid "Memorising new cards"
+msgstr "Zapamatování nových karet"
+
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:95
 msgid ""
 "Grades range from 0 to 5.\n"
 "\n"
@@ -2199,12 +2465,25 @@ msgid ""
 "able to remember it with some effort, without having forgotten it "
 "completely. This is most efficient for the learning process.\n"
 msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:95
-msgid "Reviewing previously memorised cards"
-msgstr ""
+"Hodnocení jsou v rozsahu od 0 do 5.\n"
+"\n"
+"Když se učíte nové karty, použijte hodnocení 0 a 1 pro označení těch karet, "
+"které jste si nezapamatovali. Karty s hodnocením 1 znáte více než karty s "
+"hodnocením 0 a ty budou méně opakovány.\n"
+"\n"
+"Tyto karty budou stále opakovány, dokud jim nedáte hodnocení 2 nebo výše. To "
+"znamená, že jste si je zapamatovali a že si je budete pamatovat po jeden "
+"nebo dva dny. Počítadlo 'Nezapamatováno' poklesne o jedna.\n"
+"\n"
+"Tyto karty pak budou naplánovány na později v budoucnu, kdy si je budete "
+"ještě pamatovat s jistým úsilím, aniž byste je úplně zapomněli. Toto je "
+"nejúčinější proces učení.\n"
 
 #: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:96
+msgid "Reviewing previously memorised cards"
+msgstr "Kontrola v minulosti naučených karet"
+
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:97
 msgid ""
 "If you study these cards again tomorrow, the 'Scheduled' counter will tell "
 "you how many previously memorised cards you need to review. These are grade "
@@ -2224,12 +2503,31 @@ msgid ""
 "have finished reviewing all the scheduled cards, it will appear repeatedly "
 "until you think you'll be able to remember it again for a few days."
 msgstr ""
+"Pokud se tyto karty učíte další den, počítadlo 'Naplánováno' Vám oznamuje "
+"kolik v minulosti naučených se karet bude zkontrolováno. Tyto mají hodnocení "
+"2 až 5.\n"
+"\n"
+"Pokud se karta znovu objeví příliš brzy a vy si na ni vzpomenete bez "
+"jakéhokoliv úsilí, ohodnoťte ji 5. Interval dalšího zobrazení bude mnohem "
+"delší.\n"
+"\n"
+"Pokud je interval akorát, tak abyste si na ni vzpomněli, i když s jistým "
+"úsilím, použijte hodnocení 4.\n"
+"\n"
+"Pokud ale musíte vynaložit značné úsilí na to, abyste si vzpomněli na "
+"odpověď a myslíte si, že interval byl příliš dlouhý, pak ohodnoťte kartu 3 "
+"nebo i 2.\n"
+"\n"
+"Pokud si na odpověď vůbec nemůžete vzpomenout, ohodnoťte ji 0 nebo 1 a poté "
+"co dokončíte kontrolu všech naplánovaných karet, bude několikrát zobrazena, "
+"dokud si nebudete myslet, že si ji na několik dnů nezapamatujete."
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:97
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:98
+#: ../mnemosyne/pyqt_ui/ui_statistics_dlg.py:47
 msgid "Statistics"
 msgstr "Statistiky"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:98
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:99
 msgid ""
 "If you're into statistics, Mnemosyne keeps detailed logs of your revisions.\n"
 "\n"
@@ -2240,16 +2538,24 @@ msgid ""
 "\n"
 "Uncheck the following box if you do not want to do this."
 msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:99
-msgid "Upload anonymous logs (can be changed later)"
-msgstr ""
+"Pokud máte rádi statistiky, Mnemosyne uchovává podrobné záznamy vašich "
+"opakování.\n"
+"\n"
+"Nejenom to, ale, pokud chcete, Mnemosyne může nahrát tajnou, zcela anonymní "
+"verzi těchto záznamů na hlavní stránku pro analýzu, pro vylepšení algoritmu "
+"plánování. Takto můžete také přispět k vědeckému výzkumu dlouhodobé paměti.\n"
+"\n"
+"Pokud toto nechcete, odškrtněte následující políčko."
 
 #: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:100
+msgid "Upload anonymous logs (can be changed later)"
+msgstr "Nahrávat anonymní záznamy (lze změnit později)"
+
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:101
 msgid "Ready to start"
 msgstr "Připraveni začít"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:101
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:102
 msgid ""
 "Now you're ready to start!\n"
 "\n"
@@ -2265,14 +2571,31 @@ msgid ""
 "\n"
 "Happy learning!"
 msgstr ""
+"A nyní můžete začít!\n"
+"\n"
+"Přidejte nové karty kliknutím na ikonu se znaménkem 'plus' vlevo nahoře.\n"
+"\n"
+"Nezapomeňte, že se nemusíte starat o uložení své práce, všechno je prováděno "
+"automaticky.\n"
+"\n"
+"Pro nejlepší výsledky se doporučuje opakovat každý den, i když Mnemosyne se "
+"pokusí vyřešit situaci, kdy jste pár dní zameškali.\n"
+"\n"
+"Pro další dokumentaci navštivte http://www.mnemosyne-proj.org.\n"
+"\n"
+"Hodně štěstí s učením!"
 
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:90
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:89
+msgid "Import from file"
+msgstr "Importovat ze souboru"
+
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:91
 msgid "File to import from:"
-msgstr "Importovat ze souboru:"
+msgstr "Soubor z kterého importovat:"
 
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:92
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:93
 msgid "Add additional tag(s) to cards:"
-msgstr ""
+msgstr "Přidat další značky do karet:"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:194
 msgid "&Settings"
@@ -2284,23 +2607,23 @@ msgstr "&Nápověda"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:196
 msgid "&File"
-msgstr "&Databáze"
+msgstr "&Soubor"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:197
 msgid "&Cards"
-msgstr ""
+msgstr "&Karty"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:198
 msgid "toolBar"
-msgstr ""
+msgstr "Nástrojová lišta"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:199
 msgid "(De)a&ctivate cards..."
-msgstr ""
+msgstr "(De)a&ktivovst karty"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:201
 msgid "&Add cards..."
-msgstr ""
+msgstr "&Přidat karty..."
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:202
 msgid "Ctrl+A"
@@ -2308,19 +2631,19 @@ msgstr "Ctrl+A"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:203
 msgid "&Configure Mnemosyne..."
-msgstr ""
+msgstr "&Nastavit Mnemosyne..."
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:204
 msgid "&Delete current card"
 msgstr "&Smazat tuto kartu"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:205
-msgid "Backspace"
-msgstr ""
+msgid "Del"
+msgstr "Smazat"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:206
 msgid "&Edit current card..."
-msgstr ""
+msgstr "&Upravit současnou kartu..."
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:207
 msgid "Ctrl+E"
@@ -2328,25 +2651,25 @@ msgstr "Ctrl+E"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:208
 msgid "&Browse cards..."
-msgstr ""
+msgstr "&Procházet karty..."
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:209
 msgid "Ctrl+B"
-msgstr ""
+msgstr "Ctrl+B"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:210
 msgid "&Export..."
-msgstr ""
+msgstr "&Exportovat..."
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:211
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:62
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:75
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:63
+#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:76
 msgid "E&xit"
 msgstr "&Konec"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:212
 msgid "&New..."
-msgstr ""
+msgstr "&Nová..."
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:213
 msgid "Ctrl+N"
@@ -2366,23 +2689,23 @@ msgstr "&Uložit"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:218
 msgid "Save &as..."
-msgstr ""
+msgstr "Uložit &jako..."
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:219
 msgid "&About"
-msgstr "&O"
+msgstr "&O programu"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:220
 msgid "&Import..."
-msgstr ""
+msgstr "&Importovat..."
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:221
 msgid "&Getting started"
-msgstr "&Jak začít"
+msgstr "&Začínáme"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:222
 msgid "Show s&tatistics..."
-msgstr ""
+msgstr "Zobrazit s&tatistiky..."
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:223
 msgid "Ctrl+T"
@@ -2394,168 +2717,198 @@ msgstr "&Tip dne"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:225
 msgid "Manage &plugins..."
-msgstr ""
+msgstr "Správa &zásuvných modulů..."
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:226
+#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:70
 msgid "Manage plugins"
-msgstr ""
+msgstr "Správa zásuvných modulů"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:227
 msgid "&Manage card types..."
-msgstr ""
+msgstr "&Spáva typů karet"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:228
 msgid "S&ync..."
-msgstr ""
+msgstr "S&ynchronizace..."
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:229
 msgid "Ctrl+Y"
-msgstr ""
+msgstr "Ctrl+Y"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:230
 msgid "Compact..."
-msgstr ""
+msgstr "Shluknout..."
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:232
 msgid "Find duplicates"
-msgstr ""
+msgstr "Najít duplicity"
 
 #: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:58
-msgid "Cloned card types:"
-msgstr ""
+msgid "Card type manager"
+msgstr "Správce typů karty"
 
 #: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:59
-msgid "&New clone"
-msgstr ""
+msgid "Cloned card types:"
+msgstr "Zkopírované typy karet:"
 
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:70
-msgid "Installed plugins (active and inactive):"
-msgstr ""
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:60
+msgid "&New clone"
+msgstr "&Nová kopie"
 
 #: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:71
-msgid "Plugin description:"
-msgstr ""
+msgid "Installed plugins (active and inactive):"
+msgstr "Instalované zásuvné moduly (aktivní i neaktivní)"
 
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:73
-msgid "&Install new plugin"
-msgstr ""
+#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:72
+msgid "Plugin description:"
+msgstr "Popis modulu:"
 
 #: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:74
+msgid "&Install new plugin"
+msgstr "&Nainstalovat nový modul"
+
+#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:75
 msgid "&Delete plugin"
-msgstr ""
+msgstr "&SMazat modul"
 
 #: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:96
-msgid "Question:"
-msgstr "Otázka:"
+msgid "Preview cards"
+msgstr "Náhled karet"
 
 #: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:97
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:107
+msgid "Question:"
+msgstr "Otázka:"
+
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:98
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:108
 #: ../mnemosyne/webserver/review_wdgt.py:30
 msgid "Answer:"
 msgstr "Odpověď:"
 
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:98
-msgid "&Previous sister card"
-msgstr ""
-
 #: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:99
+msgid "&Previous sister card"
+msgstr "&Předchozí sesterská karta"
+
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:100
 msgid "&Next sister card"
-msgstr ""
+msgstr "&Další sesterská karta"
 
 #: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:54
+msgid "Remove tags"
+msgstr "Odstranit značky"
+
+#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:55
 msgid "Tags to remove:"
-msgstr ""
+msgstr "Značky k odstranění:"
 
 #: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:52
+msgid "Rename card type"
+msgstr "Přejmenovat typ karty"
+
+#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:53
 msgid "Enter new card type name:"
-msgstr ""
+msgstr "Zadejte název nového typu karty:"
 
 #: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:52
-msgid "Enter new tag name:"
-msgstr ""
+msgid "Rename tag"
+msgstr "Přejmenovat značku"
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:108
+#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:53
+msgid "Enter new tag name:"
+msgstr "Zadejte název nové značky:"
+
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:109
 msgid "Show &answer"
 msgstr "Ukázat &odpověď"
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:110
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:111
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:112
 msgid "0"
 msgstr "0"
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:112
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:113
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:114
 msgid "1"
 msgstr "1"
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:114
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:115
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:116
 msgid "2"
 msgstr "2"
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:116
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:117
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:118
 msgid "3"
 msgstr "3"
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:118
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:119
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:120
 msgid "4"
 msgstr "4"
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:120
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:121
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:122
 msgid "5"
 msgstr "5"
 
 #: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:87
-msgid "Server:"
-msgstr ""
+msgid "Sync with server"
+msgstr "Synchronizovat se serverem"
 
-#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:91
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:88
+msgid "Server:"
+msgstr "Server:"
+
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:92
 msgid "Check for changed media files on client"
-msgstr ""
+msgstr "Zkontrolovat změněné mediální soubory u klienta"
 
 #: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:98
+msgid "Tip of the day"
+msgstr "Rada dne"
+
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:99
 msgid "<b>Did you know...?</b>"
 msgstr "<b>Věděli jste, že ...?</b>"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:99
-msgid "&Show tips on startup"
-msgstr "Ukazovat tipy při &startu"
-
 #: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:100
+msgid "&Show tips on startup"
+msgstr "Ukazovat tipy při &spuštění"
+
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:101
 msgid "Alt+S"
 msgstr "Alt+S"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:101
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:102
 msgid "&Previous"
 msgstr "&Předchozí"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:102
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:103
 msgid "Alt+P"
 msgstr "Alt+P"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:103
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:104
 msgid "&Next"
 msgstr "&Další"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:104
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:105
 msgid "Alt+N"
 msgstr "Alt+N"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:105
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:106
 msgid "&Close"
 msgstr "&Zavřít"
 
 #: ../tests/benchmark_pyqt.py:30
 msgid "data directory"
-msgstr ""
+msgstr "datový adresář"
 
 #: ../tests/test_translator.py:25
 msgid "foo"
-msgstr ""
+msgstr "foo"
 
 #: ../tests/test_translator.py:32
 msgid "This is a test."
-msgstr ""
+msgstr "Toto je test."
