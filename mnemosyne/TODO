@@ -1,11 +1,6 @@
--merge translations (del en_gb, am, sr )
--add ` key to website
--add docs about latex and cloze
--set SF latest file
--website font size under windows
--close bugs / uservoice
-
-
+-migrate webserver to cherrypy
+-clean up logging code
+-get rid of 'first started'
 
 -fix multiple audio files and start/stop (Ansgar Bohmann)
 
@@ -38,6 +33,8 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 
 -import db file
 
+-website font size under windows
+
 -move to qt5?
 
 -cloze deletion in combination with latex or html does not pick up any open
@@ -46,8 +43,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -when converting f2b to map through the card browser 'change card type',
  check if it's at all possible to convert (enough fields), before showing
  correspondence dialog.
-
--filename argument in mnemosyne and mnemosyne-webserver does not work
 
 -with full sync, option to skip media sync
 
@@ -93,6 +88,9 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -don't switch to text entry field when changing card type with the keys.
 
 -plugin for card types with prefilled data?
+
+-merge translations (del en_gb, am, sr )
+
 
 -add idea for plugin to export today's audio
 

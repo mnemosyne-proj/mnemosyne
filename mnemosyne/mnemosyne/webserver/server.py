@@ -7,7 +7,8 @@ import cgi
 import socket
 import select
 import mimetypes
-from wsgiref.simple_server import WSGIServer, WSGIRequestHandler
+
+from cherrypy import wsgiserver
 
 from mnemosyne.libmnemosyne import Mnemosyne
 
@@ -23,31 +24,12 @@ def socketwrap(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0):
 socket.socket = socketwrap
 
 
-# Work around http://bugs.python.org/issue6085.
 
-def not_insane_address_string(self):
-    host, port = self.client_address[:2]
-    return "%s (no getfqdn)" % host
-
-WSGIRequestHandler.address_string = not_insane_address_string
-
-
-# Don't log (saves time on an embedded server).
-
-def dont_log(*kwargs):
-    pass
-
-WSGIRequestHandler.log_message = dont_log
-
-
-class Server(WSGIServer):
+class Server(wsgiserver.CherryPyWSGIServer):
 
     def __init__(self, port, data_dir, filename):
-        WSGIServer.__init__(self, ("", port), WSGIRequestHandler)
-        self.set_app(self.wsgi_app)
-        self.stopped = False
         self.mnemosyne = Mnemosyne(upload_science_logs=True,
-                                   interested_in_old_reps=True)
+            interested_in_old_reps=True)
         self.mnemosyne.components.insert(0, (
             ("mnemosyne.libmnemosyne.translators.gettext_translator",
              "GetTextTranslator")))
@@ -65,34 +47,40 @@ class Server(WSGIServer):
         self.save_after_n_reps = self.mnemosyne.config()["save_after_n_reps"]
         self.mnemosyne.config()["save_after_n_reps"] = 1
         self.mnemosyne.start_review()
+        self.mnemosyne.database().release_connection()
+        # When restarting the server, make sure we discard info from the
+        # browser resending the form from the previous session.
+        self.just_started = True
+        wsgiserver.CherryPyWSGIServer.__init__(self,
+            ("0.0.0.0", port), self.wsgi_app, server_name="localhost",
+            numthreads=1, timeout=1000)
 
     def serve_until_stopped(self):
         try:
-            while not self.stopped:
-                # We time out every 0.25 seconds, so that we changing
-                # self.stopped can have an effect.
-                if select.select([self.socket], [], [], 0.25)[0]:
-                    self.handle_request()
-        finally:
-            self.socket.close()
+            self.start() # Sets self.wsgi_server.ready
+        except KeyboardInterrupt:
+            self.stop()
             self.mnemosyne.config()["save_after_n_reps"] = \
                 self.save_after_n_reps
-
-    def stop(self):
-        self.stopped = True
+            self.mnemosyne.finalise()
 
     def wsgi_app(self, environ, start_response):
+        # Make sure we claim the connection, otherwise checks like
+        # 'is_database_loaded' will fail.
+        self.mnemosyne.database().claim_connection()
         # All our request return to the root page, so if the path is '/', return
         # the html of the review widget.
         filename = environ["PATH_INFO"]
         if filename == "/":
             # Process clicked buttons in the form.
-            form = cgi.FieldStorage(fp=environ["wsgi.input"],  environ=environ)
-            if "show_answer" in form:
+            form = cgi.FieldStorage(fp=environ["wsgi.input"], environ=environ)
+            if "show_answer" in form and not self.just_started:
                 self.mnemosyne.review_widget().show_answer()
-            if "grade" in form:
+            elif "grade" in form and not self.just_started:
                 grade = int(form["grade"].value)
                 self.mnemosyne.review_widget().grade_answer(grade)
+            if self.just_started:
+                self.just_started = False
             # Serve the web page.
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)

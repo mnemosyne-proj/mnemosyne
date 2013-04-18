@@ -112,10 +112,10 @@ $card_css
         self.answer = text
 
     def clear_question(self):
-		self.question = ""
+        self.question = ""
 
     def clear_answer(self):
-		self.answer = ""
+        self.answer = ""
 
     def update_show_button(self, text, is_default, is_enabled):
         self.show_button = text
