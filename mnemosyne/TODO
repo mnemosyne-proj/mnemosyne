@@ -1,6 +1,6 @@
 -migrate webserver to cherrypy
--clean up logging code
--get rid of 'first started'
+-autoclose timeout: closing from parent thread?
+-check if NAS still sleeps with autoclose timer
 
 -fix multiple audio files and start/stop (Ansgar Bohmann)
 

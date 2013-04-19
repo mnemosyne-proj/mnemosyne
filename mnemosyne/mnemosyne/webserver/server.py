@@ -4,8 +4,10 @@
 
 import os
 import cgi
+import time
 import socket
 import select
+import threading
 import mimetypes
 
 from cherrypy import wsgiserver
@@ -24,10 +26,43 @@ def socketwrap(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0):
 socket.socket = socketwrap
 
 
+class TimerClass(threading.Thread):
+
+    def __init__(self):
+        threading.Thread.__init__(self)
+        self.finished = False
+        self.ping()
+
+    def ping(self):
+        self.last_ping = time.time()
+
+    def run(self):
+        while time.time() < self.last_ping + 5:
+            time.sleep(1)
+        print 'finished'
+        self.finished = True
+
 
 class Server(wsgiserver.CherryPyWSGIServer):
 
     def __init__(self, port, data_dir, filename):
+        self.data_dir = data_dir
+        self.filename = filename
+        # When restarting the server, make sure we discard info from the
+        # browser resending the form from the previous session.
+        self.is_just_started = True
+        self.is_mnemosyne_loaded = False
+        wsgiserver.CherryPyWSGIServer.__init__(self,
+            ("0.0.0.0", port), self.wsgi_app, server_name="localhost",
+            numthreads=1, timeout=1000)
+
+    def serve_until_stopped(self):
+        try:
+            self.start() # Sets self.wsgi_server.ready
+        except KeyboardInterrupt:
+            self.stop()
+
+    def load_mnemosyne(self):
         self.mnemosyne = Mnemosyne(upload_science_logs=True,
             interested_in_old_reps=True)
         self.mnemosyne.components.insert(0, (
@@ -42,51 +77,49 @@ class Server(wsgiserver.CherryPyWSGIServer):
         self.mnemosyne.components.append(\
             ("mnemosyne.webserver.webserver_render_chain",
              "WebserverRenderChain"))
-        self.mnemosyne.initialise(data_dir, filename, automatic_upgrades=False)
+        self.mnemosyne.initialise(self.data_dir, self.filename,
+            automatic_upgrades=False)
         self.mnemosyne.review_controller().set_render_chain("webserver")
         self.save_after_n_reps = self.mnemosyne.config()["save_after_n_reps"]
         self.mnemosyne.config()["save_after_n_reps"] = 1
         self.mnemosyne.start_review()
-        self.mnemosyne.database().release_connection()
-        # When restarting the server, make sure we discard info from the
-        # browser resending the form from the previous session.
-        self.just_started = True
-        wsgiserver.CherryPyWSGIServer.__init__(self,
-            ("0.0.0.0", port), self.wsgi_app, server_name="localhost",
-            numthreads=1, timeout=1000)
+        self.is_mnemosyne_loaded = True
+        self.timer = TimerClass()
+        self.timer.start()
 
-    def serve_until_stopped(self):
-        try:
-            self.start() # Sets self.wsgi_server.ready
-        except KeyboardInterrupt:
-            self.stop()
-            self.mnemosyne.config()["save_after_n_reps"] = \
+    def unload_mnemosyne(self):
+        print 'unloading'
+        self.mnemosyne.config()["save_after_n_reps"] = \
                 self.save_after_n_reps
-            self.mnemosyne.finalise()
+        self.mnemosyne.finalise()
 
     def wsgi_app(self, environ, start_response):
-        # Make sure we claim the connection, otherwise checks like
-        # 'is_database_loaded' will fail.
-        self.mnemosyne.database().claim_connection()
+        if not self.is_mnemosyne_loaded:
+            self.load_mnemosyne()
+        self.timer.ping()
+        print 'active', threading.activeCount()
         # All our request return to the root page, so if the path is '/', return
         # the html of the review widget.
         filename = environ["PATH_INFO"]
         if filename == "/":
             # Process clicked buttons in the form.
             form = cgi.FieldStorage(fp=environ["wsgi.input"], environ=environ)
-            if "show_answer" in form and not self.just_started:
+            if "show_answer" in form and not self.is_just_started:
                 self.mnemosyne.review_widget().show_answer()
-            elif "grade" in form and not self.just_started:
+            elif "grade" in form and not self.is_just_started:
                 grade = int(form["grade"].value)
                 self.mnemosyne.review_widget().grade_answer(grade)
-            if self.just_started:
-                self.just_started = False
+            if self.is_just_started:
+                self.is_just_started = False
             # Serve the web page.
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)
             return [self.mnemosyne.review_widget().to_html()]
         # We need to serve a media file.
         else:
+            if filename == "/favicon.ico":
+                # No need to do spend time on a disk access here.
+                return ["404 File not found"]
             media_file = self.open_media_file(filename)
             if media_file is None:
                 response_headers = [("Content-type", "text/html")]
