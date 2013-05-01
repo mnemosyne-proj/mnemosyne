@@ -1,3 +1,9 @@
+-If adding an extra tag when importing a 'cards' file, don't keep the tag
+ 'Untagged' (patch by crcmail0).
+ If you were affected by this issue before, 'compact database' will solve this.
+
+
+
 Mnemosyne 2.2.1 : 2013-04-15
 
 (Note that for Windows users we recommend uninstalling the previous version

@@ -581,6 +581,9 @@ class SQLiteSync(object):
                 # EDITED_CARD event.
                 pass
         if self.importing:
+            if len(self.extra_tags_on_import) != 0:
+                card.tags.discard(\
+                    self.tag("__UNTAGGED__", is_id_internal=False))
             for tag in self.extra_tags_on_import:
                 card.tags.add(tag)
         # Construct rest of card. The 'active' property does not need to be

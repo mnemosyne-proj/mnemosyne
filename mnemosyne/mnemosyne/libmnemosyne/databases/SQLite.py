@@ -286,6 +286,18 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
 
     def compact(self):
         self.con.execute("vacuum")
+        # Make sure the "Untagged" tag does not show up together with
+        # different tags.
+        untagged = self.tag("__UNTAGGED__", is_id_internal=False)
+        for cursor in self.con.execute("select _id from cards"):
+            _card_id = cursor[0]
+            _tag_ids = [cursor2[0] for cursor2 in self.con.execute(\
+                "select _tag_id from tags_for_card where _card_id=?",
+                (_card_id, ))]
+            if len(_tag_ids) > 1 and untagged._id in _tag_ids:
+                self.con.execute(\
+                    "delete from tags_for_card where _card_id=? and _tag_id=?",
+                    (_card_id, untagged._id))
 
     def new(self, path):
         self.unload()

@@ -635,7 +635,8 @@ class DefaultController(Controller):
         """
 
         from mnemosyne.libmnemosyne.utils import copy_file_to_dir
-        data_dir, media_dir = self.config().data_dir, self.database().media_dir()
+        data_dir, media_dir = \
+            self.config().data_dir, self.database().media_dir()
         path = expand_path(self.config()["import_img_dir"], data_dir)
         filter = _("Image files") + " " + filter
         filename = self.main_widget().get_filename_to_open(\

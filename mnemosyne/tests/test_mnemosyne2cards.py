@@ -76,7 +76,6 @@ class TestMnemosyne2Cards(MnemosyneTest):
             fact_data, card_type_2, grade=-1, tag_names=["default"])
         self.database().save()
 
-
         self.cards_format().do_export(os.path.abspath("test.cards"))
 
         self.database().new("import.db")
@@ -253,6 +252,22 @@ class TestMnemosyne2Cards(MnemosyneTest):
         _card_id, _fact_id = self.database().cards().next()
         card = self.database().card(_card_id, is_id_internal=True)
         assert "edited" not in card.question()
+
+    def test_extra_tag(self):
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(\
+            fact_data, card_type, grade=-1, tag_names=[])
+
+        self.cards_format().do_export(os.path.abspath("test.cards"))
+
+        self.database().new("import.db")
+        self.cards_format().do_import(os.path.abspath("test.cards"), "extra")
+        _card_id, _fact_id = self.database().cards().next()
+        card = self.database().card(_card_id, is_id_internal=True)
+        assert len(card.tags) == 1
+        assert card.tags.pop().name == "extra"
 
     def test_import_multiple(self):
         fact_data = {"f": "question",
