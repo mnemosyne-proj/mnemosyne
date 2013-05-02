@@ -7,6 +7,7 @@ import cgi
 import time
 import socket
 import select
+import httplib
 import threading
 import mimetypes
 
@@ -28,24 +29,26 @@ socket.socket = socketwrap
 
 class TimerClass(threading.Thread):
 
-    def __init__(self):
+    def __init__(self, port):
         threading.Thread.__init__(self)
-        self.finished = False
+        self.port = port
         self.ping()
 
     def ping(self):
         self.last_ping = time.time()
 
     def run(self):
-        while time.time() < self.last_ping + 5:
+        while time.time() < self.last_ping + 5*60:
             time.sleep(1)
-        print 'finished'
-        self.finished = True
+        con = httplib.HTTPConnection("127.0.0.1", self.port)
+        con.request("GET", "/release_database")
+        response = con.getresponse()
 
 
 class Server(wsgiserver.CherryPyWSGIServer):
 
     def __init__(self, port, data_dir, filename):
+        self.port = port
         self.data_dir = data_dir
         self.filename = filename
         # When restarting the server, make sure we discard info from the
@@ -84,20 +87,19 @@ class Server(wsgiserver.CherryPyWSGIServer):
         self.mnemosyne.config()["save_after_n_reps"] = 1
         self.mnemosyne.start_review()
         self.is_mnemosyne_loaded = True
-        self.timer = TimerClass()
+        self.timer = TimerClass(self.port)
         self.timer.start()
 
     def unload_mnemosyne(self):
-        print 'unloading'
         self.mnemosyne.config()["save_after_n_reps"] = \
                 self.save_after_n_reps
         self.mnemosyne.finalise()
+        self.is_mnemosyne_loaded = False
 
     def wsgi_app(self, environ, start_response):
         if not self.is_mnemosyne_loaded:
             self.load_mnemosyne()
         self.timer.ping()
-        print 'active', threading.activeCount()
         # All our request return to the root page, so if the path is '/', return
         # the html of the review widget.
         filename = environ["PATH_INFO"]
@@ -115,6 +117,8 @@ class Server(wsgiserver.CherryPyWSGIServer):
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)
             return [self.mnemosyne.review_widget().to_html()]
+        elif filename == "/release_database":
+            self.unload_mnemosyne()
         # We need to serve a media file.
         else:
             if filename == "/favicon.ico":
