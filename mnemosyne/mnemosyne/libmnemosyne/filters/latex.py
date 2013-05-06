@@ -189,7 +189,8 @@ class PostprocessQAClozeLatex(Hook):
     used_for = "postprocess_q_a_cloze"
 
     def run(self, question, answer):
-        if not "[" in question: # Sentence card type, recognition.
+        # Sentence card type, recognition.
+        if not "[" in question or not "]" in question:
             return question, answer
         left, rest = question.split("[", 1)
         hint, right = rest.split("]", 1)

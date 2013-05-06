@@ -1,3 +1,5 @@
+-When adding or deleting a tag through the card browser, the sister cards
+ now get updated as well (requested by Scott Youngman).
 -If adding an extra tag when importing a 'cards' file, don't keep the tag
  'Untagged' (patch by crcmail0).
  If you were affected by this issue before, 'compact database' will solve this.

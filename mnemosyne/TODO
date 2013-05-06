@@ -1,3 +1,6 @@
+-fix test suite
+-add test for deleting tags to suite
+
 -migrate webserver to cherrypy
 -check media files
 -check if NAS still sleeps with autoclose timer
@@ -26,8 +29,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 
 -optimisation: change card type for many facts which calls
  'delete_facts_and_their_data' does checking for unused tags multiple times.
-
--Now you can add tags to cards instead of facts in the card browser. feature or bug?
 
 -menu option to copy database to USB key?
 
@@ -63,8 +64,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -Jiri Palacek: conflict resolution at card level, e.g. if 1 card causes conflict, but both
  database a and b have different non-conflicting new cards, merge the non-conflicting cards
  and keep one of the conflicting version.
-
--migrate webserver to cherrypy, recheck audio files
 
 -add debug information for conflict detection?
 

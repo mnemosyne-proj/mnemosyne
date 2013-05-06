@@ -954,6 +954,14 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 for cursor in self.con.execute(query)]
 
     def add_tag_to_cards_with_internal_ids(self, tag, _card_ids):
+        # Include sister cards as well.
+        for _card_id in _card_ids.copy():
+            _fact_id = self.con.execute(\
+                "select _fact_id from cards where _id=?",
+                (_card_id, )).fetchone()[0]
+            _card_ids.update([cursor[0] for cursor in self.con.execute(\
+                "select _id from cards where _fact_id=?",
+                                (_fact_id, ))])
         # To make sure we don't insert the tag twice, we delete it first.
         arguments = ((tag._id, _card_id) for _card_id in _card_ids)
         self.con.executemany("""delete from tags_for_card where _tag_id=?
@@ -981,6 +989,15 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 (EventTypes.EDITED_CARD, int(time.time()), card_id))
 
     def remove_tag_from_cards_with_internal_ids(self, tag, _card_ids):
+        # Include sister cards as well.
+        for _card_id in _card_ids.copy():
+            _fact_id = self.con.execute(\
+                "select _fact_id from cards where _id=?",
+                (_card_id, )).fetchone()[0]
+            _card_ids.update([cursor[0] for cursor in self.con.execute(\
+                "select _id from cards where _fact_id=?",
+                                (_fact_id, ))])
+        # Delete tags.
         arguments = ((tag._id, _card_id) for _card_id in _card_ids)
         self.con.executemany("""delete from tags_for_card where _tag_id=?
             and _card_id=?""", arguments)
