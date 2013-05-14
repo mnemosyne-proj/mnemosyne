@@ -13,6 +13,7 @@ from mnemosyne.libmnemosyne.statistics_pages.grades import Grades
 from mnemosyne.libmnemosyne.statistics_pages.schedule import Schedule
 from mnemosyne.libmnemosyne.statistics_pages.easiness import Easiness
 from mnemosyne.libmnemosyne.statistics_pages.cards_added import CardsAdded
+from mnemosyne.libmnemosyne.statistics_pages.cards_learned import CardsLearned
 from mnemosyne.libmnemosyne.statistics_pages.retention_score import RetentionScore
 from mnemosyne.libmnemosyne.ui_components.statistics_widget import StatisticsWidget
 
@@ -234,6 +235,17 @@ class CardsAddedWdgt(BarChartDaysWdgt):
 
     def activate(self):
         super(CardsAddedWdgt, self).activate()
+        self.title = _(self.title)
+
+
+class CardsLearnedWdgt(BarChartDaysWdgt):
+
+    used_for = CardsLearned
+    colour = "yellow"
+    title = _("Number of new cards learned")
+
+    def activate(self):
+        super(CardsLearnedWdgt, self).activate()
         self.title = _(self.title)
 
 

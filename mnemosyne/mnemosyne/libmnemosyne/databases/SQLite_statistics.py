@@ -210,6 +210,14 @@ class SQLiteStatistics(object):
             (start_of_day, start_of_day + DAY, EventTypes.ADDED_CARD)).\
             fetchone()[0]
 
+    def card_count_learned_n_days_ago(self, n):
+        start_of_day = self.start_of_day_n_days_ago(n)
+        return self.con.execute(\
+            """select count() from log where ?<=timestamp and timestamp<?
+            and event_type=? and grade>=2 and ret_reps==0""",
+            (start_of_day, start_of_day + DAY, EventTypes.REPETITION)).\
+            fetchone()[0]
+
     def retention_score_n_days_ago(self, n):
         start_of_day = self.start_of_day_n_days_ago(n)
         scheduled_cards_seen = self.con.execute(\

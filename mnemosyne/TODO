@@ -1,13 +1,22 @@
--fix test suite
--add test for deleting tags to suite
+-add test for cards learned
+
+-tags per sister card or not?
+-display current card from card browser, not cards[0]
 
 -migrate webserver to cherrypy
--check media files
+-check media files start stop
 -check if NAS still sleeps with autoclose timer
 
 -fix multiple audio files and start/stop (Ansgar Bohmann)
 
+-stats 'new cards per day' (grade >=2, ret_reps == 0)
+
 -add explanation box for 'save'
+
+-list saved set in titlebar (silverbear, uservoice)
+
+-if you create a new tag using 'add tags' in the card browser, make that tag
+ active in the browser.
 
 -merging cards: should give an option to go back and edit?
 
@@ -48,7 +57,8 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -with full sync, option to skip media sync
 
 -when in having sorted on a column, eliminate resorting to unsorted after
- editing a card. Possible to get rid of unloading in python / reloading in Qt?
+ editing a card. Tristan, uservoice)
+ Possible to get rid of unloading in python / reloading in Qt?
 
 -optimise away DISTINCT and do it at the python level
 -more sqlite profiling

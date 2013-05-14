@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-04-15 14:30+CEST\n"
+"POT-Creation-Date: 2013-05-14 17:02+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,30 +17,35 @@ msgstr ""
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:27
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:19
+#: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:19
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:19
 msgid "Last week"
 msgstr ""
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:28
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:20
+#: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:20
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:20
 msgid "Last month"
 msgstr ""
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:29
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:21
+#: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:21
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:21
 msgid "Last 3 months"
 msgstr ""
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:30
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:22
+#: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:22
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:22
 msgid "Last 6 months"
 msgstr ""
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:31
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:23
+#: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:23
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:23
 msgid "Last year"
 msgstr ""
@@ -51,14 +56,14 @@ msgstr ""
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:68
 #: ../mnemosyne/example_plugins/pie_chart_statistics.py:31
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:120
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:247
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:270
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:121
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:259
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:282
 msgid "No stats available."
 msgstr ""
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:98
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:190
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:191
 msgid "Days"
 msgstr ""
 
@@ -80,22 +85,22 @@ msgstr ""
 msgid "Production"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:189
+#: ../mnemosyne/libmnemosyne/__init__.py:191
 msgid "Another copy of Mnemosyne is still running."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:190
+#: ../mnemosyne/libmnemosyne/__init__.py:192
 msgid "Continuing is impossible and will lead to data loss!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:270
-#: ../mnemosyne/libmnemosyne/__init__.py:283
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:783
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:330
+#: ../mnemosyne/libmnemosyne/__init__.py:272
+#: ../mnemosyne/libmnemosyne/__init__.py:285
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:784
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:345
 msgid "Error when running plugin:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:303
+#: ../mnemosyne/libmnemosyne/__init__.py:305
 msgid "Creating temporary database."
 msgstr ""
 
@@ -428,111 +433,111 @@ msgid ""
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:544
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:591
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1080
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:606
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1112
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 #: ../mnemosyne/pyqt_ui/export_dlg.py:64
 msgid "No"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:544
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:591
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1080
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:606
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1112
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 #: ../mnemosyne/pyqt_ui/export_dlg.py:64
 msgid "Yes"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:640
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:641
 msgid "Image files"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:642
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:643
 msgid "Insert image"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:655
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:656
 msgid "Sound files"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:657
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:658
 msgid "Insert sound"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:670
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:671
 msgid "Video files"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:672
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:673
 msgid "Insert video"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:685
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:686
 msgid "Flash files"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:687
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:688
 msgid "Insert Flash"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:736
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:737
 msgid "Install plugin"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:736
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:737
 msgid "Plugins"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:761
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:762
 msgid "No plugin found!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:921
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:922
 msgid "For instructions on how to download Mnemosyne's source,"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:922
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:923
 msgid "go to http://www.mnemosyne-proj.org"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:333
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:348
 msgid "Missing plugin for card type with id:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:345
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:364
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:360
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:379
 msgid "Unable to load file."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:347
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:362
 msgid "Unable to load file, query failed."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:350
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:365
 msgid "Unable to load file: database version mismatch."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:431
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:446
 msgid "Warning: backup creation failed for"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:590
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:605
 msgid "Make tag '%s' active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1079
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1111
 msgid "Make new card type active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1309
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1341
 msgid "No duplicates found."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1312
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1344
 msgid "Found %d duplicate cards. They have been given the tag 'DUPLICATE'."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1318
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1350
 msgid "DUPLICATE"
 msgstr ""
 
@@ -937,9 +942,14 @@ msgid "Cards added"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:38
+#: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:38
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:38
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:58
 msgid "Calculating statistics..."
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:11
+msgid "Cards learned"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:12
@@ -962,7 +972,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:32
 #: ../mnemosyne/libmnemosyne/statistics_pages/easiness.py:11
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:621
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:275
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:287
 msgid "Easiness"
 msgstr ""
 
@@ -1012,7 +1022,7 @@ msgid "Untagged"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/grades.py:11
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:252
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:264
 msgid "Grades"
 msgstr ""
 
@@ -1539,24 +1549,28 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:209
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:210
 msgid "Number of cards scheduled"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:221
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:222
 msgid "Retention score (%)"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:233
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:234
 msgid "Number of cards added"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:251
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:274
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:245
+msgid "Number of new cards learned"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:263
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:286
 msgid "Number of cards"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:254
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:266
 msgid "Not seen"
 msgstr ""
 
