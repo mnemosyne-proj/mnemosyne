@@ -583,22 +583,6 @@ class TestDatabase(MnemosyneTest):
         assert self.database().con.execute("select count() from log where event_type=?",
             (EventTypes.EDITED_CARD, )).fetchone()[0] == 2
 
-    def test_add_tag_to_card_2(self):
-        fact_data = {"f": "question",
-                     "b": "answer"}
-        card_type = self.card_type_with_id("2")
-        card = self.controller().create_new_cards(fact_data, card_type,
-                                 grade=-1, tag_names=["default"])[0]
-        assert self.database().con.execute("select count() from log where event_type=?",
-            (EventTypes.EDITED_CARD, )).fetchone()[0] == 0
-        tag = self.database().get_or_create_tag_with_name("new")
-        self.database().add_tag_to_cards_with_internal_ids(tag, [card._id])
-        assert self.database().con.execute("select count() from log where event_type=?",
-            (EventTypes.EDITED_CARD, )).fetchone()[0] == 2
-        assert self.database().con.execute("select count() from tags_for_card").fetchone()[0] == 4
-
-
-
     def test_add_tag_to_untagged_card(self):
         fact_data = {"f": "question",
                      "b": "answer"}

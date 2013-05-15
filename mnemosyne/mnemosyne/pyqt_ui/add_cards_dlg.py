@@ -29,7 +29,8 @@ class AddEditCards(TipAfterStartingNTimes):
          6: _("You can organise tags in a hierarchy by using :: as separator, e.g. My book::Lesson 1."),
          9: _("You can add images and sounds to your cards. Right-click on an input field when editing a card to bring up a pop-up menu to do so."),
          12: _("If for a certain card type cloned from Vocabulary you don't need a pronunciation field, you can hide it by right-clicking on it and using the pop-up menu."),
-         15: _("You can use Tab to move between the fields. For 'Add cards', use Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades. For 'Edit card', use Ctrl-Enter to close.")}
+         15: _("You can use Tab to move between the fields. For 'Add cards', use Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades. For 'Edit card', use Ctrl-Enter to close."),
+         18: _("If you use 'Edit cards', changes are made to all the sister cards simultaneously.")}
 
     def activate(self):
         self.show_tip_after_starting_n_times()

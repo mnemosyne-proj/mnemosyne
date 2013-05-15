@@ -402,7 +402,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         else:
             QtGui.QDialog.keyPressEvent(self, event)
 
-    def cards_from_single_selection(self):
+    def sister_cards_from_single_selection(self):
         selected_rows = self.table.selectionModel().selectedRows()
         if len(selected_rows) == 0:
             return []
@@ -437,11 +437,12 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
     def menu_edit(self, index=None):
         # 'index' gets passed if this function gets called through the
         # table.doubleClicked event.
-        cards = self.cards_from_single_selection()
-        if len(cards) == 0:
+        _card_ids = self._card_ids_from_selection()
+        if len(_card_ids) == 0:
             return
+        card = self.database().card(_card_ids.pop(), is_id_internal=True)
         self.edit_dlg = self.component_manager.current("edit_card_dialog")\
-            (cards[0], self.component_manager, started_from_card_browser=True,
+            (card, self.component_manager, started_from_card_browser=True,
             parent=self)
         self.edit_dlg.before_apply_hook = self.unload_qt_database
         self.edit_dlg.page_up_down_signal.connect(self.page_up_down_edit)
@@ -459,11 +460,13 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         elif up_down == self.edit_dlg.DOWN:
             shift = 1
         self.table.selectRow(current_row + shift)
-        self.edit_dlg.set_new_card(self.cards_from_single_selection()[0])
+        _card_ids = self._card_ids_from_selection()
+        card = self.database().card(_card_ids.pop(), is_id_internal=True)
+        self.edit_dlg.set_new_card(card)
 
     def menu_preview(self):
         from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
-        cards = self.cards_from_single_selection()
+        cards = self.sister_cards_from_single_selection()
         tag_text = cards[0].tag_string()
         self.preview_dlg = \
             PreviewCardsDlg(self.component_manager, cards, tag_text, self)
@@ -483,7 +486,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             shift = 1
         self.table.selectRow(current_row + shift)
         self.preview_dlg.index = 0
-        self.preview_dlg.cards = self.cards_from_single_selection()
+        self.preview_dlg.cards = self.sister_cards_from_single_selection()
         self.preview_dlg.tag_text = self.preview_dlg.cards[0].tag_string()
         self.preview_dlg.update_dialog()
 
@@ -546,6 +549,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         self.tag_tree_wdgt.rebuild()
 
     def menu_add_tags(self):
+        if not self.config()["showed_help_on_adding_tags"]:
+            self.main_widget().show_information(\
+"With this option, can you edit the tags of individual cards, without affecting sister cards.")
+            self.config()["showed_help_on_adding_tags"] = True
         # Get new tag names. Use a dict as backdoor to return values
         # from the dialog.
         return_values = {}
@@ -565,6 +572,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         self.tag_tree_wdgt.rebuild()
 
     def menu_remove_tags(self):
+        if not self.config()["showed_help_on_adding_tags"]:
+            self.main_widget().show_information(\
+"With this option, can you edit the tags of individual cards, without affecting sister cards.")
+            self.config()["showed_help_on_adding_tags"] = True
         # Figure out the tags used by the selected cards.
         _card_ids = self._card_ids_from_selection()
         tags = self.database().tags_from_cards_with_internal_ids(_card_ids)

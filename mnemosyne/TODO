@@ -1,7 +1,5 @@
--add test for cards learned
-
--tags per sister card or not?
--display current card from card browser, not cards[0]
+-ask upon close whether tags need to be applied to current card or to sister cards.
+ refactor edit sister cards
 
 -migrate webserver to cherrypy
 -check media files start stop
@@ -9,13 +7,9 @@
 
 -fix multiple audio files and start/stop (Ansgar Bohmann)
 
--stats 'new cards per day' (grade >=2, ret_reps == 0)
-
--add explanation box for 'save'
-
 -list saved set in titlebar (silverbear, uservoice)
 
--if you create a new tag using 'add tags' in the card browser, make that tag
+-if you create a new tag using 'add tags' in the card browser, ask to that tag
  active in the browser.
 
 -merging cards: should give an option to go back and edit?

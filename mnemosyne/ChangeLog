@@ -1,12 +1,11 @@
-TODO: check below
-
--When adding or deleting a tag through the card browser, the sister cards
- now get updated as well (requested by Scott Youngman).
--New statistic: number of new cards learned per day.
+-Added new statistic: number of new cards learned per day.
+-When editing a card through the browser, make sure the correct set of tags is
+ displayed if sister cards have different tags (requested by Scott Youngman).
+-When editing a card where different sister cards have different tags, ask if
+ the tags should be applied to the current card or to all sister cards.
 -If adding an extra tag when importing a 'cards' file, don't keep the tag
  'Untagged' (patch by crcmail0). If you were affected by this issue before,
  'compact database' will solve this.
-
 
 
 Mnemosyne 2.2.1 : 2013-04-15

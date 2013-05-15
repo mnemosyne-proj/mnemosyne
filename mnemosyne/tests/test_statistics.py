@@ -116,6 +116,12 @@ class TestStatistics(MnemosyneTest):
         for i in range(1, 6):
             page.prepare_statistics(i)
 
+    def test_learned_cards_page(self):
+        from mnemosyne.libmnemosyne.statistics_pages.cards_learned import CardsLearned
+        page = CardsLearned(self.mnemosyne.component_manager)
+        for i in range(1, 6):
+            page.prepare_statistics(i)
+
     @raises(AttributeError)
     def test_added_cards_page_2(self):
         from mnemosyne.libmnemosyne.statistics_pages.cards_added import CardsAdded

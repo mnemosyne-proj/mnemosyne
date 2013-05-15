@@ -493,13 +493,12 @@ class DefaultController(Controller):
         self.database().update_card_type(card_type)
         self.database().save()
 
-    single_database_help = _("It is recommended to put all your cards in a single database. Using tags to determine which cards to study is much more convenient than having to load and unload several databases.")
-
     def show_new_file_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         if self.config()["single_database_help_shown"] == False:
-            self.main_widget().show_information(_(self.single_database_help))
+            self.main_widget().show_information(\
+_("It is recommended to put all your cards in a single database. Using tags to determine which cards to study is much more convenient than having to load and unload several databases."))
             self.config()["single_database_help_shown"] = True
         db = self.database()
         suffix = db.suffix
@@ -574,9 +573,14 @@ class DefaultController(Controller):
     def save_file(self):
         self.stopwatch().pause()
         self.flush_sync_server()
+        if self.config()["save_database_help_shown"] == False:
+            self.main_widget().show_information(\
+_("Your database will be autosaved before exiting. Also, it is saved every couple of repetitions, as set in the configuration options."))
+            self.config()["save_database_help_shown"] = True
         try:
             self.database().save()
             self.log().saved_database()
+            self.main_widget().show_information(_("Database saved."))
         except RuntimeError, error:
             self.main_widget().show_error(unicode(error.message))
         self.stopwatch().unpause()

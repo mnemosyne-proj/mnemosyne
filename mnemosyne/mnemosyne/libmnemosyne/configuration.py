@@ -123,6 +123,7 @@ class Configuration(Component, dict):
              "check_for_edited_local_media_files": False,
              "interested_in_old_reps": True,
              "single_database_help_shown": False,
+             "save_database_help_shown": False,
              "start_card_browser_sorted": False,
              "day_starts_at": 3,
              "save_after_n_reps": 10,
