@@ -36,9 +36,9 @@ class CardType(Component, CompareOnId):
     type's 'fact_keys_and_names' variable, which could be useful for card
     types needing hidden keys, dynamically generated keys, ... .
 
-    The functions 'create_sister_cards' and 'edit_sister_cards' can be
-    overridden by card types which can have a varying number of fact views,
-    e.g. the cloze card type.
+    The functions 'create_sister_cards' and 'edit_fact' can be overridden by
+    card types which can have a varying number of fact views, e.g. the cloze
+    card type.
 
     """
 
@@ -103,7 +103,7 @@ class CardType(Component, CompareOnId):
 
         return [Card(self, fact, fact_view) for fact_view in self.fact_views]
 
-    def edit_sister_cards(self, fact, new_fact_data):
+    def edit_fact(self, fact, new_fact_data):
 
         """If for the card type this operation results in edited, added or
         deleted card data apart from the edited fact data from which they

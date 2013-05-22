@@ -35,14 +35,14 @@ class Controller(Component):
         raise NotImplementedError
 
     def create_new_cards(self, fact_data, card_type, grade,
-                         tag_names, check_for_duplicates=True, save=True):
+            tag_names, check_for_duplicates=True, save=True):
         raise NotImplementedError
 
     def show_edit_card_dialog(self):
         raise NotImplementedError
 
-    def edit_sister_cards(self, fact, new_fact_data, old_card_type,
-                          new_card_type, new_tag_names, correspondence):
+    def edit_card_and_sisters(self, card, new_fact_data, new_card_type,
+            new_tag_names, correspondence):
         raise NotImplementedError
 
     def change_card_type(self, facts, old_card_type, new_card_type,

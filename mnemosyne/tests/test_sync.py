@@ -1402,8 +1402,8 @@ class TestSync(object):
             self.mnemosyne.controller().save_file()
             new_fact_data = {"f": "<latex>b^2</latex>",
                              "b": "<latex>c^2</latex>"}
-            self.mnemosyne.controller().edit_sister_cards(self.card.fact,
-              new_fact_data, self.card.card_type,  card_type,
+            self.mnemosyne.controller().edit_card_and_sisters(self.card,
+              new_fact_data,  card_type,
             new_tag_names=["default1"], correspondence=[])
             self.mnemosyne.controller().save_file()
 
@@ -1438,9 +1438,9 @@ class TestSync(object):
             self.mnemosyne.controller().save_file()
             new_fact_data = {"f": "<latex>b^2</latex>",
                              "b": "<latex>c^2</latex>"}
-            self.mnemosyne.controller().edit_sister_cards(self.card.fact,
-              new_fact_data, self.card.card_type, card_type,
-            new_tag_names=["default1"], correspondence=[])
+            self.mnemosyne.controller().edit_card_and_sisters(self.card,
+              new_fact_data, card_type, new_tag_names=["default1"],
+              correspondence=[])
             self.mnemosyne.controller().save_file()
 
         def test_server(self):
@@ -1474,8 +1474,8 @@ class TestSync(object):
             self.mnemosyne.controller().save_file()
             new_fact_data = {"f": "<latex>b^2</latex>",
                              "b": "<latex>c^2</latex>"}
-            self.mnemosyne.controller().edit_sister_cards(self.card.fact,
-              new_fact_data, self.card.card_type, card_type,
+            self.mnemosyne.controller().edit_card_and_sisters(self.card,
+              new_fact_data, card_type,
             new_tag_names=["default1"], correspondence=[])
             self.mnemosyne.controller().save_file()
 
@@ -1514,8 +1514,8 @@ class TestSync(object):
             self.mnemosyne.controller().save_file()
             new_fact_data = {"f": "<latex>b^2</latex>",
                              "b": "<latex>c^2</latex>"}
-            self.mnemosyne.controller().edit_sister_cards(self.card.fact,
-              new_fact_data, self.card.card_type, card_type,
+            self.mnemosyne.controller().edit_card_and_sisters(self.card,
+              new_fact_data, card_type,
             new_tag_names=["default1"], correspondence=[])
             self.mnemosyne.controller().save_file()
 
@@ -1589,8 +1589,8 @@ class TestSync(object):
             self.mnemosyne.controller().save_file()
             new_fact_data = {"f": "<latex>b^2</latex>",
                              "b": "<latex>c^2</latex>"}
-            self.mnemosyne.controller().edit_sister_cards(self.card.fact,
-              new_fact_data, self.card.card_type, card_type,
+            self.mnemosyne.controller().edit_card_and_sisters(self.card,
+              new_fact_data, card_type,
             new_tag_names=["default1"], correspondence=[])
             self.mnemosyne.controller().save_file()
 

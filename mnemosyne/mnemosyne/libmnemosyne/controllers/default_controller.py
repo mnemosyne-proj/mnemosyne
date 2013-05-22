@@ -186,7 +186,7 @@ class DefaultController(Controller):
         self.stopwatch().pause()
         self.flush_sync_server()
         review_controller = self.review_controller()
-        # This dialog calls 'edit_sister_cards' at some point.
+        # This dialog calls 'edit_card_and_sisters' at some point.
         state = review_controller.state()
         accepted = self.component_manager.current("edit_card_dialog")\
             (review_controller.card, self.component_manager).activate()
@@ -212,7 +212,7 @@ class DefaultController(Controller):
     def _change_card_type(self, fact, old_card_type, new_card_type,
                           correspondence, new_fact_data, warn=True):
 
-        """This is an internal function, used by 'edit_sister_cards' and
+        """This is an internal function, used by 'edit_card_and_sisters' and
         'change_card_type'. It should not be called from the outside by
         itself, otherwise the database will not be saved.
 
@@ -303,49 +303,58 @@ class DefaultController(Controller):
                 self.review_controller().reset()
             return 0
 
-    def edit_sister_cards(self, fact, new_fact_data, old_card_type,
-            new_card_type, new_tag_names, correspondence):
+    def edit_card_and_sisters(self, card, new_fact_data, new_card_type,
+            new_tag_names, correspondence):
         db = self.database()
         sch = self.scheduler()
         assert new_card_type.is_fact_data_valid(new_fact_data)
         # Change the card type if needed. This does not take into account
         # changes to fact yet, which will come just afterwards.
-        result = self._change_card_type(fact, old_card_type, new_card_type,
-            correspondence, new_fact_data)
+        result = self._change_card_type(card.fact, card.card_type,
+            new_card_type, correspondence, new_fact_data)
         if result == -1:  # Aborted.
             return -1
         # When there was no card type conversion possible, the cards had to
         # be recreated from the new fact data. In that case, it is needed to
         # reload the fact from the database.
-        fact = db.fact(fact._id, is_id_internal=True)
+        fact = db.fact(card.fact._id, is_id_internal=True)
         # Update fact and create, delete and update cards.
         new_cards, edited_cards, deleted_cards = \
-            new_card_type.edit_sister_cards(fact, new_fact_data)
+            new_card_type.edit_fact(fact, new_fact_data)
         fact.data = new_fact_data
         db.update_fact(fact)
-        for card in deleted_cards:
-            if self.review_controller().card == card:
+        for deleted_card in deleted_cards:
+            if self.review_controller().card == deleted_card:
                 self.review_controller().card = None
-            sch.remove_from_queue_if_present(card)
-            db.delete_card(card)
-        for card in new_cards:
-            db.add_card(card)
-        for card in edited_cards:
-            db.update_card(card)
+            sch.remove_from_queue_if_present(deleted_card)
+            db.delete_card(deleted_card)
+        for new_card in new_cards:
+            db.add_card(new_card)
+        for edited_card in edited_cards:
+            db.update_card(edited_card)
         if new_cards and self.review_controller().learning_ahead == True:
             self.review_controller().reset()
         # Apply new tags and modification time to cards and save them back to
         # the database. Note that this makes sure there is an EDITED_CARD log
         # entry for each sister card, which is needed when syncing with a
         # partner that does not have the concept of facts.
+        tag_for_current_card_only = False
+        sister_cards = self.database().cards_from_fact(fact)
+        current_tag_strings = set(\
+            [sister_card.tag_string() for sister_card in sister_cards])
+        if len(current_tag_strings) > 1:
+            tag_for_current_card_only = bool(self.main_widget().show_question(
+            _("Update tags for current card only or for all sister cards?"),
+            _("Current card only"), _("All sister cards"), "") == 0)
         old_tags = set()
         tags = db.get_or_create_tags_with_names(new_tag_names)
         modification_time = int(time.time())
-        for card in self.database().cards_from_fact(fact):
-            card.modification_time = modification_time
-            old_tags = old_tags.union(card.tags)
-            card.tags = tags
-            db.update_card(card)
+        for sister_card in sister_cards:
+            sister_card.modification_time = modification_time
+            if sister_card == card or not tag_for_current_card_only:
+                old_tags = old_tags.union(sister_card.tags)
+                sister_card.tags = tags
+            db.update_card(sister_card)
         for tag in old_tags:
             db.delete_tag_if_unused(tag)
         db.save()
@@ -493,12 +502,14 @@ class DefaultController(Controller):
         self.database().update_card_type(card_type)
         self.database().save()
 
+    single_database_help = \
+_("It is recommended to put all your cards in a single database. Using tags to determine which cards to study is much more convenient than having to load and unload several databases.")
+
     def show_new_file_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         if self.config()["single_database_help_shown"] == False:
-            self.main_widget().show_information(\
-_("It is recommended to put all your cards in a single database. Using tags to determine which cards to study is much more convenient than having to load and unload several databases."))
+            self.main_widget().show_information(self.single_database_help)
             self.config()["single_database_help_shown"] = True
         db = self.database()
         suffix = db.suffix

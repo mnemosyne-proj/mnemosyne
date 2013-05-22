@@ -64,7 +64,7 @@ class TestSentence(MnemosyneTest):
                                           grade=-1, tag_names=["default"])
         fact = cards[0].fact
         fact_data = {"f": "[La casa es grande]"}
-        self.controller().edit_sister_cards(fact, fact_data, card_type,
+        self.controller().edit_card_and_sisters(cards[0], fact_data,
             card_type, new_tag_names=["default"], correspondence={})
         cards = self.database().cards_from_fact(fact)
         assert len(cards) == 2
@@ -76,7 +76,7 @@ class TestSentence(MnemosyneTest):
                                           grade=-1, tag_names=["default"])
         fact = cards[0].fact
         fact_data = {"f": "[La casa] es grande"}
-        self.controller().edit_sister_cards(fact, fact_data, card_type,
+        self.controller().edit_card_and_sisters(cards[0], fact_data,
             card_type, new_tag_names=["default"], correspondence={})
         cards = self.database().cards_from_fact(fact)
         assert len(cards) == 2
@@ -88,7 +88,7 @@ class TestSentence(MnemosyneTest):
                                           grade=-1, tag_names=["default"])
         fact = cards[0].fact
         fact_data = {"f": "[La casa] [es] [grande]"}
-        self.controller().edit_sister_cards(fact, fact_data, card_type,
+        self.controller().edit_card_and_sisters(cards[0], fact_data,
             card_type, new_tag_names=["default"], correspondence={})
         cards = self.database().cards_from_fact(fact)
         assert len(cards) == 4

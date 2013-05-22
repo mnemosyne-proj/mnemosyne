@@ -89,7 +89,7 @@ class TestCloze(MnemosyneTest):
         assert self.database().card_count() == 2
 
         fact_data = {"text": "a_ [b_] [c_]"}
-        self.controller().edit_sister_cards(fact, fact_data, card.card_type,
+        self.controller().edit_card_and_sisters(card, fact_data,
                card_type, new_tag_names=["default2"], correspondence=[])
 
         for c in self.database().cards_from_fact(fact):
@@ -99,7 +99,7 @@ class TestCloze(MnemosyneTest):
         assert self.database().card_count() == 2
 
         fact_data = {"text": "a_ [b_]"}
-        self.controller().edit_sister_cards(fact, fact_data, card.card_type,
+        self.controller().edit_card_and_sisters(card, fact_data,
                card_type, new_tag_names=["default2"], correspondence=[])
 
         for c in self.database().cards_from_fact(fact):
@@ -109,7 +109,7 @@ class TestCloze(MnemosyneTest):
         assert self.database().card_count() == 1
 
         fact_data = {"text": "a_ [b_] [d] [e]"}
-        self.controller().edit_sister_cards(fact, fact_data, card.card_type,
+        self.controller().edit_card_and_sisters(card, fact_data,
                card_type, new_tag_names=["default2"], correspondence=[])
 
         for c in self.database().cards_from_fact(fact):
@@ -154,7 +154,7 @@ class TestCloze(MnemosyneTest):
         global answer
         answer = 0 # OK.
 
-        self.controller().edit_sister_cards(fact, new_fact_data, card_type,
+        self.controller().edit_card_and_sisters(card, new_fact_data,
             new_card_type, ["default"], {"f": "text"})
 
     def test_convert_3(self):
@@ -180,7 +180,7 @@ class TestCloze(MnemosyneTest):
         global answer
         answer = 0 # OK.
 
-        self.controller().edit_sister_cards(fact, new_fact_data, card_type,
+        self.controller().edit_card_and_sisters(card, new_fact_data,
             new_card_type, ["default"], {"f": "text"})
 
 
@@ -215,7 +215,7 @@ class TestCloze(MnemosyneTest):
         assert "as [...]" in cards[1].question()
 
         fact_data = {"text": "[buds] [bud]"}
-        self.controller().edit_sister_cards(fact, fact_data, card_type,
+        self.controller().edit_card_and_sisters(cards[0], fact_data,
             card_type, new_tag_names=["default"], correspondence={})
         cards = self.database().cards_from_fact(fact)
 
@@ -233,7 +233,7 @@ class TestCloze(MnemosyneTest):
         assert "as [...]" in cards[1].question()
 
         fact_data = {"text": "[as] [bud]"}
-        self.controller().edit_sister_cards(fact, fact_data, card_type,
+        self.controller().edit_card_and_sisters(cards[0], fact_data,
             card_type, new_tag_names=["default"], correspondence={})
         cards = self.database().cards_from_fact(fact)
 
@@ -251,7 +251,7 @@ class TestCloze(MnemosyneTest):
         assert "as [...]" in cards[1].question()
 
         fact_data = {"text": "[buds] [a]"}
-        self.controller().edit_sister_cards(fact, fact_data, card_type,
+        self.controller().edit_card_and_sisters(cards[0], fact_data,
             card_type, new_tag_names=["default"], correspondence={})
         cards = self.database().cards_from_fact(fact)
 
@@ -267,7 +267,7 @@ class TestCloze(MnemosyneTest):
         fact = cards[0].fact
 
         fact_data = {"text": "[consumerism]"}
-        self.controller().edit_sister_cards(fact, fact_data, card_type,
+        self.controller().edit_card_and_sisters(cards[0], fact_data,
             card_type, new_tag_names=["default"], correspondence={})
         cards = self.database().cards_from_fact(fact)
 

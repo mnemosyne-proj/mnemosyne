@@ -157,7 +157,7 @@ class Cloze(CardType):
                 new_cards.append(card)
         return new_cards, edited_cards, deleted_cards
 
-    def edit_sister_cards(self, fact, new_fact_data):
+    def edit_fact(self, fact, new_fact_data):
         return self._edit_clozes(fact, new_fact_data,
             "text", self.fact_views[0])
 

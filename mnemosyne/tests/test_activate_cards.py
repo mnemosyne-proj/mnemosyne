@@ -246,7 +246,7 @@ class TestActivateCards(MnemosyneTest):
         assert self.database().active_count() == 0
 
         card_type_2 = self.card_type_with_id("2")
-        self.controller().edit_sister_cards(card.fact, card.fact.data, card.card_type,
+        self.controller().edit_card_and_sisters(card, card.fact.data,
                card_type_2, new_tag_names=["allowed"], correspondence=[])
         assert self.database().active_count() == 2
 

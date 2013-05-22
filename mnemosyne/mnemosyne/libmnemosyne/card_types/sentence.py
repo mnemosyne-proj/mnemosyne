@@ -84,7 +84,7 @@ class Sentence(Cloze):
             cards.append(card)
         return cards
 
-    def edit_sister_cards(self, fact, new_fact_data):
+    def edit_fact(self, fact, new_fact_data):
         return self._edit_clozes(fact, new_fact_data,
             "f", self.fact_views[1])
 

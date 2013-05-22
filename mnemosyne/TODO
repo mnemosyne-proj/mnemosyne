@@ -1,11 +1,14 @@
--ask upon close whether tags need to be applied to current card or to sister cards.
- refactor edit sister cards
+-include syncserver/webserver in main program as text-only mode
 
 -migrate webserver to cherrypy
 -check media files start stop
 -check if NAS still sleeps with autoclose timer
 
 -fix multiple audio files and start/stop (Ansgar Bohmann)
+
+-unicode in notes field on export?  (Ansgar Bohmann)
+
+-export: overwrite: double warning? Also, when translating, part of header seems included.(Ansgar Bohmann)
 
 -list saved set in titlebar (silverbear, uservoice)
 

@@ -19,6 +19,8 @@ class Widget(MainWidget):
             return 0
         if message.startswith("Your queue is running empty, "):
             return 0
+        if message.startswith("Your database will be autosaved"):
+            return 0
         raise NotImplementedError
 
     def show_question(self, question, a, b, c):
@@ -181,7 +183,7 @@ class TestAddCards(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         self.review_controller().show_new_question()
-        self.controller().edit_sister_cards(card.fact, fact_data, card.card_type,
+        self.controller().edit_card_and_sisters(card, fact_data,
             card_type, ["new"], correspondence={})
         new_card = self.database().card(card._id, is_id_internal=True)
         tag_names = [tag.name for tag in new_card.tags]
@@ -212,8 +214,8 @@ class TestAddCards(MnemosyneTest):
         new_card = self.database().card(card._id, is_id_internal=True)
         assert len(new_card.tags) == 1
 
-        self.controller().edit_sister_cards(new_card.fact, new_card.fact.data,
-           card.card_type,  new_card.card_type, [" "], [])
+        self.controller().edit_card_and_sisters(new_card, new_card.fact.data,
+           new_card.card_type, [" "], [])
 
         new_card = self.database().card(card._id, is_id_internal=True)
         assert len(new_card.tags) == 1
@@ -230,8 +232,8 @@ class TestAddCards(MnemosyneTest):
         new_card = self.database().card(card._id, is_id_internal=True)
         _untagged_id =  list(new_card.tags)[0]._id
 
-        self.controller().edit_sister_cards(new_card.fact, new_card.fact.data,
-           card.card_type,  new_card.card_type, ["tag"], [])
+        self.controller().edit_card_and_sisters(new_card, new_card.fact.data,
+           new_card.card_type, ["tag"], [])
 
         new_card = self.database().card(card._id, is_id_internal=True)
         assert list(new_card.tags)[0]._id != _untagged_id
@@ -262,7 +264,7 @@ class TestAddCards(MnemosyneTest):
         assert len(card.tags) == 3
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
-
+        answer = 0
 
     def test_duplicate_3(self):
         fact_data = {"f": "question",
@@ -278,6 +280,7 @@ class TestAddCards(MnemosyneTest):
                                            grade=-1, tag_names=["tag"])
         assert self.database().fact_count() == 2
         assert self.database().card_count() == 2
+        answer = 0
 
     def test_duplicate_4(self):
         fact_data = {"f": "question",
@@ -293,6 +296,7 @@ class TestAddCards(MnemosyneTest):
                                            grade=-1, tag_names=["tag"])
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
+        answer = 0
 
     def test_log(self):
         fact_data = {"f": "question",
@@ -311,6 +315,45 @@ class TestAddCards(MnemosyneTest):
             "select event_type from log where _id=15").fetchone()
         assert sql_res[0] == EventTypes.REPETITION
 
+    def test_different_tags_per_sister_card(self):
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.card_type_with_id("2")
+        card, card_2 = self.controller().create_new_cards(fact_data, card_type,
+                        grade=3, tag_names=["default"])
+        self.database().add_tag_to_cards_with_internal_ids(\
+            self.database().get_or_create_tag_with_name("extra"), [card._id])
+        global answer
+        answer = 0
+        card = self.database().card(card._id, is_id_internal=True)
+        card_2 = self.database().card(card_2._id, is_id_internal=True)
+        self.controller().edit_card_and_sisters(card, card.fact.data,
+            card.card_type, ["extra2"], [])
+        card = self.database().card(card._id, is_id_internal=True)
+        card_2 = self.database().card(card_2._id, is_id_internal=True)
+        assert card.tag_string() == "extra2"
+        assert card_2.tag_string() == "default"
+
+    def test_different_tags_per_sister_card_2(self):
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.card_type_with_id("2")
+        card, card_2 = self.controller().create_new_cards(fact_data, card_type,
+                        grade=3, tag_names=["default"])
+        self.database().add_tag_to_cards_with_internal_ids(\
+            self.database().get_or_create_tag_with_name("extra"), [card._id])
+        global answer
+        answer = 1
+        card = self.database().card(card._id, is_id_internal=True)
+        card_2 = self.database().card(card_2._id, is_id_internal=True)
+        self.controller().edit_card_and_sisters(card, card.fact.data, card.card_type,
+            ["extra2"], [])
+        card = self.database().card(card._id, is_id_internal=True)
+        card_2 = self.database().card(card_2._id, is_id_internal=True)
+        assert card.tag_string() == "extra2"
+        assert card_2.tag_string() == "extra2"
+        answer = 0
+
     def test_optional_keys(self):
         fact_data = {"f": "foreign",
                      "m_1": "meaning", "n": ""}
@@ -323,13 +366,13 @@ class TestAddCards(MnemosyneTest):
 
         fact_data_2 = {"f": "foreign",
                        "m_1": "meaning", "n": "notes"}
-        self.controller().edit_sister_cards(card.fact, fact_data_2, card_type,
+        self.controller().edit_card_and_sisters(card, fact_data_2,
             card_type, [], {})
         self.controller().save_file()
         assert self.database().con.execute(\
             "select count() from data_for_fact where key='n'").fetchone()[0] == 1
 
-        self.controller().edit_sister_cards(card.fact, fact_data, card_type,
+        self.controller().edit_card_and_sisters(card, fact_data,
             card_type, [], {})
         self.controller().save_file()
         assert self.database().con.execute(\

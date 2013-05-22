@@ -204,7 +204,7 @@ class TestMedia(MnemosyneTest):
 
         fact_data = {"f": "edited <img src=\"%s\">" % "a.ogg",
                      "b": "answer"}
-        self.controller().edit_sister_cards(card.fact, fact_data, card.card_type,
+        self.controller().edit_card_and_sisters(card, fact_data,
            card_type, new_tag_names=["bla"], correspondence=None)
         # Make sure we don't reuse existing objects.
         card = self.database().card(card._id, is_id_internal=True)
@@ -233,8 +233,8 @@ class TestMedia(MnemosyneTest):
         fact_data = {"f": "edited <img src=\"%s\"> <img src=\"%s\">" \
                      % ("a.ogg", full_path),
                      "b": "answer"}
-        self.controller().edit_sister_cards(card.fact, fact_data,
-           card.card_type,  card_type, new_tag_names=["bla"], correspondence=None)
+        self.controller().edit_card_and_sisters(card, fact_data,
+           card_type, new_tag_names=["bla"], correspondence=None)
         card = self.database().card(card._id, is_id_internal=True)
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "b.ogg")
         assert os.path.exists(full_path_in_media_dir)
@@ -259,8 +259,8 @@ class TestMedia(MnemosyneTest):
         card = self.database().card(card._id, is_id_internal=True)
         fact_data = {"f": "edited ",
                      "b": "answer"}
-        self.controller().edit_sister_cards(card.fact, fact_data,
-           card.card_type,  card_type, new_tag_names=["bla"], correspondence=None)
+        self.controller().edit_card_and_sisters(card, fact_data,
+           card_type, new_tag_names=["bla"], correspondence=None)
         # Make sure we don't reuse existing objects.
         card = self.database().card(card._id, is_id_internal=True)
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
@@ -291,8 +291,8 @@ class TestMedia(MnemosyneTest):
                                            grade=-1, tag_names=["default"])[0]
         fact_data = {"f": "edited",
                      "b": "answer"}
-        self.controller().edit_sister_cards(card.fact, fact_data,
-           card.card_type, card_type, new_tag_names=["bla"], correspondence=None)
+        self.controller().edit_card_and_sisters(card, fact_data,
+           card_type, new_tag_names=["bla"], correspondence=None)
         # Make sure we don't reuse existing objects.
         card = self.database().card(card._id, is_id_internal=True)
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
