@@ -1,8 +1,42 @@
--include syncserver/webserver in main program as text-only mode
+
+Internal server error:
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/CherryPy-3.2.0-py2.7.egg/cherrypy/wsgiserver/__init__.py", line 1245, in communicate
+    req.respond()
+  File "/usr/local/lib/python2.7/dist-packages/CherryPy-3.2.0-py2.7.egg/cherrypy/wsgiserver/__init__.py", line 775, in respond
+    self.server.gateway(self).respond()
+  File "/usr/local/lib/python2.7/dist-packages/CherryPy-3.2.0-py2.7.egg/cherrypy/wsgiserver/__init__.py", line 2018, in respond
+    response = self.req.server.wsgi_app(self.env, self.start_response)
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/server.py", line 138, in wsgi_app
+    data = getattr(self, method)(environ, **args)
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/server.py", line 639, in get_sync_finish
+    return self.handle_error(session, traceback_string())
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/server.py", line 250, in handle_error
+    self.terminate_session_with_token(session.token)
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/openSM2sync/server.py", line 219, in terminate_session_with_token
+    self.unload_database(session.database)
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/sync_server.py", line 53, in unload_database
+    self.review_controller().reset_but_try_to_keep_current_card()
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py", line 73, in reset_but_try_to_keep_current_card
+    previous_state = self.state()
+  File "/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/mnemosyne/libmnemosyne/review_controllers/SM2_controller.py", line 109, in state
+    return self._state
+AttributeError: 'SM2Controller' object has no attribute '_state'
+
+-clean up 'server only' argument in initialise
+-clean up ininitalisation of mnemosyne in 'run as server' part in mnemosyne.
+-default ui implementation for server
+-move webserver to thread, aim for symmetry with sync server
 
 -migrate webserver to cherrypy
 -check media files start stop
 -check if NAS still sleeps with autoclose timer
+
+-text webserver: get ports from config file
+
+-add login to webserver?
+
+-remove mnemosyne-webserver, updated docs
 
 -fix multiple audio files and start/stop (Ansgar Bohmann)
 

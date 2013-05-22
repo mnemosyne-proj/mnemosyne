@@ -154,7 +154,7 @@ class Mnemosyne(Component):
             sys.stderr.write(body)
 
     def initialise(self, data_dir=None, filename=None,
-                   automatic_upgrades=True, debug_file=None):
+                   automatic_upgrades=True, debug_file=None, server_only=False):
 
         """The automatic upgrades of the database can be turned off by setting
         'automatic_upgrade' to False. This is mainly useful for the testsuite.
@@ -175,6 +175,11 @@ class Mnemosyne(Component):
             self.config()["user_id"])
         self.execute_user_plugin_dir()
         self.activate_saved_plugins()
+
+        #TODO: clean up
+        if server_only:
+            return
+
         # Loading the database should come after all user plugins have been
         # loaded, since these could be needed e.g. for a card type in the
         # database.
