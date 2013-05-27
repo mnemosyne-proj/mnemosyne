@@ -1,5 +1,5 @@
 #
-# server.py <Peter.Bienstman@UGent.be>
+# webserver.py <Peter.Bienstman@UGent.be>
 #
 
 import os
@@ -27,6 +27,14 @@ def socketwrap(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0):
 socket.socket = socketwrap
 
 
+# Hack to determine local IP.
+def localhost_IP():
+    import socket
+    s = realsocket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("google.com", 8000))
+    return s.getsockname()[0]
+
+
 class TimerClass(threading.Thread):
 
     def __init__(self, port):
@@ -45,7 +53,7 @@ class TimerClass(threading.Thread):
         response = con.getresponse()
 
 
-class Server(wsgiserver.CherryPyWSGIServer):
+class WebServer(object):
 
     def __init__(self, port, data_dir, filename):
         self.port = port
@@ -55,15 +63,17 @@ class Server(wsgiserver.CherryPyWSGIServer):
         # browser resending the form from the previous session.
         self.is_just_started = True
         self.is_mnemosyne_loaded = False
-        wsgiserver.CherryPyWSGIServer.__init__(self,
+        self.wsgi_server = wsgiserver.CherryPyWSGIServer(\
             ("0.0.0.0", port), self.wsgi_app, server_name="localhost",
             numthreads=1, timeout=1000)
 
     def serve_until_stopped(self):
         try:
-            self.start() # Sets self.wsgi_server.ready
+            self.wsgi_server.start() # Sets self.wsgi_server.ready
         except KeyboardInterrupt:
-            self.stop()
+            self.wsgi_server.stop()
+            if self.is_mnemosyne_loaded:
+                self.unload_mnemosyne()
 
     def load_mnemosyne(self):
         self.mnemosyne = Mnemosyne(upload_science_logs=True,
@@ -91,8 +101,7 @@ class Server(wsgiserver.CherryPyWSGIServer):
         self.timer.start()
 
     def unload_mnemosyne(self):
-        self.mnemosyne.config()["save_after_n_reps"] = \
-                self.save_after_n_reps
+        self.mnemosyne.config()["save_after_n_reps"] = self.save_after_n_reps
         self.mnemosyne.finalise()
         self.is_mnemosyne_loaded = False
 
@@ -159,3 +168,26 @@ class Server(wsgiserver.CherryPyWSGIServer):
         mimetypes.init()
     extensions_map = mimetypes.types_map.copy()
     extensions_map.update({"": "application/octet-stream"})  # Default.
+
+
+class WebServerThread(threading.Thread, WebServer):
+
+    """Basic threading implementation of the sync server, suitable for text-
+    based UIs. A GUI-based client will want to override several functions
+    in Server and ServerThread in view of the interaction between multiple
+    threads and the GUI event loop.
+
+    """
+
+    def __init__(self, component_manager):
+        threading.Thread.__init__(self)
+        self.config = component_manager.current("config")
+        WebServer.__init__(self, self.config["webserver_port"],
+            self.config.data_dir, self.config["last_database"])
+
+    def run(self):
+        print "Webserver listening on http://" + \
+            localhost_IP() + ":" + str(self.config["webserver_port"])
+        self.serve_until_stopped()
+
+

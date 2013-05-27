@@ -139,6 +139,7 @@ class Configuration(Component, dict):
              "sync_server_port": 8512,
              "sync_server_username": "",
              "sync_server_password": "",
+             "webserver_port": 8513,
              "warned_about_learning_ahead": False,
              "shown_backlog_help": False,
              "shown_schedule_help": False,

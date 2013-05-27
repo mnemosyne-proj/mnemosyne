@@ -37,14 +37,12 @@ parser.usage = "%prog [<database_file>]"
 parser.add_option("-d", "--datadir", dest="data_dir",
                   help="data directory", default=None)
 parser.add_option("--no-upgrades", dest="automatic_upgrades",
-		  action="store_false", help="do not upgrade automatically",
-		  default=True)
+    action="store_false", help="do not upgrade automatically", default=True)
 parser.add_option("--debug", dest="debug_file",
-		  help="log debug information to FILE",
-		  metavar="FILE", default=None)
+    help="log debug information to FILE", metavar="FILE", default=None)
 parser.add_option("--server-only", dest="server_only",
-          action="store_true", help="run only web and sync server without GUI",
-          default=False)
+    action="store_true", help="run only web and sync server without GUI",
+    default=False)
 (options, args) = parser.parse_args()
 
 # Check if we have to override the data_dir determined in libmnemosyne,
@@ -66,37 +64,28 @@ if len(args) > 0:
 else:
     filename = None
 
-# Hack to determine local IP.
-from openSM2sync.server import realsocket
-def localhost_IP():
-    import socket
-    s = realsocket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("google.com", 8000))
-    return s.getsockname()[0]
-
 # Load the Mnemosyne library.
 mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True)
 
 # Run as server.
 if options.server_only == True:
-    # TODO; clean up
+    # Initialise Mnemosyne.
     mnemosyne.components.insert(0,
-        ("mnemosyne.libmnemosyne.translators.no_translator",
-         "NoTranslator"))
+        ("mnemosyne.libmnemosyne.translators.no_translator", "NoTranslator"))
     mnemosyne.initialise(data_dir=data_dir, filename=filename,
-             automatic_upgrades=options.automatic_upgrades,
-             debug_file=options.debug_file, server_only=True)
+        automatic_upgrades=options.automatic_upgrades,
+        debug_file=options.debug_file, server_only=True)
     # Sync server.
     from mnemosyne.libmnemosyne.sync_server import SyncServerThread
     sync_server_thread = SyncServerThread(mnemosyne.component_manager)
-    sync_server_thread.run()
+    sync_server_thread.start()
+    print 'sync stated'
     # Web server.
-    webserver_port = 8513
-    print "Web server listening on http://" + \
-        localhost_IP() + ":" + str(webserver_port)
-    from mnemosyne.webserver.server import Server
-    server = Server(webserver_port, data_dir, filename)
-    server.serve_until_stopped()
+    from mnemosyne.webserver.webserver import WebServerThread
+    web_server_thread = WebServerThread(mnemosyne.component_manager)
+    web_server_thread.start()
+    print 'web started'
+
     sys.exit(0)
 
 # Initialise GUI toolkit.

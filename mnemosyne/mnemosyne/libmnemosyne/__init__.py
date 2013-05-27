@@ -7,7 +7,8 @@ import sys
 import traceback
 
 from mnemosyne.libmnemosyne.component import Component
-from mnemosyne.libmnemosyne.utils import expand_path, traceback_string
+from mnemosyne.libmnemosyne.utils import expand_path, contract_path, \
+    traceback_string
 from mnemosyne.libmnemosyne.component_manager import new_component_manager, \
     register_component_manager, unregister_component_manager
 
@@ -153,8 +154,8 @@ class Mnemosyne(Component):
         except:
             sys.stderr.write(body)
 
-    def initialise(self, data_dir=None, filename=None,
-                   automatic_upgrades=True, debug_file=None, server_only=False):
+    def initialise(self, data_dir=None, filename=None, automatic_upgrades=True,
+        debug_file=None, server_only=False):
 
         """The automatic upgrades of the database can be turned off by setting
         'automatic_upgrade' to False. This is mainly useful for the testsuite.
@@ -175,11 +176,13 @@ class Mnemosyne(Component):
             self.config()["user_id"])
         self.execute_user_plugin_dir()
         self.activate_saved_plugins()
-
-        #TODO: clean up
+        # If we are only running a sync or a review server, do not yet load
+        # the database to prevent threading access issues.
         if server_only:
+            if filename:
+                self.config()["last_database"] = \
+                    contract_path(filename, self.config().data_dir)
             return
-
         # Loading the database should come after all user plugins have been
         # loaded, since these could be needed e.g. for a card type in the
         # database.

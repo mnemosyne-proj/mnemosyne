@@ -3,8 +3,11 @@
 #
 
 import os
+import socket
+import threading
 import mnemosyne.version
 
+from openSM2sync.ui import UI
 from openSM2sync.server import Server
 from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.component import Component
@@ -12,16 +15,7 @@ from mnemosyne.libmnemosyne.component import Component
 
 class SyncServer(Component, Server):
 
-    """These are the libmnemosyne-specific parts of the openSH2sync server.
-    Code to run the server in a separate thread is not provided here, as this
-    is best done at the GUI level in view of the interaction between multiple
-    threads and the GUI event loop.
-
-    Also, a GUI will typically want to override/wrap 'load_database' and
-    'unload_database', 'flush' too, because these will be subject to threading
-    issues as well.
-
-    """
+    """libmnemosyne-specific parts of the openSH2sync server."""
 
     program_name = "Mnemosyne"
     program_version = mnemosyne.version.version
@@ -50,8 +44,9 @@ class SyncServer(Component, Server):
     def unload_database(self, database):
         self.database().load(self.previous_database)
         self.log().loaded_database()
-        self.review_controller().reset_but_try_to_keep_current_card()
-        self.review_controller().update_dialog(redraw_all=True)
+        # A GUI implementation will need to add code here like this:
+        #self.review_controller().reset_but_try_to_keep_current_card()
+        #self.review_controller().update_dialog(redraw_all=True)
 
     def flush(self):
 
@@ -67,14 +62,18 @@ class SyncServer(Component, Server):
         self.expire_old_sessions()
 
 
-import threading
-import socket
-
 class SyncServerThread(threading.Thread, SyncServer):
+
+    """Basic threading implementation of the sync server, suitable for text-
+    based UIs. A GUI-based client will want to override several functions
+    in SyncServer and SyncServerThread in view of the interaction between
+    multiple threads and the GUI event loop.
+
+    """
 
     def __init__(self, component_manager):
         threading.Thread.__init__(self)
-        SyncServer.__init__(self, component_manager, self)
+        SyncServer.__init__(self, component_manager, UI())
 
     def run(self):
         try:
@@ -89,30 +88,4 @@ class SyncServerThread(threading.Thread, SyncServer):
             self.terminate_all_sessions()
             self.database().release_connection()
 
-    def show_information(self, message):
-        print message
-
-    def show_error(self, error):
-        print error
-
-    def show_question(self, question, option0, option1, option2):
-        raise NotImplementedError # Server should ask questions anyway.
-
-    def set_progress_text(self, text):
-        pass
-
-    def set_progress_range(self, maximum):
-        pass
-
-    def set_progress_update_interval(self, value):
-        pass
-
-    def increase_progress(self, value):
-        pass
-
-    def set_progress_value(self, value):
-        pass
-
-    def close_progress(self):
-        pass
 

@@ -10,10 +10,10 @@ class UI(object):
     """
 
     def show_information(self, message):
-        raise NotImplementedError
+        print message
 
     def show_error(self, message):
-        raise NotImplementedError
+        print message
 
     def show_question(self, question, option0, option1, option2):
 
