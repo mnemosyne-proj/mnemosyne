@@ -7,19 +7,11 @@ import httplib
 from PyQt4 import QtGui
 
 from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.utils import localhost_IP
 from mnemosyne.libmnemosyne.ui_components.configuration_widget import \
      ConfigurationWidget
 from mnemosyne.pyqt_ui.ui_configuration_wdgt_sync_server import \
      Ui_ConfigurationWdgtSyncServer
-
-
-# Hack to determine local IP.
-
-from openSM2sync.server import realsocket
-def localhost_IP():
-    s = realsocket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("google.com", 8000))
-    return s.getsockname()[0]
 
 
 class ConfigurationWdgtSyncServer(QtGui.QWidget,

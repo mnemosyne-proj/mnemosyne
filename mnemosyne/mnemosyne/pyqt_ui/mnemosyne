@@ -6,6 +6,7 @@
 
 import os
 import sys
+import time
 
 # Custom error handling on Windows.
 
@@ -78,14 +79,19 @@ if options.server_only == True:
     # Sync server.
     from mnemosyne.libmnemosyne.sync_server import SyncServerThread
     sync_server_thread = SyncServerThread(mnemosyne.component_manager)
+    sync_server_thread.daemon = True
     sync_server_thread.start()
-    print 'sync stated'
     # Web server.
     from mnemosyne.webserver.webserver import WebServerThread
     web_server_thread = WebServerThread(mnemosyne.component_manager)
+    web_server_thread.daemon = True
     web_server_thread.start()
-    print 'web started'
-
+    # Hack to allow killing the servers quickly during development.
+    try:
+        while True:
+            time.sleep(0.1)
+    except KeyboardInterrupt:
+        pass
     sys.exit(0)
 
 # Initialise GUI toolkit.

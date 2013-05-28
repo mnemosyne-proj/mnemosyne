@@ -1,10 +1,6 @@
--protocol not available issue for socketwrap, make sure it only gets called once.
--joint 'server started message'? Or make it more symmetric.
+-sm import bug report on mailing list
+
 -test integrated webserver/sync server
--check keyboard interrupt
-
-
--when sync server needs to load database, ask webserver to unload database
 
 -check media files start stop
 -check if NAS still sleeps with autoclose timer

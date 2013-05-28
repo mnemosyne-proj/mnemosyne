@@ -3,14 +3,14 @@
 #
 
 import os
-import socket
+import httplib
 import threading
 import mnemosyne.version
 
 from openSM2sync.ui import UI
 from openSM2sync.server import Server
-from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.libmnemosyne.utils import expand_path, localhost_IP
 
 
 class SyncServer(Component, Server):
@@ -20,10 +20,11 @@ class SyncServer(Component, Server):
     program_name = "Mnemosyne"
     program_version = mnemosyne.version.version
 
-    def __init__(self, component_manager, ui):
+    def __init__(self, component_manager, ui, server_only=False):
         Component.__init__(self, component_manager)
         Server.__init__(self, self.config().machine_id(),
             self.config()["port_for_sync_as_server"], ui)
+        self.server_only = server_only
         self.check_for_edited_local_media_files = \
             self.config()["check_for_edited_local_media_files"]
 
@@ -32,6 +33,15 @@ class SyncServer(Component, Server):
                password == self.config()["remote_access_password"]
 
     def load_database(self, database_name):
+        if self.server_only:
+            # First see if webserver needs to release database.
+            try:
+                con = httplib.HTTPConnection("127.0.0.1",
+                self.config()["webserver_port"])
+                con.request("GET", "/release_database")
+                response = con.getresponse()
+            except:
+                pass
         self.previous_database = self.config()["last_database"]
         if self.previous_database != database_name:
             if not os.path.exists(expand_path(database_name,
@@ -42,11 +52,13 @@ class SyncServer(Component, Server):
         return self.database()
 
     def unload_database(self, database):
-        self.database().load(self.previous_database)
-        self.log().loaded_database()
-        # A GUI implementation will need to add code here like this:
-        #self.review_controller().reset_but_try_to_keep_current_card()
-        #self.review_controller().update_dialog(redraw_all=True)
+        if self.server_only:
+            self.database().release_connection()
+        else:
+            self.database().load(self.previous_database)
+            self.log().loaded_database()
+            self.review_controller().reset_but_try_to_keep_current_card()
+            self.review_controller().update_dialog(redraw_all=True)
 
     def flush(self):
 
@@ -73,16 +85,12 @@ class SyncServerThread(threading.Thread, SyncServer):
 
     def __init__(self, component_manager):
         threading.Thread.__init__(self)
-        SyncServer.__init__(self, component_manager, UI())
+        SyncServer.__init__(self, component_manager, UI(), server_only=True)
 
     def run(self):
-        try:
-            self.serve_until_stopped()
-        except socket.error:
-            self.show_error(_("Unable to start sync server."))
-        except Exception, e:
-            self.show_error(str(e) + "\n" + traceback_string())
-        # Clean up after stopping.
+        print "Sync server listening on " + localhost_IP() + ":" + \
+            str(self.config()["port_for_sync_as_server"])
+        self.serve_until_stopped()
         server_hanging = (len(self.sessions) != 0)
         if server_hanging:
             self.terminate_all_sessions()

@@ -12,27 +12,8 @@ import threading
 import mimetypes
 
 from cherrypy import wsgiserver
-
 from mnemosyne.libmnemosyne import Mnemosyne
-
-
-# Avoid delays caused by Nagle's algorithm.
-# http://www.cmlenz.net/archives/2008/03/python-httplib-performance-problems
-
-realsocket = socket.socket
-def socketwrap(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0):
-    sockobj = realsocket(family, type, proto)
-    sockobj.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-    return sockobj
-socket.socket = socketwrap
-
-
-# Hack to determine local IP.
-def localhost_IP():
-    import socket
-    s = realsocket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("google.com", 8000))
-    return s.getsockname()[0]
+from mnemosyne.libmnemosyne.utils import localhost_IP
 
 
 class TimerClass(threading.Thread):
@@ -128,6 +109,7 @@ class WebServer(object):
             return [self.mnemosyne.review_widget().to_html()]
         elif filename == "/release_database":
             self.unload_mnemosyne()
+            print 'unload'
         # We need to serve a media file.
         else:
             if filename == "/favicon.ico":
@@ -186,7 +168,7 @@ class WebServerThread(threading.Thread, WebServer):
             self.config.data_dir, self.config["last_database"])
 
     def run(self):
-        print "Webserver listening on http://" + \
+        print "Web server listening on http://" + \
             localhost_IP() + ":" + str(self.config["webserver_port"])
         self.serve_until_stopped()
 
