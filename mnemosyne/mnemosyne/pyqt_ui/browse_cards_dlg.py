@@ -119,13 +119,13 @@ class CardModel(QtSql.QSqlTableModel, Component):
                 return QtCore.QVariant(grade)
         if column == NEXT_REP:
             next_rep = QtSql.QSqlTableModel.data(self, index, role).toInt()[0]
-            if next_rep == -1:
+            if next_rep <= 0:
                 return QtCore.QVariant("")
             return QtCore.QVariant(\
                 self.scheduler().next_rep_to_interval_string(next_rep))
         if column == LAST_REP:
             last_rep = QtSql.QSqlTableModel.data(self, index, role).toInt()[0]
-            if last_rep == -1:
+            if last_rep <= 0:
                 return QtCore.QVariant("")
             return QtCore.QVariant(\
                 self.scheduler().last_rep_to_interval_string(last_rep))

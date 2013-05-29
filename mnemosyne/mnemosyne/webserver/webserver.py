@@ -109,7 +109,6 @@ class WebServer(object):
             return [self.mnemosyne.review_widget().to_html()]
         elif filename == "/release_database":
             self.unload_mnemosyne()
-            print 'unload'
         # We need to serve a media file.
         else:
             if filename == "/favicon.ico":

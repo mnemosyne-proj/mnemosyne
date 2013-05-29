@@ -1,10 +1,6 @@
--sm import bug report on mailing list
-
--test integrated webserver/sync server
-
--check media files start stop
 -check if NAS still sleeps with autoclose timer
 
+-check media files start stop
 
 -add login to webserver?
 
@@ -44,7 +40,7 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 
 -menu option to copy database to USB key?
 
--import db file
+-import/merge db file
 
 -website font size under windows
 

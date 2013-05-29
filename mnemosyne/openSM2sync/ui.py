@@ -28,7 +28,7 @@ class UI(object):
 
         """
 
-        print text
+        pass
 
     def set_progress_range(self, maximum):
 

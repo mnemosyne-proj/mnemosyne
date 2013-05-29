@@ -3,6 +3,8 @@
  displayed if sister cards have different tags (requested by Scott Youngman).
 -When editing a card where different sister cards have different tags, ask if
  the tags should be applied to the current card or to all sister cards.
+-Fix Windows crash when using the card browser with cards imported from
+ Supermemo (reported by Piotr).
 -If adding an extra tag when importing a 'cards' file, don't keep the tag
  'Untagged' (patch by crcmail0). If you were affected by this issue before,
  'compact database' will solve this.
