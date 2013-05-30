@@ -28,8 +28,6 @@ if sys.platform == "win32":
 
 from optparse import OptionParser
 
-from PyQt4.QtGui import QApplication
-
 from mnemosyne.libmnemosyne import Mnemosyne
 
 # Parse options.
@@ -73,6 +71,8 @@ if options.server_only == True:
     # Initialise Mnemosyne.
     mnemosyne.components.insert(0,
         ("mnemosyne.libmnemosyne.translators.no_translator", "NoTranslator"))
+    mnemosyne.components.append(\
+        ("mnemosyne.libmnemosyne.ui_components.main_widget", "MainWidget"))
     mnemosyne.initialise(data_dir=data_dir, filename=filename,
         automatic_upgrades=options.automatic_upgrades,
         debug_file=options.debug_file, server_only=True)
@@ -95,6 +95,8 @@ if options.server_only == True:
     sys.exit(0)
 
 # Initialise GUI toolkit.
+from PyQt4.QtGui import QApplication
+
 a = QApplication(sys.argv)
 a.setApplicationName("Mnemosyne")
 

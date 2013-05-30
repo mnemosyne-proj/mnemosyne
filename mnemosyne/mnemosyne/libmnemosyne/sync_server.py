@@ -23,14 +23,14 @@ class SyncServer(Component, Server):
     def __init__(self, component_manager, ui, server_only=False):
         Component.__init__(self, component_manager)
         Server.__init__(self, self.config().machine_id(),
-            self.config()["port_for_sync_as_server"], ui)
+            self.config()["sync_server_port"], ui)
         self.server_only = server_only
         self.check_for_edited_local_media_files = \
             self.config()["check_for_edited_local_media_files"]
 
     def authorise(self, username, password):
-        return username == self.config()["remote_access_username"] and \
-               password == self.config()["remote_access_password"]
+        return username == self.config()["sync_server_username"] and \
+               password == self.config()["sync_server_password"]
 
     def load_database(self, database_name):
         if self.server_only:
@@ -91,7 +91,7 @@ class SyncServerThread(threading.Thread, SyncServer):
 
     def run(self):
         print "Sync server listening on " + localhost_IP() + ":" + \
-            str(self.config()["port_for_sync_as_server"])
+            str(self.config()["sync_server_port"])
         self.serve_until_stopped()
         server_hanging = (len(self.sessions) != 0)
         if server_hanging:

@@ -128,7 +128,7 @@ class Configuration(Component, dict):
              "day_starts_at": 3,
              "save_after_n_reps": 10,
              "latex_preamble": "\\documentclass[12pt]{article}\n"+
-                              "\\pagestyle{empty}\n\\begin{document}",
+                               "\\pagestyle{empty}\n\\begin{document}",
              "latex_postamble": "\\end{document}",
              "latex": "latex -interaction=nonstopmode",
              "dvipng": "dvipng -D 200 -T tight tmp.dvi",
@@ -174,6 +174,7 @@ class Configuration(Component, dict):
         # Allow other plugins or frontend to set their configuration data.
         for f in self.component_manager.all("hook", "configuration_defaults"):
             f.run()
+        self.save()
 
     def __setitem__(self, key, value):
         if key in self.keys_to_sync:

@@ -1,10 +1,20 @@
 -check if NAS still sleeps with autoclose timer
 
+-improve shutil copy
+
+-try webserver + sync client running on Android, serving local files directly
+
 -check media files start stop
 
 -add login to webserver?
 
 -remove mnemosyne-webserver, updated docs
+
+-integrate webserver in ui
+
+-clean up sync related config keys
+
+-try uploading new database to empty database on headless server
 
 -fix multiple audio files and start/stop (Ansgar Bohmann)
 
@@ -39,6 +49,8 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
  'delete_facts_and_their_data' does checking for unused tags multiple times.
 
 -menu option to copy database to USB key?
+
+-don't do update media files in login.
 
 -import/merge db file
 

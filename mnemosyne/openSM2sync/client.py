@@ -135,9 +135,13 @@ class Client(Partner):
             if self.check_for_edited_local_media_files:
                 self.ui.set_progress_text("Checking for edited media files...")
                 self.database.check_for_edited_media_files()
-            socket.setdefaulttimeout(20)
+                self.ui.set_progress_text("Dynamically creating media files...")
+                self.database.dynamically_create_media_files()
+            socket.setdefaulttimeout(30)
             self.login(username, password)
             # Generating media files at the server side could take some time.
+            # TODO: fix this, as Generating media files actually happens at
+            # login.
             self.con = None
             socket.setdefaulttimeout(15*60)
             # Do a full sync after either the client or the server has restored
