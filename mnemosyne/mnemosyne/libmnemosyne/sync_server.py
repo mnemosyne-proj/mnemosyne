@@ -55,7 +55,7 @@ class SyncServer(Component, Server):
 
     def unload_database(self, database):
         if self.server_only:
-            self.database().release_connection()
+            self.database().unload()
         else:
             self.database().load(self.previous_database)
             self.log().loaded_database()

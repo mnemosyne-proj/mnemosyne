@@ -112,7 +112,9 @@ class WebServer(object):
         # We need to serve a media file.
         else:
             if filename == "/favicon.ico":
-                # No need to do spend time on a disk access here.
+                # No need to spend time on a disk access here.
+                response_headers = [("Content-type", "text/html")]
+                start_response("404 File not found", response_headers)
                 return ["404 File not found"]
             media_file = self.open_media_file(filename)
             if media_file is None:

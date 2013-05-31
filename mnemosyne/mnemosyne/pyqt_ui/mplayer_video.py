@@ -4,9 +4,9 @@
 
 import os
 import re
-import shutil
 import subprocess
 
+from mnemosyne.libmnemosyne.utils import copy
 from mnemosyne.libmnemosyne.filter import Filter
 
 re_video = re.compile(r"""<video src=\"(.+?)\"(.*?)>""",
@@ -52,7 +52,7 @@ class MplayerVideo(Filter):
                     os.remove(tmp_path)
                 new_name = unicode(os.path.join(media_dir,
                     "___" + str(index) + "___.mp4"))
-                shutil.copy(video_file.replace("file:///", ""), new_name)
+                copy(video_file.replace("file:///", ""), new_name)
                 index += 1
                 video_file = new_name
             video_files.append(video_file)

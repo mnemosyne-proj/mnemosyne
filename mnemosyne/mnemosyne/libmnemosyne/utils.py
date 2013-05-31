@@ -7,10 +7,80 @@ import os
 import re
 import cgi
 import sys
+import stat
 import random
-import shutil
 import tempfile
 import traceback
+
+
+# The following function are copied from shutil, but with the only change
+# that the buffer in copyfileobj is much larger than the default 16kB in
+# order to improve performance.
+
+def copyfileobj(fsrc, fdst, length=8*1024*1024):
+    """copy data from file-like object fsrc to file-like object fdst"""
+    while 1:
+        buf = fsrc.read(length)
+        if not buf:
+            break
+        fdst.write(buf)
+
+def _samefile(src, dst):
+    # Macintosh, Unix.
+    if hasattr(os.path, 'samefile'):
+        try:
+            return os.path.samefile(src, dst)
+        except OSError:
+            return False
+
+    # All other platforms: check for same pathname.
+    return (os.path.normcase(os.path.abspath(src)) ==
+            os.path.normcase(os.path.abspath(dst)))
+
+def copyfile(src, dst):
+    """Copy data from src to dst"""
+
+    return os.system("cp " + src + " " + dst)
+
+    if _samefile(src, dst):
+        raise Error("`%s` and `%s` are the same file" % (src, dst))
+
+    for fn in [src, dst]:
+        try:
+            st = os.stat(fn)
+        except OSError:
+            # File most likely does not exist
+            pass
+        else:
+            # XXX What about other special files? (sockets, devices...)
+            if stat.S_ISFIFO(st.st_mode):
+                raise SpecialFileError("`%s` is a named pipe" % fn)
+
+    with open(src, 'rb') as fsrc:
+        with open(dst, 'wb') as fdst:
+            copyfileobj(fsrc, fdst)
+
+def copymode(src, dst):
+    """Copy mode bits from src to dst"""
+    if hasattr(os, 'chmod'):
+        st = os.stat(src)
+        mode = stat.S_IMODE(st.st_mode)
+        os.chmod(dst, mode)
+
+def copy(src, dst):
+    """Copy data and mode bits ("cp src dst").
+
+    The destination may be a directory.
+
+    """
+    if os.path.isdir(dst):
+        dst = os.path.join(dst, os.path.basename(src))
+    copyfile(src, dst)
+    copymode(src, dst)
+
+#
+# Memosyne-specific functions.
+#
 
 class MnemosyneError(Exception):
     pass
@@ -83,7 +153,7 @@ def copy_file_to_dir(filename, dirname):
             dest_path = "%s_%d_.%s" % (prefix, count, suffix)
             if not os.path.exists(dest_path):
                 break
-    shutil.copy(filename, dest_path)
+    copy(filename, dest_path)
     return contract_path(dest_path, dirname)
 
 

@@ -3,11 +3,11 @@
 #
 
 import os
-import shutil
 import sqlite3
 import tempfile
 
 from openSM2sync.log_entry import EventTypes
+from mnemosyne.libmnemosyne.utils import copy
 
 
 class MnemosyneFormat(object):
@@ -19,13 +19,12 @@ class MnemosyneFormat(object):
         return program_name.lower() == "mnemosyne" and \
             database_version == self.database.version
 
-    def binary_filename(self, store_pregenerated_data,
-            interested_in_old_reps):
+    def binary_filename(self, store_pregenerated_data, interested_in_old_reps):
         self.database.release_connection()
         # Copy the database to a temporary file.
         self.tmp_name = os.path.join(os.path.dirname(self.database._path),
             "__FORSTREAMING__.db")
-        shutil.copy(self.database._path, self.tmp_name)
+        copy(self.database._path, self.tmp_name)
         # Delete old reps if needed.
         if not interested_in_old_reps:
             con = sqlite3.connect(self.tmp_name)

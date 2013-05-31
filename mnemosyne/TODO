@@ -1,8 +1,17 @@
 -check if NAS still sleeps with autoclose timer
 
--improve shutil copy
+-profile webserver, shutil copy or own variant?
+
+-webserver --> web server?, review_server?
+
+-split up webserver and review server command line options (update docs)
+
+-best way to tackling failing tests related to pregenerated media.
+
+-forbid tags like '::b' (MIKHEYENKO VITALY)
 
 -try webserver + sync client running on Android, serving local files directly
+ test best autosave option
 
 -check media files start stop
 

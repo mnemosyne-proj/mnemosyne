@@ -378,7 +378,6 @@ class Server(Partner):
             # media files need to be generated dynamically, e.g. latex. This
             # can generate MEDIA_EDITED log entries, so it should be done
             # first.
-            print "check_for_edited_local_media_files", self.check_for_edited_local_media_files
             if self.check_for_edited_local_media_files:
                 self.ui.set_progress_text("Checking for edited media files...")
                 session.database.check_for_edited_media_files()

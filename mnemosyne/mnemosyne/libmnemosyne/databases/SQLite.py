@@ -5,10 +5,10 @@
 import os
 import sys
 import time
-import copy
 import string
 import shutil
 import datetime
+import copy as objcopy
 
 from openSM2sync.log_entry import EventTypes
 
@@ -19,7 +19,7 @@ from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.database import Database
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
-from mnemosyne.libmnemosyne.utils import traceback_string
+from mnemosyne.libmnemosyne.utils import traceback_string, copy
 from mnemosyne.libmnemosyne.utils import numeric_string_cmp, mangle
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 
@@ -419,7 +419,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             return
         dest_path = expand_path(path, self.config().data_dir)
         if dest_path != self._path:
-            shutil.copy(self._path, dest_path)
+            copy(self._path, dest_path)
             self._path = dest_path
         self.config()["last_database"] \
             = contract_path(path, self.config().data_dir)
@@ -437,7 +437,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         backupfile = os.path.join(backupdir, backupfile)
         failed = False
         try:
-            shutil.copy(self._path, backupfile)
+            copy(self._path, backupfile)
         except:
             failed = True
         if failed or not os.path.exists(backupfile) or \
@@ -462,7 +462,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self.abandon()
         db_path = expand_path(\
             self.config()["last_database"], self.config().data_dir)
-        shutil.copy(path, db_path)
+        copy(path, db_path)
         self.load(db_path)
         # We need to indicate that a full sync needs to happen on the next
         # sync. Unfortunately, we can't do anything about the logs that have
@@ -1224,7 +1224,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         del criterion
 
     def set_current_criterion(self, criterion):
-        criterion = copy.copy(criterion)
+        criterion = objcopy.copy(criterion)
         criterion._id = 1
         criterion.id = "__DEFAULT__"
         criterion.name = "__DEFAULT__"

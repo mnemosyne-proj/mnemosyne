@@ -1,7 +1,7 @@
 -The functionality of mnemosyne-webserver has now been merged into the main
- program.
--Added a command line option --server-only which starts the sync and the web
- server in headless mode (useful to run e.g. on a NAS server).
+ program..
+-Added command line options --sync-server --web-server which starts the sync
+ and the web server in headless mode (useful to run e.g. on a NAS server).
 -Added new statistic: number of new cards learned per day.
 -When editing a card through the browser, make sure the correct set of tags is
  displayed if sister cards have different tags (requested by Scott Youngman).

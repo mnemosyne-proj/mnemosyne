@@ -11,6 +11,7 @@ except ImportError:
     from md5 import md5
 
 from mnemosyne.libmnemosyne.hook import Hook
+from mnemosyne.libmnemosyne.utils import copy
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.filter import Filter
 
@@ -75,7 +76,7 @@ class Latex(Filter):
             os.system(self.config()["dvipng"].rstrip())
             if not os.path.exists("tmp1.png"):
                 return None
-            shutil.copy("tmp1.png", img_name)
+            copy("tmp1.png", img_name)
             self.log().added_media_file(rel_filename)
             os.chdir(previous_dir)
         return rel_filename

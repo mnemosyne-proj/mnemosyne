@@ -4,9 +4,9 @@
 
 import os
 import re
-import shutil
 import subprocess
 
+from mnemosyne.libmnemosyne.utils import copy
 from mnemosyne.libmnemosyne.filter import Filter
 
 re_audio = re.compile(r"""<audio src=\"(.+?)\"(.*?)>""",
@@ -52,7 +52,7 @@ class MplayerAudio(Filter):
                     os.remove(tmp_path)
                 new_name = unicode(os.path.join(media_dir,
                     "___" + str(index) + "___.mp3"))
-                shutil.copy(sound_file.replace("file:///", ""), new_name)
+                copy(sound_file.replace("file:///", ""), new_name)
                 index += 1
                 sound_file = new_name
             sound_files.append(sound_file)
