@@ -45,7 +45,9 @@ class Tsv(FileFormat, MediaPreprocessor):
                 return
         # Parse txt file.
         facts_data = []
+        line_number = 0
         for line in f:
+            line_number += 1
             try:
                 line = unicode(line, "utf-8")
             except:
@@ -77,8 +79,8 @@ class Tsv(FileFormat, MediaPreprocessor):
             elif len(fields) == 2:  # Front-to-back only.
                 facts_data.append({"f": fields[0], "b": fields[1]})
             else:  # Malformed line.
-                self.main_widget().show_error(\
-                    _("Missing answer on line:\n") + line)
+                self.main_widget().show_error(_("Badly formed input on line") \
+                    + " " + str(line_number) + ":\n" + line)
                 return
         # Now that we know all the data is well-formed, create the cards.
         tag_names = []

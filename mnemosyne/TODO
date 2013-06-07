@@ -2,7 +2,11 @@
 
 -profile webserver, shutil copy or own variant?
 
+-error when adding media filename with spaces?
+
 -webserver --> web server?, review_server?
+
+-add chaching to webserver, server audio library/jquery from the server
 
 -split up webserver and review server command line options (update docs)
 
