@@ -34,6 +34,21 @@ class TimerClass(threading.Thread):
         response = con.getresponse()
 
 
+class FileResponse(object):
+
+    readsize = 128*1024
+
+    def __init__(self, filename):
+        self.size = os.path.getsize(filename)
+        self.f = file(filename, "rb")
+
+    def __iter__(self):
+        output = "\n"
+        while len(output) is not 0:
+            output = self.f.read(self.readsize)
+            yield output
+
+
 class WebServer(object):
 
     def __init__(self, port, data_dir, filename):
@@ -90,8 +105,8 @@ class WebServer(object):
         if not self.is_mnemosyne_loaded:
             self.load_mnemosyne()
         self.timer.ping()
-        # All our request return to the root page, so if the path is '/', return
-        # the html of the review widget.
+        # All our request return to the root page, so if the path is '/',
+        # return the html of the review widget.
         filename = environ["PATH_INFO"]
         if filename == "/":
             # Process clicked buttons in the form.
@@ -116,24 +131,19 @@ class WebServer(object):
                 response_headers = [("Content-type", "text/html")]
                 start_response("404 File not found", response_headers)
                 return ["404 File not found"]
-            media_file = self.open_media_file(filename)
-            if media_file is None:
+            full_path = self.mnemosyne.database().media_dir()
+            for word in filename.split("/"):
+                full_path = os.path.join(full_path, word)
+            if not os.path.exists(full_path):
                 response_headers = [("Content-type", "text/html")]
                 start_response("404 File not found", response_headers)
                 return ["404 File not found"]
             else:
-                response_headers = [("Content-type", self.guess_type(filename))]
-                start_response("200 OK", response_headers)
-                return [media_file.read()]
-
-    def open_media_file(self, path):
-        full_path = self.mnemosyne.database().media_dir()
-        for word in path.split("/"):
-            full_path = os.path.join(full_path, word)
-        try:
-            return file(full_path, "rb")
-        except IOError:
-            return None
+                response = FileResponse(full_path)
+                start_response("200 OK",
+                    [("Content-Length", str(response.size)),
+                     ("Content-Type", self.guess_type(filename))])
+                return response
 
     # Adapted from SimpleHTTPServer:
     def guess_type(self, path):

@@ -21,7 +21,9 @@
 
 -add login to webserver?
 
--remove mnemosyne-webserver, updated docs
+-make sure logs are uploaded from NAS
+
+-remove mnemosyne-webserver, update docs
 
 -integrate webserver in ui
 
