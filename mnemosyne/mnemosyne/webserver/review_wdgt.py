@@ -138,8 +138,8 @@ $card_css
         card_css = ""
         card = self.review_controller().card
         if card:
-            card_css = self.render_chain().\
-                renderer_for_card_type(card.card_type).card_type_css(card.card_type)
+            card_css = self.render_chain().renderer_for_card_type\
+                (card.card_type).card_type_css(card.card_type)
         buttons = ""
         if self.is_grade_buttons_enabled:
             buttons = ""
@@ -166,3 +166,4 @@ $card_css
             question_label=self.question_label, question=self.question,
             answer_label=self.answer_label, answer=self.answer,
             status_bar=self.status_bar).encode("utf-8")
+

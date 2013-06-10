@@ -1,4 +1,7 @@
--check if NAS still sleeps with autoclose timer
+-add range support to server
+-'expires' tag
+
+-check if NAS still sleeps with autoclose timer. remove time.sleep calls?
 
 -profile webserver, shutil copy or own variant?
 

@@ -56,7 +56,7 @@ class MainWidget(UiComponent):
 
         """
 
-        pass
+        print text
 
     def set_progress_range(self, maximum):
 

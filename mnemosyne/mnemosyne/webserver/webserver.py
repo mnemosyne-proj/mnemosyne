@@ -139,6 +139,13 @@ class WebServer(object):
                 start_response("404 File not found", response_headers)
                 return ["404 File not found"]
             else:
+                # TODO: check etag
+                from webob.static import FileApp
+                return FileApp(full_path, 
+                etag = '%s-%s-%s' % (os.path.getmtime(full_path),
+...                              os.path.getsize(full_path), hash(full_path)))
+                
+                
                 response = FileResponse(full_path)
                 start_response("200 OK",
                     [("Content-Length", str(response.size)),

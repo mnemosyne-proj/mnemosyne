@@ -23,14 +23,6 @@ class InnoScript:
             self.dist_dir += "\\"
         self.name = name
         self.version = version
-
-        # Hack to include webserver, which does not seem to get picked up
-        # automatically.
-        mnemosyne_exe = windows_exe_files[0]
-        mnemosyne_webserver_exe = mnemosyne_exe.\
-            replace("mnemosyne.exe", "mnemosyne-webserver.exe")
-        windows_exe_files = [mnemosyne_exe, mnemosyne_webserver_exe]
-
         self.windows_exe_files = [self.chop(p) for p in windows_exe_files]
         self.lib_files = [self.chop(p) for p in lib_files]
 
@@ -238,11 +230,9 @@ setup(name = "Mnemosyne",
       packages = packages,
       package_dir = {"mnemosyne": "mnemosyne"},
       data_files = data_files,
-      scripts = ["mnemosyne/pyqt_ui/mnemosyne", "mnemosyne/webserver/mnemosyne-webserver"],
+      scripts = ["mnemosyne/pyqt_ui/mnemosyne"],
       # py2exe
       windows = [{"script": "mnemosyne/pyqt_ui/mnemosyne",
-                  "icon_resources": [(1, "pixmaps/mnemosyne.ico")]}],
-      console = [{"script": "mnemosyne/webserver/mnemosyne-webserver",
                   "icon_resources": [(1, "pixmaps/mnemosyne.ico")]}],
       cmdclass = {"py2exe": build_installer},
       # py2app
