@@ -588,7 +588,9 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # tag except when a parent is inactive.
         if not saved_criterion:
             criteria_to_activate_tag_in = [current_criterion]
-            existing_tag_for_name = {tag.name : tag for tag in self.tags()}
+            existing_tag_for_name = {}
+            for tag in self.tags():
+                existing_tag_for_name[tag.name] = tag
             partial_tag_name = ""
             for node in tag.name.split("::"):
                 partial_tag_name += node

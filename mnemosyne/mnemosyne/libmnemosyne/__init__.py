@@ -116,7 +116,7 @@ class Mnemosyne(Component):
           "RetentionScore"),
          ("mnemosyne.libmnemosyne.statistics_pages.cards_added",
           "CardsAdded"),
-        ("mnemosyne.libmnemosyne.statistics_pages.cards_learned",
+         ("mnemosyne.libmnemosyne.statistics_pages.cards_learned",
           "CardsLearned"),
          ("mnemosyne.libmnemosyne.statistics_pages.grades",
           "Grades"),

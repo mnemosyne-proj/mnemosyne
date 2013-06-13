@@ -1,10 +1,22 @@
+-try add flag to webviewshow
+
+-fix testsuite
+
+-adding a new tag to existing card hides it?
+
 -check if unloading webserver does not crash it
+
+-remove own ip from quick and dirty before distrib
 
 -test hibernate, clean up sleep code in main script
 
 -profile webserver, shutil copy or own variant?
 
 -error when adding media filename with spaces?
+
+-mobile client: bz2 module for log upload?
+-bz2 in finishing logs?
+-backup creating failed?
 
 -webserver --> web server?, review_server?
 
@@ -26,6 +38,8 @@
 -update webserver docs, add webob to dependencies
 
 -integrate webserver in ui
+
+-embedding Python on ios: https://github.com/albertz/python-embedded/
 
 -clean up sync related config keys
 

@@ -131,8 +131,12 @@ def extract_sound(directory):
                 full_path = os.path.join(snd_dir, snd)
                 if snd.endswith("SWA"):
                     os.system("mplayer -vo null -vc dummy -af resample=44100 -ao pcm:waveheader " \
-                        + full_path + " && lame -h --resample 44.1 -b 128 audiodump.wav " + \
+                        + full_path + " && lame audiodump.wav " + \
                         os.path.join(full_media_subdir, snd).replace("SWA", "MP3"))
+                    # High bitrate version, not really needed.
+                    #os.system("mplayer -vo null -vc dummy -af resample=44100 -ao pcm:waveheader " \
+                    #    + full_path + " && lame -h --resample 44.1 -b 128 audiodump.wav " + \
+                    #    os.path.join(full_media_subdir, snd).replace("SWA", "MP3"))
                     snd_list.append(\
                         media_subdir + "/" + snd.replace("SWA", "MP3"))
             sound[unit][lesson] = snd_list
