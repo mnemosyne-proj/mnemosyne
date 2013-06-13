@@ -19,8 +19,6 @@ class SimpleHtml5Audio(Filter):
     Issues:
 
      - no autoplay to prevent synchronisation bugs.
-     - whether the sound can be repeated depends on how well html5 support is
-       implement in the browser.
      - not very well suited for multiple audio files.
      - no support for start and stop tags.
 

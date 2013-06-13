@@ -5,13 +5,14 @@
 import os
 import cgi
 import time
-import socket
-import select
 import httplib
 import threading
-import mimetypes
+
+from webob import Request
+from webob.static import FileApp
 
 from cherrypy import wsgiserver
+
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.utils import localhost_IP
 
@@ -32,21 +33,6 @@ class TimerClass(threading.Thread):
         con = httplib.HTTPConnection("127.0.0.1", self.port)
         con.request("GET", "/release_database")
         response = con.getresponse()
-
-
-class FileResponse(object):
-
-    readsize = 128*1024
-
-    def __init__(self, filename):
-        self.size = os.path.getsize(filename)
-        self.f = file(filename, "rb")
-
-    def __iter__(self):
-        output = "\n"
-        while len(output) is not 0:
-            output = self.f.read(self.readsize)
-            yield output
 
 
 class WebServer(object):
@@ -124,50 +110,21 @@ class WebServer(object):
             return [self.mnemosyne.review_widget().to_html()]
         elif filename == "/release_database":
             self.unload_mnemosyne()
+            response_headers = [("Content-type", "text/html")]
+            start_response("200 OK", response_headers)
         # We need to serve a media file.
         else:
-            if filename == "/favicon.ico":
-                # No need to spend time on a disk access here.
-                response_headers = [("Content-type", "text/html")]
-                start_response("404 File not found", response_headers)
-                return ["404 File not found"]
             full_path = self.mnemosyne.database().media_dir()
             for word in filename.split("/"):
                 full_path = os.path.join(full_path, word)
-            if not os.path.exists(full_path):
-                response_headers = [("Content-type", "text/html")]
-                start_response("404 File not found", response_headers)
-                return ["404 File not found"]
+            request = Request(environ)
+            if os.path.exists(full_path):
+                etag = "%s-%s-%s" % (os.path.getmtime(full_path),
+                    os.path.getsize(full_path), hash(full_path))
             else:
-                # TODO: check etag
-                from webob.static import FileApp
-                return FileApp(full_path, 
-                etag = '%s-%s-%s' % (os.path.getmtime(full_path),
-...                              os.path.getsize(full_path), hash(full_path)))
-                
-                
-                response = FileResponse(full_path)
-                start_response("200 OK",
-                    [("Content-Length", str(response.size)),
-                     ("Content-Type", self.guess_type(filename))])
-                return response
-
-    # Adapted from SimpleHTTPServer:
-    def guess_type(self, path):
-        base, ext = os.path.splitext(path)
-        if ext in self.extensions_map:
-            return self.extensions_map[ext]
-        ext = ext.lower()
-        if ext in self.extensions_map:
-            return self.extensions_map[ext]
-        else:
-            return self.extensions_map[""]
-
-    # Try to read system mimetypes.
-    if not mimetypes.inited:
-        mimetypes.init()
-    extensions_map = mimetypes.types_map.copy()
-    extensions_map.update({"": "application/octet-stream"})  # Default.
+                etag = "none"
+            app = FileApp(full_path, etag=etag)
+            return app(request)(environ, start_response)
 
 
 class WebServerThread(threading.Thread, WebServer):
@@ -189,5 +146,3 @@ class WebServerThread(threading.Thread, WebServer):
         print "Web server listening on http://" + \
             localhost_IP() + ":" + str(self.config["webserver_port"])
         self.serve_until_stopped()
-
-

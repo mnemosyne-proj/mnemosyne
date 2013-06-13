@@ -86,6 +86,10 @@ if options.server_only == True:
     web_server_thread = WebServerThread(mnemosyne.component_manager)
     web_server_thread.daemon = True
     web_server_thread.start()
+    
+    #sync_server_thread.join()
+    #web_server_thread.join()
+    #sys.exit(0)
     # Hack to allow killing the servers quickly during development.
     try:
         while True:

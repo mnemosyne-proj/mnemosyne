@@ -19,6 +19,9 @@ try:
     import android
     droid = android.Android()
     android = True
+    # Work around QPython issue.
+    import sys
+    sys.platform = "linux2"
 except:
     pass
 

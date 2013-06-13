@@ -1,15 +1,12 @@
--add range support to server
--'expires' tag
+-check if unloading webserver does not crash it
 
--check if NAS still sleeps with autoclose timer. remove time.sleep calls?
+-test hibernate, clean up sleep code in main script
 
 -profile webserver, shutil copy or own variant?
 
 -error when adding media filename with spaces?
 
 -webserver --> web server?, review_server?
-
--add chaching to webserver, server audio library/jquery from the server
 
 -split up webserver and review server command line options (update docs)
 
@@ -19,14 +16,14 @@
 
 -try webserver + sync client running on Android, serving local files directly
  test best autosave option
-
--check media files start stop
+ 
+-importing cards: metadata shows 'exporting cards'
 
 -add login to webserver?
 
 -make sure logs are uploaded from NAS
 
--remove mnemosyne-webserver, update docs
+-update webserver docs, add webob to dependencies
 
 -integrate webserver in ui
 
@@ -278,10 +275,6 @@ Milesteiner
 -integrate webserver in GUI, login mechanism, session_token, cookies
 -add webserver in testsuite, case when the database is empty
 -make empty lines respect font size
--sound files suffer from connection reset by peer. Try other WSGI server?
--add html caching support for media files
--send absolute filenames when running server locally, so that we don't need to
- send them over http
 
 -card formatting options on remote web server: act on config info that the client sent across
  Add hook in set_partner_info
