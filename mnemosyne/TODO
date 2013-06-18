@@ -1,33 +1,46 @@
--try add flag to webviewshow
+-fix android sync issues (try again with shorter timeout to see why it gives a serious error)
 
 -fix testsuite
 
+-mobile client: bz2 module for log upload?
+-remove  style="input2"
+-bz2 in finishing logs?
+-backup creating failed?
+-preload database?
+-make sure check for edited local media files does not run on server
+-debug needed to click buttons twice
+-put android code in new SL4A folder
+-implement star, stop
+-remove debug code print statements from sync client and server
+-sync client: only restore from backup if backup creation was succesfull
+
+-binary database uploaprid: configuration changes (fonts, ...) are not applied
+
+-split up webserver and review server command line options (update docs)
+
+-test hibernate, clean up sleep code in main script
+
+-refactor sync protocol login
+
+-try webserver + sync client running on Android, serving local files directly
+ test best autosave option
+ 
 -adding a new tag to existing card hides it?
 
 -check if unloading webserver does not crash it
 
 -remove own ip from quick and dirty before distrib
 
--test hibernate, clean up sleep code in main script
-
 -profile webserver, shutil copy or own variant?
 
 -error when adding media filename with spaces?
 
--mobile client: bz2 module for log upload?
--bz2 in finishing logs?
--backup creating failed?
 
 -webserver --> web server?, review_server?
-
--split up webserver and review server command line options (update docs)
 
 -best way to tackling failing tests related to pregenerated media.
 
 -forbid tags like '::b' (MIKHEYENKO VITALY)
-
--try webserver + sync client running on Android, serving local files directly
- test best autosave option
  
 -importing cards: metadata shows 'exporting cards'
 
@@ -38,8 +51,6 @@
 -update webserver docs, add webob to dependencies
 
 -integrate webserver in ui
-
--embedding Python on ios: https://github.com/albertz/python-embedded/
 
 -clean up sync related config keys
 
@@ -70,6 +81,8 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 
 -if the sync changed the appearance settings, the current card's question still
  shows the old appearance
+ 
+-remote webserver sometimes does not want to send multiple pictures
 
 -card browser, sort by creating date,selected multiple cards, add tag. Card list resets, but different multiple cards
   are seleted, i.e. selection is not cleared.
@@ -163,8 +176,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -add up and down arrows on browsing through the preview window?
 
 -remove TMP adding of default o_id in sync
-
--binary database upload: configuration changes (fonts, ...) are not applied
 
 -if last card had unequal split, learn ahead of schedule message does not go
  back to 50/50 split.

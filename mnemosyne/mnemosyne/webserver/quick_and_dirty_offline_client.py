@@ -7,7 +7,7 @@
 
 # Modify the settings below to reflect your situation.
 data_dir = "/sdcard/Mnemosyne/"
-filename =  "default.db"
+filename = "default.db"
 sync_server = "pbienst.dyndns.org"
 sync_port = 8512
 sync_username = ""
@@ -16,11 +16,8 @@ sync_password = ""
 # Determine system.
 android = False
 try:
-    import androidhelper
-    droid = androidhelper.Android()
-    # Work around QPython issue.
-    import sys
-    sys.platform = "linux2"
+    import android
+    droid = android.Android()
     android = True
 except:
     pass
@@ -109,7 +106,7 @@ mnemosyne.components = [\
           "CurrentCard"),
          ("mnemosyne.libmnemosyne.ui_components.main_widget", 
           "MainWidget")]
-mnemosyne.initialise(data_dir=data_dir, filename=filename)
+mnemosyne.initialise(data_dir, filename)
 
 # Sync.
 do_sync = True
@@ -131,41 +128,24 @@ if do_sync:
         droid.dialogShow()
         droid.dialogGetResponse()
         droid.dialogDismiss()
-    
+
 # Start review server.
 mnemosyne.database().release_connection()
-
-#from mnemosyne.webserver.webserver import WebServer
-#webserver = WebServer(8513, data_dir, filename)
-#webserver.serve_until_stopped()
-
-
-
 from mnemosyne.webserver.webserver import WebServerThread
-web_server_thread = WebServerThread(mnemosyne.component_manager)
+web_server_thread = WebServerThread\
+        (mnemosyne.component_manager, is_server_local=True)
 web_server_thread.daemon = True
 web_server_thread.start() 
 
-
 if android:
-    droid.dialogCreateAlert("Mnemosyne", "Review server started, go to 127.0.0.1:8513") 
-    droid.dialogSetPositiveButtonText("Yes")
+    droid.dialogCreateAlert("Mnemosyne", 
+"Review server started. If you want sound, start Firefox and go to 127.0.0.1:8513, otherwise click below to use Chrome.") 
+    droid.dialogSetPositiveButtonText("Start Chrome")
     droid.dialogShow()
     droid.dialogGetResponse()
     droid.dialogDismiss()
-    
-#web_server_thread.join()
-        
+
 if android:
-    time.sleep(5)
-    #droid.view("http://127.0.0.1:8513")
     droid.webViewShow("http://127.0.0.1:8513")
 
-import time
-try:
-    while True:
-        time.sleep(0.1)
-except KeyboardInterrupt:
-    pass
-
-
+web_server_thread.join()

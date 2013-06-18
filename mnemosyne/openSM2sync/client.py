@@ -137,7 +137,7 @@ class Client(Partner):
                 self.database.check_for_edited_media_files()
                 self.ui.set_progress_text("Dynamically creating media files...")
                 self.database.dynamically_create_media_files()
-            socket.setdefaulttimeout(30)
+            socket.setdefaulttimeout(60)
             self.login(username, password)
             # Generating media files at the server side could take some time.
             # TODO: fix this, as Generating media files actually happens at
@@ -179,12 +179,14 @@ class Client(Partner):
         except Exception, exception:
             self.ui.close_progress()
             serious = True
+            print str(exception)
             if type(exception) == type(socket.gaierror()):
                 self.ui.show_error("Could not find server!")
                 serious = False
             elif type(exception) == type(socket.error()):
                 self.ui.show_error("Could not connect to server!")
                 serious = False
+                print 'serious?', serious
             elif type(exception) == type(socket.timeout()):
                 self.ui.show_error("Timeout while waiting for server!")
             elif type(exception) == type(SyncError()):

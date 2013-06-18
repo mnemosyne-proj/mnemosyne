@@ -252,6 +252,7 @@ class Server(Partner):
             if "GeneratorExit" in traceback_string:
                 self.ui.show_error("The client terminated the connection.")
             else:
+                print traceback_string # TODO
                 self.ui.show_error(traceback_string)
             return self.text_format.repr_message("Internal server error",
                 traceback_string)

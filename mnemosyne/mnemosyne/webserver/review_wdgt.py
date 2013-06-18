@@ -23,6 +23,7 @@ class ReviewWdgt(ReviewWidget):
 
     def __init__(self, component_manager):
         ReviewWidget.__init__(self, component_manager)
+        self.is_server_local = False
         self.question_label = ""
         self.question = ""
         self.is_question_box_visible = True
@@ -54,6 +55,7 @@ table.buttonarea {
 input {
   width: 100%;
 }
+
 $card_css
 </style>
 </head>
@@ -86,6 +88,9 @@ $card_css
 </body>
 </html>
 """)
+        
+    def set_is_server_local(self, is_server_local):
+        self.is_server_local = is_server_local
 
     def redraw_now(self):
         pass
@@ -162,8 +167,27 @@ $card_css
             self.question = "&nbsp;"  # For esthetic reasons.
         if not self.answer:
             self.answer = "&nbsp;"
+        extended_status_bar = self.status_bar
+        if self.is_server_local:
+            extended_status_bar = """ 
+            <table class="buttonarea">
+              <tr>
+                <td> """ + extended_status_bar + """ </td>
+                <td>
+                  <form action="" method="post">
+                    <input type="submit" name="star" value="Star">
+                  </form>
+                </td>
+                <td>
+                  <form action="" method="post">
+                    <input type="submit" name="exit" value="Exit">
+                  </form>
+                </td>
+              </tr>
+            </table>
+            """
         return self.template.substitute(card_css=card_css, buttons=buttons,
             question_label=self.question_label, question=self.question,
             answer_label=self.answer_label, answer=self.answer,
-            status_bar=self.status_bar).encode("utf-8")
+            status_bar=extended_status_bar).encode("utf-8")
 

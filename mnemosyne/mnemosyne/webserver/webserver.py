@@ -37,10 +37,11 @@ class TimerClass(threading.Thread):
 
 class WebServer(object):
 
-    def __init__(self, port, data_dir, filename):
+    def __init__(self, port, data_dir, filename, is_server_local=False):
         self.port = port
         self.data_dir = data_dir
         self.filename = filename
+        self.is_server_local = is_server_local
         # When restarting the server, make sure we discard info from the
         # browser resending the form from the previous session.
         self.is_just_started = True
@@ -78,6 +79,7 @@ class WebServer(object):
         self.save_after_n_reps = self.mnemosyne.config()["save_after_n_reps"]
         self.mnemosyne.config()["save_after_n_reps"] = 1
         self.mnemosyne.start_review()
+        self.mnemosyne.review_widget().set_is_server_local(self.is_server_local)
         self.is_mnemosyne_loaded = True
         self.timer = TimerClass(self.port)
         self.timer.start()
@@ -94,24 +96,37 @@ class WebServer(object):
         # All our request return to the root page, so if the path is '/',
         # return the html of the review widget.
         filename = environ["PATH_INFO"]
+        print filename
         if filename == "/":
             # Process clicked buttons in the form.
             form = cgi.FieldStorage(fp=environ["wsgi.input"], environ=environ)
             if "show_answer" in form and not self.is_just_started:
                 self.mnemosyne.review_widget().show_answer()
+                page = self.mnemosyne.review_widget().to_html()
             elif "grade" in form and not self.is_just_started:
                 grade = int(form["grade"].value)
                 self.mnemosyne.review_widget().grade_answer(grade)
+                page = self.mnemosyne.review_widget().to_html()
+            elif "star" in form:
+                # TODO
+                page = self.mnemosyne.review_widget().to_html().\
+                    replace("Star", "Starred!")
+            elif "exit" in form:
+                # TODO
+                page = ["Server stopped"]
+            else:
+                page = self.mnemosyne.review_widget().to_html()
             if self.is_just_started:
                 self.is_just_started = False
             # Serve the web page.
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)
-            return [self.mnemosyne.review_widget().to_html()]
+            return [page]
         elif filename == "/release_database":
             self.unload_mnemosyne()
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)
+            return ["200 OK"]
         # We need to serve a media file.
         else:
             full_path = self.mnemosyne.database().media_dir()
@@ -136,11 +151,12 @@ class WebServerThread(threading.Thread, WebServer):
 
     """
 
-    def __init__(self, component_manager):
+    def __init__(self, component_manager, is_server_local=False):
         threading.Thread.__init__(self)
         self.config = component_manager.current("config")
         WebServer.__init__(self, self.config["webserver_port"],
-            self.config.data_dir, self.config["last_database"])
+            self.config.data_dir, self.config["last_database"], 
+            is_server_local)
 
     def run(self):
         print "Web server listening on http://" + \
