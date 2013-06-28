@@ -1,9 +1,34 @@
 -fix android sync issues (try again with shorter timeout to see why it gives a serious error)
+-serious error after sync cycle detection?
+
+-remove trackback statement in reset partnerships
+
+-remove always embedded server
+
+after initial sync from tablet: (trying to release database twice, or reloading it?)
+
+Sync server listening on 192.168.2.55:8512
+Web server listening on http://192.168.2.55:8513
+/release_database
+Another copy of Mnemosyne is still running.
+Continuing is impossible and will lead to data loss!
+Exception in thread Thread-5:
+Traceback (most recent call last):
+File "/usr/local/lib/python2.7/threading.py", line 551, in __bootstrap_inner
+self.run()
+File "build/bdist.linux-armv5tel/egg/mnemosyne/webserver/webserver.py", line 35, in run
+response = con.getresponse()
+File "/usr/local/lib/python2.7/httplib.py", line 1030, in getresponse
+response.begin()
+File "/usr/local/lib/python2.7/httplib.py", line 407, in begin
+version, status, reason = self._read_status()
+File "/usr/local/lib/python2.7/httplib.py", line 371, in _read_status
+raise BadStatusLine(line)
+BadStatusLine: ''
 
 -fix testsuite
 
 -mobile client: bz2 module for log upload?
--remove  style="input2"
 -bz2 in finishing logs?
 -backup creating failed?
 -preload database?
@@ -18,7 +43,7 @@
 
 -split up webserver and review server command line options (update docs)
 
--test hibernate, clean up sleep code in main script
+-test hibernate, clean up sleep code in main script. nohup.out culprit?
 
 -refactor sync protocol login
 
@@ -34,6 +59,7 @@
 -profile webserver, shutil copy or own variant?
 
 -error when adding media filename with spaces?
+
 
 
 -webserver --> web server?, review_server?

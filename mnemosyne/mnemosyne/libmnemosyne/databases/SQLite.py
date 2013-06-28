@@ -603,9 +603,13 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 partial_tag_name += "::"
         # If there is a saved criterion active, we ask the user what to do.
         else:
-            answer = self.main_widget().show_question(\
-                _("Make tag '%s' active in saved set '%s'?") % \
-                (tag.name, saved_criterion.name), _("Yes"), _("No"), "")
+            try:
+                answer = self.main_widget().show_question(\
+                    _("Make tag '%s' active in saved set '%s'?") % \
+                    (tag.name, saved_criterion.name), _("Yes"), _("No"), "")
+            except NotImplementedError: 
+                # We are running in a non interactive mode.
+                answer = 0  # Yes
             if answer == 1:  # No.
                 criteria_to_activate_tag_in = []
             else:

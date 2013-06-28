@@ -116,6 +116,15 @@ class TestController(MnemosyneTest):
         self.controller().show_download_source_dialog()
         self.controller().show_sync_dialog()
 
+    def test_star(self):
+        card_type = self.card_type_with_id("1")
+        fact_data = {"f": "f", "b": "b"}
+        card  = self.controller().create_new_cards(fact_data,
+          card_type, grade=-1, tag_names=["default"])
+        self.review_controller().show_new_question()
+        self.controller().star_current_card()
+        assert "Starred" in card.tag_string()
+
     def test_2(self):
         self.controller().show_save_file_as_dialog()
         self.controller().show_open_file_dialog()

@@ -392,6 +392,19 @@ class DefaultController(Controller):
         db.save()
         w.close_progress()
 
+    def star_current_card(self):
+        self.stopwatch().pause()
+        self.flush_sync_server()
+        db = self.database()
+        review_controller = self.review_controller()
+        tag = db.get_or_create_tag_with_name(_("Starred"))
+        db.add_tag_to_cards_with_internal_ids\
+            (tag, [review_controller.card._id])
+        review_controller.card = \
+            db.card(review_controller.card._id, is_id_internal=True)
+        review_controller.update_dialog(redraw_all=True)
+        self.stopwatch().unpause()
+
     def delete_current_card(self):
         self.stopwatch().pause()
         self.flush_sync_server()
@@ -547,6 +560,10 @@ _("It is recommended to put all your cards in a single database. Using tags to d
             filter=_("Mnemosyne databases") + " (*%s)" % db.suffix)
         if not filename:
             self.stopwatch().unpause()
+            return
+        if filename.endswith(".cards"):
+            self.main_widget().show_information(\
+_("'*.cards' files are not separate databases, but need to be imported in your current database through 'File - Import'."))
             return
         if filename.startswith(os.path.join(data_dir, "backups")):
             result = self.main_widget().show_question(\

@@ -17,7 +17,7 @@ from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.utils import localhost_IP
 
 
-class TimerClass(threading.Thread):
+class ReleaseDatabaseAfterTimeout(threading.Thread):
 
     def __init__(self, port):
         threading.Thread.__init__(self)
@@ -33,6 +33,17 @@ class TimerClass(threading.Thread):
         con = httplib.HTTPConnection("127.0.0.1", self.port)
         con.request("GET", "/release_database")
         response = con.getresponse()
+
+
+class StopServerAfterTimeout(threading.Thread):
+
+    def __init__(self, wsgi_server):
+        threading.Thread.__init__(self)
+        self.wsgi_server = wsgi_server
+
+    def run(self):
+        time.sleep(3)
+        self.wsgi_server.stop()
 
 
 class WebServer(object):
@@ -81,8 +92,9 @@ class WebServer(object):
         self.mnemosyne.start_review()
         self.mnemosyne.review_widget().set_is_server_local(self.is_server_local)
         self.is_mnemosyne_loaded = True
-        self.timer = TimerClass(self.port)
-        self.timer.start()
+        self.release_database_after_timeout = \
+            ReleaseDatabaseAfterTimeout(self.port)
+        self.release_database_after_timeout.start()
 
     def unload_mnemosyne(self):
         self.mnemosyne.config()["save_after_n_reps"] = self.save_after_n_reps
@@ -92,7 +104,7 @@ class WebServer(object):
     def wsgi_app(self, environ, start_response):
         if not self.is_mnemosyne_loaded:
             self.load_mnemosyne()
-        self.timer.ping()
+        self.release_database_after_timeout.ping()
         # All our request return to the root page, so if the path is '/',
         # return the html of the review widget.
         filename = environ["PATH_INFO"]
@@ -108,12 +120,15 @@ class WebServer(object):
                 self.mnemosyne.review_widget().grade_answer(grade)
                 page = self.mnemosyne.review_widget().to_html()
             elif "star" in form:
-                # TODO
-                page = self.mnemosyne.review_widget().to_html().\
-                    replace("Star", "Starred!")
+                self.mnemosyne.controller().star_current_card()
+                page = self.mnemosyne.review_widget().to_html()
             elif "exit" in form:
-                # TODO
-                page = ["Server stopped"]
+                self.unload_mnemosyne()
+                page = "Server stopped"
+                self.wsgi_server.stop()
+                self.stop_server_after_timeout = \
+                    StopServerAfterTimeout(self.wsgi_server)
+                self.stop_server_after_timeout.start()
             else:
                 page = self.mnemosyne.review_widget().to_html()
             if self.is_just_started:
@@ -152,13 +167,15 @@ class WebServerThread(threading.Thread, WebServer):
     """
 
     def __init__(self, component_manager, is_server_local=False):
+        self.is_server_local = True #is_server_local
         threading.Thread.__init__(self)
         self.config = component_manager.current("config")
         WebServer.__init__(self, self.config["webserver_port"],
             self.config.data_dir, self.config["last_database"], 
-            is_server_local)
+            self.is_server_local)
 
     def run(self):
-        print "Web server listening on http://" + \
-            localhost_IP() + ":" + str(self.config["webserver_port"])
+        if not self.is_server_local:  # Could fail if we are offline.
+            print "Web server listening on http://" + \
+                localhost_IP() + ":" + str(self.config["webserver_port"])
         self.serve_until_stopped()
