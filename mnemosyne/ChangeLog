@@ -1,3 +1,5 @@
+-Time to create backups has decreased by a factor of 2 or more, speeding up 
+ syncing and program exit.
 -The functionality of mnemosyne-webserver has now been merged into the main
  program.
 -Added command line options --sync-server --web-server which starts the sync

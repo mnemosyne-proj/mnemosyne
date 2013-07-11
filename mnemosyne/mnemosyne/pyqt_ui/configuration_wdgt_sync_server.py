@@ -32,7 +32,7 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
             self.config()["check_for_edited_local_media_files"])
         if self.is_server_running():
             self.server_status.setText(_("Server running on ") + \
-                localhost_IP() + ".")
+                localhost_IP() + " .")
         else:
             self.server_status.setText(_("Server NOT running."))
 

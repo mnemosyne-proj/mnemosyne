@@ -13,11 +13,13 @@ import tempfile
 import traceback
 
 
-# The following function are copied from shutil, but with the only change
-# that the buffer in copyfileobj is much larger than the default 16kB in
-# order to improve performance.
+# The following functions are modified from shutil:
+#
+# - buffer is much larger than the default 16kB in order to improve 
+#   performance.
+# - mode bits are not copied since python on Android does not like this
 
-def copyfileobj(fsrc, fdst, length=8*1024*1024):
+def copyfileobj(fsrc, fdst, length=16*1024*1024):
     """copy data from file-like object fsrc to file-like object fdst"""
     while 1:
         buf = fsrc.read(length)
@@ -39,9 +41,6 @@ def _samefile(src, dst):
 
 def copyfile(src, dst):
     """Copy data from src to dst"""
-
-    return os.system("cp " + src + " " + dst)
-
     if _samefile(src, dst):
         raise Error("`%s` and `%s` are the same file" % (src, dst))
 
@@ -76,7 +75,7 @@ def copy(src, dst):
     if os.path.isdir(dst):
         dst = os.path.join(dst, os.path.basename(src))
     copyfile(src, dst)
-    copymode(src, dst)
+    #copymode(src, dst)
 
 #
 # Memosyne-specific functions.

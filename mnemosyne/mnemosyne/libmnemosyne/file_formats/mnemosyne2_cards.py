@@ -6,7 +6,6 @@ import os
 import sys
 import time
 import codecs
-import shutil
 import zipfile
 import cPickle
 

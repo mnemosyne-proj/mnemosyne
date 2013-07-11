@@ -3,7 +3,10 @@
 
 -remove trackback statement in reset partnerships
 
--remove always embedded server
+-make sure we only release the database if needed in the webserver / syncserver
+
+-implement more android UI functions, move to separate directory
+
 
 after initial sync from tablet: (trying to release database twice, or reloading it?)
 
@@ -30,12 +33,10 @@ BadStatusLine: ''
 
 -mobile client: bz2 module for log upload?
 -bz2 in finishing logs?
--backup creating failed?
 -preload database?
 -make sure check for edited local media files does not run on server
 -debug needed to click buttons twice
 -put android code in new SL4A folder
--implement star, stop
 -remove debug code print statements from sync client and server
 -sync client: only restore from backup if backup creation was succesfull
 
@@ -43,24 +44,17 @@ BadStatusLine: ''
 
 -split up webserver and review server command line options (update docs)
 
--test hibernate, clean up sleep code in main script. nohup.out culprit?
+-refactor sync protocol login to not update media files in login
 
--refactor sync protocol login
-
--try webserver + sync client running on Android, serving local files directly
- test best autosave option
- 
 -adding a new tag to existing card hides it?
 
--check if unloading webserver does not crash it
+-make sure that config does not get corrupt.
 
 -remove own ip from quick and dirty before distrib
 
--profile webserver, shutil copy or own variant?
+-reprofile sync protocol, try again with native copy
 
 -error when adding media filename with spaces?
-
-
 
 -webserver --> web server?, review_server?
 
@@ -76,11 +70,17 @@ BadStatusLine: ''
 
 -update webserver docs, add webob to dependencies
 
+-really need 'check for new media' checked when adding cards both on client and server?
+
 -integrate webserver in ui
 
 -clean up sync related config keys
 
 -try uploading new database to empty database on headless server
+
+-remote webserver sometimes does not want to send multiple pictures
+
+
 
 -fix multiple audio files and start/stop (Ansgar Bohmann)
 
@@ -108,7 +108,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -if the sync changed the appearance settings, the current card's question still
  shows the old appearance
  
--remote webserver sometimes does not want to send multiple pictures
 
 -card browser, sort by creating date,selected multiple cards, add tag. Card list resets, but different multiple cards
   are seleted, i.e. selection is not cleared.
@@ -118,13 +117,15 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 
 -menu option to copy database to USB key?
 
--don't do update media files in login.
-
 -import/merge db file
 
 -website font size under windows
 
 -move to qt5?
+
+
+-make sure the mobile client can work without all the statistics (60 mb file
+ takes 10 seconds to backup on a N7)
 
 -cloze deletion in combination with latex or html does not pick up any open
  environments

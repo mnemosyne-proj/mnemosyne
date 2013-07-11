@@ -108,7 +108,6 @@ class WebServer(object):
         # All our request return to the root page, so if the path is '/',
         # return the html of the review widget.
         filename = environ["PATH_INFO"]
-        print filename
         if filename == "/":
             # Process clicked buttons in the form.
             form = cgi.FieldStorage(fp=environ["wsgi.input"], environ=environ)
@@ -167,7 +166,7 @@ class WebServerThread(threading.Thread, WebServer):
     """
 
     def __init__(self, component_manager, is_server_local=False):
-        self.is_server_local = True #is_server_local
+        self.is_server_local = is_server_local
         threading.Thread.__init__(self)
         self.config = component_manager.current("config")
         WebServer.__init__(self, self.config["webserver_port"],
