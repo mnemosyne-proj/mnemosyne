@@ -15,4 +15,4 @@ Some information about the contents of the directories:
  to run a separate process.
 -embedded_in_C: embeds libmnemosyne in a C application. Useful if you don't
  have the option of running separate processes on your client machine.
-
+-sl4a: python Android app using a locally running webserver.

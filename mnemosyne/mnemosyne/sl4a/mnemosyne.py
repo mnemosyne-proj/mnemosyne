@@ -1,5 +1,5 @@
 #
-# quick_and_dirty_offline_client.py <Peter.Bienstman@UGent.be>
+# mnemosyne.py <Peter.Bienstman@UGent.be>
 #
 
 # Simple review webserver to be run on a mobile device which can also sync
@@ -12,15 +12,6 @@ sync_server = "pbienst.dyndns.org"
 sync_port = 8512
 sync_username = ""
 sync_password = ""
-
-# Determine system.
-android = False
-try:
-    import android
-    droid = android.Android()
-    android = True
-except:
-    pass
 
 # Initialise Mnemosyne.
 from mnemosyne.libmnemosyne import Mnemosyne
@@ -104,30 +95,15 @@ mnemosyne.components = [\
           "Easiness"),
          ("mnemosyne.libmnemosyne.statistics_pages.current_card",
           "CurrentCard"),
-         ("mnemosyne.libmnemosyne.ui_components.main_widget", 
-          "MainWidget")]
+         ("main_wdgt", 
+          "MainWdgt")]
 mnemosyne.initialise(data_dir, filename)
 
-# Sync.
-do_sync = True
-if android:
-    droid.dialogCreateAlert("Mnemosyne", "Perform sync?") 
-    droid.dialogSetPositiveButtonText("Yes")
-    droid.dialogSetNegativeButtonText("No")
-    droid.dialogShow()
-    do_sync = (droid.dialogGetResponse().result["which"] == "positive")
-    droid.dialogDismiss()
-
-if do_sync:
+# Sync before starting the review server.
+if mnemosyne.main_widget().show_question(\
+    "Perform sync?", "Yes", "No", "") == 0:
     mnemosyne.controller().sync(sync_server, sync_port, 
         sync_username, sync_password)
-
-    if android:
-        droid.dialogCreateAlert("Mnemosyne", "Sync done!") 
-        droid.dialogSetPositiveButtonText("Yes")
-        droid.dialogShow()
-        droid.dialogGetResponse()
-        droid.dialogDismiss()
 
 # Start review server.
 mnemosyne.database().release_connection()
@@ -136,38 +112,14 @@ web_server_thread = WebServerThread\
         (mnemosyne.component_manager, is_server_local=True)
 web_server_thread.daemon = True
 web_server_thread.start() 
-
-if android:
-    droid.dialogCreateAlert("Mnemosyne", 
-"Review server started. If you want sound, start Firefox and go to 127.0.0.1:8513, otherwise click below to start Chrome.") 
-    droid.dialogSetPositiveButtonText("Don't start Chrome")
-    droid.dialogSetNegativeButtonText("Start Chrome")
-    droid.dialogShow()
-    droid.dialogGetResponse()
-    dont_start_chrome = (droid.dialogGetResponse().result["which"] == "positive")
-    droid.dialogDismiss()
-    if dont_start_chrome is False:
-        droid.webViewShow("http://127.0.0.1:8513")
-
+if mnemosyne.main_widget().show_question(\
+    "Review server started. If you want sound, start Firefox and go to 127.0.0.1:8513, otherwise click below to start Chrome.",
+    "Don't start Chrome", "Start Chrome", "") == 1:
+    mnemosyne.main_widget().start_native_browser()
 web_server_thread.join()
 
-# Sync.
-do_sync = True
-if android:
-    droid.dialogCreateAlert("Mnemosyne", "Perform sync?") 
-    droid.dialogSetPositiveButtonText("Yes")
-    droid.dialogSetNegativeButtonText("No")
-    droid.dialogShow()
-    do_sync = (droid.dialogGetResponse().result["which"] == "positive")
-    droid.dialogDismiss()
-
-if do_sync:
+# Sync again after the user has closed the program from the webserver.
+if mnemosyne.main_widget().show_question(\
+    "Perform sync?", "Yes", "No", "") == 0:
     mnemosyne.controller().sync(sync_server, sync_port, 
         sync_username, sync_password)
-
-    if android:
-        droid.dialogCreateAlert("Mnemosyne", "Sync done!") 
-        droid.dialogSetPositiveButtonText("Yes")
-        droid.dialogShow()
-        droid.dialogGetResponse()
-        droid.dialogDismiss()

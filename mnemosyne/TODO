@@ -1,8 +1,3 @@
-
-python pdf-parser.py   -w  -o 100 181_ArabicPod_B_AUD.pdf -d out.mp3
-
--implement more android UI functions, move to separate directory
-
 -split up webserver and review server command line options (update docs)
 
 -fix testsuite
@@ -34,12 +29,6 @@ python pdf-parser.py   -w  -o 100 181_ArabicPod_B_AUD.pdf -d out.mp3
 
 -update webserver docs, add webob to dependencies
 
--really need 'check for new media' checked when adding cards both on client and server?
-
--remote webserver sometimes does not want to send multiple pictures
--sometimes, need to click website buttons twice
-
-
 
 
 -make sure that config does not get corrupt.
@@ -63,6 +52,13 @@ python pdf-parser.py   -w  -o 100 181_ArabicPod_B_AUD.pdf -d out.mp3
 
 -if you create a new tag using 'add tags' in the card browser, ask to make 
  that tag active in the browser.
+ 
+ 
+-really need 'check for new media' checked when adding cards both on client and server?
+
+-remote webserver sometimes does not want to send multiple pictures
+-sometimes, need to click website buttons twice
+
 
 
 
