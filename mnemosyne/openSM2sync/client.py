@@ -179,14 +179,12 @@ class Client(Partner):
         except Exception, exception:
             self.ui.close_progress()
             serious = True
-            print str(exception)
             if type(exception) == type(socket.gaierror()):
                 self.ui.show_error("Could not find server!")
                 serious = False
             elif type(exception) == type(socket.error()):
                 self.ui.show_error("Could not connect to server!")
                 serious = False
-                print 'serious?', serious
             elif type(exception) == type(socket.timeout()):
                 self.ui.show_error("Timeout while waiting for server!")
             elif type(exception) == type(SyncError()):

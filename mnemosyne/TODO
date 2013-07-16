@@ -1,76 +1,28 @@
--fix android sync issues (try again with shorter timeout to see why it gives a serious error)
--serious error after sync cycle detection?
 
--remove trackback statement in reset partnerships
-
--make sure we only release the database if needed in the webserver / syncserver
+python pdf-parser.py   -w  -o 100 181_ArabicPod_B_AUD.pdf -d out.mp3
 
 -implement more android UI functions, move to separate directory
 
-
-after initial sync from tablet: (trying to release database twice, or reloading it?)
-
-Sync server listening on 192.168.2.55:8512
-Web server listening on http://192.168.2.55:8513
-/release_database
-Another copy of Mnemosyne is still running.
-Continuing is impossible and will lead to data loss!
-Exception in thread Thread-5:
-Traceback (most recent call last):
-File "/usr/local/lib/python2.7/threading.py", line 551, in __bootstrap_inner
-self.run()
-File "build/bdist.linux-armv5tel/egg/mnemosyne/webserver/webserver.py", line 35, in run
-response = con.getresponse()
-File "/usr/local/lib/python2.7/httplib.py", line 1030, in getresponse
-response.begin()
-File "/usr/local/lib/python2.7/httplib.py", line 407, in begin
-version, status, reason = self._read_status()
-File "/usr/local/lib/python2.7/httplib.py", line 371, in _read_status
-raise BadStatusLine(line)
-BadStatusLine: ''
+-split up webserver and review server command line options (update docs)
 
 -fix testsuite
+-best way to tackling failing tests related to pregenerated media 
+ (set check for edited to true?)
 
 -mobile client: bz2 module for log upload?
 -bz2 in finishing logs?
+
 -preload database?
--make sure check for edited local media files does not run on server
--debug needed to click buttons twice
--put android code in new SL4A folder
--remove debug code print statements from sync client and server
+
 -sync client: only restore from backup if backup creation was succesfull
 
--binary database uploaprid: configuration changes (fonts, ...) are not applied
-
--split up webserver and review server command line options (update docs)
+-binary database download: configuration changes (fonts, ...) are not applied
 
 -refactor sync protocol login to not update media files in login
 
--adding a new tag to existing card hides it?
-
--make sure that config does not get corrupt.
-
 -remove own ip from quick and dirty before distrib
 
--reprofile sync protocol, try again with native copy
-
--error when adding media filename with spaces?
-
 -webserver --> web server?, review_server?
-
--best way to tackling failing tests related to pregenerated media.
-
--forbid tags like '::b' (MIKHEYENKO VITALY)
- 
--importing cards: metadata shows 'exporting cards'
-
--add login to webserver?
-
--make sure logs are uploaded from NAS
-
--update webserver docs, add webob to dependencies
-
--really need 'check for new media' checked when adding cards both on client and server?
 
 -integrate webserver in ui
 
@@ -78,22 +30,45 @@ BadStatusLine: ''
 
 -try uploading new database to empty database on headless server
 
+-make sure logs are uploaded from NAS
+
+-update webserver docs, add webob to dependencies
+
+-really need 'check for new media' checked when adding cards both on client and server?
+
 -remote webserver sometimes does not want to send multiple pictures
+-sometimes, need to click website buttons twice
 
 
+
+
+-make sure that config does not get corrupt.
+
+-error when adding media filename with spaces?
+
+-forbid tags like '::b' (MIKHEYENKO VITALY)
+ 
+-importing cards: metadata shows 'exporting cards'
 
 -fix multiple audio files and start/stop (Ansgar Bohmann)
 
 -unicode in notes field on export?  (Ansgar Bohmann)
 
--export: overwrite: double warning? Also, when translating, part of header seems included.(Ansgar Bohmann)
+-export: overwrite: double warning? Also, when translating, part of header 
+ seems included.(Ansgar Bohmann)
 
 -list saved set in titlebar (silverbear, uservoice)
 
--if you create a new tag using 'add tags' in the card browser, ask to that tag
- active in the browser.
+-adding a new tag to existing card hides it?
+
+-if you create a new tag using 'add tags' in the card browser, ask to make 
+ that tag active in the browser.
+
+
 
 -merging cards: should give an option to go back and edit?
+
+-add login to webserver?
 
 -starting the program when no cards are shown does not draw a border around the
  Q field

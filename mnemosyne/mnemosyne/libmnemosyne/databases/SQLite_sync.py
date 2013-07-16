@@ -99,7 +99,6 @@ class SQLiteSync(object):
 
         """
 
-        import traceback; traceback.print_stack()
         self.con.execute(\
             "update partnerships set _last_log_id=? where partner!=?",
             (-666, "log.txt"))

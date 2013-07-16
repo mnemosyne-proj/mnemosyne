@@ -135,8 +135,18 @@ $card_css
     def update_status_bar_counters(self):
         scheduled_count, non_memorised_count, active_count = \
             self.review_controller().counters()
-        self.status_bar  = "Sch.: %d Not mem.: %d Act.: %d" % \
+        counters = "Sch.: %d Not mem.: %d Act.: %d" % \
             (scheduled_count, non_memorised_count, active_count)
+        self.status_bar = """
+              <table class="buttonarea">
+              <tr>
+                <td> """ + counters + """ </td>
+                <td>
+                  <form action="" method="post">
+                    <input type="submit" name="star" value="Star">
+                  </form>
+                </td>
+              </tr></table>"""
 
     def to_html(self):
         self.controller().heartbeat()
@@ -169,23 +179,14 @@ $card_css
             self.answer = "&nbsp;"
         extended_status_bar = self.status_bar
         if self.is_server_local:
-            extended_status_bar = """ 
-            <table class="buttonarea">
-              <tr>
-                <td> """ + extended_status_bar + """ </td>
-                <td>
-                  <form action="" method="post">
-                    <input type="submit" name="star" value="Star">
-                  </form>
-                </td>
-                <td>
+            extended_status_bar = extended_status_bar.replace(\
+            "</tr></table>", \
+            """<td>
                   <form action="" method="post">
                     <input type="submit" name="exit" value="Exit">
                   </form>
                 </td>
-              </tr>
-            </table>
-            """
+            </tr></table>""")
         return self.template.substitute(card_css=card_css, buttons=buttons,
             question_label=self.question_label, question=self.question,
             answer_label=self.answer_label, answer=self.answer,

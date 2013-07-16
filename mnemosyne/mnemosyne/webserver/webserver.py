@@ -66,8 +66,7 @@ class WebServer(object):
             self.wsgi_server.start() # Sets self.wsgi_server.ready
         except KeyboardInterrupt:
             self.wsgi_server.stop()
-            if self.is_mnemosyne_loaded:
-                self.unload_mnemosyne()
+            self.unload_mnemosyne()
 
     def load_mnemosyne(self):
         self.mnemosyne = Mnemosyne(upload_science_logs=True,
@@ -92,22 +91,26 @@ class WebServer(object):
         self.mnemosyne.start_review()
         self.mnemosyne.review_widget().set_is_server_local(self.is_server_local)
         self.is_mnemosyne_loaded = True
-        self.release_database_after_timeout = \
-            ReleaseDatabaseAfterTimeout(self.port)
-        self.release_database_after_timeout.start()
+        if not self.is_server_local:
+            self.release_database_after_timeout = \
+                ReleaseDatabaseAfterTimeout(self.port)
+            self.release_database_after_timeout.start()
 
     def unload_mnemosyne(self):
+        if not self.is_mnemosyne_loaded:
+            return
         self.mnemosyne.config()["save_after_n_reps"] = self.save_after_n_reps
         self.mnemosyne.finalise()
         self.is_mnemosyne_loaded = False
 
     def wsgi_app(self, environ, start_response):
-        if not self.is_mnemosyne_loaded:
+        filename = environ["PATH_INFO"]
+        if not self.is_mnemosyne_loaded and filename != "/release_database":
             self.load_mnemosyne()
-        self.release_database_after_timeout.ping()
+        if not self.is_server_local:
+            self.release_database_after_timeout.ping()
         # All our request return to the root page, so if the path is '/',
         # return the html of the review widget.
-        filename = environ["PATH_INFO"]
         if filename == "/":
             # Process clicked buttons in the form.
             form = cgi.FieldStorage(fp=environ["wsgi.input"], environ=environ)
