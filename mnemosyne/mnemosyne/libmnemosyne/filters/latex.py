@@ -190,6 +190,8 @@ class PostprocessQAClozeLatex(Hook):
     used_for = "postprocess_q_a_cloze"
 
     def run(self, question, answer):
+        print "Q1:", question
+        print "A1:", answer
         # Sentence card type, recognition.
         if not "[" in question or not "]" in question:
             return question, answer
@@ -199,10 +201,18 @@ class PostprocessQAClozeLatex(Hook):
             replace("_RIGHT_BRACKET_", "\\right]",)
         answer = answer.replace("_LEFT_BRACKET_", "\\left[",).\
             replace("_RIGHT_BRACKET_", "\\right]",)
-        if "<latex>" in left and "</latex>" in right:
+        # If we pull out a cloze from within a running math environment,
+        # add extra tags.
+        if "<latex>" in left and not "</latex>" in left and \
+            "</latex>" in right and not "<latex>" in right:
             answer = "<latex>" + answer + "</latex>"
-        elif "<$>" in left and "</$>" in right:
+        elif "<$>" in left and not "</$>" in left and \
+            "</$>" in right and not "<$>" in right:
             answer = "<$>" + answer + "</$>"
-        elif "<$$>" in left and "</$$>" in right:
+        elif "<$$>" in left and not "</$$>" in left and \
+            "</$$>" in right and not "<$$>" in right:
             answer = "<$$>" + answer + "</$$>"
+        print "Q2:", question
+        print "A2:", answer
+        print "-----"
         return question, answer
