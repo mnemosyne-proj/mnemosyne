@@ -12,7 +12,7 @@ class ScriptReviewWidget(ReviewWidget):
     def redraw_now(self):
         pass
 
-        
+
 class ScriptMainWidget(MainWidget):
 
     def __init__(self, component_manager):

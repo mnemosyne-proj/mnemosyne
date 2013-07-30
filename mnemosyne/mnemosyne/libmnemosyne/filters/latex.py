@@ -190,8 +190,6 @@ class PostprocessQAClozeLatex(Hook):
     used_for = "postprocess_q_a_cloze"
 
     def run(self, question, answer):
-        print "Q1:", question
-        print "A1:", answer
         # Sentence card type, recognition.
         if not "[" in question or not "]" in question:
             return question, answer
@@ -212,7 +210,4 @@ class PostprocessQAClozeLatex(Hook):
         elif "<$$>" in left and not "</$$>" in left and \
             "</$$>" in right and not "<$$>" in right:
             answer = "<$$>" + answer + "</$$>"
-        print "Q2:", question
-        print "A2:", answer
-        print "-----"
         return question, answer

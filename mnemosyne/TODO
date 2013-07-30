@@ -1,8 +1,8 @@
--split up webserver and review server command line options (update docs)
-
 -fix testsuite
 -best way to tackling failing tests related to pregenerated media 
  (set check for edited to true?)
+
+-split up webserver and review server command line options (update docs)
 
 -mobile client: bz2 module for log upload?
 -bz2 in finishing logs?
@@ -61,6 +61,8 @@
 
 
 
+-programmatically adding new cards with tags on an empty database does note
+ activate these tags.
 
 -merging cards: should give an option to go back and edit?
 

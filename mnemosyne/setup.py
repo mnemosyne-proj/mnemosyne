@@ -54,12 +54,12 @@ class InnoScript:
         print >> ofi, r'Name: "{group}\%s"; Filename: "{app}\%s"' \
                             % (self.name, path),
         print >> ofi, ' ; WorkingDir: {app}'
-        path = self.windows_exe_files[1]
-        print >> ofi, r'Name: "{group}\%s webserver"; Filename: "{app}\%s"' \
-                            % (self.name, path),
-        print >> ofi, ' ; WorkingDir: {app}'
-        print >> ofi, 'Name: "{group}\Uninstall %s"; Filename: "{uninstallexe}"'\
-                            % self.name
+        #path = self.windows_exe_files[1]
+        #print >> ofi, r'Name: "{group}\%s webserver"; Filename: "{app}\%s"' \
+        #                    % (self.name, path),
+        #print >> ofi, ' ; WorkingDir: {app}'
+        #print >> ofi, 'Name: "{group}\Uninstall %s"; Filename: "{uninstallexe}"'\
+        #                    % self.name
 
     def compile(self):
         try:
