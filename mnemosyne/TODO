@@ -1,3 +1,5 @@
+-shadda 182
+
 -fix testsuite
 -best way to tackling failing tests related to pregenerated media 
  (set check for edited to true?)
@@ -48,13 +50,7 @@
 
 -list saved set in titlebar (silverbear, uservoice)
 
--adding a new tag to existing card hides it?
 
--if you create a new tag using 'add tags' in the card browser, ask to make 
- that tag active in the browser.
- 
- 
--really need 'check for new media' checked when adding cards both on client and server?
 
 -remote webserver sometimes does not want to send multiple pictures
 -sometimes, need to click website buttons twice
