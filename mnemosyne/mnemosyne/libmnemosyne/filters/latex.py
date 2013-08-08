@@ -67,6 +67,8 @@ class Latex(Filter):
                 os.remove("tmp1.png")
             if os.path.exists("tmp.dvi"):
                 os.remove("tmp.dvi")
+            if os.path.exists("tmp.aux"):
+                os.remove("tmp.aux")
             f = file("tmp.tex", "w")
             print >> f, self.config()["latex_preamble"]
             print >> f, latex_command.encode("utf-8")

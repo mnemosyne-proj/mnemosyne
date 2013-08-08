@@ -26,7 +26,7 @@ class Widget(MainWidget):
             return 0
         if message.startswith("Could not determine"):
             return 0
-        if message.startswith("Missing answer"):
+        if message.startswith("Badly formed input"):
             return 0
         raise NotImplementedError
 
@@ -82,7 +82,7 @@ class TestTsvImport(MnemosyneTest):
         global last_error
         filename = os.path.join(os.getcwd(), "tests", "files", "tsv_3.txt")
         self.tsv_importer().do_import(filename, 'extra_tag_name')
-        assert last_error.startswith("Missing answer")
+        assert last_error.startswith("Badly formed input")
         last_error = ""
 
     def test_4(self):

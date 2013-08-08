@@ -15,7 +15,10 @@
  the tags should be applied to the current card or to all sister cards.
 -Fix Windows crash when using the card browser with cards imported from
  Supermemo (reported by Piotr).
+-Fix sync error that could occur when adding and immediately deleting multiple 
+ sister cards from the card browser.
 -Fix latex / cloze interaction corner case (reported by Daniele Parisi).
+-Make sure latex images are always in sync when updating text.
 -If adding an extra tag when importing a 'cards' file, don't keep the tag
  'Untagged' (patch by crcmail0). If you were affected by this issue before,
  'compact database' will solve this.

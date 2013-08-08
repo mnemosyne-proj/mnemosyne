@@ -269,7 +269,8 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
          9 : _("You can reorder columns in the card browser by dragging the header label."),
         12 : _("You can resize columns in the card browser by dragging between the header labels."),
         15 : _("When editing or previewing cards from the card browser, PageUp/PageDown can be used to move to the previous/next card."),
-        18 : _("You change the relative size of the card list, card type tree and tag tree by dragging the dividers between them.")}
+        18 : _("You change the relative size of the card list, card type tree and tag tree by dragging the dividers between them."),
+        21 : _("In the search box, you can use SQL wildcards like _ (matching a single character) and % (matching one or more characters).")}
 
     def __init__(self, component_manager):
         BrowseCardsDialog.__init__(self, component_manager)
@@ -496,11 +497,14 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             _("&OK"), _("&Cancel"), "")
         if answer == 1: # Cancel.
             return
-        facts = []
+        _fact_ids = set()
         for index in self.table.selectionModel().selectedRows():
             _fact_id_index = index.model().index(\
                 index.row(), _FACT_ID, index.parent())
             _fact_id = index.model().data(_fact_id_index).toInt()[0]
+            _fact_ids.add(_fact_id)
+        facts = []
+        for _fact_id in _fact_ids:
             facts.append(self.database().fact(_fact_id, is_id_internal=True))
         self.unload_qt_database()
         self.saved_selection = []

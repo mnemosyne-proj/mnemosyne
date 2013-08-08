@@ -38,5 +38,6 @@ class ExpandPaths(Filter):
             i = text.lower().find(tag, end + 1)
         # Replace code word 'db_media:///' by the absolute path for use e.g.
         # in javascript.
-        text = text.replace("db_media:///", self.database().media_dir() + "/")
+        text = text.replace("db_media:///", 
+            self.database().media_dir().replace("\\", "/") + "/")
         return text

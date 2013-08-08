@@ -101,6 +101,7 @@ class MyServer(Server, Thread):
         self.unload_database(self.filename)
         Server.__init__(self, self.mnemosyne.config().machine_id(),
                         PORT, self.mnemosyne.main_widget())
+        self.check_for_edited_local_media_files = True
         if not self.binary_download:
             self.supports_binary_transfer = lambda x : False
         global server_is_initialised
@@ -788,6 +789,7 @@ class TestSync(object):
         self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 34
+
 
     def test_repetition(self):
 

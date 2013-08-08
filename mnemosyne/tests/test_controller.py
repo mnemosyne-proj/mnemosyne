@@ -119,10 +119,12 @@ class TestController(MnemosyneTest):
     def test_star(self):
         card_type = self.card_type_with_id("1")
         fact_data = {"f": "f", "b": "b"}
-        card  = self.controller().create_new_cards(fact_data,
-          card_type, grade=-1, tag_names=["default"])
+        card = self.controller().create_new_cards(fact_data,
+          card_type, grade=-1, tag_names=["default"])[0]
         self.review_controller().show_new_question()
         self.controller().star_current_card()
+        card = self.database().card(card._id, is_id_internal=True)
+        print card.tag_string()
         assert "Starred" in card.tag_string()
 
     def test_2(self):

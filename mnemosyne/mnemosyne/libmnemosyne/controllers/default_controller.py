@@ -434,6 +434,7 @@ class DefaultController(Controller):
         self.stopwatch().unpause()
 
     def delete_facts_and_their_cards(self, facts, progress_bar=True):
+        assert len(facts) == len([fact.id for fact in facts])
         db = self.database()
         w = self.main_widget()
         if progress_bar:

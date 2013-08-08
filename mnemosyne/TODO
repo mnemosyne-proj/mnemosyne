@@ -1,15 +1,4 @@
--shadda 182
-
--fix testsuite
--best way to tackling failing tests related to pregenerated media 
- (set check for edited to true?)
-
 -split up webserver and review server command line options (update docs)
-
--mobile client: bz2 module for log upload?
--bz2 in finishing logs?
-
--preload database?
 
 -sync client: only restore from backup if backup creation was succesfull
 
@@ -242,6 +231,7 @@ Milesteiner
  0 or 1.
 -Qt bug? main_widget.set_window_title seems to work only if no title was
  defined in the ui file.
+-Qt bug? cannot define sq escape character to search for literal _
 
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 
