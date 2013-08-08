@@ -76,8 +76,9 @@ class Session(object):
     def terminate(self):
 
         """Restore from backup if the session failed to close normally."""
-
-        self.database.restore(self.backup_file)
+        
+        if self.backup_file:
+            self.database.restore(self.backup_file)
 
 
 # When Cherrypy wants to stream a binary file using chunked transfer encoding,
@@ -542,6 +543,15 @@ class Server(Partner):
             return content()
             # This is a full sync, we don't need to apply client log
             # entries here.
+        except:
+            return self.handle_error(session, traceback_string())
+
+    def get_server_generate_log_entries_for_settings(\
+            self, environ, session_token):
+        try:
+            session = self.sessions[session_token]
+            session.database.generate_log_entries_for_settings()
+            return self.text_format.repr_message("OK")
         except:
             return self.handle_error(session, traceback_string())
 

@@ -39,9 +39,10 @@ parser.add_option("--no-upgrades", dest="automatic_upgrades",
     action="store_false", help="do not upgrade automatically", default=True)
 parser.add_option("--debug", dest="debug_file",
     help="log debug information to FILE", metavar="FILE", default=None)
-parser.add_option("--server-only", dest="server_only",
-    action="store_true", help="run only web and sync server without GUI",
-    default=False)
+parser.add_option("--web-server", dest="web_server",
+    action="store_true", help="run web server without GUI", default=False)
+parser.add_option("--sync-server", dest="sync_server",
+    action="store_true", help="run sync server without GUI", default=False)
 (options, args) = parser.parse_args()
 
 # Check if we have to override the data_dir determined in libmnemosyne,
@@ -67,7 +68,7 @@ else:
 mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True)
 
 # Run as server.
-if options.server_only == True:
+if options.web_server == True or options.sync_server == True:
     # Initialise Mnemosyne.
     mnemosyne.components.insert(0,
         ("mnemosyne.libmnemosyne.translators.no_translator", "NoTranslator"))
@@ -77,19 +78,17 @@ if options.server_only == True:
         automatic_upgrades=options.automatic_upgrades,
         debug_file=options.debug_file, server_only=True)
     # Sync server.
-    from mnemosyne.libmnemosyne.sync_server import SyncServerThread
-    sync_server_thread = SyncServerThread(mnemosyne.component_manager)
-    sync_server_thread.daemon = True
-    sync_server_thread.start()
+    if options.sync_server == True:
+        from mnemosyne.libmnemosyne.sync_server import SyncServerThread
+        sync_server_thread = SyncServerThread(mnemosyne.component_manager)
+        sync_server_thread.daemon = True
+        sync_server_thread.start()
     # Web server.
-    from mnemosyne.webserver.webserver import WebServerThread
-    web_server_thread = WebServerThread(mnemosyne.component_manager)
-    web_server_thread.daemon = True
-    web_server_thread.start()
-    
-    #sync_server_thread.join()
-    #web_server_thread.join()
-    #sys.exit(0)
+    if options.web_server == True:
+        from mnemosyne.webserver.webserver import WebServerThread
+        web_server_thread = WebServerThread(mnemosyne.component_manager)
+        web_server_thread.daemon = True
+        web_server_thread.start()
     # Hack to allow killing the servers quickly during development.
     try:
         while True:

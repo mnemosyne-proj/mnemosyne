@@ -444,6 +444,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
           not os.stat(backupfile).st_size:
             self.main_widget().show_information(\
                 _("Warning: backup creation failed for") + " " +  backupfile)
+            return None
         for f in self.component_manager.all("hook", "after_backup"):
             f.run(backupfile)
         # Only keep the last logs.

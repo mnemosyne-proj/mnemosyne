@@ -201,6 +201,16 @@ class SQLiteSync(object):
                 filenames.add(filename)
         return filenames
 
+    def generate_log_entries_for_settings(self):
+
+        """Needed after binary initial upload/download of the database, to
+        ensure that the side effects to config get applied.
+
+        """
+
+        for key in self.config().keys_to_sync:
+            self.log().edited_setting(key)
+
     def active_objects_to_export(self):
         active_objects = {}
         # Active facts (working with python sets turns out to be more

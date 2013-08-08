@@ -201,6 +201,15 @@ class Database(object):
     def apply_log_entry(self, log_entry):
         raise NotImplementedError
 
+    def generate_log_entries_for_settings(self):
+
+        """Needed after binary initial upload/download of the database, to
+        ensure that the side effects to config get applied.
+
+        """
+
+        raise NotImplementedError
+
     # Science log. Only relevant if the client decides to deal with this.
     # Can be left to a libmnemosyne-based server.
 

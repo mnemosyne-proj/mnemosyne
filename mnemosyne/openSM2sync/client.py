@@ -140,7 +140,7 @@ class Client(Partner):
             socket.setdefaulttimeout(60)
             self.login(username, password)
             # Generating media files at the server side could take some time.
-            # TODO: fix this, as Generating media files actually happens at
+            # TODO: fix this, as generating media files actually happens at
             # login.
             self.con = None
             socket.setdefaulttimeout(15*60)
@@ -158,12 +158,22 @@ class Client(Partner):
                 else:
                     self.get_server_entire_database()
                 self.get_sync_finish()
+                # Fetch config settings.
+                self.login(username, password)
+                self.get_server_generate_log_entries_for_settings()
+                self.get_server_log_entries()
+                self.get_sync_finish()
             # First sync, put binary database to server if supported.
             elif not self.database.is_empty() and \
                     self.server_info["is_database_empty"] and \
                     self.supports_binary_upload():
                 self.put_client_media_files(reupload_all=True)
                 self.put_client_entire_database_binary()
+                self.get_sync_finish()
+                # Upload config settings.
+                self.login(username, password)
+                self.database.generate_log_entries_for_settings()
+                self.put_client_log_entries()
                 self.get_sync_finish()
             else:
                 # Upload local changes and check for conflicts.
@@ -199,7 +209,8 @@ class Client(Partner):
                 # sync next time.
                 self.ui.show_error("Sync failed, restoring from backup. " + \
                     "The next sync will need to be a full sync.")
-                self.database.restore(backup_file)
+                if backup_file:
+                    self.database.restore(backup_file)
         finally:
             if self.con:
                 self.con.close()
@@ -465,6 +476,15 @@ class Client(Partner):
         self.database.create_if_needed_partnership_with(\
             self.server_info["machine_id"])
         self.database.remove_partnership_with(self.machine_id)
+
+    def get_server_generate_log_entries_for_settings(self):
+        self.ui.set_progress_text("Getting settings...")
+        self.request_connection()
+        self.con.request("GET", self.url(\
+            "/server_generate_log_entries_for_settings?" + \
+            "session_token=%s" % (self.server_info["session_token"], )))
+        response = self.con.getresponse()
+        self._check_response_for_errors(response, can_consume_response=True)
 
     def put_client_media_files(self, reupload_all=False):
         self.ui.set_progress_text("Sending media files...")

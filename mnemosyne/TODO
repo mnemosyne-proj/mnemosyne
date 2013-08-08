@@ -1,10 +1,8 @@
--split up webserver and review server command line options (update docs)
-
--sync client: only restore from backup if backup creation was succesfull
-
 -binary database download: configuration changes (fonts, ...) are not applied
 
 -refactor sync protocol login to not update media files in login
+
+-raise sync version number
 
 -remove own ip from quick and dirty before distrib
 
@@ -43,11 +41,6 @@
 
 -remote webserver sometimes does not want to send multiple pictures
 -sometimes, need to click website buttons twice
-
-
-
--programmatically adding new cards with tags on an empty database does note
- activate these tags.
 
 -merging cards: should give an option to go back and edit?
 
