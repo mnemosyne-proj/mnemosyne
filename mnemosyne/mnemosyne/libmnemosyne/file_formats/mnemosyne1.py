@@ -46,10 +46,10 @@ class Mnemosyne1(MediaPreprocessor):
         self.items_by_id = {}
         for item in self.items:
             item.id = str(item.id)
-            if item.id in self.items_by_id:
+            while item.id in self.items_by_id:
                 item.id = "dup" + item.id
             self.items_by_id[item.id] = item
-        for item in self.items:
+        for item in self.items: 
             w.increase_progress(1)
             self.create_card_from_item(item, extra_tag_names)
         w.set_progress_value(len(self.items))
@@ -65,10 +65,17 @@ class Mnemosyne1(MediaPreprocessor):
                 in extra_tag_names.split(",")]
         # Don't create 'secondary' cards here, but create them together with
         # the 'main' card, except when the 'main' card has been deleted.
+        # Only exception is when there is no main card.
         if item.id.endswith(".inv") or item.id.endswith(".tr.1"):
-            if not item.id.split(".", 1)[0] in self.items_by_id:
+            if item.id.endswith(".inv"):
+                parent_id = item.id[:-4]
+            if item.id.endswith(".tr.1"):
+                parent_id = item.id[:-5]
+            if not parent_id in self.items_by_id:
                 card_type = self.card_type_with_id("1")
                 fact_data = {"f": item.q, "b": item.a}
+                if not fact_data["f"]:
+                    fact_data["f"] = "(blank)"
                 tag_names = [item.cat.name]
                 self.preprocess_media(fact_data, tag_names)
                 card = self.controller().create_new_cards(fact_data,
@@ -90,6 +97,12 @@ class Mnemosyne1(MediaPreprocessor):
                 self.map_plugin_activated = True
             card_type = self.card_type_with_id("4")
             fact_data = {"loc": loc, "marked": marked, "blank": blank}
+            if not fact_data["loc"]:
+                fact_data["loc"] = "(blank)"
+            if not fact_data["marked"]:
+                fact_data["marked"] = "(blank)"
+            if not fact_data["blank"]:
+                fact_data["blank"] = "(blank)"                
             self.preprocess_media(fact_data, tag_names)
             card_1, card_2 = self.controller().create_new_cards(fact_data,
                 card_type, grade=-1, tag_names=tag_names,
@@ -101,6 +114,8 @@ class Mnemosyne1(MediaPreprocessor):
             item.id + ".tr.1" not in self.items_by_id:
             card_type = self.card_type_with_id("1")
             fact_data = {"f": item.q, "b": item.a}
+            if not fact_data["f"]:
+                fact_data["f"] = "(blank)"
             self.preprocess_media(fact_data, tag_names)
             card = self.controller().create_new_cards(fact_data,
                 card_type, grade=-1, tag_names=tag_names,
@@ -110,6 +125,10 @@ class Mnemosyne1(MediaPreprocessor):
         elif item.id + ".inv" in self.items_by_id:
             card_type = self.card_type_with_id("2")
             fact_data = {"f": item.q, "b": item.a}
+            if not fact_data["f"]:
+                fact_data["f"] = "(blank)"
+            if not fact_data["b"]:
+                fact_data["b"] = "(blank)"
             self.preprocess_media(fact_data, tag_names)
             card_1, card_2 = self.controller().create_new_cards(fact_data,
                 card_type, grade=-1, tag_names=tag_names,
@@ -127,9 +146,9 @@ class Mnemosyne1(MediaPreprocessor):
             fact_data = {"f": item.q, "p_1": p_1, "m_1": m_1}
             self.preprocess_media(fact_data, tag_names)
             if not fact_data["f"]:
-                fact_data["f"] = "<missing>"
+                fact_data["f"] = "(blank)"
             if not fact_data["m_1"]:
-                fact_data["m_1"] = "<missing>"
+                fact_data["m_1"] = "(blank)"
             card_1, card_2 = self.controller().create_new_cards(fact_data,
                 card_type, grade=-1, tag_names=tag_names,
                 check_for_duplicates=False, save=False)

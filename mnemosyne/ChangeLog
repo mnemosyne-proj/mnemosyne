@@ -18,6 +18,7 @@
  the tags should be applied to the current card or to all sister cards.
 -Fix Windows crash when using the card browser with cards imported from
  Supermemo (reported by Piotr).
+-Make Mnemosyne 1.x import more robust (reported by Jack Thro).
 -Fix sync error that could occur when adding and immediately deleting multiple 
  sister cards from the card browser.
 -Fix latex / cloze interaction corner case (reported by Daniele Parisi).

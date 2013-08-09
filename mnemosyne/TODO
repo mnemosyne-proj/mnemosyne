@@ -1,3 +1,13 @@
+-arabicpod sentences not asked in order?
+
+-lesson 44 missing audio
+
+-add assertment that all card ids are unique after mnemosyne 1 import?
+
+-file exists error on Windows after upgrade (Geir) 1210435
+
+-javascript path expansion issues on Windows (Geir) 107928
+
 -binary database download: configuration changes (fonts, ...) are not applied
 
 -refactor sync protocol login to not update media files in login
