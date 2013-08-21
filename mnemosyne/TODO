@@ -1,12 +1,18 @@
--arabicpod sentences not asked in order?
+-latex bug daniele parisi
+
+-swf not synced (heldtfisken)
 
 -lesson 44 missing audio
 
 -add assertment that all card ids are unique after mnemosyne 1 import?
+-run check to make sure all ids are unique when upgrading to a new version
 
 -file exists error on Windows after upgrade (Geir) 1210435
 
 -javascript path expansion issues on Windows (Geir) 107928
+
+-better behaviour when last file is no longer accessible: default location, or
+ file selector box?
 
 -binary database download: configuration changes (fonts, ...) are not applied
 
