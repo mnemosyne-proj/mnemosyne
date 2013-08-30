@@ -26,7 +26,11 @@ class Mnemosyne(Component):
     def __init__(self, upload_science_logs, interested_in_old_reps,
         asynchronous_database=False):
 
-        """For mobile clients, it is recommended that you set
+        """When 'upload_science_logs' is set to 'None', it means that its
+        value is user-specified through the GUI. Explicitly setting this to
+        True or False overrides the user choice.
+
+        For mobile clients, it is recommended that you set
         'upload_science_logs' to 'False'. We need to specify this as an
         argument here, so that we can inject it on time to prevent the
         uploader thread from starting.
@@ -247,11 +251,11 @@ class Mnemosyne(Component):
             self.component_manager.current("config").activate()
         except RuntimeError, e:
             self.main_widget().show_error(unicode(e))
-        # If the front end programmer decides we never upload logs, we override
-        # the user setting here.
+        # Allow front+end programmer to override the user setting.
         if self.upload_science_logs is False:
             self.config()["upload_science_logs"] = False
-
+        if self.upload_science_logs is True:
+            self.config()["upload_science_logs"] = True
         self.config()["interested_in_old_reps"] = self.interested_in_old_reps
         self.config()["asynchronous_database"] = self.asynchronous_database
         # Activate other components.

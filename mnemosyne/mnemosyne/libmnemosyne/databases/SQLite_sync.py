@@ -19,7 +19,8 @@ from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
 
-re_src = re.compile(r"""src=['\"](.+?)['\"]""", re.DOTALL | re.IGNORECASE)
+re_src = re.compile(r"""(src|data)=['\"](.+?)['\"]""", 
+                    re.DOTALL | re.IGNORECASE)
 
 # Simple named-tuple like class, to avoid the expensive creation a full card
 # object (Python 2.5 does not yet have a named tuple).
@@ -259,7 +260,7 @@ class SQLiteSync(object):
             """select value from data_for_fact where _fact_id in (select
             _fact_id from cards where active=1) and value like '%src=%'"""):
             for match in re_src.finditer(result[0]):
-                active_objects["media_filenames"].add(match.group(1))
+                active_objects["media_filenames"].add(match.group(2))
         return active_objects
 
     def set_extra_tags_on_import(self, tags):

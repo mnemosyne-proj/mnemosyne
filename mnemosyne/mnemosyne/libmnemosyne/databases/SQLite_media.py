@@ -14,7 +14,8 @@ from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.utils import is_filesystem_case_insensitive
 from mnemosyne.libmnemosyne.utils import copy_file_to_dir, remove_empty_dirs_in
 
-re_src = re.compile(r"""src=['\"](.+?)['\"]""", re.DOTALL | re.IGNORECASE)
+re_src = re.compile(r"""(src|data)=['\"](.+?)['\"]""", 
+                    re.DOTALL | re.IGNORECASE)
 
 
 class SQLiteMedia(object):
@@ -125,7 +126,7 @@ class SQLiteMedia(object):
         """
 
         for match in re_src.finditer("".join(fact.data.values())):
-            filename = match.group(1)
+            filename = match.group(2)
             if filename.startswith("http:"):
                 continue
             if len(filename) > 200:
@@ -140,7 +141,7 @@ _("Filename contains '#', which could cause problems on some operating systems."
                 for fact_key, value in fact.data.iteritems():
                     fact.data[fact_key] = \
                         fact.data[fact_key].replace(match.group(),
-                        "src_missing=\"%s\"" % match.group(1))
+                        "src_missing=\"%s\"" % match.group(2))
                 continue
             # If needed, copy file to the media dir. Normally this happens when
             # the user clicks 'Add image' e.g., but he could have typed in the
@@ -150,7 +151,7 @@ _("Filename contains '#', which could cause problems on some operating systems."
             else:  # We always store Unix paths internally.
                 filename = filename.replace("\\", "/")
             for fact_key, value in fact.data.iteritems():
-                fact.data[fact_key] = value.replace(match.group(1), filename)
+                fact.data[fact_key] = value.replace(match.group(2), filename)
                 self.con.execute("""update data_for_fact set value=? where
                     _fact_id=? and key=?""",
                     (fact.data[fact_key], fact._id, fact_key))
@@ -178,7 +179,7 @@ _("Filename contains '#', which could cause problems on some operating systems."
         for result in self.con.execute(\
             "select value from data_for_fact where value like '%src=%'"):
             for match in re_src.finditer(result[0]):
-                filename = match.group(1)
+                filename = match.group(2)
                 if case_insensitive:
                     filename = filename.lower()
                 files_in_db.add(filename)

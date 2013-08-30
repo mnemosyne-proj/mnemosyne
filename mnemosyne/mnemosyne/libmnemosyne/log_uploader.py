@@ -29,7 +29,6 @@ class LogUploader(Thread, Component):
         # Note: we could make the following code a lot cleaner by doing a HTTP
         # PUT, but then we need to change the server side script which would
         # cause problems with backwards compatibility.
-
         host, port = self.config()["science_server"].split(":")
         uri = '/cgi-bin/cgiupload.py'
         boundary = '%s%s_%s_%s' % \

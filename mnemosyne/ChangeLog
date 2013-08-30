@@ -14,6 +14,7 @@
  to open it as a separate database (Kensor0).
 -People writing e.g. Javascript card and needing access to the full path of
  the media directory can now use db_media:///foo.png (requested by Gnome).
+-Flash files are now synced as well (reported by heldtfisken).
 -When editing a card where different sister cards have different tags, ask if
  the tags should be applied to the current card or to all sister cards.
 -Fix Windows crash when using the card browser with cards imported from
