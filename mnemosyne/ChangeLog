@@ -8,6 +8,7 @@
  sync and the web server in headless mode (i.e. without a GUI) (useful to run 
  e.g. on a NAS server).
 -Added new statistic: number of new cards learned per day.
+-Fix more errors coming from loading config files.
 -When editing a card through the browser, make sure the correct set of tags is
  displayed if sister cards have different tags (requested by Scott Youngman).
 -Instruct people on the correct way to deal with '*.cards' files if they try

@@ -1,5 +1,3 @@
--latex bug daniele parisi
-
 -file exists error on Windows after upgrade (Geir) 1210435
 
 -javascript path expansion issues on Windows (Geir) 107928
@@ -9,9 +7,6 @@
 
 -add assertment that all card ids are unique after mnemosyne 1 import?
 -run check to make sure all ids are unique when upgrading to a new versions
-
--make sure that config does not get corrupt.
-
 
 
 -binary database download: configuration changes (fonts, ...) are not applied

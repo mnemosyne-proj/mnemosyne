@@ -188,8 +188,8 @@ class Configuration(Component, dict):
             config_file = file(os.path.join(self.config_dir, "config"), "rb")
             for key, value in cPickle.load(config_file).iteritems():
                 self[key] = value
-            self.set_defaults()
             config_file.close()
+            self.set_defaults()
         except:
             from mnemosyne.libmnemosyne.utils import traceback_string
             raise RuntimeError, _("Error in config:") \
