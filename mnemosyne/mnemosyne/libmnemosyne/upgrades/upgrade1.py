@@ -129,9 +129,17 @@ _("Tried to backup your old 1.x files to %s, but that directory already exists."
         # the upgrade.
         for name in names:
             if os.path.isdir(join(old_data_dir, name)):
-                if not os.path.exists(join(new_data_dir, name)):
+                try:
                     shutil.copytree(join(old_data_dir, name),
                                     join(new_media_dir, name))
+                except OSError, e:
+                    # https://bugs.launchpad.net/mnemosyne-proj/+bug/1210435
+                    import errno
+                    if e.errno != errno.EEXIST: 
+                        raise e
+                    self.main_widget().show_information(\
+                        "Skipping copying of %s because it already exists.") \
+                        % (name, )
             else:
                 shutil.copyfile(join(old_data_dir, name),
                                 join(new_media_dir, name))
