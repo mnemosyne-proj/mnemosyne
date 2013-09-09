@@ -381,17 +381,6 @@ class TestDatabase(MnemosyneTest):
                                               grade=-1, tag_names=["default"])
         assert len(self.database().card_types_in_use()) == 2
 
-    @raises(RuntimeError)
-    def test_format_mismatch(self):
-        fact_data = {"f": "question",
-                     "b": "answer"}
-        card_type = self.card_type_with_id("1")
-        self.controller().create_new_cards(fact_data, card_type,
-                                              grade=-1, tag_names=["default"])
-        self.database().unload()
-        self.database().version = "Wrong"
-        self.database().load(self.config()["last_database"])
-
     def test_vacuum(self):
         fact_data = {"f": "question",
                      "b": "answer"}
@@ -750,3 +739,12 @@ class TestDatabase(MnemosyneTest):
     #    time.sleep(0.1)
     #    assert self.database().is_accessible() == False
     #    time.sleep(0.3)
+
+    def test_upgrade_2(self):
+        shutil.copy(os.path.join("tests", "files", "non_unique_card_ids.db"),
+                    os.path.join("dot_test", "tmp.db"))
+        self.database().load(os.path.join("tmp.db"))
+        card_1 = self.database().card(1, is_id_internal=True)
+        card_2 = self.database().card(2, is_id_internal=True)
+        assert card_1.id == "id"
+        assert card_2.id == "id.1"

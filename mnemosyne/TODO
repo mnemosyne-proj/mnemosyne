@@ -1,12 +1,11 @@
--javascript path expansion issues on Windows (Geir) 107928
+-bug by Daniel Bozik: adding media in USB context always copies media, even
+ if inside media dir.
 
 -better behaviour when last file is no longer accessible: default location, or
  file selector box? show info on correct way to handle usb keys
-
--add assertment that all card ids are unique after mnemosyne 1 import?
--run check to make sure all ids are unique when upgrading to a new versions
-
-
+ 
+-instead of temporary database, dialog to open other one or create a new one?
+ 
 -binary database download: configuration changes (fonts, ...) are not applied
 
 -refactor sync protocol login to not update media files in login

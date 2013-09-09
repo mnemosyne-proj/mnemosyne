@@ -220,7 +220,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
 
     """
 
-    version = "Mnemosyne SQL 1.0"
+    version = "2"
     suffix = ".db"
     store_pregenerated_data = True
 
@@ -361,8 +361,18 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         if sql_res is None:
             raise RuntimeError, _("Unable to load file, query failed.")
         if sql_res[0] != self.version:
-            raise RuntimeError, \
-                _("Unable to load file: database version mismatch.")
+            if sql_res[0] == "Mnemosyne SQL 1.0":
+                previous_version = 1
+            else:
+                previous_version = int(sql_res[0])
+            try:
+                if previous_version <= 2:
+                    from mnemosyne.libmnemosyne.upgrades.upgrade2 \
+                        import Upgrade2
+                    Upgrade2(self.component_manager).run()
+            except:
+                raise RuntimeError, _("Database upgrade failed.") \
+                    + traceback_string()
         self.create_media_dir_if_needed()
         # Upgrade.
         self.con.execute("""create index if not exists
