@@ -1,8 +1,6 @@
 -better behaviour when last file is no longer accessible: default location, or
  file selector box? show info on correct way to handle usb keys
- 
--for save as, dont allow saving to network drive (Brendan Sinclair)
- 
+
 -instead of temporary database, dialog to open other one or create a new one?
  
 -binary database download: configuration changes (fonts, ...) are not applied

@@ -429,6 +429,13 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             return
         dest_path = expand_path(path, self.config().data_dir)
         if dest_path != self._path:
+            if sys.platform == "win32":  # pragma: no cover
+                drive = os.path.splitdrive(path)[0]
+                import ctypes
+                if ctypes.windll.kernel32.GetDriveTypeW(u"%s\\" % drive) == 4:
+                    self.main_widget().show_error(_\
+    ("Putting a database on a network drive is forbidden under Windows to avoid data corruption."))
+                    return
             copy(self._path, dest_path)
             self._path = dest_path
         self.config()["last_database"] \

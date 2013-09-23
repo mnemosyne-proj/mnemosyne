@@ -21,6 +21,8 @@
 -Fix Windows crash when using the card browser with cards imported from
  Supermemo (reported by Piotr).
 -Make Mnemosyne 1.x import more robust (reported by Jack Thro).
+-Don't allow saving the database to a network drive under Windows to prevent
+ corruption (reported by Brendan Sinclair).
 -Fix sync error that could occur when adding and immediately deleting multiple 
  sister cards from the card browser.
 -Fix latex / cloze interaction corner case (reported by Daniele Parisi).
