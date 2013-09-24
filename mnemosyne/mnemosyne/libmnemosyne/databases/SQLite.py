@@ -357,7 +357,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             sql_res = self.con.execute("""select value from global_variables
                 where key=?""", ("version", )).fetchone()
         except:
-            raise RuntimeError, _("Unable to load file.") + traceback_string()
+            raise RuntimeError, _("Unable to load file at") + " " + self._path
         if sql_res is None:
             raise RuntimeError, _("Unable to load file, query failed.")
         if sql_res[0] != self.version:
@@ -371,8 +371,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                         import Upgrade2
                     Upgrade2(self.component_manager).run()
             except:
-                raise RuntimeError, _("Database upgrade failed.") \
-                    + traceback_string()
+                raise RuntimeError, _("Database upgrade failed.")
         self.create_media_dir_if_needed()
         # Upgrade.
         self.con.execute("""create index if not exists
@@ -433,9 +432,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 drive = os.path.splitdrive(path)[0]
                 import ctypes
                 if ctypes.windll.kernel32.GetDriveTypeW(u"%s\\" % drive) == 4:
-                    self.main_widget().show_error(_\
-    ("Putting a database on a network drive is forbidden under Windows to avoid data corruption."))
-                    return
+                    raise RuntimeError, \
+_("Putting a database on a network drive is forbidden under Windows to avoid data corruption.")
             copy(self._path, dest_path)
             self._path = dest_path
         self.config()["last_database"] \

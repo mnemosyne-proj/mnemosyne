@@ -40,6 +40,7 @@ class _Sqlite3(Component):
 
     def __init__(self, component_manager, path):
         Component.__init__(self, component_manager)
+        self._cursor = None
         # Make sure we don't put a database on a network drive under Windows:
         # http://www.sqlite.org/lockingv3.html
         if sys.platform == "win32":  # pragma: no cover

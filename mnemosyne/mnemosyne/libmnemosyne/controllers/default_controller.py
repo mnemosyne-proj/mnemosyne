@@ -579,20 +579,23 @@ _("'*.cards' files are not separate databases, but need to be imported in your c
                 self.update_title()
             self.stopwatch().unpause()
             return
-        try:
-            self.log().saved_database()
-            db.backup()
-            db.unload()
-        except RuntimeError, error:
-            self.main_widget().show_error(unicode(error.message))
-            self.stopwatch().unpause()
-            return
+        if self.database().is_loaded():
+            try:
+                self.log().saved_database()
+                db.backup()
+                db.unload()
+            except RuntimeError, error:
+                self.main_widget().show_error(unicode(error.message))
+                self.stopwatch().unpause()
+                return
         try:
             db.load(filename)
             self.log().loaded_database()
             self.log().future_schedule()
         except Exception, error:
             self.main_widget().show_error(unicode(error.message))
+            db.abandon()
+            db.load(old_path)
             self.stopwatch().unpause()
             return
         self.review_controller().reset()

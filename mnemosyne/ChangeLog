@@ -9,6 +9,8 @@
  e.g. on a NAS server).
 -Added new statistic: number of new cards learned per day.
 -Fix more errors coming from loading config files.
+-Rework error handling when trying to load a database which no longer exists
+ in its previous location.
 -When editing a card through the browser, make sure the correct set of tags is
  displayed if sister cards have different tags (requested by Scott Youngman).
 -Instruct people on the correct way to deal with '*.cards' files if they try

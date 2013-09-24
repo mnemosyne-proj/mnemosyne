@@ -307,18 +307,20 @@ class Mnemosyne(Component):
                 self.database().new(path)
             else:
                 self.database().load(path)
+            self.controller().update_title()
         except RuntimeError, e:
-            # Making sure the GUI is in a correct state when no database is
-            # loaded would require a lot of extra code, and this is only a
-            # corner case anyhow. So, as workaround, we create a temporary
-            # database.
             from mnemosyne.libmnemosyne.translator import _
             self.main_widget().show_error(unicode(e))
-            self.main_widget().show_error(_("Creating temporary database."))
-            path = os.path.join(os.path.split(path)[0], "___TMP___" \
-                + self.database().suffix)
-            self.database().new(path)
-        self.controller().update_title()
+            self.main_widget().show_information(\
+_("If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."))
+            success = False
+            while not success:
+                try:
+                    self.database().abandon()
+                    self.controller().show_open_file_dialog()
+                    success = True
+                except RuntimeError, e:
+                    self.main_widget().show_error(unicode(e))
 
     def finalise(self):
         # Deactivate the sync server first, so that we make sure it reverts
