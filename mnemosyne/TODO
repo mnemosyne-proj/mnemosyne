@@ -1,5 +1,3 @@
--binary database download: configuration changes (fonts, ...) are not applied
-
 -refactor sync protocol login to not update media files in login
 
 -raise sync version number
@@ -20,8 +18,6 @@
 
 
 -rename duplicates --> duplicate questions in menu? Add popup explanation.
-
--Forbid 'cards' file as program command line argument.
 
 -when in having sorted on a column, eliminate resorting to unsorted after
  editing a card. (Gnome bug Tristan, uservoice)

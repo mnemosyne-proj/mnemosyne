@@ -336,5 +336,3 @@ class SQLiteLogging(object):
           "select distinct object_id from log where event_type=?",
           (EventTypes.ADDED_CARD, ))):
             self.log_added_card(int(time.time()), id)
-
-

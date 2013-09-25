@@ -190,6 +190,11 @@ class Mnemosyne(Component):
         # Loading the database should come after all user plugins have been
         # loaded, since these could be needed e.g. for a card type in the
         # database.
+        if filename and not filename.endswith(".db"):
+            from mnemosyne.libmnemosyne.translator import _
+            self.main_widget().show_error(\
+                _("Command line argument is not a *.db file."))
+            sys.exit()
         self.load_database(filename)
         # Only now that the database is loaded, we can start writing log
         # events to it. This is why we log started_scheduler and

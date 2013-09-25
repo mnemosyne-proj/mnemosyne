@@ -174,6 +174,7 @@ class Client(Partner):
                 self.login(username, password)
                 self.database.generate_log_entries_for_settings()
                 self.put_client_log_entries()
+                self.get_server_log_entries()
                 self.get_sync_finish()
             else:
                 # Upload local changes and check for conflicts.
