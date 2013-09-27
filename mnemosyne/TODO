@@ -1,12 +1,8 @@
--refactor sync protocol login to not update media files in login
-
--raise sync version number
+-integrate webserver in ui
 
 -remove own ip from quick and dirty before distrib
 
 -webserver --> web server?, review_server?
-
--integrate webserver in ui
 
 -clean up sync related config keys
 

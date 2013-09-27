@@ -6,7 +6,7 @@ from xml.sax import saxutils
 from xml.etree import cElementTree
 from openSM2sync.log_entry import LogEntry
 
-PROTOCOL_VERSION = "openSM2sync 1.0"
+PROTOCOL_VERSION = "openSM2sync 1.0   "
 
 
 class XMLFormat(object):

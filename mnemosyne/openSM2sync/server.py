@@ -375,15 +375,6 @@ class Server(Partner):
             # Add optional program-specific information.
             server_info = \
                 session.database.append_to_sync_partner_info(server_info)
-            # We check if files were updated outside of the program, or if
-            # media files need to be generated dynamically, e.g. latex. This
-            # can generate MEDIA_EDITED log entries, so it should be done
-            # first.
-            if self.check_for_edited_local_media_files:
-                self.ui.set_progress_text("Checking for edited media files...")
-                session.database.check_for_edited_media_files()
-                self.ui.set_progress_text("Dynamically creating media files...")
-                session.database.dynamically_create_media_files()
             return self.text_format.repr_partner_info(server_info)\
                    .encode("utf-8")
         except:
@@ -394,6 +385,21 @@ class Server(Partner):
             # thread in an SRS desktop application.
             # As mentioned before, the error handling should happen here, at
             # the lowest level, and not in e.g. 'wsgi_app'.
+            return self.handle_error(session, traceback_string())
+
+    def get_server_check_media_files(self, environ, session_token):
+        # We check if files were updated outside of the program, or if
+        # media files need to be generated dynamically, e.g. latex. This
+        # can generate MEDIA_EDITED log entries, so it should be done first.
+        try:
+            session = self.sessions[session_token]
+            if self.check_for_edited_local_media_files:
+                self.ui.set_progress_text("Checking for edited media files...")
+                session.database.check_for_edited_media_files()
+                self.ui.set_progress_text("Dynamically creating media files...")
+                session.database.dynamically_create_media_files()
+            return self.text_format.repr_message("OK")
+        except:
             return self.handle_error(session, traceback_string())
 
     def put_client_log_entries(self, environ, session_token):

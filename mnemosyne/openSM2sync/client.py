@@ -137,13 +137,13 @@ class Client(Partner):
                 self.database.check_for_edited_media_files()
                 self.ui.set_progress_text("Dynamically creating media files...")
                 self.database.dynamically_create_media_files()
-            socket.setdefaulttimeout(60)
+            socket.setdefaulttimeout(10)
             self.login(username, password)
-            # Generating media files at the server side could take some time.
-            # TODO: fix this, as generating media files actually happens at
-            # login.
+            # Generating media files at the server side could take some time,
+            # so we update the timeout.
             self.con = None
             socket.setdefaulttimeout(15*60)
+            self.get_server_check_media_files()
             # Do a full sync after either the client or the server has restored
             # from a backup.
             if self.database.is_sync_reset_needed(\
@@ -341,6 +341,15 @@ class Client(Partner):
         self.database.create_if_needed_partnership_with(\
             self.server_info["machine_id"])
         self.database.merge_partners(self.server_info["partners"])
+
+    def get_server_check_media_files(self):
+        self.ui.set_progress_text("Asking server to check for updated media files...")
+        self.request_connection()
+        self.con.request("GET", self.url(\
+            "/server_check_media_files?" + \
+            "session_token=%s" % (self.server_info["session_token"], )))
+        response = self.con.getresponse()
+        self._check_response_for_errors(response, can_consume_response=True)
 
     def put_client_log_entries(self):
 
