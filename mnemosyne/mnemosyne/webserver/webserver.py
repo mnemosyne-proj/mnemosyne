@@ -85,7 +85,7 @@ class WebServer(object):
              "WebserverRenderChain"))
         self.mnemosyne.initialise(self.data_dir, self.filename,
             automatic_upgrades=False)
-        self.mnemosyne.review_controller().set_render_chain("webserver")
+        self.mnemosyne.review_controller().set_render_chain("web_server")
         self.save_after_n_reps = self.mnemosyne.config()["save_after_n_reps"]
         self.mnemosyne.config()["save_after_n_reps"] = 1
         self.mnemosyne.start_review()
@@ -172,12 +172,12 @@ class WebServerThread(threading.Thread, WebServer):
         self.is_server_local = is_server_local
         threading.Thread.__init__(self)
         self.config = component_manager.current("config")
-        WebServer.__init__(self, self.config["webserver_port"],
+        WebServer.__init__(self, self.config["web_server_port"],
             self.config.data_dir, self.config["last_database"], 
             self.is_server_local)
 
     def run(self):
         if not self.is_server_local:  # Could fail if we are offline.
             print "Web server listening on http://" + \
-                localhost_IP() + ":" + str(self.config["webserver_port"])
+                localhost_IP() + ":" + str(self.config["web_server_port"])
         self.serve_until_stopped()

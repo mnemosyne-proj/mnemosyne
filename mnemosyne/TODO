@@ -1,10 +1,10 @@
+-webserver --> web server
+
+-check if sync password works
+
 -integrate webserver in ui
 
 -remove own ip from quick and dirty before distrib
-
--webserver --> web server?, review_server?
-
--clean up sync related config keys
 
 -try uploading new database to empty database on headless server
 

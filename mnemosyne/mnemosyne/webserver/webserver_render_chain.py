@@ -16,7 +16,7 @@ from mnemosyne.libmnemosyne.filters.non_latin_font_size_increase import \
 
 class WebserverRenderChain(RenderChain):
 
-    id = "webserver"
+    id = "web_server"
 
     filters = [Latex, EscapeToHtml,
                 SimpleHtml5Audio,

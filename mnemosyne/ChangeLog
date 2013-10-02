@@ -11,7 +11,8 @@ the client and the server at the same time.
  sync.
 -Improve the timeout handling of the sync protocol.
 -The functionality of mnemosyne-webserver has now been merged into the main
- program.
+ program and can be activated through 'Configure Mnemosyne - servers'.
+-Fix erroneous 'Wrong username or password' error.
 -Added command line options --sync-server and --web-server which starts the 
  sync and the web server in headless mode (i.e. without a GUI) (useful to run 
  e.g. on a NAS server).

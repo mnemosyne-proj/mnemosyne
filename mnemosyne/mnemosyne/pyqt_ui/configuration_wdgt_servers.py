@@ -1,5 +1,5 @@
 #
-# configuration_wdgt_sync_server.py <Peter.Bienstman@UGent.be>
+# configuration_wdgt_servers.py <Peter.Bienstman@UGent.be>
 #
 
 import socket
@@ -10,38 +10,38 @@ from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.utils import localhost_IP
 from mnemosyne.libmnemosyne.ui_components.configuration_widget import \
      ConfigurationWidget
-from mnemosyne.pyqt_ui.ui_configuration_wdgt_sync_server import \
-     Ui_ConfigurationWdgtSyncServer
+from mnemosyne.pyqt_ui.ui_configuration_wdgt_servers import \
+     Ui_ConfigurationWdgtServers
 
 
-class ConfigurationWdgtSyncServer(QtGui.QWidget,
-    Ui_ConfigurationWdgtSyncServer, ConfigurationWidget):
+class ConfigurationWdgtServers(QtGui.QWidget,
+    Ui_ConfigurationWdgtServers, ConfigurationWidget):
 
-    name = _("Sync server")
+    name = _("Servers")
 
     def __init__(self, component_manager, parent):
         ConfigurationWidget.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
-        self.initially_running = self.is_server_running()
+        self.sync_server_initially_running = self.is_sync_server_running()
         self.run_sync_server.setChecked(self.config()["run_sync_server"])
-        self.port.setValue(self.config()["port_for_sync_as_server"])
+        self.sync_port.setValue(self.config()["sync_server_port"])
         self.username.setText(self.config()["remote_access_username"])
         self.password.setText(self.config()["remote_access_password"])
         self.check_for_edited_local_media_files.setChecked(\
             self.config()["check_for_edited_local_media_files"])
-        if self.is_server_running():
-            self.server_status.setText(_("Server running on ") + \
+        if self.is_sync_server_running():
+            self.sync_server_status.setText(_("Sync server running on ") + \
                 localhost_IP() + " .")
         else:
-            self.server_status.setText(_("Server NOT running."))
+            self.sync_server_status.setText(_("Sync server NOT running."))
 
-    def is_server_running(self):
+    def is_sync_server_running(self):
         timeout = socket.getdefaulttimeout()
         try:
             socket.setdefaulttimeout(0.1)
             con = httplib.HTTPConnection(localhost_IP(),
-                self.config()["port_for_sync_as_server"])
+                self.config()["sync_server_port"])
             con.request("GET", "/status")
             assert "OK" in con.getresponse().read()
             socket.setdefaulttimeout(timeout)
@@ -56,14 +56,15 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
         if answer == 1:
             return
         self.run_sync_server.setChecked(False)
-        self.port.setValue(8512)
+        self.sync_port.setValue(8512)
         self.username.setText("")
         self.password.setText("")
         self.check_for_edited_local_media_files.setChecked(False)
+        self.web_port.setValue(8513)
 
     def apply(self):
         self.config()["run_sync_server"] = self.run_sync_server.isChecked()
-        self.config()["port_for_sync_as_server"] = self.port.value()
+        self.config()["sync_server_port"] = self.sync_port.value()
         self.config()["remote_access_username"] = unicode(self.username.text())
         self.config()["remote_access_password"] = unicode(self.password.text())
         self.config()["check_for_edited_local_media_files"] = \
@@ -71,11 +72,13 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
         self.component_manager.current("sync_server").deactivate()
         if self.config()["run_sync_server"]:
             self.component_manager.current("sync_server").activate()
-            if not self.initially_running and self.is_server_running():
+            if not self.sync_server_initially_running \
+                and self.is_sync_server_running():
                 self.main_widget().show_information(\
-                    _("Server now running on ") + localhost_IP() + ".")
+                    _("Sync server now running on ") + localhost_IP() + ".")
         else:
             self.component_manager.current("sync_server").deactivate()
-            if self.initially_running and not self.is_server_running():
+            if self.sync_server_initially_running and \
+                not self.is_sync_server_running():
                 self.main_widget().show_information(\
-                    _("Server stopped."))
+                    _("Sync server stopped."))

@@ -29,15 +29,15 @@ class SyncServer(Component, Server):
             self.config()["check_for_edited_local_media_files"]
 
     def authorise(self, username, password):
-        return username == self.config()["sync_server_username"] and \
-               password == self.config()["sync_server_password"]
+        return username == self.config()["remote_access_username"] and \
+               password == self.config()["remote_access_password"]
 
     def load_database(self, database_name):
         if self.server_only:
             # First see if webserver needs to release database.
             try:
                 con = httplib.HTTPConnection("127.0.0.1",
-                self.config()["webserver_port"])
+                self.config()["web_server_port"])
                 con.request("GET", "/release_database")
                 response = con.getresponse()
             except:

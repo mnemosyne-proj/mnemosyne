@@ -161,8 +161,8 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_wdgt_main",
                              "ConfigurationWdgtMain"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_wdgt_card_appearance",
                              "ConfigurationWdgtCardAppearance"))
-mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_wdgt_sync_server",
-                             "ConfigurationWdgtSyncServer"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_wdgt_servers",
+                             "ConfigurationWdgtServers"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.getting_started_dlg",
                              "GettingStartedDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.tip_dlg",
