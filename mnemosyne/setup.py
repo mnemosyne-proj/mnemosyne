@@ -94,7 +94,7 @@ class build_installer(py2exe):
         lib_dir = self.lib_dir
         dist_dir = self.dist_dir
         # Create the Installer, using the files py2exe has created.
-        # Hack to include webserver, which does not seem to get picked up
+        # Hack to include web server, which does not seem to get picked up
         # automatically.
         script = InnoScript("Mnemosyne", lib_dir, dist_dir,
                             self.windows_exe_files, self.lib_files,
@@ -167,7 +167,7 @@ py2app_options = {
     mnemosyne.libmnemosyne.statistics_pages, \
     mnemosyne.libmnemosyne.review_controllers, \
     mnemosyne.libmnemosyne.criteria, mnemosyne.libmnemosyne.upgrades, \
-    mnemosyne.script, mnemosyne.webserver, openSM2sync, \
+    mnemosyne.script, mnemosyne.web_server, openSM2sync, \
     openSM2sync.binary_formats, openSM2sync.text_formats" }
 
 py2app_app = ["build/Mnemosyne.py"]
@@ -205,7 +205,7 @@ packages = ["mnemosyne",
             "mnemosyne.libmnemosyne.criteria",
             "mnemosyne.libmnemosyne.upgrades",
             "mnemosyne.script",
-            "mnemosyne.webserver",
+            "mnemosyne.web_server",
             "openSM2sync",
             "openSM2sync.binary_formats",
             "openSM2sync.text_formats"

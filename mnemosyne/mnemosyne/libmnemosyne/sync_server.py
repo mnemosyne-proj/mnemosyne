@@ -34,7 +34,7 @@ class SyncServer(Component, Server):
 
     def load_database(self, database_name):
         if self.server_only:
-            # First see if webserver needs to release database.
+            # First see if web server needs to release database.
             try:
                 con = httplib.HTTPConnection("127.0.0.1",
                 self.config()["web_server_port"])

@@ -1,5 +1,5 @@
 #
-# webserver.py <Peter.Bienstman@UGent.be>
+# web_server.py <Peter.Bienstman@UGent.be>
 #
 
 import os
@@ -78,11 +78,11 @@ class WebServer(object):
             ("mnemosyne.libmnemosyne.ui_components.main_widget",
              "MainWidget"))
         self.mnemosyne.components.append(\
-            ("mnemosyne.webserver.review_wdgt",
+            ("mnemosyne.web_server.review_wdgt",
              "ReviewWdgt"))
         self.mnemosyne.components.append(\
-            ("mnemosyne.webserver.webserver_render_chain",
-             "WebserverRenderChain"))
+            ("mnemosyne.web_server.web_server_render_chain",
+             "WebServerRenderChain"))
         self.mnemosyne.initialise(self.data_dir, self.filename,
             automatic_upgrades=False)
         self.mnemosyne.review_controller().set_render_chain("web_server")

@@ -20,27 +20,27 @@ class ReverseArabic(Filter):
 class ReverseArabicPlugin(Plugin):
 
     name = "Reverse Arabic"
-    description = "Reverse the Arabic in the webserver, to compensate for the fact that the Android browser renders Arabic from left to right."
+    description = "Reverse the Arabic in the web server, to compensate for the fact that the Android browser renders Arabic from left to right."
     components = [ReverseArabic]
 
     def activate(self):
         Plugin.activate(self)
         try:
-            self.render_chain("webserver").\
+            self.render_chain("web_server").\
                 register_filter(ReverseArabic, in_front=False)
-            self.render_chain("webserver").\
+            self.render_chain("web_server").\
                 unregister_filter(NonLatinFontSizeIncrease)
-        except KeyError:  # The webserver chain is not active.
+        except KeyError:  # The web server chain is not active.
             pass
 
     def deactivate(self):
         Plugin.deactivate(self)
         try:
-            self.render_chain("webserver").\
+            self.render_chain("web_server").\
                 unregister_filter(ReverseArabic)
-            self.render_chain("webserver").\
+            self.render_chain("web_server").\
                 register_filter(NonLatinFontSizeIncrease, in_front=False)
-        except KeyError:  # The webserver chain is not active.
+        except KeyError:  # The web server chain is not active.
             pass
 
 # Register plugin.

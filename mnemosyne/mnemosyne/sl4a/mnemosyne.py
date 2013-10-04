@@ -2,7 +2,7 @@
 # mnemosyne.py <Peter.Bienstman@UGent.be>
 #
 
-# Simple review webserver to be run on a mobile device which can also sync
+# Simple review web server to be run on a mobile device which can also sync
 # to a sync server running e.g. on a desktop or a different server.
 
 # Modify the settings below to reflect your situation.
@@ -107,7 +107,7 @@ if mnemosyne.main_widget().show_question(\
 
 # Start review server.
 mnemosyne.database().release_connection()
-from mnemosyne.webserver.webserver import WebServerThread
+from mnemosyne.web_server.web_server import WebServerThread
 web_server_thread = WebServerThread\
         (mnemosyne.component_manager, is_server_local=True)
 web_server_thread.daemon = True
@@ -118,7 +118,7 @@ if mnemosyne.main_widget().show_question(\
     mnemosyne.main_widget().start_native_browser()
 web_server_thread.join()
 
-# Sync again after the user has closed the program from the webserver.
+# Sync again after the user has closed the program from the web server.
 if mnemosyne.main_widget().show_question(\
     "Perform sync?", "Yes", "No", "") == 0:
     mnemosyne.controller().sync(sync_server, sync_port, 

@@ -24,7 +24,7 @@ class JQueryMbHtml5Audio(Filter):
     Issues:
 
      - only seems to work when loading the info from a webpage and media
-       files on disk, not as served through the Mnemosyne webserver. Some
+       files on disk, not as served through the Mnemosyne web server. Some
        synchronisation issues with the player trying to play the file before
        it's fully ready?
      - need to set an 'end' time which is not beyond the actual end of the
