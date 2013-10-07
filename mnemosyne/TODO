@@ -2,6 +2,10 @@
 
 -integrate webserver in ui
 
+-remove UI methods in webserver?
+
+-retest webserver from command line and under android
+
 -remove own ip from quick and dirty before distrib
 
 -try uploading new database to empty database on headless server
@@ -9,6 +13,9 @@
 -make sure logs are uploaded from NAS
 
 -update webserver docs, add webob to dependencies
+
+
+-card browser: add tag to 1 sister card only: new tag is inactive
 
 
 -rename duplicates --> duplicate questions in menu? Add popup explanation.

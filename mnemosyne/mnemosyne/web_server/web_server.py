@@ -15,6 +15,7 @@ from cherrypy import wsgiserver
 
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.utils import localhost_IP
+from mnemosyne.libmnemosyne.component import Component
 
 
 class ReleaseDatabaseAfterTimeout(threading.Thread):
@@ -46,9 +47,11 @@ class StopServerAfterTimeout(threading.Thread):
         self.wsgi_server.stop()
 
 
-class WebServer(object):
+class WebServer(Component):
 
-    def __init__(self, port, data_dir, filename, is_server_local=False):
+    def __init__(self, component_manager, port, data_dir, filename, 
+                 is_server_local=False):
+        Component.__init__(self, component_manager)
         self.port = port
         self.data_dir = data_dir
         self.filename = filename
@@ -67,6 +70,10 @@ class WebServer(object):
         except KeyboardInterrupt:
             self.wsgi_server.stop()
             self.unload_mnemosyne()
+
+    def stop(self):
+        self.wsgi_server.stop()
+        self.unload_mnemosyne()
 
     def load_mnemosyne(self):
         self.mnemosyne = Mnemosyne(upload_science_logs=True,
@@ -144,6 +151,10 @@ class WebServer(object):
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)
             return ["200 OK"]
+        elif filename == "/status":
+            response_headers = [("Content-type", "text/html")]
+            start_response("200 OK", response_headers)
+            return ["200 OK"]       
         # We need to serve a media file.
         else:
             full_path = self.mnemosyne.database().media_dir()

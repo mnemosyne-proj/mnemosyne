@@ -51,9 +51,9 @@ class ServerThread(QtCore.QThread, WebServer):
     set_progress_value_signal = QtCore.pyqtSignal(int)
     close_progress_signal = QtCore.pyqtSignal()
 
-    def __init__(self, component_manager):
+    def __init__(self, component_manager, port, data_dir, filename):
         QtCore.QThread.__init__(self)
-        WebServer.__init__(self, component_manager, self)
+        WebServer.__init__(self, port, data_dir, filename)
         self.server_has_connection = False
         # A fast moving progress bar seems to cause crashes on Windows.
         self.show_numeric_progress_bar = (sys.platform != "win32")
@@ -107,6 +107,8 @@ class ServerThread(QtCore.QThread, WebServer):
             database_released.wait(mutex)
         self.server_has_connection = True
         mutex.unlock()
+        
+    # TODO: remove all below?
 
     def show_information(self, message):
         global answer
@@ -159,7 +161,7 @@ class ServerThread(QtCore.QThread, WebServer):
         self.close_progress_signal.emit()
 
 
-class QtSyncServer(Component, QtCore.QObject):
+class QtWebServer(Component, QtCore.QObject):
 
     component_type = "web_server"
 
@@ -172,22 +174,23 @@ class QtSyncServer(Component, QtCore.QObject):
         self.true_main_widget = self.main_widget()
 
     def activate(self):
-        if self.config()["run_review_server"]:
+        if self.config()["run_web_server"]:
             # Restart the thread to have the new settings take effect.
             self.deactivate()
             try:
-                self.thread = ServerThread(self.component_manager)
+                self.thread = ServerThread(self.config()["web_server_port"],
+                    self.config().data_dir, self.config()["last_database"])
             except socket.error, (errno, e):
                 if errno == 98:
                     self.main_widget().show_error(\
-                        _("Unable to start review server.") + " " + \
+                        _("Unable to start web server.") + " " + \
     _("There still seems to be an old server running on the requested port.")\
                         + " " + _("Terminate that process and try again."))
                     self.thread = None
                     return
                 elif errno == 13:
                     self.main_widget().show_error(\
-                        _("Unable to start review server.") + " " + \
+                        _("Unable to start web server.") + " " + \
     _("You don't have the permission to use the requested port."))
                     self.thread = None
                     return

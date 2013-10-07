@@ -23,25 +23,34 @@ class ConfigurationWdgtServers(QtGui.QWidget,
         ConfigurationWidget.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
-        self.sync_server_initially_running = self.is_sync_server_running()
+        sync_port = self.config()["sync_server_port"]
+        web_port = self.config()["web_server_port"]
+        self.sync_server_initially_running = self.is_server_running(sync_port)
+        self.web_server_initially_running = self.is_server_running(web_port)
         self.run_sync_server.setChecked(self.config()["run_sync_server"])
-        self.sync_port.setValue(self.config()["sync_server_port"])
+        self.sync_port.setValue(sync_port)
         self.username.setText(self.config()["remote_access_username"])
         self.password.setText(self.config()["remote_access_password"])
         self.check_for_edited_local_media_files.setChecked(\
             self.config()["check_for_edited_local_media_files"])
-        if self.is_sync_server_running():
+        self.run_web_server.setChecked(self.config()["run_web_server"])
+        self.web_port.setValue(web_port)
+        if self.is_server_running(sync_port):
             self.sync_server_status.setText(_("Sync server running on ") + \
                 localhost_IP() + " .")
         else:
             self.sync_server_status.setText(_("Sync server NOT running."))
+        if self.is_server_running(web_port):
+            self.web_server_status.setText(_("Web server running on ") + \
+               "http://" + localhost_IP() + ":" + web_port + " .")
+        else:
+            self.web_server_status.setText(_("Web server NOT running."))
 
-    def is_sync_server_running(self):
+    def is_server_running(self, port):
         timeout = socket.getdefaulttimeout()
         try:
             socket.setdefaulttimeout(0.1)
-            con = httplib.HTTPConnection(localhost_IP(),
-                self.config()["sync_server_port"])
+            con = httplib.HTTPConnection(localhost_IP(), port)
             con.request("GET", "/status")
             assert "OK" in con.getresponse().read()
             socket.setdefaulttimeout(timeout)
@@ -69,6 +78,8 @@ class ConfigurationWdgtServers(QtGui.QWidget,
         self.config()["remote_access_password"] = unicode(self.password.text())
         self.config()["check_for_edited_local_media_files"] = \
             self.check_for_edited_local_media_files.isChecked()
+        self.config()["run_web_server"] = self.run_web_server.isChecked()
+        self.config()["web_server_port"] = self.web_port.value()
         self.component_manager.current("sync_server").deactivate()
         if self.config()["run_sync_server"]:
             self.component_manager.current("sync_server").activate()
@@ -79,6 +90,20 @@ class ConfigurationWdgtServers(QtGui.QWidget,
         else:
             self.component_manager.current("sync_server").deactivate()
             if self.sync_server_initially_running and \
-                not self.is_sync_server_running():
+                not self.is_server_running(self.config()["sync_server_port"]):
                 self.main_widget().show_information(\
                     _("Sync server stopped."))
+        if self.config()["run_web_server"]:
+            self.component_manager.current("web_server").activate()
+            if not self.web_server_initially_running \
+                and self.is_server_running(self.config()["web_server_port"]):
+                self.main_widget().show_information(\
+                    _("Web server now running on ") + "http://" + \
+                    localhost_IP() + ":" + self.config()["web_server_port"] \
+                    + " .")
+        else:
+            self.component_manager.current("web_server").deactivate()
+            if self.web_server_initially_running and \
+                not self.is_web_server_running():
+                self.main_widget().show_information(\
+                    _("Web server stopped."))

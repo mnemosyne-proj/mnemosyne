@@ -256,7 +256,7 @@ class Mnemosyne(Component):
             self.component_manager.current("config").activate()
         except RuntimeError, e:
             self.main_widget().show_error(unicode(e))
-        # Allow front+end programmer to override the user setting.
+        # Allow front end programmer to override the user setting.
         if self.upload_science_logs is False:
             self.config()["upload_science_logs"] = False
         if self.upload_science_logs is True:
@@ -270,9 +270,12 @@ class Mnemosyne(Component):
                 self.component_manager.current(component).activate()
             except RuntimeError, e:
                 self.main_widget().show_error(unicode(e))
-        server = self.component_manager.current("sync_server")
-        if server:
-            server.activate()
+        sync_server = self.component_manager.current("sync_server")
+        if sync_server:
+            sync_server.activate()
+        web_server = self.component_manager.current("web_server")
+        if web_server:
+            web_server.activate()
 
     def execute_user_plugin_dir(self):
         # Note that we put user plugins in the data_dir and not the
