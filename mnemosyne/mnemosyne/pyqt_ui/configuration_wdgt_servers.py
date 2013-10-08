@@ -42,7 +42,7 @@ class ConfigurationWdgtServers(QtGui.QWidget,
             self.sync_server_status.setText(_("Sync server NOT running."))
         if self.is_server_running(web_port):
             self.web_server_status.setText(_("Web server running on ") + \
-               "http://" + localhost_IP() + ":" + web_port + " .")
+               "http://" + localhost_IP() + ":" + str(web_port) + " .")
         else:
             self.web_server_status.setText(_("Web server NOT running."))
 
@@ -84,7 +84,7 @@ class ConfigurationWdgtServers(QtGui.QWidget,
         if self.config()["run_sync_server"]:
             self.component_manager.current("sync_server").activate()
             if not self.sync_server_initially_running \
-                and self.is_sync_server_running():
+                and self.is_server_running(self.config()["sync_server_port"]):
                 self.main_widget().show_information(\
                     _("Sync server now running on ") + localhost_IP() + ".")
         else:
@@ -98,12 +98,12 @@ class ConfigurationWdgtServers(QtGui.QWidget,
             if not self.web_server_initially_running \
                 and self.is_server_running(self.config()["web_server_port"]):
                 self.main_widget().show_information(\
-                    _("Web server now running on ") + "http://" + \
-                    localhost_IP() + ":" + self.config()["web_server_port"] \
-                    + " .")
+                    _("Web server now running on") + " http://" + \
+                    localhost_IP() + ":" + \
+                    str(self.config()["web_server_port"]) + " .")
         else:
             self.component_manager.current("web_server").deactivate()
             if self.web_server_initially_running and \
-                not self.is_web_server_running():
+                not self.is_server_running(self.config()["web_server_port"]):
                 self.main_widget().show_information(\
                     _("Web server stopped."))

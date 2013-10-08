@@ -112,6 +112,10 @@ class WebServer(Component):
 
     def wsgi_app(self, environ, start_response):
         filename = environ["PATH_INFO"]
+        if filename == "/status":
+            response_headers = [("Content-type", "text/html")]
+            start_response("200 OK", response_headers)
+            return ["200 OK"]  
         if not self.is_mnemosyne_loaded and filename != "/release_database":
             self.load_mnemosyne()
         if not self.is_server_local:
@@ -151,10 +155,6 @@ class WebServer(Component):
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)
             return ["200 OK"]
-        elif filename == "/status":
-            response_headers = [("Content-type", "text/html")]
-            start_response("200 OK", response_headers)
-            return ["200 OK"]       
         # We need to serve a media file.
         else:
             full_path = self.mnemosyne.database().media_dir()

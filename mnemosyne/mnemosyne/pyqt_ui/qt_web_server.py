@@ -53,7 +53,7 @@ class ServerThread(QtCore.QThread, WebServer):
 
     def __init__(self, component_manager, port, data_dir, filename):
         QtCore.QThread.__init__(self)
-        WebServer.__init__(self, port, data_dir, filename)
+        WebServer.__init__(self, component_manager, port, data_dir, filename)
         self.server_has_connection = False
         # A fast moving progress bar seems to cause crashes on Windows.
         self.show_numeric_progress_bar = (sys.platform != "win32")
@@ -70,7 +70,8 @@ class ServerThread(QtCore.QThread, WebServer):
             mutex.lock()
             database_released.wait(mutex)
             mutex.unlock()
-        self.database().release_connection()
+        if self.database():
+            self.database().release_connection()
         self.server_has_connection = False
         if self in self.component_manager.components[None]["main_widget"]:
             self.component_manager.components[None]["main_widget"].pop()
@@ -178,8 +179,9 @@ class QtWebServer(Component, QtCore.QObject):
             # Restart the thread to have the new settings take effect.
             self.deactivate()
             try:
-                self.thread = ServerThread(self.config()["web_server_port"],
-                    self.config().data_dir, self.config()["last_database"])
+                self.thread = ServerThread(self.component_manager,
+                    self.config()["web_server_port"], self.config().data_dir, 
+                    self.config()["last_database"])
             except socket.error, (errno, e):
                 if errno == 98:
                     self.main_widget().show_error(\
