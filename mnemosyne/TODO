@@ -1,8 +1,16 @@
--integrate webserver in ui
+-server does not release database: play with timeout
+
+-add ui feedback about locking
+-make sure you cannot close progress bar
+
+-change timeout
+-rename is_server_local?
+
+-make sure main widget updates after remote review closes
 
 -retest webserver from command line and under android
 
--remove UI methods in webserver?
+-recheck hibernation
 
 -remove own ip from quick and dirty before distrib
 

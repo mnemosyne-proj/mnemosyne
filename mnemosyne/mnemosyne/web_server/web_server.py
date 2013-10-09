@@ -29,11 +29,18 @@ class ReleaseDatabaseAfterTimeout(threading.Thread):
         self.last_ping = time.time()
 
     def run(self):
-        while time.time() < self.last_ping + 5*60:
+        while time.time() < self.last_ping + 2:  # 5*60:
+            print time.time()
             time.sleep(1)
-        con = httplib.HTTPConnection("127.0.0.1", self.port)
+        print 'try release database'
+        con = httplib.HTTPConnection("localhost", self.port)
+        print 1
+        #con.request("GET", "/status")
         con.request("GET", "/release_database")
+        print 2
         response = con.getresponse()
+        print 3, response
+        print 'database released'
 
 
 class StopServerAfterTimeout(threading.Thread):
@@ -62,7 +69,7 @@ class WebServer(Component):
         self.is_mnemosyne_loaded = False
         self.wsgi_server = wsgiserver.CherryPyWSGIServer(\
             ("0.0.0.0", port), self.wsgi_app, server_name="localhost",
-            numthreads=1, timeout=1000)
+            numthreads=1, timeout=3) #1000)
 
     def serve_until_stopped(self):
         try:
@@ -76,6 +83,7 @@ class WebServer(Component):
         self.unload_mnemosyne()
 
     def load_mnemosyne(self):
+        print 'start load webserver'
         self.mnemosyne = Mnemosyne(upload_science_logs=True,
             interested_in_old_reps=True)
         self.mnemosyne.components.insert(0, (
@@ -98,12 +106,13 @@ class WebServer(Component):
         self.mnemosyne.start_review()
         self.mnemosyne.review_widget().set_is_server_local(self.is_server_local)
         self.is_mnemosyne_loaded = True
-        if not self.is_server_local:
+        if 1: #not self.is_server_local:
             self.release_database_after_timeout = \
                 ReleaseDatabaseAfterTimeout(self.port)
             self.release_database_after_timeout.start()
 
     def unload_mnemosyne(self):
+        print 'unload webserver'
         if not self.is_mnemosyne_loaded:
             return
         self.mnemosyne.config()["save_after_n_reps"] = self.save_after_n_reps
@@ -112,6 +121,8 @@ class WebServer(Component):
 
     def wsgi_app(self, environ, start_response):
         filename = environ["PATH_INFO"]
+        print filename
+        print environ
         if filename == "/status":
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)
