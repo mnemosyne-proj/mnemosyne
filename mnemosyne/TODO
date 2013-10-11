@@ -1,10 +1,12 @@
--server does not release database: play with timeout
+-server does not release database: play with timeout in wsgiserver, document
+-get rid of extraneous loading and saving
 
 -add ui feedback about locking
 -make sure you cannot close progress bar
 
--change timeout
+-change timeout in ping
 -rename is_server_local?
+-need flush?
 
 -make sure main widget updates after remote review closes
 
