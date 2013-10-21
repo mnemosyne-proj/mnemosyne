@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>385</width>
-    <height>393</height>
+    <width>457</width>
+    <height>375</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,7 @@
           <item>
            <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>First show new cards</string>
+             <string>Show new cards for the first time</string>
             </property>
            </widget>
           </item>
