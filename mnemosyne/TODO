@@ -1,3 +1,8 @@
+After try and fail I decided that it would be too much work to write all these formula anyway and deleted the cards again, but not the clone (forgot to delete it).
+Mnemosyne worked fine afterwards, but when I tried to reopen it today it just said: "Missing plugin for card type with id: 1::Discrete Inverse Theory" and after clicking the OK-button another hint shows "Creating temporary database."
+While looking at the background colors I just realized that I created a clone yesterday named exactly the same as an already existing clone (which contained four cards and which I completely forgot about). Maybe the program didn't like it...?
+
+
 -server does not release database: play with timeout in wsgiserver, document
 -get rid of extraneous loading and saving
 
