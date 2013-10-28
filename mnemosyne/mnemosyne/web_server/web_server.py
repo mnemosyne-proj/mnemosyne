@@ -63,6 +63,8 @@ class WebServer(Component):
         self.wsgi_server = wsgiserver.CherryPyWSGIServer(\
             ("0.0.0.0", port), self.wsgi_app, server_name="localhost",
             numthreads=1, timeout=1) #1000)
+        # We need to set the timeout relatively low, otherwise it will take
+        # too long for the server to process a 'stop' request.
 
     def serve_until_stopped(self):
         try:

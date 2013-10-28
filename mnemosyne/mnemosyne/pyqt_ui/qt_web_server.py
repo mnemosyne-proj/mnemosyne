@@ -68,13 +68,14 @@ class ServerThread(QtCore.QThread, WebServer):
         # Clean up after stopping.
         print 'cleaning up'
         if not self.server_has_connection:
-            print 'b'
+            print 'a: waiting for database release'
             mutex.lock()
             database_released.wait(mutex)
             mutex.unlock()
-        if self.database():
-            print 'b'
-            self.database().release_connection()
+            print 'a: database released'
+        print 'b: try release connection'
+        self.database().release_connection()
+        print 'b: connection released'
         self.server_has_connection = False
         if self in self.component_manager.components[None]["main_widget"]:
             self.component_manager.components[None]["main_widget"].pop()
@@ -108,11 +109,11 @@ class ServerThread(QtCore.QThread, WebServer):
             WebServer.unload_mnemosyne(self)
             self.server_has_connection = False
             database_released.wakeAll()
-        print 'hi'
+        print 'woke up everybody'
         if self in self.component_manager.components[None]["main_widget"]:
             self.component_manager.components[None]["main_widget"].pop()
         mutex.unlock()
-        print 'b'
+        print 'emitting review ended signal'
         self.review_ended_signal.emit()
         print 'done unloading qt webserver thread'
 
@@ -262,8 +263,6 @@ class QtWebServer(Component, QtCore.QObject):
             self.database().load(self.config()["last_database"])
             print 3
         except Exception, e: # Database locked in server thread.
-            print 4, e
-            # TODO: this is where it hangs
             database_released.wait(mutex)
             self.database().load(self.config()["last_database"])
         self.log().loaded_database()
@@ -291,7 +290,7 @@ class QtWebServer(Component, QtCore.QObject):
         print 'deactivate', self.thread
         if not self.thread:
             return
-        #self.unload_mnemosyne()
+        self.unload_mnemosyne()
         print '1'
         self.thread.stop()
         print '2'

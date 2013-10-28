@@ -336,6 +336,10 @@ _("If you are using a USB key, refer to the instructions on the website so as no
         server = self.component_manager.current("sync_server")
         if server:
             server.deactivate()
+        # Ditto for the web server.
+        server = self.component_manager.current("web_server")
+        if server:
+            server.deactivate()
         # Saving the config should happen before we deactivate the plugins,
         # otherwise they are not restored upon reload.
         self.config().save()

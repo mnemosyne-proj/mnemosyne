@@ -2,16 +2,16 @@ After try and fail I decided that it would be too much work to write all these f
 Mnemosyne worked fine afterwards, but when I tried to reopen it today it just said: "Missing plugin for card type with id: 1::Discrete Inverse Theory" and after clicking the OK-button another hint shows "Creating temporary database."
 While looking at the background colors I just realized that I created a clone yesterday named exactly the same as an already existing clone (which contained four cards and which I completely forgot about). Maybe the program didn't like it...?
 
-
--server does not release database: play with timeout in wsgiserver, document
--get rid of extraneous loading and saving
+-get rid of extraneous loading and saving both in review and in sync server?
 
 -add ui feedback about locking
 -make sure you cannot close progress bar
 
--change timeout in ping
+-change timeout in ping, wsgiserver timeout
 -rename is_server_local?
 -need flush?
+
+-remove print statement
 
 -make sure main widget updates after remote review closes
 
@@ -26,6 +26,9 @@ While looking at the background colors I just realized that I created a clone ye
 -make sure logs are uploaded from NAS
 
 -update webserver docs, add webob to dependencies
+
+
+-package android
 
 
 -card browser: add tag to 1 sister card only: new tag is inactive
