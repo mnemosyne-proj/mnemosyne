@@ -263,12 +263,10 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
 
         """
 
-        print 'enter release', self._connection
         if self._connection:
             self._connection.commit()
             self._connection.close()
             self._connection = None
-        print 'done release'
 
     def claim_connection(self):
         self.con

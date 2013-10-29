@@ -66,24 +66,17 @@ class ServerThread(QtCore.QThread, WebServer):
         except Exception, e:
             self.show_error(str(e) + "\n" + traceback_string())
         # Clean up after stopping.
-        print 'cleaning up'
         if not self.server_has_connection:
-            print 'a: waiting for database release'
             mutex.lock()
             database_released.wait(mutex)
             mutex.unlock()
-            print 'a: database released'
-        print 'b: try release connection'
         self.database().release_connection()
-        print 'b: connection released'
         self.server_has_connection = False
         if self in self.component_manager.components[None]["main_widget"]:
             self.component_manager.components[None]["main_widget"].pop()
         database_released.wakeAll()
-        print 'c'
 
     def load_mnemosyne(self):
-        print 'start load qt webserver'
         self.set_progress_text(_("Remote review in progress..."))
         mutex.lock()
         # Libmnemosyne itself could also generate dialog messages, so
@@ -95,34 +88,28 @@ class ServerThread(QtCore.QThread, WebServer):
             database_released.wait(mutex)
         WebServer.load_mnemosyne(self)
         self.server_has_connection = True
-        print 'done loading'
         mutex.unlock()
 
     def unload_mnemosyne(self):
-        print 'unload qt webserver thread'
-        print self.server_has_connection
         self.close_progress()
         mutex.lock()
-        print 'enter lock'
+        server_had_connection = self.server_has_connection
         if self.server_has_connection:
-            print 'unloading'
             WebServer.unload_mnemosyne(self)
             self.server_has_connection = False
             database_released.wakeAll()
-        print 'woke up everybody'
         if self in self.component_manager.components[None]["main_widget"]:
             self.component_manager.components[None]["main_widget"].pop()
         mutex.unlock()
-        print 'emitting review ended signal'
-        self.review_ended_signal.emit()
-        print 'done unloading qt webserver thread'
+        if server_had_connection:
+            # Reload database in the main program.
+            self.review_ended_signal.emit()
 
     def flush(self):
         mutex.lock()
         if not self.server_has_connection:
             database_released.wait(mutex)
         self.server_has_connection = True
-        print 'done flushing'
         mutex.unlock()
 
     def show_information(self, message):
@@ -237,7 +224,6 @@ class QtWebServer(Component, QtCore.QObject):
             self.thread.start()
 
     def unload_mnemosyne(self):
-        print 'qtwebserver unload mnemosyne'
         mutex.lock()
         # Since this function can get called by libmnemosyne outside of the
         # syncing protocol, 'thread.server_has_connection' is not necessarily
@@ -252,16 +238,12 @@ class QtWebServer(Component, QtCore.QObject):
         self.thread.server_has_connection = True
         database_released.wakeAll()
         mutex.unlock()
-        print 'qtwebserver unload mnemosyne done'
 
     def load_database(self):
-        print 'loading database'
-        print 1
+        self.stopwatch().pause()
         mutex.lock()
         try:
-            print 2
             self.database().load(self.config()["last_database"])
-            print 3
         except Exception, e: # Database locked in server thread.
             database_released.wait(mutex)
             self.database().load(self.config()["last_database"])
@@ -270,7 +252,7 @@ class QtWebServer(Component, QtCore.QObject):
         self.review_controller().update_dialog(redraw_all=True)
         self.thread.server_has_connection = False
         mutex.unlock()
-        print 'done loading database'
+        self.stopwatch().unpause()
 
     def flush(self):
         # Don't flush the server if not needed, as loading and unloading the
@@ -287,16 +269,12 @@ class QtWebServer(Component, QtCore.QObject):
         self.load_database()
 
     def deactivate(self):
-        print 'deactivate', self.thread
         if not self.thread:
             return
         self.unload_mnemosyne()
-        print '1'
         self.thread.stop()
-        print '2'
         self.thread.wait()
         self.thread = None
-        print '3'
 
     def threaded_show_information(self, message):
         global answer

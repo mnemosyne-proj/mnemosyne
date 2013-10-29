@@ -2,21 +2,10 @@ After try and fail I decided that it would be too much work to write all these f
 Mnemosyne worked fine afterwards, but when I tried to reopen it today it just said: "Missing plugin for card type with id: 1::Discrete Inverse Theory" and after clicking the OK-button another hint shows "Creating temporary database."
 While looking at the background colors I just realized that I created a clone yesterday named exactly the same as an already existing clone (which contained four cards and which I completely forgot about). Maybe the program didn't like it...?
 
--get rid of extraneous loading and saving both in review and in sync server?
-
--add ui feedback about locking
--make sure you cannot close progress bar
-
 -change timeout in ping, wsgiserver timeout
 -rename is_server_local?
--need flush?
-
--remove print statement
-
--make sure main widget updates after remote review closes
 
 -retest webserver from command line and under android
-
 -recheck hibernation
 
 -remove own ip from quick and dirty before distrib
@@ -105,6 +94,12 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -with full sync, option to skip media sync
  
 -Possible to get rid of unloading in python / reloading in Qt?
+
+-speed up science log parser?
+ http://lesswrong.com/r/discussion/lw/ivw/what_should_normal_people_do/9yuy
+suggests that there's some SQLite3 functionality relating to the
+'union' operator which could massively speed up insertion, pointing to
+http://stackoverflow.com/questions/1609637/is-it-possible-to-insert-multiple-rows-at-a-time-in-an-sqlite-database_is_empty
 
 -optimise away DISTINCT and do it at the python level
 -more sqlite profiling

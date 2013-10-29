@@ -74,11 +74,8 @@ class WebServer(Component):
             self.unload_mnemosyne()
 
     def stop(self):
-        print 'webserver stop'
         self.wsgi_server.stop()
-        print 'stopped server'
         self.unload_mnemosyne()
-        print 'done webserver stop'
 
     def load_mnemosyne(self):
         self.mnemosyne = Mnemosyne(upload_science_logs=True,

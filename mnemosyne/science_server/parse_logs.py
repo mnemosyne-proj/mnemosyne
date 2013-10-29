@@ -84,12 +84,13 @@ class LogDatabase(object):
                 self.parser.parse(filename)
             except KeyboardInterrupt:
                 print "Interrupted!"
+                self.con.commit()
                 exit()
             except:
                 print "Can't open file, ignoring."
             self.con.execute("insert into parsed_logs(log_name) values(?)",
                 (os.path.basename(filename), ))
-            self.con.commit()
+        self.con.commit()
         self._create_indexes()
 
     def _delete_indexes(self):
