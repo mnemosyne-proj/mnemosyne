@@ -29,7 +29,7 @@ class ReleaseDatabaseAfterTimeout(threading.Thread):
         self.last_ping = time.time()
 
     def run(self):
-        while time.time() < self.last_ping + 2:  # 5*60:
+        while time.time() < self.last_ping + 2*60:
             time.sleep(1)
         con = httplib.HTTPConnection("localhost", self.port)
         con.request("GET", "/release_database")
@@ -62,7 +62,7 @@ class WebServer(Component):
         self.is_mnemosyne_loaded = False
         self.wsgi_server = wsgiserver.CherryPyWSGIServer(\
             ("0.0.0.0", port), self.wsgi_app, server_name="localhost",
-            numthreads=1, timeout=1) #1000)
+            numthreads=1, timeout=5)
         # We need to set the timeout relatively low, otherwise it will take
         # too long for the server to process a 'stop' request.
 
@@ -98,12 +98,12 @@ class WebServer(Component):
         self.save_after_n_reps = self.mnemosyne.config()["save_after_n_reps"]
         self.mnemosyne.config()["save_after_n_reps"] = 1
         self.mnemosyne.start_review()
-        self.mnemosyne.review_widget().set_is_server_local(self.is_server_local)
+        self.mnemosyne.review_widget().set_is_server_local(\
+            self.is_server_local)
         self.is_mnemosyne_loaded = True
-        if 1: #not self.is_server_local:
-            self.release_database_after_timeout = \
-                ReleaseDatabaseAfterTimeout(self.port)
-            self.release_database_after_timeout.start()
+        self.release_database_after_timeout = \
+            ReleaseDatabaseAfterTimeout(self.port)
+        self.release_database_after_timeout.start()
 
     def unload_mnemosyne(self):
         if not self.is_mnemosyne_loaded:
@@ -120,8 +120,7 @@ class WebServer(Component):
             return ["200 OK"]  
         if not self.is_mnemosyne_loaded and filename != "/release_database":
             self.load_mnemosyne()
-        if not self.is_server_local:
-            self.release_database_after_timeout.ping()
+        self.release_database_after_timeout.ping()
         # All our request return to the root page, so if the path is '/',
         # return the html of the review widget.
         if filename == "/":
@@ -185,9 +184,9 @@ class WebServerThread(threading.Thread, WebServer):
         self.is_server_local = is_server_local
         threading.Thread.__init__(self)
         self.config = component_manager.current("config")
-        WebServer.__init__(self, self.config["web_server_port"],
-            self.config.data_dir, self.config["last_database"], 
-            self.is_server_local)
+        WebServer.__init__(self, component_manager,
+            self.config["web_server_port"], self.config.data_dir, 
+            self.config["last_database"], self.is_server_local)
 
     def run(self):
         if not self.is_server_local:  # Could fail if we are offline.

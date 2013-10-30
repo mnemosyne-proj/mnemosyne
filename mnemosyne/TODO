@@ -2,17 +2,11 @@ After try and fail I decided that it would be too much work to write all these f
 Mnemosyne worked fine afterwards, but when I tried to reopen it today it just said: "Missing plugin for card type with id: 1::Discrete Inverse Theory" and after clicking the OK-button another hint shows "Creating temporary database."
 While looking at the background colors I just realized that I created a clone yesterday named exactly the same as an already existing clone (which contained four cards and which I completely forgot about). Maybe the program didn't like it...?
 
--change timeout in ping, wsgiserver timeout
--rename is_server_local?
-
--retest webserver from command line and under android
--recheck hibernation
-
--remove own ip from quick and dirty before distrib
-
 -try uploading new database to empty database on headless server
 
 -make sure logs are uploaded from NAS
+
+-recheck hibernation
 
 -update webserver docs, add webob to dependencies
 
@@ -27,14 +21,15 @@ While looking at the background colors I just realized that I created a clone ye
 
 -when in having sorted on a column, eliminate resorting to unsorted after
  editing a card. (Gnome bug Tristan, uservoice)
+ 
+-after selecting multiple cards and e.g. adding a tag, with a non-default sort
+ order, the sort order is reset to the default one, so the selection changes
 
 -error when adding media filename with spaces?
 
 -forbid tags like '::b' (MIKHEYENKO VITALY)
  
 -importing cards: metadata shows 'exporting cards'
-
--fix multiple audio files and start/stop (Ansgar Bohmann)
 
 -unicode in notes field on export?  (Ansgar Bohmann)
 
@@ -43,7 +38,11 @@ While looking at the background colors I just realized that I created a clone ye
 
 -list saved set in titlebar (silverbear, uservoice)
 
+-remove own ip from quick and dirty before distrib
 
+
+
+-fix multiple audio files and start/stop (Ansgar Bohmann)
 
 -remote webserver sometimes does not want to send multiple pictures
 -sometimes, need to click website buttons twice
@@ -79,6 +78,8 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -website font size under windows
 
 -move to qt5?
+
+
 
 
 -make sure the mobile client can work without all the statistics (60 mb file

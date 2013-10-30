@@ -5,13 +5,13 @@ before installing the new one.)
 The sync protocol has changed in this version, so make sure you update both
 the client and the server at the same time.
 
+-The functionality of mnemosyne-webserver has now been merged into the main
+ program and can be activated through 'Configure Mnemosyne - servers'.
 -Time to create backups has decreased, in some situations even by a factor 
  of 2 or more, speeding up syncing and program exit.
 -Also sync relevant settings (e.g. fonts, colours, ...) during the initial
  sync.
 -Improve the timeout handling of the sync protocol.
--The functionality of mnemosyne-webserver has now been merged into the main
- program and can be activated through 'Configure Mnemosyne - servers'.
 -Fix erroneous 'Wrong username or password' error.
 -Added command line options --sync-server and --web-server which starts the 
  sync and the web server in headless mode (i.e. without a GUI) (useful to run 
