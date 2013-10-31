@@ -1,7 +1,3 @@
-After try and fail I decided that it would be too much work to write all these formula anyway and deleted the cards again, but not the clone (forgot to delete it).
-Mnemosyne worked fine afterwards, but when I tried to reopen it today it just said: "Missing plugin for card type with id: 1::Discrete Inverse Theory" and after clicking the OK-button another hint shows "Creating temporary database."
-While looking at the background colors I just realized that I created a clone yesterday named exactly the same as an already existing clone (which contained four cards and which I completely forgot about). Maybe the program didn't like it...?
-
 -try uploading new database to empty database on headless server
 
 -make sure logs are uploaded from NAS
@@ -147,6 +143,8 @@ http://stackoverflow.com/questions/1609637/is-it-possible-to-insert-multiple-row
 
 -check sync timeout when both client and server check for updated media files.
  (was 10, is now 30)
+ 
+-integrate with forvo.com?
 
 -insert latex tags shortcut and menu (phyTech)
 
