@@ -2,25 +2,41 @@
 # shortcuts.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.component_manager import review_widget
+from mnemosyne.libmnemosyne.plugin import Plugin
+from mnemosyne.pyqt_ui.review_wdgt import ReviewWdgt
 
-# Don't have Mnemosyne set the focus to grades. This disables space
-# enter, and return as shortcut for the grades. Comment this if you
-# still want this.
 
-review_widget().auto_focus_grades = False
+class MyReviewWdgt(ReviewWdgt):
 
-# Change shortcuts for the grade buttons.
+    def __init__(self, component_manager):
+        ReviewWdgt.__init__(self, component_manager)
+    
+        self.auto_focus_grades = False
 
-review_widget().grade_0_button.setShortcut("q")
-review_widget().grade_1_button.setShortcut("w")
-review_widget().grade_2_button.setShortcut("e")
-review_widget().grade_3_button.setShortcut("r")
-review_widget().grade_4_button.setShortcut("t")
-review_widget().grade_5_button.setShortcut("y")
+        # Change shortcuts for the grade buttons.
 
-# Some more examples.
+        self.grade_0_button.setShortcut("q")
+        self.grade_1_button.setShortcut("w")
+        self.grade_2_button.setShortcut("e")
+        self.grade_3_button.setShortcut("r")
+        self.grade_4_button.setShortcut("t")
+        self.grade_5_button.setShortcut("y")
 
-#review_widget().grade_0_button.setShortcut("Enter") # Numerical keypad
-#review_widget().grade_1_button.setShortcut("Space")
-#review_widget().grade_2_button.setShortcut("Return") 
+        # Some more examples.
+
+        #self.grade_0_button.setShortcut("Enter") # Numerical keypad
+        #self.grade_1_button.setShortcut("Space")
+        #self.grade_2_button.setShortcut("Return") 
+
+
+class ShortcutsPlugin(Plugin):
+
+    name = "Custom shortcuts"
+    description = "Customise review widget shortcuts."
+    components = [MyReviewWdgt]
+
+
+# Register plugin.
+
+from mnemosyne.libmnemosyne.plugin import register_user_plugin
+register_user_plugin(ShortcutsPlugin)

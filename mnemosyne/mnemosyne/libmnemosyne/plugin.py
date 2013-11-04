@@ -45,8 +45,8 @@ class Plugin(Component):
         # See if we need to reset the review process.
         self.review_reset_needed = False
         for component in self.components:
-            if component.component_type == "scheduler" or \
-               component.component_type == "review_controller":
+            if component.component_type in \
+                ["scheduler", "review_controller", "review_widget"]:
                 self.review_reset_needed = True
         # Register all our components. Instantiate them if needed.
         for component in self.components:
