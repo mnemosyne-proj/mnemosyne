@@ -43,7 +43,7 @@ class TagDelegate(QtGui.QStyledItemDelegate):
         # See also:
         #
         #  http://www.qtforum.org/article/33631/qlineedit-the-signal-editingfinished-is-emitted-twice.html
-        #  http://bugreports.qt.nokia.com/browse/QTBUG-40
+        #  https://bugreports.qt-project.org/browse/QTBUG-40
 
         editor = QtGui.QStyledItemDelegate.createEditor\
             (self, parent, option, index)

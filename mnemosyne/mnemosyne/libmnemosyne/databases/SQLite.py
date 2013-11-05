@@ -328,7 +328,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self._current_criterion = DefaultCriterion(self.component_manager)
         self._current_criterion._id = 1
         self._current_criterion.id = "__DEFAULT__"
-        self._current_criterion.name = "__DEFAULT__"
+        self._current_criterion.name = self.default_criterion_name
         self._current_criterion._tag_ids_active.add(tag._id)
         self.add_criterion(self._current_criterion)
 

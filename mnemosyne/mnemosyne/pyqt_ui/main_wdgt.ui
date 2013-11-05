@@ -298,7 +298,7 @@
   </action>
   <action name="actionFindDuplicates">
    <property name="text">
-    <string>Find duplicates</string>
+    <string>Find duplicate questions</string>
    </property>
   </action>
  </widget>

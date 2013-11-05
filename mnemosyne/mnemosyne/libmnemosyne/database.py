@@ -18,6 +18,7 @@ class Database(Component):
 
     version = ""
     default_name = "default"  # Without suffix, should not be translated.
+    default_criterion_name = "__DEFAULT__" 
     suffix = ""
     component_type = "database"
 

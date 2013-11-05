@@ -24,6 +24,7 @@ the client and the server at the same time.
  displayed if sister cards have different tags (requested by Scott Youngman).
 -Instruct people on the correct way to deal with '*.cards' files if they try
  to open it as a separate database (Kensor0).
+-Make it clearer what 'Find duplicates' does.
 -People writing e.g. Javascript card and needing access to the full path of
  the media directory can now use db_media:///foo.png (requested by Gnome).
 -Flash files are now synced as well (reported by heldtfisken).

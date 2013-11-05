@@ -63,9 +63,13 @@ class DefaultController(Controller):
 
     def update_title(self):
         title = _("Mnemosyne")
-        database_name = self.database().display_name()
-        if database_name and database_name != self.database().default_name:
+        db = self.database()
+        database_name = db.display_name()
+        if database_name and database_name != db.default_name:
             title += " - " + database_name
+        if db.current_criterion() and \
+            db.current_criterion().name != db.default_criterion_name:
+            title += " - " + db.current_criterion().name
         self.main_widget().set_window_title(title)
 
     def show_add_cards_dialog(self):
@@ -753,6 +757,10 @@ _("Your database will be autosaved before exiting. Also, it is saved every coupl
     def find_duplicates(self):
         self.stopwatch().pause()
         self.flush_sync_server()
+        if self.config()["find_duplicates_help_shown"] == False:
+            self.main_widget().show_information(\
+_("This will tag all the cards in a given card type which have the same question. That way you can reformulate them to make the answer unambiguous. Note that this will not tag duplicates in different card types, e.g. card types for 'French' and 'Spanish'."))
+            self.config()["find_duplicates_help_shown"] = True
         self.database().tag_all_duplicates()
         review_controller = self.review_controller()
         review_controller.reset_but_try_to_keep_current_card()

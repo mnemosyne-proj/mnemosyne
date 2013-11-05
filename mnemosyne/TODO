@@ -4,16 +4,12 @@
 
 -recheck hibernation
 
--update webserver docs, add webob to dependencies
 
 
 -package android
 
 
 -card browser: add tag to 1 sister card only: new tag is inactive
-
-
--rename duplicates --> duplicate questions in menu? Add popup explanation.
 
 -when in having sorted on a column, eliminate resorting to unsorted after
  editing a card. (Gnome bug Tristan, uservoice)
@@ -36,6 +32,7 @@
 
 -remove own ip from quick and dirty before distrib
 
+-update webserver docs, add webob to dependencies
 
 
 -fix multiple audio files and start/stop (Ansgar Bohmann)
