@@ -68,6 +68,7 @@ class DefaultController(Controller):
         if database_name and database_name != db.default_name:
             title += " - " + database_name
         if db.current_criterion() and \
+            db.current_criterion().name and \
             db.current_criterion().name != db.default_criterion_name:
             title += " - " + db.current_criterion().name
         self.main_widget().set_window_title(title)
@@ -752,6 +753,7 @@ _("Your database will be autosaved before exiting. Also, it is saved every coupl
         review_controller = self.review_controller()
         review_controller.reset_but_try_to_keep_current_card()
         review_controller.update_status_bar_counters()
+        self.update_title()
         self.stopwatch().unpause()
 
     def find_duplicates(self):

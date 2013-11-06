@@ -1,9 +1,10 @@
+-fix testsuite
+
 -try uploading new database to empty database on headless server
 
 -make sure logs are uploaded from NAS
 
 -recheck hibernation
-
 
 
 -package android
@@ -16,6 +17,9 @@
  
 -after selecting multiple cards and e.g. adding a tag, with a non-default sort
  order, the sort order is reset to the default one, so the selection changes
+-card browser, sort by creating date,selected multiple cards, add tag. Card list resets, but different multiple cards
+  are seleted, i.e. selection is not cleared.
+
 
 -error when adding media filename with spaces?
 
@@ -28,10 +32,7 @@
 -export: overwrite: double warning? Also, when translating, part of header 
  seems included.(Ansgar Bohmann)
 
--list saved set in titlebar (silverbear, uservoice)
-
 -remove own ip from quick and dirty before distrib
-
 -update webserver docs, add webob to dependencies
 
 
@@ -58,9 +59,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
  shows the old appearance
  
 
--card browser, sort by creating date,selected multiple cards, add tag. Card list resets, but different multiple cards
-  are seleted, i.e. selection is not cleared.
-
 -optimisation: change card type for many facts which calls
  'delete_facts_and_their_data' does checking for unused tags multiple times.
 
@@ -71,7 +69,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -website font size under windows
 
 -move to qt5?
-
 
 
 

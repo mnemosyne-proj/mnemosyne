@@ -9,6 +9,9 @@ the client and the server at the same time.
  program and can be activated through 'Configure Mnemosyne - servers'.
 -Time to create backups has decreased, in some situations even by a factor 
  of 2 or more, speeding up syncing and program exit.
+-The name of the currently active saved set of cards is now listed in title
+ bar (requested by Silverbear).
+-Added new statistic: number of new cards learned per day.
 -Also sync relevant settings (e.g. fonts, colours, ...) during the initial
  sync.
 -Improve the timeout handling of the sync protocol.
@@ -16,7 +19,6 @@ the client and the server at the same time.
 -Added command line options --sync-server and --web-server which starts the 
  sync and the web server in headless mode (i.e. without a GUI) (useful to run 
  e.g. on a NAS server).
--Added new statistic: number of new cards learned per day.
 -Fix more errors coming from loading config files.
 -Rework error handling when trying to load a database which no longer exists
  in its previous location.

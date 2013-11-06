@@ -215,7 +215,9 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
             self.main_widget().show_information(\
 _("You can double-click on the name of a saved set to activate it and close the dialog."))
             self.config()["showed_help_on_double_clicking_sets"] = True
-        # 'accept' does not generate a close event.
+        if len(self.saved_sets.selectedItems()) > 0:
+            criterion.name = unicode(self.saved_sets.currentItem().text())
         self.database().set_current_criterion(criterion)
+        # 'accept' does not generate a close event.
         self._store_state()
         return QtGui.QDialog.accept(self)

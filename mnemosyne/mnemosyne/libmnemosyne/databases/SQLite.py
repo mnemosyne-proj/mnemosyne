@@ -1249,7 +1249,6 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         criterion = objcopy.copy(criterion)
         criterion._id = 1
         criterion.id = "__DEFAULT__"
-        criterion.name = "__DEFAULT__"
         self.update_criterion(criterion)
         applier = self.component_manager.current("criterion_applier",
             used_for=criterion.__class__)
