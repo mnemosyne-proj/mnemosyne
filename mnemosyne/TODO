@@ -1,16 +1,6 @@
--fix testsuite
-
--try uploading new database to empty database on headless server
-
--make sure logs are uploaded from NAS
-
--recheck hibernation
-
+-recheck log upload with log files after nov 7 (need to review on tablet for that)
 
 -package android
-
-
--card browser: add tag to 1 sister card only: new tag is inactive
 
 -when in having sorted on a column, eliminate resorting to unsorted after
  editing a card. (Gnome bug Tristan, uservoice)
@@ -21,8 +11,6 @@
   are seleted, i.e. selection is not cleared.
 
 
--error when adding media filename with spaces?
-
 -forbid tags like '::b' (MIKHEYENKO VITALY)
  
 -importing cards: metadata shows 'exporting cards'
@@ -31,12 +19,15 @@
 
 -export: overwrite: double warning? Also, when translating, part of header 
  seems included.(Ansgar Bohmann)
+ 
+-fix multiple audio files and start/stop (Ansgar Bohmann)
+
+
 
 -remove own ip from quick and dirty before distrib
 -update webserver docs, add webob to dependencies
 
 
--fix multiple audio files and start/stop (Ansgar Bohmann)
 
 -remote webserver sometimes does not want to send multiple pictures
 -sometimes, need to click website buttons twice
