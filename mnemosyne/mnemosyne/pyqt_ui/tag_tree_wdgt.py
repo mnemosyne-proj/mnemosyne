@@ -69,27 +69,11 @@ class TagDelegate(QtGui.QStyledItemDelegate):
 
 class TagsTreeWdgt(QtGui.QWidget, Component):
 
-    """Displays all the tags in a tree together with check boxes.
+    """Displays all the tags in a tree together with check boxes. """
 
-    If 'before_using_libmnemosyne_db_hook' and 'after_using_libmnemosyne_db'
-    are set, these will be called before and after using libmnemosyne
-    operations which can modify the database.
-
-    Typical use case for this comes from a parent widget like the card
-    browser, which needs to relinquish its control over the sqlite database
-    first, before the tag tree operations can take place.
-
-    """
-
-    def __init__(self, component_manager, parent,
-            before_using_libmnemosyne_db_hook=None,
-            after_using_libmnemosyne_db_hook=None):
+    def __init__(self, component_manager, parent):
         Component.__init__(self, component_manager)
         QtGui.QWidget.__init__(self, parent)
-        self.before_using_libmnemosyne_db_hook = \
-            before_using_libmnemosyne_db_hook
-        self.after_using_libmnemosyne_db_hook = \
-            after_using_libmnemosyne_db_hook
         self.layout = QtGui.QVBoxLayout(self)
         self.tree_wdgt = QtGui.QTreeWidget(self)
         self.tree_wdgt.setColumnCount(2)
@@ -298,17 +282,10 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
                 new_criterion._tag_ids_active.add(tag._id)
         self.display(new_criterion)
 
-    def hibernate(self):
+    def store_tree_state(self):
 
-        """Save the current criterion and unload the database so that
-        we can call libmnemosyne functions.
+        """Store which nodes are collapsed. """
 
-        """
-
-        self.save_criterion()
-        if self.before_using_libmnemosyne_db_hook:
-            self.before_using_libmnemosyne_db_hook()
-        # Store which nodes are collapsed.
         collapsed = []
         iterator = QtGui.QTreeWidgetItemIterator(self.tree_wdgt)
         while iterator.value():
@@ -317,27 +294,18 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             iterator += 1
         self.config()["tag_tree_wdgt_state"] = collapsed
 
-    def wakeup(self):
-
-        """Restore the saved criterion and reload the database after
-        calling libmnemosyne functions.
-
-        """
-
-        self.restore_criterion()
-        if self.after_using_libmnemosyne_db_hook:
-            self.after_using_libmnemosyne_db_hook()
-
     def rename_node(self, node, new_name):
-        self.hibernate()
+        self.save_criterion()
+        self.store_tree_state()
         self.tag_tree.rename_node(unicode(node), unicode(new_name))
-        self.wakeup()
+        self.restore_criterion()
 
     def delete_nodes(self, nodes):
-        self.hibernate()
+        self.save_criterion()
+        self.store_tree_state()
         for node in nodes:
             self.tag_tree.delete_subtree(unicode(node))
-        self.wakeup()
+        self.restore_criterion()
 
     def redraw_node(self, node):
 
@@ -359,10 +327,10 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
 
         """
 
-        self.hibernate()
+        self.save_criterion()
+        self.store_tree_state()
         self.tag_tree = TagTree(self.component_manager)
-        self.wakeup()
+        self.restore_criterion()
 
     def closeEvent(self, event):
-        self.hibernate()
-
+        self.store_tree_state()

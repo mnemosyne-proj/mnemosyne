@@ -33,12 +33,8 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
 
     """Displays all the card types in a tree together with check boxes."""
 
-    def __init__(self, component_manager, parent,
-            before_using_libmnemosyne_db_hook=None,
-            after_using_libmnemosyne_db_hook=None):
-        TagsTreeWdgt.__init__(self, component_manager, parent,
-            before_using_libmnemosyne_db_hook,
-            after_using_libmnemosyne_db_hook)
+    def __init__(self, component_manager, parent):
+        TagsTreeWdgt.__init__(self, component_manager, parent)
         self.delegate = CardTypeDelegate(component_manager, self)
         self.tree_wdgt.setItemDelegate(self.delegate)
 
@@ -175,17 +171,17 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
         self.display(self.saved_criterion)
 
     def rename_node(self, node, new_name):
-        self.hibernate()
+        self.save_criterion()
         card_type = self.card_type_with_id(unicode(node))
         self.controller().rename_card_type(card_type, new_name)
-        self.wakeup()
+        self.restore_criterion()
 
     def delete_nodes(self, nodes):
-        self.hibernate()
+        self.save_criterion()
         for node in nodes:
             card_type = self.card_type_with_id(unicode(node))
             self.controller().delete_card_type(card_type)
-        self.wakeup()
+        self.restore_criterion()
 
     def rebuild(self):
 
@@ -194,11 +190,11 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
 
         """
 
-        self.hibernate()
+        self.save_criterion()
         # Now we've saved the checked state of the tree.
         # Saving and restoring the selected state is less trivial, because
         # in the case of trees, the model indexes have parents which become
         # invalid when creating the widget.
         # The solution would be to save card types and reselect those in the
         # new widget.
-        self.wakeup()
+        self.restore_criterion()

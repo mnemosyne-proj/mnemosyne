@@ -137,10 +137,12 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
                 # No need to update the dialog.
                 QtGui.QDialog.reject(self)
                 return
+        # If this is called from the card browser, call this hook to unload
+        # the Qt database.
         if self.before_apply_hook:
             self.before_apply_hook()
-        status = self.controller().edit_card_and_sisters(self.card, new_fact_data,
-            new_card_type, new_tag_names, self.correspondence)
+        status = self.controller().edit_card_and_sisters(self.card, 
+            new_fact_data, new_card_type, new_tag_names, self.correspondence)
         if status == 0:
             tag_text = ", ".join(new_tag_names)
             self.config()["last_used_tags_for_card_type_id"][new_card_type.id] \

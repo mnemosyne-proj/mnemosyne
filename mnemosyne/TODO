@@ -1,9 +1,12 @@
 -recheck log upload with log files after nov 7 (need to review on tablet for that)
 
+-test browser changes
+
 -package android
 
 -when in having sorted on a column, eliminate resorting to unsorted after
  editing a card. (Gnome bug Tristan, uservoice)
+-why so many unloads?
  
 -after selecting multiple cards and e.g. adding a tag, with a non-default sort
  order, the sort order is reset to the default one, so the selection changes

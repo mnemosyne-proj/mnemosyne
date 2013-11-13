@@ -322,6 +322,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         # When starting the widget, we default with the current criterion
         # as filter. In this case, we can make a shortcut simply by selecting
         # on 'active=1'
+        self.load_qt_database()
         self.display_card_table(run_filter=False)
         self.card_model.setFilter("cards.active=1")
         self.card_model.select()
@@ -445,12 +446,15 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         self.edit_dlg = self.component_manager.current("edit_card_dialog")\
             (card, self.component_manager, started_from_card_browser=True,
             parent=self)
+        # Here, we don't unload the database already by ourselves, but leave
+        # it to the edit dialog to only do so if needed.
         self.edit_dlg.before_apply_hook = self.unload_qt_database
         self.edit_dlg.page_up_down_signal.connect(self.page_up_down_edit)
         if self.edit_dlg.exec_() == QtGui.QDialog.Accepted:
-            self.display_card_table()
             self.card_type_tree_wdgt.rebuild()
             self.tag_tree_wdgt.rebuild()
+            self.load_qt_database()
+            self.display_card_table()
         # Avoid multiple connections.
         self.edit_dlg.page_up_down_signal.disconnect(self.page_up_down_edit)
 
@@ -509,9 +513,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         self.unload_qt_database()
         self.saved_selection = []
         self.controller().delete_facts_and_their_cards(facts)
-        self.display_card_table()
         self.card_type_tree_wdgt.rebuild()
         self.tag_tree_wdgt.rebuild()
+        self.load_qt_database()
+        self.display_card_table()
 
     def menu_change_card_type(self):
         # Test if all selected cards have the same card type.
@@ -548,9 +553,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         self.unload_qt_database()
         self.controller().change_card_type(facts, current_card_type,
             new_card_type, self.correspondence)
-        self.display_card_table()
         self.card_type_tree_wdgt.rebuild()
         self.tag_tree_wdgt.rebuild()
+        self.load_qt_database()
+        self.display_card_table()
 
     def menu_add_tags(self):
         if not self.config()["showed_help_on_adding_tags"]:
@@ -572,8 +578,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
                 continue
             tag = self.database().get_or_create_tag_with_name(tag_name)
             self.database().add_tag_to_cards_with_internal_ids(tag, _card_ids)
-        self.display_card_table()
         self.tag_tree_wdgt.rebuild()
+        self.load_qt_database()
+        self.display_card_table()
 
     def menu_remove_tags(self):
         if not self.config()["showed_help_on_adding_tags"]:
@@ -598,10 +605,12 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             tag = self.database().get_or_create_tag_with_name(tag_name)
             self.database().remove_tag_from_cards_with_internal_ids(\
                 tag, _card_ids)
-        self.display_card_table()
         self.tag_tree_wdgt.rebuild()
+        self.load_qt_database()
+        self.display_card_table()
 
     def load_qt_database(self):
+        print 'load qt_database'
         self.database().release_connection()
         qt_db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
         qt_db.setDatabaseName(self.database().path())
@@ -621,6 +630,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
                 (-1, QtCore.Qt.AscendingOrder)
         self.config()["browse_cards_dlg_table_settings"] \
             = self.table.horizontalHeader().saveState()
+        print 'unload, saved state' , self.table.horizontalHeader().saveState()
         self.table.setModel(QtGui.QStandardItemModel())
         del self.card_model
         self.card_model = None
@@ -628,7 +638,6 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             QtSql.QSqlDatabase.database().connectionName())
 
     def display_card_table(self, run_filter=True):
-        self.load_qt_database()
         self.card_model = CardModel(self.component_manager)
         self.card_model.setTable("cards")
         headers = {QUESTION: _("Question"), ANSWER: _("Answer"),
@@ -644,6 +653,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         self.table.horizontalHeader().sectionClicked.connect(\
             self.horizontal_header_section_clicked)
         table_settings = self.config()["browse_cards_dlg_table_settings"]
+        print 'display card tabel', table_settings
         if table_settings:
             self.table.horizontalHeader().restoreState(table_settings)
         self.table.horizontalHeader().setMovable(True)
