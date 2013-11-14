@@ -290,8 +290,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             self.container_1)
         self.layout_1.addWidget(self.label_1)
         self.card_type_tree_wdgt = \
-            CardTypesTreeWdgt(component_manager, self.container_1,
-                self.unload_qt_database, self.display_card_table)
+            CardTypesTreeWdgt(component_manager, self.container_1, 
+            self.unload_qt_database)
+        self.card_type_tree_wdgt.card_types_changed_signal.\
+            connect(self.reload_database_and_redraw)
         self.layout_1.addWidget(self.card_type_tree_wdgt)
         self.splitter_1.insertWidget(0, self.container_1)
         # Set up tag tree plus search box.
@@ -302,7 +304,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         self.layout_2.addWidget(self.label_2)
         self.tag_tree_wdgt = \
             TagsTreeWdgt(component_manager, self.container_2,
-                 self.unload_qt_database, self.display_card_table)
+            self.unload_qt_database)
+        self.tag_tree_wdgt.tags_changed_signal.\
+            connect(self.reload_database_and_redraw) 
         self.layout_2.addWidget(self.tag_tree_wdgt)
         self.label_3 = QtGui.QLabel(_("containing this text in the cards:"),
             self.container_2)
@@ -693,6 +697,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
                 for index in self.saved_selection:
                     self.table.selectRow(index.row())
             self.table.setSelectionMode(old_selection_mode)
+
+    def reload_database_and_redraw(self):
+        self.load_qt_database()
+        self.display_card_table()
 
     def horizontal_header_section_clicked(self, index):
         if not self.config()["browse_cards_dlg_sorting_warning_shown"]:

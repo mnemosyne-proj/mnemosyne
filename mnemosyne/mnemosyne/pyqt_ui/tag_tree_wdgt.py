@@ -71,7 +71,9 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
 
     """Displays all the tags in a tree together with check boxes. """
 
-    def __init__(self, component_manager, parent):
+    tags_changed_signal = QtCore.pyqtSignal()
+
+    def __init__(self, component_manager, parent, acquire_database=None):
         Component.__init__(self, component_manager)
         QtGui.QWidget.__init__(self, parent)
         self.layout = QtGui.QVBoxLayout(self)
@@ -90,6 +92,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         self.tree_wdgt.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.tree_wdgt.customContextMenuRequested.connect(\
             self.context_menu)
+        self.acquire_database = acquire_database
 
     def selected_nodes_which_can_be_renamed(self):
         nodes = []
@@ -295,17 +298,23 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         self.config()["tag_tree_wdgt_state"] = collapsed
 
     def rename_node(self, node, new_name):
+        if self.acquire_database:
+            self.acquire_database()
         self.save_criterion()
         self.store_tree_state()
         self.tag_tree.rename_node(unicode(node), unicode(new_name))
         self.restore_criterion()
+        self.tags_changed_signal.emit()
 
     def delete_nodes(self, nodes):
+        if self.acquire_database:
+            self.acquire_database()
         self.save_criterion()
         self.store_tree_state()
         for node in nodes:
             self.tag_tree.delete_subtree(unicode(node))
         self.restore_criterion()
+        self.tags_changed_signal.emit()
 
     def redraw_node(self, node):
 

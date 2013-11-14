@@ -25,18 +25,21 @@ class CardTypeDelegate(TagDelegate):
     def setEditorData(self, editor, index):
         # Get rid of the card count.
         self.previous_node_name = \
-            index.model().data(index).toString().rsplit(" (", 1)[0]
+            unicode(index.model().data(index).toString()).rsplit(" (", 1)[0]
         editor.setText(self.previous_node_name)
 
 
 class CardTypesTreeWdgt(TagsTreeWdgt):
 
     """Displays all the card types in a tree together with check boxes."""
+    
+    card_types_changed_signal = QtCore.pyqtSignal()
 
-    def __init__(self, component_manager, parent):
+    def __init__(self, component_manager, parent, acquire_database=None):
         TagsTreeWdgt.__init__(self, component_manager, parent)
         self.delegate = CardTypeDelegate(component_manager, self)
         self.tree_wdgt.setItemDelegate(self.delegate)
+        self.acquire_database = acquire_database
 
     def menu_rename(self):
         nodes = self.selected_nodes_which_can_be_renamed()
@@ -171,17 +174,23 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
         self.display(self.saved_criterion)
 
     def rename_node(self, node, new_name):
+        if self.acquire_database:
+            self.acquire_database()
         self.save_criterion()
         card_type = self.card_type_with_id(unicode(node))
         self.controller().rename_card_type(card_type, new_name)
         self.restore_criterion()
+        self.card_types_changed_signal.emit()
 
     def delete_nodes(self, nodes):
+        if self.acquire_database:
+            self.acquire_database()
         self.save_criterion()
         for node in nodes:
             card_type = self.card_type_with_id(unicode(node))
             self.controller().delete_card_type(card_type)
         self.restore_criterion()
+        self.card_types_changed_signal.emit()
 
     def rebuild(self):
 

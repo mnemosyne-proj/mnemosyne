@@ -1,18 +1,16 @@
 -recheck log upload with log files after nov 7 (need to review on tablet for that)
 
--test browser changes
-
--package android
+-custom editor for clone name in browser does not work
 
 -when in having sorted on a column, eliminate resorting to unsorted after
  editing a card. (Gnome bug Tristan, uservoice)
--why so many unloads?
  
 -after selecting multiple cards and e.g. adding a tag, with a non-default sort
  order, the sort order is reset to the default one, so the selection changes
 -card browser, sort by creating date,selected multiple cards, add tag. Card list resets, but different multiple cards
   are seleted, i.e. selection is not cleared.
 
+-package android
 
 -forbid tags like '::b' (MIKHEYENKO VITALY)
  
