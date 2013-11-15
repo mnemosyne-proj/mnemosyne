@@ -1,33 +1,16 @@
 -recheck log upload with log files after nov 7 (need to review on tablet for that)
 
--custom editor for clone name in browser does not work
-
--when in having sorted on a column, eliminate resorting to unsorted after
- editing a card. (Gnome bug Tristan, uservoice)
- 
--after selecting multiple cards and e.g. adding a tag, with a non-default sort
- order, the sort order is reset to the default one, so the selection changes
--card browser, sort by creating date,selected multiple cards, add tag. Card list resets, but different multiple cards
-  are seleted, i.e. selection is not cleared.
+-debug: could not connect to server
 
 -package android
 
--forbid tags like '::b' (MIKHEYENKO VITALY)
- 
--importing cards: metadata shows 'exporting cards'
-
--unicode in notes field on export?  (Ansgar Bohmann)
-
--export: overwrite: double warning? Also, when translating, part of header 
- seems included.(Ansgar Bohmann)
+-custom editor for clone name in browser does not works
  
 -fix multiple audio files and start/stop (Ansgar Bohmann)
 
 
-
 -remove own ip from quick and dirty before distrib
 -update webserver docs, add webob to dependencies
-
 
 
 -remote webserver sometimes does not want to send multiple pictures

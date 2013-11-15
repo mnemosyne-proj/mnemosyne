@@ -614,7 +614,6 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         self.display_card_table()
 
     def load_qt_database(self):
-        print 'load qt_database'
         self.database().release_connection()
         qt_db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
         qt_db.setDatabaseName(self.database().path())
@@ -629,12 +628,8 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             return
         self.saved_index = self.table.indexAt(QtCore.QPoint(0,0))
         self.saved_selection = self.table.selectionModel().selectedRows()
-        if not self.config()["start_card_browser_sorted"]:
-            self.table.horizontalHeader().setSortIndicator\
-                (-1, QtCore.Qt.AscendingOrder)
         self.config()["browse_cards_dlg_table_settings"] \
             = self.table.horizontalHeader().saveState()
-        print 'unload, saved state' , self.table.horizontalHeader().saveState()
         self.table.setModel(QtGui.QStandardItemModel())
         del self.card_model
         self.card_model = None
@@ -657,7 +652,6 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         self.table.horizontalHeader().sectionClicked.connect(\
             self.horizontal_header_section_clicked)
         table_settings = self.config()["browse_cards_dlg_table_settings"]
-        print 'display card tabel', table_settings
         if table_settings:
             self.table.horizontalHeader().restoreState(table_settings)
         self.table.horizontalHeader().setMovable(True)
@@ -792,6 +786,10 @@ _("You chose to sort this table. Operations in the card browser could now be slo
             self.splitter_1.saveState()
         self.config()["browse_cards_dlg_splitter_2_state"] = \
             self.splitter_2.saveState()
+        # Make sure we start unsorted again next time.
+        if not self.config()["start_card_browser_sorted"]:
+            self.table.horizontalHeader().setSortIndicator\
+                (-1, QtCore.Qt.AscendingOrder)
 
     def closeEvent(self, event):
         # Generated when clicking the window's close button.

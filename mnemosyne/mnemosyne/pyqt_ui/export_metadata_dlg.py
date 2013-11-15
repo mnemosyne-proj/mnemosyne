@@ -16,10 +16,11 @@ class ExportMetadataDlg(QtGui.QDialog, Ui_ExportMetadataDlg,
         ExportMetadataDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
-        self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
-        self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowCloseButtonHint)  # Does not seem to work...
+        self.setWindowFlags(QtCore.Qt.Dialog \
+                | QtCore.Qt.CustomizeWindowHint \
+                | QtCore.Qt.WindowTitleHint \
+                & ~ QtCore.Qt.WindowCloseButtonHint \
+                & ~ QtCore.Qt.WindowContextHelpButtonHint)
         self.author_name.setText(self.config()["author_name"])
         self.author_email.setText(self.config()["author_email"])
         self.date.setDate(QtCore.QDate.currentDate())
@@ -46,7 +47,7 @@ class ExportMetadataDlg(QtGui.QDialog, Ui_ExportMetadataDlg,
         if "revision" in metadata:
             self.revision.setValue(int(metadata["revision"]))
         if "notes" in metadata:
-            self.notes.setPlainText(metadata["notes"])
+            self.notes.setPlainText(QtCore.QString.fromUtf8(metadata["notes"]))
 
     def set_read_only(self):
         self.card_set_name.setReadOnly(True)
@@ -57,6 +58,7 @@ class ExportMetadataDlg(QtGui.QDialog, Ui_ExportMetadataDlg,
         self.revision.setReadOnly(True)
         self.notes.setReadOnly(True)
         self.allow_cancel = False
+        self.setWindowTitle(_("Import cards"))
 
     def closeEvent(self, event):
         # Generated when clicking the window's close button.
@@ -64,7 +66,7 @@ class ExportMetadataDlg(QtGui.QDialog, Ui_ExportMetadataDlg,
             event.ignore()
             self.reject()
         else:
-            event.ignore()
+            event.accept()
 
     def keyPressEvent(self, event):
         # Note: for the following to work reliably, there should be no
@@ -94,6 +96,6 @@ class ExportMetadataDlg(QtGui.QDialog, Ui_ExportMetadataDlg,
         metadata["date"] = unicode(self.date.date().toString())
         metadata["revision"] = str(self.revision.value())
         metadata["notes"] = unicode(self.notes.toPlainText())
-        self.config()["author_name"] = metadata["author_name"]
-        self.config()["author_email"] = metadata["author_email"]
+        self.config()["author_name"] = unicode(metadata["author_name"])
+        self.config()["author_email"] = unicode(metadata["author_email"])
         return metadata

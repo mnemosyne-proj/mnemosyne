@@ -20,6 +20,8 @@ the client and the server at the same time.
  sync.
 -Improve the timeout handling of the sync protocol.
 -Fix erroneous 'Wrong username or password' error.
+-Keep the sort order in the card browser when editing cards (reported by
+ Gnome and Tristan).
 -Added command line options --sync-server and --web-server which starts the 
  sync and the web server in headless mode (i.e. without a GUI) (useful to run 
  e.g. on a NAS server).
@@ -31,6 +33,8 @@ the client and the server at the same time.
 -Instruct people on the correct way to deal with '*.cards' files if they try
  to open it as a separate database (Kensor0).
 -Make it clearer what 'Find duplicates' does.
+-Various cosmetic fixes when importing *.cards files (reported by Ansgar 
+ Bohmann).
 -Fix tag tree sometimes not updating correctly if the user adds a new tag.
 -People writing e.g. Javascript card and needing access to the full path of
  the media directory can now use db_media:///foo.png (requested by Gnome).

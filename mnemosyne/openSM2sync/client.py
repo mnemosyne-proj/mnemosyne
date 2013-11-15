@@ -231,7 +231,7 @@ class Client(Partner):
                 "you need to choose which copy of the database to keep and " + \
                 "which copy to discard.\n"
         else:
-            message = "Conflicts detected during sync!"
+            message = "Conflicts detected during sync! Choose which version to keep and which version to discard."
         # Ask for conflict resolution direction.
         if self.supports_binary_upload():
             result = self.ui.show_question(message,

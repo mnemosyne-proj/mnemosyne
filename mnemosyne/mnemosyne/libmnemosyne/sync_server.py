@@ -42,15 +42,11 @@ class SyncServer(Component, Server):
                 response = con.getresponse()
             except:
                 pass
-            print 1, expand_path(database_name,
-                self.config().data_dir)
             if not os.path.exists(expand_path(database_name,
                 self.config().data_dir)):
                 self.database().new(database_name)
-                print 'done new'
             else:
                 self.database().load(database_name)
-                print 'done load'
         else:
             self.previous_database = self.config()["last_database"]
             if self.previous_database != database_name:

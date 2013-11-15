@@ -59,11 +59,6 @@ class ExportDlg(QtGui.QDialog, Ui_ExportDlg, ExportDialog):
             return QtGui.QDialog.accept(self)
         if not filename.endswith(self.format().extension):
             filename += self.format().extension
-        if os.path.exists(filename):
-            answer = self.main_widget().show_question(\
-                _("File exists. Overwrite?"), _("Yes"), _("No"), _(""))
-            if answer == 1:  # No
-                return QtGui.QDialog.reject(self)
         self.config()["export_format"] = type(self.format())
         result = self.format().do_export(filename)
         if result != -1:  # Cancelled.
