@@ -8,7 +8,7 @@
 # Modify the settings below to reflect your situation.
 data_dir = "/sdcard/Mnemosyne/"
 filename = "default.db"
-sync_server = "pbienst.dyndns.org"
+sync_server = "myserver.mydomain.com"
 sync_port = 8512
 sync_username = ""
 sync_password = ""

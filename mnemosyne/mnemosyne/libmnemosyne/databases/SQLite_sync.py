@@ -687,7 +687,11 @@ class SQLiteSync(object):
                 log_entry["type"] = EventTypes.EDITED_FACT_VIEW
                 return self.update_fact_view(\
                     self.fact_view_from_log_entry(log_entry))
-        self.add_fact_view(self.fact_view_from_log_entry(log_entry))
+        try:
+            self.add_fact_view(self.fact_view_from_log_entry(log_entry))
+        except:
+            # Leftover from old bug.
+            print "Creating same fact view twice during sync."
 
     def fact_view_from_log_entry(self, log_entry):
         # Get fact view object to be deleted now.
@@ -729,7 +733,11 @@ class SQLiteSync(object):
                 log_entry["type"] = EventTypes.EDITED_CARD_TYPE
                 return self.update_card_type(\
                     self.card_type_from_log_entry(log_entry))
-        self.add_card_type(self.card_type_from_log_entry(log_entry))
+        try:
+            self.add_card_type(self.card_type_from_log_entry(log_entry))
+        except:
+            # Leftover from old bug.
+            print "Creating same card type twice during sync."
 
     def card_type_from_log_entry(self, log_entry):
         # Get card type object to be deleted now.

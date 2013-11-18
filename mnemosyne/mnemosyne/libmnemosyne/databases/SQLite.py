@@ -559,7 +559,6 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         name = name.strip()
         if name.startswith("::"):
             name = name[2:]
-            print name
         sql_res = self.con.execute("""select _id, id, name, extra_data from
             tags where name=?""", (name, )).fetchone()
         if sql_res:

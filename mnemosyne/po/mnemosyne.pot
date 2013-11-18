@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-11-15 13:20+CET\n"
+"POT-Creation-Date: 2013-11-18 15:39+CET\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -702,8 +702,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.3-pre/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 #: ../dist/Mnemosyne-2.3-pre/mnemosyne/pyqt_ui/export_dlg.py:64
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:577
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:628
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1121
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:627
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1120
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 msgid "No"
 msgstr ""
@@ -715,8 +715,8 @@ msgstr ""
 #: ../dist/Mnemosyne-2.3-pre/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 #: ../dist/Mnemosyne-2.3-pre/mnemosyne/pyqt_ui/export_dlg.py:64
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:577
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:628
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1121
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:627
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1120
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 msgid "Yes"
 msgstr ""
@@ -853,27 +853,27 @@ msgid "Warning: backup creation failed for"
 msgstr ""
 
 #: ../dist/Mnemosyne-2.3-pre/mnemosyne/libmnemosyne/databases/SQLite.py:626
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:627
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:626
 msgid "Make tag '%s' active in saved set '%s'?"
 msgstr ""
 
 #: ../dist/Mnemosyne-2.3-pre/mnemosyne/libmnemosyne/databases/SQLite.py:1119
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1120
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1119
 msgid "Make new card type active in saved set '%s'?"
 msgstr ""
 
 #: ../dist/Mnemosyne-2.3-pre/mnemosyne/libmnemosyne/databases/SQLite.py:1348
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1349
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1348
 msgid "No duplicates found."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.3-pre/mnemosyne/libmnemosyne/databases/SQLite.py:1351
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1352
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1351
 msgid "Found %d duplicate cards. They have been given the tag 'DUPLICATE'."
 msgstr ""
 
 #: ../dist/Mnemosyne-2.3-pre/mnemosyne/libmnemosyne/databases/SQLite.py:1357
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1358
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1357
 msgid "DUPLICATE"
 msgstr ""
 
