@@ -1,7 +1,5 @@
 -package android
 
--debug sync issues, remove print
-
 -custom editor for clone name in browser does not works
  
 -fix multiple audio files and start/stop (Ansgar Bohmann)
@@ -15,6 +13,8 @@
 -merging cards: should give an option to go back and edit?
 
 -add login to webserver?
+
+-a crash during a full sync can lead to 'sync cycle' detected
 
 -starting the program when no cards are shown does not draw a border around the
  Q field
@@ -34,6 +34,11 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
  'delete_facts_and_their_data' does checking for unused tags multiple times.
 
 -menu option to copy database to USB key?
+
+-why trying new fonts, sometimes the fonts get automatically accepted even
+ when clicking 'cancel'?
+
+-mass convert to cloze
 
 -import/merge db file
 

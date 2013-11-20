@@ -323,6 +323,10 @@ class Server(Partner):
                 client_info["password"]):
                 return self.text_format.repr_message("Access denied")
             # Close old session waiting in vain for client input.
+            # This will also close any session which timed out while
+            # trying to log in just before, so we need to make sure the
+            # client timeout is long enough for e.g. a NAS which is slow to
+            # wake from hibernation.
             old_running_session_token = self.session_token_for_user.\
                 get(client_info["username"])
             if old_running_session_token:

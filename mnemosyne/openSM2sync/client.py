@@ -137,7 +137,9 @@ class Client(Partner):
                 self.database.check_for_edited_media_files()
                 self.ui.set_progress_text("Dynamically creating media files...")
                 self.database.dynamically_create_media_files()
-            socket.setdefaulttimeout(15)
+            # Set timeout long enough for e.g. a slow NAS waking from 
+            # hibernation.
+            socket.setdefaulttimeout(30)
             self.login(username, password)
             # Generating media files at the server side could take some time,
             # so we update the timeout.
@@ -196,7 +198,6 @@ class Client(Partner):
             elif type(exception) == type(socket.error()):
                 self.ui.show_error("Could not connect to server!")
                 serious = False
-                print str(exception)
             elif type(exception) == type(socket.timeout()):
                 self.ui.show_error("Timeout while waiting for server!")
             elif type(exception) == type(SyncError()):
