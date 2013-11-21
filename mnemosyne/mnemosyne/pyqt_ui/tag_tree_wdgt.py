@@ -265,10 +265,19 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         criterion._tag_ids_active = \
             set([tag._id for tag in self.tag_for_node_item.values()])
         return criterion
+    
+    def unchecked_to_forbidden_tags_in_criterion(self, criterion):
+        for item, tag in self.tag_for_node_item.iteritems():
+            if item.checkState(0) == QtCore.Qt.Unchecked:
+                criterion._tag_ids_forbidden.add(tag._id)
+        return criterion
 
     def save_criterion(self):
         self.saved_criterion = DefaultCriterion(self.component_manager)
         self.checked_to_active_tags_in_criterion(self.saved_criterion)
+        # We also save the unchecked tags as this will allow us to identify
+        # any new tags created afterwards.
+        self.unchecked_to_forbidden_tags_in_criterion(self.saved_criterion)
         # Now we've saved the checked state of the tree.
         # Saving and restoring the selected state is less trivial, because
         # in the case of trees, the model indexes have parents which become

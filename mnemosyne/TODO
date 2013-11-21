@@ -1,4 +1,4 @@
--package android
+-package android 
 
 -custom editor for clone name in browser does not works
  
@@ -204,6 +204,8 @@ Milesteiner
 -Qt bug? main_widget.set_window_title seems to work only if no title was
  defined in the ui file.
 -Qt bug? cannot define sq escape character to search for literal _
+-Qt bug? Kanji does not scale, but latin does
+  厳重な警戒<span style="font-size:24pt;">test 厳重な警戒</span>
 
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 
