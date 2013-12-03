@@ -1,3 +1,5 @@
+-fix card type conversion bug (lauchpad)
+
 -package android 
 
 -custom editor for clone name in browser does not works
