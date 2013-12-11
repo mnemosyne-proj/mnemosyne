@@ -1,0 +1,11 @@
+This client allows you to do revisions on your Android device. It is not a full-fledged app with a native Android UI, but rather consists of a Python webserver running on your Android device, which you then access through your browser. This client requires some tinkering to install, but revisions should be fully functional, as well as syncing with a sync server. We will start development in 2014 on a new client with a native Android UI which is easier to use and to install.
+
+To install, follow these instructions:
+
+* In the Android system settings, under security, tick 'Allow installation of unknown sources'
+* Install SL4A, the Python environment for Android by copying PythonForAndroid-r7b1.apk and sl4a_r6.apk to your Android device, and then double-click these files to install
+* edit the file scripts/mnemosyne.py to reflect the position where you want to store your database, the details of your sync server, etc...
+* copy the contents of the scripts directory (not the directory itself, but the contents, i.e. cherrypy, webob, openSM2sync, libmnemosyne, main_wdgt.py and mnemosyne.py) to /sdcard/sl4a/scripts.
+* make sure you have your sync server up and running (e.g. on your desktop) the first time you start the program (see http://mnemosyne-proj.org/help/syncing ). The first sync could take a while, depending on the size of your database and media files, so please be patient.
+* start sl4a, choose the mnemosyne.py script and click the first icon, the one that looks like a terminal window. Follow the on-screen instructions.
+* if your cards contain sounds, it's best not to use Chrome, but rather e.g. Firefox Mobile.
