@@ -1,3 +1,12 @@
+-mismatched user id
+
+-hang in config screen when closing down the review server
+
+-File "/mnt/sdcard/sl4a/scripts/openSM2sync/client.py", line 567, in get_server_media_files file_size, progress_bar=False) File "/mnt/sdcard/sl4a/scripts/openSM2sync/partner.py", line 35, in download_binary_file = file (filname, "wb")
+UnicodeEncoeError: 'ascii' codec can't encode character u'\xf8' in position 59: ordinal not in range(128)
+
+-make sure to close an active review server when exciting the program
+
 -fix card type conversion bug (lauchpad)
 
 -paste strange characters
@@ -73,6 +82,8 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -with full sync, option to skip media sync
  
 -Possible to get rid of unloading in python / reloading in Qt?
+
+-unlearned cards can be listed as overdue in the browser
 
 -speed up science log parser?
  http://lesswrong.com/r/discussion/lw/ivw/what_should_normal_people_do/9yuy
