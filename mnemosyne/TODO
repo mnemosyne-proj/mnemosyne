@@ -1,5 +1,3 @@
--mismatched user id
-
 -hang in config screen when closing down the review server
 
 -File "/mnt/sdcard/sl4a/scripts/openSM2sync/client.py", line 567, in get_server_media_files file_size, progress_bar=False) File "/mnt/sdcard/sl4a/scripts/openSM2sync/partner.py", line 35, in download_binary_file = file (filname, "wb")

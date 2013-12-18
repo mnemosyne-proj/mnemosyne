@@ -123,3 +123,5 @@ if mnemosyne.main_widget().show_question(\
     "Perform sync?", "Yes", "No", "") == 0:
     mnemosyne.controller().sync(sync_server, sync_port, 
         sync_username, sync_password)
+
+mnemosyne.finalise()
