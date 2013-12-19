@@ -51,12 +51,12 @@ setup:
 
 setup-windows:
 	virtualenv --system-site-packages --python=C:/python27/python.exe .
-	Scripts\easy_install.exe nose
-	Scripts\easy_install.exe coverage
+	Scripts/easy_install.exe nose
+	Scripts/easy_install.exe coverage
 
 install-virtual-env-windows:
-	Scripts\python.exe setup.py develop
-	Scripts\python.exe Scripts\mnemosyne -d dot_mnemosyne2
+	Scripts/python.exe setup.py develop
+	Scripts/python.exe Scripts/mnemosyne -d dot_mnemosyne2
 
 install-system:
 	# Also rebuilds the docs and the translations.

@@ -26,6 +26,11 @@ apply log entry sync 541 card_from_log_entry: none has no attribute get item
 -update webserver docs, add webob to dependencies
 
 
+-windows 'python setup.py install': missing share locale path when starting configure
+-fix windows testsuite
+-add windows devel instructions to website
+
+
 -remote webserver sometimes does not want to send multiple pictures
 -sometimes, need to click website buttons twice
 
