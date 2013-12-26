@@ -5,6 +5,9 @@ endif
 ifneq (1,$(shell /cygdrive/c/Python27/python.exe -c "print(1)" 2>&- ))
   PYUIC4      := $(PYTHON) ./pyuic4
 endif
+ifeq (1,$(PYUIC4_COMMAND))
+  PYUIC4      := $(PYUIC4_COMMAND)
+endif
 
 WIDGETS = ui_main_wdgt.py ui_add_cards_dlg.py \
 	ui_edit_card_dlg.py \
