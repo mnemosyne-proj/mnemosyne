@@ -5,6 +5,8 @@ UnicodeEncoeError: 'ascii' codec can't encode character u'\xf8' in position 59: 
 
 -make sure to close an active review server when exciting the program
 
+-settings on Android only applied after second sync?
+
 -fix card type conversion bug (lauchpad)
 
 -paste strange characters
