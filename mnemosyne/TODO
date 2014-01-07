@@ -1,9 +1,9 @@
 -hang in config screen when closing down the review server
+-make sure to close an active review server when exciting the program
+-wsgi server stop not called in shutdown?
 
 -File "/mnt/sdcard/sl4a/scripts/openSM2sync/client.py", line 567, in get_server_media_files file_size, progress_bar=False) File "/mnt/sdcard/sl4a/scripts/openSM2sync/partner.py", line 35, in download_binary_file = file (filname, "wb")
 UnicodeEncoeError: 'ascii' codec can't encode character u'\xf8' in position 59: ordinal not in range(128)
-
--make sure to close an active review server when exciting the program
 
 -settings on Android only applied after second sync?
 
@@ -29,9 +29,10 @@ apply log entry sync 541 card_from_log_entry: none has no attribute get item
 
 
 -windows 'python setup.py install': missing share locale path when starting configure
--fix windows testsuite
+-fix windows testsuite, try to speed it up by copying empty database instead of
+ creating a new one
 -add windows devel instructions to website
-
+-wing: integrate with build process
 
 -remote webserver sometimes does not want to send multiple pictures
 -sometimes, need to click website buttons twice
@@ -233,7 +234,7 @@ Milesteiner
  defined in the ui file.
 -Qt bug? cannot define sq escape character to search for literal _
 -Qt bug? Kanji does not scale, but latin does
-  厳重な警戒<span style="font-size:24pt;">test 厳重な警戒</span>
+  厳�?�?�警戒<span style="font-size:24pt;">test 厳�?�?�警戒</span>
 
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 

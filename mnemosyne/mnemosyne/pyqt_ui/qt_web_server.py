@@ -76,7 +76,8 @@ class ServerThread(QtCore.QThread, WebServer):
             self.component_manager.components[None]["main_widget"].pop()
         database_released.wakeAll()
 
-    def load_mnemosyne(self):
+    def load_mnemosyne(self): 
+        # Load Mnemosyne and its database in the review server thread.
         self.set_progress_text(_("Remote review in progress..."))
         mutex.lock()
         # Libmnemosyne itself could also generate dialog messages, so
@@ -91,6 +92,7 @@ class ServerThread(QtCore.QThread, WebServer):
         mutex.unlock()
 
     def unload_mnemosyne(self):
+        # Close Mnemosyne and its database in the review server thread.
         self.close_progress()
         mutex.lock()
         server_had_connection = self.server_has_connection
@@ -200,7 +202,7 @@ class QtWebServer(Component, QtCore.QObject):
                 else:
                     raise e
             self.thread.review_started_signal.connect(\
-                self.unload_mnemosyne)
+                self.unload_database)
             self.thread.review_ended_signal.connect(\
                 self.load_database)
             self.thread.information_signal.connect(\
@@ -223,10 +225,11 @@ class QtWebServer(Component, QtCore.QObject):
                 self.true_main_widget.close_progress)
             self.thread.start()
 
-    def unload_mnemosyne(self):
+    def unload_database(self): 
+        # Unload database in main thread.
         mutex.lock()
         # Since this function can get called by libmnemosyne outside of the
-        # syncing protocol, 'thread.server_has_connection' is not necessarily
+        # review protocol, 'thread.server_has_connection' is not necessarily
         # accurate, so we can't rely on its value to determine whether we have
         # the ownership to release the connection. Therefore, we always
         # attempt to release the connection, and if it fails because the server
@@ -239,7 +242,8 @@ class QtWebServer(Component, QtCore.QObject):
         database_released.wakeAll()
         mutex.unlock()
 
-    def load_database(self):
+    def load_database(self): 
+        # Load database in main thread.
         self.stopwatch().pause()
         mutex.lock()
         try:
@@ -264,14 +268,14 @@ class QtWebServer(Component, QtCore.QObject):
         mutex.unlock()
         if is_idle: # No need to unload the database if server is not active.
             return
-        self.unload_mnemosyne()
+        self.unload_database()
         self.thread.flush()
         self.load_database()
 
     def deactivate(self):
         if not self.thread:
             return
-        self.unload_mnemosyne()
+        self.unload_database()
         self.thread.stop()
         self.thread.wait()
         self.thread = None

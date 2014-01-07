@@ -27,13 +27,11 @@ endif
 
 export PYTHON  # pass the variable to sub-makefiles through the environment
 
-
 # Allow specifying an alternate root destination dir for system-wide installation:
 
 ifdef DESTDIR
   INSTALL_OPTS += --root="$(DESTDIR)"
 endif
-
 
 install-and-run-virtual-env: install-virtual-env
 	./bin/mnemosyne -d dot_mnemosyne2
@@ -51,10 +49,14 @@ setup:
 
 setup-windows:
 	virtualenv --system-site-packages --python=C:/python27/python.exe .
+	cp C:/python27/mplayer.exe Scripts/
+	cp C:/python27/qt.conf Scripts/
 	Scripts/easy_install.exe nose
 	Scripts/easy_install.exe coverage
-
+                             
 install-virtual-env-windows:
+	cd mnemosyne/pyqt_ui && make
+	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
 	Scripts/python.exe setup.py develop
 	Scripts/python.exe Scripts/mnemosyne -d dot_mnemosyne2
 
@@ -151,7 +153,7 @@ wm: install-virtual-env
 docs:
 	cd mnemosyne/libmnemosyne/docs && make html
 
-windows:
+windows-installer:
 	rm -rf dist
 	rm -rf build
 	cd mnemosyne/pyqt_ui && make clean

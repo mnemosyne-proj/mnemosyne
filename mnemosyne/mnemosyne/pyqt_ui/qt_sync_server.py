@@ -93,6 +93,7 @@ class ServerThread(QtCore.QThread, SyncServer):
         database_released.wakeAll()
 
     def load_database(self, database_name):
+        # Load the database in the sync server thread.
         mutex.lock()
         # Libmnemosyne itself could also generate dialog messages, so
         # we temporarily override the main_widget with the threaded
@@ -107,6 +108,7 @@ class ServerThread(QtCore.QThread, SyncServer):
         return self.database()
 
     def unload_database(self, database):
+        # Unload the database in the sync server thread.
         mutex.lock()
         if self.server_has_connection:
             self.database().release_connection()
@@ -235,6 +237,7 @@ class QtSyncServer(Component, QtCore.QObject):
             self.thread.start()
 
     def unload_database(self):
+        # Unload database in main thread.
         mutex.lock()
         # Since this function can get called by libmnemosyne outside of the
         # syncing protocol, 'thread.server_has_connection' is not necessarily
@@ -251,6 +254,7 @@ class QtSyncServer(Component, QtCore.QObject):
         mutex.unlock()
 
     def load_database(self):
+        # Load database in main thread.
         mutex.lock()
         try:
             self.database().load(self.config()["last_database"])

@@ -101,5 +101,3 @@ class SyncServerThread(threading.Thread, SyncServer):
         if server_hanging:
             self.terminate_all_sessions()
             self.database().release_connection()
-
-
