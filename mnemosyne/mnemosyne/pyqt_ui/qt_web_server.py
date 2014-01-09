@@ -66,11 +66,8 @@ class ServerThread(QtCore.QThread, WebServer):
         except Exception, e:
             self.show_error(str(e) + "\n" + traceback_string())
         # Clean up after stopping.
-        if not self.server_has_connection:
-            mutex.lock()
-            database_released.wait(mutex)
-            mutex.unlock()
-        self.database().release_connection()
+        if self.server_has_connection:
+            self.database().release_connection()
         self.server_has_connection = False
         if self in self.component_manager.components[None]["main_widget"]:
             self.component_manager.components[None]["main_widget"].pop()
