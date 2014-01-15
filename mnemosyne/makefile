@@ -10,7 +10,7 @@ ifeq (1,$(shell python2 -c "print(1)" 2>&- ))
 endif
 # If we are on cygwin:
 ifeq (1,$(shell /cygdrive/c/Python27/python.exe -c "print(1)" 2>&- ))
-  PYTHON      := cygstart /cygdrive/c/Python27/python.exe
+  PYTHON      := /cygdrive/c/Python27/python.exe
 endif
 # If `virtualenv2` exists:
 ifneq (,$(shell virtualenv2 --version 2>&- ))
@@ -70,6 +70,15 @@ install-system:
 	cd po && make
 	$(PYTHON) setup.py install $(INSTALL_OPTS)
 	rm -f -R build
+	
+build-all-deps:
+	# Also rebuilds the docs and the translations.
+	cd mnemosyne/libmnemosyne/docs && make SPHINXBUILD=$(SPHINXBUILD) html
+	cd mnemosyne/pyqt_ui && make clean
+	cd mnemosyne/pyqt_ui && make
+	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
+	cd po && make update
+	cd po && make
 
 test: install-virtual-env
 	./bin/nosetests tests

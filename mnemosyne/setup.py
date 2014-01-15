@@ -117,7 +117,7 @@ if sys.platform == "win32": # For py2exe.
                   ("phonon_backend", ["C:\Python27\Lib\site-packages\PyQt4\plugins\phonon_backend\phonon_ds94.dll"]),
                   ("imageformats", glob.glob(r"C:\Python27\Lib\site-packages\PyQt4\plugins\imageformats\*.dll")),
                   ("sqldrivers", ["C:\Python27\Lib\site-packages\PyQt4\plugins\sqldrivers\qsqlite4.dll"]),
-                  ("", glob.glob(r"C:\mplayer\*.*"))
+                  ("", [r"C:\Python27\mplayer.exe"])
                   ]
 elif sys.platform == "darwin": # For py2app.
     base_path = ""

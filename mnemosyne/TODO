@@ -1,7 +1,3 @@
-
--error in thread init when both sync and review server and running?
--'web server started' message not shown
-
 -File "/mnt/sdcard/sl4a/scripts/openSM2sync/client.py", line 567, in get_server_media_files file_size, progress_bar=False) File "/mnt/sdcard/sl4a/scripts/openSM2sync/partner.py", line 35, in download_binary_file = file (filname, "wb")
 UnicodeEncoeError: 'ascii' codec can't encode character u'\xf8' in position 59: ordinal not in range(128)
 
@@ -31,7 +27,7 @@ apply log entry sync 541 card_from_log_entry: none has no attribute get item
 -windows 'python setup.py install': missing share locale path when starting configure
 -fix windows testsuite, try to speed it up by copying empty database instead of
  creating a new one
--add windows devel instructions to website
+-add windows devel instructions to repo and refer to in on website
 -wing: integrate with build process
 
 -remote webserver sometimes does not want to send multiple pictures

@@ -1,12 +1,6 @@
-# If we are on cygwin:
-ifeq (,$(PYUIC4))
-  ifeq (1,$(shell /cygdrive/c/Python27/python.exe -c "print(1)" 2>&- ))
-    PYUIC4      := pyuic4.bat
-  endif
-  ifneq (1,$(shell /cygdrive/c/Python27/python.exe -c "print(1)" 2>&- ))
-    PYUIC4      := $(PYTHON) ./pyuic4
-  endif
-endif
+# Make sure we use our own custom pyuic4 in order to be able to translate
+# Qt strings:
+PYUIC4      := $(PYTHON) ./pyuic4
 
 WIDGETS = ui_main_wdgt.py ui_add_cards_dlg.py \
 	ui_edit_card_dlg.py \
