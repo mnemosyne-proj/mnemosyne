@@ -170,6 +170,8 @@ windows-installer:
 	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
 	cd po && make
 	$(PYTHON) setup.py py2exe
+	read -p "Press any key when InnoSetup has finished..."
+	V=`$(PYTHON) mnemosyne/version.py` && cp dist/Output/setup.exe mnemosyne-$${V}-setup.exe
 
 clean:
 	rm -f *~ *.pyc *.tgz process_profile.py

@@ -135,8 +135,8 @@ if sys.platform == "win32":
         data_files.append((os.path.join("share", "locale",
             os.path.split(mo)[1], "LC_MESSAGES"),
             [os.path.join(mo, "LC_MESSAGES", "mnemosyne.mo")]))
-        data_files.append((os.path.join("share", "qt4", "translations"),
-            glob.glob(os.path.join("mnemosyne", "pyqt_ui", "qm", '*'))))
+    data_files.append((os.path.join("share", "qt4", "translations"),
+        glob.glob(r"C:\Python27\Lib\site-packages\PyQt4\translations\qt_*")))
 else:
     for mo in [x for x in glob.glob(os.path.join("mo", "*"))
                if os.path.isdir(x)]:
@@ -213,9 +213,9 @@ packages = ["mnemosyne",
 
 py2exe_options = {
     "unbuffered": True,
-    "packages": ["mnemosyne", "numpy", "sip", "xml.sax", "xml.etree"],
+    "packages": ["mnemosyne", "numpy", "six", "sip", "xml.sax", "xml.etree"],
     "optimize": 2,
-    "includes": ["numpy", "sip", "xml.sax", "xml.etree", "PyQt4.QtNetwork"],
+    "includes": ["numpy", "sip", "six", "xml.sax", "xml.etree", "PyQt4.QtNetwork"],
     "excludes": ["_gtkagg", "_tkagg", "_agg2", "_cairo", "_cocoaagg",
                  "_fltkagg", "_gtk", "_gtkcairo", "tcl", "Tkconstants", "Tkinter",
                  "pydoc", "doctest", "test"], #, "sqlite3"],
