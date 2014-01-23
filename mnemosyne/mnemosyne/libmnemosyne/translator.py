@@ -5,6 +5,7 @@
 
 from mnemosyne.libmnemosyne.component import Component
 
+_ = None
 
 class Translator(Component):
 
