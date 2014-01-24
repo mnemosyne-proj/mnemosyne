@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-01-15 09:39+Romance Standard Time\n"
+"POT-Creation-Date: 2014-01-20 09:16+Romance Standard Time\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,607 +14,6 @@ msgstr ""
 "Content-Transfer-Encoding: ENCODING\n"
 "Generated-By: pygettext.py 1.5\n"
 
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:11
-msgid "Null character in input stream, replaced with U+FFFD."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:13
-msgid "Invalid codepoint in stream."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:15
-msgid "Solidus (/) incorrectly placed in tag."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:17
-msgid "Incorrect CR newline entity, replaced with LF."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:19
-msgid "Entity used with illegal number (windows-1252 reference)."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:21
-msgid "Numeric entity couldn't be converted to character (codepoint U+%(charAsInt)08x)."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:24
-msgid "Numeric entity represents an illegal codepoint: U+%(charAsInt)08x."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:27
-msgid "Numeric entity didn't end with ';'."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:29
-msgid "Numeric entity expected. Got end of file instead."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:31
-msgid "Numeric entity expected but none found."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:33
-msgid "Named entity didn't end with ';'."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:35
-msgid "Named entity expected. Got none."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:37
-msgid "End tag contains unexpected attributes."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:39
-msgid "End tag contains unexpected self-closing flag."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:41
-msgid "Expected tag name. Got '>' instead."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:43
-msgid "Expected tag name. Got '?' instead. (HTML doesn't support processing instructions.)"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:46
-msgid "Expected tag name. Got something else instead"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:48
-msgid "Expected closing tag. Got '>' instead. Ignoring '</>'."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:50
-msgid "Expected closing tag. Unexpected end of file."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:52
-msgid "Expected closing tag. Unexpected character '%(data)s' found."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:54
-msgid "Unexpected end of file in the tag name."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:56
-msgid "Unexpected end of file. Expected attribute name instead."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:58
-msgid "Unexpected end of file in attribute name."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:60
-msgid "Invalid character in attribute name"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:62
-msgid "Dropped duplicate attribute on tag."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:64
-msgid "Unexpected end of file. Expected = or end of tag."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:66
-msgid "Unexpected end of file. Expected attribute value."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:68
-msgid "Expected attribute value. Got '>' instead."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:70
-msgid "Unexpected = in unquoted attribute"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:72
-msgid "Unexpected character in unquoted attribute"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:74
-msgid "Unexpected character after attribute name."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:76
-msgid "Unexpected character after attribute value."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:78
-msgid "Unexpected end of file in attribute value (\")."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:80
-msgid "Unexpected end of file in attribute value (')."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:82
-msgid "Unexpected end of file in attribute value."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:84
-msgid "Unexpected end of file in tag. Expected >"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:86
-msgid "Unexpected character after / in tag. Expected >"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:88
-msgid "Expected '--' or 'DOCTYPE'. Not found."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:90
-msgid "Unexpected ! after -- in comment"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:92
-msgid "Unexpected space after -- in comment"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:94
-msgid "Incorrect comment."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:96
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:104
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:106
-msgid "Unexpected end of file in comment."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:98
-msgid "Unexpected end of file in comment (-)"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:100
-msgid "Unexpected '-' after '--' found in comment."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:102
-msgid "Unexpected end of file in comment (--)."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:108
-msgid "Unexpected character in comment found."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:110
-msgid "No space after literal string 'DOCTYPE'."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:112
-msgid "Unexpected > character. Expected DOCTYPE name."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:114
-msgid "Unexpected end of file. Expected DOCTYPE name."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:116
-msgid "Unexpected end of file in DOCTYPE name."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:118
-msgid "Unexpected end of file in DOCTYPE."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:120
-msgid "Expected space or '>'. Got '%(data)s'"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:122
-msgid "Unexpected end of DOCTYPE."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:124
-msgid "Unexpected character in DOCTYPE."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:126
-msgid "XXX innerHTML EOF"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:128
-msgid "Unexpected DOCTYPE. Ignored."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:130
-msgid "html needs to be the first start tag."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:132
-msgid "Unexpected End of file. Expected DOCTYPE."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:134
-msgid "Erroneous DOCTYPE."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:136
-msgid "Unexpected non-space characters. Expected DOCTYPE."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:138
-msgid "Unexpected start tag (%(name)s). Expected DOCTYPE."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:140
-msgid "Unexpected end tag (%(name)s). Expected DOCTYPE."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:142
-msgid "Unexpected end tag (%(name)s) after the (implied) root element."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:144
-msgid "Unexpected end of file. Expected end tag (%(name)s)."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:146
-msgid "Unexpected start tag head in existing head. Ignored."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:148
-msgid "Unexpected end tag (%(name)s). Ignored."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:150
-msgid "Unexpected start tag (%(name)s) that can be in head. Moved."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:152
-msgid "Unexpected start tag (%(name)s)."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:154
-msgid "Missing end tag (%(name)s)."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:156
-msgid "Missing end tags (%(name)s)."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:158
-msgid "Unexpected start tag (%(startName)s) implies end tag (%(endName)s)."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:161
-msgid "Unexpected start tag (%(originalName)s). Treated as %(newName)s."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:163
-msgid "Unexpected start tag %(name)s. Don't use it!"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:165
-msgid "Unexpected start tag %(name)s. Ignored."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:167
-msgid "Unexpected end tag (%(gotName)s). Missing end tag (%(expectedName)s)."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:170
-msgid "End tag (%(name)s) seen too early. Expected other end tag."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:172
-msgid "Unexpected end tag (%(gotName)s). Expected end tag (%(expectedName)s)."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:174
-msgid "End tag (%(name)s) seen too early. Ignored."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:176
-msgid "End tag (%(name)s) violates step 1, paragraph 1 of the adoption agency algorithm."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:179
-msgid "End tag (%(name)s) violates step 1, paragraph 2 of the adoption agency algorithm."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:182
-msgid "End tag (%(name)s) violates step 1, paragraph 3 of the adoption agency algorithm."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:185
-msgid "End tag (%(name)s) violates step 4, paragraph 4 of the adoption agency algorithm."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:188
-msgid "Unexpected end tag (%(originalName)s). Treated as %(newName)s."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:190
-msgid "This element (%(name)s) has no end tag."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:192
-msgid "Unexpected implied end tag (%(name)s) in the table phase."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:194
-msgid "Unexpected implied end tag (%(name)s) in the table body phase."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:196
-msgid "Unexpected non-space characters in table context caused voodoo mode."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:199
-msgid "Unexpected input with type hidden in table context."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:201
-msgid "Unexpected form in table context."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:203
-msgid "Unexpected start tag (%(name)s) in table context caused voodoo mode."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:206
-msgid "Unexpected end tag (%(name)s) in table context caused voodoo mode."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:209
-msgid "Unexpected table cell start tag (%(name)s) in the table body phase."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:212
-msgid "Got table cell end tag (%(name)s) while required end tags are missing."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:215
-msgid "Unexpected end tag (%(name)s) in the table body phase. Ignored."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:217
-msgid "Unexpected implied end tag (%(name)s) in the table row phase."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:219
-msgid "Unexpected end tag (%(name)s) in the table row phase. Ignored."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:221
-msgid "Unexpected select start tag in the select phase treated as select end tag."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:224
-msgid "Unexpected input start tag in the select phase."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:226
-msgid "Unexpected start tag token (%(name)s in the select phase. Ignored."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:229
-msgid "Unexpected end tag (%(name)s) in the select phase. Ignored."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:231
-msgid "Unexpected table element start tag (%(name)s) in the select in table phase."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:233
-msgid "Unexpected table element end tag (%(name)s) in the select in table phase."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:235
-msgid "Unexpected non-space characters in the after body phase."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:237
-msgid "Unexpected start tag token (%(name)s) in the after body phase."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:240
-msgid "Unexpected end tag token (%(name)s) in the after body phase."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:243
-msgid "Unexpected characters in the frameset phase. Characters ignored."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:245
-msgid "Unexpected start tag token (%(name)s) in the frameset phase. Ignored."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:248
-msgid "Unexpected end tag token (frameset) in the frameset phase (innerHTML)."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:251
-msgid "Unexpected end tag token (%(name)s) in the frameset phase. Ignored."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:254
-msgid "Unexpected non-space characters in the after frameset phase. Ignored."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:257
-msgid "Unexpected start tag (%(name)s) in the after frameset phase. Ignored."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:260
-msgid "Unexpected end tag (%(name)s) in the after frameset phase. Ignored."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:263
-msgid "Unexpected end tag after body(innerHtml)"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:265
-msgid "Unexpected non-space characters. Expected end of file."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:267
-msgid "Unexpected start tag (%(name)s). Expected end of file."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:270
-msgid "Unexpected end tag (%(name)s). Expected end of file."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:273
-msgid "Unexpected end of file. Expected table content."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:275
-msgid "Unexpected end of file. Expected select content."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:277
-msgid "Unexpected end of file. Expected frameset content."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:279
-msgid "Unexpected end of file. Expected script content."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:281
-msgid "Unexpected end of file. Expected foreign content"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:283
-msgid "Trailing solidus not allowed on element %(name)s"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:285
-msgid "Element %(name)s not allowed in a non-html context"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:287
-msgid "Unexpected end tag (%(name)s) before html."
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:289
-msgid "Undefined error (this sucks and should be fixed)"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:26
-msgid "StartTag not in PCDATA content model flag: %s"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:28
-#: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:54
-#: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:84
-msgid "Tag name is not a string: %r"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:30
-#: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:56
-msgid "Empty tag name"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:32
-msgid "Void element reported as StartTag token: %s"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:34
-msgid "Non-void element reported as EmptyTag token: %s"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:39
-#: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:71
-msgid "Attribute name is not a string: %r"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:41
-msgid "Empty attribute name"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:43
-msgid "Attribute value is not a string: %r"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:58
-msgid "Void element reported as EndTag token: %s"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:61
-msgid "EndTag (%s) does not match StartTag (%s)"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:66
-msgid "Comment not in PCDATA content model flag"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:73
-msgid "%s token with empty data"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:77
-msgid "Non-space character(s) found in SpaceCharacters token: "
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:82
-msgid "Doctype not in PCDATA content model flag: %s"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:91
-msgid "Unknown token type: %s"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\serializer\htmlserializer.py:200
-msgid "System identifer contains both single and double quote characters"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\serializer\htmlserializer.py:212
-msgid "Unexpected </ in CDATA"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\serializer\htmlserializer.py:223
-#: ..\Lib\site-packages\pip\vendor\html5lib\serializer\htmlserializer.py:271
-msgid "Unexpected child element of a CDATA element"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\serializer\htmlserializer.py:277
-msgid "Comment contains --"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\treewalkers\_base.py:33
-msgid "Void element has children"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\treewalkers\_base.py:95
-msgid "Unknown node type: "
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\treewalkers\lxmletree.py:137
-#: ..\Lib\site-packages\pip\vendor\html5lib\treewalkers\lxmletree.py:187
-#: ..\Lib\site-packages\pip\vendor\html5lib\treewalkers\lxmletree.py:203
-msgid "Text nodes are text or tail, found %s"
-msgstr ""
-
-#: ..\Lib\site-packages\pip\vendor\html5lib\treewalkers\lxmletree.py:176
-msgid "Text nodes have no children"
-msgstr ""
 
 #: ..\build\lib\mnemosyne\libmnemosyne\__init__.py:196
 #: ..\mnemosyne\libmnemosyne\__init__.py:196
@@ -959,6 +358,20 @@ msgstr ""
 #: ..\build\lib\mnemosyne\pyqt_ui\card_type_tree_wdgt.py:75
 #: ..\build\lib\mnemosyne\pyqt_ui\manage_card_types_dlg.py:61
 #: ..\build\lib\mnemosyne\pyqt_ui\tag_tree_wdgt.py:177
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_activate_cards_dlg.py:95
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_add_tags_dlg.py:75
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_change_card_type_dlg.py:72
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_clone_card_type_dlg.py:77
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_compact_database_dlg.py:67
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_dlg.py:69
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:83
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_delete_unused_media_files_dlg.py:64
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_export_dlg.py:98
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_import_dlg.py:105
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_remove_tags_dlg.py:66
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_rename_card_type_dlg.py:64
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_rename_tag_dlg.py:64
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:103
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:261
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:294
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:431
@@ -999,6 +412,27 @@ msgstr ""
 #: ..\build\lib\mnemosyne\pyqt_ui\main_wdgt.py:80
 #: ..\build\lib\mnemosyne\pyqt_ui\manage_card_types_dlg.py:61
 #: ..\build\lib\mnemosyne\pyqt_ui\tag_tree_wdgt.py:177
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_about_dlg.py:90
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_activate_cards_dlg.py:93
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_add_tags_dlg.py:74
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_card_set_name_dlg.py:56
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_change_card_type_dlg.py:71
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_clone_card_type_dlg.py:76
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_compact_database_dlg.py:66
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_dlg.py:67
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:82
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_delete_unused_media_files_dlg.py:63
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_edit_card_dlg.py:92
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_export_dlg.py:96
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:112
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_import_dlg.py:103
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:82
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:110
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_remove_tags_dlg.py:65
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_rename_card_type_dlg.py:63
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_rename_tag_dlg.py:63
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_statistics_dlg.py:57
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:102
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:261
 #: ..\mnemosyne\pyqt_ui\activate_cards_dlg.py:111
 #: ..\mnemosyne\pyqt_ui\activate_cards_dlg.py:133
@@ -1127,6 +561,7 @@ msgstr ""
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:432
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:370
 #: ..\build\lib\mnemosyne\pyqt_ui\tag_tree_wdgt.py:129
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:71
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:432
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:370
 #: ..\mnemosyne\pyqt_ui\tag_tree_wdgt.py:129
@@ -1927,6 +1362,7 @@ msgstr ""
 
 #:
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:285
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:119
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:285
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:119
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:285
@@ -2559,6 +1995,7 @@ msgid "Show cards from these card types:"
 msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:302
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_criterion_wdgt_default.py:51
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:302
 #: ..\mnemosyne\pyqt_ui\ui_criterion_wdgt_default.py:51
 msgid "having any of these tags:"
@@ -2575,6 +2012,9 @@ msgid "&Edit"
 msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:366
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:130
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:148
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_edit_card_dlg.py:93
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:366
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:130
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:148
@@ -2814,6 +2254,7 @@ msgid "A required field is missing."
 msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\criterion_wdgt_default.py:32
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_criterion_wdgt_default.py:50
 #: ..\mnemosyne\pyqt_ui\criterion_wdgt_default.py:32
 #: ..\mnemosyne\pyqt_ui\ui_criterion_wdgt_default.py:50
 msgid "Activate cards from these card types:"
@@ -2875,45 +2316,45 @@ msgid ""
 msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\qt_sync_server.py:76
-#: ..\build\lib\mnemosyne\pyqt_ui\qt_sync_server.py:200
-#: ..\build\lib\mnemosyne\pyqt_ui\qt_sync_server.py:207
+#: ..\build\lib\mnemosyne\pyqt_ui\qt_sync_server.py:202
+#: ..\build\lib\mnemosyne\pyqt_ui\qt_sync_server.py:209
 #: ..\mnemosyne\pyqt_ui\qt_sync_server.py:76
 #: ..\mnemosyne\pyqt_ui\qt_sync_server.py:202
 #: ..\mnemosyne\pyqt_ui\qt_sync_server.py:209
 msgid "Unable to start sync server."
 msgstr ""
 
-#: ..\build\lib\mnemosyne\pyqt_ui\qt_sync_server.py:201
-#: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:190
+#: ..\build\lib\mnemosyne\pyqt_ui\qt_sync_server.py:203
+#: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:189
 #: ..\mnemosyne\pyqt_ui\qt_sync_server.py:203
 #: ..\mnemosyne\pyqt_ui\qt_web_server.py:189
 msgid "There still seems to be an old server running on the requested port."
 msgstr ""
 
-#: ..\build\lib\mnemosyne\pyqt_ui\qt_sync_server.py:202
-#: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:191
+#: ..\build\lib\mnemosyne\pyqt_ui\qt_sync_server.py:204
+#: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:190
 #: ..\mnemosyne\pyqt_ui\qt_sync_server.py:204
 #: ..\mnemosyne\pyqt_ui\qt_web_server.py:190
 msgid "Terminate that process and try again."
 msgstr ""
 
-#: ..\build\lib\mnemosyne\pyqt_ui\qt_sync_server.py:208
-#: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:197
+#: ..\build\lib\mnemosyne\pyqt_ui\qt_sync_server.py:210
+#: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:196
 #: ..\mnemosyne\pyqt_ui\qt_sync_server.py:210
 #: ..\mnemosyne\pyqt_ui\qt_web_server.py:196
 msgid "You don't have the permission to use the requested port."
 msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:65
-#: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:189
-#: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:196
+#: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:188
+#: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:195
 #: ..\mnemosyne\pyqt_ui\qt_web_server.py:65
 #: ..\mnemosyne\pyqt_ui\qt_web_server.py:188
 #: ..\mnemosyne\pyqt_ui\qt_web_server.py:195
 msgid "Unable to start web server."
 msgstr ""
 
-#: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:80
+#: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:78
 #: ..\mnemosyne\pyqt_ui\qt_web_server.py:78
 msgid "Remote review in progress..."
 msgstr ""
@@ -2934,6 +2375,7 @@ msgid "Insert &sound"
 msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\qtextedit2.py:32
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:226
 #: ..\mnemosyne\pyqt_ui\qtextedit2.py:32
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:226
 msgid "Ctrl+S"
@@ -2945,6 +2387,7 @@ msgid "Insert vi&deo"
 msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\qtextedit2.py:34
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:209
 #: ..\mnemosyne\pyqt_ui\qtextedit2.py:34
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:209
 msgid "Ctrl+D"
@@ -2971,17 +2414,17 @@ msgid "Ctrl+C"
 msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\review_wdgt.py:372
-#: ..\mnemosyne\pyqt_ui\review_wdgt.py:372
+#: ..\mnemosyne\pyqt_ui\review_wdgt.py:374
 msgid "Scheduled: %d "
 msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\review_wdgt.py:373
-#: ..\mnemosyne\pyqt_ui\review_wdgt.py:373
+#: ..\mnemosyne\pyqt_ui\review_wdgt.py:375
 msgid "Not memorised: %d "
 msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\review_wdgt.py:374
-#: ..\mnemosyne\pyqt_ui\review_wdgt.py:374
+#: ..\mnemosyne\pyqt_ui\review_wdgt.py:376
 msgid "Active: %d "
 msgstr ""
 
@@ -3077,6 +2520,7 @@ msgid ""
 msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tag_tree_wdgt.py:121
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:70
 #: ..\mnemosyne\pyqt_ui\tag_tree_wdgt.py:121
 #: ..\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:70
 msgid "&Rename"
@@ -3242,53 +2686,51 @@ msgstr ""
 msgid "You can request new features and vote for exisiting requests at <a href=\"https://mnemosyne.uservoice.com/\">uservoice</a>. This helps the developers decide what to work on next."
 msgstr ""
 
-#: ..\build\lib\mnemosyne\web_server\review_wdgt.py:31
-#: ..\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:107
-#: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:117
-#: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\web_server\review_wdgt.py:31
-#: ..\mnemosyne\web_server\review_wdgt.py:31
-msgid "Answer:"
-msgstr ""
-
-#: ..\mnemosyne\example_plugins\avg_grade_statistics.py:61
-msgid "Average grades of scheduled cards"
-msgstr ""
-
-#: ..\mnemosyne\example_plugins\new_card_type.py:13
-msgid "Vocabulary (decorated)"
-msgstr ""
-
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_about_dlg.py:89
 #: ..\mnemosyne\pyqt_ui\ui_about_dlg.py:89
 msgid "About Mnemosyne"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_about_dlg.py:91
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:116
 #: ..\mnemosyne\pyqt_ui\ui_about_dlg.py:91
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:116
 msgid "Alt+C"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_activate_cards_dlg.py:91
 #: ..\mnemosyne\pyqt_ui\ui_activate_cards_dlg.py:91
 msgid "(De)activate cards"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_activate_cards_dlg.py:92
 #: ..\mnemosyne\pyqt_ui\ui_activate_cards_dlg.py:92
 msgid "Saved sets:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_activate_cards_dlg.py:94
 #: ..\mnemosyne\pyqt_ui\ui_activate_cards_dlg.py:94
 msgid "&Save this set for later use"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:116
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:116
 msgid "Add cards"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:117
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:138
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_edit_card_dlg.py:90
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:117
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:138
 #: ..\mnemosyne\pyqt_ui\ui_edit_card_dlg.py:90
 msgid "Card type:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:118
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_add_tags_dlg.py:73
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_edit_card_dlg.py:91
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:110
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:118
 #: ..\mnemosyne\pyqt_ui\ui_add_tags_dlg.py:73
 #: ..\mnemosyne\pyqt_ui\ui_edit_card_dlg.py:91
@@ -3296,121 +2738,156 @@ msgstr ""
 msgid "Tags:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:119
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:119
 msgid "Select initial grade:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:120
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:120
 msgid "You have yet to learn this."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:121
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:121
 msgid "&Yet to learn"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:122
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:122
 msgid "You know this, but just barely."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:123
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:123
 msgid "&2"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:124
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:124
 msgid "You know this, but not very well."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:125
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:125
 msgid "&3"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:126
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:126
 msgid "You know this."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:127
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:127
 msgid "&4"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:128
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:128
 msgid "You know this very well."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:129
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:129
 msgid "&5"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:131
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_edit_card_dlg.py:94
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:131
 #: ..\mnemosyne\pyqt_ui\ui_edit_card_dlg.py:94
 msgid "&Exit"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_add_tags_dlg.py:72
 #: ..\mnemosyne\pyqt_ui\ui_add_tags_dlg.py:72
 msgid "Add tags"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_browse_cards_dlg.py:63
 #: ..\mnemosyne\pyqt_ui\ui_browse_cards_dlg.py:63
 msgid "Browse cards"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_browse_cards_dlg.py:64
 #: ..\mnemosyne\pyqt_ui\ui_browse_cards_dlg.py:64
 msgid "Select one or more cards and right-click for more actions."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_browse_cards_dlg.py:65
 #: ..\mnemosyne\pyqt_ui\ui_browse_cards_dlg.py:65
 msgid "XXX cards selected, of which XXX active"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_card_set_name_dlg.py:54
 #: ..\mnemosyne\pyqt_ui\ui_card_set_name_dlg.py:54
 msgid "Card set name"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_card_set_name_dlg.py:55
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:105
 #: ..\mnemosyne\pyqt_ui\ui_card_set_name_dlg.py:55
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:105
 msgid "Card set name:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_change_card_type_dlg.py:69
 #: ..\mnemosyne\pyqt_ui\ui_change_card_type_dlg.py:69
 msgid "Change card type"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_change_card_type_dlg.py:70
 #: ..\mnemosyne\pyqt_ui\ui_change_card_type_dlg.py:70
 msgid "New card type:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_clone_card_type_dlg.py:73
 #: ..\mnemosyne\pyqt_ui\ui_clone_card_type_dlg.py:73
 msgid "Clone card type"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_clone_card_type_dlg.py:74
 #: ..\mnemosyne\pyqt_ui\ui_clone_card_type_dlg.py:74
 msgid "Cloned from:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_clone_card_type_dlg.py:75
 #: ..\mnemosyne\pyqt_ui\ui_clone_card_type_dlg.py:75
 msgid "Clone name:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_compact_database_dlg.py:63
 #: ..\mnemosyne\pyqt_ui\ui_compact_database_dlg.py:63
 msgid "Compact"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_compact_database_dlg.py:64
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:240
 #: ..\mnemosyne\pyqt_ui\ui_compact_database_dlg.py:64
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:240
 msgid "Compact database"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_compact_database_dlg.py:65
 #: ..\mnemosyne\pyqt_ui\ui_compact_database_dlg.py:65
 msgid "Delete unused media files"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_dlg.py:66
 #: ..\mnemosyne\pyqt_ui\ui_configuration_dlg.py:66
 msgid "Configuration"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_dlg.py:68
 #: ..\mnemosyne\pyqt_ui\ui_configuration_dlg.py:68
 msgid "&Defaults"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:137
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:88
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:135
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:103
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:137
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:88
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:135
@@ -3418,258 +2895,328 @@ msgstr ""
 msgid "Form"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:139
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:139
 msgid "Background:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:140
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:140
 msgid "Set colour"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:141
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:141
 msgid "Alignment:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:142
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:142
 msgid "Left"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:143
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:143
 msgid "Center"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:144
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:144
 msgid "Right"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:145
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:145
 msgid "Increase size of non-latin characters by"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:146
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:146
 msgid "points."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:147
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:147
 msgid "(This setting will be overridden in card types cloned from 'Vocabulary'.)"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:89
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:89
 msgid "Show cards"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:90
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:139
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:142
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:90
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:139
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:142
 msgid "in random order"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:91
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:91
 msgid "earliest scheduled first"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:92
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:92
 msgid "lastest scheduled first"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:93
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:93
 msgid "most lapses first"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:94
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:94
 msgid "Remember which cards you've seen when restarting Mnemosyne."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:136
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:136
 msgid "Scheduler"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:137
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:137
 msgid "Show new cards for the first time"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:138
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:138
 msgid "in the order they were added"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:140
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:140
 msgid "Review memorised cards"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:141
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:141
 msgid "most urgent first"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:143
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:143
 msgid "Hold"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:144
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:144
 msgid "non-memorised cards in your hand"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:145
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:145
 msgid "Autosave after"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:146
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:146
 msgid "repetitions"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:147
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:147
 msgid "Audio/video"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:148
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:148
 msgid "Start automatically when displaying card"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:149
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:149
 msgid "Show controls (pause, ...)"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:150
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:150
 msgid "Science"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:151
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:151
 msgid "Upload anonymous science logs"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:152
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:152
 msgid "Language"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:104
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:104
 msgid "Allow other devices to sync with this computer"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:105
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:99
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:105
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:99
 msgid "Password:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:106
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:98
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:106
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:98
 msgid "Username:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:107
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:100
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:107
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:100
 msgid "Port:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:108
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:108
 msgid "Check for changed media files on server"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:109
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:109
 msgid "Sync server status"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:110
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:110
 msgid "Allow remote review through a web browser"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:111
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:111
 msgid "Port:         "
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:112
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:112
 msgid "Web server status"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:78
 #: ..\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:78
 msgid "Convert card type data"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:79
 #: ..\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:79
 msgid "Set the correspondence between data in the old and the new card type:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:80
 #: ..\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:80
 msgid "Old:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:81
 #: ..\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:81
 msgid "New:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_criterion_wdgt_default.py:52
 #: ..\mnemosyne\pyqt_ui\ui_criterion_wdgt_default.py:52
 msgid "not having any of these tags:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_delete_unused_media_files_dlg.py:61
 #: ..\mnemosyne\pyqt_ui\ui_delete_unused_media_files_dlg.py:61
 msgid "Delete media"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_delete_unused_media_files_dlg.py:62
 #: ..\mnemosyne\pyqt_ui\ui_delete_unused_media_files_dlg.py:62
 msgid "Delete these unused media files?"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_edit_card_dlg.py:89
 #: ..\mnemosyne\pyqt_ui\ui_edit_card_dlg.py:89
 msgid "Edit card"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_export_dlg.py:91
 #: ..\mnemosyne\pyqt_ui\ui_export_dlg.py:91
 msgid "Export to file"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_export_dlg.py:92
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_import_dlg.py:99
 #: ..\mnemosyne\pyqt_ui\ui_export_dlg.py:92
 #: ..\mnemosyne\pyqt_ui\ui_import_dlg.py:99
 msgid "File format:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_export_dlg.py:93
 #: ..\mnemosyne\pyqt_ui\ui_export_dlg.py:93
 msgid "File to export to:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_export_dlg.py:94
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_import_dlg.py:101
 #: ..\mnemosyne\pyqt_ui\ui_export_dlg.py:94
 #: ..\mnemosyne\pyqt_ui\ui_import_dlg.py:101
 msgid "&Browse"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_export_dlg.py:95
 #: ..\mnemosyne\pyqt_ui\ui_export_dlg.py:95
 msgid "(Only active cards will be exported, without learning data.)"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_export_dlg.py:97
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_import_dlg.py:104
 #: ..\mnemosyne\pyqt_ui\ui_export_dlg.py:97
 #: ..\mnemosyne\pyqt_ui\ui_import_dlg.py:104
 msgid "Alt+O"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:104
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:104
 msgid "Export cards"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:106
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:106
 msgid "Author name:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:107
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:107
 msgid "Author email:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:108
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:108
 msgid "Date:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:109
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:109
 msgid "Revision:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:111
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:111
 msgid "Notes:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:100
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:100
 msgid "Wizard"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:101
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:101
 msgid "Introduction"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:102
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:102
 msgid ""
 "Welcome to Mnemosyne, a flash card program named both after the Greek goddess of Memory and a type of butterfly.\n"
@@ -3681,10 +3228,12 @@ msgid ""
 "Let's look at the meaning of these ratings now."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:103
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:103
 msgid "Memorising new cards"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:104
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:104
 msgid ""
 "Grades range from 0 to 5.\n"
@@ -3696,10 +3245,12 @@ msgid ""
 "This card will be scheduled at some future date, when you're likely still be able to remember it with some effort, without having forgotten it completely. This is most efficient for the learning process.\n"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:105
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:105
 msgid "Reviewing previously memorised cards"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:106
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:106
 msgid ""
 "If you study these cards again tomorrow, the 'Scheduled' counter will tell you how many previously memorised cards you need to review. These are grade 2 to 5 cards.\n"
@@ -3713,11 +3264,14 @@ msgid ""
 "If you fail to remember it altogether, rate it either 0 or 1, and after you have finished reviewing all the scheduled cards, it will appear repeatedly until you think you'll be able to remember it again for a few days."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:107
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_statistics_dlg.py:56
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:107
 #: ..\mnemosyne\pyqt_ui\ui_statistics_dlg.py:56
 msgid "Statistics"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:108
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:108
 msgid ""
 "If you're into statistics, Mnemosyne keeps detailed logs of your revisions.\n"
@@ -3727,14 +3281,17 @@ msgid ""
 "Uncheck the following box if you do not want to do this."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:109
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:109
 msgid "Upload anonymous logs (can be changed later)"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:110
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:110
 msgid "Ready to start"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:111
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:111
 msgid ""
 "Now you're ready to start!\n"
@@ -3750,314 +3307,417 @@ msgid ""
 "Happy learning!"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_import_dlg.py:98
 #: ..\mnemosyne\pyqt_ui\ui_import_dlg.py:98
 msgid "Import from file"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_import_dlg.py:100
 #: ..\mnemosyne\pyqt_ui\ui_import_dlg.py:100
 msgid "File to import from:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_import_dlg.py:102
 #: ..\mnemosyne\pyqt_ui\ui_import_dlg.py:102
 msgid "Add additional tag(s) to cards:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:203
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:203
 msgid "&Settings"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:204
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:204
 msgid "&Help"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:205
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:205
 msgid "&File"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:206
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:206
 msgid "&Cards"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:207
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:207
 msgid "toolBar"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:208
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:208
 msgid "(De)a&ctivate cards..."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:210
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:210
 msgid "&Add cards..."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:211
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:211
 msgid "Ctrl+A"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:212
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:212
 msgid "&Configure Mnemosyne..."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:213
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:213
 msgid "&Delete current card"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:214
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:214
 msgid "Del"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:215
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:215
 msgid "&Edit current card..."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:216
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:216
 msgid "Ctrl+E"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:217
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:217
 msgid "&Browse cards..."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:218
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:218
 msgid "Ctrl+B"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:219
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:219
 msgid "&Export..."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:220
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:72
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:85
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:220
 #: ..\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:72
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:85
 msgid "E&xit"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:221
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:221
 msgid "&New..."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:222
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:222
 msgid "Ctrl+N"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:223
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:223
 msgid "&Open..."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:224
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:224
 msgid "Ctrl+O"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:225
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:225
 msgid "&Save"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:227
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:227
 msgid "Save &as..."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:228
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:228
 msgid "&About"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:229
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:229
 msgid "&Import..."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:230
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:230
 msgid "&Getting started"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:231
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:231
 msgid "Show s&tatistics..."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:232
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:232
 msgid "Ctrl+T"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:233
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:233
 msgid "&Tip of the day"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:234
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:234
 msgid "Manage &plugins..."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:235
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:79
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:235
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:79
 msgid "Manage plugins"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:236
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:236
 msgid "&Manage card types..."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:237
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:237
 msgid "S&ync..."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:238
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:238
 msgid "Ctrl+Y"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:239
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:239
 msgid "Compact..."
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:241
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:241
 msgid "Find duplicate questions"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:67
 #: ..\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:67
 msgid "Card type manager"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:68
 #: ..\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:68
 msgid "Cloned card types:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:69
 #: ..\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:69
 msgid "&New clone"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:80
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:80
 msgid "Installed plugins (active and inactive):"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:81
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:81
 msgid "Plugin description:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:83
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:83
 msgid "&Install new plugin"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:84
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:84
 msgid "&Delete plugin"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:105
 #: ..\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:105
 msgid "Preview cards"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:106
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:116
 #: ..\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:106
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:116
 msgid "Question:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:107
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:117
+#: ..\build\lib\mnemosyne\web_server\review_wdgt.py:31
+#: ..\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:107
+#: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:117
+#: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\web_server\review_wdgt.py:31
+#: ..\mnemosyne\web_server\review_wdgt.py:31
+msgid "Answer:"
+msgstr ""
+
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:108
 #: ..\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:108
 msgid "&Previous sister card"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:109
 #: ..\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:109
 msgid "&Next sister card"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_remove_tags_dlg.py:63
 #: ..\mnemosyne\pyqt_ui\ui_remove_tags_dlg.py:63
 msgid "Remove tags"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_remove_tags_dlg.py:64
 #: ..\mnemosyne\pyqt_ui\ui_remove_tags_dlg.py:64
 msgid "Tags to remove:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_rename_card_type_dlg.py:61
 #: ..\mnemosyne\pyqt_ui\ui_rename_card_type_dlg.py:61
 msgid "Rename card type"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_rename_card_type_dlg.py:62
 #: ..\mnemosyne\pyqt_ui\ui_rename_card_type_dlg.py:62
 msgid "Enter new card type name:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_rename_tag_dlg.py:61
 #: ..\mnemosyne\pyqt_ui\ui_rename_tag_dlg.py:61
 msgid "Rename tag"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_rename_tag_dlg.py:62
 #: ..\mnemosyne\pyqt_ui\ui_rename_tag_dlg.py:62
 msgid "Enter new tag name:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:118
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:118
 msgid "Show &answer"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:120
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:121
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:120
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:121
 msgid "0"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:122
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:123
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:122
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:123
 msgid "1"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:124
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:125
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:124
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:125
 msgid "2"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:126
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:127
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:126
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:127
 msgid "3"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:128
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:129
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:128
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:129
 msgid "4"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:130
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:131
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:130
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:131
 msgid "5"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:96
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:96
 msgid "Sync with server"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:97
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:97
 msgid "Server:"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:101
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:101
 msgid "Check for changed media files on client"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:107
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:107
 msgid "Tip of the day"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:108
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:108
 msgid "<b>Did you know...?</b>"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:109
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:109
 msgid "&Show tips on startup"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:110
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:110
 msgid "Alt+S"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:111
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:111
 msgid "&Previous"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:112
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:112
 msgid "Alt+P"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:113
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:113
 msgid "&Next"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:114
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:114
 msgid "Alt+N"
 msgstr ""
 
+#: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:115
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:115
 msgid "&Close"
+msgstr ""
+
+#: ..\mnemosyne\example_plugins\avg_grade_statistics.py:61
+msgid "Average grades of scheduled cards"
+msgstr ""
+
+#: ..\mnemosyne\example_plugins\new_card_type.py:13
+msgid "Vocabulary (decorated)"
 msgstr ""
 
 #: ..\tests\benchmark_pyqt.py:30

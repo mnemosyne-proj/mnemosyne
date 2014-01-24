@@ -42,7 +42,7 @@ class Widget(ExportMetadataDialog):
 class TestMnemosyne2Cards(MnemosyneTest):
 
     def setup(self):
-        shutil.rmtree("dot_test", ignore_errors=True)
+        self.initialise_data_dir()
 
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
             asynchronous_database=True)

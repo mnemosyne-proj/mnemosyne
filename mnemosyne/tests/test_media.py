@@ -114,13 +114,14 @@ class TestMedia(MnemosyneTest):
 
     def test_card(self):
         file("a.ogg", "w")
-        full_path = os.path.abspath("a.ogg")
+        full_path = os.path.abspath("a.ogg").replace("\\", "/")
         fact_data = {"f": "<img src=\"%s\">" % full_path,
                      "b": "answer"}
         card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
-        full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
+        full_path_in_media_dir = \
+            os.path.join(self.database().media_dir(), "a.ogg").replace("\\", "/")
         # Make sure we don't reuse existing objects.
         card = self.database().card(card._id, is_id_internal=True)
         assert os.path.exists(full_path_in_media_dir)
@@ -134,13 +135,14 @@ class TestMedia(MnemosyneTest):
 
     def test_audio_start_stop(self):
         file("a.ogg", "w")
-        full_path = os.path.abspath("a.ogg")
+        full_path = os.path.abspath("a.ogg").replace("\\", "/")
         fact_data = {"f": "<audio src=\"%s\" start=\"1\" stop=\"3\">" % full_path,
                      "b": "answer"}
         card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
-        full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
+        full_path_in_media_dir = \
+            os.path.join(self.database().media_dir(), "a.ogg").replace("\\", "/")
         # Make sure we don't reuse existing objects.
         card = self.database().card(card._id, is_id_internal=True)
         assert os.path.exists(full_path_in_media_dir)
@@ -200,7 +202,8 @@ class TestMedia(MnemosyneTest):
         card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
-        full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
+        full_path_in_media_dir = \
+            os.path.join(self.database().media_dir(), "a.ogg").replace("\\", "/")
 
         fact_data = {"f": "edited <img src=\"%s\">" % "a.ogg",
                      "b": "answer"}
@@ -219,7 +222,7 @@ class TestMedia(MnemosyneTest):
 
     def test_card_edit_add(self):
         file("a.ogg", "w")
-        full_path = os.path.abspath("a.ogg")
+        full_path = os.path.abspath("a.ogg").replace("\\", "/")
 
         fact_data = {"f": "<img src=\"%s\">" % full_path,
                      "b": "answer"}
@@ -229,14 +232,15 @@ class TestMedia(MnemosyneTest):
         # Make sure we don't reuse existing objects.
         card = self.database().card(card._id, is_id_internal=True)
         file("b.ogg", "w")
-        full_path = os.path.abspath("b.ogg")
+        full_path = os.path.abspath("b.ogg").replace("\\", "/")
         fact_data = {"f": "edited <img src=\"%s\"> <img src=\"%s\">" \
                      % ("a.ogg", full_path),
                      "b": "answer"}
         self.controller().edit_card_and_sisters(card, fact_data,
            card_type, new_tag_names=["bla"], correspondence=None)
         card = self.database().card(card._id, is_id_internal=True)
-        full_path_in_media_dir = os.path.join(self.database().media_dir(), "b.ogg")
+        full_path_in_media_dir = \
+            os.path.join(self.database().media_dir(), "b.ogg").replace("\\", "/")
         assert os.path.exists(full_path_in_media_dir)
         assert full_path not in card.fact.data["f"]
         assert full_path_in_media_dir not in card.fact.data["f"]
@@ -248,7 +252,7 @@ class TestMedia(MnemosyneTest):
 
     def test_card_edit_delete(self):
         file("a.ogg", "w")
-        full_path = os.path.abspath("a.ogg")
+        full_path = os.path.abspath("a.ogg").replace("\\", "/")
 
         fact_data = {"f": "<img src=\"%s\">" % full_path,
                      "b": "answer"}
@@ -263,7 +267,8 @@ class TestMedia(MnemosyneTest):
            card_type, new_tag_names=["bla"], correspondence=None)
         # Make sure we don't reuse existing objects.
         card = self.database().card(card._id, is_id_internal=True)
-        full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
+        full_path_in_media_dir = \
+            os.path.join(self.database().media_dir(), "a.ogg").replace("\\", "/")
         self.database().delete_unused_media_files(self.database().unused_media_files())
         assert not os.path.exists(full_path_in_media_dir)
         assert full_path_in_media_dir not in card.question()
@@ -391,7 +396,7 @@ class TestMedia(MnemosyneTest):
         assert "dot_test" in self.database().media_dir()
         self.database().new(os.path.abspath("outside.db"))
         assert self.database().media_dir() == os.path.join(\
-            os.path.dirname(os.path.abspath("outside.db")), "outside.db_media")
+            os.path.dirname(os.path.abspath("outside.db")), "outside.db_media").replace("\\", "/")
         assert "dot_test" not in self.database().media_dir()
 
     def teardown(self):

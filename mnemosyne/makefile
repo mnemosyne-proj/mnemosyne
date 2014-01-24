@@ -74,7 +74,7 @@ install-system:
 build-all-deps:
 	# Also rebuilds the docs and the translations.
 	cd mnemosyne/libmnemosyne/docs && make SPHINXBUILD=$(SPHINXBUILD) html
-	cd mnemosyne/pyqt_ui && make clean
+	# cd mnemosyne/pyqt_ui && make clean
 	cd mnemosyne/pyqt_ui && make
 	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
 	cd po && make update

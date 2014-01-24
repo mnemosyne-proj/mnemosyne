@@ -12,7 +12,7 @@ zerfÃ¤llt. Da  zu offenen Intervallen (a,b) homÃ¶omorph ist, kann [0,1) auc
 (0,1) homÃ¶omorph sein. NatÃ¼rlich ist [0,1) homÃ¶omorph zu (0,1]. (Der HomÃ¶o-
 morphismus ist f(x) = 1-x.) 
 
--sync issue:
+-sync issue: creating and immediately deleting a card before sync
 apply log entry sync 541 card_from_log_entry: none has no attribute get item
 
 -package android 

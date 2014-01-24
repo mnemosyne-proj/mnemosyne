@@ -3,6 +3,7 @@
 #
 
 import os
+import sys
 import time
 import datetime
 import calendar
@@ -15,6 +16,8 @@ DAY = 24 * HOUR # Seconds in a day.
 class TestScheduler(MnemosyneTest):
 
     def test_midnight_UTC(self):
+        if sys.platform == "win32":
+            return  # no time.tzset
         sch = self.scheduler()
         os.environ["TZ"] = "UTC"
         time.tzset()
@@ -37,6 +40,8 @@ class TestScheduler(MnemosyneTest):
         assert sch.midnight_UTC(t) == midnight_UTC
 
     def test_adjusted_now(self):
+        if sys.platform == "win32":
+            return  # no time.tzset        
         sch = self.scheduler()
         os.environ["TZ"] = "UTC"
         time.tzset()
@@ -382,6 +387,9 @@ class TestScheduler(MnemosyneTest):
         assert self.review_controller().card == card
 
     def test_next_rep_to_interval_string(self):
+        if sys.platform == "win32":
+            return  # no time.tzset
+        
         os.environ["TZ"] = "Europe/Brussels"
         time.tzset()
 
@@ -458,6 +466,8 @@ class TestScheduler(MnemosyneTest):
             "1.0 years overdue"
 
     def test_next_rep_to_interval_string_2(self):
+        if sys.platform == "win32":
+            return  # no time.tzset        
         os.environ["TZ"] = "Europe/Brussels"
         time.tzset()
 
@@ -499,6 +509,8 @@ class TestScheduler(MnemosyneTest):
         assert sch.next_rep_to_interval_string(next_rep, now) == "1.0 years overdue"
 
     def test_last_rep_to_interval_string(self):
+        if sys.platform == "win32":
+            return  # no time.tzset        
         os.environ["TZ"] = "Europe/Brussels"
         time.tzset()
 
@@ -546,6 +558,8 @@ class TestScheduler(MnemosyneTest):
             "1.0 years ago"
 
     def test_last_rep_to_interval_string_2(self):
+        if sys.platform == "win32":
+            return  # no time.tzset        
         sch = self.scheduler()
         os.environ["TZ"] = "Australia/Sydney"
         time.tzset()
@@ -567,6 +581,8 @@ class TestScheduler(MnemosyneTest):
         assert sch.last_rep_to_interval_string(last_rep, now) == "yesterday"
 
     def test_last_rep_to_interval_string_3(self):
+        if sys.platform == "win32":
+            return  # no time.tzset        
         sch = self.scheduler()
         os.environ["TZ"] = "America/Los_Angeles"
         time.tzset()

@@ -14,6 +14,8 @@ from openSM2sync.server import Server
 from openSM2sync.client import Client
 from openSM2sync.log_entry import EventTypes
 
+from mnemosyne_test import MnemosyneTest
+
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
@@ -65,7 +67,8 @@ class MyServer(Server, Thread):
         self.filename = filename
         Thread.__init__(self)
         if erase_previous:
-            shutil.rmtree(data_dir, ignore_errors=True)
+            MnemosyneTest().initialise_data_dir(data_dir)
+            #shutil.rmtree(data_dir, ignore_errors=True)
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
             asynchronous_database=True)
         self.mnemosyne.components.insert(0,
@@ -157,7 +160,8 @@ class MyClient(Client):
     def __init__(self, data_dir=os.path.abspath("dot_sync_client"),
             filename="default.db", erase_previous=True):
         if erase_previous:
-            shutil.rmtree(data_dir, ignore_errors=True)
+            MnemosyneTest().initialise_data_dir(data_dir)
+            #shutil.rmtree(data_dir, ignore_errors=True)
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=False,
             asynchronous_database=True)
         self.mnemosyne.components.insert(0,

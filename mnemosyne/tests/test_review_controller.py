@@ -29,7 +29,7 @@ class TestReviewController(MnemosyneTest):
     def setup(self):
         global expected_scheduled_count
         expected_scheduled_count = None
-        shutil.rmtree("dot_test", ignore_errors=True)
+        self.initialise_data_dir()
 
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
             asynchronous_database=True)

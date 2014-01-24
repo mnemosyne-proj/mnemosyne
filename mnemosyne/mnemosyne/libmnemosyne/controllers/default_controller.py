@@ -847,6 +847,7 @@ _("This will tag all the cards in a given card type which have the same question
             os.remove(filename)
             if filename.endswith(".py") and os.path.exists(filename + "c"):
                 os.remove(filename + "c")
+        manifest.close()
         del plugin
         os.remove(manifest_filename)
         remove_empty_dirs_in(plugin_dir)
