@@ -33,7 +33,7 @@ class HtmlCss(Renderer):
     def card_type_css(self, card_type):
         # Set aligment of the table (but not the contents within the table).
         # Use a separate id such that user created tables are not affected.
-        css = "table#mnem { height: " + self.table_height + "; width: 100%; "
+        css = "table.mnem { height: " + self.table_height + "; width: 100%; "
         alignment = self.config().card_type_property(\
             "alignment", card_type, default="center")
         if alignment == "left":
@@ -52,7 +52,7 @@ class HtmlCss(Renderer):
         # key tags.
         for true_fact_key, proxy_fact_key in \
             card_type.fact_key_format_proxies().iteritems():
-            css += "div#%s { " % true_fact_key
+            css += "div.%s { " % true_fact_key
             # Set alignment within table cell.
             alignment = self.config().card_type_property(\
                 "alignment", card_type, proxy_fact_key, default="center")
@@ -98,13 +98,13 @@ class HtmlCss(Renderer):
         html = ""
         for fact_key in fact_keys:
             if fact_key in fact_data and fact_data[fact_key]:
-                line = "<div id=\"%s\">%s</div>" % \
-                    (fact_key, fact_data[fact_key])
+                line = "<div id=\"%s\" class=\"%s\">%s</div>" % \
+                    (fact_key, fact_key, fact_data[fact_key])
                 # Honor paragraph style also in user-created tables.
                 line = line.replace("<td>",
-                    "<td><div id=\"%s\">" % fact_key)
+                    "<td><div id=\"%s\" class=\"%s\">" % (fact_key, fact_key))
                 line = line.replace("<TD>",
-                    "<TD><div id=\"%s\">" % fact_key)
+                    "<TD><div id=\"%s\" class=\"%s\">" % (fact_key, fact_key))
                 line = line.replace("</td>", "</div></td>")
                 line = line.replace("</TD>", "</div></TD>")
                 html += line
@@ -116,13 +116,13 @@ class HtmlCss(Renderer):
         return """
         <html>
         <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta charset=utf-8">
         <style type="text/css">
         %s
         </style>
         </head>
         <body>
-          <table id="mnem">
+          <table id="mnem1" class="mnem">
             <tr>
               <td>%s</td>
             </tr>

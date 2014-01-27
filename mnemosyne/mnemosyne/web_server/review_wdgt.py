@@ -35,12 +35,11 @@ class ReviewWdgt(ReviewWidget):
         self.is_grade_buttons_enabled = False
         self.status_bar = ""
         self.template = Template("""
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
   <title>Mnemosyne</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta charset=utf-8">
 <style type="text/css">
 table {
   width: 100%;
@@ -69,7 +68,7 @@ $card_css
 
 <p>$question_label</p>
 
-<table id="mnem">
+<table id="mnem1" class="mnem">
   <tr>
     <td>$question</td>
   </tr>
@@ -77,7 +76,7 @@ $card_css
 
 <p>$answer_label</p>
 
-<table id="mnem">
+<table id="mnem1" class="mnem">
   <tr>
     <td>$answer</td>
   </tr>
