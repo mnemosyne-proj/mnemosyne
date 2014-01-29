@@ -28,12 +28,14 @@ class HtmlCss(Renderer):
         self._css = {} # {card_type.id: css}
 
     def body_css(self):
+        return "html, body { margin: 0px; height: 100%;  width: 100%;}\n"
         return "body { margin: 0; padding: 0; border: thin solid #8F8F8F; }\n"
 
     def card_type_css(self, card_type):
         # Set aligment of the table (but not the contents within the table).
         # Use a separate id such that user created tables are not affected.
         css = "table.mnem { height: " + self.table_height + "; width: 100%; "
+        css += "border: 1px solid #8F8F8F; "
         alignment = self.config().card_type_property(\
             "alignment", card_type, default="center")
         if alignment == "left":
@@ -114,9 +116,10 @@ class HtmlCss(Renderer):
         css = self.css(card_type)
         body = self.body(fact_data, fact_keys, card_type, **render_args)
         return """
+        <!DOCTYPE html>
         <html>
         <head>
-        <meta charset=utf-8">
+        <meta charset="utf-8">
         <style type="text/css">
         %s
         </style>

@@ -39,7 +39,7 @@ class ReviewWdgt(ReviewWidget):
 <html>
 <head>
   <title>Mnemosyne</title>
-  <meta charset=utf-8">
+  <meta charset="utf-8">
 <style type="text/css">
 table {
   width: 100%;

@@ -130,19 +130,19 @@ class MyServer(Server, Thread):
             self.mnemosyne.database().release_connection()
             self.mnemosyne.finalise()
             tests_done.notify()
-            tests_done.release()
+            tests_done.release
 
     def stop(self):
         Server.stop(self)
         # (WSGI ref server)
         # Make an extra request so that we don't need to wait for the server
         # timeout. This could fail if the server has already shut down.
-        #try:
-        #    con = httplib.HTTPConnection("localhost", PORT)
-        #    con.request("GET", "dummy_request")
-        #    con.getresponse().read()
-        #except:
-        #    pass
+        try:
+            con = httplib.HTTPConnection("localhost", PORT)
+            con.request("GET", "dummy_request")
+            con.getresponse().read()
+        except:
+            pass
         global server_is_initialised
         server_is_initialised = None
 

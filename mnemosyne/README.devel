@@ -1,3 +1,5 @@
 The development code does not simply install with 'python setup.py install'.
 
-More detailed instructions are here: http://www.mnemosyne-proj.org/hacking.php
+More detailed instructions are here:
+
+http://mnemosyne-proj.org/hacking-mnemosyne

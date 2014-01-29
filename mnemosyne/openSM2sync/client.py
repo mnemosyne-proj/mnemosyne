@@ -139,7 +139,7 @@ class Client(Partner):
                 self.database.dynamically_create_media_files()
             # Set timeout long enough for e.g. a slow NAS waking from 
             # hibernation.
-            socket.setdefaulttimeout(30)
+            socket.setdefaulttimeout(45)
             self.login(username, password)
             # Generating media files at the server side could take some time,
             # so we update the timeout.
