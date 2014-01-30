@@ -130,11 +130,11 @@ class MyServer(Server, Thread):
             self.mnemosyne.database().release_connection()
             self.mnemosyne.finalise()
             tests_done.notify()
-            tests_done.release
+            tests_done.release()
 
     def stop(self):
+        import socket; socket.setdefaulttimeout(0.010)
         Server.stop(self)
-        # (WSGI ref server)
         # Make an extra request so that we don't need to wait for the server
         # timeout. This could fail if the server has already shut down.
         try:
@@ -145,7 +145,7 @@ class MyServer(Server, Thread):
             pass
         global server_is_initialised
         server_is_initialised = None
-
+        
 
 class MyClient(Client):
 
@@ -1371,7 +1371,7 @@ class TestSync(object):
             card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
             self.mnemosyne.controller().save_file()
-            assert card.question().count("file") == 3
+            assert card.question().count("file://") == 3
             assert "_media" not in card.question("sync_to_card_only_client")
 
         def test_server(self):
