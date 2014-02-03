@@ -68,7 +68,7 @@ class MyServer(Server, Thread):
         Thread.__init__(self)
         if erase_previous:
             MnemosyneTest().initialise_data_dir(data_dir)
-            #shutil.rmtree(data_dir, ignore_errors=True)
+            #shutil.rmtree(unicode(data_dir), ignore_errors=True)
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
             asynchronous_database=True)
         self.mnemosyne.components.insert(0,
@@ -133,7 +133,7 @@ class MyServer(Server, Thread):
             tests_done.release()
 
     def stop(self):
-        import socket; socket.setdefaulttimeout(0.010)
+        import socket; socket.setdefaulttimeout(.010)
         Server.stop(self)
         # Make an extra request so that we don't need to wait for the server
         # timeout. This could fail if the server has already shut down.
@@ -161,7 +161,7 @@ class MyClient(Client):
             filename="default.db", erase_previous=True):
         if erase_previous:
             MnemosyneTest().initialise_data_dir(data_dir)
-            #shutil.rmtree(data_dir, ignore_errors=True)
+            #shutil.rmtree(unicode(data_dir), ignore_errors=True)
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=False,
             asynchronous_database=True)
         self.mnemosyne.components.insert(0,
@@ -241,7 +241,7 @@ class TestSync(object):
         self._wait_for_server_shutdown()
 
         if os.path.exists(os.path.abspath("dot_sync_client")):
-            shutil.rmtree(os.path.abspath("dot_sync_client"))
+            shutil.rmtree(unicode(os.path.abspath("dot_sync_client")))
         shutil.copytree(os.path.abspath("dot_sync_server"),
             os.path.abspath("dot_sync_client"))
 

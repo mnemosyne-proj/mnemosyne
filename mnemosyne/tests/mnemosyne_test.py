@@ -30,7 +30,8 @@ class MnemosyneTest():
                 full_path = unicode(os.path.join(data_dir, directory))
                 if os.path.exists(full_path):
                     shutil.rmtree(full_path)
-            for file in ["default.db-journal", "config", "config.py"]:
+            for file in ["default.db-journal", "config", 
+                         "config.py", "machine.id", "log.txt"]:
                 full_path = unicode(os.path.join(data_dir, file))
                 if os.path.exists(full_path):
                     os.remove(full_path)

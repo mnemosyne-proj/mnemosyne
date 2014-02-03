@@ -71,8 +71,8 @@ class TestCloze(MnemosyneTest):
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
 
-        assert "div#b { text-align: center; }" in card.question()
-        assert "div#b { text-align: center; }" in card.answer()
+        assert "div.b { text-align: center; }" in card.question()
+        assert "div.b { text-align: center; }" in card.answer()
 
     def test_edit(self):
         card_type = self.card_type_with_id("5")
