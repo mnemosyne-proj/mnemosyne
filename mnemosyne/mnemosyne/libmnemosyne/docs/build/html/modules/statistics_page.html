@@ -52,8 +52,67 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="statisticspage">
-<h1><tt class="xref py py-mod docutils literal"><span class="pre">StatisticsPage</span></tt><a class="headerlink" href="#statisticspage" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-mnemosyne.libmnemosyne.statistics_page">
+<span id="statisticspage"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">StatisticsPage</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.statistics_page" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="mnemosyne.libmnemosyne.statistics_page.StatisticsPage">
+<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.statistics_page.</tt><tt class="descname">StatisticsPage</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>A self-contained piece of statistical information, typically displayed
+in the GUI as a page in a tabbed widget.</p>
+<p>Each StatisticsPage can have several &#8216;variants&#8217;, e.g. displaying the
+number of scheduled cards either for next week or for next month.</p>
+<p>For each StatisticsPage, there will be an associated widget (plotting
+widget, html browser, custom widget, ... ) that is in charge of displaying
+the information. This widget needs to be registered in the component
+manager as a &#8216;statistics_widget&#8217; &#8216;used_for&#8217; a particular StatisticsPage
+(or a parent class of a StatisticsPage).</p>
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.statistics_page.StatisticsPage.component_type">
+<tt class="descname">component_type</tt><em class="property"> = 'statistics_page'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage.component_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.statistics_page.StatisticsPage.instantiate">
+<tt class="descname">instantiate</tt><em class="property"> = 1</em><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage.instantiate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.statistics_page.StatisticsPage.name">
+<tt class="descname">name</tt><em class="property"> = ''</em><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.statistics_page.StatisticsPage.prepare_statistics">
+<tt class="descname">prepare_statistics</tt><big>(</big><em>variant_id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage.prepare_statistics" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method calculates the data for the requested variant and sets
+the approriate hints to be picked up by the corresponding widget.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.statistics_page.StatisticsPage.show_variants_in_combobox">
+<tt class="descname">show_variants_in_combobox</tt><em class="property"> = True</em><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage.show_variants_in_combobox" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.statistics_page.StatisticsPage.variants">
+<tt class="descname">variants</tt><em class="property"> = []</em><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage.variants" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mnemosyne.libmnemosyne.statistics_page.PlotStatisticsPage">
+<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.statistics_page.</tt><tt class="descname">PlotStatisticsPage</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.PlotStatisticsPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>A statistics page where the data is represented on a graphical plot.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="mnemosyne.libmnemosyne.statistics_page.HtmlStatisticsPage">
+<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.statistics_page.</tt><tt class="descname">HtmlStatisticsPage</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.HtmlStatisticsPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>A statistics page which generates html to displayed in a browser
+widget.</p>
+</dd></dl>
+
 </div>
 
 
@@ -110,7 +169,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jan 20, 2014.
+      Last updated on Feb 04, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
     </div>
   </body>

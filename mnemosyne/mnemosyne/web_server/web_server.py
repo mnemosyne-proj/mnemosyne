@@ -4,7 +4,9 @@
 
 import os
 import cgi
+import sys
 import time
+import locale
 import httplib
 import threading
 
@@ -113,7 +115,7 @@ class WebServer(Component):
         self.is_mnemosyne_loaded = False
 
     def wsgi_app(self, environ, start_response):
-        filename = environ["PATH_INFO"]
+        filename = environ["PATH_INFO"].decode("utf-8")
         if filename == "/status":
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)
@@ -162,6 +164,14 @@ class WebServer(Component):
             for word in filename.split("/"):
                 full_path = os.path.join(full_path, word)
             request = Request(environ)
+            # Check if file exists, but work around Android not reporting
+            # the correct filesystem encoding.
+            try:
+                exists = os.path.exists(full_path)
+            except (UnicodeEncodeError, UnicodeDecodeError):
+                _ENCODING = sys.getfilesystemencoding() or \
+                    locale.getdefaultlocale()[1] or "utf-8"              
+                full_path = full_path.encode(_ENCODING)
             if os.path.exists(full_path):
                 etag = "%s-%s-%s" % (os.path.getmtime(full_path),
                     os.path.getsize(full_path), hash(full_path))

@@ -5,6 +5,7 @@ import os
 import sys
 import math
 import random
+import locale
 import traceback
 
 class SyncError(Exception):
@@ -42,3 +43,19 @@ def rand_uuid():
     for c in range(22):
         uuid += chars[int(rand() * 62.0 - 1)]
     return uuid
+
+def file_(filename, mode):
+    
+    """Wrapped version of file constructor to handle the fact that on
+    Android sys.getfilesystemencoding erroneously returns None.
+    
+    https://code.google.com/p/python-for-android/issues/detail?id=35
+    
+    """
+    
+    try:
+        return file(filename, mode)
+    except (UnicodeEncodeError, UnicodeDecodeError):
+        _ENCODING = sys.getfilesystemencoding() or \
+            locale.getdefaultlocale()[1] or "utf-8"
+        return file(filename.encode(_ENCODING), mode)

@@ -37,6 +37,8 @@ apply log entry sync 541 card_from_log_entry: none has no attribute get item
 
 -add login to webserver?
 
+-running a headless sync server in an empty datadir does not create a default database.
+
 -a crash during a full sync can lead to 'sync cycle' detected
 
 -starting the program when no cards are shown does not draw a border around the

@@ -188,7 +188,7 @@ distrib: FORCE
 	cd po && make
 	cd mnemosyne/libmnemosyne/docs && make html
 	cd mnemosyne/pyqt_ui && make
-	./bin/python setup.py sdist
+	$(PYTHON) setup.py sdist --formats=gztar
 
 distrib-WM: FORCE
 	# Windows Mobile.
