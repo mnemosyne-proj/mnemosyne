@@ -14,7 +14,6 @@ last_error = None
 
 class MyMainWidget(MainWidget):
 
-
     def show_information(self, info):
         print info
         #sys.stderr.write(info+'\n')

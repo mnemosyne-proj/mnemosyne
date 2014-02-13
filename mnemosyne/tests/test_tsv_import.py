@@ -72,7 +72,6 @@ class TestTsvImport(MnemosyneTest):
     def test_2(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "tsv_2.txt")
         self.tsv_importer().do_import(filename, 'extra_tag_name')
-        print last_error
         assert last_error == ""
         self.review_controller().reset()
         assert self.database().card_count() == 2

@@ -104,6 +104,9 @@ if mnemosyne.main_widget().show_question(\
     "Perform sync?", "Yes", "No", "") == 0:
     mnemosyne.controller().sync(sync_server, sync_port, 
         sync_username, sync_password)
+    # Make sure the config gets picked up when starting a new
+    # Mnemosyne instance in the web server.
+    mnemosyne.config().save()
 
 # Start review server.
 mnemosyne.database().release_connection()

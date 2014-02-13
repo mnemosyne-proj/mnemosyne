@@ -124,7 +124,6 @@ class TestController(MnemosyneTest):
         self.review_controller().show_new_question()
         self.controller().star_current_card()
         card = self.database().card(card._id, is_id_internal=True)
-        print card.tag_string()
         assert "Starred" in card.tag_string()
 
     def test_2(self):

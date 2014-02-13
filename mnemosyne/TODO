@@ -1,5 +1,6 @@
--File "/mnt/sdcard/sl4a/scripts/openSM2sync/client.py", line 567, in get_server_media_files file_size, progress_bar=False) File "/mnt/sdcard/sl4a/scripts/openSM2sync/partner.py", line 35, in download_binary_file = file (filname, "wb")
-UnicodeEncoeError: 'ascii' codec can't encode character u'\xf8' in position 59: ordinal not in range(128)
+-hang on initial syc with windows client and server on same machine?
+
+-server: show answer, client: grade answer: sync, server still shows that card?
 
 -settings on Android only applied after second sync?
 
@@ -15,18 +16,21 @@ morphismus ist f(x) = 1-x.)
 -sync issue: creating and immediately deleting a card before sync
 apply log entry sync 541 card_from_log_entry: none has no attribute get item
 
--package android 
-
 -custom editor for clone name in browser does not work
- 
--fix multiple audio files and start/stop (Ansgar Bohmann)
 
+-make sure people don't stop after putting the scheduled counter to zero.
+ 
 -update webserver docs, add webob to dependencies
 
 
+-package android automatically?
+
+-fix multiple audio files and start/stop (Ansgar Bohmann)
+
+-merge databases
+
 -windows 'python setup.py install': missing share locale path when starting configure
--fix windows testsuite, try to speed it up by copying empty database instead of
- creating a new one
+-profile testsuite
 -add windows devel instructions to repo and refer to in on website
 -wing: integrate with build process
 

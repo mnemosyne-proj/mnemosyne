@@ -40,6 +40,7 @@ class ReviewWdgt(ReviewWidget):
 <head>
   <title>Mnemosyne</title>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 <style type="text/css">
 table {
   width: 100%;

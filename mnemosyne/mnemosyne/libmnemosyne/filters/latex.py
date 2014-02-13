@@ -160,6 +160,11 @@ class LatexFilenamesFromData(Hook):
             filenames.add(self.latex.create_latex_img_file(\
                 "\\begin{displaymath}" + match.group(1) + \
                 "\\end{displaymath}"))
+        # Check if there were Latex problems.
+        if None in filenames:
+            self.main_widget().show_error(\
+                    _("Problem with latex. Are latex and dvipng installed?"))
+            filenames.remove(None)
         return filenames
 
 

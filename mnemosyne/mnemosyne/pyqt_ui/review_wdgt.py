@@ -149,12 +149,14 @@ class QAOptimalSplit(object):
         return text
 
     def set_question(self, text):
+        #self.main_widget().show_information(text.replace("<", "&lt;"))
         self.question_text = text
         self.question_preview.page().setPreferredContentsSize(\
             QtCore.QSize(self.question.size().width(), 1))
         self.question_preview.setHtml(self.silence_media(text))
 
     def set_answer(self, text):
+        #self.main_widget().show_information(text.replace("<", "&lt;"))        
         self.answer_text = text
         self.answer_preview.page().setPreferredContentsSize(\
             QtCore.QSize(self.answer.size().width(), 1))
