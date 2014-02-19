@@ -144,6 +144,7 @@ class Configuration(Component, dict):
              "remote_access_password": "",
              "warned_about_learning_ahead": False,
              "shown_backlog_help": False,
+             "shown_learn_new_cards_help": False,
              "shown_schedule_help": False,
              "asynchronous_database": False,
              "author_name": "",

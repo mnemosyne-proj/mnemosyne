@@ -99,8 +99,8 @@ class ServerThread(QtCore.QThread, SyncServer):
         # we temporarily override the main_widget with the threaded
         # routines in this class.
         self.component_manager.components[None]["main_widget"].append(self)
-        self.sync_started_signal.emit()
-        if not self.server_has_connection:
+        self.sync_started_signal.emit()  # Unload database in main thread. 
+        if not self.server_has_connection:           
             database_released.wait(mutex)
         SyncServer.load_database(self, database_name)
         self.server_has_connection = True
@@ -110,14 +110,17 @@ class ServerThread(QtCore.QThread, SyncServer):
     def unload_database(self, database):
         # Unload the database in the sync server thread.
         mutex.lock()
+        # Put back the widget now, as it needs to be in place before
+        # 'emit' resets the GUI.
+        if self in self.component_manager.components[None]["main_widget"]:
+            self.component_manager.components[None]["main_widget"].pop()        
         if self.server_has_connection:
             self.database().release_connection()
             self.server_has_connection = False
             database_released.wakeAll()
-        if self in self.component_manager.components[None]["main_widget"]:
-            self.component_manager.components[None]["main_widget"].pop()
+            self.sync_ended_signal.emit()  # Load database in main thread.
+            database_released.wait(mutex)
         mutex.unlock()
-        self.sync_ended_signal.emit()
 
     def flush(self):
         mutex.lock()
@@ -258,13 +261,14 @@ class QtSyncServer(Component, QtCore.QObject):
         mutex.lock()
         try:
             self.database().load(self.config()["last_database"])
-        except: # Database locked in server thread.
+        except Exception, e: # Database locked in server thread.
             database_released.wait(mutex)
             self.database().load(self.config()["last_database"])
         self.log().loaded_database()
         self.review_controller().reset_but_try_to_keep_current_card()
         self.review_controller().update_dialog(redraw_all=True)
         self.thread.server_has_connection = False
+        database_released.wakeAll()
         mutex.unlock()
 
     def flush(self):

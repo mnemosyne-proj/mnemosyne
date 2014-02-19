@@ -552,7 +552,7 @@ class SM2Mnemosyne(Scheduler):
             self.main_widget().show_information(\
         _("You've memorised 15 new or failed cards.") + " " +\
         _("If you do this for many days, you could get a big workload later."))
-            self.warned_about_too_many_cards = True
+            self.warned_about_too_many_cards = True       
         # Run hooks.
         self.database().current_criterion().apply_to_card(card)
         for f in self.component_manager.all("hook", "after_repetition"):

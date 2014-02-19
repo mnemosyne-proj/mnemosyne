@@ -149,10 +149,15 @@ class SM2Controller(ReviewController):
         """Note that this also pulls in a new question."""
 
         self.flush_sync_server()
+        # Guide the learning process. 
+        if self.config()["shown_learn_new_cards_help"] == False:
+            if self.scheduled_count == 1:
+                self.main_widget().show_information(_("You have finished your scheduled reviews. Now, learn as many failed or new cards as you feel file."))
+                self.config()["shown_learn_new_cards_help"] = True          
         card_to_grade = self.card
         previous_grade = card_to_grade.grade
         self.update_counters(previous_grade, grade)
-        self.rep_count += 1
+        self.rep_count += 1     
         if self.scheduler().is_prefetch_allowed(card_to_grade):
             self.show_new_question()
             interval = self.scheduler().grade_answer(card_to_grade, grade)

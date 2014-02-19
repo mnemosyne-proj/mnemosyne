@@ -26,6 +26,8 @@ the client and the server at the same time.
  sync and the web server in headless mode (i.e. without a GUI) (useful to run 
  e.g. on a NAS server).
 -Fix more errors coming from loading config files.
+-Added an extra popup to guide new people better through the learning process
+ (feedback from Bjorn Maes).
 -Fix crash when exporting to cards format when Latex was not installed 
  (reported by Gwern).
 -Rework error handling when trying to load a database which no longer exists

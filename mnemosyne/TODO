@@ -1,17 +1,6 @@
--hang on initial syc with windows client and server on same machine?
-
--server: show answer, client: grade answer: sync, server still shows that card?
-
 -settings on Android only applied after second sync?
 
 -fix card type conversion bug (lauchpad)
-
--paste strange characters
- [0,1) ist nicht homÃ¶omorph zu . Durch Entfernen von 0 bleibt [0,1) zusammenhÃ¤n-
-gend, wÃ¤hrend  durch Wegnehmen eines beliebigen Punktes in zwei Komponenten 
-zerfÃ¤llt. Da  zu offenen Intervallen (a,b) homÃ¶omorph ist, kann [0,1) auch nicht zu 
-(0,1) homÃ¶omorph sein. NatÃ¼rlich ist [0,1) homÃ¶omorph zu (0,1]. (Der HomÃ¶o-
-morphismus ist f(x) = 1-x.) 
 
 -sync issue: creating and immediately deleting a card before sync
 apply log entry sync 541 card_from_log_entry: none has no attribute get item
@@ -24,6 +13,9 @@ apply log entry sync 541 card_from_log_entry: none has no attribute get item
 
 
 -package android automatically?
+
+
+-paste strange characters can crash export to cards format
 
 -fix multiple audio files and start/stop (Ansgar Bohmann)
 
