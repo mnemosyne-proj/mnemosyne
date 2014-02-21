@@ -90,7 +90,7 @@ class HtmlCss(Renderer):
     def update(self, card_type):
         self._css[card_type.id] = \
             self.body_css() + self.card_type_css(card_type)
-
+            
     def css(self, card_type):
         if not card_type.id in self._css:
             self.update(card_type)

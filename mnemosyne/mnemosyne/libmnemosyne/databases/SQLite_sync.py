@@ -872,6 +872,11 @@ class SQLiteSync(object):
                 key, value = log_entry["o_id"], eval(log_entry["value"])
                 if key in self.config().keys_to_sync:
                     self.config()[key] = value
+                    for card_type in self.card_types():
+                        for render_chain in self.component_manager.\
+                            all("render_chain"):
+                            render_chain.renderer_for_card_type(card_type).\
+                                update(card_type)                    
                 else:
                     self.log_edited_setting(log_entry["time"], key)
         finally:

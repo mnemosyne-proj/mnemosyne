@@ -1,13 +1,9 @@
--settings on Android only applied after second sync?
-
 -fix card type conversion bug (lauchpad)
 
 -sync issue: creating and immediately deleting a card before sync
 apply log entry sync 541 card_from_log_entry: none has no attribute get item
 
 -custom editor for clone name in browser does not work
-
--make sure people don't stop after putting the scheduled counter to zero.
  
 -update webserver docs, add webob to dependencies
 
