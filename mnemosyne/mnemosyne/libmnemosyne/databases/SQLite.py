@@ -1,4 +1,4 @@
-#se
+#
 # SQLite.py - Ed Bartosh <bartosh@gmail.com>, <Peter.Bienstman@UGent.be>
 #
 

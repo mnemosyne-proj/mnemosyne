@@ -116,8 +116,8 @@ web_server_thread = WebServerThread\
 web_server_thread.daemon = True
 web_server_thread.start() 
 if mnemosyne.main_widget().show_question(\
-    "Review server started. If you want sound, start Firefox and go to 127.0.0.1:8513, otherwise click below to start Chrome.",
-    "Don't start Chrome", "Start Chrome", "") == 1:
+    "Review server started. Either let Mnemosyne start Chrome, or, if you have problems with sound, start Firefox yourself and go to 127.0.0.1:8513, otherwise click below to start Chrome.",
+    "Start Chrome", "Don't start Chrome", "") == 0:
     mnemosyne.main_widget().start_native_browser()
 web_server_thread.join()
 

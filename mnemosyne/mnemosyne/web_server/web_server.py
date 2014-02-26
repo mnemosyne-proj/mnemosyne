@@ -39,6 +39,11 @@ class ReleaseDatabaseAfterTimeout(threading.Thread):
 
 
 class StopServerAfterTimeout(threading.Thread):
+    
+    """Stop server after a certain timeout, so that it has
+    enough time to serve the final page.
+    
+    """
 
     def __init__(self, wsgi_server):
         threading.Thread.__init__(self)
@@ -62,6 +67,7 @@ class WebServer(Component):
         # browser resending the form from the previous session.
         self.is_just_started = True
         self.is_mnemosyne_loaded = False
+        self.is_shutting_down = False
         self.wsgi_server = wsgiserver.CherryPyWSGIServer(\
             ("0.0.0.0", port), self.wsgi_app, server_name="localhost",
             numthreads=1, timeout=5)
@@ -119,7 +125,14 @@ class WebServer(Component):
         if filename == "/status":
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)
-            return ["200 OK"]  
+            return ["200 OK"]
+        # Sometimes, even after the user has clicked 'exit' in the page,
+        # a browser sends a request for e.g. an audio file.
+        if self.is_shutting_down and filename != "/release_database":
+            response_headers = [("Content-type", "text/html")]
+            start_response("503 Service Unavailable", response_headers)
+            return ["Server stopped"]
+        # Load database if needed.
         if not self.is_mnemosyne_loaded and filename != "/release_database":
             self.load_mnemosyne()
         self.release_database_after_timeout.ping()
@@ -145,6 +158,7 @@ class WebServer(Component):
                 self.stop_server_after_timeout = \
                     StopServerAfterTimeout(self.wsgi_server)
                 self.stop_server_after_timeout.start()
+                self.is_shutting_down = True
             else:
                 page = self.mnemosyne.review_widget().to_html()
             if self.is_just_started:

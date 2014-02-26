@@ -160,7 +160,6 @@ http://stackoverflow.com/questions/1609637/is-it-possible-to-insert-multiple-row
 -if last card had unequal split, learn ahead of schedule message does not go
  back to 50/50 split.
 
--migrate science server machine
 -fix race condition in test_sync where dot_sync_test does not get created
 
 -circadian rythm plugin
