@@ -336,7 +336,7 @@ class TestConvertCards(MnemosyneTest):
 
         new_fact_data = {"f": "question",
                          "b": "answer"}
-        correspondence = {"f": "b", "m_1": ";"}
+        correspondence = {"f": "b", "m_1": "f"}
         new_card_type = self.card_type_with_id("1")
         self.controller().edit_card_and_sisters(card, new_fact_data,
                new_card_type, new_tag_names=["default2"],
@@ -357,6 +357,33 @@ class TestConvertCards(MnemosyneTest):
 
         new_card.question()
         new_card.answer()
+        
+    def test_3_to_1_c(self):
+        # Missing required field.
+        fact_data = {"f": "foreign word",
+                     "m_1": "meaning"}
+        card_type = self.card_type_with_id("3")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])[0]
+
+        fact = card.fact
+        card_1, card_2 = self.database().cards_from_fact(fact)
+        old_card_1 = copy.copy(card_1)
+        old_card_2 = copy.copy(card_2)
+
+        new_fact_data = {"b": "foreign word"}
+        correspondence = {"f": "b", "p_1": "f"}
+        new_card_type = self.card_type_with_id("1")
+        self.controller().change_card_type([fact], card_type,
+               new_card_type, correspondence=correspondence)
+
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 2
+
+        card_1, card_2 = self.database().cards_from_fact(fact)
+        assert card_1.card_type.id == "3"
+        assert card_2.card_type.id == "3"
+             
 
     def test_2_to_3_a(self):
         fact_data = {"f": "question",

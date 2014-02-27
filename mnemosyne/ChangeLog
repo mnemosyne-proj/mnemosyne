@@ -20,6 +20,8 @@ the client and the server at the same time.
  sync.
 -Improve the timeout handling of the sync protocol.
 -Fix erroneous 'Wrong username or password' error.
+-Rework error handling when trying to load a database which no longer exists
+ in its previous location.
 -Keep the sort order in the card browser when editing cards (reported by
  Gnome and Tristan).
 -Added command line options --sync-server and --web-server which starts the 
@@ -30,8 +32,7 @@ the client and the server at the same time.
  (feedback from Bjorn Maes).
 -Fix crash when exporting to cards format when Latex was not installed 
  (reported by Gwern).
--Rework error handling when trying to load a database which no longer exists
- in its previous location.
+-Make card conversion more robust for badly formatted card (reported by Gnome).
 -When editing a card through the browser, make sure the correct set of tags is
  displayed if sister cards have different tags (requested by Scott Youngman).
 -Instruct people on the correct way to deal with '*.cards' files if they try

@@ -220,6 +220,8 @@ class DefaultController(Controller):
         """This is an internal function, used by 'edit_card_and_sisters' and
         'change_card_type'. It should not be called from the outside by
         itself, otherwise the database will not be saved.
+        
+        Returns -2 for error, -1 for cancel and 0 for success.
 
         """
 
@@ -228,7 +230,11 @@ class DefaultController(Controller):
         db = self.database()
         cards_from_fact = db.cards_from_fact(fact)
         assert cards_from_fact[0].card_type == old_card_type
-        assert new_card_type.is_fact_data_valid(new_fact_data)
+        if not new_card_type.is_fact_data_valid(new_fact_data):
+            self.main_widget().show_error(\
+                _("Card data not correctly formatted for conversion.\n\nSkipping ") +\
+                "|".join(fact.data.values()) + ".\n")
+            return -2
         converter = self.component_manager.current\
               ("card_type_converter", used_for=(old_card_type.__class__,
                                                 new_card_type.__class__))
@@ -317,8 +323,8 @@ class DefaultController(Controller):
         # changes to fact yet, which will come just afterwards.
         result = self._change_card_type(card.fact, card.card_type,
             new_card_type, correspondence, new_fact_data)
-        if result == -1:  # Aborted.
-            return -1
+        if result in [-2, -1]:  # Error, aborted.
+            return result
         # When there was no card type conversion possible, the cards had to
         # be recreated from the new fact data. In that case, it is needed to
         # reload the fact from the database.
@@ -380,18 +386,19 @@ class DefaultController(Controller):
             if correspondence:
                 new_fact_data = {}
                 for old_fact_key, new_fact_key in correspondence.iteritems():
-                    new_fact_data[new_fact_key] = fact[old_fact_key]
-                assert new_card_type.is_fact_data_valid(new_fact_data)
-                fact.data = new_fact_data
+                    if old_fact_key in fact:
+                        new_fact_data[new_fact_key] = fact[old_fact_key]
+                if new_card_type.is_fact_data_valid(new_fact_data):
+                    fact.data = new_fact_data
             else:
-                new_fact_data = copy.copy(fact.data)
+                new_fact_data = copy.copy(fact.data)  
             result = self._change_card_type(fact, old_card_type,
-                new_card_type, correspondence, new_fact_data, warn)
-            if result == -1:
+                    new_card_type, correspondence, new_fact_data, warn)
+            if result == -1:  # Cancel.
                 w.close_progress()
-                return
-            if correspondence:
-                db.update_fact(fact)
+                return                    
+            if correspondence and result != -2:  # Error. 
+                db.update_fact(fact)              
             warn = False
             w.increase_progress(1)
         db.save()
