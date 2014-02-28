@@ -21,12 +21,22 @@ DISPLAY_STRING = 0
 NODE = 1
 
 class CardTypeDelegate(TagDelegate):
-
+    
     def setEditorData(self, editor, index):
         # Get rid of the card count.
         self.previous_node_name = \
             unicode(index.model().data(index).toString()).rsplit(" (", 1)[0]
+        node_index = index.model().index(index.row(), NODE, index.parent())
+        self.card_type_id = index.model().data(node_index).toString()        
         editor.setText(self.previous_node_name)
+        
+    def commit_and_close_editor(self):
+        editor = self.sender()
+        if unicode(self.previous_node_name) == unicode(editor.text()):
+            self.redraw_node.emit(self.card_type_id)
+        else:
+            self.rename_node.emit(self.card_type_id, editor.text())
+        self.closeEditor.emit(editor, QtGui.QAbstractItemDelegate.NoHint)    
 
 
 class CardTypesTreeWdgt(TagsTreeWdgt):
@@ -39,6 +49,8 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
         TagsTreeWdgt.__init__(self, component_manager, parent)
         self.delegate = CardTypeDelegate(component_manager, self)
         self.tree_wdgt.setItemDelegate(self.delegate)
+        self.delegate.rename_node.connect(self.rename_node)
+        self.delegate.redraw_node.connect(self.redraw_node)        
         self.acquire_database = acquire_database
 
     def menu_rename(self):

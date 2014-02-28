@@ -1,4 +1,3 @@
-
 (Note that for Windows users we recommend uninstalling the previous version
 before installing the new one.)
 
@@ -48,6 +47,7 @@ the client and the server at the same time.
  the tags should be applied to the current card or to all sister cards.
 -Fix Windows crash when using the card browser with cards imported from
  Supermemo (reported by Piotr).
+-Fix crash when renaming cloned card types through the card browser.
 -Make Mnemosyne 1.x import more robust (reported by Jack Thro).
 -Don't allow saving the database to a network drive under Windows to prevent
  corruption (reported by Brendan Sinclair).
