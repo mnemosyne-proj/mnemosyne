@@ -62,7 +62,7 @@ class Upgrade1(Component):
 _("Tried to backup your old 1.x files to %s, but that directory already exists.") \
                     % (backup_dir,))
                     sys.exit()
-
+                    
     def upgrade_from_old_data_dir(self, old_data_dir):
         join = os.path.join
         try:
@@ -117,8 +117,9 @@ _("Tried to backup your old 1.x files to %s, but that directory already exists."
         # preserve the state of all the files that need to uploaded to the
         # science server.
         self.main_widget().set_progress_range(len(names) + 2)
-        shutil.copytree(join(old_data_dir, "history"),
-                        join(new_data_dir, "history"))
+        if os.path.exists(join(old_data_dir, "history")):    
+            shutil.copytree(join(old_data_dir, "history"),
+                            join(new_data_dir, "history"))
         self.main_widget().increase_progress(1)
         shutil.copyfile(join(old_data_dir, "log.txt"),
                         join(new_data_dir, "log.txt"))
