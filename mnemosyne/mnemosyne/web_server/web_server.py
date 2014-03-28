@@ -100,7 +100,7 @@ class WebServer(Component):
         self.mnemosyne.components.append(\
             ("mnemosyne.web_server.web_server_render_chain",
              "WebServerRenderChain"))
-        self.mnemosyne.initialise(self.data_dir, self.filename,
+        self.mnemosyne.initialise(self.data_dir, filename=self.filename,
             automatic_upgrades=False)
         self.mnemosyne.review_controller().set_render_chain("web_server")
         self.save_after_n_reps = self.mnemosyne.config()["save_after_n_reps"]

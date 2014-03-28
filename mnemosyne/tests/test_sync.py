@@ -96,7 +96,8 @@ class MyServer(Server, Thread):
         # We use a condition object here to prevent the client from accessing
         # the server until the server is ready.
         server_initialised.acquire()
-        self.mnemosyne.initialise(self.data_dir, self.filename, automatic_upgrades=False)
+        self.mnemosyne.initialise(self.data_dir, config_dir=self.data_dir, 
+            filename=self.filename, automatic_upgrades=False)
         self.mnemosyne.config().change_user_id(self.user_id)
         self.mnemosyne.review_controller().reset()
         if hasattr(self, "fill_server_database"):
@@ -168,7 +169,7 @@ class MyClient(Client):
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(("test_sync", "Widget"))
         self.mnemosyne.components.append(("mnemosyne_test", "TestReviewWidget"))
-        self.mnemosyne.initialise(data_dir, filename,  automatic_upgrades=False)
+        self.mnemosyne.initialise(data_dir, config_dir=data_dir, filename=filename,  automatic_upgrades=False)
         self.mnemosyne.config().change_user_id("user_id")
         self.mnemosyne.review_controller().reset()
         Client.__init__(self, self.mnemosyne.config().machine_id(),
@@ -3479,7 +3480,8 @@ class TestSync(object):
     def test_setting(self):
 
         def test_server(self):
-            assert self.mnemosyne.config()["font"] == "my_font"
+            assert self.mnemosyne.config()["font"]["1"]["f"] == \
+                   "my_font,12,x,x,25,2,1,1,x,x"
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -3496,7 +3498,10 @@ class TestSync(object):
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
 
-        self.client.mnemosyne.config()["font"] = "my_font"
+        self.client.mnemosyne.config()["font"] = {}
+        self.client.mnemosyne.config()["font"]["1"] = {}
+        self.client.mnemosyne.config()["font"]["1"]["f"] = "my_font,12,x,x,25,2,1,1,x,x"
+
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
 
@@ -3506,7 +3511,7 @@ class TestSync(object):
             self.mnemosyne.config().keys_to_sync.remove("font")
 
         def test_server(self):
-            assert self.mnemosyne.config()["font"] != "my_font"
+            assert "1" not in self.mnemosyne.config()["font"]
             assert self.mnemosyne.database().con.execute(\
                 "select count() from log where event_type=?",
                 (EventTypes.EDITED_SETTING, )).fetchone()[0] == 1
@@ -3527,7 +3532,9 @@ class TestSync(object):
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
 
-        self.client.mnemosyne.config()["font"] = "my_font"
+        self.client.mnemosyne.config()["font"] = {}
+        self.client.mnemosyne.config()["font"]["1"] = {}
+        self.client.mnemosyne.config()["font"]["1"]["f"] = "my_font,12,x,x,25,2,1,1,x,x"
 
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
@@ -3543,7 +3550,9 @@ class TestSync(object):
             card_type = self.mnemosyne.card_type_with_id("1")
             card = self.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
-            self.mnemosyne.config()["font"] = "my_font"
+            self.mnemosyne.config()["font"] = {}
+            self.mnemosyne.config()["font"]["1"] = {}
+            self.mnemosyne.config()["font"]["1"]["f"] = "my_font,12,x,x,25,2,1,1,x,x"
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -3553,7 +3562,8 @@ class TestSync(object):
         self.client = MyClient()
         self.client.do_sync(); assert last_error is None
 
-        assert self.client.mnemosyne.config()["font"] == "my_font"
+        assert self.client.mnemosyne.config()["font"]["1"]["f"] == \
+               "my_font,12,x,x,25,2,1,1,x,x"
 
     def test_setting_4(self):
 
@@ -3566,7 +3576,9 @@ class TestSync(object):
             card_type = self.mnemosyne.card_type_with_id("1")
             card = self.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
-            self.mnemosyne.config()["font"] = "my_font"
+            self.mnemosyne.config()["font"] = {}
+            self.mnemosyne.config()["font"]["1"] = {}
+            self.mnemosyne.config()["font"]["1"]["f"] = "my_font,12,x,x,25,2,1,1,x,x"
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -3577,7 +3589,7 @@ class TestSync(object):
         self.client.mnemosyne.config().keys_to_sync.remove("font")
         self.client.do_sync(); assert last_error is None
 
-        assert self.client.mnemosyne.config()["font"] != "my_font"
+        assert "1" not in self.client.mnemosyne.config()["font"]
         db = self.client.database
         assert db.con.execute("select count() from log where event_type=?",
                (EventTypes.EDITED_SETTING, )).fetchone()[0] == 16
@@ -3586,7 +3598,8 @@ class TestSync(object):
 
         def test_server(self):
             assert self.mnemosyne.config().card_type_property("font",
-                self.mnemosyne.card_type_with_id("1"), "f") == "my_font"
+                self.mnemosyne.card_type_with_id("1"), "f") == \
+                   "my_font,12,x,x,25,2,1,1,x,x"
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -3604,7 +3617,7 @@ class TestSync(object):
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
 
         self.client.mnemosyne.config().set_card_type_property\
-            ("font", "my_font", card_type)
+            ("font", "my_font,12,x,x,25,2,1,1,x,x", card_type)
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
         
@@ -3612,7 +3625,8 @@ class TestSync(object):
         
         def test_server(self):
             assert self.mnemosyne.config().card_type_property("font",
-                self.mnemosyne.card_type_with_id("1"), "f") == "my_font"
+                self.mnemosyne.card_type_with_id("1"), "f") \
+                   == "my_font,12,x,x,25,2,1,1,x,x"
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -3631,7 +3645,7 @@ class TestSync(object):
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
 
         self.client.mnemosyne.config().set_card_type_property\
-            ("font", "my_font", card_type)
+            ("font", "my_font,12,x,x,25,2,1,1,x,x", card_type)
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
 
@@ -3646,7 +3660,9 @@ class TestSync(object):
             card_type = self.mnemosyne.card_type_with_id("1")
             card = self.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
-            self.mnemosyne.config()["font"] = "my_font"
+            self.mnemosyne.config()["font"] = {}
+            self.mnemosyne.config()["font"]["1"] = {}
+            self.mnemosyne.config()["font"]["1"]["f"] = "my_font,12,x,x,25,2,1,1,x,x"
 
         self.server = MyServer(binary_download=True)
         self.server.test_server = test_server
@@ -3656,7 +3672,8 @@ class TestSync(object):
         self.client = MyClient()
         self.client.do_sync(); assert last_error is None
 
-        assert self.client.mnemosyne.config()["font"] == "my_font"
+        assert self.client.mnemosyne.config()["font"]["1"]["f"] == \
+               "my_font,12,x,x,25,2,1,1,x,x"
         
     def test_restore_backup(self):
 

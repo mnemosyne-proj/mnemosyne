@@ -25,12 +25,14 @@ class ChangeCardTypeDlg(QtGui.QDialog, Ui_ChangeCardTypeDlg, Component):
         self.card_type_by_name = {}
         self.return_values = return_values
         for card_type in self.card_types():
-            # Don't allow this for cloze types, as this requires edits.
-            if card_type != current_card_type and \
-                not card_type.id.startswith("5") and \
-                not card_type.id.startswith("6"):
-                self.card_type_by_name[_(card_type.name)] = card_type
-                self.card_types_widget.addItem(_(card_type.name))
+            if card_type == current_card_type:
+                continue
+            # For cloze types, only allow conversion for clones.
+            if (card_type.id.startswith("5") or card_type.id.startswith("6")) \
+                and (card_type.id[0] != current_card_type.id[0]):
+                continue
+            self.card_type_by_name[_(card_type.name)] = card_type
+            self.card_types_widget.addItem(_(card_type.name))
 
     def accept(self):
         card_type_name = unicode(self.card_types_widget.currentText())

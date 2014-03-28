@@ -210,6 +210,9 @@ class Configuration(Component, dict):
                   + "\n" + traceback_string()
 
     def determine_dirs(self):  # pragma: no cover
+        # If the config dir was already set by the user, use that.
+        if self.config_dir is not None:
+            return
         # Return if data_dir was already set by the user. In that case, we
         # also store the config in that directory.
         if self.data_dir is not None:

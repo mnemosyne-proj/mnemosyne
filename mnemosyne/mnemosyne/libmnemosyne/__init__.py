@@ -158,8 +158,9 @@ class Mnemosyne(Component):
         except:
             sys.stderr.write(body)
 
-    def initialise(self, data_dir=None, filename=None, automatic_upgrades=True,
-        debug_file=None, server_only=False):
+    def initialise(self, data_dir=None, config_dir=None,
+                   filename=None, automatic_upgrades=True, debug_file=None, 
+                   server_only=False):
 
         """The automatic upgrades of the database can be turned off by setting
         'automatic_upgrade' to False. This is mainly useful for the testsuite.
@@ -175,6 +176,8 @@ class Mnemosyne(Component):
             Upgrade1(self.component_manager).backup_old_dir()
         if data_dir:
             self.config().data_dir = data_dir
+        if config_dir:
+            self.config().config_dir = config_dir
         self.activate_components()
         register_component_manager(self.component_manager,
             self.config()["user_id"])

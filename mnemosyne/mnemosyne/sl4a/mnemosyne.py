@@ -97,7 +97,7 @@ mnemosyne.components = [\
           "CurrentCard"),
          ("main_wdgt", 
           "MainWdgt")]
-mnemosyne.initialise(data_dir, filename)
+mnemosyne.initialise(data_dir, filename=filename)
 
 # Sync before starting the review server.
 if mnemosyne.main_widget().show_question(\

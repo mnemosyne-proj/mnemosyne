@@ -1,8 +1,14 @@
--fonts in webserver don't work under linux?
+-linux webserver not respecting card colour, remove debug code
 
 -update webserver docs, add webob to dependencies
 
 -package android automatically?
+
+
+Android:
+
+-also bundle newer abi libraries?
+-document where template came from
 
 
 -paste strange characters can crash export to cards format

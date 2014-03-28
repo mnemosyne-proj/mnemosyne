@@ -34,6 +34,8 @@ the client and the server at the same time.
 -Make card conversion more robust for badly formatted card (reported by Gnome).
 -When editing a card through the browser, make sure the correct set of tags is
  displayed if sister cards have different tags (requested by Scott Youngman).
+-Allow converting a Cloze card to a clone of a Cloze card through the browser
+ (requested by Scott Youngman).
 -Instruct people on the correct way to deal with '*.cards' files if they try
  to open it as a separate database (Kensor0).
 -Make it clearer what 'Find duplicates' does.
