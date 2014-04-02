@@ -56,11 +56,12 @@ class StopServerAfterTimeout(threading.Thread):
 
 class WebServer(Component):
 
-    def __init__(self, component_manager, port, data_dir, filename, 
-                 is_server_local=False):
+    def __init__(self, component_manager, port, data_dir, config_dir,
+                 filename, is_server_local=False):
         Component.__init__(self, component_manager)
         self.port = port
         self.data_dir = data_dir
+        self.config_dir = config_dir
         self.filename = filename
         self.is_server_local = is_server_local
         # When restarting the server, make sure we discard info from the
@@ -100,8 +101,8 @@ class WebServer(Component):
         self.mnemosyne.components.append(\
             ("mnemosyne.web_server.web_server_render_chain",
              "WebServerRenderChain"))
-        self.mnemosyne.initialise(self.data_dir, filename=self.filename,
-            automatic_upgrades=False)
+        self.mnemosyne.initialise(self.data_dir, config_dir=self.config_dir,
+            filename=self.filename, automatic_upgrades=False)
         self.mnemosyne.review_controller().set_render_chain("web_server")
         self.save_after_n_reps = self.mnemosyne.config()["save_after_n_reps"]
         self.mnemosyne.config()["save_after_n_reps"] = 1
@@ -209,8 +210,9 @@ class WebServerThread(threading.Thread, WebServer):
         threading.Thread.__init__(self)
         self.config = component_manager.current("config")
         WebServer.__init__(self, component_manager,
-            self.config["web_server_port"], self.config.data_dir, 
-            self.config["last_database"], self.is_server_local)
+            self.config["web_server_port"], self.config.data_dir,
+            self.config.config_dir, self.config["last_database"], 
+            self.is_server_local)
 
     def run(self):
         if not self.is_server_local:  # Could fail if we are offline.

@@ -51,9 +51,10 @@ class ServerThread(QtCore.QThread, WebServer):
     set_progress_value_signal = QtCore.pyqtSignal(int)
     close_progress_signal = QtCore.pyqtSignal()
 
-    def __init__(self, component_manager, port, data_dir, filename):
+    def __init__(self, component_manager, port, data_dir, config_dir, filename):
         QtCore.QThread.__init__(self)
-        WebServer.__init__(self, component_manager, port, data_dir, filename)
+        WebServer.__init__(self, component_manager, port, data_dir, 
+                           config_dir, filename)
         self.server_has_connection = False
         # A fast moving progress bar seems to cause crashes on Windows.
         self.show_numeric_progress_bar = (sys.platform != "win32")
@@ -180,8 +181,8 @@ class QtWebServer(Component, QtCore.QObject):
             self.deactivate()
             try:
                 self.thread = ServerThread(self.component_manager,
-                    self.config()["web_server_port"], self.config().data_dir, 
-                    self.config()["last_database"])
+                    self.config()["web_server_port"], self.config().data_dir,
+                    self.config().config_dir, self.config()["last_database"])
             except socket.error, (errno, e):
                 if errno == 98:
                     self.main_widget().show_error(\
