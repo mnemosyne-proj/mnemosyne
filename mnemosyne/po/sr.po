@@ -1,35 +1,39 @@
+# Serbian translation for mnemosyne-proj
+# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
+# This file is distributed under the same license as the mnemosyne-proj package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: mnemosyne-proj\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-02-03 20:12+0000\n"
-"PO-Revision-Date: 2013-12-17 12:57+0000\n"
-"Last-Translator: Giancarlo Boggio <Unknown>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2013-08-29 14:18+0000\n"
+"Last-Translator: Иван Старчевић <ivanstar61@gmail.com>\n"
+"Language-Team: Serbian <sr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-02-04 05:51+0000\n"
+"X-Launchpad-Export-Date: 2014-02-04 05:52+0000\n"
 "X-Generator: Launchpad (build 16916)\n"
-"Language: \n"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\__init__.py:196
 #: ..\mnemosyne\libmnemosyne\__init__.py:196
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\__init__.py:196
 msgid "Command line argument is not a *.db file."
-msgstr "L'argomento della linea di comando non è un file *.db."
+msgstr ""
 
 #: ..\build\lib\mnemosyne\libmnemosyne\__init__.py:208
 #: ..\mnemosyne\libmnemosyne\__init__.py:208
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\__init__.py:208
 msgid "Another copy of Mnemosyne is still running."
-msgstr "Un'altra copia di Mnemosyne è già attiva"
+msgstr "Још један примерак Мнемосине још увек ради."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\__init__.py:209
 #: ..\mnemosyne\libmnemosyne\__init__.py:209
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\__init__.py:209
 msgid "Continuing is impossible and will lead to data loss!"
-msgstr "Continuare è impossibile e porterà ad una perdita di dati"
+msgstr "Наставак је немогућ и довешће до губитка података!"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\__init__.py:292
 #: ..\build\lib\mnemosyne\libmnemosyne\__init__.py:305
@@ -44,7 +48,7 @@ msgstr "Continuare è impossibile e porterà ad una perdita di dati"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:830
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:345
 msgid "Error when running plugin:"
-msgstr "Errore durante l'esecuzione dell'estensione:"
+msgstr "Грешка при покретању прикључка (Plug-in)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\__init__.py:323
 #: ..\mnemosyne\libmnemosyne\__init__.py:323
@@ -53,15 +57,12 @@ msgid ""
 "If you are using a USB key, refer to the instructions on the website so as "
 "not to be affected by drive letter changes."
 msgstr ""
-"Se stai usando una chiavetta USB, fai riferimento alle istruzioni sul sito "
-"WEB così da non avere problemi a causa degli eventuali cambi di lettera del "
-"drive."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\both_ways.py:15
 #: ..\mnemosyne\libmnemosyne\card_types\both_ways.py:15
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\both_ways.py:15
 msgid "Front-to-back and back-to-front"
-msgstr "Da-fronte-a-retro e da-retro-a-fronte"
+msgstr "Лице-наличје и наличке-лице"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\both_ways.py:18
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\front_to_back.py:16
@@ -70,7 +71,7 @@ msgstr "Da-fronte-a-retro e da-retro-a-fronte"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\both_ways.py:18
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\front_to_back.py:16
 msgid "Front"
-msgstr "Fronte"
+msgstr "Лице"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\both_ways.py:19
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\front_to_back.py:17
@@ -79,7 +80,7 @@ msgstr "Fronte"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\both_ways.py:19
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\front_to_back.py:17
 msgid "Back"
-msgstr "Retro"
+msgstr "Наличје"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\both_ways.py:22
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\front_to_back.py:20
@@ -88,13 +89,13 @@ msgstr "Retro"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\both_ways.py:22
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\front_to_back.py:20
 msgid "Front-to-back"
-msgstr "Da-fronte-a-retro"
+msgstr "Лице-наличје"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\both_ways.py:27
 #: ..\mnemosyne\libmnemosyne\card_types\both_ways.py:27
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\both_ways.py:27
 msgid "Back-to-front"
-msgstr "Da-retro-a-fronte"
+msgstr "Наличје-лице"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\cloze.py:39
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\cloze.py:167
@@ -103,7 +104,7 @@ msgstr "Da-retro-a-fronte"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\cloze.py:39
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\cloze.py:167
 msgid "Cloze deletion"
-msgstr "Cloze test"
+msgstr "Брисање теста са попуњавањем"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\cloze.py:41
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:50
@@ -111,13 +112,13 @@ msgstr "Cloze test"
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:50
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\cloze.py:41
 msgid "Text"
-msgstr "Testo"
+msgstr "Текст"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\cloze.py:45
 #: ..\mnemosyne\libmnemosyne\card_types\cloze.py:45
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\cloze.py:45
 msgid "Cloze"
-msgstr "Cloze"
+msgstr "Тест са попуњавањем изостављених делова текста"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\cloze.py:168
 #: ..\mnemosyne\libmnemosyne\card_types\cloze.py:168
@@ -134,24 +135,22 @@ msgid ""
 "You can also specify hints, e.g. [cloze:hint] will show\n"
 " [hint] in the question as opposed to [...]."
 msgstr ""
-"Un tipo di carta che nasconde un certo frammento del testo.\n"
+"Тип картице са изостављеним деловима текста.\n"
 "\n"
-"Ad es. il testo \"La capitale della [Francia] è [Parigi].\", genererà le "
-"carte con le domande \"La capitale della Francia è [...].\" e \"La capitale "
-"della [...] è Parigi.\"\n"
+"Н.пр. текст: \"Главни град [Србије] је [Београд]\", даће картице са "
+"питањима: \"Главни град Србије је [...]\" и \"Главни град [...] је "
+"Београд\".\n"
 "\n"
-"L'editazione del testo causerà l'aggiornamento automatico delle carte "
-"sorelle.\n"
+"Уређивање текста ће аутоматски ажурирати све ћерке картице.\n"
 "\n"
-"Puoi anche specificare dei suggerimenti, ad es: [cloze:suggerimento] "
-"mostrerà\n"
-" [suggerimento] nella domanda invece di [...]."
+"Такође можете да наведете савете, н.пр. [cloze:savet] ће приказати\n"
+"[savet] у питању за разлику од [...]."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\front_to_back.py:13
 #: ..\mnemosyne\libmnemosyne\card_types\front_to_back.py:13
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\front_to_back.py:13
 msgid "Front-to-back only"
-msgstr "Solo da-fronte-a-retro"
+msgstr "Само сице-наличје"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\map.py:16
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\map.py:51
@@ -160,25 +159,25 @@ msgstr "Solo da-fronte-a-retro"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\map.py:16
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\map.py:51
 msgid "Map"
-msgstr "Mappa"
+msgstr "Мапа"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\map.py:19
 #: ..\mnemosyne\libmnemosyne\card_types\map.py:19
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\map.py:19
 msgid "Location"
-msgstr "Posizione"
+msgstr "Локација"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\map.py:20
 #: ..\mnemosyne\libmnemosyne\card_types\map.py:20
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\map.py:20
 msgid "Blank map"
-msgstr "Mappa senza indicazione"
+msgstr "Празна мапа"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\map.py:21
 #: ..\mnemosyne\libmnemosyne\card_types\map.py:21
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\map.py:21
 msgid "Marked map"
-msgstr "Mappa con indicazione"
+msgstr "Означена мапа"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\map.py:24
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\sentence.py:39
@@ -191,7 +190,7 @@ msgstr "Mappa con indicazione"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\sentence.py:39
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\vocabulary.py:24
 msgid "Recognition"
-msgstr "Identificazione"
+msgstr "Речник (украшен)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\map.py:30
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\sentence.py:44
@@ -204,7 +203,7 @@ msgstr "Identificazione"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\sentence.py:44
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\vocabulary.py:29
 msgid "Production"
-msgstr "Illustrazione"
+msgstr "Производња"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\map.py:52
 #: ..\mnemosyne\libmnemosyne\card_types\map.py:52
@@ -215,9 +214,9 @@ msgid ""
 "Displays the answer map on top of the question map, rather than below it as "
 "a second map."
 msgstr ""
-"Un tipo di carta per apprendere posizioni su di una mappa.\n"
-"La mappa con la risposta viene sovrapposta alla mappa della domanda invece "
-"di essere mostrata al di sotto come una seconda mappa."
+"Тип картице за учење локација на мапу.\n"
+"\n"
+"Приказује мапу одговора преко мапе питања, а не испод ње као другу мапу."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\sentence.py:30
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\sentence.py:33
@@ -229,7 +228,7 @@ msgstr ""
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\sentence.py:33
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\sentence.py:94
 msgid "Sentence"
-msgstr "Frase"
+msgstr "Реченица"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\sentence.py:34
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\vocabulary.py:19
@@ -238,7 +237,7 @@ msgstr "Frase"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\sentence.py:34
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\vocabulary.py:19
 msgid "Pronunciation"
-msgstr "Pronuncia"
+msgstr "Изговор"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\sentence.py:35
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\vocabulary.py:20
@@ -247,7 +246,7 @@ msgstr "Pronuncia"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\sentence.py:35
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\vocabulary.py:20
 msgid "Meaning"
-msgstr "Significato"
+msgstr "Значење"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\sentence.py:36
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\vocabulary.py:21
@@ -256,7 +255,7 @@ msgstr "Significato"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\sentence.py:36
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\vocabulary.py:21
 msgid "Notes"
-msgstr "Annotazioni"
+msgstr "Белешке"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\sentence.py:95
 #: ..\mnemosyne\libmnemosyne\card_types\sentence.py:95
@@ -269,43 +268,42 @@ msgid ""
 "E.g. if in the sentence field you write \"La [casa:house] es [grande:big]\", "
 "you'll get cards with questions like \"La [house] es grande\"."
 msgstr ""
-"Un tipo di carta adato ad utilizzare frasi per studiare linguaggi "
-"stranieri.\n"
+"Тип картице које користе реченице за учење страних језика.\n"
 "\n"
-"Oltre alla semplice frase, puoi anche aggiungere do il metodo 'cloze "
-"deletion' ottenendo ulteriori carte domanda.\n"
-"As es: se nel campo frase scrivi \"The [house:casa] is [big:grande]\", "
-"otterrai carte con le domande \"The [casa] is big\"."
+"Осим једноставног препознавања реченице, можете такође додати и продуктивне "
+"картице са обрисаним деловима текста.\n"
+"Н.пр. ако упишете поње у реченицу: \"The [house:кућа] is [big:велика]\", "
+"добићете картице налик: \"The [кућа] is big\" и \"The house is [велика]\"."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\vocabulary.py:15
 #: ..\mnemosyne\libmnemosyne\card_types\vocabulary.py:15
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\vocabulary.py:15
 msgid "Vocabulary"
-msgstr "Vocabolario"
+msgstr "Речник"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\vocabulary.py:18
 #: ..\mnemosyne\libmnemosyne\card_types\vocabulary.py:18
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\vocabulary.py:18
 msgid "Foreign word or phrase"
-msgstr "Parola o frase straniera"
+msgstr "Страна реч или фраза"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\configuration.py:197
 #: ..\mnemosyne\libmnemosyne\configuration.py:197
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\configuration.py:197
 msgid "Error in config:"
-msgstr "Errore in config:"
+msgstr "Грешка у конфигурацији (config дaтотеци):"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\configuration.py:208
 #: ..\mnemosyne\libmnemosyne\configuration.py:208
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\configuration.py:208
 msgid "Unable to save config file:"
-msgstr "Impossibile salvare il file config:"
+msgstr "Није могуће сачувати конфигурациону датотеку"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\configuration.py:366
 #: ..\mnemosyne\libmnemosyne\configuration.py:366
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\configuration.py:366
 msgid "Error in config.py:"
-msgstr "Errore nel file config.py:"
+msgstr "Грешка у config.py:"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:65
 #: ..\build\lib\mnemosyne\pyqt_ui\about_dlg.py:28
@@ -333,7 +331,7 @@ msgstr "Mnemosyne"
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:117
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:117
 msgid "Identical card is already in database."
-msgstr "Una carta identica è già presente nel database."
+msgstr "идентична картица је веч у бази података."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:118
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:142
@@ -342,7 +340,7 @@ msgstr "Una carta identica è già presente nel database."
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:118
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:142
 msgid "&Add anyway"
-msgstr "&Aggiungi comunque"
+msgstr "&Додај у аваком случају"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:118
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:142
@@ -351,7 +349,7 @@ msgstr "&Aggiungi comunque"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:118
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:142
 msgid "&Do not add"
-msgstr "&Non aggiungere"
+msgstr "&Немој додати"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:122
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:122
@@ -360,28 +358,27 @@ msgid ""
 "There is already data present for this card:\n"
 "\n"
 msgstr ""
-"Ci sono già dati presenti per questa carta:\n"
+"За ову картицу већ постоје подаци:\n"
 "\n"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:142
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:142
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:142
 msgid "&Merge and edit"
-msgstr "&Unisci e modifica"
+msgstr "&Обједињавање и уређивање"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:259
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:259
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:259
 msgid "Can't preserve history when converting between these card types."
 msgstr ""
-"Impossibile conservare i dati storici quando si effettuano conversioni fra "
-"questi tipi di carta."
+"Када се конвертује између ових типова картица не може се сачувати историја."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:260
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:260
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:260
 msgid "The learning history of the cards will be reset."
-msgstr "I dati storici di apprendimento delle carte saranno resettati."
+msgstr "Историја учења картица ће бити ресетована."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:261
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:294
@@ -433,7 +430,7 @@ msgstr "I dati storici di apprendimento delle carte saranno resettati."
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:294
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:431
 msgid "&Cancel"
-msgstr "&Annulla"
+msgstr "&Одустани"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:261
 #: ..\build\lib\mnemosyne\pyqt_ui\activate_cards_dlg.py:111
@@ -500,13 +497,13 @@ msgstr "&Annulla"
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:102
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:261
 msgid "&OK"
-msgstr "&OK"
+msgstr "&У реду"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:291
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:291
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:291
 msgid "This will delete cards and their history."
-msgstr "Questo cancellerà le carte e i loro dati storici."
+msgstr "Ово ће избрисати картице и њихову историју."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:292
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:424
@@ -518,7 +515,7 @@ msgstr "Questo cancellerà le carte e i loro dati storici."
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:424
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:429
 msgid "Are you sure you want to do this,"
-msgstr "Sei sicuro di volerlo fare,"
+msgstr "Да ли сте сигурни да желите да урадите ово,"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:293
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:425
@@ -530,70 +527,68 @@ msgstr "Sei sicuro di volerlo fare,"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:425
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:430
 msgid "and not just deactivate cards in the 'Activate cards' dialog?"
-msgstr ""
-"e di non volere solo disattivare le carte nella finestra 'Carte Attivate'?"
+msgstr "и не само деактивира картице у \"Активирај картице\" дијалогу?"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:294
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:294
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:294
 msgid "&Proceed and delete"
-msgstr "&Procedi ed elimina"
+msgstr "&Настави и избриши"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:352
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:352
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:352
 msgid "Update tags for current card only or for all sister cards?"
 msgstr ""
-"Aggiorna le etichette solo per la carta corrente o per tutte le carte "
-"sorelle?"
+"Ажурирај ознаке за тренутне картице само или  за све равноправне картице?"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:353
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:353
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:353
 msgid "All sister cards"
-msgstr "Tutte le carte sorelle"
+msgstr "Све равноправне картице"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:353
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:353
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:353
 msgid "Current card only"
-msgstr "Solo la carta corrente"
+msgstr "Само тренутне картице"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:376
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:376
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:376
 msgid "Converting cards..."
-msgstr "Conversione carte in corso..."
+msgstr "Кнвертовање картица..."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:405
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:405
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:405
 msgid "Starred"
-msgstr ""
+msgstr "Са звездицом"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:421
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:421
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:421
 msgid "Delete this card?"
-msgstr "Eliminare questa carta?"
+msgstr "Избриши ову картицу?"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:423
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:423
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:423
 msgid "Delete this card and 1 sister card?"
-msgstr "Cancellare questa carta e 1 carta sorella?"
+msgstr "Избриши ову картицу и 1 сестру картицу?"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:427
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:427
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:427
 msgid "Delete this card and"
-msgstr "Cancellare questa carta e"
+msgstr "Избриши ову картицу и"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:428
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:428
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:428
 msgid "sister cards?"
-msgstr "le sue carte sorelle?"
+msgstr "сестру картицу?"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:432
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:370
@@ -605,51 +600,51 @@ msgstr "le sue carte sorelle?"
 #: ..\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:71
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:432
 msgid "&Delete"
-msgstr "&Elimina"
+msgstr "&Brisanje"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:446
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:446
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:446
 msgid "Deleting cards..."
-msgstr "Eliminazione delle carte in corso..."
+msgstr "Брисање картица..."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:458
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:458
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:458
 msgid "Checking for unused tags..."
-msgstr "Controllo delle etichette inutilizzate in corso..."
+msgstr "Провера некоришћених ознака..."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:473
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:473
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:473
 msgid "Card type name already exists."
-msgstr "Un tipo di carta con questo nome esiste già."
+msgstr "Назив типа картице већ постоји."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:493
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:493
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:493
 msgid "Card type %s is in use or is a system card type, cannot delete it."
 msgstr ""
-"Il tipo di carta %s è correntemente utilizzato o è un tipo carta di sistema, "
-"non può essere cancellato."
+"Картица типа %s је у употреби или је системски тип картице, и не може се "
+"обртисати."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:498
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:498
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:498
 msgid "Card type %s has clones, cannot delete it."
-msgstr "Il tipo di carta %s ha cloni, non può essere cancellato."
+msgstr "Картица типа %S има клонове, и не може се обрисати."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:513
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:513
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:513
 msgid "Cannot rename a system card type."
-msgstr "Non puoi rinominare un tipo di carta di sistema."
+msgstr "Системски тип картице се не може преименовати."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:518
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:518
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:518
 msgid "This card type name is already in use."
-msgstr "Questo tipo di carta è già in uso."
+msgstr "Овај назив типа картице је већ у употреби."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:525
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:525
@@ -659,9 +654,9 @@ msgid ""
 "determine which cards to study is much more convenient than having to load "
 "and unload several databases."
 msgstr ""
-"Si raccomanda di inserire tutte le tue carte in un singolo database. Usare "
-"etichette per determinare quali carte si intendono studiare è molto più "
-"pratico di dovere caricare e scaricare database multipli."
+"Препоручљиво је да сместите све ваше картице у једну базу података. "
+"Коришћење ознака за одређивање које картице учити је много једноставније "
+"него да се отвара и затвара више база података."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:536
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:566
@@ -673,19 +668,19 @@ msgstr ""
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:566
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:635
 msgid "Mnemosyne databases"
-msgstr "Database di Mnemosyne"
+msgstr "Mnemosyne базе података"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:537
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:537
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:537
 msgid "New"
-msgstr "Nuovo"
+msgstr "Ново"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:543
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:543
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:543
 msgid "Creating new database..."
-msgstr "Nuovo database in creazione...."
+msgstr "Креирање нове базе података..."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:572
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:572
@@ -694,8 +689,8 @@ msgid ""
 "'*.cards' files are not separate databases, but need to be imported in your "
 "current database through 'File - Import'."
 msgstr ""
-"I file \"*.cards\" non sono database separati, ma è necessario importarli "
-"nel tuo database corrente mediante 'File - Importa'."
+"Датотекама'*картице'  нису одвојене базе података, али је морало да се увезе "
+"у тренутну базу података путем 'Датотека-увоз'."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:576
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:576
@@ -706,10 +701,10 @@ msgid ""
 "Note that this will result in conflicts during the next sync, which need to "
 "be resolved by a full sync."
 msgstr ""
-"Vuoi sostituire il tuo database corrente con uno recuperato da questo "
-"backup?\n"
-"Nota che questo genererà un conflitto alla prossima sincronizzazione, che "
-"per essere risolto richiederà di effettuare una sincronizzazione completa."
+"Да ли желите да замените вашу текућу базу података са обновљеном из ове "
+"резервне копије?\n"
+"Имајте на уму да ће ово за последицу имати сукоб приликом следеће "
+"синхронизације, што треб бити решено пуном синхронизацијом."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:577
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite.py:627
@@ -724,7 +719,7 @@ msgstr ""
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:1120
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne1_xml.py:98
 msgid "No"
-msgstr "No"
+msgstr "Не"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:577
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite.py:627
@@ -739,7 +734,7 @@ msgstr "No"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:1120
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne1_xml.py:98
 msgid "Yes"
-msgstr "Sì"
+msgstr "Да"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:615
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:615
@@ -748,63 +743,63 @@ msgid ""
 "Your database will be autosaved before exiting. Also, it is saved every "
 "couple of repetitions, as set in the configuration options."
 msgstr ""
-"Il tuo database sarà salvato automaticamente prima di uscire. Inoltre viene "
-"salvato ad ugni coppia di ripetizioni, così come impostato nelle opzioni di "
-"configurazione."
+"Ваша база података ће бити аутоматски сачувана пре изласка. Такође, она се "
+"чува сваких неколико понављања, као што је наведено у конфигурационим "
+"опцијама."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:620
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:620
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:620
 msgid "Database saved."
-msgstr "Database salvato."
+msgstr "База података је сачувана."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:682
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:682
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:682
 msgid "Image files"
-msgstr "File di immagini"
+msgstr "Датотеке слика"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:684
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:684
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:684
 msgid "Insert image"
-msgstr "Inserisci immagine"
+msgstr "Убаци слику"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:697
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:697
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:697
 msgid "Sound files"
-msgstr "File audio"
+msgstr "Звучне датотеке"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:699
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:699
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:699
 msgid "Insert sound"
-msgstr "Inserisci audio"
+msgstr "Убаци звук"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:712
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:712
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:712
 msgid "Video files"
-msgstr "File video"
+msgstr "Видео датотеке"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:714
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:714
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:714
 msgid "Insert video"
-msgstr "Inserisci Video"
+msgstr "Убаци видео"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:727
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:727
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:727
 msgid "Flash files"
-msgstr "File flash"
+msgstr "Флеш датотеке"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:729
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:729
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:729
 msgid "Insert Flash"
-msgstr "Inserisci flash"
+msgstr "Убаци флеш"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:764
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:764
@@ -815,71 +810,66 @@ msgid ""
 "Note that this will not tag duplicates in different card types, e.g. card "
 "types for 'French' and 'Spanish'."
 msgstr ""
-"Questo etichetterà tutte le carte di un dato tipo di carta aventi la stessa "
-"domanda. In questo modo puoi riformularle in modo da rendere le risposte non "
-"ambigue. Da notare che questo non etichetterà duplicati contenuti in "
-"differenti tipi di carta, ad esempio tipi di carta per ‘Francese’ e "
-"‘Spagnolo’."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:783
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:783
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:783
 msgid "Install plugin"
-msgstr "Installa estensione"
+msgstr "Инсталирај додатак"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:783
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:783
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:783
 msgid "Plugins"
-msgstr "Estensioni"
+msgstr "Додаци"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:808
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:808
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:808
 msgid "No plugin found!"
-msgstr "Nessuna estensione trovata!"
+msgstr "Додатак није пронађен!"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:968
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:968
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:968
 msgid "For instructions on how to download Mnemosyne's source,"
-msgstr "Per istruzioni relative al download dei sorgenti di Mnemosyne,"
+msgstr "За упутство о преузимању Mnemosyne извора,"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:969
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:969
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:969
 msgid "go to http://www.mnemosyne-proj.org"
-msgstr "vai a http://www.mnemosyne-proj.org"
+msgstr "идите на http://www.mnemosyne-proj.org"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite.py:348
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:348
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:348
 msgid "Missing plugin for card type with id:"
-msgstr "Estensione (plugin) mancante per il tipo di carta con id:"
+msgstr "Недостаје додатак за ип картице са идентификатором:"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite.py:360
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:360
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:360
 msgid "Unable to load file at"
-msgstr "Impossibile caricare il file in"
+msgstr ""
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite.py:362
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:362
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:362
 msgid "Unable to load file, query failed."
-msgstr "Impossibile caricare il file, interrogazione fallita."
+msgstr "Датотека се не може учитати, упит није успео."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite.py:374
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:374
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:374
 msgid "Database upgrade failed."
-msgstr "Aggiornamento del database fallito."
+msgstr ""
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite.py:388
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:388
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:388
 msgid "Unable to load file."
-msgstr "Impossibile caricare il file."
+msgstr "Датотека се не може учитати."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite.py:436
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:436
@@ -888,45 +878,43 @@ msgid ""
 "Putting a database on a network drive is forbidden under Windows to avoid "
 "data corruption."
 msgstr ""
-"Collocare un database su di un disco di rete è proibito usando Windows per "
-"evitare la corruzione di dati."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite.py:461
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:461
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:461
 msgid "Warning: backup creation failed for"
-msgstr "Attenzione: la creazione del backup è fallita per"
+msgstr "Упозорење: креирање резервне копије није успело због"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite.py:626
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:626
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:626
 msgid "Make tag '%s' active in saved set '%s'?"
-msgstr "Rendi l'etichetta '%s' attiva nel set salvato '%s'?"
+msgstr "Активирај ознаку '%s'  у сачуваном скупу '%s'?"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite.py:1119
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:1119
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:1119
 msgid "Make new card type active in saved set '%s'?"
-msgstr "Rendi attivo il nuovo tipo di carta nel set salvato '%s'?"
+msgstr "Активирај нови тип картице у сачуваном скупу '%s'?"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite.py:1348
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:1348
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:1348
 msgid "No duplicates found."
-msgstr "Nessun duplicato trovato."
+msgstr "Нису пронађени дупликати."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite.py:1351
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:1351
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:1351
 msgid "Found %d duplicate cards. They have been given the tag 'DUPLICATE'."
 msgstr ""
-"Trovate %d carte duplicate. Le sono state assegnate il tag 'DUPLICATO'"
+"Пронађено је %d дупликата картица. Њима је додељена ознака 'ДУПЛИКАТ'."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite.py:1357
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:1357
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:1357
 msgid "DUPLICATE"
-msgstr "DUPLICATO"
+msgstr "ДУПЛИКАТ"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite_media.py:134
 #: ..\mnemosyne\libmnemosyne\databases\SQLite_media.py:134
@@ -935,8 +923,8 @@ msgid ""
 "Media filename rather long. This could cause problems using this file on a "
 "different OS."
 msgstr ""
-"Il nome del media è molto lungo. Questo potrebbe causare problemi usando "
-"questo file su di un diverso sistema operativo."
+"Назив медијске датотеке је прилично дугачко. Ово може проузроковати проблеме "
+"при коришћењу ове датотеке на различитим оперативним системима."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite_media.py:137
 #: ..\mnemosyne\libmnemosyne\databases\SQLite_media.py:137
@@ -944,14 +932,14 @@ msgstr ""
 msgid ""
 "Filename contains '#', which could cause problems on some operating systems."
 msgstr ""
-"Il nome del file contiene '#', che può causare problemi su alcuni sistemi "
-"operativi."
+"Назив датотеке садржи '#', што може проузроковати проблеме на некин "
+"оперативним системима."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite_media.py:140
 #: ..\mnemosyne\libmnemosyne\databases\SQLite_media.py:140
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite_media.py:140
 msgid "Missing media file!"
-msgstr "Media file mancante!"
+msgstr "Недостаје медијска датотека!"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite_sync.py:121
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne2_cards.py:213
@@ -960,7 +948,7 @@ msgstr "Media file mancante!"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite_sync.py:121
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne2_cards.py:213
 msgid "Missing plugins for card types."
-msgstr "Estensioni (plugin) mancati per questi tipi di carta."
+msgstr "Недостају додаци за типове картица."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\_apsw.py:54
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\_sqlite3.py:51
@@ -972,8 +960,8 @@ msgid ""
 "Putting a database on a network drive is forbidden under Windows to avoid "
 "data corruption. Mnemosyne will now close."
 msgstr ""
-"Mettere un database su di un disco di rete è vietato in ambiente Windows per "
-"evitare corruzioni di dati. Mnemosyne ora terminerà la sua esecuzione."
+"Смештање базе поодатака на мрежни уређај је забрањено под Windows-ом да би "
+"се избегло оштећење података. Мнемосине ће се сад затворити."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\cuecard_wcu.py:15
 #: ..\mnemosyne\libmnemosyne\file_formats\cuecard_wcu.py:15
@@ -985,7 +973,7 @@ msgstr "Cuecard .wcu"
 #: ..\mnemosyne\libmnemosyne\file_formats\cuecard_wcu.py:17
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\cuecard_wcu.py:17
 msgid "Cuecard files (*.wcu *.WCU)"
-msgstr "Cuecard files (*.wcu *.WCU)"
+msgstr "Cuecard датотеке (*.wcu *.WCU)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\cuecard_wcu.py:31
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne1_xml.py:61
@@ -997,7 +985,7 @@ msgstr "Cuecard files (*.wcu *.WCU)"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne1_xml.py:61
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\smconv_XML.py:57
 msgid "Unable to parse file:"
-msgstr "Impossibile processare il file:"
+msgstr "Није могуће рашчланити датотеку:"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\cuecard_wcu.py:45
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\cuecard_wcu.py:46
@@ -1027,7 +1015,7 @@ msgstr "Impossibile processare il file:"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\tsv.py:98
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\tsv.py:99
 msgid "MISSING_MEDIA"
-msgstr "MEDIA_MANCANTI"
+msgstr "НЕДОСТАЈУЋИ_МЕДИЈИ"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\media_preprocessor.py:66
 #: ..\mnemosyne\libmnemosyne\file_formats\media_preprocessor.py:66
@@ -1037,17 +1025,15 @@ msgid ""
 "MISSING_MEDIA. You must also change 'src_missing' to 'src' in the text of "
 "these cards."
 msgstr ""
-"Attenzione: i media file sono mancanti. A queste carte è stato assegnata "
-"l'etichetta MEDIA_MANCANTI. Devi anche cambiare 'src_missing' in 'src' nel "
-"testo di queste carte."
+"Упозорење: датотека медија недостаје. Ове картице су означене као "
+"НЕДОСТАЈУЋИ_МЕДИЈИ. Такође морате променити src_missing' у 'src' у тексту "
+"ових картица."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne1.py:40
 #: ..\mnemosyne\libmnemosyne\file_formats\mnemosyne1.py:40
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne1.py:40
 msgid "These cards seem to have been imported before. Aborting..."
-msgstr ""
-"Sembra che queste carte siano già state importate prima. Operazione in "
-"aborto..."
+msgstr "Изгледа да су ове картице претходно увезене. Прекид..."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne1.py:42
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne1_mem.py:33
@@ -1062,19 +1048,19 @@ msgstr ""
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne1_xml.py:37
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne2_cards.py:187
 msgid "Importing cards..."
-msgstr "Importazione carte in corso...."
+msgstr "Увоз картица..."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne1_mem.py:24
 #: ..\mnemosyne\libmnemosyne\file_formats\mnemosyne1_mem.py:24
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne1_mem.py:24
 msgid "Mnemosyne 1.x *.mem files"
-msgstr "Mnemosyne 1.x *.mem files"
+msgstr "Mnemosyne 1.x *.mem датотеке"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne1_mem.py:26
 #: ..\mnemosyne\libmnemosyne\file_formats\mnemosyne1_mem.py:26
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne1_mem.py:26
 msgid "Mnemosyne 1.x *.mem databases (*.mem)"
-msgstr "Mnemosyne 1.x *.mem databases (*.mem)"
+msgstr "Mnemosyne 1.x *.mem база података  (*.mem)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne1_mem.py:75
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne1_xml.py:64
@@ -1083,37 +1069,37 @@ msgstr "Mnemosyne 1.x *.mem databases (*.mem)"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne1_mem.py:75
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne1_xml.py:64
 msgid "Unable to open file."
-msgstr "Impossibile aprire il file."
+msgstr "Не могу да отворим датотеку."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne1_mem.py:81
 #: ..\mnemosyne\libmnemosyne\file_formats\mnemosyne1_mem.py:81
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne1_mem.py:81
 msgid "Importing history..."
-msgstr "Importazione dati storici in corso..."
+msgstr "Увоз историје..."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne1_mem.py:85
 #: ..\mnemosyne\libmnemosyne\file_formats\mnemosyne1_mem.py:85
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne1_mem.py:85
 msgid "No history found to import."
-msgstr "Non è stato trovato nessun dato storico da importare."
+msgstr "Није пронађена историја за увоз."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne1_mem.py:115
 #: ..\mnemosyne\libmnemosyne\file_formats\mnemosyne1_mem.py:115
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne1_mem.py:115
 msgid "Ignoring unparsable files:<br/>"
-msgstr "I seguenti file non processabili saranno ignorati:<br/>"
+msgstr "Занемаривање нерашчлањиве датотек:<br/>"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne1_xml.py:17
 #: ..\mnemosyne\libmnemosyne\file_formats\mnemosyne1_xml.py:17
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne1_xml.py:17
 msgid "Mnemosyne 1.x *.XML files"
-msgstr "Mnemosyne 1.x *.XML files"
+msgstr "Mnemosyne 1.x *.XML датотеке"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne1_xml.py:19
 #: ..\mnemosyne\libmnemosyne\file_formats\mnemosyne1_xml.py:19
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne1_xml.py:19
 msgid "Mnemosyne 1.x XML files"
-msgstr "Mnemosyne 1.x XML files"
+msgstr "Mnemosyne 1.x XML датотеке"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne1_xml.py:98
 #: ..\mnemosyne\libmnemosyne\file_formats\mnemosyne1_xml.py:98
@@ -1122,20 +1108,20 @@ msgid ""
 "This XML file contains learning data. It's best to import this from a mem "
 "file, in order to preserve historical statistics. Continue?"
 msgstr ""
-"Questo file XML contiene dati di apprendimento. E' meglio importarlo da un "
-"file di tipo mem, in modo da preservare le statistiche storiche. Continuare?"
+"Ова XML датотека садржи податке о учењу. Најбоље је да се ово увезе из mem "
+"датотеке, како би се сачувала историјска статистика. Наставити?"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne2_cards.py:23
 #: ..\mnemosyne\libmnemosyne\file_formats\mnemosyne2_cards.py:23
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne2_cards.py:23
 msgid "Mnemosyne 2.x *.cards files"
-msgstr "Mnemosyne 2.x *.cards files"
+msgstr "Mnemosyne 2.x *.cards датотеке"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne2_cards.py:25
 #: ..\mnemosyne\libmnemosyne\file_formats\mnemosyne2_cards.py:25
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne2_cards.py:25
 msgid "Mnemosyne 2.x cards for sharing (*.cards)"
-msgstr "carte Mnemosyne 2.x per la condivisione (*.cards)"
+msgstr "Mnemosyne 2.x картице за дељење (*.cards)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne2_cards.py:45
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\tsv.py:113
@@ -1144,37 +1130,37 @@ msgstr "carte Mnemosyne 2.x per la condivisione (*.cards)"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne2_cards.py:45
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\tsv.py:113
 msgid "Exporting cards..."
-msgstr "Esportazione carte in corso..."
+msgstr "Извоз картица..."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne2_cards.py:155
 #: ..\mnemosyne\libmnemosyne\file_formats\mnemosyne2_cards.py:155
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne2_cards.py:155
 msgid "Bundling media files..."
-msgstr "Associazione dei media file..."
+msgstr "Обједињавање медијских датотека..."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\smconv_XML.py:41
 #: ..\mnemosyne\libmnemosyne\file_formats\smconv_XML.py:41
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\smconv_XML.py:41
 msgid "Supermemo for Palm through smconv.pl"
-msgstr "Supermemo per Palm mediante smconv.pl"
+msgstr "Supermemo заPalm кроз smconv.pl"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\smconv_XML.py:43
 #: ..\mnemosyne\libmnemosyne\file_formats\smconv_XML.py:43
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\smconv_XML.py:43
 msgid "Supermemo for Palm XML files (*.xml *.XML)"
-msgstr "Supermemo per Palm XML files (*.xml *.XML)"
+msgstr "Supermemo заPalm XML датотеке(*.xml *.XML)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\supermemo_7_txt.py:32
 #: ..\mnemosyne\libmnemosyne\file_formats\supermemo_7_txt.py:32
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\supermemo_7_txt.py:32
 msgid "SuperMemo7 text in Q:/A: format"
-msgstr "Testo SuperMemo7 nel formato Q:/A:"
+msgstr "SuperMemo7 текст у Q:/A: формату"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\supermemo_7_txt.py:34
 #: ..\mnemosyne\libmnemosyne\file_formats\supermemo_7_txt.py:34
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\supermemo_7_txt.py:34
 msgid "SuperMemo7 text files (*.txt *.TXT)"
-msgstr "File di testo SuperMemo7 (*.txt *.TXT)"
+msgstr "SuperMemo7 текстуалне датотеке (*.txt *.TXT)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\supermemo_7_txt.py:65
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\supermemo_7_txt.py:78
@@ -1186,67 +1172,67 @@ msgstr "File di testo SuperMemo7 (*.txt *.TXT)"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\supermemo_7_txt.py:78
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\tsv.py:58
 msgid "Could not determine encoding."
-msgstr "Impossibile determinare la codifica"
+msgstr "Није могуће утврдити кодирање."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\supermemo_7_txt.py:212
 #: ..\mnemosyne\libmnemosyne\file_formats\supermemo_7_txt.py:212
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\supermemo_7_txt.py:212
 msgid "An error occured while parsing."
-msgstr "È avvenuto un errore durante l'elaborazione."
+msgstr "Догодила се грешка приликом рашчлањивања."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\tsv.py:24
 #: ..\mnemosyne\libmnemosyne\file_formats\tsv.py:24
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\tsv.py:24
 msgid "Tab-separated text files"
-msgstr "File di testo separati da Tab"
+msgstr "Табулатором-раздвојене текст датотеке"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\tsv.py:26
 #: ..\mnemosyne\libmnemosyne\file_formats\tsv.py:26
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\tsv.py:26
 msgid "Tab-separated text files (*.txt)"
-msgstr "File di testo separati da Tab (*.txt)"
+msgstr "Табулатором-раздвојене текст датотеке (*.txt)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\tsv.py:44
 #: ..\mnemosyne\libmnemosyne\file_formats\tsv.py:44
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\tsv.py:44
 msgid "Could not load file."
-msgstr "Non posso caricare il file."
+msgstr "Не могу да учитам фајл."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\tsv.py:82
 #: ..\mnemosyne\libmnemosyne\file_formats\tsv.py:82
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\tsv.py:82
 msgid "Badly formed input on line"
-msgstr ""
+msgstr "Лоше формиран унос на линију"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\filters\latex.py:93
 #: ..\mnemosyne\libmnemosyne\filters\latex.py:93
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\filters\latex.py:93
 msgid "Problem with latex. Are latex and dvipng installed?"
-msgstr "Problema con Latex. Sono installati i programmi latex e dvipng ?"
+msgstr "Пробле са latex-ом. Да ли су latex и dvipng инсталирани?"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\log_uploader.py:82
 #: ..\mnemosyne\libmnemosyne\log_uploader.py:82
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\log_uploader.py:82
 msgid "Uploading"
-msgstr "Invio in corso"
+msgstr "Отпремање"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\log_uploader.py:86
 #: ..\mnemosyne\libmnemosyne\log_uploader.py:86
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\log_uploader.py:86
 msgid "done!"
-msgstr "fatto!"
+msgstr "урађено!"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\log_uploader.py:88
 #: ..\mnemosyne\libmnemosyne\log_uploader.py:88
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\log_uploader.py:88
 msgid "Upload failed"
-msgstr "Invio fallito"
+msgstr "Отпремање није успело"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\logger.py:199
 #: ..\mnemosyne\libmnemosyne\logger.py:199
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\logger.py:199
 msgid "Waiting for uploader thread to stop..."
-msgstr "In attesa che il thread di trasmissione si arresti...."
+msgstr "Чека се завршетак нити отпремања..."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\logger.py:201
 #: ..\build\lib\mnemosyne\pyqt_ui\compact_database_dlg.py:78
@@ -1256,27 +1242,26 @@ msgstr "In attesa che il thread di trasmissione si arresti...."
 #: ..\mnemosyne\pyqt_ui\export_dlg.py:65
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\logger.py:201
 msgid "Done!"
-msgstr "Fatto!"
+msgstr "Урађено!"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\plugin.py:97
 #: ..\mnemosyne\libmnemosyne\plugin.py:97
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\plugin.py:97
 msgid "Cannot deactivate"
-msgstr "Non è possibile disattivare"
+msgstr "Не може се деактивирати"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\plugin.py:99
 #: ..\mnemosyne\libmnemosyne\plugin.py:99
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\plugin.py:99
 msgid ""
 "There are cards with this card type (or a clone of it) in the database."
-msgstr ""
-"Ci sono delle carte con questo tipo di carta (o un suo clone) nel database."
+msgstr "Постоје картице овог типа (или њиховог клона) у бази података."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\plugins\cramming_plugin.py:14
 #: ..\mnemosyne\libmnemosyne\plugins\cramming_plugin.py:14
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\plugins\cramming_plugin.py:14
 msgid "Cramming scheduler"
-msgstr "Algoritmo di apprendimento intensivo"
+msgstr "Планер бубања"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\plugins\cramming_plugin.py:16
 #: ..\mnemosyne\libmnemosyne\plugins\cramming_plugin.py:16
@@ -1290,69 +1275,68 @@ msgid ""
 "\n"
 "To return to the original scheduler, just deactivate this plugin."
 msgstr ""
-"Si muove fra le carte attive in ordine casuale senza salvare le informazioni "
-"di schedulazione.\n"
+"Пролаз кроз активне картице насумичним редоследом без чувања информација о "
+"заказивању понављања.\n"
 "\n"
-"Una volta che l'estensione è attivata, puoi configurare l'algoritmo di "
-"apprendimento intensivo mediante 'Configura Menomosyne'.\n"
+"Када је овај додатак активан, можете конфигурисати планер бубања кроз "
+"\"Конфигуриши Мнемосине\".\n"
 "\n"
-"Per tornare all'algoritmo originale è sufficiente disattivare l'estensione."
+"Да бисте се вратили на првобитни планер, само деактивирајте овај додатак."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:18
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:18
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:18
 msgid "You don't remember this card yet."
-msgstr "Non ricordi ancora questa carta."
+msgstr "Још нисте запамтили ову картицу."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:20
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:20
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:20
 msgid "Like '0', but it's getting more familiar. Show it less often."
-msgstr "Come '0', ma sta diventando più famigliare. Mostrala meno spesso."
+msgstr "Као '0', само постаје све више позната. Прикажи је ређе."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:22
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:22
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:22
 msgid "You've memorised this card now, and might remember it tomorrow."
-msgstr "Ora hai memorizzato questa carta, e domani potresti ricordartela."
+msgstr "Запамтили сте сада ову картицу, и можете се подсетити сутра."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:24
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:24
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:24
 msgid "You've memorised this card now, and should remember it tomorrow."
-msgstr "Ora hai memorizzato questa carta, e domani dovresti ricordartela."
+msgstr "Запамтили сте сада ову картицу, и требали би сте се подсетити сутра."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:26
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:26
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:26
 msgid "You've memorised this card now, and might remember it in 2 days."
-msgstr ""
-"Ora hai memorizzato questa carta, e per 2 giorni potresti ricordartela."
+msgstr "Запамтили сте сада ову картицу, и можете се подсетити за 2 дана."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:28
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:28
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:28
 msgid "You've memorised this card now, and should remember it in 2 days."
 msgstr ""
-"Ora hai memorizzato questa carta, e per 2 giorni dovresti ricordartela."
+"Запамтили сте сада ову картицу, и требали би сте се подсетити  за 2 дана."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:31
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:31
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:31
 msgid "You've forgotten this card completely."
-msgstr "Hai completamente dimenticato questa carta."
+msgstr "Заборавили сте ову картицу потпуно."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:33
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:33
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:33
 msgid "You've forgotten this card."
-msgstr "Hai dimenticato questa carta."
+msgstr "Заборавили сте ову картицу."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:35
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:35
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:35
 msgid "Barely correct answer. The interval was way too long."
-msgstr "Risposta a malapena corretta. L'intervallo era troppo lungo."
+msgstr "Једва тачан одговор. Интервал је био сувише дуг."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:37
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:37
@@ -1360,17 +1344,14 @@ msgstr "Risposta a malapena corretta. L'intervallo era troppo lungo."
 msgid ""
 "Correct answer, but with much effort. The interval was probably too long."
 msgstr ""
-"Risposta corretta, ma con molto sforzo. Probabilmente l'intervallo era "
-"troppo lungo."
+"Тачан одговор, али уз много напора. Интервал је вероватно био сувише дуг."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:39
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:39
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:39
 msgid ""
 "Correct answer, with some effort. The interval was probably just right."
-msgstr ""
-"Risposta corretta, con un po' di fatica. Probabilmente l'intervallo era "
-"giusto."
+msgstr "Тачан одговор, уз мало напора. Интервал је вероватно био прави."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:41
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:41
@@ -1379,8 +1360,8 @@ msgid ""
 "Correct answer, but without any difficulties. The interval was probably too "
 "short."
 msgstr ""
-"Risposta corretta, ma senza nessuna difficoltà. Probabilmente l'intervallo "
-"era troppo breve."
+"Тачан одговор, али без икаквих потешкоћа. Интервал је вероватно био "
+"прекратак."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:129
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:129
@@ -1388,7 +1369,7 @@ msgstr ""
 msgid ""
 "You have no more work for today. Either add more cards or come back tomorrow."
 msgstr ""
-"Non hai più lavoro da fare oggi. Aggiungi altre carte o riprendi domani."
+"Немате више посла за данас. Или додајте још картица или наставите сутра."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:138
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:138
@@ -1397,9 +1378,8 @@ msgid ""
 "Use 'Learn ahead of schedule' sparingly. For cramming before an exam, it's "
 "much better to use the cramming scheduler plugin"
 msgstr ""
-"Usa 'Apprendi in anticipo sulla programmazione' con parsimonia. Per lo "
-"studio intensivo prima di un esame è molto meglio usare l'estensione di "
-"algoritmo di studio intensivo."
+"Користите \"Учите унапред\" штедљиво. За бубање пред испит, много је боље да "
+"користите додатак \"планер бубања\"."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:171
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller_cramming.py:33
@@ -1408,7 +1388,7 @@ msgstr ""
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:171
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller_cramming.py:33
 msgid "Returns in"
-msgstr "Ritorna fra"
+msgstr "Вратите се за"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:172
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller_cramming.py:34
@@ -1417,31 +1397,31 @@ msgstr "Ritorna fra"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:172
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller_cramming.py:34
 msgid " day(s)."
-msgstr " giorno(i)."
+msgstr " дан(а)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:176
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:176
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:176
 msgid "Next repetition: today."
-msgstr "Prossima ripetizione: oggi."
+msgstr "Следеће понављање: данас."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:178
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:178
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:178
 msgid "Next repetition: tomorrow."
-msgstr "Prossima ripetizione: domani."
+msgstr "Следеће понављање: сутра."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:180
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:180
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:180
 msgid " days."
-msgstr " giorni."
+msgstr " дана"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:180
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:180
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:180
 msgid "Next repetition in "
-msgstr "Prossima ripetizione fra "
+msgstr "Следеће понављање за "
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:224
 #: ..\build\lib\mnemosyne\pyqt_ui\preview_cards_dlg.py:67
@@ -1449,7 +1429,7 @@ msgstr "Prossima ripetizione fra "
 #: ..\mnemosyne\pyqt_ui\preview_cards_dlg.py:67
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:224
 msgid "Question: "
-msgstr "Domanda: "
+msgstr "Питање: "
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:254
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:257
@@ -1461,19 +1441,19 @@ msgstr "Domanda: "
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:257
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:260
 msgid "Show answer"
-msgstr "Mostra risposta"
+msgstr "Прикажи одговор"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:264
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:264
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:264
 msgid "Learn ahead of schedule"
-msgstr "Apprendi in anticipo rispetto alla programmazione"
+msgstr "Учи унапред"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:283
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:283
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:283
 msgid "Pick days until next repetition:"
-msgstr "Scegli il numero di giorni per la prossima ripetizione:"
+msgstr "Изабери дане до следећег понављања:"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:285
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:119
@@ -1481,7 +1461,7 @@ msgstr "Scegli il numero di giorni per la prossima ripetizione:"
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:119
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:285
 msgid "Grade your answer:"
-msgstr "Classifica la tua risposta:"
+msgstr "Оцени свој одговор:"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:229
 #: ..\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:229
@@ -1492,24 +1472,22 @@ msgid ""
 "day. Mnemosyne will automatically reschedule your cards such that the most "
 "urgent ones are shown first."
 msgstr ""
-"Sembra tu abbia saltato qualche seduta di revisione. Non preoccuparti troppo "
-"per questo arretrato e procedi con il numero di carte che ritieni opportuno "
-"perseverando ogni giorno. Mnemosyne ripianificherà automaticamente le tue "
-"carte in modo che le più urgenti di siano mostrate per prime."
+"Изгледа да сте пропустили неке прегледе. Не брините превише о овом "
+"заостатку, и одрадите онолико картица дневно колико вам прија како би сте "
+"надокнадили заостатак. Mnemosyne ће аутоматски репрограмирати план понављања "
+"ваших картице тако да се оне најхитније прикажу прве."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:553
 #: ..\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:553
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:553
 msgid "You've memorised 15 new or failed cards."
-msgstr "Hai memorizzato 15 carte nuove o sbagliate."
+msgstr "Запамтили сте 15 нових или неуспешних картица."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:554
 #: ..\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:554
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:554
 msgid "If you do this for many days, you could get a big workload later."
-msgstr ""
-"Se fai così per molti giorni, potresti ritrovarti con un grosso carico di "
-"lavoro più avanti."
+msgstr "Ако ово радите много дана, касније можете бити врло оптерећени."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:600
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:604
@@ -1521,37 +1499,37 @@ msgstr ""
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:604
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:609
 msgid "in"
-msgstr "tra"
+msgstr "за"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:601
 #: ..\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:601
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:601
 msgid "years"
-msgstr "anni"
+msgstr "година"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:605
 #: ..\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:605
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:605
 msgid "months"
-msgstr "mesi"
+msgstr "месеци"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:607
 #: ..\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:607
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:607
 msgid "in 1 month"
-msgstr "in 1 mese"
+msgstr "за 1 месец"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:610
 #: ..\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:610
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:610
 msgid "days"
-msgstr "giorni"
+msgstr "дана"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:612
 #: ..\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:612
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:612
 msgid "tomorrow"
-msgstr "domani"
+msgstr "сутра"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:614
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:644
@@ -1560,73 +1538,73 @@ msgstr "domani"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:614
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:644
 msgid "today"
-msgstr "oggi"
+msgstr "данас"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:616
 #: ..\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:616
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:616
 msgid "1 day overdue"
-msgstr "1 giorno di ritardo"
+msgstr "Касни 1 дан"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:618
 #: ..\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:618
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:618
 msgid "days overdue"
-msgstr "giorni di ritardo"
+msgstr "дана касни"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:620
 #: ..\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:620
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:620
 msgid "1 month overdue"
-msgstr "1 mese di ritardo"
+msgstr "Кани 1 месец"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:623
 #: ..\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:623
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:623
 msgid "months overdue"
-msgstr "mesi di ritardo"
+msgstr "месеци касни"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:626
 #: ..\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:626
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:626
 msgid "years overdue"
-msgstr "anni di ritardo"
+msgstr "година касни"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:646
 #: ..\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:646
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:646
 msgid "yesterday"
-msgstr "ieri"
+msgstr "јуче"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:648
 #: ..\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:648
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:648
 msgid "days ago"
-msgstr "giorni fa"
+msgstr "дана раније"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:650
 #: ..\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:650
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:650
 msgid "1 month ago"
-msgstr "1 mese fa"
+msgstr "прошлог месеца"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:653
 #: ..\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:653
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:653
 msgid "months ago"
-msgstr "mesi fa"
+msgstr "месеци пре"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:656
 #: ..\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:656
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:656
 msgid "years ago"
-msgstr "anni fa"
+msgstr "година пре"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\cards_added.py:11
 #: ..\mnemosyne\libmnemosyne\statistics_pages\cards_added.py:11
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\cards_added.py:11
 msgid "Cards added"
-msgstr "Carte aggiunte"
+msgstr "Картице додате"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\cards_added.py:19
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\cards_learned.py:19
@@ -1639,7 +1617,7 @@ msgstr "Carte aggiunte"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\cards_learned.py:19
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\retention_score.py:19
 msgid "Last week"
-msgstr "Ultima settimana"
+msgstr "Прошле седмице"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\cards_added.py:20
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\cards_learned.py:20
@@ -1652,7 +1630,7 @@ msgstr "Ultima settimana"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\cards_learned.py:20
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\retention_score.py:20
 msgid "Last month"
-msgstr "Ultimo mese"
+msgstr "Прошлог месеца"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\cards_added.py:21
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\cards_learned.py:21
@@ -1665,7 +1643,7 @@ msgstr "Ultimo mese"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\cards_learned.py:21
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\retention_score.py:21
 msgid "Last 3 months"
-msgstr "Ultimi 3 mesi"
+msgstr "Последња 3 месеца"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\cards_added.py:22
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\cards_learned.py:22
@@ -1678,7 +1656,7 @@ msgstr "Ultimi 3 mesi"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\cards_learned.py:22
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\retention_score.py:22
 msgid "Last 6 months"
-msgstr "Ultimi 6 mesi"
+msgstr "Последњих 6 месеци"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\cards_added.py:23
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\cards_learned.py:23
@@ -1691,7 +1669,7 @@ msgstr "Ultimi 6 mesi"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\cards_learned.py:23
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\retention_score.py:23
 msgid "Last year"
-msgstr "Ultimo anno"
+msgstr "Прошле године"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\cards_added.py:38
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\cards_learned.py:38
@@ -1706,31 +1684,31 @@ msgstr "Ultimo anno"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\retention_score.py:38
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\schedule.py:58
 msgid "Calculating statistics..."
-msgstr "Calcolo statistiche in corso..."
+msgstr "Рачунање статистике..."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\cards_learned.py:11
 #: ..\mnemosyne\libmnemosyne\statistics_pages\cards_learned.py:11
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\cards_learned.py:11
 msgid "Cards learned"
-msgstr "Carte imparate"
+msgstr "Картице научене"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\current_card.py:12
 #: ..\mnemosyne\libmnemosyne\statistics_pages\current_card.py:12
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\current_card.py:12
 msgid "Current card"
-msgstr "Carta corrente"
+msgstr "Тренутна картица"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\current_card.py:27
 #: ..\mnemosyne\libmnemosyne\statistics_pages\current_card.py:27
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\current_card.py:27
 msgid "No current card."
-msgstr "Nessuna carta corrente."
+msgstr "Нема тренутне картице."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\current_card.py:29
 #: ..\mnemosyne\libmnemosyne\statistics_pages\current_card.py:29
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\current_card.py:29
 msgid "Unseen card, no statistics available yet."
-msgstr "Carta mai esaminata, non ci sono ancora statistiche disponibili."
+msgstr "Непрегледана картица, статистика још не постоји."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\current_card.py:31
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:643
@@ -1738,7 +1716,7 @@ msgstr "Carta mai esaminata, non ci sono ancora statistiche disponibili."
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:643
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\current_card.py:31
 msgid "Grade"
-msgstr "Grado"
+msgstr "Оцена"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\current_card.py:32
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\easiness.py:11
@@ -1751,19 +1729,19 @@ msgstr "Grado"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\current_card.py:32
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\easiness.py:11
 msgid "Easiness"
-msgstr "Semplicità"
+msgstr "Лакоћа"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\current_card.py:33
 #: ..\mnemosyne\libmnemosyne\statistics_pages\current_card.py:33
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\current_card.py:33
 msgid "Learning repetitions"
-msgstr "Ripetizioni per l'apprendimento"
+msgstr "Понављања за учење"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\current_card.py:35
 #: ..\mnemosyne\libmnemosyne\statistics_pages\current_card.py:35
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\current_card.py:35
 msgid "Review repetitions"
-msgstr "Ripetizioni di ripasso"
+msgstr "Преглед понављања"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\current_card.py:37
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:646
@@ -1771,31 +1749,31 @@ msgstr "Ripetizioni di ripasso"
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:646
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\current_card.py:37
 msgid "Lapses"
-msgstr "Errori"
+msgstr "Пропуст (лапсус)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\current_card.py:38
 #: ..\mnemosyne\libmnemosyne\statistics_pages\current_card.py:38
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\current_card.py:38
 msgid "Last repetition"
-msgstr "Ultima ripetizione"
+msgstr "Последње понављање"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\current_card.py:40
 #: ..\mnemosyne\libmnemosyne\statistics_pages\current_card.py:40
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\current_card.py:40
 msgid "Next repetition"
-msgstr "Prossima ripetizione"
+msgstr "Следеће понављање"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\current_card.py:42
 #: ..\mnemosyne\libmnemosyne\statistics_pages\current_card.py:42
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\current_card.py:42
 msgid "Average thinking time (secs)"
-msgstr "Tempo medio di riflessione (sec)"
+msgstr "Средње време размишљања (секунди)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\current_card.py:44
 #: ..\mnemosyne\libmnemosyne\statistics_pages\current_card.py:44
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\current_card.py:44
 msgid "Total thinking time (secs)"
-msgstr "Tempo totale di riflessione (sec)"
+msgstr "Укупно време размишљања (секунди)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\easiness.py:17
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\grades.py:17
@@ -1804,7 +1782,7 @@ msgstr "Tempo totale di riflessione (sec)"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\easiness.py:17
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\grades.py:17
 msgid "All cards"
-msgstr "Tutte le carte"
+msgstr "Све картице"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\easiness.py:21
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\grades.py:21
@@ -1828,7 +1806,7 @@ msgstr "Tutte le carte"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\tag_tree.py:72
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\tag_tree.py:75
 msgid "Untagged"
-msgstr "Senza etichetta"
+msgstr "Неозначене"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\grades.py:11
 #: ..\build\lib\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:264
@@ -1836,85 +1814,85 @@ msgstr "Senza etichetta"
 #: ..\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:264
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\grades.py:11
 msgid "Grades"
-msgstr "Gradi"
+msgstr "Оцене"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\retention_score.py:11
 #: ..\mnemosyne\libmnemosyne\statistics_pages\retention_score.py:11
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\retention_score.py:11
 msgid "Retention score"
-msgstr "Punteggio di ritenzione"
+msgstr "Резултат задржавања"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\schedule.py:11
 #: ..\mnemosyne\libmnemosyne\statistics_pages\schedule.py:11
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\schedule.py:11
 msgid "Schedule"
-msgstr "Programmazione"
+msgstr "Заказивање"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\schedule.py:24
 #: ..\mnemosyne\libmnemosyne\statistics_pages\schedule.py:24
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\schedule.py:24
 msgid "Next week (active cards only)"
-msgstr "Prossima settimana (solo carte attive)"
+msgstr "Следеће недеље (само активне картице)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\schedule.py:25
 #: ..\mnemosyne\libmnemosyne\statistics_pages\schedule.py:25
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\schedule.py:25
 msgid "Next month (active cards only)"
-msgstr "Prossimo mese (solo carte attive)"
+msgstr "Следећег месеца (само активне картице)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\schedule.py:26
 #: ..\mnemosyne\libmnemosyne\statistics_pages\schedule.py:26
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\schedule.py:26
 msgid "Next 3 months (active cards only)"
-msgstr "Prossimi 3 mesi (solo carte attive)"
+msgstr "Следећа 3 месеца (само активне картице)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\schedule.py:27
 #: ..\mnemosyne\libmnemosyne\statistics_pages\schedule.py:27
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\schedule.py:27
 msgid "Next 6 months (active cards only)"
-msgstr "Prossimi 6 mesi (solo carte attive)"
+msgstr "Следећих 6 месеци (само активне картице)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\schedule.py:28
 #: ..\mnemosyne\libmnemosyne\statistics_pages\schedule.py:28
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\schedule.py:28
 msgid "Next year (active cards only)"
-msgstr "Prossimo anno (solo carte attive)"
+msgstr "Следеће године (само активне картице)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\schedule.py:29
 #: ..\mnemosyne\libmnemosyne\statistics_pages\schedule.py:29
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\schedule.py:29
 msgid "Last week (all cards)"
-msgstr "Ultima settimana (tutte le carte)"
+msgstr "Прошле недеље (све картице)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\schedule.py:30
 #: ..\mnemosyne\libmnemosyne\statistics_pages\schedule.py:30
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\schedule.py:30
 msgid "Last month (all cards)"
-msgstr "Ultimo mese (tutte le carte)"
+msgstr "Прошлог месеца (све картице)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\schedule.py:31
 #: ..\mnemosyne\libmnemosyne\statistics_pages\schedule.py:31
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\schedule.py:31
 msgid "Last 3 months (all cards)"
-msgstr "Ultimi 3 mesi (tutte le carte)"
+msgstr "Последља 3 месеца (све картице)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\schedule.py:32
 #: ..\mnemosyne\libmnemosyne\statistics_pages\schedule.py:32
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\schedule.py:32
 msgid "Last 6 months (all cards)"
-msgstr "Ultimi 6 mesi (tutte le carte)"
+msgstr "Последљих 6 месеци (све картице)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\schedule.py:33
 #: ..\mnemosyne\libmnemosyne\statistics_pages\schedule.py:33
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\schedule.py:33
 msgid "Last year (all cards)"
-msgstr "Ultimo anno (tutte le carte)"
+msgstr "Прошле године (све картице)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\tag_tree.py:41
 #: ..\mnemosyne\libmnemosyne\tag_tree.py:41
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\tag_tree.py:41
 msgid "All tags"
-msgstr "Tutte le etichette"
+msgstr "Све ознаке"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\upgrades\upgrade1.py:62
 #: ..\mnemosyne\libmnemosyne\upgrades\upgrade1.py:62
@@ -1922,31 +1900,31 @@ msgstr "Tutte le etichette"
 msgid ""
 "Tried to backup your old 1.x files to %s, but that directory already exists."
 msgstr ""
-"Tentativo di fare il backup dei tuoi vecchi 1.x files in %s, ma la cartella "
-"esiste già."
+"Покушано прављење резарвне копије ваших старих 1.x датотека, али тај "
+"директоријум већ постоји."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\upgrades\upgrade1.py:115
 #: ..\mnemosyne\libmnemosyne\upgrades\upgrade1.py:115
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\upgrades\upgrade1.py:115
 msgid "Copying files from 1.x..."
-msgstr "Copia dei file da 1.x in corso..."
+msgstr "Копирање датотека из 1.x..."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\upgrades\upgrade1.py:154
 #: ..\mnemosyne\libmnemosyne\upgrades\upgrade1.py:154
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\upgrades\upgrade1.py:154
 msgid "Upgrade from Mnemosyne 1.x complete!"
-msgstr "Aggiornamento da Mnemosyne 1.x completo!"
+msgstr "Ажурирање за Mnemosyne 1.x је завршено!"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\upgrades\upgrade1.py:155
 #: ..\mnemosyne\libmnemosyne\upgrades\upgrade1.py:155
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\upgrades\upgrade1.py:155
 msgid "Mnemosyne 2.x now stores its data here:"
-msgstr "Ora Mnemosyne 2.x memorizza i dati qui:"
+msgstr "Mnemosyne 2.x сада чува овде своје податке:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\about_dlg.py:29
 #: ..\mnemosyne\pyqt_ui\about_dlg.py:29
 msgid "Main author: Peter Bienstman"
-msgstr "Autore principale: Peter Bienstman"
+msgstr "Главни аутор: Peter Bienstman"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\about_dlg.py:30
 #: ..\mnemosyne\pyqt_ui\about_dlg.py:30
@@ -1954,8 +1932,8 @@ msgid ""
 "Invaluable contributions from many people are acknowledged <a "
 "href=\"http://www.mnemosyne-proj.org/contributing.php\">here</a>."
 msgstr ""
-"L'inestimabile contributo di molte persone è riconosciuto <a "
-"href=\"http://www.mnemosyne-proj.org/contributing.php\">qui</a>."
+"Драгоцен допринос  од многих људи који су сарадници <a "
+"href=\"http://www.mnemosyne-proj.org/contributing.php\">here</a>."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\about_dlg.py:31
 #: ..\mnemosyne\pyqt_ui\about_dlg.py:31
@@ -1963,45 +1941,45 @@ msgid ""
 "Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-"
 "proj.org</a> for more information and source code."
 msgstr ""
-"Vai a <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-"
-"proj.org</a> per maggiori informazioni e per il codice sorgente."
+"Иди на<a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-"
+"proj.org</a>за додатне информације и изворни код."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\activate_cards_dlg.py:95
 #: ..\build\lib\mnemosyne\pyqt_ui\manage_plugins_dlg.py:101
 #: ..\mnemosyne\pyqt_ui\activate_cards_dlg.py:95
 #: ..\mnemosyne\pyqt_ui\manage_plugins_dlg.py:101
 msgid "Delete"
-msgstr "Elimina"
+msgstr "Избриши"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\activate_cards_dlg.py:96
 #: ..\mnemosyne\pyqt_ui\activate_cards_dlg.py:96
 msgid "Rename"
-msgstr "Rinomina"
+msgstr "Преименуј"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\activate_cards_dlg.py:103
 #: ..\build\lib\mnemosyne\pyqt_ui\activate_cards_dlg.py:211
 #: ..\mnemosyne\pyqt_ui\activate_cards_dlg.py:103
 #: ..\mnemosyne\pyqt_ui\activate_cards_dlg.py:211
 msgid "This set can never contain any cards!"
-msgstr "Questo insieme non potrà mai contenere nessuna carta!"
+msgstr "Овај скуп не може да садржи ни једну картицу!"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\activate_cards_dlg.py:110
 #: ..\mnemosyne\pyqt_ui\activate_cards_dlg.py:110
 msgid "Update this set?"
-msgstr "Aggiornare questo insieme?"
+msgstr "Ажурирај овај скуп?"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\activate_cards_dlg.py:126
 #: ..\mnemosyne\pyqt_ui\activate_cards_dlg.py:126
 msgid ""
 "You can right-click on the name of a saved set to rename or delete it."
 msgstr ""
-"Puoi fare click con il tasto destro del mouse sul nome di un insieme salvato "
-"per rinominarlo o cancellarlo."
+"Кликните  десним  тастером на име за чување скупа да преименујете или "
+"избришете."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\activate_cards_dlg.py:132
 #: ..\mnemosyne\pyqt_ui\activate_cards_dlg.py:132
 msgid "Delete this set?"
-msgstr "Cancellare questo insieme?"
+msgstr "Избриши овај скуп?"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\activate_cards_dlg.py:216
 #: ..\mnemosyne\pyqt_ui\activate_cards_dlg.py:216
@@ -2009,8 +1987,8 @@ msgid ""
 "You can double-click on the name of a saved set to activate it and close the "
 "dialog."
 msgstr ""
-"Puoi fare doppio click sul nome di un set salvato per attivarlo e chiudere "
-"la finestra di dialogo."
+"Можете двапут да кликнете на име да сачувате  постављено за активирање  и "
+"затварање дијалога."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\add_cards_dlg.py:28
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:29
@@ -2019,8 +1997,8 @@ msgid ""
 "You can add multiple tags to a card by separating tags with a comma in the "
 "'Tag(s)' input field."
 msgstr ""
-"Puoi aggiungere etichette multiple ad una carta separandole fra loro con una "
-"virgola nel campo di ingresso 'Etichetta(e)'."
+"Можете додати више ознака на картицу одвајањем ознака зарезом у  поље за "
+"унос 'Ознаке'."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\add_cards_dlg.py:29
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:30
@@ -2029,8 +2007,8 @@ msgid ""
 "You can organise tags in a hierarchy by using :: as separator, e.g. My "
 "book::Lesson 1."
 msgstr ""
-"Puoi organizzare le etichette in una gerarchia usando :: come separatore, "
-"es. Ingelese::Lezione 1."
+"Можете да организујете ознаке  хијерархијским коришћењем :: као оодвајач, "
+"н.п.  Моја књига::Лекција 1."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\add_cards_dlg.py:30
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:31
@@ -2039,9 +2017,8 @@ msgid ""
 "You can add images and sounds to your cards. Right-click on an input field "
 "when editing a card to bring up a pop-up menu to do so."
 msgstr ""
-"Puoi aggiungere immagini e audio alle tue carte. Usa il tasto destro del "
-"mouse in un campo di ingresso quando editi una carta per visualizzare il "
-"menù che te lo consente."
+"Можете додати слике и звук својим картицама. Десним мишем на поље за унос у "
+"току уређења картице да бисте тако отворили искачући изборник."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\add_cards_dlg.py:31
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:33
@@ -2051,9 +2028,8 @@ msgid ""
 "pronunciation field, you can hide it by right-clicking on it and using the "
 "pop-up menu."
 msgstr ""
-"Se per un certo tipo di carta clonato a partire da 'Vocabolario' non hai "
-"bisogno di un campo pronuncia, puoi nasconderlo facendo click con il tasto "
-"destro su di esso e usando il menù di pop-up."
+"Ако за одређени тип картице дуплиране из речника  ви можете да сакријете "
+"изговор,  десним кликом на њега и користећи се искачућим изборником."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\add_cards_dlg.py:32
 #: ..\mnemosyne\pyqt_ui\add_cards_dlg.py:32
@@ -2062,9 +2038,9 @@ msgid ""
 "for 'Yet to learn', and Ctrl+2, etc. for the grades. For 'Edit card', use "
 "Ctrl-Enter to close."
 msgstr ""
-"Puoi usare Tab per muoverti fra i campi. Per 'Aggiungi carte', usa "
-"Ctrl+Enter per 'Ancora da imparare' e Ctrl+2, ecc per definire il grado. Per "
-"'Modifica carta corrente', usa Ctrl+Enter per chiudere."
+"Можете да користите Tab за кретање између поља. За 'Додај картице', користи "
+"Ctrl+Enter за 'Учи још', и Ctrl+2, итд. за процену. За 'Уреди картицу', "
+"користи Ctrl-Enter да се затвори."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\add_cards_dlg.py:33
 #: ..\mnemosyne\pyqt_ui\add_cards_dlg.py:33
@@ -2072,8 +2048,8 @@ msgid ""
 "If you use 'Edit cards', changes are made to all the sister cards "
 "simultaneously."
 msgstr ""
-"Se utilizzi 'Modifica carte', tutti i cambiamenti saranno fatti "
-"simultaneamente su tutte le carte sorelle."
+"Ако користите \"Уреди картице\", промене су направљене на свим равноправним "
+"картицама  истовремено."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\add_cards_dlg.py:260
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:232
@@ -2088,7 +2064,7 @@ msgstr ""
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:64
 #: ..\mnemosyne\pyqt_ui\edit_card_dlg.py:163
 msgid "&No"
-msgstr "&No"
+msgstr "&Не"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\add_cards_dlg.py:260
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:232
@@ -2103,17 +2079,17 @@ msgstr "&No"
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:64
 #: ..\mnemosyne\pyqt_ui\edit_card_dlg.py:163
 msgid "&Yes"
-msgstr "&Si"
+msgstr "&Да"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\add_cards_dlg.py:260
 #: ..\mnemosyne\pyqt_ui\add_cards_dlg.py:260
 msgid "Abandon current card?"
-msgstr "Abbandonare la carta corrente?"
+msgstr "Напусти тренутну картицу?"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:117
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:117
 msgid "Yet to learn"
-msgstr "Ancora da imparare"
+msgstr "Већ научено"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:267
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:39
@@ -2121,8 +2097,8 @@ msgstr "Ancora da imparare"
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:39
 msgid "Right-click on a tag name in the card browser to edit or delete it."
 msgstr ""
-"Fai click con il tasto destro sul nome di un'etichetta nel navigatore delle "
-"carte per editarla o cancellarla."
+"Десни клик на назив ознаке  имена  у картици претраживача да уредите или "
+"избришете."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:268
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:40
@@ -2130,8 +2106,7 @@ msgstr ""
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:40
 msgid "Double-click on a card or tag name in the card browser to edit them."
 msgstr ""
-"Fai doppio click su una carta o sul nome di un'etichetta nel navigatore "
-"delle carte per editarla."
+"Двоклик на картицу или назив ознаке у претраживачу картице да их уреди."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:269
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:41
@@ -2140,8 +2115,8 @@ msgstr ""
 msgid ""
 "You can reorder columns in the card browser by dragging the header label."
 msgstr ""
-"Puoi riordinare le colonne nel navigatore delle carte trascinado il nome "
-"delle colonne."
+"Можете да промените редослед колона картица у прегледачу  превлачењем "
+"заглавља ознака."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:270
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:42
@@ -2151,8 +2126,8 @@ msgid ""
 "You can resize columns in the card browser by dragging between the header "
 "labels."
 msgstr ""
-"Puoi cambiare la dimensione delle colonne nel navigatore delle carte "
-"trascinando la linea che separa i nomi delle colonne."
+"Можете да промените величину колоне картице у прегледачу превлачењем између "
+"заглавља ознака."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:271
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:43
@@ -2162,9 +2137,8 @@ msgid ""
 "When editing or previewing cards from the card browser, PageUp/PageDown can "
 "be used to move to the previous/next card."
 msgstr ""
-"Quando editi o vesualizzi l'anteprima delle carte dal navigatore delle "
-"carte, PaginaSu/PaginaGiù possono essere utilizzate per andare alla carta "
-"precedente/seguente."
+"Када уређујете или прегледате картице са  прегледачем картице, "
+"PageUp/PageDown може да се користи за кретање на претходну/следећу картицу ."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:272
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:272
@@ -2172,9 +2146,8 @@ msgid ""
 "You change the relative size of the card list, card type tree and tag tree "
 "by dragging the dividers between them."
 msgstr ""
-"Puoi cambiare la dimensione relativa della lista delle carte, dell'albero "
-"dei tipi di carta e dell'albero delle etichette trascinando i divisori che "
-"li separano."
+"Можете променити релативну величину листе картице  , стабла врсте картице и "
+"ознаке стабла повлачењем преграде између њих ."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:273
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:273
@@ -2182,30 +2155,28 @@ msgid ""
 "In the search box, you can use SQL wildcards like _ (matching a single "
 "character) and % (matching one or more characters)."
 msgstr ""
-"In un campo ricerca, puoi usare caratteri jolly SQL come _ (per indicare un "
-"singolo carattere) e % (per indicare uno o più caratteri)."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:289
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:289
 msgid "Show cards from these card types:"
-msgstr "Mostra carte prese da questi tipi di carta:"
+msgstr "Прикажи картице из ових врста картица :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:302
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_criterion_wdgt_default.py:51
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:302
 #: ..\mnemosyne\pyqt_ui\ui_criterion_wdgt_default.py:51
 msgid "having any of these tags:"
-msgstr "aventi una qualunque di queste etichette:"
+msgstr "имају било коју од ових ознака:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:311
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:311
 msgid "containing this text in the cards:"
-msgstr "contenenti questo testo nelle carte:"
+msgstr "садрже овај текст у картицама:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:362
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:362
 msgid "&Edit"
-msgstr "&Modifica"
+msgstr "&Уреди"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:366
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:130
@@ -2216,67 +2187,62 @@ msgstr "&Modifica"
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:148
 #: ..\mnemosyne\pyqt_ui\ui_edit_card_dlg.py:93
 msgid "&Preview"
-msgstr "Ante&prima"
+msgstr "&Преглед"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:375
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:375
 msgid "Change card &type"
-msgstr "Cambia carta &tipo"
+msgstr "Мењање врсте &картице"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:379
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:379
 msgid "&Add tags"
-msgstr "&Aggiungi etichette"
+msgstr "&Додај ознаке"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:382
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:382
 msgid "&Remove tags"
-msgstr "&Rimuovi etichette"
+msgstr "&Уклони ознаке"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:504
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:504
 msgid "Go ahead with delete? Sister cards will be deleted as well."
-msgstr ""
-"Procedere con la cancellazione? Saranno cancellate anche le carte sorelle."
+msgstr "Само напред са брисањем? Равноправне картице ће бити обрисане."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:536
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:536
 msgid "The selected cards should have the same card type."
-msgstr "Le carte selezionate dovrebbero avere lo stesso tipo di carta."
+msgstr "Изабране картице треба да имају исту врсту картице."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:622
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:622
 msgid "Database error: "
-msgstr "Errore del database: "
+msgstr "Грешка у бази података: "
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:642
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:642
 msgid "Answer"
-msgstr "Risposta"
+msgstr "Одговор"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:642
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:642
 msgid "Question"
-msgstr "Domanda"
+msgstr "Питање"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:643
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:643
 msgid "Next rep"
-msgstr ""
-"Prossima\r\n"
-"ripetizione"
+msgstr "Следеће понављање"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:643
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:643
 msgid "Tags"
-msgstr "Etichetta"
+msgstr "Ознаке"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:644
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:644
 msgid "Last rep"
-msgstr ""
-"Ultima\r\n"
-"ripetizione"
+msgstr "Последње понављање"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:645
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:645
@@ -2284,8 +2250,8 @@ msgid ""
 "Learning\n"
 "reps"
 msgstr ""
-"Ripetizioni per\n"
-"l'apprendimento"
+"Учење\n"
+"понављање"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:646
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:646
@@ -2293,18 +2259,18 @@ msgid ""
 "Review\n"
 "reps"
 msgstr ""
-"Ripetizioni di\n"
-"ripasso"
+"Преглед\n"
+"понављања"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:647
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:647
 msgid "Created"
-msgstr "Creata"
+msgstr "Направљен"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:647
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:647
 msgid "Modified"
-msgstr "Modificata"
+msgstr "Измењено"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:702
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:702
@@ -2313,31 +2279,31 @@ msgid ""
 "slower. Next time you start the card browser, the table will be unsorted "
 "again."
 msgstr ""
-"Hai scelto di ordinare questa tabella. Le operazioni nel navigatore delle "
-"carte potrebbero ora essere più lente. La prossima volta che avvierai il "
-"navigatore delle carte, la tabella sarà nuovamente disordinata."
+"Ти си изабрао да разврстате ову табелу. Операције у прегледачу картица могу "
+"сада бити спорије. Следећи пут када покренете прегледач картица, табеле ће "
+"бити поново неразврстане."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:781
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:781
 msgid "%d cards shown, of which %d active."
-msgstr "%d di carte mostrate, di cui %d attive."
+msgstr "%d картице су показале, од којих %d активне."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\card_type_tree_wdgt.py:71
 #: ..\mnemosyne\pyqt_ui\card_type_tree_wdgt.py:71
 msgid "Delete these card types?"
-msgstr "Cancellare questi tipi di carta?"
+msgstr "Избриши ове врсте картица?"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\card_type_tree_wdgt.py:73
 #: ..\build\lib\mnemosyne\pyqt_ui\manage_card_types_dlg.py:61
 #: ..\mnemosyne\pyqt_ui\card_type_tree_wdgt.py:73
 #: ..\mnemosyne\pyqt_ui\manage_card_types_dlg.py:61
 msgid "Delete this card type?"
-msgstr "Cancellare questo tipo di carta?"
+msgstr "Избриши ову врсту картице?"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\card_type_tree_wdgt.py:103
 #: ..\mnemosyne\pyqt_ui\card_type_tree_wdgt.py:103
 msgid "All card types (%d)"
-msgstr "Tutti i tipi di carta (%d)"
+msgstr "Све врсте картица (%d)"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\compact_database_dlg.py:49
 #: ..\mnemosyne\pyqt_ui\compact_database_dlg.py:49
@@ -2346,52 +2312,51 @@ msgid ""
 "compact the database, but this is only relevant if you deleted a large "
 "number of cards."
 msgstr ""
-"Qui puoi cancellare i media files che non sono più usati. Puoi anche "
-"compattare il database, ma questa operazione è importante solo se hai "
-"cancellato un gran numero di carte."
+"Овде можете да избришете медијске датотеке које се више не користе. Такође "
+"можете и компактне базе података , али то је једино важно ако бришете велики "
+"број картица ."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\compact_database_dlg.py:68
 #: ..\mnemosyne\pyqt_ui\compact_database_dlg.py:68
 msgid "Compacting database..."
-msgstr "Compattazione database in corso..."
+msgstr "Сажимање базе података..."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:22
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:22
 msgid "Card appearance"
-msgstr "Aspetto della carta"
+msgstr "Изглед картице"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:35
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:48
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:35
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:48
 msgid "<all card types>"
-msgstr "<tutti i tipi di carta>"
+msgstr "<све врсте картица>"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:79
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:79
 msgid "Select font"
-msgstr "Seleziona il carattere"
+msgstr "Изабери словолик"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:84
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:84
 msgid "Select colour"
-msgstr "Seleziona il colore"
+msgstr "Изабери боју"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:227
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:227
 msgid "Reset all card types to default system font?"
-msgstr ""
-"Reiposta per tutti i tipi di carta il carattere predefinito di sistema?"
+msgstr "Пресложи све врсте картица на подразумевани словолик система?"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:229
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:229
 msgid "Reset '%s' to default system font?"
-msgstr "Reimposta '%s' al carattere predefinito di sistema?"
+msgstr "Пресложи '%s' у подразумевани словолик система?"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_cramming.py:19
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_cramming.py:19
 msgid "Cramming"
-msgstr "Apprendimento intensivo"
+msgstr "Бубање"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_cramming.py:40
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_main.py:68
@@ -2400,58 +2365,57 @@ msgstr "Apprendimento intensivo"
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_main.py:68
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:64
 msgid "Reset current tab to defaults?"
-msgstr ""
-"Reimpostare tutti i parametri di questa scheda ai valori predefiniti?"
+msgstr "Пресложи тренутне картице на подразумеване вредности?"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_main.py:20
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_main.py:20
 msgid "General"
-msgstr "Generali"
+msgstr "Опште"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:20
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:20
 msgid "Servers"
-msgstr "Server"
+msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:39
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:39
 msgid "Sync server running on "
-msgstr "Server di sincronizzasione attivo su "
+msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:42
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:42
 msgid "Sync server NOT running."
-msgstr "Server di sincronizzazione NON attivo."
+msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:44
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:44
 msgid "Web server running on "
-msgstr "Web server attivo su "
+msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:47
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:47
 msgid "Web server NOT running."
-msgstr "Web server NON attivo."
+msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:89
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:89
 msgid "Sync server now running on "
-msgstr "Server di sincronizzazione ora attivo su "
+msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:95
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:95
 msgid "Sync server stopped."
-msgstr "Server di sincronizzazione bloccato."
+msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:101
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:101
 msgid "Web server now running on"
-msgstr "Web server ora attivo su"
+msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:109
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:109
 msgid "Web server stopped."
-msgstr "Web server bloccato."
+msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\convert_card_type_keys_dlg.py:41
 #: ..\build\lib\mnemosyne\pyqt_ui\convert_card_type_keys_dlg.py:55
@@ -2460,46 +2424,46 @@ msgstr "Web server bloccato."
 #: ..\mnemosyne\pyqt_ui\convert_card_type_keys_dlg.py:55
 #: ..\mnemosyne\pyqt_ui\convert_card_type_keys_dlg.py:83
 msgid "<none>"
-msgstr "<none>"
+msgstr "<ништа>"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\convert_card_type_keys_dlg.py:61
 #: ..\mnemosyne\pyqt_ui\convert_card_type_keys_dlg.py:61
 msgid "No duplicate in new fact keys allowed."
-msgstr "Non sono ammessi duplicati nei campi destinazione."
+msgstr "Нема два примерка на новој ствари , тастери су дозвољени.."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\convert_card_type_keys_dlg.py:73
 #: ..\mnemosyne\pyqt_ui\convert_card_type_keys_dlg.py:73
 msgid "A required field is missing."
-msgstr "Un campo obbligatorio non è stato riempito."
+msgstr "Недостаје потребно поље."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\criterion_wdgt_default.py:32
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_criterion_wdgt_default.py:50
 #: ..\mnemosyne\pyqt_ui\criterion_wdgt_default.py:32
 #: ..\mnemosyne\pyqt_ui\ui_criterion_wdgt_default.py:50
 msgid "Activate cards from these card types:"
-msgstr "Attiva carte fra questi tipi di carta:"
+msgstr "Активирање картице из ових врста картица:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\edit_card_dlg.py:98
 #: ..\build\lib\mnemosyne\pyqt_ui\edit_card_dlg.py:111
 #: ..\mnemosyne\pyqt_ui\edit_card_dlg.py:98
 #: ..\mnemosyne\pyqt_ui\edit_card_dlg.py:111
 msgid "You are not allowed to cancel the merging."
-msgstr "Non ti è permesso annullare la fusione."
+msgstr "Немате овлашћења да откажете спајање."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\edit_card_dlg.py:163
 #: ..\mnemosyne\pyqt_ui\edit_card_dlg.py:163
 msgid "Abandon changes to current card?"
-msgstr "Abbandona i cambiamenti alla carta corrente?"
+msgstr "Напуштате измене у постојећој картици?"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\export_metadata_dlg.py:61
 #: ..\mnemosyne\pyqt_ui\export_metadata_dlg.py:61
 msgid "Import cards"
-msgstr "Importa carte"
+msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\import_dlg.py:81
 #: ..\mnemosyne\pyqt_ui\import_dlg.py:81
 msgid "File does not exist."
-msgstr "Il file non esiste."
+msgstr "Датотека не постоји."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\manage_card_types_dlg.py:51
 #: ..\mnemosyne\pyqt_ui\manage_card_types_dlg.py:51
@@ -2509,31 +2473,31 @@ msgid ""
 "can make a clone of 'Vocabulary', call it 'Thai' and set a Thai font "
 "specifically for this card type without disturbing your other cards."
 msgstr ""
-"Qui puoi creare cloni di tipi di carta esistenti. Questo ti consente di "
-"formattare le carte appartenenti a questo tipo indipendentemente dalle carte "
-"del tipo originale. Ad esempio puoi fare un clone di 'Vocabolario'. "
-"chiamarlo 'Thai' e impostare un font Thai specifico per questo tipo di carta "
-"senza distubare le altre."
+"Овде можете направити дуплиране картице постојећих типова. То вам омогућава "
+"да форматирате картицу у овој врсти независно од картице у оригиналној "
+"врсти. На пример можете направити дупликат 'Речник', називајући га "
+"'Тајландски' и подесите тајландски словолик специјално за ову врсту картице  "
+"без промене подешавања  других картица ."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\manage_plugins_dlg.py:98
 #: ..\mnemosyne\pyqt_ui\manage_plugins_dlg.py:98
 msgid "Are you sure you want to delete the plugin"
-msgstr "Sei sicuro di volere eliminare l'estensione"
+msgstr "Желите да избришете додатак"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\manage_plugins_dlg.py:99
 #: ..\mnemosyne\pyqt_ui\manage_plugins_dlg.py:99
 msgid "and not just deactivate it?"
-msgstr "e non solo disattivarla?"
+msgstr "а не само деактивирати?"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\manage_plugins_dlg.py:101
 #: ..\mnemosyne\pyqt_ui\manage_plugins_dlg.py:101
 msgid "Cancel"
-msgstr "Annulla"
+msgstr "Откажи"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\prefill_tag_behaviour_plugin.py:13
 #: ..\mnemosyne\pyqt_ui\prefill_tag_behaviour_plugin.py:13
 msgid "Prefill tag behaviour"
-msgstr "Funzionamento dello riempimento proposto per il campo etichetta"
+msgstr "Попуни претходно ознаку понашања"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\prefill_tag_behaviour_plugin.py:15
 #: ..\mnemosyne\pyqt_ui\prefill_tag_behaviour_plugin.py:15
@@ -2546,15 +2510,13 @@ msgid ""
 "textbook::Chapter 10\", whereas Front-to-Back cards get \"European "
 "Capitals\"."
 msgstr ""
-"Quando si stanno creando nuove carte, Mnemosyne normalmente riempie "
-"preventivamente il campo 'Etichetta(e)' con l'ultimo valore che hai usato, "
-"senza badare al tipo di carta.\n"
+"Приликом прављења нове картице, Mnemosyne уобичајено користи  поље 'Ознаке'  "
+"са вредношћу коју сте користили последњу, без обзира на врсту картице.\n"
 "\n"
-"Con questa estensione, Mnemosyne ricorderà per ogni tipo di carta l'ultima "
-"etichetta che hai usato, in questo modo ad esempio alle carte di tipo Cinese "
-"verrà suggerita un'etichetta del tipo \"Libro di cinese::Capitolo 10\", "
-"mentre alle carte Da-Fronte-a-Retro verrà suggerita l'etichetta \"Capitali "
-"europee\"."
+"Са овим додатком, Mnemosyne ће за сваки тип картице запамтити последњу "
+"ознаку коју сте користили. Кинеске картице добиће ознаку као што је унапред "
+"одређено \"Мој кинески уџбеник::Поглавље 10\", док Лице-у-Наличје картице "
+"даће \"Европске престонице\"."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\qt_sync_server.py:76
 #: ..\build\lib\mnemosyne\pyqt_ui\qt_sync_server.py:202
@@ -2563,7 +2525,7 @@ msgstr ""
 #: ..\mnemosyne\pyqt_ui\qt_sync_server.py:202
 #: ..\mnemosyne\pyqt_ui\qt_sync_server.py:209
 msgid "Unable to start sync server."
-msgstr "Impossibile avviare la sincronizzazione con il server."
+msgstr "Није могуће покренути усклађивање послужитеља"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\qt_sync_server.py:203
 #: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:189
@@ -2571,21 +2533,21 @@ msgstr "Impossibile avviare la sincronizzazione con il server."
 #: ..\mnemosyne\pyqt_ui\qt_web_server.py:189
 msgid "There still seems to be an old server running on the requested port."
 msgstr ""
-"Apparentemente c'è ancora un vecchio server attivo sulla porta richiesta."
+"Има изгледа да је  још увек стари сервер покренут на тражени прикључак."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\qt_sync_server.py:204
 #: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:190
 #: ..\mnemosyne\pyqt_ui\qt_sync_server.py:204
 #: ..\mnemosyne\pyqt_ui\qt_web_server.py:190
 msgid "Terminate that process and try again."
-msgstr "Chiudi questo processo e prova ancora."
+msgstr "Прекин тај процес и покушајте поново."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\qt_sync_server.py:210
 #: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:196
 #: ..\mnemosyne\pyqt_ui\qt_sync_server.py:210
 #: ..\mnemosyne\pyqt_ui\qt_web_server.py:196
 msgid "You don't have the permission to use the requested port."
-msgstr "Non hai il permesso di usare la porta richiesta."
+msgstr "Ви немате дозволу да користите тражени прикључак."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:65
 #: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:188
@@ -2594,17 +2556,17 @@ msgstr "Non hai il permesso di usare la porta richiesta."
 #: ..\mnemosyne\pyqt_ui\qt_web_server.py:188
 #: ..\mnemosyne\pyqt_ui\qt_web_server.py:195
 msgid "Unable to start web server."
-msgstr "Impossibile avviare il web server."
+msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:78
 #: ..\mnemosyne\pyqt_ui\qt_web_server.py:78
 msgid "Remote review in progress..."
-msgstr "Revisione remota in esecuzione..."
+msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\qtextedit2.py:29
 #: ..\mnemosyne\pyqt_ui\qtextedit2.py:29
 msgid "Insert &image"
-msgstr "Inserisci &immagine"
+msgstr "Убаци &слику"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\qtextedit2.py:30
 #: ..\mnemosyne\pyqt_ui\qtextedit2.py:30
@@ -2614,7 +2576,7 @@ msgstr "Ctrl+I"
 #: ..\build\lib\mnemosyne\pyqt_ui\qtextedit2.py:31
 #: ..\mnemosyne\pyqt_ui\qtextedit2.py:31
 msgid "Insert &sound"
-msgstr "Inserisci &suono"
+msgstr "Убаци &звук"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\qtextedit2.py:32
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:226
@@ -2626,7 +2588,7 @@ msgstr "Ctrl+S"
 #: ..\build\lib\mnemosyne\pyqt_ui\qtextedit2.py:33
 #: ..\mnemosyne\pyqt_ui\qtextedit2.py:33
 msgid "Insert vi&deo"
-msgstr "Inserisci vi&deo"
+msgstr "Убаци в&идео"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\qtextedit2.py:34
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:209
@@ -2638,7 +2600,7 @@ msgstr "Ctrl+D"
 #: ..\build\lib\mnemosyne\pyqt_ui\qtextedit2.py:35
 #: ..\mnemosyne\pyqt_ui\qtextedit2.py:35
 msgid "Insert &Flash"
-msgstr "Inserisci &flash"
+msgstr "Убаци &флеш"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\qtextedit2.py:36
 #: ..\mnemosyne\pyqt_ui\qtextedit2.py:36
@@ -2648,7 +2610,7 @@ msgstr "Ctrl+F"
 #: ..\build\lib\mnemosyne\pyqt_ui\qtextedit2.py:40
 #: ..\mnemosyne\pyqt_ui\qtextedit2.py:40
 msgid "&Hide pronunciation field for this card type"
-msgstr "&Nascondi il campo pronuncia per questo tipo di carta"
+msgstr "&Сакријте поље  изговора за ову врсту картице"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\qwebview2.py:27
 #: ..\mnemosyne\pyqt_ui\qwebview2.py:27
@@ -2658,36 +2620,36 @@ msgstr "Ctrl+C"
 #: ..\build\lib\mnemosyne\pyqt_ui\review_wdgt.py:372
 #: ..\mnemosyne\pyqt_ui\review_wdgt.py:374
 msgid "Scheduled: %d "
-msgstr "Programmate: %d "
+msgstr "Планирано: %d "
 
 #: ..\build\lib\mnemosyne\pyqt_ui\review_wdgt.py:373
 #: ..\mnemosyne\pyqt_ui\review_wdgt.py:375
 msgid "Not memorised: %d "
-msgstr "Non memorizzate: %d "
+msgstr "Није запамтио: %d "
 
 #: ..\build\lib\mnemosyne\pyqt_ui\review_wdgt.py:374
 #: ..\mnemosyne\pyqt_ui\review_wdgt.py:376
 msgid "Active: %d "
-msgstr "Attive: %d "
+msgstr "Активан: %d "
 
 #: ..\build\lib\mnemosyne\pyqt_ui\review_wdgt_cramming.py:15
 #: ..\build\lib\mnemosyne\pyqt_ui\review_wdgt_cramming.py:38
 #: ..\mnemosyne\pyqt_ui\review_wdgt_cramming.py:15
 #: ..\mnemosyne\pyqt_ui\review_wdgt_cramming.py:38
 msgid "&Wrong"
-msgstr "&Sbagliato"
+msgstr "&Погрешно"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\review_wdgt_cramming.py:21
 #: ..\build\lib\mnemosyne\pyqt_ui\review_wdgt_cramming.py:39
 #: ..\mnemosyne\pyqt_ui\review_wdgt_cramming.py:21
 #: ..\mnemosyne\pyqt_ui\review_wdgt_cramming.py:39
 msgid "&Right"
-msgstr "&Giusto"
+msgstr "&Десно"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\review_wdgt_cramming.py:55
 #: ..\mnemosyne\pyqt_ui\review_wdgt_cramming.py:55
 msgid "Wrong:"
-msgstr "Sbagliato:"
+msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\review_wdgt_cramming.py:56
 #: ..\mnemosyne\pyqt_ui\review_wdgt_cramming.py:56
@@ -2702,7 +2664,7 @@ msgstr ""
 #: ..\build\lib\mnemosyne\pyqt_ui\statistics_dlg.py:96
 #: ..\mnemosyne\pyqt_ui\statistics_dlg.py:96
 msgid "Default"
-msgstr "Impostazioni predefinite"
+msgstr "Подразумевано"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:121
 #: ..\build\lib\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:259
@@ -2713,45 +2675,45 @@ msgstr "Impostazioni predefinite"
 #: ..\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:259
 #: ..\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:282
 msgid "No stats available."
-msgstr "Nessuna statistica disponibile"
+msgstr "Нема доступних статистика."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:191
 #: ..\mnemosyne\example_plugins\avg_grade_statistics.py:98
 #: ..\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:191
 msgid "Days"
-msgstr "Giorni"
+msgstr "Дани"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:210
 #: ..\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:210
 msgid "Number of cards scheduled"
-msgstr "Numero di carte programmate"
+msgstr "Број  заказаних картица"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:222
 #: ..\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:222
 msgid "Retention score (%)"
-msgstr "Punteggio di ritenzione (%)"
+msgstr "Задржи однос  (%)"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:234
 #: ..\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:234
 msgid "Number of cards added"
-msgstr "Numero di carte aggiunte"
+msgstr "Број  додатих картица"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:245
 #: ..\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:245
 msgid "Number of new cards learned"
-msgstr "Numero di carte nuove imparato"
+msgstr "Број нових научених картица"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:263
 #: ..\build\lib\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:286
 #: ..\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:263
 #: ..\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:286
 msgid "Number of cards"
-msgstr "Numero delle carte"
+msgstr "Број картица"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:266
 #: ..\mnemosyne\pyqt_ui\statistics_wdgts_plotting.py:266
 msgid "Not seen"
-msgstr "Mai visualizzate"
+msgstr "Не види"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\sync_dlg.py:132
 #: ..\mnemosyne\pyqt_ui\sync_dlg.py:132
@@ -2765,43 +2727,36 @@ msgid ""
 "needs to be the server. So, first enable a sync server here, and then start "
 "the sync from the mobile device."
 msgstr ""
-"Qui puoi sincronizzare questa macchina con un server remoto. Naturalmente è "
-"necessario che sul computer remoto sia attivo un server, il quale può essere "
-"avviato dalla finestra di configurazione della macchina remota.\n"
+"Овде можете да ускладитее ову машину са удаљеним послужитељем. Наравно , да "
+"удаљени рачунар мора да има покренут послужитељ, који се може покренути из "
+"конфигурационог екрана на том удаљеном рачунару .\n"
 "\n"
-"Per contro, se vuoi sincronizzare un dispositivo mobile con questa macchina, "
-"non dovresti utilizzare l'opzione del menù che hai appena selezionato. Nel "
-"caso in questione è necessario che questo computer sia il server. Quindi: "
-"prima abilita su questa macchina un server di sincronizzazione, poi avvia la "
-"sincronizzazione dal dispositivo mobile."
+"Међутим , ако желите да ускладите мобилни уређај са овом машином овде , не "
+"треба да користите опцију менија коју сте изабрали.У том случају , овај "
+"рачунар треба да буде послужитељ. Дакле , прво омогућите усклађивање "
+"послужитеља, а затим покрените усклађивање са мобилним уређајем."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tag_tree_wdgt.py:121
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:70
 #: ..\mnemosyne\pyqt_ui\tag_tree_wdgt.py:121
 #: ..\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:70
 msgid "&Rename"
-msgstr "&Rinomina"
+msgstr "&Преименуј"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tag_tree_wdgt.py:173
 #: ..\mnemosyne\pyqt_ui\tag_tree_wdgt.py:173
 msgid "Delete these tags? Cards with these tags will not be deleted."
-msgstr ""
-"Cancellare queste etichette? Le carte con queste etichette non saranno "
-"cancellate."
+msgstr "Избриши ове ознаке? Картице са овим ознакама неће бити избрисане."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tag_tree_wdgt.py:175
 #: ..\mnemosyne\pyqt_ui\tag_tree_wdgt.py:175
 msgid "Delete this tag? Cards with this tag will not be deleted."
-msgstr ""
-"Cancellare questa etichetta? Le carte con questa etichetta non saranno "
-"cancellate."
+msgstr "Избриши ову ознаку? Картице са овом ознаком неће бити избрисана."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:18
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:18
 msgid "For optimal results, it's best to do your repetitions every day."
-msgstr ""
-"Per risultati ottimali, è meglio effettuare le proprie ripetizioni ogni "
-"giorno."
+msgstr "За оптималне резултате, најбоље је да урадите  понављања сваки дан."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:19
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:19
@@ -2809,8 +2764,7 @@ msgid ""
 "You don't need to finish all your daily scheduled repetitions in a single "
 "session."
 msgstr ""
-"Non è necessario che tu finisca tutte le ripetizioni programmate per la "
-"giornata in una singola sessione."
+"Не морате да заврши сва своја дневна заказана понављања у једној сесији."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:20
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:20
@@ -2819,9 +2773,9 @@ msgid ""
 "many cards as you feel like to catch up, the rest will be automatically "
 "rescheduled to the future in the most optimal way."
 msgstr ""
-"Se sei stato via per qualche giorno, non preoccuparti del tuo arretrato. "
-"Procedi con il numero di carte che ti senti di afffrontare, il resto sarà "
-"automaticamente riprogrammato nel futuro un maniera ottimale."
+"Ако сте били одсутни неколико дана, не брините о свом заостатку. Следећа "
+"студија треба да преиспита картице према њиховој спремности и способности, а "
+"остатак ће аутоматски бити померен за будућност на најоптималнији начин."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:21
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:21
@@ -2830,9 +2784,9 @@ msgid ""
 "to-back card and the corresponding back-to-front card. Mnemosyne will avoid "
 "scheduling these on the same day."
 msgstr ""
-"Le carte sorelle sono carte che si basano sulla stessa informazione, ad es. "
-"una carta da-fronte-a-retro e la corrispondente carta da-retro-a-fronte. "
-"Mnemosyne eviterà di programmarle nello stesso giorno."
+"Сестринске картице су картице које су базиране на истим информацијама, "
+"презентованих у обрнутом редоследу. Mnemosyne ће избегавати заказивање ово "
+"истог дана ."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:22
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:22
@@ -2843,11 +2797,10 @@ msgid ""
 "the judge of that: you can learn more cards or less cards, depending on how "
 "you feel."
 msgstr ""
-"Il 'numero di carte non memorizzate da tenere in mano' impostato, determina "
-"quante carte proverai a (ri)imparare allo stesso tempo. Esso <b>non</b> "
-"indica quante carte nuove hai bisogno di imparare ogni giorno. Sei tu che "
-"devi giudicare: puoi imparare più carte o meno carte, dipende da come ti "
-"senti."
+"Подешавањем 'број не-меморисаних картица да задржите у руци'  одређује "
+"колико картица покушавате да научите у исто време.То вам  <b>неће</b>  рећи "
+"колико је нових картица потребно  да научите за дан. Ви процените: можете ли "
+"да научите више  или мање картица, у зависности од тога како се осећате."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:23
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:23
@@ -2856,9 +2809,8 @@ msgid ""
 "about getting the 'Scheduled' counter to zero, and certainly not about "
 "getting the 'Not memorised' counter to zero."
 msgstr ""
-"In comclusione, prova le tue ripetizioni ogni giorno, ma non preoccuparti "
-"troppo di portare il contatore 'Programmate' a zero, e certamente non "
-"preoccuparti di portare il contatore delle 'Non memorizzate' a zero."
+"Укратко , покушајте да урадите ваше понављање сваки дан , али не брините "
+"превише о добијању 'Планирано'  и 'Није запамтио'  бројача на нулу."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:24
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:24
@@ -2866,8 +2818,7 @@ msgid ""
 "Grade 1 cards are different from grade 0 cards in the sense that they show "
 "up less often."
 msgstr ""
-"Le carte di grado 1 sono differenti dalle carte di grado 0 nel senso che "
-"sono mostrate più raramente."
+"Ниво 1 картице су другачији од нивоа 0 картица у смислу да се појављују ређе."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:25
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:25
@@ -2875,9 +2826,8 @@ msgid ""
 "Use 'Learn ahead of schedule' sparingly. For cramming before an exam, it's "
 "much better to use the cramming scheduler plugin."
 msgstr ""
-"Usa 'Apprendi in anticipo sulla programmazione' con parsimonia. Per lo "
-"studio intensivo prima di un esame è molto meglio usare l'estensione di "
-"algoritmo di studio intensivo."
+"Користите \"Научи пре рока\" са опрезом. За бубање пред испит,  много је "
+"боље да користите додатак за бубање ."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:26
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:26
@@ -2885,9 +2835,9 @@ msgid ""
 "You can use keyboard shortcuts to do your repetitions. Enter, Return or "
 "Space stand for the default action. The number keys can be used for grading."
 msgstr ""
-"Puoi usare le scorciatoie di tastiera durante le tue ripetizioni. Enter, "
-"Return o Spazio indicano l'azione predefinita. I tasti con numero possono "
-"essere usati per definire il grado della carta."
+"Можете да користите пречице на тастатури за ваше понављање. Унеси, Повратак "
+"или Размак стоје за подразумевану акцију. Тастери са бројевима се могу "
+"користити за оцењивање."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:27
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:27
@@ -2895,8 +2845,8 @@ msgid ""
 "You can select which cards you wish to study in the '(De)activate cards' "
 "menu option."
 msgstr ""
-"Puoi selezionare quali carte vuoi studiare nel menù delle opzioni 'Carte "
-"(dis)attivate'."
+"Можете да изаберете које картице желите да студирате у  избору "
+"'(Де)активирај картице' ."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:28
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:28
@@ -2905,9 +2855,9 @@ msgid ""
 "organise them. Using '(De)activate cards' is much more convenient than "
 "having to load and unload several databases."
 msgstr ""
-"Si raccomanda di mettere tutte le tue carte in un singolo database e usare "
-"le etichette per organizzarle. Usare 'Carte (dis)attivate' è molto più "
-"pratico di dovere caricare e scaricare vari database."
+"Препоручује се да  ставите све своје картице у једну базу података и користе "
+"ознаку да их организују. Коришћење '( Де ) активирај картице' је много "
+"једноставније него да се учита и испразни неколико база података."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:32
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:32
@@ -2917,11 +2867,11 @@ msgid ""
 "make a clone of 'Vocabulary', call it 'Thai' and set a Thai font "
 "specifically for this card type without disturbing your other cards."
 msgstr ""
-"Puoi fare cloni di tipi di carta esistenti. Questo ti consente di formattare "
-"le carte di questo tipo indipendentemente dalle carte del tipo originale. Ad "
-"es. puoi fare un clone di 'Vocabolario', chiamarlo 'Thai' e impostare un "
-"tipo di carattere Thai specificamente per questo tipo di carta, senza "
-"disturbare le altre."
+"Можете направити дуплиране картице постојећих типова. То вам омогућава да "
+"форматирате картице у овој врсти независно од картице у оригиналној врсти. "
+"На пример можете направити дуплиран 'Речник' , називајући га ' Тајландски ' "
+"и подесите словолик тајландског конкретно за ову врсту картице без промене "
+"подешавања за друге врсте картица ."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:34
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:34
@@ -2930,10 +2880,9 @@ msgid ""
 "However, if you want all the fields in a certain card type to look the same, "
 "it's easier to use the 'Set card appearance' menu option."
 msgstr ""
-"Puoi usare i tag base dell'HTML nelle tue carte, per controllare la loro "
-"visualizzazione. Naturalmente, se tu vuoi che tutti i campi in un certo tipo "
-"di carta abbiamo lo stesso aspetto, è più semplice usare 'Aspetto della "
-"carta' nel menù opzioni."
+"Можете да користите основне HTML ознаке у својим картицама да контролишете "
+"њихов изглед. Међутим, ако желите да сва поља у одређеним врстама картица "
+"изгледају исто ,то је лакше у изборнику  'Постави изглед картице'"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:35
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:35
@@ -2942,9 +2891,9 @@ msgid ""
 "course, that remote computer needs to have a server running, which can be "
 "started from the configuration screen on that remote machine."
 msgstr ""
-"Usando 'File - Sincronizza', puoi sincronizzare questa macchina con un "
-"server remoto. Naturalmente è necessario che ci sia un server attivo, che "
-"può essere avviato dalla finestra di configurazione della macchina remota."
+"Коришћење 'Датотека - Усклади', можете да ускладите ову машину са удаљеним "
+"послужитељом. Наравно, да удаљени рачунар мора да има покренут послужитељ, "
+"који се може покренути из конфигурационог екрана на том удаљеном рачунару."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:36
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:36
@@ -2953,10 +2902,9 @@ msgid ""
 "Sync', but first enable a sync server in the configuration dialog, and then "
 "start the sync from the mobile device."
 msgstr ""
-" Se vuoi sincronizzare un dispositivo mobile con questo computer, non usare "
-"'File - Sincronizza', ma prima abilita un server di sincronizzazione nella "
-"finestra di configurazione e poi avvia la sincronizzazione dal dispositivo "
-"mobile."
+" Ако желите да ускладите мобилни уређај са овим рачунаром, не користе "
+"'Датотека - Усклади', али прво омогућите усклађење послужитеља у дијалогу "
+"подешавања, а затим покрените усклађивање са мобилним уређајем."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:37
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:37
@@ -2964,8 +2912,8 @@ msgid ""
 "In the 'Activate cards' dialog, you can right-click on a saved set to rename "
 "or delete it."
 msgstr ""
-"Nella finestra 'Carte (dis)attivate', puoi fare click con il tasto destro su "
-"di un set salvato per rinominarlo o cancellarlo."
+"У  дијалогу 'Активне картице', можете да кликнете десним тастером на "
+"сачуване поставке да преименујете или избришете."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:38
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:38
@@ -2973,8 +2921,8 @@ msgid ""
 "In the 'Activate cards' dialog, you can double-click on a saved set to "
 "activate it and close the dialog."
 msgstr ""
-"Nella finestra di dialogo 'Carte (dis)attivate', puoi fare doppio click su "
-"un insieme di carte salvato per attivarlo e chiudere la finestra di dialogo."
+"У дијалогу 'Активирање картице', можете двапут да кликнете на сачуване "
+"поставке и да је активирате и затворите дијалог."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:44
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:44
@@ -2982,9 +2930,6 @@ msgid ""
 "In the search box of the card browser, you can use SQL wildcards like _ "
 "(matching a single character) and % (matching one or more characters)."
 msgstr ""
-"Nel campo di ricerca del navigatore delle carte, puoi usare caratteri jolly "
-"SQL come _ (per indicare un singolo carattere) e % (per inidcare uno o più "
-"caratteri)."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:45
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:45
@@ -2992,8 +2937,8 @@ msgid ""
 "In the 'Add cards' dialog, use Tab to move between different fields, "
 "Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
 msgstr ""
-"Nella finestra 'Aggiungi carte', usa Tab per muoverti fra i diversi campi, "
-"Ctrl+Enter per 'Ancora da imparare', Ctrl+2, ecc. per i gradi."
+"У дијалогу  'Додај картице' , користи Tab за кретање између различитих "
+"области, а Ctrl+Enter за 'Ипак, за учење', и  Ctrl+2, итд. за оцене."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:46
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:46
@@ -3001,8 +2946,8 @@ msgid ""
 "In the 'Edit card' dialog, use Tab to move between different fields and "
 "Ctrl+Enter to close the dialog."
 msgstr ""
-"Nella finestra 'Modifica carta corrente', usa Tab per muoverti fra i diversi "
-"campo e Ctrl+Enter per chiudere la finestra."
+"У дијалогу  'Уреди картици' , користи Tab за кретање између различитих поља "
+"и Ctrl+Enter да затворите дијалог."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:47
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:47
@@ -3010,8 +2955,8 @@ msgid ""
 "Mnemosyne can use LaTeX to render mathematical formulas, e.g. "
 "<$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
 msgstr ""
-"Mnemosyne può usare LaTeX per rappresentare formule matematiche, ad es. "
-"<$>x^2+y^2=z^2</$>. (LaTex e dvipng devono essere installati)"
+"Mnemosyne може користити LaTeX да изводи математичке формуле, "
+"нпр<$>x^2+y^2=z^2</$>. (За то вам је потребан LaTeX и dvipng инсталирани.)"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:48
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:48
@@ -3020,9 +2965,9 @@ msgid ""
 "and move it to a different drive. Mnemosyne keeps automatic backups, but "
 "that won't help you if that drive dies..."
 msgstr ""
-"Il modo migliore per fare il backup dei tuoi dati è copiare la tua cartella "
-"dati di mnemosyne e spostarla su un disco diverso. Mnemosyne effettua dei "
-"backup automatici, ma questo non ti auterà se il tuo disco si guasta..."
+"Најбољи начин за прављење причувне података је да копирате   mnemosyne "
+"фасциклу података  и преместите је на други диск. Mnemosyne чува аутоматски "
+"причувну , али то вам неће помоћи ако  диск откаже..."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:49
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:49
@@ -3030,9 +2975,8 @@ msgid ""
 "You can sort the cards in the 'Browse cards' dialog by by clicking on a "
 "column title. Clicking again changes the sort order."
 msgstr ""
-"Puoi ordinare le carte nella finestra 'Naviga carte' facendo click sul "
-"titolo delle colonne. Facendo nuovamente click cambierai la direzione "
-"dell'ordinamento."
+"Можете да разврстате картице у  дијалогу 'Прегледај картице'  да се кликне "
+"на наслов колоне. Поновним кликом мења се редослед разврставања."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:50
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:50
@@ -3041,20 +2985,20 @@ msgid ""
 "explanation of the <$$>...</$$> and <latex>...</latex> tags on Mnemosyne's "
 "website."
 msgstr ""
-"Se vuoi un controllo più granulare sul comportamento di LaTeX, vedi le "
-"spiegazioni dei tag <$$>...</$$> e <latex>...</latex> sul sito web di "
-"Mnemosyne."
+"Ако желите још бољу контролу над LaTeX-овим понашањем , види објашњење "
+"<$$>...</$$> и <latex>...</latex>кроз употребу ознака на Mnemosyne-овом веб "
+"сајту."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:51
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:51
 msgid "For optimal performance, keep your drives defragmented."
-msgstr "Per performance ottimali, mantieni il tuo disco deframmentato."
+msgstr "За оптималне перформансе, држите дискови пресложене."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:52
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:52
 msgid "For optimal performance, do not put your database on a network drive."
 msgstr ""
-"Per performance ottimli, non mettere il tuo database su di un disco di rete."
+"За оптималне перформансе, немојте стављати базу података на мрежном диску."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:53
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:53
@@ -3062,8 +3006,8 @@ msgid ""
 "For optimal performance, run 'File - Compact' from time to time, especially "
 "after deleting many cards."
 msgstr ""
-"Per performance ottimali, lancia 'File - Compatta' ogni tanto, specialmente "
-"dopo avere cancellato molte carte."
+"За оптималне перформансе, покрените 'Датотека - Сажето'  с времена на време, "
+"нарочито после брисања много картица."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:54
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:54
@@ -3072,9 +3016,9 @@ msgid ""
 "in their mnemosyne directory. They can also install additional plugins to "
 "customise Mnemosyne even further."
 msgstr ""
-"Gli utenti esperti possono personalizzare maggiormente Mnemosyne editando il "
-"file config.py nella loro cartella mnemosyne. Possono anche installare "
-"estensioni addizonali per personalizzare ancor più Mnemosyne."
+"Напредни корисници могу да прилагоде више Mnemosyne уређивањем config.py "
+"датотеке у својој mnemosyne фасцикли. Они такође могу инсталирати додатне "
+"додатке за прилагођавање Mnemosyne још више."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:55
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:55
@@ -3083,7 +3027,7 @@ msgid ""
 "href=\"https://plus.google.com/b/112456861177827156549/112456861177827156549/"
 "posts\">Google+</a>."
 msgstr ""
-"Puoi seguire lo sviluppo di Mnemosyne a <a "
+"Можете пратити развој Mnemosyne на <a "
 "href=\"https://plus.google.com/b/112456861177827156549/112456861177827156549/"
 "posts\">Google+</a>."
 
@@ -3094,14 +3038,14 @@ msgid ""
 "href=\"https://mnemosyne.uservoice.com/\">uservoice</a>. This helps the "
 "developers decide what to work on next."
 msgstr ""
-"Puoi richiedere nuove funzionalità e votare le richieste esistenti a <a "
-"href=\"https://mnemosyne.uservoice.com/\">uservoice</a>. Questo aiuterà gli "
-"sviluppatori a decidere su cosa lavorare innanzitutto."
+"Можете тражити нове могућности и одобрити поднете захтеве у  <a "
+"href=\"https://mnemosyne.uservoice.com/\">uservoice</a>. Ово помаже "
+"програмерима да одлуче шта да раде следеће ."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_about_dlg.py:89
 #: ..\mnemosyne\pyqt_ui\ui_about_dlg.py:89
 msgid "About Mnemosyne"
-msgstr "Riguardo a Mnemosyne"
+msgstr "О Mnemosyne"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_about_dlg.py:91
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:116
@@ -3113,22 +3057,22 @@ msgstr "Alt+C"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_activate_cards_dlg.py:91
 #: ..\mnemosyne\pyqt_ui\ui_activate_cards_dlg.py:91
 msgid "(De)activate cards"
-msgstr "(Dis)attiva carte"
+msgstr "(Де) активираj картицe"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_activate_cards_dlg.py:92
 #: ..\mnemosyne\pyqt_ui\ui_activate_cards_dlg.py:92
 msgid "Saved sets:"
-msgstr "Insiemi salvati:"
+msgstr "Сачувани скупови:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_activate_cards_dlg.py:94
 #: ..\mnemosyne\pyqt_ui\ui_activate_cards_dlg.py:94
 msgid "&Save this set for later use"
-msgstr "&Salva questo insieme per usarlo in futuro"
+msgstr "&Сачувај овај скуп за каснију употребу"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:116
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:116
 msgid "Add cards"
-msgstr "Aggiungi carte"
+msgstr "Додај картице"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:117
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:138
@@ -3137,7 +3081,7 @@ msgstr "Aggiungi carte"
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:138
 #: ..\mnemosyne\pyqt_ui\ui_edit_card_dlg.py:90
 msgid "Card type:"
-msgstr "Tipo di carta:"
+msgstr "Врста картице:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:118
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_tags_dlg.py:73
@@ -3148,27 +3092,27 @@ msgstr "Tipo di carta:"
 #: ..\mnemosyne\pyqt_ui\ui_edit_card_dlg.py:91
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:110
 msgid "Tags:"
-msgstr "Etichetta:"
+msgstr "Ознаке:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:119
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:119
 msgid "Select initial grade:"
-msgstr "Seleziona il grado iniziale:"
+msgstr "Изаберите почетни степен:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:120
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:120
 msgid "You have yet to learn this."
-msgstr "Devi ancora impararla."
+msgstr "Ви тек треба да научите ово."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:121
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:121
 msgid "&Yet to learn"
-msgstr "&Ancora da imparare"
+msgstr "&Још да се  научи"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:122
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:122
 msgid "You know this, but just barely."
-msgstr "La sai, ma appena appena."
+msgstr "Знаш то, али једва."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:123
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:123
@@ -3178,7 +3122,7 @@ msgstr "&2"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:124
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:124
 msgid "You know this, but not very well."
-msgstr "La sai, ma non molto bene."
+msgstr "Знаш то, али није добро."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:125
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:125
@@ -3188,7 +3132,7 @@ msgstr "&3"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:126
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:126
 msgid "You know this."
-msgstr "La sai."
+msgstr "Знаш то."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:127
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:127
@@ -3198,7 +3142,7 @@ msgstr "&4"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:128
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:128
 msgid "You know this very well."
-msgstr "La sai molto bene."
+msgstr "Знате то врло добро."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:129
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:129
@@ -3210,93 +3154,91 @@ msgstr "&5"
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:131
 #: ..\mnemosyne\pyqt_ui\ui_edit_card_dlg.py:94
 msgid "&Exit"
-msgstr "&Esci"
+msgstr "&Излаз"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_tags_dlg.py:72
 #: ..\mnemosyne\pyqt_ui\ui_add_tags_dlg.py:72
 msgid "Add tags"
-msgstr "Aggiungi etichette"
+msgstr "Додај ознаке"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_browse_cards_dlg.py:63
 #: ..\mnemosyne\pyqt_ui\ui_browse_cards_dlg.py:63
 msgid "Browse cards"
-msgstr "Sfoglia carte"
+msgstr "Прегледај картице"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_browse_cards_dlg.py:64
 #: ..\mnemosyne\pyqt_ui\ui_browse_cards_dlg.py:64
 msgid "Select one or more cards and right-click for more actions."
-msgstr ""
-"Seleziona una o più carte e fai click con il tasto destro per avere "
-"ulteriori azioni disponibili."
+msgstr "Изаберите једну или више картица и  десним  кликом - за више акција."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_browse_cards_dlg.py:65
 #: ..\mnemosyne\pyqt_ui\ui_browse_cards_dlg.py:65
 msgid "XXX cards selected, of which XXX active"
-msgstr "XXX carte selezionate, di cui XXX attive"
+msgstr "XXX картице су изабране, од којих XXX су активне"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_card_set_name_dlg.py:54
 #: ..\mnemosyne\pyqt_ui\ui_card_set_name_dlg.py:54
 msgid "Card set name"
-msgstr "Nome dell'insieme di carte"
+msgstr "Постави назив картице"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_card_set_name_dlg.py:55
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:105
 #: ..\mnemosyne\pyqt_ui\ui_card_set_name_dlg.py:55
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:105
 msgid "Card set name:"
-msgstr "Nome dell'insieme di carte:"
+msgstr "Постави назив картице:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_change_card_type_dlg.py:69
 #: ..\mnemosyne\pyqt_ui\ui_change_card_type_dlg.py:69
 msgid "Change card type"
-msgstr "Cambia tipo di carta"
+msgstr "Промените тип картице"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_change_card_type_dlg.py:70
 #: ..\mnemosyne\pyqt_ui\ui_change_card_type_dlg.py:70
 msgid "New card type:"
-msgstr "Nuovo tipo di carta:"
+msgstr "Нови тип картице:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_clone_card_type_dlg.py:73
 #: ..\mnemosyne\pyqt_ui\ui_clone_card_type_dlg.py:73
 msgid "Clone card type"
-msgstr "Clona tipo di carta"
+msgstr "Дуплирај врсту картице"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_clone_card_type_dlg.py:74
 #: ..\mnemosyne\pyqt_ui\ui_clone_card_type_dlg.py:74
 msgid "Cloned from:"
-msgstr "Clonato da:"
+msgstr "Дуплирано из:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_clone_card_type_dlg.py:75
 #: ..\mnemosyne\pyqt_ui\ui_clone_card_type_dlg.py:75
 msgid "Clone name:"
-msgstr "Nome del clone:"
+msgstr "Назив дуплираног:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_compact_database_dlg.py:63
 #: ..\mnemosyne\pyqt_ui\ui_compact_database_dlg.py:63
 msgid "Compact"
-msgstr "Compatto"
+msgstr "Збијен"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_compact_database_dlg.py:64
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:240
 #: ..\mnemosyne\pyqt_ui\ui_compact_database_dlg.py:64
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:240
 msgid "Compact database"
-msgstr "Compatta database"
+msgstr "Збијена база података"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_compact_database_dlg.py:65
 #: ..\mnemosyne\pyqt_ui\ui_compact_database_dlg.py:65
 msgid "Delete unused media files"
-msgstr "Cancellia i media file non utilizzati"
+msgstr "Избриши некоришћене медијске датотеке"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_dlg.py:66
 #: ..\mnemosyne\pyqt_ui\ui_configuration_dlg.py:66
 msgid "Configuration"
-msgstr "Configurazione"
+msgstr "Поставке"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_dlg.py:68
 #: ..\mnemosyne\pyqt_ui\ui_configuration_dlg.py:68
 msgid "&Defaults"
-msgstr "&Valori predefiniti"
+msgstr "&Подразумевано"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:137
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:88
@@ -3307,60 +3249,59 @@ msgstr "&Valori predefiniti"
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:135
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:103
 msgid "Form"
-msgstr "Modulo"
+msgstr "Образац"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:139
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:139
 msgid "Background:"
-msgstr "Sfondo"
+msgstr "Позадина:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:140
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:140
 msgid "Set colour"
-msgstr "Imposta colore"
+msgstr "Постави боју"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:141
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:141
 msgid "Alignment:"
-msgstr "Allineamento:"
+msgstr "Поравнање:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:142
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:142
 msgid "Left"
-msgstr "A sinistra"
+msgstr "Лево"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:143
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:143
 msgid "Center"
-msgstr "Centrato"
+msgstr "Средиште"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:144
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:144
 msgid "Right"
-msgstr "A destra"
+msgstr "Десно"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:145
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:145
 msgid "Increase size of non-latin characters by"
-msgstr "Incrementa dimensione caratteri non latini di"
+msgstr "Повећајте величину не-латиничних знакова"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:146
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:146
 msgid "points."
-msgstr "punti."
+msgstr "бодова."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:147
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:147
 msgid ""
 "(This setting will be overridden in card types cloned from 'Vocabulary'.)"
 msgstr ""
-"(Queste impostazioni saranno sovrascritte nei tipi di carta clonati da "
-"'Vocabolario')."
+"(Ова поставка ће бити поништене у дупираним врстама картица 'Речника'.)"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:89
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:89
 msgid "Show cards"
-msgstr "Mostra le carte"
+msgstr "Прикажи картице"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:90
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:139
@@ -3369,32 +3310,32 @@ msgstr "Mostra le carte"
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:139
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:142
 msgid "in random order"
-msgstr "in ordine casuale"
+msgstr "случајним редоследом"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:91
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:91
 msgid "earliest scheduled first"
-msgstr "le presentate meno di recente per prime"
+msgstr "Најраније је заказано прво"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:92
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:92
 msgid "lastest scheduled first"
-msgstr "le presentate più di recente per prime"
+msgstr "Најзадње је заказано прво"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:93
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:93
 msgid "most lapses first"
-msgstr "quelle sbagliate più volte per prime"
+msgstr "прво највеће грешке"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:94
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:94
 msgid "Remember which cards you've seen when restarting Mnemosyne."
-msgstr "Ricorda quali carte hai visto quando si riavvia Mnemosine."
+msgstr "Запамтите картице које сте видели при препокретању  Mnemosyne."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:136
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:136
 msgid "Scheduler"
-msgstr "Algoritmo di pianificazione"
+msgstr "Планер"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:137
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:137
@@ -3404,189 +3345,187 @@ msgstr ""
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:138
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:138
 msgid "in the order they were added"
-msgstr "nell'ordine in cui sono state aggiunte"
+msgstr "у редоследу којим су додата"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:140
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:140
 msgid "Review memorised cards"
-msgstr "Ripasso carte memorizzate"
+msgstr "Прегледајте меморисане картице"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:141
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:141
 msgid "most urgent first"
-msgstr "prima le più urgenti"
+msgstr "прво најхитније"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:143
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:143
 msgid "Hold"
-msgstr "Tieni"
+msgstr "Задржи"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:144
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:144
 msgid "non-memorised cards in your hand"
-msgstr "carte non memorizzate in mano"
+msgstr "не меморисаних картица у руци"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:145
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:145
 msgid "Autosave after"
-msgstr "Salva automaticamente dopo"
+msgstr "Самочување после"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:146
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:146
 msgid "repetitions"
-msgstr "ripetizioni"
+msgstr "понављања"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:147
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:147
 msgid "Audio/video"
-msgstr "Audio/video"
+msgstr "Аудио/Видео"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:148
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:148
 msgid "Start automatically when displaying card"
-msgstr "Avvia automaticamente quando mostri la carta"
+msgstr "Започни аутоматски приликом приказивања картица"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:149
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:149
 msgid "Show controls (pause, ...)"
-msgstr "Mostra i controlli (pausa, ...)"
+msgstr "Show controls (pause, ...)"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:150
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:150
 msgid "Science"
-msgstr "Scienza"
+msgstr "Наука"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:151
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:151
 msgid "Upload anonymous science logs"
-msgstr "Invia log scientifici in forma anonima"
+msgstr "Постави  анонимне научне записе"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:152
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:152
 msgid "Language"
-msgstr "Lingua"
+msgstr "Језик"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:104
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:104
 msgid "Allow other devices to sync with this computer"
-msgstr "Consenti ad altri dispositivi di sincronizzarsi con questo computer"
+msgstr "Дозволи другим уређајима усклађење са овим рачунаром"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:105
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:99
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:105
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:99
 msgid "Password:"
-msgstr "Password:"
+msgstr "Лозинка:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:106
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:98
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:106
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:98
 msgid "Username:"
-msgstr "Nome Utente:"
+msgstr "Корисничко име:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:107
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:100
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:107
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:100
 msgid "Port:"
-msgstr "Porta:"
+msgstr "Прикључак:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:108
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:108
 msgid "Check for changed media files on server"
-msgstr "Verifica cambiamenti nei media file sul server"
+msgstr "Проверите измењенe медијскe датотекe на послужитељу"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:109
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:109
 msgid "Sync server status"
-msgstr "Stato del server di sincronizzazione"
+msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:110
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:110
 msgid "Allow remote review through a web browser"
-msgstr "Consenti revisioni remote mediante web browser"
+msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:111
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:111
 msgid "Port:         "
-msgstr "Port:         "
+msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:112
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:112
 msgid "Web server status"
-msgstr "Stato del web server"
+msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:78
 #: ..\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:78
 msgid "Convert card type data"
-msgstr "Converte i dati del tipo di carta"
+msgstr "Претварање врсте података  картице"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:79
 #: ..\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:79
 msgid "Set the correspondence between data in the old and the new card type:"
-msgstr ""
-"Imposta la corrispondenza fra i dati del vecchio e del nuovo tipo di carta:"
+msgstr "Постави преписку између података у старом и новом типу картица:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:80
 #: ..\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:80
 msgid "Old:"
-msgstr "Precedente:"
+msgstr "Стари:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:81
 #: ..\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:81
 msgid "New:"
-msgstr "Nuovo:"
+msgstr "Нова:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_criterion_wdgt_default.py:52
 #: ..\mnemosyne\pyqt_ui\ui_criterion_wdgt_default.py:52
 msgid "not having any of these tags:"
-msgstr "che non hanno nessuna di queste etichette:"
+msgstr "не са било којом од ове ознаке:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_delete_unused_media_files_dlg.py:61
 #: ..\mnemosyne\pyqt_ui\ui_delete_unused_media_files_dlg.py:61
 msgid "Delete media"
-msgstr "Elimina media"
+msgstr "Избриши медиј"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_delete_unused_media_files_dlg.py:62
 #: ..\mnemosyne\pyqt_ui\ui_delete_unused_media_files_dlg.py:62
 msgid "Delete these unused media files?"
-msgstr "Cancellare questi media file inutilizzati?"
+msgstr "Брисање неискориштене медијске датотеке?"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_edit_card_dlg.py:89
 #: ..\mnemosyne\pyqt_ui\ui_edit_card_dlg.py:89
 msgid "Edit card"
-msgstr "Modifica carta"
+msgstr "Уреди картицу"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_dlg.py:91
 #: ..\mnemosyne\pyqt_ui\ui_export_dlg.py:91
 msgid "Export to file"
-msgstr "Esporta su file"
+msgstr "Извоз у датотеку"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_dlg.py:92
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_import_dlg.py:99
 #: ..\mnemosyne\pyqt_ui\ui_export_dlg.py:92
 #: ..\mnemosyne\pyqt_ui\ui_import_dlg.py:99
 msgid "File format:"
-msgstr "Formato file:"
+msgstr "Врста датотеке:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_dlg.py:93
 #: ..\mnemosyne\pyqt_ui\ui_export_dlg.py:93
 msgid "File to export to:"
-msgstr "File da esportare su:"
+msgstr "Датотека за извоз у:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_dlg.py:94
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_import_dlg.py:101
 #: ..\mnemosyne\pyqt_ui\ui_export_dlg.py:94
 #: ..\mnemosyne\pyqt_ui\ui_import_dlg.py:101
 msgid "&Browse"
-msgstr "&Sfoglia"
+msgstr "&Прегледај"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_dlg.py:95
 #: ..\mnemosyne\pyqt_ui\ui_export_dlg.py:95
 msgid "(Only active cards will be exported, without learning data.)"
-msgstr ""
-"(Solo le carte attive saranno esportate, senza i dati di apprendimento)."
+msgstr "(Само активне картице ће се извозити, без учења података.)"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_dlg.py:97
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_import_dlg.py:104
@@ -3598,42 +3537,42 @@ msgstr "Alt+O"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:104
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:104
 msgid "Export cards"
-msgstr "Esporta carte"
+msgstr "Извоз картице"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:106
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:106
 msgid "Author name:"
-msgstr "Nome dell'autore:"
+msgstr "Име аутора:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:107
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:107
 msgid "Author email:"
-msgstr "Indirizzo di posta elettronica dell'autore:"
+msgstr "Е-адреса аутора:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:108
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:108
 msgid "Date:"
-msgstr "Data:"
+msgstr "Датум:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:109
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:109
 msgid "Revision:"
-msgstr "Revisione:"
+msgstr "Ревизија:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:111
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:111
 msgid "Notes:"
-msgstr "Note:"
+msgstr "Белешке:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:100
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:100
 msgid "Wizard"
-msgstr "Procedura guidata"
+msgstr "Чаробњак"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:101
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:101
 msgid "Introduction"
-msgstr "Introduzione"
+msgstr "Увод"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:102
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:102
@@ -3649,22 +3588,21 @@ msgid ""
 "\n"
 "Let's look at the meaning of these ratings now."
 msgstr ""
-"Benvenuti in Mnemosyne, un programma di flash card chiamato così in onore "
-"tanto di una divinità greca che di una specie di farfalla.\n"
+"Добро дошли у Mnemosyne,програма са  флеш картицама  и назван по грчкој "
+"богињи меморије и врсти лептира.\n"
 "\n"
-"Mnemosyne rende più efficiente lo studio, focalizzandoti sulle carte che "
-"tendi a dimenticare invece di perdere il tuo tempo su cose che già conosci "
-"bene.\n"
+"Mnemosyne чини ефикаснијим учење, побољшава брзину и квалитет учења путем "
+"честог понављања  и да не губите време на ствари које добро познајете.\n"
 "\n"
-"Per fare questo Mnemosyne decide quando mostrarti le carte e tu dovrai "
-"classificare quanto sei in grado di ricordarle.\n"
+"За то, Mnemosyneодлучује када да вам покаже картице, а ви ћете морати да  "
+"процените колико добро их се сећате.\n"
 "\n"
-"Ora osserviamo il significato di questa classificazione."
+"Погледајмо смисао ових оцене сада."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:103
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:103
 msgid "Memorising new cards"
-msgstr "Memorizzazione delle nuove carte"
+msgstr "Memorising нова картица"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:104
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:104
@@ -3684,26 +3622,25 @@ msgid ""
 "able to remember it with some effort, without having forgotten it "
 "completely. This is most efficient for the learning process.\n"
 msgstr ""
-"Classificazione da 0 a 5.\n"
+"Оцене су у распону од 0 до 5.\n"
 "\n"
-"Quando stai apprendendo nuove carte, usa i gradi 0 e 1 per segnalare che non "
-"le hai ancora memorizzate. Le carte di grado 1 stanno diventando più "
-"famigliari di quelle di grado 0 e saranno ripetute più raramente.\n"
+"Када учите нове картице, употреба оцена од 0 и 1 је сигнал да их још  нисте "
+"запамтили. Оценом 1 за картице постајете све више упознати од картица са "
+"оценом 0, и то ће бити мало вероватно да ће се поновити.\n"
 "\n"
-"Queste carte saranno mostrate ripetutamente finchè gli assegnerai un grado 2 "
-"o superiore. Questo significa che tu hai memorizzato la carta  e che sarai "
-"in grado di ricordarla per uno o due giorni. Il contatore 'Non memorizzate' "
-"si decrementerà di uno.\n"
+"Ове картице ће бити приказане више пута док не добијете оцену 2 или више. То "
+"значи да сте упамтили картицу и да ћете бити у могућности да је запамтите за "
+"један или два дана. Истовремено 'Није запамтио' ће  смањити бројач за "
+"један.\n"
 "\n"
-"Questa carta sarà programmata in una qualche data futura, quando tu "
-"probabilmente sarai in grado di ricordartela con un certo sforzo, senza "
-"averla completamente dimenticata. Questo è il sistema più efficiente per il "
-"processo di apprendimento.\n"
+"Ова картица ће бити планирана у неком будућем времену, Вероватно кад  још "
+"увек будете у могућности да је се сећате са мало напора, јер неће бити "
+"потпуно заборављена. Ово је најефикасније за напредак у учењу .\n"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:105
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:105
 msgid "Reviewing previously memorised cards"
-msgstr "Ripasso delle carte memorizzate in precedenza"
+msgstr "Разматрање претходно меморисане картице"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:106
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:106
@@ -3726,31 +3663,29 @@ msgid ""
 "have finished reviewing all the scheduled cards, it will appear repeatedly "
 "until you think you'll be able to remember it again for a few days."
 msgstr ""
-"Se studi nuovamente queste carte domani, il contatore 'Programmate' ti "
-"mostrerà quante carte già memorizzate hai bisogno di ripassare. Si tratta di "
-"carte con grado da 2 a 5.\n"
+"Ако проучите ове картице поново сутра,  'Планирани' бројач ће вам рећи "
+"колико је раније меморисаних картица потребно  да прегледате. Ово картица "
+"има оцену од 2 до 5.\n"
 "\n"
-"Se una carta ricompare troppo spesso e tu sei in grado di ricordarla senza "
-"nessuno sforzo, assegnagli un grado 5. L'intervallo che trascorrerà prima di "
-"rivedere nuovamente questa carta sarà molto più lungo.\n"
+"Ако се картица прерано понавља, и ви сте у стању да се сетим без икаквог "
+"напора, оцена картице је 5. Период да поново види ову картицу ће бити много "
+"дужи\n"
 "\n"
-"Se l'intervallo è giusto, cioè la ricordi sebbene con un piccolo sforzo, "
-"assegna il grado 4.\n"
+"Ако  се сетите , чак и са мало напора, она треба да се процени на 4.\n"
 "\n"
-"Se, al contrario, ti è necessario uno sforzo significativo per ricordare la "
-"risposta e pensi che l'intervallo fosse troppo lungo, assegna il grado 3 o "
-"addirittura 2.\n"
+"Међутим, ако вам је потребно доста напора да се сетите одговора, а мислите "
+"да је предуг период , онда је оцена картице 3 или чак 2.\n"
 "\n"
-"Se non ricordi per nulla la carta, assegna i gradi 0 o 1 e, dopo che avrai "
-"ripassato tutte le carte programmate, ti verranno ripetutamente riproposte "
-"finché sarai in grado di ricordarle nuovamente per qualche giorno."
+"Ако не успете да га запамтите, оцена је 0 или 1, и након што сте завршили "
+"прегледавање свих планираних картица, то ће се више пута појавити док не "
+"мислите да ћете моћи да се сетите поново за неколико дана."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:107
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_statistics_dlg.py:56
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:107
 #: ..\mnemosyne\pyqt_ui\ui_statistics_dlg.py:56
 msgid "Statistics"
-msgstr "Statistiche"
+msgstr "Статистика"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:108
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:108
@@ -3764,28 +3699,24 @@ msgid ""
 "\n"
 "Uncheck the following box if you do not want to do this."
 msgstr ""
-"Se sei interessato alle statistiche, Mnemosyne mantiene una storia "
-"dettagliata dei tuoi ripassi.\n"
+"У статистици, Mnemosyne води детаљне евиденције својих ревизија.\n"
 "\n"
-"Ed oltre a ciò, ma solo se lo vuoi, Mnemosyne può inviare in maniera "
-"trasparente e completamente anonima una versione di questa storia a un sito "
-"centrale per essere analizzata, in modo da aiutare a migliorare l'algoritmo "
-"di programmazione. In questo modo anche tu contribuirai alla ricerca "
-"scientifica sulla memoria a lungo termine.\n"
+"Не само то , али ако желите, Mnemosyne може да отпреми транспарентно и "
+"потпуно анонимно верзију ових докумената на централни сајт за анализу,  тако "
+"да може да помогне бољој изради алгоритма планирања. На овај начин , можете "
+"допринети научним истраживањима за дугорочно памћење.\n"
 "\n"
-"Togli la spunta alla casella qui sotto se non vuoi farlo."
+"Одзначи избор ако не желите да то урадите ."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:109
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:109
 msgid "Upload anonymous logs (can be changed later)"
-msgstr ""
-"Invia in formato anonimo la storia dei ripassi (la scelta può essere "
-"cambiata in seguito)"
+msgstr "Отпреми анонимне записе (може се касније мењати)"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:110
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:110
 msgid "Ready to start"
-msgstr "Pronti ad iniziare"
+msgstr "Спремни за почетак"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:111
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:111
@@ -3804,71 +3735,71 @@ msgid ""
 "\n"
 "Happy learning!"
 msgstr ""
-"Ora sei pronto a cominciare!\n"
+"Сада сте спремни да почнете!\n"
 "\n"
-"Aggiungi nuove carte facendo click sull'icona con il segno 'più' in alto a "
-"sinistra.\n"
+"Додајте нове картице тако што ћете кликнути на икону са знаком 'плус' у "
+"горњем левом углу.\n"
 "\n"
-"Ricorda, non hai bisogno di preoccuparti di salvare il tuo lavoro, sarà "
-"fatto automaticamente.\n"
+"Запамтите , нема потребе да бринете да сачувате свој рад , то ће аутоматски "
+"бити учињено .\n"
 "\n"
-"Per ottenere i migliori risultati, ti suggeriamo di fare il tuo ripasso ogni "
-"giorno, naturalmente Mnemosyne cercherà di riparare se hai mancato qualche "
-"giorno.\n"
+"За најбоље резултате ,  предложено је да урадите своје ревизије сваки дан , "
+"иако Mnemosyne ће покушати да се избори уколико сте пропустили неколико "
+"дана.\n"
 "\n"
-"Per una maggiore documentazione, vai a http://www.mnemosyne-proj.org.\n"
+"За додатну документацију , погледај http://www.mnemosyne-proj.org.\n"
 "\n"
-"Buono studio!"
+"Срећно учење!"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_import_dlg.py:98
 #: ..\mnemosyne\pyqt_ui\ui_import_dlg.py:98
 msgid "Import from file"
-msgstr "Importa da file"
+msgstr "Увези из датотеке"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_import_dlg.py:100
 #: ..\mnemosyne\pyqt_ui\ui_import_dlg.py:100
 msgid "File to import from:"
-msgstr "File da cui importare:"
+msgstr "Датотека за увоз из:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_import_dlg.py:102
 #: ..\mnemosyne\pyqt_ui\ui_import_dlg.py:102
 msgid "Add additional tag(s) to cards:"
-msgstr "Aggiungi etichetta(e) addizionale(i) alle carte:"
+msgstr "Додајте још ознака  у  картице:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:203
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:203
 msgid "&Settings"
-msgstr "&Impostazioni"
+msgstr "&Подешавање"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:204
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:204
 msgid "&Help"
-msgstr "&Aiuto"
+msgstr "&Помоћ"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:205
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:205
 msgid "&File"
-msgstr "&File"
+msgstr "&Датотека"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:206
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:206
 msgid "&Cards"
-msgstr "&Carte"
+msgstr "&Картице"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:207
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:207
 msgid "toolBar"
-msgstr "barra degli strumenti"
+msgstr "Алатна трака"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:208
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:208
 msgid "(De)a&ctivate cards..."
-msgstr "Carte (dis)attivate..."
+msgstr "(Де)а&ктивирај картице..."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:210
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:210
 msgid "&Add cards..."
-msgstr "&Aggiungi carte..."
+msgstr "&Додај картице..."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:211
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:211
@@ -3878,22 +3809,22 @@ msgstr "Ctrl+A"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:212
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:212
 msgid "&Configure Mnemosyne..."
-msgstr "&Configura Mnemosyne..."
+msgstr "&Подеси Mnemosyne..."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:213
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:213
 msgid "&Delete current card"
-msgstr "&Elimina carta corrente"
+msgstr "&Избриши тренутну картицу"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:214
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:214
 msgid "Del"
-msgstr "Elimina"
+msgstr "Избриши"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:215
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:215
 msgid "&Edit current card..."
-msgstr "&Modifica carta corrente..."
+msgstr "&Уреди тренутну картицу..."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:216
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:216
@@ -3903,7 +3834,7 @@ msgstr "Ctrl+E"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:217
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:217
 msgid "&Browse cards..."
-msgstr "&Sfoglia carte..."
+msgstr "&Прегледај картице..."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:218
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:218
@@ -3913,7 +3844,7 @@ msgstr "Ctrl+B"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:219
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:219
 msgid "&Export..."
-msgstr "&Esporta..."
+msgstr "&Извези..."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:220
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:72
@@ -3922,12 +3853,12 @@ msgstr "&Esporta..."
 #: ..\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:72
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:85
 msgid "E&xit"
-msgstr "&Esci"
+msgstr "И&злаз"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:221
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:221
 msgid "&New..."
-msgstr "&Nuovo..."
+msgstr "&Нова..."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:222
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:222
@@ -3937,7 +3868,7 @@ msgstr "Ctrl+N"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:223
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:223
 msgid "&Open..."
-msgstr "&Apri..."
+msgstr "&Отвори..."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:224
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:224
@@ -3947,32 +3878,32 @@ msgstr "Ctrl+O"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:225
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:225
 msgid "&Save"
-msgstr "&Salva"
+msgstr "&Сачувај"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:227
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:227
 msgid "Save &as..."
-msgstr "Salva con &nome..."
+msgstr "Сачувај &као..."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:228
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:228
 msgid "&About"
-msgstr "&Informazioni"
+msgstr "&О програму"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:229
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:229
 msgid "&Import..."
-msgstr "&Importa..."
+msgstr "&Увези..."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:230
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:230
 msgid "&Getting started"
-msgstr "&Primi passi"
+msgstr "&Почетак"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:231
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:231
 msgid "Show s&tatistics..."
-msgstr "Mostra s&tatistiche..."
+msgstr "Прикажи с&татистику..."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:232
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:232
@@ -3982,29 +3913,29 @@ msgstr "Ctrl+T"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:233
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:233
 msgid "&Tip of the day"
-msgstr "&Consiglio del giorno"
+msgstr "&Савет дана"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:234
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:234
 msgid "Manage &plugins..."
-msgstr "Gestisci &estensioni..."
+msgstr "Управљање &додацима..."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:235
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:79
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:235
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:79
 msgid "Manage plugins"
-msgstr "Gestisci estensioni"
+msgstr "Управљање додацима"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:236
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:236
 msgid "&Manage card types..."
-msgstr "&Gestisci tipi di carta..."
+msgstr "&Управљање врстама картица..."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:237
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:237
 msgid "S&ync..."
-msgstr "S&incronizza"
+msgstr "У&склади..."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:238
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:238
@@ -4014,59 +3945,59 @@ msgstr "Ctrl+Y"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:239
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:239
 msgid "Compact..."
-msgstr "Compatta..."
+msgstr "Збијен..."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:241
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:241
 msgid "Find duplicate questions"
-msgstr "Trova domande duplicate"
+msgstr ""
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:67
 #: ..\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:67
 msgid "Card type manager"
-msgstr "Gestore del tipo di carta"
+msgstr "Управвљач врстом картице"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:68
 #: ..\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:68
 msgid "Cloned card types:"
-msgstr "Tipi di carta clonati:"
+msgstr "Дуплирани типови картица:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:69
 #: ..\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:69
 msgid "&New clone"
-msgstr "&Nuovo clone"
+msgstr "&Нова дуплирана"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:80
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:80
 msgid "Installed plugins (active and inactive):"
-msgstr "Estensioni installate (attive o disattivate):"
+msgstr "Инсталирани додаци  (активна и неактивна):"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:81
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:81
 msgid "Plugin description:"
-msgstr "Descrizione dell'estensione:"
+msgstr "Опис додатка:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:83
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:83
 msgid "&Install new plugin"
-msgstr "&Installa nuova estensione"
+msgstr "&Инсталирајте нови додатак"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:84
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:84
 msgid "&Delete plugin"
-msgstr "&Cancella estensione"
+msgstr "&Избриши додатак"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:105
 #: ..\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:105
 msgid "Preview cards"
-msgstr "Visualizza in anteprima le carte"
+msgstr "Преглед картице"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:106
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:116
 #: ..\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:106
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:116
 msgid "Question:"
-msgstr "Domanda:"
+msgstr "Питање:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:107
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:117
@@ -4076,52 +4007,52 @@ msgstr "Domanda:"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\web_server\review_wdgt.py:31
 #: ..\mnemosyne\web_server\review_wdgt.py:31
 msgid "Answer:"
-msgstr "Risposta:"
+msgstr "Одговор:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:108
 #: ..\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:108
 msgid "&Previous sister card"
-msgstr "Carta sorella &precedente"
+msgstr "&Претходна равноправна картица"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:109
 #: ..\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:109
 msgid "&Next sister card"
-msgstr "Carta sorella &Successiva"
+msgstr "&Следећа равноправна картица"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_remove_tags_dlg.py:63
 #: ..\mnemosyne\pyqt_ui\ui_remove_tags_dlg.py:63
 msgid "Remove tags"
-msgstr "Rimuovi le etichette"
+msgstr "Уклони ознаке"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_remove_tags_dlg.py:64
 #: ..\mnemosyne\pyqt_ui\ui_remove_tags_dlg.py:64
 msgid "Tags to remove:"
-msgstr "Etichette da rimuovere:"
+msgstr "Ознаке за уклањање:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_rename_card_type_dlg.py:61
 #: ..\mnemosyne\pyqt_ui\ui_rename_card_type_dlg.py:61
 msgid "Rename card type"
-msgstr "Rinomina il tipo di carta"
+msgstr "Преименуј врсту картице"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_rename_card_type_dlg.py:62
 #: ..\mnemosyne\pyqt_ui\ui_rename_card_type_dlg.py:62
 msgid "Enter new card type name:"
-msgstr "Inserire il nome del nuovo tipo carta:"
+msgstr "Унесите ново име врсте картице:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_rename_tag_dlg.py:61
 #: ..\mnemosyne\pyqt_ui\ui_rename_tag_dlg.py:61
 msgid "Rename tag"
-msgstr "Rinomina l'etichetta"
+msgstr "Преименуј ознаку"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_rename_tag_dlg.py:62
 #: ..\mnemosyne\pyqt_ui\ui_rename_tag_dlg.py:62
 msgid "Enter new tag name:"
-msgstr "Inserire il nome della nuova etichetta:"
+msgstr "Унесите нови назив ознаке:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:118
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:118
 msgid "Show &answer"
-msgstr "Mostra la &risposta"
+msgstr "Прикажи &одговор"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:120
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:121
@@ -4168,32 +4099,32 @@ msgstr "5"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:96
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:96
 msgid "Sync with server"
-msgstr "Sincronizza con il server"
+msgstr "Усклади са послужитељем"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:97
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:97
 msgid "Server:"
-msgstr "Server:"
+msgstr "Послужитељ:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:101
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:101
 msgid "Check for changed media files on client"
-msgstr "Verifica se ci sono cambiamenti nei media file sul client"
+msgstr "Проверите измењене медијске датотеке за корисника"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:107
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:107
 msgid "Tip of the day"
-msgstr "Suggerimento del giorno"
+msgstr "Савет дана"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:108
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:108
 msgid "<b>Did you know...?</b>"
-msgstr "<b>Lo sapevi...?</b>"
+msgstr "<b>Да ли сте знали...?</b>"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:109
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:109
 msgid "&Show tips on startup"
-msgstr "&Mostra i consigli all'avvio"
+msgstr "Прикажи савете при покретању"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:110
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:110
@@ -4203,7 +4134,7 @@ msgstr "Alt+S"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:111
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:111
 msgid "&Previous"
-msgstr "&Precedente"
+msgstr "&Претходно"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:112
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:112
@@ -4213,7 +4144,7 @@ msgstr "Alt+P"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:113
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:113
 msgid "&Next"
-msgstr "&Successivo"
+msgstr "&Следеће"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:114
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:114
@@ -4223,19 +4154,19 @@ msgstr "Alt+N"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:115
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:115
 msgid "&Close"
-msgstr "&Chiudi"
+msgstr "&Затвори"
 
 #: ..\mnemosyne\example_plugins\avg_grade_statistics.py:61
 msgid "Average grades of scheduled cards"
-msgstr "Grado medio delle carte programmate"
+msgstr "Просечне оцене заказаних картица"
 
 #: ..\mnemosyne\example_plugins\new_card_type.py:13
 msgid "Vocabulary (decorated)"
-msgstr "Vocabolario (decorato)"
+msgstr "Речник (украшен)"
 
 #: ..\tests\benchmark_pyqt.py:30
 msgid "data directory"
-msgstr "cartella dati"
+msgstr "подаци о директоријуму"
 
 #: ..\tests\test_translator.py:25
 msgid "foo"
@@ -4243,4 +4174,4 @@ msgstr "foo"
 
 #: ..\tests\test_translator.py:32
 msgid "This is a test."
-msgstr "Questo è un test"
+msgstr "Ово је провера."

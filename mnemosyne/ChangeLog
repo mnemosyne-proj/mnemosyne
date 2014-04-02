@@ -1,3 +1,5 @@
+Mnemosyne 2.3 : 2014-04-04
+
 (Note that for Windows users we recommend uninstalling the previous version
 before installing the new one.)
 
@@ -18,6 +20,7 @@ the client and the server at the same time.
 -Also sync relevant settings (e.g. fonts, colours, ...) during the initial
  sync.
 -Improve the timeout handling of the sync protocol.
+-New Ukranian, Swedish, Serbian, Catalan translation.
 -Fix erroneous 'Wrong username or password' error.
 -Rework error handling when trying to load a database which no longer exists
  in its previous location.

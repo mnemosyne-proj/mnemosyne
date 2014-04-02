@@ -12,6 +12,7 @@ LANGS = ../mo/cs/LC_MESSAGES/mnemosyne.mo \
 	../mo/it/LC_MESSAGES/mnemosyne.mo \
 	../mo/ja/LC_MESSAGES/mnemosyne.mo \
 	../mo/nb/LC_MESSAGES/mnemosyne.mo \
+	../mo/nb_no/LC_MESSAGES/mnemosyne.mo \
 	../mo/nl/LC_MESSAGES/mnemosyne.mo \
 	../mo/pl/LC_MESSAGES/mnemosyne.mo \
 	../mo/pt_BR/LC_MESSAGES/mnemosyne.mo \
@@ -21,7 +22,15 @@ LANGS = ../mo/cs/LC_MESSAGES/mnemosyne.mo \
 	../mo/zh_CN/LC_MESSAGES/mnemosyne.mo \
 	../mo/zh_HK/LC_MESSAGES/mnemosyne.mo \
 	../mo/zh_TW/LC_MESSAGES/mnemosyne.mo \
-	../mo/gl/LC_MESSAGES/mnemosyne.mo
+	../mo/zh_SG/LC_MESSAGES/mnemosyne.mo \
+	../mo/gl/LC_MESSAGES/mnemosyne.mo \
+	../mo/ca/LC_MESSAGES/mnemosyne.mo \
+	../mo/ca@valencia/LC_MESSAGES/mnemosyne.mo \
+	../mo/uk/LC_MESSAGES/mnemosyne.mo \
+	../mo/sv/LC_MESSAGES/mnemosyne.mo \
+	../mo/sr/LC_MESSAGES/mnemosyne.mo
+
+# don't copy am and vi (unless updated), en_GB
 
 default: $(LANGS)
 
