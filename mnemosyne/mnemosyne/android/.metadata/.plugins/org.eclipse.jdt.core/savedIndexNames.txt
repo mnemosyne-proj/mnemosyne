@@ -1,0 +1,4 @@
+INDEX VERSION 1.126+D:\Work\starcore\examples.local\android\java_call_python_android\.metadata\.plugins\org.eclipse.jdt.core
+3614510572.index
+2307238897.index
+2776312550.index
