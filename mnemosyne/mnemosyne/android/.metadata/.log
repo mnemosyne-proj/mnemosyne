@@ -1,0 +1,10 @@
+!SESSION 2014-02-20 10:35:46.343 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_40
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.jee.product
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-02-20 10:37:34.906
+!MESSAGE Failed to load properties file for project 'java_call_python'

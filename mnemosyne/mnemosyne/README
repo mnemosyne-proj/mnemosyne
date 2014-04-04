@@ -16,3 +16,7 @@ Some information about the contents of the directories:
 -embedded_in_C: embeds libmnemosyne in a C application. Useful if you don't
  have the option of running separate processes on your client machine.
 -sl4a: python Android app using a locally running webserver.
+-cle: python code for interfacing with a frontend written in different language
+ using the CLE library (e.g. interfacing with Java for the native Android 
+ client).
+-android: Java UI frontend
