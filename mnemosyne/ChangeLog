@@ -1,4 +1,4 @@
-Mnemosyne 2.3 : 2014-04-04
+Mnemosyne 2.3 : 2014-04-15
 
 (Note that for Windows users we recommend uninstalling the previous version
 before installing the new one.)
@@ -59,6 +59,8 @@ the client and the server at the same time.
 -Fix sync error that could occur when adding and immediately deleting multiple 
  sister cards from the card browser.
 -Fix latex / cloze interaction corner case (reported by Daniele Parisi).
+-Fix corner case of overzealous introduction of media dir in expansion 
+(reported by Toni Alsford).
 -Make sure latex images are always in sync when updating text.
 -If adding an extra tag when importing a 'cards' file, don't keep the tag
  'Untagged' (patch by crcmail0). If you were affected by this issue before,

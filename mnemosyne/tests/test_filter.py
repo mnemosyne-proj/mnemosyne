@@ -9,6 +9,7 @@ from mnemosyne.libmnemosyne.filter import Filter
 from mnemosyne.libmnemosyne.filters.html5_video import Html5Video
 from mnemosyne.libmnemosyne.filters.html5_audio import Html5Audio
 from mnemosyne.libmnemosyne.filters.RTL_handler import RTLHandler
+from mnemosyne.libmnemosyne.filters.expand_paths import ExpandPaths
 from mnemosyne.libmnemosyne.filters.escape_to_html import EscapeToHtml
 
 class TestFilter(MnemosyneTest):
@@ -54,7 +55,20 @@ class TestFilter(MnemosyneTest):
 
          assert f.run("a\nb", None, None) == "a<br>b"
          assert f.run("<latex>a\nb<\latex>", None, None) == "<latex>a\nb<\latex>"
+         
+    def test_expand_paths(self):
 
+        f = ExpandPaths(self.mnemosyne.component_manager)
+         
+        assert "media" not in \
+               f.run("""data=trainingData, method=\"rpart\"""", None, None)
+        assert "media" in \
+               f.run("""data=\"rpart\"""", None, None)
+        assert "media" in \
+               f.run("""data= \"rpart\"""", None, None)        
+        assert "media" not in \
+               f.run("""Application data = \"rpart\"""", None, None) 
+        
     def test_RTL_handler(self):
 
         f = RTLHandler(self.mnemosyne.component_manager)

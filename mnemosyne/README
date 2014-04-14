@@ -36,6 +36,8 @@ Supported Versions of Mac OS X
 
 -Mac OS 10.6.x (Snow Leopard)
 -Mac OS 10.7.x (Lion)
+-Mac OS 10.8.x (Mountain Lion)
+-Mac OS 10.9.x (Mavericks)
 
 Installing from Source using MacPorts
 
@@ -46,7 +48,7 @@ MacPorts can be used to install the dependencies for Mnemosye.
 -Make sure you are using the latest version of MacPorts:
 -sudo port selfupdate
 -Install the dependencies for Mnemosyne:
--sudo port install bzr python27 qt4-mac py27-pyqt4 py27-sip py27-matplotlib py27-virtualenv py27-distribute py-cherrypy3 python_select py-virtualenvwrapper
+-sudo port install bzr python27 py27-sip py27-matplotlib py27-virtualenv py27-setuptools py-cherrypy3 py27-webob python_select py-virtualenvwrapper qt4-mac py27-pyqt4 qt4-mac-sqlite3-plugin
 -If this is your first time setting up MacPorts, you will need to set the version of python:
  sudo port select python python27
 -Type 'python setup.py install' as root.
