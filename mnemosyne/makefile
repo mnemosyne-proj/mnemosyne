@@ -141,19 +141,18 @@ osx: 	# Contributed by Patrick Kenny.
 	sudo cp -R /opt/local/share/qt4/plugins/imageformats/libqjpeg.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqjpeg.dylib
 	sudo install_name_tool -change /opt/local/lib/libQtGui.4.dylib @executable_path/../Frameworks/libQtGui.4.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqjpeg.dylib
 	sudo install_name_tool -change /opt/local/lib/libQtCore.4.dylib @executable_path/../Frameworks/libQtCore.4.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqjpeg.dylib
-	sudo cp /opt/local/lib/libjpeg.8.dylib dist/Mnemosyne.app/Contents/Frameworks/libjpeg.8.dylib
-	sudo install_name_tool -change /opt/local/lib/libjpeg.8.dylib @executable_path/../Frameworks/libjpeg.8.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqjpeg.dylib
-	sudo install_name_tool -change /opt/local/lib/libjpeg.8.dylib @executable_path/../Frameworks/libjpeg.8.dylib dist/Mnemosyne.app/Contents/Frameworks/libjpeg.8.dylib
+	sudo cp /opt/local/lib/libjpeg.dylib dist/Mnemosyne.app/Contents/Frameworks/libjpeg.dylib
+	sudo install_name_tool -change /opt/local/lib/libjpeg.dylib @executable_path/../Frameworks/libjpeg.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqjpeg.dylib
+	sudo install_name_tool -change /opt/local/lib/libjpeg.dylib @executable_path/../Frameworks/libjpeg.dylib dist/Mnemosyne.app/Contents/Frameworks/libjpeg.dylib
 	# add TIFF support
 	sudo cp -R /opt/local/share/qt4/plugins/imageformats/libqtiff.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqtiff.dylib
 	sudo install_name_tool -change /opt/local/lib/libQtGui.4.dylib @executable_path/../Frameworks/libQtGui.4.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqtiff.dylib
 	sudo install_name_tool -change /opt/local/lib/libQtCore.4.dylib @executable_path/../Frameworks/libQtCore.4.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqtiff.dylib
-	sudo cp /opt/local/lib/libtiff.3.dylib dist/Mnemosyne.app/Contents/Frameworks/libtiff.3.dylib
-	sudo install_name_tool -change /opt/local/lib/libtiff.3.dylib @executable_path/../Frameworks/libtiff.3.dylib dist/Mnemosyne.app/Contents/Frameworks/libtiff.3.dylib
+	sudo cp /opt/local/lib/libtiff.dylib dist/Mnemosyne.app/Contents/Frameworks/libtiff.dylib
+	sudo install_name_tool -change /opt/local/lib/libtiff.dylib @executable_path/../Frameworks/libtiff.dylib dist/Mnemosyne.app/Contents/Frameworks/libtiff.dylib
 	sudo cp /opt/local/lib/libz.1.dylib dist/Mnemosyne.app/Contents/Frameworks/libz.1.dylib
-	sudo install_name_tool -change /opt/local/lib/libz.1.dylib @executable_path/../Frameworks/libz.1.dylib dist/Mnemosyne.app/Contents/Frameworks/libtiff.3.dylib
-	sudo install_name_tool -change /opt/local/lib/libjpeg.8.dylib @executable_path/../Frameworks/libjpeg.8.dylib dist/Mnemosyne.app/Contents/Frameworks/libtiff.3.dylib
-
+	sudo install_name_tool -change /opt/local/lib/libz.1.dylib @executable_path/../Frameworks/libz.1.dylib dist/Mnemosyne.app/Contents/Frameworks/libtiff.dylib
+	sudo install_name_tool -change /opt/local/lib/libjpeg.dylib @executable_path/../Frameworks/libjpeg.dylib dist/Mnemosyne.app/Contents/Frameworks/libtiff.dylib
 
 wm: install-virtual-env
 	cp mnemosyne/ppygui_ui/ppygui_ui/*.py mnemosyne/ppygui_ui/

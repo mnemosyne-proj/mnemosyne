@@ -25,6 +25,8 @@ class ExpandPaths(Filter):
             end = text.find("\"", start + 1)
             if start == -1 or end == -1:
                 break
+            if len(text[i:start].replace(" ", "")) > len(tag) + 1:
+                break
             old_path = text[start+1:end]
             if not old_path.startswith("http:"):
                 new_path = expand_path(old_path, self.database().media_dir())
