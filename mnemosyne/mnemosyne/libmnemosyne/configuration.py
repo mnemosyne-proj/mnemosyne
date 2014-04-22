@@ -80,6 +80,7 @@ class Configuration(Component, dict):
         self.fill_dirs()
         self.load()
         self.load_user_config()
+        self.set_defaults()
 
     def set_defaults(self):
 
@@ -192,7 +193,6 @@ class Configuration(Component, dict):
             for key, value in cPickle.load(config_file).iteritems():
                 self[key] = value
             config_file.close()
-            self.set_defaults()
         except:
             from mnemosyne.libmnemosyne.utils import traceback_string
             raise RuntimeError, _("Error in config:") \
