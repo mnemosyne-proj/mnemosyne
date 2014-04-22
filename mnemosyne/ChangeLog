@@ -29,7 +29,8 @@ the client and the server at the same time.
 -Added command line options --sync-server and --web-server which starts the 
  sync and the web server in headless mode (i.e. without a GUI) (useful to run 
  e.g. on a NAS server).
--Fix more errors coming from loading config files.
+-Fix more errors coming from loading config files (thanks to Alex Fevery for
+ reporting this).
 -Added an extra popup to guide new people better through the learning process
  (feedback from Bjorn Maes).
 -Fix crash when exporting to cards format when Latex was not installed 

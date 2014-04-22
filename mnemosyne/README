@@ -30,6 +30,10 @@ To test the installation:
 -Change to any other directory e.g. by typing 'cd ~'.
 -Run the application by typing 'mnemosyne'.
 
+If you run into the issue of non-latin characters not displaying on statistic
+plots, install ttf-mscorefonts-installer and regenerate the font cache of
+matplotlib.
+
 2) MAC OS/X
 
 Supported Versions of Mac OS X
