@@ -1,4 +1,4 @@
-package com.srplabexample.javacallpython;
+package org.mnemosyne;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.srplab.www.starcore.*;
 
-public class Java_call_pythonActivity extends Activity {
+public class MnemosyneActivity extends Activity {
 
 	static TextView MyEdit1;
 	
