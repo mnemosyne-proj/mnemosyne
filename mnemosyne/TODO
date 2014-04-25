@@ -1,12 +1,11 @@
--update webserver docs, add webob to dependencies
-
--package android automatically?
-
-
-Android:
+-create zip asset automatically
+-bundle python libs, set python path to include mnemosyne package
+-progress bar on extracting python zip file for the first time?
 
 -also bundle newer abi libraries?
 -document where template came from
+
+
 
 
 -paste strange characters can crash export to cards format

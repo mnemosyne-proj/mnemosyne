@@ -10,5 +10,5 @@ public class ReviewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-	
+    }
 }
