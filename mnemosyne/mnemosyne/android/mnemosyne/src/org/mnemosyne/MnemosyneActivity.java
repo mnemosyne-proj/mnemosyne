@@ -19,20 +19,26 @@ public class MnemosyneActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        MyEdit1 = (TextView)this.findViewById(R.id.widget61);
+        MyEdit1 = (TextView) this.findViewById(R.id.widget61);
         
         try {
         	AssetManager assetManager = getAssets();
-        	InputStream dataSource = assetManager.open("testpy.zip");
-        	StarCoreFactoryPath.CreatePath(Runtime.getRuntime(),"/data/data/"+getPackageName()+"/files");
-        	StarCoreFactoryPath.Install(dataSource, "/data/data/"+getPackageName()+"/files",true );
+        	//InputStream dataSource = assetManager.open("testpy.zip");
+        	InputStream dataSource = assetManager.open("mnemosyne.zip");
+        	StarCoreFactoryPath.CreatePath(Runtime.getRuntime(), 
+        			"/data/data/" + getPackageName() + "/files");
+        	StarCoreFactoryPath.Install(dataSource, 
+        			"/data/data/" + getPackageName() + "/files", true);
         }
         catch (IOException e) {
         }        	        	
         
-        StarCoreFactoryPath.StarCoreCoreLibraryPath = "/data/data/"+ getPackageName()+"/lib";
-        StarCoreFactoryPath.StarCoreShareLibraryPath = "/data/data/"+getPackageName()+"/lib";
-        StarCoreFactoryPath.StarCoreOperationPath = "/data/data/"+getPackageName()+"/files";
+        //AssetManager assetManager = getAssets();
+        //printStr(assetManager.list("."));
+        
+        StarCoreFactoryPath.StarCoreCoreLibraryPath = "/data/data/" + getPackageName() + "/lib";
+        StarCoreFactoryPath.StarCoreShareLibraryPath = "/data/data/" + getPackageName() + "/lib";
+        StarCoreFactoryPath.StarCoreOperationPath = "/data/data/" + getPackageName() + "/files";
         StarCoreFactory starcore = StarCoreFactory.GetFactory();
         
         StarSrvGroupClass SrvGroup = starcore._GetSrvGroup(0); 
@@ -43,7 +49,10 @@ public class MnemosyneActivity extends Activity {
           SrvGroup = (StarSrvGroupClass) Service._Get("_ServiceGroup");
 
           SrvGroup._InitRaw("python", Service);
-          SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/testpy.py", false);
+          SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/mnemosyne/version.py", false);
+          SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/mnemosyne/cle/mnemosyne.py", false);
+          //SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/mnemosyne/cle/mnemosyne.py", false);
+          //SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/testpy.py", false);
           //SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/callback.py", false);
           //Service._DoFile("python", "/data/data/"+getPackageName()+"/files/callback.py", "");
         }

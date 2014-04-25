@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="ReviewActivity"></activity>
+        <activity android:name="MnemosyneActivity"></activity>
     </application>
 
 </manifest>
