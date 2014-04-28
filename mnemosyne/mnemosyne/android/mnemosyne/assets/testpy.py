@@ -1,3 +1,5 @@
+import os
+
 class Class1:
 
 	def setCallBack(self, callback1, callback2):
