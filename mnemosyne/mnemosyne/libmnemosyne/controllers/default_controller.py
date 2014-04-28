@@ -355,7 +355,7 @@ class DefaultController(Controller):
             [sister_card.tag_string() for sister_card in sister_cards])
         if len(current_tag_strings) > 1:
             tag_for_current_card_only = bool(self.main_widget().show_question(
-            _("Update tags for current card only or for all sister cards?"),
+            _("This card has different tags than its sister cards. Update tags for current card only or for all sister cards?"),
             _("Current card only"), _("All sister cards"), "") == 0)
         old_tags = set()
         tags = db.get_or_create_tags_with_names(new_tag_names)
