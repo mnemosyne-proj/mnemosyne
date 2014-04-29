@@ -178,7 +178,8 @@ public class MnemosyneActivity extends Activity {
           pythonPath._Call("insert", 0, "/data/data/" + getPackageName() + "/files");	
           
           //SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/mnemosyne/version.py", false);
-          SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/mnemosyne/cle/mnemosyne.py", false);
+          SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/openSM2sync/server.py", false);
+          //SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/mnemosyne/cle/mnemosyne.py", false);
           //SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/testpy.py", false);
           //SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/callback.py", false);
           //Service._DoFile("python", "/data/data/"+getPackageName()+"/files/callback.py", "");
