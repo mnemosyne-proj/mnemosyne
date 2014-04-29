@@ -1,5 +1,4 @@
--create zip asset automatically
--bundle python libs, set python path to include mnemosyne package
+-remove superfluous python modules
 -progress bar on extracting python zip file for the first time?
 
 -also bundle newer abi libraries?

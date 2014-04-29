@@ -160,7 +160,15 @@ wm: install-virtual-env
 
 docs:
 	cd mnemosyne/libmnemosyne/docs && make html
-
+	
+android: # Creats the assets file with the Python code.
+	rm -f mnemosyne/android/mnemosyne/assets/mnemosyne.zip
+	python -m compileall mnemosyne	
+	zip	-r mnemosyne/android/mnemosyne/assets/mnemosyne.zip openSM2sync -i \*.pyc
+	zip -r mnemosyne/android/mnemosyne/assets/mnemosyne.zip mnemosyne/libmnemosyne -i \*.pyc 
+	zip	-r mnemosyne/android/mnemosyne/assets/mnemosyne.zip mnemosyne/cle -i \*.pyc
+	zip	mnemosyne/android/mnemosyne/assets/mnemosyne.zip mnemosyne/version.pyc	
+	
 windows-installer:
 	rm -rf dist
 	rm -rf build
