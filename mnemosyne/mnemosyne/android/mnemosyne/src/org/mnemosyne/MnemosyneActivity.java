@@ -1,11 +1,14 @@
 package org.mnemosyne;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import android.app.Activity;
 import android.content.res.AssetManager;
@@ -53,6 +56,72 @@ public class MnemosyneActivity extends Activity {
 	        out.close();  
 	    }  
 	} 
+	
+	private boolean CreatePath(String Path){
+		File destCardDir = new File(Path);
+        if(!destCardDir.exists()){
+        	int Index = Path.lastIndexOf(File.separator.charAt(0));
+        	if( Index < 0 ){
+        		if( destCardDir.mkdirs() == false )
+        			return false;
+        	}else{
+        		String ParentPath = Path.substring(0, Index);
+        		if( CreatePath(ParentPath) == false )
+        			return false;
+        		if( destCardDir.mkdirs() == false )
+        			return false;        		
+        	}
+        }
+        return true;
+    }
+	
+    private boolean unzip(InputStream zipFileName, String outputDirectory,Boolean OverWriteFlag ) {
+        try {
+            ZipInputStream in = new ZipInputStream(zipFileName);
+            ZipEntry entry = in.getNextEntry();
+            byte[] buffer = new byte[1024];
+            while (entry != null) {
+                File file = new File(outputDirectory);
+                file.mkdir();
+                if (entry.isDirectory()) {
+                    String name = entry.getName();
+                    name = name.substring(0, name.length() - 1);
+                    if( CreatePath(outputDirectory + File.separator + name) == false )
+                    	return false;
+                } else {
+                	String name = outputDirectory + File.separator + entry.getName();
+                	int Index = name.lastIndexOf(File.separator.charAt(0));
+                	if( Index < 0 ){
+                		file = new File(outputDirectory + File.separator + entry.getName());
+                	}else{
+                		String ParentPath = name.substring(0, Index);
+                		if( CreatePath(ParentPath) == false )
+                			return false;             
+                		file = new File(outputDirectory + File.separator + entry.getName());
+                	}
+                    if( !file.exists() || OverWriteFlag == true){
+                    	file.createNewFile();
+                    	FileOutputStream out = new FileOutputStream(file);
+                    	int readLen = 0;  
+        	            while((readLen = in.read(buffer)) != -1){  
+        	                out.write(buffer, 0, readLen);  
+        	            }                      	
+                    	out.close();
+                    }
+                }
+                entry = in.getNextEntry();
+            }
+            in.close();
+            return true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }  
+
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -147,10 +216,10 @@ public class MnemosyneActivity extends Activity {
         	InputStream dataSource = assetManager.open("mnemosyne.zip");
         	StarCoreFactoryPath.CreatePath(Runtime.getRuntime(), 
         			"/data/data/" + getPackageName() + "/files");
-        	StarCoreFactoryPath.Install(dataSource, 
-        			"/data/data/" + getPackageName() + "/files", true);
+        	unzip(dataSource, "/data/data/" + getPackageName() + "/files", true);
         }
         catch (IOException e) {
+        	printStr(e); 
         }        	        	
         
         StarCoreFactoryPath.StarCoreCoreLibraryPath = "/data/data/" + getPackageName() + "/lib";
@@ -178,13 +247,14 @@ public class MnemosyneActivity extends Activity {
           pythonPath._Call("insert", 0, "/data/data/" + getPackageName() + "/files");	
           
           //SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/mnemosyne/version.py", false);
-          SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/openSM2sync/server.py", false);
-          //SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/mnemosyne/cle/mnemosyne.py", false);
+          //SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/openSM2sync/server.py", false);
+          SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/mnemosyne/cle/mnemosyne.py", false);
           //SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/testpy.py", false);
           //SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/callback.py", false);
           //Service._DoFile("python", "/data/data/"+getPackageName()+"/files/callback.py", "");
         }
 		
+        if (false) {
 		//--all Python function tt, the return contains two integer, which will be packed into parapkg
 		StarParaPkgClass ParaPkg = (StarParaPkgClass) python._Call("tt","hello ","world");
 		printStr("ret from python :  "+ParaPkg._Get(0)+"   "+ParaPkg._Get(1));
@@ -204,7 +274,7 @@ public class MnemosyneActivity extends Activity {
 		
 		
         //--attach object to testpy.Class1 ---*/
-        //StarObjectClass TestCallBack = Service._ImportRawContext("python", "Class1", true, ""); 
+        StarObjectClass TestCallBack = Service._ImportRawContext("python", "Class1", true, ""); 
         //--create an instance of TestCallBack-----*/
         //StarObjectClass inst = TestCallBack._Callobject("_StarCall");
 	
@@ -238,6 +308,7 @@ public class MnemosyneActivity extends Activity {
         inst._Call("postExec");
         //--call inst function getNum----*/
         printStr(inst._Call("getNum", SrvGroup._NewParaPkg(123.0,456.0)));    
+        }
     }
     
     private void printStr(Object str)
