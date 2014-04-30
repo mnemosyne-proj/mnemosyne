@@ -96,3 +96,4 @@ mnemosyne.components = [\
           "MainWdgt")]
 
 mnemosyne.initialise(data_dir, filename=filename)
+mnemosyne.start_review()
