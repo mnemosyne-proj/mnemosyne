@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.srplab.www.starcore.*;
 
@@ -246,8 +247,25 @@ public class MnemosyneActivity extends Activity {
           pythonPath._Call("insert", 0, "/data/data/" + getPackageName() + "/files/lib-dynload");	
           pythonPath._Call("insert", 0, "/data/data/" + getPackageName() + "/files");	
           
-          //SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/mnemosyne/version.py", false);
-          //SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/openSM2sync/server.py", false);
+          // Register simple call back.
+          
+          SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/mnemosyne/cle/callback.py", false);
+  		  StarObjectClass pythonCallback = (StarObjectClass) python._Get("callback");
+  		  
+          StarObjectClass javascriptCallback = Service._New()._Assign(new StarObjectClass() {
+          	
+          	public void makeToast(StarObjectClass self, StarParaPkgClass input) {
+          		Toast.makeText(getApplicationContext(), input._GetStr(0), Toast.LENGTH_LONG).show();
+            };
+          });
+     
+          StarObjectClass proxy = Service._NewRawProxy("python", javascriptCallback, "makeToast", "makeToast", 0);
+          pythonCallback._Call("set_callback", proxy);
+          proxy._Free();
+          
+          // Run Mnemosyne itself.
+          
+          SrvGroup._DoFile("python", "/data/data/" + getPackageName() + "/files/mnemosyne/cle/mnemosyne.py");
           SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/mnemosyne/cle/mnemosyne.py", false);
           //SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/testpy.py", false);
           //SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() + "/files/callback.py", false);

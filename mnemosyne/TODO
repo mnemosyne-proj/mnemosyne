@@ -1,4 +1,5 @@
 -remove superfluous python modules
+-check if Android uninstall removes all files
 -progress bar on extracting python zip file for the first time?
 
 -also bundle newer abi libraries?
