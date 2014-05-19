@@ -268,9 +268,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self._connection.close()
             self._connection = None
 
-    def claim_connection(self):
-        self.con
-
     def path(self):
         return self._path
 

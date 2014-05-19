@@ -60,9 +60,6 @@ class Database(Component):
 
         raise NotImplementedError
 
-    def claim_connection(self):
-        raise NotImplementedError
-
     def new(self, path):
         raise NotImplementedError
 
