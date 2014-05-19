@@ -4,7 +4,8 @@
 
 import os
 import sys
-import cPickle
+import sqlite3
+
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
@@ -188,6 +189,26 @@ class Configuration(Component, dict):
         dict.__setitem__(self, key, value)
 
     def load(self):
+        filename = os.path.join(self.config_dir, "config.db")
+        con = sqlite3.connect(filename)
+        # Create database tables if needed.
+        is_new = (con.execute("""select count() from sqlite_master where 
+            type='table' and name='config';""").fetchone()[0] == 0)
+        if is_new:
+            con.executescript("""
+            create table config(
+                key text primary key,
+                value text
+            );""")        
+        for cursor in con.execute("select key, value from config"):
+            self[cursor[0]] = eval(cursor[1])
+        con.commit()
+        con.close()
+        
+        # TMP
+        
+        return
+        
         try:
             config_file = file(os.path.join(self.config_dir, "config"), "rb")
             for key, value in cPickle.load(config_file).iteritems():
@@ -199,6 +220,20 @@ class Configuration(Component, dict):
                   + "\n" + traceback_string()
 
     def save(self):
+        filename = os.path.join(self.config_dir, "config.db")
+        con = sqlite3.connect(filename)
+        # Make sure the entries exist.
+        con.executemany("insert or ignore into config(key, value) values(?,?)", 
+            ((key, repr(value)) for key, value in self.iteritems()))
+        # Make sure they have the right data.
+        con.executemany("update config set value=? where key=?",
+            ((key, repr(value)) for key, value in self.iteritems()))   
+        con.commit()
+        con.close()        
+        
+        # TMP
+        
+        return    
         try:
             config_file = file(os.path.join(self.config_dir, "config"), "wb")
             cPickle.dump(dict(self), config_file)
