@@ -14,8 +14,6 @@ import tarfile
 import httplib
 import tempfile
 
-from cherrypy import wsgiserver
-
 from partner import Partner
 from log_entry import EventTypes
 from utils import traceback_string, rand_uuid
@@ -107,6 +105,7 @@ class Server(Partner):
         self.machine_id = machine_id
         # We only use 1 thread, such that subsequent requests don't run into
         # SQLite access problems.
+        from cherrypy import wsgiserver
         self.wsgi_server = wsgiserver.CherryPyWSGIServer\
             (("0.0.0.0", port), self.wsgi_app, server_name="localhost",
             numthreads=1, timeout=1000)

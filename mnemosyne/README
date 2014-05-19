@@ -8,7 +8,7 @@ First install the following dependencies:
 -PyQt 4.5 or later
  (http://www.riverbankcomputing.co.uk/software/pyqt/download)
 -If you want to be able to enter formulas using latex syntax, make sure
- that latex is installed.
+ that latex and dvipng are installed.
 -Matplotlib (http://matplotlib.sourceforge.net/)
 -EasyInstall (http://peak.telecommunity.com/DevCenter/EasyInstall)
 -CherryPy 3.2 or later (http://www.cherrypy.org)
