@@ -96,7 +96,6 @@ mnemosyne.components = [\
          ("main_wdgt", 
           "MainWdgt")]
 
-1/0
 
 from mnemosyne.cle.callback import callback
 callback.make_toast("Starting Mnemosyne")

@@ -1,3 +1,9 @@
+Mnemosyne 2.3.1:
+
+-Don't import cherrypy if not using the sync server (workaround for mimetype
+ bug in non-unicode systems) (reported by Steven Lee, Pete Kovalenko).
+ 
+
 Mnemosyne 2.3 : 2014-04-23
 
 (Note that for Windows users we recommend uninstalling the previous version
