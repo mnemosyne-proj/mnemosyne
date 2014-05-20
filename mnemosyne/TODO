@@ -1,4 +1,4 @@
--put config file in sqlite
+-put config file in sqlite, remove old code for load, save in TMP
 -exit button in android not visible?
 -add cloze to existing card with tag triggers dialog on sister cards with
  different tags
