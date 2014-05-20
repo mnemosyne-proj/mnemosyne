@@ -186,7 +186,7 @@ class Configuration(Component, dict):
             # Don't log when reading the settings from file during startup.
             if self.log().active:
                 self.log().edited_setting(key)
-        dict.__setitem__(self, key, value)
+        dict.__setitem__(self, key, value) 
 
     def load(self):
         filename = os.path.join(self.config_dir, "config.db")
@@ -199,7 +199,15 @@ class Configuration(Component, dict):
             create table config(
                 key text primary key,
                 value text
-            );""")        
+            );""")
+        # Quick-and-dirty system to allow us to instantiate GUI variables
+        # from the config db. The alternatives (e.g. having the frontend pass
+        # along modules to import) seem to be much more verbose and quirky.
+        try:
+            import PyQt4
+        except:
+            pass
+        # Set config settings.
         for cursor in con.execute("select key, value from config"):
             self[cursor[0]] = eval(cursor[1])
         con.commit()
@@ -227,7 +235,7 @@ class Configuration(Component, dict):
             ((key, repr(value)) for key, value in self.iteritems()))
         # Make sure they have the right data.
         con.executemany("update config set value=? where key=?",
-            ((key, repr(value)) for key, value in self.iteritems()))   
+            ((repr(value), key) for key, value in self.iteritems()))   
         con.commit()
         con.close()        
         

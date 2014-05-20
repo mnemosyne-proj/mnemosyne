@@ -4,7 +4,6 @@
 
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
-
 class MainWdgt(MainWidget):
 
     def __init__(self, component_manager):
