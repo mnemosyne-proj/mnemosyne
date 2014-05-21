@@ -170,14 +170,19 @@ class Mnemosyne(Component):
         if debug_file:
             self.component_manager.debug_file = open(debug_file, "w", 0)
         self.register_components()
-        # Upgrade if needed.
+        # Upgrade from 1.x if needed.
         if automatic_upgrades:
             from mnemosyne.libmnemosyne.upgrades.upgrade1 import Upgrade1
             Upgrade1(self.component_manager).backup_old_dir()
         if data_dir:
             self.config().data_dir = data_dir
+            self.config().config_dir = data_dir
         if config_dir:
             self.config().config_dir = config_dir
+        # Upgrade config if needed.
+        if automatic_upgrades:
+            from mnemosyne.libmnemosyne.upgrades.upgrade3 import Upgrade3
+            Upgrade3(self.component_manager).run()             
         self.activate_components()
         register_component_manager(self.component_manager,
             self.config()["user_id"])
@@ -216,10 +221,10 @@ class Mnemosyne(Component):
         self.log().started_scheduler()
         self.log().loaded_database()
         self.log().future_schedule()
-        # Upgrade if needed.
+        # Upgrade from 1.x if needed.
         if automatic_upgrades:
             from mnemosyne.libmnemosyne.upgrades.upgrade1 import Upgrade1
-            Upgrade1(self.component_manager).run()
+            Upgrade1(self.component_manager).run()          
         # Finally, we can activate the main widget.
         self.main_widget().activate()
 
