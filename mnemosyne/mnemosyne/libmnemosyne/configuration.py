@@ -75,9 +75,9 @@ class Configuration(Component, dict):
         self.data_dir = None
         self.config_dir = None
         self.keys_to_sync = []
-
-    def activate(self):
         self.determine_dirs()
+        
+    def activate(self):
         self.fill_dirs()
         self.load()
         self.load_user_config()
@@ -200,6 +200,7 @@ class Configuration(Component, dict):
                 key text primary key,
                 value text
             );""")
+            con.commit()
         # Quick-and-dirty system to allow us to instantiate GUI variables
         # from the config db. The alternatives (e.g. having the frontend pass
         # along modules to import) seem to be much more verbose and quirky.
@@ -209,23 +210,8 @@ class Configuration(Component, dict):
             pass
         # Set config settings.
         for cursor in con.execute("select key, value from config"):
-            self[cursor[0]] = eval(cursor[1])
-        con.commit()
+            self[cursor[0]] = eval(cursor[1])             
         con.close()
-        
-        # TMP
-        
-        return
-        
-        try:
-            config_file = file(os.path.join(self.config_dir, "config"), "rb")
-            for key, value in cPickle.load(config_file).iteritems():
-                self[key] = value
-            config_file.close()
-        except:
-            from mnemosyne.libmnemosyne.utils import traceback_string
-            raise RuntimeError, _("Error in config:") \
-                  + "\n" + traceback_string()
 
     def save(self):
         filename = os.path.join(self.config_dir, "config.db")
@@ -237,20 +223,7 @@ class Configuration(Component, dict):
         con.executemany("update config set value=? where key=?",
             ((repr(value), key) for key, value in self.iteritems()))   
         con.commit()
-        con.close()        
-        
-        # TMP
-        
-        return    
-        try:
-            config_file = file(os.path.join(self.config_dir, "config"), "wb")
-            cPickle.dump(dict(self), config_file)
-            # http://mail.python.org/pipermail/tutor/2003-December/027185.html
-            config_file.close()
-        except:
-            from mnemosyne.libmnemosyne.utils import traceback_string
-            raise RuntimeError, _("Unable to save config file:") \
-                  + "\n" + traceback_string()
+        con.close()
 
     def determine_dirs(self):  # pragma: no cover
         # If the config dir was already set by the user, use that.
