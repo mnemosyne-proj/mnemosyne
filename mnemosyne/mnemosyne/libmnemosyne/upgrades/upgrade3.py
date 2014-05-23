@@ -14,6 +14,8 @@ class Upgrade3(Component):
     def run(self):
         if os.path.exists(os.path.join(self.config().config_dir, "config.db")):
             return
+        if not os.path.exists(os.path.join(self.config().config_dir, "config")):
+            return
         import cPickle
         old_config_file = \
             file(os.path.join(self.config().config_dir, "config"), "rb")

@@ -319,6 +319,13 @@ class DefaultController(Controller):
         db = self.database()
         sch = self.scheduler()
         assert new_card_type.is_fact_data_valid(new_fact_data)
+        # Determine the current tags in use for the sister cards. This
+        # needs to be done before e.g. editing a cloze card creates new
+        # cards which are as yet untagged.
+        fact = db.fact(card.fact._id, is_id_internal=True)
+        current_sister_cards = self.database().cards_from_fact(fact)
+        current_tag_strings = set([sister_card.tag_string() \
+            for sister_card in current_sister_cards])        
         # Change the card type if needed. This does not take into account
         # changes to fact yet, which will come just afterwards.
         result = self._change_card_type(card.fact, card.card_type,
@@ -350,9 +357,6 @@ class DefaultController(Controller):
         # entry for each sister card, which is needed when syncing with a
         # partner that does not have the concept of facts.
         tag_for_current_card_only = False
-        sister_cards = self.database().cards_from_fact(fact)
-        current_tag_strings = set(\
-            [sister_card.tag_string() for sister_card in sister_cards])
         if len(current_tag_strings) > 1:
             tag_for_current_card_only = bool(self.main_widget().show_question(
             _("This card has different tags than its sister cards. Update tags for current card only or for all sister cards?"),
@@ -360,7 +364,7 @@ class DefaultController(Controller):
         old_tags = set()
         tags = db.get_or_create_tags_with_names(new_tag_names)
         modification_time = int(time.time())
-        for sister_card in sister_cards:
+        for sister_card in self.database().cards_from_fact(fact):
             sister_card.modification_time = modification_time
             if sister_card == card or not tag_for_current_card_only:
                 old_tags = old_tags.union(sister_card.tags)
