@@ -210,7 +210,7 @@ class Configuration(Component, dict):
             pass
         # Set config settings.
         for cursor in con.execute("select key, value from config"):
-            self[cursor[0]] = eval(cursor[1])             
+            self[cursor[0]] = eval(cursor[1])     
         con.close()
 
     def save(self):
@@ -280,9 +280,6 @@ class Configuration(Component, dict):
         for directory in ["history", "plugins", "backups"]:
             if not exists(join(self.data_dir, directory)):
                 os.mkdir(join(self.data_dir, directory))
-        # Create default configuration.
-        if not exists(join(self.config_dir, "config")):
-            self.save()
         # Create default config.py.
         config_file = join(self.config_dir, "config.py")
         if not exists(config_file):

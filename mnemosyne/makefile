@@ -82,7 +82,10 @@ build-all-deps:
 
 test: install-virtual-env
 	./bin/nosetests tests
-
+	
+test-windows:
+	Scripts/nosetests.exe tests
+	
 coverage: install-virtual-env
 	rm -rf .coverage cover htmlcov
 	./bin/nosetests --with-coverage --cover-erase \

@@ -1,6 +1,7 @@
 -exit button in android not visible?
--add cloze to existing card with tag triggers dialog on sister cards with
- different tags
+-edit card: tab to preview button exists (bug report scott youngman)
+-test suite does not find modules
+
 
 -remove superfluous python modules
 -check if Android uninstall removes all files

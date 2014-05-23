@@ -1,7 +1,11 @@
 Mnemosyne 2.3.1:
 
+-Change database backend for config file. There should be no more errors
+ which cause you to delete the config file.
 -Don't import cherrypy if not using the sync server (workaround for mimetype
  bug in non-unicode systems) (reported by Steven Lee, Pete Kovalenko).
+-Don't give spurious warning about different tags in different sister Cards
+ when creating new clozes when editing a card (reported by Scott Youngman).
  
 
 Mnemosyne 2.3 : 2014-04-23
