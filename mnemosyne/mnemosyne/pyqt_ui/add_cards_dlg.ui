@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>317</width>
+    <width>450</width>
     <height>170</height>
    </rect>
   </property>
@@ -96,9 +96,6 @@
             <property name="text">
              <string>&amp;2</string>
             </property>
-            <property name="autoDefault">
-             <bool>false</bool>
-            </property>
            </widget>
           </item>
           <item>
@@ -110,7 +107,7 @@
              <string>&amp;3</string>
             </property>
             <property name="autoDefault">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -123,7 +120,7 @@
              <string>&amp;4</string>
             </property>
             <property name="autoDefault">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -136,7 +133,7 @@
              <string>&amp;5</string>
             </property>
             <property name="autoDefault">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -153,7 +150,7 @@
           <string>&amp;Preview</string>
          </property>
          <property name="autoDefault">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -174,9 +171,6 @@
         <widget class="QPushButton" name="exit_button">
          <property name="text">
           <string>&amp;Exit</string>
-         </property>
-         <property name="autoDefault">
-          <bool>false</bool>
          </property>
         </widget>
        </item>
