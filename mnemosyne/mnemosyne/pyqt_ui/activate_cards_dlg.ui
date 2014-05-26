@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>593</width>
-    <height>148</height>
+    <height>156</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -80,7 +80,7 @@
             <string>&amp;Save this set for later use</string>
            </property>
            <property name="autoDefault">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -101,9 +101,6 @@
           <widget class="QPushButton" name="cancel_button">
            <property name="text">
             <string>&amp;Cancel</string>
-           </property>
-           <property name="autoDefault">
-            <bool>false</bool>
            </property>
           </widget>
          </item>

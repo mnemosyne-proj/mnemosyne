@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>209</width>
+    <width>271</width>
     <height>100</height>
    </rect>
   </property>
@@ -87,9 +87,6 @@
          <property name="text">
           <string>&amp;Preview</string>
          </property>
-         <property name="autoDefault">
-          <bool>false</bool>
-         </property>
         </widget>
        </item>
        <item>
@@ -109,9 +106,6 @@
         <widget class="QPushButton" name="exit_button">
          <property name="text">
           <string>&amp;Exit</string>
-         </property>
-         <property name="autoDefault">
-          <bool>false</bool>
          </property>
         </widget>
        </item>

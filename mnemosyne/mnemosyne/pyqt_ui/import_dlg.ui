@@ -59,9 +59,6 @@
          <property name="text">
           <string>&amp;Browse</string>
          </property>
-         <property name="autoDefault">
-          <bool>false</bool>
-         </property>
         </widget>
        </item>
       </layout>
@@ -124,9 +121,6 @@
         <widget class="QPushButton" name="cancel_button">
          <property name="text">
           <string>&amp;Cancel</string>
-         </property>
-         <property name="autoDefault">
-          <bool>false</bool>
          </property>
          <property name="default">
           <bool>false</bool>

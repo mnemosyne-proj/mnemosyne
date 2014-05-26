@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>382</width>
-    <height>488</height>
+    <height>495</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -83,9 +83,6 @@
         <widget class="QPushButton" name="exit_button">
          <property name="text">
           <string>E&amp;xit</string>
-         </property>
-         <property name="autoDefault">
-          <bool>false</bool>
          </property>
         </widget>
        </item>

@@ -25,7 +25,7 @@
         </font>
        </property>
        <property name="text">
-        <string></string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -112,12 +112,18 @@
          <property name="text">
           <string>&amp;Previous sister card</string>
          </property>
+         <property name="autoDefault">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="next_button">
          <property name="text">
           <string>&amp;Next sister card</string>
+         </property>
+         <property name="autoDefault">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
