@@ -21,7 +21,10 @@ class MnemosyneTest():
         # Creating a new database seems a very time-consuming operation,
         # so we don't delete the test directory everytime, but take a short
         # cut.
-        #shutil.rmtree(data_dir, ignore_errors=True)
+        
+        # Note: disabled this, as it does not seem to be very reliable.
+        shutil.rmtree(data_dir, ignore_errors=True)
+        
         if os.path.exists(data_dir):
             shutil.copy(os.path.join("tests", "files", "empty.db"), 
                         os.path.join(data_dir, "default.db"))

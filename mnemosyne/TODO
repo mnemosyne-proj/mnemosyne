@@ -1,7 +1,3 @@
--exit button in android not visible?
--test suite does not find modules
-
-
 -remove superfluous python modules
 -check if Android uninstall removes all files
 -progress bar on extracting python zip file for the first time?
@@ -9,7 +5,8 @@
 -also bundle newer abi libraries?
 -document where template came from
 
--Scott Youngman bugs: tab to preview
+
+
 
 
 -paste strange characters can crash export to cards format
