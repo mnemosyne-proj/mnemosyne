@@ -1386,16 +1386,21 @@ class TestSync(object):
         self.client = MyClient()
 
         self.client.do_sync(); assert last_error is None
-        assert os.path.exists(os.path.join(os.path.abspath("dot_sync_client"),
+        files = [os.path.join(os.path.abspath("dot_sync_client"),
             "default.db_media", "_latex",
-            "6875b6068275a8e0758b9fb8154f084f.png"))
-        assert os.path.exists(os.path.join(os.path.abspath("dot_sync_client"),
+            "4db2425ed3a4fabae0f62663e7613555.png"),
+                 os.path.join(os.path.abspath("dot_sync_client"),
             "default.db_media", "_latex",
-            "6925f59fcfe712cb8b52dd04ac88e921.png"))
-        assert os.path.exists(os.path.join(os.path.abspath("dot_sync_client"),
+            "ab8ddeb30a66d731e16390ee62ac383c.png"),
+                 os.path.join(os.path.abspath("dot_sync_client"),
             "default.db_media", "_latex",
-            "e7fc81f78ab42df5544b9fec88b25a78.png"))
-
+            "ff66949244c3f6a9018230b95bddfe2b.png")]
+        
+        for latex_file in files:
+            assert os.path.exists(latex_file)
+            os.remove(latex_file)
+        
+        
     def test_latex_edit(self):
 
         def fill_server_database(self):

@@ -205,7 +205,7 @@ class TestLogging(MnemosyneTest):
         MnemosyneTest.teardown(self)
 
         file(os.path.join(os.getcwd(), "dot_test", "history", "userid_001.bz2"), "w")
-        os.remove(os.path.join(os.getcwd(), "dot_test", "config"))
+        os.remove(os.path.join(os.getcwd(), "dot_test", "config.db"))
 
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
             asynchronous_database=True)
@@ -224,7 +224,7 @@ class TestLogging(MnemosyneTest):
         MnemosyneTest.teardown(self)
 
         file(os.path.join(os.getcwd(), "dot_test", "history", "userid_machine_001.bz2"), "w")
-        os.remove(os.path.join(os.getcwd(), "dot_test", "config"))
+        os.remove(os.path.join(os.getcwd(), "dot_test", "config.db"))
 
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
             asynchronous_database=True)
