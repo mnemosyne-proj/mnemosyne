@@ -23,7 +23,7 @@ class ImportDlg(QtGui.QDialog, Ui_ImportDlg, ImportDialog):
             if not format.import_possible:
                 continue
             self.file_formats.addItem(_(format.description))
-            if type(format) == self.config()["import_format"]:
+            if str(type(format)) == self.config()["import_format"]:
                 current_index = i
             i += 1
         if current_index is not None:
@@ -74,7 +74,7 @@ class ImportDlg(QtGui.QDialog, Ui_ImportDlg, ImportDialog):
             self.config()["import_extra_tag_names"] = extra_tag_names
             if not extra_tag_names:
                 extra_tag_names = None
-            self.config()["import_format"] = type(self.format())
+            self.config()["import_format"] = str(type(self.format()))
             self.format().do_import(filename, extra_tag_names)
             QtGui.QDialog.accept(self)
         else:

@@ -23,7 +23,7 @@ class ExportDlg(QtGui.QDialog, Ui_ExportDlg, ExportDialog):
             if not format.export_possible:
                 continue
             self.file_formats.addItem(_(format.description))
-            if type(format) == self.config()["export_format"]:
+            if str(type(format)) == self.config()["export_format"]:
                 current_index = i
             i += 1
         if current_index is not None:
@@ -59,7 +59,7 @@ class ExportDlg(QtGui.QDialog, Ui_ExportDlg, ExportDialog):
             return QtGui.QDialog.accept(self)
         if not filename.endswith(self.format().extension):
             filename += self.format().extension
-        self.config()["export_format"] = type(self.format())
+        self.config()["export_format"] = str(type(self.format()))
         result = self.format().do_export(filename)
         if result != -1:  # Cancelled.
             self.main_widget().show_information(_("Done!"))

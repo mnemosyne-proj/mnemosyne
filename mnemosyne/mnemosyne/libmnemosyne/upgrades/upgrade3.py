@@ -20,6 +20,7 @@ class Upgrade3(Component):
         old_config_file = \
             file(os.path.join(self.config().config_dir, "config"), "rb")
         for key, value in cPickle.load(old_config_file).iteritems():
-            self.config()[key] = value
+            if key not in ["import_format", "export_format"]:
+                self.config()[key] = value
         old_config_file.close() 
             
