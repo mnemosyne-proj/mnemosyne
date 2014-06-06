@@ -1,4 +1,4 @@
-import os
+#import os
 
 class Class1:
 
@@ -7,11 +7,11 @@ class Class1:
 		self.callback2 = callback2
 
 	def postExec(self):
-		print("hello from Python, trying callback")
+		#print("hello from Python, trying callback")
 		self.callback1()
 		
 	def getNum(self, input):
-		print("hello 2 from Python, trying callback")
+		#print("hello 2 from Python, trying callback")
 		# was 123 456, 479
 		input = (input[0]+1, input[1]+1)
 		#print("Python" + str(input) + str(input.type))
