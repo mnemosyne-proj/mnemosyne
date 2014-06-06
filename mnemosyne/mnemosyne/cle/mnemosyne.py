@@ -10,7 +10,6 @@ sync_port = 8512
 sync_username = ""
 sync_password = ""
 
-
 # Initialise Mnemosyne.
 from mnemosyne.libmnemosyne import Mnemosyne
 mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
