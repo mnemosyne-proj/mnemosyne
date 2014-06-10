@@ -1,20 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-<TextView
-android:id="@+id/widget61"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent"
-android:text=""
-android:textSize="18dp"
-android:singleLine="false"
-android:gravity="top"
-android:scrollHorizontally="false"
-android:background="#ff000000"
-android:textColor="#ffffffff"
-/>
+     <TextView
+         android:id="@+id/questionLabel"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Question:" />
 
-</LinearLayout>
+     <WebView
+         android:id="@+id/question"
+         android:layout_width="match_parent"
+         android:layout_height="fill_parent"
+         android:layout_weight="1" />
+
+     <TextView
+         android:id="@+id/answerLabel"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Answer:" />
+
+     <WebView
+         android:id="@+id/answer"
+         android:layout_width="match_parent"
+         android:layout_height="fill_parent"
+         android:layout_weight="1" />
+
+     <Button
+         android:id="@+id/showAnswerButton"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="Show answer" />
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal" >
+
+         <Button
+             android:id="@+id/button0"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:text="0"
+             android:layout_weight="1" />
+
+         <Button
+             android:id="@+id/button1"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:text="1"
+             android:layout_weight="1" />
+
+         <Button
+             android:id="@+id/button2"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:text="2"
+             android:layout_weight="1" />
+
+         <Button
+             android:id="@+id/button3"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:text="3" 
+             android:layout_weight="1" />
+
+         <Button
+             android:id="@+id/button4"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:text="4"
+             android:layout_weight="1" />
+
+         <Button
+             android:id="@+id/button5"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:text="5"
+             android:layout_weight="1" />
+
+     </LinearLayout>
+    
+ </LinearLayout>    
+
