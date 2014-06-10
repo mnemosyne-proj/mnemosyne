@@ -1,5 +1,7 @@
 -remove superfluous python modules
+-remove callback.py
 -check if Android uninstall removes all files
+-move installer code to different file
 -progress bar on extracting python zip file for the first time?
 
 -also bundle newer abi libraries?
