@@ -2,14 +2,6 @@
 # mnemosyne.py <Peter.Bienstman@UGent.be>
 #
 
-# Modify the settings below to reflect your situation.
-data_dir = "/sdcard/Mnemosyne/"
-filename = "default.db"
-sync_server = "myserver.mydomain.com"
-sync_port = 8512
-sync_username = ""
-sync_password = ""
-
 # Initialise Mnemosyne.
 from mnemosyne.libmnemosyne import Mnemosyne
 mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
@@ -95,9 +87,8 @@ mnemosyne.components = [\
          ("main_wdgt", 
           "MainWdgt")]
 
-
-from mnemosyne.cle.callback import callback
-callback.make_toast("Starting Mnemosyne")
-
-mnemosyne.initialise(data_dir, filename=filename)
-mnemosyne.start_review()
+def start_mnemosyne(data_dir, filename, activity):
+    mnemosyne.initialise(data_dir=data_dir, filename=filename)
+    mnemosyne.activity = activity
+    mnemosyne.start_review()    
+    

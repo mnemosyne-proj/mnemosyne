@@ -27,7 +27,6 @@ public class MnemosyneActivity extends Activity {
     static TextView questionLabel;
     static WebView question;
     static WebView answer;
-    static StarObjectClass python;
 
     private void mergeApkFile(Activity c, ArrayList<String> partFileList, String dst)
             throws IOException {
@@ -233,8 +232,8 @@ public class MnemosyneActivity extends Activity {
 
         StarSrvGroupClass SrvGroup = starcore._GetSrvGroup(0);
         StarServiceClass Service = SrvGroup._GetService("test", "123");
-        python = null;
-        if ( Service == null ) {  // The service has not been initialized.
+        StarObjectClass python = null;
+        if (Service == null) {  // The service has not been initialized.
             Service = starcore._InitSimple("test", "123", 0, 0);
             Service._CheckPassword(false);
             SrvGroup = (StarSrvGroupClass) Service._Get("_ServiceGroup");
@@ -250,6 +249,17 @@ public class MnemosyneActivity extends Activity {
             pythonPath._Call("insert", 0, base + "/lib");
             pythonPath._Call("insert", 0, base + "/files/lib-dynload");
             pythonPath._Call("insert", 0, base + "/files");
+
+            // Start Mnemosyne.
+            SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() +
+                    "/files/mnemosyne/cle/mnemosyne.py", false);
+            StarObjectClass mnemosyne = python._GetObject("mnemosyne");
+
+            String dataDir = "/sdcard/Mnemosyne/";
+            String filename = "default.db";
+            StarObjectClass activity = Service._New();
+            activity._AttachRawObject(this, false);
+            python._Call("start_mnemosye", dataDir, filename, activity);
         }
     }
 
@@ -262,20 +272,6 @@ public class MnemosyneActivity extends Activity {
         questionLabel = (TextView) this.findViewById(R.id.questionLabel);
         question = (WebView) this.findViewById(R.id.question);
         answer = (WebView) this.findViewById(R.id.answer);
-
-        // Callback experiment.
-
-        StarCoreFactory starcore = StarCoreFactory.GetFactory();
-        StarSrvGroupClass SrvGroup = starcore._GetSrvGroup(0);
-        StarServiceClass Service = SrvGroup._GetService("test", "123");
-        SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() +
-                "/files/mnemosyne/cle/callback.py", false);
-
-        StarObjectClass driver = Service._ImportRawContext("python", "driver", true, null);
-
-        StarObjectClass activityObj = Service._New();
-        activityObj._AttachRawObject(this, false);
-        driver._Call("drive", activityObj);
     }
 
     public void setQuestionLabel(String label) {
