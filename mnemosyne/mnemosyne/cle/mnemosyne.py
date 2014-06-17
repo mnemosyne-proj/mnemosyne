@@ -84,11 +84,17 @@ mnemosyne.components = [\
           "Easiness"),
          ("mnemosyne.libmnemosyne.statistics_pages.current_card",
           "CurrentCard"),
-         ("main_wdgt", 
-          "MainWdgt")]
+         ("mnemosyne.cle.main_widget", 
+          "MainWdgt"),
+         ("mnemosyne.cle.review_widget", 
+          "ReviewWdgt")]
+
+print "Done"
 
 def start_mnemosyne(data_dir, filename, activity):
+    print "starting review"
     mnemosyne.initialise(data_dir=data_dir, filename=filename)
     mnemosyne.activity = activity
-    mnemosyne.start_review()    
-    
+    mnemosyne.start_review()
+
+print "all done"

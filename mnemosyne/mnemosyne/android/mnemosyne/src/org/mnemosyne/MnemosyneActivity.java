@@ -253,13 +253,16 @@ public class MnemosyneActivity extends Activity {
             // Start Mnemosyne.
             SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() +
                     "/files/mnemosyne/cle/mnemosyne.py", false);
+            //SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() +
+            //        "/files/mnemosyne/cle/callback.py", false);
             StarObjectClass mnemosyne = python._GetObject("mnemosyne");
 
             String dataDir = "/sdcard/Mnemosyne/";
             String filename = "default.db";
             StarObjectClass activity = Service._New();
             activity._AttachRawObject(this, false);
-            python._Call("start_mnemosye", dataDir, filename, activity);
+
+            python._Call("start_mnemosyne", dataDir, filename, activity);
         }
     }
 
