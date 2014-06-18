@@ -1,4 +1,7 @@
-Mnemosyne 2.3.1:
+Mnemosyne 2.3.1 : 2014-06-18
+
+(Note that for Windows users we recommend uninstalling the previous version
+before installing the new one.)
 
 -Change database backend for config file. There should be no more errors
  which cause you to delete the config file.
@@ -9,11 +12,8 @@ Mnemosyne 2.3.1:
 -Fixed some issues with tabbing to buttons in a dialog not selecting the right
  button (reported by Scott Youngman).
  
-
 Mnemosyne 2.3 : 2014-04-23
 
-(Note that for Windows users we recommend uninstalling the previous version
-before installing the new one.)
 
 The sync protocol has changed in this version, so make sure you update both
 the client and the server at the same time.
