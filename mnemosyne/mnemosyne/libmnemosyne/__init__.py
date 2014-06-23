@@ -229,7 +229,7 @@ class Mnemosyne(Component):
         self.main_widget().activate()
 
     def register_components(self):
-
+        
         """We register all components, but don't activate them yet, because in
         order to activate certain components, certain other components already
         need to be registered. Also, the activation needs to happen in a
