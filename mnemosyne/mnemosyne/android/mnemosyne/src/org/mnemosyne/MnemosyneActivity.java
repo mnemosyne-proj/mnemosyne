@@ -252,10 +252,11 @@ public class MnemosyneActivity extends Activity {
 
             // Start Mnemosyne.
             SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() +
-                    "/files/mnemosyne/cle/mnemosyne.py", false);
+                    "/files/mnemosyne/cle/mnemosyne_android.py", false);
             //SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() +
             //        "/files/mnemosyne/cle/callback.py", false);
             StarObjectClass mnemosyne = python._GetObject("mnemosyne");
+
 
             String dataDir = "/sdcard/Mnemosyne/";
             String filename = "default.db";
