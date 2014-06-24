@@ -93,7 +93,7 @@ mnemosyne.components = [\
 def start_mnemosyne(data_dir, filename, activity):
     print "starting review"
     mnemosyne.initialise(data_dir=data_dir, filename=filename)
-    mnemosyne.activity = activity
+    mnemosyne.component_manager.activity = activity
     mnemosyne.start_review()
     print 'review started'
 

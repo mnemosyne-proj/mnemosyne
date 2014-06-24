@@ -5,7 +5,7 @@
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
 
-class ReviewWdgt(ReviewWidget):  
+class ReviewWdgt(ReviewWidget):    
 
     def redraw_now(self):
         pass
@@ -24,7 +24,7 @@ class ReviewWdgt(ReviewWidget):
         pass
         
     def set_question_label(self, text):
-        self.component_manager().activity.setQuestionLabel(self.text)
+        self.component_manager.activity.setQuestionLabel(text)
 
     def set_question(self, text):
         self.question = text
@@ -33,10 +33,10 @@ class ReviewWdgt(ReviewWidget):
         self.answer = text
         
     def reveal_question(self):
-        self.component_manager().activity.setQuestion(self.question)
+        self.component_manager.activity.setQuestion(self.question)
         
     def reveal_answer(self):
-        self.component_manager().activity.setAnswer(self.answer)
+        self.component_manager.activity.setAnswer(self.answer)
         
     def clear_question(self):
         self.question = ""
