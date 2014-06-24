@@ -182,7 +182,7 @@ class Mnemosyne(Component):
         # Upgrade config if needed.
         if automatic_upgrades:
             from mnemosyne.libmnemosyne.upgrades.upgrade3 import Upgrade3
-            Upgrade3(self.component_manager).run()             
+            Upgrade3(self.component_manager).run() 
         self.activate_components()
         register_component_manager(self.component_manager,
             self.config()["user_id"])

@@ -8,14 +8,10 @@ class MainWdgt(MainWidget):
 
     def __init__(self, component_manager):
         MainWidget.__init__(self, component_manager)
-        self.callbacks = {}
         self.is_progress_bar_showing = False
         self.progress_bar_maximum = 100
         self.progress_bar_update_interval = 1
         self.progress_bar_last_shown_value = 0		
-
-    def set_callback(self, name, callback):
-        self.callbacks[name] = callback
 
     def show_information(self, text):
         if self.is_progress_bar_showing:

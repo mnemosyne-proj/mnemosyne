@@ -253,10 +253,7 @@ public class MnemosyneActivity extends Activity {
             // Start Mnemosyne.
             SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() +
                     "/files/mnemosyne/cle/mnemosyne_android.py", false);
-            //SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() +
-            //        "/files/mnemosyne/cle/callback.py", false);
             StarObjectClass mnemosyne = python._GetObject("mnemosyne");
-
 
             String dataDir = "/sdcard/Mnemosyne/";
             String filename = "default.db";
@@ -271,15 +268,16 @@ public class MnemosyneActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        setupMnemosyne();
 
         questionLabel = (TextView) this.findViewById(R.id.questionLabel);
         question = (WebView) this.findViewById(R.id.question);
         answer = (WebView) this.findViewById(R.id.answer);
+
+        setupMnemosyne();
     }
 
-    public void setQuestionLabel(String label) {
-        questionLabel.setText(label);
+    public void setQuestionLabel(StarObjectClass label) {
+        questionLabel.setText(label._GetStr(0));
     }
 
     public void setQuestion(String html) {
