@@ -231,10 +231,10 @@ public class MnemosyneActivity extends Activity {
         StarCoreFactory starcore = StarCoreFactory.GetFactory();
 
         StarSrvGroupClass SrvGroup = starcore._GetSrvGroup(0);
-        StarServiceClass Service = SrvGroup._GetService("test", "123");
+        StarServiceClass Service = SrvGroup._GetService("cle", "123");
         StarObjectClass python = null;
         if (Service == null) {  // The service has not been initialized.
-            Service = starcore._InitSimple("test", "123", 0, 0);
+            Service = starcore._InitSimple("cle", "123", 0, 0);
             Service._CheckPassword(false);
             SrvGroup = (StarSrvGroupClass) Service._Get("_ServiceGroup");
             SrvGroup._InitRaw("python", Service);
@@ -276,8 +276,8 @@ public class MnemosyneActivity extends Activity {
         setupMnemosyne();
     }
 
-    public void setQuestionLabel(StarObjectClass label) {
-        questionLabel.setText(label._GetStr(0));
+    public void setQuestionLabel(String label) {
+        questionLabel.setText(label);
     }
 
     public void setQuestion(String html) {

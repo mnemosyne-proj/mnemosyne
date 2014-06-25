@@ -24,7 +24,7 @@ class ReviewWdgt(ReviewWidget):
         pass
         
     def set_question_label(self, text):
-        self.component_manager.activity.setQuestionLabel(text)
+        self.component_manager.activity.setQuestionLabel(text.encode("utf-8"))
 
     def set_question(self, text):
         self.question = text
@@ -33,10 +33,10 @@ class ReviewWdgt(ReviewWidget):
         self.answer = text
         
     def reveal_question(self):
-        self.component_manager.activity.setQuestion(self.question)
+        self.component_manager.activity.setQuestion(self.question.encode("utf-8"))
         
     def reveal_answer(self):
-        self.component_manager.activity.setAnswer(self.answer)
+        self.component_manager.activity.setAnswer(self.answer.encode("utf-8"))
         
     def clear_question(self):
         self.question = ""
