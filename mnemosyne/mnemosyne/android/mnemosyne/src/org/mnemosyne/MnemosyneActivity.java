@@ -9,7 +9,10 @@ import com.srplab.www.starcore.StarSrvGroupClass;
 import android.app.Activity;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.File;
@@ -24,9 +27,19 @@ import java.util.zip.ZipInputStream;
 
 public class MnemosyneActivity extends Activity {
 
+    StarObjectClass mnemosyne;
+    StarObjectClass reviewController;
+
     static TextView questionLabel;
     static WebView question;
     static WebView answer;
+    static Button showAnswerButton;
+    static Button button0;
+    static Button button1;
+    static Button button2;
+    static Button button3;
+    static Button button4;
+    static Button button5;
 
     private void mergeApkFile(Activity c, ArrayList<String> partFileList, String dst)
             throws IOException {
@@ -253,7 +266,7 @@ public class MnemosyneActivity extends Activity {
             // Start Mnemosyne.
             SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() +
                     "/files/mnemosyne/cle/mnemosyne_android.py", false);
-            StarObjectClass mnemosyne = python._GetObject("mnemosyne");
+            mnemosyne = python._GetObject("mnemosyne");
 
             String dataDir = "/sdcard/Mnemosyne/";
             String filename = "default.db";
@@ -261,6 +274,8 @@ public class MnemosyneActivity extends Activity {
             activity._AttachRawObject(this, false);
 
             python._Call("start_mnemosyne", dataDir, filename, activity);
+
+            reviewController = (StarObjectClass) mnemosyne._Call("review_controller");
         }
     }
 
@@ -272,8 +287,64 @@ public class MnemosyneActivity extends Activity {
         questionLabel = (TextView) this.findViewById(R.id.questionLabel);
         question = (WebView) this.findViewById(R.id.question);
         answer = (WebView) this.findViewById(R.id.answer);
+        showAnswerButton = (Button) this.findViewById(R.id.showAnswerButton);
+        button0 = (Button) this.findViewById(R.id.button0);
+        button1 = (Button) this.findViewById(R.id.button1);
+        button2 = (Button) this.findViewById(R.id.button2);
+        button3 = (Button) this.findViewById(R.id.button3);
+        button4 = (Button) this.findViewById(R.id.button4);
+        button5 = (Button) this.findViewById(R.id.button5);
 
         setupMnemosyne();
+
+        showAnswerButton.setOnClickListener(new OnClickListener() {
+
+            public void onClick(View view) {
+                reviewController._Call("show_answer");
+            }
+        });
+
+        button0.setOnClickListener(new OnClickListener() {
+
+            public void onClick(View view) {
+                reviewController._Call("grade_answer", 0);
+            }
+        });
+
+        button1.setOnClickListener(new OnClickListener() {
+
+            public void onClick(View view) {
+                reviewController._Call("grade_answer", 1);
+            }
+        });
+
+        button2.setOnClickListener(new OnClickListener() {
+
+            public void onClick(View view) {
+                reviewController._Call("grade_answer", 2);
+            }
+        });
+
+        button3.setOnClickListener(new OnClickListener() {
+
+            public void onClick(View view) {
+                reviewController._Call("grade_answer", 3);
+            }
+        });
+
+        button4.setOnClickListener(new OnClickListener() {
+
+            public void onClick(View view) {
+                reviewController._Call("grade_answer", 4);
+            }
+        });
+
+        button5.setOnClickListener(new OnClickListener() {
+
+            public void onClick(View view) {
+                reviewController._Call("grade_answer", 5);
+            }
+        });
     }
 
     public void setQuestionLabel(String label) {
