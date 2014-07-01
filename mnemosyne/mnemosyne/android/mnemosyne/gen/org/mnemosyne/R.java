@@ -25,6 +25,7 @@ public final class R {
         public static final int question=0x7f050001;
         public static final int questionLabel=0x7f050000;
         public static final int showAnswerButton=0x7f050004;
+        public static final int statusbar=0x7f05000b;
     }
     public static final class layout {
         public static final int main=0x7f030000;

@@ -3,7 +3,7 @@
  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
      <TextView
          android:id="@+id/questionLabel"
@@ -33,58 +33,90 @@
          android:id="@+id/showAnswerButton"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:minHeight="0dp" 
-         android:minWidth="0dp"
+         android:paddingTop="15dp"
+         android:paddingBottom="15dp"
+         android:background="@android:color/transparent"
+         android:textColor="@android:color/white"
          android:text="Show answer" />
+     
 
      <LinearLayout
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:orientation="horizontal" >
+         android:orientation="horizontal">
 
          <Button
              android:id="@+id/button0"
+             android:paddingTop="15dp"
+             android:paddingBottom="15dp"
+             android:background="@android:color/transparent"
+             android:textColor="@android:color/white"
              android:layout_width="fill_parent"
              android:layout_height="wrap_content"
-             android:text="0"
-             android:layout_weight="1" />
+             android:layout_weight="1"
+             android:text="0" />
 
          <Button
              android:id="@+id/button1"
+             android:paddingTop="15dp"
+             android:paddingBottom="15dp"             
+             android:background="@android:color/transparent"
+             android:textColor="@android:color/white"
              android:layout_width="fill_parent"
              android:layout_height="wrap_content"
-             android:text="1"
-             android:layout_weight="1" />
+             android:layout_weight="1"
+             android:text="1" />
 
          <Button
+             android:paddingTop="15dp"
+             android:paddingBottom="15dp"             
              android:id="@+id/button2"
+             android:background="@android:color/transparent"
+             android:textColor="@android:color/white"
              android:layout_width="fill_parent"
              android:layout_height="wrap_content"
-             android:text="2"
-             android:layout_weight="1" />
+             android:layout_weight="1"
+             android:text="2" />
 
          <Button
              android:id="@+id/button3"
+             android:paddingTop="15dp"
+             android:paddingBottom="15dp"             
+             android:background="@android:color/transparent"
+             android:textColor="@android:color/white"
              android:layout_width="fill_parent"
              android:layout_height="wrap_content"
-             android:text="3" 
-             android:layout_weight="1" />
+             android:layout_weight="1"
+             android:text="3" />
 
          <Button
              android:id="@+id/button4"
+             android:paddingTop="15dp"
+             android:paddingBottom="15dp"
+             android:background="@android:color/transparent"
+             android:textColor="@android:color/white"
              android:layout_width="fill_parent"
              android:layout_height="wrap_content"
-             android:text="4"
-             android:layout_weight="1" />
+             android:layout_weight="1"
+             android:text="4" />
 
          <Button
              android:id="@+id/button5"
+             android:paddingTop="15dp"
+             android:paddingBottom="15dp"
+             android:background="@android:color/transparent"
+             android:textColor="@android:color/white"
              android:layout_width="fill_parent"
              android:layout_height="wrap_content"
-             android:text="5"
-             android:layout_weight="1" />
-
+             android:layout_weight="1"
+             android:text="5" />
      </LinearLayout>
+
+     <TextView
+         android:id="@+id/statusbar"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Statusbar" />
     
  </LinearLayout>    
 

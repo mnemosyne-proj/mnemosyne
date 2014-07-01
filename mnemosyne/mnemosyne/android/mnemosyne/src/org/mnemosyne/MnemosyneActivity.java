@@ -32,6 +32,7 @@ public class MnemosyneActivity extends Activity {
 
     static TextView questionLabel;
     static WebView question;
+    static TextView answerLabel;
     static WebView answer;
     static Button showAnswerButton;
     static Button button0;
@@ -40,6 +41,7 @@ public class MnemosyneActivity extends Activity {
     static Button button3;
     static Button button4;
     static Button button5;
+    static TextView statusbar;
 
     private void mergeApkFile(Activity c, ArrayList<String> partFileList, String dst)
             throws IOException {
@@ -286,6 +288,7 @@ public class MnemosyneActivity extends Activity {
 
         questionLabel = (TextView) this.findViewById(R.id.questionLabel);
         question = (WebView) this.findViewById(R.id.question);
+        answerLabel = (TextView) this.findViewById(R.id.answerLabel);
         answer = (WebView) this.findViewById(R.id.answer);
         showAnswerButton = (Button) this.findViewById(R.id.showAnswerButton);
         button0 = (Button) this.findViewById(R.id.button0);
@@ -294,6 +297,7 @@ public class MnemosyneActivity extends Activity {
         button3 = (Button) this.findViewById(R.id.button3);
         button4 = (Button) this.findViewById(R.id.button4);
         button5 = (Button) this.findViewById(R.id.button5);
+        statusbar = (TextView) this.findViewById(R.id.statusbar);
 
         setupMnemosyne();
 
@@ -358,4 +362,60 @@ public class MnemosyneActivity extends Activity {
     public void setAnswer(String html) {
         answer.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
     }
-}
+
+    public void setQuestionBoxVisible(boolean isVisible) {
+        if (isVisible) {
+            question.setVisibility(android.view.View.VISIBLE);
+            questionLabel.setVisibility(android.view.View.VISIBLE);
+        }
+        else {
+            question.setVisibility(android.view.View.GONE);
+            questionLabel.setVisibility(android.view.View.GONE);
+        }
+    }
+
+    public void setAnswerBoxVisible(boolean isVisible) {
+        if (isVisible) {
+            answer.setVisibility(android.view.View.VISIBLE);
+            answerLabel.setVisibility(android.view.View.VISIBLE);
+        }
+        else {
+            answer.setVisibility(android.view.View.GONE);
+            answerLabel.setVisibility(android.view.View.GONE);
+        }
+    }
+
+    public void updateShowButton(String text, boolean isDefault, boolean isEnabled) {
+        showAnswerButton.setText(text);
+        if (isEnabled) {
+            showAnswerButton.setVisibility(android.view.View.VISIBLE);
+        }
+        else {
+            showAnswerButton.setVisibility(android.view.View.GONE);
+        }
+    }
+
+    public void setGradesEnabled(boolean isEnabled) {
+        if (isEnabled) {
+            button0.setVisibility(android.view.View.VISIBLE);
+            button1.setVisibility(android.view.View.VISIBLE);
+            button2.setVisibility(android.view.View.VISIBLE);
+            button3.setVisibility(android.view.View.VISIBLE);
+            button4.setVisibility(android.view.View.VISIBLE);
+            button5.setVisibility(android.view.View.VISIBLE);
+        }
+        else {
+            button0.setVisibility(android.view.View.GONE);
+            button1.setVisibility(android.view.View.GONE);
+            button2.setVisibility(android.view.View.GONE);
+            button3.setVisibility(android.view.View.GONE);
+            button4.setVisibility(android.view.View.GONE);
+            button5.setVisibility(android.view.View.GONE);
+        }
+    }
+
+    public void setStatusbarText(String text) {
+        statusbar.setText(text);
+    }
+
+};

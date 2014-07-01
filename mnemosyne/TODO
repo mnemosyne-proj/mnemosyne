@@ -1,10 +1,12 @@
+-set default grade
+-handle orientation changes
 -remove superfluous python modules
 -remove callback.py
+-check 'redraw now'
 -check if Android uninstall removes all files
 -move installer code to different file
 -progress bar on extracting python zip file for the first time?
--set background colour for empty Q and A fields
--implement functionality for map card types
+-check functionality for map card types
 
 -also bundle newer abi libraries?
 -document where template came from
