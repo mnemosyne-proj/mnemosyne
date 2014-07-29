@@ -1,8 +1,6 @@
--Mats Hansson: browse error (private mail, dropbox)
 -Ben Israel: sync from empty server database
 -sorting patch (Emilian)
 -Jan Egil Hagen: reply to mail, fix bug involving ' in upgrade to 2.x
--launchpad: no licence file (jiri)
 
 
 -set default grade
@@ -25,6 +23,8 @@
 -paste strange characters can crash export to cards format
 
 -fix multiple audio files and start/stop (Ansgar Bohmann)
+
+-option to turn off card count per tag?
 
 -merge databases
 

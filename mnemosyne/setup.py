@@ -157,7 +157,7 @@ py2app_options = {
 "argv_emulation": True,
 "includes": "sip,numpy,cherrypy,cPickle,md5,logging,shutil,xml.sax",
 "iconfile": "pixmaps/mnemosyne.icns",
-"packages": "mnemosyne,mnemosyne.pyqt_ui,mnemosyne.libmnemosyne, \
+"packages": "mnemosyne, mnemosyne.pyqt_ui, mnemosyne.libmnemosyne, \
     mnemosyne.libmnemosyne.translators, mnemosyne.libmnemosyne.card_types, \
     mnemosyne.libmnemosyne.databases, mnemosyne.libmnemosyne.file_formats, \
     mnemosyne.libmnemosyne.filters, mnemosyne.libmnemosyne.loggers, \
