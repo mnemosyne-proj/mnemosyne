@@ -74,9 +74,13 @@ class TagTree(Component, dict):
         if "__UNTAGGED__" in self.display_name_for_node:
             self.display_name_for_node["__UNTAGGED__"] = _("Untagged")
         for node in dict(self):
-            self.card_count_for_node[node] = \
-                self.database().card_count_for_tags(\
-                self._tags_in_subtree(node), active_only=False)
+            if node == "__ALL__":
+                self.card_count_for_node[node] = \
+                    self.database().card_count()
+            else:
+                self.card_count_for_node[node] = \
+                    self.database().card_count_for_tags(\
+                    self._tags_in_subtree(node), active_only=False)
 
     def _tags_in_subtree(self, node):
         tags = []

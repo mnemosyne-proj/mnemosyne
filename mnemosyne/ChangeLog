@@ -1,3 +1,6 @@
+-Don't crash the SQL engine if you have more than 1000 tags (reported by Mats 
+ Hansson).
+
 Mnemosyne 2.3.1 : 2014-06-18
 
 (Note that for Windows users we recommend uninstalling the previous version
