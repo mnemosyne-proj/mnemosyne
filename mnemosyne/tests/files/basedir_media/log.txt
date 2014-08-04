@@ -1,0 +1,24 @@
+2014-08-04 16:20:37 : Program started : Mnemosyne 1.2.2 nt win32
+2014-08-04 16:20:37 : Loaded database 0 0 0
+2014-08-04 16:20:42 : Logging turned on
+2014-08-04 16:22:22 : New item 363e781c 0 0
+2014-08-04 16:23:00 : R 363e781c 0 2.50 | 2 0 0 2 0 | 0 1 | 0 0 | 19.3
+2014-08-04 16:29:15 : R 363e781c 0 2.50 | 3 0 0 3 0 | 0 1 | 0 0 | 183.8
+2014-08-04 16:29:17 : Saved database 0 1 1
+2014-08-04 16:29:17 : Program stopped
+2014-08-04 16:29:18 : Program started : Mnemosyne 1.2.2 nt win32
+2014-08-04 16:29:19 : Loaded database 0 1 1
+2014-08-04 16:29:33 : Saved database 0 1 1
+2014-08-04 16:29:33 : Program stopped
+2014-08-04 16:29:34 : Program started : Mnemosyne 1.2.2 nt win32
+2014-08-04 16:29:34 : Loaded database 0 1 1
+2014-08-04 16:29:46 : Saved database 0 1 1
+2014-08-04 16:29:46 : Program stopped
+2014-08-04 16:30:54 : Program started : Mnemosyne 1.2.2 nt win32
+2014-08-04 16:30:54 : Loaded database 0 1 1
+2014-08-04 16:31:08 : Saved database 0 1 1
+2014-08-04 16:31:08 : Program stopped
+2014-08-04 16:31:10 : Program started : Mnemosyne 1.2.2 nt win32
+2014-08-04 16:31:10 : Loaded database 0 1 1
+2014-08-04 16:31:16 : Saved database 0 1 1
+2014-08-04 16:31:16 : Program stopped

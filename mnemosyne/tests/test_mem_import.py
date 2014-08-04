@@ -253,7 +253,15 @@ class TestMemImport(MnemosyneTest):
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 3
-
+        
+    def test_media_quotes(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "basedir_media",
+                                    "default.mem")
+        self.mem_importer().do_import(filename)        
+        assert self.database().con.execute(\
+            "select count() from log where event_type=?",
+            (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 1
+        
     def test_sound(self):
         os.mkdir(os.path.join(\
             os.getcwd(), "tests", "files", "soundfiles"))
