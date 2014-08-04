@@ -15,9 +15,6 @@ from mnemosyne.libmnemosyne.file_formats.mnemosyne1 import Mnemosyne1
 from mnemosyne.libmnemosyne.file_formats.science_log_parser \
      import ScienceLogParser
 
-re_src = re.compile(r"""src=['\"](.+?)['\"]""", re.DOTALL | re.IGNORECASE)
-re_sound = re.compile(r"""<sound src=\".+?\">""", re.DOTALL | re.IGNORECASE)
-
 
 class Mnemosyne1Mem(FileFormat, Mnemosyne1):
 

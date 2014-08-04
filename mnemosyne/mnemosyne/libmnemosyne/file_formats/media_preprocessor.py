@@ -9,9 +9,12 @@ from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.utils import MnemosyneError, expand_path, copy
 
-re_src = re.compile(r"""src=['\"](.+?)['\"]""", re.DOTALL | re.IGNORECASE)
-re_sound = re.compile(r"""<sound src=['\"].+?['\"]>""", re.DOTALL | re.IGNORECASE)
+# See http://blog.stevenlevithan.com/archives/match-quoted-string
 
+re_src = re.compile(r"""src=(["'])(?:(?=(\\?))\2.)*?\1""", 
+   re.DOTALL | re.IGNORECASE)
+re_sound = re.compile(r"""<sound src=(["'])(?:(?=(\\?))\2.)*?\1""", 
+   re.DOTALL | re.IGNORECASE)
 
 class MediaPreprocessor(Component):
 
@@ -40,7 +43,7 @@ class MediaPreprocessor(Component):
         # media file missing for a card.
         for fact_key in fact_data:
             for match in re_src.finditer(fact_data[fact_key]):
-                filename = match.group(1)
+                filename = match.group().replace("src=", "")[1:-1]
                 if not os.path.exists(filename) \
                     and not os.path.exists(\
                         expand_path(filename, self.import_dir)) \
@@ -48,7 +51,7 @@ class MediaPreprocessor(Component):
                         expand_path(filename, self.database().media_dir())):
                     fact_data[fact_key] = \
                         fact_data[fact_key].replace(match.group(),
-                        "src_missing=\"%s\"" % match.group(1))
+                        "src_missing=\"%s\"" % filename)
                     missing_media = True
                     continue
                 if not os.path.isabs(filename) and not os.path.exists(\
