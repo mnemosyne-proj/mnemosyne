@@ -1,8 +1,3 @@
--Jan Egil Hagen: reply to mail, fix bug involving ' in upgrade to 2.x
-
--after sync changes database on server, display new database name on server
- header.
-
 -set default grade
 -handle orientation changes
 -remove superfluous python modules

@@ -285,4 +285,3 @@ def localhost_IP():
     s = realsocket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(("google.com", 8000))
     return s.getsockname()[0]
-

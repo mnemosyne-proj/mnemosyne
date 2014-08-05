@@ -19,8 +19,7 @@ from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
 
-re_src = re.compile(r"""(src|data)=['\"](.+?)['\"]""", 
-                    re.DOTALL | re.IGNORECASE)
+re_src = re.compile(r"""(src|data)=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
 
 # Simple named-tuple like class, to avoid the expensive creation a full card
 # object (Python 2.5 does not yet have a named tuple).
