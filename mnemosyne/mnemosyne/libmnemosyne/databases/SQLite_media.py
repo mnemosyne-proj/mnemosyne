@@ -14,8 +14,7 @@ from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.utils import is_filesystem_case_insensitive
 from mnemosyne.libmnemosyne.utils import copy_file_to_dir, remove_empty_dirs_in
 
-re_src = re.compile(r"""(src|data)=['\"](.+?)['\"]""", 
-                    re.DOTALL | re.IGNORECASE)
+re_src = re.compile(r"""(src|data)=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
 
 
 class SQLiteMedia(object):

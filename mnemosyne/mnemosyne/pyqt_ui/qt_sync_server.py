@@ -267,6 +267,7 @@ class QtSyncServer(Component, QtCore.QObject):
         self.log().loaded_database()
         self.review_controller().reset_but_try_to_keep_current_card()
         self.review_controller().update_dialog(redraw_all=True)
+        self.controller().update_title()
         self.thread.server_has_connection = False
         database_released.wakeAll()
         mutex.unlock()

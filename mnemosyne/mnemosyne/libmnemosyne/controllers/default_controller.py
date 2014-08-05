@@ -579,9 +579,15 @@ _("It is recommended to put all your cards in a single database. Using tags to d
             self.stopwatch().unpause()
             return
         if filename.endswith(".cards"):
+            self.stopwatch().unpause()
             self.main_widget().show_information(\
 _("'*.cards' files are not separate databases, but need to be imported in your current database through 'File - Import'."))
             return
+        if filename.endswith("config.db"):
+            self.stopwatch().unpause()
+            self.main_widget().show_information(\
+                _("The configuration database is not used to store cards."))
+            return            
         if filename.startswith(os.path.join(data_dir, "backups")):
             result = self.main_widget().show_question(\
                 _("Do you want to replace your current database with one restored from this backup?\nNote that this will result in conflicts during the next sync, which need to be resolved by a full sync."),
@@ -647,6 +653,11 @@ _("Your database will be autosaved before exiting. Also, it is saved every coupl
         if not filename:
             self.stopwatch().unpause()
             return
+        if filename.endswith("config.db"):
+            self.main_widget().show_information(\
+_("The configuration database cannot be used to store cards."))
+            self.stopwatch().unpause()
+            return          
         if not filename.endswith(suffix):
             filename += suffix
         try:
