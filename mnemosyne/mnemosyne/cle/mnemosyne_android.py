@@ -93,4 +93,11 @@ mnemosyne.components = [\
 def start_mnemosyne(data_dir, filename, activity):
     mnemosyne.initialise(data_dir=data_dir, filename=filename)
     mnemosyne.component_manager.activity = activity
+    mnemosyne.main_widget().set_progress_text("progress")
+    mnemosyne.main_widget().set_progress_range(4)
+    for i in range(1,4):
+        print i
+        import time
+        time.sleep(1)
+        mnemosyne.main_widget().increase_progress(1)
     mnemosyne.start_review()
