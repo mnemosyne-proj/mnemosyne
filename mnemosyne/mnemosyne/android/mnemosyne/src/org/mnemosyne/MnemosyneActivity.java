@@ -7,8 +7,14 @@ import com.srplab.www.starcore.StarServiceClass;
 import com.srplab.www.starcore.StarSrvGroupClass;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
@@ -416,6 +422,98 @@ public class MnemosyneActivity extends Activity {
 
     public void setStatusbarText(String text) {
         statusbar.setText(text);
+    }
+
+    public void showInformation(String text) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage(text);
+        alert.setCancelable(false);
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                return;
+            }
+        });
+        //alert.setNegativeButton("Cancel",
+        //    new DialogInterface.OnClickListener() {
+        //        public void onClick(DialogInterface dialog, int whichButton) {
+        //        }
+        //    });
+
+        alert.show();
+    }
+
+    private int mResult = -1;
+
+    public int showQuestion(String text, String option0, String option1, String option2) {
+
+        // Make a handler that throws a runtime exception when a message is received.
+        final Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message mesg) {
+                throw new RuntimeException();
+            }
+        };
+
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage(text);
+        alert.setCancelable(false);
+        alert.setPositiveButton(option0, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                mResult = 0;
+                handler.sendMessage(handler.obtainMessage());
+            }
+        });
+        alert.setNeutralButton(option1, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                mResult = 1;
+                handler.sendMessage(handler.obtainMessage());
+            }
+        });
+        alert.setNegativeButton(option2, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                mResult = 2;
+                handler.sendMessage(handler.obtainMessage());
+            }
+
+        });
+
+        alert.show();
+        // Loop until the user selects an answer and a runtime exception is triggered.
+        try {
+            Looper.loop();
+        }
+        catch (RuntimeException exception) {
+        }
+        return mResult;
+    }
+
+    private ProgressDialog mProgressDialog = null;
+
+    public void setProgressText(String text) {
+        if (mProgressDialog != null) {
+            closeProgress();
+        }
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            mProgressDialog.setMessage(text);
+            mProgressDialog.setProgress(0);
+            mProgressDialog.setMax(100);
+            mProgressDialog.show();
+        }
+    }
+
+    public void setProgressValue(int value) {
+        mProgressDialog.setProgress(value);
+    }
+
+    public void closeProgress() {
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+            mProgressDialog = null;
+        }
     }
 
 };

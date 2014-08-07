@@ -10,29 +10,29 @@ class MainWdgt(MainWidget):
         MainWidget.__init__(self, component_manager)
         self.is_progress_bar_showing = False
         self.progress_bar_maximum = 100
+        self.progress_bar_current_value = 0
         self.progress_bar_update_interval = 1
         self.progress_bar_last_shown_value = 0		
 
     def show_information(self, text):
         if self.is_progress_bar_showing:
             self.close_progress()
-        self.callbacks["show_information"](text)
+        self.component_manager.activity.showInformation(text.encode("utf-8"))            
 
     def show_question(self, text, option0, option1, option2):
         if self.is_progress_bar_showing:
-            self.close_progress()		
-        return self.callbacks["show_question"]\
-               (text, option0, option1, option2)
+            self.close_progress()
+        return self.component_manager.activity.showQuestion(\
+            text.encode("utf-8"), option0.encode("utf-8"), 
+            option1.encode("utf-8"), option2.encode("utf-8"))
 
     def show_error(self, text):
-        if self.is_progress_bar_showing:
-            self.close_progress()			
-        self.callbacks["show_error"](text)
+        self.show_information(text)
 
     def set_progress_text(self, text):
         if self.is_progress_bar_showing:
-            self.close_progress()			
-        self.callbacks["set_progress_text"](text)
+            self.close_progress()	
+        self.component_manager.activity.setProgressText(text.encode("utf-8"))
 
     def set_progress_range(self, maximum):
         self.progress_bar_maximum = maximum
@@ -56,7 +56,7 @@ class MainWdgt(MainWidget):
             # Android does not seem to support changing the progress range 
             # after the dialog has been created, so we need to rescale this 
             # to the 0-100 range.
-            self.callbacks["set_progress_value"]\
+            self.component_manager.activity.setProgressValue\
                 (int(value / self.progress_bar_maximum * 100))
             self.progress_bar_last_shown_value = value
         if value >= self.progress_bar_maximum:
@@ -64,4 +64,4 @@ class MainWdgt(MainWidget):
 
     def close_progress(self):
         self.is_progress_bar_showing = False
-        self.callbacks["close_progress"]()
+        self.component_manager.activity.closeValue()
