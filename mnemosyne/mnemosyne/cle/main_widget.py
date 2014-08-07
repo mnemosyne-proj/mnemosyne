@@ -9,7 +9,6 @@ class MainWdgt(MainWidget):
     def __init__(self, component_manager):
         MainWidget.__init__(self, component_manager)
         self.is_progress_bar_showing = False
-        self.progress_bar_maximum = 100
         self.progress_bar_current_value = 0
         self.progress_bar_update_interval = 1
         self.progress_bar_last_shown_value = 0		
@@ -35,7 +34,7 @@ class MainWdgt(MainWidget):
         self.component_manager.activity.setProgressText(text.encode("utf-8"))
 
     def set_progress_range(self, maximum):
-        self.progress_bar_maximum = maximum
+        self.component_manager.activity.setProgressRange(maximum)
 
     def set_progress_update_interval(self, update_interval):
         update_interval = int(update_interval)
@@ -47,20 +46,16 @@ class MainWdgt(MainWidget):
         self.set_progress_value(self.progress_bar_current_value + value)
 
     def set_progress_value(self, value):
+        print 'start python set_progress_value'
         # There is a possibility that 'value' does not visit all intermediate
         # integer values in the range, so we need to check and store the last
         # shown and the current value here.
         self.progress_bar_current_value = value
         if value - self.progress_bar_last_shown_value >= \
-            self.progress_bar_update_interval:
-            # Android does not seem to support changing the progress range 
-            # after the dialog has been created, so we need to rescale this 
-            # to the 0-100 range.
-            self.component_manager.activity.setProgressValue\
-                (int(value / self.progress_bar_maximum * 100))
+               self.progress_bar_update_interval:
+            self.component_manager.activity.setProgressValue(value)
             self.progress_bar_last_shown_value = value
-        if value >= self.progress_bar_maximum:
-            self.close_progress()
+        print 'done python set_progress_value'
 
     def close_progress(self):
         self.is_progress_bar_showing = False

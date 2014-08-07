@@ -93,11 +93,16 @@ mnemosyne.components = [\
 def start_mnemosyne(data_dir, filename, activity):
     mnemosyne.initialise(data_dir=data_dir, filename=filename)
     mnemosyne.component_manager.activity = activity
-    mnemosyne.main_widget().set_progress_text("progress")
-    mnemosyne.main_widget().set_progress_range(4)
+    mnemosyne.component_manager.activity.setStatusbarText("milk bar")
+    #mnemosyne.start_review()
+
+def do_work():
+    print 'starting do_work in python'
     for i in range(1,4):
         print i
-        import time
-        time.sleep(1)
-        mnemosyne.main_widget().increase_progress(1)
-    mnemosyne.start_review()
+        for j in range(100000):
+            import math; math.sin(j)
+        mnemosyne.main_widget().increase_progress(1) 
+        
+def calling_back():
+    print 'calling back into python'        
