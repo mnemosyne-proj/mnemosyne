@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
@@ -33,6 +34,7 @@ import java.util.zip.ZipInputStream;
 
 public class MnemosyneActivity extends Activity {
 
+    StarObjectClass python;
     StarObjectClass mnemosyne;
     StarObjectClass reviewController;
 
@@ -253,7 +255,6 @@ public class MnemosyneActivity extends Activity {
 
         StarSrvGroupClass SrvGroup = starcore._GetSrvGroup(0);
         StarServiceClass Service = SrvGroup._GetService("cle", "123");
-        StarObjectClass python = null;
         if (Service == null) {  // The service has not been initialized.
             Service = starcore._InitSimple("cle", "123", 0, 0);
             Service._CheckPassword(false);
@@ -287,6 +288,8 @@ public class MnemosyneActivity extends Activity {
         }
     }
 
+    private Handler handler;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -305,11 +308,25 @@ public class MnemosyneActivity extends Activity {
         button5 = (Button) this.findViewById(R.id.button5);
         statusbar = (TextView) this.findViewById(R.id.statusbar);
 
-        setupMnemosyne();
+        handler = new Handler(Looper.getMainLooper());
+
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                setupMnemosyne();
+                //testProgress();
+                Log.d("Mnemosyne", "done_thread ");
+            }
+        });
+        t.start();
+
+        //setupMnemosyne();
+        //testProgress();
 
         showAnswerButton.setOnClickListener(new OnClickListener() {
 
             public void onClick(View view) {
+                Log.d("Mnemosyne", "show_answer clicked ");
+                python._Call("calling_back");
                 reviewController._Call("show_answer");
             }
         });
@@ -355,6 +372,7 @@ public class MnemosyneActivity extends Activity {
                 reviewController._Call("grade_answer", 5);
             }
         });
+
     }
 
     public void setQuestionLabel(String label) {
@@ -420,8 +438,15 @@ public class MnemosyneActivity extends Activity {
         }
     }
 
+    String statusBarText;
+
     public void setStatusbarText(String text) {
-        statusbar.setText(text);
+        Log.d("Mnemosyne", "setstatusbartex " + text);
+        statusBarText = text;
+        handler.post(new Runnable() {
+            public void run() {
+                statusbar.setText(statusBarText);
+            }});
     }
 
     public void showInformation(String text) {
@@ -433,47 +458,40 @@ public class MnemosyneActivity extends Activity {
                 return;
             }
         });
-        //alert.setNegativeButton("Cancel",
-        //    new DialogInterface.OnClickListener() {
-        //        public void onClick(DialogInterface dialog, int whichButton) {
-        //        }
-        //    });
-
         alert.show();
     }
 
-    private int mResult = -1;
+    private int result = -1;
 
     public int showQuestion(String text, String option0, String option1, String option2) {
 
         // Make a handler that throws a runtime exception when a message is received.
-        final Handler handler = new Handler() {
+        final Handler _handler = new Handler() {
             @Override
             public void handleMessage(Message mesg) {
                 throw new RuntimeException();
             }
         };
 
-
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setMessage(text);
         alert.setCancelable(false);
         alert.setPositiveButton(option0, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                mResult = 0;
-                handler.sendMessage(handler.obtainMessage());
+                result = 0;
+                _handler.sendMessage(_handler.obtainMessage());
             }
         });
         alert.setNeutralButton(option1, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                mResult = 1;
-                handler.sendMessage(handler.obtainMessage());
+                result = 1;
+                _handler.sendMessage(_handler.obtainMessage());
             }
         });
         alert.setNegativeButton(option2, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                mResult = 2;
-                handler.sendMessage(handler.obtainMessage());
+                result = 2;
+                _handler.sendMessage(_handler.obtainMessage());
             }
 
         });
@@ -485,35 +503,165 @@ public class MnemosyneActivity extends Activity {
         }
         catch (RuntimeException exception) {
         }
-        return mResult;
+        return result;
     }
 
-    private ProgressDialog mProgressDialog = null;
+    private ProgressDialog progressDialog;
+
+    private int progressValue = 0;
 
     public void setProgressText(String text) {
-        if (mProgressDialog != null) {
-            closeProgress();
-        }
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            mProgressDialog.setMessage(text);
-            mProgressDialog.setProgress(0);
-            mProgressDialog.setMax(100);
-            mProgressDialog.show();
-        }
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setMessage(text);
+        progressDialog.setProgress(0);
+        progressDialog.show();
+        Log.d("Mnemosyne", "done set progress text ");
+    }
+
+    public void setProgressRange(int maximum) {
+        progressDialog.setMax(maximum);
     }
 
     public void setProgressValue(int value) {
-        mProgressDialog.setProgress(value);
+        Log.d("Mnemosyne", "setProgressValue " + value);
+        if (value >= progressDialog.getMax()) {
+            closeProgress();
+            return;
+        }
+        progressValue = value;
+        //progressDialog.setProgress(progressValue);
+
+        handler.post(new Runnable() {
+            public void run() {
+                progressDialog.setProgress(progressValue);
+                Log.d("Mnemosyne", "handler " + progressValue);
+            }
+        });
     }
 
     public void closeProgress() {
-        if (mProgressDialog != null) {
-            mProgressDialog.dismiss();
-            mProgressDialog = null;
+        progressDialog.dismiss();
+    }
+
+    public void testProgress() {
+        Log.d("Mnemosyne", "testProgress ");
+
+        handler.post(new Runnable() {
+            public void run() {
+                Log.d("Mnemosyne", "runnable creating ui");
+                setProgressText("progress2");
+                setProgressRange(3);
+            }
+        });
+
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                for (int i=1; i<4; i++) {
+                    Log.d("Mnemosyne", "in thread " + i);
+                    // your computer is too fast, sleep 1 second
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Log.d("Mnemosyne", "A " + i);
+                    //mainWidget._Call("set_progress_value", i);
+                    setProgressValue(i);
+                    Log.d("Mnemosyne", "B " + i);
+                }
+            }
+        });
+        //t.start();
+
+        Log.d("Mnemosyne", "starting_work");
+        python._Call("do_work");
+
+        if (false) {
+            final StarObjectClass mainWidget = (StarObjectClass) mnemosyne._Call("main_widget");
+            mainWidget._Call("set_progress_text", "progress3");
+            mainWidget._Call("set_progress_range", 3);
+            new Thread(new Runnable() {
+                public void run() {
+                    Log.d("Mnemosyne", "starting_work in thread");
+                    python._Call("do_work");
+                    Log.d("Mnemosyne", "done_work in thread");
+                }
+            }).start();}
+    }
+
+    private final   String TAG = "Activity";            //Log tag
+    private         MyThread mThread;                   //spawned thread
+    Bundle          myB = new Bundle();                 //used for creating the msgs
+    public          Handler mHandler = new Handler(){   //handles the INcoming msgs
+        @Override public void handleMessage(Message msg)
+        {
+            myB = msg.getData();
+            Log.i(TAG, "Handler got message"+ myB.getInt("THREAD DELIVERY"));
         }
+    };
+    //Methods:
+    //--------------------------
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mThread = new MyThread(mHandler);
+        mThread.start();
+        sendMsgToThread();
+    }
+    //--------------------------
+    void sendMsgToThread()
+    {
+        Message msg = mThread.getHandler().obtainMessage();
+        myB.putInt("MAIN DELIVERY", 321);
+        msg.setData(myB);
+        mThread.getHandler().sendMessage(msg);
+    }
+}
+//=========================================================================================
+//=========================================================================================
+
+public class MyThread extends Thread{
+    //Properties:
+    private final   String TAG = "MyThread";            //Log tag
+    private         Handler outHandler;                 //handles the OUTgoing msgs
+    Bundle          myB = new Bundle();                 //used for creating the msgs
+    private         Handler inHandler = new Handler(){  //handles the INcoming msgs
+        @Override public void handleMessage(Message msg)
+        {
+            myB = msg.getData();
+            Log.i(TAG, "Handler got message"+ myB.getInt("MAIN DELIVERY"));
+        }
+    };
+
+    //Methods:
+    //--------------------------
+    @Override
+    public void run(){
+        sendMsgToMainThread();  //send to the main activity a msg
+        Looper.prepare();
+        Looper.loop();
+        //after this line nothing happens because of the LOOP!
+        Log.i(TAG, "Lost message");
+    }
+    //--------------------------
+    public MyThread(Handler mHandler) {
+        //C-tor that get a reference object to the MainActivity handler.
+        //this is how we know to whom we need to connect with.
+        outHandler = mHandler;
+    }
+    //--------------------------
+    public Handler getHandler(){
+        //a Get method which return the handler which This Thread is connected with.
+        return inHandler;
+    }
+    //--------------------------
+    private void sendMsgToMainThread(){
+        Message msg = outHandler.obtainMessage();
+        myB.putInt("THREAD DELIVERY", 123);
+        msg.setData(myB);
+        outHandler.sendMessage(msg);
     }
 
 };
