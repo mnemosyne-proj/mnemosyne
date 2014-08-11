@@ -1,16 +1,9 @@
 package org.mnemosyne;
 
-import com.srplab.www.starcore.StarCoreFactory;
-import com.srplab.www.starcore.StarCoreFactoryPath;
-import com.srplab.www.starcore.StarObjectClass;
-import com.srplab.www.starcore.StarServiceClass;
-import com.srplab.www.starcore.StarSrvGroupClass;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -22,273 +15,17 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
-
 public class MnemosyneActivity extends Activity {
 
-    StarObjectClass python;
-    StarObjectClass mnemosyne;
-    StarObjectClass reviewController;
+    public Handler activityHandler = new Handler();
+    private Thread mnemosyneThread;
 
-    static TextView questionLabel;
-    static WebView question;
-    static TextView answerLabel;
-    static WebView answer;
-    static Button showAnswerButton;
-    static Button button0;
-    static Button button1;
-    static Button button2;
-    static Button button3;
-    static Button button4;
-    static Button button5;
-    static TextView statusbar;
-
-    private void mergeApkFile(Activity c, ArrayList<String> partFileList, String dst)
-            throws IOException {
-        if (!new File(partFileList.get(0)).exists()) {
-            //OutputStream out = new FileOutputStream(dst);
-            OutputStream out = openFileOutput(dst, MODE_WORLD_READABLE );
-            byte[] buffer = new byte[1024];
-            InputStream in;
-            int readLen = 0;
-            for(int i = 0; i < partFileList.size(); i++){
-                in = c.getAssets().open(partFileList.get(i));
-                while ((readLen = in.read(buffer)) != -1) {
-                    out.write(buffer, 0, readLen);
-                }
-                out.flush();
-                in.close();
-            }
-            out.close();
-        }
-    }
-
-    private void copyFile(Activity c, String Name,String desPath) throws IOException {
-        File outfile = new File("/data/data/" + getPackageName() + "/files/" + desPath+Name);
-        if (!outfile.exists()) {
-            outfile.createNewFile();
-            FileOutputStream out = new FileOutputStream(outfile);
-            byte[] buffer = new byte[1024];
-            InputStream in;
-            int readLen = 0;
-            in = c.getAssets().open(desPath + Name);
-            while ((readLen = in.read(buffer)) != -1){
-                out.write(buffer, 0, readLen);
-            }
-            out.flush();
-            in.close();
-            out.close();
-        }
-    }
-
-    private boolean CreatePath(String Path){
-        File destCardDir = new File(Path);
-        if (!destCardDir.exists()) {
-            int Index = Path.lastIndexOf(File.separator.charAt(0));
-            if (Index < 0) {
-                if( destCardDir.mkdirs() == false )
-                    return false;
-            } else {
-                String ParentPath = Path.substring(0, Index);
-                if (CreatePath(ParentPath) == false)
-                    return false;
-                if (destCardDir.mkdirs() == false)
-                    return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean unzip(InputStream zipFileName, String outputDirectory, Boolean OverWriteFlag) {
-        try {
-            ZipInputStream in = new ZipInputStream(zipFileName);
-            ZipEntry entry = in.getNextEntry();
-            byte[] buffer = new byte[1024];
-            while (entry != null) {
-                File file = new File(outputDirectory);
-                file.mkdir();
-                if (entry.isDirectory()) {
-                    String name = entry.getName();
-                    name = name.substring(0, name.length() - 1);
-                    if (CreatePath(outputDirectory + File.separator + name) == false)
-                        return false;
-                } else {
-                    String name = outputDirectory + File.separator + entry.getName();
-                    int Index = name.lastIndexOf(File.separator.charAt(0));
-                    if (Index < 0) {
-                        file = new File(outputDirectory + File.separator + entry.getName());
-                    } else {
-                        String ParentPath = name.substring(0, Index);
-                        if (CreatePath(ParentPath) == false)
-                            return false;
-                        file = new File(outputDirectory + File.separator + entry.getName());
-                    }
-                    if (!file.exists() || OverWriteFlag == true) {
-                        file.createNewFile();
-                        FileOutputStream out = new FileOutputStream(file);
-                        int readLen = 0;
-                        while ((readLen = in.read(buffer)) != -1) {
-                            out.write(buffer, 0, readLen);
-                        }
-                        out.close();
-                    }
-                }
-                entry = in.getNextEntry();
-            }
-            in.close();
-            return true;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    private void setupMnemosyne() {
-        java.io.File python_extras_r14File = new java.io.File("/data/data/" + getPackageName() +
-                "/files/python_extras_r14.zip");
-        if (!python_extras_r14File.exists()) {
-            ArrayList<String> StarCoreFiles =  new ArrayList<String>();
-            StarCoreFiles.add("python_extras_r14_aa");
-            StarCoreFiles.add("python_extras_r14_ab");
-            StarCoreFiles.add("python_extras_r14_ac");
-            StarCoreFiles.add("python_extras_r14_ad");
-            try {
-                mergeApkFile(this,StarCoreFiles,"python_extras_r14.zip");
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        File destDir = new File("/data/data/" + getPackageName() + "/files/lib-dynload");
-        if (!destDir.exists())
-            destDir.mkdirs();
-        try {
-            copyFile(this,"_bisect.so","lib-dynload/");
-            copyFile(this,"_bytesio.so","lib-dynload/");
-            copyFile(this,"_codecs_cn.so","lib-dynload/");
-            copyFile(this,"_codecs_hk.so","lib-dynload/");
-            copyFile(this,"_codecs_iso2022.so","lib-dynload/");
-            copyFile(this,"_codecs_jp.so","lib-dynload/");
-            copyFile(this,"_codecs_kr.so","lib-dynload/");
-            copyFile(this,"_codecs_tw.so","lib-dynload/");
-            copyFile(this,"_collections.so","lib-dynload/");
-            copyFile(this,"_ctypes.so","lib-dynload/");
-            copyFile(this,"_ctypes_test.so","lib-dynload/");
-            copyFile(this,"_elementtree.so","lib-dynload/");
-            copyFile(this,"_fileio.so","lib-dynload/");
-            copyFile(this,"_functools.so","lib-dynload/");
-            copyFile(this,"_heapq.so","lib-dynload/");
-            copyFile(this,"_hotshot.so","lib-dynload/");
-            copyFile(this,"_json.so","lib-dynload/");
-            copyFile(this,"_lsprof.so","lib-dynload/");
-            copyFile(this,"_md5.so","lib-dynload/");
-            copyFile(this,"_multibytecodec.so","lib-dynload/");
-            copyFile(this,"_multiprocessing.so","lib-dynload/");
-            copyFile(this,"_random.so","lib-dynload/");
-            copyFile(this,"_sha256.so","lib-dynload/");
-            copyFile(this,"_sha512.so","lib-dynload/");
-            copyFile(this,"_sha.so","lib-dynload/");
-            copyFile(this,"_socket.so","lib-dynload/");
-            copyFile(this,"_sqlite3.so","lib-dynload/");
-            copyFile(this,"_ssl.so","lib-dynload/");
-            copyFile(this,"_struct.so","lib-dynload/");
-            copyFile(this,"_testcapi.so","lib-dynload/");
-            copyFile(this,"_weakref.so","lib-dynload/");
-            copyFile(this,"array.so","lib-dynload/");
-            copyFile(this,"audioop.so","lib-dynload/");
-            copyFile(this,"binascii.so","lib-dynload/");
-            copyFile(this,"bz2.so","lib-dynload/");
-            copyFile(this,"cmath.so","lib-dynload/");
-            copyFile(this,"cPickle.so","lib-dynload/");
-            copyFile(this,"crypt.so","lib-dynload/");
-            copyFile(this,"cStringIO.so","lib-dynload/");
-            copyFile(this,"datetime.so","lib-dynload/");
-            copyFile(this,"fcntl.so","lib-dynload/");
-            copyFile(this,"future_builtins.so","lib-dynload/");
-            copyFile(this,"imageop.so","lib-dynload/");
-            copyFile(this,"itertools.so","lib-dynload/");
-            copyFile(this,"math.so","lib-dynload/");
-            copyFile(this,"mmap.so","lib-dynload/");
-            copyFile(this,"operator.so","lib-dynload/");
-            copyFile(this,"parser.so","lib-dynload/");
-            copyFile(this,"pyexpat.so","lib-dynload/");
-            copyFile(this,"resource.so","lib-dynload/");
-            copyFile(this,"select.so","lib-dynload/");
-            copyFile(this,"strop.so","lib-dynload/");
-            copyFile(this,"syslog.so","lib-dynload/");
-            copyFile(this,"termios.so","lib-dynload/");
-            copyFile(this,"time.so","lib-dynload/");
-            copyFile(this,"unicodedata.so","lib-dynload/");
-            copyFile(this,"zlib.so","lib-dynload/");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            AssetManager assetManager = getAssets();
-            InputStream dataSource = assetManager.open("mnemosyne.zip");
-            StarCoreFactoryPath.CreatePath(Runtime.getRuntime(),
-                    "/data/data/" + getPackageName() + "/files");
-            unzip(dataSource, "/data/data/" + getPackageName() + "/files", true);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        StarCoreFactoryPath.StarCoreCoreLibraryPath = "/data/data/" + getPackageName() + "/lib";
-        StarCoreFactoryPath.StarCoreShareLibraryPath = "/data/data/" + getPackageName() + "/lib";
-        StarCoreFactoryPath.StarCoreOperationPath = "/data/data/" + getPackageName() + "/files";
-        StarCoreFactory starcore = StarCoreFactory.GetFactory();
-
-        StarSrvGroupClass SrvGroup = starcore._GetSrvGroup(0);
-        StarServiceClass Service = SrvGroup._GetService("cle", "123");
-        if (Service == null) {  // The service has not been initialized.
-            Service = starcore._InitSimple("cle", "123", 0, 0);
-            Service._CheckPassword(false);
-            SrvGroup = (StarSrvGroupClass) Service._Get("_ServiceGroup");
-            SrvGroup._InitRaw("python", Service);
-            python = Service._ImportRawContext("python", "", false, "");
-
-            // Set up extra paths.
-            python._Call("import", "sys");
-            StarObjectClass pythonSys = python._GetObject("sys");
-            StarObjectClass pythonPath = (StarObjectClass) pythonSys._Get("path");
-            String base = "/data/data/" + getPackageName();
-            pythonPath._Call("insert", 0, base + "/files/python_extras_r14.zip");
-            pythonPath._Call("insert", 0, base + "/lib");
-            pythonPath._Call("insert", 0, base + "/files/lib-dynload");
-            pythonPath._Call("insert", 0, base + "/files");
-
-            // Start Mnemosyne.
-            SrvGroup._LoadRawModule("python", "", "/data/data/" + getPackageName() +
-                    "/files/mnemosyne/cle/mnemosyne_android.py", false);
-            mnemosyne = python._GetObject("mnemosyne");
-
-            String dataDir = "/sdcard/Mnemosyne/";
-            String filename = "default.db";
-            StarObjectClass activity = Service._New();
-            activity._AttachRawObject(this, false);
-
-            python._Call("start_mnemosyne", dataDir, filename, activity);
-
-            reviewController = (StarObjectClass) mnemosyne._Call("review_controller");
-        }
-    }
-
-    private Handler handler;
+    private Button button0;
+    private Button button1;
+    private Button button2;
+    private Button button3;
+    private Button button4;
+    private Button button5;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -308,25 +45,13 @@ public class MnemosyneActivity extends Activity {
         button5 = (Button) this.findViewById(R.id.button5);
         statusbar = (TextView) this.findViewById(R.id.statusbar);
 
-        handler = new Handler(Looper.getMainLooper());
-
-        Thread t = new Thread(new Runnable() {
-            public void run() {
-                setupMnemosyne();
-                //testProgress();
-                Log.d("Mnemosyne", "done_thread ");
-            }
-        });
-        t.start();
-
-        //setupMnemosyne();
-        //testProgress();
+        mnemosyneThread = new Thread(MnemosyneThread(activityHandler));
+        mnemosyneThread.start();
 
         showAnswerButton.setOnClickListener(new OnClickListener() {
 
             public void onClick(View view) {
                 Log.d("Mnemosyne", "show_answer clicked ");
-                python._Call("calling_back");
                 reviewController._Call("show_answer");
             }
         });
@@ -573,43 +298,10 @@ public class MnemosyneActivity extends Activity {
                 }
             }
         });
-        //t.start();
 
-        Log.d("Mnemosyne", "starting_work");
-        python._Call("do_work");
-
-        if (false) {
-            final StarObjectClass mainWidget = (StarObjectClass) mnemosyne._Call("main_widget");
-            mainWidget._Call("set_progress_text", "progress3");
-            mainWidget._Call("set_progress_range", 3);
-            new Thread(new Runnable() {
-                public void run() {
-                    Log.d("Mnemosyne", "starting_work in thread");
-                    python._Call("do_work");
-                    Log.d("Mnemosyne", "done_work in thread");
-                }
-            }).start();}
     }
 
-    private final   String TAG = "Activity";            //Log tag
-    private         MyThread mThread;                   //spawned thread
-    Bundle          myB = new Bundle();                 //used for creating the msgs
-    public          Handler mHandler = new Handler(){   //handles the INcoming msgs
-        @Override public void handleMessage(Message msg)
-        {
-            myB = msg.getData();
-            Log.i(TAG, "Handler got message"+ myB.getInt("THREAD DELIVERY"));
-        }
-    };
-    //Methods:
-    //--------------------------
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mThread = new MyThread(mHandler);
-        mThread.start();
-        sendMsgToThread();
-    }
+
     //--------------------------
     void sendMsgToThread()
     {
