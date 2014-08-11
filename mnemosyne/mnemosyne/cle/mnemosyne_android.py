@@ -104,5 +104,3 @@ def do_work():
             import math; math.sin(j)
         mnemosyne.main_widget().increase_progress(1) 
         
-def calling_back():
-    print 'calling back into python'        
