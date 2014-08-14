@@ -18,8 +18,14 @@ import android.widget.TextView;
 public class MnemosyneActivity extends Activity {
 
     public Handler activityHandler = new Handler();
-    private Thread mnemosyneThread;
+    private MnemosyneThread mnemosyneThread;
 
+    private TextView questionLabel;
+    private TextView answerLabel;
+    private TextView statusbar;
+    private WebView question;
+    private WebView answer;
+    private Button showAnswerButton;
     private Button button0;
     private Button button1;
     private Button button2;
@@ -45,59 +51,26 @@ public class MnemosyneActivity extends Activity {
         button5 = (Button) this.findViewById(R.id.button5);
         statusbar = (TextView) this.findViewById(R.id.statusbar);
 
-        mnemosyneThread = new Thread(MnemosyneThread(activityHandler));
+        MnemosyneInstaller installer = new MnemosyneInstaller(this, getPackageName());
+        installer.installMnemosyne();
+
+        mnemosyneThread = new MnemosyneThread(activityHandler, getPackageName());
         mnemosyneThread.start();
+
+        //testProgress();
 
         showAnswerButton.setOnClickListener(new OnClickListener() {
 
             public void onClick(View view) {
-                Log.d("Mnemosyne", "show_answer clicked ");
-                reviewController._Call("show_answer");
+                Log.d("Mnemosyne", "show_answer clicked");
+                mnemosyneThread.getHandler().post(new Runnable() {
+                    public void run() {
+                        Log.d("Mnemosyne", "thread got show_answer");
+                        mnemosyneThread.reviewController._Call("show_answer");
+                    }
+                });
             }
         });
-
-        button0.setOnClickListener(new OnClickListener() {
-
-            public void onClick(View view) {
-                reviewController._Call("grade_answer", 0);
-            }
-        });
-
-        button1.setOnClickListener(new OnClickListener() {
-
-            public void onClick(View view) {
-                reviewController._Call("grade_answer", 1);
-            }
-        });
-
-        button2.setOnClickListener(new OnClickListener() {
-
-            public void onClick(View view) {
-                reviewController._Call("grade_answer", 2);
-            }
-        });
-
-        button3.setOnClickListener(new OnClickListener() {
-
-            public void onClick(View view) {
-                reviewController._Call("grade_answer", 3);
-            }
-        });
-
-        button4.setOnClickListener(new OnClickListener() {
-
-            public void onClick(View view) {
-                reviewController._Call("grade_answer", 4);
-            }
-        });
-
-        button5.setOnClickListener(new OnClickListener() {
-
-            public void onClick(View view) {
-                reviewController._Call("grade_answer", 5);
-            }
-        });
-
     }
 
     public void setQuestionLabel(String label) {
@@ -300,60 +273,4 @@ public class MnemosyneActivity extends Activity {
         });
 
     }
-
-
-    //--------------------------
-    void sendMsgToThread()
-    {
-        Message msg = mThread.getHandler().obtainMessage();
-        myB.putInt("MAIN DELIVERY", 321);
-        msg.setData(myB);
-        mThread.getHandler().sendMessage(msg);
-    }
 }
-//=========================================================================================
-//=========================================================================================
-
-public class MyThread extends Thread{
-    //Properties:
-    private final   String TAG = "MyThread";            //Log tag
-    private         Handler outHandler;                 //handles the OUTgoing msgs
-    Bundle          myB = new Bundle();                 //used for creating the msgs
-    private         Handler inHandler = new Handler(){  //handles the INcoming msgs
-        @Override public void handleMessage(Message msg)
-        {
-            myB = msg.getData();
-            Log.i(TAG, "Handler got message"+ myB.getInt("MAIN DELIVERY"));
-        }
-    };
-
-    //Methods:
-    //--------------------------
-    @Override
-    public void run(){
-        sendMsgToMainThread();  //send to the main activity a msg
-        Looper.prepare();
-        Looper.loop();
-        //after this line nothing happens because of the LOOP!
-        Log.i(TAG, "Lost message");
-    }
-    //--------------------------
-    public MyThread(Handler mHandler) {
-        //C-tor that get a reference object to the MainActivity handler.
-        //this is how we know to whom we need to connect with.
-        outHandler = mHandler;
-    }
-    //--------------------------
-    public Handler getHandler(){
-        //a Get method which return the handler which This Thread is connected with.
-        return inHandler;
-    }
-    //--------------------------
-    private void sendMsgToMainThread(){
-        Message msg = outHandler.obtainMessage();
-        myB.putInt("THREAD DELIVERY", 123);
-        msg.setData(myB);
-        outHandler.sendMessage(msg);
-    }
-
-};
