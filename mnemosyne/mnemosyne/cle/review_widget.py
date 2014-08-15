@@ -36,13 +36,13 @@ class ReviewWdgt(ReviewWidget):
         self.review_controller().grade_answer(grade)
 
     def set_question_box_visible(self, is_visible):
-        self.component_manager.activity.setQuestionBoxVisible(is_visible)
+        self.component_manager.android.setQuestionBoxVisible(is_visible)
 
     def set_answer_box_visible(self, is_visible):
-        self.component_manager.activity.setAnswerBoxVisible(is_visible)
+        self.component_manager.android.setAnswerBoxVisible(is_visible)
         
     def set_question_label(self, text):
-        self.component_manager.activity.setQuestionLabel(text.encode("utf-8"))
+        self.component_manager.android.setQuestionLabel(text.encode("utf-8"))
 
     def set_question(self, text):
         self.question = text
@@ -51,11 +51,11 @@ class ReviewWdgt(ReviewWidget):
         self.answer = text
         
     def reveal_question(self):
-        self.component_manager.activity.setQuestion(\
+        self.component_manager.android.setQuestion(\
             self.question.encode("utf-8"))
         
     def reveal_answer(self):
-        self.component_manager.activity.setAnswer(\
+        self.component_manager.android.setAnswer(\
             self.answer.encode("utf-8"))
         
     def clear_question(self):
@@ -67,11 +67,11 @@ class ReviewWdgt(ReviewWidget):
         self.reveal_answer()
 
     def update_show_button(self, text, is_default, is_enabled):
-        self.component_manager.activity.updateShowButton(\
+        self.component_manager.android.updateShowButton(\
             text.encode("utf-8"), is_default, is_enabled)
 
     def set_grades_enabled(self, is_enabled):
-        self.component_manager.activity.setGradesEnabled(is_enabled)
+        self.component_manager.android.setGradesEnabled(is_enabled)
 
     def set_default_grade(self, grade):
         pass
@@ -81,5 +81,5 @@ class ReviewWdgt(ReviewWidget):
             self.review_controller().counters()
         counters = "Sch.: %d Not mem.: %d Act.: %d" % \
                     (scheduled_count, non_memorised_count, active_count)
-        self.component_manager.activity.setStatusbarText(counters)
+        self.component_manager.android.setStatusbarText(counters)
 

@@ -3,6 +3,7 @@
 -Don't crash the SQL engine if you have more than 1000 tags (reported by Mats 
  Hansson).
 -Update the window title on a sync server if a different database was loaded.
+-Make upgrading from 2.3 config database more robust (reported by Lewis White).
 
 
 Mnemosyne 2.3.1 : 2014-06-18

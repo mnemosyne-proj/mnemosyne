@@ -3,7 +3,8 @@ package org.mnemosyne;
 import com.srplab.www.starcore.StarCoreFactoryPath;
 
 import android.app.Activity;
-import android.content.res.AssetManager;
+import android.content.Context;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,25 +18,24 @@ import java.util.zip.ZipInputStream;
 
 public class MnemosyneInstaller {
 
-    private AssetManager assetManager;
+    private Context context;
     private String basedir;
 
-    public MnemosyneInstaller(Activity activity, String packageName)
+    public MnemosyneInstaller(Activity activity)
     {
-        assetManager = activity.getAssets();
-        basedir = "/data/data/" + packageName;
+        context = activity;
+        basedir = "/data/data/" + context.getPackageName();
     }
 
     private void mergeApkFile(ArrayList<String> partFileList, String dst)
             throws IOException {
         if (!new File(partFileList.get(0)).exists()) {
-            OutputStream out = new FileOutputStream(dst);
-            //OutputStream out = openFileOutput(dst, MODE_WORLD_READABLE);
+            OutputStream out = context.openFileOutput(dst, context.MODE_WORLD_READABLE);
             byte[] buffer = new byte[1024];
             InputStream in;
             int readLen = 0;
-            for(int i = 0; i < partFileList.size(); i++){
-                in = assetManager.open(partFileList.get(i));
+            for (int i=0; i<partFileList.size(); i++){
+                in = context.getAssets().open(partFileList.get(i));
                 while ((readLen = in.read(buffer)) != -1) {
                     out.write(buffer, 0, readLen);
                 }
@@ -47,14 +47,14 @@ public class MnemosyneInstaller {
     }
 
     private void copyFile(String Name, String desPath) throws IOException {
-        File outfile = new File(basedir + "/files/" + desPath+Name);
+        File outfile = new File(basedir + "/files/" + desPath + Name);
         if (!outfile.exists()) {
             outfile.createNewFile();
             FileOutputStream out = new FileOutputStream(outfile);
             byte[] buffer = new byte[1024];
             InputStream in;
             int readLen = 0;
-            in = assetManager.open(desPath + Name);
+            in = context.getAssets().open(desPath + Name);
             while ((readLen = in.read(buffer)) != -1){
                 out.write(buffer, 0, readLen);
             }
@@ -130,6 +130,7 @@ public class MnemosyneInstaller {
     }
 
     public void installMnemosyne() {
+        Log.d("Mnemosyne", "About to install Mnemosyne");
         java.io.File python_extras_r14File = new java.io.File(basedir +
                 "/files/python_extras_r14.zip");
         if (!python_extras_r14File.exists()) {
@@ -147,7 +148,7 @@ public class MnemosyneInstaller {
         }
 
         File destDir = new File(basedir + "/files/lib-dynload");
-        if (! destDir.exists())
+        if (!destDir.exists())
             destDir.mkdirs();
         try {
             copyFile("_bisect.so", "lib-dynload/");
@@ -213,12 +214,14 @@ public class MnemosyneInstaller {
         }
 
         try {
-            InputStream dataSource = assetManager.open("mnemosyne.zip");
+            InputStream dataSource = context.getAssets().open("mnemosyne.zip");
             StarCoreFactoryPath.CreatePath(Runtime.getRuntime(), basedir + "/files");
             unzip(dataSource, basedir + "/files", true);
         }
         catch (IOException e) {
             e.printStackTrace();
         }
+
+        Log.d("Mnemosyne", "installed Mnemosyne");
     }
 }

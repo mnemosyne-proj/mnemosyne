@@ -17,21 +17,21 @@ import android.widget.TextView;
 
 public class MnemosyneActivity extends Activity {
 
-    public Handler activityHandler = new Handler();
-    private MnemosyneThread mnemosyneThread;
+    Handler activityHandler = new Handler();
+    MnemosyneThread mnemosyneThread;
 
-    private TextView questionLabel;
-    private TextView answerLabel;
-    private TextView statusbar;
-    private WebView question;
-    private WebView answer;
-    private Button showAnswerButton;
-    private Button button0;
-    private Button button1;
-    private Button button2;
-    private Button button3;
-    private Button button4;
-    private Button button5;
+    TextView questionLabel;
+    TextView answerLabel;
+    TextView statusbar;
+    WebView question;
+    WebView answer;
+    Button showAnswerButton;
+    Button button0;
+    Button button1;
+    Button button2;
+    Button button3;
+    Button button4;
+    Button button5;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,10 +51,10 @@ public class MnemosyneActivity extends Activity {
         button5 = (Button) this.findViewById(R.id.button5);
         statusbar = (TextView) this.findViewById(R.id.statusbar);
 
-        MnemosyneInstaller installer = new MnemosyneInstaller(this, getPackageName());
+        MnemosyneInstaller installer = new MnemosyneInstaller(this);
         installer.installMnemosyne();
 
-        mnemosyneThread = new MnemosyneThread(activityHandler, getPackageName());
+        mnemosyneThread = new MnemosyneThread(this, activityHandler, getPackageName());
         mnemosyneThread.start();
 
         //testProgress();
@@ -73,9 +73,9 @@ public class MnemosyneActivity extends Activity {
         });
     }
 
-    public void setQuestionLabel(String label) {
-        questionLabel.setText(label);
-    }
+    //public void setQuestionLabel(String label) {
+    //    questionLabel.setText(label);
+    //}
 
     public void setQuestion(String html) {
         question.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
@@ -134,17 +134,6 @@ public class MnemosyneActivity extends Activity {
             button4.setVisibility(android.view.View.GONE);
             button5.setVisibility(android.view.View.GONE);
         }
-    }
-
-    String statusBarText;
-
-    public void setStatusbarText(String text) {
-        Log.d("Mnemosyne", "setstatusbartex " + text);
-        statusBarText = text;
-        handler.post(new Runnable() {
-            public void run() {
-                statusbar.setText(statusBarText);
-            }});
     }
 
     public void showInformation(String text) {
@@ -231,12 +220,12 @@ public class MnemosyneActivity extends Activity {
         progressValue = value;
         //progressDialog.setProgress(progressValue);
 
-        handler.post(new Runnable() {
-            public void run() {
-                progressDialog.setProgress(progressValue);
-                Log.d("Mnemosyne", "handler " + progressValue);
-            }
-        });
+        // handler.post(new Runnable() {
+        //    public void run() {
+        //         progressDialog.setProgress(progressValue);
+        //         Log.d("Mnemosyne", "handler " + progressValue);
+        //     }
+        // });
     }
 
     public void closeProgress() {
@@ -246,13 +235,13 @@ public class MnemosyneActivity extends Activity {
     public void testProgress() {
         Log.d("Mnemosyne", "testProgress ");
 
-        handler.post(new Runnable() {
-            public void run() {
-                Log.d("Mnemosyne", "runnable creating ui");
-                setProgressText("progress2");
-                setProgressRange(3);
-            }
-        });
+        //handler.post(new Runnable() {
+        //    public void run() {
+        //        Log.d("Mnemosyne", "runnable creating ui");
+        //        setProgressText("progress2");
+        //        setProgressRange(3);
+        //    }
+        //});
 
         Thread t = new Thread(new Runnable() {
             public void run() {
