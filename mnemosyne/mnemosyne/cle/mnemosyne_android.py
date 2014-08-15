@@ -90,11 +90,10 @@ mnemosyne.components = [\
          ("mnemosyne.cle.review_widget", 
           "ReviewWdgt")]
 
-def start_mnemosyne(data_dir, filename, activity):
+def start_mnemosyne(data_dir, filename, wrapper):
     mnemosyne.initialise(data_dir=data_dir, filename=filename)
-    mnemosyne.component_manager.activity = activity
-    mnemosyne.component_manager.activity.setStatusbarText("milk bar")
-    #mnemosyne.start_review()
+    mnemosyne.component_manager.android = wrapper
+    mnemosyne.start_review()
 
 def do_work():
     print 'starting do_work in python'
@@ -102,5 +101,4 @@ def do_work():
         print i
         for j in range(100000):
             import math; math.sin(j)
-        mnemosyne.main_widget().increase_progress(1) 
-        
+        mnemosyne.main_widget().increase_progress(1)

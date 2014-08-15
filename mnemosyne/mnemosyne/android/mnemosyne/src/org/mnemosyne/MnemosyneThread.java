@@ -16,12 +16,14 @@ public class MnemosyneThread extends Thread {
     StarObjectClass python;
     StarObjectClass mnemosyne;
     StarObjectClass reviewController;
+    MnemosyneActivity UIActivity;
     Handler mnemosyneHandler = new Handler();
-    Handler activityHandler;
+    Handler UIHandler;
     String basedir;
 
-    public MnemosyneThread(Handler handler, String packageName) {
-        activityHandler = handler;
+    public MnemosyneThread(MnemosyneActivity activity, Handler handler, String packageName) {
+        UIActivity = activity;
+        UIHandler = handler;
         basedir = "/data/data/" + packageName;
     }
 
@@ -34,6 +36,8 @@ public class MnemosyneThread extends Thread {
         StarCoreFactoryPath.StarCoreShareLibraryPath = basedir + "/lib";
         StarCoreFactoryPath.StarCoreOperationPath = basedir + "/files";
         StarCoreFactory starcore = StarCoreFactory.GetFactory();
+
+        Log.d("Mnemosyne", "Initialising starcore");
 
         StarSrvGroupClass SrvGroup = starcore._GetSrvGroup(0);
         StarServiceClass Service = SrvGroup._GetService("cle", "123");
@@ -53,6 +57,8 @@ public class MnemosyneThread extends Thread {
             pythonPath._Call("insert", 0, basedir + "/files/lib-dynload");
             pythonPath._Call("insert", 0, basedir + "/files");
 
+            Log.d("Mnemosyne", "about to start Mnemosyne");
+
             // Start Mnemosyne.
             SrvGroup._LoadRawModule("python", "", basedir +
                     "/files/mnemosyne/cle/mnemosyne_android.py", false);
@@ -63,20 +69,39 @@ public class MnemosyneThread extends Thread {
             StarObjectClass activity = Service._New();
             activity._AttachRawObject(this, false);
 
-            python._Call("start_mnemosyne", dataDir, filename, activity);
+            python._Call("start_mnemosyne", dataDir, filename, this);
 
             reviewController = (StarObjectClass) mnemosyne._Call("review_controller");
+
+            Log.d("Mnemosyne", "started Mnemosyne");
         }
     }
 
     @Override
     public void run() {
+        Log.d("Mnemosyne", "starting running Mnemosyne thread");
         startMnemosyne();
 
         Looper.prepare();
         Looper.loop();
+    }
 
-        Log.d("Mnemosyne", "done_thread ");
+    public void setQuestionLabel(String label) {
+        final String _label = label;
+        UIHandler.post(new Runnable() {
+            public void run() {
+                UIActivity.questionLabel.setText(_label);
+            }
+        });
+    }
+
+    public void setStatusbarText(String text) {
+        final String _text = text;
+        UIHandler.post(new Runnable() {
+            public void run() {
+                UIActivity.statusbar.setText(_text);
+            }
+        });
     }
 
 }

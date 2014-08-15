@@ -4,8 +4,8 @@
 -remove callback.py
 -check 'redraw now'
 -check if Android uninstall removes all files
--move installer code to different file
--progress bar on extracting python zip file for the first time?
+-progress bar/message on installing for the first time?
+-progress bar/message on starting mnemosyne?
 -check functionality for map card types
 
 -also bundle newer abi libraries?

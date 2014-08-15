@@ -60,3 +60,4 @@ class MainWdgt(MainWidget):
     def close_progress(self):
         self.is_progress_bar_showing = False
         self.component_manager.activity.closeValue()
+
