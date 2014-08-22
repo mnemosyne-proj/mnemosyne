@@ -60,80 +60,75 @@ public class MnemosyneActivity extends Activity {
         //testProgress();
 
         showAnswerButton.setOnClickListener(new OnClickListener() {
-
             public void onClick(View view) {
-                Log.d("Mnemosyne", "show_answer clicked");
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
-                        Log.d("Mnemosyne", "thread got show_answer");
                         mnemosyneThread.reviewController._Call("show_answer");
                     }
                 });
             }
         });
-    }
 
-    //public void setQuestionLabel(String label) {
-    //    questionLabel.setText(label);
-    //}
+        button0.setOnClickListener(new OnClickListener() {
+            public void onClick(View view) {
+                mnemosyneThread.getHandler().post(new Runnable() {
+                    public void run() {
+                        mnemosyneThread.reviewController._Call("grade_answer", 0);
+                    }
+                });
+            }
+        });
 
-    public void setQuestion(String html) {
-        question.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
-    }
+        button1.setOnClickListener(new OnClickListener() {
+            public void onClick(View view) {
+                mnemosyneThread.getHandler().post(new Runnable() {
+                    public void run() {
+                        mnemosyneThread.reviewController._Call("grade_answer", 1);
+                    }
+                });
+            }
+        });
 
-    public void setAnswer(String html) {
-        answer.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
-    }
+        button2.setOnClickListener(new OnClickListener() {
+            public void onClick(View view) {
+                mnemosyneThread.getHandler().post(new Runnable() {
+                    public void run() {
+                        mnemosyneThread.reviewController._Call("grade_answer", 2);
+                    }
+                });
+            }
+        });
 
-    public void setQuestionBoxVisible(boolean isVisible) {
-        if (isVisible) {
-            question.setVisibility(android.view.View.VISIBLE);
-            questionLabel.setVisibility(android.view.View.VISIBLE);
-        }
-        else {
-            question.setVisibility(android.view.View.GONE);
-            questionLabel.setVisibility(android.view.View.GONE);
-        }
-    }
+        button3.setOnClickListener(new OnClickListener() {
+            public void onClick(View view) {
+                mnemosyneThread.getHandler().post(new Runnable() {
+                    public void run() {
+                        mnemosyneThread.reviewController._Call("grade_answer", 3);
+                    }
+                });
+            }
+        });
 
-    public void setAnswerBoxVisible(boolean isVisible) {
-        if (isVisible) {
-            answer.setVisibility(android.view.View.VISIBLE);
-            answerLabel.setVisibility(android.view.View.VISIBLE);
-        }
-        else {
-            answer.setVisibility(android.view.View.GONE);
-            answerLabel.setVisibility(android.view.View.GONE);
-        }
-    }
+        button4.setOnClickListener(new OnClickListener() {
+            public void onClick(View view) {
+                mnemosyneThread.getHandler().post(new Runnable() {
+                    public void run() {
+                        mnemosyneThread.reviewController._Call("grade_answer", 4);
+                    }
+                });
+            }
+        });
 
-    public void updateShowButton(String text, boolean isDefault, boolean isEnabled) {
-        showAnswerButton.setText(text);
-        if (isEnabled) {
-            showAnswerButton.setVisibility(android.view.View.VISIBLE);
-        }
-        else {
-            showAnswerButton.setVisibility(android.view.View.GONE);
-        }
-    }
+        button5.setOnClickListener(new OnClickListener() {
+            public void onClick(View view) {
+                mnemosyneThread.getHandler().post(new Runnable() {
+                    public void run() {
+                        mnemosyneThread.reviewController._Call("grade_answer", 5);
+                    }
+                });
+            }
+        });
 
-    public void setGradesEnabled(boolean isEnabled) {
-        if (isEnabled) {
-            button0.setVisibility(android.view.View.VISIBLE);
-            button1.setVisibility(android.view.View.VISIBLE);
-            button2.setVisibility(android.view.View.VISIBLE);
-            button3.setVisibility(android.view.View.VISIBLE);
-            button4.setVisibility(android.view.View.VISIBLE);
-            button5.setVisibility(android.view.View.VISIBLE);
-        }
-        else {
-            button0.setVisibility(android.view.View.GONE);
-            button1.setVisibility(android.view.View.GONE);
-            button2.setVisibility(android.view.View.GONE);
-            button3.setVisibility(android.view.View.GONE);
-            button4.setVisibility(android.view.View.GONE);
-            button5.setVisibility(android.view.View.GONE);
-        }
     }
 
     public void showInformation(String text) {

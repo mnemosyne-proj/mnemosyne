@@ -17,7 +17,7 @@ public class MnemosyneThread extends Thread {
     StarObjectClass mnemosyne;
     StarObjectClass reviewController;
     MnemosyneActivity UIActivity;
-    Handler mnemosyneHandler = new Handler();
+    Handler mnemosyneHandler;
     Handler UIHandler;
     String basedir;
 
@@ -81,9 +81,10 @@ public class MnemosyneThread extends Thread {
     public void run() {
         Log.d("Mnemosyne", "starting running Mnemosyne thread");
         startMnemosyne();
-
         Looper.prepare();
+        mnemosyneHandler = new Handler();
         Looper.loop();
+        Log.d("Mnemosyne", "done running Mnemosyne thread");
     }
 
     public void setQuestionLabel(String label) {
@@ -91,6 +92,96 @@ public class MnemosyneThread extends Thread {
         UIHandler.post(new Runnable() {
             public void run() {
                 UIActivity.questionLabel.setText(_label);
+            }
+        });
+    }
+
+    public void setQuestion(String html) {
+        final String _html = html;
+        UIHandler.post(new Runnable() {
+            public void run() {
+                UIActivity.question.loadDataWithBaseURL(null, _html, "text/html", "utf-8", null);
+            }
+        });
+    }
+
+    public void setAnswer(String html) {
+        final String _html = html;
+        UIHandler.post(new Runnable() {
+            public void run() {
+                UIActivity.answer.loadDataWithBaseURL(null, _html, "text/html", "utf-8", null);
+            }
+        });
+    }
+
+    public void setQuestionBoxVisible(boolean isVisible) {
+        final boolean _isVisible = isVisible;
+        UIHandler.post(new Runnable() {
+            public void run() {
+                if (_isVisible) {
+                    UIActivity.question.setVisibility(android.view.View.VISIBLE);
+                    UIActivity.questionLabel.setVisibility(android.view.View.VISIBLE);
+                }
+                else {
+                    UIActivity.question.setVisibility(android.view.View.GONE);
+                    UIActivity.questionLabel.setVisibility(android.view.View.GONE);
+                }
+            }
+        });
+    }
+
+    public void setAnswerBoxVisible(boolean isVisible) {
+        final boolean _isVisible = isVisible;
+        UIHandler.post(new Runnable() {
+            public void run() {
+                if (_isVisible) {
+                    UIActivity.answer.setVisibility(android.view.View.VISIBLE);
+                    UIActivity.answerLabel.setVisibility(android.view.View.VISIBLE);
+                }
+                else {
+                    UIActivity.answer.setVisibility(android.view.View.GONE);
+                    UIActivity.answerLabel.setVisibility(android.view.View.GONE);
+                }
+            }
+        });
+    }
+
+    public void updateShowButton(String text, boolean isDefault, boolean isEnabled) {
+        final String _text = text;
+        final boolean _isEnabled = isEnabled;
+        UIHandler.post(new Runnable() {
+            public void run() {
+                UIActivity.showAnswerButton.setText(_text);
+                if (_isEnabled) {
+                    UIActivity.showAnswerButton.setVisibility(android.view.View.VISIBLE);
+                }
+                else {
+                    UIActivity.showAnswerButton.setVisibility(android.view.View.GONE);
+                }
+            }
+        });
+    }
+
+    public void setGradesEnabled(boolean isEnabled) {
+        final boolean _isEnabled = isEnabled;
+        UIHandler.post(new Runnable() {
+            public void run() {
+                if (_isEnabled) {
+                    UIActivity.button0.setVisibility(android.view.View.VISIBLE);
+                    UIActivity.button1.setVisibility(android.view.View.VISIBLE);
+                    UIActivity.button2.setVisibility(android.view.View.VISIBLE);
+                    UIActivity.button3.setVisibility(android.view.View.VISIBLE);
+                    UIActivity.button4.setVisibility(android.view.View.VISIBLE);
+                    UIActivity.button5.setVisibility(android.view.View.VISIBLE);
+                }
+                else {
+                    UIActivity.button0.setVisibility(android.view.View.GONE);
+                    UIActivity.button1.setVisibility(android.view.View.GONE);
+                    UIActivity.button2.setVisibility(android.view.View.GONE);
+                    UIActivity.button3.setVisibility(android.view.View.GONE);
+                    UIActivity.button4.setVisibility(android.view.View.GONE);
+                    UIActivity.button5.setVisibility(android.view.View.GONE);
+                }
             }
         });
     }
