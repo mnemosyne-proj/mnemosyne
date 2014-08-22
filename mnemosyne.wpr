@@ -1,5 +1,5 @@
 #!wing
-#!version=4.0
+#!version=5.0
 ##################################################################
 # Wing IDE project file                                          #
 ##################################################################
@@ -24,5 +24,6 @@ proj.directory-list = [{'dirloc': loc('.'),
                         'watch_for_changes': True}]
 proj.file-type = 'shared'
 proj.main-file = loc('mnemosyne/mnemosyne/pyqt_ui/mnemosyne')
-testing.auto-test-file-specs = ('test_*',)
+testing.auto-test-file-specs = [('glob',
+                                 'test_*')]
 testing.test-framework = {None: 'nose'}
