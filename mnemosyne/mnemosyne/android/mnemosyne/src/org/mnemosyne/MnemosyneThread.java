@@ -147,17 +147,15 @@ public class MnemosyneThread extends Thread {
     }
 
     public void updateShowButton(String text, boolean isDefault, boolean isEnabled) {
+        // We completely ignore isEnabled here, and rather chose to set it in
+        // 'setGradesEnabled'. The reason is that breaking this up into two 'setVisibility'
+        // messages causes screen flicker, probably related to ordering with respect to a
+        // system-issued 'layout' call.
+        // See http://stackoverflow.com/questions/3544826/android-home-screen-like-effect-flickering-problem-when-set-child-setvisibility
         final String _text = text;
-        final boolean _isEnabled = isEnabled;
         UIHandler.post(new Runnable() {
             public void run() {
                 UIActivity.showAnswerButton.setText(_text);
-                if (_isEnabled) {
-                    UIActivity.showAnswerButton.setVisibility(android.view.View.VISIBLE);
-                }
-                else {
-                    UIActivity.showAnswerButton.setVisibility(android.view.View.GONE);
-                }
             }
         });
     }
@@ -173,6 +171,7 @@ public class MnemosyneThread extends Thread {
                     UIActivity.button3.setVisibility(android.view.View.VISIBLE);
                     UIActivity.button4.setVisibility(android.view.View.VISIBLE);
                     UIActivity.button5.setVisibility(android.view.View.VISIBLE);
+                    UIActivity.showAnswerButton.setVisibility(android.view.View.GONE);
                 }
                 else {
                     UIActivity.button0.setVisibility(android.view.View.GONE);
@@ -181,6 +180,7 @@ public class MnemosyneThread extends Thread {
                     UIActivity.button3.setVisibility(android.view.View.GONE);
                     UIActivity.button4.setVisibility(android.view.View.GONE);
                     UIActivity.button5.setVisibility(android.view.View.GONE);
+                    UIActivity.showAnswerButton.setVisibility(android.view.View.VISIBLE);
                 }
             }
         });

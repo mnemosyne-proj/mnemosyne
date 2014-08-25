@@ -52,7 +52,11 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -if the sync changed the appearance settings, the current card's question still
  shows the old appearance
  
+-Michael Campbell: I changed the background color of Mnemosyne to something other than white, and I 
+ noticed that it uses that color when adding new content. However, when that window does not have 
+ focus, it turns white again.
 
+ 
 -optimisation: change card type for many facts which calls
  'delete_facts_and_their_data' does checking for unused tags multiple times.
 
