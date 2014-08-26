@@ -6,9 +6,13 @@ import com.srplab.www.starcore.StarObjectClass;
 import com.srplab.www.starcore.StarServiceClass;
 import com.srplab.www.starcore.StarSrvGroupClass;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class MnemosyneThread extends Thread {
@@ -194,5 +198,67 @@ public class MnemosyneThread extends Thread {
             }
         });
     }
+
+    public void showInformation(String text) {
+        final String _text = text;
+        UIHandler.post(new Runnable() {
+            public void run() {
+                AlertDialog.Builder alert = new AlertDialog.Builder(UIActivity);
+                alert.setMessage(_text);
+                alert.setCancelable(false);
+                alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        return;
+                    }
+                });
+                alert.show();
+            }
+        });
+    }
+
+    public synchronized int showQuestion(String text, String option0, String option1, String option2) {
+        final String _text = text;
+        final String _option0 = option0;
+        final String _option1 = option1;
+        final String _option2 = option2;
+        final AtomicInteger result = new AtomicInteger();
+        UIHandler.post(new Runnable() {
+            public void run() {
+                Log.d("Mnemosyne", "running on handler");
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(UIActivity);
+                alert.setMessage(_text);
+                alert.setCancelable(false);
+                alert.setPositiveButton(_option0, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                        Log.d("Mnemosyne", "on click");
+                        result.set(0);
+                        Log.d("Mnemosyne", "before notify");
+                        synchronized(result) {
+                            notify();
+                        }
+                        Log.d("Mnemosyne", "after notify");
+                    }
+                });
+                alert.show();
+            }
+            //UIActivity.showQuestion(_text, _option0, _option1, _option2);
+        });
+
+        synchronized(result) {
+            try {
+                Log.d("Mnemosyne", "waiting");
+                wait();
+                Log.d("Mnemosyne", "done waiting");
+            }
+            catch (InterruptedException e) {
+                Log.d("Mnemosyne", "interupted");
+            }
+        }
+        Log.d("Mnemosyne", "finished" + result.get());
+        return result.get();
+    }
+
 
 }

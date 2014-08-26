@@ -16,12 +16,12 @@ class MainWdgt(MainWidget):
     def show_information(self, text):
         if self.is_progress_bar_showing:
             self.close_progress()
-        self.component_manager.activity.showInformation(text.encode("utf-8"))            
+        self.component_manager.android.showInformation(text.encode("utf-8"))            
 
     def show_question(self, text, option0, option1, option2):
         if self.is_progress_bar_showing:
             self.close_progress()
-        return self.component_manager.activity.showQuestion(\
+        return self.component_manager.android.showQuestion(\
             text.encode("utf-8"), option0.encode("utf-8"), 
             option1.encode("utf-8"), option2.encode("utf-8"))
 
@@ -31,10 +31,10 @@ class MainWdgt(MainWidget):
     def set_progress_text(self, text):
         if self.is_progress_bar_showing:
             self.close_progress()	
-        self.component_manager.activity.setProgressText(text.encode("utf-8"))
+        self.component_manager.android.setProgressText(text.encode("utf-8"))
 
     def set_progress_range(self, maximum):
-        self.component_manager.activity.setProgressRange(maximum)
+        self.component_manager.android.setProgressRange(maximum)
 
     def set_progress_update_interval(self, update_interval):
         update_interval = int(update_interval)
@@ -53,11 +53,11 @@ class MainWdgt(MainWidget):
         self.progress_bar_current_value = value
         if value - self.progress_bar_last_shown_value >= \
                self.progress_bar_update_interval:
-            self.component_manager.activity.setProgressValue(value)
+            self.component_manager.android.setProgressValue(value)
             self.progress_bar_last_shown_value = value
         print 'done python set_progress_value'
 
     def close_progress(self):
         self.is_progress_bar_showing = False
-        self.component_manager.activity.closeValue()
+        self.component_manager.android.closeValue()
 

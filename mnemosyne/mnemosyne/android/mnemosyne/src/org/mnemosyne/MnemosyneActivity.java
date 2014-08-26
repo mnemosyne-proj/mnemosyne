@@ -131,19 +131,7 @@ public class MnemosyneActivity extends Activity {
 
     }
 
-    public void showInformation(String text) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setMessage(text);
-        alert.setCancelable(false);
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                return;
-            }
-        });
-        alert.show();
-    }
-
-    private int result = -1;
+    int result;
 
     public int showQuestion(String text, String option0, String option1, String option2) {
 
