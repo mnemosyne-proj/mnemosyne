@@ -7,12 +7,13 @@ import com.srplab.www.starcore.StarServiceClass;
 import com.srplab.www.starcore.StarSrvGroupClass;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.Semaphore;
 
 
 public class MnemosyneThread extends Thread {
@@ -74,7 +75,6 @@ public class MnemosyneThread extends Thread {
             activity._AttachRawObject(this, false);
 
             python._Call("start_mnemosyne", dataDir, filename, this);
-
             reviewController = (StarObjectClass) mnemosyne._Call("review_controller");
 
             Log.d("Mnemosyne", "started Mnemosyne");
@@ -216,49 +216,96 @@ public class MnemosyneThread extends Thread {
         });
     }
 
-    public synchronized int showQuestion(String text, String option0, String option1, String option2) {
+    int result = -1;
+    Semaphore semaphore = new Semaphore(0);
+
+    public int showQuestion(String text, String option0, String option1, String option2) {
         final String _text = text;
         final String _option0 = option0;
         final String _option1 = option1;
         final String _option2 = option2;
-        final AtomicInteger result = new AtomicInteger();
+
         UIHandler.post(new Runnable() {
             public void run() {
-                Log.d("Mnemosyne", "running on handler");
-
                 AlertDialog.Builder alert = new AlertDialog.Builder(UIActivity);
                 alert.setMessage(_text);
                 alert.setCancelable(false);
                 alert.setPositiveButton(_option0, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-
-                        Log.d("Mnemosyne", "on click");
-                        result.set(0);
-                        Log.d("Mnemosyne", "before notify");
-                        synchronized(result) {
-                            notify();
-                        }
-                        Log.d("Mnemosyne", "after notify");
+                        result = 0;
+                        semaphore.release();
+                    }
+                });
+                alert.setNeutralButton(_option1, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        result = 1;
+                        semaphore.release();
+                    }
+                });
+                alert.setNegativeButton(_option2, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        result = 2;
+                        semaphore.release();
                     }
                 });
                 alert.show();
             }
-            //UIActivity.showQuestion(_text, _option0, _option1, _option2);
         });
 
-        synchronized(result) {
-            try {
-                Log.d("Mnemosyne", "waiting");
-                wait();
-                Log.d("Mnemosyne", "done waiting");
-            }
-            catch (InterruptedException e) {
-                Log.d("Mnemosyne", "interupted");
-            }
+        try {
+            semaphore.acquire();
         }
-        Log.d("Mnemosyne", "finished" + result.get());
-        return result.get();
+        catch (InterruptedException e) {
+        }
+        return result;
     }
 
+    private ProgressDialog progressDialog;
+    private int progressValue = 0;
+
+    public void setProgressText(String text) {
+        final String _text = text;
+        UIHandler.post(new Runnable() {
+            public void run() {
+                progressDialog = new ProgressDialog(UIActivity);
+                progressDialog.setCancelable(false);
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                progressDialog.setMessage(_text);
+                progressDialog.setProgress(0);
+                progressDialog.show();
+            }
+        });
+    }
+
+    public void setProgressRange(int maximum) {
+        final int _maximum = maximum;
+        UIHandler.post(new Runnable() {
+            public void run() {
+                progressDialog.setMax(_maximum);
+            }
+        });
+    }
+
+    public void setProgressValue(int value) {
+        final int _value = value;
+        UIHandler.post(new Runnable() {
+            public void run() {
+                if (_value >= progressDialog.getMax()) {
+                    closeProgress();
+                    return;
+                }
+                progressValue = _value;
+                progressDialog.setProgress(progressValue);
+            }
+        });
+    }
+
+    public void closeProgress() {
+        UIHandler.post(new Runnable() {
+            public void run() {
+                progressDialog.dismiss();
+            }
+        });
+    }
 
 }

@@ -1,7 +1,8 @@
+-source percentage encoding for media file names like C#.mp3. See user voice. requested by Philip Gubser.
+
 -set default grade
 -handle orientation changes
 -remove superfluous python modules
--remove callback.py
 -check 'redraw now'
 -check if Android uninstall removes all files
 -progress bar/message on installing for the first time?
@@ -25,8 +26,6 @@
 
 -windows 'python setup.py install': missing share locale path when starting configure
 -profile testsuite
--add windows devel instructions to repo and refer to in on website
--wing: integrate with build process
 
 -remote webserver sometimes does not want to send multiple pictures
 -sometimes, need to click website buttons twice
