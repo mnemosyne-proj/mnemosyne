@@ -1,14 +1,8 @@
 package org.mnemosyne;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
@@ -128,121 +122,5 @@ public class MnemosyneActivity extends Activity {
                 });
             }
         });
-
-    }
-
-    int result;
-
-    public int showQuestion(String text, String option0, String option1, String option2) {
-
-        // Make a handler that throws a runtime exception when a message is received.
-        final Handler _handler = new Handler() {
-            @Override
-            public void handleMessage(Message mesg) {
-                throw new RuntimeException();
-            }
-        };
-
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setMessage(text);
-        alert.setCancelable(false);
-        alert.setPositiveButton(option0, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                result = 0;
-                _handler.sendMessage(_handler.obtainMessage());
-            }
-        });
-        alert.setNeutralButton(option1, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                result = 1;
-                _handler.sendMessage(_handler.obtainMessage());
-            }
-        });
-        alert.setNegativeButton(option2, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                result = 2;
-                _handler.sendMessage(_handler.obtainMessage());
-            }
-
-        });
-
-        alert.show();
-        // Loop until the user selects an answer and a runtime exception is triggered.
-        try {
-            Looper.loop();
-        }
-        catch (RuntimeException exception) {
-        }
-        return result;
-    }
-
-    private ProgressDialog progressDialog;
-
-    private int progressValue = 0;
-
-    public void setProgressText(String text) {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setMessage(text);
-        progressDialog.setProgress(0);
-        progressDialog.show();
-        Log.d("Mnemosyne", "done set progress text ");
-    }
-
-    public void setProgressRange(int maximum) {
-        progressDialog.setMax(maximum);
-    }
-
-    public void setProgressValue(int value) {
-        Log.d("Mnemosyne", "setProgressValue " + value);
-        if (value >= progressDialog.getMax()) {
-            closeProgress();
-            return;
-        }
-        progressValue = value;
-        //progressDialog.setProgress(progressValue);
-
-        // handler.post(new Runnable() {
-        //    public void run() {
-        //         progressDialog.setProgress(progressValue);
-        //         Log.d("Mnemosyne", "handler " + progressValue);
-        //     }
-        // });
-    }
-
-    public void closeProgress() {
-        progressDialog.dismiss();
-    }
-
-    public void testProgress() {
-        Log.d("Mnemosyne", "testProgress ");
-
-        //handler.post(new Runnable() {
-        //    public void run() {
-        //        Log.d("Mnemosyne", "runnable creating ui");
-        //        setProgressText("progress2");
-        //        setProgressRange(3);
-        //    }
-        //});
-
-        Thread t = new Thread(new Runnable() {
-            public void run() {
-                for (int i=1; i<4; i++) {
-                    Log.d("Mnemosyne", "in thread " + i);
-                    // your computer is too fast, sleep 1 second
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    Log.d("Mnemosyne", "A " + i);
-                    //mainWidget._Call("set_progress_value", i);
-                    setProgressValue(i);
-                    Log.d("Mnemosyne", "B " + i);
-                }
-            }
-        });
-
     }
 }

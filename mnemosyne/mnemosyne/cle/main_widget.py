@@ -46,7 +46,6 @@ class MainWdgt(MainWidget):
         self.set_progress_value(self.progress_bar_current_value + value)
 
     def set_progress_value(self, value):
-        print 'start python set_progress_value'
         # There is a possibility that 'value' does not visit all intermediate
         # integer values in the range, so we need to check and store the last
         # shown and the current value here.
@@ -55,7 +54,6 @@ class MainWdgt(MainWidget):
                self.progress_bar_update_interval:
             self.component_manager.android.setProgressValue(value)
             self.progress_bar_last_shown_value = value
-        print 'done python set_progress_value'
 
     def close_progress(self):
         self.is_progress_bar_showing = False

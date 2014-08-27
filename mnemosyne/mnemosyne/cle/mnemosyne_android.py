@@ -94,12 +94,3 @@ def start_mnemosyne(data_dir, filename, wrapper):
     mnemosyne.initialise(data_dir=data_dir, filename=filename)
     mnemosyne.component_manager.android = wrapper
     mnemosyne.start_review()
-    print mnemosyne.main_widget().show_question('text', 'option0', 'option1', 'option2')
-    
-def do_work():
-    print 'starting do_work in python'
-    for i in range(1,4):
-        print i
-        for j in range(100000):
-            import math; math.sin(j)
-        mnemosyne.main_widget().increase_progress(1)
