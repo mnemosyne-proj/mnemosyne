@@ -1,8 +1,10 @@
 package org.mnemosyne;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
@@ -29,6 +31,7 @@ public class MnemosyneActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d("Mnemosyne", "on create called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
@@ -50,8 +53,6 @@ public class MnemosyneActivity extends Activity {
 
         mnemosyneThread = new MnemosyneThread(this, activityHandler, getPackageName());
         mnemosyneThread.start();
-
-        //testProgress();
 
         showAnswerButton.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
@@ -120,6 +121,27 @@ public class MnemosyneActivity extends Activity {
                         mnemosyneThread.reviewController._Call("grade_answer", 5);
                     }
                 });
+            }
+        });
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Log.e("Mnemosyne", "ORIENTATION_LANDSCAPE");
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Log.e("Mnemosyne", "ORIENTATION_PORTRAIT");
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("Mnemosyne", "on destroy called");
+        mnemosyneThread.getHandler().post(new Runnable() {
+            public void run() {
+                mnemosyneThread.stopMnemosyne();
             }
         });
     }

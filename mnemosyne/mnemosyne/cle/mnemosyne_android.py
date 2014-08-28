@@ -94,3 +94,6 @@ def start_mnemosyne(data_dir, filename, wrapper):
     mnemosyne.initialise(data_dir=data_dir, filename=filename)
     mnemosyne.component_manager.android = wrapper
     mnemosyne.start_review()
+
+def stop_mnemosyne():
+    mnemosyne.finalise()
