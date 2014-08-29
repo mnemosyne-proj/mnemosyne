@@ -17,8 +17,8 @@ import java.util.concurrent.Semaphore;
 
 
 public class MnemosyneThread extends Thread {
+
     StarCoreFactory starcore;
-    StarSrvGroupClass SrvGroup;
     StarObjectClass python;
     StarObjectClass mnemosyne;
     StarObjectClass reviewController;
@@ -43,9 +43,9 @@ public class MnemosyneThread extends Thread {
         StarCoreFactoryPath.StarCoreOperationPath = basedir + "/files";
         starcore = StarCoreFactory.GetFactory();
 
-        Log.d("Mnemosyne", "About to initialising starcore");
+        Log.d("Mnemosyne", "About to initialise starcore");
 
-        SrvGroup = starcore._GetSrvGroup(0);
+        StarSrvGroupClass SrvGroup = starcore._GetSrvGroup(0);
         StarServiceClass Service = SrvGroup._GetService("cle", "123");
         if (Service == null) {  // The service has not been initialized.
             Log.d("Mnemosyne", "Initialising starcore");
@@ -53,9 +53,11 @@ public class MnemosyneThread extends Thread {
             Service._CheckPassword(false);
             SrvGroup = (StarSrvGroupClass) Service._Get("_ServiceGroup");
             SrvGroup._InitRaw("python", Service);
-            python = Service._ImportRawContext("python", "", false, "");
+
+
         }
-        Log.d("Mnemosyne", "Done initialising starcore");
+        python = Service._ImportRawContext("python", "", false, "");
+
         // Set up extra paths.
         python._Call("import", "sys");
         StarObjectClass pythonSys = python._GetObject("sys");
@@ -65,20 +67,18 @@ public class MnemosyneThread extends Thread {
         pythonPath._Call("insert", 0, basedir + "/files/lib-dynload");
         pythonPath._Call("insert", 0, basedir + "/files");
 
-        Log.d("Mnemosyne", "about to start Mnemosyne");
+        Log.d("Mnemosyne", "About to start Mnemosyne");
 
         // Start Mnemosyne.
         SrvGroup._LoadRawModule("python", "", basedir +
                 "/files/mnemosyne/cle/mnemosyne_android.py", false);
+
         mnemosyne = python._GetObject("mnemosyne");
 
         String dataDir = "/sdcard/Mnemosyne/";
         String filename = "default.db";
-        StarObjectClass activity = Service._New();
-        activity._AttachRawObject(this, false);
-
-
         python._Call("start_mnemosyne", dataDir, filename, this);
+
         reviewController = (StarObjectClass) mnemosyne._Call("review_controller");
 
         Log.d("Mnemosyne", "started Mnemosyne");
@@ -86,7 +86,7 @@ public class MnemosyneThread extends Thread {
 
     public void stopMnemosyne() {
         python._Call("stop_mnemosyne");
-        SrvGroup._ClearService();
+        starcore._SRPUnLock();
         //starcore._ModuleExit();
     }
 
