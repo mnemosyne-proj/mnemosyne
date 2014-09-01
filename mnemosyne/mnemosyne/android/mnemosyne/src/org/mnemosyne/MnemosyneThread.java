@@ -86,8 +86,13 @@ public class MnemosyneThread extends Thread {
 
     public void stopMnemosyne() {
         python._Call("stop_mnemosyne");
-        starcore._SRPUnLock();
-        //starcore._ModuleExit();
+        // Seems to be the only way to make sure the starcore library
+        // can be properly restarted.
+        //android.os.Process.killProcess(android.os.Process.myPid());
+        //starcore._SRPUnLock();
+        starcore._ModuleExit();
+        android.os.Process.killProcess(android.os.Process.myPid());
+
     }
 
     @Override
