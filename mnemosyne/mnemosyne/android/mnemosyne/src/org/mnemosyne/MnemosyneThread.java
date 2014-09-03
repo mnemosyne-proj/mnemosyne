@@ -85,12 +85,16 @@ public class MnemosyneThread extends Thread {
     }
 
     public void stopMnemosyne() {
+        Log.d("Mnemosyne", "calling stop Mnemosyne");
+        //starcore._SRPUnLock();
         python._Call("stop_mnemosyne");
+        Log.d("Mnemosyne", "stop Mnemosyne called");
         // Seems to be the only way to make sure the starcore library
         // can be properly restarted.
         //android.os.Process.killProcess(android.os.Process.myPid());
         //starcore._SRPUnLock();
-        starcore._ModuleExit();
+        //starcore._ModuleExit();
+        //Log.d("Mnemosyne", "starcore exit called");
         android.os.Process.killProcess(android.os.Process.myPid());
 
     }
@@ -102,7 +106,6 @@ public class MnemosyneThread extends Thread {
         Looper.prepare();
         mnemosyneHandler = new Handler();
         Looper.loop();
-        Log.d("Mnemosyne", "done running Mnemosyne thread");
     }
 
     public void setQuestionLabel(String label) {
