@@ -55,9 +55,17 @@ def copyfile(src, dst):
             if stat.S_ISFIFO(st.st_mode):
                 raise SpecialFileError("`%s` is a named pipe" % fn)
 
-    with open(src, 'rb') as fsrc:
-        with open(dst, 'wb') as fdst:
-            copyfileobj(fsrc, fdst)
+    fsrc = None
+    fdst = None
+    try:
+        fsrc = open(src, 'rb')
+        fdst = open(dst, 'wb')
+        copyfileobj(fsrc, fdst)
+    finally:
+        if fdst:
+            fdst.close()
+        if fsrc:
+            fsrc.close()
 
 def copymode(src, dst):
     """Copy mode bits from src to dst"""

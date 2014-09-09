@@ -85,18 +85,14 @@ public class MnemosyneThread extends Thread {
     }
 
     public void stopMnemosyne() {
-        Log.d("Mnemosyne", "calling stop Mnemosyne");
-        //starcore._SRPUnLock();
+        Log.d("Mnemosyne", "stopping Mnemosyne");
         python._Call("stop_mnemosyne");
-        Log.d("Mnemosyne", "stop Mnemosyne called");
-        // Seems to be the only way to make sure the starcore library
-        // can be properly restarted.
-        //android.os.Process.killProcess(android.os.Process.myPid());
-        //starcore._SRPUnLock();
-        //starcore._ModuleExit();
-        //Log.d("Mnemosyne", "starcore exit called");
+        // Wait until the CLE core queue is empty.
+        while (starcore._SRPDispatch(false) == true) { // Consume current message in CLE queue.
+            starcore._SRPDispatch(true); } // Wait a message cycle, the longest time is 10ms.
+        Log.d("Mnemosyne", "Mnemosyne stopped");
+        // This seems to be the best way to ensure that CLE can be restarted properly.
         android.os.Process.killProcess(android.os.Process.myPid());
-
     }
 
     @Override

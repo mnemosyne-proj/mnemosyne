@@ -96,6 +96,4 @@ def start_mnemosyne(data_dir, filename, wrapper):
     mnemosyne.start_review()
 
 def stop_mnemosyne():
-    print 'stop_mnemosyne called'
     mnemosyne.finalise()
-    print 'done finalise'
