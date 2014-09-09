@@ -4,6 +4,7 @@
  Hansson).
 -Update the window title on a sync server if a different database was loaded.
 -Make upgrading from 2.3 config database more robust (reported by Lewis White).
+-Make sure we can run on systems with PyQt5 installed (patch by Nuno Araujo).
 
 
 Mnemosyne 2.3.1 : 2014-06-18

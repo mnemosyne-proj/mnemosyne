@@ -77,7 +77,7 @@ class Tsv(FileFormat, MediaPreprocessor):
                     facts_data.append({"f": fields[0], "p_1": fields[1],
                         "m_1": fields[2]})
             elif len(fields) == 2:  # Front-to-back only.
-                facts_data.append({"f": fields[0], "b": fields[1]})
+                facts_data.append({"f": fields[0], "b": fields[1]})               
             else:  # Malformed line.
                 self.main_widget().show_error(_("Badly formed input on line") \
                     + " " + str(line_number) + ":\n" + line)
