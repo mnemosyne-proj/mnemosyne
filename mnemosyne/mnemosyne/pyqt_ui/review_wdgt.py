@@ -182,7 +182,8 @@ class QAOptimalSplit(object):
 class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
 
     auto_focus_grades = True
-
+    number_keys_show_answer = True
+     
     def __init__(self, component_manager):
         ReviewWidget.__init__(self, component_manager)
         parent = self.main_widget()
@@ -233,7 +234,8 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
             QtCore.Qt.Key_2, QtCore.Qt.Key_3, QtCore.Qt.Key_4,
             QtCore.Qt.Key_5] and \
             self.review_controller().is_question_showing():
-                self.show_answer()
+                if self.number_keys_show_answer:
+                    self.show_answer()
         elif not event.isAutoRepeat() and event.key() \
             == QtCore.Qt.Key_QuoteLeft and \
             not self.review_controller().is_question_showing():

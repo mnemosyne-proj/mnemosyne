@@ -14,7 +14,9 @@
 
 
 
+-__TMP__ database, restore from backup, Mnemosyne still opens tmp database even after opening backup.
 
+-prevent holding of number keys to register as two keypresses (Killian Evang)
 
 -paste strange characters can crash export to cards format
 

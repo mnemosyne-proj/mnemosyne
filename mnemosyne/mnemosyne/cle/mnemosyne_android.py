@@ -37,14 +37,6 @@ mnemosyne.components = [\
           "VocabularyToFrontToBack"),
          ("mnemosyne.libmnemosyne.card_types.vocabulary",
           "VocabularyToBothWays"),
-         ("mnemosyne.libmnemosyne.render_chains.default_render_chain",
-          "DefaultRenderChain"),
-         ("mnemosyne.libmnemosyne.render_chains.plain_text_chain",
-          "PlainTextChain"),
-         ("mnemosyne.libmnemosyne.render_chains.sync_to_card_only_client",
-          "SyncToCardOnlyClient"),
-         ("mnemosyne.libmnemosyne.render_chains.card_browser_render_chain",
-          "CardBrowserRenderChain"),
          ("mnemosyne.libmnemosyne.filters.latex",
           "CheckForUpdatedLatexFiles"),
          ("mnemosyne.libmnemosyne.filters.latex",
@@ -88,10 +80,13 @@ mnemosyne.components = [\
          ("mnemosyne.cle.main_widget", 
           "MainWdgt"),
          ("mnemosyne.cle.review_widget", 
-          "ReviewWdgt")]
+          "ReviewWdgt"),
+         ("mnemosyne.cle.android_render_chain", 
+          "AndroidRenderChain")]
 
 def start_mnemosyne(data_dir, filename, wrapper):
     mnemosyne.initialise(data_dir=data_dir, filename=filename)
+    mnemosyne.review_controller().set_render_chain("android")
     mnemosyne.component_manager.android = wrapper
     mnemosyne.start_review()
 

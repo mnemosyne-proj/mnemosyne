@@ -2,8 +2,9 @@ package org.mnemosyne;
 
 import com.srplab.www.starcore.StarCoreFactoryPath;
 
-import android.app.Activity;
-import android.content.Context;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.util.Log;
 
 import java.io.File;
@@ -16,26 +17,28 @@ import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class MnemosyneInstaller {
+public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
 
-    private Context context;
+    private MnemosyneActivity UIActivity;
     private String basedir;
+    Handler UIHandler;
 
-    public MnemosyneInstaller(Activity activity)
+    public MnemosyneInstaller(MnemosyneActivity activity, Handler handler)
     {
-        context = activity;
-        basedir = "/data/data/" + context.getPackageName();
+        UIActivity = activity;
+        UIHandler = handler;
+        basedir = "/data/data/" + UIActivity.getPackageName();
     }
 
     private void mergeApkFile(ArrayList<String> partFileList, String dst)
             throws IOException {
         if (!new File(partFileList.get(0)).exists()) {
-            OutputStream out = context.openFileOutput(dst, context.MODE_WORLD_READABLE);
+            OutputStream out = UIActivity.openFileOutput(dst, UIActivity.MODE_WORLD_READABLE);
             byte[] buffer = new byte[1024];
             InputStream in;
             int readLen = 0;
             for (int i=0; i<partFileList.size(); i++){
-                in = context.getAssets().open(partFileList.get(i));
+                in = UIActivity.getAssets().open(partFileList.get(i));
                 while ((readLen = in.read(buffer)) != -1) {
                     out.write(buffer, 0, readLen);
                 }
@@ -54,7 +57,7 @@ public class MnemosyneInstaller {
             byte[] buffer = new byte[1024];
             InputStream in;
             int readLen = 0;
-            in = context.getAssets().open(desPath + Name);
+            in = UIActivity.getAssets().open(desPath + Name);
             while ((readLen = in.read(buffer)) != -1){
                 out.write(buffer, 0, readLen);
             }
@@ -129,8 +132,22 @@ public class MnemosyneInstaller {
         }
     }
 
-    public void installMnemosyne() {
+    private ProgressDialog progressDialog;
+    @Override
+    protected void onPreExecute() {
+        progressDialog = new ProgressDialog(UIActivity);
+
+        progressDialog.setCancelable(false);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMessage("Finalising Mnemosyne install...");
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
+    }
+
+    @Override
+    protected Void doInBackground (Void... params) {
         Log.d("Mnemosyne", "About to install Mnemosyne");
+
         java.io.File python_extras_r14File = new java.io.File(basedir +
                 "/files/python_extras_r14.zip");
         if (!python_extras_r14File.exists()) {
@@ -214,7 +231,7 @@ public class MnemosyneInstaller {
         }
 
         try {
-            InputStream dataSource = context.getAssets().open("mnemosyne.zip");
+            InputStream dataSource = UIActivity.getAssets().open("mnemosyne.zip");
             StarCoreFactoryPath.CreatePath(Runtime.getRuntime(), basedir + "/files");
             unzip(dataSource, basedir + "/files", true);
         }
@@ -223,5 +240,13 @@ public class MnemosyneInstaller {
         }
 
         Log.d("Mnemosyne", "installed Mnemosyne");
+        return null;
     }
+
+    @Override
+    protected void onPostExecute(Void result) {
+        progressDialog.dismiss();
+        UIActivity.continueOnCreate();
+    }
+
 }

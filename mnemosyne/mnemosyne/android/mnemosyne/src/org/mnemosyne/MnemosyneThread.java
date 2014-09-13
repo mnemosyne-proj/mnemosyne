@@ -38,6 +38,18 @@ public class MnemosyneThread extends Thread {
     }
 
     public void startMnemosyne() {
+
+        UIHandler.post(new Runnable() {
+            public void run() {
+                progressDialog = new ProgressDialog(UIActivity);
+                progressDialog.setCancelable(false);
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.setMessage("Initialising Mnemosyne...");
+                progressDialog.setIndeterminate(true);
+                progressDialog.show();
+            }
+        });
+
         StarCoreFactoryPath.StarCoreCoreLibraryPath = basedir + "/lib";
         StarCoreFactoryPath.StarCoreShareLibraryPath = basedir + "/lib";
         StarCoreFactoryPath.StarCoreOperationPath = basedir + "/files";
@@ -82,14 +94,20 @@ public class MnemosyneThread extends Thread {
         reviewController = (StarObjectClass) mnemosyne._Call("review_controller");
 
         Log.d("Mnemosyne", "started Mnemosyne");
+
+        UIHandler.post(new Runnable() {
+            public void run() {
+                progressDialog.dismiss();
+            }
+        });
     }
 
     public void stopMnemosyne() {
         Log.d("Mnemosyne", "stopping Mnemosyne");
         python._Call("stop_mnemosyne");
         // Wait until the CLE core queue is empty.
-        while (starcore._SRPDispatch(false) == true) { // Consume current message in CLE queue.
-            starcore._SRPDispatch(true); } // Wait a message cycle, the longest time is 10ms.
+        while (starcore._SRPDispatch(false) == true); // Empty loop, consume current queue message.
+        starcore._SRPDispatch(true); // Wait a message cycle, the longest time is 10ms.
         Log.d("Mnemosyne", "Mnemosyne stopped");
         // This seems to be the best way to ensure that CLE can be restarted properly.
         android.os.Process.killProcess(android.os.Process.myPid());
@@ -117,7 +135,7 @@ public class MnemosyneThread extends Thread {
         final String _html = html;
         UIHandler.post(new Runnable() {
             public void run() {
-                UIActivity.question.loadDataWithBaseURL(null, _html, "text/html", "utf-8", null);
+                UIActivity.setQuestion(_html);
             }
         });
     }
@@ -126,7 +144,7 @@ public class MnemosyneThread extends Thread {
         final String _html = html;
         UIHandler.post(new Runnable() {
             public void run() {
-                UIActivity.answer.loadDataWithBaseURL(null, _html, "text/html", "utf-8", null);
+                UIActivity.setAnswer(_html);
             }
         });
     }
