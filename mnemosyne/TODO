@@ -14,7 +14,9 @@
 
 
 
--__TMP__ database, restore from backup, Mnemosyne still opens tmp database even after opening backup.
+-__TMP__ database, restore from backup, Mnemosyne still opens tmp database even after opening backup?
+
+-import from tab separated file, but 2 columns are separated by more than 1 tab
 
 -prevent holding of number keys to register as two keypresses (Killian Evang)
 
