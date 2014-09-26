@@ -271,3 +271,27 @@ class Database(Component):
 
     def scheduler_data_count(self, scheduler_data):
         raise NotImplementedError
+
+    def sorted_card_types(self):
+
+        """Sorts card types so that all the built-in card types appear first,
+        in the order determined by their id, and then all the user card types
+        appear alphabetically.
+
+        """
+
+        result = []
+        user_card_types = []
+
+        for card_type in self.card_types():
+            if self.is_user_card_type(card_type):
+                user_card_types.append(card_type);
+            else:
+                result.append(card_type);
+
+        result.sort(key=lambda x: x.id)
+        user_card_types.sort(key=lambda x: x.name.lower())
+
+        result.extend(user_card_types)
+
+        return result

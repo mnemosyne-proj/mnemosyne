@@ -116,7 +116,7 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
         root_item.setFlags(root_item.flags() | \
            QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
         root_item.setCheckState(0, QtCore.Qt.Checked)
-        for card_type in self.card_types():
+        for card_type in self.database().sorted_card_types():
             card_type_item = QtGui.QTreeWidgetItem(root_item, ["%s (%d)" % \
                 (_(card_type.name), count_for_card_type[card_type])], 0)
             card_type_item.setFlags(card_type_item.flags() | \

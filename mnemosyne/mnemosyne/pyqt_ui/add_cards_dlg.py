@@ -44,14 +44,15 @@ class AddEditCards(TipAfterStartingNTimes):
         self.card_type = None
         self.card_type_index = 0
         self.card_type_widget = None
-        for card_type in self.card_types():
+        db_sorted_card_types = self.database().sorted_card_types()
+        for card_type in db_sorted_card_types:
             if _(card_type.name) == current_card_type_name:
                 self.card_type = card_type
                 self.card_type_index = self.card_types_widget.count()
             self.card_type_by_name[_(card_type.name)] = card_type
             self.card_types_widget.addItem(_(card_type.name))
         if not self.card_type:
-            self.card_type = self.card_types()[0]
+            self.card_type = db_sorted_card_types[0]
             self.card_type_index = 0
         self.card_types_widget.setCurrentIndex(self.card_type_index)
         # Now that the combobox is filled, we can connect the signal.

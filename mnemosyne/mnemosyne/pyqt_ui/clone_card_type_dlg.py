@@ -19,7 +19,7 @@ class CloneCardTypeDlg(QtGui.QDialog, Ui_CloneCardTypeDlg, Component):
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
-        for card_type in self.card_types():
+        for card_type in self.database().sorted_card_types():
             self.parent_type.addItem(_(card_type.name))
 
     def name_changed(self):
