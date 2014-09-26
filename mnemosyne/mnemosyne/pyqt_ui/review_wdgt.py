@@ -303,9 +303,15 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         webview.pageAction(QtWebKit.QWebPage.Copy).trigger()
 
     def show_answer(self):
+        # Saveguard to prevent processing duplicate keypresses.
+        if self.is_answer_showing:
+            return        
         self.review_controller().show_answer()
 
     def grade_answer(self, grade):
+        # Saveguard to prevent processing duplicate keypresses.
+        if not self.is_answer_showing:
+            return
         self.vertical_layout.setStretchFactor(self.question_box, 50)
         self.vertical_layout.setStretchFactor(self.answer_box, 50)
         self.review_controller().grade_answer(grade)

@@ -4,6 +4,22 @@
 # Wing IDE project file                                          #
 ##################################################################
 [project attributes]
+debug.launch-configs = (1,
+                        {'launch-ZvmV9KbH3IvVs1Dl': ({},
+        {'buildcmd': ('project',
+                      None),
+         'env': ('project',
+                 [u'']),
+         'name': u'Mnemosyne',
+         'pyexec': ('project',
+                    u''),
+         'pypath': ('project',
+                    ''),
+         'pyrunargs': ('project',
+                       '-u'),
+         'runargs': u'-d dot_mnemosyne2',
+         'rundir': ('project',
+                    u'')})})
 proj.directory-list = [{'dirloc': loc('.'),
                         'excludes': [u'mnemosyne/mo',
                                      u'mnemosyne/dot_test',
@@ -23,6 +39,9 @@ proj.directory-list = [{'dirloc': loc('.'),
                         'recursive': True,
                         'watch_for_changes': True}]
 proj.file-type = 'shared'
+proj.launch-config = {loc('mnemosyne/mnemosyne/pyqt_ui/mnemosyne'): ('custom',
+        (u'',
+         'launch-ZvmV9KbH3IvVs1Dl'))}
 proj.main-file = loc('mnemosyne/mnemosyne/pyqt_ui/mnemosyne')
 testing.auto-test-file-specs = [('glob',
                                  'test_*')]
