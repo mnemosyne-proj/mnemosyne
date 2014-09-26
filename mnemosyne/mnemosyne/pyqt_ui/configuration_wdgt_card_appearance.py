@@ -34,7 +34,7 @@ class ConfigurationWdgtCardAppearance(QtGui.QWidget,
         # if the user chooses another translation.
         self.card_types_widget.addItem(_("<all card types>"))
         self.card_type_by_name = {}
-        for card_type in self.card_types():
+        for card_type in self.database().sorted_card_types():
             self.card_type_by_name[_(card_type.name)] = card_type
             self.card_types_widget.addItem(_(card_type.name))
         # Store backups in order to be able to revert our changes.

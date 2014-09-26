@@ -1,3 +1,4 @@
+-Smart sorting of card types in dialog boxes (patch by Emilian Mihalache)
 -Fix when importing 1.x databases containing a single quote in a media filename
  (reported by Jan Egil Hagen).
 -Don't crash the SQL engine if you have more than 1000 tags (reported by Mats 

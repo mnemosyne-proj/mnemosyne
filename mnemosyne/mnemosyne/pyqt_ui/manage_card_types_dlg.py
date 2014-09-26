@@ -30,7 +30,7 @@ class ManageCardTypesDlg(QtGui.QDialog, Ui_ManageCardTypesDlg,
     def update(self):
         self.cloned_card_types.clear()
         self.card_type_with_item = {}
-        for card_type in self.card_types():
+        for card_type in self.database().sorted_card_types():
             if self.database().is_user_card_type(card_type):
                 name = "%s (%s)" % (_(card_type.name),
                                     _(card_type.__class__.__bases__[0].name))

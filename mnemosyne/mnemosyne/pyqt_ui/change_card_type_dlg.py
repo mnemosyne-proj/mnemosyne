@@ -24,7 +24,7 @@ class ChangeCardTypeDlg(QtGui.QDialog, Ui_ChangeCardTypeDlg, Component):
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
         self.card_type_by_name = {}
         self.return_values = return_values
-        for card_type in self.card_types():
+        for card_type in self.database().sorted_card_types():
             if card_type == current_card_type:
                 continue
             # For cloze types, only allow conversion for clones.
