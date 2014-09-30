@@ -159,6 +159,10 @@ public class MnemosyneActivity extends Activity {
                         @Override
                         public void onFinish() {
                             _mp.stop();
+                            soundIndex++;
+                            if (soundIndex < soundFiles.size()) {
+                                playNextSound();
+                            }
                         }
 
                         @Override
@@ -171,7 +175,7 @@ public class MnemosyneActivity extends Activity {
         mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {
                 soundIndex++;
-                if (soundIndex >= soundFiles.size()) {
+                if (soundIndex < soundFiles.size()) {
                     playNextSound();
                 }
             }
@@ -202,6 +206,12 @@ public class MnemosyneActivity extends Activity {
             Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 
     public String processSoundFiles(String html) {
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+        }
+        soundFiles.clear();
+        starts.clear();
+        stops.clear();
         Matcher matcher = audioRE.matcher(html);
         //Log.d("Mnemosyne", html);
         while (matcher.find()) {
@@ -213,22 +223,21 @@ public class MnemosyneActivity extends Activity {
 
                 Matcher startMatcher = startRE.matcher(matcher.group(2));
                 while (startMatcher.find()) {
-                    start = (int) Double.valueOf(startMatcher.group(1)).doubleValue() * 1000;
-                    Log.d("Mnemosyne", "start" + start);
+                    start = (int) (Double.valueOf(startMatcher.group(1)).doubleValue() * 1000);
                     break;
                 }
 
                 Matcher stopMatcher = stopRE.matcher(matcher.group(2));
                 while (stopMatcher.find()) {
-                    stop = (int) Double.valueOf(stopMatcher.group(1)).doubleValue() * 1000;
-                    Log.d("Mnemosyne", "stop" + stop);
+                    stop = (int) (Double.valueOf(stopMatcher.group(1)).doubleValue() * 1000);
                     break;
                 }
             }
 
-            soundFiles.add(Uri.parse(matcher.group(1)));
-            starts.add(start);
-            stops.add(stop);
+            for (int i=0; i<=1; i++) { // tmp debug
+                soundFiles.add(Uri.parse(matcher.group(1)));
+                starts.add(start);
+                stops.add(stop);}
             soundIndex = 0;
 
             playNextSound();
@@ -251,7 +260,7 @@ public class MnemosyneActivity extends Activity {
     public void onDestroy() {
         super.onDestroy();
         if (mediaPlayer != null) {
-            if(mediaPlayer.isPlaying()) {
+            if (mediaPlayer.isPlaying()) {
                 mediaPlayer.stop();
             }
             mediaPlayer.release();

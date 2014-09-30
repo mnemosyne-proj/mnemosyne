@@ -151,7 +151,7 @@ def copy_file_to_dir(filename, dirname):
     dirname = os.path.abspath(dirname)
     if filename.startswith(dirname):
         return contract_path(filename, dirname)
-    dest_path = os.path.join(dirname, os.path.basename(filename))
+    dest_path = os.path.join(dirname, os.path.basename(filename.replace(':', '-')))
     if os.path.exists(dest_path):  # Rename it to something unique.
         prefix, suffix = dest_path.rsplit(".", 1)
         count = 0
