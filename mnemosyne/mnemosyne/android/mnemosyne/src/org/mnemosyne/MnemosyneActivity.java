@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 
 public class MnemosyneActivity extends Activity {
 
-    MediaPlayer mediaPlayer = new MediaPlayer();
+    MediaPlayer mediaPlayer = null;
     ArrayList<Uri> soundFiles = new ArrayList<Uri>();
     ArrayList<Integer> starts = new ArrayList<Integer>();
     ArrayList<Integer> stops = new ArrayList<Integer>();
@@ -142,23 +142,27 @@ public class MnemosyneActivity extends Activity {
                 });
             }
         });
+    }
 
-        // Sound system.
-
+    public void playNextSound() {
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+        }
+        mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
         mediaPlayer.setOnPreparedListener(new OnPreparedListener() {
             public void onPrepared(MediaPlayer mp) {
                 mp.seekTo(starts.get(soundIndex));
                 mp.start();
-                if (starts.get(soundIndex) != -1)
+                if (stops.get(soundIndex) != 0)
                 {
                     final MediaPlayer _mp = mp;
                     int duration = stops.get(soundIndex) - starts.get(soundIndex);
                     new CountDownTimer(duration, 100) {
                         @Override
                         public void onFinish() {
-                            _mp.stop();
+                            _mp.release();
                             soundIndex++;
                             if (soundIndex < soundFiles.size()) {
                                 playNextSound();
@@ -178,12 +182,13 @@ public class MnemosyneActivity extends Activity {
                 if (soundIndex < soundFiles.size()) {
                     playNextSound();
                 }
+                else {
+                    mp.release();
+                    mp = null;
+                }
             }
         });
 
-    }
-
-    public void playNextSound() {
         try {
             mediaPlayer.setDataSource(getApplicationContext(), soundFiles.get(soundIndex));
         } catch (IllegalArgumentException e) {
@@ -205,17 +210,15 @@ public class MnemosyneActivity extends Activity {
     Pattern stopRE = Pattern.compile("stop=\"(.+?)\"",
             Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 
-    public String processSoundFiles(String html) {
-        if (mediaPlayer.isPlaying()) {
-            mediaPlayer.stop();
+    public String handleSoundFiles(String html) {
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
         }
         soundFiles.clear();
         starts.clear();
         stops.clear();
         Matcher matcher = audioRE.matcher(html);
-        //Log.d("Mnemosyne", html);
         while (matcher.find()) {
-            //Log.d("Mnemosyne", matcher.group() + " " + matcher.group(1)+ " " + matcher.group(2));
             // Look for start and stop of sound segment in ms.
             int start = 0;
             int stop = 0;
@@ -234,10 +237,9 @@ public class MnemosyneActivity extends Activity {
                 }
             }
 
-            for (int i=0; i<=1; i++) { // tmp debug
-                soundFiles.add(Uri.parse(matcher.group(1)));
-                starts.add(start);
-                stops.add(stop);}
+            soundFiles.add(Uri.parse(matcher.group(1)));
+            starts.add(start);
+            stops.add(stop);
             soundIndex = 0;
 
             playNextSound();
@@ -247,12 +249,12 @@ public class MnemosyneActivity extends Activity {
     }
 
     public void setQuestion(String html) {
-        html = processSoundFiles(html);
+        html = handleSoundFiles(html);
         question.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
     }
 
     public void setAnswer(String html) {
-        html = processSoundFiles(html);
+        html = handleSoundFiles(html);
         answer.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
     }
 
@@ -266,7 +268,6 @@ public class MnemosyneActivity extends Activity {
             mediaPlayer.release();
             mediaPlayer = null;
         }
-        Log.d("Mnemosyne", "on destroy called");
         mnemosyneThread.getHandler().post(new Runnable() {
             public void run() {
                 mnemosyneThread.stopMnemosyne();
