@@ -1,16 +1,12 @@
 -source percentage encoding for media file names like C#.mp3. See user voice. requested by Philip Gubser.
 
+-muting phone does not seem to mute audio?
 -set default grade
--handle orientation changes
 -remove superfluous python modules
 -check 'redraw now'
 -check if Android uninstall removes all files
--progress bar/message on installing for the first time?
--progress bar/message on starting mnemosyne?
 -check functionality for map card types
-
 -also bundle newer abi libraries?
--document where template came from
 
 
 

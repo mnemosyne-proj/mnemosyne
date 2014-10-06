@@ -21,6 +21,7 @@ public class MnemosyneThread extends Thread {
     StarCoreFactory starcore;
     StarObjectClass python;
     StarObjectClass mnemosyne;
+    StarObjectClass controller;
     StarObjectClass reviewController;
     MnemosyneActivity UIActivity;
     Handler mnemosyneHandler;
@@ -91,6 +92,7 @@ public class MnemosyneThread extends Thread {
         String filename = "default.db";
         python._Call("start_mnemosyne", dataDir, filename, this);
 
+        controller = (StarObjectClass) mnemosyne._Call("controller");
         reviewController = (StarObjectClass) mnemosyne._Call("review_controller");
 
         Log.d("Mnemosyne", "started Mnemosyne");
@@ -298,9 +300,11 @@ public class MnemosyneThread extends Thread {
         final String _text = text;
         UIHandler.post(new Runnable() {
             public void run() {
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
                 progressDialog = new ProgressDialog(UIActivity);
                 progressDialog.setCancelable(false);
-                progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                 progressDialog.setMessage(_text);
                 progressDialog.setProgress(0);
                 progressDialog.show();
@@ -312,6 +316,7 @@ public class MnemosyneThread extends Thread {
         final int _maximum = maximum;
         UIHandler.post(new Runnable() {
             public void run() {
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                 progressDialog.setMax(_maximum);
             }
         });
@@ -334,7 +339,9 @@ public class MnemosyneThread extends Thread {
     public void closeProgress() {
         UIHandler.post(new Runnable() {
             public void run() {
-                progressDialog.dismiss();
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
             }
         });
     }
