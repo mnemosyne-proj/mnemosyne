@@ -57,5 +57,5 @@ class MainWdgt(MainWidget):
 
     def close_progress(self):
         self.is_progress_bar_showing = False
-        self.component_manager.android.closeValue()
+        self.component_manager.android.closeProgress()
 

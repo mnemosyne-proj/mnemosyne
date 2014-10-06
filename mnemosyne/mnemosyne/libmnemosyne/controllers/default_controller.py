@@ -961,7 +961,7 @@ _("This will tag all the cards in a given card type which have the same question
             self.database().store_pregenerated_data
         client.do_backup = self.config()["backup_before_sync"]
         client.upload_science_logs = self.config()["upload_science_logs"]
-        try:
+        try:         
             client.sync(server, port, username, password)
         finally:
             client.database.release_connection()
