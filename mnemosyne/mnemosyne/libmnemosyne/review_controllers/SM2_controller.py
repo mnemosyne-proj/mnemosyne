@@ -152,7 +152,7 @@ class SM2Controller(ReviewController):
         # Guide the learning process. 
         if self.config()["shown_learn_new_cards_help"] == False:
             if self.scheduled_count == 1:
-                self.main_widget().show_information(_("You have finished your scheduled reviews. Now, learn as many failed or new cards as you feel file."))
+                self.main_widget().show_information(_("You have finished your scheduled reviews. Now, learn as many failed or new cards as you feel like."))
                 self.config()["shown_learn_new_cards_help"] = True          
         card_to_grade = self.card
         previous_grade = card_to_grade.grade

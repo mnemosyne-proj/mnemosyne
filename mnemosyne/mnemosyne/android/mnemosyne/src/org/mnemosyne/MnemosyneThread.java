@@ -295,8 +295,10 @@ public class MnemosyneThread extends Thread {
 
     private ProgressDialog progressDialog;
     private int progressValue = 0;
+    private String progressText = "";
 
     public void setProgressText(String text) {
+        progressText = text;
         final String _text = text;
         UIHandler.post(new Runnable() {
             public void run() {
@@ -307,6 +309,7 @@ public class MnemosyneThread extends Thread {
                 progressDialog.setCancelable(false);
                 progressDialog.setMessage(_text);
                 progressDialog.setProgress(0);
+                progressValue = 0;
                 progressDialog.show();
             }
         });
@@ -316,8 +319,19 @@ public class MnemosyneThread extends Thread {
         final int _maximum = maximum;
         UIHandler.post(new Runnable() {
             public void run() {
+                // Android doesn't like changing style on the fly, so we recreate the
+                // progress dialog.
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
+                progressDialog = new ProgressDialog(UIActivity);
+                progressDialog.setCancelable(false);
+                progressDialog.setMessage(progressText);
+                progressDialog.setProgress(0);
+                progressValue = 0;
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                 progressDialog.setMax(_maximum);
+                progressDialog.show();
             }
         });
     }
