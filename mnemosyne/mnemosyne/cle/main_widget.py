@@ -32,6 +32,10 @@ class MainWdgt(MainWidget):
         if self.is_progress_bar_showing:
             self.close_progress()	
         self.component_manager.android.setProgressText(text.encode("utf-8"))
+        self.progress_bar_update_interval = 1
+        self.progress_bar_current_value = 0
+        self.progress_bar_last_shown_value = 0
+        self.is_progress_bar_showing = True
 
     def set_progress_range(self, maximum):
         self.component_manager.android.setProgressRange(maximum)

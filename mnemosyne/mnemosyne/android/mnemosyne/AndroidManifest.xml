@@ -6,6 +6,7 @@
 
     <uses-sdk android:minSdkVersion="8" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" /> 
 
     <application
         android:icon="@drawable/mnemosyne"
@@ -22,7 +23,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="ReviewActivity"></activity>
+        
+        <activity
+            android:label="Sync"
+            android:name="SyncActivity" 
+            android:configChanges="orientation"
+            >          
+        </activity>
+        
     </application>
     
 </manifest>

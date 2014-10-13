@@ -1,3 +1,6 @@
+-after sync review window does not update
+
+
 -source percentage encoding for media file names like C#.mp3. See user voice. requested by Philip Gubser.
 
 -muting phone does not seem to mute audio?
@@ -9,6 +12,9 @@
 -also bundle newer abi libraries?
 
 
+- merge and edit does not work: edited text is not respected (Marcin M.)
+- duplicate check on answer too? Needs to check whether all necessary fields are marked as unique,
+ also in F2B and B2F, vocabulary
 
 -__TMP__ database, restore from backup, Mnemosyne still opens tmp database even after opening backup?
 
