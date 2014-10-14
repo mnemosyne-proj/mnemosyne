@@ -1,7 +1,4 @@
--after sync review window does not update
-
-
--source percentage encoding for media file names like C#.mp3. See user voice. requested by Philip Gubser.
+-check card update/edit/new after sync
 
 -muting phone does not seem to mute audio?
 -set default grade
@@ -11,6 +8,7 @@
 -check functionality for map card types
 -also bundle newer abi libraries?
 
+-source percentage encoding for media file names like C#.mp3. See user voice. requested by Philip Gubser.
 
 - merge and edit does not work: edited text is not respected (Marcin M.)
 - duplicate check on answer too? Needs to check whether all necessary fields are marked as unique,

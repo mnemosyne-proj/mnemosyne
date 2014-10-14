@@ -163,11 +163,7 @@ public class MnemosyneActivity extends Activity {
             case R.id.menu_sync:
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
-                        mnemosyneThread.controller._Call("sync", "dyndns.org",
-                                8512, "", "");
-
-                        //Intent startNewActivityOpen = new Intent(this, SyncActivity.class);
-                        //startActivityForResult(startNewActivityOpen, 0);
+                        mnemosyneThread.controller._Call("show_sync_dialog");
                     }
                 });
                 return true;
