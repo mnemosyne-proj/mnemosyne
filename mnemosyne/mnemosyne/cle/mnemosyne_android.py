@@ -37,6 +37,8 @@ mnemosyne.components = [\
           "VocabularyToFrontToBack"),
          ("mnemosyne.libmnemosyne.card_types.vocabulary",
           "VocabularyToBothWays"),
+         ("mnemosyne.libmnemosyne.render_chains.plain_text_chain",
+          "PlainTextChain"),         
          ("mnemosyne.libmnemosyne.filters.latex",
           "CheckForUpdatedLatexFiles"),
          ("mnemosyne.libmnemosyne.filters.latex",
@@ -82,7 +84,9 @@ mnemosyne.components = [\
          ("mnemosyne.cle.review_widget", 
           "ReviewWdgt"),
          ("mnemosyne.cle.android_render_chain", 
-          "AndroidRenderChain")]
+          "AndroidRenderChain"),
+         ("mnemosyne.cle.sync_dlg", 
+          "SyncDlg")]
 
 def start_mnemosyne(data_dir, filename, wrapper):
     mnemosyne.initialise(data_dir=data_dir, filename=filename)

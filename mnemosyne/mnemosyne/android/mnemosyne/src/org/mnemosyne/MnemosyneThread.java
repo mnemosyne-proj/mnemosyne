@@ -293,6 +293,33 @@ public class MnemosyneThread extends Thread {
         return result;
     }
 
+    public void showSyncDialog() {
+        UIHandler.post(new Runnable() {
+            public void run() {
+                //Intent startNewActivityOpen = new Intent(this, SyncActivity.class);
+                //startActivityForResult(startNewActivityOpen, 0);
+                AlertDialog.Builder alert = new AlertDialog.Builder(UIActivity);
+                alert.setMessage("Click to sync");
+                alert.setCancelable(false);
+                alert.setPositiveButton("Sync", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        result = 0;
+                        semaphore.release();
+                    }
+                });
+                alert.show();
+            }
+        });
+
+        try {
+            semaphore.acquire();
+        }
+        catch (InterruptedException e) {
+        }
+
+        controller._Call("sync", "dyndns.org", 8512, "", "");
+    }
+
     private ProgressDialog progressDialog;
     private int progressValue = 0;
     private String progressText = "";
