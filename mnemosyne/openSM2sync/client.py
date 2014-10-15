@@ -529,6 +529,7 @@ class Client(Partner):
         self.ui.set_progress_value(total_size)
 
     def get_server_media_files(self, redownload_all=False):
+        self.ui.set_progress_text("Getting list of media files to download...")
         # Get list of names of all media files to download.
         media_url = "/server_media_filenames?session_token=%s" \
             % (self.server_info["session_token"], )
