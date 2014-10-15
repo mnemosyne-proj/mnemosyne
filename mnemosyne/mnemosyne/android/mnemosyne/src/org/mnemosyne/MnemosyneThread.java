@@ -316,7 +316,6 @@ public class MnemosyneThread extends Thread {
         }
         catch (InterruptedException e) {
         }
-
         controller._Call("sync", "dyndns.org", 8512, "", "");
     }
 
