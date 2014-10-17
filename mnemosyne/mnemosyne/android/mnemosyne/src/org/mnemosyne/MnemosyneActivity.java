@@ -1,6 +1,7 @@
 package org.mnemosyne;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -288,14 +289,35 @@ public class MnemosyneActivity extends Activity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 0)
+        {
+            String message = data.getStringExtra("DATABASE");
+            Log.d("Mnemosyne", "database name " + message);
+
+            mnemosyneThread.getHandler().post(new Runnable() {
+                public void run() {
+                    mnemosyneThread.controller._Call("sync", "dyndns.org", 8512, "", "");
+                }
+            });
+        }
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mediaPlayer != null) {
-            if (mediaPlayer.isPlaying()) {
-                mediaPlayer.stop();
+        try {
+            if (mediaPlayer != null) {
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                }
+                mediaPlayer.release();
+                mediaPlayer = null;
             }
-            mediaPlayer.release();
-            mediaPlayer = null;
+        } catch(Exception e){
         }
         mnemosyneThread.getHandler().post(new Runnable() {
             public void run() {

@@ -9,12 +9,12 @@ import com.srplab.www.starcore.StarSrvGroupClass;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
 import java.util.concurrent.Semaphore;
-
 
 public class MnemosyneThread extends Thread {
 
@@ -296,27 +296,10 @@ public class MnemosyneThread extends Thread {
     public void showSyncDialog() {
         UIHandler.post(new Runnable() {
             public void run() {
-                //Intent startNewActivityOpen = new Intent(this, SyncActivity.class);
-                //startActivityForResult(startNewActivityOpen, 0);
-                AlertDialog.Builder alert = new AlertDialog.Builder(UIActivity);
-                alert.setMessage("Click to sync");
-                alert.setCancelable(false);
-                alert.setPositiveButton("Sync", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        result = 0;
-                        semaphore.release();
-                    }
-                });
-                alert.show();
+                Intent startSyncActivity = new Intent(UIActivity, SyncActivity.class);
+                UIActivity.startActivityForResult(startSyncActivity, 0);
             }
         });
-
-        try {
-            semaphore.acquire();
-        }
-        catch (InterruptedException e) {
-        }
-        controller._Call("sync", "dyndns.org", 8512, "", "");
     }
 
     private ProgressDialog progressDialog;
