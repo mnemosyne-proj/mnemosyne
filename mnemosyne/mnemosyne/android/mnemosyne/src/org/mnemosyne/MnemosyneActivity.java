@@ -11,9 +11,11 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
@@ -27,6 +29,7 @@ import java.util.regex.Pattern;
 
 public class MnemosyneActivity extends Activity {
 
+    String currentHtml;
     MediaPlayer mediaPlayer = null;
     ArrayList<Uri> soundFiles = new ArrayList<Uri>();
     ArrayList<Integer> starts = new ArrayList<Integer>();
@@ -48,6 +51,8 @@ public class MnemosyneActivity extends Activity {
     Button button3;
     Button button4;
     Button button5;
+
+    GestureDetector gestureDetector;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -146,6 +151,12 @@ public class MnemosyneActivity extends Activity {
                 });
             }
         });
+
+        //Does not work yet, investigate
+        // http://stackoverflow.com/questions/937313/android-basic-gesture-detection
+        gestureDetector = new GestureDetector(this, new MyGestureListener());
+
+
     }
 
     @Override
@@ -167,6 +178,10 @@ public class MnemosyneActivity extends Activity {
                         mnemosyneThread.controller._Call("show_sync_dialog");
                     }
                 });
+                return true;
+
+            case R.id.menu_replay_media:
+                handleSoundFiles(currentHtml);
                 return true;
 
             default:
@@ -279,11 +294,13 @@ public class MnemosyneActivity extends Activity {
     }
 
     public void setQuestion(String html) {
+        currentHtml = html;
         html = handleSoundFiles(html);
         question.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
     }
 
     public void setAnswer(String html) {
+        currentHtml = html;
         html = handleSoundFiles(html);
         answer.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
     }
@@ -325,4 +342,60 @@ public class MnemosyneActivity extends Activity {
             }
         });
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
+        Log.d("Mnemosyne", "Touchevent" + event);
+        this.gestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
+
+    class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
+
+        private static final int SWIPE_MIN_DISTANCE = 120;
+        private static final int SWIPE_MAX_OFF_PATH = 200;
+        private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2,
+                float velocityX, float velocityY) {
+            Log.d("Mnemosyne", "onFling: " + e1.toString()+e2.toString());
+
+            try {
+                float diffAbs = Math.abs(e1.getY() - e2.getY());
+                float diff = e1.getX() - e2.getX();
+
+                if (diffAbs > SWIPE_MAX_OFF_PATH)
+                    return false;
+
+                // Left swipe.
+                if (diff > SWIPE_MIN_DISTANCE
+                        && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    MnemosyneActivity.this.onLeftSwipe();
+
+                    // Right swipe.
+                } else if (-diff > SWIPE_MIN_DISTANCE
+                        && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    MnemosyneActivity.this.onRightSwipe();
+                }
+            } catch (Exception e) {
+                Log.e("Mnemosyne", "Error on gestures");
+            }
+            return false;
+        }
+    }
+
+    public void onLeftSwipe() {
+        Log.d("Mnemosyne", "left swipe");
+    }
+
+    public void onRightSwipe() {
+        Log.d("Mnemosyne", "right swipe");
+    }
+
 }
