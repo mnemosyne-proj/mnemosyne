@@ -1,6 +1,6 @@
--check card update/edit/new after sync
+-when Android app gets automatically closed, is database saved?
 
--muting phone does not seem to mute audio?
+
 -set default grade
 -remove superfluous python modules
 -check 'redraw now'
@@ -13,6 +13,8 @@
 - merge and edit does not work: edited text is not respected (Marcin M.)
 - duplicate check on answer too? Needs to check whether all necessary fields are marked as unique,
  also in F2B and B2F, vocabulary
+ 
+-creating a new clone does not generate appearance setting events for sync
 
 -__TMP__ database, restore from backup, Mnemosyne still opens tmp database even after opening backup?
 
