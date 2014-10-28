@@ -1,6 +1,3 @@
--when Android app gets automatically closed, is database saved?
-
-
 -set default grade
 -remove superfluous python modules
 -check 'redraw now'

@@ -186,7 +186,7 @@ class Configuration(Component, dict):
             # Don't log when reading the settings from file during startup.
             if self.log().active:
                 self.log().edited_setting(key)
-        dict.__setitem__(self, key, value) 
+        dict.__setitem__(self, key, value)
 
     def load(self):
         filename = os.path.join(self.config_dir, "config.db")

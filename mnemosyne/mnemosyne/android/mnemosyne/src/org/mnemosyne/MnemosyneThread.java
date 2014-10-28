@@ -21,6 +21,7 @@ public class MnemosyneThread extends Thread {
     StarCoreFactory starcore;
     StarObjectClass python;
     StarObjectClass mnemosyne;
+    StarObjectClass config;
     StarObjectClass controller;
     StarObjectClass reviewController;
     MnemosyneActivity UIActivity;
@@ -92,6 +93,7 @@ public class MnemosyneThread extends Thread {
         String filename = "default.db";
         python._Call("start_mnemosyne", dataDir, filename, this);
 
+        config = (StarObjectClass) mnemosyne._Call("config");
         controller = (StarObjectClass) mnemosyne._Call("controller");
         reviewController = (StarObjectClass) mnemosyne._Call("review_controller");
 
@@ -102,6 +104,11 @@ public class MnemosyneThread extends Thread {
                 progressDialog.dismiss();
             }
         });
+    }
+
+    public void pauseMnemosyne() {
+        Log.d("Mnemosyne", "pausing Mnemosyne");
+        python._Call("pause_mnemosyne");
     }
 
     public void stopMnemosyne() {
@@ -294,9 +301,11 @@ public class MnemosyneThread extends Thread {
     }
 
     public void showSyncDialog() {
+        final String port = config._Call("__getitem__", "port_for_sync_as_client").toString();
         UIHandler.post(new Runnable() {
             public void run() {
                 Intent startSyncActivity = new Intent(UIActivity, SyncActivity.class);
+                startSyncActivity.putExtra("port_for_sync_as_client", port);
                 UIActivity.startActivityForResult(startSyncActivity, 0);
             }
         });
