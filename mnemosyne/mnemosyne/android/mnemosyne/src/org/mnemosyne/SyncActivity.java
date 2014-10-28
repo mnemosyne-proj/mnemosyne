@@ -16,7 +16,7 @@ public class SyncActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sync);
 
-        final EditText editDatabase =(EditText) findViewById(R.id.editDatabase);
+        final EditText editDatabase = (EditText) findViewById(R.id.editDatabase);
 
         Button button = (Button) findViewById(R.id.syncButton);
 
@@ -24,7 +24,7 @@ public class SyncActivity extends Activity {
 
             public void onClick(View arg0) {
                 String database = editDatabase.getText().toString();
-                Intent intent= new Intent();
+                Intent intent = new Intent();
                 intent.putExtra("DATABASE", database);
 
                 setResult(0, intent);

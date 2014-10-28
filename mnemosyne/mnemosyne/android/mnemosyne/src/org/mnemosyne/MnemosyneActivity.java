@@ -324,6 +324,26 @@ public class MnemosyneActivity extends Activity {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        try {
+            if (mediaPlayer != null) {
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                }
+                mediaPlayer.release();
+                mediaPlayer = null;
+            }
+        } catch(Exception e){
+        }
+        mnemosyneThread.getHandler().post(new Runnable() {
+            public void run() {
+                mnemosyneThread.pauseMnemosyne();
+            }
+        });
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         try {

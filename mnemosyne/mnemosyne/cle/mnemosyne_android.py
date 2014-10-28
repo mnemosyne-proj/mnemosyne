@@ -83,6 +83,8 @@ mnemosyne.components = [\
           "MainWdgt"),
          ("mnemosyne.cle.review_widget", 
           "ReviewWdgt"),
+         ("mnemosyne.cle.configuration", 
+          "AndroidConfiguration"),
          ("mnemosyne.cle.android_render_chain", 
           "AndroidRenderChain"),
          ("mnemosyne.cle.sync_dlg", 
@@ -93,6 +95,10 @@ def start_mnemosyne(data_dir, filename, wrapper):
     mnemosyne.review_controller().set_render_chain("android")
     mnemosyne.component_manager.android = wrapper
     mnemosyne.start_review()
+    
+def pause_mnemosyne():
+    mnemosyne.database().save()
+    mnemosyne.config().save()
 
 def stop_mnemosyne():
     mnemosyne.finalise()
