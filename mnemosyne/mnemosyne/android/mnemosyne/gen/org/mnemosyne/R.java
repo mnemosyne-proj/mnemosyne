@@ -23,10 +23,10 @@ public final class R {
         public static final int button4=0x7f050009;
         public static final int button5=0x7f05000a;
         public static final int editDatabase=0x7f05000f;
-        public static final int editText1=0x7f050011;
-        public static final int editText2=0x7f050013;
-        public static final int editText3=0x7f050015;
-        public static final int editText4=0x7f050017;
+        public static final int editPassword=0x7f050017;
+        public static final int editPort=0x7f050013;
+        public static final int editServer=0x7f050011;
+        public static final int editUsername=0x7f050015;
         public static final int menu_replay_media=0x7f05000d;
         public static final int menu_sync=0x7f05000c;
         public static final int question=0x7f050001;

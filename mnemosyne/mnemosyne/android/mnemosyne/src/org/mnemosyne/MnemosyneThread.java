@@ -22,6 +22,7 @@ public class MnemosyneThread extends Thread {
     StarObjectClass python;
     StarObjectClass mnemosyne;
     StarObjectClass config;
+    StarObjectClass database;
     StarObjectClass controller;
     StarObjectClass reviewController;
     MnemosyneActivity UIActivity;
@@ -94,7 +95,9 @@ public class MnemosyneThread extends Thread {
         python._Call("start_mnemosyne", dataDir, filename, this);
 
         config = (StarObjectClass) mnemosyne._Call("config");
+        database = (StarObjectClass) mnemosyne._Call("database");
         controller = (StarObjectClass) mnemosyne._Call("controller");
+
         reviewController = (StarObjectClass) mnemosyne._Call("review_controller");
 
         Log.d("Mnemosyne", "started Mnemosyne");
@@ -301,11 +304,20 @@ public class MnemosyneThread extends Thread {
     }
 
     public void showSyncDialog() {
+        final String filename = database._Call("name").toString();
+        final String server = config._Call("__getitem__", "server_for_sync_as_client").toString();
         final String port = config._Call("__getitem__", "port_for_sync_as_client").toString();
+        final String username = config._Call("__getitem__", "username_for_sync_as_client").toString();
+        final String password = config._Call("__getitem__", "password_for_sync_as_client").toString();
+
         UIHandler.post(new Runnable() {
             public void run() {
                 Intent startSyncActivity = new Intent(UIActivity, SyncActivity.class);
-                startSyncActivity.putExtra("port_for_sync_as_client", port);
+                startSyncActivity.putExtra("database", filename);
+                startSyncActivity.putExtra("server", server);
+                startSyncActivity.putExtra("port", port);
+                startSyncActivity.putExtra("username", username);
+                startSyncActivity.putExtra("password", password);
                 UIActivity.startActivityForResult(startSyncActivity, 0);
             }
         });

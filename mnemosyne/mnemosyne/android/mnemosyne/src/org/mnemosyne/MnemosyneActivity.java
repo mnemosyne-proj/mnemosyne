@@ -305,19 +305,28 @@ public class MnemosyneActivity extends Activity {
         answer.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
     }
 
+    // Get results back from sync activity.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 0)
+        if ((requestCode == 0) && (resultCode == RESULT_OK))
         {
-            String message = data.getStringExtra("DATABASE");
-            Log.d("Mnemosyne", "database name " + message);
+            final String database = data.getStringExtra("database");
+            final String server = data.getStringExtra("server");
+            final Integer port = new Integer(data.getStringExtra("port"));
+            final String username = data.getStringExtra("username");
+            final String password = data.getStringExtra("password");
 
             mnemosyneThread.getHandler().post(new Runnable() {
                 public void run() {
-                    mnemosyneThread.controller._Call("sync", "dyndns.org", 8512, "", "");
+                    mnemosyneThread.config._Call("__setitem__", "server_for_sync_as_client", server);
+                    mnemosyneThread.config._Call("__setitem__", "port_for_sync_as_client", port);
+                    mnemosyneThread.config._Call("__setitem__", "username_for_sync_as_client", username);
+                    mnemosyneThread.config._Call("__setitem__", "password_for_sync_as_client", password);
+                    mnemosyneThread.controller._Call("sync", server, port, username, password);
+                    mnemosyneThread.config._Call("save");
                 }
             });
         }
