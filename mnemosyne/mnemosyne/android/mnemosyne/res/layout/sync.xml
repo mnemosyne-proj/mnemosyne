@@ -29,7 +29,7 @@
          android:text="Server:" />
 
      <EditText
-         android:id="@+id/editText1"
+         android:id="@+id/editServer"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:ems="10" >
@@ -42,7 +42,7 @@
          android:text="Port:" />
 
      <EditText
-         android:id="@+id/editText2"
+         android:id="@+id/editPort"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:ems="10"
@@ -55,7 +55,7 @@
          android:text="Username:" />
 
      <EditText
-         android:id="@+id/editText3"
+         android:id="@+id/editUsername"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:ems="10" />
@@ -67,7 +67,7 @@
          android:text="Password:" />
 
      <EditText
-         android:id="@+id/editText4"
+         android:id="@+id/editPassword"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:ems="10"

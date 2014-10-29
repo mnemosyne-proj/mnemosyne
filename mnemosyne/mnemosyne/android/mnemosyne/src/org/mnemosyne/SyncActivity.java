@@ -16,17 +16,35 @@ public class SyncActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sync);
 
+        String database = getIntent().getStringExtra("database");
+        String server = getIntent().getStringExtra("server");
+        String port = getIntent().getStringExtra("port");
+        String username = getIntent().getStringExtra("username");
+        String password = getIntent().getStringExtra("password");
+
         final EditText editDatabase = (EditText) findViewById(R.id.editDatabase);
+        final EditText editServer = (EditText) findViewById(R.id.editServer);
+        final EditText editPort = (EditText) findViewById(R.id.editPort);
+        final EditText editUsername = (EditText) findViewById(R.id.editUsername);
+        final EditText editPassword = (EditText) findViewById(R.id.editPassword);
+
+        editDatabase.setText(database);
+        editServer.setText(server);
+        editPort.setText(port);
+        editUsername.setText(username);
+        editPassword.setText(password);
 
         Button button = (Button) findViewById(R.id.syncButton);
 
         button.setOnClickListener(new OnClickListener() {
 
             public void onClick(View arg0) {
-                String database = editDatabase.getText().toString();
                 Intent intent = new Intent();
-                intent.putExtra("DATABASE", database);
-
+                intent.putExtra("database", editDatabase.getText().toString());
+                intent.putExtra("server", editServer.getText().toString() );
+                intent.putExtra("port", editPort.getText().toString());
+                intent.putExtra("username", editUsername.getText().toString());
+                intent.putExtra("password", editPassword.getText().toString());
                 setResult(0, intent);
                 finish();
             }
