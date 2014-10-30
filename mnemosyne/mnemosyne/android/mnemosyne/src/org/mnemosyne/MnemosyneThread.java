@@ -304,7 +304,6 @@ public class MnemosyneThread extends Thread {
     }
 
     public void showSyncDialog() {
-        final String filename = database._Call("name").toString();
         final String server = config._Call("__getitem__", "server_for_sync_as_client").toString();
         final String port = config._Call("__getitem__", "port_for_sync_as_client").toString();
         final String username = config._Call("__getitem__", "username_for_sync_as_client").toString();
@@ -313,7 +312,6 @@ public class MnemosyneThread extends Thread {
         UIHandler.post(new Runnable() {
             public void run() {
                 Intent startSyncActivity = new Intent(UIActivity, SyncActivity.class);
-                startSyncActivity.putExtra("database", filename);
                 startSyncActivity.putExtra("server", server);
                 startSyncActivity.putExtra("port", port);
                 startSyncActivity.putExtra("username", username);

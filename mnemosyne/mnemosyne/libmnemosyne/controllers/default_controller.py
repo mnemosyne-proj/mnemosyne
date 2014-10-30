@@ -411,11 +411,16 @@ class DefaultController(Controller):
     def star_current_card(self):
         self.stopwatch().pause()
         self.flush_sync_server()
+        if self.config()["star_help_shown"] == False:
+            self.main_widget().show_information(\
+_("This will add a tag 'Starred' to the current card, so that you can find it back easily, e.g. to edit it on a desktop."))
+            self.config()["star_help_shown"] = True        
         db = self.database()
         review_controller = self.review_controller()
         tag = db.get_or_create_tag_with_name(_("Starred"))
-        db.add_tag_to_cards_with_internal_ids\
-            (tag, [review_controller.card._id])
+        _sister_card_ids = [card._id for card in \
+            self.database().cards_from_fact(review_controller.card.fact)]
+        db.add_tag_to_cards_with_internal_ids(tag, _sister_card_ids)
         review_controller.card = \
             db.card(review_controller.card._id, is_id_internal=True)
         review_controller.update_dialog(redraw_all=True)
@@ -933,11 +938,17 @@ _("This will tag all the cards in a given card type which have the same question
         return dialog.values()
 
     def show_sync_dialog(self):
+        show_sync_dialog_pre(self)
+        show_sync_dialog_post(self)
+        
+    def show_sync_dialog_pre(self): 
         self.stopwatch().pause()
         self.flush_sync_server()
         self.database().save()
         self.component_manager.current("sync_dialog")\
             (self.component_manager).activate()
+        
+    def show_sync_dialog_post(self):
         self.database().save()
         self.log().saved_database()
         self.review_controller().reset_but_try_to_keep_current_card()
