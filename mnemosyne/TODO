@@ -1,4 +1,9 @@
--best way to handle multiple files?
+-check delay in progress bars on sync
+
+-message on first start
+-alfa release
+-activate cards
+-gestures
 
 -set default grade
 -remove superfluous python modules
@@ -6,6 +11,8 @@
 -check if Android uninstall removes all files
 -check functionality for map card types
 -also bundle newer abi libraries?
+-'sync' button should sync directly without going through the sync settings dialog. Put
+ the settings in a settings window instead.
 
 -source percentage encoding for media file names like C#.mp3. See user voice. requested by Philip Gubser.
 

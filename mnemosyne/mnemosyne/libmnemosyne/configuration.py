@@ -127,6 +127,7 @@ class Configuration(Component, dict):
              "single_database_help_shown": False,
              "save_database_help_shown": False,
              "find_duplicates_help_shown": False,
+             "star_help_shown": False,
              "start_card_browser_sorted": False,
              "day_starts_at": 3,
              "save_after_n_reps": 10,

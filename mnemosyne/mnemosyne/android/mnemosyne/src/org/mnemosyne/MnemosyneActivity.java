@@ -175,13 +175,21 @@ public class MnemosyneActivity extends Activity {
             case R.id.menu_sync:
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
-                        mnemosyneThread.controller._Call("show_sync_dialog");
+                        mnemosyneThread.controller._Call("show_sync_dialog_pre");
                     }
                 });
                 return true;
 
             case R.id.menu_replay_media:
                 handleSoundFiles(currentHtml);
+                return true;
+
+            case R.id.menu_star:
+                mnemosyneThread.getHandler().post(new Runnable() {
+                    public void run() {
+                        mnemosyneThread.controller._Call("star_current_card");
+                    }
+                });
                 return true;
 
             default:
@@ -306,6 +314,7 @@ public class MnemosyneActivity extends Activity {
     }
 
     // Get results back from sync activity.
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -313,7 +322,6 @@ public class MnemosyneActivity extends Activity {
 
         if ((requestCode == 0) && (resultCode == RESULT_OK))
         {
-            final String database = data.getStringExtra("database");
             final String server = data.getStringExtra("server");
             final Integer port = new Integer(data.getStringExtra("port"));
             final String username = data.getStringExtra("username");
@@ -325,8 +333,9 @@ public class MnemosyneActivity extends Activity {
                     mnemosyneThread.config._Call("__setitem__", "port_for_sync_as_client", port);
                     mnemosyneThread.config._Call("__setitem__", "username_for_sync_as_client", username);
                     mnemosyneThread.config._Call("__setitem__", "password_for_sync_as_client", password);
-                    mnemosyneThread.controller._Call("sync", server, port, username, password);
                     mnemosyneThread.config._Call("save");
+                    mnemosyneThread.controller._Call("sync", server, port, username, password);
+                    mnemosyneThread.controller._Call("show_sync_dialog_post");
                 }
             });
         }
