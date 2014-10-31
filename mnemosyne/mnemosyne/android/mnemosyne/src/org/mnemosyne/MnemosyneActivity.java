@@ -1,7 +1,10 @@
 package org.mnemosyne;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -56,7 +59,6 @@ public class MnemosyneActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d("Mnemosyne", "on create called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
@@ -152,11 +154,33 @@ public class MnemosyneActivity extends Activity {
             }
         });
 
-        //Does not work yet, investigate
-        // http://stackoverflow.com/questions/937313/android-basic-gesture-detection
+        // Does not work yet as expected, since the webview has its own handling of
+        // gestures to deal with scrolling
+        //http://stackoverflow.com/questions/7774642/scroll-webview-horizontally-inside-a-viewpager
         gestureDetector = new GestureDetector(this, new MyGestureListener());
 
+        // First run wizard.
+        SharedPreferences settings = getSharedPreferences("UserInfo", 0);
+        if (!settings.contains("shown_first_run_wizard"))
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setMessage("This application is meant to be used in conjunction with the Mnemosyne desktop app (http://www.mnemosyne-proj.org). Input your cards there, start the sync server in 'Configure Mnemosyne' and then you can sync and review the cards in this Android app.");
+            alert.setCancelable(false);
+            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    mnemosyneThread.getHandler().post(new Runnable() {
+                        public void run() {
+                            mnemosyneThread.controller._Call("show_sync_dialog_pre");
+                        }
+                    });
+                }
+            });
+            alert.show();
 
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("shown_first_run_wizard", true);
+            editor.commit();
+        }
     }
 
     @Override
@@ -415,11 +439,13 @@ public class MnemosyneActivity extends Activity {
                 if (diff > SWIPE_MIN_DISTANCE
                         && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
                     MnemosyneActivity.this.onLeftSwipe();
+                    return true;
 
                     // Right swipe.
                 } else if (-diff > SWIPE_MIN_DISTANCE
                         && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
                     MnemosyneActivity.this.onRightSwipe();
+                    return true;
                 }
             } catch (Exception e) {
                 Log.e("Mnemosyne", "Error on gestures");
