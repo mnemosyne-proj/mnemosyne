@@ -54,17 +54,19 @@ class ReviewWdgt(ReviewWidget):
         self.component_manager.android.setQuestion(\
             self.question.encode("utf-8"))
         
-    def reveal_answer(self):
+    def reveal_answer(self, process_audio=True):
         self.component_manager.android.setAnswer(\
-            self.answer.encode("utf-8"))
+            self.answer.encode("utf-8"), process_audio)
         
     def clear_question(self):
         self.question = self.empty()
         self.reveal_question()
         
     def clear_answer(self):
+        # We don't process the audio here, as that would kill the pending
+        # audio events from the question.
         self.answer = self.empty()
-        self.reveal_answer()
+        self.reveal_answer(process_audio=False)
 
     def update_show_button(self, text, is_default, is_enabled):
         self.component_manager.android.updateShowButton(\

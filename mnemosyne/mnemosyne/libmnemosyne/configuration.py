@@ -211,7 +211,12 @@ class Configuration(Component, dict):
             pass
         # Set config settings.
         for cursor in con.execute("select key, value from config"):
-            self[cursor[0]] = eval(cursor[1])     
+            try:
+                self[cursor[0]] = eval(cursor[1])
+            except:
+                # This can fail if we are running headless now after running
+                # the GUI previously.
+                pass
         con.close()
 
     def save(self):

@@ -16,7 +16,7 @@ class EscapeToHtml(Filter):
         linebreak_positions = []
         escape_breaks = True
         for i in range(len(text)):
-            for tag in ["ul", "table", "latex", "script"]:
+            for tag in ["ul", "table", "latex", "script", "textarea"]:
                 if lower_text[i:].startswith("<" + tag):
                     escape_breaks = False
                 if lower_text[i:].startswith("</" + tag):
