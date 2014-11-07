@@ -1,4 +1,4 @@
--alfa release
+-enable javascript
 -activate cards
 
 -set default grade
@@ -11,9 +11,19 @@
 - gestures
 -'sync' button should sync directly without going through the sync settings dialog. Put
  the settings in a settings window instead.
+-custom fonts?
 
 -File "mnemosyne\libmnemosyne\.init_pyo", line 206 in initialise File "mnemosyne\libmnemosyne\_init_.pyo", line 323, in load_database File "mnemosyne\libmnemosyne\databases\SQLite.pyo", line 304, in new File "mnemosyne\libmnemosyne\databases\SQLite media.pyo", line 40, in create_media_dir_if_needed File "os.pyo", line 150, in makedirs File "os,pyo", line 150, in makedirs File "os.pyo", line 157, in makedirs
 WindowsError: [Error 3] The system cannot find the path specified:    u'F:/'
+
+-Scott Youngman:
+To reproduce:
+  1. Open first instance of a database.
+  2. Open Browse Cards or File > New.
+  3. Open second instance of the same database.
+
+Without step 2 (or with the Add Cards dialog open as step 2), a warning message is generated and the second instance is not opened, as you mentioned.
+
 
 -source percentage encoding for media file names like C#.mp3. See user voice. requested by Philip Gubser.
 

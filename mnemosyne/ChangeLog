@@ -1,6 +1,10 @@
 -Smart sorting of card types in dialog boxes (patch by Emilian Mihalache)
 -Fix when importing 1.x databases containing a single quote in a media filename
  (reported by Jan Egil Hagen).
+-Don't replace newline with <br> inside textarea tags (patch by Pete 
+ Kovalenko).
+-Fix crash when running in headless mode after having run with the GUI 
+ (reported by Chris Nadt).
 -Don't crash the SQL engine if you have more than 1000 tags (reported by Mats 
  Hansson).
 -Update the window title on a sync server if a different database was loaded.

@@ -75,6 +75,9 @@ public class MnemosyneActivity extends Activity {
         button5 = (Button) this.findViewById(R.id.button5);
         statusbar = (TextView) this.findViewById(R.id.statusbar);
 
+        question.getSettings().setJavaScriptEnabled(true);
+        answer.getSettings().setJavaScriptEnabled(true);
+
         MnemosyneInstaller installer = new MnemosyneInstaller(this, activityHandler);
         installer.execute();
     }
@@ -228,6 +231,18 @@ public class MnemosyneActivity extends Activity {
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
+        try {
+            mediaPlayer.setDataSource(getApplicationContext(), soundFiles.get(soundIndex));
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         mediaPlayer.setOnPreparedListener(new OnPreparedListener() {
             public void onPrepared(MediaPlayer mp) {
                 mp.seekTo(starts.get(soundIndex));
@@ -266,17 +281,6 @@ public class MnemosyneActivity extends Activity {
             }
         });
 
-        try {
-            mediaPlayer.setDataSource(getApplicationContext(), soundFiles.get(soundIndex));
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         mediaPlayer.prepareAsync();
     }
 
@@ -331,9 +335,12 @@ public class MnemosyneActivity extends Activity {
         question.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
     }
 
-    public void setAnswer(String html) {
-        currentHtml = html;
-        html = handleSoundFiles(html);
+    public void setAnswer(String html, Boolean processAudio) {
+        if (processAudio == true)
+        {
+            currentHtml = html;
+            html = handleSoundFiles(html);
+        }
         answer.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
     }
 
@@ -373,6 +380,7 @@ public class MnemosyneActivity extends Activity {
                 if (mediaPlayer.isPlaying()) {
                     mediaPlayer.stop();
                 }
+                mediaPlayer.reset();
                 mediaPlayer.release();
                 mediaPlayer = null;
             }
@@ -393,6 +401,7 @@ public class MnemosyneActivity extends Activity {
                 if (mediaPlayer.isPlaying()) {
                     mediaPlayer.stop();
                 }
+                mediaPlayer.reset();
                 mediaPlayer.release();
                 mediaPlayer = null;
             }

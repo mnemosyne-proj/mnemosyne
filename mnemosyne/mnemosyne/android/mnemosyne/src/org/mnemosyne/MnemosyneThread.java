@@ -152,11 +152,12 @@ public class MnemosyneThread extends Thread {
         });
     }
 
-    public void setAnswer(String html) {
+    public void setAnswer(String html, Boolean processAudio) {
         final String _html = html;
+        final Boolean _processAudio = processAudio;
         UIHandler.post(new Runnable() {
             public void run() {
-                UIActivity.setAnswer(_html);
+                UIActivity.setAnswer(_html, _processAudio);
             }
         });
     }
