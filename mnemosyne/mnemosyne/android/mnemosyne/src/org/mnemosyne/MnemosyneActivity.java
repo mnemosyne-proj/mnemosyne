@@ -24,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,6 +32,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MnemosyneActivity extends Activity {
+
+    public static final int SYNC_ACTIVITY_RESULT = 0;
+    public static final int ACTIVATE_CARDS_ACTIVITY_RESULT = 1;
 
     String currentHtml;
     MediaPlayer mediaPlayer = null;
@@ -219,6 +223,14 @@ public class MnemosyneActivity extends Activity {
                 });
                 return true;
 
+            case R.id.menu_activate:
+                Intent activateActivity = new Intent(this, ActivateCardsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putStringArray("saved_sets", new String[]{"set_1", "set_2"});
+                activateActivity.putExtras(bundle);
+                startActivityForResult(activateActivity, ACTIVATE_CARDS_ACTIVITY_RESULT);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -351,7 +363,7 @@ public class MnemosyneActivity extends Activity {
     {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if ((requestCode == 0) && (resultCode == RESULT_OK))
+        if ((requestCode == SYNC_ACTIVITY_RESULT) && (resultCode == RESULT_OK))
         {
             final String server = data.getStringExtra("server");
             final Integer port = new Integer(data.getStringExtra("port"));
@@ -370,6 +382,13 @@ public class MnemosyneActivity extends Activity {
                 }
             });
         }
+
+        if ((requestCode == ACTIVATE_CARDS_ACTIVITY_RESULT) && (resultCode == RESULT_OK))
+        {
+            final String savedSet = data.getStringExtra("saved_set");
+            Toast.makeText(this, savedSet + " selected", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     @Override
@@ -405,7 +424,7 @@ public class MnemosyneActivity extends Activity {
                 mediaPlayer.release();
                 mediaPlayer = null;
             }
-        } catch(Exception e){
+        } catch (Exception e){
         }
         mnemosyneThread.getHandler().post(new Runnable() {
             public void run() {

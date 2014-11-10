@@ -304,6 +304,8 @@ public class MnemosyneThread extends Thread {
         return result;
     }
 
+
+
     public void showSyncDialog() {
         final String server = config._Call("__getitem__", "server_for_sync_as_client").toString();
         final String port = config._Call("__getitem__", "port_for_sync_as_client").toString();
@@ -317,7 +319,7 @@ public class MnemosyneThread extends Thread {
                 startSyncActivity.putExtra("port", port);
                 startSyncActivity.putExtra("username", username);
                 startSyncActivity.putExtra("password", password);
-                UIActivity.startActivityForResult(startSyncActivity, 0);
+                UIActivity.startActivityForResult(startSyncActivity, UIActivity.SYNC_ACTIVITY_RESULT);
             }
         });
     }

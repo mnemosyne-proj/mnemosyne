@@ -260,6 +260,13 @@ Milesteiner
 -Qt bug? cannot define sq escape character to search for literal _
 -Qt bug? Kanji does not scale, but latin does
   åŽ³é‡?ã?ªè­¦æˆ’<span style="font-size:24pt;">test åŽ³é‡?ã?ªè­¦æˆ’</span>
+-Qt bug
+1. Add new card
+2. Enter "test" on front
+3. Enter "« test »" (alt+174, alt+175) on back
+The card gets closed the moment one has hit the alt+..5 key and a new card is
+created with just the "»" symbol.
+
 
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 
