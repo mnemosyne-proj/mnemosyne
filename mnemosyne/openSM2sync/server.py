@@ -399,8 +399,9 @@ class Server(Partner):
             if self.check_for_edited_local_media_files:
                 self.ui.set_progress_text("Checking for edited media files...")
                 session.database.check_for_edited_media_files()
-                self.ui.set_progress_text("Dynamically creating media files...")
-                session.database.dynamically_create_media_files()
+            # Always create media files, otherwise they are not synced across.
+            self.ui.set_progress_text("Dynamically creating media files...")
+            session.database.dynamically_create_media_files()
             return self.text_format.repr_message("OK")
         except:
             return self.handle_error(session, traceback_string())
@@ -572,7 +573,8 @@ class Server(Partner):
             filename = unicode(filename, "utf-8")
             # Make sure a malicious client cannot overwrite anything outside
             # of the media directory.
-            filename = filename.replace("..", "")
+            filename = filename.replace("../", "").replace("..\\", "")
+            filename = filename.replace("/..", "").replace("\\..", "")            
             filename = os.path.join(session.database.media_dir(), filename)
             # We don't have progress bars here, as 'put_client_media_file'
             # gets called too frequently, and this would slow down the UI.
@@ -611,7 +613,8 @@ class Server(Partner):
             filename = unicode(filename, "utf-8")
             # Make sure a malicious client cannot access anything outside
             # of the media directory.
-            filename = filename.replace("..", "")
+            filename = filename.replace("../", "").replace("..\\", "")
+            filename = filename.replace("/..", "").replace("\\..", "")
             filename = os.path.join(session.database.media_dir(), filename)
             file_size = os.path.getsize(filename)
             mnemosyne_content_length = file_size

@@ -856,7 +856,7 @@ class TestSync(object):
                 "default.db_media", "b"))
 
             filename = os.path.join(os.path.abspath("dot_sync_server"),
-                "default.db_media", "b", unichr(0x628) + u"b.ogg")
+                "default.db_media", "b", unichr(0x628) + u"b..ogg")
             f = file(filename, "w")
             f.write("B")
             f.close()
@@ -870,7 +870,7 @@ class TestSync(object):
         def test_server(self):
             db = self.mnemosyne.database()
             filename = os.path.join(os.path.abspath("dot_sync_server"),
-                "default.db_media", "a", unichr(0x628) + u"a.ogg")
+                "default.db_media", "a", unichr(0x628) + u"a..ogg")
             assert os.path.exists(filename)
             assert file(filename).read() == "A"
             assert db.con.execute("select count() from log").fetchone()[0] == 38
@@ -894,7 +894,7 @@ class TestSync(object):
             "default.db_media", "a"))
 
         filename = os.path.join(os.path.abspath("dot_sync_client"),
-            "default.db_media", "a", unichr(0x628) + u"a.ogg")
+            "default.db_media", "a", unichr(0x628) + u"a..ogg")
         f = file(filename, "w")
         f.write("A")
         f.close()
@@ -909,7 +909,7 @@ class TestSync(object):
         self.client.do_sync(); assert last_error is None
 
         filename = os.path.join(os.path.abspath("dot_sync_client"),
-            "default.db_media", "b", unichr(0x628) + u"b.ogg")
+            "default.db_media", "b", unichr(0x628) + u"b..ogg")
         assert os.path.exists(filename)
         assert file(filename).read() == "B"
         db = self.client.mnemosyne.database()
