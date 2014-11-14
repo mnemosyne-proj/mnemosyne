@@ -938,8 +938,8 @@ _("This will tag all the cards in a given card type which have the same question
         return dialog.values()
 
     def show_sync_dialog(self):
-        show_sync_dialog_pre(self)
-        show_sync_dialog_post(self)
+        self.show_sync_dialog_pre()
+        self.show_sync_dialog_post()
         
     def show_sync_dialog_pre(self): 
         self.stopwatch().pause()

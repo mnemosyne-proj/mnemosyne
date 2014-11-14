@@ -562,7 +562,8 @@ class Client(Partner):
             file_size = int(response.getheader("mnemosyne-content-length"))
             # Make sure a malicious server cannot overwrite anything outside
             # of the media directory.
-            filename = filename.replace("..", "")
+            filename = filename.replace("../", "").replace("..\\", "")
+            filename = filename.replace("/..", "").replace("\\..", "")
             filename = os.path.join(self.database.media_dir(), filename)
             self.download_binary_file(response, filename,
                                       file_size, progress_bar=False)
