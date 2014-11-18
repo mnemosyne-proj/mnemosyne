@@ -88,7 +88,9 @@ mnemosyne.components = [\
          ("mnemosyne.cle.android_render_chain", 
           "AndroidRenderChain"),
          ("mnemosyne.cle.sync_dlg", 
-          "SyncDlg")]
+          "SyncDlg"),
+         ("mnemosyne.cle.activate_cards_dlg", 
+          "ActivateCardsDlg")]
 
 def start_mnemosyne(data_dir, filename, wrapper):
     mnemosyne.initialise(data_dir=data_dir, filename=filename)

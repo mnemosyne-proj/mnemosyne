@@ -1,4 +1,4 @@
--activate cards
+-activate cards: remove print statement in apply, check preselection ok, message if no saved sets
 
 -set default grade
 -remove superfluous python modules
@@ -7,8 +7,8 @@
 -check functionality for map card types
 -also bundle newer abi libraries?
 
-- gestures
-- 'sync' button should sync directly without going through the sync settings dialog. Put
+-gestures
+-'sync' button should sync directly without going through the sync settings dialog. Put
  the settings in a settings window instead.
 -custom fonts?
 

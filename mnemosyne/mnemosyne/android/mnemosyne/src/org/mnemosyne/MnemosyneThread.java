@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -25,6 +26,7 @@ public class MnemosyneThread extends Thread {
     StarObjectClass database;
     StarObjectClass controller;
     StarObjectClass reviewController;
+    StarObjectClass activateCardsDialog;
     MnemosyneActivity UIActivity;
     Handler mnemosyneHandler;
     Handler UIHandler;
@@ -97,7 +99,8 @@ public class MnemosyneThread extends Thread {
         config = (StarObjectClass) mnemosyne._Call("config");
         database = (StarObjectClass) mnemosyne._Call("database");
         controller = (StarObjectClass) mnemosyne._Call("controller");
-
+        StarObjectClass componentManager = python._GetObject("mnemosyne.component_manager");
+        activateCardsDialog = (StarObjectClass) componentManager._Call("current", "activate_cards_dialog");
         reviewController = (StarObjectClass) mnemosyne._Call("review_controller");
 
         Log.d("Mnemosyne", "started Mnemosyne");
@@ -320,6 +323,23 @@ public class MnemosyneThread extends Thread {
                 startSyncActivity.putExtra("username", username);
                 startSyncActivity.putExtra("password", password);
                 UIActivity.startActivityForResult(startSyncActivity, UIActivity.SYNC_ACTIVITY_RESULT);
+            }
+        });
+    }
+
+    public void showActivateCardsDialog(String[] savedSets, String activeSet) {
+        Log.d("Mnemosyne", "showActivateCardsDialog" + savedSets + activeSet);
+        final String[] _savedSets = savedSets;
+        final String _activeSet = activeSet;
+
+        UIHandler.post(new Runnable() {
+            public void run() {
+                Intent activateActivity = new Intent(UIActivity, ActivateCardsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putStringArray("saved_sets", _savedSets);
+                bundle.putString("active_set", _activeSet);
+                activateActivity.putExtras(bundle);
+                UIActivity.startActivityForResult(activateActivity, UIActivity.ACTIVATE_CARDS_ACTIVITY_RESULT);
             }
         });
     }
