@@ -773,10 +773,16 @@ _("The configuration database cannot be used to store cards."))
         self.stopwatch().unpause()
 
     def show_activate_cards_dialog(self):
+        self.show_activate_cards_dialog_pre()
+        self.show_activate_cards_dialog_post()
+         
+    def show_activate_cards_dialog_pre(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("activate_cards_dialog")\
             (self.component_manager).activate()
+        
+    def show_activate_cards_dialog_post(self):       
         review_controller = self.review_controller()
         review_controller.reset_but_try_to_keep_current_card()
         review_controller.update_status_bar_counters()

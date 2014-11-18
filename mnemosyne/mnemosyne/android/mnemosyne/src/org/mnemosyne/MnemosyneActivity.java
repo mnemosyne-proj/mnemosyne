@@ -24,7 +24,6 @@ import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -224,11 +223,11 @@ public class MnemosyneActivity extends Activity {
                 return true;
 
             case R.id.menu_activate:
-                Intent activateActivity = new Intent(this, ActivateCardsActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putStringArray("saved_sets", new String[]{"set_1", "set_2"});
-                activateActivity.putExtras(bundle);
-                startActivityForResult(activateActivity, ACTIVATE_CARDS_ACTIVITY_RESULT);
+                mnemosyneThread.getHandler().post(new Runnable() {
+                    public void run() {
+                        mnemosyneThread.controller._Call("show_activate_cards_dialog_pre");
+                    }
+                });
                 return true;
 
             default:
@@ -386,7 +385,13 @@ public class MnemosyneActivity extends Activity {
         if ((requestCode == ACTIVATE_CARDS_ACTIVITY_RESULT) && (resultCode == RESULT_OK))
         {
             final String savedSet = data.getStringExtra("saved_set");
-            Toast.makeText(this, savedSet + " selected", Toast.LENGTH_LONG).show();
+
+            mnemosyneThread.getHandler().post(new Runnable() {
+                public void run() {
+                    mnemosyneThread.activateCardsDialog._Call("set_criterion_with_name", savedSet);
+                    mnemosyneThread.controller._Call("show_activate_cards_dialog_post");
+                }
+            });
         }
 
     }
