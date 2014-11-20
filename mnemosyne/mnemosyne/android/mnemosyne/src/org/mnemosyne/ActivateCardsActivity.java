@@ -15,15 +15,16 @@ public class ActivateCardsActivity extends ListActivity {
         Bundle bundle = this.getIntent().getExtras();
         String[] values = bundle.getStringArray("saved_sets");
         String active = bundle.getString("active_set");
-        Log.d("Mnemosyne", "on create activate" + values + active);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, values);
         setListAdapter(adapter);
         for (int position=0; position<values.length; position++)
         {
-            if ((String) getListAdapter().getItem(position) == active)
+            if (((String) getListAdapter().getItem(position)).equals(active))
             {
                 setSelection(position);
+                adapter.notifyDataSetChanged();
+                Log.d("Mnemosyne ", "match in " + position);
                 break;
             }
         }
