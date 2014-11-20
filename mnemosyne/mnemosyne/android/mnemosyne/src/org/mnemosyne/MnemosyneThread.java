@@ -327,9 +327,8 @@ public class MnemosyneThread extends Thread {
         });
     }
 
-    public void showActivateCardsDialog(String[] savedSets, String activeSet) {
-        Log.d("Mnemosyne", "showActivateCardsDialog" + savedSets + activeSet);
-        final String[] _savedSets = savedSets;
+    public void showActivateCardsDialog(String savedSets, String activeSet) {
+        final String[] _savedSets = savedSets.split("____");
         final String _activeSet = activeSet;
 
         UIHandler.post(new Runnable() {

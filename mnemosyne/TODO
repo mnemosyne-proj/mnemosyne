@@ -1,4 +1,8 @@
--activate cards: remove print statement in apply, check preselection ok, message if no saved sets
+-activate cards: 
+check preselection ok
+message if no saved sets
+
+also for sync: call 'after_...' methods even when back button was pressed
 
 -set default grade
 -remove superfluous python modules
