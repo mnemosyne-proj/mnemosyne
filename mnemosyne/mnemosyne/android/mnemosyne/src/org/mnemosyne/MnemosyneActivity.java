@@ -347,8 +347,7 @@ public class MnemosyneActivity extends Activity {
     }
 
     public void setAnswer(String html, Boolean processAudio) {
-        if (processAudio == true)
-        {
+        if (processAudio == true) {
             currentHtml = html;
             html = handleSoundFiles(html);
         }
@@ -362,40 +361,54 @@ public class MnemosyneActivity extends Activity {
     {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if ((requestCode == SYNC_ACTIVITY_RESULT) && (resultCode == RESULT_OK))
-        {
-            final String server = data.getStringExtra("server");
-            final Integer port = new Integer(data.getStringExtra("port"));
-            final String username = data.getStringExtra("username");
-            final String password = data.getStringExtra("password");
+        if (requestCode == SYNC_ACTIVITY_RESULT) {
+            if (resultCode == RESULT_OK) {
+                final String server = data.getStringExtra("server");
+                final Integer port = new Integer(data.getStringExtra("port"));
+                final String username = data.getStringExtra("username");
+                final String password = data.getStringExtra("password");
 
-            mnemosyneThread.getHandler().post(new Runnable() {
-                public void run() {
-                    mnemosyneThread.config._Call("__setitem__", "server_for_sync_as_client", server);
-                    mnemosyneThread.config._Call("__setitem__", "port_for_sync_as_client", port);
-                    mnemosyneThread.config._Call("__setitem__", "username_for_sync_as_client", username);
-                    mnemosyneThread.config._Call("__setitem__", "password_for_sync_as_client", password);
-                    mnemosyneThread.config._Call("save");
-                    mnemosyneThread.controller._Call("sync", server, port, username, password);
-                    mnemosyneThread.controller._Call("show_sync_dialog_post");
-                }
-            });
+                mnemosyneThread.getHandler().post(new Runnable() {
+                    public void run() {
+                        mnemosyneThread.config._Call("__setitem__", "server_for_sync_as_client", server);
+                        mnemosyneThread.config._Call("__setitem__", "port_for_sync_as_client", port);
+                        mnemosyneThread.config._Call("__setitem__", "username_for_sync_as_client", username);
+                        mnemosyneThread.config._Call("__setitem__", "password_for_sync_as_client", password);
+                        mnemosyneThread.config._Call("save");
+                        mnemosyneThread.controller._Call("sync", server, port, username, password);
+                        mnemosyneThread.controller._Call("show_sync_dialog_post");
+                    }
+                });
+            }
+            else {
+                mnemosyneThread.getHandler().post(new Runnable() {
+                    public void run() {
+                        mnemosyneThread.controller._Call("show_sync_dialog_post");
+                    }
+                });
+            }
         }
 
-        if ((requestCode == ACTIVATE_CARDS_ACTIVITY_RESULT) && (resultCode == RESULT_OK))
-        {
-            final String savedSet = data.getStringExtra("saved_set");
-
-            mnemosyneThread.getHandler().post(new Runnable() {
-                public void run() {
-                    mnemosyneThread.setProgressText("(De)activating cards...");
-                    mnemosyneThread.activateCardsDialog._Call("set_criterion_with_name", savedSet);
-                    mnemosyneThread.controller._Call("show_activate_cards_dialog_post");
-                    mnemosyneThread.closeProgress();
-                }
-            });
+        if (requestCode == ACTIVATE_CARDS_ACTIVITY_RESULT) {
+            if (resultCode == RESULT_OK) {
+                final String savedSet = data.getStringExtra("saved_set");
+                mnemosyneThread.getHandler().post(new Runnable() {
+                    public void run() {
+                        mnemosyneThread.setProgressText("(De)activating cards...");
+                        mnemosyneThread.activateCardsDialog._Call("set_criterion_with_name", savedSet);
+                        mnemosyneThread.controller._Call("show_activate_cards_dialog_post");
+                        mnemosyneThread.closeProgress();
+                    }
+                });
+            }
+            else {
+                mnemosyneThread.getHandler().post(new Runnable() {
+                    public void run() {
+                        mnemosyneThread.controller._Call("show_activate_cards_dialog_post");
+                    }
+                });
+            }
         }
-
     }
 
     @Override
