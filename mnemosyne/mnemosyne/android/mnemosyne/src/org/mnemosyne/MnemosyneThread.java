@@ -26,6 +26,7 @@ public class MnemosyneThread extends Thread {
     StarObjectClass database;
     StarObjectClass controller;
     StarObjectClass reviewController;
+    StarObjectClass componentManager;
     StarObjectClass activateCardsDialog;
     MnemosyneActivity UIActivity;
     Handler mnemosyneHandler;
@@ -99,8 +100,7 @@ public class MnemosyneThread extends Thread {
         config = (StarObjectClass) mnemosyne._Call("config");
         database = (StarObjectClass) mnemosyne._Call("database");
         controller = (StarObjectClass) mnemosyne._Call("controller");
-        StarObjectClass componentManager = python._GetObject("mnemosyne.component_manager");
-        activateCardsDialog = (StarObjectClass) componentManager._Call("current", "activate_cards_dialog");
+        componentManager = python._GetObject("mnemosyne.component_manager");
         reviewController = (StarObjectClass) mnemosyne._Call("review_controller");
 
         Log.d("Mnemosyne", "started Mnemosyne");
@@ -327,9 +327,10 @@ public class MnemosyneThread extends Thread {
         });
     }
 
-    public void showActivateCardsDialog(String savedSets, String activeSet) {
+    public void showActivateCardsDialog(String savedSets, String activeSet, StarObjectClass dialog) {
         final String[] _savedSets = savedSets.split("____");
         final String _activeSet = activeSet;
+        activateCardsDialog = dialog;
 
         UIHandler.post(new Runnable() {
             public void run() {
