@@ -22,9 +22,21 @@ public class ActivateCardsActivity extends ListActivity {
         {
             if (((String) getListAdapter().getItem(position)).equals(active))
             {
-                setSelection(position);
-                adapter.notifyDataSetChanged();
-                Log.d("Mnemosyne ", "match in " + position);
+                final ListView listView = getListView();
+                listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+                final int _position = position;
+                listView.clearFocus();
+                listView.post(new Runnable()
+                {
+                    public void run()
+                    {
+                        Log.d("Mnemosyne", "setting selection " + _position);
+                        listView.setSelection(_position);
+                        listView.setItemChecked(_position, true);
+                        //listView.performItemClick(listView, _position, listView.getItemIdAtPosition(_position));
+                    }
+                });
                 break;
             }
         }

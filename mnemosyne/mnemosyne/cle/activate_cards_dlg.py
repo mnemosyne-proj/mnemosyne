@@ -20,7 +20,7 @@ class ActivateCardsDlg(ActivateCardsDialog):
                 if criterion == active_criterion:
                     active_set_name = criterion.name.encode("utf-8")  
         self.component_manager.android.showActivateCardsDialog(\
-            "____".join(sorted(self.criteria_by_name.keys())), active_set_name)
+            "____".join(sorted(self.criteria_by_name.keys())), active_set_name, self)
         
     def set_criterion_with_name(self, criterion_name):
         self.database().set_current_criterion(self.criteria_by_name[criterion_name])

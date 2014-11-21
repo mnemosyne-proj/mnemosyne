@@ -388,9 +388,10 @@ public class MnemosyneActivity extends Activity {
 
             mnemosyneThread.getHandler().post(new Runnable() {
                 public void run() {
-                    mnemosyneThread.activateCardsDialog._Call("set_criterion_with_name",
-                            mnemosyneThread.activateCardsDialog, savedSet);
+                    mnemosyneThread.setProgressText("(De)activating cards...");
+                    mnemosyneThread.activateCardsDialog._Call("set_criterion_with_name", savedSet);
                     mnemosyneThread.controller._Call("show_activate_cards_dialog_post");
+                    mnemosyneThread.closeProgress();
                 }
             });
         }
