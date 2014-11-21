@@ -1,15 +1,6 @@
--activate cards: 
-check preselection ok
-message if no saved sets
-
-also for sync: call 'after_...' methods even when back button was pressed
-
 -set default grade
--remove superfluous python modules
 -check 'redraw now'
--check if Android uninstall removes all files
 -check functionality for map card types
--also bundle newer abi libraries?
 
 -gestures
 -'sync' button should sync directly without going through the sync settings dialog. Put
