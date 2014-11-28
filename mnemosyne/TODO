@@ -1,3 +1,8 @@
+export with history:
+-update header with correct number of entries
+-add to testsuite
+
+
 -set default grade
 -check 'redraw now'
 -check functionality for map card types

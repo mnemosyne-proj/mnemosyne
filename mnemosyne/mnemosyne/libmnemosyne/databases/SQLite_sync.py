@@ -261,6 +261,32 @@ class SQLiteSync(object):
             for match in re_src.finditer(result[0]):
                 active_objects["media_filenames"].add(match.group(2))
         return active_objects
+    
+    def export_rep_history_to_file(self, xml_file):
+        w = self.main_widget()
+        w.set_progress_text(_("Exporting repetition history..."))        
+        number_of_entries = self.con.execute("select count() from log where event_type=?", 
+            (EventTypes.REPETITION, )).fetchone()[0]
+        w.set_progress_range(number_of_entries)
+        w.set_progress_update_interval(number_of_entries/20)      
+        for sql_res in self.con.execute("select * from log where event_type=?", 
+            (EventTypes.REPETITION, )):
+            log_entry["gr"] = sql_res[4]
+            log_entry["e"] = sql_res[5]
+            log_entry["sch_i"] = sql_res[11]
+            log_entry["act_i"] = sql_res[12]
+            log_entry["th_t"] = sql_res[13]
+            log_entry["ac_rp"] = sql_res[6]
+            log_entry["rt_rp"] = sql_res[7]
+            log_entry["lps"] = sql_res[8]
+            log_entry["ac_rp_l"] = sql_res[9]
+            log_entry["rt_rp_l"] = sql_res[10]
+            log_entry["n_rp"] = sql_res[14]
+            log_entry["sch_data"] = sql_res[15]  
+            xml_file.write(xml_format.\
+                            repr_log_entry(log_entry).encode("utf-8"))            
+w.increase_progress(1)
+w.close_progress()
 
     def set_extra_tags_on_import(self, tags):
         self.extra_tags_on_import = tags
@@ -635,6 +661,8 @@ class SQLiteSync(object):
             scheduler_data=sch_data)
         self.log().repetition(card, log_entry["sch_i"], log_entry["act_i"],
             log_entry["th_t"])
+        if self.importing:
+            return
         self.con.execute("""update cards set grade=?, easiness=?, acq_reps=?,
             ret_reps=?, lapses=?, acq_reps_since_lapse=?,
             ret_reps_since_lapse=?, last_rep=?, next_rep=?, scheduler_data=?
