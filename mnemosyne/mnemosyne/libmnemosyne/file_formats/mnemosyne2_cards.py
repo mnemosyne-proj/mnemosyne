@@ -27,6 +27,8 @@ class Mnemosyne2Cards(FileFormat):
     export_possible = True
 
     def do_export(self, filename):
+        answer = self.main_widget().show_question(_("Do you want to export the learning data as well? This is only useful if you want to import these cards into another database you use yourself. For sharing with other users, it's best not to do this."), _("Don't export learning data"), _("Export learning data"), "")
+        export_learning_data = (answer == 1)
         self.orig_dir = os.getcwd()
         if not os.path.isabs(filename):
             filename = os.path.join(self.config()["export_dir"], filename)
@@ -130,20 +132,32 @@ class Mnemosyne2Cards(FileFormat):
             log_entry["fact"] = card.fact.id
             log_entry["fact_v"] = card.fact_view.id
             log_entry["tags"] = ",".join([tag.id for tag in card.tags])
-            log_entry["gr"] = -1
-            log_entry["e"] = 2.5
-            log_entry["ac_rp"] = 0
-            log_entry["rt_rp"] = 0
-            log_entry["lps"] = 0
-            log_entry["ac_rp_l"] = 0
-            log_entry["rt_rp_l"] = 0
-            log_entry["l_rp"] = -1
-            log_entry["n_rp"] = -1
+            if keep_learning_data:
+                log_entry["gr"] = card.grade
+                log_entry["e"] = card.easiness
+                log_entry["ac_rp"] = card.ack_reps
+                log_entry["rt_rp"] = card.ret_reps
+                log_entry["lps"] = card.lapses
+                log_entry["ac_rp_l"] = card.acq_reps_since_lapse
+                log_entry["rt_rp_l"] = card.ret_reps_since_lapse
+                log_entry["l_rp"] = card.next_rep
+                log_entry["n_rp"] = card.last_rep                
+            else:
+                log_entry["gr"] = -1
+                log_entry["e"] = 2.5
+                log_entry["ac_rp"] = 0
+                log_entry["rt_rp"] = 0
+                log_entry["lps"] = 0
+                log_entry["ac_rp_l"] = 0
+                log_entry["rt_rp_l"] = 0
+                log_entry["l_rp"] = -1
+                log_entry["n_rp"] = -1
             if card.extra_data:
                 log_entry["extra"] = repr(card.extra_data)
             xml_file.write(xml_format.\
                 repr_log_entry(log_entry).encode("utf-8"))
             w.increase_progress(1)
+        self.database().export_rep_history_to_file(xml_file)
         xml_file.write(xml_format.log_entries_footer())
         xml_file.close()
         # Make archive (Zipfile requires a .zip extension).
@@ -214,5 +228,3 @@ class Mnemosyne2Cards(FileFormat):
         os.remove(xml_filename)
         os.remove(metadata_filename)
         w.close_progress()
-
-
