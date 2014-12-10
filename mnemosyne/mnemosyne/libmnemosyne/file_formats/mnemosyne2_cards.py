@@ -26,9 +26,9 @@ class Mnemosyne2Cards(FileFormat):
     import_possible = True
     export_possible = True
 
-    def do_export(self, filename):
-        answer = self.main_widget().show_question(_("Do you want to export the learning data as well? This is only useful if you want to import these cards into another database you use yourself. For sharing with other users, it's best not to do this."), _("Don't export learning data"), _("Export learning data"), "")
-        export_learning_data = (answer == 1)
+    def do_export(self, filename, export_learning_data=False):
+        # export_learning_data=True is only used internally when merging
+        # databases.
         self.orig_dir = os.getcwd()
         if not os.path.isabs(filename):
             filename = os.path.join(self.config()["export_dir"], filename)
@@ -44,20 +44,20 @@ class Mnemosyne2Cards(FileFormat):
         metadata_file.close()
         db = self.database()
         w = self.main_widget()
+        # Generate log entries.
         w.set_progress_text(_("Exporting cards..."))
         active_objects = db.active_objects_to_export()
-        # Generate log entries.
         number_of_entries = len(active_objects["tags"]) + \
             len(active_objects["fact_view_ids"]) + \
             len(active_objects["card_type_ids"]) + \
             len(active_objects["media_filenames"]) + \
             len(active_objects["_card_ids"]) + \
             len(active_objects["_fact_ids"])
-        w.set_progress_range(number_of_entries)
-        w.set_progress_update_interval(number_of_entries/20)
         xml_file = file("cards.xml", "w")
         xml_format = XMLFormat()
         xml_file.write(xml_format.log_entries_header(number_of_entries))
+        w.set_progress_range(number_of_entries)
+        w.set_progress_update_interval(number_of_entries/20)
         for tag in active_objects["tags"]:
             log_entry = LogEntry()
             log_entry["type"] = EventTypes.ADDED_TAG
@@ -132,10 +132,10 @@ class Mnemosyne2Cards(FileFormat):
             log_entry["fact"] = card.fact.id
             log_entry["fact_v"] = card.fact_view.id
             log_entry["tags"] = ",".join([tag.id for tag in card.tags])
-            if keep_learning_data:
+            if export_learning_data:
                 log_entry["gr"] = card.grade
                 log_entry["e"] = card.easiness
-                log_entry["ac_rp"] = card.ack_reps
+                log_entry["ac_rp"] = card.acq_reps
                 log_entry["rt_rp"] = card.ret_reps
                 log_entry["lps"] = card.lapses
                 log_entry["ac_rp_l"] = card.acq_reps_since_lapse
@@ -157,7 +157,6 @@ class Mnemosyne2Cards(FileFormat):
             xml_file.write(xml_format.\
                 repr_log_entry(log_entry).encode("utf-8"))
             w.increase_progress(1)
-        self.database().export_rep_history_to_file(xml_file)
         xml_file.write(xml_format.log_entries_footer())
         xml_file.close()
         # Make archive (Zipfile requires a .zip extension).
