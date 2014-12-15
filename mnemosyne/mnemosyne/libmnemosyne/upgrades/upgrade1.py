@@ -111,7 +111,7 @@ _("Tried to backup your old 1.x files to %s, but that directory already exists."
             ["backups", "config", "config.py", "config.pyc",
             "DIRECTORY_NO_LONGER_USED_BY_MNEMOSYNE2", "error_log.txt",
             "latex", "plugins", "log.txt", "history"] \
-            and not name.endswith(".mem")]
+            and not name.endswith(".mem") and not name is None]
         self.main_widget().set_progress_text(_("Copying files from 1.x..."))
         # By copying over the history folder and log.txt, we also completely
         # preserve the state of all the files that need to uploaded to the
