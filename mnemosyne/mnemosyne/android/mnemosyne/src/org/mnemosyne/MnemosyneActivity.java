@@ -170,7 +170,7 @@ public class MnemosyneActivity extends Activity {
         if (!settings.contains("shown_first_run_wizard"))
         {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setMessage("This application is meant to be used in conjunction with the Mnemosyne desktop app (http://www.mnemosyne-proj.org). Input your cards there, start the sync server in 'Configure Mnemosyne' and then you can sync and review the cards in this Android app.");
+            alert.setMessage("This application is meant to be used in conjunction with the Mnemosyne desktop app (http://www.mnemosyne-proj.org). Input your cards there, start the sync server in 'Configure Mnemosyne' and then you can sync and review the cards in this Android app. IMPORTANT: note that only the database 'default.db' is synced.");
             alert.setCancelable(false);
             alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
