@@ -33,7 +33,10 @@ class Mnemosyne2Cards(FileFormat):
         if not os.path.isabs(filename):
             filename = os.path.join(self.config()["export_dir"], filename)
         os.chdir(os.path.dirname(filename))
-        metadata = self.controller().show_export_metadata_dialog()
+        if export_learning_data is True:
+            metadata = {}
+        else:
+            metadata = self.controller().show_export_metadata_dialog()
         if metadata is None:  # Cancelled.
             os.chdir(self.orig_dir)
             return -1

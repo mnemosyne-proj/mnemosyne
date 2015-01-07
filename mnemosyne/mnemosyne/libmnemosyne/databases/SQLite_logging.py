@@ -336,3 +336,21 @@ class SQLiteLogging(object):
           "select distinct object_id from log where event_type=?",
           (EventTypes.ADDED_CARD, ))):
             self.log_added_card(int(time.time()), id)
+            
+    def merge_logs_from_other_database(self, filename, insertion_log_index):
+        
+        """This function will delete all logs in the database after 
+        'insertion_log_index' and merge all logs from 'filename'.
+        
+        """
+        
+        w = self.main_widget()
+        w.set_progress_text(_("Merging logs..."))
+        self.con.executescript("""
+            begin; 
+            delete from log where _id>?", 
+            attach ? as to_merge;
+            insert into log select * from to_merge.log; 
+            commit; 
+        """, (insertion_log_index, filename))  
+        w.close_progress()

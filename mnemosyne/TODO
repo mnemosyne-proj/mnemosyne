@@ -1,6 +1,4 @@
-export with history:
--update header with correct number of entries
--add to testsuite
+-merge databases
 
 
 -set default grade
@@ -26,7 +24,7 @@ To reproduce:
 
 Without step 2 (or with the Add Cards dialog open as step 2), a warning message is generated and the second instance is not opened, as you mentioned.
 
--merge databases
+
 
 -source percentage encoding for media file names like C#.mp3. See user voice. requested by Philip Gubser.
 
@@ -70,6 +68,10 @@ Without step 2 (or with the Add Cards dialog open as step 2), a warning message 
  Q field
 -reverse arabic plugin no longer seems to work?
  http://mpcabd.igeex.biz/python-arabic-text-reshaper/
+ 
+-settings in config.py don't play well with syncing: if the user does not update config.py
+ on the target machine as well, these settings will get reset by the default config.py there.
+ So, get rid of config.py and move it to an advanced settings plugin?
 
 -activate cards: 'having any of these tags:' is not aligned with tag with tag tree
 -layout of "add clone" is not optimal under Windows

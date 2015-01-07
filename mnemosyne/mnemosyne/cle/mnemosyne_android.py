@@ -2,6 +2,8 @@
 # mnemosyne.py <Peter.Bienstman@UGent.be>
 #
 
+import os
+
 # Initialise Mnemosyne.
 
 from mnemosyne.libmnemosyne import Mnemosyne
