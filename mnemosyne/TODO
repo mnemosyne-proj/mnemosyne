@@ -1,4 +1,12 @@
--merge databases
+-android sync with client
+-revisit multiple database option in android
+
+-merge databases: 
+
+better progress bar messages when exporting old database
+why does importing cards take so long before progress bar moves
+issue with bad signs in my own database
+try import twice
 
 
 -set default grade

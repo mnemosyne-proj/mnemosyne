@@ -4,8 +4,10 @@
 
 import os
 import time
+import string
 
 from openSM2sync.log_entry import EventTypes
+from mnemosyne.libmnemosyne.translator import _
 
 HOUR = 60 * 60 # Seconds in an hour.
 DAY = 24 * HOUR # Seconds in a day.
@@ -346,11 +348,22 @@ class SQLiteLogging(object):
         
         w = self.main_widget()
         w.set_progress_text(_("Merging logs..."))
-        self.con.executescript("""
+        script = string.Template("""
+            begin;
+            delete from log where _id>$_id;
+            end;
+            vacuum;
+            attach "$filename" as to_merge;
             begin; 
-            delete from log where _id>?", 
-            attach ? as to_merge;
-            insert into log select * from to_merge.log; 
+            insert into log(event_type, timestamp, object_id, grade,
+                easiness, acq_reps, ret_reps, lapses, acq_reps_since_lapse,
+                ret_reps_since_lapse, scheduled_interval, actual_interval,
+                thinking_time, next_rep, scheduler_data)
+                select event_type, timestamp, object_id, grade, easiness, 
+                acq_reps, ret_reps, lapses, acq_reps_since_lapse,
+                ret_reps_since_lapse, scheduled_interval, actual_interval,
+                thinking_time, next_rep, scheduler_data from to_merge.log; 
             commit; 
-        """, (insertion_log_index, filename))  
+        """).substitute(_id=insertion_log_index, filename=filename)
+        self.con.executescript(script) 
         w.close_progress()
