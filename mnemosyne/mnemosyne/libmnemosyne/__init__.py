@@ -134,6 +134,8 @@ class Mnemosyne(Component):
           "Mnemosyne1XML"),
          ("mnemosyne.libmnemosyne.file_formats.mnemosyne2_cards",
           "Mnemosyne2Cards"),
+         ("mnemosyne.libmnemosyne.file_formats.mnemosyne2_db",
+          "Mnemosyne2Db"),         
          ("mnemosyne.libmnemosyne.file_formats.tsv",
           "Tsv"),
          ("mnemosyne.libmnemosyne.file_formats.supermemo_7_txt",

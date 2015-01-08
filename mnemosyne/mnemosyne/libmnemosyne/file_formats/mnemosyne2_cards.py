@@ -191,7 +191,7 @@ class Mnemosyne2Cards(FileFormat):
         os.chdir(self.orig_dir)
         w.close_progress()
 
-    def do_import(self, filename, extra_tag_names=None):
+    def do_import(self, filename, extra_tag_names=None, show_metadata=True):
         FileFormat.do_import(self, filename, extra_tag_names)
         if not extra_tag_names:
             extra_tags = []
@@ -204,14 +204,15 @@ class Mnemosyne2Cards(FileFormat):
         # Extract zipfile.
         zip_file = zipfile.ZipFile(filename, "r")
         zip_file.extractall(self.database().media_dir())
-        # Show metadata
+        # Show metadata.            
         metadata_filename = os.path.join(\
-            self.database().media_dir(), "METADATA")
-        metadata = {}
-        for line in file(metadata_filename):
-            key, value = line.split(":", 1)
-            metadata[key] = value.replace("<br>", "\n")
-        self.controller().show_export_metadata_dialog(metadata, read_only=True)
+                self.database().media_dir(), "METADATA")
+        if show_metadata:
+            metadata = {}
+            for line in file(metadata_filename):
+                key, value = line.split(":", 1)
+                metadata[key] = value.replace("<br>", "\n")
+            self.controller().show_export_metadata_dialog(metadata, read_only=True)
         # Parse XML.
         self.database().card_types_to_instantiate_later = set()
         xml_filename = os.path.join(self.database().media_dir(), "cards.xml")
