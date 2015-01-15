@@ -103,6 +103,8 @@ class XMLFormat(object):
             else:
                 tags += "<%s>%s</%s>" % (key, saxutils.escape(value), key)
         xml = "<log%s>%s</log>\n" % (attribs, tags)
+        # Strip control characters.
+        xml = "".join([i for i in xml if 31 < ord(i)])
         #import sys; sys.stderr.write(xml.encode("utf-8"))
         return xml
 
