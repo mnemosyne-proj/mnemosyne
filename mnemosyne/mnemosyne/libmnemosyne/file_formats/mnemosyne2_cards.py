@@ -143,8 +143,8 @@ class Mnemosyne2Cards(FileFormat):
                 log_entry["lps"] = card.lapses
                 log_entry["ac_rp_l"] = card.acq_reps_since_lapse
                 log_entry["rt_rp_l"] = card.ret_reps_since_lapse
-                log_entry["l_rp"] = card.next_rep
-                log_entry["n_rp"] = card.last_rep                
+                log_entry["l_rp"] = card.last_rep
+                log_entry["n_rp"] = card.next_rep                
             else:
                 log_entry["gr"] = -1
                 log_entry["e"] = 2.5
