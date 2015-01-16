@@ -1,13 +1,12 @@
--revisit multiple database option in android
+merge databases: 
+-deactivated fact views? 
+-formatting?
+-make testcase
+-try import twice
 
--merge databases: 
+Android:
 
-better progress bar messages when exporting old database
-why does importing cards take so long before progress bar moves
-issue with bad signs in my own database
-try import twice
-
-
+-revisit multiple database option?
 -set default grade
 -check 'redraw now'
 -check functionality for map card types

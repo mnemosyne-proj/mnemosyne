@@ -31,7 +31,7 @@ class Mnemosyne2Db(FileFormat):
         db.load(filename)
         cards_format = Mnemosyne2Cards(self.component_manager)
         tmp_cards_filename = os.path.join(data_dir, "TMP.cards")
-        cards_format.do_export(tmp_cards_filename, export_learning_data=True)
+        cards_format.do_export(tmp_cards_filename, used_for_merging_dbs=True)
         # Import the *.cards file into the receiving database.
         db.load(receiving_database_filename)
         log_index_before_import = db.current_log_index()
