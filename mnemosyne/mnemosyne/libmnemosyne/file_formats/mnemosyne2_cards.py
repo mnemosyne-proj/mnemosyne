@@ -26,14 +26,12 @@ class Mnemosyne2Cards(FileFormat):
     import_possible = True
     export_possible = True
 
-    def do_export(self, filename, export_learning_data=False):
-        # export_learning_data=True is only used internally when merging
-        # databases.
+    def do_export(self, filename, used_for_merging_dbs=False):
         self.orig_dir = os.getcwd()
         if not os.path.isabs(filename):
             filename = os.path.join(self.config()["export_dir"], filename)
         os.chdir(os.path.dirname(filename))
-        if export_learning_data is True:
+        if used_for_merging_dbs is True:
             metadata = {}
         else:
             metadata = self.controller().show_export_metadata_dialog()
@@ -48,7 +46,10 @@ class Mnemosyne2Cards(FileFormat):
         db = self.database()
         w = self.main_widget()
         # Generate log entries.
-        w.set_progress_text(_("Exporting cards..."))
+        if used_for_merging_dbs:
+            w.set_progress_text(_("Extracting cards..."))
+        else:
+            w.set_progress_text(_("Exporting cards..."))
         active_objects = db.active_objects_to_export()
         number_of_entries = len(active_objects["tags"]) + \
             len(active_objects["fact_view_ids"]) + \
@@ -135,7 +136,7 @@ class Mnemosyne2Cards(FileFormat):
             log_entry["fact"] = card.fact.id
             log_entry["fact_v"] = card.fact_view.id
             log_entry["tags"] = ",".join([tag.id for tag in card.tags])
-            if export_learning_data:
+            if used_for_merging_dbs:
                 log_entry["gr"] = card.grade
                 log_entry["e"] = card.easiness
                 log_entry["ac_rp"] = card.acq_reps
@@ -168,7 +169,10 @@ class Mnemosyne2Cards(FileFormat):
         zip_file.write("cards.xml")
         zip_file.write("METADATA")
         w.close_progress()
-        w.set_progress_text(_("Bundling media files..."))
+        if used_for_merging_dbs:
+            w.set_progress_text(_("Extracting media files..."))
+        else:
+            w.set_progress_text(_("Bundling media files..."))
         number_of_media_files = len(active_objects["media_filenames"])
         w.set_progress_range(number_of_media_files)
         w.set_progress_update_interval(number_of_media_files/100)
@@ -199,12 +203,12 @@ class Mnemosyne2Cards(FileFormat):
             extra_tags = [self.database().get_or_create_tag_with_name(\
                 tag_name.strip()) for tag_name in extra_tag_names.split(",")]
         self.database().set_extra_tags_on_import(extra_tags)
+        # Extract zipfile. 
         w = self.main_widget()
-        w.set_progress_text(_("Importing cards..."))
-        # Extract zipfile.
+        w.set_progress_text(_("Decompressing..."))
         zip_file = zipfile.ZipFile(filename, "r")
         zip_file.extractall(self.database().media_dir())
-        # Show metadata.            
+        # Show metadata.          
         metadata_filename = os.path.join(\
                 self.database().media_dir(), "METADATA")
         if show_metadata:
@@ -214,6 +218,7 @@ class Mnemosyne2Cards(FileFormat):
                 metadata[key] = value.replace("<br>", "\n")
             self.controller().show_export_metadata_dialog(metadata, read_only=True)
         # Parse XML.
+        w.set_progress_text(_("Importing cards..."))
         self.database().card_types_to_instantiate_later = set()
         xml_filename = os.path.join(self.database().media_dir(), "cards.xml")
         element_loop = XMLFormat().parse_log_entries(file(xml_filename, "r"))
