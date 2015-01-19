@@ -58,7 +58,6 @@ install-virtual-env-windows:
 	cd mnemosyne/pyqt_ui && make
 	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
 	Scripts/python.exe setup.py develop
-	Scripts/python.exe Scripts/mnemosyne -d dot_mnemosyne2
 
 install-system:
 	# Also rebuilds the docs and the translations.
@@ -89,10 +88,17 @@ test-windows:
 coverage: install-virtual-env
 	rm -rf .coverage cover htmlcov
 	./bin/nosetests --with-coverage --cover-erase \
-	--cover-package=mnemosyne.libmnemosyne,openSM2sync
+	--cover-package=mnemosyne.libmnemosyne,openSM2sync || (echo "testsuite failed")
 	./bin/coverage html
 	google-chrome htmlcov/index.html
-
+	
+coverage-windows: install-virtual-env-windows
+	rm -rf .coverage cover htmlcov
+	Scripts/nosetests --with-coverage --cover-erase \
+	--cover-package=mnemosyne.libmnemosyne,openSM2sync || (echo "testsuite failed")
+	Scripts/coverage html
+	google-chrome htmlcov/index.html
+	
 profile: install-virtual-env
 	echo "from hotshot import stats" > process_profile.py
 	echo "s = stats.load(\"stats.dat\")" >> process_profile.py
