@@ -64,7 +64,7 @@ class TestDBImport(MnemosyneTest):
         self.db_importer().do_import(filename)
         assert last_error == ""
         db = self.database()
-        assert db.con.execute("select count() from log").fetchone()[0] == 72
+        assert db.con.execute("select count() from log").fetchone()[0] == 75
         self.review_controller().reset()
         assert self.database().card_count() == 5
         assert self.database().active_count() == 4

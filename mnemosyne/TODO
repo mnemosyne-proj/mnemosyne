@@ -1,7 +1,8 @@
 merge databases: 
--deactivated fact views? 
 -formatting?
--try import twice
+-don't upload science logs twice
+-way to detect importing twice?
+
 
 Android:
 
