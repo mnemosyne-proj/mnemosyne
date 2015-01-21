@@ -2,6 +2,7 @@ merge databases:
 -formatting?
 -don't upload science logs twice
 -way to detect importing twice?
+-why is the database so much bigger after merge?
 
 
 Android:
@@ -94,6 +95,10 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
  
 -optimisation: change card type for many facts which calls
  'delete_facts_and_their_data' does checking for unused tags multiple times.
+ 
+-fine tuning: when merging a database, merge also the 'active' tag instead of just looking
+ at the deactivated fact views? Probably more general and also more future proof in case
+ of new criteria.
 
 -menu option to copy database to USB key?
 
