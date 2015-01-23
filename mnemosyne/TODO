@@ -1,4 +1,5 @@
-merge databases: 
+merge databases:
+-where do the extra log entries come from?
 -formatting?
 -don't upload science logs twice
 -way to detect importing twice?

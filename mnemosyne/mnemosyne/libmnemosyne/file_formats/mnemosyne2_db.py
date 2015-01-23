@@ -36,10 +36,13 @@ class Mnemosyne2Db(FileFormat):
             db.current_criterion().deactivated_card_type_fact_view_ids
         user_card_types = [card_type for card_type in db.card_types_in_use() \
             if db.is_user_card_type(card_type)]
-        
-        # TODO: load config first
-        
+        # Get config info to be merged.
+        old_config_dir = self.config().config_dir
+        self.config().config_dir = os.path.dirname(filename)
+        self.config().load()
         old_config = self.config().copy()
+        self.config().config_dir = old_config_dir
+        self.config().load()        
         # Import the *.cards file into the receiving database.
         db.load(receiving_database_filename)
         log_index_before_import = db.current_log_index()
@@ -50,12 +53,10 @@ class Mnemosyne2Db(FileFormat):
         db.current_criterion().deactivated_card_type_fact_view_ids.update(\
             old_deactivated_card_type_fact_view_ids)
         db.set_current_criterion(db.current_criterion())
-        print 'old', old_config
         for property_name in ["background_colour", "font", "font_colour",
             "alignment", "hide_pronunciation_field"]:
             self.log().edited_setting(property_name)
             for card_type in user_card_types:
-                print property_name, card_type.id
                 if card_type.id in old_config[property_name]:
                     self.config()[property_name][card_type.id] = \
                         old_config[property_name][card_type.id]        
