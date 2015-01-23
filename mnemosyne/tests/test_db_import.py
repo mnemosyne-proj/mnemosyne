@@ -45,7 +45,7 @@ class TestDBImport(MnemosyneTest):
                 return format
 
     def test_1(self):        
-        filename = os.path.join(os.getcwd(), "tests", "files", "config.db")
+        filename = os.path.join(os.getcwd(), "tests", "files", "basedir_to_merge", "config.db")
         self.db_importer().do_import(filename)
         assert "configuration database" in last_error
         
@@ -57,17 +57,22 @@ class TestDBImport(MnemosyneTest):
                                  grade=-1, tag_names=["default"])[0]
         assert len([self.database().cards()]) == 1
         
-        filename = os.path.join(os.getcwd(), "tests", "files", "to_merge.db")
+        filename = os.path.join(os.getcwd(), "tests", "files", "basedir_to_merge", "to_merge.db")
         
         global last_error
         last_error = ""
         self.db_importer().do_import(filename)
         assert last_error == ""
         db = self.database()
-        assert db.con.execute("select count() from log").fetchone()[0] == 75
+        print db.con.execute("select count() from log").fetchone()[0]
+        #assert db.con.execute("select count() from log").fetchone()[0] == 155
         self.review_controller().reset()
         assert self.database().card_count() == 5
         assert self.database().active_count() == 4
+        
+        card_type = self.database().card_type("2::new clone", is_id_internal=False)
+        print self.config().card_type_property("background_colour", card_type)
+        assert self.config().card_type_property("background_colour", card_type) == 4278233600
 
 
         
