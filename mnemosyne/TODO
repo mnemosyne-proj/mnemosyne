@@ -1,9 +1,11 @@
 merge databases:
--where do the extra log entries come from?
--formatting?
+
+-why is the database so much bigger after merge?
+-sentence card types are not properly working after merge?
+-linebreak is not synced (todo: resync my android db?)
 -don't upload science logs twice
 -way to detect importing twice?
--why is the database so much bigger after merge?
+
 
 
 Android:
@@ -12,6 +14,8 @@ Android:
 -set default grade
 -check 'redraw now'
 -check functionality for map card types
+
+-check syncing with old server does not seem to fire
 
 -gestures
 -'sync' button should sync directly without going through the sync settings dialog. Put

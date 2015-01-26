@@ -39,10 +39,12 @@ class Mnemosyne2Db(FileFormat):
         # Get config info to be merged.
         old_config_dir = self.config().config_dir
         self.config().config_dir = os.path.dirname(filename)
+        self.log().active = False
         self.config().load()
         old_config = self.config().copy()
         self.config().config_dir = old_config_dir
-        self.config().load()        
+        self.config().load()
+        self.log().active = True
         # Import the *.cards file into the receiving database.
         db.load(receiving_database_filename)
         log_index_before_import = db.current_log_index()

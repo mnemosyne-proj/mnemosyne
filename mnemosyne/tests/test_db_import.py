@@ -65,13 +65,11 @@ class TestDBImport(MnemosyneTest):
         assert last_error == ""
         db = self.database()
         print db.con.execute("select count() from log").fetchone()[0]
-        #assert db.con.execute("select count() from log").fetchone()[0] == 155
+        assert db.con.execute("select count() from log").fetchone()[0] == 268
         self.review_controller().reset()
-        assert self.database().card_count() == 5
-        assert self.database().active_count() == 4
-        
+        assert self.database().card_count() == 6
+        assert self.database().active_count() == 5
         card_type = self.database().card_type("2::new clone", is_id_internal=False)
-        print self.config().card_type_property("background_colour", card_type)
         assert self.config().card_type_property("background_colour", card_type) == 4278233600
 
 
