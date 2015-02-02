@@ -1,13 +1,3 @@
-merge databases:
-
--why is the database so much bigger after merge?
--sentence card types are not properly working after merge?
--linebreak is not synced (todo: resync my android db?)
--don't upload science logs twice
--way to detect importing twice?
-
-
-
 Android:
 
 -revisit multiple database option?

@@ -1,3 +1,4 @@
+-Option to merge databases (under File - Import - Mnemosyne 2.x *.db files).
 -Make sure latex files are always pregenerated before sync (reported by Eric 
  Freeman).
 -Fix error syncing filenames containing double dots (reported by Eric Freeman).

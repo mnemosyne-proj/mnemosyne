@@ -1094,6 +1094,9 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             repr([fact_view.id for fact_view in card_type.fact_views]),
             repr(card_type.keyboard_shortcuts),
             self._repr_extra_data(card_type.extra_data)))
+        # When we are syncing/merging, make sure we correctly insert the
+        # class in the inheritance hierarchy.
+        card_type = self.card_type(card_type.id, is_id_internal=False)
         self.component_manager.register(card_type)
         self.log().added_card_type(card_type)
         # When syncing (but not when importing), don't bother to check for
