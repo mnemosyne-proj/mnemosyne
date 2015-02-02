@@ -27,8 +27,19 @@ class Mnemosyne2Db(FileFormat):
         data_dir = self.config().data_dir
         receiving_database_filename = \
             expand_path(self.config()["last_database"], data_dir)
-        # Load database to be merged and export to temporary *.cards file.
+        db.dump_to_science_log()
+        # Heuristic to check if we haven't imported this database before.
+        current_tag_ids = set([tag.id for tag in db.tags()])
         db.load(filename)
+        tag_ids_to_import = set([tag.id for tag in db.tags()])
+        if len(tag_ids_to_import.intersection(current_tag_ids)) >= 2:
+            answer = self.main_widget().show_question(\
+_("It looks like you've imported this database before. Importing it twice will generate duplicate log entries, which will skew your statistics. Do you want to continue?"),
+_("Abort"), _("Continue"), "")
+            if answer == 0:
+                db.load(receiving_database_filename)
+                return
+        # Export to temporary *.cards file.
         cards_format = Mnemosyne2Cards(self.component_manager)
         tmp_cards_filename = os.path.join(data_dir, "TMP.cards")
         cards_format.do_export(tmp_cards_filename, used_for_merging_dbs=True)
@@ -61,5 +72,5 @@ class Mnemosyne2Db(FileFormat):
             for card_type in user_card_types:
                 if card_type.id in old_config[property_name]:
                     self.config()[property_name][card_type.id] = \
-                        old_config[property_name][card_type.id]        
-        
+                        old_config[property_name][card_type.id]
+        db.skip_science_log()
