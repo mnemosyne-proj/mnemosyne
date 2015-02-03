@@ -18,6 +18,7 @@
 -Make sure we can run on systems with PyQt5 installed (patch by Nuno Araujo).
 -The "db_media:" tag now expands to an absolute path on all systems (reported
  by Gnome).
+-The local timezone is now stored in the science logs. 
 
 
 Mnemosyne 2.3.1 : 2014-06-18
