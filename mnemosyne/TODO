@@ -14,7 +14,6 @@ Android:
 -custom fonts?
 
 
-update osx install instructions in bundled read me
 
 
 -File "mnemosyne\libmnemosyne\.init_pyo", line 206 in initialise File "mnemosyne\libmnemosyne\_init_.pyo", line 323, in load_database File "mnemosyne\libmnemosyne\databases\SQLite.pyo", line 304, in new File "mnemosyne\libmnemosyne\databases\SQLite media.pyo", line 40, in create_media_dir_if_needed File "os.pyo", line 150, in makedirs File "os,pyo", line 150, in makedirs File "os.pyo", line 157, in makedirs
