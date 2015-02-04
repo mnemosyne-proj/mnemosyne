@@ -36,24 +36,17 @@ matplotlib.
 
 2) MAC OS/X
 
-Supported Versions of Mac OS X
+-Install Macports (www.macports.org).
+-Install the dependencies for Mnemosyne with the following command.
 
--Mac OS 10.6.x (Snow Leopard)
--Mac OS 10.7.x (Lion)
--Mac OS 10.8.x (Mountain Lion)
--Mac OS 10.9.x (Mavericks)
+sudo port install bzr python27 py27-sip py27-matplotlib py27-virtualenv 
+py27-setuptools py-cherrypy3 py27-webob python_select py-virtualenvwrapper 
+qt4-mac py27-pyqt4 qt4-mac-sqlite3-plugin
 
-Installing from Source using MacPorts
+-Download the Mnemosyne source from the linux download link.
+-Change to the unpacked source directory and run this command:
 
-MacPorts can be used to install the dependencies for Mnemosye.
+sudo make osx
 
--Download and install the latest version of MacPorts.
--Open the Terminal.
--Make sure you are using the latest version of MacPorts:
--sudo port selfupdate
--Install the dependencies for Mnemosyne:
--sudo port install bzr python27 py27-sip py27-matplotlib py27-virtualenv py27-setuptools py-cherrypy3 py27-webob python_select py-virtualenvwrapper qt4-mac py27-pyqt4 qt4-mac-sqlite3-plugin
--If this is your first time setting up MacPorts, you will need to set the version of python:
- sudo port select python python27
--Type 'python setup.py install' as root.
--Run the application by typing 'mnemosyne'.
+-The built app will appear in the dist directory. You can then drag and drop the app 
+ into your Applications directory.
