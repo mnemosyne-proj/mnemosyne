@@ -43,7 +43,7 @@ Without step 2 (or with the Add Cards dialog open as step 2), a warning message 
 
 -prevent holding of number keys to register as two keypresses (Killian Evang)
 
-
+-better in dialog explanation for hold n cards in your hand?
 
 
 
@@ -175,7 +175,7 @@ http://stackoverflow.com/questions/1609637/is-it-possible-to-insert-multiple-row
 
 -plugin for card types with prefilled data?
 
--merge translations (del en_gb, am, sr )
+-merge translations (del en_gb, am, vi)
 
 
 -add idea for plugin to export today's audio
