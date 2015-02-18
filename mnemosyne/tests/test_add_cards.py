@@ -260,6 +260,7 @@ class TestAddCards(MnemosyneTest):
                      "b": "answer2"}
         card = self.controller().create_new_cards(fact_data, card_type,
                                            grade=-1, tag_names=["b", "c"])[0]
+
         assert len(card.tags) == 3
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
