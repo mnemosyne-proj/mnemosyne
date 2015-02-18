@@ -15,8 +15,11 @@ Mnemosyne 2.3.2 : 2015-02-xx
  (reported by Chris Nadt).
 -Don't crash the SQL engine if you have more than 1000 tags (reported by Mats 
  Hansson).
+-Fix regression in merging and editing duplicate cards (reported by Marcin M.).
 -Update the window title on a sync server if a different database was loaded.
 -Make upgrading from 2.3 config database more robust (reported by Lewis White).
+-Better error handling when trying to load a database which no longer exists
+ in its previous location.
 -Make sure we can run on systems with PyQt5 installed (patch by Nuno Araujo).
 -The "db_media:" tag now expands to an absolute path on all systems (reported
  by Gnome).

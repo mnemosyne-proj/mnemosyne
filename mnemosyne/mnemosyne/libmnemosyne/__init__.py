@@ -322,7 +322,11 @@ class Mnemosyne(Component):
         path = expand_path(filename, self.config().data_dir)
         try:
             if not os.path.exists(path):
-                self.database().new(path)
+                try:
+                    self.database().new(path)
+                except:
+                    from mnemosyne.libmnemosyne.translator import _
+                    raise RuntimeError(_("Previous drive letter no longer available."))
             else:
                 self.database().load(path)
             self.controller().update_title()

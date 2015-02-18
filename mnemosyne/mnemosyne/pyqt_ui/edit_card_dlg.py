@@ -133,8 +133,9 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         new_card_type = self.card_type_by_name[new_card_type_name]
         if new_fact_data == self.card.fact.data and \
             ", ".join(new_tag_names) == self.card.tag_string() and \
-            new_card_type == self.card.card_type:
-                # No need to update the dialog.
+            new_card_type == self.card.card_type and self.allow_cancel == True:
+                # No need to update the dialog, except when we're merging 
+                # a card when 'allow_cancel' is False.
                 QtGui.QDialog.reject(self)
                 return
         # If this is called from the card browser, call this hook to unload

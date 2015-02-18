@@ -16,33 +16,19 @@ Android:
 
 
 
--File "mnemosyne\libmnemosyne\.init_pyo", line 206 in initialise File "mnemosyne\libmnemosyne\_init_.pyo", line 323, in load_database File "mnemosyne\libmnemosyne\databases\SQLite.pyo", line 304, in new File "mnemosyne\libmnemosyne\databases\SQLite media.pyo", line 40, in create_media_dir_if_needed File "os.pyo", line 150, in makedirs File "os,pyo", line 150, in makedirs File "os.pyo", line 157, in makedirs
-WindowsError: [Error 3] The system cannot find the path specified:    u'F:/'
-
--Scott Youngman:
-To reproduce:
-  1. Open first instance of a database.
-  2. Open Browse Cards or File > New.
-  3. Open second instance of the same database.
-
-Without step 2 (or with the Add Cards dialog open as step 2), a warning message is generated and the second instance is not opened, as you mentioned.
-
-
+-__TMP__ database, restore from backup, Mnemosyne still opens tmp database even after opening backup?
 
 -source percentage encoding for media file names like C#.mp3. See user voice. requested by Philip Gubser.
 
-- merge and edit does not work: edited text is not respected (Marcin M.)
-- duplicate check on answer too? Needs to check whether all necessary fields are marked as unique,
- also in F2B and B2F, vocabulary
- 
 -creating a new clone does not generate appearance setting events for sync
-
--__TMP__ database, restore from backup, Mnemosyne still opens tmp database even after opening backup?
 
 -import from tab separated file, but 2 columns are separated by more than 1 tab
 
 -prevent holding of number keys to register as two keypresses (Killian Evang)
 
+-duplicate check on answer too? Needs to check whether all necessary fields are marked as unique,
+ also in F2B and B2F, vocabulary
+ 
 -better in dialog explanation for hold n cards in your hand?
 
 
@@ -97,6 +83,9 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
  of new criteria.
 
 -menu option to copy database to USB key?
+
+-Database locking mechanism can be circumvented if the first Mnemosyne copy is in the browser
+(or apparently has just done file-new) (Scott Youngman)
 
 -why trying new fonts, sometimes the fonts get automatically accepted even
  when clicking 'cancel'?
