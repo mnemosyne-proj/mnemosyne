@@ -32,6 +32,7 @@ class ExpandPaths(Filter):
                 new_path = expand_path(old_path, self.database().media_dir())
                 if sys.platform == "win32":
                     new_path = "/" + new_path.replace("\\", "/")
+                new_path = new_path.replace("#", "%23")
                 text = text[:start+1] + "file://" + new_path + text[end:]
                 if sys.platform == "win32" and tag == "data":
                     text = text.replace("file:///", "")
