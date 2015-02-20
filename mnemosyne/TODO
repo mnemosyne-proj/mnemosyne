@@ -14,26 +14,18 @@ Android:
 -custom fonts?
 
 
-
-
--__TMP__ database, restore from backup, Mnemosyne still opens tmp database even after opening backup?
-
--source percentage encoding for media file names like C#.mp3. See user voice. requested by Philip Gubser.
-
 -creating a new clone does not generate appearance setting events for sync
 
--import from tab separated file, but 2 columns are separated by more than 1 tab
-
 -prevent holding of number keys to register as two keypresses (Killian Evang)
+
 
 -duplicate check on answer too? Needs to check whether all necessary fields are marked as unique,
  also in F2B and B2F, vocabulary
  
+-fix multiple audio files and start/stop (Ansgar Bohmann) 
+
+
 -better in dialog explanation for hold n cards in your hand?
-
-
-
--fix multiple audio files and start/stop (Ansgar Bohmann)
 
 -option to turn off card count per tag?
 
@@ -55,6 +47,7 @@ Android:
 
 -starting the program when no cards are shown does not draw a border around the
  Q field
+ 
 -reverse arabic plugin no longer seems to work?
  http://mpcabd.igeex.biz/python-arabic-text-reshaper/
  
@@ -91,8 +84,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
  when clicking 'cancel'?
 
 -mass convert to cloze
-
--import/merge db file
 
 -website font size under windows
 
@@ -203,7 +194,6 @@ http://stackoverflow.com/questions/1609637/is-it-possible-to-insert-multiple-row
 
 -'duplicate card' option in menu and browser? Or as plugin?
 
--support UFT 16?
 
 -when the server thread hangs and the main program is terminated, the cleanup
  code gets called from the main thread as opposed to from the server thread,
@@ -273,9 +263,6 @@ created with just the "»" symbol.
 
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 
--windows: test unicode filenames in sync protocol
--add tests with unicode in data_dir
-
 -leech detection
 
 -adding facts with strange characters (e.g. chr(1) from TRS) trips up the sync
@@ -337,7 +324,6 @@ created with just the "»" symbol.
 -media handler?
 -create latex dir in filter plugin?
 -media on dropbox?
--plugin to store backups on dropbox
 
 -drag and drop in card browser, with tag tree
 
@@ -375,8 +361,6 @@ created with just the "»" symbol.
  when sync comes in?
 
 -when pasting from a webpage, font formatting in 'add cards' is inconsistent.
-
--ask people about biggest gripe in Mnemosyne, things that did not behave as expected
 
 -copy card and create a new one that way
 

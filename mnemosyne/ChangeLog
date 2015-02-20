@@ -13,6 +13,7 @@ Mnemosyne 2.3.2 : 2015-02-xx
  Kovalenko).
 -Fix crash when running in headless mode after having run with the GUI 
  (reported by Chris Nadt).
+-Fix handling of media filenames containing '#' (reported by Philip Gubser).
 -Don't crash the SQL engine if you have more than 1000 tags (reported by Mats 
  Hansson).
 -Fix regression in merging and editing duplicate cards (reported by Marcin M.).
