@@ -1,4 +1,4 @@
-Mnemosyne 2.3.2 : 2015-02-xx
+Mnemosyne 2.3.2 : 2015-02-25
 
 -Option to merge databases (under File - Import - Mnemosyne 2.x *.db files).
 -Make sure latex files are always pregenerated before sync (reported by Eric 
