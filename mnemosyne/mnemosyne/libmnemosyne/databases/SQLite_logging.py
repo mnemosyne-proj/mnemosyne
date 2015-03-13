@@ -5,6 +5,7 @@
 import os
 import time
 import string
+import datetime
 
 from openSM2sync.log_entry import EventTypes
 from mnemosyne.libmnemosyne.translator import _
@@ -367,3 +368,44 @@ class SQLiteLogging(object):
         """).substitute(_id=insertion_log_index, filename=filename)
         self.con.executescript(script) 
         w.close_progress()
+        
+    def archive_old_logs(self):
+        w = self.main_widget()
+        w.set_progress_text(_("Archiving old logs..."))
+        # Create archive dir if needed.
+        archive_dir = os.path.join(self.config().data_dir, "archive")
+        if not os.path.exists(archive_dir):
+            os.makedirs(archive_dir)
+        # Create empty archive database.
+        db_name = os.path.basename(self.database().path()).rsplit(".", 1)[0]
+        archive_name = db_name + "-" + \
+            datetime.datetime.today().strftime("%Y%m%d.db")            
+        archive_path = os.path.join(archive_dir, archive_name)
+        from mnemosyne.libmnemosyne.databases._sqlite3 import _Sqlite3
+        arch_con = _Sqlite3(self.component_manager, archive_path)        
+        from mnemosyne.libmnemosyne.databases.SQLite import SCHEMA
+        arch_con.executescript(SCHEMA.substitute(pregenerated_data="")) 
+        arch_con.commit()
+        arch_con.close()
+        # Transfer old logs.
+        script = string.Template("""
+            attach "$filename" as archive;
+            begin; 
+            insert into archive.log(event_type, timestamp, object_id, grade,
+                easiness, acq_reps, ret_reps, lapses, acq_reps_since_lapse,
+                ret_reps_since_lapse, scheduled_interval, actual_interval,
+                thinking_time, next_rep, scheduler_data)
+                select event_type, timestamp, object_id, grade, easiness, 
+                acq_reps, ret_reps, lapses, acq_reps_since_lapse,
+                ret_reps_since_lapse, scheduled_interval, actual_interval,
+                thinking_time, next_rep, scheduler_data from log 
+                    where timestamp<$timestamp; 
+            commit; 
+            begin;
+            delete from log where timestamp>$timestamp;
+            end;
+            vacuum;
+        """).substitute(_id=insertion_log_index, filename=filename)
+        self.con.executescript(script) 
+        w.close_progress()
+        
