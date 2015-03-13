@@ -12,7 +12,7 @@ First install the following dependencies:
 -Matplotlib (http://matplotlib.sourceforge.net/)
 -EasyInstall (http://peak.telecommunity.com/DevCenter/EasyInstall)
 -CherryPy 3.2 or later (http://www.cherrypy.org)
--Webob (http://webob.org)
+-Webob 1.4 or later (http://webob.org)
 
 Under Ubuntu, these dependencies can be resolved by installing the
 following packages:

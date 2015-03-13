@@ -1,3 +1,13 @@
+Mnemosyne 2.3.3 : 
+
+(Note that for Windows users we recommend uninstalling the previous version
+before installing the new one.)
+
+-Change ',' to ' - ' when importing legacy tag names (reported by Matthias 
+ Ernst).
+
+
+
 Mnemosyne 2.3.2 : 2015-02-25
 
 -Option to merge databases (under File - Import - Mnemosyne 2.x *.db files).
@@ -6,7 +16,7 @@ Mnemosyne 2.3.2 : 2015-02-25
 -Fix error syncing filenames containing double dots (reported by Eric Freeman).
 -Strip control characters from strings when exporting and syncing (reported 
  by Carl Kennedy).
--Smart sorting of card types in dialog boxes (patch by Emilian Mihalache)
+-Smart sorting of card types in dialog boxes (patch by Emilian Mihalache).
 -Fix when importing 1.x databases containing a single quote in a media filename
  (reported by Jan Egil Hagen).
 -Don't replace newline with <br> inside textarea tags (patch by Pete 
@@ -28,9 +38,6 @@ Mnemosyne 2.3.2 : 2015-02-25
 
 
 Mnemosyne 2.3.1 : 2014-06-18
-
-(Note that for Windows users we recommend uninstalling the previous version
-before installing the new one.)
 
 -Change database backend for config file. There should be no more errors
  which cause you to delete the config file.
