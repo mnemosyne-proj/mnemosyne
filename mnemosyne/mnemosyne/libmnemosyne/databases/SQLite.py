@@ -578,7 +578,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         return tags
 
     def add_tag(self, tag):
-        name = name.replace(",", " - ")
+        tag.name = tag.name.replace(",", " - ")
         self.con.execute("""insert into tags(name, extra_data, id)
             values(?,?,?)""", (tag.name,
             self._repr_extra_data(tag.extra_data), tag.id))
