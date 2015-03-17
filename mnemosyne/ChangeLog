@@ -5,6 +5,8 @@ before installing the new one.)
 
 -Change ',' to ' - ' when importing legacy tag names (reported by Matthias 
  Ernst).
+-Fix regression where it was not possible to grade map cards (reported by 
+ Mateusz Konieczny ).
 
 
 

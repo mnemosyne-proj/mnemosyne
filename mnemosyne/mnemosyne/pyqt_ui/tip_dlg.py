@@ -43,7 +43,7 @@ class TipDlg(QtGui.QDialog, Ui_TipDlg, TipDialog):
         self.tips.append(_("""When editing or previewing cards from the card browser, PageUp/PageDown can be used to move to the previous/next card."""))
         self.tips.append(_("""In the search box of the card browser, you can use SQL wildcards like _ (matching a single character) and % (matching one or more characters)."""))
         self.tips.append(_("""In the 'Add cards' dialog, use Tab to move between different fields, Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."""))
-        self.tips.append(_("""In the 'Edit card' dialog, use Tab to move between different fields and Ctrl+Enter to close the dialog."""))
+        self.tips.append(_("""In the 'Edit card' dialog, use Tab to move between different fields and Ctrl+Enter to close the dialog and accept the changes."""))
         self.tips.append(_("""Mnemosyne can use LaTeX to render mathematical formulas, e.g. <$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"""))
         self.tips.append(_("""The best way to backup your data is to copy your mnemosyne data directory and move it to a different drive. Mnemosyne keeps automatic backups, but that won't help you if that drive dies..."""))
         self.tips.append(_("""You can sort the cards in the 'Browse cards' dialog by by clicking on a column title. Clicking again changes the sort order."""))
