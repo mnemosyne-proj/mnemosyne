@@ -3,10 +3,13 @@ Mnemosyne 2.3.3 :
 (Note that for Windows users we recommend uninstalling the previous version
 before installing the new one.)
 
+-Fix regression where it was not possible to grade map cards (reported by 
+ Mateusz Konieczny).
+-Also allow mass conversion of cards to Cloze and Sentence card types (
+ requested by Chris Nadt). 
 -Change ',' to ' - ' when importing legacy tag names (reported by Matthias 
  Ernst).
--Fix regression where it was not possible to grade map cards (reported by 
- Mateusz Konieczny ).
+-Enable word wrap on tag field (reported by Samuel Marcius). 
 
 
 

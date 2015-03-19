@@ -27,10 +27,6 @@ class ChangeCardTypeDlg(QtGui.QDialog, Ui_ChangeCardTypeDlg, Component):
         for card_type in self.database().sorted_card_types():
             if card_type == current_card_type:
                 continue
-            # For cloze types, only allow conversion for clones.
-            if (card_type.id.startswith("5") or card_type.id.startswith("6")) \
-                and (card_type.id[0] != current_card_type.id[0]):
-                continue
             self.card_type_by_name[_(card_type.name)] = card_type
             self.card_types_widget.addItem(_(card_type.name))
 
