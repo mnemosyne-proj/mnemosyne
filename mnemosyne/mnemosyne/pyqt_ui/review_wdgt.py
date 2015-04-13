@@ -133,7 +133,7 @@ class QAOptimalSplit(object):
                     answer_stretch = required_answer_height
                     question_stretch = total_height_available - answer_stretch
                     if question_stretch < 50:
-                        question_stretch = 50
+                        question_stretch = 50        
         self.vertical_layout.setStretchFactor(\
             self.question_box, question_stretch + self.stretch_offset)
         self.vertical_layout.setStretchFactor(\
@@ -276,7 +276,8 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         </td></tr></table></body></html>"""
 
     def scroll_down(self):
-        if self.review_controller().is_question_showing():
+        if self.review_controller().is_question_showing() or \
+           self.review_controller().card.fact_view.a_on_top_of_q:
             frame = self.question.page().mainFrame()
         else:
             frame = self.answer.page().mainFrame()
@@ -286,7 +287,8 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         frame.evaluateJavaScript("window.scrollTo(%d, %d);" % (x, y))
 
     def scroll_up(self):
-        if self.review_controller().is_question_showing():
+        if self.review_controller().is_question_showing() or \
+           self.review_controller().card.fact_view.a_on_top_of_q:
             frame = self.question.page().mainFrame()
         else:
             frame = self.answer.page().mainFrame()
@@ -296,7 +298,8 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         frame.evaluateJavaScript("window.scrollTo(%d, %d);" % (x, y))
 
     def copy(self):
-        if self.review_controller().is_question_showing():
+        if self.review_controller().is_question_showing() or \
+           self.review_controller().card.fact_view.a_on_top_of_q:
             webview = self.question
         else:
             webview = self.answer
