@@ -564,12 +564,12 @@ _("It is recommended to put all your cards in a single database. Using tags to d
             import shutil
             shutil.rmtree(filename + "_media")
         db.new(filename)
+        self.main_widget().close_progress()
         db.load(self.config()["last_database"])
         self.log().loaded_database()
         self.review_controller().reset()
         self.review_controller().update_dialog()
         self.update_title()
-        self.main_widget().close_progress()
         self.stopwatch().unpause()
 
     def show_open_file_dialog(self):
