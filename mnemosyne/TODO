@@ -1,10 +1,10 @@
 archiving old log:
 
-* include machine id in log name?
+* progress bar blocks
 * add testcase
 * include syncing
 * how to handle full sync
-* run automatically
+* run automatically (remove from clean database?)
 
 
 Android:

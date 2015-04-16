@@ -687,6 +687,10 @@ _("The configuration database cannot be used to store cards."))
         self.flush_sync_server()
         self.component_manager.current("compact_database_dialog")\
             (self.component_manager).activate()
+        
+        # TMP
+        self.database().archive_old_logs()
+        
         self.review_controller().reset_but_try_to_keep_current_card()
         self.stopwatch().unpause()
 
