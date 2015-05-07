@@ -28,8 +28,15 @@ class RTLHandler(Filter):
     """
 
     def run(self, text, card, fact_key, **render_args):
-
+        # Deal with corner cases.
         if len(text) <= 1:
+            return text
+        has_rtl = False
+        for i in range(len(text)):
+            if 0x0590 <= ord(text[i]) <= 0x06FF:
+                has_rtl = True
+                break
+        if not has_rtl:
             return text
         # If we are in the first term of a cloze deletion, we need a work-
         # around.
@@ -40,8 +47,5 @@ class RTLHandler(Filter):
         # If we start with latin, we'll keep the paragraph ordering as ltr.
         if text[0] in string.ascii_letters or text[1] in string.ascii_letters:
             return text
-        # Otherwise, as soon as there is RTL, make everything RTL.
-        for i in range(len(text)):
-            if 0x0590 <= ord(text[i]) <= 0x06FF:
-                return "<span dir=\"rtl\">" + text + "</span>"
-        return text
+        # Otherwise, make everything RTL.
+        return "<span dir=\"rtl\">" + text + "</span>"
