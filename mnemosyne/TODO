@@ -1,13 +1,20 @@
+high level menu: compact database
+low level api: db.compact --> db.defragment
+message in thread?
+
 archiving old log:
 
-* progress bar blocks
+* refactor vacuum as defragment?
+* extra backups before archive?
 * add testcase
 * include syncing
 * how to handle full sync
-* run automatically (remove from clean database?)
+* run automatically? (remove from compact database?)
 
 
 Android:
+
+-warning for protocol mismatch does not seem to fire
 
 -double check what happens if you have no saved sets
 -revisit multiple database option?
@@ -15,7 +22,7 @@ Android:
 -check 'redraw now'
 -check functionality for map card types
 
--check syncing with old server does not seem to fire
+
 
 -gestures
 -'sync' button should sync directly without going through the sync settings dialog. Put
@@ -23,6 +30,8 @@ Android:
 -option to globally increase / decrease font size with respect to desktop
 -custom fonts?
 
+
+-add creation date / modification date to current card statistics
 
 -creating a new clone does not generate appearance setting events for sync
 
@@ -36,6 +45,8 @@ Android:
 -better in dialog explanation for hold n cards in your hand?
 
 -option to turn off card count per tag?
+
+-do create_database in a separate thread (see compact_database_dlg.py)
 
 -windows 'python setup.py install': missing share locale path when starting configure
 -profile testsuite

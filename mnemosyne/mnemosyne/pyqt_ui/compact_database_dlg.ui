@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>263</width>
-    <height>88</height>
+    <width>344</width>
+    <height>114</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,9 +17,9 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QCheckBox" name="compact_database">
+      <widget class="QCheckBox" name="delete_unused_media_files">
        <property name="text">
-        <string>Compact database</string>
+        <string>Delete unused media files</string>
        </property>
        <property name="checked">
         <bool>true</bool>
@@ -27,9 +27,19 @@
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="delete_unused_media_files">
+      <widget class="QCheckBox" name="archive_old_logs">
        <property name="text">
-        <string>Delete unused media files</string>
+        <string>Archive statistics older than 1 year</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="compact_database">
+       <property name="text">
+        <string>Defragment database (only needed after deleting many cards)</string>
        </property>
        <property name="checked">
         <bool>true</bool>

@@ -215,7 +215,7 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         parent.add_to_status_bar(self.notmem)
         parent.add_to_status_bar(self.act)
         parent.status_bar.setSizeGripEnabled(0)
-        QAOptimalSplit.__init__(self)
+        QAOptimalSplit.__init__(self)     
 
     def changeEvent(self, event):
         if hasattr(self, "show_button"):
