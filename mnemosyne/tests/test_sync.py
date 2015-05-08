@@ -1635,6 +1635,7 @@ class TestSync(object):
         def test_server(self):
             db = self.mnemosyne.database()
             tag = db.get_or_create_tag_with_name(unichr(0x628) + u'>&<abcd')
+            print tag.id, self.client_tag_id
             assert tag.id == self.client_tag_id
             assert tag.name == unichr(0x628) + u">&<abcd"
             sql_res = db.con.execute("select timestamp from log where event_type=?",

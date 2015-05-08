@@ -1,15 +1,9 @@
-high level menu: compact database
-low level api: db.compact --> db.defragment
-message in thread?
-
 archiving old log:
 
-* refactor vacuum as defragment?
-* extra backups before archive?
 * add testcase
+* run automatically? (remove from compact database?)
 * include syncing
 * how to handle full sync
-* run automatically? (remove from compact database?)
 
 
 Android:

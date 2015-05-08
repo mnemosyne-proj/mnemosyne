@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Compact</string>
+   <string>Compact database</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -37,7 +37,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="compact_database">
+      <widget class="QCheckBox" name="defragment_database">
        <property name="text">
         <string>Defragment database (only needed after deleting many cards)</string>
        </property>
