@@ -281,7 +281,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             return os.path.basename(self._path).\
                 split(self.database().suffix)[0]
 
-    def compact(self):
+    def defragment(self):
         self.con.execute("vacuum")
         # Make sure the "Untagged" tag does not show up together with
         # different tags.

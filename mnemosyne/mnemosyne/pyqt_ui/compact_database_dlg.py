@@ -21,16 +21,16 @@ class CompactThread(QtCore.QThread):
 
     compact_finished_signal = QtCore.pyqtSignal()
 
-    def __init__(self, mnemosyne, compact_database, archive_old_logs):
+    def __init__(self, mnemosyne, defragment_database, archive_old_logs):
         QtCore.QThread.__init__(self)
         self.mnemosyne = mnemosyne
-        self.compact_database = compact_database
+        self.defragment_database = defragment_database
         self.archive_old_logs = archive_old_logs
 
     def run(self):
         try:
-            if self.compact_database:
-                self.mnemosyne.database().compact()
+            if self.defragment_database:
+                self.mnemosyne.database().defragment()
             if self.archive_old_logs:
                 self.mnemosyne.database().archive_old_logs()
         finally:
@@ -54,13 +54,13 @@ class CompactDatabaseDlg(QtGui.QDialog, Ui_CompactDatabaseDlg,
         self.exec_()
 
     def accept(self):
-        compact_database = \
-            (self.compact_database.checkState() == QtCore.Qt.Checked)
+        defragment_database = \
+            (self.defragment_database.checkState() == QtCore.Qt.Checked)
         delete_unused_media_files = \
            (self.delete_unused_media_files.checkState() == QtCore.Qt.Checked)
         archive_old_logs = \
             (self.archive_old_logs.checkState() == QtCore.Qt.Checked)
-        if not (compact_database or delete_unused_media_files or \
+        if not (defragment_database or delete_unused_media_files or \
                 archive_statistics):
             QtGui.QDialog.accept(self)
         if delete_unused_media_files:
@@ -68,10 +68,11 @@ class CompactDatabaseDlg(QtGui.QDialog, Ui_CompactDatabaseDlg,
             if len(unused_media_files) != 0:
                 DeleteUnusedMediaFilesDlg(\
                     self.component_manager, unused_media_files).activate()
-        if compact_database or archive_logs:
+        if defragment_database or archive_logs:
             self.main_widget().set_progress_text(_("Compacting database..."))
             self.database().release_connection()
-            self.thread = CompactThread(self, compact_database, archive_old_logs)
+            self.thread = CompactThread(\
+                self, defragment_database, archive_old_logs)
             self.thread.compact_finished_signal.connect(self.finish_compact)
             self.thread.start()
         else:
@@ -81,3 +82,4 @@ class CompactDatabaseDlg(QtGui.QDialog, Ui_CompactDatabaseDlg,
         self.main_widget().close_progress()
         self.main_widget().show_information(_("Done!"))
         QtGui.QDialog.accept(self)
+        

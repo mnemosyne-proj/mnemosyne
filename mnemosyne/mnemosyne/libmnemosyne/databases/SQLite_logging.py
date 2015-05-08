@@ -370,8 +370,9 @@ class SQLiteLogging(object):
         w.close_progress()
         
     def archive_old_logs(self):
-        w = self.main_widget()
-        w.set_progress_text(_("Archiving logs older than 1 year..."))
+        # This is typically run in a thread, so the progress dialog is
+        # handled there.
+        self.backup()
         one_year_ago = int(time.time()) - 356 * DAY
         # Create archive dir if needed.
         archive_dir = os.path.join(self.config().data_dir, "archive")
@@ -410,5 +411,4 @@ class SQLiteLogging(object):
             vacuum;
         """).substitute(archive_path=archive_path, one_year_ago=one_year_ago)
         self.con.executescript(script) 
-        w.close_progress()
         
