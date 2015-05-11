@@ -1,3 +1,11 @@
+sort active objects card type sqlite_sync.py
+
+ ! .\Scripts\nosetests tests\test_mnemosyne2cards:TestMnemosyne2Cards.test_card_type
+
+where does unicode come from in:
+
+assert criterion.data_to_string() == "(set([('1::1 cloned', u'1::1 cloned.1')]),
+
 archiving old log:
 
 * add testcase

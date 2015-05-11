@@ -19,7 +19,7 @@ following packages:
 
 python-cherrypy3 python-virtualenv python-qt4-dev pyqt4-dev-tools
 qt4-designer python-qt4-sql libqt4-sql-sqlite python-matplotlib
-python-qt4-phonon python-sphinx python-webob
+python-qt4-phonon python-sphinx python-webob python-setuptools
 
 To actually install mnemosyne:
 -Extraxt the .tar.gz file and change to its root directory (i.e.
