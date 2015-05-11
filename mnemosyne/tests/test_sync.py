@@ -1635,7 +1635,6 @@ class TestSync(object):
         def test_server(self):
             db = self.mnemosyne.database()
             tag = db.get_or_create_tag_with_name(unichr(0x628) + u'>&<abcd')
-            print tag.id, self.client_tag_id
             assert tag.id == self.client_tag_id
             assert tag.name == unichr(0x628) + u">&<abcd"
             sql_res = db.con.execute("select timestamp from log where event_type=?",
@@ -2722,7 +2721,7 @@ class TestSync(object):
             db = self.mnemosyne.database()
             criterion = db.criterion(self.criterion_id,
                 is_id_internal=False)
-            assert criterion.data_to_string() == "(set([('1::1 cloned', '1::1 cloned.1')]), set([2]), set([]))"
+            assert criterion.data_to_string() == "(set([('1::1 cloned', u'1::1 cloned.1')]), set([2]), set([]))"
 
         self.server = MyServer()
         self.server.test_server = test_server
