@@ -1,10 +1,4 @@
-sort active objects card type sqlite_sync.py
-
- ! .\Scripts\nosetests tests\test_mnemosyne2cards:TestMnemosyne2Cards.test_card_type
-
-where does unicode come from in:
-
-assert criterion.data_to_string() == "(set([('1::1 cloned', u'1::1 cloned.1')]),
+merge keypress fixes code, test with map code
 
 archiving old log:
 
@@ -13,6 +7,7 @@ archiving old log:
 * include syncing
 * how to handle full sync
 
+last tag for added card type not saved
 
 Android:
 
@@ -36,8 +31,6 @@ Android:
 -add creation date / modification date to current card statistics
 
 -creating a new clone does not generate appearance setting events for sync
-
--prevent holding of number keys to register as two keypresses (Killian Evang)
 
 -duplicate check on answer too? Needs to check whether all necessary fields are marked as unique,
  also in F2B and B2F, vocabulary
