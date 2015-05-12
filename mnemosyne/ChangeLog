@@ -1,4 +1,6 @@
 -Fix RTL issues (reported by Mateusz Konieczny).
+-Fix potential bug when exporting clones of cloned card types.
+
 
 Mnemosyne 2.3.3 : 2015-04-13
 

@@ -245,8 +245,9 @@ class SQLiteSync(object):
                 if id in defined_in_database_ids and \
                     id not in active_card_type_ids:
                     parent_card_type_ids.add(id)
+        # Sort to make sure we add the parents first.
         active_objects["card_type_ids"] = \
-            active_card_type_ids.union(parent_card_type_ids)
+            sorted(active_card_type_ids.union(parent_card_type_ids))
         # Fact views.
         active_objects["fact_view_ids"] = []
         for card_type_id in active_objects["card_type_ids"]:
