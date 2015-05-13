@@ -183,6 +183,10 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
 
     auto_focus_grades = True
     number_keys_show_answer = True
+
+    key_to_grade_map = {QtCore.Qt.Key_QuoteLeft: 0, QtCore.Qt.Key_0: 0,
+            QtCore.Qt.Key_1: 1, QtCore.Qt.Key_2: 2, QtCore.Qt.Key_3: 3,
+            QtCore.Qt.Key_4: 4, QtCore.Qt.Key_5: 5}
      
     def __init__(self, component_manager):
         ReviewWidget.__init__(self, component_manager)
@@ -229,17 +233,14 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         QtGui.QWidget.changeEvent(self, event)
 
     def keyPressEvent(self, event):
-        if not event.isAutoRepeat() and event.key() in \
-            [QtCore.Qt.Key_QuoteLeft, QtCore.Qt.Key_0, QtCore.Qt.Key_1,
-            QtCore.Qt.Key_2, QtCore.Qt.Key_3, QtCore.Qt.Key_4,
-            QtCore.Qt.Key_5] and \
-            self.review_controller().is_question_showing():
+        if event.key() in self.key_to_grade_map and not event.isAutoRepeat():
+            # Use controller function rather than self.is_answer_showing to
+            # deal with the map card type.
+            if self.review_controller().is_question_showing():
                 if self.number_keys_show_answer:
                     self.show_answer()
-        elif not event.isAutoRepeat() and event.key() \
-            == QtCore.Qt.Key_QuoteLeft and \
-            not self.review_controller().is_question_showing():
-            self.review_controller().grade_answer(0)
+            else:
+                self.grade_answer(self.key_to_grade_map[event.key()])   
         elif event.key() == QtCore.Qt.Key_PageDown:
             self.scroll_down()
         elif event.key() == QtCore.Qt.Key_PageUp:
