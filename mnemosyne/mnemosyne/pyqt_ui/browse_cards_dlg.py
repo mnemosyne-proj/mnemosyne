@@ -332,9 +332,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         self.card_model.select()
         self.update_card_counters()
         self.card_type_tree_wdgt.tree_wdgt.\
-            itemClicked.connect(self.update_filter)
+            itemChanged.connect(self.update_filter)
         self.tag_tree_wdgt.tree_wdgt.\
-            itemClicked.connect(self.update_filter)
+            itemChanged.connect(self.update_filter)        
         # Context menu.
         self.table.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.table.customContextMenuRequested.connect(self.context_menu)
