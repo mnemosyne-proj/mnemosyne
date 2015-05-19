@@ -1,4 +1,4 @@
-Joel Patterson: convert to Android studio
+Joel Petterson: convert to Android studio
 
 archiving old log:
 
@@ -13,6 +13,8 @@ Android:
 
 -warning for protocol mismatch does not seem to fire
 
+-android specific tip to delete /sdcard/mnemosyne on mismatched ids?
+-add .nomedia file
 -double check what happens if you have no saved sets
 -revisit multiple database option?
 -set default grade
