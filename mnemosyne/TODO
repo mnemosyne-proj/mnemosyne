@@ -276,6 +276,10 @@ The card gets closed the moment one has hit the alt+..5 key and a new card is
 created with just the "»" symbol.
 -Qt bug: enabling word wrap on tag label breaks setting of stretch factors in 
  q and a
+-Qt issue: toggling a tag in the card browser using 'space' does not update the
+ card list. Catched itemChanged instead of itemClicked would solve this in
+ theory, but this would cause a lot of spurious updates if you toggle the parent
+ of a big hierarchy. ItemActivated only seems to catch double clicks
 
 
 -coverage bug?: default_controller().sync() does not seem to get picked up.

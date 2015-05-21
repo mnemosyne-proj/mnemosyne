@@ -1,7 +1,5 @@
 (-archive history)
 
--Fix card list not updating after using keyboard shortcuts to turn off
- tags and card types (reported by Joel Pettersson). 
 -Fix problems with not detecting autorepeat when pressing grade buttons
  (patch by Kilian Evang).
 -Fix RTL issues (reported by Mateusz Konieczny).
