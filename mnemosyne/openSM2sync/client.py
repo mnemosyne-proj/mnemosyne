@@ -154,11 +154,19 @@ class Client(Partner):
                 self.resolve_conflicts(restored_from_backup=True)
             # First sync, fetch database from server.
             elif self.database.is_empty():
-                self.get_server_media_files()
-                if self.server_info["supports_binary_transfer"]:
-                    self.get_server_entire_database_binary()
-                else:
-                    self.get_server_entire_database()
+                #self.get_server_media_files()
+                #if self.server_info["supports_binary_transfer"]:
+                #    self.get_server_entire_database_binary()
+                #else:
+                #    self.get_server_entire_database()
+                
+                
+                
+                self.get_server_entire_database()
+                
+                
+                
+                
                 self.get_sync_finish()
                 # Fetch config settings.
                 self.login(username, password)

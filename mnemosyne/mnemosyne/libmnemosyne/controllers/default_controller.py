@@ -14,6 +14,9 @@ from mnemosyne.libmnemosyne.controller import Controller
 from mnemosyne.libmnemosyne.utils import remove_empty_dirs_in
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 
+HOUR = 60 * 60 # Seconds in an hour.
+DAY = 24 * HOUR # Seconds in a day.
+
 
 class DefaultController(Controller):
 
@@ -60,6 +63,9 @@ class DefaultController(Controller):
             self.config().save()
             self.review_controller().reset()
             self.next_rollover = self.database().start_of_day_n_days_ago(n=-1)
+        if time.time() > self.config()["last_db_maintenance"] + 90 * DAY:
+            print "do db maintenance"
+            self.config()["last_db_maintenance"] = time.time()
 
     def update_title(self):
         title = _("Mnemosyne")
@@ -689,7 +695,20 @@ _("The configuration database cannot be used to store cards."))
             (self.component_manager).activate()
         self.review_controller().reset_but_try_to_keep_current_card()
         self.stopwatch().unpause()
-
+        
+    def do_database_maintenance(self):
+        
+        # __TMP__
+        
+        # Unthreaded version. Call from thread in GUI?  
+        # This version is called as is by the headless client without threads.
+        
+        self.component_manager.current("database_maintance")\
+            (self.component_manager).activate()        
+        
+        #self.database().defragment()
+        #self.database().archive_old_logs()        
+            
     def show_insert_img_dialog(self, filter):
 
         """Show a file dialog filtered on the supported filetypes, get a

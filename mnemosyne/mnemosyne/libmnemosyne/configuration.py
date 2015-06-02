@@ -4,13 +4,14 @@
 
 import os
 import sys
+import time
 import sqlite3
-
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.schedulers.cramming import RANDOM
 from mnemosyne.libmnemosyne.utils import rand_uuid, traceback_string
+
 
 config_py = \
 """# Mnemosyne configuration file.
@@ -156,7 +157,8 @@ class Configuration(Component, dict):
              "import_format": None,
              "import_extra_tag_names": "",
              "export_dir": os.path.expanduser("~"),
-             "export_format": None
+             "export_format": None,
+             "last_db_maintenance": time.time()
             }.items():
             self.setdefault(key, value)
         # These keys will be shared in the sync protocol. Front-ends can

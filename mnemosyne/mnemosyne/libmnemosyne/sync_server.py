@@ -15,7 +15,7 @@ from mnemosyne.libmnemosyne.utils import expand_path, localhost_IP
 
 class SyncServer(Component, Server):
 
-    """libmnemosyne-specific parts of the openSH2sync server."""
+    """libmnemosyne-specific parts of the openSM2sync server."""
 
     program_name = "Mnemosyne"
     program_version = mnemosyne.version.version
