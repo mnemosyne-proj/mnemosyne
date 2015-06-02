@@ -282,6 +282,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 split(self.database().suffix)[0]
 
     def defragment(self):
+        self.main_widget().set_progress_text(_("Defragmenting database..."))
         self.con.execute("vacuum")
         # Make sure the "Untagged" tag does not show up together with
         # different tags.
@@ -295,6 +296,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 self.con.execute(\
                     "delete from tags_for_card where _card_id=? and _tag_id=?",
                     (_card_id, untagged._id))
+        self.main_widget().close_progress()
 
     def new(self, path):
         self.unload()

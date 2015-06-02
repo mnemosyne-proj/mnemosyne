@@ -2757,6 +2757,30 @@ class TestSync(object):
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
 
+    def test_add_and_delete_card_type(self):
+
+        def test_server(self):
+            pass
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.client.mnemosyne.card_type_with_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_1"])[0]
+
+        card_type_1 = self.client.mnemosyne.controller().clone_card_type(\
+            card_type, "1 cloned snippets")
+        self.client.mnemosyne.config().set_card_type_property(\
+            "hide_pronunciation_field", True, card_type_1)
+        self.client.mnemosyne.controller().delete_card_type(card_type_1)
+
+        self.client.mnemosyne.controller().save_file()
+        self.client.do_sync(); assert last_error is None
 
     def test_add_criterion(self):
 

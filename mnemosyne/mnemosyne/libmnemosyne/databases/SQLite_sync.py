@@ -749,6 +749,7 @@ class SQLiteSync(object):
             card_type = CardType(self.component_manager)
             card_type.id = log_entry["o_id"]
             card_type.fact_views = []
+            card_type.fact_keys_and_names = []
             return card_type
         # Create card type object.
         card_type = CardType(self.component_manager)
@@ -802,7 +803,7 @@ class SQLiteSync(object):
             self.importing = True
         event_type = log_entry["type"]
         if "time" in log_entry:
-            self.log().timestamp = int(log_entry["time"])
+            self.log().timestamp = int(log_entry["time"]) 
         # TMP measure to allow syncing partners which did not yet store
         # machine ids for LOADED_DATABASE and SAVED_DATABASE.
         if not "o_id" in log_entry:
@@ -868,7 +869,7 @@ class SQLiteSync(object):
                     self.reapply_default_criterion_needed = True
             elif event_type == EventTypes.DELETED_CRITERION:
                 self.delete_criterion(self.criterion_from_log_entry(log_entry))
-            elif event_type == EventTypes.EDITED_SETTING:
+            elif event_type == EventTypes.EDITED_SETTING:              
                 key, value = log_entry["o_id"], eval(log_entry["value"])
                 if key in self.config().keys_to_sync:
                     self.config()[key] = value
@@ -876,7 +877,7 @@ class SQLiteSync(object):
                         for render_chain in self.component_manager.\
                             all("render_chain"):
                             render_chain.renderer_for_card_type(card_type).\
-                                update(card_type)                    
+                                update(card_type)
                 else:
                     self.log_edited_setting(log_entry["time"], key)
         finally:

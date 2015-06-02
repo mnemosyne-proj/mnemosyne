@@ -1,14 +1,36 @@
-Joel Petterson: convert to Android studio
+sync bug: deleting tag twice
+
+
+reenable binary sync
 
 archiving old log:
 
-* run automatically? (remove from compact database?)
-* include syncing
-* how to handle full sync
+* mention in GUI that maintanence will happen automaticcaly
+* run automatically
+
+* remove comments about no progress dialogs in sqlite code
+* refactor progress dialogs, add GUI signals to dialog and test
+* refactor such that the thread can also be called from the database maintanance object
+
+* write separate db maintance class to be overwritten in GUI
+self.component_manager.current("database_maintance")
+
+* where does 'do_database_maintenance_live'. Controller? db seems better.
+
+
+* Joel Petterson: convert to Android studio
+* android db maintance class
+
+* full sync should also send archive across
+* update protocol version
+
 
 last tag for added card type not saved
 
 Android:
+
+-problem in sqlite sync with unicode filenames in sqlitesync line 200 doing a full
+ sync from Android.
 
 -warning for protocol mismatch does not seem to fire
 
@@ -22,11 +44,15 @@ Android:
 
 
 
+
+
 -gestures
 -'sync' button should sync directly without going through the sync settings dialog. Put
  the settings in a settings window instead.
 -option to globally increase / decrease font size with respect to desktop
 -custom fonts?
+
+-merge database does not merge inactive cards. OK?
 
 
 -add creation date / modification date to current card statistics
