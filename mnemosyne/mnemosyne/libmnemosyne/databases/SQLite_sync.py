@@ -433,8 +433,15 @@ class SQLiteSync(object):
         # the object from the database. This is a bit slower than just filling
         # in harmless missing keys, but it is more robust against future
         # side effects of tag deletion.
-        if log_entry["type"] == EventTypes.DELETED_TAG:
-            return self.tag(log_entry["o_id"], is_id_internal=False)
+        if log_entry["type"] == EventTypes.DELETED_TAG:           
+            # Work around legacy logs which contain duplicate deletion events.
+            if self.con.execute("select count() from tags where id=?",
+                    (log_entry["o_id"], )).fetchone()[0] != 0:
+                return self.tag(log_entry["o_id"], is_id_internal=False)
+            else:
+                print "Deleting same tag twice during sync."
+                log_entry["name"] = "irrelevant"
+                return Tag(log_entry["name"], log_entry["o_id"])                
         # If we are creating a tag that will be deleted at a later stage
         # during this sync, we are missing some (irrelevant) information
         # needed to properly create a tag object.
@@ -465,7 +472,15 @@ class SQLiteSync(object):
     def fact_from_log_entry(self, log_entry):
         # Get fact object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_FACT:
-            return self.fact(log_entry["o_id"], is_id_internal=False)
+            # Work around legacy logs which contain duplicate deletion events.
+            if self.con.execute("select count() from facts where id=?",
+                    (log_entry["o_id"], )).fetchone()[0] != 0:
+                return self.fact(log_entry["o_id"], is_id_internal=False)
+            else:
+                print "Deleting same fact twice during sync."
+                fact = Fact({}, log_entry["o_id"])
+                fact._id = -1
+                return fact  
         # Create fact object.
         fact_data = {}
         for key, value in log_entry.iteritems():
@@ -529,16 +544,12 @@ class SQLiteSync(object):
                 # fact information.
                 return self.card(log_entry["o_id"], is_id_internal=False)
             except TypeError:
-                # Less future-proof version which just returns an empty shell.
-                # Make sure to set _id, though, as that will be used in
-                # actually deleting the card.
-                sql_res = self.con.execute("select _id from cards where id=?",
-                    (log_entry["o_id"], )).fetchone()
+                # Less future-proof version which just returns an empty shell.                              
                 card_type = self.card_type_with_id("1")
                 fact = Fact({"f": "f", "b": "b"}, id="")
                 card = Card(card_type, fact, card_type.fact_views[0],
                     creation_time=0)
-                card._id = sql_res[0]
+                card._id = -1
                 return card
         # Create an empty shell of card object that will be deleted later
         # during this sync.
