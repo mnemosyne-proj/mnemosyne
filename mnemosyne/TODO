@@ -1,5 +1,6 @@
 sync bug: deleting tag twice
 
+add gui warnings?
 
 reenable binary sync
 
@@ -25,7 +26,7 @@ self.component_manager.current("database_maintance")
 * update protocol version
 
 
-last tag for added card type not saved
+last tag for added card type not saved (prefill_tag_behaviour plugin?)
 
 Android:
 
