@@ -1,5 +1,7 @@
 (-archive history)
 
+-To work around bugs in Qt4 under Linux, media are also played using
+ mplayer, just like under Windows (reported by Francesco Ariis).
 -Fix problems with not detecting autorepeat when pressing grade buttons
  (patch by Kilian Evang).
 -Fix RTL issues (reported by Mateusz Konieczny).
