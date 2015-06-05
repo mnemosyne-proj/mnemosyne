@@ -493,6 +493,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         # Unregister card types in this database.
         for cursor in self.con.execute("select id from card_types"):
             id = cursor[0]
+            print 'unload id', id
             card_type = self.card_type(id, is_id_internal=-1)
             self.component_manager.unregister(card_type)
         # This could fail if the database got corrupted and we are trying to
@@ -1092,6 +1093,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
     #
 
     def add_card_type(self, card_type):
+        print 'add card type', card_type, card_type.name, card_type.unique_fact_keys
         self.con.execute("""insert into card_types(id, name,
             fact_keys_and_names, unique_fact_keys, required_fact_keys,
             fact_view_ids, keyboard_shortcuts, extra_data)
@@ -1153,6 +1155,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             unique_fact_keys, required_fact_keys, fact_view_ids,
             keyboard_shortcuts, extra_data from card_types where id=?""",
             (id, )).fetchone()
+        print 'sql_res', sql_res
         card_type = type(mangle(id), (parent.__class__, ),
             {"name": sql_res[0], "id": id})(self.component_manager)
         card_type.fact_keys_and_names = eval(sql_res[1])

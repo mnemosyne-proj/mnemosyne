@@ -745,6 +745,7 @@ class SQLiteSync(object):
                 return self.update_card_type(\
                     self.card_type_from_log_entry(log_entry))
         try:
+            print 'try to add card type', log_entry
             self.add_card_type(self.card_type_from_log_entry(log_entry))
         except:
             # Leftover from old bug.

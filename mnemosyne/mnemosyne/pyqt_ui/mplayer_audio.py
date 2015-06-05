@@ -4,6 +4,7 @@
 
 import os
 import re
+import sys
 import subprocess
 
 from mnemosyne.libmnemosyne.utils import copy
@@ -16,15 +17,16 @@ re_start = re.compile(r"""start=\"(.+?)\"""",
 re_stop = re.compile(r"""stop=\"(.+?)\"""",
     re.DOTALL | re.IGNORECASE)
 
-# Don't show batch window.
-info = subprocess.STARTUPINFO()
-info.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-info.wShowWindow = subprocess.SW_HIDE
+if sys.platform == "win32":
+    # Don't show batch window.
+    info = subprocess.STARTUPINFO()
+    info.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+    info.wShowWindow = subprocess.SW_HIDE
 
 
 class MplayerAudio(Filter):
 
-    """Play sound externally in mplayer under Windows."""
+    """Play sound externally in mplayer."""
 
     def run(self, text, card, fact_key, **render_args):
         if "no_side_effects" in render_args and \
@@ -67,8 +69,12 @@ class MplayerAudio(Filter):
             text = text.replace(match.group(0), "")
         duration = stop - start
         if duration > 400:
-            duration -= 300 # Compensate for mplayer overshoot.
-        subprocess.Popen(["mplayer.exe", "-ao", "win32"] + sound_files + \
-            ["-ss", str(start), "-endpos", str(duration)],
-            startupinfo=info)
+            duration -= 300 # Compensate for mplayer overshoot.    
+        if sys.platform == "win32":
+            subprocess.Popen(["mplayer.exe", "-ao", "win32"] + sound_files + \
+                ["-ss", str(start), "-endpos", str(duration)], 
+                startupinfo=info)
+        else:
+            subprocess.Popen(["mplayer.exe", "-ao"] + sound_files + \
+                ["-ss", str(start), "-endpos", str(duration)])            
         return text

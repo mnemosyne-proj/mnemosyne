@@ -1,8 +1,10 @@
-sync bug: deleting tag twice
+sync bug: 
+
+error to add card type twice not actually related to adding it twice?
 
 add gui warnings?
 
-reenable binary sync
+reenable binary sync, waring missing media file, check print statements
 
 archiving old log:
 
