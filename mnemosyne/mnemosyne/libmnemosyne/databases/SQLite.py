@@ -331,22 +331,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self._current_criterion._tag_ids_active.add(tag._id)
         self.add_criterion(self._current_criterion)
 
-    def _activate_plugin_for_card_type(self, card_type_id):
-        found = False
-        for plugin in self.plugins():
-            for component in plugin.components:
-                if component.component_type == "card_type" and \
-                    component.id == card_type_id:
-                    found = True
-                    try:
-                        plugin.activate()
-                    except:
-                        raise RuntimeError, _("Error when running plugin:") \
-                            + "\n" + traceback_string()
-        if not found:
-            raise RuntimeError, _("Missing plugin for card type with id:") \
-                + " " + card_type_id
-
     def load(self, path):
         if self.is_loaded():
             self.unload()
@@ -377,9 +361,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # Upgrade.
         self.con.execute("""create index if not exists
             i_cards_3 on cards (_fact_id);""")
-        # Identify missing plugins for card types and their parents.
-        plugin_needed_ids = set()
-        builtin_ids = set(card_type.id for card_type in self.card_types())
+        # Activate all the plugins needed for all the card types.
         # Sometimes corruption keeps the global_variables table intact,
         # but not the cards table...
         try:
@@ -387,24 +369,12 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 self.con.execute("select distinct card_type_id from cards")]
         except:
             raise RuntimeError, _("Unable to load file.") + traceback_string()
+        # We also need to do this for the card types which are only defined
+        # and have no cards yet.
         defined_in_database_ids = [cursor[0] for cursor in \
             self.con.execute("select id from card_types")]
-        # Check if parents are missing plugins. We also need to do this for the
-        # defined ids, in case a card type has no cards.
         for id in used_ids + defined_in_database_ids:
-            while "::" in id: # Move up one level of the hierarchy.
-                id, child_name = id.rsplit("::", 1)
-                if id not in builtin_ids and id not in defined_in_database_ids:
-                    plugin_needed_ids.add(id)
-            if id not in builtin_ids and id not in defined_in_database_ids:
-                plugin_needed_ids.add(id)
-        for card_type_id in plugin_needed_ids:
-            try:
-                self._activate_plugin_for_card_type(card_type_id)
-            except RuntimeError, exception:
-                self._connection.close()
-                self._connection = None
-                raise exception
+            self.activate_plugins_for_card_type_with_id(id) 
         # Instantiate card types stored in this database. Since they could
         # depend on a plugin, the card types need to be instatiated last.
         for id in defined_in_database_ids:
@@ -417,7 +387,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         for f in self.component_manager.all("hook", "after_load"):
             f.run()
         # We don't log the database load here, but in libmnemosyne.__init__,
-        # as we prefer to log the start of the program first.
+        # as we prefer to log the start of the program first.                          
 
     def save(self, path=None):
         # Update format.
@@ -493,7 +463,6 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         # Unregister card types in this database.
         for cursor in self.con.execute("select id from card_types"):
             id = cursor[0]
-            print 'unload id', id
             card_type = self.card_type(id, is_id_internal=-1)
             self.component_manager.unregister(card_type)
         # This could fail if the database got corrupted and we are trying to
@@ -1091,9 +1060,36 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
     #
     # Card types.
     #
+    
+    def activate_plugins_for_card_type_with_id(self, id):
+        builtin_ids = set(card_type.id for card_type in self.card_types())
+        defined_in_database_ids = [cursor[0] for cursor in \
+            self.con.execute("select id from card_types")]        
+        # Check if parents are missing plugins.
+        plugin_needed_ids = set()
+        while "::" in id: # Move up one level of the hierarchy.
+            id, child_name = id.rsplit("::", 1)
+            if id not in builtin_ids and id not in defined_in_database_ids:
+                plugin_needed_ids.add(id)
+        if id not in builtin_ids and id not in defined_in_database_ids:
+            plugin_needed_ids.add(id)
+        for card_type_id in plugin_needed_ids:
+            found = False
+            for plugin in self.plugins():
+                for component in plugin.components:
+                    if component.component_type == "card_type" and \
+                        component.id == card_type_id:
+                        found = True
+                        try:
+                            plugin.activate()
+                        except:
+                            raise RuntimeError, _("Error when running plugin:") \
+                                + "\n" + traceback_string()
+            if not found:
+                raise RuntimeError, \
+                _("Missing plugin for card type with id:") + " " + card_type_id      
 
     def add_card_type(self, card_type):
-        print 'add card type', card_type, card_type.name, card_type.unique_fact_keys
         self.con.execute("""insert into card_types(id, name,
             fact_keys_and_names, unique_fact_keys, required_fact_keys,
             fact_view_ids, keyboard_shortcuts, extra_data)
@@ -1155,7 +1151,6 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             unique_fact_keys, required_fact_keys, fact_view_ids,
             keyboard_shortcuts, extra_data from card_types where id=?""",
             (id, )).fetchone()
-        print 'sql_res', sql_res
         card_type = type(mangle(id), (parent.__class__, ),
             {"name": sql_res[0], "id": id})(self.component_manager)
         card_type.fact_keys_and_names = eval(sql_res[1])
