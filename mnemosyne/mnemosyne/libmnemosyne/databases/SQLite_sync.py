@@ -567,7 +567,7 @@ class SQLiteSync(object):
         else:
             if log_entry["card_t"] not in \
                 self.component_manager.card_type_with_id:
-                # Try to activate a plugin for the card type. If this fails,
+                # Try to activate plugins for the card type. If this fails,
                 # it's possible that the data for this card type will follow
                 # later during the sync. In that case, create a dummy card
                 # type here, which will be corrected by a later edit event.
@@ -575,9 +575,11 @@ class SQLiteSync(object):
                 # card type later, so that we can catch errors, e.g. due to
                 # bad plugins.
                 try:
-                    self._activate_plugin_for_card_type(log_entry["card_t"])
-                    card_type = self.card_type_with_id(log_entry["card_t"])
-                except RuntimeError:
+                    self.activate_plugins_for_card_type_with_id\
+                        (log_entry["card_t"])
+                    card_type = self.card_type_with_id\
+                        (log_entry["card_t"])
+                except KeyError: #RuntimeError:
                     self.card_types_to_instantiate_later.add(\
                         log_entry["card_t"])
                     card_type = self.card_type_with_id("1")
@@ -745,9 +747,10 @@ class SQLiteSync(object):
                 return self.update_card_type(\
                     self.card_type_from_log_entry(log_entry))
         try:
-            print 'try to add card type', log_entry
             self.add_card_type(self.card_type_from_log_entry(log_entry))
-        except:
+        except Exception, e: # sqlite3.IntegrityError
+            print e, repr(e), type(e)
+            print log_entry["time"]
             # Leftover from old bug.
             print "Creating same card type twice during sync."
 
@@ -776,7 +779,7 @@ class SQLiteSync(object):
         card_type.required_fact_keys = eval(log_entry["required_fact_keys"])
         card_type.keyboard_shortcuts = eval(log_entry["keyboard_shortcuts"])
         if "extra" in log_entry:
-            card_type.extra_data = eval(log_entry["extra"])
+            card_type.extra_data = eval(log_entry["extra"])           
         return card_type
 
     def criterion_from_log_entry(self, log_entry):
@@ -866,6 +869,7 @@ class SQLiteSync(object):
             elif event_type == EventTypes.DELETED_FACT_VIEW:
                 self.delete_fact_view(self.fact_view_from_log_entry(log_entry))
             elif event_type == EventTypes.ADDED_CARD_TYPE:
+                print 'add card type', log_entry["o_id"]
                 self.add_card_type_from_log_entry(log_entry)
                 self.card_types_to_instantiate_later.discard(log_entry["o_id"])
             elif event_type == EventTypes.EDITED_CARD_TYPE:

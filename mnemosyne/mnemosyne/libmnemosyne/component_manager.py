@@ -44,6 +44,7 @@ class ComponentManager(object):
     def unregister(self, component):
         comp_type = component.component_type
         used_for = component.used_for
+        print 'unregister component', component
         self.components[used_for][comp_type].remove(component)
         if component.component_type == "card_type":
             del self.card_type_with_id[component.id]

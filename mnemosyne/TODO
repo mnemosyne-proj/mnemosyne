@@ -1,10 +1,27 @@
-sync bug: 
+bug when unregistering components at end, perhaps activating plugins twice?
 
-error to add card type twice not actually related to adding it twice?
+sync bug: 6::child
+
+check why RuntimeError was changed in KeyError (sync line 582)
+
+rerun entire testsuite
+
+
+really investigate where duplication events come from. Are there perhaps deletion events before that?
+
+print date of duplication events to check if they caused the problem.
+
+restrict error to integrity error for duplicates
 
 add gui warnings?
 
+bug in reset_but_try_to_keep_current_card after full sync?
+
 reenable binary sync, waring missing media file, check print statements
+
+prefill tag behaviour should only take 'add cards' into account, not edit card
+
+merging databases should keep creation date (update this in own database)
 
 archiving old log:
 
@@ -27,8 +44,6 @@ self.component_manager.current("database_maintance")
 * full sync should also send archive across
 * update protocol version
 
-
-last tag for added card type not saved (prefill_tag_behaviour plugin?)
 
 Android:
 

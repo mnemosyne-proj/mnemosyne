@@ -3078,6 +3078,37 @@ class TestSync(object):
 
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
+        
+    def test_add_card_type_needing_plugin(self):
+    
+        def test_server(self):
+            db = self.mnemosyne.database()
+            assert db.con.execute("select count() from fact_views").fetchone()[0] == 1
+            card_type = db.card_type(self.card_type_id, is_id_internal=False)
+            assert card_type.name == "5 cloned"
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        
+        from mnemosyne.libmnemosyne.card_types.cloze import ClozePlugin
+        for plugin in self.client.mnemosyne.plugins():
+            if isinstance(plugin, ClozePlugin):
+                cloze_plugin = plugin
+                plugin.activate()
+                break
+
+        card_type_1 = self.client.mnemosyne.card_type_with_id("5")        
+
+        card_type = self.client.mnemosyne.card_type_with_id("5")
+        card_type_1 = self.client.mnemosyne.controller().clone_card_type(\
+            card_type, "5 cloned")
+        self.server.card_type_id = card_type_1.id
+        
+        self.client.mnemosyne.controller().save_file()
+        self.client.do_sync(); assert last_error is None
 
     def test_edit_card_type(self):
 
