@@ -1081,6 +1081,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
                         component.id == card_type_id:
                         found = True
                         try:
+                            print 'Activating', plugin
                             plugin.activate()
                         except:
                             raise RuntimeError, _("Error when running plugin:") \

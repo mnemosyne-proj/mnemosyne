@@ -74,7 +74,8 @@ class SM2Controller(ReviewController):
         try:
             self.previous_card = self.database().card(\
                 self.card._id, is_id_internal=True)
-        except: # No previous card, or it was deleted.
+        except Exception, e: # No previous card, or it was deleted.
+            print 'no previous card', str(e), self.card
             self.previous_card = None
         sch = self.scheduler()
         sch.reset()
