@@ -476,7 +476,7 @@ class SQLiteSync(object):
             if self.con.execute("select count() from facts where id=?",
                     (log_entry["o_id"], )).fetchone()[0] != 0:
                 return self.fact(log_entry["o_id"], is_id_internal=False)
-            else:
+            else:               
                 print "Deleting same fact twice during sync."
                 fact = Fact({}, log_entry["o_id"])
                 fact._id = -1
@@ -747,10 +747,10 @@ class SQLiteSync(object):
                 return self.update_card_type(\
                     self.card_type_from_log_entry(log_entry))
         try:
-            self.add_card_type(self.card_type_from_log_entry(log_entry))
+            card_type = self.card_type_from_log_entry(log_entry)
+            self.activate_plugins_for_card_type_with_id(card_type.id)
+            self.add_card_type(card_type)            
         except Exception, e: # sqlite3.IntegrityError
-            print e, repr(e), type(e)
-            print log_entry["time"]
             # Leftover from old bug.
             print "Creating same card type twice during sync."
 
