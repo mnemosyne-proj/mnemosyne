@@ -549,7 +549,7 @@ class SQLiteSync(object):
                 fact = Fact({"f": "f", "b": "b"}, id="")
                 card = Card(card_type, fact, card_type.fact_views[0],
                     creation_time=0)
-                card._id = -1
+                card.id = log_entry["o_id"]
                 return card
         # Create an empty shell of card object that will be deleted later
         # during this sync.
@@ -823,6 +823,10 @@ class SQLiteSync(object):
         # machine ids for LOADED_DATABASE and SAVED_DATABASE.
         if not "o_id" in log_entry:
             log_entry["o_id"] = ""
+            
+            
+        if log_entry["o_id"] == "8d0013e7":
+            print log_entry
         try:
             if event_type == EventTypes.STARTED_PROGRAM:
                 self.log().started_program(log_entry["o_id"])
@@ -869,7 +873,6 @@ class SQLiteSync(object):
             elif event_type == EventTypes.DELETED_FACT_VIEW:
                 self.delete_fact_view(self.fact_view_from_log_entry(log_entry))
             elif event_type == EventTypes.ADDED_CARD_TYPE:
-                print 'add card type', log_entry["o_id"]
                 self.add_card_type_from_log_entry(log_entry)
                 self.card_types_to_instantiate_later.discard(log_entry["o_id"])
             elif event_type == EventTypes.EDITED_CARD_TYPE:

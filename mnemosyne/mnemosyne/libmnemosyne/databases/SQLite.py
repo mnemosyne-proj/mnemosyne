@@ -926,9 +926,6 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
                 _card_id) values(?,?)""", (tag._id, card._id))
 
     def delete_card(self, card, check_for_unused_tags=True):
-        # Accomodate the sync protocol.
-        if card._id == -1:
-            return
         self.con.execute("delete from cards where _id=?", (card._id, ))
         self.con.execute("delete from tags_for_card where _card_id=?",
             (card._id, ))
@@ -1081,7 +1078,6 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
                         component.id == card_type_id:
                         found = True
                         try:
-                            print 'Activating', plugin
                             plugin.activate()
                         except:
                             raise RuntimeError, _("Error when running plugin:") \

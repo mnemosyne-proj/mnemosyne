@@ -507,11 +507,8 @@ class TestSync(object):
     def test_delete_tag(self):
         def test_server(self):
             db = self.mnemosyne.database()
-            try:
-                tag = db.tag(self.client_tag_id, is_id_internal=False)
-                assert 1 == 0
-            except TypeError:
-                pass
+            assert db.con.execute("select count() from tags where id=?", 
+                (self.client_tag_id, )).fetchone()[0] == 0            
             assert db.con.execute("select count() from log").\
                    fetchone()[0] == 26
 
@@ -580,11 +577,8 @@ class TestSync(object):
 
         def test_server(self):
             db = self.mnemosyne.database()
-            try:
-                fact = db.fact(self.client_fact_id, is_id_internal=False)
-                assert 1 == 0
-            except TypeError:
-                pass
+            assert db.con.execute("select count() from facts where id=?", 
+                (self.client_fact_id, )).fetchone()[0] == 0            
             assert db.con.execute("select count() from log").fetchone()[0] == 25
 
         self.server = MyServer()
@@ -771,11 +765,8 @@ class TestSync(object):
 
         def test_server(self):
             db = self.mnemosyne.database()
-            try:
-                card = db.card(self.client_card.id, is_id_internal=False)
-                assert 1 == 0
-            except TypeError:
-                pass
+            assert db.con.execute("select count() from cards where id=?", 
+                (self.client_card.id, )).fetchone()[0] == 0
             assert db.con.execute("select count() from log").fetchone()[0] == 34
 
         self.server = MyServer()
@@ -794,7 +785,6 @@ class TestSync(object):
         self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 34
-
 
     def test_repetition(self):
 
@@ -1399,8 +1389,7 @@ class TestSync(object):
         for latex_file in files:
             assert os.path.exists(latex_file)
             os.remove(latex_file)
-        
-        
+           
     def test_latex_edit(self):
 
         def fill_server_database(self):
@@ -2895,12 +2884,8 @@ class TestSync(object):
 
         def test_server(self):
             db = self.mnemosyne.database()
-            try:
-                criterion = db.criterion(self.criterion_id,
-                is_id_internal=False)
-                assert 1 == 0
-            except TypeError:
-                pass
+            assert db.con.execute("select count() from criterion where id=?", 
+                (self.criterion_id, )).fetchone()[0] == 0            
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -3019,12 +3004,8 @@ class TestSync(object):
 
         def test_server(self):
             db = self.mnemosyne.database()
-            try:
-                fact_view = db.fact_view(self.fact_view_id,
-                    is_id_internal=False)
-                assert 1 == 0
-            except TypeError:
-                pass
+            assert db.con.execute("select count() from fact_views where id=?", 
+                (self.fact_view_id, )).fetchone()[0] == 0            
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -3154,12 +3135,8 @@ class TestSync(object):
 
         def test_server(self):
             db = self.mnemosyne.database()
-            try:
-                card_type = db.card_type(self.card_type_id,
-                    is_id_internal=False)
-                assert 1 == 0
-            except TypeError:
-                pass
+            assert db.con.execute("select count() from card_types where id=?", 
+                (self.card_type_id, )).fetchone()[0] == 0
 
         self.server = MyServer()
         self.server.test_server = test_server
