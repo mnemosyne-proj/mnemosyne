@@ -1,13 +1,12 @@
 (-archive history)
 
+-Improve robustness of sync protocol.
 -To work around bugs in Qt4 under Linux, media are also played using
  mplayer, just like under Windows (reported by Francesco Ariis).
 -Fix problems with not detecting autorepeat when pressing grade buttons
  (patch by Kilian Evang).
 -Fix RTL issues (reported by Mateusz Konieczny).
 -Fix potential bug when exporting clones of cloned card types.
--Fix potential rare crashes in sync protocol when cloning card types and
- immediately deleting them.
 
 
 Mnemosyne 2.3.3 : 2015-04-13

@@ -1,3 +1,5 @@
+8d0013e7
+
 bug in reset_but_try_to_keep_current_card after full sync?
 
 check why RuntimeError was changed in KeyError (sync line 582)
