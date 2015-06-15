@@ -1,10 +1,10 @@
-8d0013e7
-
-bug in reset_but_try_to_keep_current_card after full sync?
+Why are two databases not identical after sync?
 
 check why RuntimeError was changed in KeyError (sync line 582)
 
 rerun entire testsuite
+
+where do missing media files come from? Latex?
 
 really investigate where duplication events come from. Are there perhaps deletion events before that?
 
