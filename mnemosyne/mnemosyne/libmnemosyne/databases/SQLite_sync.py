@@ -543,12 +543,13 @@ class SQLiteSync(object):
                 # partner created and deleted this card, so that there is no
                 # fact information.
                 return self.card(log_entry["o_id"], is_id_internal=False)
-            except TypeError:
+            except TypeError, e:
                 # Less future-proof version which just returns an empty shell.                              
                 card_type = self.card_type_with_id("1")
                 fact = Fact({"f": "f", "b": "b"}, id="")
                 card = Card(card_type, fact, card_type.fact_views[0],
                     creation_time=0)
+                card._id = None # Signals special case to 'delete_card'.
                 card.id = log_entry["o_id"]
                 return card
         # Create an empty shell of card object that will be deleted later
@@ -827,6 +828,8 @@ class SQLiteSync(object):
             
         if log_entry["o_id"] == "8d0013e7":
             print log_entry
+            
+            
         try:
             if event_type == EventTypes.STARTED_PROGRAM:
                 self.log().started_program(log_entry["o_id"])

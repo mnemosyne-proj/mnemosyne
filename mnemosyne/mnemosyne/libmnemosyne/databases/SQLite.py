@@ -926,9 +926,14 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
                 _card_id) values(?,?)""", (tag._id, card._id))
 
     def delete_card(self, card, check_for_unused_tags=True):
-        self.con.execute("delete from cards where _id=?", (card._id, ))
-        self.con.execute("delete from tags_for_card where _card_id=?",
-            (card._id, ))
+        if card._id is None: 
+            # A card which was created and deleting before a sync, so that
+            # it has incomplete information.
+            self.con.execute("delete from cards where id=?", (card.id, ))
+        else:
+            self.con.execute("delete from cards where _id=?", (card._id, ))
+            self.con.execute("delete from tags_for_card where _card_id=?",
+                             (card._id, ))
         if not self.syncing and check_for_unused_tags:
             for tag in card.tags:
                 self.delete_tag_if_unused(tag)
