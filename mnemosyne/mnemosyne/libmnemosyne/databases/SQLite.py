@@ -927,7 +927,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
 
     def delete_card(self, card, check_for_unused_tags=True):
         if card._id is None: 
-            # A card which was created and deleting before a sync, so that
+            # A card which was created and deleted before a sync, so that
             # it has incomplete information.
             self.con.execute("delete from cards where id=?", (card.id, ))
         else:

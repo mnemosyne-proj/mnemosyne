@@ -1,23 +1,36 @@
 Why are two databases not identical after sync?
 
+oNZmSba
+
+* front to back only: difference of 20 cards
+
+-delete 'irrelevant' tag, empty card types
+
+rehide special columns in card browser
+
 check why RuntimeError was changed in KeyError (sync line 582)
-
-rerun entire testsuite
-
-where do missing media files come from? Latex?
+restrict error to integrity error for duplicates, or better: get rid off exceptions altogether?
 
 really investigate where duplication events come from. Are there perhaps deletion events before that?
 
-restrict error to integrity error for duplicates
+rerun entire testsuite
 
 add gui warnings?
 
 reenable binary sync, warning missing media file, check print statements
 
+
+
 prefill tag behaviour should only take 'add cards' into account, not edit card
+
 
 merging databases should keep creation date (update this in own database) 
  (remove if self.importing in sqlite_sync add cards)
+
+
+selecting a set does not update settings in lower pane
+
+tip explaining saved sets vs just a quick unsaved change.
 
 
 
