@@ -352,10 +352,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             self.splitter_2.setSizes([333, 630])
         else:
             self.splitter_2.restoreState(splitter_2_state)   
-        for column in (_ID, ID, CARD_TYPE_ID, _FACT_ID, FACT_VIEW_ID,
-            ACQ_REPS_SINCE_LAPSE, RET_REPS_SINCE_LAPSE,
-            EXTRA_DATA, ACTIVE, SCHEDULER_DATA):
-            self.table.setColumnHidden(column, True)
+        #for column in (_ID, ID, CARD_TYPE_ID, _FACT_ID, FACT_VIEW_ID,
+        #    ACQ_REPS_SINCE_LAPSE, RET_REPS_SINCE_LAPSE,
+        #    EXTRA_DATA, ACTIVE, SCHEDULER_DATA):
+        #    self.table.setColumnHidden(column, True)
 
     def context_menu(self, point):
         menu = QtGui.QMenu(self)

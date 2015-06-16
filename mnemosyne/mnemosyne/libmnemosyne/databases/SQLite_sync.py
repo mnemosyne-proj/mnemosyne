@@ -440,6 +440,8 @@ class SQLiteSync(object):
                 return self.tag(log_entry["o_id"], is_id_internal=False)
             else:
                 print "Deleting same tag twice during sync."
+                print log_entry
+                1/0
                 log_entry["name"] = "irrelevant"
                 return Tag(log_entry["name"], log_entry["o_id"])                
         # If we are creating a tag that will be deleted at a later stage
@@ -826,7 +828,7 @@ class SQLiteSync(object):
             log_entry["o_id"] = ""
             
             
-        if log_entry["o_id"] == "8d0013e7":
+        if log_entry["o_id"].startswith("oNZmSba"):
             print log_entry
             
             

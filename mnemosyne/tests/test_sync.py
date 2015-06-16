@@ -767,6 +767,8 @@ class TestSync(object):
             db = self.mnemosyne.database()
             assert db.con.execute("select count() from cards where id=?", 
                 (self.client_card.id, )).fetchone()[0] == 0
+            assert db.con.execute("select count() from facts").fetchone()[0] == 0   
+            assert db.con.execute("select count() from tags").fetchone()[0] == 1  
             assert db.con.execute("select count() from log").fetchone()[0] == 34
 
         self.server = MyServer()
@@ -2884,7 +2886,7 @@ class TestSync(object):
 
         def test_server(self):
             db = self.mnemosyne.database()
-            assert db.con.execute("select count() from criterion where id=?", 
+            assert db.con.execute("select count() from criteria where id=?", 
                 (self.criterion_id, )).fetchone()[0] == 0            
 
         self.server = MyServer()

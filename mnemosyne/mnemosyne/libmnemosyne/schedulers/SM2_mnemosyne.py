@@ -377,7 +377,6 @@ class SM2Mnemosyne(Scheduler):
         db = self.database()
         # Populate queue if it is empty, and pop first card from the queue.
         if len(self._card_ids_in_queue) == 0:
-            print 'queue empty'
             self.rebuild_queue(learn_ahead)
             if len(self._card_ids_in_queue) == 0:
                 return None
@@ -395,7 +394,6 @@ class SM2Mnemosyne(Scheduler):
                         return db.card(_card_id, is_id_internal=True)
                 _card_id = self._card_ids_in_queue.pop(0)
         self._card_id_last = _card_id
-        print 'card _id', _card_id
         return db.card(_card_id, is_id_internal=True)
 
     def is_prefetch_allowed(self, card_to_grade):
