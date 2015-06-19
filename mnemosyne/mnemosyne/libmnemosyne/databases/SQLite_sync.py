@@ -409,9 +409,7 @@ class SQLiteSync(object):
 
     def add_tag_from_log_entry(self, log_entry):
         if self.importing:
-            already_imported = self.con.execute(\
-                "select count() from tags where id=?",
-                (log_entry["o_id"], )).fetchone()[0] != 0
+            already_imported = self.has_tag_with_id(log_entry["o_id"])
             same_name_in_database = self.con.execute(\
                 "select count() from tags where name=? and id!=?",
                 (log_entry["name"], log_entry["o_id"])).fetchone()[0] == 1
@@ -435,13 +433,10 @@ class SQLiteSync(object):
         # side effects of tag deletion.
         if log_entry["type"] == EventTypes.DELETED_TAG:           
             # Work around legacy logs which contain duplicate deletion events.
-            if self.con.execute("select count() from tags where id=?",
-                    (log_entry["o_id"], )).fetchone()[0] != 0:
+            if self.has_tag_with_id(log_entry["o_id"]):
                 return self.tag(log_entry["o_id"], is_id_internal=False)
             else:
                 print "Deleting same tag twice during sync."
-                print log_entry
-                1/0
                 log_entry["name"] = "irrelevant"
                 return Tag(log_entry["name"], log_entry["o_id"])                
         # If we are creating a tag that will be deleted at a later stage
@@ -462,9 +457,7 @@ class SQLiteSync(object):
 
     def add_fact_from_log_entry(self, log_entry):
         if self.importing:
-            already_imported = self.con.execute(\
-                "select count() from facts where id=?",
-                (log_entry["o_id"], )).fetchone()[0] != 0
+            already_imported = self.has_fact_with_id(log_entry["o_id"])
             if already_imported:
                 log_entry["type"] = EventTypes.EDITED_FACT
                 return self.update_fact(\
@@ -475,8 +468,7 @@ class SQLiteSync(object):
         # Get fact object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_FACT:
             # Work around legacy logs which contain duplicate deletion events.
-            if self.con.execute("select count() from facts where id=?",
-                    (log_entry["o_id"], )).fetchone()[0] != 0:
+            if self.has_fact_with_id(log_entry["o_id"]):
                 return self.fact(log_entry["o_id"], is_id_internal=False)
             else:               
                 print "Deleting same fact twice during sync."
@@ -496,9 +488,7 @@ class SQLiteSync(object):
 
     def add_card_from_log_entry(self, log_entry):
         if self.importing:
-            already_imported = self.con.execute(\
-                "select count() from cards where id=?",
-                (log_entry["o_id"], )).fetchone()[0] != 0
+            already_imported = self.has_card_with_id(log_entry["o_id"])
             if already_imported:
                 orig_card = self.card(log_entry["o_id"], is_id_internal=False)
                 card = self.card_from_log_entry(log_entry)
@@ -539,14 +529,11 @@ class SQLiteSync(object):
             raise AttributeError
         # Get card object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_CARD:
-            try:
-                # More future-proof version of code in the except statement.
-                # However, this will fail if after the last sync the other
-                # partner created and deleted this card, so that there is no
-                # fact information.
+            if self.has_card_with_id(log_entry["o_id"]):
                 return self.card(log_entry["o_id"], is_id_internal=False)
-            except TypeError, e:
-                # Less future-proof version which just returns an empty shell.                              
+            else:
+                # We have created and deleted this card since the last sync,
+                # so we just return an empty shell.                              
                 card_type = self.card_type_with_id("1")
                 fact = Fact({"f": "f", "b": "b"}, id="")
                 card = Card(card_type, fact, card_type.fact_views[0],
@@ -582,7 +569,7 @@ class SQLiteSync(object):
                         (log_entry["card_t"])
                     card_type = self.card_type_with_id\
                         (log_entry["card_t"])
-                except KeyError: #RuntimeError:
+                except KeyError:
                     self.card_types_to_instantiate_later.add(\
                         log_entry["card_t"])
                     card_type = self.card_type_with_id("1")
@@ -825,13 +812,7 @@ class SQLiteSync(object):
         # TMP measure to allow syncing partners which did not yet store
         # machine ids for LOADED_DATABASE and SAVED_DATABASE.
         if not "o_id" in log_entry:
-            log_entry["o_id"] = ""
-            
-            
-        if log_entry["o_id"].startswith("oNZmSba"):
-            print log_entry
-            
-            
+            log_entry["o_id"] = ""        
         try:
             if event_type == EventTypes.STARTED_PROGRAM:
                 self.log().started_program(log_entry["o_id"])

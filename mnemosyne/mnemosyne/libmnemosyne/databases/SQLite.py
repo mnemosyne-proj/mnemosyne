@@ -756,6 +756,10 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
                 break
             index += 1
         return result
+    
+    def has_tag_with_id(self, id):
+        return self.con.execute("select count() from tags where id=?",
+            (id, )).fetchone()[0] != 0
 
     #
     # Facts.
@@ -807,6 +811,10 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             (fact._id, ))
         self.log().deleted_fact(fact)
         del fact
+        
+    def has_fact_with_id(self, id):
+        return self.con.execute("select count() from facts where id=?",
+            (id, )).fetchone()[0] != 0        
 
     #
     # Cards.
@@ -1008,6 +1016,10 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
                 object_id) values(?,?,?)""",
                 (EventTypes.EDITED_CARD, int(time.time()), card_id))
 
+    def has_card_with_id(self, id):
+        return self.con.execute("select count() from cards where id=?",
+            (id, )).fetchone()[0] != 0 
+    
     #
     # Fact views.
     #
