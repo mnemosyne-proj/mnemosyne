@@ -120,6 +120,9 @@ class Database(Component):
 
     def tags(self):
         raise NotImplementedError
+    
+    def has_tag_with_id(self, id):
+        return NotImplementedError
 
     # Facts.
 
@@ -134,6 +137,9 @@ class Database(Component):
 
     def delete_fact(self, fact):
         raise NotImplementedError
+    
+    def has_fact_with_id(self, id):
+        return NotImplementedError    
 
     # Cards.
 
@@ -157,6 +163,9 @@ class Database(Component):
 
     def remove_tag_from_cards_with_internal_ids(self, tag, _card_ids):
         raise NotImplementedError
+    
+    def has_card_with_id(self, id):
+        return NotImplementedError    
 
     # Fact views.
 
@@ -171,6 +180,9 @@ class Database(Component):
 
     def delete_fact_view(self, fact_view):
         raise NotImplementedError
+    
+    def has_fact_view_with_id(self, id):
+        return NotImplementedError    
 
     # Card types.
 
@@ -194,6 +206,9 @@ class Database(Component):
 
     def delete_card_type(self, card_type):
         raise NotImplementedError
+    
+    def has_card_type_with_id(self, id):
+        return NotImplementedError    
 
     # Criteria.
 
@@ -217,6 +232,9 @@ class Database(Component):
 
     def criteria(self):
         raise NotImplementedError
+    
+    def has_criterion_with_id(self, id):
+        return NotImplementedError    
 
     # Queries.
 
