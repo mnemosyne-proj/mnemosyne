@@ -1070,6 +1070,10 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             (fact_view.id, ))
         self.log().deleted_fact_view(fact_view)
         del fact_view
+        
+    def has_fact_view_with_id(self, id):
+        return self.con.execute("select count() from fact_views where id=?",
+            (id, )).fetchone()[0] != 0         
 
     #
     # Card types.
@@ -1222,7 +1226,11 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             criterion.card_type_deleted(card_type)
             self.update_criterion(criterion)
         del card_type
-
+        
+    def has_card_type_with_id(self, id):
+        return self.con.execute("select count() from card_types where id=?",
+            (id, )).fetchone()[0] != 0 
+    
     #
     # Criteria.
     #
@@ -1282,6 +1290,11 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
     def criteria(self):
         return (self.criterion(cursor[0], is_id_internal=True) \
             for cursor in self.con.execute("select _id from criteria"))
+    
+    def has_criterion_with_id(self, id):
+        return self.con.execute("select count() from criteria where id=?",
+            (id, )).fetchone()[0] != 0 
+    
 
     #
     # Queries.
