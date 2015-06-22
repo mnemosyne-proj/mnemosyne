@@ -1228,8 +1228,11 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         del card_type
         
     def has_card_type_with_id(self, id):
-        return self.con.execute("select count() from card_types where id=?",
-            (id, )).fetchone()[0] != 0 
+        #if self.con.execute("select count() from card_types where id=?",
+        #    (id, )).fetchone()[0] != 0:
+        #    return True
+        #else: # It could be a built-in card type.
+        return id in [card_type.id for card_type in self.card_types()]
     
     #
     # Criteria.

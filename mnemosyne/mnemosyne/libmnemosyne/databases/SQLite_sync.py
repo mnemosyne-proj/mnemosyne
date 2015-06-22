@@ -284,7 +284,7 @@ class SQLiteSync(object):
             log_entry["n_mem"] = sql_res[7]
             log_entry["act"] = sql_res[8]
         elif event_type in (EventTypes.ADDED_CARD, EventTypes.EDITED_CARD):
-            if self.has_card_type_with_id(log_entry["o_id"]):
+            if self.has_card_with_id(log_entry["o_id"]):
                 # Note that some of these values (e.g. the repetition count) we
                 # could in theory calculate from the previous state and the
                 # grade. However, we send the entire state of the card across
@@ -562,12 +562,15 @@ class SQLiteSync(object):
                 # will be corrected by a later edit event. Hovewer, we still 
                 # need to instantiate this card type later, so that we can 
                 # catch errors, e.g. due to bad plugins.
-                if self.has_card_type_with_id(log_entry["card_t"]):
+                print 'card type', log_entry
+                print self.has_card_type_with_id(log_entry["card_t"])
+                if self.has_card_type_with_id(log_entry["card_t"]):   
                     self.activate_plugins_for_card_type_with_id\
                         (log_entry["card_t"])
                     card_type = self.card_type_with_id\
                         (log_entry["card_t"])
                 else:
+                    print 'instantiate later'
                     self.card_types_to_instantiate_later.add(\
                         log_entry["card_t"])
                     card_type = self.card_type_with_id("1")
