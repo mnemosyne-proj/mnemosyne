@@ -42,7 +42,7 @@ class Widget(MainWidget):
         global last_error
         last_error = error
         # Activate this for debugging.
-        #sys.stderr.write(error)
+        sys.stderr.write(error)
 
     def show_question(self, question, option0, option1, option2):
         #sys.stderr.write(question+'\n')
@@ -2776,6 +2776,7 @@ class TestSync(object):
     def test_add_criterion(self):
 
         def test_server(self):
+            print 'testing', self.criterion_id
             db = self.mnemosyne.database()
             criterion = db.criterion(self.criterion_id,
                 is_id_internal=False)
