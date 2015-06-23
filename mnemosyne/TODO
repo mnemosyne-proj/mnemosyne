@@ -1,6 +1,5 @@
-rerun entire testsuite
-
-reenable binary sync, warning missing media file
+missing media file: ar101039, 101040, 140735, 140740, arabic_pod/44_5 (several times again afterwards)
+reenable binary sync
 
 
 in rtl plugin, remove leading space?

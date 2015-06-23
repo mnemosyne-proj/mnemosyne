@@ -2776,7 +2776,6 @@ class TestSync(object):
     def test_add_criterion(self):
 
         def test_server(self):
-            print 'testing', self.criterion_id
             db = self.mnemosyne.database()
             criterion = db.criterion(self.criterion_id,
                 is_id_internal=False)

@@ -863,6 +863,9 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             sql_res = self.con.execute(query + "_id=?", (id, )).fetchone()
         else:
             sql_res = self.con.execute(query + "id=?", (id, )).fetchone()
+        if sql_res is None or sql_res[3] is None:
+            from mnemosyne.libmnemosyne.utils import MnemosyneError
+            raise MnemosyneError
         fact = self.fact(sql_res[3], is_id_internal=True)
         # Note that for the card type, we turn to the component manager as
         # opposed to this database, as we would otherwise miss the built-in
