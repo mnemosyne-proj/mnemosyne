@@ -16,9 +16,9 @@ from mnemosyne.libmnemosyne.tag import Tag
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
+from mnemosyne.libmnemosyne.utils import expand_path, MnemosyneError
 
 re_src = re.compile(r"""(src|data)=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
 
@@ -528,9 +528,9 @@ class SQLiteSync(object):
             raise AttributeError
         # Get card object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_CARD:
-            if self.has_card_with_id(log_entry["o_id"]):
+            try:
                 return self.card(log_entry["o_id"], is_id_internal=False)
-            else:
+            except MnemosyneError:  # There is no fact in the database.
                 # We have created and deleted this card since the last sync,
                 # so we just return an empty shell.                              
                 card_type = self.card_type_with_id("1")
@@ -562,15 +562,12 @@ class SQLiteSync(object):
                 # will be corrected by a later edit event. Hovewer, we still 
                 # need to instantiate this card type later, so that we can 
                 # catch errors, e.g. due to bad plugins.
-                print 'card type', log_entry
-                print self.has_card_type_with_id(log_entry["card_t"])
-                if self.has_card_type_with_id(log_entry["card_t"]):   
+                try:
                     self.activate_plugins_for_card_type_with_id\
                         (log_entry["card_t"])
                     card_type = self.card_type_with_id\
                         (log_entry["card_t"])
-                else:
-                    print 'instantiate later'
+                except:
                     self.card_types_to_instantiate_later.add(\
                         log_entry["card_t"])
                     card_type = self.card_type_with_id("1")
