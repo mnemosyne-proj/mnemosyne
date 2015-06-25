@@ -912,6 +912,59 @@ class TestSync(object):
         assert db.con.execute("""select object_id from log where event_type=?
             order by _id desc limit 1""", (EventTypes.ADDED_MEDIA_FILE, )).\
             fetchone()[0].startswith("b/")
+        
+        
+    def test_add_delete_add_media(self):
+    
+            def fill_server_database(self):
+                os.mkdir(os.path.join(os.path.abspath("dot_sync_server"),
+                    "default.db_media", "b"))
+    
+                filename = os.path.join(os.path.abspath("dot_sync_server"),
+                    "default.db_media", "b", unichr(0x628) + u"b..ogg")
+                f = file(filename, "w")
+                f.write("B")
+                f.close()
+                
+                fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
+                             "b": "answer"}
+                card_type = self.mnemosyne.card_type_with_id("1")
+                card = self.mnemosyne.controller().create_new_cards(fact_data,
+                   card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+                
+                new_fact_data = {"f": "question", "b": "answer"}                
+                self.mnemosyne.controller().edit_card_and_sisters(card, new_fact_data,
+                    card_type, ["tag_1", "tag_2"], {})
+                self.mnemosyne.database().delete_unused_media_files(\
+                    self.mnemosyne.database().unused_media_files())
+                
+                os.mkdir(os.path.join(os.path.abspath("dot_sync_server"),
+                    "default.db_media", "b"))                
+                f = file(filename, "w")
+                f.write("B")
+                f.close()
+                
+                self.mnemosyne.controller().edit_card_and_sisters(card, fact_data,
+                    card_type, ["tag_1", "tag_2"], {})                
+                
+                self.mnemosyne.controller().save_file()
+    
+            def test_server(self):
+                pass
+    
+            self.server = MyServer()
+            self.server.test_server = test_server
+            self.server.fill_server_database = fill_server_database
+            self.server.start()
+    
+            self.client = MyClient()
+    
+            self.client.do_sync(); assert last_error is None
+    
+            filename = os.path.join(os.path.abspath("dot_sync_client"),
+                "default.db_media", "b", unichr(0x628) + u"b..ogg")
+            assert os.path.exists(filename)
+            assert file(filename).read() == "B"
 
     def test_add_media_behind_proxy(self):
 
