@@ -669,13 +669,18 @@ class SQLiteSync(object):
         self.log().edited_media_file(filename)
 
     def delete_media_file(self, log_entry):
-        filename = log_entry["fname"]
-        full_path = expand_path(filename, self.media_dir())
+        # Actually, we cannot take the responsibility to delete a media file,
+        # since it would e.g. break the corner case to add a media file, 
+        # delete it and than add it again.
+        pass
+    
+        #filename = log_entry["fname"]
+        #full_path = expand_path(filename, self.media_dir())
         # The file could have been remotely deleted before it got a chance to
         # be synced, so we need to check if the file exists before deleting.
-        if os.path.exists(full_path):
-            os.remove(full_path)
-        self.log().deleted_media_file(filename)
+        #if os.path.exists(full_path):
+        #    os.remove(full_path)
+        #self.log().deleted_media_file(filename)
 
     def add_fact_view_from_log_entry(self, log_entry):
         if self.importing:
