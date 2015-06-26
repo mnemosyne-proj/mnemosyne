@@ -1,7 +1,3 @@
-missing media file: ar101039, 101040, 140735, 140740, arabic_pod/44_5 (several times again afterwards)
-reenable binary sync
-
-
 in rtl plugin, remove leading space?
 
 prefill tag behaviour should only take 'add cards' into account, not edit card
@@ -137,6 +133,9 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
  when clicking 'cancel'?
 
 -mass convert to cloze
+
+-do honour delete media events under sync, by checking if there are no later 
+ 'added_media' events with the same file.
 
 -website font size under windows
 
