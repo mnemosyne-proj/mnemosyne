@@ -1,3 +1,9 @@
+Android:
+
+-Ignore spaces at the end of e.g. username and password (suggested by Cornelia).
+-Upgraded to the latest libmnemosyne (2.3.4)
+
+
 (-archive history)
 
 -Improve robustness of sync protocol.

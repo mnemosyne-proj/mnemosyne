@@ -37,10 +37,10 @@ public class SyncActivity extends Activity {
 
             public void onClick(View arg0) {
                 Intent intent = new Intent();
-                intent.putExtra("server", editServer.getText().toString() );
-                intent.putExtra("port", editPort.getText().toString());
-                intent.putExtra("username", editUsername.getText().toString());
-                intent.putExtra("password", editPassword.getText().toString());
+                intent.putExtra("server", editServer.getText().toString().trim());
+                intent.putExtra("port", editPort.getText().toString().trim());
+                intent.putExtra("username", editUsername.getText().toString().trim());
+                intent.putExtra("password", editPassword.getText().toString().trim());
                 setResult(RESULT_OK, intent);
                 finish();
             }
