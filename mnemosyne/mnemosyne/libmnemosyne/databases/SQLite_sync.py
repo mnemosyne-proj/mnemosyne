@@ -576,7 +576,7 @@ class SQLiteSync(object):
                 card_type = self.card_type_with_id(log_entry["card_t"])
         fact = self.fact(log_entry["fact"], is_id_internal=False)
         # When importing, set the creation time to the current time.
-        if self.importing:
+        if self.importing and not self.importing_with_learning_data:
             log_entry["c_time"] = int(time.time())
             log_entry["m_time"] = int(time.time())
         for fact_view in card_type.fact_views:
