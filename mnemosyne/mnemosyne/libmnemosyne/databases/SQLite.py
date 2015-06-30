@@ -237,8 +237,9 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # effects from generating log events while syncing.
         self.syncing = False
         # For importing from a mnemosyne2 cards file, we need different side
-        # effect to be disabled/enabled.
+        # effects to be disabled/enabled.
         self.importing = False
+        self.importing_with_learning_data = False
 
     #
     # File operations.

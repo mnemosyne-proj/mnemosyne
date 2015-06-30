@@ -3,10 +3,6 @@ in rtl plugin, remove leading space?
 prefill tag behaviour should only take 'add cards' into account, not edit card
 
 
-merging databases should keep creation date (update this in own database) 
- (remove if self.importing in sqlite_sync add cards)
-
-
 selecting a set does not update settings in lower pane
 
 tip explaining saved sets vs just a quick unsaved change.

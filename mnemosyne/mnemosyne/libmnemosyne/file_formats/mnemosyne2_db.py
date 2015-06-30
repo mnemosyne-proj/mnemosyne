@@ -59,8 +59,10 @@ _("Abort"), _("Continue"), "")
         # Import the *.cards file into the receiving database.
         db.load(receiving_database_filename)
         log_index_before_import = db.current_log_index()
+        db.importing_with_learning_data = True
         cards_format.do_import(\
             tmp_cards_filename, extra_tag_names, show_metadata=False)
+        db.importing_with_learning_data = False
         db.merge_logs_from_other_database(filename, log_index_before_import)
         os.remove(tmp_cards_filename)
         db.current_criterion().deactivated_card_type_fact_view_ids.update(\

@@ -6,6 +6,8 @@ Android:
 
 (-archive history)
 
+-When importing another database with learning data, don't reset the creation
+ and modification times of cards.
 -Improve robustness of sync protocol.
 -To work around bugs in Qt4 under Linux, media are also played using
  mplayer, just like under Windows (reported by Francesco Ariis).
