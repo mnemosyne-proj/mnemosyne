@@ -2,11 +2,15 @@ in rtl plugin, remove leading space?
 
 prefill tag behaviour should only take 'add cards' into account, not edit card
 
+reset but try to keep current card should remove an unlearned card if a scheduled one is present
 
-selecting a set does not update settings in lower pane
+cannot do cntrl-C from front side whenever backside is displayed (Matthias Ernst)
+
+selecting a set does not update settings in lower pane (Matthias Ernst)
 
 tip explaining saved sets vs just a quick unsaved change.
 
+tmp hide 'archive old log'
 
 
 archiving old log:
@@ -313,6 +317,8 @@ created with just the "»" symbol.
  card list. Catched itemChanged instead of itemClicked would solve this in
  theory, but this would cause a lot of spurious updates if you toggle the parent
  of a big hierarchy. ItemActivated only seems to catch double clicks
+-Qt issue: font size is rounded up to the nearest default integer in font selection
+ dialog.
 
 
 -coverage bug?: default_controller().sync() does not seem to get picked up.
