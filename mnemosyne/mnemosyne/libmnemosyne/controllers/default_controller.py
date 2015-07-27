@@ -63,9 +63,9 @@ class DefaultController(Controller):
             self.config().save()
             self.review_controller().reset()
             self.next_rollover = self.database().start_of_day_n_days_ago(n=-1)
-        if time.time() > self.config()["last_db_maintenance"] + 90 * DAY:
-            print "do db maintenance"
-            self.config()["last_db_maintenance"] = time.time()
+        #if time.time() > self.config()["last_db_maintenance"] + 90 * DAY:
+        #    print "do db maintenance"
+        #    self.config()["last_db_maintenance"] = time.time()
 
     def update_title(self):
         title = _("Mnemosyne")
@@ -598,8 +598,9 @@ _("'*.cards' files are not separate databases, but need to be imported in your c
             self.stopwatch().unpause()
             self.main_widget().show_information(\
                 _("The configuration database is not used to store cards."))
-            return            
-        if filename.startswith(os.path.join(data_dir, "backups")):
+            return
+        if os.path.normpath(filename).startswith(\
+            os.path.normpath(os.path.join(data_dir, "backups"))):
             result = self.main_widget().show_question(\
                 _("Do you want to replace your current database with one restored from this backup?\nNote that this will result in conflicts during the next sync, which need to be resolved by a full sync."),
                 _("Yes"), _("No"), "")
