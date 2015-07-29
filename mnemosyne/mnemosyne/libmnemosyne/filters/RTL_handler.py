@@ -31,6 +31,7 @@ class RTLHandler(Filter):
         # Deal with corner cases.
         if len(text) <= 1:
             return text
+        text = text.strip()
         has_rtl = False
         for i in range(len(text)):
             if 0x0590 <= ord(text[i]) <= 0x06FF:

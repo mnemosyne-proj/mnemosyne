@@ -81,19 +81,9 @@ class SM2Controller(ReviewController):
         sch.rebuild_queue()
         self.reload_counters()
         self.update_status_bar_counters()
-        # Try to get a new card in case there was previously no card active,
-        # or if the previous card is no longer in the queue.
         if self.previous_card is None or not self.previous_card.active:
             self.show_new_question()
-        # If the card is scheduled (grade >=2) but no longer in the queue, we
-        # assume it disappeared e.g. because it was answered in a sync
-        # partner. Therefore, we show a new card.
-        # It could also have disappeared because the queue is limited in size
-        # and does not contain all scheduled cards. In this case, we will
-        # suboptimally 'abandon' the current card and it will be revisited
-        # later.
-        elif self.previous_card.grade >= 2 and \
-            not sch.is_in_queue(self.previous_card):
+        elif not sch.is_in_queue(self.previous_card):
             self.show_new_question()
         # Otherwise, we keep the card, but we need to remove it from the
         # queue. For robustness reasons, we also remove the second grade
