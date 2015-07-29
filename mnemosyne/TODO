@@ -1,14 +1,12 @@
-in rtl plugin, remove leading space?
-
-prefill tag behaviour should only take 'add cards' into account, not edit card
-
-reset but try to keep current card should remove an unlearned card if a scheduled one is present
+Why does checking for updated media files take so long if it's turned off?
 
 cannot do cntrl-C from front side whenever backside is displayed (Matthias Ernst)
 
 selecting a set does not update settings in lower pane (Matthias Ernst)
 
 tip explaining saved sets vs just a quick unsaved change.
+
+stop mplayer when grading card
 
 tmp hide 'archive old log'
 
@@ -115,6 +113,8 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -Michael Campbell: I changed the background color of Mnemosyne to something other than white, and I 
  noticed that it uses that color when adding new content. However, when that window does not have 
  focus, it turns white again.
+ 
+-command line switch for headless server not to check for updated card types. 
 
  
 -optimisation: change card type for many facts which calls
