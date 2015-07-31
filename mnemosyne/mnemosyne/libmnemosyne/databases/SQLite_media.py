@@ -93,11 +93,16 @@ media_dir + "./n" + _("Check your file permissions and make sure the directory i
             self.log().edited_media_file(filename)
 
     def dynamically_create_media_files(self):
-        # Other media files, e.g. latex.
+        # First check which components are actually working. E.g., on a
+        # headless server, it's possible that latex is not installed, so
+        # we don't need to go through all the effort.
+        creators = [f for f in self.component_manager.all("hook",
+            "dynamically_create_media_files") if f.is_working() == True]
+        if len(creators) == 0:
+            return
         for cursor in self.con.execute("select value from data_for_fact"):
-            for f in self.component_manager.all("hook",
-                "dynamically_create_media_files"):
-                f.run(cursor[0])
+            for creator in creators:
+                creator.run(cursor[0])
 
     def active_dynamic_media_files(self):
         # Other media files, e.g. latex.

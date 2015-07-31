@@ -82,7 +82,7 @@ class Latex(Filter):
             self.log().added_media_file(rel_filename)
             os.chdir(previous_dir)
         return rel_filename
-
+       
     def process_latex_img_tag(self, latex_command):
 
         """Transform the latex tags to image tags."""
@@ -128,9 +128,11 @@ class CheckForUpdatedLatexFiles(Hook):
     def __init__(self, component_manager):
         Hook.__init__(self, component_manager)
         self.latex = Latex(component_manager)
+        
+    def is_working(self):
+        return (os.system(self.config()["latex"] + " -version") == 0)
 
     def run(self, data):
-        # Takes 0.10 sec on 8000 card database.
         self.latex.run(data, None, None)
 
 
