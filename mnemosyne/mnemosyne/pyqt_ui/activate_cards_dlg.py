@@ -8,11 +8,19 @@ from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.card_set_name_dlg import CardSetNameDlg
 from mnemosyne.pyqt_ui.ui_activate_cards_dlg import Ui_ActivateCardsDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import ActivateCardsDialog
-
+from mnemosyne.pyqt_ui.tip_after_starting_n_times import \
+     TipAfterStartingNTimes
 
 class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
-                       ActivateCardsDialog):
-
+                       ActivateCardsDialog, TipAfterStartingNTimes):
+    
+    started_n_times_counter = "started_activate_cards_n_times"
+    tip_after_n_times = \
+        {3 : _("If you find yourself selecting the same tags and card types many types, you can press the button 'Save this set for later use' to give it a name to select it more quickly later."),
+         6 : _("Double-click on the name of a saved set to quickly activate it and close the dialog."),
+         9 : _("You can right-click on the name of a saved set to rename or delete it."),
+         12 : _("If you single-click the name of a saved set, modifications to the selected tags and card types are not saved to that set unless you press 'Save this set for later use' again. This allows you to make some quick-and-dirty temporary modifications.")}
+    
     def __init__(self, component_manager):
         ActivateCardsDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
@@ -80,8 +88,15 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
                 QtCore.Qt.MatchExactly)[0]
             self.saved_sets.setCurrentItem(\
                 item, QtGui.QItemSelectionModel.Rows)
+            self.was_showing_a_saved_set = True
         else:
             self.saved_sets.clearSelection()
+            if self.was_showing_a_saved_set and \
+               self.config()["showed_help_on_modifying_sets"] == False:
+                self.main_widget().show_information(\
+                    _("Cards you (de)activate now will not be stored in the previously selected set unless you explicitly save again."))                
+                self.config()["showed_help_on_modifying_sets"] = True
+            self.was_showing_a_saved_set = False
         splitter_sizes = self.splitter.sizes()
         if self.saved_sets.count() == 0:
             self.splitter.setSizes([0, sum(splitter_sizes)])

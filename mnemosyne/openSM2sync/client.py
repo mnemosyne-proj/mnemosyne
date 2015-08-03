@@ -135,11 +135,12 @@ class Client(Partner):
             if self.check_for_edited_local_media_files:
                 self.ui.set_progress_text("Checking for edited media files...")
                 self.database.check_for_edited_media_files()
-                self.ui.set_progress_text("Dynamically creating media files...")
-                self.database.dynamically_create_media_files()
+            # Always create media files, otherwise they are not synced across.
+            self.ui.set_progress_text("Dynamically creating media files...")
+            self.database.dynamically_create_media_files()
             # Set timeout long enough for e.g. a slow NAS waking from 
             # hibernation.
-            socket.setdefaulttimeout(45)
+            socket.setdefaulttimeout(60)
             self.login(username, password)
             # Generating media files at the server side could take some time,
             # so we update the timeout.

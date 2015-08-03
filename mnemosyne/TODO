@@ -1,10 +1,9 @@
-Why does checking for updated media files take so long if it's turned off?
+time creating media files on client
 
 cannot do cntrl-C from front side whenever backside is displayed (Matthias Ernst)
 
-selecting a set does not update settings in lower pane (Matthias Ernst)
-
-tip explaining saved sets vs just a quick unsaved change.
+selecting a set by double clicking does not show it when restarting the dialog.
+check extra help for deactivate cards
 
 stop mplayer when grading card
 
