@@ -11,10 +11,16 @@ Android:
 -When switching card sets, no longer keep showing an unlearned card that was
  being asked when the switch took place, but give precedence to scheduled cards.
 -Improve robustness of sync protocol.
+-Better runtime documentation for the '(De)activate cards' dialog (requested by 
+ Matthias Ernst).
 -Fix Windows-specific bug, where Mnemosyne would not notice that you were trying
  to open a backup and would not take the appropriate actions.
--To work around bugs in Qt4 under Linux, media are also played using
- mplayer, just like under Windows (reported by Francesco Ariis).
+-When running the sync server on e.g. a headless machine which does not have latex
+ installed, don't waste time looking for updated latex cards.
+-Fix regression where clicking on a saved set would not update the lower pane in
+ '(de)activate cards' (reported by Matthias Ernst).
+-To work around bugs in Qt under Linux, media are also played using
+ mplayer, just like under Windows (reported by Francesco Ariis). 
 -Fix problems with not detecting autorepeat when pressing grade buttons
  (patch by Kilian Evang).
 -Fix RTL issues (reported by Mateusz Konieczny).
