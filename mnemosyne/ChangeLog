@@ -15,10 +15,13 @@ Android:
  Matthias Ernst).
 -Fix Windows-specific bug, where Mnemosyne would not notice that you were trying
  to open a backup and would not take the appropriate actions.
--When running the sync server on e.g. a headless machine which does not have latex
- installed, don't waste time looking for updated latex cards.
--Fix regression where clicking on a saved set would not update the lower pane in
- '(de)activate cards' (reported by Matthias Ernst).
+-When running the sync server on e.g. a headless machine which does not have 
+ latex installed, don't waste time looking for updated latex cards.
+-Fix regression where a currently active set would not show up as highlighed
+ in the 'saved sets' panel when starting '(de)activate cards' (reported by 
+ Matthias Ernst).
+-Improve run-time help with respect to editing a saved set (requested by
+ Mathias Ernst). 
 -To work around bugs in Qt under Linux, media are also played using
  mplayer, just like under Windows (reported by Francesco Ariis). 
 -Fix problems with not detecting autorepeat when pressing grade buttons
