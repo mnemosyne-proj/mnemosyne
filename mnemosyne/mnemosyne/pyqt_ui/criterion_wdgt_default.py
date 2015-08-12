@@ -26,6 +26,7 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
     def __init__(self, component_manager, parent):
         CriterionWidget.__init__(self, component_manager)
         QtGui.QWidget.__init__(self, parent)
+        self.parent = parent
         self.setupUi(self)
         self.card_type_tree_wdgt = CardTypesTreeWdgt(component_manager, self)
         # Bug in Qt: need to explicitly reset the text of this label.
@@ -33,7 +34,7 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
         self.gridLayout.addWidget(self.card_type_tree_wdgt, 1, 0)
         self.tag_tree_wdgt = TagsTreeWdgt(component_manager, self)
         self.gridLayout.addWidget(self.tag_tree_wdgt, 1, 1)
-        self.parent_saved_sets = parent.saved_sets
+        
         criterion = DefaultCriterion(self.component_manager)
         for tag in self.database().tags():
             criterion._tag_ids_active.add(tag._id)
@@ -42,6 +43,10 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
             itemChanged.connect(self.criterion_changed)
         self.tag_tree_wdgt.tree_wdgt.\
             itemChanged.connect(self.criterion_changed)
+        self.card_type_tree_wdgt.tree_wdgt.\
+            itemClicked.connect(self.criterion_clicked)
+        self.tag_tree_wdgt.tree_wdgt.\
+            itemClicked.connect(self.criterion_clicked)
 
     def display_criterion(self, criterion):
         self.card_type_tree_wdgt.display(criterion)
@@ -70,9 +75,15 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
             for tag in self.database().tags():
                 criterion._tag_ids_active.add(tag._id)
         return criterion
+    
+    def criterion_clicked(self):
+        if self.parent.was_showing_a_saved_set:
+            self.main_widget().show_information(\
+                _("Cards you (de)activate now will not be stored in the previously selected set unless you click 'Save this set for later use' again. This allows you to make some quick-and-dirty modifications."))
+            self.parent.was_showing_a_saved_set = False  
 
     def criterion_changed(self):
-        self.parent_saved_sets.clearSelection()
+        self.parent.saved_sets.clearSelection()       
 
     def closeEvent(self, event):
         # This allows the state of the tag tree to be saved.

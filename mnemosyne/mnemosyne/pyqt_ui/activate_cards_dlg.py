@@ -30,6 +30,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
         # Initialise widgets.
+        self.was_showing_a_saved_set = False
         criterion = self.database().current_criterion()
         self.criterion_classes = \
             self.component_manager.all("criterion")
@@ -72,6 +73,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         self.exec_()
 
     def update_saved_sets_pane(self):
+        print 'update saved sets pane'
         self.saved_sets.clear()
         self.criteria_by_name = {}
         active_name = ""
@@ -86,16 +88,10 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         if active_name:
             item = self.saved_sets.findItems(active_name,
                 QtCore.Qt.MatchExactly)[0]
-            self.saved_sets.setCurrentItem(\
-                item, QtGui.QItemSelectionModel.Rows)
+            self.saved_sets.setCurrentItem(item)
             self.was_showing_a_saved_set = True
         else:
             self.saved_sets.clearSelection()
-            if self.was_showing_a_saved_set and \
-               self.config()["showed_help_on_modifying_sets"] == False:
-                self.main_widget().show_information(\
-                    _("Cards you (de)activate now will not be stored in the previously selected set unless you explicitly save again."))                
-                self.config()["showed_help_on_modifying_sets"] = True
             self.was_showing_a_saved_set = False
         splitter_sizes = self.splitter.sizes()
         if self.saved_sets.count() == 0:
@@ -111,7 +107,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         menu.addAction(_("Rename"), self.rename_set)
         menu.exec_(self.saved_sets.mapToGlobal(pos))
 
-    def save_set(self):
+    def save_set(self):        
         criterion = self.tab_widget.currentWidget().criterion()
         if criterion.is_empty():
             self.main_widget().show_error(\
@@ -198,6 +194,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         item = self.saved_sets.findItems(criterion.name,
             QtCore.Qt.MatchExactly)[0]
         self.saved_sets.setCurrentItem(item)
+        self.was_showing_a_saved_set = True
 
     def change_set(self, item, previous_item):
         if previous_item is not None:
