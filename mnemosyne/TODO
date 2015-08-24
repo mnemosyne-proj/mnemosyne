@@ -1,4 +1,5 @@
-sync: 485 fact from log entry: f2b only to both ways, back to f2b only, then to sentence
+sync bug: fact deleted before edit, 
+See how we can deal with this legacy code: sync: line 486, deploy new code
 
 time creating media files on client
 
@@ -33,6 +34,8 @@ self.component_manager.current("database_maintance")
 
 Android:
 
+-tooltip on existence of menu button
+
 -problem in sqlite sync with unicode filenames in sqlitesync line 200 doing a full
  sync from Android.
  
@@ -60,6 +63,14 @@ Android:
 
 -merge database does not merge inactive cards. OK?
 
+
+-readlang importer
+-memrise importer
+-type answer
+-new learning modes for initial learning of tag? multiple choice? Select audio?
+-gamification
+
+-daily goals: memorise x, review y, streak chart, ...
 
 -add creation date / modification date to current card statistics
 

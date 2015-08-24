@@ -289,6 +289,7 @@ class DefaultController(Controller):
                 # We've created a new fact here. Make sure the calling function
                 # has the information to reload the fact.
                 fact._id = new_cards[0].fact._id
+                fact.id = new_cards[0].fact.id
                 if is_currently_asked:
                     self.review_controller().card = new_cards[0]
                 return 0
