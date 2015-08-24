@@ -42,7 +42,7 @@ class Widget(MainWidget):
         global last_error
         last_error = error
         # Activate this for debugging.
-        #sys.stderr.write(error)
+        sys.stderr.write(error)
 
     def show_question(self, question, option0, option1, option2):
         #sys.stderr.write(question+'\n')
@@ -3451,6 +3451,41 @@ class TestSync(object):
             card_type, "1 cloned")
         self.client.mnemosyne.controller().change_card_type([card.fact],
             card_type, card_type_clone, correspondence={})
+        self.client.mnemosyne.controller().save_file()
+        self.client.do_sync(); assert last_error is None
+        
+    def test_convert_chain(self):
+
+        def test_server(self):
+            pass
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type_1 = self.client.mnemosyne.card_type_with_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type_1,
+            grade=-1, tag_names=["a"])[0]
+        card_type_2 = self.client.mnemosyne.card_type_with_id("2")
+        self.client.mnemosyne.controller().change_card_type([card.fact],
+            card_type_1, card_type_2, correspondence={})
+        self.client.mnemosyne.controller().change_card_type([card.fact],
+            card_type_2, card_type_1, correspondence={})        
+        
+        from mnemosyne.libmnemosyne.card_types.sentence import SentencePlugin
+        for plugin in self.client.mnemosyne.plugins():
+            if isinstance(plugin, SentencePlugin):
+                plugin.activate()
+                break
+        card_type = self.client.mnemosyne.card_type_with_id("6")
+        card_type_clone = self.client.mnemosyne.controller().clone_card_type(\
+            card_type, "6 cloned")
+        self.client.mnemosyne.controller().change_card_type([card.fact],
+            card_type_1, card_type_clone, correspondence= {"f": "m_1", "b": "f"})
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
 
