@@ -171,12 +171,12 @@ docs:
 	cd mnemosyne/libmnemosyne/docs && make html
 	
 android: # Creats the assets file with the Python code.
-	rm -f mnemosyne/android/mnemosyne/assets/mnemosyne.zip
+	rm -f mnemosyne/android/app/src/main/assets/mnemosyne.zip
 	#python -m compileall mnemosyne
-	zip	-r mnemosyne/android/mnemosyne/assets/mnemosyne.zip openSM2sync -i \*.py
-	zip -r mnemosyne/android/mnemosyne/assets/mnemosyne.zip mnemosyne/libmnemosyne -i \*.py
-	zip	-r mnemosyne/android/mnemosyne/assets/mnemosyne.zip mnemosyne/cle -i \*.py
-	zip	mnemosyne/android/mnemosyne/assets/mnemosyne.zip mnemosyne/version.py mnemosyne/__init__.py	
+	zip	-r mnemosyne/android/app/src/main/assets/mnemosyne.zip openSM2sync -i \*.py
+	zip -r mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/libmnemosyne -i \*.py
+	zip	-r mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/cle -i \*.py
+	zip	mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/version.py mnemosyne/__init__.py	
 	
 windows-installer:
 	rm -rf dist

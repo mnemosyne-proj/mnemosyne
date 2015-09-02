@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+     <TextView
+         android:id="@+id/questionLabel"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="Question:" />
+
+     <WebView
+         android:id="@+id/question"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layout_weight="1" />
+
+     <TextView
+         android:id="@+id/answerLabel"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="Answer:" />
+
+     <WebView
+         android:id="@+id/answer"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layout_weight="1" />
+
+     <Button
+         android:id="@+id/showAnswerButton"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:paddingTop="15dp"
+         android:paddingBottom="15dp"
+         android:background="@android:color/transparent"
+         android:textColor="@android:color/white"
+         android:text="Show answer" />
+     
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal">
+
+         <Button
+             android:id="@+id/button0"
+             android:paddingTop="15dp"
+             android:paddingBottom="15dp"
+             android:background="@android:color/transparent"
+             android:textColor="@android:color/white"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:text="0" />
+
+         <Button
+             android:id="@+id/button1"
+             android:paddingTop="15dp"
+             android:paddingBottom="15dp"             
+             android:background="@android:color/transparent"
+             android:textColor="@android:color/white"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:text="1" />
+
+         <Button
+             android:paddingTop="15dp"
+             android:paddingBottom="15dp"             
+             android:id="@+id/button2"
+             android:background="@android:color/transparent"
+             android:textColor="@android:color/white"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:text="2" />
+
+         <Button
+             android:id="@+id/button3"
+             android:paddingTop="15dp"
+             android:paddingBottom="15dp"
+             android:background="@android:color/transparent"
+             android:textColor="@android:color/white"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:text="3" />
+
+         <Button
+             android:id="@+id/button4"
+             android:paddingTop="15dp"
+             android:paddingBottom="15dp"
+             android:background="@android:color/transparent"
+             android:textColor="@android:color/white"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:text="4" />
+
+         <Button
+             android:id="@+id/button5"
+             android:paddingTop="15dp"
+             android:paddingBottom="15dp"
+             android:background="@android:color/transparent"
+             android:textColor="@android:color/white"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:text="5" />
+     </LinearLayout>
+
+     <TextView
+         android:id="@+id/statusbar"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="Statusbar" />
+    
+ </LinearLayout>    
+
+<!-- From: file:/C:/Users/Peter/Documents/files/source/mnemosyne-proj-pbienst/pbienst/mnemosyne/mnemosyne/android/app/src/main/res/layout/main.xml -->
