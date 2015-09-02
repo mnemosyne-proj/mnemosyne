@@ -1,19 +1,16 @@
-sync bug: fact deleted before edit, 
-See how we can deal with this legacy code: sync: line 486, deploy new code
-
-time creating media files on client
-
-cannot do cntrl-C from front side whenever backside is displayed (Matthias Ernst)
+cannot do cntrl-C from front side whenever backside is displayed (Matthias Ernst, uservoice?)
 
 stop mplayer when grading card
 
-tmp hide 'archive old log'
+* Joel Petterson: convert to Android studio
 
 
 archiving old log:
 
 * mention in GUI that maintanence will happen automaticcaly
 * run automatically
+
+* reenable button in 'compact database'
 
 * remove comments about no progress dialogs in sqlite code
 * refactor progress dialogs, add GUI signals to dialog and test
@@ -25,7 +22,6 @@ self.component_manager.current("database_maintance")
 * where does 'do_database_maintenance_live'. Controller? db seems better.
 
 
-* Joel Petterson: convert to Android studio
 * android db maintance class
 
 * full sync should also send archive across
@@ -68,7 +64,7 @@ Android:
 -memrise importer
 -type answer
 -new learning modes for initial learning of tag? multiple choice? Select audio?
--gamification
+-gamification? userinfuser
 
 -daily goals: memorise x, review y, streak chart, ...
 
@@ -105,6 +101,7 @@ Android:
 
 -starting the program when no cards are shown does not draw a border around the
  Q field
+ 
  
 -reverse arabic plugin no longer seems to work?
  http://mpcabd.igeex.biz/python-arabic-text-reshaper/

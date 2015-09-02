@@ -462,18 +462,17 @@ class SQLiteSync(object):
         self.add_fact(self.fact_from_log_entry(log_entry))
 
     def fact_from_log_entry(self, log_entry):
+        # Work around legacy logs which contain duplicate deletion events.
+        # Leftover from old bug, should not reoccur.
+        if not self.has_fact_with_id(log_entry["o_id"]):
+            self.main_widget().show_information(\
+        _("Deleting same fact twice during sync. Inform the developpers."))                
+            fact = Fact({}, log_entry["o_id"])
+            fact._id = -1
+            return fact             
         # Get fact object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_FACT:
-            # Work around legacy logs which contain duplicate deletion events.
-            if self.has_fact_with_id(log_entry["o_id"]):
-                return self.fact(log_entry["o_id"], is_id_internal=False)
-            else: 
-                # Leftover from old bug, should not reoccur.
-                self.main_widget().show_information(\
-            _("Deleting same fact twice during sync. Inform the developpers."))                
-                fact = Fact({}, log_entry["o_id"])
-                fact._id = -1
-                return fact  
+            return self.fact(log_entry["o_id"], is_id_internal=False)
         # Create fact object.
         fact_data = {}
         for key, value in log_entry.iteritems():
@@ -482,7 +481,7 @@ class SQLiteSync(object):
         fact = Fact(fact_data, log_entry["o_id"])
         if log_entry["type"] != EventTypes.ADDED_FACT:
             fact._id = self.con.execute("select _id from facts where id=?",
-                (fact.id, )).fetchone()[0]
+                (fact.id, )).fetchone()[0]                
         return fact
 
     def add_card_from_log_entry(self, log_entry):

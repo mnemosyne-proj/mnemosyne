@@ -49,6 +49,9 @@ class CompactDatabaseDlg(QtGui.QDialog, Ui_CompactDatabaseDlg,
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
+        
+        # TMP
+        self.archive_old_logs.hide()
 
     def activate(self):
         self.exec_()
