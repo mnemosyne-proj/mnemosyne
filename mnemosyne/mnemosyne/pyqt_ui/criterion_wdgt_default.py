@@ -77,10 +77,11 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
         return criterion
     
     def criterion_clicked(self):
+        print 'criterion clicked'
         if self.parent.was_showing_a_saved_set:
             self.main_widget().show_information(\
                 _("Cards you (de)activate now will not be stored in the previously selected set unless you click 'Save this set for later use' again. This allows you to make some quick-and-dirty modifications."))
-            self.parent.was_showing_a_saved_set = False  
+            self.parent.was_showing_a_saved_set = False
 
     def criterion_changed(self):
         self.parent.saved_sets.clearSelection()       
@@ -88,3 +89,10 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
     def closeEvent(self, event):
         # This allows the state of the tag tree to be saved.
         self.tag_tree_wdgt.close()
+        # Work around where these calls would still fire when clicking in the same
+        # area where e.g. the tag browser used to be, even after closing the 
+        # 'Activate cards' window.
+        self.card_type_tree_wdgt.tree_wdgt.\
+            itemClicked.disconnect(self.criterion_clicked)
+        self.tag_tree_wdgt.tree_wdgt.\
+            itemClicked.disconnect(self.criterion_clicked)

@@ -73,7 +73,6 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         self.exec_()
 
     def update_saved_sets_pane(self):
-        print 'update saved sets pane'
         self.saved_sets.clear()
         self.criteria_by_name = {}
         active_name = ""
