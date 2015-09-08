@@ -464,7 +464,8 @@ class SQLiteSync(object):
     def fact_from_log_entry(self, log_entry):
         # Work around legacy logs which contain duplicate deletion events.
         # Leftover from old bug, should not reoccur.
-        if not self.has_fact_with_id(log_entry["o_id"]):
+        if log_entry["type"] != EventTypes.ADDED_FACT and \
+           not self.has_fact_with_id(log_entry["o_id"]):
             self.main_widget().show_information(\
         _("Deleting same fact twice during sync. Inform the developpers."))                
             fact = Fact({}, log_entry["o_id"])

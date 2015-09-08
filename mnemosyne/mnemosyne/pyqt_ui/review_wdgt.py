@@ -219,6 +219,9 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         parent.add_to_status_bar(self.notmem)
         parent.add_to_status_bar(self.act)
         parent.status_bar.setSizeGripEnabled(0)
+        self.widget_with_last_selection = self.question
+        self.question.selectionChanged.connect(self.selection_changed_in_q)
+        self.answer.selectionChanged.connect(self.selection_changed_in_a)
         QAOptimalSplit.__init__(self)     
 
     def changeEvent(self, event):
@@ -297,14 +300,16 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         y -= int(0.9*(frame.geometry().height()))
         #frame.scroll(x, y)  # Seems buggy 20111121.
         frame.evaluateJavaScript("window.scrollTo(%d, %d);" % (x, y))
-
+        
+    def selection_changed_in_q(self):
+        self.widget_with_last_selection = self.question
+        
+    def selection_changed_in_a(self):
+        self.widget_with_last_selection = self.answer
+        
     def copy(self):
-        if self.review_controller().is_question_showing() or \
-           self.review_controller().card.fact_view.a_on_top_of_q:
-            webview = self.question
-        else:
-            webview = self.answer
-        webview.pageAction(QtWebKit.QWebPage.Copy).trigger()
+        self.widget_with_last_selection.pageAction(\
+            QtWebKit.QWebPage.Copy).trigger()
 
     def show_answer(self):     
         self.review_controller().show_answer()

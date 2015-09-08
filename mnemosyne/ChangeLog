@@ -13,6 +13,8 @@ Android:
 -Improve robustness of sync protocol.
 -Better runtime documentation for the '(De)activate cards' dialog (requested by 
  Matthias Ernst).
+-Allow Cntl-C to copy text from question if answer is showing (reported by
+ Mathias Ernst). 
 -Fix Windows-specific bug, where Mnemosyne would not notice that you were trying
  to open a backup and would not take the appropriate actions.
 -When running the sync server on e.g. a headless machine which does not have 
