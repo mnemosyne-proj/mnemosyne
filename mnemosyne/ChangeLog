@@ -11,6 +11,8 @@ Android:
 -When switching card sets, no longer keep showing an unlearned card that was
  being asked when the switch took place, but give precedence to scheduled cards.
 -Improve robustness of sync protocol.
+-Prefill tag behaviour plugin: don't update the last used tags when editing a 
+ card, only when adding new cards.
 -Better runtime documentation for the '(De)activate cards' dialog (requested by 
  Matthias Ernst).
 -Allow Cntl-C to copy text from question if answer is showing (reported by

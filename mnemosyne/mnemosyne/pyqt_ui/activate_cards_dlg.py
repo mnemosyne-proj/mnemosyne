@@ -200,6 +200,11 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
             self.load_set(item)
 
     def select_set_and_close(self, item):
+        # Work around a Qt bug where these calls would still fire when clicking 
+        # in the same area where e.g. the tag browser used to be, even after 
+        # closing the 'Activate cards' window.        
+        self.was_showing_a_saved_set = False
+        
         self.load_set(item)
         self.accept()
 
