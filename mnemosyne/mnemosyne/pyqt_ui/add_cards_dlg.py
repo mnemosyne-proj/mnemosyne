@@ -129,19 +129,6 @@ class AddEditCards(TipAfterStartingNTimes):
     def card_type_changed(self, new_card_type_name):
         new_card_type_name = unicode(new_card_type_name)
         new_card_type = self.card_type_by_name[new_card_type_name]
-        self.config()["last_used_card_type_id"] = new_card_type.id
-        if new_card_type.id not in \
-            self.config()["last_used_tags_for_card_type_id"]:
-            self.config()["last_used_tags_for_card_type_id"]\
-                [new_card_type.id] = ""
-        if not self.config()["is_last_used_tags_per_card_type"]:
-            if not unicode(self.tags.currentText()):
-                self.update_tags_combobox(self.config()["last_used_tags"])
-        else:
-            if not unicode(self.tags.currentText()) \
-                or self.card_type_widget.is_empty():
-                self.update_tags_combobox(self.config()\
-                    ["last_used_tags_for_card_type_id"][new_card_type.id])
         if self.card_type.fact_keys().issubset(new_card_type.fact_keys()) or \
             self.card_type_widget.is_empty():
             self.update_card_widget()
@@ -210,6 +197,25 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
         state = self.config()["add_cards_dlg_state"]
         if state:
             self.restoreGeometry(state)
+            
+    def card_type_changed(self, new_card_type_name):
+        # We only store the last used tags when creating a new card,
+        # not when editing.
+        new_card_type_name = unicode(new_card_type_name)
+        new_card_type = self.card_type_by_name[new_card_type_name]        
+        if new_card_type.id not in \
+            self.config()["last_used_tags_for_card_type_id"]:
+            self.config()["last_used_tags_for_card_type_id"]\
+                [new_card_type.id] = ""
+        if not self.config()["is_last_used_tags_per_card_type"]:
+            if not unicode(self.tags.currentText()):
+                self.update_tags_combobox(self.config()["last_used_tags"])
+        else:
+            if not unicode(self.tags.currentText()) \
+                or self.card_type_widget.is_empty():
+                self.update_tags_combobox(self.config()\
+                    ["last_used_tags_for_card_type_id"][new_card_type.id]) 
+        AddEditCards.card_type_changed(self, new_card_type_name)
 
     def keyPressEvent(self, event):
         if self.yet_to_learn_button.isEnabled() and event.modifiers() in \
