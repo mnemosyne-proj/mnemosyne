@@ -270,7 +270,8 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         12 : _("You can resize columns in the card browser by dragging between the header labels."),
         15 : _("When editing or previewing cards from the card browser, PageUp/PageDown can be used to move to the previous/next card."),
         18 : _("You change the relative size of the card list, card type tree and tag tree by dragging the dividers between them."),
-        21 : _("In the search box, you can use SQL wildcards like _ (matching a single character) and % (matching one or more characters).")}
+        21 : _("In the search box, you can use SQL wildcards like _ (matching a single character) and % (matching one or more characters)."),
+        24 : _("Cards with strike-through text are inactive in the current set.")}
 
     def __init__(self, component_manager):
         BrowseCardsDialog.__init__(self, component_manager)

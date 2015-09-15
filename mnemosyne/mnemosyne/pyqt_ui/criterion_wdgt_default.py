@@ -77,7 +77,7 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
         return criterion
     
     def criterion_clicked(self):
-        if self.parent.was_showing_a_saved_set:
+        if self.parent.was_showing_a_saved_set and not self.parent.is_shutting_down:
             self.main_widget().show_information(\
                 _("Cards you (de)activate now will not be stored in the previously selected set unless you click 'Save this set for later use' again. This allows you to make some quick-and-dirty modifications."))
             self.parent.was_showing_a_saved_set = False

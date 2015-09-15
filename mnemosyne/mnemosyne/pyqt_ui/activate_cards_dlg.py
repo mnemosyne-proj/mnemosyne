@@ -31,6 +31,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
         # Initialise widgets.
         self.was_showing_a_saved_set = False
+        self.is_shutting_down = False
         criterion = self.database().current_criterion()
         self.criterion_classes = \
             self.component_manager.all("criterion")
@@ -199,13 +200,12 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         if previous_item is not None:
             self.load_set(item)
 
-    def select_set_and_close(self, item):
+    def select_set_and_close(self, item): 
+        self.load_set(item)
         # Work around a Qt bug where these calls would still fire when clicking 
         # in the same area where e.g. the tag browser used to be, even after 
         # closing the 'Activate cards' window.        
-        self.was_showing_a_saved_set = False
-        
-        self.load_set(item)
+        self.is_shutting_down = True
         self.accept()
 
     def _store_state(self):
