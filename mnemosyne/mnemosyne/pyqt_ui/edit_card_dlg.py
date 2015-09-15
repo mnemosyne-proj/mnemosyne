@@ -145,9 +145,6 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         status = self.controller().edit_card_and_sisters(self.card, 
             new_fact_data, new_card_type, new_tag_names, self.correspondence)
         if status == 0:
-            tag_text = ", ".join(new_tag_names)
-            self.config()["last_used_tags_for_card_type_id"][new_card_type.id] \
-                = tag_text
             self.config()["edit_widget_size"] = (self.width(), self.height())
             QtGui.QDialog.accept(self)
 

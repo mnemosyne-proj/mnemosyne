@@ -202,7 +202,8 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
         # We only store the last used tags when creating a new card,
         # not when editing.
         new_card_type_name = unicode(new_card_type_name)
-        new_card_type = self.card_type_by_name[new_card_type_name]        
+        new_card_type = self.card_type_by_name[new_card_type_name] 
+        self.config()["last_used_card_type_id"] = new_card_type.id
         if new_card_type.id not in \
             self.config()["last_used_tags_for_card_type_id"]:
             self.config()["last_used_tags_for_card_type_id"]\

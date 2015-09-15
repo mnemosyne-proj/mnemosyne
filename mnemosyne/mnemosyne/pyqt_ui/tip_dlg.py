@@ -40,6 +40,7 @@ class TipDlg(QtGui.QDialog, Ui_TipDlg, TipDialog):
         self.tips.append(_("""Double-click on a card or tag name in the card browser to edit them."""))
         self.tips.append(_("""You can reorder columns in the card browser by dragging the header label."""))
         self.tips.append(_("""You can resize columns in the card browser by dragging between the header labels."""))
+        self.tips.append(_("""In the card browser, cards with strike-through text are inactive in the current set."""))
         self.tips.append(_("""When editing or previewing cards from the card browser, PageUp/PageDown can be used to move to the previous/next card."""))
         self.tips.append(_("""In the search box of the card browser, you can use SQL wildcards like _ (matching a single character) and % (matching one or more characters)."""))
         self.tips.append(_("""In the 'Add cards' dialog, use Tab to move between different fields, Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."""))
