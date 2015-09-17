@@ -80,6 +80,12 @@ class ReviewWidget(UiComponent):
 
     def update_status_bar_counters(self):
         pass
+    
+    def play_media(self, filename, start=None, stop=None):
+        pass    
+    
+    def stop_media(self):
+        pass
 
     def redraw_now(self):
 

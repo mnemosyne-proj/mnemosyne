@@ -4,6 +4,8 @@
 
 from PyQt4 import QtCore, QtGui, QtWebKit
 
+import sys
+
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.ui_review_wdgt import Ui_ReviewWdgt
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
@@ -179,6 +181,7 @@ class QAOptimalSplit(object):
         self.answer.setHtml(self.empty())
 
 
+
 class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
 
     auto_focus_grades = True
@@ -222,7 +225,9 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         self.widget_with_last_selection = self.question
         self.question.selectionChanged.connect(self.selection_changed_in_q)
         self.answer.selectionChanged.connect(self.selection_changed_in_a)
-        QAOptimalSplit.__init__(self)     
+        QAOptimalSplit.__init__(self) 
+        self.mplayer = QtCore.QProcess()
+        self.media_queue = []
 
     def changeEvent(self, event):
         if hasattr(self, "show_button"):
@@ -385,6 +390,39 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         self.sched.setText(_("Scheduled: %d ") % scheduled_count)
         self.notmem.setText(_("Not memorised: %d ") % non_memorised_count)
         self.act.setText(_("Active: %d ") % active_count)
+        
+    def play_media(self, filename, start=None, stop=None):
+        if start is None:
+            start = 0
+        if stop is None:
+            stop = 999999
+        self.media_queue.append((filename, start, stop))
+        if self.mplayer.state() != QtCore.QProcess.Running:
+            self.play_next_file()
+            
+    def play_next_file(self):
+        filename, start, stop = self.media_queue.pop(0)
+        duration = stop - start
+        if duration > 400:
+            duration -= 300 # Compensate for mplayer overshoot. 
+        self.mplayer = QtCore.QProcess()
+        self.mplayer.finished.connect(self.done_playing)
+        if sys.platform == "win32":            
+            command = "mplayer.exe -slave -ao win32 -quiet " + filename + \
+                " -ss " + str(start) + " -endpos " + str(duration) 
+        else:
+            command = "mplayer -slave -ao -quiet " + filename + \
+                " -ss " + str(start) + " -endpos " + str(duration)
+        self.mplayer.start(command)
+            
+    def done_playing(self, result):
+        if len(self.media_queue) >= 1:
+            self.play_next_file()
+        
+    def stop_media(self):
+        if self.mplayer is not None:
+            self.mplayer.write("quit\n");
+        self.media_queue = []
 
     def redraw_now(self):
         self.repaint()
