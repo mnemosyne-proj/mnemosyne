@@ -102,6 +102,7 @@ class SM2Controller(ReviewController):
         self._state = state
 
     def show_new_question(self):
+        self.widget.stop_media()
         # Reload the counters if they have not yet been initialised. Also do
         # this if the active counter is zero, make sure it is really zero to
         # get a correct test for no more cards.

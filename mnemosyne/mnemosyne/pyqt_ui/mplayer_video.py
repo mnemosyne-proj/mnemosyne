@@ -75,6 +75,6 @@ class MplayerVideo(Filter):
                 ["-ss", str(start), "-endpos", str(duration)],
                 startupinfo=info)
         else:
-            subprocess.Popen(["mplayer.exe", "-ao"] + video_files + \
+            subprocess.Popen(["mplayer", "-ao"] + video_files + \
                 ["-ss", str(start), "-endpos", str(duration)])            
         return text

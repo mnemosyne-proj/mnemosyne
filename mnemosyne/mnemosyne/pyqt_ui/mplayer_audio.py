@@ -67,14 +67,21 @@ class MplayerAudio(Filter):
                 if stop_match:
                     stop = float(stop_match.group(1))
             text = text.replace(match.group(0), "")
+            self.review_widget().play_media(sound_file, start, stop)
+        return text
+       
         duration = stop - start
         if duration > 400:
-            duration -= 300 # Compensate for mplayer overshoot.    
-        if sys.platform == "win32":
-            subprocess.Popen(["mplayer.exe", "-ao", "win32"] + sound_files + \
+            duration -= 300 # Compensate for mplayer overshoot. 
+            
+       
+            
+        if sys.platform == "win32":            
+            subprocess.Popen(["mplayer.exe", "-slave", "-ao", "win32", "-quiet"] + sound_files + \
                 ["-ss", str(start), "-endpos", str(duration)], 
+                #stdin=subprocess.PIPE, stdout=subprocess.PIPE, bufsize=1,
                 startupinfo=info)
         else:
-            subprocess.Popen(["mplayer.exe", "-ao"] + sound_files + \
-                ["-ss", str(start), "-endpos", str(duration)])            
+            p = subprocess.Popen(["mplayer", "-ao"] + sound_files + \
+                ["-ss", str(start), "-endpos", str(duration)])       
         return text

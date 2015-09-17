@@ -1,4 +1,5 @@
-stop mplayer when grading card
+refactor existing mplayer filters
+refactor android player infrastructure?
 
 
 archiving old log:
@@ -71,7 +72,6 @@ Android:
 -duplicate check on answer too? Needs to check whether all necessary fields are marked as unique,
  also in F2B and B2F, vocabulary
  
--fix multiple audio files and start/stop (Ansgar Bohmann) 
 
 -better in dialog explanation for hold n cards in your hand?
 
