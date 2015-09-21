@@ -145,6 +145,8 @@ class SM2Mnemosyne(Scheduler):
         self.warned_about_too_many_cards = False
 
     def heartbeat(self):
+        # Should no longer be called.
+        1/0
         if time.time() > self._fact_ids_memorised_expires_at:
             self._fact_ids_memorised = []
             self._fact_ids_memorised_expires_at = int(time.time()) + DAY
