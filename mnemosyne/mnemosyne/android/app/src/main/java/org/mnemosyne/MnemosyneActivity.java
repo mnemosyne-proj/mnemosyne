@@ -27,8 +27,11 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class MnemosyneActivity extends Activity {
 
@@ -186,6 +189,16 @@ public class MnemosyneActivity extends Activity {
             SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("shown_first_run_wizard", true);
             editor.commit();
+
+            // Heartbeat
+            ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+            scheduler.scheduleAtFixedRate(new Runnable() {
+                public void run() {
+                    Log.d("Mnemosyne", "call heartbeat");
+                    mnemosyneThread.controller._Call("heartbeat");
+                }
+            }, 0, 1, TimeUnit.SECONDS);
+            Log.d("Mnemosyne", "started scheduler");
         }
     }
 

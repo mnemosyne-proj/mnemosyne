@@ -46,6 +46,7 @@ class DefaultController(Controller):
 
         """
 
+        print 'heartbeat'
         if time.time() > self.next_rollover:
             self.flush_sync_server()
             if not self.database().is_loaded() or \

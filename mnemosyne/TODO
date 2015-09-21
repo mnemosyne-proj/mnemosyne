@@ -1,5 +1,5 @@
 refactor existing mplayer filters
-refactor android player infrastructure?
+remove scheduler.heartbeat
 
 
 archiving old log:
@@ -31,8 +31,9 @@ Android:
 
 -problem in sqlite sync with unicode filenames in sqlitesync line 200 doing a full
  sync from Android.
- 
--issue with scheduled cards counter near rollover? 
+-refactor os.path.exists to also fall back to unicode in other places in the code? 
+
+-issue with scheduled cards counter near rollover
 
 -warning for protocol mismatch does not seem to fire
 
@@ -43,6 +44,8 @@ Android:
 -set default grade
 -check 'redraw now'
 -check functionality for map card types
+
+
 
 
 
