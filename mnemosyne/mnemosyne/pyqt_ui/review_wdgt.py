@@ -408,11 +408,11 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         self.mplayer = QtCore.QProcess()
         self.mplayer.finished.connect(self.done_playing)
         if sys.platform == "win32":            
-            command = "mplayer.exe -slave -ao win32 -quiet " + filename + \
-                " -ss " + str(start) + " -endpos " + str(duration) 
+            command = "mplayer.exe -slave -ao win32 -quiet \"" + filename + \
+                "\" -ss " + str(start) + " -endpos " + str(duration) 
         else:
-            command = "mplayer -slave -ao -quiet " + filename + \
-                " -ss " + str(start) + " -endpos " + str(duration)
+            command = "mplayer -slave -ao -quiet \"" + filename + \
+                "\" -ss " + str(start) + " -endpos " + str(duration)
         self.mplayer.start(command)
             
     def done_playing(self, result):

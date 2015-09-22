@@ -4,8 +4,6 @@
 
 import os
 import re
-import sys
-import subprocess
 
 from mnemosyne.libmnemosyne.utils import copy
 from mnemosyne.libmnemosyne.filter import Filter
@@ -16,12 +14,6 @@ re_start = re.compile(r"""start=\"(.+?)\"""",
     re.DOTALL | re.IGNORECASE)
 re_stop = re.compile(r"""stop=\"(.+?)\"""",
     re.DOTALL | re.IGNORECASE)
-
-if sys.platform == "win32":
-    # Don't show batch window.
-    info = subprocess.STARTUPINFO()
-    info.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-    info.wShowWindow = subprocess.SW_HIDE
 
 
 class MplayerVideo(Filter):
@@ -34,7 +26,6 @@ class MplayerVideo(Filter):
             return text
         if not re_video.search(text):
             return text
-        video_files = []
         index = 0
         for match in re_video.finditer(text):
             video_file = match.group(1)
@@ -57,7 +48,6 @@ class MplayerVideo(Filter):
                 copy(video_file.replace("file:///", ""), new_name)
                 index += 1
                 video_file = new_name
-            video_files.append(video_file)
             start, stop = 0, 999999
             if match.group(2):
                 start_match = re_start.search(match.group(2))
@@ -67,14 +57,5 @@ class MplayerVideo(Filter):
                 if stop_match:
                     stop = float(stop_match.group(1))
             text = text.replace(match.group(0), "")
-        duration = stop - start
-        if duration > 400:
-            duration -= 300 # Compensate for mplayer overshoot.
-        if sys.platform == "win32":
-            subprocess.Popen(["mplayer.exe", "-ao", "win32"] + video_files + \
-                ["-ss", str(start), "-endpos", str(duration)],
-                startupinfo=info)
-        else:
-            subprocess.Popen(["mplayer", "-ao"] + video_files + \
-                ["-ss", str(start), "-endpos", str(duration)])            
+            self.review_widget().play_media(video_file, start, stop)        
         return text

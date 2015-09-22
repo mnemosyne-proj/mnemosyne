@@ -1,5 +1,6 @@
-refactor existing mplayer filters
-remove scheduler.heartbeat
+Android issue with scheduled cards counter near rollover
+
+pg up discards edits in card browser (vmixeen)
 
 
 archiving old log:
@@ -30,10 +31,10 @@ Android:
 -tooltip on existence of menu button
 
 -problem in sqlite sync with unicode filenames in sqlitesync line 200 doing a full
- sync from Android.
+ sync from Android: workaround in place
 -refactor os.path.exists to also fall back to unicode in other places in the code? 
 
--issue with scheduled cards counter near rollover
+
 
 -warning for protocol mismatch does not seem to fire
 
@@ -44,8 +45,6 @@ Android:
 -set default grade
 -check 'redraw now'
 -check functionality for map card types
-
-
 
 
 
@@ -194,6 +193,9 @@ http://stackoverflow.com/questions/1609637/is-it-possible-to-insert-multiple-row
  and keep one of the conflicting version.
 
 -add debug information for conflict detection?
+
+-refactor audio/video backend to move more functionality to libmnemosyne, simplify Android
+ and pyqt code, merge audio and video filter
 
 -automatic font size adjustment: http://www.spookandpuff.com/examples/dynamicTextSize.html
 

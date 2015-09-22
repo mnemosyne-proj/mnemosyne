@@ -4,8 +4,6 @@
 
 import os
 import re
-import sys
-import subprocess
 
 from mnemosyne.libmnemosyne.utils import copy
 from mnemosyne.libmnemosyne.filter import Filter
@@ -16,12 +14,6 @@ re_start = re.compile(r"""start=\"(.+?)\"""",
     re.DOTALL | re.IGNORECASE)
 re_stop = re.compile(r"""stop=\"(.+?)\"""",
     re.DOTALL | re.IGNORECASE)
-
-if sys.platform == "win32":
-    # Don't show batch window.
-    info = subprocess.STARTUPINFO()
-    info.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-    info.wShowWindow = subprocess.SW_HIDE
 
 
 class MplayerAudio(Filter):
@@ -34,7 +26,6 @@ class MplayerAudio(Filter):
             return text
         if not re_audio.search(text):
             return text
-        sound_files = []
         index = 0
         for match in re_audio.finditer(text):
             sound_file = match.group(1)
@@ -57,7 +48,6 @@ class MplayerAudio(Filter):
                 copy(sound_file.replace("file:///", ""), new_name)
                 index += 1
                 sound_file = new_name
-            sound_files.append(sound_file)
             start, stop = 0, 999999
             if match.group(2):
                 start_match = re_start.search(match.group(2))
@@ -68,20 +58,4 @@ class MplayerAudio(Filter):
                     stop = float(stop_match.group(1))
             text = text.replace(match.group(0), "")
             self.review_widget().play_media(sound_file, start, stop)
-        return text
-       
-        duration = stop - start
-        if duration > 400:
-            duration -= 300 # Compensate for mplayer overshoot. 
-            
-       
-            
-        if sys.platform == "win32":            
-            subprocess.Popen(["mplayer.exe", "-slave", "-ao", "win32", "-quiet"] + sound_files + \
-                ["-ss", str(start), "-endpos", str(duration)], 
-                #stdin=subprocess.PIPE, stdout=subprocess.PIPE, bufsize=1,
-                startupinfo=info)
-        else:
-            p = subprocess.Popen(["mplayer", "-ao"] + sound_files + \
-                ["-ss", str(start), "-endpos", str(duration)])       
         return text

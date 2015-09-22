@@ -15,7 +15,10 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 
 public class MnemosyneThread extends Thread {
 
@@ -32,6 +35,7 @@ public class MnemosyneThread extends Thread {
     Handler mnemosyneHandler;
     Handler UIHandler;
     String basedir;
+    ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
     public MnemosyneThread(MnemosyneActivity activity, Handler handler, String packageName) {
         UIActivity = activity;
@@ -71,8 +75,6 @@ public class MnemosyneThread extends Thread {
             Service._CheckPassword(false);
             SrvGroup = (StarSrvGroupClass) Service._Get("_ServiceGroup");
             SrvGroup._InitRaw("python", Service);
-
-
         }
         python = Service._ImportRawContext("python", "", false, "");
 
@@ -110,6 +112,17 @@ public class MnemosyneThread extends Thread {
                 progressDialog.dismiss();
             }
         });
+
+        // Heartbeat
+        this.scheduler.scheduleAtFixedRate(new Runnable() {
+            public void run() {
+                mnemosyneHandler.post(new Runnable() {
+                    public void run() {
+                        controller._Call("heartbeat");
+                    }
+                });
+            }
+        }, 0, 10, TimeUnit.SECONDS);
     }
 
     public void pauseMnemosyne() {
@@ -119,6 +132,7 @@ public class MnemosyneThread extends Thread {
 
     public void stopMnemosyne() {
         Log.d("Mnemosyne", "stopping Mnemosyne");
+        this.scheduler.shutdownNow();
         python._Call("stop_mnemosyne");
         // Wait until the CLE core queue is empty.
         while (starcore._SRPDispatch(false) == true); // Empty loop, consume current queue message.
@@ -392,7 +406,7 @@ public class MnemosyneThread extends Thread {
             }
         });
     }
-    
+
     public void setProgressValue(int value) {
         final int _value = value;
         UIHandler.post(new Runnable() {
