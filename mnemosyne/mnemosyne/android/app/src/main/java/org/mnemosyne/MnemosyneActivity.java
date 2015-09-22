@@ -189,16 +189,6 @@ public class MnemosyneActivity extends Activity {
             SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("shown_first_run_wizard", true);
             editor.commit();
-
-            // Heartbeat
-            ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-            scheduler.scheduleAtFixedRate(new Runnable() {
-                public void run() {
-                    Log.d("Mnemosyne", "call heartbeat");
-                    mnemosyneThread.controller._Call("heartbeat");
-                }
-            }, 0, 1, TimeUnit.SECONDS);
-            Log.d("Mnemosyne", "started scheduler");
         }
     }
 
@@ -464,6 +454,7 @@ public class MnemosyneActivity extends Activity {
                 mnemosyneThread.stopMnemosyne();
             }
         });
+
     }
 
     @Override

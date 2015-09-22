@@ -16,12 +16,6 @@ class Scheduler(Component):
 
         raise NotImplementedError
 
-    def heartbeat(self):
-
-        """For code that needs to run periodically."""
-
-        pass
-
     def set_initial_grade(self, cards, grade):
 
         """Sets the initial grades for a set of sister cards, making sure
