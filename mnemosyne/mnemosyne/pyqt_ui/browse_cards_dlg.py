@@ -472,6 +472,12 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         self.table.selectRow(current_row + shift)
         _card_ids = self._card_ids_from_selection()
         card = self.database().card(_card_ids.pop(), is_id_internal=True)
+        self.edit_dlg.before_apply_hook = self.unload_qt_database
+        self.edit_dlg.apply_changes()
+        
+        # TODO: reload database if return value of apply changes indicates
+        # that a change has taken place.
+        
         self.edit_dlg.set_new_card(card)
 
     def menu_preview(self):
