@@ -1,6 +1,6 @@
-Android issue with scheduled cards counter near rollover
-
 pg up discards edits in card browser (vmixeen)
+
+remove spurious android files from repository.
 
 
 archiving old log:
@@ -33,7 +33,6 @@ Android:
 -problem in sqlite sync with unicode filenames in sqlitesync line 200 doing a full
  sync from Android: workaround in place
 -refactor os.path.exists to also fall back to unicode in other places in the code? 
-
 
 
 -warning for protocol mismatch does not seem to fire

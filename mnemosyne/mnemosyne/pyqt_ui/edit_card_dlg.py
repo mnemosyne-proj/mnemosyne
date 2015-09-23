@@ -123,9 +123,20 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
     def set_valid(self, valid):
         self.OK_button.setEnabled(valid)
         self.preview_button.setEnabled(valid)
-
-    def accept(self):
-        self._store_state()
+        
+    def is_changed(self):
+        changed = False
+        for fact_key in self.card.fact.data:
+            if fact_key in self.card_type_widget.fact_data() and \
+                self.card_type_widget.fact_data()[fact_key] \
+                != self.card.fact.data[fact_key]:
+                changed = True
+                break
+        return changed       
+        
+    def apply_changes(self):
+        if self.is_changed() == False:
+            return 0
         new_fact_data = self.card_type_widget.fact_data()
         new_tag_names = [tag.strip() for tag in \
             unicode(self.tags.currentText()).split(',')]
@@ -137,26 +148,24 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
                 # No need to update the dialog, except when we're merging 
                 # a card when 'allow_cancel' is False.
                 QtGui.QDialog.reject(self)
-                return
+                return -1
         # If this is called from the card browser, call this hook to unload
         # the Qt database.
         if self.before_apply_hook:
             self.before_apply_hook()
         status = self.controller().edit_card_and_sisters(self.card, 
             new_fact_data, new_card_type, new_tag_names, self.correspondence)
+        return status
+
+    def accept(self):
+        self._store_state()
+        status = self.apply_changes()
         if status == 0:
             self.config()["edit_widget_size"] = (self.width(), self.height())
             QtGui.QDialog.accept(self)
 
     def reject(self):  # Override 'add cards' behaviour.
-        changed = False
-        for fact_key in self.card.fact.data:
-            if fact_key in self.card_type_widget.fact_data() and \
-                self.card_type_widget.fact_data()[fact_key] \
-                != self.card.fact.data[fact_key]:
-                changed = True
-                break
-        if changed:
+        if self.is_changed() == True:
             status = self.main_widget().show_question(\
                 _("Abandon changes to current card?"), _("&Yes"), _("&No"), "")
             if status == 0:

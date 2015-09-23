@@ -80,10 +80,12 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component,
         self.next_button.setEnabled(self.index != len(self.cards) - 1)
 
     def previous(self):
+        self.review_widget().stop_media()
         self.index -= 1
         self.update_dialog()
 
     def next(self):
+        self.review_widget().stop_media()
         self.index += 1
         self.update_dialog()
 
@@ -92,9 +94,11 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component,
 
     def closeEvent(self, event):
         # Generated when clicking the window's close button.
+        self.review_widget().stop_media()
         self._store_state()
 
     def accept(self):
         # 'accept' does not generate a close event.
         self._store_state()
+        self.review_widget().stop_media()
         return QtGui.QDialog.accept(self)
