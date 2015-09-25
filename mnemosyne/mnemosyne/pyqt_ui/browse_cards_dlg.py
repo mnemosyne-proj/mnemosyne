@@ -454,6 +454,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         # Here, we don't unload the database already by ourselves, but leave
         # it to the edit dialog to only do so if needed.
         self.edit_dlg.before_apply_hook = self.unload_qt_database
+        self.edit_dlg.after_apply_hook = None
         self.edit_dlg.page_up_down_signal.connect(self.page_up_down_edit)
         if self.edit_dlg.exec_() == QtGui.QDialog.Accepted:
             self.card_type_tree_wdgt.rebuild()
@@ -473,11 +474,11 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         _card_ids = self._card_ids_from_selection()
         card = self.database().card(_card_ids.pop(), is_id_internal=True)
         self.edit_dlg.before_apply_hook = self.unload_qt_database
+        def after_apply():
+            self.load_qt_database()
+            self.display_card_table()
+        self.edit_dlg.after_apply_hook = after_apply 
         self.edit_dlg.apply_changes()
-        
-        # TODO: reload database if return value of apply changes indicates
-        # that a change has taken place.
-        
         self.edit_dlg.set_new_card(card)
 
     def menu_preview(self):
