@@ -45,6 +45,7 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
         self.started_from_card_browser = started_from_card_browser
         self.before_apply_hook = None
+        self.after_apply_hook = None
         self.allow_cancel = allow_cancel
         if not allow_cancel:
             self.exit_button.setVisible(False)
@@ -54,6 +55,7 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         state = self.config()["edit_card_dlg_state"]
         if state:
             self.restoreGeometry(state)
+        self.review_widget().stop_media()
         # Make sure we can capture PageUp/PageDown keys before any of the
         # children (e.g. comboboxes) do so.
         if self.started_from_card_browser:
@@ -155,6 +157,8 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
             self.before_apply_hook()
         status = self.controller().edit_card_and_sisters(self.card, 
             new_fact_data, new_card_type, new_tag_names, self.correspondence)
+        if self.after_apply_hook:
+            self.after_apply_hook()        
         return status
 
     def accept(self):

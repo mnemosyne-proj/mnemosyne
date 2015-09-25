@@ -14,6 +14,8 @@ Android:
 -When moving to a next card, kill the audio from the previous card.
 -Multiple media files per card now works in conjunction with the 'start' and
  'stop' options.
+-When editing a card from the card browser, PgUp and PgDown no longer discard
+ the changes (reported by vmixeen).
 -Fixed issue where creating clones of card types would sometimes clone the wrong
  card type.
 -Prefill tag behaviour plugin: don't update the last used tags when editing a 
