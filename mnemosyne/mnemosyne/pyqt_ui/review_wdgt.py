@@ -228,6 +228,9 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         QAOptimalSplit.__init__(self) 
         self.mplayer = QtCore.QProcess()
         self.media_queue = []
+        
+    def deactivate(self):
+        self.stop_media()
 
     def changeEvent(self, event):
         if hasattr(self, "show_button"):

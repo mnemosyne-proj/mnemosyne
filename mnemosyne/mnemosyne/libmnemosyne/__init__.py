@@ -365,7 +365,8 @@ _("If you are using a USB key, refer to the instructions on the website so as no
         # card types does not raise an error about card types in use.
         self.database().deactivate()
         self.component_manager.unregister(self.database())
-        # Then do the other components.
+        # Then do the review widget and other components.
+        self.review_widget().deactivate()
         self.component_manager.deactivate_all()
         unregister_component_manager(user_id)
         if self.component_manager.debug_file:
