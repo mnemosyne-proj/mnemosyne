@@ -127,9 +127,12 @@ class Component(object):
         change the database (e.g. adding a card). Otherwise, if these
         sessions close later during program shutdown, their backup
         restoration will override the changes.
+        
+        Also stop any running media.
 
         """
 
         server = self.component_manager.current("sync_server")
         if server:
             server.flush()
+        self.review_widget().stop_media()

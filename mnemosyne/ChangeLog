@@ -1,10 +1,14 @@
+(-archive history)
+
+
 Android:
 
 -Ignore spaces at the end of e.g. username and password (suggested by Cornelia).
 -Upgraded to the latest libmnemosyne (2.3.4)
 
 
-(-archive history)
+
+Mnemosyne 2.3.4 : 2015-04-13
 
 -When importing another database with learning data, don't reset the creation
  and modification times of cards.

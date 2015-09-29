@@ -340,7 +340,14 @@ class Client(Partner):
         elif self.server_info["user_id"] != client_info["user_id"] and \
             self.server_info["is_database_empty"] == False:
             raise SyncError("Error: mismatched user ids.\n" + \
-                "The first sync should happen on an empty database.")
+                "The first sync should happen on an empty database.\n" + \
+                "Backup then delete the local database and try again.")
+        if self.server_info["database_version"] != client_info["database_version"]:
+            raise SyncError("Error: database version mismatch.\n" + \
+                "Upgrade client and server to latest version.")
+        if self.server_info["program_version"] != client_info["program_version"]:
+            raise SyncError("Error: Mnemosyne version mismatch.\n" + \
+                "Upgrade client and server to latest version.")           
         self.database.create_if_needed_partnership_with(\
             self.server_info["machine_id"])
         self.database.merge_partners(self.server_info["partners"])
