@@ -4,6 +4,8 @@
 Android:
 
 -Ignore spaces at the end of e.g. username and password (suggested by Cornelia).
+-The counters now correctly update if you leave Mnemosyne running overnight.
+-Mnemosyne's media files no longer show up in your music player or gallery.
 -Upgraded to the latest libmnemosyne (2.3.4)
 
 

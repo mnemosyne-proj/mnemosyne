@@ -15,6 +15,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.Semaphore;
@@ -104,6 +106,15 @@ public class MnemosyneThread extends Thread {
         controller = (StarObjectClass) mnemosyne._Call("controller");
         componentManager = python._GetObject("mnemosyne.component_manager");
         reviewController = (StarObjectClass) mnemosyne._Call("review_controller");
+
+        File file = new File("/sdcard/Mnemosyne/.nomedia");
+        if (!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         Log.d("Mnemosyne", "started Mnemosyne");
 
