@@ -25,18 +25,19 @@ self.component_manager.current("database_maintance")
 
 Android:
 
--tooltip on existence of menu button
+-add .nomedia file: test on empty database
+-double check what happens if you have no saved sets
+-check functionality for map card types
 
+-tooltip on existence of menu button
+-revisit multiple database option?
+-set default grade?
+-check 'redraw now
 -problem in sqlite sync with unicode filenames in sqlitesync line 200 doing a full
  sync from Android: workaround in place
 -refactor os.path.exists to also fall back to unicode in other places in the code? 
 
--add .nomedia file
--double check what happens if you have no saved sets
--revisit multiple database option?
--set default grade
--check 'redraw now'
--check functionality for map card types
+
 
 
 -gestures
@@ -113,6 +114,9 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -command line switch for headless server not to check for updated card types. 
 
 -option to move dividers in edit field (e.g. for large font sizes)
+
+-for the sentence card type without hints, use the 'meaning' font for Q in production, 
+ instead of the sentence font?
 
  
 -optimisation: change card type for many facts which calls
