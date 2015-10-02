@@ -355,7 +355,7 @@ public class MnemosyneThread extends Thread {
     public void showActivateCardsDialog(String savedSets, String activeSet, StarObjectClass dialog) {
         final String[] _savedSets = savedSets.split("____");
 
-        if (_savedSets.length == 0) {
+        if (_savedSets.length == 1) { // The default set
             showInformation("You don't have any saved sets defined. Please do so in the desktop app.");
             return;
         }

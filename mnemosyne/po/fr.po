@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-18 18:42+0000\n"
-"PO-Revision-Date: 2015-03-30 22:30+0000\n"
+"PO-Revision-Date: 2015-09-11 17:46+0000\n"
 "Last-Translator: Antoine Boquet <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-03-31 05:34+0000\n"
-"X-Generator: Launchpad (build 17413)\n"
+"X-Launchpad-Export-Date: 2015-09-12 05:12+0000\n"
+"X-Generator: Launchpad (build 17720)\n"
 "Language: \n"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:11
@@ -3047,12 +3047,12 @@ msgstr "La synchronisation serveur a été stoppée."
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:101
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:101
 msgid "Web server now running on"
-msgstr ""
+msgstr "Le serveur web est actif."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:109
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:109
 msgid "Web server stopped."
-msgstr ""
+msgstr "Le serveur web est inactif."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\convert_card_type_keys_dlg.py:41
 #: ..\build\lib\mnemosyne\pyqt_ui\convert_card_type_keys_dlg.py:55
@@ -3192,7 +3192,7 @@ msgstr "Vous n'avez pas la permission d'utiliser le port demandé."
 #: ..\mnemosyne\pyqt_ui\qt_web_server.py:189
 #: ..\mnemosyne\pyqt_ui\qt_web_server.py:196
 msgid "Unable to start web server."
-msgstr ""
+msgstr "Impossible de démarrer le serveur web."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:79
 #: ..\mnemosyne\pyqt_ui\qt_web_server.py:79
@@ -3510,6 +3510,11 @@ msgid ""
 "make a clone of 'Vocabulary', call it 'Thai' and set a Thai font "
 "specifically for this card type without disturbing your other cards."
 msgstr ""
+"Vous pouvez cloner des types de cartes existants. Cela vous permet de "
+"formater des cartes à partir de ce type indépendant des cartes utilisant le "
+"type original. Par exemple, vous pouvez faire un clone de \"Vocabulaire\", "
+"l'appeler \"Thaï\" et appliquer une police d'écriture Thaï spécialement pour "
+"ce type de carte sans affecter les autres cartes."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:34
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:34
@@ -3881,7 +3886,7 @@ msgstr ""
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_dlg.py:68
 #: ..\mnemosyne\pyqt_ui\ui_configuration_dlg.py:68
 msgid "&Defaults"
-msgstr ""
+msgstr "Par &défaut"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:137
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:88
@@ -4158,7 +4163,7 @@ msgstr "Format du fichier:"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_dlg.py:93
 #: ..\mnemosyne\pyqt_ui\ui_export_dlg.py:93
 msgid "File to export to:"
-msgstr ""
+msgstr "Fichier d'export :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_dlg.py:94
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_import_dlg.py:101
@@ -4171,6 +4176,8 @@ msgstr "&Parcourir"
 #: ..\mnemosyne\pyqt_ui\ui_export_dlg.py:95
 msgid "(Only active cards will be exported, without learning data.)"
 msgstr ""
+"(Seules les cartes actives seront exportées, sans les données "
+"d'apprentissage)"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_dlg.py:97
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_import_dlg.py:104
@@ -4642,7 +4649,7 @@ msgstr "&Supprimer le module"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:105
 #: ..\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:105
 msgid "Preview cards"
-msgstr ""
+msgstr "Aperçu des cartes"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:106
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:116
@@ -4766,7 +4773,7 @@ msgstr ""
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:107
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:107
 msgid "Tip of the day"
-msgstr ""
+msgstr "Astuce du jour"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:108
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:108

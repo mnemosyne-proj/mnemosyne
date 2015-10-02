@@ -1,4 +1,5 @@
-remove spurious android files from repository.
+-double check what happens if you have no saved sets
+
 
 archiving old log:
 
@@ -25,24 +26,20 @@ self.component_manager.current("database_maintance")
 
 Android:
 
--add .nomedia file: test on empty database
--double check what happens if you have no saved sets
--check functionality for map card types
 
 -tooltip on existence of menu button
 -revisit multiple database option?
+-'sync' button should sync directly without going through the sync settings dialog. Put
+ the settings in a settings window instead.
+ 
 -set default grade?
 -check 'redraw now
 -problem in sqlite sync with unicode filenames in sqlitesync line 200 doing a full
  sync from Android: workaround in place
 -refactor os.path.exists to also fall back to unicode in other places in the code? 
 
-
-
-
 -gestures
--'sync' button should sync directly without going through the sync settings dialog. Put
- the settings in a settings window instead.
+
 -option to globally increase / decrease font size with respect to desktop
 -custom fonts?
 
