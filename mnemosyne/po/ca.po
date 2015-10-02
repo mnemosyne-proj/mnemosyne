@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: mnemosyne-proj\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-18 18:42+0000\n"
-"PO-Revision-Date: 2014-09-12 17:22+0000\n"
+"PO-Revision-Date: 2015-06-12 16:53+0000\n"
 "Last-Translator: Federico Tamayo <federicotamayo@gmail.com>\n"
 "Language-Team: Catalan (Valencian) <ca@valencia@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-09-13 07:02+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2015-06-13 05:28+0000\n"
+"X-Generator: Launchpad (build 17557)\n"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:11
 msgid "Null character in input stream, replaced with U+FFFD."
@@ -181,11 +181,11 @@ msgstr "Inesperat caràcter  abans de / a l'etiqueta.S'esperava >"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:88
 msgid "Expected '--' or 'DOCTYPE'. Not found."
-msgstr ""
+msgstr "S'esperava '--' o 'DOCTYPE'. No trobat"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:90
 msgid "Unexpected ! after -- in comment"
-msgstr ""
+msgstr "Inesperat! - a l'observació"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:92
 msgid "Unexpected space after -- in comment"
@@ -193,13 +193,13 @@ msgstr ""
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:94
 msgid "Incorrect comment."
-msgstr ""
+msgstr "Observació incorrecta."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:96
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:104
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:106
 msgid "Unexpected end of file in comment."
-msgstr ""
+msgstr "Inesperat final d'arxiu a l'observació."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:98
 msgid "Unexpected end of file in comment (-)"
