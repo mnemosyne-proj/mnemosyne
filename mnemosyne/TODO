@@ -1,6 +1,3 @@
--double check what happens if you have no saved sets
-
-
 archiving old log:
 
 * mention in GUI that maintanance will happen automaticcaly
@@ -71,6 +68,8 @@ Android:
 
 -windows 'python setup.py install': missing share locale path when starting configure
 -profile testsuite
+
+-select saved set, delete that set: set name is still visible in windows header
 
 -remote webserver sometimes does not want to send multiple pictures
 -sometimes, need to click website buttons twice
