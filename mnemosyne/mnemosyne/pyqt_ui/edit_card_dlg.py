@@ -127,14 +127,15 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         self.preview_button.setEnabled(valid)
         
     def is_changed(self):
+        if self.previous_tags != unicode(self.tags.currentText()):
+            return True
         changed = False
         for fact_key in self.card.fact.data:
             if fact_key in self.card_type_widget.fact_data() and \
                 self.card_type_widget.fact_data()[fact_key] \
                 != self.card.fact.data[fact_key]:
-                changed = True
-                break
-        return changed       
+                return True
+        return False   
         
     def apply_changes(self):
         if self.is_changed() == False:

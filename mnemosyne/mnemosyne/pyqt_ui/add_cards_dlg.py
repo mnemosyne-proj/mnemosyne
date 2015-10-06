@@ -44,6 +44,7 @@ class AddEditCards(TipAfterStartingNTimes):
         self.card_type = None
         self.card_type_index = 0
         self.card_type_widget = None
+        self.previous_tags = None
         db_sorted_card_types = self.database().sorted_card_types()
         for card_type in db_sorted_card_types:
             if _(card_type.name) == current_card_type_name:
@@ -125,6 +126,7 @@ class AddEditCards(TipAfterStartingNTimes):
             if self.tags.itemText(i) == current_tag_name:
                 self.tags.setCurrentIndex(i)
                 break
+        self.previous_tags = unicode(self.tags.currentText())
 
     def card_type_changed(self, new_card_type_name):
         new_card_type_name = unicode(new_card_type_name)
