@@ -19,6 +19,16 @@ class CompactThread(QtCore.QThread):
 
     """
 
+    information_signal = QtCore.pyqtSignal(QtCore.QString)
+    error_signal = QtCore.pyqtSignal(QtCore.QString)
+    question_signal = QtCore.pyqtSignal(QtCore.QString, QtCore.QString,
+        QtCore.QString, QtCore.QString)
+    set_progress_text_signal = QtCore.pyqtSignal(QtCore.QString)
+    set_progress_range_signal = QtCore.pyqtSignal(int)
+    set_progress_update_interval_signal = QtCore.pyqtSignal(int)
+    increase_progress_signal = QtCore.pyqtSignal(int)
+    set_progress_value_signal = QtCore.pyqtSignal(int)
+    close_progress_signal = QtCore.pyqtSignal()
     compact_finished_signal = QtCore.pyqtSignal()
 
     def __init__(self, mnemosyne, defragment_database, archive_old_logs):
@@ -29,13 +39,70 @@ class CompactThread(QtCore.QThread):
 
     def run(self):
         try:
+            # Libmnemosyne itself could also generate dialog messages, so
+            # we temporarily override the main_widget with the threaded
+            # routines in this class.
+            self.mnemosyne.component_manager.components\
+                [None]["main_widget"].append(self)            
             if self.defragment_database:
                 self.mnemosyne.database().defragment()
             if self.archive_old_logs:
                 self.mnemosyne.database().archive_old_logs()
         finally:
             self.mnemosyne.database().release_connection()
+            self.mnemosyne.component_manager.components\
+                [None]["main_widget"].pop()            
         self.compact_finished_signal.emit()
+        
+    def show_information(self, message):
+        global answer
+        mutex.lock()
+        answer = None
+        self.information_signal.emit(message)
+        if not answer:
+            dialog_closed.wait(mutex)
+        mutex.unlock()
+
+    def show_error(self, error):
+        global answer
+        mutex.lock()
+        answer = None
+        self.error_signal.emit(error)
+        if not answer:
+            dialog_closed.wait(mutex)
+        mutex.unlock()
+
+    def show_question(self, question, option0, option1, option2):
+        global answer
+        mutex.lock()
+        answer = None
+        self.question_signal.emit(question, option0, option1, option2)
+        if not answer:
+            dialog_closed.wait(mutex)
+        mutex.unlock()
+        return answer
+
+    def set_progress_text(self, text):
+        self.set_progress_text_signal.emit(text)
+
+    def set_progress_range(self, maximum):
+        if self.show_numeric_progress_bar:
+            self.set_progress_range_signal.emit(maximum)
+
+    def set_progress_update_interval(self, value):
+        if self.show_numeric_progress_bar:
+            self.set_progress_update_interval_signal.emit(value)
+
+    def increase_progress(self, value):
+        if self.show_numeric_progress_bar:
+            self.increase_progress_signal.emit(value)
+
+    def set_progress_value(self, value):
+        if self.show_numeric_progress_bar:
+            self.set_progress_value_signal.emit(value)
+
+    def close_progress(self):
+        self.close_progress_signal.emit()        
 
 
 class CompactDatabaseDlg(QtGui.QDialog, Ui_CompactDatabaseDlg,
@@ -49,6 +116,9 @@ class CompactDatabaseDlg(QtGui.QDialog, Ui_CompactDatabaseDlg,
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
+        # Since we will overwrite the true main widget in the thread, we need
+        # to save it here.
+        self.true_main_widget = self.main_widget()        
         
         # TMP
         self.archive_old_logs.hide()
@@ -63,6 +133,13 @@ class CompactDatabaseDlg(QtGui.QDialog, Ui_CompactDatabaseDlg,
            (self.delete_unused_media_files.checkState() == QtCore.Qt.Checked)
         archive_old_logs = \
             (self.archive_old_logs.checkState() == QtCore.Qt.Checked)
+        
+        
+        # TMP
+        archive_old_logs = False
+        
+        
+        
         if not (defragment_database or delete_unused_media_files or \
                 archive_statistics):
             QtGui.QDialog.accept(self)
@@ -76,13 +153,56 @@ class CompactDatabaseDlg(QtGui.QDialog, Ui_CompactDatabaseDlg,
             self.database().release_connection()
             self.thread = CompactThread(\
                 self, defragment_database, archive_old_logs)
+            self.thread.information_signal.connect(\
+                self.threaded_show_information)
+            self.thread.error_signal.connect(\
+                self.threaded_show_error)
+            self.thread.question_signal.connect(\
+                self.threaded_show_question)
+            self.thread.set_progress_text_signal.connect(\
+                self.true_main_widget.set_progress_text)
+            self.thread.set_progress_range_signal.connect(\
+                self.true_main_widget.set_progress_range)
+            self.thread.set_progress_update_interval_signal.connect(\
+                self.true_main_widget.set_progress_update_interval)
+            self.thread.increase_progress_signal.connect(\
+                self.true_main_widget.increase_progress)
+            self.thread.set_progress_value_signal.connect(\
+                self.true_main_widget.set_progress_value)
+            self.thread.close_progress_signal.connect(\
+                self.true_main_widget.close_progress)            
             self.thread.compact_finished_signal.connect(self.finish_compact)
             self.thread.start()
         else:
             QtGui.QDialog.accept(self)
 
     def finish_compact(self):
-        self.main_widget().close_progress()
-        self.main_widget().show_information(_("Done!"))
+        self.true_main_widget.close_progress()
+        self.true_main_widget.show_information(_("Done!"))
         QtGui.QDialog.accept(self)
+       
+    def threaded_show_information(self, message):
+        global answer
+        mutex.lock()
+        self.true_main_widget.show_information(message)
+        answer = True
+        dialog_closed.wakeAll()
+        mutex.unlock()
+
+    def threaded_show_error(self, error):
+        global answer
+        mutex.lock()
+        self.true_main_widget.show_error(error)
+        answer = True
+        dialog_closed.wakeAll()
+        mutex.unlock()
+
+    def threaded_show_question(self, question, option0, option1, option2):
+        global answer
+        mutex.lock()
+        answer = self.true_main_widget.show_question(question, option0,
+            option1, option2)
+        dialog_closed.wakeAll()
+        mutex.unlock()
+    
         

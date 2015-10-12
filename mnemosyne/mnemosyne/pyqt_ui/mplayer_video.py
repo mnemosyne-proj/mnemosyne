@@ -29,25 +29,6 @@ class MplayerVideo(Filter):
         index = 0
         for match in re_video.finditer(text):
             video_file = match.group(1)
-            # Workaround for lack of unicode support in Popen/mplayer.
-            try:
-                video_file.decode("ascii")
-            except UnicodeEncodeError:
-                media_dir = self.database().media_dir()
-                try:
-                    media_dir.decode("ascii")
-                except:
-                    import tempfile
-                    tmp_handle, tmp_path = tempfile.mkstemp()
-                    tmp_file = os.fdopen(tmp_handle, "w")
-                    media_dir = os.path.dirname(tmp_path)
-                    tmp_file.close()
-                    os.remove(tmp_path)
-                new_name = unicode(os.path.join(media_dir,
-                    "___" + str(index) + "___.mp4"))
-                copy(video_file.replace("file:///", ""), new_name)
-                index += 1
-                video_file = new_name
             start, stop = 0, 999999
             if match.group(2):
                 start_match = re_start.search(match.group(2))

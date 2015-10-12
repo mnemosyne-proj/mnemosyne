@@ -1,3 +1,6 @@
+-linux sound David Bailey, Joel Petterson
+-http://bugs.python.org/issue1384175 ChaletPol
+
 archiving old log:
 
 * mention in GUI that maintanance will happen automaticcaly
@@ -35,6 +38,8 @@ Android:
  sync from Android: workaround in place
 -refactor os.path.exists to also fall back to unicode in other places in the code? 
 
+-video
+
 -gestures
 
 -option to globally increase / decrease font size with respect to desktop
@@ -60,6 +65,7 @@ Android:
  also in F2B and B2F, vocabulary
  
 
+
 -better in dialog explanation for hold n cards in your hand?
 
 -option to turn off card count per tag?
@@ -70,6 +76,8 @@ Android:
 -profile testsuite
 
 -select saved set, delete that set: set name is still visible in windows header
+
+-factor out duplication of threaded UI stuff in sync and compact
 
 -remote webserver sometimes does not want to send multiple pictures
 -sometimes, need to click website buttons twice
