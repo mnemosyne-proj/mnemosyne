@@ -199,7 +199,7 @@ public class MnemosyneActivity extends Activity {
         menuInflater.inflate(R.layout.menu, menu);
         return true;
     }
-
+    
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {

@@ -290,6 +290,9 @@ class CompareOnId(object):
 from openSM2sync.server import realsocket
 def localhost_IP():
     import socket
-    s = realsocket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("google.com", 8000))
-    return s.getsockname()[0]
+    try:
+        s = realsocket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("google.com", 8000))
+        return s.getsockname()[0]
+    except:
+        return socket.gethostbyname(socket.getfqdn())

@@ -1,3 +1,11 @@
+Mnemosyne 2.3.5 : 2015-10-
+
+-Fix crash when compacting database (reported by David Bailey).
+-Fix sound system under Linux (reported by David Bailey, Joel Pettersson)
+-Make determining local IP address more robust (reported by Matthew Exon).
+
+-Fix crash on Windows Server 2003 (reported by ChaletPol)
+
 (-archive history)
 
 
