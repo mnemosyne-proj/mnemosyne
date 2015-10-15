@@ -141,14 +141,14 @@ class CompactDatabaseDlg(QtGui.QDialog, Ui_CompactDatabaseDlg,
         
         
         if not (defragment_database or delete_unused_media_files or \
-                archive_statistics):
+                archive_old_logs):
             QtGui.QDialog.accept(self)
         if delete_unused_media_files:
             unused_media_files = self.database().unused_media_files()
             if len(unused_media_files) != 0:
                 DeleteUnusedMediaFilesDlg(\
                     self.component_manager, unused_media_files).activate()
-        if defragment_database or archive_logs:
+        if defragment_database or archive_old_logs:
             self.main_widget().set_progress_text(_("Compacting database..."))
             self.database().release_connection()
             self.thread = CompactThread(\
