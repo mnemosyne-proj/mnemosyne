@@ -1,4 +1,8 @@
--linux sound David Bailey, Joel Petterson
+-OSX installer
+
+-johan van de wiel: alignment
+-latex on Android
+
 -http://bugs.python.org/issue1384175 ChaletPol
 
 archiving old log:
@@ -28,6 +32,10 @@ Android:
 
 
 -tooltip on existence of menu button
+
+-progress bar before 'sync finished'?
+-rename 'finalising install'?
+
 -revisit multiple database option?
 -'sync' button should sync directly without going through the sync settings dialog. Put
  the settings in a settings window instead.
