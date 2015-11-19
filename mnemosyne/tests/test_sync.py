@@ -1134,6 +1134,53 @@ class TestSync(object):
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
 
+    def test_star_twice(self):
+
+        def fill_server_database(self):
+            pass
+
+        def test_server(self):
+            card = self.mnemosyne.database().card(self.client_card.id, is_id_internal=False)
+            assert len(card.tags) == 1
+            assert list(card.tags)[0].name == "Starred"
+
+        self.server = MyServer(binary_download=False)
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.check_for_edited_local_media_files = False
+        self.server.start()
+
+        self.client = MyClient()
+        self.client.check_for_edited_local_media_files = False
+        
+        card_type = self.client.mnemosyne.card_type_with_id("2")
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_1 = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=-1, tag_names=[])[0]
+        
+        fact_data = {"f": "question2",
+                     "b": "answer"}
+        card_2 = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=-1, tag_names=[])[0]
+        
+        self.client.mnemosyne.start_review()
+        self.server.client_card = self.client.mnemosyne.review_controller().card
+        self.client.mnemosyne.controller().star_current_card()
+        self.client.mnemosyne.controller().star_current_card()
+        self.client.mnemosyne.review_controller().grade_answer(5)
+        self.client.mnemosyne.controller().star_current_card()
+        self.client.mnemosyne.controller().star_current_card()
+        self.client.mnemosyne.review_controller().grade_answer(5)        
+        self.client.mnemosyne.controller().star_current_card()
+        self.client.mnemosyne.controller().star_current_card()
+        self.client.mnemosyne.review_controller().grade_answer(5)
+        self.client.mnemosyne.controller().star_current_card()
+        self.client.mnemosyne.controller().star_current_card()
+        self.client.mnemosyne.review_controller().grade_answer(5)        
+            
+        self.client.do_sync(); assert last_error is None
+
     def test_delete_media(self):
         
         # We cannot delete media during sync.
