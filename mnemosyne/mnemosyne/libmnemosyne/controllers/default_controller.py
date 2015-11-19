@@ -193,7 +193,7 @@ class DefaultController(Controller):
             self.review_controller().reset()
         return cards
 
-    def show_edit_card_dialog(self):
+    def show_edit_card_dialog(self): 
         self.stopwatch().pause()
         self.flush_sync_server()
         review_controller = self.review_controller()
