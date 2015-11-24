@@ -130,11 +130,15 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         if self.previous_tags != unicode(self.tags.currentText()):
             return True
         changed = False
-        for fact_key in self.card.fact.data:
-            if fact_key in self.card_type_widget.fact_data() and \
-                self.card_type_widget.fact_data()[fact_key] \
-                != self.card.fact.data[fact_key]:
-                return True
+        for fact_key in self.card.card_type.fact_keys():
+            if fact_key in self.card_type_widget.fact_data():
+                if fact_key in self.card.fact.data:
+                    previous_content = self.card.fact.data[fact_key]
+                else:
+                    previous_content = ""
+                if self.card_type_widget.fact_data()[fact_key] \
+                   != previous_content:
+                    return True
         return False   
         
     def apply_changes(self):
