@@ -64,7 +64,9 @@ class DefaultController(Controller):
             self.review_controller().reset()
             self.next_rollover = self.database().start_of_day_n_days_ago(n=-1)
         #if time.time() > self.config()["last_db_maintenance"] + 90 * DAY:
-        #    print "do db maintenance"
+        #    print "TMP DEBUG: do db maintenance"
+            #self.component_manager.current("database_maintenance")\
+            #    (self.component_manager).activate()        
         #    self.config()["last_db_maintenance"] = time.time()
 
     def update_title(self):
@@ -696,20 +698,7 @@ _("The configuration database cannot be used to store cards."))
         self.component_manager.current("compact_database_dialog")\
             (self.component_manager).activate()
         self.review_controller().reset_but_try_to_keep_current_card()
-        self.stopwatch().unpause()
-        
-    def do_database_maintenance(self):
-        
-        # __TMP__
-        
-        # Unthreaded version. Call from thread in GUI?  
-        # This version is called as is by the headless client without threads.
-        
-        self.component_manager.current("database_maintance")\
-            (self.component_manager).activate()        
-        
-        #self.database().defragment()
-        #self.database().archive_old_logs()        
+        self.stopwatch().unpause()       
             
     def show_insert_img_dialog(self, filter):
 
