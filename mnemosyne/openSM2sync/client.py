@@ -216,6 +216,11 @@ class Client(Partner):
                 if backup_file:
                     self.database.restore(backup_file)
         finally:
+            
+            # TMP: preparation for future fix
+            #self.get_sync_cancel()
+            
+            
             if self.con:
                 self.con.close()
             self.ui.close_progress()
@@ -581,9 +586,9 @@ class Client(Partner):
     def get_sync_cancel(self):
         self.ui.set_progress_text("Cancelling sync...")
         self.request_connection()
+        session_token = self.server_info.get("session_token", "none")
         self.con.request("GET", self.url("/sync_cancel?session_token=%s" \
-            % (self.server_info["session_token"], )),
-            headers={"connection": "close"})
+            % (session_token, )), headers={"connection": "close"})          
         self._check_response_for_errors(self.con.getresponse())
 
     def get_sync_finish(self):

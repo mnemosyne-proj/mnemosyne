@@ -1,30 +1,29 @@
--'starred' bug: fix own database
-
 -increase Android version number
 
--OSX installer
+-OSX installer: merge code
+
+-fix hanging of server thread (progress bar) if client has wrong password. (Launchpad bug)
 
 archiving old log:
 
-* mention in GUI that maintanance will happen automaticcaly
+* mention in GUI that maintenance will happen automaticcaly
 * run automatically
 
 * reenable button in 'compact database'
 
-* remove comments about no progress dialogs in sqlite code
-* refactor progress dialogs, add GUI signals to dialog and test
-* refactor such that the thread can also be called from the database maintanance object
+* db maintenance class, only for automated maintenance. Runs
 
-* write separate db maintance class to be overwritten in GUI
-self.component_manager.current("database_maintance")
-
-* where does 'do_database_maintenance_live'. Controller? db seems better.
-
-
-* android db maintance class
+self.database().defragment()
+self.database().archive_old_logs()
+	    
+ Default: Unthreaded: 
+  Ok for headless, no GUI to interrupt. 
+  OK for Android, entire Mnemosyne backend runs in a thread anyhow.
+  For Qt, need to refactor current dialog such that similar code can by called from the Qt
+   database maintenance object.
 
 * full sync should also send archive across
-* update protocol version
+* update sync protocol version
 
 
 Android:

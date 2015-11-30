@@ -180,7 +180,7 @@ class Server(Partner):
         else:
             return "404 Not Found", None, None
 
-    # The following functions are not yet thread-safe.
+    # The following functions are not yet thread-safe.  
 
     def create_session(self, client_info):
         database = self.load_database(client_info["database_name"])
@@ -641,11 +641,14 @@ class Server(Partner):
     def get_sync_cancel(self, environ, session_token):
         try:
             self.ui.set_progress_text("Sync cancelled!")
-            self.cancel_session_with_token(session_token)
+            if session_token != "none":
+                self.cancel_session_with_token(session_token)
+            self.ui.close_progress()
             return self.text_format.repr_message("OK")
         except:
-            session = self.sessions[session_token]
-            return self.handle_error(session, traceback_string())
+            if session_token != "none":
+                session = self.sessions[session_token]
+                return self.handle_error(session, traceback_string())
 
     def get_sync_finish(self, environ, session_token):
         try:
