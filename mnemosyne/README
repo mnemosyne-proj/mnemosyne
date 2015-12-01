@@ -36,17 +36,32 @@ matplotlib.
 
 2) MAC OS/X
 
--Install Macports (www.macports.org).
--Install the dependencies for Mnemosyne with the following command.
+ - Download and install the latest version of Homebrew
+ - Open the Terminal.
+ - Make sure you are using the latest version of Homebrew:
 
-sudo port install bzr python27 py27-sip py27-matplotlib py27-virtualenv 
-py27-setuptools py-cherrypy3 py27-webob python_select py-virtualenvwrapper 
-qt4-mac py27-pyqt4 qt4-mac-sqlite3-plugin
+    brew update
 
--Download the Mnemosyne source from the linux download link.
--Change to the unpacked source directory and run this command:
+ - Install the dependencies for Mnemosyne. You'll need a few extra steps to install gdk-pixbuf to avoid a nasty error with py2app and macholib:
 
-sudo make osx
+    brew install bzr python qt4 pyqt sip matplotlib mplayer
+    brew install $(brew deps gdk-pixbuf)
+    brew fetch --build-from-source gdk-pixbuf
+    sed -i '' -e '/append_to_cflags/ {
+      a\
+      ENV.append("LDFLAGS", "-Xlinker")
+      a\
+      ENV.append("LDFLAGS", "-headerpad_max_install_names")
+      }' /usr/local/Library/Formula/gdk-pixbuf.rb #add helpful flags
+    brew install --build-from-source gdk-pixbuf
+    pip install distribute==0.7.3 cherrypy==3.8.0 webob==1.5.0 virtualenvwrapper==4.7.1 virtualenv==13.1.2
 
--The built app will appear in the dist directory. You can then drag and drop the app 
- into your Applications directory.
+ - Build it (filling in the version from the top line of "brew info qt4"):
+
+    sudo make osx
+
+ - Test the new application (back up your data directory first!):
+
+    open dist/Mnemosyne.app
+
+ - and optionally drag and drop this new app to /Applications

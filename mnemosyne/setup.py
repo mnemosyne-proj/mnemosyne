@@ -121,7 +121,7 @@ if sys.platform == "win32": # For py2exe.
                   ]
 elif sys.platform == "darwin": # For py2app.
     base_path = ""
-    data_files = []
+    data_files = [("", ["/usr/local/bin/mplayer"])]
 else:
     base_path = os.path.join(sys.exec_prefix, "lib", "python" + sys.version[:3],
                              "site-packages","mnemosyne")
@@ -157,6 +157,7 @@ py2app_options = {
 "argv_emulation": True,
 "includes": "sip,numpy,cherrypy,cPickle,md5,logging,shutil,xml.sax",
 "iconfile": "pixmaps/mnemosyne.icns",
+"qt_plugins": ["sqldrivers", "imageformats"],
 "packages": "mnemosyne, mnemosyne.pyqt_ui, mnemosyne.libmnemosyne, \
     mnemosyne.libmnemosyne.translators, mnemosyne.libmnemosyne.card_types, \
     mnemosyne.libmnemosyne.databases, mnemosyne.libmnemosyne.file_formats, \
