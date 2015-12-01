@@ -6,31 +6,31 @@ SPHINXBUILD := sphinx-build
 
 # If `python2` exists:
 ifeq (1,$(shell python2 -c "print(1)" 2>&- ))
-  PYTHON      := python2
+PYTHON      := python2
 endif
 # If we are on cygwin:
 ifeq (1,$(shell /cygdrive/c/Python27/python.exe -c "print(1)" 2>&- ))
-  PYTHON      := /cygdrive/c/Python27/python.exe
+PYTHON      := /cygdrive/c/Python27/python.exe
 endif
 # If `virtualenv2` exists:
 ifneq (,$(shell virtualenv2 --version 2>&- ))
-  VIRTUALENV  := virtualenv2
+VIRTUALENV  := virtualenv2
 endif
 # If "--system-site-packages" supported:
 ifneq (,$(shell $(VIRTUALENV) --system-site-packages --version 2>&- ))
-  VIRTUALENV  += --system-site-packages
+VIRTUALENV  += --system-site-packages
 endif
 # If `sphinx-build2` exists:
 ifneq (,$(shell command -v sphinx-build2 2>&- ))
-  SPHINXBUILD := sphinx-build2
+SPHINXBUILD := sphinx-build2
 endif
 
-export PYTHON  # pass the variable to sub-makefiles through the environment
+export PYTHON # pass the variable to sub-makefiles through the environment
 
 # Allow specifying an alternate root destination dir for system-wide installation:
 
 ifdef DESTDIR
-  INSTALL_OPTS += --root="$(DESTDIR)"
+INSTALL_OPTS += --root="$(DESTDIR)"
 endif
 
 install-and-run-virtual-env: install-virtual-env
@@ -53,7 +53,7 @@ setup-windows:
 	cp C:/python27/qt.conf Scripts/
 	Scripts/easy_install.exe nose
 	Scripts/easy_install.exe coverage
-                             
+
 install-virtual-env-windows:
 	cd mnemosyne/pyqt_ui && make
 	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
@@ -112,56 +112,26 @@ gui-profile:
 benchmark: install-virtual-env
 	./bin/python tests/benchmark.py
 
-osx: 	# Contributed by Patrick Kenny.
-	# You might need to making a pyrcc symlink from the Macports pyrcc4-x.x in /usr/bin
-	#
+osx: 	# Contributed by Patrick Kenny and Devin Howard
 	# make sure there are no existing build files
 	sudo rm -rf build/ dist/
+
 	# build the UI and the translations
 	cd mnemosyne/pyqt_ui && make clean
 	cd mnemosyne/pyqt_ui && make
 	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
 	cd po && make
+
 	# build the app with py2app
 	sudo $(PYTHON) setup.py py2app
+
 	# add a blank qt.conf so that the system will used the bundled qt instead of the system qt if the system already has qt installed
 	sudo touch dist/Mnemosyne.app/Contents/Resources/qt.conf
-	# copy qt_menu.nib directory: the application will not launch without this (assumes qt was installed with MacPorts)
-	sudo cp -R /opt/local/lib/Resources/qt_menu.nib dist/Mnemosyne.app/Contents/Resources/qt_menu.nib
-	# create the directory for the translations
-	sudo mkdir -p dist/Mnemosyne.app/Contents/Resources/share
+	sudo cp -R /usr/local/opt/qt/lib/QtGui.framework/Versions/4/Resources/qt_menu.nib dist/Mnemosyne.app/Contents/Resources/
+
 	# add the translations
+	sudo mkdir -p dist/Mnemosyne.app/Contents/Resources/share
 	sudo cp -R mo dist/Mnemosyne.app/Contents/Resources/share/locale
-	# by default, qt looks in the plugins directory in the root folder
-	sudo mkdir -p dist/Mnemosyne.app/Contents/plugins
-	# copy the dylib directory into plugins
-	sudo cp -R /opt/local/share/qt4/plugins/sqldrivers dist/Mnemosyne.app/Contents/plugins
-	# dylib must be relinked to use the bundled copy of Qt and not the system copy
-	sudo install_name_tool -change /opt/local/lib/libsqlite3.0.dylib @executable_path/../Frameworks/libsqlite3.0.dylib dist/Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
-	sudo install_name_tool -change /opt/local/lib/libQtSql.4.dylib @executable_path/../Frameworks/libQtSql.4.dylib dist/Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
-	sudo install_name_tool -change /opt/local/lib/libQtCore.4.dylib @executable_path/../Frameworks/libQtCore.4.dylib dist/Mnemosyne.app/Contents/plugins/sqldrivers/libqsqlite.dylib
-	# add directory to plugins to allow for imageformats support (we don't add all imageformats automatically because they all have to be relinked with install_name_tool, which is a real pain, so we pick and choose the formats to support)
-	sudo mkdir -p dist/Mnemosyne.app/Contents/plugins/imageformats
-	# add GIF support
-	sudo cp -R /opt/local/share/qt4/plugins/imageformats/libqgif.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqgif.dylib
-	sudo install_name_tool -change /opt/local/lib/libQtGui.4.dylib @executable_path/../Frameworks/libQtGui.4.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqgif.dylib
-	sudo install_name_tool -change /opt/local/lib/libQtCore.4.dylib @executable_path/../Frameworks/libQtCore.4.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqgif.dylib
-	# add JPG support
-	sudo cp -R /opt/local/share/qt4/plugins/imageformats/libqjpeg.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqjpeg.dylib
-	sudo install_name_tool -change /opt/local/lib/libQtGui.4.dylib @executable_path/../Frameworks/libQtGui.4.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqjpeg.dylib
-	sudo install_name_tool -change /opt/local/lib/libQtCore.4.dylib @executable_path/../Frameworks/libQtCore.4.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqjpeg.dylib
-	sudo cp /opt/local/lib/libjpeg.dylib dist/Mnemosyne.app/Contents/Frameworks/libjpeg.dylib
-	sudo install_name_tool -change /opt/local/lib/libjpeg.dylib @executable_path/../Frameworks/libjpeg.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqjpeg.dylib
-	sudo install_name_tool -change /opt/local/lib/libjpeg.dylib @executable_path/../Frameworks/libjpeg.dylib dist/Mnemosyne.app/Contents/Frameworks/libjpeg.dylib
-	# add TIFF support
-	sudo cp -R /opt/local/share/qt4/plugins/imageformats/libqtiff.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqtiff.dylib
-	sudo install_name_tool -change /opt/local/lib/libQtGui.4.dylib @executable_path/../Frameworks/libQtGui.4.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqtiff.dylib
-	sudo install_name_tool -change /opt/local/lib/libQtCore.4.dylib @executable_path/../Frameworks/libQtCore.4.dylib dist/Mnemosyne.app/Contents/plugins/imageformats/libqtiff.dylib
-	sudo cp /opt/local/lib/libtiff.dylib dist/Mnemosyne.app/Contents/Frameworks/libtiff.dylib
-	sudo install_name_tool -change /opt/local/lib/libtiff.dylib @executable_path/../Frameworks/libtiff.dylib dist/Mnemosyne.app/Contents/Frameworks/libtiff.dylib
-	sudo cp /opt/local/lib/libz.1.dylib dist/Mnemosyne.app/Contents/Frameworks/libz.1.dylib
-	sudo install_name_tool -change /opt/local/lib/libz.1.dylib @executable_path/../Frameworks/libz.1.dylib dist/Mnemosyne.app/Contents/Frameworks/libtiff.dylib
-	sudo install_name_tool -change /opt/local/lib/libjpeg.dylib @executable_path/../Frameworks/libjpeg.dylib dist/Mnemosyne.app/Contents/Frameworks/libtiff.dylib
 
 wm: install-virtual-env
 	cp mnemosyne/ppygui_ui/ppygui_ui/*.py mnemosyne/ppygui_ui/

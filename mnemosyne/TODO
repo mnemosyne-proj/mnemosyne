@@ -1,7 +1,3 @@
--increase Android version number
-
--OSX installer: merge code
-
 -fix hanging of server thread (progress bar) if client has wrong password. (Launchpad bug)
 
 archiving old log:
