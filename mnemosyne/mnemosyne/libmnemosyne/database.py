@@ -313,3 +313,28 @@ class Database(Component):
         result.extend(user_card_types)
 
         return result
+
+
+
+class DatabaseMaintenance(Component):
+    
+    """This component performs automatic database maintenance (like 
+    archiving of old logs) and can be run from the UI or automatically from
+    the controller.
+    
+    This version is unthreaded, and is OK for running on a headless server
+    (which has no UI to interrupt) and for Android (since the entire backend
+    runs in thread there anyhow).
+    
+    """
+    
+    component_type = "database_maintenance"
+    
+    def run(self):
+        print 'hi'
+        self.main_widget().set_progress_text(_("Compacting database..."))
+        self.database().archive_old_logs()
+        self.database().defragment()
+        self.main_widget().close_progress()
+        print 'done'
+  

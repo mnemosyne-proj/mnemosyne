@@ -1,22 +1,11 @@
 -fix hanging of server thread (progress bar) if client has wrong password. (Launchpad bug)
 
+-version flag (Launchapd)
+
 archiving old log:
 
-* mention in GUI that maintenance will happen automaticcaly
-* run automatically
-
-* reenable button in 'compact database'
-
-* db maintenance class, only for automated maintenance. Runs
-
-self.database().defragment()
-self.database().archive_old_logs()
-	    
- Default: Unthreaded: 
-  Ok for headless, no GUI to interrupt. 
-  OK for Android, entire Mnemosyne backend runs in a thread anyhow.
-  For Qt, need to refactor current dialog such that similar code can by called from the Qt
-   database maintenance object.
+* test in headless (no heartbeat), Android
+* remove debug print from controller, default database maintenance
 
 * full sync should also send archive across
 * update sync protocol version
@@ -24,8 +13,7 @@ self.database().archive_old_logs()
 
 Android:
 
-
--tooltip on existence of menu button
+-latex on android, media table corrupt?
 
 -progress bar before 'sync finished'?
 -rename 'finalising install'?
@@ -33,6 +21,8 @@ Android:
 -revisit multiple database option?
 -'sync' button should sync directly without going through the sync settings dialog. Put
  the settings in a settings window instead.
+ 
+-dropbox integration? 
  
 -set default grade?
 -check 'redraw now
@@ -47,9 +37,8 @@ Android:
 -option to globally increase / decrease font size with respect to desktop
 -custom fonts?
 
-
-
--merge database does not merge inactive cards. OK?
+-after the next release, change "last_db_maintenance": time.time() - 91 * DAY
+to  "last_db_maintenance": time.time() ?
 
 -readlang importer
 -memrise importer
@@ -153,9 +142,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 
 
 
--make sure the mobile client can work without all the statistics (60 mb file
- takes 10 seconds to backup on a N7)
-
 -cloze deletion in combination with latex or html does not pick up any open
  environments
  
@@ -220,13 +206,8 @@ http://stackoverflow.com/questions/1609637/is-it-possible-to-insert-multiple-row
 
 -merge translations (del en_gb, am, vi)
 
+-integrate with forvo
 
--add idea for plugin to export today's audio
-
--check sync timeout when both client and server check for updated media files.
- (was 10, is now 30)
- 
--integrate with forvo.com?
 
 -insert latex tags shortcut and menu (phyTech)
 
@@ -336,8 +317,6 @@ created with just the "»" symbol.
 
 -leech detection
 
--adding facts with strange characters (e.g. chr(1) from TRS) trips up the sync
- protocol
 
 -text to speech plugin google
 
@@ -392,9 +371,7 @@ created with just the "»" symbol.
 -sync to empty webserver (add 'database_is_empty' to server and act upon it)
 -add support for error messages on protocol mismatch, expired credit
 -add support for render chain selection
--media handler?
 -create latex dir in filter plugin?
--media on dropbox?
 
 -drag and drop in card browser, with tag tree
 

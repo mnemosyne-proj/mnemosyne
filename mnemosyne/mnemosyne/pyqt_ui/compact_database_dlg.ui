@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>344</width>
-    <height>114</height>
+    <width>398</width>
+    <height>133</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,6 +43,13 @@
        </property>
        <property name="checked">
         <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>(Note: archiving and defragmenting happens automatically every few months.)</string>
        </property>
       </widget>
      </item>
