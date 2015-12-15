@@ -27,7 +27,7 @@ debug.launch-configs = (1,
                     ''),
          'pyrunargs': ('project',
                        '-u'),
-         'runargs': u'-d C:\\dot_test',
+         'runargs': u'-d C:\\dot_test --sync-server',
          'rundir': ('project',
                     u'')})})
 proj.directory-list = [{'dirloc': loc('.'),

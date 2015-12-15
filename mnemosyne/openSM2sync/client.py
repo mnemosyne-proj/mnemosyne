@@ -225,7 +225,7 @@ class Client(Partner):
                 self.con.close()
             self.ui.close_progress()
 
-    def supports_binary_upload(self):
+    def supports_binary_upload(self):        
         return self.capabilities == "mnemosyne_dynamic_cards" and \
             self.interested_in_old_reps and self.store_pregenerated_data \
             and self.program_name == self.server_info["program_name"] and \
@@ -239,7 +239,7 @@ class Client(Partner):
                 "you need to choose which copy of the database to keep and " + \
                 "which copy to discard.\n"
         else:
-            message = "Conflicts detected during sync! Choose which version to keep and which version to discard."
+            message = "Conflicts detected during sync! This typically happens if you review the same card on both machines. Choose which version to keep and which version to discard."
         # Ask for conflict resolution direction.
         if self.supports_binary_upload():
             result = self.ui.show_question(message,

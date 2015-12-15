@@ -1,14 +1,13 @@
-(-archive history)
-
 Mnemosyne 2.3.5 : 2015-12-07
 
+-New OSX installer by Devin Howard.
 -Fix editing of empty fields (reported by Malik Olivier Boussejra).
 -Fix crash when compacting database (reported by David Bailey).
 -Fix sound system under Linux (reported by David Bailey, Joel Pettersson).
 -Make determining local IP address more robust (reported by Matthew Exon).
 
 
-Android:
+Android 20151005:
 
 -Upgraded to the latest libmnemosyne (2.3.4)
 -The counters now correctly update if you leave Mnemosyne running overnight.
