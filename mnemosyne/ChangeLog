@@ -1,3 +1,12 @@
+Mnemosyne 2.3.5 :
+
+-Failed cards no longer are listed as overdue in the card browser (requested
+ by Samuel Innes)
+-Added a --version command line argument to display the version (requested by
+ Matthew Exon).
+-Also accept files with *.tsv extention when importing tab-separated data
+ (requested by Ojas A). 
+
 Mnemosyne 2.3.5 : 2015-12-07
 
 -New OSX installer by Devin Howard.
