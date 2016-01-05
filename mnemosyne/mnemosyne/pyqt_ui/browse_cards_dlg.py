@@ -118,6 +118,10 @@ class CardModel(QtSql.QSqlTableModel, Component):
             else:
                 return QtCore.QVariant(grade)
         if column == NEXT_REP:
+            grade_index = self.index(index.row(), GRADE)
+            grade = QtSql.QSqlTableModel.data(self, grade_index).toInt()[0]
+            if grade < 2:
+                return QtCore.QVariant("")
             next_rep = QtSql.QSqlTableModel.data(self, index, role).toInt()[0]
             if next_rep <= 0:
                 return QtCore.QVariant("")

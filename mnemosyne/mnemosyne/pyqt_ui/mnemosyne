@@ -43,7 +43,14 @@ parser.add_option("--web-server", dest="web_server",
     action="store_true", help="run web server without GUI", default=False)
 parser.add_option("--sync-server", dest="sync_server",
     action="store_true", help="run sync server without GUI", default=False)
+parser.add_option("--version", dest="version",
+    action="store_true", help="show version information", default=False)
 (options, args) = parser.parse_args()
+
+if options.version == True:
+    from mnemosyne.version import version
+    print "Mnemosyne " + version
+    sys.exit(0)
 
 # Check if we have to override the data_dir determined in libmnemosyne,
 # either because we explicitly specified a data_dir on the command line,

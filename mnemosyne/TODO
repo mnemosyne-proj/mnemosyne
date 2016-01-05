@@ -1,10 +1,5 @@
--tsv extension https://bugs.launchpad.net/bugs/1528968
-
--don't label cards to learn as 'overdue'
-
 -fix hanging of server thread (progress bar) if client has wrong password. (Launchpad bug)
 
--version flag (Launchapd)
 
 archiving old log:
 
@@ -158,8 +153,6 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 -with full sync, option to skip media sync
  
 -Possible to get rid of unloading in python / reloading in Qt?
-
--unlearned cards can be listed as overdue in the browser
 
 -speed up science log parser?
  http://lesswrong.com/r/discussion/lw/ivw/what_should_normal_people_do/9yuy
