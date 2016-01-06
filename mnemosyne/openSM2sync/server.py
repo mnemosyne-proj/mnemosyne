@@ -320,6 +320,7 @@ class Server(Partner):
                 client_info_repr)
             if not self.authorise(client_info["username"],
                 client_info["password"]):
+                self.ui.close_progress()
                 return self.text_format.repr_message("Access denied")
             # Close old session waiting in vain for client input.
             # This will also close any session which timed out while
@@ -348,11 +349,13 @@ class Server(Partner):
                (client_in_server_partners and not server_in_client_partners):
                 if not session.client_info["is_database_empty"]:
                     self.terminate_session_with_token(session.token)
+                    self.ui.close_progress()
                     return self.text_format.repr_message("Sync cycle detected")
             # Detect the case where a user has copied the entire mnemosyne
             # directory before syncing.
             if session.client_info["machine_id"] == self.machine_id:
                 self.terminate_session_with_token(session.token)
+                self.ui.close_progress()
                 return self.text_format.repr_message("same machine ids")
             # Create partnerships.
             session.database.create_if_needed_partnership_with(\
