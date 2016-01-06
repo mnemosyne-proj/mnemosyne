@@ -1,4 +1,4 @@
-Mnemosyne 2.3.5 :
+Mnemosyne 2.3.6 :
 
 -Failed cards no longer are listed as overdue in the card browser (requested
  by Samuel Innes)
@@ -6,6 +6,9 @@ Mnemosyne 2.3.5 :
  Matthew Exon).
 -Also accept files with *.tsv extention when importing tab-separated data
  (requested by Ojas A). 
+-Don't leave the 'Client Logging in...'' dialog on the sync server open in 
+ case the client provides a wrong password (reported by Eric).
+
 
 Mnemosyne 2.3.5 : 2015-12-07
 
