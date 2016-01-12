@@ -1,13 +1,13 @@
--fix hanging of server thread (progress bar) if client has wrong password. (Launchpad bug)
-
-
 archiving old log:
 
-* test in headless (no heartbeat), Android
+* test in Android. What happens if you interrupt 'archiving old logs'
 * remove debug print from controller, default database maintenance
+* double check if no logs got lost
 
 * full sync should also send archive across
 * update sync protocol version
+
+* doggyfood sync server
 
 
 Android:
@@ -21,7 +21,7 @@ Android:
 -'sync' button should sync directly without going through the sync settings dialog. Put
  the settings in a settings window instead.
  
--dropbox integration? 
+-dropbox integration
  
 -set default grade?
 -check 'redraw now
@@ -54,7 +54,12 @@ to  "last_db_maintenance": time.time() ?
 -duplicate check on answer too? Needs to check whether all necessary fields are marked as unique,
  also in F2B and B2F, vocabulary
  
+-Migrate to Python 3 and starcore 2.5 http://www.srplab.com/data/starcore_for_android.2.5.0.zip
 
+-rework make windows-installer so as not to require keypress, so that it can be used from
+ qtconsole
+ 
+-migrate to http://www.pyinstaller.org/
 
 -better in dialog explanation for hold n cards in your hand?
 

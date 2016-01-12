@@ -37,7 +37,7 @@ class SyncServer(Component, Server):
             # First see if web server needs to release database.
             try:
                 con = httplib.HTTPConnection("127.0.0.1",
-                self.config()["web_server_port"])
+                    self.config()["web_server_port"])
                 con.request("GET", "/release_database")
                 response = con.getresponse()
             except:
@@ -94,6 +94,7 @@ class SyncServerThread(threading.Thread, SyncServer):
         SyncServer.__init__(self, component_manager, UI(), server_only=True)
 
     def run(self):
+        # Start server
         print "Sync server listening on " + localhost_IP() + ":" + \
             str(self.config()["sync_server_port"])
         self.serve_until_stopped()

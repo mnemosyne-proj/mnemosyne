@@ -124,16 +124,19 @@ public class MnemosyneThread extends Thread {
             }
         });
 
-        // Heartbeat
+        // Heartbeat: run at startup and then every 5 seconds.
+        Log.d("Mnemosyne", "initial heartbeat");
+        controller._Call("heartbeat");
         this.scheduler.scheduleAtFixedRate(new Runnable() {
             public void run() {
                 mnemosyneHandler.post(new Runnable() {
                     public void run() {
+                        Log.d("Mnemosyne", "heartbeat");
                         controller._Call("heartbeat");
                     }
                 });
             }
-        }, 0, 10, TimeUnit.SECONDS);
+        }, 0, 5, TimeUnit.SECONDS);
     }
 
     public void pauseMnemosyne() {
