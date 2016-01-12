@@ -13,6 +13,8 @@ mnemosyne.components = [\
           "NoTranslator"),
          ("mnemosyne.libmnemosyne.databases.SQLite",
           "SQLite"),
+         ("mnemosyne.libmnemosyne.database",
+          "DatabaseMaintenance"),           
          ("mnemosyne.libmnemosyne.configuration",
           "Configuration"),
          ("mnemosyne.libmnemosyne.loggers.database_logger",

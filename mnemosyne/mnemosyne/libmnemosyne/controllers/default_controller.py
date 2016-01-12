@@ -67,6 +67,7 @@ class DefaultController(Controller):
             print "TMP DEBUG: doing db maintenance"
             self.component_manager.current("database_maintenance").run()        
             self.config()["last_db_maintenance"] = time.time()
+            self.config().save()
 
     def update_title(self):
         title = _("Mnemosyne")

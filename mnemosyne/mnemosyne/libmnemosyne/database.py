@@ -2,6 +2,7 @@
 # database.py <Peter.Bienstman@UGent.be>
 #
 
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
 
 
@@ -331,7 +332,6 @@ class DatabaseMaintenance(Component):
     component_type = "database_maintenance"
     
     def run(self):
-        print 'hi'
         self.main_widget().set_progress_text(_("Compacting database..."))
         self.database().archive_old_logs()
         self.database().defragment()
