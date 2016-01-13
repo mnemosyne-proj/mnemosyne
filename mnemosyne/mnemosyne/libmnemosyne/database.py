@@ -336,5 +336,4 @@ class DatabaseMaintenance(Component):
         self.database().archive_old_logs()
         self.database().defragment()
         self.main_widget().close_progress()
-        print 'done'
   
