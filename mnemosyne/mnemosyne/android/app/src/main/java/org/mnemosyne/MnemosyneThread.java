@@ -125,13 +125,11 @@ public class MnemosyneThread extends Thread {
         });
 
         // Heartbeat: run at startup and then every 5 seconds.
-        Log.d("Mnemosyne", "initial heartbeat");
         controller._Call("heartbeat");
         this.scheduler.scheduleAtFixedRate(new Runnable() {
             public void run() {
                 mnemosyneHandler.post(new Runnable() {
                     public void run() {
-                        Log.d("Mnemosyne", "heartbeat");
                         controller._Call("heartbeat");
                     }
                 });
@@ -364,7 +362,7 @@ public class MnemosyneThread extends Thread {
 
         final String _activeSet = activeSet;
         activateCardsDialog = dialog;
-
+        
         UIHandler.post(new Runnable() {
             public void run() {
                 Intent activateActivity = new Intent(UIActivity, ActivateCardsActivity.class);
