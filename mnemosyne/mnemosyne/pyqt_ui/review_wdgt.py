@@ -414,7 +414,7 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
             command = "mplayer.exe -slave -ao win32 -quiet \"" + filename + \
                 "\" -ss " + str(start) + " -endpos " + str(duration) 
         elif sys.platform == "darwin":
-            command = "mplayer -slave -ao coreaudio -quiet \"" + filename + \
+            command = "./mplayer -slave -ao coreaudio -quiet \"" + filename + \
                 "\" -ss " + str(start) + " -endpos " + str(duration)
         else:
             command = "mplayer -slave -quiet \"" + filename + \

@@ -431,7 +431,7 @@ public class MnemosyneThread extends Thread {
             }
         });
     }
-
+    
     public void closeProgress() {
         UIHandler.post(new Runnable() {
             public void run() {

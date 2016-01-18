@@ -1,5 +1,7 @@
 Mnemosyne 2.3.6 :
 
+-Logs older than 1 year are now automatically archived in a separate file,
+ which is not backed up all the time, speeding up e.g. the sync process.
 -Failed cards no longer are listed as overdue in the card browser (requested
  by Samuel Innes)
 -Added a --version command line argument to display the version (requested by
