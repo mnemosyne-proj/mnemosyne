@@ -64,7 +64,6 @@ class DefaultController(Controller):
             self.review_controller().reset()
             self.next_rollover = self.database().start_of_day_n_days_ago(n=-1)
         if time.time() > self.config()["last_db_maintenance"] + 90 * DAY:
-            print "TMP DEBUG: doing db maintenance"
             self.component_manager.current("database_maintenance").run()        
             self.config()["last_db_maintenance"] = time.time()
             self.config().save()

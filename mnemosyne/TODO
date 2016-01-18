@@ -1,13 +1,9 @@
 archiving old log:
 
-* test in Android. What happens if you interrupt 'archiving old logs'
-* remove debug print from controller, default database maintenance
-* double check if no logs got lost
+* doggyfood sync server
 
 * full sync should also send archive across
 * update sync protocol version
-
-* doggyfood sync server
 
 
 Android:
