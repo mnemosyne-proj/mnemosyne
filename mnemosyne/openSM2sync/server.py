@@ -568,7 +568,7 @@ class Server(Partner):
         except:
             return self.handle_error(session, traceback_string())
 
-    def put_client_media_file(self, environ, session_token, filename):
+    def put_client_binary_file(self, environ, session_token, filename):
         try:
             session = self.sessions[session_token]
             socket = environ["wsgi.input"]
@@ -578,8 +578,8 @@ class Server(Partner):
             # of the media directory.
             filename = filename.replace("../", "").replace("..\\", "")
             filename = filename.replace("/..", "").replace("\\..", "")            
-            filename = os.path.join(session.database.media_dir(), filename)
-            # We don't have progress bars here, as 'put_client_media_file'
+            filename = os.path.join(session.database.basedir(), filename)
+            # We don't have progress bars here, as 'put_client_binary_file'
             # gets called too frequently, and this would slow down the UI.
             self.download_binary_file(environ["wsgi.input"], filename, size,
                 progress_bar=False)
@@ -594,21 +594,25 @@ class Server(Partner):
             global mnemosyne_content_length
             mnemosyne_content_length = 0
             self.ui.set_progress_text("Sending media files...")
+            subdir = os.path.basename(os.path.normpath(\
+                session.database.media_dir()))
             if redownload_all in ["1", "True", "true"]:
-                filenames = list(session.database.all_media_filenames())
+                filenames = [os.path.join(subdir, filename) for filename in \
+                             session.database.all_media_filenames()]                
             else:
-                filenames = list(session.database.media_filenames_to_sync_for(\
-                    session.client_info["machine_id"]))
+                filenames = [os.path.join(subdir, filename) for filename in \
+                             self.database.media_filenames_to_sync_for(\
+                                 session.client_info["machine_id"])]                 
             if len(filenames) == 0:
                 return ""
             for filename in filenames:
                 mnemosyne_content_length += os.path.getsize(\
-                    os.path.join(session.database.media_dir(), filename))
+                    os.path.join(session.database.basedir(), filename))
             return "\n".join(filenames).encode("utf-8")
         except:
             return self.handle_error(session, traceback_string())
 
-    def get_server_media_file(self, environ, session_token, filename):
+    def get_server_binary_file(self, environ, session_token, filename):
         try:
             session = self.sessions[session_token]
             global mnemosyne_content_length
@@ -618,7 +622,7 @@ class Server(Partner):
             # of the media directory.
             filename = filename.replace("../", "").replace("..\\", "")
             filename = filename.replace("/..", "").replace("\\..", "")
-            filename = os.path.join(session.database.media_dir(), filename)
+            filename = os.path.join(session.database.basedir(), filename)
             file_size = os.path.getsize(filename)
             mnemosyne_content_length = file_size
             # Since we want to modify the headers in this function, we cannot
