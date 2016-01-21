@@ -1,10 +1,17 @@
-archiving old log:
+media subdir join in database or in opensmsync clients?: OK as it is, would break
+cards format
 
-* doggyfood sync server
+test for regressions
 
-* full sync should also send archive across
+server: add get_server_archive_filenames(self, environ, session_token)
+
+client: add 
+put_client_archive_files(self):
+get_server_archive_files(self):
+
+
 * update sync protocol version
-
+* doggyfood sync server
 
 Android:
 
