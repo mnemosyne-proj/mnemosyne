@@ -529,9 +529,30 @@ class Client(Partner):
         total_size = 0
         for filename in filenames:
             total_size += os.path.getsize(os.path.join(\
-                self.database.basedir(), filename))
+                self.database.data_dir(), filename))
         self.put_client_binary_files(filenames, total_size)
         self.ui.close_progress()
+          
+    def put_client_archive_files(self):
+        
+        return
+    # TODO
+        
+        self.ui.set_progress_text("Sending media files...")
+        subdir = os.path.basename(os.path.normpath(self.database.media_dir()))
+        if reupload_all:
+            filenames = [os.path.join(subdir, filename) for filename in \
+                         self.database.all_media_filenames()]
+        else:
+            filenames = [os.path.join(subdir, filename) for filename in \
+                         self.database.media_filenames_to_sync_for(\
+                         self.server_info["machine_id"])] 
+        total_size = 0
+        for filename in filenames:
+            total_size += os.path.getsize(os.path.join(\
+                self.database.data_dir(), filename))
+        self.put_client_binary_files(filenames, total_size)
+        self.ui.close_progress()        
             
     def put_client_binary_files(self, filenames, total_size):   
         self.ui.set_progress_range(total_size)
@@ -542,7 +563,7 @@ class Client(Partner):
                 self.url("/client_binary_file?session_token=%s&filename=%s" \
                 % (self.server_info["session_token"],
                 urllib.quote(filename.encode("utf-8"), ""))))
-            full_path = os.path.join(self.database.basedir(), filename)
+            full_path = os.path.join(self.database.data_dir(), filename)
             file_size = os.path.getsize(full_path)
             self.con.putheader("content-length", file_size)
             self.con.endheaders()
@@ -575,8 +596,36 @@ class Client(Partner):
         self.ui.set_progress_text("Getting media files...")
         self.get_server_binary_files(filenames, total_size)    
         self.ui.close_progress()
+  
+    def get_server_archive_files(self):
+        
+        return
+        # TODO
+        
+        self.ui.set_progress_text("Getting list of media files to download...")
+        # Get list of names of all media files to download.
+        media_url = "/server_media_filenames?session_token=%s" \
+            % (self.server_info["session_token"], )
+        if redownload_all:
+             media_url += "&redownload_all=1"
+        self.request_connection()
+        self.con.request("GET", self.url(media_url))
+        response = self.con.getresponse()
+        self._check_response_for_errors(response, can_consume_response=False)
+        total_size = int(response.getheader("mnemosyne-content-length"))
+        if total_size == 0:
+            # Make sure to read the full message, even if it's empty,
+            # since we reuse our connection.
+            response.read()
+            return
+        filenames = []
+        for filename in response.read().split("\n"):
+            filenames.append(unicode(filename, "utf-8"))
+        self.ui.set_progress_text("Getting media files...")
+        self.get_server_binary_files(filenames, total_size)    
+        self.ui.close_progress()  
                
-    def get_server_binary_files(filenames, total_size):
+    def get_server_binary_files(self, filenames, total_size):
         self.ui.set_progress_range(total_size)
         self.ui.set_progress_update_interval(total_size/50)  
         for filename in filenames:
