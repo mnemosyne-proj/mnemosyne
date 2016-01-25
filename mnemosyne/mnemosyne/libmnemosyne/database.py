@@ -31,6 +31,12 @@ class Database(Component):
         """Returns full path of the database."""
 
         raise NotImplementedError
+    
+    def data_dir(self):
+
+        """Returns directory of the database."""
+
+        raise NotImplementedError    
 
     def name(self):
 

@@ -578,7 +578,7 @@ class Server(Partner):
             # of the media directory.
             filename = filename.replace("../", "").replace("..\\", "")
             filename = filename.replace("/..", "").replace("\\..", "")            
-            filename = os.path.join(session.database.basedir(), filename)
+            filename = os.path.join(session.database.data_dir(), filename)
             # We don't have progress bars here, as 'put_client_binary_file'
             # gets called too frequently, and this would slow down the UI.
             self.download_binary_file(environ["wsgi.input"], filename, size,
@@ -601,13 +601,13 @@ class Server(Partner):
                              session.database.all_media_filenames()]                
             else:
                 filenames = [os.path.join(subdir, filename) for filename in \
-                             self.database.media_filenames_to_sync_for(\
+                             session.database.media_filenames_to_sync_for(\
                                  session.client_info["machine_id"])]                 
             if len(filenames) == 0:
                 return ""
             for filename in filenames:
                 mnemosyne_content_length += os.path.getsize(\
-                    os.path.join(session.database.basedir(), filename))
+                    os.path.join(session.database.data_dir(), filename))
             return "\n".join(filenames).encode("utf-8")
         except:
             return self.handle_error(session, traceback_string())
@@ -622,7 +622,7 @@ class Server(Partner):
             # of the media directory.
             filename = filename.replace("../", "").replace("..\\", "")
             filename = filename.replace("/..", "").replace("\\..", "")
-            filename = os.path.join(session.database.basedir(), filename)
+            filename = os.path.join(session.database.data_dir(), filename)
             file_size = os.path.getsize(filename)
             mnemosyne_content_length = file_size
             # Since we want to modify the headers in this function, we cannot

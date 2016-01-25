@@ -271,6 +271,9 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
 
     def path(self):
         return self._path
+    
+    def data_dir(self):
+        return os.path.dirname(self._path)    
 
     def name(self):
         return os.path.basename(self._path)
