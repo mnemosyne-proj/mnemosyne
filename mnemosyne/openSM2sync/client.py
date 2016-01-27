@@ -528,8 +528,8 @@ class Client(Partner):
                          self.server_info["machine_id"])] 
         total_size = 0
         for filename in filenames:
-            total_size += os.path.getsize(os.path.join(\
-                self.database.data_dir(), filename))
+            total_size += os.path.getsize(os.path.normpath(os.path.join(\
+                self.database.data_dir(), filename)))
         self.put_client_binary_files(filenames, total_size)
         self.ui.close_progress()
           
@@ -549,8 +549,8 @@ class Client(Partner):
                          self.server_info["machine_id"])] 
         total_size = 0
         for filename in filenames:
-            total_size += os.path.getsize(os.path.join(\
-                self.database.data_dir(), filename))
+            total_size += os.path.getsize(os.path.normpath(os.path.join(\
+                self.database.data_dir(), filename)))
         self.put_client_binary_files(filenames, total_size)
         self.ui.close_progress()        
             
@@ -564,6 +564,7 @@ class Client(Partner):
                 % (self.server_info["session_token"],
                 urllib.quote(filename.encode("utf-8"), ""))))
             full_path = os.path.join(self.database.data_dir(), filename)
+            full_path = os.path.normpath(full_path)
             file_size = os.path.getsize(full_path)
             self.con.putheader("content-length", file_size)
             self.con.endheaders()
@@ -642,7 +643,7 @@ class Client(Partner):
             # of the media directory.
             filename = filename.replace("../", "").replace("..\\", "")
             filename = filename.replace("/..", "").replace("\\..", "")
-            filename = os.path.join(self.database.media_dir(), filename)
+            filename = os.path.join(self.database.data_dir(), filename)
             self.download_binary_file(response, filename,
                                       file_size, progress_bar=False)
             self.ui.increase_progress(file_size)
