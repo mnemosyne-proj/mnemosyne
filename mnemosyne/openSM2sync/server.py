@@ -579,6 +579,7 @@ class Server(Partner):
             filename = filename.replace("../", "").replace("..\\", "")
             filename = filename.replace("/..", "").replace("\\..", "")            
             filename = os.path.join(session.database.data_dir(), filename)
+            filename = os.path.normpath(filename)
             # We don't have progress bars here, as 'put_client_binary_file'
             # gets called too frequently, and this would slow down the UI.
             self.download_binary_file(environ["wsgi.input"], filename, size,
@@ -607,7 +608,8 @@ class Server(Partner):
                 return ""
             for filename in filenames:
                 mnemosyne_content_length += os.path.getsize(\
-                    os.path.join(session.database.data_dir(), filename))
+                    os.path.normpath(os.path.join(\
+                        session.database.data_dir(), filename)))
             return "\n".join(filenames).encode("utf-8")
         except:
             return self.handle_error(session, traceback_string())
@@ -623,6 +625,7 @@ class Server(Partner):
             filename = filename.replace("../", "").replace("..\\", "")
             filename = filename.replace("/..", "").replace("\\..", "")
             filename = os.path.join(session.database.data_dir(), filename)
+            filename = os.path.normpath(filename)
             file_size = os.path.getsize(filename)
             mnemosyne_content_length = file_size
             # Since we want to modify the headers in this function, we cannot
