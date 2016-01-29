@@ -1,7 +1,6 @@
-media subdir join in database or in opensmsync clients?: OK as it is, would break
-cards format
 
-test for regressions
+
+test for regressions: test scheduler heartbeat, test logging recover user id, test database, test cramming
 
 server: add get_server_archive_filenames(self, environ, session_token)
 
@@ -17,6 +16,7 @@ strip html from card browser, clicable link
 
 -editing cards in card browser, pressing pg up / down sometimes results in
  list index out of range
+-editing in card browser, pg-up/down: sister cards are not updated
 
 
 Android:
@@ -62,6 +62,8 @@ to  "last_db_maintenance": time.time() ?
 
 -duplicate check on answer too? Needs to check whether all necessary fields are marked as unique,
  also in F2B and B2F, vocabulary
+ 
+- disable latex version check in testsuite 
  
 -Migrate to Python 3 and starcore 2.5 http://www.srplab.com/data/starcore_for_android.2.5.0.zip
 
