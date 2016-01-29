@@ -14,6 +14,7 @@ from openSM2sync.server import Server
 from openSM2sync.client import Client
 from openSM2sync.log_entry import EventTypes
 
+from mnemosyne.version import version
 from mnemosyne_test import MnemosyneTest
 
 from mnemosyne.libmnemosyne import Mnemosyne
@@ -57,7 +58,7 @@ PORT = 9923
 class MyServer(Server, Thread):
 
     program_name = "Mnemosyne"
-    program_version = "test"
+    program_version = version
     user_id = "user_id"
 
     def __init__(self, data_dir=os.path.abspath("dot_sync_server"),
@@ -151,7 +152,7 @@ class MyServer(Server, Thread):
 class MyClient(Client):
 
     program_name = "Mnemosyne"
-    program_version = "test"
+    program_version = version
     capabilities = "mnemosyne_dynamic_cards"
     user = "user"
     password = "pass"
