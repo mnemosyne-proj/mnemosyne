@@ -33,7 +33,6 @@ class TestCrammingScheduler(MnemosyneTest):
             ("mnemosyne_test", "TestReviewWidget"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
 
-
         from mnemosyne.libmnemosyne.plugins.cramming_plugin import CrammingPlugin
         for plugin in self.plugins():
             if isinstance(plugin, CrammingPlugin):
@@ -135,7 +134,14 @@ class TestCrammingScheduler(MnemosyneTest):
         self.review_controller().counters()
 
         self.mnemosyne.finalise()
+        self.mnemosyne.components.insert(0,
+                                         ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
+        self.mnemosyne.components.append(\
+            ("test_cramming", "Widget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne_test", "TestReviewWidget"))        
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
+        self.mnemosyne.start_review()
 
         assert self.scheduler().name == "cramming"
 

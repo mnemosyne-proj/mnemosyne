@@ -139,10 +139,9 @@ class SM2Mnemosyne(Scheduler):
         self._card_ids_in_queue = []
         self._fact_ids_in_queue = []
         self._fact_ids_memorised = []
-        self._fact_ids_memorised_expires_at = int(time.time()) + DAY
         self._card_id_last = None
         self.stage = 1
-        self.warned_about_too_many_cards = False
+        self.warned_about_too_many_cards = False     
 
     def set_initial_grade(self, cards, grade):
 

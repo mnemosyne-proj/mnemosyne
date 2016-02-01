@@ -711,11 +711,6 @@ class TestScheduler(MnemosyneTest):
             self.review_controller().grade_answer(0)
         assert failed == False
 
-    def test_heartbeat(self):
-        self.scheduler().heartbeat()
-        self.scheduler()._fact_ids_memorised_expires_at = -1
-        self.scheduler().heartbeat()
-
     def test_filling(self):
         fact_data = {"f": "question1",
                      "b": "answer1"}
