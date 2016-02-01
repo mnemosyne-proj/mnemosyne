@@ -1,5 +1,3 @@
-
-
 test for regressions: test scheduler heartbeat, test logging recover user id, test database, test cramming
 
 server: add get_server_archive_filenames(self, environ, session_token)

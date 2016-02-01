@@ -127,6 +127,9 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         self.preview_button.setEnabled(valid)
         
     def is_changed(self):
+        if self.previous_card_type_name != \
+           unicode(self.card_types_widget.currentText()):
+            return True
         if self.previous_tags != unicode(self.tags.currentText()):
             return True
         changed = False

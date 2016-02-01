@@ -45,6 +45,7 @@ class AddEditCards(TipAfterStartingNTimes):
         self.card_type_index = 0
         self.card_type_widget = None
         self.previous_tags = None
+        self.previous_card_type_name = current_card_type_name
         db_sorted_card_types = self.database().sorted_card_types()
         for card_type in db_sorted_card_types:
             if _(card_type.name) == current_card_type_name:

@@ -217,6 +217,7 @@ class TestLogging(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("mnemosyne_test", "TestReviewWidget"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
+        self.mnemosyne.start_review()
 
         assert self.config()["user_id"] == "userid"
 
@@ -236,6 +237,7 @@ class TestLogging(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("mnemosyne_test", "TestReviewWidget"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
+        self.mnemosyne.start_review()
 
         assert self.config()["user_id"] == "userid"
 
