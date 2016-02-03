@@ -595,6 +595,8 @@ class Server(Partner):
             global mnemosyne_content_length
             mnemosyne_content_length = 0
             self.ui.set_progress_text("Sending media files...")
+            # Send list of filenames in the format <mediadir>/<filename>, i.e.
+            # relative to the data_dir.            
             subdir = os.path.basename(os.path.normpath(\
                 session.database.media_dir()))
             if redownload_all in ["1", "True", "true"]:
@@ -604,6 +606,28 @@ class Server(Partner):
                 filenames = [os.path.join(subdir, filename) for filename in \
                              session.database.media_filenames_to_sync_for(\
                                  session.client_info["machine_id"])]                 
+            if len(filenames) == 0:
+                return ""
+            for filename in filenames:
+                mnemosyne_content_length += os.path.getsize(\
+                    os.path.normpath(os.path.join(\
+                        session.database.data_dir(), filename)))
+            return "\n".join(filenames).encode("utf-8")
+        except:
+            return self.handle_error(session, traceback_string())
+
+    def get_server_archive_filenames(self, environ, session_token):
+        try:
+            session = self.sessions[session_token]
+            global mnemosyne_content_length
+            mnemosyne_content_length = 0
+            self.ui.set_progress_text("Sending archive files...")
+            # Send list of filenames in the format "archive"/<filename>, i.e.
+            # relative to the data_dir.        
+            archive_dir = os.path.join(session.database.data_dir(), "archive")
+            filenames = [os.path.join("archive", filename) for filename in \
+                         os.listdir(archive_dir) if os.path.isfile\
+                         (os.path.join(archive_dir, filename))]            
             if len(filenames) == 0:
                 return ""
             for filename in filenames:

@@ -1,16 +1,9 @@
-test for regressions: test scheduler heartbeat, test logging recover user id, test database, test cramming
-
-server: add get_server_archive_filenames(self, environ, session_token)
-
-client: add 
-put_client_archive_files(self):
-get_server_archive_files(self):
-
-
-* update sync protocol version
+* add testsuite for sync with archive files
 * doggyfood sync server
 
-strip html from card browser, clicable link
+test for regressions 
+
+strip html from card browser, clickable link
 
 -editing cards in card browser, pressing pg up / down sometimes results in
  list index out of range
