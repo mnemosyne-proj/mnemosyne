@@ -3964,6 +3964,74 @@ class TestSync(object):
         answer = 0 # keep local
         self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().fact_count() == 1
+        
+    def test_upload_archive(self):
 
+        def test_server(self):
+            assert self.client_archive_names == os.listdir(self.archive_path)            
 
+        def fill_server_database(self):
+            self.archive_path = os.path.join(os.getcwd(), "dot_sync_server", "archive")
+            if os.path.exists(self.archive_path):
+                shutil.rmtree(self.archive_path)
 
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient()
+        self.client.binary_upload = True
+        # Import old history.
+        filename = os.path.join(os.getcwd(), "tests", "files", "basedir_bz2",
+                                "default.mem")
+        mem_importer = None
+        for format in self.client.mnemosyne.component_manager.all("file_format"):
+            if format.__class__.__name__ == "Mnemosyne1Mem":
+                mem_importer = format
+                break        
+        mem_importer.do_import(filename)        
+        self.mnemosyne.database().archive_old_logs()
+        
+        archive_path = os.path.join(os.getcwd(), "dot_sync_client", "archive")  
+        self.server.client_archive_names = os.listdir(archive_path)
+        
+        self.client.do_sync(); assert last_error is None
+
+    def test_download_archive(self):
+
+        def test_server(self):
+            pass           
+
+        def fill_server_database(self):
+            # Import old history.
+            filename = os.path.join(os.getcwd(), "tests", "files", "basedir_bz2",
+                                "default.mem")
+            mem_importer = None
+            for format in self.mnemosyne.component_manager.all("file_format"):
+                if format.__class__.__name__ == "Mnemosyne1Mem":
+                    mem_importer = format
+                    break
+            mem_importer.do_import(filename)        
+            self.mnemosyne.database().archive_old_logs()
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient()
+        self.client.binary_upload = True
+        
+        client_archive_path = os.path.join(os.getcwd(), "dot_sync_client", "archive") 
+        if os.path.exists(client_archive_path):
+            shutil.rmtree(client_archive_path)
+
+        self.client.do_sync(); assert last_error is None
+
+        client_archive_names = os.listdir(client_archive_path)
+        
+        server_archive_path = os.path.join(os.getcwd(), "dot_sync_server", "archive")  
+        server_archive_names = os.listdir(server_archive_path) 
+        
+        assert client_archive_names == server_archive_names

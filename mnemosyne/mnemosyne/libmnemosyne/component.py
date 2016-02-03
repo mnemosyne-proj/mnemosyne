@@ -135,4 +135,6 @@ class Component(object):
         server = self.component_manager.current("sync_server")
         if server:
             server.flush()
-        self.review_widget().stop_media()
+        review_widget = self.review_widget()
+        if review_widget:
+            review_widget.stop_media()

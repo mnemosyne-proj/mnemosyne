@@ -40,7 +40,7 @@ class SQLiteMedia(object):
                 os.makedirs(media_dir)
             except WindowsError:
                 self.main_widget().show_error(_("Could not create" ) + " " + \
-media_dir + "./n" + _("Check your file permissions and make sure the directory is not open in a file browser."))
+media_dir + ".\n" + _("Check your file permissions and make sure the directory is not open in a file browser."))
 
     def fact_contains_static_media_files(self, fact):
         # Could be part of fact.py, but is put here to have all media related
