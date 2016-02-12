@@ -144,7 +144,9 @@ _("Media filename rather long. This could cause problems using this file on a di
                 self.main_widget().show_information(\
 _("Filename contains '#', which could cause problems on some operating systems."))
             if not os.path.exists(filename) and \
-                not os.path.exists(expand_path(filename, self.media_dir())):
+                not os.path.exists(expand_path(filename, self.media_dir())) and \
+                not os.path.exists(filename.encode("utf-8")) and \
+                not os.path.exists(expand_path(filename, self.media_dir()).encode("utf-8")):
                 self.main_widget().show_error(_("Missing media file!") + "\n\n" + filename)              
                 for fact_key, value in fact.data.iteritems():
                     fact.data[fact_key] = \

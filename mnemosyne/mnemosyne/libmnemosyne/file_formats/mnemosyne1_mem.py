@@ -105,7 +105,7 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         for filename in filenames:
             try:
                 parser.parse(filename)
-            except:
+            except Exception, e:
                 ignored_files.append(filename)
             w.increase_progress(1)
         if ignored_files:
