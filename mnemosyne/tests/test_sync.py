@@ -3979,9 +3979,16 @@ class TestSync(object):
         self.server.test_server = test_server
         self.server.fill_server_database = fill_server_database
         self.server.start()
+        
+        
+        # This is a throwaway variable to deal with a python bug
+        import datetime
+        throwaway = datetime.datetime.strptime('20110101','%Y%m%d')        
+        
 
         self.client = MyClient()
-        self.client.binary_upload = True
+        self.client.binary_upload = True      
+        
         # Import old history.
         filename = os.path.join(os.getcwd(), "tests", "files", "basedir_bz2",
                                 "default.mem")
@@ -3990,8 +3997,8 @@ class TestSync(object):
             if format.__class__.__name__ == "Mnemosyne1Mem":
                 mem_importer = format
                 break        
-        mem_importer.do_import(filename)        
-        self.mnemosyne.database().archive_old_logs()
+        mem_importer.do_import(filename) 
+        self.client.mnemosyne.database().archive_old_logs()
         
         archive_path = os.path.join(os.getcwd(), "dot_sync_client", "archive")  
         self.server.client_archive_names = os.listdir(archive_path)

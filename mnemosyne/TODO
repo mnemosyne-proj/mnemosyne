@@ -1,6 +1,9 @@
-* add testsuite for sync with archive files
 * doggyfood sync server
 
+-problem in sqlite sync with unicode filenames in sqlitesync line 200 doing a full
+ sync from Android: workaround in place
+ does not seem to work yet (see posts Jan Egil Hagen)
+ 
 test for regressions 
 
 strip html from card browser, clickable link
@@ -25,9 +28,9 @@ Android:
  
 -set default grade?
 -check 'redraw now
--problem in sqlite sync with unicode filenames in sqlitesync line 200 doing a full
- sync from Android: workaround in place
--refactor os.path.exists to also fall back to unicode in other places in the code? 
+
+ 
+
 
 -video
 
@@ -91,6 +94,9 @@ to  "last_db_maintenance": time.time() ?
 
 -starting the program when no cards are shown does not draw a border around the
  Q field
+ 
+-Android unicode filenames: refactor os.path.exists to also fall back to unicode in other
+ places in the code? 
  
  
 -reverse arabic plugin no longer seems to work?

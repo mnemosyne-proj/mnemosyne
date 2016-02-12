@@ -185,8 +185,13 @@ class SQLiteSync(object):
             """select object_id from log where _id>? and (event_type=? or
             event_type=?)""", (_id, EventTypes.ADDED_MEDIA_FILE,
             EventTypes.EDITED_MEDIA_FILE))]:
-            if os.path.exists(expand_path(filename, self.media_dir())):
-                filenames.add(filename)
+            try:
+                if os.path.exists(expand_path(filename, self.media_dir())):
+                    filenames.add(filename)
+            except UnicodeError:
+                # Workaround Android encoding issue.
+                if os.path.exists(expand_path(filename, self.media_dir()).encode("utf-8")):
+                    filenames.add(filename)                  
         return filenames
 
     def all_media_filenames(self):
