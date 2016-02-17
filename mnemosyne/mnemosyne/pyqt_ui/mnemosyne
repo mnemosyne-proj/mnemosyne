@@ -97,13 +97,15 @@ if options.web_server == True or options.sync_server == True:
         web_server_thread.daemon = True
         web_server_thread.start()
     # Heartbeat.
+    # TODO: if a sync request comes in while this is running, it will
+    # fail because of threading issues.
     from threading import Timer
     def heartbeat():
         mnemosyne.database().load(mnemosyne.config()["last_database"])
         mnemosyne.controller().heartbeat()
         mnemosyne.database().unload()
-        Timer(5, heartbeat, ()).start()
-    Timer(1, heartbeat, ()).start()         
+        Timer(3 * 60 * 60, heartbeat, ()).start()
+    Timer(3 * 60 * 60, heartbeat, ()).start()         
     # Hack to allow killing the servers quickly during development.
     try:
         while True:

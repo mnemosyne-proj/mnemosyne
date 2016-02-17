@@ -519,36 +519,38 @@ class Client(Partner):
     def put_client_media_files(self, reupload_all=False):
         self.ui.set_progress_text("Sending media files...")
         # Get list of filenames in the format <mediadir>/<filename>, i.e.
-        # relative to the data_dir.
-        subdir = os.path.basename(os.path.normpath(self.database.media_dir()))
+        # relative to the data_dir. Note we always use / internally. 
+        subdir = os.path.basename(self.database.media_dir())
         if reupload_all:
-            filenames = [os.path.join(subdir, filename) for filename in \
+            filenames = [subdir + "/" + filename for filename in \
                          self.database.all_media_filenames()]
         else:
-            filenames = [os.path.join(subdir, filename) for filename in \
+            filenames = [subdir + "/" + filename for filename in \
                          self.database.media_filenames_to_sync_for(\
                          self.server_info["machine_id"])]
         # Calculate file size and upload.
         total_size = 0
         for filename in filenames:
-            total_size += os.path.getsize(os.path.normpath(os.path.join(\
-                self.database.data_dir(), filename)))
+            total_size += os.path.getsize(os.path.join(\
+                self.database.data_dir(), filename))
         self.put_client_binary_files(filenames, total_size)
         self.ui.close_progress()
           
-    def put_client_archive_files(self):
-        self.ui.set_progress_text("Sending archive files...")
-        # Get list of filenames in the format "archive"/<filename>, i.e.
-        # relative to the data_dir.        
+    def put_client_archive_files(self):  
         archive_dir = os.path.join(self.database.data_dir(), "archive")
-        filenames = [os.path.join("archive", filename) for filename in \
+        if not os.path.exists(archive_dir):
+            return
+        # Get list of filenames in the format "archive"/<filename>, i.e.
+        # relative to the data_dir. Note we always use / internally. 
+        self.ui.set_progress_text("Sending archive files...")       
+        filenames = ["archive/" + filename for filename in \
                      os.listdir(archive_dir) if os.path.isfile\
                      (os.path.join(archive_dir, filename))]
         # Calculate file size and upload.
         total_size = 0
         for filename in filenames:
-            total_size += os.path.getsize(os.path.normpath(os.path.join(\
-                self.database.data_dir(), filename)))
+            total_size += os.path.getsize(os.path.join(\
+                self.database.data_dir(), filename))
         self.put_client_binary_files(filenames, total_size)
         self.ui.close_progress()        
             
@@ -563,7 +565,6 @@ class Client(Partner):
                 % (self.server_info["session_token"],
                 urllib.quote(filename.encode("utf-8"), ""))))
             full_path = os.path.join(self.database.data_dir(), filename)
-            full_path = os.path.normpath(full_path)
             file_size = os.path.getsize(full_path)
             self.con.putheader("content-length", file_size)
             self.con.endheaders()

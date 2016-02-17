@@ -579,7 +579,6 @@ class Server(Partner):
             filename = filename.replace("../", "").replace("..\\", "")
             filename = filename.replace("/..", "").replace("\\..", "")            
             filename = os.path.join(session.database.data_dir(), filename)
-            filename = os.path.normpath(filename)
             # We don't have progress bars here, as 'put_client_binary_file'
             # gets called too frequently, and this would slow down the UI.
             self.download_binary_file(environ["wsgi.input"], filename, size,
@@ -596,21 +595,19 @@ class Server(Partner):
             mnemosyne_content_length = 0
             self.ui.set_progress_text("Sending media files...")
             # Send list of filenames in the format <mediadir>/<filename>, i.e.
-            # relative to the data_dir.            
-            subdir = os.path.basename(os.path.normpath(\
-                session.database.media_dir()))
+            # relative to the data_dir. Note we always use / internally.           
+            subdir = os.path.basename(session.database.media_dir())
             if redownload_all in ["1", "True", "true"]:
-                filenames = [os.path.join(subdir, filename) for filename in \
+                filenames = [subdir + "/" + filename for filename in \
                              session.database.all_media_filenames()]                
             else:
-                filenames = [os.path.join(subdir, filename) for filename in \
+                filenames = [subdir + "/" + filename  for filename in \
                              session.database.media_filenames_to_sync_for(\
                                  session.client_info["machine_id"])]                 
             if len(filenames) == 0:
                 return ""
             for filename in filenames:
-                mnemosyne_content_length += os.path.getsize(\
-                    os.path.normpath(os.path.join(\
+                mnemosyne_content_length += os.path.getsize((os.path.join(\
                         session.database.data_dir(), filename)))
             return "\n".join(filenames).encode("utf-8")
         except:
@@ -623,17 +620,18 @@ class Server(Partner):
             mnemosyne_content_length = 0
             self.ui.set_progress_text("Sending archive files...")
             # Send list of filenames in the format "archive"/<filename>, i.e.
-            # relative to the data_dir.        
+            # relative to the data_dir. Note we always use / internally.       
             archive_dir = os.path.join(session.database.data_dir(), "archive")
-            filenames = [os.path.join("archive", filename) for filename in \
+            if not os.path.exists(archive_dir):
+                return ""
+            filenames = ["archive/" + filename for filename in \
                          os.listdir(archive_dir) if os.path.isfile\
                          (os.path.join(archive_dir, filename))]            
             if len(filenames) == 0:
                 return ""
             for filename in filenames:
-                mnemosyne_content_length += os.path.getsize(\
-                    os.path.normpath(os.path.join(\
-                        session.database.data_dir(), filename)))
+                mnemosyne_content_length += os.path.getsize(os.path.join(\
+                        session.database.data_dir(), filename))
             return "\n".join(filenames).encode("utf-8")
         except:
             return self.handle_error(session, traceback_string())
@@ -649,7 +647,6 @@ class Server(Partner):
             filename = filename.replace("../", "").replace("..\\", "")
             filename = filename.replace("/..", "").replace("\\..", "")
             filename = os.path.join(session.database.data_dir(), filename)
-            filename = os.path.normpath(filename)
             file_size = os.path.getsize(filename)
             mnemosyne_content_length = file_size
             # Since we want to modify the headers in this function, we cannot
