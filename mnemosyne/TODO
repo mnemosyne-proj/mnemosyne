@@ -1,10 +1,13 @@
-* doggyfood sync server
-
 -problem in sqlite sync with unicode filenames in sqlitesync line 200 doing a full
  sync from Android: workaround in place
  does not seem to work yet (see posts Jan Egil Hagen)
  
+ -log merging of archived logs plans
+
+ 
 test for regressions 
+
+-test media file downloading on Android, granularity of progress bar
 
 strip html from card browser, clickable link
 
@@ -69,6 +72,9 @@ to  "last_db_maintenance": time.time() ?
 -better in dialog explanation for hold n cards in your hand?
 
 -option to turn off card count per tag?
+
+-heartbeat in headless server: if a sync request comes in while this is running, it will
+ fail because of threading issues.
 
 -do create_database in a separate thread (see compact_database_dlg.py)
 

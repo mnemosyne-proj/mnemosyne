@@ -161,6 +161,7 @@ windows-installer:
 
 clean:
 	rm -f *~ *.pyc *.tgz process_profile.py
+	rm -rf dist
 	rm -f -R Mnemosyne.egg-info
 	rm -f -R distrib build bin lib include dot_mnemosyne2 dot_test dot_sync_*
 	rm -f -R dot_benchmark dist
@@ -171,6 +172,7 @@ clean:
 
 distrib: FORCE
 	rm -rf dist
+	rm -rf Mnemosyne.egg-info
 	cd po && make
 	cd mnemosyne/libmnemosyne/docs && make html
 	cd mnemosyne/pyqt_ui && make

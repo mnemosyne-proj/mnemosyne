@@ -85,6 +85,7 @@ class TestDatabase(MnemosyneTest):
         card = self.database().card(old_card._id, is_id_internal=True)
         fact = card.fact
 
+
         assert fact.data["f"] == "question"
         assert fact.data["b"] == "answer"
         assert fact.id == old_fact.id

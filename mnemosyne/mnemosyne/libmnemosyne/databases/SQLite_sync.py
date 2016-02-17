@@ -667,7 +667,9 @@ class SQLiteSync(object):
         """
 
         filename = log_entry["fname"]
-        if os.path.exists(expand_path(filename, self.media_dir())):
+        full_path = expand_path(filename, self.media_dir())
+        if os.path.exists(full_path) or \
+           os.path.exists(full_path.encode("utf-8")):
             self.con.execute("""insert or replace into media(filename, _hash)
                 values(?,?)""", (filename, self._media_hash(filename)))
         self.log().added_media_file(filename)
