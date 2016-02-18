@@ -18,6 +18,7 @@ from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
+from mnemosyne.libmnemosyne.utils import path_exists
 from mnemosyne.libmnemosyne.utils import expand_path, MnemosyneError
 
 re_src = re.compile(r"""(src|data)=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
@@ -185,13 +186,8 @@ class SQLiteSync(object):
             """select object_id from log where _id>? and (event_type=? or
             event_type=?)""", (_id, EventTypes.ADDED_MEDIA_FILE,
             EventTypes.EDITED_MEDIA_FILE))]:
-            try:
-                if os.path.exists(expand_path(filename, self.media_dir())):
-                    filenames.add(filename)
-            except UnicodeError:
-                # Workaround Android encoding issue.
-                if os.path.exists(expand_path(filename, self.media_dir()).encode("utf-8")):
-                    filenames.add(filename)                  
+            if path_exists(expand_path(filename, self.media_dir())):
+                filenames.add(filename)                
         return filenames
 
     def all_media_filenames(self):
@@ -203,13 +199,8 @@ class SQLiteSync(object):
             """select object_id from log where event_type=? or
             event_type=?""", (EventTypes.ADDED_MEDIA_FILE,
             EventTypes.EDITED_MEDIA_FILE))]:
-            try:
-                if os.path.exists(expand_path(filename, self.media_dir())):
-                    filenames.add(filename)
-            except UnicodeError:
-                # Workaround Android encoding issue.
-                if os.path.exists(expand_path(filename, self.media_dir()).encode("utf-8")):
-                    filenames.add(filename)                
+            if path_exists(expand_path(filename, self.media_dir())):
+                filenames.add(filename)               
         return filenames
 
     def generate_log_entries_for_settings(self):
@@ -668,8 +659,7 @@ class SQLiteSync(object):
 
         filename = log_entry["fname"]
         full_path = expand_path(filename, self.media_dir())
-        if os.path.exists(full_path) or \
-           os.path.exists(full_path.encode("utf-8")):
+        if path_exists(full_path):
             self.con.execute("""insert or replace into media(filename, _hash)
                 values(?,?)""", (filename, self._media_hash(filename)))
         self.log().added_media_file(filename)
@@ -690,7 +680,7 @@ class SQLiteSync(object):
         #full_path = expand_path(filename, self.media_dir())
         # The file could have been remotely deleted before it got a chance to
         # be synced, so we need to check if the file exists before deleting.
-        #if os.path.exists(full_path):
+        #if path_exists(full_path):
         #    os.remove(full_path)
         #self.log().deleted_media_file(filename)
 

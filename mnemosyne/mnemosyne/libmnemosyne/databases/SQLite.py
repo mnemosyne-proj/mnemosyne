@@ -477,7 +477,9 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             self.log().dump_to_science_log()
             self.backup()  # Saves too.
             self._connection.close()
+            print 'closed connection'
         except Exception, e:
+            print e
             pass
         finally:
             self._connection = None

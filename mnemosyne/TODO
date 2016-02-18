@@ -1,15 +1,16 @@
+-unloaded database after heartbeat works? remove prints in mnemosyne main script and sqlite.py
+
 -problem in sqlite sync with unicode filenames in sqlitesync line 200 doing a full
  sync from Android: workaround in place
  does not seem to work yet (see posts Jan Egil Hagen)
  
- -log merging of archived logs plans
+-log merging of archived logs plans
 
- 
-test for regressions 
 
 -test media file downloading on Android, granularity of progress bar
+ remove progress bar number of media files
 
-strip html from card browser, clickable link
+-strip html from card browser, clickable link
 
 -editing cards in card browser, pressing pg up / down sometimes results in
  list index out of range
@@ -101,8 +102,6 @@ to  "last_db_maintenance": time.time() ?
 -starting the program when no cards are shown does not draw a border around the
  Q field
  
--Android unicode filenames: refactor os.path.exists to also fall back to unicode in other
- places in the code? 
  
  
 -reverse arabic plugin no longer seems to work?
