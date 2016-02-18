@@ -92,6 +92,7 @@ def copy(src, dst):
 class MnemosyneError(Exception):
     pass
 
+
 def _abs_path(path):
 
     """Our own version of os.path.abspath, which does not check for platform.
@@ -102,6 +103,17 @@ def _abs_path(path):
 
     return    ((len(path) > 1) and path[0] == "/") \
            or ((len(path) > 2) and path[1] == ":")
+
+
+def path_exists(path):
+    
+    """Our own version of os.path.exists, to deal with unicode issues
+    on Android."""
+    
+    try:
+        return os.path.exists(path)
+    except UnicodeEncodeError:
+        return os.path.exists(path.encode("utf-8"))
 
 
 def contract_path(path, start):

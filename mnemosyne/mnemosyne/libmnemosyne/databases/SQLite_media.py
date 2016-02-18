@@ -10,6 +10,7 @@ except ImportError:
     from md5 import md5
 
 from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.utils import path_exists
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.utils import is_filesystem_case_insensitive
 from mnemosyne.libmnemosyne.utils import copy_file_to_dir, remove_empty_dirs_in
@@ -35,7 +36,7 @@ class SQLiteMedia(object):
 
     def create_media_dir_if_needed(self):
         media_dir = self.media_dir()
-        if not os.path.exists(media_dir):
+        if not path_exists(media_dir):
             try:
                 os.makedirs(media_dir)
             except WindowsError:
@@ -61,7 +62,7 @@ media_dir + ".\n" + _("Check your file permissions and make sure the directory i
         """
 
         filename = os.path.join(self.media_dir(), os.path.normcase(filename))
-        if not os.path.exists(filename):
+        if not path_exists(filename):
             return "0"
         media_file = file(filename, "rb")
         hasher = md5()
@@ -82,7 +83,7 @@ media_dir + ".\n" + _("Check your file permissions and make sure the directory i
         new_hashes = {}
         for sql_res in self.con.execute("select filename, _hash from media"):
             filename, hash = sql_res[0], sql_res[1]
-            if not os.path.exists(expand_path(filename, self.media_dir())):
+            if not path_exists(expand_path(filename, self.media_dir())):
                 continue
             new_hash = self._media_hash(filename)
             if hash != new_hash:
@@ -143,10 +144,8 @@ _("Media filename rather long. This could cause problems using this file on a di
             if "#" in filename:
                 self.main_widget().show_information(\
 _("Filename contains '#', which could cause problems on some operating systems."))
-            if not os.path.exists(filename) and \
-                not os.path.exists(expand_path(filename, self.media_dir())) and \
-                not os.path.exists(filename.encode("utf-8")) and \
-                not os.path.exists(expand_path(filename, self.media_dir()).encode("utf-8")):
+            if not path_exists(filename) and \
+                not path_exists(expand_path(filename, self.media_dir())):
                 self.main_widget().show_error(_("Missing media file!") + "\n\n" + filename)              
                 for fact_key, value in fact.data.iteritems():
                     fact.data[fact_key] = \
