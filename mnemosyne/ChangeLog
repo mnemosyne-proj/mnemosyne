@@ -6,6 +6,8 @@ Mnemosyne 2.3.6 :
  (reported by Henrik).
 -Failed cards no longer are listed as overdue in the card browser (requested
  by Samuel Innes)
+-Fixed bugs related to Unicode filenames under Android (reported by Jan 
+ Egil Hagen). 
 -Added a --version command line argument to display the version (requested by
  Matthew Exon).
 -Also accept files with *.tsv extention when importing tab-separated data

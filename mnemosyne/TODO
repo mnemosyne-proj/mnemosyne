@@ -1,14 +1,11 @@
 -unloaded database after heartbeat works? remove prints in mnemosyne main script and sqlite.py
 
--problem in sqlite sync with unicode filenames in sqlitesync line 200 doing a full
- sync from Android: workaround in place
- does not seem to work yet (see posts Jan Egil Hagen)
- 
 -log merging of archived logs plans
-
 
 -test media file downloading on Android, granularity of progress bar
  remove progress bar number of media files
+ 
+-tag on client, same tag on server, then sync. 
 
 -strip html from card browser, clickable link
 
