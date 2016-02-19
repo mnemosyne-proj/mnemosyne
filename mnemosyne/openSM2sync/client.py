@@ -595,7 +595,7 @@ class Client(Partner):
         filenames = []
         for filename in response.read().split("\n"):
             filenames.append(unicode(filename, "utf-8"))
-        self.ui.set_progress_text("Getting media files..." + len(filenames) + " " + total_size)
+        self.ui.set_progress_text("Getting media files...")
         self.get_server_binary_files(filenames, total_size)    
         self.ui.close_progress()
   

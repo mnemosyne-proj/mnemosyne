@@ -64,7 +64,10 @@ media_dir + ".\n" + _("Check your file permissions and make sure the directory i
         filename = os.path.join(self.media_dir(), os.path.normcase(filename))
         if not path_exists(filename):
             return "0"
-        media_file = file(filename, "rb")
+        try:
+            media_file = file(filename, "rb")
+        except UnicodeEncodeError:  # Android specific issue.
+            media_file = file(filename.encode("utf-8"), "rb")
         hasher = md5()
         while True:
             buffer = media_file.read(8096)
