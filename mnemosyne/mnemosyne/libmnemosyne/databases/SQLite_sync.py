@@ -194,13 +194,18 @@ class SQLiteSync(object):
 
         """Determine all media files, for use in the initial full sync."""
 
+        # We cannot rely on logs in the database here, since part of it
+        # may have been archived, so we simply send across the entire
+        # media directory.
+        
         filenames = set()
-        for filename in [cursor[0] for cursor in self.con.execute(\
-            """select object_id from log where event_type=? or
-            event_type=?""", (EventTypes.ADDED_MEDIA_FILE,
-            EventTypes.EDITED_MEDIA_FILE))]:
-            if path_exists(expand_path(filename, self.media_dir())):
-                filenames.add(filename)               
+        for root, dirs, files in os.walk(self.media_dir()):
+            subdir = root.replace(self.media_dir(), "")
+            for name in files:
+                filename = os.path.join(subdir, name)
+                if filename.startswith("\\") or filename.startswith("/"):
+                    filename = filename[1:]
+                filenames.add(filename)
         return filenames
 
     def generate_log_entries_for_settings(self):
