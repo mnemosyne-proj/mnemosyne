@@ -1,11 +1,12 @@
--unloaded database after heartbeat works? remove prints in mnemosyne main script and sqlite.py
-
 -log merging of archived logs plans
 
--test media file downloading on Android, granularity of progress bar
- remove progress bar number of media files
+-granularity of progress bar of archive files on Android
+
+-unloaded database after heartbeat works? remove prints in mnemosyne main script and sqlite.py
  
--tag on client, same tag on server, then sync. 
+-tag on client, same tag on server, then sync. Jan Egil Hagen
+
+-db_media:/// Pete Kovalenko
 
 -strip html from card browser, clickable link
 
