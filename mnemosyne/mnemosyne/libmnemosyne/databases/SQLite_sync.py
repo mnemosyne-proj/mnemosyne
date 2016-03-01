@@ -409,22 +409,24 @@ class SQLiteSync(object):
         return log_entry
 
     def add_tag_from_log_entry(self, log_entry):
-        if self.importing:
-            already_imported = self.has_tag_with_id(log_entry["o_id"])
-            same_name_in_database = self.con.execute(\
-                "select count() from tags where name=? and id!=?",
-                (log_entry["name"], log_entry["o_id"])).fetchone()[0] == 1
-            if same_name_in_database:
-                # Merging with the tag which is already in the database is more
-                # difficult, as then the tag links in the cards would need to
-                # be updated.
+        already_imported = self.has_tag_with_id(log_entry["o_id"])
+        if "name" not in log_entry:
+            log_entry["name"] = "dummy"  # Added and immediately deleted.        
+        same_name_in_database = self.con.execute(\
+            "select count() from tags where name=? and id!=?",
+            (log_entry["name"], log_entry["o_id"])).fetchone()[0] == 1
+        if same_name_in_database:
+            # Merging with the tag which is already in the database is more
+            # difficult, as then the tag links in the cards would need to
+            # be updated.
+            if self.importing:  # Don't interrupt sync with dialog.
                 self.main_widget().show_information(\
-            _("Tag '%s' already in database, renaming new tag to '%s (1)'" \
-                % (log_entry["name"], log_entry["name"])))
-                log_entry["name"] += " (1)"
-            if already_imported:
-                log_entry["type"] = EventTypes.EDITED_TAG
-                return self.update_tag(self.tag_from_log_entry(log_entry))
+        _("Tag '%s' already in database, renaming new tag to '%s (1)'" \
+                 % (log_entry["name"], log_entry["name"])))
+            log_entry["name"] += " (1)"
+        if already_imported and self.importing:
+            log_entry["type"] = EventTypes.EDITED_TAG
+            return self.update_tag(self.tag_from_log_entry(log_entry))
         self.add_tag(self.tag_from_log_entry(log_entry))
 
     def tag_from_log_entry(self, log_entry):
@@ -728,25 +730,27 @@ class SQLiteSync(object):
         return fact_view
 
     def add_card_type_from_log_entry(self, log_entry):
-        if self.importing:
-            already_imported = self.con.execute(\
-                "select count() from card_types where id=?",
-                (log_entry["o_id"], )).fetchone()[0] != 0
-            same_name_in_database = self.con.execute(\
-                "select count() from card_types where name=? and id!=?",
-                (log_entry["name"], log_entry["o_id"] )).fetchone()[0] == 1
-            if same_name_in_database:
-                # Merging with the card type which is already in the database
-                # is more difficult, as then the card type links in the cards
-                # would need to be updated.
+        already_imported = self.con.execute(\
+            "select count() from card_types where id=?",
+            (log_entry["o_id"], )).fetchone()[0] != 0
+        if "name" not in log_entry:
+            log_entry["name"] = "dummy"  # Added and immediately deleted.
+        same_name_in_database = self.con.execute(\
+            "select count() from card_types where name=? and id!=?",
+            (log_entry["name"], log_entry["o_id"] )).fetchone()[0] == 1
+        if same_name_in_database:
+            # Merging with the card type which is already in the database
+            # is more difficult, as then the card type links in the cards
+            # would need to be updated.
+            if self.importing:  # Don't interrupt sync with dialog.
                 self.main_widget().show_information(\
- _("Card type '%s' already in database, renaming new card type to '%s (1)'" \
+    _("Card type '%s' already in database, renaming new card type to '%s (1)'" \
                 % (log_entry["name"], log_entry["name"])))
-                log_entry["name"] += " (1)"
-            if already_imported:
-                log_entry["type"] = EventTypes.EDITED_CARD_TYPE
-                return self.update_card_type(\
-                    self.card_type_from_log_entry(log_entry))
+            log_entry["name"] += " (1)"
+        if already_imported and self.importing:
+            log_entry["type"] = EventTypes.EDITED_CARD_TYPE
+            return self.update_card_type(\
+                self.card_type_from_log_entry(log_entry))
         try:
             card_type = self.card_type_from_log_entry(log_entry)
             self.activate_plugins_for_card_type_with_id(card_type.id)
