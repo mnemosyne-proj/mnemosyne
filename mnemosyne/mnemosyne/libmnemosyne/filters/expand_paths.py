@@ -44,6 +44,4 @@ class ExpandPaths(Filter):
         if "db_media:///" in text:
             text = text.replace("db_media:///", 
                 self.database().media_dir().replace("\\", "/") + "/")
-            if not text.startswith("/"):
-                text = "/" + text
         return text

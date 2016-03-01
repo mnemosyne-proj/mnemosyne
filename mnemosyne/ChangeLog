@@ -8,12 +8,17 @@ Mnemosyne 2.3.6 :
  by Samuel Innes)
 -Fixed bugs related to Unicode filenames under Android (reported by Jan 
  Egil Hagen). 
+-When adding a tag with the same name both on client and server before 
+ syncing, rename one of these tags. Users still need to unify and activate
+ the tags though (reported by Jan Egil Hagen). 
 -Added a --version command line argument to display the version (requested by
  Matthew Exon).
 -Also accept files with *.tsv extention when importing tab-separated data
  (requested by Ojas A). 
 -Don't leave the 'Client Logging in...'' dialog on the sync server open in 
  case the client provides a wrong password (reported by Eric).
+-Fixed formatting when using 'db_media:///' in cards with javascript (
+ reported by Pete Kovalenko).
 
 
 Mnemosyne 2.3.5 : 2015-12-07

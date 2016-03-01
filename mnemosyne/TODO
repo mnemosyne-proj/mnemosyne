@@ -1,12 +1,4 @@
--log merging of archived logs plans
-
--granularity of progress bar of archive files on Android
-
--unloaded database after heartbeat works? remove prints in mnemosyne main script and sqlite.py
- 
--tag on client, same tag on server, then sync. Jan Egil Hagen
-
--db_media:/// Pete Kovalenko
+-unloaded database after heartbeat works?
 
 -strip html from card browser, clickable link
 
@@ -27,11 +19,12 @@ Android:
  the settings in a settings window instead.
  
 -dropbox integration
+-make sure Android uploads logs as well
  
 -set default grade?
 -check 'redraw now
 
- 
+-granularity of progress bar of archive files on Android
 
 
 -video
@@ -155,6 +148,8 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
 
 -profile test suite
 
+-tag on client, same tag on server, then sync. 
+ Tag names get renamed, but original tag is set inactive.
 
 
 -cloze deletion in combination with latex or html does not pick up any open

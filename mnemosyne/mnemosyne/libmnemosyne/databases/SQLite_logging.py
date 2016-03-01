@@ -370,6 +370,17 @@ class SQLiteLogging(object):
         w.close_progress()
         
     def archive_old_logs(self):
+        
+        """This puts all the data of old reviews in a separate file, which
+        is no longer backed up. All clients do this independently, and when
+        doing an initial sync, all these archive files are sent across so as
+        not to lose and information. This could cause duplication, however,
+        so later on a algorithm needs to be written to a create a single 
+        archive from these multiple files, by making sure that there are
+        no log lines with duplicate (timestamps, id).
+        
+        """
+        
         self.main_widget().set_progress_text(_("Archiving old logs..."))
         self.backup()
         one_year_ago = int(time.time()) - 356 * DAY
