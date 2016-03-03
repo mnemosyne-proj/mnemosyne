@@ -13,6 +13,11 @@ class EscapeToHtmlForCardBrowser(Filter):
     """
 
     def run(self, text, card, fact_key, **render_args):
+        text = text.replace("<img", "&lt;img")
+        text = text.replace("<audio", "&lt;audio")   
+        text = text.replace("<video", "&lt;video")  
+        return text
+        
         text = text.replace("<", "&lt;")
         text = text.replace("&lt;b>", "<b>")
         text = text.replace("&lt;/b>", "</b>")

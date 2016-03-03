@@ -1,6 +1,11 @@
--unloaded database after heartbeat works?
+-unloaded database after heartbeat works? restart server with nohup.out
 
--strip html from card browser, clickable link
+
+-strip html from card browser, clickable link in browser
+-fonts
+-clean up todos
+
+-is expansion state of tag browser saved?
 
 -editing cards in card browser, pressing pg up / down sometimes results in
  list index out of range
