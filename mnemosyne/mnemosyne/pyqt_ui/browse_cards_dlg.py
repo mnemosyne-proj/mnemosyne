@@ -152,6 +152,17 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
         Component.__init__(self, component_manager)
         QtGui.QStyledItemDelegate.__init__(self, parent)
         self.doc = QtGui.QTextDocument(self)
+        
+        
+        # TMP
+        
+        
+        
+        #from PyQt4 import QtWebKit
+        from mnemosyne.pyqt_ui.qwebview2 import QWebView2
+        self.doc = QWebView2()
+        
+        
         self.Q_or_A = Q_or_A
 
     # We need to reimplement the database access functions here using Qt's
@@ -259,7 +270,16 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
         painter.translate(rect.topLeft())
         painter.translate(0, 3)  # There seems to be a small offset needed...
         painter.setClipRect(rect.translated(-rect.topLeft()))
-        self.doc.documentLayout().draw(painter, context)
+        
+        # TMP
+        #self.doc.documentLayout().draw(painter, context)
+        
+        
+        
+        
+        self.doc.render(painter)
+        
+        
         painter.restore()
 
 

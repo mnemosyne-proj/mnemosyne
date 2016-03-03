@@ -2,6 +2,8 @@ Mnemosyne 2.3.6 :
 
 -Logs older than 1 year are now automatically archived in a separate file,
  which is not backed up all the time, speeding up e.g. the sync process.
+-URLs in cards now open in an external browser, rather than the internal Qt
+ webview which does not have back buttons e.g.
 -Only changing a card type in the 'Edit current card' dialog now works again
  (reported by Henrik).
 -Failed cards no longer are listed as overdue in the card browser (requested
