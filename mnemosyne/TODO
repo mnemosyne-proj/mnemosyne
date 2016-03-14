@@ -1,8 +1,57 @@
--unloaded database after heartbeat works? restart server with nohup.out
+review
 
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="utf-8">
+		<style type="text/css">
+		html, body { margin: 0px; height: 100%;  width: 100%;}
+table.mnem { height: 100%; width: 100%; border: 1px solid #8F8F8F; margin-left: auto; margin-right: auto; background-color: #4B4EFF; }
+div.b { text-align: center; }
+div.f { text-align: center; }
 
--strip html from card browser, clickable link in browser
--fonts
+		</style>
+		</head>
+		<body>
+		  <table id="mnem1" class="mnem">
+		    <tr>
+		      <td><div id="f" class="f">orig <a href="www.google.com">google</a><br></div></td>
+		    </tr>
+		  </table>
+		</body>
+		</html>
+		
+
+browser
+
++++<!DOCTYPE html>
+		    <html>
+		    <head>
+		    <style type="text/css">
+		    body { margin: 0; padding: 0; }
+table.mnem { height: 100%; width: 100%; background-color: #4B4EFF; }
+._search { color: red; }.b { }
+.f { }
+
+		    </style>
+		    </head>
+		    <body>
+		  <table id="mnem1" class="mnem">
+		    <tr>
+		      <td><span class="f">2</span> </td>
+		    </tr>
+		  </table>
+		    </body>
+		    </html>
+		    
+
+really compare css and htlm between browser and regular
+clean up tmp code
+
+cache card type css in card browser renderer?
+
+-clickable link in browser (item.clicked?)
+-background colour in browser
 -clean up todos
 
 -is expansion state of tag browser saved?

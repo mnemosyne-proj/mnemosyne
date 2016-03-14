@@ -20,7 +20,7 @@ class QWebView2(QtWebKit.QWebView):
         self.linkClicked.connect(self.link_clicked) 
         self.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
     
-    def link_clicked(self, url): 
+    def link_clicked(self, url):
         webbrowser.open(str(url.toString()))
         
     def focusInEvent(self, event):
@@ -36,4 +36,6 @@ class QWebView2(QtWebKit.QWebView):
         action.setShortcuts(QtGui.QKeySequence(_("Ctrl+C")))
         menu.addAction(action)
         menu.exec_(self.mapToGlobal(event.pos()))
+
+      
 

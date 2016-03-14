@@ -10,28 +10,32 @@ colour_re = re.compile(r"color:.+?;")
 
 class HtmlCssCardBrowser(HtmlCss):
 
-    """Renders the question or the answer as html without tables, to be used
-    in the card browser. The idea is to display everything as much as possible
-    on a single line which fits with the rest of the table, so we only respect
+    """Renders the question or the answer as html to be used in the card 
+    browser. The idea is to display everything as much as possible on a 
+    single line which fits with the rest of the table, so we only respect
     fonts families, colours and weights, not size and alignment.
 
     """
+    
+    # TODO: cache card type css?
 
     def body_css(self):
-        return "body { margin: 0; padding: 0; }\n"
+        return "body { margin: 0px; height: 100%;  width: 100%;}\n"
 
     def card_type_css(self, card_type):
-        css = "._search { color: red; }"
-        # key tags.
+        self.table_height = "100%"
+        css = "table.mnem { height: " + self.table_height + "; width: 100%;}\n"
+        css += "._search { color: red; }\n"       
+        # Key tags.
         for true_fact_key, proxy_fact_key in \
             card_type.fact_key_format_proxies().iteritems():
-            css += ".%s { " % true_fact_key
+            css += ".%s { " % true_fact_key 
             # Font colours.
             colour = self.config().card_type_property(\
                 "font_colour", card_type, proxy_fact_key)
             if colour:
                 colour_string = ("%X" % colour)[2:] # Strip alpha.
-                css += "color: #%s; " % colour_string
+                css += "color: #%s; " % colour_string  
             # Font.
             font_string = self.config().card_type_property(\
                 "font", card_type, proxy_fact_key)
@@ -78,15 +82,22 @@ class HtmlCssCardBrowser(HtmlCss):
                     fact_data[fact_key] = search_re.sub(\
                     "<span class=\"_search\">\\1</span>", fact_data[fact_key])
         body = self.body(fact_data, fact_keys, **render_args)
+        if body == "":
+            body = "&nbsp;"   
         return """
-        <html>
-        <head>
-        <style type="text/css">
-        %s
-        </style>
-        </head>
-        <body>
-        %s
-        </body>
-        </html>""" % (css, body)
-
+            <!DOCTYPE html>
+            <html>
+            <head>
+            <meta charset="utf-8">
+            <style type="text/css">
+            %s
+            </style>
+            </head>
+            <body>
+          <table id="mnem1" class="mnem">
+            <tr>
+              <td>%s</td>
+            </tr>
+          </table>
+            </body>
+            </html>""" % (css, body)        
