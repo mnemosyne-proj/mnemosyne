@@ -29,7 +29,6 @@ class HtmlCss(Renderer):
 
     def body_css(self):
         return "html, body { margin: 0px; height: 100%;  width: 100%;}\n"
-        return "body { margin: 0; padding: 0; border: thin solid #8F8F8F; }\n"
 
     def card_type_css(self, card_type):
         # Set aligment of the table (but not the contents within the table).
@@ -51,7 +50,7 @@ class HtmlCss(Renderer):
             colour_string = ("%X" % colour)[2:] # Strip alpha.
             css += "background-color: #%s; " % colour_string
         css += "}\n"
-        # key tags.
+        # Key tags.
         for true_fact_key, proxy_fact_key in \
             card_type.fact_key_format_proxies().iteritems():
             css += "div.%s { " % true_fact_key
@@ -102,7 +101,7 @@ class HtmlCss(Renderer):
             if fact_key in fact_data and fact_data[fact_key]:
                 line = "<div id=\"%s\" class=\"%s\">%s</div>" % \
                     (fact_key, fact_key, fact_data[fact_key])
-                # Honor paragraph style also in user-created tables.
+                # Honour paragraph style also in user-created tables.
                 line = line.replace("<td>",
                     "<td><div id=\"%s\" class=\"%s\">" % (fact_key, fact_key))
                 line = line.replace("<TD>",

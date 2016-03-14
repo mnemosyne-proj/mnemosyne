@@ -151,11 +151,11 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
     def __init__(self, component_manager, Q_or_A, parent=None):
         Component.__init__(self, component_manager)
         QtGui.QStyledItemDelegate.__init__(self, parent)
-        self.doc = QtGui.QTextDocument(self)
+ 
         
         
         # TMP
-        
+        #self.doc = QtGui.QTextDocument(self)
         
         
         #from PyQt4 import QtWebKit
@@ -259,8 +259,9 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
                                        QtGui.QPalette.HighlightedText))
         rect = \
              style.subElementRect(QtGui.QStyle.SE_ItemViewItemText, optionV4)
+        painter.fillRect(rect, QtGui.QColor("red"))
         painter.save()
-
+        
         # No longer used (done in model for all columns),
         # but kept for reference.
         #if not (optionV4.state & QtGui.QStyle.State_Selected) and \
@@ -268,19 +269,20 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
         #     painter.fillRect(rect, QtGui.QColor("red"))
 
         painter.translate(rect.topLeft())
-        painter.translate(0, 3)  # There seems to be a small offset needed...
+        #painter.translate(0, 3)  # There seems to be a small offset needed...
         painter.setClipRect(rect.translated(-rect.topLeft()))
         
         # TMP
         #self.doc.documentLayout().draw(painter, context)
         
-        
+        self.doc.setStyleSheet("background:transparent")
+        self.doc.setAttribute(QtCore.Qt.WA_TranslucentBackground)     
         
         
         self.doc.render(painter)
         
         
-        painter.restore()
+        painter.restore() 
 
 
 class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
@@ -722,7 +724,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             if len(self.saved_selection) < 10:
                 for index in self.saved_selection:
                     self.table.selectRow(index.row())
-            self.table.setSelectionMode(old_selection_mode)
+            self.table.setSelectionMode(old_selection_mode)   
 
     def reload_database_and_redraw(self):
         self.load_qt_database()
@@ -742,7 +744,7 @@ _("You chose to sort this table. Operations in the card browser could now be slo
         # keypress was 300 ms ago.
         self.timer.start(300)
 
-    def update_filter(self):
+    def update_filter(self):  
         # Card types and fact views.
         criterion = DefaultCriterion(self.component_manager)
         self.card_type_tree_wdgt.checked_to_criterion(criterion)
