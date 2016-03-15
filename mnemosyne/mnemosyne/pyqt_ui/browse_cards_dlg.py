@@ -249,8 +249,8 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
                 ignore_text_colour=ignore_text_colour,
                 search_string=search_string))
         # Paint the item without the text.
-        optionV4.text = QtCore.QString()
-        style.drawControl(QtGui.QStyle.CE_ItemViewItem, optionV4, painter)
+        #optionV4.text = QtCore.QString()
+        #style.drawControl(QtGui.QStyle.CE_ItemViewItem, optionV4, painter)
         context = QtGui.QAbstractTextDocumentLayout.PaintContext()
         # Highlight text if item is selected.
         if optionV4.state & QtGui.QStyle.State_Selected:
@@ -259,7 +259,13 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
                                        QtGui.QPalette.HighlightedText))
         rect = \
              style.subElementRect(QtGui.QStyle.SE_ItemViewItemText, optionV4)
-        painter.fillRect(rect, QtGui.QColor("red"))
+        if optionV4.state & QtGui.QStyle.State_Selected:
+            background_colour = optionV4.palette.color(QtGui.QPalette.Active,
+                                       QtGui.QPalette.Highlight)
+        else:
+            background_colour = index.model().background_colour_for_card_type_id\
+                [card.card_type.id]
+        painter.fillRect(rect, background_colour)
         painter.save()
         
         # No longer used (done in model for all columns),

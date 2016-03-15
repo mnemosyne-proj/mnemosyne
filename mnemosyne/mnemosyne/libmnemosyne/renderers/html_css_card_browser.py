@@ -33,9 +33,13 @@ class HtmlCssCardBrowser(HtmlCss):
             # Font colours.
             colour = self.config().card_type_property(\
                 "font_colour", card_type, proxy_fact_key)
+            
+            from PyQt4 import QtGui, QtCore
+            colour = QtGui.QColor(QtCore.Qt.white).rgb()
+
             if colour:
                 colour_string = ("%X" % colour)[2:] # Strip alpha.
-                css += "color: #%s; " % colour_string  
+                css += "color: #%s; " % colour_string
             # Font.
             font_string = self.config().card_type_property(\
                 "font", card_type, proxy_fact_key)
@@ -68,9 +72,9 @@ class HtmlCssCardBrowser(HtmlCss):
 
     def render(self, fact_data, fact_keys, card_type, **render_args):
         css = self.css(card_type)
-        if "ignore_text_colour" in render_args and \
-            render_args["ignore_text_colour"] == True:
-            css = colour_re.sub("", css)
+        #if "ignore_text_colour" in render_args and \
+        #    render_args["ignore_text_colour"] == True:
+        #    css = colour_re.sub("", css)
         if "search_string" in render_args and render_args["search_string"]:
             search_string = render_args["search_string"]
             for symbol in ["\\", "(", ")", "?", ".", "^", "*",
@@ -83,7 +87,26 @@ class HtmlCssCardBrowser(HtmlCss):
                     "<span class=\"_search\">\\1</span>", fact_data[fact_key])
         body = self.body(fact_data, fact_keys, **render_args)
         if body == "":
-            body = "&nbsp;"   
+            body = "&nbsp;" 
+            
+        print  """
+            <!DOCTYPE html>
+            <html>
+            <head>
+            <meta charset="utf-8">
+            <style type="text/css">
+            %s
+            </style>
+            </head>
+            <body>
+            <table id="mnem1" class="mnem">
+            <tr>
+              <td>%s</td>
+            </tr>
+            </table>
+            </body>
+            </html>""" % (css, body)                   
+            
         return """
             <!DOCTYPE html>
             <html>
@@ -94,10 +117,10 @@ class HtmlCssCardBrowser(HtmlCss):
             </style>
             </head>
             <body>
-          <table id="mnem1" class="mnem">
+            <table id="mnem1" class="mnem">
             <tr>
               <td>%s</td>
             </tr>
-          </table>
+            </table>
             </body>
             </html>""" % (css, body)        
