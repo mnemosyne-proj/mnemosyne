@@ -25,12 +25,12 @@ class HtmlCss(Renderer):
         Renderer.__init__(self, component_manager)
         # We cache the css creation to save some time, especially on mobile
         # devices.
-        self._css = {} # {card_type.id: css}
+        self._css = {} # {card_type.id: render_args: css}
 
-    def body_css(self):
+    def body_css(self, **render_args):
         return "html, body { margin: 0px; height: 100%;  width: 100%;}\n"
 
-    def card_type_css(self, card_type):
+    def card_type_css(self, card_type, **render_args):
         # Set aligment of the table (but not the contents within the table).
         # Use a separate id such that user created tables are not affected.
         css = "table.mnem { height: " + self.table_height + "; width: 100%; "
@@ -86,14 +86,19 @@ class HtmlCss(Renderer):
             css += "}\n"
         return css
 
-    def update(self, card_type):
-        self._css[card_type.id] = \
-            self.body_css() + self.card_type_css(card_type)
+    def update(self, card_type, **render_args):
+        if card_type.id not in self._css:
+            self._css[card_type.id] = {}    
+        self._css[card_type.id][repr(sorted(render_args.items()))] =\
+            self.body_css(**render_args) + \
+            self.card_type_css(card_type, **render_args)
             
-    def css(self, card_type):
-        if not card_type.id in self._css:
-            self.update(card_type)
-        return self._css[card_type.id]
+    def css(self, card_type, **render_args):
+        render_args_hash = repr(sorted(render_args.items()))
+        if not card_type.id in self._css or \
+           not render_args_hash in self._css[card_type.id]:
+            self.update(card_type, **render_args)
+        return self._css[card_type.id][render_args_hash]
 
     def body(self, fact_data, fact_keys, card_type, **render_args):
         html = ""

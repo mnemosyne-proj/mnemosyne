@@ -16,13 +16,11 @@ class HtmlCssCardBrowser(HtmlCss):
     fonts families, colours and weights, not size and alignment.
 
     """
-    
-    # TODO: cache card type css?
 
-    def body_css(self):
+    def body_css(self, **render_args):
         return "body { margin: 0px; height: 100%;  width: 100%;}\n"
 
-    def card_type_css(self, card_type):
+    def card_type_css(self, card_type, **render_args):
         self.table_height = "100%"
         css = "table.mnem { height: " + self.table_height + "; width: 100%;}\n"
         css += "._search { color: red; }\n"       
@@ -31,12 +29,11 @@ class HtmlCssCardBrowser(HtmlCss):
             card_type.fact_key_format_proxies().iteritems():
             css += ".%s { " % true_fact_key 
             # Font colours.
-            colour = self.config().card_type_property(\
-                "font_colour", card_type, proxy_fact_key)
-            
-            from PyQt4 import QtGui, QtCore
-            colour = QtGui.QColor(QtCore.Qt.white).rgb()
-
+            if "force_text_colour" in render_args and render_args["force_text_colour"]:
+                colour = render_args["force_text_colour"]
+            else:
+                colour = self.config().card_type_property(\
+                    "font_colour", card_type, proxy_fact_key)
             if colour:
                 colour_string = ("%X" % colour)[2:] # Strip alpha.
                 css += "color: #%s; " % colour_string
@@ -71,10 +68,10 @@ class HtmlCssCardBrowser(HtmlCss):
         return html[:-2]
 
     def render(self, fact_data, fact_keys, card_type, **render_args):
-        css = self.css(card_type)
-        #if "ignore_text_colour" in render_args and \
-        #    render_args["ignore_text_colour"] == True:
-        #    css = colour_re.sub("", css)
+        css = self.css(card_type, **render_args)
+        if "ignore_text_colour" in render_args and \
+            render_args["ignore_text_colour"] == True:
+            css = colour_re.sub("", css)
         if "search_string" in render_args and render_args["search_string"]:
             search_string = render_args["search_string"]
             for symbol in ["\\", "(", ")", "?", ".", "^", "*",
@@ -87,26 +84,7 @@ class HtmlCssCardBrowser(HtmlCss):
                     "<span class=\"_search\">\\1</span>", fact_data[fact_key])
         body = self.body(fact_data, fact_keys, **render_args)
         if body == "":
-            body = "&nbsp;" 
-            
-        print  """
-            <!DOCTYPE html>
-            <html>
-            <head>
-            <meta charset="utf-8">
-            <style type="text/css">
-            %s
-            </style>
-            </head>
-            <body>
-            <table id="mnem1" class="mnem">
-            <tr>
-              <td>%s</td>
-            </tr>
-            </table>
-            </body>
-            </html>""" % (css, body)                   
-            
+            body = "&nbsp;"   
         return """
             <!DOCTYPE html>
             <html>
