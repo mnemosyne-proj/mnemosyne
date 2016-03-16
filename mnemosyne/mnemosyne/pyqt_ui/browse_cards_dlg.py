@@ -12,6 +12,7 @@ from mnemosyne.libmnemosyne.tag import Tag
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.pyqt_ui.qwebview2 import QWebView2
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.pyqt_ui.tag_tree_wdgt import TagsTreeWdgt
 from mnemosyne.pyqt_ui.ui_browse_cards_dlg import Ui_BrowseCardsDlg
@@ -151,18 +152,7 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
     def __init__(self, component_manager, Q_or_A, parent=None):
         Component.__init__(self, component_manager)
         QtGui.QStyledItemDelegate.__init__(self, parent)
- 
-        
-        
-        # TMP
-        #self.doc = QtGui.QTextDocument(self)
-        
-        
-        #from PyQt4 import QtWebKit
-        from mnemosyne.pyqt_ui.qwebview2 import QWebView2
         self.doc = QWebView2()
-        
-        
         self.Q_or_A = Q_or_A
 
     # We need to reimplement the database access functions here using Qt's
@@ -237,26 +227,22 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
         # Get the data.
         _id_index = index.model().index(index.row(), _ID)
         _id = index.model().data(_id_index).toInt()[0]
-        ignore_text_colour = bool(optionV4.state & QtGui.QStyle.State_Selected)
+        if optionV4.state & QtGui.QStyle.State_Selected:
+            force_text_colour = optionV4.palette.color(\
+                QtGui.QPalette.Active, QtGui.QPalette.HighlightedText).rgb()
+        else:
+            force_text_colour = None
         search_string = index.model().search_string
         card = self.card(_id)
         if self.Q_or_A == QUESTION:
             self.doc.setHtml(card.question(render_chain="card_browser",
-                ignore_text_colour=ignore_text_colour,
+                force_text_colour=force_text_colour,
                 search_string=search_string))
         else:
             self.doc.setHtml(card.answer(render_chain="card_browser",
-                ignore_text_colour=ignore_text_colour,
+                force_text_colour=force_text_colour,
                 search_string=search_string))
-        # Paint the item without the text.
-        #optionV4.text = QtCore.QString()
-        #style.drawControl(QtGui.QStyle.CE_ItemViewItem, optionV4, painter)
-        context = QtGui.QAbstractTextDocumentLayout.PaintContext()
-        # Highlight text if item is selected.
-        if optionV4.state & QtGui.QStyle.State_Selected:
-            context.palette.setColor(QtGui.QPalette.Text,
-                optionV4.palette.color(QtGui.QPalette.Active,
-                                       QtGui.QPalette.HighlightedText))
+        # Background colour.
         rect = \
              style.subElementRect(QtGui.QStyle.SE_ItemViewItemText, optionV4)
         if optionV4.state & QtGui.QStyle.State_Selected:
@@ -275,19 +261,10 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
         #     painter.fillRect(rect, QtGui.QColor("red"))
 
         painter.translate(rect.topLeft())
-        #painter.translate(0, 3)  # There seems to be a small offset needed...
         painter.setClipRect(rect.translated(-rect.topLeft()))
-        
-        # TMP
-        #self.doc.documentLayout().draw(painter, context)
-        
         self.doc.setStyleSheet("background:transparent")
         self.doc.setAttribute(QtCore.Qt.WA_TranslucentBackground)     
-        
-        
         self.doc.render(painter)
-        
-        
         painter.restore() 
 
 
