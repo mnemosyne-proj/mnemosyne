@@ -3,7 +3,7 @@
 #
 
 import os
-from utils import file_
+from utils import file_, path_getsize
 
 class Partner(object):
 
@@ -14,7 +14,7 @@ class Partner(object):
 
     def stream_binary_file(self, filename, progress_bar=True):
         binary_file = file_(filename, "rb")
-        file_size = os.path.getsize(filename)
+        file_size = path_getsize(filename)
         buffer = binary_file.read(self.BUFFER_SIZE)
         if progress_bar:
             self.ui.set_progress_range(file_size)

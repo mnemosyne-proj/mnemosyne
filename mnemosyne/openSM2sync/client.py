@@ -12,7 +12,8 @@ import httplib
 
 from partner import Partner
 from text_formats.xml_format import XMLFormat
-from utils import traceback_string, SyncError, SeriousSyncError
+from utils import SyncError, SeriousSyncError
+from utils import path_exists, path_getsize, path_join, traceback_string
 
 # Avoid delays caused by Nagle's algorithm.
 # http://www.cmlenz.net/archives/2008/03/python-httplib-performance-problems
@@ -531,7 +532,7 @@ class Client(Partner):
         # Calculate file size and upload.
         total_size = 0
         for filename in filenames:
-            total_size += os.path.getsize(os.path.join(\
+            total_size += path_getsize(os.path.join(\
                 self.database.data_dir(), filename))
         self.put_client_binary_files(filenames, total_size)
         self.ui.close_progress()
@@ -564,8 +565,8 @@ class Client(Partner):
                 self.url("/client_binary_file?session_token=%s&filename=%s" \
                 % (self.server_info["session_token"],
                 urllib.quote(filename.encode("utf-8"), ""))))
-            full_path = os.path.join(self.database.data_dir(), filename)
-            file_size = os.path.getsize(full_path)
+            full_path = path_join(self.database.data_dir(), filename)
+            file_size = path_getsize(full_path)
             self.con.putheader("content-length", file_size)
             self.con.endheaders()
             for buffer in self.stream_binary_file(full_path, progress_bar=False):

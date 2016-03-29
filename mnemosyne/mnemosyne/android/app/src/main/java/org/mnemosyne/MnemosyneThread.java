@@ -417,7 +417,7 @@ public class MnemosyneThread extends Thread {
             }
         });
     }
-
+    
     public void setProgressValue(int value) {
         final int _value = value;
         UIHandler.post(new Runnable() {
