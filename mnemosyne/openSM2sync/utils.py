@@ -11,10 +11,12 @@ import traceback
 class SyncError(Exception):
     pass
 
+
 class SeriousSyncError(Exception):
 
     """Requires backup from database afterwards."""
     pass
+
 
 def traceback_string():
 
@@ -27,6 +29,7 @@ def traceback_string():
     body = body + "%-20s %s" % ("".join(list[:-1]), list[-1])
     del tb  # Prevent circular references.
     return body
+
 
 def rand_uuid():
 
@@ -44,6 +47,7 @@ def rand_uuid():
         uuid += chars[int(rand() * 62.0 - 1)]
     return uuid
 
+
 def file_(filename, mode):
     
     """Wrapped version of file constructor to handle the fact that on
@@ -59,3 +63,36 @@ def file_(filename, mode):
         _ENCODING = sys.getfilesystemencoding() or \
             locale.getdefaultlocale()[1] or "utf-8"
         return file(filename.encode(_ENCODING), mode)
+    
+
+def path_exists(path):
+    
+    """Our own version of os.path.exists, to deal with unicode issues
+    on Android."""
+    
+    try:
+        return os.path.exists(path)
+    except UnicodeEncodeError:
+        return os.path.exists(path.encode("utf-8"))
+    
+    
+def path_getsize(path):
+    
+    """Our own version of os.path.getsize, to deal with unicode issues
+    on Android."""
+    
+    try:
+        return os.path.getsize(path)
+    except UnicodeEncodeError:
+        return os.path.getsize(path.encode("utf-8"))  
+  
+    
+def path_join(path1, path2):
+    
+    """Our own version of os.path.getsize, to deal with unicode issues
+    on Android."""
+    
+    try:
+        return os.path.join(path1, path2)
+    except UnicodeDecodeError:
+        return os.path.join(path1.decode("utf-8"), path2.decode("utf-8"))      

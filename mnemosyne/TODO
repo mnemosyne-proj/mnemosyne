@@ -7,7 +7,6 @@
  list index out of range
 -editing in card browser, pg-up/down: sister cards are not updated
 
-
 Android:
 
 -latex on android, media table corrupt?
@@ -24,8 +23,6 @@ Android:
  
 -set default grade?
 -check 'redraw now
-
--granularity of progress bar of archive files on Android
 
 
 -video

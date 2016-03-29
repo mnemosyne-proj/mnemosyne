@@ -146,15 +146,18 @@ class CardModel(QtSql.QSqlTableModel, Component):
 
 class QA_Delegate(QtGui.QStyledItemDelegate, Component):
 
-    # http://stackoverflow.com/questions/1956542/
-    # how-to-make-item-view-render-rich-html-text-in-qt
+    """Uses webview to render the questions and answers."""
 
     def __init__(self, component_manager, Q_or_A, parent=None):
         Component.__init__(self, component_manager)
         QtGui.QStyledItemDelegate.__init__(self, parent)
         self.doc = QWebView2()
         self.Q_or_A = Q_or_A
-
+        
+        
+        self.saved_mouse_pressed_event = None
+        self.saved_mouse_released_event = None
+        
     # We need to reimplement the database access functions here using Qt's
     # database driver. Otherwise, both Qt and libmnemosyne try to claim
     # ownership at the same time. We don't reconstruct everything in order
@@ -227,6 +230,9 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
         # Get the data.
         _id_index = index.model().index(index.row(), _ID)
         _id = index.model().data(_id_index).toInt()[0]
+        
+        print "paint", _id
+        
         if optionV4.state & QtGui.QStyle.State_Selected:
             force_text_colour = optionV4.palette.color(\
                 QtGui.QPalette.Active, QtGui.QPalette.HighlightedText).rgb()
@@ -266,6 +272,32 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
         self.doc.setAttribute(QtCore.Qt.WA_TranslucentBackground)     
         self.doc.render(painter)
         painter.restore() 
+        
+        if self.saved_mouse_pressed_event:
+            self.doc.mousePressEvent(self.saved_mouse_pressed_event)
+            print "saved pos", self.saved_pos
+            self.saved_mouse_pressed_event = None
+        if self.saved_mouse_released_event:
+            self.doc.mouseReleaseEvent(self.saved_mouse_released_event)
+            self.saved_mouse_released_event = None            
+        
+    def editorEvent(self, event, model, option, index):
+        _id_index = index.model().index(index.row(), _ID)
+        _id = index.model().data(_id_index).toInt()[0]
+    
+        print "editor event", _id        
+
+        value = QtGui.QStyledItemDelegate.editorEvent(self, event, model, option, index)
+        if event.type() == QtCore.QEvent.MouseButtonPress:
+            print 'press', event.pos()# , self.doc.page().mainFrame().toHtml()
+            self.saved_mouse_pressed_event = event
+            self.saved_pos = event.pos()
+            #self.doc.mousePressEvent(event)
+        if event.type() == QtCore.QEvent.MouseButtonRelease:
+            print 'release', event.pos()
+            self.saved_mouse_released_event = event
+            #self.doc.mouseReleaseEvent(event)      
+        return value
 
 
 class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,

@@ -115,6 +115,28 @@ def path_exists(path):
     except UnicodeEncodeError:
         return os.path.exists(path.encode("utf-8"))
 
+    
+def path_getsize(path):
+    
+    """Our own version of os.path.getsize, to deal with unicode issues
+    on Android."""
+    
+    try:
+        return os.path.getsize(path)
+    except UnicodeEncodeError:
+        return os.path.getsize(path.encode("utf-8"))  
+    
+    
+def path_join(path1, path2):
+    
+    """Our own version of os.path.getsize, to deal with unicode issues
+    on Android."""
+    
+    try:
+        return os.path.join(path1, path2)
+    except UnicodeDecodeError:
+        return os.path.join(path1.decode("utf-8"), path2.decode("utf-8"))      
+    
 
 def contract_path(path, start):
 

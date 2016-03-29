@@ -18,7 +18,7 @@ from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
-from mnemosyne.libmnemosyne.utils import path_exists
+from mnemosyne.libmnemosyne.utils import path_exists, path_join
 from mnemosyne.libmnemosyne.utils import expand_path, MnemosyneError
 
 re_src = re.compile(r"""(src|data)=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
@@ -199,10 +199,11 @@ class SQLiteSync(object):
         # media directory.
         
         filenames = set()
-        for root, dirs, files in os.walk(self.media_dir()):
+        # 'str' needed for Android:
+        for root, dirs, files in os.walk(str(self.media_dir())):
             subdir = root.replace(self.media_dir(), "")
             for name in files:
-                filename = os.path.join(subdir, name)
+                filename = path_join(subdir, name)
                 if filename.startswith("\\") or filename.startswith("/"):
                     filename = filename[1:]
                 filenames.add(filename)
