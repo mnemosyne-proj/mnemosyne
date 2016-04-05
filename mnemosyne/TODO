@@ -1,15 +1,4 @@
--cannot resize column width
--clickable link in browser (item.clicked?)
-
--is expansion state of tag browser saved?
-
--editing cards in card browser, pressing pg up / down sometimes results in
- list index out of range
--editing in card browser, pg-up/down: sister cards are not updated
-
 Android:
-
--latex on android, media table corrupt?
 
 -progress bar before 'sync finished'?
 -rename 'finalising install'?
@@ -23,7 +12,7 @@ Android:
  
 -set default grade?
 -check 'redraw now
-
+-latex on android, media table corrupt?
 
 -video
 
@@ -31,6 +20,10 @@ Android:
 
 -option to globally increase / decrease font size with respect to desktop
 -custom fonts?
+
+
+
+
 
 -after the next release, change "last_db_maintenance": time.time() - 91 * DAY
 to  "last_db_maintenance": time.time() ?
@@ -91,7 +84,14 @@ to  "last_db_maintenance": time.time() ?
 -starting the program when no cards are shown does not draw a border around the
  Q field
  
+-clickable links in browser (difficult, as after drawing Q or A, only the bitmap is saved,
+not the browser widget)
  
+-editing cards in card browser, pressing pg up / down sometimes results in
+ list index out of range, or simply card edit widget disappearing
+-editing in card browser, pg-up/down: sister cards are not updated
+
+
  
 -reverse arabic plugin no longer seems to work?
  http://mpcabd.igeex.biz/python-arabic-text-reshaper/

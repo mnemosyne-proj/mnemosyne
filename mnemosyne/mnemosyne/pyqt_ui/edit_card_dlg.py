@@ -72,6 +72,7 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
                 child.installEventFilter(self)
 
     def set_new_card(self, card):
+        print 'sent new card', card
         # Called from card browser.
         self.card = card
         self.card_types_widget.currentIndexChanged[QtCore.QString].\
@@ -145,6 +146,7 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         return False   
         
     def apply_changes(self):
+        print 'apply changes'
         if self.is_changed() == False:
             return 0
         new_fact_data = self.card_type_widget.fact_data()
