@@ -43,6 +43,8 @@ to  "last_db_maintenance": time.time() ?
 -duplicate check on answer too? Needs to check whether all necessary fields are marked as unique,
  also in F2B and B2F, vocabulary
  
+-sync failed because of version mismatch seems to result in requirement for full sync?
+ 
 - disable latex version check in testsuite 
  
 -Migrate to Python 3 and starcore 2.5 http://www.srplab.com/data/starcore_for_android.2.5.0.zip
