@@ -1,16 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 22
     buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "org.mnemosyne"
-        minSdkVersion 8
-        targetSdkVersion 8
+        minSdkVersion 7
+        targetSdkVersion 22
         compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_5
-            targetCompatibility JavaVersion.VERSION_1_5
+            sourceCompatibility JavaVersion.VERSION_1_7
+            targetCompatibility JavaVersion.VERSION_1_7
         }
     }
 
@@ -24,4 +24,5 @@ android {
 
 dependencies {
     compile files('libs/starcore_android_r2.1.jar')
+    compile "com.android.support:appcompat-v7:22.+"
 }

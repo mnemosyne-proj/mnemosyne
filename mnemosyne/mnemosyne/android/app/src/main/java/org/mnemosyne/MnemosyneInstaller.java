@@ -139,7 +139,7 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
 
         progressDialog.setCancelable(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMessage("Finalising Mnemosyne install...");
+        progressDialog.setMessage("Preparing to run Mnemosyne...");
         progressDialog.setIndeterminate(true);
         progressDialog.show();
     }
