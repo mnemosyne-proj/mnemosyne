@@ -1,5 +1,6 @@
 package org.mnemosyne;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -11,9 +12,12 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.support.v4.view.WindowCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -24,6 +28,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
@@ -93,6 +98,7 @@ public class MnemosyneActivity extends AppCompatActivity {
         installer.execute();
     }
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     public void continueOnCreate() {
 
         mnemosyneThread = new MnemosyneThread(this, activityHandler, getPackageName());
@@ -175,8 +181,7 @@ public class MnemosyneActivity extends AppCompatActivity {
 
         // First run wizard.
         SharedPreferences settings = getSharedPreferences("UserInfo", 0);
-        if (!settings.contains("shown_first_run_wizard"))
-        {
+        if (!settings.contains("shown_first_run_wizard")) {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setMessage("This application is meant to be used in conjunction with the Mnemosyne desktop app (http://www.mnemosyne-proj.org). Input your cards there, start the sync server in 'Configure Mnemosyne' and then you can sync and review the cards in this Android app. IMPORTANT: note that only the database 'default.db' is synced.");
             alert.setCancelable(false);
@@ -196,6 +201,21 @@ public class MnemosyneActivity extends AppCompatActivity {
             editor.commit();
         }
     }
+
+    @Override
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if ((hasFocus) && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)) {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)

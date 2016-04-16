@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!--    http://stackoverflow.com/questions/27115455/unable-to-get-appcompat-actionbar-toolbar-to-become-an-overlay -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/black"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat"/>
+    android:background="@android:color/black">
 
      <TextView
          android:id="@+id/questionLabel"
@@ -130,5 +126,13 @@
          android:layout_height="wrap_content"
          android:text="Statusbar" />
     
- </LinearLayout>    
+ </LinearLayout>
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary" />
+
+</RelativeLayout>
