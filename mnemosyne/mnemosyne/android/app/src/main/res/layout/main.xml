@@ -5,6 +5,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -25,18 +26,6 @@
          android:layout_height="match_parent"
          android:layout_weight="1" />
 
-     <TextView
-         android:id="@+id/answerLabel"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:text="Answer:" />
-
-     <WebView
-         android:id="@+id/answer"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:layout_weight="1" />
-
      <Button
          android:id="@+id/showAnswerButton"
          android:layout_width="match_parent"
@@ -46,7 +35,6 @@
          android:background="@android:color/transparent"
          android:textColor="@android:color/white"
          android:text="Show answer" />
-     
 
      <LinearLayout
          android:layout_width="match_parent"
@@ -121,6 +109,18 @@
      </LinearLayout>
 
      <TextView
+         android:id="@+id/answerLabel"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="Answer:" />
+
+     <WebView
+         android:id="@+id/answer"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layout_weight="1" />
+
+     <TextView
          android:id="@+id/statusbar"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
@@ -132,6 +132,7 @@
         android:id="@+id/my_toolbar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_marginTop="20dip"
         android:minHeight="?attr/actionBarSize"
         android:background="?attr/colorPrimary" />
 

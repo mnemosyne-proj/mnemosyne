@@ -1,7 +1,9 @@
 Android:
 
+-set layout margin top for app bar
+-delay on hiding interface on first start
+
 -progress bar before 'sync finished'?
--rename 'finalising install'?
 
 -revisit multiple database option?
 -'sync' button should sync directly without going through the sync settings dialog. Put
