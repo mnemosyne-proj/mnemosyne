@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-18 18:42+0000\n"
-"PO-Revision-Date: 2014-09-21 11:51+0000\n"
+"PO-Revision-Date: 2015-12-09 17:13+0000\n"
 "Last-Translator: Mark Dobson <tsoapm@yahoo.co.uk>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-09-22 06:23+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2015-12-11 05:12+0000\n"
+"X-Generator: Launchpad (build 17865)\n"
 "Language: \n"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:11
@@ -107,19 +107,19 @@ msgstr "Tag di chiusura previsto. Trovato carattere inaspettato '%(data)s'."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:54
 msgid "Unexpected end of file in the tag name."
-msgstr ""
+msgstr "Fine-file non previsto nel nome tag."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:56
 msgid "Unexpected end of file. Expected attribute name instead."
-msgstr ""
+msgstr "Fine-file non previsto: previsto nome attributo."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:58
 msgid "Unexpected end of file in attribute name."
-msgstr ""
+msgstr "Fine-file non previsto in nome attributo."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:60
 msgid "Invalid character in attribute name"
-msgstr ""
+msgstr "Carattere non valido in nome attributo"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:62
 msgid "Dropped duplicate attribute on tag."
@@ -127,11 +127,11 @@ msgstr ""
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:64
 msgid "Unexpected end of file. Expected = or end of tag."
-msgstr ""
+msgstr "Fine-file non previsto. Previsto = o fine tag."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:66
 msgid "Unexpected end of file. Expected attribute value."
-msgstr ""
+msgstr "Fine-file non previsto. Previsto valore attributo."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:68
 msgid "Expected attribute value. Got '>' instead."
@@ -139,7 +139,7 @@ msgstr ""
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:70
 msgid "Unexpected = in unquoted attribute"
-msgstr ""
+msgstr "Carattere '=' non previsto in attributo non virgolettato"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:72
 msgid "Unexpected character in unquoted attribute"
@@ -147,43 +147,43 @@ msgstr ""
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:74
 msgid "Unexpected character after attribute name."
-msgstr ""
+msgstr "Carattere non previsto dopo nome attributo."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:76
 msgid "Unexpected character after attribute value."
-msgstr ""
+msgstr "Carattere non previsto dopo valore attributo."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:78
 msgid "Unexpected end of file in attribute value (\")."
-msgstr ""
+msgstr "Fine-file non previsto in valore attributo (\")."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:80
 msgid "Unexpected end of file in attribute value (')."
-msgstr ""
+msgstr "Fine-file non previsto in valore attributo (')."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:82
 msgid "Unexpected end of file in attribute value."
-msgstr ""
+msgstr "Fine-file non previsto in valore attributo."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:84
 msgid "Unexpected end of file in tag. Expected >"
-msgstr ""
+msgstr "Fine-file non previsto in tag. Previsto >"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:86
 msgid "Unexpected character after / in tag. Expected >"
-msgstr ""
+msgstr "Carattere non previsto dopo / in tag. Previsto >"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:88
 msgid "Expected '--' or 'DOCTYPE'. Not found."
-msgstr ""
+msgstr "Previsto '--' o 'DOCTYPE'. Non trovati."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:90
 msgid "Unexpected ! after -- in comment"
-msgstr ""
+msgstr "! non previsto dopo -- in commento"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:92
 msgid "Unexpected space after -- in comment"
-msgstr ""
+msgstr "Spazio non previsto in -- in commento."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:94
 msgid "Incorrect comment."

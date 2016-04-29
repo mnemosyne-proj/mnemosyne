@@ -1,8 +1,5 @@
 Android:
 
--set layout margin top for app bar
--delay on hiding interface on first start
-
 -progress bar before 'sync finished'?
 
 -revisit multiple database option?
@@ -34,7 +31,7 @@ to  "last_db_maintenance": time.time() ?
 -memrise importer
 -type answer
 -new learning modes for initial learning of tag? multiple choice? Select audio?
--gamification? userinfuser
+-gamification? userinfuser, habitica
 
 -daily goals: memorise x, review y, streak chart, ...
 

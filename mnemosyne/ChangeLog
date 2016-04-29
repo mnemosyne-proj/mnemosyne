@@ -1,4 +1,4 @@
-Android:
+Android 20160502:
 
 -Upgraded backend to Mnemosyne 2.3.6, meaning that logs older than 1 year
  are now automatically archived in a separate file, which is not backed 
@@ -9,7 +9,7 @@ Android:
 -Buttons are now in the middle of the screen to better facilitate
  ergonomic one-handed operation.
 
-Mnemosyne 2.3.6 :
+Mnemosyne 2.3.6 : 2016-05-02
 
 -Logs older than 1 year are now automatically archived in a separate file,
  which is not backed up all the time, speeding up e.g. the sync process.

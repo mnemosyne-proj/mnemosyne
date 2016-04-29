@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-18 18:42+0000\n"
-"PO-Revision-Date: 2015-11-21 16:19+0000\n"
+"PO-Revision-Date: 2015-12-13 15:03+0000\n"
 "Last-Translator: Jean-Marc <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-11-22 05:10+0000\n"
-"X-Generator: Launchpad (build 17850)\n"
+"X-Launchpad-Export-Date: 2015-12-14 05:10+0000\n"
+"X-Generator: Launchpad (build 17865)\n"
 "Language: \n"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:11
@@ -663,7 +663,7 @@ msgstr "Impossible de continuer sans provoquer une perte de données !"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:837
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:342
 msgid "Error when running plugin:"
-msgstr "Une erreur est survenue lors de l'exécution du plugin"
+msgstr "Une erreur est survenue lors de l'exécution du greffon"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\__init__.py:331
 #: ..\mnemosyne\libmnemosyne\__init__.py:331
@@ -1426,19 +1426,19 @@ msgstr ""
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:794
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:790
 msgid "Install plugin"
-msgstr "Installer le plugin"
+msgstr "Installer le greffon"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:790
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:794
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:790
 msgid "Plugins"
-msgstr "Extensions"
+msgstr "Greffons"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:815
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:819
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:815
 msgid "No plugin found!"
-msgstr "Aucun plugin trouvé!"
+msgstr "Aucun greffon trouvé !"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:976
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:980
@@ -1456,7 +1456,7 @@ msgstr "allez à http://www.mnemosyne-proj.org"
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:345
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:345
 msgid "Missing plugin for card type with id:"
-msgstr "Module externe introuvable pour le type de carte d'id :"
+msgstr "Greffon introuvable pour le type de carte avec identifiant :"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite.py:357
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:357
@@ -1560,7 +1560,7 @@ msgstr "Fichier média manquant!"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite_sync.py:121
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\file_formats\mnemosyne2_cards.py:213
 msgid "Missing plugins for card types."
-msgstr "Modules externes introuvables pour les types de cartes."
+msgstr "Greffons introuvables pour les types de cartes."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\_apsw.py:54
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\_sqlite3.py:51
@@ -1899,7 +1899,7 @@ msgstr ""
 "Une fois que ce module est activé, vous pouvez configurer le planificateur "
 "avec « Configurer Mnemosyne ».\n"
 "\n"
-"Pour revenir au planificateur d'origine, désactivez ce module."
+"Pour revenir au planificateur d'origine, désactivez ce greffon."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:18
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:18
@@ -2001,8 +2001,8 @@ msgid ""
 "Use 'Learn ahead of schedule' sparingly. For cramming before an exam, it's "
 "much better to use the cramming scheduler plugin"
 msgstr ""
-"Utiliser \"Apprendre en avance\" avec modération. Pour bachoter avant un "
-"examen, utiliser le plugin de révision intensive."
+"Utiliser « Apprendre en avance » avec modération. Pour bachoter avant un "
+"examen, utiliser le greffon de révision intensive."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:155
 #: ..\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:155
@@ -2983,12 +2983,13 @@ msgstr "Sélectionner la couleur"
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:227
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:227
 msgid "Reset all card types to default system font?"
-msgstr "Utiliser la police par défaut pour tous les types de cartes ?"
+msgstr ""
+"Utiliser la police de caractères par défaut pour tous les types de cartes ?"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:229
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_card_appearance.py:229
 msgid "Reset '%s' to default system font?"
-msgstr "Utiliser la police par défaut pour '%s' ?"
+msgstr "Utiliser la police de caractères par défaut pour « %s » ?"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_cramming.py:19
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_cramming.py:19
@@ -3002,7 +3003,7 @@ msgstr "Bachotage"
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_main.py:68
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:64
 msgid "Reset current tab to defaults?"
-msgstr "Réinitialiser l'onglet courant ?"
+msgstr "Réinitialiser l'onglet actuel ?"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_main.py:20
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_main.py:20
@@ -3017,32 +3018,32 @@ msgstr "Serveurs"
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:39
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:39
 msgid "Sync server running on "
-msgstr ""
+msgstr "Le serveur de synchronisation fonctionne sur "
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:42
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:42
 msgid "Sync server NOT running."
-msgstr "La synchronisation serveur n'est PAS en marche."
+msgstr "Le serveur de synchronisation ne fonctionne pas."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:44
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:44
 msgid "Web server running on "
-msgstr ""
+msgstr "Le serveur web fonctionne sur "
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:47
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:47
 msgid "Web server NOT running."
-msgstr ""
+msgstr "Le serveur web ne fonctionne pas."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:89
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:89
 msgid "Sync server now running on "
-msgstr ""
+msgstr "Le serveur de synchronisation fonctionne maintenant sur "
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:95
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:95
 msgid "Sync server stopped."
-msgstr "La synchronisation serveur a été stoppée."
+msgstr "Le serveur de synchronisation est arrêté."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:101
 #: ..\mnemosyne\pyqt_ui\configuration_wdgt_servers.py:101
@@ -3111,13 +3112,13 @@ msgid ""
 "specifically for this card type without disturbing your other cards."
 msgstr ""
 "Ici, vous pouvez cloner des types de cartes. Par exemple, vous pouvez créer "
-"un clone de «Vocabulaire», le nommer «Taï» et lui attribuer une fonte thaï, "
-"sans déranger les autres cartes."
+"un clone de « Vocabulaire », le nommer « Taï » et lui attribuer une police "
+"de caractères thaï, sans déranger les autres cartes."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\manage_plugins_dlg.py:98
 #: ..\mnemosyne\pyqt_ui\manage_plugins_dlg.py:98
 msgid "Are you sure you want to delete the plugin"
-msgstr "Etes vous certain de vouloir supprimer le module"
+msgstr "Êtes-vous certain de vouloir supprimer le greffon"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\manage_plugins_dlg.py:99
 #: ..\mnemosyne\pyqt_ui\manage_plugins_dlg.py:99
@@ -3146,12 +3147,12 @@ msgid ""
 "Capitals\"."
 msgstr ""
 "Lorsque vous créez de nouvelles cartes, Mnemosyne pré-rempli le champ "
-"« Etiquette(s) » avec la dernière valeur que vous avez utilisée, sans tenir "
+"« Étiquette(s) » avec la dernière valeur que vous avez utilisée, sans tenir "
 "compte du type de carte.\n"
 "\n"
-"Avec ce module, Mnemosyne se souviendra de la dernière étiquette que vous "
+"Avec ce greffon, Mnemosyne se souviendra de la dernière étiquette que vous "
 "avez utilisée pour chaque type de carte. Par exemple, les cartes chinoises "
-"proposeront l'étiquette « Mon livre chinois::Chapître 10 » alors que les "
+"proposeront l'étiquette « Mon livre chinois::Chapitre 10 » alors que les "
 "cartes simples proposeront « Capitales européennes »."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\qt_sync_server.py:76
@@ -3197,7 +3198,7 @@ msgstr "Impossible de démarrer le serveur web."
 #: ..\build\lib\mnemosyne\pyqt_ui\qt_web_server.py:79
 #: ..\mnemosyne\pyqt_ui\qt_web_server.py:79
 msgid "Remote review in progress..."
-msgstr ""
+msgstr "Examen à distance en cours..."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\qtextedit2.py:29
 #: ..\mnemosyne\pyqt_ui\qtextedit2.py:29
@@ -3285,17 +3286,17 @@ msgstr "&Correct"
 #: ..\build\lib\mnemosyne\pyqt_ui\review_wdgt_cramming.py:55
 #: ..\mnemosyne\pyqt_ui\review_wdgt_cramming.py:55
 msgid "Wrong:"
-msgstr "Faux :"
+msgstr "Faux :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\review_wdgt_cramming.py:56
 #: ..\mnemosyne\pyqt_ui\review_wdgt_cramming.py:56
 msgid "Unseen:"
-msgstr ""
+msgstr "Non vues :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\review_wdgt_cramming.py:57
 #: ..\mnemosyne\pyqt_ui\review_wdgt_cramming.py:57
 msgid "Active:"
-msgstr "Actif :"
+msgstr "Actif :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\statistics_dlg.py:96
 #: ..\mnemosyne\pyqt_ui\statistics_dlg.py:96
@@ -3377,7 +3378,7 @@ msgstr ""
 #: ..\mnemosyne\pyqt_ui\tag_tree_wdgt.py:121
 #: ..\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:70
 msgid "&Rename"
-msgstr "&Renommer :"
+msgstr "&Renommer"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tag_tree_wdgt.py:173
 #: ..\mnemosyne\pyqt_ui\tag_tree_wdgt.py:173
@@ -3468,8 +3469,8 @@ msgid ""
 "Use 'Learn ahead of schedule' sparingly. For cramming before an exam, it's "
 "much better to use the cramming scheduler plugin."
 msgstr ""
-"Evitez d'utiliser « Apprendre en avance ». Pour bachoter avant un examen, il "
-"vaut mieux utiliser le module de bachotage."
+"Évitez d'utiliser « Apprendre en avance ». Pour bachoter avant un examen, il "
+"vaut mieux utiliser le greffon de bachotage."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:26
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:26
@@ -3587,7 +3588,7 @@ msgid ""
 "In the 'Edit card' dialog, use Tab to move between different fields and "
 "Ctrl+Enter to close the dialog."
 msgstr ""
-"Dans la fenêtre « Editer la carte », utilisez la touche de tabulation pour "
+"Dans la fenêtre « Éditer la carte », utilisez la touche de tabulation pour "
 "vous déplacer entre les champs, Ctrl+Entrée pour fermer la fenêtre."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:47
@@ -3664,7 +3665,7 @@ msgid ""
 msgstr ""
 "Les utilisateurs avancés peuvent aller plus loin dans la personnalisation de "
 "Mnemosyne en éditant le fichier config.py dans le répertoire mnemosyne. Ils "
-"peuvent aller encore plus loin en installant des modules supplémentaires."
+"peuvent aller encore plus loin en installant des greffons supplémentaires."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:55
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:55
@@ -3691,7 +3692,7 @@ msgstr ""
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_about_dlg.py:89
 #: ..\mnemosyne\pyqt_ui\ui_about_dlg.py:89
 msgid "About Mnemosyne"
-msgstr "A propos de Mnemosyne"
+msgstr "À propos de Mnemosyne"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_about_dlg.py:91
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:116
@@ -3738,12 +3739,12 @@ msgstr "Type de carte :"
 #: ..\mnemosyne\pyqt_ui\ui_edit_card_dlg.py:89
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:110
 msgid "Tags:"
-msgstr "Tags :"
+msgstr "Étiquettes :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:119
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:119
 msgid "Select initial grade:"
-msgstr "Note initiale:"
+msgstr "Note initiale :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:120
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:120
@@ -3805,7 +3806,7 @@ msgstr "&Quitter"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_tags_dlg.py:72
 #: ..\mnemosyne\pyqt_ui\ui_add_tags_dlg.py:72
 msgid "Add tags"
-msgstr "Ajouter des tags"
+msgstr "Ajouter des étiquettes"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_browse_cards_dlg.py:63
 #: ..\mnemosyne\pyqt_ui\ui_browse_cards_dlg.py:63
@@ -3844,7 +3845,7 @@ msgstr "Changer le type de carte"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_change_card_type_dlg.py:70
 #: ..\mnemosyne\pyqt_ui\ui_change_card_type_dlg.py:70
 msgid "New card type:"
-msgstr "Nouveau type de carte"
+msgstr "Nouveau type de carte :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_clone_card_type_dlg.py:73
 #: ..\mnemosyne\pyqt_ui\ui_clone_card_type_dlg.py:73
@@ -3881,7 +3882,7 @@ msgstr "Supprimer les fichiers multimédias inutilisés"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_dlg.py:66
 #: ..\mnemosyne\pyqt_ui\ui_configuration_dlg.py:66
 msgid "Configuration"
-msgstr ""
+msgstr "Configuration"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_dlg.py:68
 #: ..\mnemosyne\pyqt_ui\ui_configuration_dlg.py:68
@@ -3897,12 +3898,12 @@ msgstr "Par &défaut"
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:135
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:103
 msgid "Form"
-msgstr ""
+msgstr "Formulaire"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:139
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:139
 msgid "Background:"
-msgstr "Arrière-plan :"
+msgstr "Arrière-plan :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:140
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:140
@@ -3912,7 +3913,7 @@ msgstr "Définir la couleur"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:141
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:141
 msgid "Alignment:"
-msgstr "Alignement :"
+msgstr "Alignement :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:142
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_card_appearance.py:142
@@ -4014,7 +4015,7 @@ msgstr ""
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:144
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:144
 msgid "non-memorised cards in your hand"
-msgstr ""
+msgstr "cartes non mémorisées dans votre main"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:145
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:145
@@ -4034,7 +4035,7 @@ msgstr "Audio/vidéo"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:148
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:148
 msgid "Start automatically when displaying card"
-msgstr ""
+msgstr "Démarrer automatiquement lors de l'affichage d'une carte"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:149
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_main.py:149
@@ -4067,46 +4068,46 @@ msgstr ""
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:105
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:99
 msgid "Password:"
-msgstr "Mot de passe :"
+msgstr "Mot de passe :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:106
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:98
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:106
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:98
 msgid "Username:"
-msgstr "Nom d'Utilisateur :"
+msgstr "Nom d'utilisateur :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:107
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:100
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:107
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:100
 msgid "Port:"
-msgstr "Port :"
+msgstr "Port :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:108
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:108
 msgid "Check for changed media files on server"
-msgstr ""
+msgstr "Vérifiez les fichiers multimédias modifiés sur le serveur"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:109
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:109
 msgid "Sync server status"
-msgstr "Statut de la synchronisation serveur"
+msgstr "État de la synchronisation serveur"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:110
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:110
 msgid "Allow remote review through a web browser"
-msgstr ""
+msgstr "Permettre un examen à distance via un navigateur web"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:111
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:111
 msgid "Port:         "
-msgstr ""
+msgstr "Port :         "
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:112
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_servers.py:112
 msgid "Web server status"
-msgstr "Statut du serveur web"
+msgstr "État du serveur web"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:78
 #: ..\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:78
@@ -4126,7 +4127,7 @@ msgstr "Précédent :"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:81
 #: ..\mnemosyne\pyqt_ui\ui_convert_card_type_keys_dlg.py:81
 msgid "New:"
-msgstr "Nouveau :"
+msgstr "Nouveau :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_criterion_wdgt_default.py:52
 #: ..\mnemosyne\pyqt_ui\ui_criterion_wdgt_default.py:52
@@ -4158,7 +4159,7 @@ msgstr "Exporter dans un fichier"
 #: ..\mnemosyne\pyqt_ui\ui_export_dlg.py:92
 #: ..\mnemosyne\pyqt_ui\ui_import_dlg.py:99
 msgid "File format:"
-msgstr "Format du fichier:"
+msgstr "Format du fichier :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_dlg.py:93
 #: ..\mnemosyne\pyqt_ui\ui_export_dlg.py:93
@@ -4194,27 +4195,27 @@ msgstr "Exporter les cartes"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:106
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:106
 msgid "Author name:"
-msgstr "Nom de l'auteur :"
+msgstr "Nom de l'auteur :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:107
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:107
 msgid "Author email:"
-msgstr "Adresse électronique de l'auteur :"
+msgstr "Adresse électronique de l'auteur :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:108
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:108
 msgid "Date:"
-msgstr "Date :"
+msgstr "Date :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:109
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:109
 msgid "Revision:"
-msgstr "Révision :"
+msgstr "Révision :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:111
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:111
 msgid "Notes:"
-msgstr "Notes :"
+msgstr "Notes :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:100
 #: ..\mnemosyne\pyqt_ui\ui_getting_started_dlg.py:100
@@ -4418,7 +4419,7 @@ msgstr "Importer depuis un fichier"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_import_dlg.py:100
 #: ..\mnemosyne\pyqt_ui\ui_import_dlg.py:100
 msgid "File to import from:"
-msgstr "Fichier à partir duquel importer:"
+msgstr "Fichier source de l'importation :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_import_dlg.py:102
 #: ..\mnemosyne\pyqt_ui\ui_import_dlg.py:102
@@ -4577,14 +4578,14 @@ msgstr "&Astuce du jour"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:234
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:234
 msgid "Manage &plugins..."
-msgstr "Gérer les &modules externes..."
+msgstr "Gérer les &greffons..."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:235
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:79
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:235
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:79
 msgid "Manage plugins"
-msgstr "Gérer les modules externes"
+msgstr "Gérer les greffons"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:236
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:236
@@ -4609,7 +4610,7 @@ msgstr "Compresser..."
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:241
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:241
 msgid "Find duplicate questions"
-msgstr "Trouver les questions à double"
+msgstr "Chercher les questions en double"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:67
 #: ..\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:67
@@ -4619,7 +4620,7 @@ msgstr "Gestionnaire des types de cartes"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:68
 #: ..\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:68
 msgid "Cloned card types:"
-msgstr "Types de cartes clonés"
+msgstr "Types de cartes clonés :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:69
 #: ..\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:69
@@ -4629,22 +4630,22 @@ msgstr "%Nouveau clone"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:80
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:80
 msgid "Installed plugins (active and inactive):"
-msgstr "Modules installés (actifs et inactifs) :"
+msgstr "Greffons installés (actifs et inactifs) :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:81
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:81
 msgid "Plugin description:"
-msgstr "Description du module :"
+msgstr "Description du greffon :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:83
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:83
 msgid "&Install new plugin"
-msgstr "&Installer un nouveau plugin"
+msgstr "&Installer un nouveau greffon"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:84
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:84
 msgid "&Delete plugin"
-msgstr "&Supprimer le module"
+msgstr "&Supprimer le greffon"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:105
 #: ..\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:105
@@ -4656,7 +4657,7 @@ msgstr "Aperçu des cartes"
 #: ..\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:106
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:116
 msgid "Question:"
-msgstr "Question:"
+msgstr "Question :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:107
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:117
@@ -4666,7 +4667,7 @@ msgstr "Question:"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\web_server\review_wdgt.py:31
 #: ..\mnemosyne\web_server\review_wdgt.py:31
 msgid "Answer:"
-msgstr "Réponse:"
+msgstr "Réponse :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:108
 #: ..\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:108
@@ -4686,7 +4687,7 @@ msgstr "Supprimer les étiquettes"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_remove_tags_dlg.py:64
 #: ..\mnemosyne\pyqt_ui\ui_remove_tags_dlg.py:64
 msgid "Tags to remove:"
-msgstr "Etiquettes à supprimer"
+msgstr "Étiquettes à supprimer :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_rename_card_type_dlg.py:61
 #: ..\mnemosyne\pyqt_ui\ui_rename_card_type_dlg.py:61
@@ -4763,7 +4764,7 @@ msgstr "Synchronisation avec le serveur"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:97
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:97
 msgid "Server:"
-msgstr "Serveur :"
+msgstr "Serveur :"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:101
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:101
@@ -4829,7 +4830,7 @@ msgstr "Erreur dans la configuration"
 
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\configuration.py:209
 msgid "Unable to save config file:"
-msgstr "Echec dans la sauvegarde du fichier configuration"
+msgstr "Impossible d'enregistrer le fichier configuration"
 
 #: ..\tests\benchmark_pyqt.py:30
 msgid "data directory"

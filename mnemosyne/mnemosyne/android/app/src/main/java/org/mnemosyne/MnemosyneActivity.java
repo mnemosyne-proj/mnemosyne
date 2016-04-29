@@ -33,6 +33,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -73,6 +74,15 @@ public class MnemosyneActivity extends AppCompatActivity {
 
     GestureDetector gestureDetector;
 
+    public int getStatusBarHeight() {
+        int result = 50;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +90,9 @@ public class MnemosyneActivity extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) myToolbar.getLayoutParams();
+        params.setMargins(0, getStatusBarHeight(), 0, 0);
+        myToolbar.setLayoutParams(params);
 
         questionLabel = (TextView) this.findViewById(R.id.questionLabel);
         question = (WebView) this.findViewById(R.id.question);
@@ -210,7 +223,6 @@ public class MnemosyneActivity extends AppCompatActivity {
                     new View.OnSystemUiVisibilityChangeListener() {
                         @Override
                         public void onSystemUiVisibilityChange(int visibility) {
-                            Log.d("Mnemosyne", "onSystemUiVisibilityChange: " + visibility);
                             if (visibility == 0) {
                                 getSupportActionBar().show();
                             }
