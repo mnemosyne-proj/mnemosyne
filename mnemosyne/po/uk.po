@@ -9,18 +9,18 @@ msgstr ""
 "Project-Id-Version: mnemosyne-proj\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-18 18:42+0000\n"
-"PO-Revision-Date: 2014-04-23 10:13+0000\n"
-"Last-Translator: VPIP <tymbood@gmail.com>\n"
+"PO-Revision-Date: 2016-02-19 21:58+0000\n"
+"Last-Translator: Roman <franchukrom@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-19 06:13+0000\n"
-"X-Generator: Launchpad (build 17048)\n"
+"X-Launchpad-Export-Date: 2016-02-20 05:12+0000\n"
+"X-Generator: Launchpad (build 17925)\n"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:11
 msgid "Null character in input stream, replaced with U+FFFD."
-msgstr ""
+msgstr "Нуль-символ у вхідному потоці, замінений на U+FFFD"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:13
 msgid "Invalid codepoint in stream."
@@ -116,7 +116,7 @@ msgstr ""
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:60
 msgid "Invalid character in attribute name"
-msgstr ""
+msgstr "Недопустимий символ у імені атрибута"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:62
 msgid "Dropped duplicate attribute on tag."

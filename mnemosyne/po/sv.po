@@ -8,130 +8,136 @@ msgstr ""
 "Project-Id-Version: mnemosyne-proj\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-18 18:42+0000\n"
-"PO-Revision-Date: 2014-03-21 23:13+0000\n"
+"PO-Revision-Date: 2016-03-17 20:29+0000\n"
 "Last-Translator: Kim Paulin <axlape+launchpad@gmail.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-19 06:12+0000\n"
-"X-Generator: Launchpad (build 17048)\n"
+"X-Launchpad-Export-Date: 2016-03-18 05:40+0000\n"
+"X-Generator: Launchpad (build 17947)\n"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:11
 msgid "Null character in input stream, replaced with U+FFFD."
-msgstr ""
+msgstr "Null-tecken i indataströmmen, ersatt med U+FFFD."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:13
 msgid "Invalid codepoint in stream."
-msgstr ""
+msgstr "Ogiltig kodpunkt i ström."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:15
 msgid "Solidus (/) incorrectly placed in tag."
-msgstr ""
+msgstr "Felaktig placering av solidus (╱) i tag."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:17
 msgid "Incorrect CR newline entity, replaced with LF."
-msgstr ""
+msgstr "Felaktigt CR radslutstecken, ersatt med LF."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:19
 msgid "Entity used with illegal number (windows-1252 reference)."
-msgstr ""
+msgstr "Entitet med ogiltigt nummer använd (windows-1252 referens)."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:21
 msgid ""
 "Numeric entity couldn't be converted to character (codepoint "
 "U+%(charAsInt)08x)."
 msgstr ""
+"Numerisk entitet kunde inte konverteras till tecken (kodpunkt "
+"U+%(charAsInt)08x)."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:24
 msgid "Numeric entity represents an illegal codepoint: U+%(charAsInt)08x."
 msgstr ""
+"Numerisk entitet representerar en ogiltig kodpunkt: U+%(charAsInt)08x."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:27
 msgid "Numeric entity didn't end with ';'."
-msgstr ""
+msgstr "Numerisk entitet slutade inte med ';'."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:29
 msgid "Numeric entity expected. Got end of file instead."
 msgstr ""
+"Numerisk entitet förväntades. Fick slut på fil (end of file) istället."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:31
 msgid "Numeric entity expected but none found."
-msgstr ""
+msgstr "Numerisk entitet förväntades men ingen hittades."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:33
 msgid "Named entity didn't end with ';'."
-msgstr ""
+msgstr "Namngiven entitet slutade inte med ';'."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:35
 msgid "Named entity expected. Got none."
-msgstr ""
+msgstr "Namngiven entitet förväntades. Fick ingen."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:37
 msgid "End tag contains unexpected attributes."
-msgstr ""
+msgstr "Sluttagg innehåller oväntade attribut."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:39
 msgid "End tag contains unexpected self-closing flag."
-msgstr ""
+msgstr "Sluttagg innehåller oväntad självstängningsflagga."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:41
 msgid "Expected tag name. Got '>' instead."
-msgstr ""
+msgstr "Förväntade taggnamn. Fick '>' istället."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:43
 msgid ""
 "Expected tag name. Got '?' instead. (HTML doesn't support processing "
 "instructions.)"
 msgstr ""
+"Förväntade taggnamn. Fick '?' istället. (HTML stödjer inte "
+"processningsinstruktioner.)"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:46
 msgid "Expected tag name. Got something else instead"
-msgstr ""
+msgstr "Förväntade taggnamn. Fick någonting annat istället."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:48
 msgid "Expected closing tag. Got '>' instead. Ignoring '</>'."
-msgstr ""
+msgstr "Förväntade stängningstagg. Fick '>' istället. Ignorerar '</>'."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:50
 msgid "Expected closing tag. Unexpected end of file."
-msgstr ""
+msgstr "Förväntade stängningstagg. Fick oväntat slut på fil."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:52
 msgid "Expected closing tag. Unexpected character '%(data)s' found."
-msgstr ""
+msgstr "Förväntade stängningstagg. Oväntat tecken '%(data)s' hittades."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:54
 msgid "Unexpected end of file in the tag name."
-msgstr ""
+msgstr "Oväntat slut på fil i taggnamnet."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:56
 msgid "Unexpected end of file. Expected attribute name instead."
-msgstr ""
+msgstr "Oväntat slut på fil. Förväntade attributnamn istället."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:58
 msgid "Unexpected end of file in attribute name."
-msgstr ""
+msgstr "Oväntat slut på fil i attributnamn."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:60
 msgid "Invalid character in attribute name"
-msgstr ""
+msgstr "Ogiltigt tecken i attributnamn."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:62
 msgid "Dropped duplicate attribute on tag."
-msgstr ""
+msgstr "Tog bort dubblerat attribut i tagg."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:64
 msgid "Unexpected end of file. Expected = or end of tag."
-msgstr ""
+msgstr "Oväntat slut på fil. Förväntade '=' eller slut på tagg."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:66
 msgid "Unexpected end of file. Expected attribute value."
-msgstr ""
+msgstr "Oväntat slut på fil. Förväntade attributvärde."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:68
 msgid "Expected attribute value. Got '>' instead."
-msgstr ""
+msgstr "Förväntade attributvärde. Fick '>' istället."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:70
 msgid "Unexpected = in unquoted attribute"
@@ -143,43 +149,43 @@ msgstr ""
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:74
 msgid "Unexpected character after attribute name."
-msgstr ""
+msgstr "Oväntat tecken efter attributnamn."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:76
 msgid "Unexpected character after attribute value."
-msgstr ""
+msgstr "Oväntat tecken efter attributvärde."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:78
 msgid "Unexpected end of file in attribute value (\")."
-msgstr ""
+msgstr "Oväntat slut på filen i attributvärde (\")."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:80
 msgid "Unexpected end of file in attribute value (')."
-msgstr ""
+msgstr "Oväntat slut på filen i attributvärde (\")."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:82
 msgid "Unexpected end of file in attribute value."
-msgstr ""
+msgstr "Oväntat slut på filen i attributvärde."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:84
 msgid "Unexpected end of file in tag. Expected >"
-msgstr ""
+msgstr "Oväntat slut på filen i tagg. Förväntade >"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:86
 msgid "Unexpected character after / in tag. Expected >"
-msgstr ""
+msgstr "Oväntat tecken efter / i tagg. Förväntade >"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:88
 msgid "Expected '--' or 'DOCTYPE'. Not found."
-msgstr ""
+msgstr "Förväntade '--' eller 'DOCTYPE'. Hittades inte."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:90
 msgid "Unexpected ! after -- in comment"
-msgstr ""
+msgstr "Oväntat '!' efter '--' i kommentar"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:92
 msgid "Unexpected space after -- in comment"
-msgstr ""
+msgstr "Oväntat mellanslag efter '--' i kommentar"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:94
 msgid "Incorrect comment."
@@ -1733,6 +1739,8 @@ msgid ""
 "This XML file contains learning data. It's best to import this from a mem "
 "file, in order to preserve historical statistics. Continue?"
 msgstr ""
+"Denna XML fil innehåller inlärningsdata. Det är bättre att importera detta "
+"från en mem-fil för att bibehålla tidigare statistik. Fortsätt?"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne2_cards.py:23
 #: ..\mnemosyne\libmnemosyne\file_formats\mnemosyne2_cards.py:23

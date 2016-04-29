@@ -17,14 +17,14 @@ msgstr ""
 "Project-Id-Version: 2.0-pre\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-18 18:42+0000\n"
-"PO-Revision-Date: 2015-03-15 13:38+0000\n"
-"Last-Translator: Chris Schmidt <Unknown>\n"
+"PO-Revision-Date: 2016-03-13 06:20+0000\n"
+"Last-Translator: mike <ziegner@posteo.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-03-16 05:42+0000\n"
-"X-Generator: Launchpad (build 17389)\n"
+"X-Launchpad-Export-Date: 2016-03-14 05:17+0000\n"
+"X-Generator: Launchpad (build 17939)\n"
 "Language: German\n"
 "Generated-By: pygettext.py 1.5\n"
 
@@ -122,11 +122,11 @@ msgstr ""
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:58
 msgid "Unexpected end of file in attribute name."
-msgstr ""
+msgstr "Unerwartetes Dateiende im Attributnamen."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:60
 msgid "Invalid character in attribute name"
-msgstr ""
+msgstr "Unerlaubtes Zeichen im Attributnamen"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:62
 msgid "Dropped duplicate attribute on tag."

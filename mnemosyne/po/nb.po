@@ -3,179 +3,184 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-18 18:42+0000\n"
-"PO-Revision-Date: 2014-05-25 18:46+0000\n"
-"Last-Translator: Geir <Unknown>\n"
+"PO-Revision-Date: 2016-01-21 14:30+0000\n"
+"Last-Translator: Taral <taral.seierstad@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-19 06:12+0000\n"
-"X-Generator: Launchpad (build 17048)\n"
+"X-Launchpad-Export-Date: 2016-01-22 05:14+0000\n"
+"X-Generator: Launchpad (build 17902)\n"
 "Language: \n"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:11
 msgid "Null character in input stream, replaced with U+FFFD."
-msgstr ""
+msgstr "Nullkarakter i inndatastrømmen erstattet med U+FFFD."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:13
 msgid "Invalid codepoint in stream."
-msgstr ""
+msgstr "Ugyldig kodepunkt i strøm"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:15
 msgid "Solidus (/) incorrectly placed in tag."
-msgstr ""
+msgstr "Skråstrek (/) er feilplassert i taggen."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:17
 msgid "Incorrect CR newline entity, replaced with LF."
-msgstr ""
+msgstr "Feilaktig CR-entitet (vognretur), erstattet med LF (linjeskift)."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:19
 msgid "Entity used with illegal number (windows-1252 reference)."
-msgstr ""
+msgstr "Entitet brukt med ulovlig tall (windows-1252-referanse)."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:21
 msgid ""
 "Numeric entity couldn't be converted to character (codepoint "
 "U+%(charAsInt)08x)."
 msgstr ""
+"Numerisk entitet kunne ikke konverteres til karakter (kodepunkt "
+"U+%(charAsInt)08x)."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:24
 msgid "Numeric entity represents an illegal codepoint: U+%(charAsInt)08x."
 msgstr ""
+"Numerisk entitet representerer et ulovlig kodepunkt: U+%(charAsInt)08x."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:27
 msgid "Numeric entity didn't end with ';'."
-msgstr ""
+msgstr "Numerisk entitet sluttet ikke med ‘;’."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:29
 msgid "Numeric entity expected. Got end of file instead."
-msgstr ""
+msgstr "Forventet numerisk entitet. Fikk slutt på fil i stedet."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:31
 msgid "Numeric entity expected but none found."
-msgstr ""
+msgstr "Forventet numerisk entitet, men fant ingen."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:33
 msgid "Named entity didn't end with ';'."
-msgstr ""
+msgstr "Navngitt entitet sluttet ikke med ‘;’."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:35
 msgid "Named entity expected. Got none."
-msgstr ""
+msgstr "Forventet navngitt entitet, men fikk ingen."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:37
 msgid "End tag contains unexpected attributes."
-msgstr ""
+msgstr "Sluttagg inneholder uventede attributter."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:39
 msgid "End tag contains unexpected self-closing flag."
-msgstr ""
+msgstr "Sluttagg inneholder uventet selvlukkende flagg."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:41
 msgid "Expected tag name. Got '>' instead."
-msgstr ""
+msgstr "Forventet taggnavn. Fikk ‘>’ i stedet."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:43
 msgid ""
 "Expected tag name. Got '?' instead. (HTML doesn't support processing "
 "instructions.)"
 msgstr ""
+"Forventet taggnavn. Fikk ‘?’ i stedet. (HTML støtter ikke "
+"prosesseringsinstruksjoner.)"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:46
 msgid "Expected tag name. Got something else instead"
-msgstr ""
+msgstr "Forventet taggnavn. Fikk noe annet i stedet."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:48
 msgid "Expected closing tag. Got '>' instead. Ignoring '</>'."
-msgstr ""
+msgstr "Forventet lukketagg. Fikk ’>’ i stedet. Ignorerer ‘</>’."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:50
 msgid "Expected closing tag. Unexpected end of file."
-msgstr ""
+msgstr "Forventet lukketagg. Uventet slutt på fil."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:52
 msgid "Expected closing tag. Unexpected character '%(data)s' found."
-msgstr ""
+msgstr "Forventet lukketagg. Uventet karakter ‘%(data)s’ funnet."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:54
 msgid "Unexpected end of file in the tag name."
-msgstr ""
+msgstr "Uventet slutt på fil i taggnavn."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:56
 msgid "Unexpected end of file. Expected attribute name instead."
-msgstr ""
+msgstr "Uventet slutt på fil. Forventet attributtnavn i stedet."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:58
 msgid "Unexpected end of file in attribute name."
-msgstr ""
+msgstr "Uventet slutt på fil i attributtnavn."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:60
 msgid "Invalid character in attribute name"
-msgstr ""
+msgstr "Ugyldig karakter i attributtnavn"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:62
 msgid "Dropped duplicate attribute on tag."
-msgstr ""
+msgstr "Droppet duplikatattributt i tagg."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:64
 msgid "Unexpected end of file. Expected = or end of tag."
-msgstr ""
+msgstr "Uventet slutt på fil. Forventet = eller slutt på tagg."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:66
 msgid "Unexpected end of file. Expected attribute value."
-msgstr ""
+msgstr "Uventet slutt på fil. Forventet attributtverdi."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:68
 msgid "Expected attribute value. Got '>' instead."
-msgstr ""
+msgstr "Forventet attributtverdi, men fikk ‘>’."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:70
 msgid "Unexpected = in unquoted attribute"
-msgstr ""
+msgstr "Uventet = i attributt uten anførselstegn"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:72
 msgid "Unexpected character in unquoted attribute"
-msgstr ""
+msgstr "Uventet karakter i attributt uten anførselstegn"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:74
 msgid "Unexpected character after attribute name."
-msgstr ""
+msgstr "Uventet karakter etter attributtnavn."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:76
 msgid "Unexpected character after attribute value."
-msgstr ""
+msgstr "Uventet karakter etter attributtverdi."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:78
 msgid "Unexpected end of file in attribute value (\")."
-msgstr ""
+msgstr "Uventet slutt på fil i attributtverdi (\")."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:80
 msgid "Unexpected end of file in attribute value (')."
-msgstr ""
+msgstr "Uventet slutt på fil i attributtverdi (')."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:82
 msgid "Unexpected end of file in attribute value."
-msgstr ""
+msgstr "Uventet slutt på fil i attributtverdi."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:84
 msgid "Unexpected end of file in tag. Expected >"
-msgstr ""
+msgstr "Uventet slutt på fil i tagg. Forventet >"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:86
 msgid "Unexpected character after / in tag. Expected >"
-msgstr ""
+msgstr "Uventet karakter etter / i tagg. Forventet >"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:88
 msgid "Expected '--' or 'DOCTYPE'. Not found."
-msgstr ""
+msgstr "Forventet ‘--’ eller ‘DOCTYPE’ ikke funnet."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:90
 msgid "Unexpected ! after -- in comment"
-msgstr ""
+msgstr "Uventet ! etter -- i kommentar"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:92
 msgid "Unexpected space after -- in comment"
-msgstr ""
+msgstr "Uventet mellomrom etter -- i kommentar"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:94
 msgid "Incorrect comment."
@@ -185,95 +190,95 @@ msgstr "Ukorrekt kommentar"
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:104
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:106
 msgid "Unexpected end of file in comment."
-msgstr ""
+msgstr "Uventet slutt på fil i kommentar."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:98
 msgid "Unexpected end of file in comment (-)"
-msgstr ""
+msgstr "Uventet slutt på fil i kommentar (-)"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:100
 msgid "Unexpected '-' after '--' found in comment."
-msgstr ""
+msgstr "Uventet '-' etter '--' funnet i kommentar."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:102
 msgid "Unexpected end of file in comment (--)."
-msgstr ""
+msgstr "Uventet slutt på fil i kommentar (--)."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:108
 msgid "Unexpected character in comment found."
-msgstr ""
+msgstr "Uventet karakter i kommentar funnet."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:110
 msgid "No space after literal string 'DOCTYPE'."
-msgstr ""
+msgstr "Ikke noe mellomrom etter den literale strengen ‘DOCTYPE’."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:112
 msgid "Unexpected > character. Expected DOCTYPE name."
-msgstr ""
+msgstr "Uventet > funnet. Forventet DOCTYPE-navn."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:114
 msgid "Unexpected end of file. Expected DOCTYPE name."
-msgstr ""
+msgstr "Uventet slutt på fil. Forventet DOCTYPE-navn."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:116
 msgid "Unexpected end of file in DOCTYPE name."
-msgstr ""
+msgstr "Uventet slutt på fil i DOCTYPE-navn."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:118
 msgid "Unexpected end of file in DOCTYPE."
-msgstr ""
+msgstr "Uventet slutt på fil i DOCTYPE."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:120
 msgid "Expected space or '>'. Got '%(data)s'"
-msgstr ""
+msgstr "Forventet mellomrom eller '>'. Fikk '%(data)s'"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:122
 msgid "Unexpected end of DOCTYPE."
-msgstr ""
+msgstr "Uventet slutt på DOCTYPE."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:124
 msgid "Unexpected character in DOCTYPE."
-msgstr ""
+msgstr "Uventet karakter i DOCTYPE."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:126
 msgid "XXX innerHTML EOF"
-msgstr ""
+msgstr "XXX innerHTML EOF"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:128
 msgid "Unexpected DOCTYPE. Ignored."
-msgstr ""
+msgstr "Uventet DOCTYPE. Ignorert."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:130
 msgid "html needs to be the first start tag."
-msgstr ""
+msgstr "html må være den første starttaggen."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:132
 msgid "Unexpected End of file. Expected DOCTYPE."
-msgstr ""
+msgstr "Uventet slutt på fil. Forventet DOCTYPE."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:134
 msgid "Erroneous DOCTYPE."
-msgstr ""
+msgstr "Feilaktig DOCTYPE."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:136
 msgid "Unexpected non-space characters. Expected DOCTYPE."
-msgstr ""
+msgstr "Uventet ikke-mellomromskarakter. Forventet DOCTYPE."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:138
 msgid "Unexpected start tag (%(name)s). Expected DOCTYPE."
-msgstr ""
+msgstr "Uventet starttagg (%(name)s). Forventet DOCTYPE."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:140
 msgid "Unexpected end tag (%(name)s). Expected DOCTYPE."
-msgstr ""
+msgstr "Uventet sluttagg (%(name)s). Forventet DOCTYPE."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:142
 msgid "Unexpected end tag (%(name)s) after the (implied) root element."
-msgstr ""
+msgstr "Uventet sluttagg (%(name)s) etter (det impliserte) rotelementet."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:144
 msgid "Unexpected end of file. Expected end tag (%(name)s)."
-msgstr ""
+msgstr "Uventet slutt på fil. Forventet sluttagg (%(name)s)."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:146
 msgid "Unexpected start tag head in existing head. Ignored."
@@ -281,7 +286,7 @@ msgstr ""
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:148
 msgid "Unexpected end tag (%(name)s). Ignored."
-msgstr ""
+msgstr "Uventet sluttagg (%(name)s). Ignorert."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:150
 msgid "Unexpected start tag (%(name)s) that can be in head. Moved."
@@ -289,84 +294,94 @@ msgstr ""
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:152
 msgid "Unexpected start tag (%(name)s)."
-msgstr ""
+msgstr "Uventet starttagg (%(name)s)."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:154
 msgid "Missing end tag (%(name)s)."
-msgstr ""
+msgstr "Manglende sluttagg (%(name)s)."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:156
 msgid "Missing end tags (%(name)s)."
-msgstr ""
+msgstr "Manglende sluttagger (%(name)s)."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:158
 msgid "Unexpected start tag (%(startName)s) implies end tag (%(endName)s)."
-msgstr ""
+msgstr "Uventet starttagg (%(startName)s) medfører sluttagg (%(endName)s)."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:161
 msgid "Unexpected start tag (%(originalName)s). Treated as %(newName)s."
-msgstr ""
+msgstr "Uventet starttagg (%(originalName)s). Behandlet som %(newName)s."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:163
 msgid "Unexpected start tag %(name)s. Don't use it!"
-msgstr ""
+msgstr "Uventet starttagg %(name)s. Ikke bruk den!"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:165
 msgid "Unexpected start tag %(name)s. Ignored."
-msgstr ""
+msgstr "Uventet starttagg %(name)s. Ignorert."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:167
 msgid "Unexpected end tag (%(gotName)s). Missing end tag (%(expectedName)s)."
 msgstr ""
+"Uventet sluttagg (%(gotName)s). Manglende sluttagg (%(expectedName)s)."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:170
 msgid "End tag (%(name)s) seen too early. Expected other end tag."
-msgstr ""
+msgstr "Sluttaggen (%(name)s) sett for tidlig. Forventet en annen sluttagg."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:172
 msgid ""
 "Unexpected end tag (%(gotName)s). Expected end tag (%(expectedName)s)."
 msgstr ""
+"Uventet sluttagg (%(gotName)s). Forventet sluttagg (%(expectedName)s)."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:174
 msgid "End tag (%(name)s) seen too early. Ignored."
-msgstr ""
+msgstr "Sluttagg (%(name)s) sett for tidlig. Ignorert."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:176
 msgid ""
 "End tag (%(name)s) violates step 1, paragraph 1 of the adoption agency "
 "algorithm."
 msgstr ""
+"Sluttagg (%(name)s) er i strid med steg 1, avsnitt 1, av "
+"adopsjonskontoralgoritmen («adoption agency algorithm»)."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:179
 msgid ""
 "End tag (%(name)s) violates step 1, paragraph 2 of the adoption agency "
 "algorithm."
 msgstr ""
+"Sluttagg (%(name)s) er i strid med steg 1, avsnitt 2, av "
+"adopsjonskontoralgoritmen («adoption agency algorithm»)."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:182
 msgid ""
 "End tag (%(name)s) violates step 1, paragraph 3 of the adoption agency "
 "algorithm."
 msgstr ""
+"Sluttagg (%(name)s) er i strid med steg 1, avsnitt 3, av "
+"adopsjonskontoralgoritmen («adoption agency algorithm»)."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:185
 msgid ""
 "End tag (%(name)s) violates step 4, paragraph 4 of the adoption agency "
 "algorithm."
 msgstr ""
+"Sluttagg (%(name)s) er i strid med steg 4, avsnitt 4, av "
+"adopsjonskontoralgoritmen («adoption agency algorithm»)."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:188
 msgid "Unexpected end tag (%(originalName)s). Treated as %(newName)s."
-msgstr ""
+msgstr "Uventet sluttagg (%(originalName)s). Behandlet som %(newName)s."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:190
 msgid "This element (%(name)s) has no end tag."
-msgstr ""
+msgstr "Dette elementet (%(name)s) har ingen sluttagg."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:192
 msgid "Unexpected implied end tag (%(name)s) in the table phase."
-msgstr ""
+msgstr "Uventet implisitt sluttagg (%(name)s) i tabellfasen."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:194
 msgid "Unexpected implied end tag (%(name)s) in the table body phase."
@@ -378,19 +393,20 @@ msgstr ""
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:199
 msgid "Unexpected input with type hidden in table context."
-msgstr ""
+msgstr "Uventet inndata med type «hidden» i tabellkontekst."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:201
 msgid "Unexpected form in table context."
-msgstr ""
+msgstr "Uventet skjema i tabellkontekst."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:203
 msgid "Unexpected start tag (%(name)s) in table context caused voodoo mode."
 msgstr ""
+"Uventet starttagg (%(name)s) i tabellkontekst forårsaket voodoomodus."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:206
 msgid "Unexpected end tag (%(name)s) in table context caused voodoo mode."
-msgstr ""
+msgstr "Uventet sluttagg (%(name)s) i tabellkontekst forårsaket voodoomodus."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:209
 msgid "Unexpected table cell start tag (%(name)s) in the table body phase."
@@ -483,7 +499,7 @@ msgstr ""
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:263
 msgid "Unexpected end tag after body(innerHtml)"
-msgstr ""
+msgstr "Uventet sluttagg etter body(innerHtml)"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:265
 msgid "Unexpected non-space characters. Expected end of file."
@@ -499,7 +515,7 @@ msgstr ""
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:273
 msgid "Unexpected end of file. Expected table content."
-msgstr ""
+msgstr "Uventet slutt på fil. Forventet tabellinnhold."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:275
 msgid "Unexpected end of file. Expected select content."
@@ -527,11 +543,11 @@ msgstr ""
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:287
 msgid "Unexpected end tag (%(name)s) before html."
-msgstr ""
+msgstr "Uventet sluttagg (%(name)s) før html."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:289
 msgid "Undefined error (this sucks and should be fixed)"
-msgstr ""
+msgstr "Udefinert feil (dette er kjipt og burde fikses)"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:26
 msgid "StartTag not in PCDATA content model flag: %s"
@@ -541,12 +557,12 @@ msgstr ""
 #: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:54
 #: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:84
 msgid "Tag name is not a string: %r"
-msgstr ""
+msgstr "Taggnavn er ikke en streng: %r"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:30
 #: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:56
 msgid "Empty tag name"
-msgstr ""
+msgstr "Tomt taggnavn"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:32
 msgid "Void element reported as StartTag token: %s"
@@ -559,15 +575,15 @@ msgstr ""
 #: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:39
 #: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:71
 msgid "Attribute name is not a string: %r"
-msgstr ""
+msgstr "Attributtnavn er ikke en streng: %r"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:41
 msgid "Empty attribute name"
-msgstr ""
+msgstr "Tomt attributtnavn"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:43
 msgid "Attribute value is not a string: %r"
-msgstr ""
+msgstr "Attributtverdi er ikke en streng: %r"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:58
 msgid "Void element reported as EndTag token: %s"
@@ -575,7 +591,7 @@ msgstr ""
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:61
 msgid "EndTag (%s) does not match StartTag (%s)"
-msgstr ""
+msgstr "Sluttagg (%s) stemmer ikke overens med starttagg (%s)"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\filters\lint.py:66
 msgid "Comment not in PCDATA content model flag"
@@ -603,7 +619,7 @@ msgstr ""
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\serializer\htmlserializer.py:212
 msgid "Unexpected </ in CDATA"
-msgstr ""
+msgstr "Uventet </ i CDATA"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\serializer\htmlserializer.py:223
 #: ..\Lib\site-packages\pip\vendor\html5lib\serializer\htmlserializer.py:271
@@ -612,7 +628,7 @@ msgstr ""
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\serializer\htmlserializer.py:277
 msgid "Comment contains --"
-msgstr ""
+msgstr "Kommentar inneholder --"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\treewalkers\_base.py:33
 msgid "Void element has children"
@@ -620,7 +636,7 @@ msgstr ""
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\treewalkers\_base.py:95
 msgid "Unknown node type: "
-msgstr ""
+msgstr "Ukjent nodetype: "
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\treewalkers\lxmletree.py:137
 #: ..\Lib\site-packages\pip\vendor\html5lib\treewalkers\lxmletree.py:187
@@ -642,7 +658,7 @@ msgstr "Kommandolinjeargumentet er ikke en *.db-fil."
 #: ..\mnemosyne\libmnemosyne\__init__.py:216
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\__init__.py:211
 msgid "Another copy of Mnemosyne is still running."
-msgstr "En annen versjon av Mnemosyne kjører fremdeles."
+msgstr "En annen kopi av Mnemosyne kjører fremdeles"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\__init__.py:217
 #: ..\mnemosyne\libmnemosyne\__init__.py:217
@@ -1157,6 +1173,8 @@ msgid ""
 "This card has different tags than its sister cards. Update tags for current "
 "card only or for all sister cards?"
 msgstr ""
+"Dette kortet har annerledes tagger enn dets søsterkort. Skal taggene "
+"oppdateres kun for dette kortet eller for alle søsterkort?"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:359
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:363
@@ -2015,6 +2033,8 @@ msgid ""
 "You have finished your scheduled reviews. Now, learn as many failed or new "
 "cards as you feel file."
 msgstr ""
+"Du har fullført den planlagte gjennomgangen. Nå kan du gå gjennom så mange "
+"feilede eller nye kort som du føler for."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py:176
 #: ..\build\lib\mnemosyne\libmnemosyne\review_controllers\SM2_controller_cramming.py:33
@@ -2499,7 +2519,7 @@ msgstr "Neste år (kun aktive kort)"
 #: ..\mnemosyne\libmnemosyne\statistics_pages\schedule.py:29
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\schedule.py:29
 msgid "Last week (all cards)"
-msgstr "Neste uke (alle kort)"
+msgstr "Forrige uke (alle kort)"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\schedule.py:30
 #: ..\mnemosyne\libmnemosyne\statistics_pages\schedule.py:30
@@ -4766,7 +4786,7 @@ msgstr "Dagens tips"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:108
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:108
 msgid "<b>Did you know...?</b>"
-msgstr "<b>Visste du at...?</b>"
+msgstr "<b>Visste du at …?</b>"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:109
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:109

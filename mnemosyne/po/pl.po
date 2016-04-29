@@ -4,14 +4,14 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-18 18:42+0000\n"
-"PO-Revision-Date: 2014-04-23 17:12+0000\n"
-"Last-Translator: Paweł Szerszon <Unknown>\n"
+"PO-Revision-Date: 2015-12-29 10:27+0000\n"
+"Last-Translator: Piotr Strębski <strebski@o2.pl>\n"
 "Language-Team: s120801-translate\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-19 06:12+0000\n"
-"X-Generator: Launchpad (build 17048)\n"
+"X-Launchpad-Export-Date: 2015-12-30 05:11+0000\n"
+"X-Generator: Launchpad (build 17865)\n"
 "Language: pl\n"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:11
@@ -1229,7 +1229,7 @@ msgstr "Usuwanie kart..."
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:469
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:465
 msgid "Checking for unused tags..."
-msgstr "Sprawdzanie nie używanych etykiet..."
+msgstr "Sprawdzanie nieużywanych znaczników..."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:480
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:484
@@ -1272,7 +1272,7 @@ msgid ""
 "and unload several databases."
 msgstr ""
 "Zalecane jest trzymanie wszystkich kart w jednej bazie danych. Poprzez "
-"używanie etykiet można wybierać karty do nauki, co jest znacznie bardziej "
+"używanie znaczników można wybierać karty do nauki, co jest znacznie bardziej "
 "wygodne naprzemienne wczytywanie kilku baz danych."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:543
@@ -1425,9 +1425,9 @@ msgid ""
 "Note that this will not tag duplicates in different card types, e.g. card "
 "types for 'French' and 'Spanish'."
 msgstr ""
-"Oznaczaj etykietą wszystkie karty danego typu z tym samym pytaniem. W ten "
+"Oznaczaj znacznikiem wszystkie karty danego typu z tym samym pytaniem. W ten "
 "sposób można przeformułować je w taki sposób, aby otrzymać jednoznaczną "
-"odpowiedź. Pamiętaj, że w ten sposób nie duplikują się etykiety w różnych "
+"odpowiedź. Pamiętaj, że w ten sposób nie duplikują się znaczniki w różnych "
 "typach kart, np. dla kart typów 'Francuski' i 'Hiszpański'."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:790
@@ -1510,7 +1510,7 @@ msgstr "Ostrzeżenie: tworzenie kopii zapasowej nie powiodło się dla"
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:623
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:623
 msgid "Make tag '%s' active in saved set '%s'?"
-msgstr "Aktywować etykietę '%s' w zestawie '%s'?"
+msgstr "Aktywować znacznik '%s' w zestawie '%s'?"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite.py:1116
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:1116
@@ -1529,7 +1529,8 @@ msgstr "Nie znaleziono duplikatów."
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:1348
 msgid "Found %d duplicate cards. They have been given the tag 'DUPLICATE'."
 msgstr ""
-"Znaleziono %d zduplikowanych kart. Zostały one oznaczone etykietą 'DUPLIKAT'."
+"Znaleziono %d zduplikowanych kart. Zostały one oznaczone znacznikiem "
+"'DUPLIKAT'."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite.py:1354
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:1354
@@ -1647,8 +1648,8 @@ msgid ""
 "these cards."
 msgstr ""
 "Uwaga: brakuje plików multimedialnych. Karty takie zostały oznaczone "
-"dodatkową etykietą BRAK_MULTIMEDIÓW oraz zmienione 'src' na 'src_missing' w "
-"ich treści."
+"dodatkowym znacznikiem BRAK_MULTIMEDIÓW oraz zmienione 'src' na "
+"'src_missing' w ich treści."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\file_formats\mnemosyne1.py:40
 #: ..\mnemosyne\libmnemosyne\file_formats\mnemosyne1.py:40
@@ -2528,7 +2529,7 @@ msgstr "Ostatni rok (wszystkie karty)"
 #: ..\mnemosyne\libmnemosyne\tag_tree.py:41
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\tag_tree.py:41
 msgid "All tags"
-msgstr "Wszystkie etykiety"
+msgstr "Wszystkie znaczniki"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\upgrades\upgrade1.py:62
 #: ..\mnemosyne\libmnemosyne\upgrades\upgrade1.py:62
@@ -2630,7 +2631,8 @@ msgstr ""
 msgid ""
 "You can add multiple tags to a card by separating tags with a comma in the "
 "'Tag(s)' input field."
-msgstr "Pole Etykiety może zawierać wiele etykiet rozdzielonych przecinkami."
+msgstr ""
+"Pole znaczników może zawierać wiele znaczników rozdzielonych przecinkami."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\add_cards_dlg.py:29
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:30
@@ -2639,7 +2641,7 @@ msgid ""
 "You can organise tags in a hierarchy by using :: as separator, e.g. My "
 "book::Lesson 1."
 msgstr ""
-"Można zorganizować etykiety w postaci hierarchii za pomocą :: jako "
+"Można zorganizować znaczniki w postaci hierarchii za pomocą :: jako "
 "separatora, np. książka::Rozdział 1."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\add_cards_dlg.py:30
@@ -2731,8 +2733,8 @@ msgstr "Do nauki"
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:39
 msgid "Right-click on a tag name in the card browser to edit or delete it."
 msgstr ""
-"Kliknięcie prawym przyciskiem na nazwę etykiety w przeglądarce kart pozwala "
-"zmienić jej nazwę lub ją usunąć."
+"Kliknięcie prawym przyciskiem na nazwę znacznika w przeglądarce kart pozwala "
+"zmienić jego nazwę lub go usunąć."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:268
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:40
@@ -2740,8 +2742,8 @@ msgstr ""
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:40
 msgid "Double-click on a card or tag name in the card browser to edit them."
 msgstr ""
-"Dwukrotne kliknięcie na karcie lub nazwie etykiety w przeglądarce kart "
-"powoduje przejście do ich edycji."
+"Dwukrotne kliknięcie na karcie lub nazwie znacznika w przeglądarce kart "
+"powoduje przejście do jego edycji."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:269
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:41
@@ -2781,8 +2783,9 @@ msgid ""
 "You change the relative size of the card list, card type tree and tag tree "
 "by dragging the dividers between them."
 msgstr ""
-"Wielkość listy kart, drzewa typów kart i drzewa etykiet zmienia się poprzez "
-"przesuwanie znacznika jaki pojawia się między nimi po najechaniu kursorem."
+"Wielkość listy kart, drzewa typów kart i drzewa znaczników zmienia się "
+"poprzez przesuwanie znacznika, jaki pojawia się między nimi po najechaniu "
+"kursorem."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:273
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:273
@@ -2803,7 +2806,7 @@ msgstr "Pokaż karty zaznaczonego typu:"
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:302
 #: ..\mnemosyne\pyqt_ui\ui_criterion_wdgt_default.py:51
 msgid "having any of these tags:"
-msgstr "z zaznaczonymi etykietami:"
+msgstr "z zaznaczonymi znacznikami:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:311
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:311
@@ -2834,12 +2837,12 @@ msgstr "Zmiana &typu karty"
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:379
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:379
 msgid "&Add tags"
-msgstr "&Dodanie etykiety"
+msgstr "&Dodaj znaczniki"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:382
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:382
 msgid "&Remove tags"
-msgstr "&Usunięcie etykiety"
+msgstr "&Usuń znaczniki"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:504
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:504
@@ -2874,7 +2877,7 @@ msgstr "Następna powtórka"
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:643
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:643
 msgid "Tags"
-msgstr "Etykiety"
+msgstr "Znaczniki"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:644
 #: ..\mnemosyne\pyqt_ui\browse_cards_dlg.py:644
@@ -3133,7 +3136,7 @@ msgstr "Anuluj"
 #: ..\build\lib\mnemosyne\pyqt_ui\prefill_tag_behaviour_plugin.py:13
 #: ..\mnemosyne\pyqt_ui\prefill_tag_behaviour_plugin.py:13
 msgid "Prefill tag behaviour"
-msgstr "Wstępne wypełnianie"
+msgstr "Wstępne wypełnianie znacznikami"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\prefill_tag_behaviour_plugin.py:15
 #: ..\mnemosyne\pyqt_ui\prefill_tag_behaviour_plugin.py:15
@@ -3146,12 +3149,12 @@ msgid ""
 "textbook::Chapter 10\", whereas Front-to-Back cards get \"European "
 "Capitals\"."
 msgstr ""
-"Tworząc nową kartę Mnemosyne domyślnie wypełnia pole Etykiety ostatnio użytą "
-"wartością niezależnie od wybranego typu karty.\n"
+"Tworząc nową kartę Mnemosyne domyślnie wypełnia pole Znaczników ostatnio "
+"użytą wartością niezależnie od wybranego typu karty.\n"
 "\n"
 "Ta wtyczka pozwala Mnemosyne zapamiętać dla każdego typu kart ostatnio użyte "
-"etykiety. Oznacza to, że dla poszczególnych typów kart mogą być wstępnie "
-"przypisane różne etykiety."
+"znaczniki. Oznacza to, że dla poszczególnych typów kart mogą być wstępnie "
+"przypisane różne znaczniki."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\qt_sync_server.py:76
 #: ..\build\lib\mnemosyne\pyqt_ui\qt_sync_server.py:205
@@ -3380,13 +3383,13 @@ msgstr "&Zmień nazwę"
 #: ..\mnemosyne\pyqt_ui\tag_tree_wdgt.py:173
 msgid "Delete these tags? Cards with these tags will not be deleted."
 msgstr ""
-"Usunąć te etykiety? Karty posiadające te etykiety nie zostaną usunięte."
+"Usunąć te znaczniki? Karty posiadające te znaczniki nie zostaną usunięte."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tag_tree_wdgt.py:175
 #: ..\mnemosyne\pyqt_ui\tag_tree_wdgt.py:175
 msgid "Delete this tag? Cards with this tag will not be deleted."
 msgstr ""
-"Usunąć tą etykietę? Karty posiadające tą etykietę nie zostaną usunięte."
+"Usunąć ten znacznik? Karty posiadające ten znacznik nie zostaną usunięte."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:18
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:18
@@ -3494,7 +3497,7 @@ msgid ""
 "having to load and unload several databases."
 msgstr ""
 "Zaleca się umieszczenie wszystkich karty w jednej bazie danych i używanie "
-"etykiet do zarządzania nimi. Użycie Karty >> Aktywowanie jest o wiele "
+"znaczników do zarządzania nimi. Użycie Karty >> Aktywowanie jest o wiele "
 "bardziej wygodne niż naprzemienne wczytywanie kilku baz danych."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:32
@@ -3626,9 +3629,9 @@ msgid ""
 "explanation of the <$$>...</$$> and <latex>...</latex> tags on Mnemosyne's "
 "website."
 msgstr ""
-"Można bardziej dokładnie kontrolować wyniki LaTexa poprzez używanie tagów "
-"<$$>...</$$> i <latex>...</latex>, których opis znajduje się na stronach "
-"Mnemosyne."
+"Można bardziej dokładnie kontrolować wyniki LaTexa poprzez używanie "
+"znaczników <$$>...</$$> i <latex>...</latex>, których opis znajduje się na "
+"stronach Mnemosyne."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:51
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:51
@@ -3739,7 +3742,7 @@ msgstr "Typ karty:"
 #: ..\mnemosyne\pyqt_ui\ui_edit_card_dlg.py:89
 #: ..\mnemosyne\pyqt_ui\ui_export_metadata_dlg.py:110
 msgid "Tags:"
-msgstr "Etykiety:"
+msgstr "Znaczniki:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:119
 #: ..\mnemosyne\pyqt_ui\ui_add_cards_dlg.py:119
@@ -3806,7 +3809,7 @@ msgstr "&Wyjście"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_add_tags_dlg.py:72
 #: ..\mnemosyne\pyqt_ui\ui_add_tags_dlg.py:72
 msgid "Add tags"
-msgstr "Dodaj etykiety"
+msgstr "Dodaj znaczniki"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_browse_cards_dlg.py:63
 #: ..\mnemosyne\pyqt_ui\ui_browse_cards_dlg.py:63
@@ -4131,7 +4134,7 @@ msgstr "Nowe:"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_criterion_wdgt_default.py:52
 #: ..\mnemosyne\pyqt_ui\ui_criterion_wdgt_default.py:52
 msgid "not having any of these tags:"
-msgstr "z żadną zaznaczonych etykiet:"
+msgstr "z żadnym z zaznaczonych znaczników:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_delete_unused_media_files_dlg.py:61
 #: ..\mnemosyne\pyqt_ui\ui_delete_unused_media_files_dlg.py:61
@@ -4414,7 +4417,7 @@ msgstr "Wybierz plik, z którego zostaną zaimportowane dane:"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_import_dlg.py:102
 #: ..\mnemosyne\pyqt_ui\ui_import_dlg.py:102
 msgid "Add additional tag(s) to cards:"
-msgstr "Dodaj dodatkowe etykiety do kart:"
+msgstr "Dodaj dodatkowe znaczniki do kart:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_main_wdgt.py:203
 #: ..\mnemosyne\pyqt_ui\ui_main_wdgt.py:203
@@ -4672,12 +4675,12 @@ msgstr "&Następna karta powiązana"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_remove_tags_dlg.py:63
 #: ..\mnemosyne\pyqt_ui\ui_remove_tags_dlg.py:63
 msgid "Remove tags"
-msgstr "Usuń etykiety"
+msgstr "Usuń znaczniki"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_remove_tags_dlg.py:64
 #: ..\mnemosyne\pyqt_ui\ui_remove_tags_dlg.py:64
 msgid "Tags to remove:"
-msgstr "Etykiety do usunięcia:"
+msgstr "Znaczniki do usunięcia:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_rename_card_type_dlg.py:61
 #: ..\mnemosyne\pyqt_ui\ui_rename_card_type_dlg.py:61
@@ -4692,12 +4695,12 @@ msgstr "Wprowadź nową nazwę typu kart:"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_rename_tag_dlg.py:61
 #: ..\mnemosyne\pyqt_ui\ui_rename_tag_dlg.py:61
 msgid "Rename tag"
-msgstr "Zmień nazwę etykiety"
+msgstr "Zmień nazwę znacznika"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_rename_tag_dlg.py:62
 #: ..\mnemosyne\pyqt_ui\ui_rename_tag_dlg.py:62
 msgid "Enter new tag name:"
-msgstr "Nowa nazwa etykiety:"
+msgstr "Nowa nazwa znacznika:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:118
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:118

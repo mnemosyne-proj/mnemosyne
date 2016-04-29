@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-18 18:42+0000\n"
-"PO-Revision-Date: 2014-12-15 12:46+0000\n"
+"PO-Revision-Date: 2016-04-12 18:07+0000\n"
 "Last-Translator: Pavel Řehák <pavel-rehak@email.cz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-12-16 06:35+0000\n"
-"X-Generator: Launchpad (build 17286)\n"
+"X-Launchpad-Export-Date: 2016-04-13 05:15+0000\n"
+"X-Generator: Launchpad (build 17990)\n"
 "Language: \n"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:11
@@ -2110,7 +2110,8 @@ msgstr "Zapamatovali jste si 15 nových nebo nezvládnutých karet."
 #: ..\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:554
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:554
 msgid "If you do this for many days, you could get a big workload later."
-msgstr "Budete-li toto dělat po mnoho dní, můžete se časem velmi přetížit."
+msgstr ""
+"Budete-li toto dělat po mnoho dní, mohl byste být později velmi vytížen."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:600
 #: ..\build\lib\mnemosyne\libmnemosyne\schedulers\SM2_mnemosyne.py:604
@@ -2331,7 +2332,7 @@ msgstr "Žádná současná karta"
 #: ..\mnemosyne\libmnemosyne\statistics_pages\current_card.py:29
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\statistics_pages\current_card.py:29
 msgid "Unseen card, no statistics available yet."
-msgstr "Nezobrazená karta, zatím žádné statistiky."
+msgstr "Karta ještě nebyla hodnocena, zatím žádné statistiky."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\statistics_pages\current_card.py:31
 #: ..\build\lib\mnemosyne\pyqt_ui\browse_cards_dlg.py:643
@@ -3547,6 +3548,8 @@ msgid ""
 "In the search box of the card browser, you can use SQL wildcards like _ "
 "(matching a single character) and % (matching one or more characters)."
 msgstr ""
+"Ve vyhledávacím poli prohlížeče karet můžete používat SQL wildcards, např. _ "
+"(odpovídá jednomu znaku) a % (odpovídá jednomu nebo více znakům)."
 
 #: ..\build\lib\mnemosyne\pyqt_ui\tip_dlg.py:45
 #: ..\mnemosyne\pyqt_ui\tip_dlg.py:45
@@ -3913,7 +3916,7 @@ msgstr "bodů."
 msgid ""
 "(This setting will be overridden in card types cloned from 'Vocabulary'.)"
 msgstr ""
-"(Toto nastavení lze potlačit v typech karet kopírovaných ze 'Slovníku'.)"
+"(Toto nastavení bude potlačeno v typech karet kopírovaných ze 'Slovníku'.)"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:89
 #: ..\mnemosyne\pyqt_ui\ui_configuration_wdgt_cramming.py:89
