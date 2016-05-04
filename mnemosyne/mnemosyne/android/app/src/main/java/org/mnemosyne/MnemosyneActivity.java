@@ -232,7 +232,7 @@ public class MnemosyneActivity extends AppCompatActivity {
                                     public void run() {
                                         setFullscreen();
                                     }
-                                }, 2000);
+                                }, 3500);
                             }
                         }
                     });
@@ -256,7 +256,7 @@ public class MnemosyneActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu)
     {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.layout.menu, menu);
+        menuInflater.inflate(R.menu.menu, menu);
         return true;
     }
     

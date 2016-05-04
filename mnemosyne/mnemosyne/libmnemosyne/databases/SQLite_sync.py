@@ -199,8 +199,7 @@ class SQLiteSync(object):
         # media directory.
         
         filenames = set()
-        # 'str' needed for Android:
-        for root, dirs, files in os.walk(str(self.media_dir())):
+        for root, dirs, files in os.walk(self.media_dir()):
             subdir = root.replace(self.media_dir(), "")
             for name in files:
                 filename = path_join(subdir, name)

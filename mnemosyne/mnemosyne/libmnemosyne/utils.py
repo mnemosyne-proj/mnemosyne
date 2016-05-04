@@ -112,9 +112,12 @@ def path_exists(path):
     
     try:
         return os.path.exists(path)
-    except UnicodeEncodeError:
-        return os.path.exists(path.encode("utf-8"))
-
+    except:
+        try:
+            return os.path.exists(path.encode("utf-8"))
+        except:
+            return os.path.exists(path.encode("utf-16"))
+        
     
 def path_getsize(path):
     
@@ -123,8 +126,11 @@ def path_getsize(path):
     
     try:
         return os.path.getsize(path)
-    except UnicodeEncodeError:
-        return os.path.getsize(path.encode("utf-8"))  
+    except:
+        try:
+            return os.path.getsize(path.encode("utf-8")) 
+        except:
+            return os.path.getsize(unicode(path))             
     
     
 def path_join(path1, path2):
@@ -134,9 +140,12 @@ def path_join(path1, path2):
     
     try:
         return os.path.join(path1, path2)
-    except UnicodeDecodeError:
-        return os.path.join(path1.decode("utf-8"), path2.decode("utf-8"))      
-    
+    except:
+        try:
+            return os.path.join(path1.decode("utf-8"), path2.decode("utf-8"))      
+        except:
+            return os.path.join(path1.decode("utf-16"), path2.decode("utf-16"))            
+
 
 def contract_path(path, start):
 
