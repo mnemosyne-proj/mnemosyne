@@ -1,3 +1,10 @@
+clean up unicode and android/w10 issues. Check why testsuite did not register this error.
+archive files wont download from dot_test to android
+server.py imports from libmnemosyne.utils
+
+RUBY issue from uservoice with non vocabulary cards
+
+
 Android:
 
 -progress bar before 'sync finished'?
@@ -211,7 +218,7 @@ http://stackoverflow.com/questions/1609637/is-it-possible-to-insert-multiple-row
 
 -plugin for card types with prefilled data?
 
--merge translations (del en_gb, am, vi)
+-merge translations (del en_gb, am, vi, uz)
 
 -integrate with forvo
 

@@ -5,7 +5,7 @@ Android 20160502:
  up all the time, speeding up the sync process and taking less space.
 -Switched to Material design, also making it easier to access the menu on 
  some devices which had problems with this before.
--Implemented full screen immersiver mode for Android KitKat and higher.
+-Implemented full screen immersive mode for Android KitKat and higher.
 -Buttons are now in the middle of the screen to better facilitate
  ergonomic one-handed operation.
 

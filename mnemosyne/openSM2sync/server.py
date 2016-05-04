@@ -16,8 +16,9 @@ import tempfile
 
 from partner import Partner
 from log_entry import EventTypes
-from utils import traceback_string, rand_uuid
 from text_formats.xml_format import XMLFormat
+from utils import traceback_string, rand_uuid
+from mnemosyne.libmnemosyne.utils import path_exists, path_getsize, path_join
 
 
 # Avoid delays caused by Nagle's algorithm.
@@ -607,7 +608,7 @@ class Server(Partner):
             if len(filenames) == 0:
                 return ""
             for filename in filenames:
-                mnemosyne_content_length += os.path.getsize((os.path.join(\
+                mnemosyne_content_length += path_getsize((os.path.join(\
                         session.database.data_dir(), filename)))
             return "\n".join(filenames).encode("utf-8")
         except:
