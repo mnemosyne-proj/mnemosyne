@@ -2,12 +2,12 @@
 # qtextedit2.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 
 
-class QTextEdit2(QtGui.QTextEdit):
+class QTextEdit2(QtWidgets.QTextEdit):
 
     """QTextEdit with extra options in popup menu."""
 
@@ -19,7 +19,7 @@ class QTextEdit2(QtGui.QTextEdit):
 
         """
 
-        QtGui.QTextEdit.__init__(self, parent)
+        super().__init__(parent)
         self.pronunciation_hiding = pronunciation_hiding
         self.setAcceptRichText(False)
 
@@ -36,7 +36,7 @@ class QTextEdit2(QtGui.QTextEdit):
                         QtGui.QKeySequence(_("Ctrl+F")))
         if self.pronunciation_hiding in [True, False]:
             popup.addSeparator()
-            self.hide_action = QtGui.QAction(\
+            self.hide_action = QtWidgets.QAction(\
                 _("&Hide pronunciation field for this card type"), popup)
             self.hide_action.setCheckable(True)
             self.hide_action.setChecked(self.pronunciation_hiding)
@@ -59,7 +59,7 @@ class QTextEdit2(QtGui.QTextEdit):
             QtCore.Qt.ControlModifier:
             self.insert_flash()
         else:
-            QtGui.QTextEdit.keyPressEvent(self, event)
+            QtWidgets.QTextEdit.keyPressEvent(self, event)
 
     def insert_img(self):
         filter = "(*.png *.gif *.jpg *.bmp *.jpeg *.svg *.tiff" + \

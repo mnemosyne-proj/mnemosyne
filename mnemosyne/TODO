@@ -1,3 +1,15 @@
+
+refactor 2 to 3
+
+!C:\Python27\tools\scripts\2to3.py setup.py tests science_server po openSM2sync mnemosyne
+
+look at all instances of str
+
+test 'Modern green' in language dialog
+
+custom pyuic5 to translate Qt strings
+
+
 https://bugs.launchpad.net/mnemosyne-proj/+bug/1582509
 
 clean up unicode and android/w10 issues. Check why testsuite did not register this error.

@@ -230,35 +230,34 @@ class SQLiteLogging(object):
             timestamp = time.strftime("%Y-%m-%d %H:%M:%S",
                 time.localtime(cursor[2]))
             if event_type == EventTypes.STARTED_PROGRAM:
-                print >> logfile, "%s : Program started : %s" \
-                      % (timestamp, cursor[3])
+                print("%s : Program started : %s" \
+                      % (timestamp, cursor[3]), file=logfile)
             elif event_type == EventTypes.STARTED_SCHEDULER:
-                print >> logfile, "%s : Scheduler : %s" \
-                      % (timestamp, cursor[3])
+                print("%s : Scheduler : %s" \
+                      % (timestamp, cursor[3]), file=logfile)
             elif event_type == EventTypes.LOADED_DATABASE:
-                print >> logfile, "%s : Loaded database %d %d %d" \
-                      % (timestamp, cursor[6], cursor[7], cursor[8])
+                print("%s : Loaded database %d %d %d" \
+                      % (timestamp, cursor[6], cursor[7], cursor[8]), file=logfile)
             elif event_type == EventTypes.SAVED_DATABASE:
-                print >> logfile, "%s : Saved database %d %d %d" \
-                      % (timestamp, cursor[6], cursor[7], cursor[8])
+                print("%s : Saved database %d %d %d" \
+                      % (timestamp, cursor[6], cursor[7], cursor[8]), file=logfile)
             elif event_type == EventTypes.ADDED_CARD:
                 # Use dummy grade and interval, We log the first repetition
                 # separately anyhow.
-                print >> logfile, "%s : New item %s -1 -1" \
-                      % (timestamp, cursor[3])
+                print("%s : New item %s -1 -1" \
+                      % (timestamp, cursor[3]), file=logfile)
             elif event_type == EventTypes.DELETED_CARD:
-                print >> logfile, "%s : Deleted item %s" \
-                      % (timestamp, cursor[3])
+                print("%s : Deleted item %s" \
+                      % (timestamp, cursor[3]), file=logfile)
             elif event_type == EventTypes.REPETITION:
                 new_interval = int(cursor[14] - cursor[2])
-                print >> logfile, \
-              "%s : R %s %d %1.2f | %d %d %d %d %d | %d %d | %d %d | %1.1f" %\
+                print("%s : R %s %d %1.2f | %d %d %d %d %d | %d %d | %d %d | %1.1f" %\
                          (timestamp, cursor[3], cursor[4], cursor[5],
                           cursor[6], cursor[7], cursor[8],cursor[9],
                           cursor[10], cursor[11], cursor[12], new_interval,
-                          0, cursor[13])
+                          0, cursor[13]), file=logfile)
             elif event_type == EventTypes.STOPPED_PROGRAM:
-                print >> logfile, "%s : Program stopped" % (timestamp, )
+                print("%s : Program stopped" % (timestamp, ), file=logfile)
         # Update partnership index.
         if index:
             self.con.execute(\

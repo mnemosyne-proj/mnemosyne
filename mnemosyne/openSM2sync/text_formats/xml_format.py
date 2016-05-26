@@ -34,13 +34,13 @@ class XMLFormat(object):
 
     def repr_partner_info(self, info):
         repr_info = "<partner "
-        for key, value in info.iteritems():
+        for key, value in list(info.items()):
             if key.lower() == "partners":
                 if value:
                     repr_info += "%s=%s " % \
                         (key, saxutils.quoteattr(",".join(value)))
             else:
-                if type(value) != str and type(value) != unicode:
+                if type(value) != str and type(value) != str:
                     value = repr(value)
                 repr_info += "%s=%s " % (key, saxutils.quoteattr(value))
         repr_info += "protocol_version=\"%s\"></partner>\n" \
@@ -52,7 +52,7 @@ class XMLFormat(object):
         parsed_xml = cElementTree.fromstring(xml)
         partner_info = {}
         partner_info["partners"] = ()
-        for key in parsed_xml.keys():
+        for key in list(parsed_xml.keys()):
             value = parsed_xml.get(key)
             if value.lower() == "true":
                 value = True
@@ -97,7 +97,7 @@ class XMLFormat(object):
             # Dummy entries for card-based clients.
             return ""
         attribs, tags = "", ""
-        for key, value in log_entry.iteritems():
+        for key, value in list(log_entry.items()):
             if key in self.keys_in_attribs:
                 attribs += " %s=\"%s\"" % (key, value)
             else:
@@ -117,14 +117,14 @@ class XMLFormat(object):
         """
 
         context = iter(cElementTree.iterparse(xml, events=("start", "end")))
-        event, root = context.next()  # 'start' event on openSM2 tag.
-        for key, value in root.attrib.iteritems():
+        event, root = next(context)  # 'start' event on openSM2 tag.
+        for key, value in list(root.attrib.items()):
             if key == "number_of_entries":
                 yield value
         for event, element in context:
             if event == "end" and element.tag == "log":
                 log_entry = LogEntry()
-                for key, value in element.attrib.iteritems():
+                for key, value in list(element.attrib.items()):
                     if key in self.int_keys:
                         value = int(value)
                     elif key in self.float_keys:

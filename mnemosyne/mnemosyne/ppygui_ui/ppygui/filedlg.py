@@ -18,7 +18,7 @@
 ## OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 ## WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
-from core import *
+from .core import *
 from ctypes import *
 
 LPOFNHOOKPROC = c_voidp #TODO
@@ -91,13 +91,13 @@ class FileDialog(object):
     
     @classmethod
     def _do_modal(cls, parent, title, wildcards, filename, f, folder=False):
-        szPath = u'\0' * 1024
+        szPath = '\0' * 1024
         if parent is None :
             hparent = 0
         else :
             hparent = parent._w32_hWnd
             
-        filter = "".join("%s|%s|" %item for item in wildcards.items())
+        filter = "".join("%s|%s|" %item for item in list(wildcards.items()))
         filter = filter.replace('|', '\0') + '\0\0'
 
         ofn = OPENFILENAME()
@@ -108,14 +108,14 @@ class FileDialog(object):
         else:
             ofn.lStructSize = sizeof(OPENFILENAME)
         #ofn.lpstrFile = szPath
-        filename = unicode(filename)
-        filename += u"\0"*(1024-len(filename))
+        filename = str(filename)
+        filename += "\0"*(1024-len(filename))
         ofn.lpstrFile = filename
         #ofn.lpstrFileTitle = unicode(filename)
         #ofn.nMaxFileTitle = 1024
         ofn.nMaxFile = 1024
         ofn.hwndOwner = hparent
-        ofn.lpstrTitle = unicode(title)
+        ofn.lpstrTitle = str(title)
         ofn.lpstrFilter = filter
     
         try:

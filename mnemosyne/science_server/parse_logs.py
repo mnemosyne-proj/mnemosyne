@@ -64,7 +64,7 @@ class LogDatabase(object):
         self.parser = ScienceLogParser(database=self)
         self._delete_indexes()  # Takes too long while parsing.
         filenames = [os.path.join(self.log_dir, filename) for filename in \
-            sorted(os.listdir(unicode(self.log_dir))) if \
+            sorted(os.listdir(str(self.log_dir))) if \
             filename.endswith(".bz2")]
         filenames_count = len(filenames)
         for counter, filename in enumerate(filenames):
@@ -72,22 +72,22 @@ class LogDatabase(object):
             if self.con.execute(\
                 "select log_name from parsed_logs where parsed_logs.log_name=?",
                 (os.path.basename(filename), )).fetchone() is not None:
-                print "(%d/%d) %1.1f%% %s already parsed" % \
+                print("(%d/%d) %1.1f%% %s already parsed" % \
                       (counter + 1, filenames_count,
                       (counter + 1.) / filenames_count * 100, \
-                      os.path.basename(filename))
+                      os.path.basename(filename)))
                 continue
-            print "(%d/%d) %1.1f%% %s" % (counter + 1, filenames_count,
+            print("(%d/%d) %1.1f%% %s" % (counter + 1, filenames_count,
                 (counter + 1.) / filenames_count * 100, \
-                os.path.basename(filename))
+                os.path.basename(filename)))
             try:
                 self.parser.parse(filename)
             except KeyboardInterrupt:
-                print "Interrupted!"
+                print("Interrupted!")
                 self.con.commit()
                 exit()
             except:
-                print "Can't open file, ignoring."
+                print("Can't open file, ignoring.")
             self.con.execute("insert into parsed_logs(log_name) values(?)",
                 (os.path.basename(filename), ))
         self.con.commit()
@@ -183,7 +183,7 @@ class LogDatabase(object):
     def dump_reps_to_txt_file(self, filename):
         f = file(filename, "w")
         for cursor in self.con.execute("select * from log"):
-            print >> f, cursor["user_id"], \
+            print(cursor["user_id"], \
                 time.strftime("%Y-%m-%d %H:%M:%S", \
                 time.localtime(cursor["timestamp"])), \
                 cursor["object_id"], cursor["grade"], \
@@ -195,11 +195,11 @@ class LogDatabase(object):
                 cursor["thinking_time"], \
                 time.strftime("%Y-%m-%d %H:%M:%S", \
                 time.localtime(cursor["next_rep"])), \
-                cursor["event"]
+                cursor["event"], file=f)
 
 if __name__=="__main__":
     if len(sys.argv) not in [2, 3]:
-        print "Usage: %s <log_directory> [<txt_output_file>]" % sys.argv[0]
+        print("Usage: %s <log_directory> [<txt_output_file>]" % sys.argv[0])
     else:
         log = LogDatabase(log_dir=sys.argv[1])
         log.parse_directory()

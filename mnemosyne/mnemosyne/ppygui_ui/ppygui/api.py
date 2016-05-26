@@ -21,20 +21,20 @@
 #from core import schedule, GuiObject, Event, SizeEvent,\
 #    CommandEvent, NotificationEvent, StylusEvent, KeyEvent,
 
-from core import *
-from ce import *
-from menu import *
-from controls import *
-from html import *
-from sizer import *
-from boxing import HBox, VBox, TBox, Spacer
-from font import *
-from dialog import Dialog
-from message import Message
-from filedlg import FileDialog
-from date import Date, Time
-from spin import Spin
-from toolbar import ToolBar
-from line import HLine, VLine 
-from dialoghdr import DialogHeader
-from imagelist import ImageList
+from .core import *
+from .ce import *
+from .menu import *
+from .controls import *
+from .html import *
+from .sizer import *
+from .boxing import HBox, VBox, TBox, Spacer
+from .font import *
+from .dialog import Dialog
+from .message import Message
+from .filedlg import FileDialog
+from .date import Date, Time
+from .spin import Spin
+from .toolbar import ToolBar
+from .line import HLine, VLine 
+from .dialoghdr import DialogHeader
+from .imagelist import ImageList

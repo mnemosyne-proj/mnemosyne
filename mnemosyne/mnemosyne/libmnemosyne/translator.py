@@ -101,7 +101,7 @@ language_name_for_iso6931_code = {
     "dv": "Divehi, Dhivehi, Maldivian",
     "dz": "Dzongkha",
     "ee": "Ewe",
-    "el": "Modern Greek (1453\xe2\x80\x93)".decode("utf-8"),
+    "el": "Modern Greek (1453\xe2\x80\x93)",
     "en": "English",
     "eo": "Esperanto",
     "es": "Spanish (Castilian)",
@@ -167,7 +167,7 @@ language_name_for_iso6931_code = {
     "lv": "Latvian",
     "mg": "Malagasy",
     "mh": "Marshallese",
-    "mi": "M\xc4\x81ori".decode("utf-8"),
+    "mi": "M\xc4\x81ori",
     "mk": "Macedonian",
     "ml": "Malayalam",
     "mn": "Mongolian",
@@ -176,8 +176,8 @@ language_name_for_iso6931_code = {
     "mt": "Maltese",
     "my": "Burmese",
     "na": "Nauruan",
-    "nb": "Norwegian".decode("utf-8"),
-    "nb_NO": "Norwegian Bokm\xc3\xa5l".decode("utf-8"),
+    "nb": "Norwegian",
+    "nb_NO": "Norwegian Bokm\xc3\xa5l",
     "nd": "Northern Ndebele",
     "ne": "Nepali",
     "ng": "Ndonga",
@@ -187,7 +187,7 @@ language_name_for_iso6931_code = {
     "nr": "Southern Ndebele",
     "nv": "Navajo, Navaho",
     "ny": "Chichewa, Chewa, Nyanja",
-    "oc": "Occitan (1500\xe2\x80\x93)".decode("utf-8"),
+    "oc": "Occitan (1500\xe2\x80\x93)",
     "oj": "Ojibwa",
     "om": "Oromo",
     "or": "Oriya",
@@ -242,7 +242,7 @@ language_name_for_iso6931_code = {
     "uz": "Uzbek",
     "ve": "Venda",
     "vi": "Vietnamese",
-    "vo": "Volap\xc3\xbck".decode("utf-8"),
+    "vo": "Volap\xc3\xbck",
     "wa": "Walloon",
     "wo": "Wolof",
     "xh": "Xhosa",
@@ -260,4 +260,4 @@ language_name_for_iso6931_code = {
 
 def iso6931_code_for_language_name(language):
     return dict((v,k) for k, v in \
-        language_name_for_iso6931_code.iteritems())[language]
+        list(language_name_for_iso6931_code.items()))[language]

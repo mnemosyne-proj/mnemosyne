@@ -70,9 +70,9 @@ class Latex(Filter):
             if os.path.exists("tmp.aux"):
                 os.remove("tmp.aux")
             f = file("tmp.tex", "w")
-            print >> f, self.config()["latex_preamble"]
-            print >> f, latex_command.encode("utf-8")
-            print >> f, self.config()["latex_postamble"]
+            print(self.config()["latex_preamble"], file=f)
+            print(latex_command.encode("utf-8"), file=f)
+            print(self.config()["latex_postamble"], file=f)
             f.close()
             os.system(self.config()["latex"] + " tmp.tex 2>&1 1>latex_out.txt")
             os.system(self.config()["dvipng"].rstrip())

@@ -2,18 +2,17 @@
 # clone_card_type_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.pyqt_ui.ui_clone_card_type_dlg import Ui_CloneCardTypeDlg
 
 
-class CloneCardTypeDlg(QtGui.QDialog, Ui_CloneCardTypeDlg, Component):
+class CloneCardTypeDlg(QtWidgets.QDialog, Ui_CloneCardTypeDlg, Component):
 
     def __init__(self, parent, component_manager):
-        Component.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, parent)
+        super().__init__(parent, component_manager=component_manager)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
@@ -31,9 +30,9 @@ class CloneCardTypeDlg(QtGui.QDialog, Ui_CloneCardTypeDlg, Component):
 
     def accept(self):
         parent_instance = self.sorted_card_types[self.parent_type.currentIndex()]
-        clone_name = unicode(self.name.text())
+        clone_name = str(self.name.text())
         clone = self.controller().clone_card_type(\
             parent_instance, clone_name)
         if not clone:
             return
-        QtGui.QDialog.accept(self)
+        QtWidgets.QDialog.accept(self)

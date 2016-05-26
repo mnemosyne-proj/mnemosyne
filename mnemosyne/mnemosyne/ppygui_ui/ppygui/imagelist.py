@@ -40,8 +40,8 @@ class ImageList(GuiObject):
         DeleteObject(hbmp)
         
     def add_from_resource(self, resource_dll, icons, cx, cy, flags=0):
-        LoadLibrary(unicode(resource_dll))
-        hdll = GetModuleHandle(unicode(resource_dll))
+        LoadLibrary(str(resource_dll))
+        hdll = GetModuleHandle(str(resource_dll))
         for i in icons:
             hIcon = LoadImage(hdll, i, IMAGE_ICON, cx, cy, flags)
             ImageList_AddIcon(self._hImageList, hIcon)
@@ -51,11 +51,11 @@ class ImageList(GuiObject):
         ImageList_Destroy(self._hImageList)    
 
 def list_icons(dll):
-    LoadLibrary(unicode(dll))
-    hdll = GetModuleHandle(unicode(dll))
+    LoadLibrary(str(dll))
+    hdll = GetModuleHandle(str(dll))
     for i in range(500):
         try:
             hIcon = LoadImage(hdll, i, IMAGE_ICON, 32, 32, 0)
-            print i
+            print(i)
         except:
             pass

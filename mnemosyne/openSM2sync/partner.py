@@ -3,7 +3,7 @@
 #
 
 import os
-from utils import file_, path_getsize
+from .utils import file_, path_getsize
 
 class Partner(object):
 

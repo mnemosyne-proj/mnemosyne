@@ -6,14 +6,14 @@
 
 import os
 import socket
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import tarfile
-import httplib
+import http.client
 
-from partner import Partner
-from text_formats.xml_format import XMLFormat
-from utils import SyncError, SeriousSyncError
-from utils import path_exists, path_getsize, path_join, traceback_string
+from .partner import Partner
+from .text_formats.xml_format import XMLFormat
+from .utils import SyncError, SeriousSyncError
+from .utils import path_exists, path_getsize, path_join, traceback_string
 
 # Avoid delays caused by Nagle's algorithm.
 # http://www.cmlenz.net/archives/2008/03/python-httplib-performance-problems
@@ -29,17 +29,17 @@ socket.socket = socketwrap
 # http://mail.python.org/pipermail/python-bugs-list/2006-September/035156.html
 # Fix included here for systems running Python 2.5.
 
-class HTTPResponse(httplib.HTTPResponse):
+class HTTPResponse(http.client.HTTPResponse):
 
     def __init__(self, sock, **kw):
-        httplib.HTTPResponse.__init__(self, sock, **kw)
+        http.client.HTTPResponse.__init__(self, sock, **kw)
         self.fp = sock.makefile("rb") # Was unbuffered: sock.makefile("rb", 0)
 
-httplib.HTTPConnection.response_class = HTTPResponse
+http.client.HTTPConnection.response_class = HTTPResponse
 
 # Register binary formats.
 
-from binary_formats.mnemosyne_format import MnemosyneFormat
+from .binary_formats.mnemosyne_format import MnemosyneFormat
 BinaryFormats = [MnemosyneFormat]
 
 
@@ -96,7 +96,7 @@ class Client(Partner):
 
         # If we haven't done so, determine whether we're behind a proxy.
         if self.behind_proxy is None:
-            import urllib
+            import urllib.request, urllib.parse, urllib.error
             proxies = urllib.getproxies()
             if "http" in proxies:
                 self.behind_proxy = True
@@ -105,18 +105,18 @@ class Client(Partner):
                 self.behind_proxy = False
         # Create a new connection or reuse an existing one.
         if self.behind_proxy:
-            httplib.HTTPConnection._http_vsn = 10
-            httplib.HTTPConnection._http_vsn_str = "HTTP/1.0"
+            http.client.HTTPConnection._http_vsn = 10
+            http.client.HTTPConnection._http_vsn_str = "HTTP/1.0"
             if self.proxy is not None:
-                self.con = httplib.HTTPConnection(self.proxy, self.port)
+                self.con = http.client.HTTPConnection(self.proxy, self.port)
             else:  # Testsuite has set self.behind_proxy to True to simulate
                 # being behind a proxy.
-                self.con = httplib.HTTPConnection(self.server, self.port)
+                self.con = http.client.HTTPConnection(self.server, self.port)
         else:
-            httplib.HTTPConnection._http_vsn = 11
-            httplib.HTTPConnection._http_vsn_str = "HTTP/1.1"
+            http.client.HTTPConnection._http_vsn = 11
+            http.client.HTTPConnection._http_vsn_str = "HTTP/1.1"
             if not self.con:
-                self.con = httplib.HTTPConnection(self.server, self.port)
+                self.con = http.client.HTTPConnection(self.server, self.port)
 
     def url(self, url_string):
         if self.behind_proxy and self.proxy:
@@ -193,7 +193,7 @@ class Client(Partner):
                 else:
                     self.resolve_conflicts()
             self.ui.show_information("Sync finished!")
-        except Exception, exception:
+        except Exception as exception:
             self.ui.close_progress()
             serious = True
             if type(exception) == type(socket.gaierror()):
@@ -280,7 +280,7 @@ class Client(Partner):
 
     def _check_response_for_errors(self, response, can_consume_response=True):
         # Check for non-Mnemosyne error messages.
-        if response.status != httplib.OK:
+        if response.status != http.client.OK:
             raise SeriousSyncError("Internal server error:\n" + response.read())
         if can_consume_response == False:
             return
@@ -320,7 +320,7 @@ class Client(Partner):
                 self.text_format.repr_partner_info(client_info).\
                 encode("utf-8") + "\n")
             response = self.con.getresponse()
-        except Exception, e:
+        except Exception as e:
             raise SyncError("Could not connect to server!")
         # Check for errors, but don't force a restore from backup if we can't
         # login.
@@ -445,7 +445,7 @@ class Client(Partner):
 
     def _download_log_entries(self, stream):
         element_loop = self.text_format.parse_log_entries(stream)
-        number_of_entries = int(element_loop.next())
+        number_of_entries = int(next(element_loop))
         if number_of_entries == 0:
             return
         self.ui.set_progress_range(number_of_entries)
@@ -564,7 +564,7 @@ class Client(Partner):
             self.con.putrequest("PUT",
                 self.url("/client_binary_file?session_token=%s&filename=%s" \
                 % (self.server_info["session_token"],
-                urllib.quote(filename.encode("utf-8"), ""))))
+                urllib.parse.quote(filename.encode("utf-8"), ""))))
             full_path = path_join(self.database.data_dir(), filename)
             file_size = path_getsize(full_path)
             self.con.putheader("content-length", file_size)
@@ -595,7 +595,7 @@ class Client(Partner):
             return
         filenames = []
         for filename in response.read().split("\n"):
-            filenames.append(unicode(filename, "utf-8"))
+            filenames.append(str(filename, "utf-8"))
         self.ui.set_progress_text("Getting media files...")
         self.get_server_binary_files(filenames, total_size)    
         self.ui.close_progress()
@@ -618,7 +618,7 @@ class Client(Partner):
             return
         filenames = []
         for filename in response.read().split("\n"):
-            filenames.append(unicode(filename, "utf-8"))
+            filenames.append(str(filename, "utf-8"))
         self.ui.set_progress_text("Getting archive files...")
         self.get_server_binary_files(filenames, total_size)    
         self.ui.close_progress()  
@@ -631,7 +631,7 @@ class Client(Partner):
             self.con.request("GET",
                 self.url("/server_binary_file?session_token=%s&filename=%s" \
                 % (self.server_info["session_token"],
-                urllib.quote(filename.encode("utf-8"), ""))))
+                urllib.parse.quote(filename.encode("utf-8"), ""))))
             response = self.con.getresponse()
             self._check_response_for_errors(response,
                 can_consume_response=False)

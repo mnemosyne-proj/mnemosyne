@@ -18,7 +18,7 @@
 ## OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 ## WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
-from core import *
+from .core import *
 
 class AbstractMenuBase(GuiObject):
     
@@ -32,9 +32,9 @@ class AbstractMenuBase(GuiObject):
         return len(self._items)
         
     def append(self, text, callback=None, enabled=True):
-        new_id = IdGenerator.next()
+        new_id = next(IdGenerator)
         item = MenuItem(self, new_id)
-        AppendMenu(self._hmenu, MF_STRING, new_id, unicode(text))
+        AppendMenu(self._hmenu, MF_STRING, new_id, str(text))
         item.enable(enabled)
         item.bind(callback)
         self._items.append(item)
@@ -45,7 +45,7 @@ class AbstractMenuBase(GuiObject):
             raise TypeError("arg 1 must be an instance of a subclass of AbstractMenuBase")
         if self._hmenu == menu._hmenu :
             raise ValueError("a menu cannot contain itself")
-        AppendMenu(self._hmenu, MF_POPUP, menu._hmenu, unicode(text))
+        AppendMenu(self._hmenu, MF_POPUP, menu._hmenu, str(text))
         self._items.append(menu)    
         
     def append_separator(self):
@@ -74,7 +74,7 @@ class AbstractMenuBase(GuiObject):
         DestroyMenu(self._hmenu)
         
     def __del__(self, ):
-        print "del Menu(%i)" %self._hmenu
+        print(("del Menu(%i)" %self._hmenu))
     
 class MenuWrapper(AbstractMenuBase):
     def __init__(self, hmenu):
@@ -125,7 +125,7 @@ class MenuItem(GuiObject):
         
     def __del__(self):
         IdGenerator.reuseid(self._id)
-        print "del MenuItem(%i)" %self._id
+        print(("del MenuItem(%i)" %self._id))
         
 def recon_context(win, event):
     shi = SHRGINFO()

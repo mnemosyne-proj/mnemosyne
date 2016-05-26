@@ -75,7 +75,7 @@ class TestTsvImport(MnemosyneTest):
         assert last_error == ""
         self.review_controller().reset()
         assert self.database().card_count() == 2
-        assert unichr(33267) in self.review_controller().card.answer()
+        assert chr(33267) in self.review_controller().card.answer()
 
     def test_3(self):
         global last_error
@@ -104,7 +104,7 @@ class TestTsvImport(MnemosyneTest):
         self.tsv_importer().do_import(filename, 'extra_tag_name')
         assert self.database().card_count() == 1
         self.review_controller().reset()
-        assert u"\u00E0" in self.review_controller().card.question()
+        assert "\\u00E0" in self.review_controller().card.question()
         assert last_error == ""
 
     def test_7(self):
@@ -113,7 +113,7 @@ class TestTsvImport(MnemosyneTest):
         self.tsv_importer().do_import(filename, 'extra_tag_name')
         assert self.database().card_count() == 1
         self.review_controller().reset()
-        assert u"\u00E0" in self.review_controller().card.question()
+        assert "\\u00E0" in self.review_controller().card.question()
         assert last_error == ""
 
     def test_8(self):

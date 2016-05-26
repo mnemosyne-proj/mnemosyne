@@ -31,7 +31,7 @@ for cursor in mnemosyne.database().con.execute(\
         a = card.answer(render_chain="plain_text").encode("utf-8")
         # We write the answer first to have alignment in columns
         # (Arabic is not monospace).
-        print >> f, a + (40-len(a))*" " + q
+        print(a + (40-len(a))*" " + q, file=f)
 f.close()
 
 os.system("unoconv mnemosyne.txt")

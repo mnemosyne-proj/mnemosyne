@@ -7,7 +7,7 @@ import cgi
 import sys
 import time
 import locale
-import httplib
+import http.client
 import threading
 
 from webob import Request
@@ -33,7 +33,7 @@ class ReleaseDatabaseAfterTimeout(threading.Thread):
     def run(self):
         while time.time() < self.last_ping + 2*60:
             time.sleep(1)
-        con = httplib.HTTPConnection("localhost", self.port)
+        con = http.client.HTTPConnection("localhost", self.port)
         con.request("GET", "/release_database")
         response = con.getresponse()
 
@@ -216,6 +216,6 @@ class WebServerThread(threading.Thread, WebServer):
 
     def run(self):
         if not self.is_server_local:  # Could fail if we are offline.
-            print "Web server listening on http://" + \
-                localhost_IP() + ":" + str(self.config["web_server_port"])
+            print(("Web server listening on http://" + \
+                localhost_IP() + ":" + str(self.config["web_server_port"])))
         self.serve_until_stopped()

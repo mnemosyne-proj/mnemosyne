@@ -18,11 +18,11 @@
 ## OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 ## WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
-from core import Frame, CustomEventDispatcher, \
+from .core import Frame, CustomEventDispatcher, \
     GetDC, SelectObject, GetTextExtent
-from config import HIRES_MULT
-from controls import Edit, UpDown
-from boxing import HBox
+from .config import HIRES_MULT
+from .controls import Edit, UpDown
+from .boxing import HBox
 
 class Spin(Frame):
     _dispatchers = {'update' : (CustomEventDispatcher,)}

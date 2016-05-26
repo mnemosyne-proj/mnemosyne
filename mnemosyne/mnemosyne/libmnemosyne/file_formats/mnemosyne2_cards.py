@@ -7,7 +7,7 @@ import sys
 import time
 import codecs
 import zipfile
-import cPickle
+import pickle
 
 from openSM2sync.log_entry import LogEntry
 from openSM2sync.log_entry import EventTypes
@@ -39,9 +39,9 @@ class Mnemosyne2Cards(FileFormat):
             os.chdir(self.orig_dir)
             return -1
         metadata_file = file("METADATA", "w")
-        for key, value in metadata.iteritems():
-            print >> metadata_file, key + ":" + \
-                value.strip().replace("\n", "<br>").encode("utf-8")
+        for key, value in metadata.items():
+            print(key + ":" + \
+                value.strip().replace("\n", "<br>").encode("utf-8"), file=metadata_file)
         metadata_file.close()
         db = self.database()
         w = self.main_widget()
@@ -122,7 +122,7 @@ class Mnemosyne2Cards(FileFormat):
             log_entry = LogEntry()
             log_entry["type"] = EventTypes.ADDED_FACT
             log_entry["o_id"] = fact.id
-            for fact_key, value in fact.data.iteritems():
+            for fact_key, value in fact.data.items():
                 log_entry[fact_key] = value
             xml_file.write(xml_format.\
                 repr_log_entry(log_entry).encode("utf-8"))
@@ -224,7 +224,7 @@ class Mnemosyne2Cards(FileFormat):
         self.database().card_types_to_instantiate_later = set()
         xml_filename = os.path.join(self.database().media_dir(), "cards.xml")
         element_loop = XMLFormat().parse_log_entries(file(xml_filename, "r"))
-        number_of_entries = int(element_loop.next())
+        number_of_entries = int(next(element_loop))
         if number_of_entries == 0:
             return
         w.set_progress_range(number_of_entries)
@@ -234,7 +234,7 @@ class Mnemosyne2Cards(FileFormat):
             w.increase_progress(1)
         w.set_progress_value(number_of_entries)
         if len(self.database().card_types_to_instantiate_later) != 0:
-            raise RuntimeError, _("Missing plugins for card types.")
+            raise RuntimeError(_("Missing plugins for card types."))
         os.remove(xml_filename)
         os.remove(metadata_filename)
         w.close_progress()

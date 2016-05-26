@@ -69,11 +69,11 @@ def get_txt(directory, codec):
             # Determine sentences.
             txt_file = file(os.path.join(subdir,
                 [x for x in os.listdir(subdir) if x.endswith(".TXT")][0]))
-            entries = unicode(txt_file.read(), codec, errors="ignore") \
-                .replace(unichr(336), "\'") \
-                .replace(unichr(213), "\'") \
-                .replace(unichr(210), "\"") \
-                .replace(unichr(211), "\"") \
+            entries = str(txt_file.read(), codec, errors="ignore") \
+                .replace(chr(336), "\'") \
+                .replace(chr(213), "\'") \
+                .replace(chr(210), "\"") \
+                .replace(chr(211), "\"") \
                 .split("@")[1:-1]
             assert len(entries) == 40
             txt[unit][lesson] = entries
@@ -146,13 +146,13 @@ sound = extract_sound(foreign_directory)
 
 for unit in foreign_txt:
     for lesson in foreign_txt[unit]:
-        print "unit", unit, "lesson", lesson
+        print(("unit", unit, "lesson", lesson))
         for i in range(40):
-            print foreign_txt[unit][lesson][i]
-            print native_txt[unit][lesson][i].replace(unichr(336), "\'")
-            print images[unit][lesson][i]
-            print sound[unit][lesson][i]
-            print
+            print((foreign_txt[unit][lesson][i]))
+            print((native_txt[unit][lesson][i].replace(chr(336), "\'")))
+            print((images[unit][lesson][i]))
+            print((sound[unit][lesson][i]))
+            print()
             fact_data = {"f": "["+foreign_txt[unit][lesson][i] + "]",
                 "p_1": "<audio src=\"" + sound[unit][lesson][i] + "\">",
                 "m_1": native_txt[unit][lesson][i] + \
@@ -160,6 +160,6 @@ for unit in foreign_txt:
             mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=-1, tag_names=[tag_prefix + "::Unit " + str(unit)\
                 + "::Lesson " + str(lesson)])
-        print
+        print()
 
 mnemosyne.finalise()

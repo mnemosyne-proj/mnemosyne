@@ -40,7 +40,7 @@ class RenderChain(Component):
         Component.__init__(self, component_manager)
         self._filters = []
         for filter in self.filters:
-            self._filters.append(filter(component_manager))
+            self._filters.append(list(filter(component_manager)))
         self._renderers = []
         self._renderer_for_card_type = {}
         for renderer in self.renderers:
@@ -120,7 +120,7 @@ class RenderChain(Component):
 
         """'renderer_class' should be a class, not an instance."""
 
-        for card_type, renderer in self._renderer_for_card_type.iteritems():
+        for card_type, renderer in list(self._renderer_for_card_type.items()):
             if isinstance(renderer, renderer_class):
                 del self._renderer_for_card_type[card_type]
                 break

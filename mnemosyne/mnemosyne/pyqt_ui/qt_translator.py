@@ -5,7 +5,7 @@
 import os
 import sys
 
-from PyQt4.QtCore import QTranslator, QCoreApplication, QLocale
+from PyQt5.QtCore import QTranslator, QCoreApplication, QLocale
 
 from mnemosyne.libmnemosyne.translators.gettext_translator \
      import GetTextTranslator
@@ -20,7 +20,7 @@ class QtTranslator(GetTextTranslator):
     """
 
     def __init__(self, component_manager):
-        GetTextTranslator.__init__(self, component_manager)
+        super().__init__(component_manager)
         self.qt_translator = QTranslator(QCoreApplication.instance())
         try:
             self.qt_dir = os.environ["QTDIR"]

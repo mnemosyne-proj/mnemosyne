@@ -33,27 +33,27 @@ class InnoScript:
     def create(self, pathname="dist\\mnemosyne.iss"):
         self.pathname = pathname
         ofi = self.file = open(pathname, "w")
-        print >> ofi, "; WARNING: This script has been created by py2exe. "+\
-                        "Changes to this script"
-        print >> ofi, "; will be overwritten the next time py2exe is run!"
-        print >> ofi, r"[Setup]"
-        print >> ofi, r"AppName=%s" % self.name
-        print >> ofi, r"AppVerName=%s %s" % (self.name, self.version)
-        print >> ofi, r"DefaultDirName={pf}\%s" % self.name
-        print >> ofi, r"DefaultGroupName=%s" % self.name
-        print >> ofi
+        print("; WARNING: This script has been created by py2exe. "+\
+                        "Changes to this script", file=ofi)
+        print("; will be overwritten the next time py2exe is run!", file=ofi)
+        print(r"[Setup]", file=ofi)
+        print(r"AppName=%s" % self.name, file=ofi)
+        print(r"AppVerName=%s %s" % (self.name, self.version), file=ofi)
+        print(r"DefaultDirName={pf}\%s" % self.name, file=ofi)
+        print(r"DefaultGroupName=%s" % self.name, file=ofi)
+        print(file=ofi)
 
-        print >> ofi, r"[Files]"
+        print(r"[Files]", file=ofi)
         for path in self.windows_exe_files + self.lib_files:
-            print >> ofi, r'Source: "%s"; DestDir: "{app}\%s"; Flags: ignoreversion' \
-                                    % (path, os.path.dirname(path))
-        print >> ofi
+            print(r'Source: "%s"; DestDir: "{app}\%s"; Flags: ignoreversion' \
+                                    % (path, os.path.dirname(path)), file=ofi)
+        print(file=ofi)
 
-        print >> ofi, r"[Icons]"
+        print(r"[Icons]", file=ofi)
         path = self.windows_exe_files[0]
-        print >> ofi, r'Name: "{group}\%s"; Filename: "{app}\%s"' \
-                            % (self.name, path),
-        print >> ofi, ' ; WorkingDir: {app}'
+        print(r'Name: "{group}\%s"; Filename: "{app}\%s"' \
+                            % (self.name, path), end=' ', file=ofi)
+        print(' ; WorkingDir: {app}', file=ofi)
         #path = self.windows_exe_files[1]
         #print >> ofi, r'Name: "{group}\%s webserver"; Filename: "{app}\%s"' \
         #                    % (self.name, path),
@@ -71,14 +71,14 @@ class InnoScript:
                 import os
                 os.startfile(self.pathname)
             else:
-                print "Ok, using win32api."
+                print("Ok, using win32api.")
                 win32api.ShellExecute(0,"compile", self.pathname, None, None, 0)
         else:
-            print "Cool, you have ctypes installed."
+            print("Cool, you have ctypes installed.")
             res = ctypes.windll.shell32.ShellExecuteA(0, "compile",
                 self.pathname, None, None, 0)
             if res < 32:
-                raise RuntimeError, "ShellExecute failed, error %d" % res
+                raise RuntimeError("ShellExecute failed, error %d" % res)
 
 
 class build_installer(py2exe):
@@ -114,9 +114,9 @@ if sys.platform == "win32": # For py2exe.
                   ("mpl-data", [r"C:\Python27\Lib\site-packages\matplotlib\mpl-data\matplotlibrc"]),
                   (r"mpl-data\images", glob.glob(r"C:\Python27\Lib\site-packages\matplotlib\mpl-data\images\*.*")),
                   (r"mpl-data\fonts\ttf", glob.glob(r"C:\Python27\Lib\site-packages\matplotlib\mpl-data\fonts\ttf\*.*")),
-                  ("phonon_backend", ["C:\Python27\Lib\site-packages\PyQt4\plugins\phonon_backend\phonon_ds94.dll"]),
-                  ("imageformats", glob.glob(r"C:\Python27\Lib\site-packages\PyQt4\plugins\imageformats\*.dll")),
-                  ("sqldrivers", ["C:\Python27\Lib\site-packages\PyQt4\plugins\sqldrivers\qsqlite4.dll"]),
+                  ("phonon_backend", ["C:\Python27\Lib\site-packages\PyQt5\plugins\phonon_backend\phonon_ds94.dll"]),
+                  ("imageformats", glob.glob(r"C:\Python27\Lib\site-packages\PyQt5\plugins\imageformats\*.dll")),
+                  ("sqldrivers", ["C:\Python27\Lib\site-packages\PyQt5\plugins\sqldrivers\qsqlite4.dll"]),
                   ("", [r"C:\Python27\mplayer.exe"])
                   ]
 elif sys.platform == "darwin": # For py2app.
@@ -136,7 +136,7 @@ if sys.platform == "win32":
             os.path.split(mo)[1], "LC_MESSAGES"),
             [os.path.join(mo, "LC_MESSAGES", "mnemosyne.mo")]))
     data_files.append((os.path.join("share", "qt4", "translations"),
-        glob.glob(r"C:\Python27\Lib\site-packages\PyQt4\translations\qt_*")))
+        glob.glob(r"C:\Python27\Lib\site-packages\PyQt5\translations\qt_*")))
 else:
     for mo in [x for x in glob.glob(os.path.join("mo", "*"))
                if os.path.isdir(x)]:
@@ -216,7 +216,7 @@ py2exe_options = {
     "unbuffered": True,
     "packages": ["mnemosyne", "numpy", "six", "sip", "xml.sax", "xml.etree"],
     "optimize": 2,
-    "includes": ["numpy", "sip", "six", "xml.sax", "xml.etree", "PyQt4.QtNetwork",
+    "includes": ["numpy", "sip", "six", "xml.sax", "xml.etree", "PyQt5.QtNetwork",
                  "zmq.backend.cython"],
     "excludes": ["_gtkagg", "_tkagg", "_agg2", "_cairo", "_cocoaagg", "zmq.libzmq",
                  "_fltkagg", "_gtk", "_gtkcairo", "tcl", "Tkconstants", "Tkinter",

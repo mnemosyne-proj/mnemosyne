@@ -4,7 +4,7 @@
 
 import copy
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.translator import _
@@ -35,7 +35,7 @@ class AddEditCards(TipAfterStartingNTimes):
     def activate(self):
         self.show_tip_after_starting_n_times()
         status = self.exec_()
-        return (status == QtGui.QDialog.Accepted)
+        return (status == QtWidgets.QDialog.Accepted)
 
     def initialise_card_types_combobox(self, current_card_type_name):
         # We calculate card_type_by_name here because these names can change
@@ -92,7 +92,7 @@ class AddEditCards(TipAfterStartingNTimes):
         if not keep_data_from_previous_widget:
             prefill_fact_data = self.card.fact.data
         # Show new card type widget.
-        card_type_name = unicode(self.card_types_widget.currentText())
+        card_type_name = str(self.card_types_widget.currentText())
         self.card_type = self.card_type_by_name[card_type_name]
         try:
             self.card_type_widget = self.component_manager.current \
@@ -118,7 +118,7 @@ class AddEditCards(TipAfterStartingNTimes):
                 existing_current_tag_names.append(tag.name)
         current_tag_name = ", ".join(existing_current_tag_names)
         # For the 'special' tags, we add them at the top.
-        self.tags.setInsertPolicy(QtGui.QComboBox.InsertAtTop)
+        self.tags.setInsertPolicy(QtWidgets.QComboBox.InsertAtTop)
         if "," in current_tag_name:
             self.tags.addItem(current_tag_name)
         if current_tag_name == "":
@@ -127,10 +127,10 @@ class AddEditCards(TipAfterStartingNTimes):
             if self.tags.itemText(i) == current_tag_name:
                 self.tags.setCurrentIndex(i)
                 break
-        self.previous_tags = unicode(self.tags.currentText())
+        self.previous_tags = str(self.tags.currentText())
 
     def card_type_changed(self, new_card_type_name):
-        new_card_type_name = unicode(new_card_type_name)
+        new_card_type_name = str(new_card_type_name)
         new_card_type = self.card_type_by_name[new_card_type_name]
         if self.card_type.fact_keys().issubset(new_card_type.fact_keys()) or \
             self.card_type_widget.is_empty():
@@ -138,7 +138,7 @@ class AddEditCards(TipAfterStartingNTimes):
             return
         dlg = ConvertCardTypeKeysDlg(self.card_type, new_card_type,
             self.correspondence, check_required_fact_keys=False, parent=self)
-        if dlg.exec_() != QtGui.QDialog.Accepted:
+        if dlg.exec_() != QtWidgets.QDialog.Accepted:
             # Set correspondence so as not to erase previous data.
             self.correspondence = {}
             for key in self.card_type.fact_keys():
@@ -152,7 +152,7 @@ class AddEditCards(TipAfterStartingNTimes):
         fact_data = self.card_type_widget.fact_data()
         fact = Fact(fact_data)
         cards = self.card_type.create_sister_cards(fact)
-        tag_text = unicode(self.tags.currentText())
+        tag_text = str(self.tags.currentText())
         dlg = PreviewCardsDlg(self.component_manager, cards, tag_text, self)
         dlg.exec_()
 
@@ -161,11 +161,10 @@ class AddEditCards(TipAfterStartingNTimes):
         self.card_type_widget = None
 
 
-class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
+class AddCardsDlg(QtWidgets.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
 
     def __init__(self, component_manager):
-        AddEditCards.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, self.main_widget())
+        super().__init__(self.main_widget(), component_manager=component_manager)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
@@ -187,7 +186,7 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
         else:
             self.update_tags_combobox(self.config()\
                 ["last_used_tags_for_card_type_id"][last_used_card_type.id])
-        self.grades = QtGui.QButtonGroup()
+        self.grades = QtWidgets.QButtonGroup()
         # Negative indexes have special meanings in Qt, so we can't use -1 for
         # 'yet to learn'.
         self.grades.addButton(self.yet_to_learn_button, 0)
@@ -204,7 +203,7 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
     def card_type_changed(self, new_card_type_name):
         # We only store the last used tags when creating a new card,
         # not when editing.
-        new_card_type_name = unicode(new_card_type_name)
+        new_card_type_name = str(new_card_type_name)
         new_card_type = self.card_type_by_name[new_card_type_name] 
         self.config()["last_used_card_type_id"] = new_card_type.id
         if new_card_type.id not in \
@@ -212,10 +211,10 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
             self.config()["last_used_tags_for_card_type_id"]\
                 [new_card_type.id] = ""
         if not self.config()["is_last_used_tags_per_card_type"]:
-            if not unicode(self.tags.currentText()):
+            if not str(self.tags.currentText()):
                 self.update_tags_combobox(self.config()["last_used_tags"])
         else:
-            if not unicode(self.tags.currentText()) \
+            if not str(self.tags.currentText()) \
                 or self.card_type_widget.is_empty():
                 self.update_tags_combobox(self.config()\
                     ["last_used_tags_for_card_type_id"][new_card_type.id]) 
@@ -241,7 +240,7 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
             elif event.key() == QtCore.Qt.Key_E:
                 self.reject()
         else:
-            QtGui.QDialog.keyPressEvent(self, event)
+            QtWidgets.QDialog.keyPressEvent(self, event)
 
     def set_valid(self, valid):
         self.grade_buttons.setEnabled(valid)
@@ -252,8 +251,8 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
             grade = -1
         fact_data = self.card_type_widget.fact_data()
         tag_names = [c.strip() for c in \
-                     unicode(self.tags.currentText()).split(',')]
-        card_type_name = unicode(self.card_types_widget.currentText())
+                     str(self.tags.currentText()).split(',')]
+        card_type_name = str(self.card_types_widget.currentText())
         card_type = self.card_type_by_name[card_type_name]
         c = self.controller()
         c.create_new_cards(fact_data, card_type, grade, tag_names, save=True)
@@ -270,10 +269,10 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
             status = self.main_widget().show_question(\
                 _("Abandon current card?"), _("&Yes"), _("&No"), "")
             if status == 0:
-                QtGui.QDialog.reject(self)
+                QtWidgets.QDialog.reject(self)
                 return
         else:
-            QtGui.QDialog.reject(self)
+            QtWidgets.QDialog.reject(self)
 
     def _store_state(self):
         self.config()["add_cards_dlg_state"] = self.saveGeometry()
@@ -287,4 +286,4 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
     def accept(self):
         # 'accept' does not generate a close event.
         self._store_state()
-        return QtGui.QDialog.accept(self)
+        return QtWidgets.QDialog.accept(self)

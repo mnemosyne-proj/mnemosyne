@@ -9,16 +9,16 @@ class FileUploadAcquisition:
     
     def __init__(self):
         
-        print "Content-type: text/html"
-        print "Expires: Monday, 1-Jan-96 00:00:00 GMT"
-        print "Pragma: no-cache"
-        print
+        print("Content-type: text/html")
+        print("Expires: Monday, 1-Jan-96 00:00:00 GMT")
+        print("Pragma: no-cache")
+        print()
         sys.stderr = sys.stdout
 
         try:
             self.process()
         except:
-            print "<pre>"
+            print("<pre>")
             traceback.print_exc()			
 	
     def process(self):

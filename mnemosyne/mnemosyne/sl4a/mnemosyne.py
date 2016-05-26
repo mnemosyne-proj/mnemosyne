@@ -14,7 +14,7 @@ sync_username = ""
 sync_password = ""
 
 # Initialise Mnemosyne.
-from mnemosyne.libmnemosyne import Mnemosyne
+from .mnemosyne.libmnemosyne import Mnemosyne
 mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
 mnemosyne.components = [\
          ("mnemosyne.libmnemosyne.translators.no_translator", 
@@ -110,7 +110,7 @@ if mnemosyne.main_widget().show_question(\
 
 # Start review server.
 mnemosyne.database().release_connection()
-from mnemosyne.web_server.web_server import WebServerThread
+from .mnemosyne.web_server.web_server import WebServerThread
 web_server_thread = WebServerThread\
         (mnemosyne.component_manager, is_server_local=True)
 web_server_thread.daemon = True

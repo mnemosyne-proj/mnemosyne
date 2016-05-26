@@ -19,10 +19,10 @@
 ## WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
 
-from core import *
-from w32comctl import *
-from config import HIRES_MULT
-from boxing import VBox
+from .core import *
+from .w32comctl import *
+from .config import HIRES_MULT
+from .boxing import VBox
 
 __doc__ = '''\
 This module contains the core high-level widgets of ppygui.
@@ -50,7 +50,7 @@ class Label(Control):
             - border: a boolean that determines if this control should have a border.
         '''
         if align not in ["left", "center", "right"]:
-            raise ValueError, 'align not in ["left", "center", "right"]'
+            raise ValueError('align not in ["left", "center", "right"]')
             
         orStyle = SS_NOTIFY
         if align == "center":
@@ -121,9 +121,9 @@ class Button(Control):
             - border: a boolean that determines if this control should have a border.
         '''
         if align not in ["left", "center", "right"]:
-            raise ValueError, 'align not in ["left", "center", "right"]'
+            raise ValueError('align not in ["left", "center", "right"]')
         if style not in ["normal", "default", "check", "radio"]:
-            raise ValueError, 'style not in ["normal", "default", "check", "radio"]'
+            raise ValueError('style not in ["normal", "default", "check", "radio"]')
         orStyle = 0
         self._check = False
         if style == "normal" :
@@ -416,7 +416,7 @@ class Edit(Control):
         return txt[start:end]
         
     def set_selected_text(self, txt):
-        self._send_w32_msg(EM_REPLACESEL, 1, unicode(txt))
+        self._send_w32_msg(EM_REPLACESEL, 1, str(txt))
         
     def can_undo(self):
         '''\
@@ -518,13 +518,13 @@ class List(Control):
         '''
         Adds the string choice to the list of choices
         '''
-        self._send_w32_msg(LB_ADDSTRING, 0, unicode(choice))
+        self._send_w32_msg(LB_ADDSTRING, 0, str(choice))
         
     def insert(self, i, choice):
         '''
         Inserts the string choice at index i
         '''
-        self._send_w32_msg(LB_INSERTSTRING, i, unicode(choice))
+        self._send_w32_msg(LB_INSERTSTRING, i, str(choice))
            
     def __getitem__(self, i):
         '''
@@ -644,7 +644,7 @@ class TableColumns(GuiObject):
             raise IndexError
         assert align in ["left", "center", "right"]
         col = LVCOLUMN()
-        col.text = unicode(title)
+        col.text = str(title)
         col.width = width
         if align == "left" :
             fmt = LVCFMT_LEFT
@@ -895,7 +895,7 @@ class TableRows(GuiObject):
             len(selections)
         except TypeError:
             selections = [selections]
-        for i in xrange(len(self)):
+        for i in range(len(self)):
             self.unselect(i)
             
         for i in selections:
@@ -943,13 +943,13 @@ class Combo(Control):
         return self._send_w32_msg(CB_GETCOUNT)
         
     def append(self, txt):
-        self._send_w32_msg(CB_ADDSTRING, 0, unicode(txt))
+        self._send_w32_msg(CB_ADDSTRING, 0, str(txt))
         self._best_size = None
         
     def insert(self, i, txt):
         if not 0<=i<self.count:
             raise IndexError
-        self._send_w32_msg(CB_INSERTSTRING, i, unicode(txt))
+        self._send_w32_msg(CB_INSERTSTRING, i, str(txt))
         self._best_size = None
         
     def get_selection(self):
@@ -1119,7 +1119,7 @@ class Table(Control):
         item.mask = LVIF_TEXT | LVIF_PARAM
         item.iItem = i
         item.iSubItem = j
-        item.pszText = u" "*1024
+        item.pszText = " "*1024
 
         item.cchTextMax = 1024
         self._send_w32_msg(LVM_GETITEM, 0, byref(item))
@@ -1159,7 +1159,7 @@ class Table(Control):
         item.mask = LVIF_TEXT 
         item.iItem = i
         item.iSubItem = j
-        item.pszText = unicode(val)
+        item.pszText = str(val)
         self._setitem(item)
         return item
         
@@ -1255,7 +1255,7 @@ class TreeItem(GuiObject):
         item = TVITEM()
         item.hItem = self._hItem
         item.mask = TVIF_TEXT
-        item.pszText = u" "*1024
+        item.pszText = " "*1024
         item.cchTextMax = 1024
         self._tree._getitem(item)
         return item.pszText
@@ -1264,7 +1264,7 @@ class TreeItem(GuiObject):
         item = TVITEM()
         item.mask  = TVIF_TEXT
         item.hItem = self._hItem
-        item.pszText = unicode(txt)
+        item.pszText = str(txt)
         return self._tree._setitem(item)
         
     doc_text = "The text of the TreeItem as a string"

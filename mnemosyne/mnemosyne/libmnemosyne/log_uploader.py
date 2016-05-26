@@ -5,7 +5,7 @@
 import os
 import time
 import random
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 from threading import Thread
 
 from mnemosyne.libmnemosyne.translator import _
@@ -54,16 +54,16 @@ class LogUploader(Thread, Component):
                    'Proxy-Connection' : 'Keep-Alive',
                    'Content-Type' : contentType,
                    'Content-Length' : contentLength}
-        req = urllib2.Request('http://' + host + ':' + port+uri, query, headers)
-        response = urllib2.urlopen(req)
+        req = urllib.request.Request('http://' + host + ':' + port+uri, query, headers)
+        response = urllib.request.urlopen(req)
         html = response.read()
 
     def run(self):
         data_dir = self.config().data_dir
         join = os.path.join
-        dir = os.listdir(unicode(join(data_dir, "history")))
+        dir = os.listdir(str(join(data_dir, "history")))
         # Find out which files haven't been uploaded yet.
-        dir = os.listdir(unicode(join(data_dir, "history")))
+        dir = os.listdir(str(join(data_dir, "history")))
         history_files = [x for x in dir if x.endswith(".bz2")]
         uploaded = None
         try:
@@ -79,13 +79,13 @@ class LogUploader(Thread, Component):
         upload_log = file(join(data_dir, "history", "uploaded"), 'a')
         try:
             for f in to_upload:
-                print _("Uploading"), f, "...",
+                print(_("Uploading"), f, "...", end=' ')
                 filename = join(data_dir, "history", f)
                 self.upload(filename)
-                print >> upload_log, f
-                print _("done!")
+                print(f, file=upload_log)
+                print(_("done!"))
         except:
-            print _("Upload failed")
-            print traceback_string()
+            print(_("Upload failed"))
+            print(traceback_string())
         upload_log.close()
 

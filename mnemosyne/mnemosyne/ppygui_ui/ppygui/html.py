@@ -18,7 +18,7 @@
 ## OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 ## WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
-from core import *
+from .core import *
 from ctypes import cdll, Structure, Union
 
 DTM_ADDTEXTW = WM_USER+102
@@ -61,19 +61,19 @@ class Html(Control):
     _dispatchers.update(Control._dispatchers)
     
     def _addtext(self, txt, plain=False):
-        txt=unicode(txt)
+        txt=str(txt)
         self._send_w32_msg(DTM_ADDTEXTW, int(plain), txt)
         
     def _endofsource(self):
         self._send_w32_msg(DTM_ENDOFSOURCE)
     
     def navigate(self, url):
-        url = unicode(url)
+        url = str(url)
         self._send_w32_msg(DTM_NAVIGATE, 0, url)
         
     def set_zoom_level(self, level):
         if not level in range(5):
-            raise TypeError, 'level must be in [0,1,2,3,4]'
+            raise TypeError('level must be in [0,1,2,3,4]')
         self._send_w32_msg(DTM_ZOOMLEVEL, 0, level)
         
     def set_value(self, html):

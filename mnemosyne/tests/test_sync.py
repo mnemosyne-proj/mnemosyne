@@ -6,7 +6,7 @@ import os
 import sys
 import time
 import shutil
-import httplib
+import http.client
 from nose.tools import raises
 from threading import Thread, Condition
 
@@ -32,11 +32,11 @@ answer = None
 class Widget(MainWidget):
 
     def set_progress_text(self, message):
-        print message
+        print(message)
         #sys.stderr.write(message+'\n')
 
     def show_information(self, info):
-        print info
+        print(info)
         #sys.stderr.write(info+'\n')
 
     def show_error(self, error):
@@ -140,7 +140,7 @@ class MyServer(Server, Thread):
         # Make an extra request so that we don't need to wait for the server
         # timeout. This could fail if the server has already shut down.
         try:
-            con = httplib.HTTPConnection("localhost", PORT)
+            con = http.client.HTTPConnection("localhost", PORT)
             con.request("GET", "dummy_request")
             con.getresponse().read()
         except:
@@ -243,7 +243,7 @@ class TestSync(object):
         self._wait_for_server_shutdown()
 
         if os.path.exists(os.path.abspath("dot_sync_client")):
-            shutil.rmtree(unicode(os.path.abspath("dot_sync_client")))
+            shutil.rmtree(str(os.path.abspath("dot_sync_client")))
         shutil.copytree(os.path.abspath("dot_sync_server"),
             os.path.abspath("dot_sync_client"))
 
@@ -333,7 +333,7 @@ class TestSync(object):
         # Second sync.
         self.client = MyClient(erase_previous=False)
         tag = self.client.mnemosyne.database().\
-              get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
+              get_or_create_tag_with_name(chr(0x628) + ">&<abcd")
         self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().con.execute(\
             "select count(distinct object_id) from log where event_type=?",
@@ -343,9 +343,9 @@ class TestSync(object):
 
         def test_server(self):
             db = self.mnemosyne.database()
-            tag = db.get_or_create_tag_with_name(unichr(0x628) + u'>&<abcd')
+            tag = db.get_or_create_tag_with_name(chr(0x628) + '>&<abcd')
             assert tag.id == self.client_tag_id
-            assert tag.name == unichr(0x628) + u">&<abcd"
+            assert tag.name == chr(0x628) + ">&<abcd"
             sql_res = db.con.execute("select timestamp from log where event_type=?",
                (EventTypes.ADDED_TAG, )).fetchone()
             assert self.tag_added_timestamp == sql_res[0]
@@ -358,7 +358,7 @@ class TestSync(object):
 
         self.client = MyClient()
         tag = self.client.mnemosyne.database().\
-              get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
+              get_or_create_tag_with_name(chr(0x628) + ">&<abcd")
         self.server.client_tag_id = tag.id
         sql_res = self.client.mnemosyne.database().con.execute(\
             "select timestamp from log where event_type=?", (EventTypes.ADDED_TAG,
@@ -413,9 +413,9 @@ class TestSync(object):
 
         def test_server(self):
             db = self.mnemosyne.database()
-            tag = db.get_or_create_tag_with_name(unichr(0x628) + u'>&<abcd')
+            tag = db.get_or_create_tag_with_name(chr(0x628) + '>&<abcd')
             assert tag.id == self.client_tag_id
-            assert tag.name == unichr(0x628) + u">&<abcd"
+            assert tag.name == chr(0x628) + ">&<abcd"
             sql_res = db.con.execute("select timestamp from log where event_type=?",
                (EventTypes.ADDED_TAG, )).fetchone()
             assert self.tag_added_timestamp == sql_res[0]
@@ -430,7 +430,7 @@ class TestSync(object):
         self.client.behind_proxy = True
         self.client.BUFFER_SIZE = 1
         tag = self.client.mnemosyne.database().\
-              get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
+              get_or_create_tag_with_name(chr(0x628) + ">&<abcd")
         self.server.client_tag_id = tag.id
         sql_res = self.client.mnemosyne.database().con.execute(\
             "select timestamp from log where event_type=?", (EventTypes.ADDED_TAG,
@@ -450,9 +450,9 @@ class TestSync(object):
 
         def test_server(self):
             db = self.mnemosyne.database()
-            tag = db.get_or_create_tag_with_name(unichr(0x628) + u'>&<abcd')
+            tag = db.get_or_create_tag_with_name(chr(0x628) + '>&<abcd')
             assert tag.id == self.client_tag_id
-            assert tag.name == unichr(0x628) + u">&<abcd"
+            assert tag.name == chr(0x628) + ">&<abcd"
             sql_res = db.con.execute("select timestamp from log where event_type=?",
                (EventTypes.ADDED_TAG, )).fetchone()
             assert self.tag_added_timestamp == sql_res[0]
@@ -465,7 +465,7 @@ class TestSync(object):
 
         self.client = MyClient()
         tag = self.client.mnemosyne.database().\
-              get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
+              get_or_create_tag_with_name(chr(0x628) + ">&<abcd")
         self.server.client_tag_id = tag.id
         sql_res = self.client.mnemosyne.database().con.execute(\
             "select timestamp from log where event_type=?", (EventTypes.ADDED_TAG,
@@ -849,7 +849,7 @@ class TestSync(object):
                 "default.db_media", "b"))
 
             filename = os.path.join(os.path.abspath("dot_sync_server"),
-                "default.db_media", "b", unichr(0x628) + u"b..ogg")
+                "default.db_media", "b", chr(0x628) + "b..ogg")
             f = file(filename, "w")
             f.write("B")
             f.close()
@@ -863,7 +863,7 @@ class TestSync(object):
         def test_server(self):
             db = self.mnemosyne.database()
             filename = os.path.join(os.path.abspath("dot_sync_server"),
-                "default.db_media", "a", unichr(0x628) + u"a..ogg")
+                "default.db_media", "a", chr(0x628) + "a..ogg")
             assert os.path.exists(filename)
             assert file(filename).read() == "A"
             assert db.con.execute("select count() from log").fetchone()[0] == 38
@@ -887,7 +887,7 @@ class TestSync(object):
             "default.db_media", "a"))
 
         filename = os.path.join(os.path.abspath("dot_sync_client"),
-            "default.db_media", "a", unichr(0x628) + u"a..ogg")
+            "default.db_media", "a", chr(0x628) + "a..ogg")
         f = file(filename, "w")
         f.write("A")
         f.close()
@@ -902,7 +902,7 @@ class TestSync(object):
         self.client.do_sync(); assert last_error is None
 
         filename = os.path.join(os.path.abspath("dot_sync_client"),
-            "default.db_media", "b", unichr(0x628) + u"b..ogg")
+            "default.db_media", "b", chr(0x628) + "b..ogg")
         assert os.path.exists(filename)
         assert file(filename).read() == "B"
         db = self.client.mnemosyne.database()
@@ -922,7 +922,7 @@ class TestSync(object):
                     "default.db_media", "b"))
     
                 filename = os.path.join(os.path.abspath("dot_sync_server"),
-                    "default.db_media", "b", unichr(0x628) + u"b..ogg")
+                    "default.db_media", "b", chr(0x628) + "b..ogg")
                 f = file(filename, "w")
                 f.write("B")
                 f.close()
@@ -963,7 +963,7 @@ class TestSync(object):
             self.client.do_sync(); assert last_error is None
     
             filename = os.path.join(os.path.abspath("dot_sync_client"),
-                "default.db_media", "b", unichr(0x628) + u"b..ogg")
+                "default.db_media", "b", chr(0x628) + "b..ogg")
             assert os.path.exists(filename)
             assert file(filename).read() == "B"
 
@@ -974,7 +974,7 @@ class TestSync(object):
                 "default.db_media", "b"))
 
             filename = os.path.join(os.path.abspath("dot_sync_server"),
-                "default.db_media", "b", unichr(0x628) + u"b.ogg")
+                "default.db_media", "b", chr(0x628) + "b.ogg")
             f = file(filename, "w")
             f.write("B")
             f.close()
@@ -988,7 +988,7 @@ class TestSync(object):
         def test_server(self):
             db = self.mnemosyne.database()
             filename = os.path.join(os.path.abspath("dot_sync_server"),
-                "default.db_media", "a", unichr(0x628) + u"a.ogg")
+                "default.db_media", "a", chr(0x628) + "a.ogg")
             assert os.path.exists(filename)
             assert file(filename).read() == "A"
             assert db.con.execute("select count() from log").fetchone()[0] == 38
@@ -1013,7 +1013,7 @@ class TestSync(object):
             "default.db_media", "a"))
 
         filename = os.path.join(os.path.abspath("dot_sync_client"),
-            "default.db_media", "a", unichr(0x628) + u"a.ogg")
+            "default.db_media", "a", chr(0x628) + "a.ogg")
         f = file(filename, "w")
         f.write("A")
         f.close()
@@ -1029,7 +1029,7 @@ class TestSync(object):
         assert self.server.is_idle() == True
 
         filename = os.path.join(os.path.abspath("dot_sync_client"),
-            "default.db_media", "b", unichr(0x628) + u"b.ogg")
+            "default.db_media", "b", chr(0x628) + "b.ogg")
         assert os.path.exists(filename)
         assert file(filename).read() == "B"
         db = self.client.mnemosyne.database()
@@ -1048,7 +1048,7 @@ class TestSync(object):
                 "default.db_media", "b"))
 
             filename = os.path.join(os.path.abspath("dot_sync_server"),
-                "default.db_media", "b", unichr(0x628) + u"b.ogg")
+                "default.db_media", "b", chr(0x628) + "b.ogg")
             f = file(filename, "w")
             f.write("B")
             f.close()
@@ -1074,7 +1074,7 @@ class TestSync(object):
             "default.db_media", "a"))
 
         filename = os.path.join(os.path.abspath("dot_sync_client"),
-            "default.db_media", "a", unichr(0x628) + u"a.ogg")
+            "default.db_media", "a", chr(0x628) + "a.ogg")
         f = file(filename, "w")
         f.write("A")
         f.close()
@@ -1094,7 +1094,7 @@ class TestSync(object):
                 "default.db_media", "b"))
 
             filename = os.path.join(os.path.abspath("dot_sync_server"),
-                "default.db_media", "b", unichr(0x628) + u"b.ogg")
+                "default.db_media", "b", chr(0x628) + "b.ogg")
             f = file(filename, "w")
             f.write("B")
             f.close()
@@ -1121,7 +1121,7 @@ class TestSync(object):
             "default.db_media", "a"))
 
         filename = os.path.join(os.path.abspath("dot_sync_client"),
-            "default.db_media", "a", unichr(0x628) + u"a.ogg")
+            "default.db_media", "a", chr(0x628) + "a.ogg")
         f = file(filename, "w")
         f.write("A")
         f.close()
@@ -1191,7 +1191,7 @@ class TestSync(object):
 
         def test_server(self):
             filename = os.path.join(os.path.abspath("dot_sync_server"),
-            "default.db_media", "a", unichr(0x628) + u"a.ogg")
+            "default.db_media", "a", chr(0x628) + "a.ogg")
             #assert os.path.exists(filename)
 
         self.server = MyServer()
@@ -1203,7 +1203,7 @@ class TestSync(object):
         os.mkdir(os.path.join(os.path.abspath("dot_sync_client"),
             "default.db_media", "a"))
         filename = os.path.join(os.path.abspath("dot_sync_client"),
-            "default.db_media", "a", unichr(0x628) + u"a.ogg")
+            "default.db_media", "a", chr(0x628) + "a.ogg")
         f = file(filename, "w")
         f.write("A")
         f.close()
@@ -1227,7 +1227,7 @@ class TestSync(object):
             #assert self.mnemosyne.database().con.execute("select count() from log where event_type=?",
             #    (EventTypes.DELETED_MEDIA_FILE, )).fetchone()[0] == 1
             filename = os.path.join(os.path.abspath("dot_sync_server"),
-            "default.db_media", "a", unichr(0x628) + u"a.ogg")
+            "default.db_media", "a", chr(0x628) + "a.ogg")
             #assert not os.path.exists(filename)
 
         self.server = MyServer(erase_previous=False, binary_download=True)
@@ -1729,22 +1729,22 @@ class TestSync(object):
 
         def test_server(self):
             db = self.mnemosyne.database()
-            tag = db.get_or_create_tag_with_name(unichr(0x628) + u'>&<abcd')
+            tag = db.get_or_create_tag_with_name(chr(0x628) + '>&<abcd')
             assert tag.id == self.client_tag_id
-            assert tag.name == unichr(0x628) + u">&<abcd"
+            assert tag.name == chr(0x628) + ">&<abcd"
             sql_res = db.con.execute("select timestamp from log where event_type=?",
                (EventTypes.ADDED_TAG, )).fetchone()
             assert self.tag_added_timestamp == sql_res[0]
             assert type(sql_res[0]) == int
             assert db.con.execute("select count() from log").fetchone()[0] == 23
 
-        self.server = MyServer(filename=unichr(0x628) + ".db")
+        self.server = MyServer(filename=chr(0x628) + ".db")
         self.server.test_server = test_server
         self.server.start()
 
-        self.client = MyClient(filename=unichr(0x628) + ".db")
+        self.client = MyClient(filename=chr(0x628) + ".db")
         tag = self.client.mnemosyne.database().\
-              get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
+              get_or_create_tag_with_name(chr(0x628) + ">&<abcd")
         self.server.client_tag_id = tag.id
         sql_res = self.client.mnemosyne.database().con.execute(\
             "select timestamp from log where event_type=?", (EventTypes.ADDED_TAG,
@@ -3292,7 +3292,7 @@ class TestSync(object):
 
         self.client = MyClient()
         tag = self.client.mnemosyne.database().\
-              get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
+              get_or_create_tag_with_name(chr(0x628) + ">&<abcd")
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
 

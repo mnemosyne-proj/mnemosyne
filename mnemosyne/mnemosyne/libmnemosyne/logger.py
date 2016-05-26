@@ -152,7 +152,7 @@ class Logger(Component):
 
         """
 
-        _dir = os.listdir(unicode(\
+        _dir = os.listdir(str(\
             os.path.join(self.config().data_dir, "history")))
         history_files = [x for x in _dir if x[-4:] == ".bz2"]
         max_log_index = 0
@@ -196,6 +196,6 @@ class Logger(Component):
     def deactivate(self):
         if self.upload_thread:
             from mnemosyne.libmnemosyne.translator import _
-            print _("Waiting for uploader thread to stop...").encode("utf-8")
+            print((_("Waiting for uploader thread to stop...").encode("utf-8")))
             self.upload_thread.join()
-            print _("Done!").encode("utf-8")
+            print((_("Done!").encode("utf-8")))

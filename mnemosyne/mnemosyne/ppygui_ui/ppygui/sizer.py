@@ -18,8 +18,8 @@
 ## OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 ## WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
-from core import *
-from config import HIRES
+from .core import *
+from .config import HIRES
 
 __all__ = ['Sizer', 'HSizer', 'VSizer']
 
@@ -237,7 +237,7 @@ class VSizer(Sizer):
         for box, coeff in self.boxes:
             
             cx, cy =  box.get_best_size()
-            print cx, cy
+            print((cx, cy))
             if cx is None:
                 h_expand = True
             else:

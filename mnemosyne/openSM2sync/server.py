@@ -11,14 +11,15 @@ import types
 import select
 import socket
 import tarfile
-import httplib
+import http.client
 import tempfile
 
-from partner import Partner
-from log_entry import EventTypes
-from text_formats.xml_format import XMLFormat
-from utils import traceback_string, rand_uuid
+from .partner import Partner
+from .log_entry import EventTypes
+from .text_formats.xml_format import XMLFormat
+from .utils import traceback_string, rand_uuid
 from mnemosyne.libmnemosyne.utils import path_exists, path_getsize, path_join
+import collections
 
 
 # Avoid delays caused by Nagle's algorithm.
@@ -34,7 +35,7 @@ socket.socket = socketwrap
 
 # Register binary formats.
 
-from binary_formats.mnemosyne_format import MnemosyneFormat
+from .binary_formats.mnemosyne_format import MnemosyneFormat
 BinaryFormats = [MnemosyneFormat]
 
 
@@ -141,7 +142,7 @@ class Server(Partner):
         if mnemosyne_content_length is not None:
             response_headers.append(\
                 ("mnemosyne-content-length", str(mnemosyne_content_length)))
-        if type(data) == types.StringType:
+        if type(data) == bytes:
             response_headers.append(("content-length", str(len(data))))
             start_response("200 OK", response_headers)
             return [data]
@@ -164,7 +165,7 @@ class Server(Partner):
         method = (environ["REQUEST_METHOD"] + \
                   environ["PATH_INFO"].replace("/", "_")).lower()
         args = cgi.parse_qs(environ["QUERY_STRING"])
-        args = dict([(key, val[0]) for key, val in args.iteritems()])
+        args = dict([(key, val[0]) for key, val in list(args.items())])
         # Login method.
         if method == "put_login" or method == "get_status":
             if len(args) == 0:
@@ -176,7 +177,7 @@ class Server(Partner):
             not in self.sessions:
             return "403 Forbidden", None, None
         # See if the method exists.
-        if hasattr(self, method) and callable(getattr(self, method)):
+        if hasattr(self, method) and isinstance(getattr(self, method), collections.Callable):
             return "200 OK", method, args
         else:
             return "404 Not Found", None, None
@@ -225,7 +226,7 @@ class Server(Partner):
             "The next sync will need to be a full sync.")
 
     def is_sync_in_progress(self):
-        for session_token, session in self.sessions.iteritems():
+        for session_token, session in list(self.sessions.items()):
             if not session.is_expired():
                 return True
         return False
@@ -237,12 +238,12 @@ class Server(Partner):
         return (len(self.sessions) == 0)
 
     def expire_old_sessions(self):
-        for session_token, session in self.sessions.iteritems():
+        for session_token, session in list(self.sessions.items()):
             if session.is_expired():
                 self.terminate_session_with_token(session_token)
 
     def terminate_all_sessions(self):
-        for session_token in self.sessions.keys():
+        for session_token in list(self.sessions.keys()):
             self.terminate_session_with_token(session_token)
 
     def handle_error(self, session=None, traceback_string=None):
@@ -416,7 +417,7 @@ class Server(Partner):
             self.ui.set_progress_text("Receiving log entries...")
             socket = environ["wsgi.input"]
             element_loop = self.text_format.parse_log_entries(socket)
-            session.number_of_client_entries = int(element_loop.next())
+            session.number_of_client_entries = int(next(element_loop))
             if session.number_of_client_entries == 0:
                 return self.text_format.repr_message("OK")
             self.ui.set_progress_range(session.number_of_client_entries)
@@ -574,7 +575,7 @@ class Server(Partner):
             session = self.sessions[session_token]
             socket = environ["wsgi.input"]
             size = int(environ["CONTENT_LENGTH"])
-            filename = unicode(filename, "utf-8")
+            filename = str(filename, "utf-8")
             # Make sure a malicious client cannot overwrite anything outside
             # of the media directory.
             filename = filename.replace("../", "").replace("..\\", "")
@@ -642,7 +643,7 @@ class Server(Partner):
             session = self.sessions[session_token]
             global mnemosyne_content_length
             socket = environ["wsgi.input"]
-            filename = unicode(filename, "utf-8")
+            filename = str(filename, "utf-8")
             # Make sure a malicious client cannot access anything outside
             # of the media directory.
             filename = filename.replace("../", "").replace("..\\", "")

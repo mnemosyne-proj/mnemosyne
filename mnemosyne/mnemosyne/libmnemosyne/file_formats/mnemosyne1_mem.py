@@ -6,7 +6,7 @@ import os
 import re
 import sys
 import time
-import cPickle
+import pickle
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.utils import MnemosyneError
@@ -66,7 +66,7 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
             memfile = file(filename, "rb")
             header = memfile.readline()
             self.starttime, self.categories, self.items \
-                = cPickle.load(memfile)
+                = pickle.load(memfile)
             self.starttime = self.starttime.time
         except:
             self.main_widget().show_error(_("Unable to open file."))
@@ -90,7 +90,7 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         # Manage database indexes.
         db.before_1x_log_import()
         filenames = [os.path.join(log_dir, logname) for logname in \
-            sorted(os.listdir(unicode(log_dir))) if logname.endswith(".bz2")]
+            sorted(os.listdir(str(log_dir))) if logname.endswith(".bz2")]
         # log.txt can also contain data we need to import, especially on the
         # initial upgrade from 1.x. 'ids_to_parse' will make sure we only pick
         # up the relevant events. (If we do the importing after having used
@@ -105,7 +105,7 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         for filename in filenames:
             try:
                 parser.parse(filename)
-            except Exception, e:
+            except Exception as e:
                 ignored_files.append(filename)
             w.increase_progress(1)
         if ignored_files:

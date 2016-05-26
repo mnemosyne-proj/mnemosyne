@@ -23,11 +23,11 @@ from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 class Widget(MainWidget):
     
     def set_progress_text(self, message):
-        print message
+        print(message)
         #sys.stderr.write(message+'\n')        
         
     def show_information(self, info):
-        print info
+        print(info)
         #sys.stderr.write(info+'\n')
         
     def show_error(self, error):
@@ -91,9 +91,9 @@ tests = ["run()"]
 
 for test in tests:  
     cProfile.run(test, "mnemosyne_profile." + test.replace("()", ""))
-    print
-    print "*** ", test, " ***"
-    print
+    print()
+    print(("*** ", test, " ***"))
+    print()
     p = pstats.Stats('mnemosyne_profile.' + test.replace("()", ""))
     p.strip_dirs().sort_stats('cumulative').print_stats(number_of_calls)
     

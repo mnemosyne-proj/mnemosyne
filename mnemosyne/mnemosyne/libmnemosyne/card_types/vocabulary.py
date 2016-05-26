@@ -98,7 +98,7 @@ class VocabularyToFrontToBack(CardTypeConverter):
                     card.fact_view = new_card_type.fact_views[0]
                     edited_cards.append(card)
             else:
-                raise ArgumentError, "Invalid fact view."
+                raise ArgumentError("Invalid fact view.")
         return new_cards, edited_cards, deleted_cards
 
 
@@ -119,6 +119,6 @@ class VocabularyToBothWays(CardTypeConverter):
                 else:
                     card.fact_view = new_card_type.fact_views[0]
             else:
-                raise ArgumentError, "Invalid fact view."
+                raise ArgumentError("Invalid fact view.")
         new_cards, edited_cards, deleted_cards = [], cards, []
         return new_cards, edited_cards, deleted_cards

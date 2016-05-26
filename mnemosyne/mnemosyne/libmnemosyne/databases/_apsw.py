@@ -23,7 +23,7 @@ class _APSWCursor(object):
 
     def fetchone(self):
         try:
-            return self.cursor.next()
+            return next(self.cursor)
         except StopIteration:
             return None
 
@@ -33,8 +33,8 @@ class _APSWCursor(object):
     def __iter__(self):
         return self.cursor
 
-    def next(self):
-        return self.cursor.next()
+    def __next__(self):
+        return next(self.cursor)
 
 
 class _APSW(Component):
@@ -49,7 +49,7 @@ class _APSW(Component):
         if sys.platform == "win32":  # pragma: no cover
             drive = os.path.splitdrive(path)[0]
             import ctypes
-            if ctypes.windll.kernel32.GetDriveTypeW(u"%s\\" % drive) == 4:
+            if ctypes.windll.kernel32.GetDriveTypeW("%s\\" % drive) == 4:
                 self.main_widget().show_error(_\
 ("Putting a database on a network drive is forbidden under Windows to avoid data corruption. Mnemosyne will now close."))
                 sys.exit(-1)
@@ -80,7 +80,7 @@ class _APSW(Component):
     def commit(self):
         try:
             return self.connection.cursor().execute("commit;")
-        except apsw.SQLError, e:
+        except apsw.SQLError as e:
             if "cannot commit - no transaction is active" in str(e):
                 pass
             else:

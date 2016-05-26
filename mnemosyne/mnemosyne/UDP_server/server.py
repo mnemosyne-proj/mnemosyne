@@ -4,7 +4,7 @@
 
 import sys
 import select
-import SocketServer
+import socketserver
 
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.utils import traceback_string
@@ -19,7 +19,7 @@ class OutputCatcher:
         self.socket.sendall(data)
         
 
-class MyHandler(SocketServer.BaseRequestHandler):
+class MyHandler(socketserver.BaseRequestHandler):
 
     def handle(self):
         data = self.request[0].strip()
@@ -39,7 +39,7 @@ class MyHandler(SocketServer.BaseRequestHandler):
         socket.sendall("__DONE__\n")
 
 
-class Server(SocketServer.UDPServer):
+class Server(socketserver.UDPServer):
 
     def __init__(self, port, upload_science_logs=False,
                  interested_in_old_reps=False):
@@ -52,8 +52,8 @@ class Server(SocketServer.UDPServer):
         self.mnemosyne.components.append(\
             ("mnemosyne.UDP_server.review_wdgt",
              "ReviewWdgt"))    
-        SocketServer.UDPServer.__init__(self, ("localhost", port), MyHandler)
-        print "Server listening on port", port
+        socketserver.UDPServer.__init__(self, ("localhost", port), MyHandler)
+        print(("Server listening on port", port))
         self.stopped = False
         while not self.stopped:
             # We time out every 0.25 seconds, so that changing

@@ -49,10 +49,10 @@ class Tsv(FileFormat, MediaPreprocessor):
         for line in f:
             line_number += 1
             try:
-                line = unicode(line, "utf-8")
+                line = str(line, "utf-8")
             except:
                 try:
-                    line = unicode(line, "latin")
+                    line = str(line, "latin")
                 except:
                     self.main_widget().show_error(\
                         _("Could not determine encoding."))
@@ -61,12 +61,12 @@ class Tsv(FileFormat, MediaPreprocessor):
             # Parse html style escaped unicode (e.g. &#33267;).
             for match in re0.finditer(line):
                 # Integer part.
-                u = unichr(int(match.group(1)))
+                u = chr(int(match.group(1)))
                 # Integer part with &# and ;.
                 line = line.replace(match.group(), u)
             if len(line) == 0:
                 continue
-            if line[0] == u"\ufeff": # Remove byte-order mark.
+            if line[0] == "\\ufeff": # Remove byte-order mark.
                 line = line[1:]
             fields = line.split("\t")
             if len(fields) >= 3:  # Vocabulary card.
@@ -88,7 +88,7 @@ class Tsv(FileFormat, MediaPreprocessor):
             tag_names += [tag_name.strip() for tag_name \
                 in extra_tag_names.split(",")]
         for fact_data in facts_data:
-            if len(fact_data.keys()) == 2:
+            if len(list(fact_data.keys())) == 2:
                 card_type = self.card_type_with_id("1")
             else:
                 card_type = self.card_type_with_id("3")

@@ -10,10 +10,10 @@ class UI(object):
     """
 
     def show_information(self, message):
-        print message
+        print(message)
 
     def show_error(self, message):
-        print message
+        print(message)
 
     def show_question(self, question, option0, option1, option2):
 

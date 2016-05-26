@@ -2,7 +2,7 @@
 # configuration_wdgt_cramming.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.ui_components.configuration_widget import \
@@ -13,14 +13,13 @@ from mnemosyne.libmnemosyne.schedulers.cramming import RANDOM, \
     EARLIEST_FIRST, LATEST_FIRST, MOST_LAPSES_FIRST
 
 
-class ConfigurationWdgtCramming(QtGui.QWidget,
+class ConfigurationWdgtCramming(QtWidgets.QWidget,
     Ui_ConfigurationWdgtCramming, ConfigurationWidget):
 
     name = _("Cramming")
 
     def __init__(self, component_manager, parent):
-        ConfigurationWidget.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, parent)
+        super().__init__(parent, component_manager=component_manager)
         self.setupUi(self)
         if self.config()["cramming_order"] == RANDOM:
             self.order.setCurrentIndex(0)

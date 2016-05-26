@@ -59,14 +59,14 @@ class TestMedia(MnemosyneTest):
     def test_sound_2_unicode(self):
         global filename
 
-        file(unichr(40960) + u"a.ogg", "w")
-        filename = os.path.abspath(unichr(40960) + u"a.ogg")
+        file(chr(40960) + "a.ogg", "w")
+        filename = os.path.abspath(chr(40960) + "a.ogg")
         self.controller().show_insert_sound_dialog("")
-        assert os.path.exists(os.path.join(self.database().media_dir(), unichr(40960) + u"a.ogg"))
+        assert os.path.exists(os.path.join(self.database().media_dir(), chr(40960) + "a.ogg"))
 
-        filename = os.path.join(self.database().media_dir(), unichr(40960) + u"a.ogg")
+        filename = os.path.join(self.database().media_dir(), chr(40960) + "a.ogg")
         self.controller().show_insert_sound_dialog("")
-        assert os.path.exists(os.path.join(self.database().media_dir(), unichr(40960) + u"a.ogg"))
+        assert os.path.exists(os.path.join(self.database().media_dir(), chr(40960) + "a.ogg"))
 
     def test_sound_3(self):
         global filename
@@ -406,8 +406,8 @@ class TestMedia(MnemosyneTest):
             os.remove("b.ogg")
         if os.path.exists("c.ogg"):
             os.remove("c.ogg")
-        if os.path.exists(unichr(40960) + u"a.ogg"):
-            os.remove(unichr(40960) + u"a.ogg")
+        if os.path.exists(chr(40960) + "a.ogg"):
+            os.remove(chr(40960) + "a.ogg")
         if os.path.exists("sub"):
             shutil.rmtree("sub")
         if os.path.exists("_keep"):

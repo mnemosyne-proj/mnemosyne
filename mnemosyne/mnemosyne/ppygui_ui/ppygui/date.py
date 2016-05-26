@@ -18,9 +18,9 @@
 ## OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 ## WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
-from core import *
-from w32comctl import *
-from config import HIRES_MULT
+from .core import *
+from .w32comctl import *
+from .config import HIRES_MULT
 
 import datetime
 
@@ -70,7 +70,7 @@ class Date(Control):
         font = self._font._hFont
         SelectObject(dc, font)
         text = self.text
-        cx, cy = GetTextExtent(dc, u'dd/mm/yyyy')
+        cx, cy = GetTextExtent(dc, 'dd/mm/yyyy')
         return 15+cx/HIRES_MULT, 7+cy/HIRES_MULT
         
     def get_font(self):
@@ -116,7 +116,7 @@ class Time(Control):
         font = self._font._hFont
         SelectObject(dc, font)
         text = self.text
-        cx, cy = GetTextExtent(dc, u'hh:mm:ss')
+        cx, cy = GetTextExtent(dc, 'hh:mm:ss')
         return 15+cx/HIRES_MULT, 7+cy/HIRES_MULT
     
     def get_font(self):

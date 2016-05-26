@@ -18,7 +18,7 @@
 ## OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 ## WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
-from config import HIRES, HIRES_MULT
+from .config import HIRES, HIRES_MULT
 
 class _Wrapper:
     def __init__(self, wrapped, border):
@@ -312,8 +312,8 @@ class TBox:
 #        cols_widths = [0]*self._cols
         rows_expanded = self.rows_expanded  #set()
         cols_expanded = self.cols_expanded#set()
-        rows_widths = [None if (i in rows_expanded) else 0 for i in xrange(self._rows)]
-        cols_widths = [None if (i in cols_expanded) else 0 for i in xrange(self._cols)]
+        rows_widths = [None if (i in rows_expanded) else 0 for i in range(self._rows)]
+        cols_widths = [None if (i in cols_expanded) else 0 for i in range(self._cols)]
         for n, child in enumerate(self._childs):
             i, j = n%self._cols, n/self._cols
             b_x, b_y = child.get_best_size()

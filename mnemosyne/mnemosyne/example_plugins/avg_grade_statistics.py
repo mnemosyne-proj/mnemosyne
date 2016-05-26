@@ -40,17 +40,17 @@ class AvgGrade(PlotStatisticsPage):
 
     def prepare_statistics(self, variant):
         if variant == self.LAST_WEEK:
-            self.x = range(-7, 1, 1)
+            self.x = list(range(-7, 1, 1))
         elif variant == self.LAST_MONTH:
-            self.x = range(-31, 1, 1)
+            self.x = list(range(-31, 1, 1))
         elif variant == self.LAST_3_MONTHS:
-            self.x = range(-91, 1, 1)
+            self.x = list(range(-91, 1, 1))
         elif variant == self.LAST_6_MONTHS:
-            self.x = range(-182, 1, 1)
+            self.x = list(range(-182, 1, 1))
         elif variant == self.LAST_YEAR:
-            self.x = range(-365, 1, 1)
+            self.x = list(range(-365, 1, 1))
         else:
-            raise AttributeError, "Invalid variant"
+            raise AttributeError("Invalid variant")
         self.y = [self.avg_grade_n_days_ago(n=-day) for day in self.x]
 
 
@@ -67,31 +67,31 @@ class AvgGradeWdgt(BarChartDaysWdgt):
         if not self.page.y:
             self.display_message(_("No stats available."))
             return
-        ticklabels_neg = lambda i, j, k: map(lambda x: "%d" % x, range(i, j, k))
+        ticklabels_neg = lambda i, j, k: ["%d" % x for x in range(i, j, k)]
         if hasattr(self.page, "LAST_WEEK") and \
             variant == self.page.LAST_WEEK:
-            xticks = range(-7, 1, 1)
+            xticks = list(range(-7, 1, 1))
             xticklabels = ticklabels_neg(-7, 1, 1)
         elif hasattr(self.page, "LAST_MONTH") and \
             variant == self.page.LAST_MONTH:
-            xticks = range(-30, -4, 5) + [0]
+            xticks = list(range(-30, -4, 5)) + [0]
             xticklabels = ticklabels_neg(-30, -4, 5) + ["0"]
 
         elif hasattr(self.page, "LAST_3_MONTHS") and \
             variant == self.page.LAST_3_MONTHS:
-            xticks = range(-90, -9, 10) + [0]
+            xticks = list(range(-90, -9, 10)) + [0]
             xticklabels = ticklabels_neg(-90, -9, 10) + ["0"]
 
         elif hasattr(self.page, "LAST_6_MONTHS") and \
             variant == self.page.LAST_6_MONTHS:
-            xticks = range(-180, -19, 20) + [0]
+            xticks = list(range(-180, -19, 20)) + [0]
             xticklabels = ticklabels_neg(-180, -19, 20) + ["0"]
         elif hasattr(self.page, "LAST_YEAR") and \
             variant == self.page.LAST_YEAR:
-            xticks = range(-360, -59, 60) + [0]
+            xticks = list(range(-360, -59, 60)) + [0]
             xticklabels = ticklabels_neg(-360, -59, 60) + ["0"]
         else:
-            raise AttributeError, "Invalid variant"
+            raise AttributeError("Invalid variant")
         # Plot data.
         self.axes.plot(self.page.x, self.page.y)
         self.axes.set_title(self.title)

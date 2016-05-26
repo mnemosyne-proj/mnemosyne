@@ -18,7 +18,7 @@
 ## OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 ## WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
-from core import *
+from .core import *
 
 class Message(object):
     
@@ -41,7 +41,7 @@ class Message(object):
         else :
             hwnd = parent._w32_hWnd
             
-        return MessageBox(hwnd, unicode(caption), unicode(title), style)
+        return MessageBox(hwnd, str(caption), str(title), style)
         
     @classmethod
     def ok(cls, title, caption, icon='info', parent=None):

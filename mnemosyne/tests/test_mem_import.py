@@ -296,7 +296,7 @@ class TestMemImport(MnemosyneTest):
         self.mem_importer().do_import(filename)
         self.review_controller().reset()
         assert self.review_controller().card.fact["loc"] == \
-               u"""<b>Freistaat Th\xfcringen (Free State of Thuringia)</b>"""
+               """<b>Freistaat Th\xfcringen (Free State of Thuringia)</b>"""
         assert self.review_controller().card.tag_string() == "Germany: States, MISSING_MEDIA"
 
     def test_logs_new_1(self):

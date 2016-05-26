@@ -56,11 +56,11 @@ class TestDatabase(MnemosyneTest):
         tag = Tag("test")
         self.database().add_tag(tag)
         assert len(self.database().tags()) == 2
-        assert self.database().tags()[0].name == u"test"
+        assert self.database().tags()[0].name == "test"
         tag.name = "test2"
         self.database().update_tag(tag)
         assert len(self.database().tags()) == 2
-        assert self.database().tags()[0].name == u"test2"
+        assert self.database().tags()[0].name == "test2"
 
     def test_tag_order(self):
         tag = Tag("a")

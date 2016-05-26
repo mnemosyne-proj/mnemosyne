@@ -240,7 +240,7 @@ class DefaultController(Controller):
         if not new_card_type.is_fact_data_valid(new_fact_data):
             self.main_widget().show_error(\
                 _("Card data not correctly formatted for conversion.\n\nSkipping ") +\
-                "|".join(fact.data.values()) + ".\n")
+                "|".join(list(fact.data.values())) + ".\n")
             return -2
         converter = self.component_manager.current\
               ("card_type_converter", used_for=(old_card_type.__class__,
@@ -397,7 +397,7 @@ class DefaultController(Controller):
         for fact in facts:
             if correspondence:
                 new_fact_data = {}
-                for old_fact_key, new_fact_key in correspondence.iteritems():
+                for old_fact_key, new_fact_key in correspondence.items():
                     if old_fact_key in fact:
                         new_fact_data[new_fact_key] = fact[old_fact_key]
                 if new_card_type.is_fact_data_valid(new_fact_data):
@@ -620,16 +620,16 @@ _("'*.cards' files are not separate databases, but need to be imported in your c
                 self.log().saved_database()
                 db.backup()
                 db.unload()
-            except RuntimeError, error:
-                self.main_widget().show_error(unicode(error.message))
+            except RuntimeError as error:
+                self.main_widget().show_error(str(error.message))
                 self.stopwatch().unpause()
                 return
         try:
             db.load(filename)
             self.log().loaded_database()
             self.log().future_schedule()
-        except Exception, error:
-            self.main_widget().show_error(unicode(error.message))
+        except Exception as error:
+            self.main_widget().show_error(str(error.message))
             db.abandon()
             db.load(old_path)
             self.stopwatch().unpause()
@@ -649,8 +649,8 @@ _("Your database will be autosaved before exiting. Also, it is saved every coupl
             self.database().save()
             self.log().saved_database()
             self.main_widget().show_information(_("Database saved."))
-        except RuntimeError, error:
-            self.main_widget().show_error(unicode(error.message))
+        except RuntimeError as error:
+            self.main_widget().show_error(str(error.message))
         self.stopwatch().unpause()
 
     def show_save_file_as_dialog(self):
@@ -683,8 +683,8 @@ _("The configuration database cannot be used to store cards."))
                 shutil.rmtree(new_media_dir)
             shutil.copytree(old_media_dir, new_media_dir)
             self.log().saved_database()
-        except RuntimeError, error:
-            self.main_widget().show_error(unicode(error.message))
+        except RuntimeError as error:
+            self.main_widget().show_error(str(error.message))
             self.stopwatch().unpause()
             return
         self.review_controller().update_dialog()
@@ -854,7 +854,7 @@ _("This will tag all the cards in a given card type which have the same question
             plugin_class_name + ".manifest"), "w")
         for filename in filenames:
             if not os.path.isdir(os.path.join(plugin_dir, filename)):
-                print >> manifest, filename
+                print(filename, file=manifest)
         # Make sure we don't register a plugin twice.
         for plugin in self.plugins():
             if plugin.__class__.__name__ == plugin_class_name:
@@ -950,7 +950,7 @@ _("This will tag all the cards in a given card type which have the same question
             dialog.set_read_only()
         dialog.activate()
         self.stopwatch().unpause()
-        return dialog.values()
+        return list(dialog.values())
 
     def show_sync_dialog(self):
         self.show_sync_dialog_pre()

@@ -3,8 +3,8 @@
 #
 
 import socket
-import httplib
-from PyQt4 import QtGui
+import http.client
+from PyQt5 import QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.utils import localhost_IP
@@ -14,14 +14,13 @@ from mnemosyne.pyqt_ui.ui_configuration_wdgt_servers import \
      Ui_ConfigurationWdgtServers
 
 
-class ConfigurationWdgtServers(QtGui.QWidget,
+class ConfigurationWdgtServers(QtWidgets.QWidget,
     Ui_ConfigurationWdgtServers, ConfigurationWidget):
 
     name = _("Servers")
 
     def __init__(self, component_manager, parent):
-        ConfigurationWidget.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, parent)
+        super().__init__(parent, component_manager=component_manager)
         self.setupUi(self)
         sync_port = self.config()["sync_server_port"]
         web_port = self.config()["web_server_port"]
@@ -50,7 +49,7 @@ class ConfigurationWdgtServers(QtGui.QWidget,
         timeout = socket.getdefaulttimeout()
         try:
             socket.setdefaulttimeout(0.1)
-            con = httplib.HTTPConnection(localhost_IP(), port)
+            con = http.client.HTTPConnection(localhost_IP(), port)
             con.request("GET", "/status")
             assert "OK" in con.getresponse().read()
             socket.setdefaulttimeout(timeout)
@@ -74,8 +73,8 @@ class ConfigurationWdgtServers(QtGui.QWidget,
     def apply(self):
         self.config()["run_sync_server"] = self.run_sync_server.isChecked()
         self.config()["sync_server_port"] = self.sync_port.value()
-        self.config()["remote_access_username"] = unicode(self.username.text())
-        self.config()["remote_access_password"] = unicode(self.password.text())
+        self.config()["remote_access_username"] = str(self.username.text())
+        self.config()["remote_access_password"] = str(self.password.text())
         self.config()["check_for_edited_local_media_files"] = \
             self.check_for_edited_local_media_files.isChecked()
         self.config()["run_web_server"] = self.run_web_server.isChecked()

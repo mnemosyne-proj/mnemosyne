@@ -2,7 +2,7 @@
 # review_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtCore, QtGui, QtWebKit
+from PyQt5 import QtCore, QtGui, QtWebKit, QtWidgets
 
 import sys
 
@@ -11,7 +11,7 @@ from mnemosyne.pyqt_ui.ui_review_wdgt import Ui_ReviewWdgt
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
 
-class QAOptimalSplit(object):
+class QAOptimalSplit:
 
     """Algorithm to make sure the split between question and answer boxes is
     as optimal as possible.
@@ -43,7 +43,7 @@ class QAOptimalSplit(object):
         self.stretch_offset = self.question_label.size().height()
         if self.question_box.spacing() != -1:
             self.stretch_offset += self.question_box.spacing()
-        self.scrollbar_width = QtGui.QScrollBar().sizeHint().width()
+        self.scrollbar_width = QtWidgets.QScrollBar().sizeHint().width()
         self.question_text = ""
         self.answer_text = ""
         self.required_question_size = self.question.size()
@@ -65,7 +65,7 @@ class QAOptimalSplit(object):
             if self.is_answer_showing:
                 self.reveal_answer()
             self.times_resized += 1
-        return QtGui.QWidget.resizeEvent(self, event)
+        return QtWidgets.QWidget.resizeEvent(self, event)
 
     def question_preview_load_finished(self):
         self.required_question_size = \
@@ -182,7 +182,7 @@ class QAOptimalSplit(object):
 
 
 
-class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
+class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
 
     auto_focus_grades = True
     number_keys_show_answer = True
@@ -192,13 +192,12 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
             QtCore.Qt.Key_4: 4, QtCore.Qt.Key_5: 5}
      
     def __init__(self, component_manager):
-        ReviewWidget.__init__(self, component_manager)
         parent = self.main_widget()
-        QtGui.QWidget.__init__(self, parent)
+        super().__init__(parent, component_manager=component_manager)
         parent.setCentralWidget(self)
         self.setupUi(self)
         # TODO: move this to designer with update of PyQt.
-        self.grade_buttons = QtGui.QButtonGroup()
+        self.grade_buttons = QtWidgets.QButtonGroup()
         self.grade_buttons.addButton(self.grade_0_button, 0)
         self.grade_buttons.addButton(self.grade_1_button, 1)
         self.grade_buttons.addButton(self.grade_2_button, 2)
@@ -214,9 +213,9 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         self.setTabOrder(self.grade_5_button, self.grade_0_button)
         self.setTabOrder(self.grade_0_button, self.grade_1_button)
         self.focus_widget = None
-        self.sched = QtGui.QLabel("", parent.status_bar)
-        self.notmem = QtGui.QLabel("", parent.status_bar)
-        self.act = QtGui.QLabel("", parent.status_bar)
+        self.sched = QtWidgets.QLabel("", parent.status_bar)
+        self.notmem = QtWidgets.QLabel("", parent.status_bar)
+        self.act = QtWidgets.QLabel("", parent.status_bar)
         parent.clear_status_bar()
         parent.add_to_status_bar(self.sched)
         parent.add_to_status_bar(self.notmem)
@@ -225,7 +224,7 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         self.widget_with_last_selection = self.question
         self.question.selectionChanged.connect(self.selection_changed_in_q)
         self.answer.selectionChanged.connect(self.selection_changed_in_a)
-        QAOptimalSplit.__init__(self) 
+        super().__init__() 
         self.mplayer = QtCore.QProcess()
         self.media_queue = []
         
@@ -241,7 +240,7 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         # so we need to work around this.
         if hasattr(self, "show_button"):
             self.show_button.setText(_(show_button_text))
-        QtGui.QWidget.changeEvent(self, event)
+        QtWidgets.QWidget.changeEvent(self, event)
 
     def keyPressEvent(self, event):
         if event.key() in self.key_to_grade_map and not event.isAutoRepeat():
@@ -266,7 +265,7 @@ class ReviewWdgt(QtGui.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
         elif event.key() in [QtCore.Qt.Key_Backspace, QtCore.Qt.Key_Delete]:
             self.controller().delete_current_card()
         else:
-            QtGui.QWidget.keyPressEvent(self, event)
+            QtWidgets.QWidget.keyPressEvent(self, event)
 
     def empty(self):
         background = self.palette().color(QtGui.QPalette.Base).name()

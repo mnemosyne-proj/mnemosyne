@@ -2,7 +2,7 @@
 # Widget to preview set of sister cards <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
@@ -10,7 +10,7 @@ from mnemosyne.pyqt_ui.review_wdgt import QAOptimalSplit
 from mnemosyne.pyqt_ui.ui_preview_cards_dlg import Ui_PreviewCardsDlg
 
 
-class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component,
+class PreviewCardsDlg(QtWidgets.QDialog, Ui_PreviewCardsDlg, Component,
                       QAOptimalSplit):
 
     page_up_down_signal = QtCore.pyqtSignal(int)
@@ -24,12 +24,11 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component,
 
         """
 
-        Component.__init__(self, component_manager)
+        super().__init__(component_manager)
         if parent is None:
             parent = self.main_widget()
-        QtGui.QDialog.__init__(self, parent)
+        super().__init__(parent)
         self.setupUi(self)
-        QAOptimalSplit.__init__(self)
         self.used_for_reviewing = False
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
@@ -54,14 +53,14 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component,
             self.page_up_down_signal.emit(self.UP)
         elif event.key() == QtCore.Qt.Key_PageDown:
             self.page_up_down_signal.emit(self.DOWN)
-        # Note QtGui.QWidget.keyPressEvent(self, event) does not seem to work,
+        # Note QtWidgets.QWidget.keyPressEvent(self, event) does not seem to work,
         # so we handle the most common keypresses here too.
         if event.key() == QtCore.Qt.Key_Escape:
             self.reject()
         if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return]:
             self.accept()
         else:
-            QtGui.QWidget.keyPressEvent(self, event)
+            QtWidgets.QWidget.keyPressEvent(self, event)
 
     def update_dialog(self):
         self.question_label.setText(_("Question: ") + self.tag_text)
@@ -84,7 +83,7 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component,
         self.index -= 1
         self.update_dialog()
 
-    def next(self):
+    def __next__(self):
         self.review_widget().stop_media()
         self.index += 1
         self.update_dialog()
@@ -101,4 +100,4 @@ class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg, Component,
         # 'accept' does not generate a close event.
         self._store_state()
         self.review_widget().stop_media()
-        return QtGui.QDialog.accept(self)
+        return QtWidgets.QDialog.accept(self)

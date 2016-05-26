@@ -19,11 +19,12 @@
 ## WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
 
-from w32api import *
+from .w32api import *
 from ctypes import *
 from weakref import WeakValueDictionary
 import weakref
-from font import *
+from .font import *
+import collections
 
 __doc__ = '''
 This module contains the core mechanism of pycegui
@@ -39,7 +40,7 @@ class GuiType(type):
         # the set_xxx/get_xxx methods and
         # doc_xxx attribute of the class we construct.
         type.__init__(cls, name, bases, dict)
-        methods = [(name, obj) for name, obj in dict.items() if callable(obj)]  
+        methods = [(name, obj) for name, obj in list(dict.items()) if isinstance(obj, collections.Callable)]  
         properties = {}
         for name, obj in methods :
             if name[:4] in ['get_', 'set_']:
@@ -56,7 +57,7 @@ class GuiType(type):
                 else:
                     properties[property_name]['doc'] = ''
         
-        for property_name, property_data in properties.items() :
+        for property_name, property_data in list(properties.items()) :
             prop = _makeprop(property_name, property_data)
             setattr(cls, property_name, prop)
             
@@ -89,11 +90,10 @@ def _makeprop(property_name, property_data):
     return prop
     
 
-class GuiObject(object):
+class GuiObject(object, metaclass=GuiType):
     '''\
     The most basic pycegui type. 
     '''
-    __metaclass__ = GuiType
     
     def __init__(self, **kw):
         self.set(**kw)
@@ -102,7 +102,7 @@ class GuiObject(object):
         '''\
         set(self, prop1=value1, prop2=value2, ...) --> sets the property prop1 to value1, prop2 to value2, ...
         '''
-        for option, value in kw.items() :
+        for option, value in list(kw.items()) :
             try :
                 getattr(self, "set_%s" %option)(value)
             except AttributeError:
@@ -248,7 +248,7 @@ class RegisteredEventsDispatcher(object):
                 except AttributeError:
                     pass
             elif cmd == 4096 and id == 2:
-                print 'cancel message'
+                print('cancel message')
 #                try:
 #                    win = hwndWindowMap[hWnd]
 #                    win.close()
@@ -431,7 +431,7 @@ class CharEvent(Event):
         Event.__init__(self, hWnd, nMsg, wParam, lParam)
         
     def get_key(self):
-        return unichr(self._key_code)
+        return chr(self._key_code)
 
 class EventDispatcher(object):
     '''
@@ -519,7 +519,7 @@ class EventDispatchersMap(dict):
         dict.__setitem__(self, i, dispatcher)
         
     def __del__(self):
-        for event, dispatcher in self.items():
+        for event, dispatcher in list(self.items()):
             registeredEventDispatcher.remove(dispatcher)
         
 class Window(GuiObject):
@@ -577,7 +577,7 @@ class Window(GuiObject):
         windowClassExists = False
         cls = WNDCLASS() # WNDCLASS()
         if self._w32_window_class:
-            if GetClassInfo(hInstance, unicode(self._w32_window_class), byref(cls)):
+            if GetClassInfo(hInstance, str(self._w32_window_class), byref(cls)):
                 windowClassExists = True
         
         #determine whether we are going to subclass an existing window class
@@ -587,7 +587,7 @@ class Window(GuiObject):
         if not self._issubclassed:
             #if no _window_class_ is given, generate a new one
             className = self._w32_window_class or "pycegui_win_class_%s" % str(id(self.__class__))
-            className = unicode(className)
+            className = str(className)
             cls = WNDCLASS() # WNDCLASS()
             cls.cbSize = sizeof(cls)
             cls.lpszClassName = className
@@ -607,7 +607,7 @@ class Window(GuiObject):
             atom = RegisterClass(byref(cls)) # RegisterClass
         else:
             #subclass existing window class.
-            className = unicode(self._w32_window_class)
+            className = str(self._w32_window_class)
         
         assert style in ["normal", "control"]
         _w32_style = self._w32_window_style
@@ -632,8 +632,8 @@ class Window(GuiObject):
         
         createHndlMap[id(self)] = self
         self._w32_hWnd = CreateWindowEx(self._w32_window_style_ex,
-                              unicode(className),
-                              unicode(title),
+                              str(className),
+                              str(title),
                               _w32_style,
                               left,
                               top,
@@ -649,7 +649,7 @@ class Window(GuiObject):
             hwndWindowMap[self._w32_hWnd] = self
         
         self.events = EventDispatchersMap()
-        for eventname, dispatchinfo in self._dispatchers.items() :
+        for eventname, dispatchinfo in list(self._dispatchers.items()) :
             dispatchklass = dispatchinfo[0]
             dispatchargs = dispatchinfo[1:]
             self.events[eventname] = dispatchklass(self, *dispatchargs)
@@ -665,7 +665,7 @@ class Window(GuiObject):
         maps gui events to callbacks,
         callbacks are any callable fthat accept a single argument.
         ''' 
-        for option, value in kw.items() :
+        for option, value in list(kw.items()) :
             try:
                 self.events[option].bind(value)
             except KeyError :
@@ -747,13 +747,13 @@ class Window(GuiObject):
 
     def get_text(self):
         textLength = self._send_w32_msg(WM_GETTEXTLENGTH)# + 1
-        textBuff = u' ' * textLength
+        textBuff = ' ' * textLength
         textBuff = create_unicode_buffer(textBuff)
         self._send_w32_msg(WM_GETTEXT, textLength+1, textBuff)
         return textBuff.value
         
     def set_text(self, txt):
-        self._send_w32_msg(WM_SETTEXT, 0, unicode(txt))
+        self._send_w32_msg(WM_SETTEXT, 0, str(txt))
         
     doc_text = "The text displayed by the control as a string"
         
@@ -833,7 +833,7 @@ class Control(Window):
     
     def __init__(self, parent, title="", border=False, visible=True, enabled=True, pos=(-1,-1,-1,-1), tab_stop=True, **kw):
         style="control"
-        self._id = IdGenerator.next()
+        self._id = next(IdGenerator)
         if tab_stop:
             self._w32_window_style |= WS_TABSTOP
         if border:
@@ -938,8 +938,8 @@ class MessageLoop:
         quit = True
                     
     def PreTranslateMessage(self, msg):
-        for filter in self.m_filters.keys():
-            if filter(msg):
+        for filter in list(self.m_filters.keys()):
+            if list(filter(msg)):
                 return 1
         return 0
     

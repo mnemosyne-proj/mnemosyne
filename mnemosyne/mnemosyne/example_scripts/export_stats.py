@@ -14,10 +14,10 @@ mnemosyne = Mnemosyne(data_dir)
 
 for n in range(-10, 0):
     start_of_day = mnemosyne.database().start_of_day_n_days_ago(abs(n))
-    print n, mnemosyne.database().con.execute(\
+    print((n, mnemosyne.database().con.execute(\
             """select avg(grade) from log where ?<=timestamp and timestamp<?
             and event_type=? and scheduled_interval!=0""",
             (start_of_day, start_of_day + DAY, EventTypes.REPETITION)).\
-            fetchone()[0]
+            fetchone()[0]))
 
 mnemosyne.finalise()

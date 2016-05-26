@@ -213,7 +213,7 @@ class Mnemosyne(Component):
         # loaded_database manually.
         try:
             self.log().started_program()
-        except Exception, e:
+        except Exception as e:
             if "lock" in str(e):
                 from mnemosyne.libmnemosyne.translator import _
                 self.main_widget().show_error(\
@@ -266,8 +266,8 @@ class Mnemosyne(Component):
         # Activate config and inject necessary settings.
         try:
             self.component_manager.current("config").activate()
-        except RuntimeError, e:
-            self.main_widget().show_error(unicode(e))
+        except RuntimeError as e:
+            self.main_widget().show_error(str(e))
         # Allow front end programmer to override the user setting.
         if self.upload_science_logs is False:
             self.config()["upload_science_logs"] = False
@@ -280,8 +280,8 @@ class Mnemosyne(Component):
                           "controller"]:
             try:
                 self.component_manager.current(component).activate()
-            except RuntimeError, e:
-                self.main_widget().show_error(unicode(e))
+            except RuntimeError as e:
+                self.main_widget().show_error(str(e))
         sync_server = self.component_manager.current("sync_server")
         if sync_server:
             sync_server.activate()
@@ -293,9 +293,9 @@ class Mnemosyne(Component):
         # Note that we put user plugins in the data_dir and not the
         # config_dir as there could be plugins (e.g. new card types) for
         # which the database does not make sense without them.
-        plugin_dir = unicode(os.path.join(self.config().data_dir, "plugins"))
+        plugin_dir = str(os.path.join(self.config().data_dir, "plugins"))
         sys.path.insert(0, plugin_dir)
-        for component in os.listdir(unicode(plugin_dir)):
+        for component in os.listdir(str(plugin_dir)):
             if component.endswith(".py"):
                 try:
                     __import__(component[:-3])
@@ -332,9 +332,9 @@ class Mnemosyne(Component):
             else:
                 self.database().load(path)
             self.controller().update_title()
-        except RuntimeError, e:
+        except RuntimeError as e:
             from mnemosyne.libmnemosyne.translator import _
-            self.main_widget().show_error(unicode(e))
+            self.main_widget().show_error(str(e))
             self.main_widget().show_information(\
 _("If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."))
             success = False
@@ -343,8 +343,8 @@ _("If you are using a USB key, refer to the instructions on the website so as no
                     self.database().abandon()
                     self.controller().show_open_file_dialog()
                     success = True
-                except RuntimeError, e:
-                    self.main_widget().show_error(unicode(e))
+                except RuntimeError as e:
+                    self.main_widget().show_error(str(e))
 
     def finalise(self):
         # Deactivate the sync server first, so that we make sure it reverts

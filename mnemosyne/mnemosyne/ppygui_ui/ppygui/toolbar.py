@@ -70,7 +70,7 @@ class ToolBar(Window):
         elif style != 'button':
             raise ValueError("%s is not a valid style" %style)
         
-        id = IdGenerator.next()
+        id = next(IdGenerator)
         tbb.idCommand = id
         self._send_w32_msg(TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON))
         self._send_w32_msg(TB_ADDBUTTONS, 1, byref(tbb))

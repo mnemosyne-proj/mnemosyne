@@ -50,7 +50,7 @@ class TestUtilFunctions(object):
 
     def test_mangle(self):
         for name in [mangle("1aa"), mangle("a!@#$% ^&*(){}{a"),
-                     mangle(u"a\xac\u1234\u20ac\U00008000")]:
+                     mangle("a\xac\\u1234\\u20ac\\U00008000")]:
             C = type(name, (self.__class__, ),
                  {"name": 1})
 

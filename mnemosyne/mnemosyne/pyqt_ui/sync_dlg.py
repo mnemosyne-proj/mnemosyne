@@ -4,7 +4,7 @@
 
 import sys
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.ui_sync_dlg import Ui_SyncDlg
@@ -43,7 +43,7 @@ class SyncThread(QtCore.QThread):
     close_progress_signal = QtCore.pyqtSignal()
 
     def __init__(self, mnemosyne, server, port, username, password):
-        QtCore.QThread.__init__(self)
+        super().__init__()
         self.mnemosyne = mnemosyne
         self.server = server
         self.port = port
@@ -117,11 +117,11 @@ class SyncThread(QtCore.QThread):
         self.close_progress_signal.emit()
 
 
-class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
+class SyncDlg(QtWidgets.QDialog, Ui_SyncDlg, SyncDialog):
 
     def __init__(self, component_manager):
-        SyncDialog.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, self.main_widget())
+        super().__init__(component_manager)
+        super().__init__(self.main_widget())
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
@@ -149,10 +149,10 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
 
     def accept(self):
         # Store input for later use.
-        server = unicode(self.server.text())
+        server = str(self.server.text())
         port = self.port.value()
-        username = unicode(self.username.text())
-        password = unicode(self.password.text())
+        username = str(self.username.text())
+        password = str(self.password.text())
         self.config()["server_for_sync_as_client"] = server
         self.config()["port_for_sync_as_client"] = port
         self.config()["username_for_sync_as_client"] = username
@@ -189,10 +189,10 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
 
     def reject(self):
         if self.can_reject:
-            QtGui.QDialog.reject(self)
+            QtWidgets.QDialog.reject(self)
 
     def finish_sync(self):
-        QtGui.QDialog.accept(self)
+        QtWidgets.QDialog.accept(self)
 
     def threaded_show_information(self, message):
         global answer
