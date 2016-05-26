@@ -13,7 +13,7 @@ class MyGrades(PlotStatisticsPage):
     name = "Grades pie chart"
 
     def prepare_statistics(self, variant):
-        self.x = range(-1, 6)
+        self.x = list(range(-1, 6))
         self.y = []
         for grade in self.x:
             self.y.append(self.database().con.execute(\

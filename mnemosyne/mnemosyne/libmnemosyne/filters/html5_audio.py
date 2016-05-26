@@ -3,7 +3,7 @@
 #
 
 import re
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 from mnemosyne.libmnemosyne.filter import Filter
 
@@ -81,7 +81,7 @@ class Html5Audio(Filter):
         sound_files = []
         for match in re_audio.finditer(text):
             sound_files.append("'" + \
-                urllib.quote(match.group(1).encode("utf-8"), safe="/:") + "'")
+                urllib.parse.quote(match.group(1).encode("utf-8"), safe="/:") + "'")
             start, stop = 0, 999999
             if match.group(2):
                 start_match = re_start.search(match.group(2))

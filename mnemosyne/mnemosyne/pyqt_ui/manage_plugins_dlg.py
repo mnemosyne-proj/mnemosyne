@@ -3,19 +3,18 @@
 #
 
 import os
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.ui_manage_plugins_dlg import Ui_ManagePluginsDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import ManagePluginsDialog
 
 
-class ManagePluginsDlg(QtGui.QDialog, Ui_ManagePluginsDlg,
+class ManagePluginsDlg(QtWidgets.QDialog, Ui_ManagePluginsDlg,
     ManagePluginsDialog):
 
     def __init__(self, component_manager):
-        ManagePluginsDialog.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, self.main_widget())
+        super().__init__(self.main_widget(), component_manager=component_manager)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
@@ -36,7 +35,7 @@ class ManagePluginsDlg(QtGui.QDialog, Ui_ManagePluginsDlg,
         self.previously_active = {}
         self.plugin_with_name = {}
         for plugin in self.plugins():
-            list_item = QtGui.QListWidgetItem(_(plugin.name))
+            list_item = QtWidgets.QListWidgetItem(_(plugin.name))
             list_item.setFlags(list_item.flags() \
                 | QtCore.Qt.ItemIsUserCheckable)
             self.plugin_with_name[_(plugin.name)] = plugin
@@ -59,7 +58,7 @@ class ManagePluginsDlg(QtGui.QDialog, Ui_ManagePluginsDlg,
         # If we get there through activating of the item, make sure we move
         # the selection to the activated item.
         self.plugin_list.setCurrentItem(list_item)
-        plugin = self.plugin_with_name[unicode(list_item.text())]
+        plugin = self.plugin_with_name[str(list_item.text())]
         self.plugin_description.setText(_(plugin.description))
         self.delete_button.setEnabled(\
             plugin.__class__.__name__ in self.can_be_deleted)
@@ -79,14 +78,14 @@ class ManagePluginsDlg(QtGui.QDialog, Ui_ManagePluginsDlg,
         self._store_state()
         for index in range(self.plugin_list.count()):
             list_item = self.plugin_list.item(index)
-            plugin_name = unicode(list_item.text())
+            plugin_name = str(list_item.text())
             if list_item.checkState() == QtCore.Qt.Checked and \
                 self.previously_active[plugin_name] == False:
                 self.plugin_with_name[plugin_name].activate()
             elif list_item.checkState() == QtCore.Qt.Unchecked and \
                 self.previously_active[plugin_name] == True:
                 self.plugin_with_name[plugin_name].deactivate()
-        return QtGui.QDialog.accept(self)
+        return QtWidgets.QDialog.accept(self)
 
     def install_plugin(self):
         self.last_selected_row = self.plugin_list.currentRow()
@@ -94,7 +93,7 @@ class ManagePluginsDlg(QtGui.QDialog, Ui_ManagePluginsDlg,
         self.build_plugin_list()
 
     def delete_plugin(self):
-        plugin_name = unicode(self.plugin_list.selectedItems()[0].text())
+        plugin_name = str(self.plugin_list.selectedItems()[0].text())
         question = _("Are you sure you want to delete the plugin") + " \"" + \
             plugin_name + "\" " + _("and not just deactivate it?")
         answer = self.main_widget().show_question(question,

@@ -183,7 +183,7 @@ class _gui_extension ( object ) :
       event.id = ID
       event.window = self.parent.FindWindowById ( ID )
       self._OnChange_User ( event )
-    print self, isinstance ( self, wx.ComboBox )
+    print((self, isinstance ( self, wx.ComboBox )))
     #event.Skip ()
 
   # *********************************************************
@@ -844,7 +844,7 @@ class Combo ( wx.ComboBox, _gui_extension  ) :
     wx.ComboBox.__init__ ( self, parent, -1,
                            style = wx.BORDER_NONE )
                            #wx.BORDER_SIMPLE )
-    print 'CHOICES',choices
+    print(('CHOICES',choices))
     for item in choices :
       self.Append ( item )
     
@@ -857,7 +857,7 @@ class Combo ( wx.ComboBox, _gui_extension  ) :
 
 
   def TEST ( self, event ):
-    print 'CONMBO'
+    print('CONMBO')
   # *********************************************************
   # *********************************************************
   def append ( self, item ) :
@@ -1485,7 +1485,7 @@ class TBox ( wx.GridSizer ) :
 # ***********************************************************************
 #  DEMO  DEMO  DEMO  DEMO  DEMO  DEMO  DEMO  DEMO  DEMO  DEMO  DEMO
 # ***********************************************************************
-import api as gui
+from . import api as gui
 if __name__ == '__main__' :
   app = gui.Application ()
   color_small     = ( 0, 255, 0 )

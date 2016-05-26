@@ -346,9 +346,9 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             sql_res = self.con.execute("""select value from global_variables
                 where key=?""", ("version", )).fetchone()
         except:
-            raise RuntimeError, _("Unable to load file at") + " " + self._path
+            raise RuntimeError(_("Unable to load file at") + " " + self._path)
         if sql_res is None:
-            raise RuntimeError, _("Unable to load file, query failed.")
+            raise RuntimeError(_("Unable to load file, query failed."))
         if sql_res[0] != self.version:
             if sql_res[0] == "Mnemosyne SQL 1.0":
                 previous_version = 1
@@ -360,7 +360,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                         import Upgrade2
                     Upgrade2(self.component_manager).run()
             except:
-                raise RuntimeError, _("Database upgrade failed.")
+                raise RuntimeError(_("Database upgrade failed."))
         self.create_media_dir_if_needed()
         # Upgrade.
         self.con.execute("""create index if not exists
@@ -372,7 +372,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             used_ids = [cursor[0] for cursor in \
                 self.con.execute("select distinct card_type_id from cards")]
         except:
-            raise RuntimeError, _("Unable to load file.") + traceback_string()
+            raise RuntimeError(_("Unable to load file.") + traceback_string())
         # We also need to do this for the card types which are only defined
         # and have no cards yet.
         defined_in_database_ids = [cursor[0] for cursor in \
@@ -406,9 +406,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             if sys.platform == "win32":  # pragma: no cover
                 drive = os.path.splitdrive(path)[0]
                 import ctypes
-                if ctypes.windll.kernel32.GetDriveTypeW(u"%s\\" % drive) == 4:
-                    raise RuntimeError, \
-_("Putting a database on a network drive is forbidden under Windows to avoid data corruption.")
+                if ctypes.windll.kernel32.GetDriveTypeW("%s\\" % drive) == 4:
+                    raise RuntimeError(_("Putting a database on a network drive is forbidden under Windows to avoid data corruption."))
             copy(self._path, dest_path)
             self._path = dest_path
         self.config()["last_database"] \
@@ -440,7 +439,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         # Only keep the last logs.
         if self.config()["backups_to_keep"] < 0:
             return backupfile
-        files = [f for f in os.listdir(unicode(backupdir)) \
+        files = [f for f in os.listdir(str(backupdir)) \
                 if f.startswith(db_name + "-")]
         files.sort()
         if len(files) > self.config()["backups_to_keep"]:
@@ -477,7 +476,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             self.log().dump_to_science_log()
             self.backup()  # Saves too.
             self._connection.close()
-        except Exception, e:
+        except Exception as e:
             pass
         finally:
             self._connection = None
@@ -776,7 +775,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         # Create data_for_fact.
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
             values(?,?,?)""", ((fact._id, fact_key, value)
-            for fact_key, value in fact.data.items() if value))
+            for fact_key, value in list(fact.data.items()) if value))
         self.log().added_fact(fact)
         # Process media files.
         self._process_media(fact)
@@ -804,7 +803,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             (fact._id, ))
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
             values(?,?,?)""", ((fact._id, key, value)
-                for key, value in fact.data.items() if value))
+                for key, value in list(fact.data.items()) if value))
         self.log().edited_fact(fact)
         # Process media files.
         self._process_media(fact)
@@ -1108,11 +1107,10 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
                         try:
                             plugin.activate()
                         except:
-                            raise RuntimeError, _("Error when running plugin:") \
-                                + "\n" + traceback_string()
+                            raise RuntimeError(_("Error when running plugin:") \
+                                + "\n" + traceback_string())
             if not found:
-                raise RuntimeError, \
-                _("Missing plugin for card type with id:") + " " + card_type_id      
+                raise RuntimeError(_("Missing plugin for card type with id:") + " " + card_type_id)      
 
     def add_card_type(self, card_type):
         self.con.execute("""insert into card_types(id, name,
@@ -1430,7 +1428,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         card_type_2 = self.card_type_with_id("2")
         _fact_ids_dealt_with = []
         for key in set(_fact_id_for_front.keys()).\
-            intersection(_fact_id_for_back.keys()):
+            intersection(list(_fact_id_for_back.keys())):
             _fact_id_1 = _fact_id_for_front[key]
             _fact_id_2 = _fact_id_for_back[key]
             # Deal only once with a pair.

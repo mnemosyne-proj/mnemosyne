@@ -34,7 +34,7 @@ class MainWdgt(gui.CeFrame, MainWidget):
 
         """
 
-        raise RuntimeError, text
+        raise RuntimeError(text)
 
     def show_error(self, text):
         gui.Message.ok("Mnemosyne", text, icon="error")

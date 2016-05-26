@@ -30,8 +30,8 @@ class _Sqlite3Cursor(object):
     def __iter__(self):
         return self
 
-    def next(self):
-        return self.cursor.next()
+    def __next__(self):
+        return next(self.cursor)
 
 
 class _Sqlite3(Component):
@@ -46,7 +46,7 @@ class _Sqlite3(Component):
         if sys.platform == "win32":  # pragma: no cover
             drive = os.path.splitdrive(path)[0]
             import ctypes
-            if ctypes.windll.kernel32.GetDriveTypeW(u"%s\\" % drive) == 4:
+            if ctypes.windll.kernel32.GetDriveTypeW("%s\\" % drive) == 4:
                 self.main_widget().show_error(_\
 ("Putting a database on a network drive is forbidden under Windows to avoid data corruption. Mnemosyne will now close."))
                 sys.exit(-1)
@@ -59,28 +59,28 @@ class _Sqlite3(Component):
 
     def executescript(self, script):
         if self.DEBUG:
-            print script
+            print(script)
             t = time.time()
         self.connection.executescript(script)
         if self.DEBUG:
-            print "took %.3f secs" % (time.time() - t)
+            print(("took %.3f secs" % (time.time() - t)))
 
     def execute(self, sql, *args):
         if self.DEBUG:
-            print sql, args
+            print((sql, args))
             t = time.time()
         self._cursor = self.connection.execute(sql, *args)
         if self.DEBUG:
-            print "took %.3f secs" % (time.time() - t)
+            print(("took %.3f secs" % (time.time() - t)))
         return _Sqlite3Cursor(self._cursor)
 
     def executemany(self, sql, *args):
         if self.DEBUG:
-            print sql, args
+            print((sql, args))
             t = time.time()
         self._cursor = self.connection.executemany(sql, *args)
         if self.DEBUG:
-            print "took %.3f secs" % (time.time() - t)
+            print(("took %.3f secs" % (time.time() - t)))
         return _Sqlite3Cursor(self._cursor)
 
     def last_insert_rowid(self):

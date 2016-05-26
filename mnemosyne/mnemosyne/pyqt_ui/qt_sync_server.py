@@ -6,7 +6,7 @@ import os
 import sys
 import socket
 
-from PyQt4 import QtCore
+from PyQt5 import QtCore
 
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.translator import _
@@ -63,8 +63,7 @@ class ServerThread(QtCore.QThread, SyncServer):
     close_progress_signal = QtCore.pyqtSignal()
 
     def __init__(self, component_manager):
-        QtCore.QThread.__init__(self)
-        SyncServer.__init__(self, component_manager, self)
+        super().__init__(component_manager, self)
         self.server_has_connection = False
         # A fast moving progress bar seems to cause crashes on Windows.
         self.show_numeric_progress_bar = (sys.platform != "win32")
@@ -74,7 +73,7 @@ class ServerThread(QtCore.QThread, SyncServer):
             self.serve_until_stopped()
         except socket.error:
             self.show_error(_("Unable to start sync server."))
-        except Exception, e:
+        except Exception as e:
             self.show_error(str(e) + "\n" + traceback_string())
         # Clean up after stopping.
         mutex.lock()
@@ -186,8 +185,8 @@ class QtSyncServer(Component, QtCore.QObject):
     component_type = "sync_server"
 
     def __init__(self, component_manager):
-        Component.__init__(self, component_manager)
-        QtCore.QObject.__init__(self)
+        super().__init__(component_manager)
+        super().__init__()
         self.thread = None
         # Since we will overwrite the true main widget in the thread, we need
         # to save it here.
@@ -199,7 +198,8 @@ class QtSyncServer(Component, QtCore.QObject):
             self.deactivate()
             try:
                 self.thread = ServerThread(self.component_manager)
-            except socket.error, (errno, e):
+            except socket.error as xxx_todo_changeme:
+                (errno, e) = xxx_todo_changeme.args
                 if errno == 98:
                     self.main_widget().show_error(\
                         _("Unable to start sync server.") + " " + \
@@ -261,7 +261,7 @@ class QtSyncServer(Component, QtCore.QObject):
         mutex.lock()
         try:
             self.database().load(self.config()["last_database"])
-        except Exception, e: # Database locked in server thread.
+        except Exception as e: # Database locked in server thread.
             database_released.wait(mutex)
             self.database().load(self.config()["last_database"])
         self.log().loaded_database()

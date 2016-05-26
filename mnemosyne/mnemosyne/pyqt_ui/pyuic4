@@ -3,7 +3,7 @@
 # pyuic4 <Johannes.Baiter@gmail.com>
 #
 
-# This wraps PyQt4's uic to provide support for mnemosyne's own translation
+# This wraps PyQt5's uic to provide support for mnemosyne's own translation
 # infrastructure.
 # Most of the code is taken from a blogpost by mandel_macaque:
 # http://www.themacaque.com/?p=816
@@ -12,7 +12,7 @@ import re
 import sys
 from io import BytesIO
 
-from PyQt4 import QtCore
+from PyQt5 import QtCore
 
 
 class CompileUi(object):
@@ -22,7 +22,7 @@ class CompileUi(object):
         # Something similar could be done with pyside but that is left as an
         # exercise for the reader.
         self._wrapuic()
-        from PyQt4 import uic
+        from PyQt5 import uic
         # We're using BytesIO instead of StringIO, as PyQt still uses
         # byte strings as of version 4.8.5
         output = BytesIO()
@@ -69,7 +69,7 @@ class CompileUi(object):
 
         if cls._wrappeduic:
             return
-        from PyQt4.uic.Compiler import compiler, qtproxies, indenter
+        from PyQt5.uic.Compiler import compiler, qtproxies, indenter
 
         class _UICompiler(compiler.UICompiler):
 

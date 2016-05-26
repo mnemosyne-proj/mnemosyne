@@ -2,7 +2,7 @@
 # card_type_wdgt_generic.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.qtextedit2 import QTextEdit2
@@ -10,15 +10,14 @@ from mnemosyne.libmnemosyne.ui_components.card_type_widget \
      import GenericCardTypeWidget
 
 
-class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
+class GenericCardTypeWdgt(QtWidgets.QWidget, GenericCardTypeWidget):
 
     def __init__(self, component_manager, parent, card_type):
-        QtGui.QWidget.__init__(self, parent)
-        GenericCardTypeWidget.__init__(self, component_manager)
+        super().__init__(parent, component_manager=component_manager)
         self.card_type = card_type
-        self.hboxlayout = QtGui.QHBoxLayout(self)
+        self.hboxlayout = QtWidgets.QHBoxLayout(self)
         self.hboxlayout.setMargin(0)
-        self.vboxlayout = QtGui.QVBoxLayout()
+        self.vboxlayout = QtWidgets.QVBoxLayout()
         self.fact_key_for_edit_box = {}
         self.top_edit_box = None
         self.edit_boxes = []
@@ -33,7 +32,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         # Construct the rest of the dialog.
         parent.setTabOrder(parent.card_types_widget, parent.tags)
         for fact_key, fact_key_name in self.card_type.fact_keys_and_names:
-            l = QtGui.QLabel(_(fact_key_name) + ":", self)
+            l = QtWidgets.QLabel(_(fact_key_name) + ":", self)
             self.vboxlayout.addWidget(l)
             if fact_key == "p_1":
                 self.pronunciation_label = l
@@ -122,7 +121,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
 
     def is_empty(self):
         for edit_box in self.fact_key_for_edit_box:
-            if unicode(edit_box.document().toPlainText()):
+            if str(edit_box.document().toPlainText()):
                 return False
         return True
 
@@ -131,14 +130,14 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
 
     def fact_data(self):
         _fact_data = {}
-        for edit_box, fact_key in self.fact_key_for_edit_box.iteritems():
-            _fact_data[fact_key] = unicode(edit_box.document().toPlainText())
+        for edit_box, fact_key in list(self.fact_key_for_edit_box.items()):
+            _fact_data[fact_key] = str(edit_box.document().toPlainText())
         return _fact_data
 
     def set_fact_data(self, fact_data):
         self.fact_data_before_edit = fact_data
         if fact_data:
-            for edit_box, fact_key in self.fact_key_for_edit_box.iteritems():
+            for edit_box, fact_key in list(self.fact_key_for_edit_box.items()):
                 if fact_key in fact_data:
                     edit_box.setPlainText(fact_data[fact_key])
 

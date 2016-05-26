@@ -57,7 +57,7 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
         w = self.main_widget()
         try:
             tree = cElementTree.parse(filename)
-        except cElementTree.ParseError, e:
+        except cElementTree.ParseError as e:
             w.show_error(_("Unable to parse file:") + str(e))
             raise MnemosyneError
         except:

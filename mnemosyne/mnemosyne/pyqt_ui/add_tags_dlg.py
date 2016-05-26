@@ -2,19 +2,19 @@
 # add_tags_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.pyqt_ui.add_cards_dlg import AddEditCards
 from mnemosyne.pyqt_ui.ui_add_tags_dlg import Ui_AddTagsDlg
 
 
-class AddTagsDlg(QtGui.QDialog, Ui_AddTagsDlg, AddEditCards):
+class AddTagsDlg(QtWidgets.QDialog, Ui_AddTagsDlg, AddEditCards):
 
     def __init__(self, component_manager, return_values, parent=None):
-        AddEditCards.__init__(self, component_manager)
+        super().__init__(component_manager)
         if parent is None:
             parent = self.main_widget()
-        QtGui.QDialog.__init__(self, parent)
+        super().__init__(parent)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
@@ -25,6 +25,6 @@ class AddTagsDlg(QtGui.QDialog, Ui_AddTagsDlg, AddEditCards):
 
     def accept(self):
         self.return_values["tag_names"] = [c.strip() for c in \
-                     unicode(self.tags.currentText()).split(',')]
-        return QtGui.QDialog.accept(self)
+                     str(self.tags.currentText()).split(',')]
+        return QtWidgets.QDialog.accept(self)
 

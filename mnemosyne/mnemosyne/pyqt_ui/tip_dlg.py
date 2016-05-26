@@ -2,18 +2,17 @@
 # tip_dlg.py <Johannes.Baiter@gmail.com>
 #
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.ui_tip_dlg import Ui_TipDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import TipDialog
 
 
-class TipDlg(QtGui.QDialog, Ui_TipDlg, TipDialog):
+class TipDlg(QtWidgets.QDialog, Ui_TipDlg, TipDialog):
 
     def __init__(self, component_manager):
-        TipDialog.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, self.main_widget())
+        super().__init__(self.main_widget(), component_manager=component_manager)
         self.tips = []
         self.tips.append(_("""For optimal results, it's best to do your repetitions every day."""))
         self.tips.append(_("""You don't need to finish all your daily scheduled repetitions in a single session."""))
@@ -91,7 +90,7 @@ class TipDlg(QtGui.QDialog, Ui_TipDlg, TipDialog):
             (self.config()["current_tip"] - 1) % len(self.tips)
         self.update_dialog()
 
-    def next(self):
+    def __next__(self):
         self.config()["current_tip"] = \
             (self.config()["current_tip"] + 1) % len(self.tips)
         self.update_dialog()

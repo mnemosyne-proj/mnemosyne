@@ -3,7 +3,7 @@
 #
 
 import os
-import httplib
+import http.client
 import threading
 import mnemosyne.version
 
@@ -36,7 +36,7 @@ class SyncServer(Component, Server):
         if self.server_only:
             # First see if web server needs to release database.
             try:
-                con = httplib.HTTPConnection("127.0.0.1",
+                con = http.client.HTTPConnection("127.0.0.1",
                     self.config()["web_server_port"])
                 con.request("GET", "/release_database")
                 response = con.getresponse()
@@ -95,8 +95,8 @@ class SyncServerThread(threading.Thread, SyncServer):
 
     def run(self):
         # Start server
-        print "Sync server listening on " + localhost_IP() + ":" + \
-            str(self.config()["sync_server_port"])
+        print(("Sync server listening on " + localhost_IP() + ":" + \
+            str(self.config()["sync_server_port"])))
         self.serve_until_stopped()
         server_hanging = (len(self.sessions) != 0)
         if server_hanging:

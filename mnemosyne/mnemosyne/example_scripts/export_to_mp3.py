@@ -49,10 +49,10 @@ subprocess.call(["mp3wrap", "mnemosyne.mp3", silence, silence])
 for fact in facts:
     length = 0
     filenames = []
-    for match in re_sound.finditer("".join(fact.data.values())):
+    for match in re_sound.finditer("".join(list(fact.data.values()))):
         filename = os.path.join(\
             mnemosyne.database().media_dir(), match.group(1))
-        print filename, determine_length(filename)
+        print((filename, determine_length(filename)))
         length += determine_length(filename)
         filenames.append(filename)
     for i in range(int(length * SILENCE_FACTOR)):

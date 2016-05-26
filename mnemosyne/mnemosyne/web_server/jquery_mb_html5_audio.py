@@ -3,7 +3,7 @@
 #
 
 import re
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 from mnemosyne.libmnemosyne.filter import Filter
 
@@ -38,7 +38,7 @@ class JQueryMbHtml5Audio(Filter):
         sound_files = ""
         play_command = ""
         for match in re_audio.finditer(text):
-            filename = urllib.quote(match.group(1).encode("utf-8"), safe="/:")
+            filename = urllib.parse.quote(match.group(1).encode("utf-8"), safe="/:")
             id = filename.split(".", 1)[0].replace("/", "")
             start, stop = 0, 2
             if match.group(2):

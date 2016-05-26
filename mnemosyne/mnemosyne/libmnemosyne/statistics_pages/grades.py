@@ -23,7 +23,7 @@ class Grades(PlotStatisticsPage):
             self.variants.append((tag._id, tag.name))
 
     def prepare_statistics(self, variant):
-        self.x = range(-1, 6)
+        self.x = list(range(-1, 6))
         if variant == self.ALL_CARDS:
             self.y = [self.database().card_count_for_grade \
                 (grade, active_only=False) for grade in self.x]

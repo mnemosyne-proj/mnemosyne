@@ -30,13 +30,13 @@ class Client(object):
     def send_command(self, command):
         # The print commands are just for demonstration here, and should not
         # be there in a 'real' client.
-        print ">>" + command
+        print(">>" + command)
         self.socket.send(command + "\n")
         # Parse the reply.
         f = self.socket.makefile("rb")
         line = f.readline()
         while line != "__DONE__\n":
-            print line,
+            print(line, end=' ')
             # If it's a callback command, we need to act upon it immediately,
             # either because the other side is waiting for input from us, or
             # for efficiency reasons, e.g. if the controller says it's already
@@ -58,7 +58,7 @@ class Client(object):
                 traceback_lines.append(f.readline())
                 while traceback_lines[-1] != "__DONE__\n":
                     traceback_lines.append(f.readline())
-                print "".join(traceback_lines[:-1])
+                print("".join(traceback_lines[:-1]))
                 break
             # Read the next line and act on that.
             line = f.readline()

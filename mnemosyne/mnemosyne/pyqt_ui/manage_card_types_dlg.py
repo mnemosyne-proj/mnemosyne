@@ -2,7 +2,7 @@
 # manage_card_types_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.card_type import CardType
@@ -11,12 +11,11 @@ from mnemosyne.pyqt_ui.ui_manage_card_types_dlg import Ui_ManageCardTypesDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import ManageCardTypesDialog
 
 
-class ManageCardTypesDlg(QtGui.QDialog, Ui_ManageCardTypesDlg,
+class ManageCardTypesDlg(QtWidgets.QDialog, Ui_ManageCardTypesDlg,
                         ManageCardTypesDialog):
 
     def __init__(self, component_manager):
-        ManageCardTypesDialog.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, self.main_widget())
+        super().__init__(self.main_widget(), component_manager=component_manager)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
@@ -34,7 +33,7 @@ class ManageCardTypesDlg(QtGui.QDialog, Ui_ManageCardTypesDlg,
             if self.database().is_user_card_type(card_type):
                 name = "%s (%s)" % (_(card_type.name),
                                     _(card_type.__class__.__bases__[0].name))
-                item = QtGui.QListWidgetItem(name)
+                item = QtWidgets.QListWidgetItem(name)
                 self.cloned_card_types.addItem(item)
                 self.card_type_with_item[item] = card_type
         if self.cloned_card_types.count() == 0:
@@ -73,16 +72,16 @@ _("Here, you can make clones of existing card types. This allows you to format c
         from mnemosyne.pyqt_ui.ui_rename_card_type_dlg \
             import Ui_RenameCardTypeDlg
 
-        class RenameDlg(QtGui.QDialog, Ui_RenameCardTypeDlg):
+        class RenameDlg(QtWidgets.QDialog, Ui_RenameCardTypeDlg):
             def __init__(self, old_card_type_name):
-                QtGui.QDialog.__init__(self)
+                super().__init__()
                 self.setupUi(self)
                 self.card_type_name.setText(old_card_type_name)
 
         card_type = self.card_type_with_item\
             [self.cloned_card_types.selectedItems()[0]]
         dlg = RenameDlg(card_type.name)
-        if dlg.exec_() == QtGui.QDialog.Accepted:
-            new_name = unicode(dlg.card_type_name.text())
+        if dlg.exec_() == QtWidgets.QDialog.Accepted:
+            new_name = str(dlg.card_type_name.text())
             self.controller().rename_card_type(card_type, new_name)
         self.update()

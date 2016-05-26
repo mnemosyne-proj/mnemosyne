@@ -18,7 +18,7 @@ def startup():
 
     from optparse import OptionParser
 
-    from PyQt4.QtGui import QApplication
+    from PyQt5.QtGui import QApplication
 
     from mnemosyne.libmnemosyne import Mnemosyne
 
@@ -39,8 +39,8 @@ def startup():
     data_dir = None
     if options.data_dir != None:
         data_dir = os.path.abspath(options.data_dir)
-    elif os.path.exists(os.path.join(os.getcwdu(), "mnemosyne2")):
-        data_dir = os.path.abspath(os.path.join(os.getcwdu(), "mnemosyne2"))
+    elif os.path.exists(os.path.join(os.getcwd(), "mnemosyne2")):
+        data_dir = os.path.abspath(os.path.join(os.getcwd(), "mnemosyne2"))
 
     # Filename argument.
     if len(args) > 0:
@@ -143,9 +143,9 @@ tests = ["startup()"]
 
 for test in tests:
     cProfile.run(test, "mnemosyne_profile." + test.replace("()", ""))
-    print
-    print "*** ", test, " ***"
-    print
+    print()
+    print(("*** ", test, " ***"))
+    print()
     p = pstats.Stats('mnemosyne_profile.' + test.replace("()", ""))
     p.strip_dirs().sort_stats('cumulative').print_stats(number_of_calls)
 

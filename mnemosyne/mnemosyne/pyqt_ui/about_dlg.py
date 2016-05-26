@@ -2,7 +2,7 @@
 # about_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.version import version
 from mnemosyne.libmnemosyne.translator import _
@@ -10,11 +10,10 @@ from mnemosyne.pyqt_ui.ui_about_dlg import Ui_AboutDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import AboutDialog
 
 
-class AboutDlg(QtGui.QDialog, Ui_AboutDlg, AboutDialog):
+class AboutDlg(QtWidgets.QDialog, Ui_AboutDlg, AboutDialog):
 
     def __init__(self, component_manager):
-        AboutDialog.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, self.main_widget())
+        super().__init__(self.main_widget(), component_manager=component_manager)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)

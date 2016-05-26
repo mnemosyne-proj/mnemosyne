@@ -17,8 +17,8 @@ class TestTagTree(MnemosyneTest):
         self.controller().save_file()
         from mnemosyne.libmnemosyne.tag_tree import TagTree
         self.tree = TagTree(self.mnemosyne.component_manager)
-        assert len(self.tree.keys()) == 2
-        assert self.tree['__ALL__'] == [u'__UNTAGGED__']
+        assert len(list(self.tree.keys())) == 2
+        assert self.tree['__ALL__'] == ['__UNTAGGED__']
 
     def test_2(self):
         fact_data = {"f": "question",
@@ -29,8 +29,8 @@ class TestTagTree(MnemosyneTest):
         self.controller().save_file()
         from mnemosyne.libmnemosyne.tag_tree import TagTree
         self.tree = TagTree(self.mnemosyne.component_manager)
-        assert len(self.tree.keys()) == 3
-        assert self.tree['__ALL__'] == [u'tag_1', u'__UNTAGGED__']
+        assert len(list(self.tree.keys())) == 3
+        assert self.tree['__ALL__'] == ['tag_1', '__UNTAGGED__']
 
     def test_3(self):
         fact_data = {"f": "question", "b": "answer"}

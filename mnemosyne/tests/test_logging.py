@@ -283,7 +283,7 @@ class TestLogging(MnemosyneTest):
     def test_log_upload(self):
         machine_id_file = os.path.join(self.mnemosyne.config().config_dir, "machine.id")
         f = file(machine_id_file, "w")
-        print >> f, "TESTMACHINE"
+        print("TESTMACHINE", file=f)
         f.close()
         self.config().change_user_id("UPLOADTEST")
         self.config()["max_log_size_before_upload"] = 1
@@ -330,12 +330,12 @@ class TestLogging(MnemosyneTest):
         # it will stay alive in a dangling imported userconfig.
         config_py_file = os.path.join(self.mnemosyne.config().config_dir, "config.py")
         f = file(config_py_file, "w")
-        print >> f, "science_server = \"noserver:80\""
+        print("science_server = \"noserver:80\"", file=f)
         f.close()
 
         machine_id_file = os.path.join(self.mnemosyne.config().config_dir, "machine.id")
         f = file(machine_id_file, "w")
-        print >> f, "TESTMACHINE"
+        print("TESTMACHINE", file=f)
         f.close()
         self.config().change_user_id("UPLOADTEST")
         self.config()["max_log_size_before_upload"] = 1

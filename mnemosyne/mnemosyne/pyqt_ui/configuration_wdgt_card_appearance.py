@@ -4,7 +4,7 @@
 
 from copy import deepcopy
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.translator import _
@@ -16,14 +16,13 @@ from mnemosyne.pyqt_ui.ui_configuration_wdgt_card_appearance import \
      Ui_ConfigurationWdgtCardAppearance
 
 
-class ConfigurationWdgtCardAppearance(QtGui.QWidget,
+class ConfigurationWdgtCardAppearance(QtWidgets.QWidget,
     Ui_ConfigurationWdgtCardAppearance, ConfigurationWidget):
 
     name = _("Card appearance")
 
     def __init__(self, component_manager, parent):
-        ConfigurationWidget.__init__(self, component_manager)
-        QtGui.QWidget.__init__(self, parent)
+        super().__init__(parent, component_manager=component_manager)
         self.setupUi(self)
         self.dynamic_widgets = []
         self.affected_card_types = []
@@ -53,7 +52,7 @@ class ConfigurationWdgtCardAppearance(QtGui.QWidget,
                 self.non_latin_font_size_increase]:
                 widget.show()
         else:
-            new_card_type_name = unicode(new_card_type_name)
+            new_card_type_name = str(new_card_type_name)
             new_card_type = self.card_type_by_name[new_card_type_name]
             self.affected_card_types = [new_card_type]
             self.fact_key_names = new_card_type.fact_key_names()
@@ -67,21 +66,21 @@ class ConfigurationWdgtCardAppearance(QtGui.QWidget,
         self.dynamic_widgets = []
 
         row = 0
-        self.font_buttons = QtGui.QButtonGroup()
-        self.colour_buttons = QtGui.QButtonGroup()
-        self.align_buttons = QtGui.QButtonGroup()
+        self.font_buttons = QtWidgets.QButtonGroup()
+        self.colour_buttons = QtWidgets.QButtonGroup()
+        self.align_buttons = QtWidgets.QButtonGroup()
         self.align_buttons.setExclusive(False)
         for key_name in self.fact_key_names:
-            label = QtGui.QLabel(_(key_name) + ":", self)
+            label = QtWidgets.QLabel(_(key_name) + ":", self)
             self.gridLayout.addWidget(label, row, 0, 1, 1)
             self.dynamic_widgets.append(label)
 
-            font = QtGui.QPushButton(_("Select font"), self)
+            font = QtWidgets.QPushButton(_("Select font"), self)
             self.font_buttons.addButton(font, row)
             self.gridLayout.addWidget(font, row, 1, 1, 1)
             self.dynamic_widgets.append(font)
 
-            colour = QtGui.QPushButton(_("Select colour"),self)
+            colour = QtWidgets.QPushButton(_("Select colour"),self)
             self.colour_buttons.addButton(colour, row)
             self.gridLayout.addWidget(colour, row, 2, 1, 1)
             self.dynamic_widgets.append(colour)
@@ -124,7 +123,7 @@ class ConfigurationWdgtCardAppearance(QtGui.QWidget,
         else:
             current_colour = self.palette().color(QtGui.QPalette.Base)
         # Set new colour.
-        colour = QtGui.QColorDialog.getColor(current_colour, self)
+        colour = QtWidgets.QColorDialog.getColor(current_colour, self)
         if colour.isValid():
             for card_type in self.affected_card_types:
                 self.config().set_card_type_property("background_colour",
@@ -154,9 +153,9 @@ class ConfigurationWdgtCardAppearance(QtGui.QWidget,
         if font_string:
             current_font.fromString(font_string)
         # Set new font.
-        font, ok = QtGui.QFontDialog.getFont(current_font, self)
+        font, ok = QtWidgets.QFontDialog.getFont(current_font, self)
         if ok:
-            font_string = unicode(font.toString())
+            font_string = str(font.toString())
             for card_type in self.affected_card_types:
                 self.config().set_card_type_property("font", font_string,
                     card_type, affected_fact_key)
@@ -180,7 +179,7 @@ class ConfigurationWdgtCardAppearance(QtGui.QWidget,
         else:
             current_colour = QtGui.QColor(QtCore.Qt.black)
         # Set new colour.
-        colour = QtGui.QColorDialog.getColor(current_colour, self)
+        colour = QtWidgets.QColorDialog.getColor(current_colour, self)
         if colour.isValid():
             for card_type in self.affected_card_types:
                 self.config().set_card_type_property("font_colour",

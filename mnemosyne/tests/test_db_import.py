@@ -21,7 +21,7 @@ class Widget(MainWidget):
 
     def show_error(self, message):
         global last_error
-        print message
+        print(message)
         last_error = message
 
 class TestDBImport(MnemosyneTest):

@@ -53,7 +53,7 @@ class Smconv_XML(FileFormat, MediaPreprocessor):
         w = self.main_widget()
         try:
             tree = cElementTree.parse(filename)
-        except cElementTree.ParseError, e:
+        except cElementTree.ParseError as e:
             w.show_error(_("Unable to parse file:") + str(e))
             return
         card_type = self.card_type_with_id("1")

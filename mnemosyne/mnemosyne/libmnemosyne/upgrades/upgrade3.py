@@ -16,11 +16,11 @@ class Upgrade3(Component):
             return
         if not os.path.exists(os.path.join(self.config().config_dir, "config")):
             return
-        import cPickle
+        import pickle
         old_config_file = \
             file(os.path.join(self.config().config_dir, "config"), "rb")
         try:    
-            for key, value in cPickle.load(old_config_file).iteritems():
+            for key, value in list(pickle.load(old_config_file).items()):
                 if key not in ["import_format", "export_format"]:
                     self.config()[key] = value
         except EOFError:

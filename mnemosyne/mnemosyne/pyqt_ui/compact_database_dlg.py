@@ -2,7 +2,7 @@
 # compact_database_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
@@ -33,7 +33,7 @@ class CompactThread(QtCore.QThread):
     compact_finished_signal = QtCore.pyqtSignal()
 
     def __init__(self, mnemosyne, defragment_database, archive_old_logs):
-        QtCore.QThread.__init__(self)
+        super().__init__()
         self.mnemosyne = mnemosyne
         self.defragment_database = defragment_database
         self.archive_old_logs = archive_old_logs
@@ -106,12 +106,11 @@ class CompactThread(QtCore.QThread):
         self.close_progress_signal.emit()        
 
 
-class CompactDatabaseDlg(QtGui.QDialog, Ui_CompactDatabaseDlg,
+class CompactDatabaseDlg(QtWidgets.QDialog, Ui_CompactDatabaseDlg,
     CompactDatabaseDialog):
 
     def __init__(self, component_manager, started_automatically=False):
-        CompactDatabaseDialog.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, self.main_widget())
+        super().__init__(self.main_widget(), component_manager=component_manager)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
@@ -134,7 +133,7 @@ class CompactDatabaseDlg(QtGui.QDialog, Ui_CompactDatabaseDlg,
             (self.archive_old_logs.checkState() == QtCore.Qt.Checked) 
         if not (defragment_database or delete_unused_media_files or \
                 archive_old_logs):
-            QtGui.QDialog.accept(self)
+            QtWidgets.QDialog.accept(self)
         if delete_unused_media_files:
             unused_media_files = self.database().unused_media_files()
             if len(unused_media_files) != 0:
@@ -143,7 +142,7 @@ class CompactDatabaseDlg(QtGui.QDialog, Ui_CompactDatabaseDlg,
         if defragment_database or archive_old_logs:
             self.compact_in_thread(defragment_database, archive_old_logs)
         else:
-            QtGui.QDialog.accept(self)
+            QtWidgets.QDialog.accept(self)
             
     def compact_in_thread(self, defragment_database, archive_old_logs):
         self.main_widget().set_progress_text(_("Compacting database..."))
@@ -175,7 +174,7 @@ class CompactDatabaseDlg(QtGui.QDialog, Ui_CompactDatabaseDlg,
         self.true_main_widget.close_progress()
         if not self.started_automatically:
             self.true_main_widget.show_information(_("Done!"))
-            QtGui.QDialog.accept(self)
+            QtWidgets.QDialog.accept(self)
        
     def threaded_show_information(self, message):
         global answer

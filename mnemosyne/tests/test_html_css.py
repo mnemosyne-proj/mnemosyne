@@ -8,18 +8,18 @@ from mnemosyne_test import MnemosyneTest
 class TestHtmlCss(MnemosyneTest):
 
     def test_1(self):
-        self.config()["font"] = {'1': {"f": u'Courier New,10,-1,5,50,1,0,0,0,0',
-                                       "b": u'Courier New,10,-1,5,25,2,0,0,0,0'},
-                                 '3': {'p': u'Courier New,10,-1,5,75,0,0,0,0,0',
-                                       't': u'Courier New,10,-1,5,50,0,0,0,0,0',
-                                       'f': u'Courier New,10,-1,5,50,0,0,0,0,0'},
-                                 '2': {"f": u'Courier New,10,-1,5,50,0,1,0,0,0',
-                                       "b": u'Courier New,10,-1,5,50,0,0,1,0,0'}}
+        self.config()["font"] = {'1': {"f": 'Courier New,10,-1,5,50,1,0,0,0,0',
+                                       "b": 'Courier New,10,-1,5,25,2,0,0,0,0'},
+                                 '3': {'p': 'Courier New,10,-1,5,75,0,0,0,0,0',
+                                       't': 'Courier New,10,-1,5,50,0,0,0,0,0',
+                                       'f': 'Courier New,10,-1,5,50,0,0,0,0,0'},
+                                 '2': {"f": 'Courier New,10,-1,5,50,0,1,0,0,0',
+                                       "b": 'Courier New,10,-1,5,50,0,0,1,0,0'}}
         self.config()["alignment"] = {'1': 'right', '3': 'center', '2': 'left'}
-        self.config()["background_colour"] = {'1': 4278255615L, '3': 4278255615L, '2': 4278255615L}
-        self.config()["font_colour"] = {'1': {"f": 4290772992L, "b": 4290772992L},
-                                      '3': {'p': 4290772992L, 't': 4290772992L, 'f': 4290772992L},
-                                      '2': {"f": 4290772992L, "b": 4290772992L}}
+        self.config()["background_colour"] = {'1': 4278255615, '3': 4278255615, '2': 4278255615}
+        self.config()["font_colour"] = {'1': {"f": 4290772992, "b": 4290772992},
+                                      '3': {'p': 4290772992, 't': 4290772992, 'f': 4290772992},
+                                      '2': {"f": 4290772992, "b": 4290772992}}
 
         fact_data = {"f": "question",
                      "b": "answer"}

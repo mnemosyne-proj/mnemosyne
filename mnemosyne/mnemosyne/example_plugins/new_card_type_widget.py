@@ -4,7 +4,7 @@
 
 # Colour the widget for the front to back card type red.
 
-from PyQt4 import QtGui
+from PyQt5 import QtGui
 
 from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack

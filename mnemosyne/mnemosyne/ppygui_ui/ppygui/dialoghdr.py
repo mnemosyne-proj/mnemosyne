@@ -18,11 +18,11 @@
 ## OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 ## WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
-from core import *
-from controls import Label
-from boxing import VBox, Spacer
-from font import Font
-from line import HLine
+from .core import *
+from .controls import Label
+from .boxing import VBox, Spacer
+from .font import Font
+from .line import HLine
 
 class DialogHeader(Frame):
     def __init__(self, parent, text):

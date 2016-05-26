@@ -4,7 +4,7 @@
 
 import sys
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _, \
     iso6931_code_for_language_name, language_name_for_iso6931_code
@@ -14,14 +14,13 @@ from mnemosyne.pyqt_ui.ui_configuration_wdgt_main import \
     Ui_ConfigurationWdgtMain
 
 
-class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
+class ConfigurationWdgtMain(QtWidgets.QWidget, Ui_ConfigurationWdgtMain,
     ConfigurationWidget):
 
     name = _("General")
 
     def __init__(self, component_manager, parent):
-        ConfigurationWidget.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, parent)
+        super().__init__(parent, component_manager=component_manager)
         self.setupUi(self)
         if self.config()["randomise_new_cards"] == True:
             self.new_cards.setCurrentIndex(1)
@@ -79,7 +78,7 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
 
     def apply(self):
         self.config()["ui_language"] = iso6931_code_for_language_name(\
-                unicode(self.languages.currentText()))
+                str(self.languages.currentText()))
         self.translator().set_language(self.config()["ui_language"])
         if self.new_cards.currentIndex() == 1:
             self.config()["randomise_new_cards"] = True

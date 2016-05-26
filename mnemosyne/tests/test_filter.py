@@ -73,6 +73,6 @@ class TestFilter(MnemosyneTest):
 
         f = RTLHandler(self.mnemosyne.component_manager)
 
-        f.run(unichr(0x0591), None, None)
-        f.run(unichr(0x0491), None, None)
-        f.run("[a]" + unichr(0x0491), None, None)
+        f.run(chr(0x0591), None, None)
+        f.run(chr(0x0491), None, None)
+        f.run("[a]" + chr(0x0491), None, None)

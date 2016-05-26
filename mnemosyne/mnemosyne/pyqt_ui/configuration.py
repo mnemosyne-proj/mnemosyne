@@ -13,7 +13,7 @@ class PyQtConfiguration(Hook):
 
     def run(self):
         for key, value in \
-            {"list_font": None,
+            list({"list_font": None,
              "last_used_card_type_id": "",
              "is_last_used_tags_per_card_type": False,
              "last_used_tags_for_card_type_id": {},
@@ -50,5 +50,5 @@ class PyQtConfiguration(Hook):
              "showed_help_on_renaming_sets": False,
              "showed_help_on_double_clicking_sets": False,
              "showed_help_on_adding_tags": False
-            }.items():
+            }.items()):
             self.config().setdefault(key, value)

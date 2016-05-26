@@ -110,7 +110,7 @@ def path_exists(path):
     """Our own version of os.path.exists, to deal with unicode issues
     on Android."""
     
-    assert(type(path) == unicode)
+    assert(type(path) == str)
     return os.path.exists(path)
 
 
@@ -128,7 +128,7 @@ def path_getsize(path):
     """Our own version of os.path.getsize, to deal with unicode issues
     on Android."""
     
-    assert(type(path) == unicode)
+    assert(type(path) == str)
     return os.path.getsize(path)
     
     try:
@@ -142,8 +142,8 @@ def path_join(path1, path2):
     """Our own version of os.path.getsize, to deal with unicode issues
     on Android."""
     
-    assert(type(path1) == unicode)
-    assert(type(path2) == unicode)
+    assert(type(path1) == str)
+    assert(type(path2) == str)
     return os.path.join(path1, path2)
     
     try:

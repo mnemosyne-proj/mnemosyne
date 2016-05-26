@@ -2,7 +2,7 @@
 # card_type_tree_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
@@ -25,18 +25,18 @@ class CardTypeDelegate(TagDelegate):
     def setEditorData(self, editor, index):
         # Get rid of the card count.
         self.previous_node_name = \
-            unicode(index.model().data(index).toString()).rsplit(" (", 1)[0]
+            str(index.model().data(index).toString()).rsplit(" (", 1)[0]
         node_index = index.model().index(index.row(), NODE, index.parent())
         self.card_type_id = index.model().data(node_index).toString()        
         editor.setText(self.previous_node_name)
         
     def commit_and_close_editor(self):
         editor = self.sender()
-        if unicode(self.previous_node_name) == unicode(editor.text()):
+        if str(self.previous_node_name) == str(editor.text()):
             self.redraw_node.emit(self.card_type_id)
         else:
             self.rename_node.emit(self.card_type_id, editor.text())
-        self.closeEditor.emit(editor, QtGui.QAbstractItemDelegate.NoHint)    
+        self.closeEditor.emit(editor, QtWidgets.QAbstractItemDelegate.NoHint)    
 
 
 class CardTypesTreeWdgt(TagsTreeWdgt):
@@ -46,7 +46,7 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
     card_types_changed_signal = QtCore.pyqtSignal()
 
     def __init__(self, component_manager, parent, acquire_database=None):
-        TagsTreeWdgt.__init__(self, component_manager, parent)
+        super().__init__(component_manager, parent)
         self.delegate = CardTypeDelegate(component_manager, self)
         self.tree_wdgt.setItemDelegate(self.delegate)
         self.delegate.rename_node.connect(self.rename_node)
@@ -64,16 +64,16 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
         from mnemosyne.pyqt_ui.ui_rename_card_type_dlg \
             import Ui_RenameCardTypeDlg
 
-        class RenameDlg(QtGui.QDialog, Ui_RenameCardTypeDlg):
+        class RenameDlg(QtWidgets.QDialog, Ui_RenameCardTypeDlg):
             def __init__(self, old_card_type_name):
-                QtGui.QDialog.__init__(self)
+                super().__init__()
                 self.setupUi(self)
                 self.card_type_name.setText(old_card_type_name)
 
-        old_card_type_name = self.card_type_with_id(unicode(nodes[0])).name
+        old_card_type_name = self.card_type_with_id(str(nodes[0])).name
         dlg = RenameDlg(old_card_type_name)
-        if dlg.exec_() == QtGui.QDialog.Accepted:
-            self.rename_node(nodes[0], unicode(dlg.card_type_name.text()))
+        if dlg.exec_() == QtWidgets.QDialog.Accepted:
+            self.rename_node(nodes[0], str(dlg.card_type_name.text()))
 
     def menu_delete(self):
         nodes = self.selected_nodes_which_can_be_deleted()
@@ -111,13 +111,13 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
         self.nodes_which_can_be_renamed = []
         self.tree_wdgt.clear()
         self.card_type_fact_view_ids_for_node_item = {}
-        root_item = QtGui.QTreeWidgetItem(self.tree_wdgt,
+        root_item = QtWidgets.QTreeWidgetItem(self.tree_wdgt,
             [_("All card types (%d)") % root_count], 0)
         root_item.setFlags(root_item.flags() | \
            QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
         root_item.setCheckState(0, QtCore.Qt.Checked)
         for card_type in self.database().sorted_card_types():
-            card_type_item = QtGui.QTreeWidgetItem(root_item, ["%s (%d)" % \
+            card_type_item = QtWidgets.QTreeWidgetItem(root_item, ["%s (%d)" % \
                 (_(card_type.name), count_for_card_type[card_type])], 0)
             card_type_item.setFlags(card_type_item.flags() | \
                 QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
@@ -132,7 +132,7 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
                 card_type_item.setFlags(card_type_item.flags() | \
                     QtCore.Qt.ItemIsEditable)
             for fact_view in card_type.fact_views:
-                fact_view_item = QtGui.QTreeWidgetItem(card_type_item,
+                fact_view_item = QtWidgets.QTreeWidgetItem(card_type_item,
                     ["%s (%d)" % (_(fact_view.name),
                     count_for_fact_view[fact_view])], 0)
                 fact_view_item.setFlags(fact_view_item.flags() | \
@@ -150,7 +150,7 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
     def checked_to_criterion(self, criterion):
         criterion.deactivated_card_type_fact_view_ids = set()
         for item, card_type_fact_view_ids in \
-                self.card_type_fact_view_ids_for_node_item.iteritems():
+                list(self.card_type_fact_view_ids_for_node_item.items()):
             if item.checkState(0) == QtCore.Qt.Unchecked:
                 criterion.deactivated_card_type_fact_view_ids.add(\
                     card_type_fact_view_ids)
@@ -189,7 +189,7 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
         if self.acquire_database:
             self.acquire_database()
         self.save_criterion()
-        card_type = self.card_type_with_id(unicode(node))
+        card_type = self.card_type_with_id(str(node))
         self.controller().rename_card_type(card_type, new_name)
         self.restore_criterion()
         self.card_types_changed_signal.emit()
@@ -199,7 +199,7 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
             self.acquire_database()
         self.save_criterion()
         for node in nodes:
-            card_type = self.card_type_with_id(unicode(node))
+            card_type = self.card_type_with_id(str(node))
             self.controller().delete_card_type(card_type)
         self.restore_criterion()
         self.card_types_changed_signal.emit()

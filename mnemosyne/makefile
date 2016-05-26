@@ -4,20 +4,17 @@ PYTHON      := python
 VIRTUALENV  := virtualenv
 SPHINXBUILD := sphinx-build
 
-# If `python2` exists:
-ifeq (1,$(shell python2 -c "print(1)" 2>&- ))
-PYTHON      := python2
+# If `python3` exists:
+ifeq (1,$(shell python3 -c "print(1)" 2>&- ))
+PYTHON      := python3
 endif
 # If we are on cygwin:
-ifeq (1,$(shell /cygdrive/c/Python27/python.exe -c "print(1)" 2>&- ))
-PYTHON      := /cygdrive/c/Python27/python.exe
-endif
-# If `virtualenv2` exists:
-ifneq (,$(shell virtualenv2 --version 2>&- ))
-VIRTUALENV  := virtualenv2
+ifeq (1,$(shell /cygdrive/c/Program\ Files/Python35/python.exe -c "print(1)" 2>&- ))
+PYTHON      := /cygdrive/c/Program\ Files/Python35/python.exe
+VIRTUALENV  := /cygdrive/c/Program\ Files/Python35/Scripts/virtualenv.exe
 endif
 # If "--system-site-packages" supported:
-ifneq (,$(shell $(VIRTUALENV) --system-site-packages --version 2>&- ))
+ifneq (,$(shell $(VIRTUALENV) --system-site-packages --version 3>&- ))
 VIRTUALENV  += --system-site-packages
 endif
 # If `sphinx-build2` exists:
@@ -38,25 +35,25 @@ install-and-run-virtual-env: install-virtual-env
 
 install-virtual-env:
 	cd mnemosyne/pyqt_ui && make
-	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
+	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc
 	./bin/python setup.py develop
 
 setup:
 	$(VIRTUALENV) --python=$(PYTHON) .
-	./bin/easy_install nose
-	./bin/easy_install coverage
+	./bin/pip install nose
+	./bin/pip install coverage
 	cd po && make
 
 setup-windows:
-	virtualenv --system-site-packages --python=C:/python27/python.exe .
+	virtualenv -p python3 --system-site-packages --python=C:/Program\ Files/python35/python.exe .
 	cp C:/python27/mplayer.exe Scripts/
-	cp C:/python27/qt.conf Scripts/
-	Scripts/easy_install.exe nose
-	Scripts/easy_install.exe coverage
+	#p C:/python27/qt.conf Scripts/
+	Scripts/pip.exe install nose
+	Scripts/pip.exe install coverage
 
 install-virtual-env-windows:
 	cd mnemosyne/pyqt_ui && make
-	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
+	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc
 	Scripts/python.exe setup.py develop
 
 install-system:
@@ -64,7 +61,7 @@ install-system:
 	cd mnemosyne/libmnemosyne/docs && make SPHINXBUILD=$(SPHINXBUILD) html
 	cd mnemosyne/pyqt_ui && make clean
 	cd mnemosyne/pyqt_ui && make
-	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
+	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc
 	cd po && make update
 	cd po && make
 	$(PYTHON) setup.py install $(INSTALL_OPTS)
@@ -75,7 +72,7 @@ build-all-deps:
 	cd mnemosyne/libmnemosyne/docs && make SPHINXBUILD=$(SPHINXBUILD) html
 	# cd mnemosyne/pyqt_ui && make clean
 	cd mnemosyne/pyqt_ui && make
-	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
+	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc
 	cd po && make update
 	cd po && make
 
@@ -163,7 +160,7 @@ clean:
 	rm -f *~ *.pyc *.tgz process_profile.py
 	rm -rf dist
 	rm -f -R Mnemosyne.egg-info
-	rm -f -R distrib build bin lib include dot_mnemosyne2 dot_test dot_sync_*
+	rm -f -R distrib build bin lib Lib Scripts include dot_mnemosyne2 dot_test dot_sync_*
 	rm -f -R dot_benchmark dist
 	cd mnemosyne/pyqt_ui && make clean
 	cd po && make clean

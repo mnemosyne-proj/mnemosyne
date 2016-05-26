@@ -29,10 +29,10 @@ class SQLiteMedia(object):
     def media_dir(self):
         if self.config()["last_database"] == \
             os.path.basename(self.config()["last_database"]):
-            return unicode(os.path.join(self.config().data_dir,
+            return str(os.path.join(self.config().data_dir,
                 os.path.basename(self.config()["last_database"]) + "_media"))
         else:
-            return unicode(self.config()["last_database"] + "_media")
+            return str(self.config()["last_database"] + "_media")
 
     def create_media_dir_if_needed(self):
         media_dir = self.media_dir()
@@ -46,7 +46,7 @@ media_dir + ".\n" + _("Check your file permissions and make sure the directory i
     def fact_contains_static_media_files(self, fact):
         # Could be part of fact.py, but is put here to have all media related
         # functions in one place.
-        return re_src.search("".join(fact.data.values())) != None
+        return re_src.search("".join(list(fact.data.values()))) != None
 
     def _media_hash(self, filename):
 
@@ -65,7 +65,7 @@ media_dir + ".\n" + _("Check your file permissions and make sure the directory i
         if not path_exists(filename):
             return "0"
         
-        assert(type(filename) == unicode)
+        assert(type(filename) == str)
         media_file = file(filename, "rb")
         
         
@@ -99,7 +99,7 @@ media_dir + ".\n" + _("Check your file permissions and make sure the directory i
             new_hash = self._media_hash(filename)
             if hash != new_hash:
                 new_hashes[filename] = new_hash
-        for filename, new_hash in new_hashes.iteritems():
+        for filename, new_hash in list(new_hashes.items()):
             self.con.execute("update media set _hash=? where filename=?",
                 (new_hash, filename))
             self.log().edited_media_file(filename)
@@ -145,7 +145,7 @@ media_dir + ".\n" + _("Check your file permissions and make sure the directory i
 
         """
 
-        for match in re_src.finditer("".join(fact.data.values())):
+        for match in re_src.finditer("".join(list(fact.data.values()))):
             filename = match.group(2)
             if filename.startswith("http:"):
                 continue
@@ -158,7 +158,7 @@ _("Filename contains '#', which could cause problems on some operating systems."
             if not path_exists(filename) and \
                 not path_exists(expand_path(filename, self.media_dir())):
                 self.main_widget().show_error(_("Missing media file!") + "\n\n" + filename)              
-                for fact_key, value in fact.data.iteritems():
+                for fact_key, value in list(fact.data.items()):
                     fact.data[fact_key] = \
                         fact.data[fact_key].replace(match.group(),
                         "src_missing=\"%s\"" % match.group(2))
@@ -170,7 +170,7 @@ _("Filename contains '#', which could cause problems on some operating systems."
                 filename = copy_file_to_dir(filename, self.media_dir())
             else:  # We always store Unix paths internally.
                 filename = filename.replace("\\", "/")
-            for fact_key, value in fact.data.iteritems():
+            for fact_key, value in list(fact.data.items()):
                 fact.data[fact_key] = value.replace(match.group(2), filename)
                 self.con.execute("""update data_for_fact set value=? where
                     _fact_id=? and key=?""",

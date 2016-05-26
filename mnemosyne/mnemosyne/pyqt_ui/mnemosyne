@@ -122,7 +122,7 @@ if options.web_server == True or options.sync_server == True:
     sys.exit(0)
 
 # Initialise GUI toolkit.
-from PyQt4.QtGui import QApplication
+from PyQt5.QtGui import QApplication
 
 a = QApplication(sys.argv)
 a.setApplicationName("Mnemosyne")

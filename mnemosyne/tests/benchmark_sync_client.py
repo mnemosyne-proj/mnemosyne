@@ -23,13 +23,13 @@ from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 class Widget(MainWidget):
     
     def set_progress_text(self, text):
-        print text
+        print(text)
         
     def show_information(self, info):
-        print info
+        print(info)
         
     def show_error(self, error):
-        print error
+        print(error)
         
 class MyReviewWidget(ReviewWidget):
     
@@ -93,7 +93,7 @@ class MyClient(Client):
              "CrammingPlugin") ]
         self.mnemosyne.components.append(("benchmark_sync_client", "Widget"))
         self.mnemosyne.components.append(("benchmark_sync_client", "MyReviewWidget"))
-        self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(),
+        self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwd(),
                                   "dot_sync_client")), automatic_upgrades=False)
         self.mnemosyne.config().change_user_id("user_id")
         self.check_for_edited_local_media_files = False
@@ -130,8 +130,8 @@ if __name__== '__main__':
 
     for test in tests:
         cProfile.run(test, "mnemosyne_profile." + test.replace("()", ""))
-        print
-        print "*** ", test, " ***"
-        print
+        print()
+        print(("*** ", test, " ***"))
+        print()
         p = pstats.Stats('mnemosyne_profile.' + test.replace("()", ""))
         p.strip_dirs().sort_stats('cumulative').print_stats(number_of_calls)

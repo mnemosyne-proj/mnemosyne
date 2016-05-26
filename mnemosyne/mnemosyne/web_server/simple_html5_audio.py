@@ -3,7 +3,7 @@
 #
 
 import re
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 from mnemosyne.libmnemosyne.filter import Filter
 
@@ -28,7 +28,7 @@ class SimpleHtml5Audio(Filter):
         if not re_audio.search(text):
             return text
         for match in re_audio.finditer(text):
-            filename = urllib.quote(match.group(1).encode("utf-8"), safe="/:")
+            filename = urllib.parse.quote(match.group(1).encode("utf-8"), safe="/:")
             text = text.replace(match.group(0), "")
             text += "<audio src=\"" + filename + "\" controls>"
         return text

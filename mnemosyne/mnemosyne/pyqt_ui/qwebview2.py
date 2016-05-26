@@ -3,7 +3,7 @@
 #
 
 import webbrowser
-from PyQt4 import QtWebKit, QtGui
+from PyQt5 import QtWebKit, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 
@@ -16,7 +16,7 @@ class QWebView2(QtWebKit.QWebView):
     """
     
     def __init__(self, parent=None):
-        QtWebKit.QWebView.__init__(self, parent)
+        super().__init__(parent)
         self.linkClicked.connect(self.link_clicked) 
         self.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
     
@@ -26,10 +26,10 @@ class QWebView2(QtWebKit.QWebView):
     def focusInEvent(self, event):
         if hasattr(self.parent(), "restore_focus"):
             self.parent().restore_focus()
-        QtWebKit.QWebView.focusInEvent(self, event)
+        super().focusInEvent(event)
 
     def contextMenuEvent(self, event):
-        menu = QtGui.QMenu(self)
+        menu = QtWidgets.QMenu(self)
         action = self.pageAction(QtWebKit.QWebPage.Copy)
         # Note that to get the shortcut work, we need extra code in
         # review_wdgt.py.

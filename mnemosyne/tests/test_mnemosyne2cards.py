@@ -15,7 +15,7 @@ last_error = None
 class MyMainWidget(MainWidget):
 
     def show_information(self, info):
-        print info
+        print(info)
         #sys.stderr.write(info+'\n')
 
     def show_error(self, error):
@@ -242,13 +242,13 @@ class TestMnemosyne2Cards(MnemosyneTest):
 
         self.database().new("import.db")
         self.cards_format().do_import(os.path.abspath("test.cards"))
-        _card_id, _fact_id = self.database().cards().next()
+        _card_id, _fact_id = next(self.database().cards())
         card = self.database().card(_card_id, is_id_internal=True)
         card.fact["f"] = "edited"
         self.database().update_fact(card.fact)
         assert "edited" in card.question()
         self.cards_format().do_import(os.path.abspath("test.cards"))
-        _card_id, _fact_id = self.database().cards().next()
+        _card_id, _fact_id = next(self.database().cards())
         card = self.database().card(_card_id, is_id_internal=True)
         assert "edited" not in card.question()
 
@@ -263,7 +263,7 @@ class TestMnemosyne2Cards(MnemosyneTest):
 
         self.database().new("import.db")
         self.cards_format().do_import(os.path.abspath("test.cards"), "extra")
-        _card_id, _fact_id = self.database().cards().next()
+        _card_id, _fact_id = next(self.database().cards())
         card = self.database().card(_card_id, is_id_internal=True)
         assert len(card.tags) == 1
         assert card.tags.pop().name == "extra"
@@ -280,7 +280,7 @@ class TestMnemosyne2Cards(MnemosyneTest):
         self.cards_format().do_export(os.path.abspath("test2.cards"))
         self.database().new("import.db")
         self.cards_format().do_import(os.path.abspath("test.cards"))
-        _card_id, _fact_id = self.database().cards().next()
+        _card_id, _fact_id = next(self.database().cards())
         card = self.database().card(_card_id, is_id_internal=True)
         card.grade = 2
         self.database().update_card(card)
@@ -305,21 +305,21 @@ class TestMnemosyne2Cards(MnemosyneTest):
         card.tags = set([self.database().get_or_create_tag_with_name("new_tag")])
         self.database().new("import.db")
         self.cards_format().do_import(os.path.abspath("test.cards"))
-        _card_id, _fact_id = self.database().cards().next()
+        _card_id, _fact_id = next(self.database().cards())
         card = self.database().card(_card_id, is_id_internal=True)
 
     def test_media(self):
         filename_a = os.path.join(os.path.abspath("dot_test"),
-            "default.db_media", unichr(0x628) + u"a.ogg")
+            "default.db_media", chr(0x628) + "a.ogg")
         f = file(filename_a, "w")
-        print >> f, "a"
+        print("a", file=f)
         f.close()
         os.mkdir(os.path.join(os.path.abspath("dot_test"),
         "default.db_media", "b"))
         filename_b = os.path.join(os.path.abspath("dot_test"),
-            "default.db_media", "b", unichr(0x628) + u"b.ogg")
+            "default.db_media", "b", chr(0x628) + "b.ogg")
         f = file(filename_b, "w")
-        print >> f, "b"
+        print("b", file=f)
         f.close()
 
         fact_data = {"f": "question\n<img src=\"%s\">" % (filename_a),
@@ -332,22 +332,22 @@ class TestMnemosyne2Cards(MnemosyneTest):
         self.database().new("import.db")
         self.cards_format().do_import(os.path.abspath("test.cards"))
         assert os.path.exists(os.path.join("dot_test", "import.db_media",
-            unichr(0x628) + u"a.ogg"))
+            chr(0x628) + "a.ogg"))
         assert os.path.exists(os.path.join("dot_test", "import.db_media",
-            "b", unichr(0x628) + u"b.ogg"))
+            "b", chr(0x628) + "b.ogg"))
 
     def test_missing_media(self):
         filename_a = os.path.join(os.path.abspath("dot_test"),
-            "default.db_media", unichr(0x628) + u"a.ogg")
+            "default.db_media", chr(0x628) + "a.ogg")
         f = file(filename_a, "w")
-        print >> f, "a"
+        print("a", file=f)
         f.close()
         os.mkdir(os.path.join(os.path.abspath("dot_test"),
         "default.db_media", "b"))
         filename_b = os.path.join(os.path.abspath("dot_test"),
-            "default.db_media", "b", unichr(0x628) + u"b.ogg")
+            "default.db_media", "b", chr(0x628) + "b.ogg")
         f = file(filename_b, "w")
-        print >> f, "b"
+        print("b", file=f)
         f.close()
 
         fact_data = {"f": "question\n<img src=\"%s\">" % (filename_a),

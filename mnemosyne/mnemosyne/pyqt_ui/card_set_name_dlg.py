@@ -2,18 +2,17 @@
 # card_set_name_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.ui_component import UiComponent
 from mnemosyne.pyqt_ui.ui_card_set_name_dlg import Ui_CardSetNameDlg
 
 
-class CardSetNameDlg(QtGui.QDialog, Ui_CardSetNameDlg, UiComponent):
+class CardSetNameDlg(QtWidgets.QDialog, Ui_CardSetNameDlg, UiComponent):
 
     def __init__(self, component_manager, criterion, existing_names, parent):
-        UiComponent.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, parent)
+        super().__init__(parent, component_manager=component_manager)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
@@ -33,9 +32,9 @@ class CardSetNameDlg(QtGui.QDialog, Ui_CardSetNameDlg, UiComponent):
             self.ok_button.setEnabled(False)
 
     def reject(self):
-        return QtGui.QDialog.reject(self)
+        return QtWidgets.QDialog.reject(self)
 
     def accept(self):
-        self.criterion.name = unicode(self.set_name.currentText())
-        return QtGui.QDialog.accept(self)
+        self.criterion.name = str(self.set_name.currentText())
+        return QtWidgets.QDialog.accept(self)
 

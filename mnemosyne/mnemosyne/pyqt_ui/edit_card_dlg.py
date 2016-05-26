@@ -2,7 +2,7 @@
 # edit_card_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.add_cards_dlg import AddEditCards
@@ -10,7 +10,7 @@ from mnemosyne.pyqt_ui.ui_edit_card_dlg import Ui_EditCardDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import EditCardDialog
 
 
-class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
+class EditCardDlg(QtWidgets.QDialog, Ui_EditCardDlg, AddEditCards,
                   EditCardDialog):
 
     page_up_down_signal = QtCore.pyqtSignal(int)
@@ -34,10 +34,9 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         # Note: even though this is in essence an EditFactDlg, we don't use
         # 'fact' as argument, as 'fact' does not know anything about card
         # types.
-        AddEditCards.__init__(self, component_manager)
         if parent is None:
             parent = self.main_widget()
-        QtGui.QDialog.__init__(self, parent)
+        super().__init__(parent, component_manager=component_manager)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
@@ -72,13 +71,13 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
                 child.installEventFilter(self)
 
     def set_new_card(self, card):
-        print 'sent new card', card
+        print(('sent new card', card))
         # Called from card browser.
         self.card = card
         self.card_types_widget.currentIndexChanged[QtCore.QString].\
             disconnect(self.card_type_changed)
         for i in range(self.card_types_widget.count()):
-            if unicode(self.card_types_widget.itemText(i)) \
+            if str(self.card_types_widget.itemText(i)) \
                 == _(card.card_type.name):
                 self.card_types_widget.setCurrentIndex(i)
                 break
@@ -121,7 +120,7 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
             elif event.key() == QtCore.Qt.Key_P:
                 self.preview()
         else:
-            QtGui.QDialog.keyPressEvent(self, event)
+            QtWidgets.QDialog.keyPressEvent(self, event)
 
     def set_valid(self, valid):
         self.OK_button.setEnabled(valid)
@@ -129,9 +128,9 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         
     def is_changed(self):
         if self.previous_card_type_name != \
-           unicode(self.card_types_widget.currentText()):
+           str(self.card_types_widget.currentText()):
             return True
-        if self.previous_tags != unicode(self.tags.currentText()):
+        if self.previous_tags != str(self.tags.currentText()):
             return True
         changed = False
         for fact_key in self.card.card_type.fact_keys():
@@ -146,20 +145,20 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         return False   
         
     def apply_changes(self):
-        print 'apply changes'
+        print('apply changes')
         if self.is_changed() == False:
             return 0
         new_fact_data = self.card_type_widget.fact_data()
         new_tag_names = [tag.strip() for tag in \
-            unicode(self.tags.currentText()).split(',')]
-        new_card_type_name = unicode(self.card_types_widget.currentText())
+            str(self.tags.currentText()).split(',')]
+        new_card_type_name = str(self.card_types_widget.currentText())
         new_card_type = self.card_type_by_name[new_card_type_name]
         if new_fact_data == self.card.fact.data and \
             ", ".join(new_tag_names) == self.card.tag_string() and \
             new_card_type == self.card.card_type and self.allow_cancel == True:
                 # No need to update the dialog, except when we're merging 
                 # a card when 'allow_cancel' is False.
-                QtGui.QDialog.reject(self)
+                QtWidgets.QDialog.reject(self)
                 return -1
         # If this is called from the card browser, call this hook to unload
         # the Qt database.
@@ -176,14 +175,14 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         status = self.apply_changes()
         if status == 0:
             self.config()["edit_widget_size"] = (self.width(), self.height())
-            QtGui.QDialog.accept(self)
+            QtWidgets.QDialog.accept(self)
 
     def reject(self):  # Override 'add cards' behaviour.
         if self.is_changed() == True:
             status = self.main_widget().show_question(\
                 _("Abandon changes to current card?"), _("&Yes"), _("&No"), "")
             if status == 0:
-                QtGui.QDialog.reject(self)
+                QtWidgets.QDialog.reject(self)
                 return
         else:
-           QtGui.QDialog.reject(self)
+           QtWidgets.QDialog.reject(self)

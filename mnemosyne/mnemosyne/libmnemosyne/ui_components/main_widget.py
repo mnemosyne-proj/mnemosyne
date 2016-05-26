@@ -23,7 +23,7 @@ class MainWidget(UiComponent):
         pass
 
     def show_information(self, text):
-        print text
+        print(text)
 
     def show_question(self, text, option0, option1, option2=""):
 
@@ -32,7 +32,7 @@ class MainWidget(UiComponent):
         raise NotImplementedError
 
     def show_error(self, text):
-        print text
+        print(text)
 
     def default_font_size(self):
         return 12
@@ -56,7 +56,7 @@ class MainWidget(UiComponent):
 
         """
 
-        print text
+        print(text)
 
     def set_progress_range(self, maximum):
 

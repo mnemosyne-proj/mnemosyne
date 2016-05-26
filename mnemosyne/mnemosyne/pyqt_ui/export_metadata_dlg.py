@@ -2,19 +2,18 @@
 # export_metadata_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.ui_export_metadata_dlg import Ui_ExportMetadataDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import ExportMetadataDialog
 
 
-class ExportMetadataDlg(QtGui.QDialog, Ui_ExportMetadataDlg,
+class ExportMetadataDlg(QtWidgets.QDialog, Ui_ExportMetadataDlg,
     ExportMetadataDialog):
 
     def __init__(self, component_manager):
-        ExportMetadataDialog.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, self.main_widget())
+        super().__init__(self.main_widget(), component_manager=component_manager)
         self.setupUi(self)
         self.setWindowFlags(QtCore.Qt.Dialog \
                 | QtCore.Qt.CustomizeWindowHint \
@@ -79,23 +78,23 @@ class ExportMetadataDlg(QtGui.QDialog, Ui_ExportMetadataDlg,
             else:
                 event.ignore()
         else:
-            QtGui.QDialog.keyPressEvent(self, event)
+            QtWidgets.QDialog.keyPressEvent(self, event)
 
     def reject(self):
         self.cancelled = True
-        return QtGui.QDialog.reject(self)
+        return QtWidgets.QDialog.reject(self)
 
     def values(self):
         if self.cancelled:
             return None
         metadata = {}
-        metadata["card_set_name"] = unicode(self.card_set_name.text())
-        metadata["author_name"] = unicode(self.author_name.text())
-        metadata["author_email"] = unicode(self.author_email.text())
-        metadata["tags"] = unicode(self.tags.text())
-        metadata["date"] = unicode(self.date.date().toString())
+        metadata["card_set_name"] = str(self.card_set_name.text())
+        metadata["author_name"] = str(self.author_name.text())
+        metadata["author_email"] = str(self.author_email.text())
+        metadata["tags"] = str(self.tags.text())
+        metadata["date"] = str(self.date.date().toString())
         metadata["revision"] = str(self.revision.value())
-        metadata["notes"] = unicode(self.notes.toPlainText())
-        self.config()["author_name"] = unicode(metadata["author_name"])
-        self.config()["author_email"] = unicode(metadata["author_email"])
+        metadata["notes"] = str(self.notes.toPlainText())
+        self.config()["author_name"] = str(metadata["author_name"])
+        self.config()["author_email"] = str(metadata["author_email"])
         return metadata

@@ -46,7 +46,7 @@ class GradesCriterionApplier(CriterionApplier):
 from mnemosyne.libmnemosyne.ui_components.criterion_widget \
      import CriterionWidget
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui
 
 class GradesCriterionWdgt(QtGui.QWidget, CriterionWidget):
 

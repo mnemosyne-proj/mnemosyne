@@ -94,7 +94,7 @@ class Configuration(Component, dict):
         """
 
         for key, value in \
-            {"last_database": \
+            list({"last_database": \
                 self.database().default_name + self.database().suffix,
              "first_run": True,
              "import_img_dir": self.data_dir,
@@ -161,7 +161,7 @@ class Configuration(Component, dict):
              "export_dir": os.path.expanduser("~"),
              "export_format": None,
              "last_db_maintenance": time.time() - 91 * DAY
-            }.items():
+            }.items()):
             self.setdefault(key, value)
         # These keys will be shared in the sync protocol. Front-ends can
         # modify this list, e.g. if they don't want to override the fonts.
@@ -175,7 +175,7 @@ class Configuration(Component, dict):
         # of the program, or because the user deleted the config file. In the
         # latter case, we try to recuperate the id from the history files.
         if self["user_id"] is None:
-            _dir = os.listdir(unicode(os.path.join(self.data_dir, "history")))
+            _dir = os.listdir(str(os.path.join(self.data_dir, "history")))
             history_files = [x for x in _dir if x[-4:] == ".bz2"]
             if not history_files:
                 self["user_id"] = rand_uuid()
@@ -210,7 +210,7 @@ class Configuration(Component, dict):
         # from the config db. The alternatives (e.g. having the frontend pass
         # along modules to import) seem to be much more verbose and quirky.
         try:
-            import PyQt4
+            import PyQt5
         except:
             pass
         # Set config settings.
@@ -228,10 +228,10 @@ class Configuration(Component, dict):
         con = sqlite3.connect(filename)
         # Make sure the entries exist.
         con.executemany("insert or ignore into config(key, value) values(?,?)", 
-            ((key, repr(value)) for key, value in self.iteritems()))
+            ((key, repr(value)) for key, value in self.items()))
         # Make sure they have the right data.
         con.executemany("update config set value=? where key=?",
-            ((repr(value), key) for key, value in self.iteritems()))   
+            ((repr(value), key) for key, value in self.items()))   
         con.commit()
         con.close()
 
@@ -248,9 +248,9 @@ class Configuration(Component, dict):
         if sys.platform == "win32":
             import ctypes
             n = ctypes.windll.kernel32.GetEnvironmentVariableW\
-                (u"APPDATA", None, 0)
-            buf = ctypes.create_unicode_buffer(u"\0"*n)
-            ctypes.windll.kernel32.GetEnvironmentVariableW(u"APPDATA", buf, n)
+                ("APPDATA", None, 0)
+            buf = ctypes.create_unicode_buffer("\0"*n)
+            ctypes.windll.kernel32.GetEnvironmentVariableW("APPDATA", buf, n)
             self.data_dir = join(buf.value, "Mnemosyne")
             self.config_dir = self.data_dir
         elif sys.platform == "darwin":
@@ -294,14 +294,14 @@ class Configuration(Component, dict):
         config_file = join(self.config_dir, "config.py")
         if not exists(config_file):
             f = file(config_file, "w")
-            print >> f, config_py
+            print(config_py, file=f)
             f.close()
         # Create machine_id. Do this in a separate file, as extra warning
         # signal that people should not copy this file to a different machine.
         machine_id_file = join(self.config_dir, "machine.id")
         if not exists(machine_id_file):
             f = file(machine_id_file, "w")
-            print >> f, rand_uuid()
+            print(rand_uuid(), file=f)
             f.close()
 
     def set_card_type_property(self, property_name, property_value, card_type,
@@ -390,8 +390,8 @@ class Configuration(Component, dict):
                     if var in self:
                         self[var] = getattr(config, var)
             except:
-                raise RuntimeError, _("Error in config.py:") \
-                          + "\n" + traceback_string()
+                raise RuntimeError(_("Error in config.py:") \
+                          + "\n" + traceback_string())
 
     def change_user_id(self, new_user_id):
 

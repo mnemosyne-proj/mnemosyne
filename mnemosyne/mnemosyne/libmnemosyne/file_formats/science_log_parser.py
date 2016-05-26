@@ -152,9 +152,9 @@ class ScienceLogParser(object):
             try:
                 self._parse_line(line)
             except:
-                print ("Ignoring error in file '%s' while parsing line:\n%s" %
-                    (filename, line))
-                print traceback_string()
+                print(("Ignoring error in file '%s' while parsing line:\n%s" %
+                    (filename, line)))
+                print((traceback_string()))
                 sys.stdout.flush()
 
     def _parse_line(self, line):
@@ -163,7 +163,7 @@ class ScienceLogParser(object):
                                          "%Y-%m-%d %H:%M:%S")))
         if not self.lower_timestamp_limit < self.timestamp < \
                self.upper_timestamp_limit:
-            raise TypeError, "Ignoring impossible date %s" % parts[0]
+            raise TypeError("Ignoring impossible date %s" % parts[0])
         if parts[1].startswith("Program started"):
             # Parse version string. They typically look like:
             #   Mnemosyne 1.0-RC nt win32

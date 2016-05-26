@@ -19,11 +19,11 @@
 ## WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
 
-from core import *
-from config import HIRES_MULT
-from controls import TBBUTTONINFO 
-from menu import Menu, PopupMenu, MenuWrapper
-from toolbar import ToolBar
+from .core import *
+from .config import HIRES_MULT
+from .controls import TBBUTTONINFO 
+from .menu import Menu, PopupMenu, MenuWrapper
+from .toolbar import ToolBar
 
 # FixMe: Refactor these constants
 TBIF_STATE = 0x4
@@ -56,7 +56,7 @@ class SIPPref(Window):
         Window.__init__(self, parent, visible=False)
 
 def make_sippref(parent):
-    CreateWindowEx(0, u"SIPPREF", u"", WS_CHILD, -10, -10, 5, 5, parent._w32_hWnd, IdGenerator.next(), GetModuleHandle(0), 0)
+    CreateWindowEx(0, "SIPPREF", "", WS_CHILD, -10, -10, 5, 5, parent._w32_hWnd, next(IdGenerator), GetModuleHandle(0), 0)
     
 class CommandBarItem(GuiObject):
     '''\
@@ -71,7 +71,7 @@ class CommandBarItem(GuiObject):
         tbbi = TBBUTTONINFO()
         tbbi.cbSize = sizeof(tbbi)
         tbbi.dwMask = TBIF_TEXT | 0x80000000
-        tbbi.pszText = unicode(txt)
+        tbbi.pszText = str(txt)
         SendMessage(self.cb_hWnd, WM_USER+64, self.index, byref(tbbi))
     
     def enable(self, val=True):

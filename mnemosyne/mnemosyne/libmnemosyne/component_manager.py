@@ -27,9 +27,9 @@ class ComponentManager(object):
     def register(self, component):
         comp_type = component.component_type
         used_for = component.used_for
-        if not self.components.has_key(used_for):
+        if used_for not in self.components:
             self.components[used_for] = {}
-        if not self.components[used_for].has_key(comp_type):
+        if comp_type not in self.components[used_for]:
             self.components[used_for][comp_type] = [component]
         else:
             if component not in self.components[used_for][comp_type]:
@@ -82,7 +82,7 @@ class ComponentManager(object):
             # tuple and a single class.
             if isinstance(used_for, tuple):
                 tuple_class_keys = \
-                    [_key for _key in self.components.keys() if \
+                    [_key for _key in list(self.components.keys()) if \
                     not isinstance(_key, str) and not (_key == None) \
                     and isinstance(_key, tuple)]
                 for key in tuple_class_keys:
@@ -95,7 +95,7 @@ class ComponentManager(object):
                 return []
             else:
                 non_tuple_class_keys = \
-                    [_key for _key in self.components.keys() if \
+                    [_key for _key in list(self.components.keys()) if \
                     not isinstance(_key, str) and not (_key == None) \
                     and not isinstance(_key, tuple)]
                 for key in non_tuple_class_keys:
@@ -135,7 +135,7 @@ class ComponentManager(object):
         """
 
         if self.debug_file:
-            self.debug_file.write(unicode(msg + "\n").encode('UTF-8'))
+            self.debug_file.write(str(msg + "\n").encode('UTF-8'))
 
 # A component manager stores the entire session state of a user through the
 # different components it registers. To enable multiple users to use a single
@@ -151,7 +151,7 @@ def clear_component_managers():
 
     """
 
-    user_ids = _component_managers.keys()
+    user_ids = list(_component_managers.keys())
     for user_id in user_ids:
         unregister_component_manager(user_id)
 

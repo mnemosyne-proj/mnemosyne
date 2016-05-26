@@ -13,9 +13,9 @@ class AndroidConfiguration(Hook):
 
     def run(self):
         for key, value in \
-            {"server_for_sync_as_client": "",
+            list({"server_for_sync_as_client": "",
              "port_for_sync_as_client": 8512,
              "username_for_sync_as_client": "",
              "password_for_sync_as_client": "",
-            }.items():
+            }.items()):
             self.config().setdefault(key, value)

@@ -1,6 +1,9 @@
-# Make sure we use our own custom pyuic4 in order to be able to translate
+# Make sure we use our own custom pyuic5 in order to be able to translate
 # Qt strings:
-PYUIC4      := $(PYTHON) ./pyuic4
+
+#PYUIC5      := $(PYTHON) ./pyuic5
+
+PYUIC5  := /cygdrive/c/Program\ Files/Python35/Lib/site-packages/PyQt5/pyuic5.bat
 
 WIDGETS = ui_main_wdgt.py ui_add_cards_dlg.py \
 	ui_edit_card_dlg.py \
@@ -19,18 +22,18 @@ WIDGETS = ui_main_wdgt.py ui_add_cards_dlg.py \
 	ui_export_dlg.py ui_export_metadata_dlg.py
 
 default: $(WIDGETS) ui_review_wdgt.py ui_preview_cards_dlg.py
-	pyrcc4 mnemosyne.qrc -o mnemosyne_rc.py
+	pyrcc5 mnemosyne.qrc -o mnemosyne_rc.py
 
 ui_review_wdgt.py: review_wdgt.ui
-	$(PYUIC4) $< > tmp
+	$(PYUIC5) $< > tmp
 	sed -f fix_review_widget_ui.sed <  tmp > $@
 
 ui_preview_cards_dlg.py: preview_cards_dlg.ui
-	$(PYUIC4) $< > tmp
+	$(PYUIC5) $< > tmp
 	sed -f fix_review_widget_ui.sed <  tmp > $@
 
 $(WIDGETS): ui_%.py: %.ui
-	$(PYUIC4) $< > $@
+	$(PYUIC5) $< > $@
 
 clean:
 	rm -f *~ *.pyc

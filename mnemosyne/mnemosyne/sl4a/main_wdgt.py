@@ -5,7 +5,7 @@
 import android
 droid = android.Android()
 
-from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
+from .mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 
 class MainWdgt(MainWidget):
