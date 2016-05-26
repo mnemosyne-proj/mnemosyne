@@ -110,42 +110,47 @@ def path_exists(path):
     """Our own version of os.path.exists, to deal with unicode issues
     on Android."""
     
+    assert(type(path) == unicode)
+    return os.path.exists(path)
+
+
+
+
+    
     try:
         return os.path.exists(path)
-    except:
-        try:
-            return os.path.exists(path.encode("utf-8"))
-        except:
-            return os.path.exists(path.encode("utf-16"))
-        
+    except UnicodeEncodeError:
+        return os.path.exists(path.encode("utf-8"))
+    
     
 def path_getsize(path):
     
     """Our own version of os.path.getsize, to deal with unicode issues
     on Android."""
     
+    assert(type(path) == unicode)
+    return os.path.getsize(path)
+    
     try:
         return os.path.getsize(path)
-    except:
-        try:
-            return os.path.getsize(path.encode("utf-8")) 
-        except:
-            return os.path.getsize(unicode(path))             
-    
+    except UnicodeEncodeError:
+        return os.path.getsize(path.encode("utf-8"))  
+  
     
 def path_join(path1, path2):
     
     """Our own version of os.path.getsize, to deal with unicode issues
     on Android."""
     
+    assert(type(path1) == unicode)
+    assert(type(path2) == unicode)
+    return os.path.join(path1, path2)
+    
     try:
         return os.path.join(path1, path2)
-    except:
-        try:
-            return os.path.join(path1.decode("utf-8"), path2.decode("utf-8"))      
-        except:
-            return os.path.join(path1.decode("utf-16"), path2.decode("utf-16"))            
-
+    except UnicodeDecodeError:
+        return os.path.join(path1.decode("utf-8"), path2.decode("utf-8"))      
+    
 
 def contract_path(path, start):
 

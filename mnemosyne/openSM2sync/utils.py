@@ -57,18 +57,29 @@ def file_(filename, mode):
     
     """
     
-    try:
-        return file(filename, mode)
-    except (UnicodeEncodeError, UnicodeDecodeError):
-        _ENCODING = sys.getfilesystemencoding() or \
-            locale.getdefaultlocale()[1] or "utf-8"
-        return file(filename.encode(_ENCODING), mode)
+    return file(filename, mode)
+
+    # tmp
+    
+    #try:
+    #    return file(filename, mode)
+    #except (UnicodeEncodeError, UnicodeDecodeError):
+    #    _ENCODING = sys.getfilesystemencoding() or \
+    #        locale.getdefaultlocale()[1] or "utf-8"
+    #    return file(filename.encode(_ENCODING), mode)
     
 
 def path_exists(path):
     
     """Our own version of os.path.exists, to deal with unicode issues
     on Android."""
+    
+    assert(type(path) == unicode)
+    return os.path.exists(path)
+
+
+
+
     
     try:
         return os.path.exists(path)
@@ -81,6 +92,9 @@ def path_getsize(path):
     """Our own version of os.path.getsize, to deal with unicode issues
     on Android."""
     
+    assert(type(path) == unicode)
+    return os.path.getsize(path)
+    
     try:
         return os.path.getsize(path)
     except UnicodeEncodeError:
@@ -91,6 +105,10 @@ def path_join(path1, path2):
     
     """Our own version of os.path.getsize, to deal with unicode issues
     on Android."""
+    
+    assert(type(path1) == unicode)
+    assert(type(path2) == unicode)
+    return os.path.join(path1, path2)
     
     try:
         return os.path.join(path1, path2)
