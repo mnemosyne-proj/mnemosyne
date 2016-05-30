@@ -38,7 +38,7 @@ class Mnemosyne2Cards(FileFormat):
         if metadata is None:  # Cancelled.
             os.chdir(self.orig_dir)
             return -1
-        metadata_file = file("METADATA", "w")
+        metadata_file = open("METADATA", "w")
         for key, value in metadata.items():
             print(key + ":" + \
                 value.strip().replace("\n", "<br>").encode("utf-8"), file=metadata_file)
@@ -57,7 +57,7 @@ class Mnemosyne2Cards(FileFormat):
             len(active_objects["media_filenames"]) + \
             len(active_objects["_card_ids"]) + \
             len(active_objects["_fact_ids"])
-        xml_file = file("cards.xml", "w")
+        xml_file = open("cards.xml", "w", encoding="utf-8")
         xml_format = XMLFormat()
         xml_file.write(xml_format.log_entries_header(number_of_entries))
         w.set_progress_range(number_of_entries)
@@ -67,8 +67,7 @@ class Mnemosyne2Cards(FileFormat):
             log_entry["type"] = EventTypes.ADDED_TAG
             log_entry["o_id"] = tag.id
             log_entry["name"] = tag.name
-            xml_file.write(xml_format.\
-                repr_log_entry(log_entry).encode("utf-8"))
+            xml_file.write(xml_format.repr_log_entry(log_entry))
             w.increase_progress(1)
         for fact_view_id in active_objects["fact_view_ids"]:
             fact_view = db.fact_view(fact_view_id, is_id_internal=False)
@@ -86,8 +85,7 @@ class Mnemosyne2Cards(FileFormat):
             log_entry["type_answer"] = repr(fact_view.type_answer)
             if fact_view.extra_data:
                 log_entry["extra"] = repr(fact_view.extra_data)
-            xml_file.write(xml_format.\
-                repr_log_entry(log_entry).encode("utf-8"))
+            xml_file.write(xml_format.repr_log_entry(log_entry))
             w.increase_progress(1)
         for card_type_id in active_objects["card_type_ids"]:
             card_type = db.card_type(card_type_id, is_id_internal=False)
@@ -107,8 +105,7 @@ class Mnemosyne2Cards(FileFormat):
                 repr(card_type.keyboard_shortcuts)
             if card_type.extra_data:
                 log_entry["extra"] = repr(card_type.extra_data)
-            xml_file.write(xml_format.\
-                repr_log_entry(log_entry).encode("utf-8"))
+            xml_file.write(xml_format.repr_log_entry(log_entry))
             w.increase_progress(1)
         for media_filename in active_objects["media_filenames"]:
             log_entry = LogEntry()
@@ -124,8 +121,7 @@ class Mnemosyne2Cards(FileFormat):
             log_entry["o_id"] = fact.id
             for fact_key, value in fact.data.items():
                 log_entry[fact_key] = value
-            xml_file.write(xml_format.\
-                repr_log_entry(log_entry).encode("utf-8"))
+            xml_file.write(xml_format.repr_log_entry(log_entry))
             w.increase_progress(1)
         for _card_id in active_objects["_card_ids"]:
             card = db.card(_card_id, is_id_internal=True)
@@ -160,8 +156,7 @@ class Mnemosyne2Cards(FileFormat):
                 log_entry["n_rp"] = -1
             if card.extra_data:
                 log_entry["extra"] = repr(card.extra_data)
-            xml_file.write(xml_format.\
-                repr_log_entry(log_entry).encode("utf-8"))
+            xml_file.write(xml_format.repr_log_entry(log_entry))
             w.increase_progress(1)
         xml_file.write(xml_format.log_entries_footer())
         xml_file.close()
@@ -215,7 +210,7 @@ class Mnemosyne2Cards(FileFormat):
                 self.database().media_dir(), "METADATA")
         if show_metadata:
             metadata = {}
-            for line in file(metadata_filename):
+            for line in open(metadata_filename):
                 key, value = line.split(":", 1)
                 metadata[key] = value.replace("<br>", "\n")
             self.controller().show_export_metadata_dialog(metadata, read_only=True)
@@ -223,7 +218,8 @@ class Mnemosyne2Cards(FileFormat):
         w.set_progress_text(_("Importing cards..."))
         self.database().card_types_to_instantiate_later = set()
         xml_filename = os.path.join(self.database().media_dir(), "cards.xml")
-        element_loop = XMLFormat().parse_log_entries(file(xml_filename, "r"))
+        element_loop = XMLFormat().parse_log_entries(\
+            open(xml_filename, "r", encoding="utf-8"))
         number_of_entries = int(next(element_loop))
         if number_of_entries == 0:
             return

@@ -29,4 +29,4 @@ class GetTextTranslator(Translator):
     def set_translator(self, language):
         self._translator = gettext.translation("mnemosyne",
             localedir=self.lang_path, languages=[language],
-            fallback=True).ugettext
+            fallback=True).gettext

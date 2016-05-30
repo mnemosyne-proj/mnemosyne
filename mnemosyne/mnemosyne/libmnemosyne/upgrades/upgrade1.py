@@ -70,11 +70,11 @@ _("Tried to backup your old 1.x files to %s, but that directory already exists."
         except:
             old_data_dir = str(old_data_dir, "mbcs")
         # Warn people that this directory is no longer used.
-        file(join(old_data_dir,
+        open(join(old_data_dir,
             "DIRECTORY_NO_LONGER_USED_BY_MNEMOSYNE2"), "w").close()
         # Read old configuration.
         old_config = {}
-        config_file = file(join(old_data_dir, "config"), "rb")
+        config_file = open(join(old_data_dir, "config"), "rb")
         for key, value in list(pickle.load(config_file).items()):
             old_config[key] = value
         # Migrate configuration settings.
@@ -101,7 +101,7 @@ _("Tried to backup your old 1.x files to %s, but that directory already exists."
             full_filename = join(old_data_dir, "latex", filename)
             self.config()[setting] = ""
             if os.path.exists(full_filename):
-                for line in file(full_filename):
+                for line in open(full_filename):
                     self.config()[setting] += line
         # Copy over everything that does not interfere with Mnemosyne 2.
         new_data_dir = self.config().data_dir

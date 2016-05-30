@@ -850,7 +850,7 @@ class TestSync(object):
 
             filename = os.path.join(os.path.abspath("dot_sync_server"),
                 "default.db_media", "b", chr(0x628) + "b..ogg")
-            f = file(filename, "w")
+            f = open(filename, "w")
             f.write("B")
             f.close()
             fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
@@ -865,7 +865,7 @@ class TestSync(object):
             filename = os.path.join(os.path.abspath("dot_sync_server"),
                 "default.db_media", "a", chr(0x628) + "a..ogg")
             assert os.path.exists(filename)
-            assert file(filename).read() == "A"
+            assert open(filename).read() == "A"
             assert db.con.execute("select count() from log").fetchone()[0] == 38
             assert db.con.execute("select count() from log where event_type=?",
                 (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 2
@@ -888,7 +888,7 @@ class TestSync(object):
 
         filename = os.path.join(os.path.abspath("dot_sync_client"),
             "default.db_media", "a", chr(0x628) + "a..ogg")
-        f = file(filename, "w")
+        f = open(filename, "w")
         f.write("A")
         f.close()
         fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
@@ -904,7 +904,7 @@ class TestSync(object):
         filename = os.path.join(os.path.abspath("dot_sync_client"),
             "default.db_media", "b", chr(0x628) + "b..ogg")
         assert os.path.exists(filename)
-        assert file(filename).read() == "B"
+        assert open(filename).read() == "B"
         db = self.client.mnemosyne.database()
         assert db.con.execute("select count() from log").fetchone()[0] == 38
         assert db.con.execute("select count() from log where event_type=?",
@@ -923,7 +923,7 @@ class TestSync(object):
     
                 filename = os.path.join(os.path.abspath("dot_sync_server"),
                     "default.db_media", "b", chr(0x628) + "b..ogg")
-                f = file(filename, "w")
+                f = open(filename, "w")
                 f.write("B")
                 f.close()
                 
@@ -941,7 +941,7 @@ class TestSync(object):
                 
                 os.mkdir(os.path.join(os.path.abspath("dot_sync_server"),
                     "default.db_media", "b"))                
-                f = file(filename, "w")
+                f = open(filename, "w")
                 f.write("B")
                 f.close()
                 
@@ -965,7 +965,7 @@ class TestSync(object):
             filename = os.path.join(os.path.abspath("dot_sync_client"),
                 "default.db_media", "b", chr(0x628) + "b..ogg")
             assert os.path.exists(filename)
-            assert file(filename).read() == "B"
+            assert open(filename).read() == "B"
 
     def test_add_media_behind_proxy(self):
 
@@ -975,7 +975,7 @@ class TestSync(object):
 
             filename = os.path.join(os.path.abspath("dot_sync_server"),
                 "default.db_media", "b", chr(0x628) + "b.ogg")
-            f = file(filename, "w")
+            f = open(filename, "w")
             f.write("B")
             f.close()
             fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
@@ -990,7 +990,7 @@ class TestSync(object):
             filename = os.path.join(os.path.abspath("dot_sync_server"),
                 "default.db_media", "a", chr(0x628) + "a.ogg")
             assert os.path.exists(filename)
-            assert file(filename).read() == "A"
+            assert open(filename).read() == "A"
             assert db.con.execute("select count() from log").fetchone()[0] == 38
             assert db.con.execute("select count() from log where event_type=?",
                 (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 2

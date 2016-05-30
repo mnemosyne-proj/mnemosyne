@@ -621,7 +621,7 @@ _("'*.cards' files are not separate databases, but need to be imported in your c
                 db.backup()
                 db.unload()
             except RuntimeError as error:
-                self.main_widget().show_error(str(error.message))
+                self.main_widget().show_error(str(error))
                 self.stopwatch().unpause()
                 return
         try:
@@ -629,7 +629,7 @@ _("'*.cards' files are not separate databases, but need to be imported in your c
             self.log().loaded_database()
             self.log().future_schedule()
         except Exception as error:
-            self.main_widget().show_error(str(error.message))
+            self.main_widget().show_error(str(error))
             db.abandon()
             db.load(old_path)
             self.stopwatch().unpause()
@@ -650,7 +650,7 @@ _("Your database will be autosaved before exiting. Also, it is saved every coupl
             self.log().saved_database()
             self.main_widget().show_information(_("Database saved."))
         except RuntimeError as error:
-            self.main_widget().show_error(str(error.message))
+            self.main_widget().show_error(str(error))
         self.stopwatch().unpause()
 
     def show_save_file_as_dialog(self):
@@ -684,7 +684,7 @@ _("The configuration database cannot be used to store cards."))
             shutil.copytree(old_media_dir, new_media_dir)
             self.log().saved_database()
         except RuntimeError as error:
-            self.main_widget().show_error(str(error.message))
+            self.main_widget().show_error(str(error))
             self.stopwatch().unpause()
             return
         self.review_controller().update_dialog()
@@ -840,7 +840,7 @@ _("This will tag all the cards in a given card type which have the same question
         plugin_filename, plugin_class_name = None, None
         for filename in filenames:
             if filename.endswith(".py"):
-                text = file(os.path.join(plugin_dir, filename), "r").read()
+                text = open(os.path.join(plugin_dir, filename), "r").read()
                 match = re_plugin.match(text)
                 if match is not None:
                     plugin_filename = filename
@@ -850,7 +850,7 @@ _("This will tag all the cards in a given card type which have the same question
             self.main_widget().show_error(_("No plugin found!"))
             return
         # Write manifest to allow uninstalling.
-        manifest = file(os.path.join(plugin_dir,
+        manifest = open(os.path.join(plugin_dir,
             plugin_class_name + ".manifest"), "w")
         for filename in filenames:
             if not os.path.isdir(os.path.join(plugin_dir, filename)):

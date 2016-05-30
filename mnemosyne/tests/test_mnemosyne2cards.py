@@ -213,7 +213,7 @@ class TestMnemosyne2Cards(MnemosyneTest):
         self.database().save()
 
         filename = os.path.join(os.path.abspath("dot_test"), os.path.abspath("test.cards"))
-        file(filename, "w")
+        open(filename, "w")
 
         self.cards_format().do_export(os.path.abspath("test.cards"))
 
@@ -311,14 +311,14 @@ class TestMnemosyne2Cards(MnemosyneTest):
     def test_media(self):
         filename_a = os.path.join(os.path.abspath("dot_test"),
             "default.db_media", chr(0x628) + "a.ogg")
-        f = file(filename_a, "w")
+        f = open(filename_a, "w")
         print("a", file=f)
         f.close()
         os.mkdir(os.path.join(os.path.abspath("dot_test"),
         "default.db_media", "b"))
         filename_b = os.path.join(os.path.abspath("dot_test"),
             "default.db_media", "b", chr(0x628) + "b.ogg")
-        f = file(filename_b, "w")
+        f = open(filename_b, "w")
         print("b", file=f)
         f.close()
 
@@ -339,14 +339,14 @@ class TestMnemosyne2Cards(MnemosyneTest):
     def test_missing_media(self):
         filename_a = os.path.join(os.path.abspath("dot_test"),
             "default.db_media", chr(0x628) + "a.ogg")
-        f = file(filename_a, "w")
+        f = open(filename_a, "w")
         print("a", file=f)
         f.close()
         os.mkdir(os.path.join(os.path.abspath("dot_test"),
         "default.db_media", "b"))
         filename_b = os.path.join(os.path.abspath("dot_test"),
             "default.db_media", "b", chr(0x628) + "b.ogg")
-        f = file(filename_b, "w")
+        f = open(filename_b, "w")
         print("b", file=f)
         f.close()
 

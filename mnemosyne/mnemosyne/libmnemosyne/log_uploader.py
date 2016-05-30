@@ -34,7 +34,7 @@ class LogUploader(Thread, Component):
         boundary = '%s%s_%s_%s' % \
                     ('-----', int(time.time()), os.getpid(),
                      random.randint(1, 10000))
-        f = file(filename, 'rb')
+        f = open(filename, 'rb')
         data = f.read()
         f.close()
         upload_name = str(filename.split("/")[-1].split("\\")[-1])
@@ -76,7 +76,7 @@ class LogUploader(Thread, Component):
         if len(to_upload) == 0:
             return
         # Upload them to our server.
-        upload_log = file(join(data_dir, "history", "uploaded"), 'a')
+        upload_log = open(join(data_dir, "history", "uploaded"), 'a')
         try:
             for f in to_upload:
                 print(_("Uploading"), f, "...", end=' ')

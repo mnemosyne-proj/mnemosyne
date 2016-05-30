@@ -186,10 +186,10 @@ class Logger(Component):
             index = self.log_index_of_last_upload() + 1
             archive_name = "%s_%s_%05d.bz2" % (user, machine, index)
             import bz2  # Not all platforms have bz.
-            f = bz2.BZ2File(os.path.join(data_dir, "history",
+            f = bz2.open(os.path.join(data_dir, "history",
                 archive_name), "w")
-            for l in file(log_name):
-                f.write(l)
+            for l in open(log_name):
+                f.write(l.encode("utf-8"))
             f.close()
             os.remove(log_name)
 

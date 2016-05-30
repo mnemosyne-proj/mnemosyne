@@ -6,6 +6,7 @@ import os
 import sys
 import time
 import sqlite3
+import importlib
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
@@ -293,14 +294,14 @@ class Configuration(Component, dict):
         # Create default config.py.
         config_file = join(self.config_dir, "config.py")
         if not exists(config_file):
-            f = file(config_file, "w")
+            f = open(config_file, "w")
             print(config_py, file=f)
             f.close()
         # Create machine_id. Do this in a separate file, as extra warning
         # signal that people should not copy this file to a different machine.
         machine_id_file = join(self.config_dir, "machine.id")
         if not exists(machine_id_file):
-            f = file(machine_id_file, "w")
+            f = open(machine_id_file, "w")
             print(rand_uuid(), file=f)
             f.close()
 
@@ -373,7 +374,7 @@ class Configuration(Component, dict):
                 del self[property_name][card_type.id]
 
     def machine_id(self):
-        return file(os.path.join(self.config_dir, "machine.id")).\
+        return open(os.path.join(self.config_dir, "machine.id")).\
             readline().rstrip()
 
     def load_user_config(self):
@@ -385,7 +386,7 @@ class Configuration(Component, dict):
         if os.path.exists(config_file):
             try:
                 import config
-                config = reload(config)
+                config = importlib.reload(config)
                 for var in dir(config):
                     if var in self:
                         self[var] = getattr(config, var)

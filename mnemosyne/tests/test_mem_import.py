@@ -191,7 +191,7 @@ class TestMemImport(MnemosyneTest):
             os.path.join(os.getcwd(), "tests", "files", "figs", "a.png"),
             os.path.join(os.getcwd(), "tests", "files", "figs", "figs", "a.png")]
         for filename in figures:
-            file(filename, "w")
+            open(filename, "w")
         filename = os.path.join(os.getcwd(), "tests", "files", "media.mem")
         self.mem_importer().do_import(filename)
         assert os.path.exists(os.path.join(\
@@ -211,7 +211,7 @@ class TestMemImport(MnemosyneTest):
             os.path.join(os.getcwd(), "tests", "files", "a.png"),
             os.path.join(os.getcwd(), "tests", "files", "figs", "a.png")]
         for filename in figures:
-            file(filename, "w")
+            open(filename, "w")
         filename = os.path.join(os.getcwd(), "tests", "files", "media.mem")
         self.mem_importer().do_import(filename)
         assert os.path.exists(os.path.join(\
@@ -241,7 +241,7 @@ class TestMemImport(MnemosyneTest):
             os.path.join(os.getcwd(), "tests", "files", "figs", "a.png"),
             os.path.join(os.getcwd(), "tests", "files", "figs", "figs", "a.png")]
         for filename in figures:
-            file(filename, "w")
+            open(filename, "w")
         filename = os.path.join(os.getcwd(), "tests", "files", "media_slashes.mem")
         self.mem_importer().do_import(filename)
         assert os.path.exists(os.path.join(\
@@ -267,7 +267,7 @@ class TestMemImport(MnemosyneTest):
             os.getcwd(), "tests", "files", "soundfiles"))
         soundname = os.path.join(os.path.join(\
             os.getcwd(), "tests", "files", "soundfiles", "a.ogg"))
-        file(soundname, "w")
+        open(soundname, "w")
         filename = os.path.join(os.getcwd(), "tests", "files", "sound.mem")
         self.mem_importer().do_import(filename)
         assert os.path.exists(os.path.join(\
