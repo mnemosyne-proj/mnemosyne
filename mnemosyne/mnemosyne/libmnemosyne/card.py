@@ -5,7 +5,7 @@
 import time
 
 from mnemosyne.libmnemosyne.utils import CompareOnId
-from mnemosyne.libmnemosyne.utils import rand_uuid, numeric_string_cmp
+from mnemosyne.libmnemosyne.utils import rand_uuid, numeric_string_cmp_key
 
 
 class Card(CompareOnId):
@@ -98,6 +98,6 @@ class Card(CompareOnId):
     def tag_string(self):
         tag_names = [tag.name for tag in self.tags \
             if tag.name != "__UNTAGGED__"]
-        sorted_tag_names = sorted(tag_names, cmp=numeric_string_cmp)
+        sorted_tag_names = sorted(tag_names, key=numeric_string_cmp_key)
         return ", ".join(sorted_tag_names)
 

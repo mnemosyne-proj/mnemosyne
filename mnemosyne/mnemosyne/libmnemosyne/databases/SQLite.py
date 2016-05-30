@@ -20,8 +20,9 @@ from mnemosyne.libmnemosyne.database import Database
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
 from mnemosyne.libmnemosyne.utils import traceback_string, copy
-from mnemosyne.libmnemosyne.utils import numeric_string_cmp, mangle
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
+from mnemosyne.libmnemosyne.utils import numeric_string_cmp_key, mangle
+
 
 # All ids beginning with an underscore refer to primary keys in the SQL
 # database. All other id's correspond to the id's used in libmnemosyne.
@@ -690,7 +691,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                     (cursor[0], )).fetchone()[0]
                 if tag_name != "__UNTAGGED__":
                     tag_names.append(tag_name)
-            sorted_tag_names = sorted(tag_names, cmp=numeric_string_cmp)
+            sorted_tag_names = sorted(tag_names, key=numeric_string_cmp_key)
             tag_string = ", ".join(sorted_tag_names)
             self.con.execute("update cards set tags=? where _id=?",
                 (tag_string, _card_id))
@@ -748,7 +749,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
 
         result = [self.tag(cursor[0], is_id_internal=True) for cursor in \
             self.con.execute("select _id from tags")]
-        result.sort(key=lambda x: x.name, cmp=numeric_string_cmp)
+        result.sort(key=lambda x: numeric_string_cmp_key(x.name))
         index = 0
         # __UNTAGGED__ is typically at the head of the list, apart when tags
         # start with numbers.

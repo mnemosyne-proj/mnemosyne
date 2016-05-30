@@ -127,7 +127,7 @@ class TestTsvImport(MnemosyneTest):
 
     def test_media(self):
         global last_error
-        file(os.path.join(os.getcwd(), "dot_test", "default.db_media", "a.png"), "w")
+        open(os.path.join(os.getcwd(), "dot_test", "default.db_media", "a.png"), "w")
         filename = os.path.join(os.getcwd(), "tests", "files", "tsv_media.txt")
         self.tsv_importer().do_import(filename)
         assert self.database().card_count() == 2

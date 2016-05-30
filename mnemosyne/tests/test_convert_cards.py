@@ -94,7 +94,7 @@ class TestConvertCards(MnemosyneTest):
         new_card_2.answer()
 
     def test_1_to_2_multi(self):
-        file("a.ogg", "w")
+        open("a.ogg", "w")
         full_path = os.path.abspath("a.ogg")
 
         fact_data = {"f": "<img src=\"%s\">" % full_path,

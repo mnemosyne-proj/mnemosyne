@@ -69,7 +69,7 @@ class Latex(Filter):
                 os.remove("tmp.dvi")
             if os.path.exists("tmp.aux"):
                 os.remove("tmp.aux")
-            f = file("tmp.tex", "w")
+            f = open("tmp.tex", "w")
             print(self.config()["latex_preamble"], file=f)
             print(latex_command.encode("utf-8"), file=f)
             print(self.config()["latex_postamble"], file=f)

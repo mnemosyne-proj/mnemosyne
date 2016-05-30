@@ -214,7 +214,7 @@ class SQLiteLogging(object):
             return
         # Open log file and get starting index.
         logname = os.path.join(self.config().data_dir, "log.txt")
-        logfile = file(logname, "a")
+        logfile = open(logname, "a")
         sql_res = self.con.execute(\
             "select _last_log_id from partnerships where partner=?",
             ("log.txt", )).fetchone()

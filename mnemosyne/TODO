@@ -5,10 +5,13 @@ refactor 2 to 3
 
 look at all instances of str
 
-test 'Modern green' in language dialog
+test 'Modern greek' in language dialog
 
 custom pyuic5 to translate Qt strings
 
+
+Emilian autocompletion patch, mnemosyne proj dev post
+https://bazaar.launchpad.net/~emihalac/mnemosyne-proj/mnemosyne-proj/revision/1941
 
 https://bugs.launchpad.net/mnemosyne-proj/+bug/1582509
 

@@ -40,7 +40,7 @@ class RenderChain(Component):
         Component.__init__(self, component_manager)
         self._filters = []
         for filter in self.filters:
-            self._filters.append(list(filter(component_manager)))
+            self._filters.append(filter(component_manager))
         self._renderers = []
         self._renderer_for_card_type = {}
         for renderer in self.renderers:

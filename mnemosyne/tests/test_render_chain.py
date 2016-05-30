@@ -141,6 +141,6 @@ class TestRenderChain(MnemosyneTest):
 
         filename = os.path.join(os.path.abspath("dot_test"),
             "default.db_media", "_latex", "tmp.tex")
-        contents = "".join(file(filename).readlines())
+        contents = "".join(open(filename).readlines())
         assert '<' in contents
         assert "&lt;" not in contents

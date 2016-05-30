@@ -418,7 +418,7 @@ class TestDatabase(MnemosyneTest):
     def test_purge_backups(self):
         backup_dir = os.path.join(self.config().data_dir, "backups")
         for count in range(15):
-            f = file(os.path.join(backup_dir, "default-%d.db" % count), "w")
+            f = open(os.path.join(backup_dir, "default-%d.db" % count), "w")
         self.mnemosyne.finalise()
         backups = [f for f in os.listdir(backup_dir)]
         assert len(backups) == 10

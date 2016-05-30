@@ -137,7 +137,7 @@ class ScienceLogParser(object):
         if filename.endswith(".bz2"):
             self.logfile = bz2.BZ2File(filename)
         else:
-            self.logfile = file(filename)
+            self.logfile = open(filename)
         # For pre-2.0 logs, we need to hang on to the previous timestamp, as
         # this will be used as the time the card was shown, in order to
         # calculate the actual interval. (The timestamps for repetitions are

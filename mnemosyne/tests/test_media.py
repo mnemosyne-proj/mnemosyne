@@ -47,7 +47,7 @@ class TestMedia(MnemosyneTest):
     def test_sound_2(self):
         global filename
 
-        file("a.ogg", "w")
+        open("a.ogg", "w")
         filename = os.path.abspath("a.ogg")
         self.controller().show_insert_sound_dialog("")
         assert os.path.exists(os.path.join(self.database().media_dir(), "a.ogg"))
@@ -59,7 +59,7 @@ class TestMedia(MnemosyneTest):
     def test_sound_2_unicode(self):
         global filename
 
-        file(chr(40960) + "a.ogg", "w")
+        open(chr(40960) + "a.ogg", "w")
         filename = os.path.abspath(chr(40960) + "a.ogg")
         self.controller().show_insert_sound_dialog("")
         assert os.path.exists(os.path.join(self.database().media_dir(), chr(40960) + "a.ogg"))
@@ -71,7 +71,7 @@ class TestMedia(MnemosyneTest):
     def test_sound_3(self):
         global filename
 
-        file("a.ogg", "w")
+        open("a.ogg", "w")
 
         filename = os.path.abspath("a.ogg")
         self.controller().show_insert_sound_dialog("")
@@ -92,7 +92,7 @@ class TestMedia(MnemosyneTest):
     def test_img_2(self):
         global filename
 
-        file("a.ogg", "w")
+        open("a.ogg", "w")
         filename = os.path.abspath("a.ogg")
         self.controller().show_insert_img_dialog("")
         assert os.path.exists(os.path.join(self.database().media_dir(), "a.ogg"))
@@ -107,13 +107,13 @@ class TestMedia(MnemosyneTest):
         subdir = os.path.join(self.database().media_dir(), "subdir")
         os.mkdir(subdir)
         filename = os.path.join(subdir, "b.ogg")
-        file(filename, "w")
+        open(filename, "w")
         self.controller().show_insert_img_dialog("")
         assert os.path.exists(os.path.join(self.database().media_dir(),
                                            "subdir", "b.ogg"))
 
     def test_card(self):
-        file("a.ogg", "w")
+        open("a.ogg", "w")
         full_path = os.path.abspath("a.ogg").replace("\\", "/")
         fact_data = {"f": "<img src=\"%s\">" % full_path,
                      "b": "answer"}
@@ -134,7 +134,7 @@ class TestMedia(MnemosyneTest):
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 1
 
     def test_audio_start_stop(self):
-        file("a.ogg", "w")
+        open("a.ogg", "w")
         full_path = os.path.abspath("a.ogg").replace("\\", "/")
         fact_data = {"f": "<audio src=\"%s\" start=\"1\" stop=\"3\">" % full_path,
                      "b": "answer"}
@@ -194,7 +194,7 @@ class TestMedia(MnemosyneTest):
                                               grade=-1, tag_names=["default"])[0]
 
     def test_card_edit_none(self):
-        file("a.ogg", "w")
+        open("a.ogg", "w")
         full_path = os.path.abspath("a.ogg")
 
         fact_data = {"f": "<img src=\"%s\">" % full_path,
@@ -221,7 +221,7 @@ class TestMedia(MnemosyneTest):
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 1
 
     def test_card_edit_add(self):
-        file("a.ogg", "w")
+        open("a.ogg", "w")
         full_path = os.path.abspath("a.ogg").replace("\\", "/")
 
         fact_data = {"f": "<img src=\"%s\">" % full_path,
@@ -231,7 +231,7 @@ class TestMedia(MnemosyneTest):
                                               grade=-1, tag_names=["default"])[0]
         # Make sure we don't reuse existing objects.
         card = self.database().card(card._id, is_id_internal=True)
-        file("b.ogg", "w")
+        open("b.ogg", "w")
         full_path = os.path.abspath("b.ogg").replace("\\", "/")
         fact_data = {"f": "edited <img src=\"%s\"> <img src=\"%s\">" \
                      % ("a.ogg", full_path),
@@ -251,7 +251,7 @@ class TestMedia(MnemosyneTest):
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 2
 
     def test_card_edit_delete(self):
-        file("a.ogg", "w")
+        open("a.ogg", "w")
         full_path = os.path.abspath("a.ogg").replace("\\", "/")
 
         fact_data = {"f": "<img src=\"%s\">" % full_path,
@@ -280,7 +280,7 @@ class TestMedia(MnemosyneTest):
             (EventTypes.DELETED_MEDIA_FILE, )).fetchone()[0] == 1
 
     def test_card_edit_delete_used_by_other(self):
-        file("a.ogg", "w")
+        open("a.ogg", "w")
         full_path = os.path.abspath("a.ogg")
 
         fact_data = {"f": "<img src=\"%s\">" % full_path,
@@ -308,7 +308,7 @@ class TestMedia(MnemosyneTest):
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 1
 
     def test_delete_fact(self):
-        file("a.ogg", "w")
+        open("a.ogg", "w")
         full_path = os.path.abspath("a.ogg")
 
         fact_data = {"f": "<img src=\"%s\">" % full_path,
@@ -327,7 +327,7 @@ class TestMedia(MnemosyneTest):
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 1
 
     def test_delete_fact_used_by_other(self):
-        file("a.ogg", "w")
+        open("a.ogg", "w")
         full_path = os.path.abspath("a.ogg")
 
         fact_data = {"f": "<img src=\"%s\">" % full_path,
@@ -349,14 +349,14 @@ class TestMedia(MnemosyneTest):
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 1
 
     def test_unused(self):
-        file(os.path.join(self.database().media_dir(), "a.ogg"), "w")
+        open(os.path.join(self.database().media_dir(), "a.ogg"), "w")
         os.mkdir(os.path.join(self.database().media_dir(), "sub"))
-        file(os.path.join(self.database().media_dir(), "sub", "b.ogg"), "w")
+        open(os.path.join(self.database().media_dir(), "sub", "b.ogg"), "w")
 
         os.mkdir(os.path.join(self.database().media_dir(), "_keep"))
-        file(os.path.join(self.database().media_dir(), "_keep", "b.ogg"), "w")
+        open(os.path.join(self.database().media_dir(), "_keep", "b.ogg"), "w")
 
-        file("c.ogg", "w")
+        open("c.ogg", "w")
         full_path = os.path.abspath("c.ogg")
 
         fact_data = {"f": "<img src=\"%s\">" % full_path,

@@ -65,16 +65,13 @@ media_dir + ".\n" + _("Check your file permissions and make sure the directory i
         if not path_exists(filename):
             return "0"
         
-        assert(type(filename) == str)
-        media_file = file(filename, "rb")
-        
+        media_file = open(filename, "rb")
         
         #try:
         #    media_file = file(filename, "rb")
         #except UnicodeEncodeError:  # Android specific issue.
         #    media_file = file(filename.encode("utf-8"), "rb")
-            
-            
+                
             
         hasher = md5()
         while True:

@@ -214,7 +214,7 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
             os.path.join(os.getcwd(), "tests", "files", "figs", "a.png"),
             os.path.join(os.getcwd(), "tests", "files", "figs", "figs", "a.png")]
         for filename in figures:
-            file(filename, "w")
+            open(filename, "w")
         filename = os.path.join(os.getcwd(), "tests", "files", "media.xml")
         self.xml_importer().do_import(filename)
         assert os.path.exists(os.path.join(\
@@ -236,7 +236,7 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
             os.path.join(os.getcwd(), "tests", "files", "a.png"),
             os.path.join(os.getcwd(), "tests", "files", "figs", "a.png")]
         for filename in figures:
-            file(filename, "w")
+            open(filename, "w")
         filename = os.path.join(os.getcwd(), "tests", "files", "media.xml")
         self.xml_importer().do_import(filename)
         assert os.path.exists(os.path.join(\
@@ -270,7 +270,7 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
             os.path.join(os.getcwd(), "tests", "files", "figs", "a.png"),
             os.path.join(os.getcwd(), "tests", "files", "figs", "figs", "a.png")]
         for filename in figures:
-            file(filename, "w")
+            open(filename, "w")
         filename = os.path.join(os.getcwd(), "tests", "files", "media_slashes.xml")
         self.xml_importer().do_import(filename)
         assert os.path.exists(os.path.join(\
@@ -290,7 +290,7 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
             os.getcwd(), "tests", "files", "soundfiles"))
         soundname = os.path.join(os.path.join(\
             os.getcwd(), "tests", "files", "soundfiles", "a.ogg"))
-        file(soundname, "w")
+        open(soundname, "w")
         filename = os.path.join(os.getcwd(), "tests", "files", "sound.xml")
         self.xml_importer().do_import(filename)
         assert os.path.exists(os.path.join(\

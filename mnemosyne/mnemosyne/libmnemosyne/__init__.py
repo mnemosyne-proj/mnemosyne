@@ -4,6 +4,7 @@
 
 import os
 import sys
+import importlib
 import traceback
 
 from mnemosyne.libmnemosyne.component import Component
@@ -243,8 +244,7 @@ class Mnemosyne(Component):
         """
 
         for module_name, class_name in self.components:
-            exec("from %s import %s" % (module_name, class_name))
-            exec("component = %s" % class_name)
+            component = getattr(importlib.import_module(module_name), class_name)
             if component.instantiate == Component.IMMEDIATELY:
                 component = component(self.component_manager)
             self.component_manager.register(component)
@@ -368,9 +368,10 @@ _("If you are using a USB key, refer to the instructions on the website so as no
         self.database().deactivate()
         self.component_manager.unregister(self.database())
         # Then do the review widget and other components.
-        self.review_widget().deactivate()
+        if self.review_widget():
+            self.review_widget().deactivate()
         self.component_manager.deactivate_all()
         unregister_component_manager(user_id)
         if self.component_manager.debug_file:
             self.component_manager.debug_file.close()
-
+            
