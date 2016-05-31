@@ -62,15 +62,16 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         sys.modules["mnemosyne.core"] = object()
         sys.modules["mnemosyne.core.mnemosyne_core"] \
             = Mnemosyne1.MnemosyneCore()
-        try:
-            memfile = file(filename, "rb")
+        if 1: #try:
+            memfile = open(filename, "rb")
             header = memfile.readline()
             self.starttime, self.categories, self.items \
                 = pickle.load(memfile)
             self.starttime = self.starttime.time
-        except:
-            self.main_widget().show_error(_("Unable to open file."))
-            raise MnemosyneError
+        #except Exception as e:
+        #    print(e)
+        #    self.main_widget().show_error(_("Unable to open file."))
+        #    raise MnemosyneError
 
     def import_logs(self, filename):
         w = self.main_widget()
