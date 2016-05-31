@@ -64,6 +64,7 @@ class TestTsvImport(MnemosyneTest):
 
     def test_1(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "tsv_1.txt")
+        print(filename)
         self.tsv_importer().do_import(filename)
         assert last_error == ""
         self.review_controller().reset()
@@ -97,24 +98,26 @@ class TestTsvImport(MnemosyneTest):
         self.tsv_importer().do_import(filename, 'extra_tag_name')
         assert self.database().card_count() == 5
         assert last_error == ""
+        
+    # We no longer support non-utf-8 encoded files.
 
-    def test_6(self):
-        global last_error
-        filename = os.path.join(os.getcwd(), "tests", "files", "tsv_4.txt")
-        self.tsv_importer().do_import(filename, 'extra_tag_name')
-        assert self.database().card_count() == 1
-        self.review_controller().reset()
-        assert "\\u00E0" in self.review_controller().card.question()
-        assert last_error == ""
+    #def test_6(self):
+    #    global last_error
+    #    filename = os.path.join(os.getcwd(), "tests", "files", "tsv_4.txt")
+    #    self.tsv_importer().do_import(filename, 'extra_tag_name')
+    #    assert self.database().card_count() == 1
+    #    self.review_controller().reset()
+    #    assert "\\u00E0" in self.review_controller().card.question()
+    #    assert last_error == ""
 
-    def test_7(self):
-        global last_error
-        filename = os.path.join(os.getcwd(), "tests", "files", "tsv_5.txt")
-        self.tsv_importer().do_import(filename, 'extra_tag_name')
-        assert self.database().card_count() == 1
-        self.review_controller().reset()
-        assert "\\u00E0" in self.review_controller().card.question()
-        assert last_error == ""
+    #def test_7(self):
+    #    global last_error
+    #    filename = os.path.join(os.getcwd(), "tests", "files", "tsv_5.txt")
+    #    self.tsv_importer().do_import(filename, 'extra_tag_name')
+    #    assert self.database().card_count() == 1
+    #    self.review_controller().reset()
+    #    assert "\\u00E0" in self.review_controller().card.question()
+    #    assert last_error == ""
 
     def test_8(self):
         global last_error
