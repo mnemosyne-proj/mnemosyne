@@ -20,7 +20,7 @@ class Mnemosyne1(MediaPreprocessor):
     class MnemosyneCore(object):
 
         """Dummy 1.x module structure."""
-
+      
         class StartTime:
             pass
         class Category:

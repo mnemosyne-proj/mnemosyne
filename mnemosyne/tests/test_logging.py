@@ -385,6 +385,4 @@ class TestLogging(MnemosyneTest):
         arch_con = sqlite3.connect(archive_path)
         assert arch_con.execute("select count() from log").fetchone()[0] == 11
         
-
-        
         

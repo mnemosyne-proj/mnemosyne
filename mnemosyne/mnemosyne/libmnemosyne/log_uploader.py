@@ -43,34 +43,31 @@ class LogUploader(Thread, Component):
                    ' name="file"; filename="%s"' % (upload_name))
         hdr.append('Content-Type: application/octet-stream')
         hdr.append('Content-Length: %d' % len(data))
-        part.append("%s\n\n%s" % ('\n'.join(hdr), data))
-        total.append('--%s\n' % boundary)
-        total.append(("\n--%s\n" % boundary).join(part))
-        total.append('\n--%s--\n' % boundary)
-        query = ''.join(total)
+        header = (('--%s\n' % boundary) + "\n".join(hdr) + "\n\n").encode("utf-8")
+        footer = ('\n--%s--\n' % boundary).encode("utf-8")
+        query = header + data + footer
         contentType = 'multipart/form-data; boundary=%s' % boundary
         contentLength = str(len(query))
         headers = {'Accept' : '*/*',
                    'Proxy-Connection' : 'Keep-Alive',
                    'Content-Type' : contentType,
                    'Content-Length' : contentLength}
-        req = urllib.request.Request('http://' + host + ':' + port+uri, query, headers)
+        req = urllib.request.Request('http://' + host + ':' + port+uri, query , headers)
         response = urllib.request.urlopen(req)
         html = response.read()
 
     def run(self):
         data_dir = self.config().data_dir
         join = os.path.join
-        dir = os.listdir(str(join(data_dir, "history")))
         # Find out which files haven't been uploaded yet.
         dir = os.listdir(str(join(data_dir, "history")))
         history_files = [x for x in dir if x.endswith(".bz2")]
-        uploaded = None
-        try:
-            upload_log = file(join(data_dir, "history", "uploaded"))
+        uploaded_filename = join(data_dir, "history", "uploaded")
+        if os.path.exists(uploaded_filename):
+            upload_log = open(uploaded_filename)
             uploaded = [x.strip() for x in upload_log]
             upload_log.close()
-        except:
+        else:
             uploaded = []
         to_upload = set(history_files) - set(uploaded)
         if len(to_upload) == 0:

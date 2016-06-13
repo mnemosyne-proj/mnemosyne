@@ -87,14 +87,14 @@ coverage: install-virtual-env
 	./bin/nosetests --with-coverage --cover-erase \
 	--cover-package=mnemosyne.libmnemosyne,openSM2sync || (echo "testsuite failed")
 	./bin/coverage html
-	google-chrome htmlcov/index.html
+	firefox htmlcov/index.html || chromium htmlcov/index.html || google-chrome htmlcov/index.html
 	
 coverage-windows: install-virtual-env-windows
 	rm -rf .coverage cover htmlcov
 	Scripts/nosetests --with-coverage --cover-erase \
 	--cover-package=mnemosyne.libmnemosyne,openSM2sync || (echo "testsuite failed")
 	Scripts/coverage html
-	google-chrome htmlcov/index.html
+	firefox htmlcov/index.html || chromium htmlcov/index.html || google-chrome htmlcov/index.html
 	
 profile: install-virtual-env
 	echo "from hotshot import stats" > process_profile.py

@@ -1,8 +1,3 @@
-
-refactor 2 to 3
-
-!C:\Python27\tools\scripts\2to3.py setup.py tests science_server po openSM2sync mnemosyne
-
 look at all instances of str
 
 test 'Modern greek' in language dialog
