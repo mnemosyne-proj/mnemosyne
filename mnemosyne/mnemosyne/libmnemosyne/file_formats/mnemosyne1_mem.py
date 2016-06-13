@@ -62,12 +62,17 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         sys.modules["mnemosyne.core"] = object()
         sys.modules["mnemosyne.core.mnemosyne_core"] \
             = Mnemosyne1.MnemosyneCore()
+        # http://bugs.python.org/issue22005
         if 1: #try:
             memfile = open(filename, "rb")
             header = memfile.readline()
             self.starttime, self.categories, self.items \
-                = pickle.load(memfile)
-            self.starttime = self.starttime.time
+                = pickle.load(memfile, encoding="bytes")
+            print(self.starttime.__dict__)
+            print(self.categories[0].__dict__)
+            print(self.items[0].__dict__)
+            
+            self.starttime = self.starttime.__dict__[b"time"]
         #except Exception as e:
         #    print(e)
         #    self.main_widget().show_error(_("Unable to open file."))

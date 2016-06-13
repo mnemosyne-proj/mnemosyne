@@ -23,7 +23,7 @@ class Tsv(FileFormat, MediaPreprocessor):
 
     description = _("Tab-separated text files")
     extension = ".txt"
-    filename_filter = _("Tab-separated text files (*.txt *.tsv)")
+    filename_filter = _("Tab-separated text files (*.txt *.tsv *.tab)")
     import_possible = True
     export_possible = True
 
