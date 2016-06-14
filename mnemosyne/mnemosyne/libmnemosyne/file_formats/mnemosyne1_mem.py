@@ -62,21 +62,55 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         sys.modules["mnemosyne.core"] = object()
         sys.modules["mnemosyne.core.mnemosyne_core"] \
             = Mnemosyne1.MnemosyneCore()
+        # For importing Python 2 pickles, we run into this bug:
         # http://bugs.python.org/issue22005
-        if 1: #try:
+        # Workaround is opening this file using 'bytes' encoding, but
+        # this requires extra work for us in setting up the data members.
+        try:
             memfile = open(filename, "rb")
             header = memfile.readline()
             self.starttime, self.categories, self.items \
                 = pickle.load(memfile, encoding="bytes")
-            print(self.starttime.__dict__)
-            print(self.categories[0].__dict__)
-            print(self.items[0].__dict__)
-            
             self.starttime = self.starttime.__dict__[b"time"]
-        #except Exception as e:
-        #    print(e)
-        #    self.main_widget().show_error(_("Unable to open file."))
-        #    raise MnemosyneError
+            for category in self.categories:
+                category.name = category.__dict__[b"name"]
+                category.active = category.__dict__[b"active"]
+                del category.__dict__[b"name"]
+                del category.__dict__[b"active"]
+            for item in self.items:
+                item.id = item.__dict__[b"id"]
+                item.cat = item.__dict__[b"cat"]
+                item.q = item.__dict__[b"q"]
+                item.a = item.__dict__[b"a"]
+                item.unseen = item.__dict__[b"unseen"]
+                item.grade = item.__dict__[b"grade"]
+                item.next_rep = item.__dict__[b"next_rep"]
+                item.last_rep = item.__dict__[b"last_rep"]
+                item.easiness = item.__dict__[b"easiness"] 
+                item.acq_reps = item.__dict__[b"acq_reps"] 
+                item.ret_reps = item.__dict__[b"ret_reps"]  
+                item.lapses = item.__dict__[b"lapses"] 
+                item.acq_reps_since_lapse = \
+                    item.__dict__[b"acq_reps_since_lapse"] 
+                item.ret_reps_since_lapse = \
+                    item.__dict__[b"ret_reps_since_lapse"]                
+                del item.__dict__[b"id"]
+                del item.__dict__[b"cat"]
+                del item.__dict__[b"q"]
+                del item.__dict__[b"a"]
+                del item.__dict__[b"unseen"]
+                del item.__dict__[b"grade"]
+                del item.__dict__[b"next_rep"]
+                del item.__dict__[b"last_rep"] 
+                del item.__dict__[b"easiness"] 
+                del item.__dict__[b"acq_reps"] 
+                del item.__dict__[b"ret_reps"]  
+                del item.__dict__[b"lapses"] 
+                del item.__dict__[b"acq_reps_since_lapse"] 
+                del item.__dict__[b"ret_reps_since_lapse"]                 
+        except Exception as e:
+            self.main_widget().show_error(_("Unable to open file."))
+            raise MnemosyneError
 
     def import_logs(self, filename):
         w = self.main_widget()
@@ -112,6 +146,8 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
             try:
                 parser.parse(filename)
             except Exception as e:
+                import sys; sys.stderr.write(str(e))
+                2/0
                 ignored_files.append(filename)
             w.increase_progress(1)
         if ignored_files:
