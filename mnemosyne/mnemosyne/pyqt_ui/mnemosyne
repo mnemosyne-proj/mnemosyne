@@ -49,7 +49,7 @@ parser.add_option("--version", dest="version",
 
 if options.version == True:
     from mnemosyne.version import version
-    print "Mnemosyne " + version
+    print("Mnemosyne " + version)
     sys.exit(0)
 
 # Check if we have to override the data_dir determined in libmnemosyne,
@@ -122,7 +122,7 @@ if options.web_server == True or options.sync_server == True:
     sys.exit(0)
 
 # Initialise GUI toolkit.
-from PyQt5.QtGui import QApplication
+from PyQt5.QtWidgets import QApplication
 
 a = QApplication(sys.argv)
 a.setApplicationName("Mnemosyne")

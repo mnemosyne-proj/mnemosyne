@@ -134,6 +134,8 @@ class ScienceLogParser(object):
                 self.user_id, self.machine_id, self.log_number = \
                     before_extension.split("_")
             self.log_number = int(self.log_number)
+        if os.path.getsize(filename) == 0:
+            return
         if filename.endswith(".bz2"):
             self.logfile = bz2.BZ2File(filename)
         else:
@@ -152,9 +154,7 @@ class ScienceLogParser(object):
                 continue
             try:
                 self._parse_line(line)
-            except Exception as e:
-                sys.stderr.write(str(e))
-                3/0
+            except:
                 print("Ignoring error in file '%s' while parsing line:\n%s" %
                     (filename, line))
                 print(traceback_string())
