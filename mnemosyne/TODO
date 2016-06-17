@@ -1,4 +1,3 @@
-remove / 0 
 look at all instances of str
 
 test 'Modern greek' in language dialog
@@ -10,6 +9,8 @@ Emilian autocompletion patch, mnemosyne proj dev post
 https://bazaar.launchpad.net/~emihalac/mnemosyne-proj/mnemosyne-proj/revision/1941
 
 https://bugs.launchpad.net/mnemosyne-proj/+bug/1582509
+
+https://bugs.launchpad.net/bugs/1592975
 
 clean up unicode and android/w10 issues. Check why testsuite did not register this error.
 archive files wont download from dot_test to android
@@ -84,6 +85,7 @@ to  "last_db_maintenance": time.time() ?
 
 -windows 'python setup.py install': missing share locale path when starting configure
 -profile testsuite
+
 
 -select saved set, delete that set: set name is still visible in windows header
 
@@ -604,3 +606,6 @@ Multiuser statistics analysis:
 -corner case: If M > 0 and k < 0 then (a,b) is a local maximum
 If M > 0 and k > 0 then (a,b) is a local minimum: eats < ... >
 
+- Refactor build process so that all files/directories created by
+  `make setup`, `make`, `make test`, and `make coverage`, etc, all
+  end up under a single 'build' directory. See https://goo.gl/Nrd5nz
