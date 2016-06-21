@@ -2,6 +2,8 @@ look at all instances of str
 
 test 'Modern greek' in language dialog
 
+test if localhost_IP works
+
 custom pyuic5 to translate Qt strings
 
 
