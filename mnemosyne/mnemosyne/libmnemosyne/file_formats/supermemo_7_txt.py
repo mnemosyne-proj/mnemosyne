@@ -69,14 +69,10 @@ class SuperMemo7Txt(FileFormat, MediaPreprocessor):
     def do_import(self, filename, extra_tag_names=None):
         f = None
         try:
-            f = file(filename)
+            f = file(filename, 'rb')
         except:
-            try:
-                f = file(filename.encode("latin"))
-            except:
-                self.main_widget().show_error(\
-                    _("Could not determine encoding."))
-                return
+            self.main_widget().show_error(_("Could not load file."))
+            return
         state = "CARD-START"
         next_state = None
         error = False

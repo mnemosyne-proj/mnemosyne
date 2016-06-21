@@ -325,16 +325,12 @@ class CompareOnId(object):
 
 # Hack to determine local IP.
 
-from openSM2sync import server
-print(server)
-from server import realsocket
-#import sys; sys.stderr.write(str(dir (server)))
-print(realsocket)
-
 def localhost_IP():
     import socket
-    try:
-        s = openSM2sync.server.realsocket(socket.AF_INET, socket.SOCK_DGRAM)
+    from openSM2sync.server import realsocket
+    try:      
+        s = realsocket(socket.AF_INET, socket.SOCK_DGRAM)
+        import sys; sys.stderr.write(get_real_socket())
         s.connect(("google.com", 8000))
         return s.getsockname()[0]
     except:
