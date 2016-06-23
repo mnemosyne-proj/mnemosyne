@@ -4,8 +4,9 @@ from distutils.core import Extension
 from setuptools import setup
 
 if sys.platform == "win32":
-    import py2exe
-    from py2exe.build_exe import py2exe
+    pass
+    #import py2exe
+    #from py2exe.build_exe import py2exe
 else:
     class py2exe:
         pass
@@ -81,7 +82,7 @@ class InnoScript:
                 raise RuntimeError("ShellExecute failed, error %d" % res)
 
 
-class build_installer(py2exe):
+class build_installer(): #py2exe):
 
     """This first builds the exe file(s), then creates a Windows installer.
     You need InnoSetup for it.
@@ -234,9 +235,9 @@ setup(name = "Mnemosyne",
       data_files = data_files,
       scripts = ["mnemosyne/pyqt_ui/mnemosyne"],
       # py2exe
-      windows = [{"script": "mnemosyne/pyqt_ui/mnemosyne",
-                  "icon_resources": [(1, "pixmaps/mnemosyne.ico")]}],
-      cmdclass = {"py2exe": build_installer},
+      #windows = [{"script": "mnemosyne/pyqt_ui/mnemosyne",
+      #            "icon_resources": [(1, "pixmaps/mnemosyne.ico")]}],
+      #cmdclass = {"py2exe": build_installer},
       # py2app
       setup_requires = setup_requires,
       options = {"py2app": py2app_options, "py2exe": py2exe_options},

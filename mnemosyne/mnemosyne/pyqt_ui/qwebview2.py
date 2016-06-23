@@ -3,12 +3,13 @@
 #
 
 import webbrowser
-from PyQt5 import QtWebKit, QtGui, QtWidgets
+from PyQt5 import QtGui, QtWidgets
+from PyQt5 import QtWebEngineWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 
 
-class QWebView2(QtWebKit.QWebView):
+class QWebView2(QtWebEngineWidgets.QWebEngineView):
 
     """QWebView which restores the focus to the review widget,
     so that the keyboard shortcuts still continue to work.

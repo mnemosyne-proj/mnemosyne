@@ -24,7 +24,7 @@ if sys.platform == "win32":
                 MessageBox = ctypes.windll.user32.MessageBoxA
                 MessageBox(None, text, "Mnemosyne", 0)
 
-    sys.stderr = Stderr()
+    #sys.stderr = Stderr()
 
 from optparse import OptionParser
 
