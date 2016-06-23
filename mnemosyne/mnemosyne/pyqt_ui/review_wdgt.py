@@ -2,7 +2,8 @@
 # review_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt5 import QtCore, QtGui, QtWebKit, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets
+#from PyQt5 import QtWebEngineWidgets
 
 import sys
 
@@ -25,17 +26,17 @@ class QAOptimalSplit:
 
     def __init__(self):
         self.question.settings().setAttribute(\
-            QtWebKit.QWebSettings.PluginsEnabled, True)
+            QtWebEngineWidgets.QWebEngineSettings.PluginsEnabled, True)
         self.answer.settings().setAttribute(\
-            QtWebKit.QWebSettings.PluginsEnabled, True)
-        # Add some dummy QWebViews that will be used to determine the actual
+            QtWebEngineWidgets.QWebEngineSettings.PluginsEnabled, True)
+        # Add some dummy QWebEngineEngineViews that will be used to determine the actual
         # size of the rendered html. This information will then be used to
         # determine the optimal split between the question and the answer
         # pane.
-        self.question_preview = QtWebKit.QWebView()
+        self.question_preview = QtWebEngineWidgets.QWebEngineView()
         self.question_preview.loadFinished.connect(\
             self.question_preview_load_finished)
-        self.answer_preview = QtWebKit.QWebView()
+        self.answer_preview = QtWebEngineWidgets.QWebEngineView()
         self.answer_preview.loadFinished.connect(\
             self.answer_preview_load_finished)
         # Calculate an offset to use in the stretching factor of the boxes,
@@ -193,7 +194,8 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget)
      
     def __init__(self, component_manager):
         parent = self.main_widget()
-        super().__init__(parent, component_manager=component_manager)
+        super().__init__(parent)
+        ReviewWidget.__init__(self, component_manager)
         parent.setCentralWidget(self)
         self.setupUi(self)
         # TODO: move this to designer with update of PyQt.
@@ -316,7 +318,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget)
         
     def copy(self):
         self.widget_with_last_selection.pageAction(\
-            QtWebKit.QWebPage.Copy).trigger()
+            QtWebEngineKit.QWebEnginePage.Copy).trigger()
 
     def show_answer(self):     
         self.review_controller().show_answer()

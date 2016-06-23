@@ -6,6 +6,9 @@ test if localhost_IP works
 
 custom pyuic5 to translate Qt strings
 
+reenable py2exe
+reenable custum error handling windows (main 'mnemosyne' file)
+
 
 Emilian autocompletion patch, mnemosyne proj dev post
 https://bazaar.launchpad.net/~emihalac/mnemosyne-proj/mnemosyne-proj/revision/1941
