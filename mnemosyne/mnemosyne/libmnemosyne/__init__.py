@@ -244,15 +244,10 @@ class Mnemosyne(Component):
         """
 
         for module_name, class_name in self.components:
-            print (module_name)
             component = getattr(importlib.import_module(module_name), class_name)
-            print(component)
             if component.instantiate == Component.IMMEDIATELY:
-                print("instantiate")
                 component = component(self.component_manager)
-                print("done")
             self.component_manager.register(component)
-        print("done")
         for plugin_name in self.extra_components_for_plugin:
             print(plugin_name)
             for module_name, class_name in \
@@ -261,7 +256,6 @@ class Mnemosyne(Component):
                 exec("component = %s" % class_name)
                 self.component_manager.add_component_to_plugin(\
                     plugin_name, component)
-        print("done")
 
     def activate_components(self):
 

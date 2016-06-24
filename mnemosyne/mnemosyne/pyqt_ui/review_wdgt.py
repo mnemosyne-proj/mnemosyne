@@ -2,9 +2,7 @@
 # review_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
-#from PyQt5 import QtWebEngineWidgets
-
+from PyQt5 import QtCore, QtGui, QtWidgets, QtWebEngineWidgets
 import sys
 
 from mnemosyne.libmnemosyne.translator import _

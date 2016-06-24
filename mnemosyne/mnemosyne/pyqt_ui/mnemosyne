@@ -122,6 +122,8 @@ if options.web_server == True or options.sync_server == True:
     sys.exit(0)
 
 # Initialise GUI toolkit.
+
+from PyQt5 import QtWebEngineWidgets  # Needs to happen first for some reason.
 from PyQt5.QtWidgets import QApplication
 
 a = QApplication(sys.argv)
