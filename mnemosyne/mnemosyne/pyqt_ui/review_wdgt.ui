@@ -32,7 +32,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QWebView" name="question">
+        <widget class="QWebEngineView" name="question">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -172,7 +172,7 @@
   <customwidget>
    <class>QWebEngineView</class>
    <extends>QWidget</extends>
-   <header>QtWebEngineWidgets/QWebEngineView</header>
+   <header>Qt5/QtWebEngineWidgets</header>
   </customwidget>
  </customwidgets>
  <resources/>

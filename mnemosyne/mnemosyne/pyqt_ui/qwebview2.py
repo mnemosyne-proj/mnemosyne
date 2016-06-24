@@ -3,8 +3,7 @@
 #
 
 import webbrowser
-from PyQt5 import QtGui, QtWidgets
-from PyQt5 import QtWebEngineWidgets
+from PyQt5 import QtGui, QtWidgets, QtWebEngineWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 
