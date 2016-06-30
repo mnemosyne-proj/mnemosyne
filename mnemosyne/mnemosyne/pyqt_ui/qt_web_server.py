@@ -40,18 +40,20 @@ class ServerThread(QtCore.QThread, WebServer):
 
     review_started_signal = QtCore.pyqtSignal()
     review_ended_signal = QtCore.pyqtSignal()
-    information_signal = QtCore.pyqtSignal(QtCore.QString)
-    error_signal = QtCore.pyqtSignal(QtCore.QString)
-    question_signal = QtCore.pyqtSignal(QtCore.QString, QtCore.QString,
-        QtCore.QString, QtCore.QString)
-    set_progress_text_signal = QtCore.pyqtSignal(QtCore.QString)
+    information_signal = QtCore.pyqtSignal(str)
+    error_signal = QtCore.pyqtSignal(str)
+    question_signal = QtCore.pyqtSignal(str, str, str, str)
+    set_progress_text_signal = QtCore.pyqtSignal(str)
     set_progress_range_signal = QtCore.pyqtSignal(int)
     set_progress_update_interval_signal = QtCore.pyqtSignal(int)
     increase_progress_signal = QtCore.pyqtSignal(int)
     set_progress_value_signal = QtCore.pyqtSignal(int)
     close_progress_signal = QtCore.pyqtSignal()
 
-    def __init__(self, component_manager, port, data_dir, config_dir, filename):
+    def __init__(self, port, data_dir, config_dir, filename, **kwds):
+        super().__init__(**kwds)
+        
+    def __init__(self, component_manager, ):
         super().__init__(component_manager, port, data_dir, 
                            config_dir, filename)
         self.server_has_connection = False
@@ -166,9 +168,8 @@ class QtWebServer(Component, QtCore.QObject):
 
     component_type = "web_server"
 
-    def __init__(self, component_manager):
-        super().__init__(component_manager)
-        super().__init__()
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
         self.thread = None
         # Since we will overwrite the true main widget in the thread, we need
         # to save it here.
@@ -179,9 +180,10 @@ class QtWebServer(Component, QtCore.QObject):
             # Restart the thread to have the new settings take effect.
             self.deactivate()
             try:
-                self.thread = ServerThread(self.component_manager,
+                self.thread = ServerThread(
                     self.config()["web_server_port"], self.config().data_dir,
-                    self.config().config_dir, self.config()["last_database"])
+                    self.config().config_dir, self.config()["last_database"],
+                    component_manager=self.component_manager)
             except socket.error as xxx_todo_changeme:
                 (errno, e) = xxx_todo_changeme.args
                 if errno == 98:

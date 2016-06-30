@@ -16,15 +16,15 @@ class ConfigurationDlg(QtWidgets.QDialog, Ui_ConfigurationDlg, ConfigurationDial
 
     """
 
-    def __init__(self, component_manager):
-        super().__init__(self.main_widget(), component_manager=component_manager)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
         for widget in self.component_manager.all("configuration_widget"):
-            widget = widget(self.component_manager, parent=self)
+            widget = widget(component_manager=self.component_manager, parent=self)
             self.tab_widget.addTab(widget, _(widget.name))
         self.tab_widget.tabBar().setVisible(self.tab_widget.count() > 1)
         widget_index = self.config()["previous_configuration_wdgt"]

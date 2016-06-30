@@ -31,19 +31,18 @@ class SyncThread(QtCore.QThread):
 
     """
 
-    information_signal = QtCore.pyqtSignal(QtCore.QString)
-    error_signal = QtCore.pyqtSignal(QtCore.QString)
-    question_signal = QtCore.pyqtSignal(QtCore.QString, QtCore.QString,
-        QtCore.QString, QtCore.QString)
-    set_progress_text_signal = QtCore.pyqtSignal(QtCore.QString)
+    information_signal = QtCore.pyqtSignal(str)
+    error_signal = QtCore.pyqtSignal(str)
+    question_signal = QtCore.pyqtSignal(str, str, str, str)
+    set_progress_text_signal = QtCore.pyqtSignal(str)
     set_progress_range_signal = QtCore.pyqtSignal(int)
     set_progress_update_interval_signal = QtCore.pyqtSignal(int)
     increase_progress_signal = QtCore.pyqtSignal(int)
     set_progress_value_signal = QtCore.pyqtSignal(int)
     close_progress_signal = QtCore.pyqtSignal()
 
-    def __init__(self, mnemosyne, server, port, username, password):
-        super().__init__()
+    def __init__(self, mnemosyne, server, port, username, password, **kwds)):
+        super().__init__(**kwds)
         self.mnemosyne = mnemosyne
         self.server = server
         self.port = port
@@ -119,9 +118,8 @@ class SyncThread(QtCore.QThread):
 
 class SyncDlg(QtWidgets.QDialog, Ui_SyncDlg, SyncDialog):
 
-    def __init__(self, component_manager):
-        super().__init__(component_manager)
-        super().__init__(self.main_widget())
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)

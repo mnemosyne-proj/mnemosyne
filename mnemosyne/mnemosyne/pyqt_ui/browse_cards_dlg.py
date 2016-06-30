@@ -12,7 +12,7 @@ from mnemosyne.libmnemosyne.tag import Tag
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.pyqt_ui.qwebview2 import QWebView2
+from mnemosyne.pyqt_ui.qwebengineview2 import QWebEngineView2
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.pyqt_ui.tag_tree_wdgt import TagsTreeWdgt
 from mnemosyne.pyqt_ui.ui_browse_cards_dlg import Ui_BrowseCardsDlg
@@ -50,8 +50,8 @@ ACTIVE = 21
 
 class CardModel(QtSql.QSqlTableModel, Component):
 
-    def __init__(self, component_manager):
-        super().__init__(component_manager)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
         self.search_string = ""
         self.adjusted_now = self.scheduler().adjusted_now()
         try:
@@ -147,9 +147,9 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
 
     """Uses webview to render the questions and answers."""
 
-    def __init__(self, component_manager, Q_or_A, parent=None):
-        super().__init__(parent, component_manager=component_manager)
-        self.doc = QWebView2()
+    def __init__(self, Q_or_A, **kwds):
+        super().__init__(**kwds)
+        self.doc = QWebEngineView2()
         self.Q_or_A = Q_or_A
         
     # We need to reimplement the database access functions here using Qt's
@@ -280,10 +280,9 @@ class BrowseCardsDlg(QtWidgets.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         21 : _("In the search box, you can use SQL wildcards like _ (matching a single character) and % (matching one or more characters)."),
         24 : _("Cards with strike-through text are inactive in the current set.")}
 
-    def __init__(self, component_manager):
-        super().__init__(component_manager)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)    
         self.show_tip_after_starting_n_times()
-        super().__init__(self.main_widget())
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
@@ -298,8 +297,9 @@ class BrowseCardsDlg(QtWidgets.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             self.container_1)
         self.layout_1.addWidget(self.label_1)
         self.card_type_tree_wdgt = \
-            CardTypesTreeWdgt(component_manager, self.container_1, 
-            self.unload_qt_database)
+            CardTypesTreeWdgt(acquire_database=self.unload_qt_database,
+                              component_manager=component_manager,
+                              parent=self.container_1)
         self.card_type_tree_wdgt.card_types_changed_signal.\
             connect(self.reload_database_and_redraw)
         self.layout_1.addWidget(self.card_type_tree_wdgt)
@@ -311,8 +311,8 @@ class BrowseCardsDlg(QtWidgets.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             self.container_2)
         self.layout_2.addWidget(self.label_2)
         self.tag_tree_wdgt = \
-            TagsTreeWdgt(component_manager, self.container_2,
-            self.unload_qt_database)
+            TagsTreeWdgt(acquire_database=self.unload_qt_database,
+                component_manager=component_manager, parent=self.container_2)
         self.tag_tree_wdgt.tags_changed_signal.\
             connect(self.reload_database_and_redraw) 
         self.layout_2.addWidget(self.tag_tree_wdgt)
@@ -456,8 +456,8 @@ class BrowseCardsDlg(QtWidgets.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             return
         card = self.database().card(_card_ids.pop(), is_id_internal=True)
         self.edit_dlg = self.component_manager.current("edit_card_dialog")\
-            (card, self.component_manager, started_from_card_browser=True,
-            parent=self)
+            (card, allow_cancel=True, started_from_card_browser=True,
+            parent=selfcomponent_manager=self.component_manager)
         # Here, we don't unload the database already by ourselves, but leave
         # it to the edit dialog to only do so if needed.
         self.edit_dlg.before_apply_hook = self.unload_qt_database
@@ -494,7 +494,8 @@ class BrowseCardsDlg(QtWidgets.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         cards = self.sister_cards_from_single_selection()
         tag_text = cards[0].tag_string()
         self.preview_dlg = \
-            PreviewCardsDlg(self.component_manager, cards, tag_text, self)
+            PreviewCardsDlg(cards, tag_text, 
+                component_manager=self.component_manager, parent=self)
         self.preview_dlg.page_up_down_signal.connect(\
             self.page_up_down_preview)
         self.preview_dlg.exec_()
@@ -556,8 +557,8 @@ class BrowseCardsDlg(QtWidgets.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         # from the dialog.
         return_values = {}
         from mnemosyne.pyqt_ui.change_card_type_dlg import ChangeCardTypeDlg
-        dlg = ChangeCardTypeDlg(self.component_manager,
-            current_card_type, return_values, parent=self)
+        dlg = ChangeCardTypeDlg(current_card_type, return_values,
+                                component_manager=self.component_manager,parent=self)
         if dlg.exec_() != QtWidgets.QDialog.Accepted:
             return
         new_card_type = return_values["new_card_type"]
@@ -587,7 +588,8 @@ class BrowseCardsDlg(QtWidgets.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         # from the dialog.
         return_values = {}
         from mnemosyne.pyqt_ui.add_tags_dlg import AddTagsDlg
-        dlg = AddTagsDlg(self.component_manager, return_values, parent=self)
+        dlg = AddTagsDlg(return_values, component_manager=self.component_manager,
+                         parent=self)
         if dlg.exec_() != QtWidgets.QDialog.Accepted:
             return
         # Add the tags.
@@ -672,9 +674,9 @@ class BrowseCardsDlg(QtWidgets.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             self.table.horizontalHeader().restoreState(table_settings)
         self.table.horizontalHeader().setMovable(True)
         self.table.setItemDelegateForColumn(\
-            QUESTION, QA_Delegate(self.component_manager, QUESTION, self))
+            QUESTION, QA_Delegate(QUESTION, self.component_manager, self))
         self.table.setItemDelegateForColumn(\
-            ANSWER, QA_Delegate(self.component_manager, ANSWER, self))
+            ANSWER, QA_Delegate(ANSWER, self.component_manager, self))
         self.table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         # Since this function can get called multiple times, we need to make
         # sure there is only a single connection for the double-click event.

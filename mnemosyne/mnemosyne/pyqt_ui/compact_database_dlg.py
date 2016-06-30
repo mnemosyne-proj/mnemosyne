@@ -20,11 +20,10 @@ class CompactThread(QtCore.QThread):
 
     """
 
-    information_signal = QtCore.pyqtSignal(QtCore.QString)
-    error_signal = QtCore.pyqtSignal(QtCore.QString)
-    question_signal = QtCore.pyqtSignal(QtCore.QString, QtCore.QString,
-        QtCore.QString, QtCore.QString)
-    set_progress_text_signal = QtCore.pyqtSignal(QtCore.QString)
+    information_signal = QtCore.pyqtSignal(str)
+    error_signal = QtCore.pyqtSignal(str)
+    question_signal = QtCore.pyqtSignal(str, str, str, str)
+    set_progress_text_signal = QtCore.pyqtSignal(str)
     set_progress_range_signal = QtCore.pyqtSignal(int)
     set_progress_update_interval_signal = QtCore.pyqtSignal(int)
     increase_progress_signal = QtCore.pyqtSignal(int)
@@ -109,8 +108,8 @@ class CompactThread(QtCore.QThread):
 class CompactDatabaseDlg(QtWidgets.QDialog, Ui_CompactDatabaseDlg,
     CompactDatabaseDialog):
 
-    def __init__(self, component_manager, started_automatically=False):
-        super().__init__(self.main_widget(), component_manager=component_manager)
+    def __init__(self, started_automatically=False, **kwds):
+        super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
@@ -206,6 +205,7 @@ class PyQtDatabaseMaintenance(Component):
     component_type = "database_maintenance" 
     
     def run(self):
-        CompactDatabaseDlg(self.component_manager, started_automatically=True).\
+        CompactDatabaseDlg(started_automatically=True, 
+                           component_manager=self.component_manager).\
             compact_in_thread(defragment_database=True, archive_old_logs=True)
       

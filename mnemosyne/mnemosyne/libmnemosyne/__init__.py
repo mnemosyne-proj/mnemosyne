@@ -246,7 +246,7 @@ class Mnemosyne(Component):
         for module_name, class_name in self.components:
             component = getattr(importlib.import_module(module_name), class_name)
             if component.instantiate == Component.IMMEDIATELY:
-                component = component(self.component_manager)
+                component = component(component_manager=self.component_manager)
             self.component_manager.register(component)
         for plugin_name in self.extra_components_for_plugin:
             print(plugin_name)

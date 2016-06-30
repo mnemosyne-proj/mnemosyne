@@ -28,9 +28,10 @@ class EditCardDlg(QtWidgets.QDialog, Ui_EditCardDlg, AddEditCards,
             else:
                 return False
         return False
-
-    def __init__(self, card, component_manager, allow_cancel=True,
-                 started_from_card_browser=False, parent=None):
+    
+    def __init__(self, card, allow_cancel=True, 
+                 started_from_card_browser=False, parent=None, **kwds):
+        super().__init__(**kwds)        
         # Note: even though this is in essence an EditFactDlg, we don't use
         # 'fact' as argument, as 'fact' does not know anything about card
         # types.
@@ -71,7 +72,6 @@ class EditCardDlg(QtWidgets.QDialog, Ui_EditCardDlg, AddEditCards,
                 child.installEventFilter(self)
 
     def set_new_card(self, card):
-        print(('sent new card', card))
         # Called from card browser.
         self.card = card
         self.card_types_widget.currentIndexChanged[QtCore.QString].\

@@ -18,8 +18,8 @@ class ConfigurationWdgtCramming(QtWidgets.QWidget,
 
     name = _("Cramming")
 
-    def __init__(self, component_manager, parent):
-        super().__init__(parent, component_manager=component_manager)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
         self.setupUi(self)
         if self.config()["cramming_order"] == RANDOM:
             self.order.setCurrentIndex(0)

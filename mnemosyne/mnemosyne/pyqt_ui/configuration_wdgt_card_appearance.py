@@ -21,8 +21,8 @@ class ConfigurationWdgtCardAppearance(QtWidgets.QWidget,
 
     name = _("Card appearance")
 
-    def __init__(self, component_manager, parent):
-        super().__init__(parent, component_manager=component_manager)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
         self.setupUi(self)
         self.dynamic_widgets = []
         self.affected_card_types = []
@@ -218,7 +218,8 @@ class ConfigurationWdgtCardAppearance(QtWidgets.QWidget,
         fact = Fact(fact_data)
         cards = card_type.create_sister_cards(fact)
         tag_text = ""
-        dlg = PreviewCardsDlg(self.component_manager, cards, tag_text, self)
+        dlg = PreviewCardsDlg(cards, tag_text, 
+            component_manager=self.component_manager, parent=self)
         dlg.exec_()
 
     def reset_to_defaults(self):

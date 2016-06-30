@@ -27,9 +27,8 @@ class MyConfigurationWdgt(QtGui.QWidget, ConfigurationWidget):
 
     name = "My plugin"
 
-    def __init__(self, component_manager, parent):
-        ConfigurationWidget.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, self.main_widget())
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
         self.vlayout = QtGui.QVBoxLayout(self)
         self.hlayout = QtGui.QHBoxLayout()
         self.label = QtGui.QLabel("My value")

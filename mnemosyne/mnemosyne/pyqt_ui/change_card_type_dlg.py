@@ -11,9 +11,8 @@ from mnemosyne.pyqt_ui.ui_change_card_type_dlg import Ui_ChangeCardTypeDlg
 
 class ChangeCardTypeDlg(QtWidgets.QDialog, Ui_ChangeCardTypeDlg, Component):
 
-    def __init__(self, component_manager, current_card_type, return_values,
-                 parent=None):
-        super().__init__(component_manager)
+    def __init__(self, current_card_type, return_values, **kwds):
+        super().__init__(**kwds)
         if parent is None:
             parent = self.main_widget()
         super().__init__(parent)

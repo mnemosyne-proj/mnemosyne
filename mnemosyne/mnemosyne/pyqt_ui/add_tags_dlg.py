@@ -10,8 +10,8 @@ from mnemosyne.pyqt_ui.ui_add_tags_dlg import Ui_AddTagsDlg
 
 class AddTagsDlg(QtWidgets.QDialog, Ui_AddTagsDlg, AddEditCards):
 
-    def __init__(self, component_manager, return_values, parent=None):
-        super().__init__(component_manager)
+    def __init__(self, return_values, **kwds):
+        super().__init__(**kwds)
         if parent is None:
             parent = self.main_widget()
         super().__init__(parent)

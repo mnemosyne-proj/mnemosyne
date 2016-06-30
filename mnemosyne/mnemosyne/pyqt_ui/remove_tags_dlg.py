@@ -9,8 +9,8 @@ from mnemosyne.pyqt_ui.ui_remove_tags_dlg import Ui_RemoveTagsDlg
 
 class RemoveTagsDlg(QtWidgets.QDialog, Ui_RemoveTagsDlg):
 
-    def __init__(self, parent, tags, return_values):
-        super().__init__(parent)
+    def __init__(self, tags, return_values, **kwds):
+        super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)

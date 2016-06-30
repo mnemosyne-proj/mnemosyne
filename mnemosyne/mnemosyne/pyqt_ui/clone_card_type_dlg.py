@@ -11,8 +11,8 @@ from mnemosyne.pyqt_ui.ui_clone_card_type_dlg import Ui_CloneCardTypeDlg
 
 class CloneCardTypeDlg(QtWidgets.QDialog, Ui_CloneCardTypeDlg, Component):
 
-    def __init__(self, parent, component_manager):
-        super().__init__(parent, component_manager=component_manager)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)

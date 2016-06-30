@@ -25,8 +25,8 @@ class RedCardTypeWdgt(GenericCardTypeWdgt):
     component_type = "card_type_widget"
     used_for = FrontToBack
 
-    def __init__(self, component_manager, parent):
-        card_type = FrontToBack(component_manager)
+    def __init__(self, component_manager, parent, card_type, **kwds):
+        super().__init__(**kwds)
         GenericCardTypeWdgt.__init__(self, component_manager,
                                      parent, card_type)
         for edit_box in self.edit_boxes:

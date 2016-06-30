@@ -189,11 +189,10 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget)
     key_to_grade_map = {QtCore.Qt.Key_QuoteLeft: 0, QtCore.Qt.Key_0: 0,
             QtCore.Qt.Key_1: 1, QtCore.Qt.Key_2: 2, QtCore.Qt.Key_3: 3,
             QtCore.Qt.Key_4: 4, QtCore.Qt.Key_5: 5}
-     
-    def __init__(self, component_manager):
+
+    def __init__(self, **kwds):
+        super().__init__(**kwds)     
         parent = self.main_widget()
-        super().__init__(parent)
-        ReviewWidget.__init__(self, component_manager)
         parent.setCentralWidget(self)
         self.setupUi(self)
         # TODO: move this to designer with update of PyQt.

@@ -19,8 +19,8 @@ class ConfigurationWdgtServers(QtWidgets.QWidget,
 
     name = _("Servers")
 
-    def __init__(self, component_manager, parent):
-        super().__init__(parent, component_manager=component_manager)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)    
         self.setupUi(self)
         sync_port = self.config()["sync_server_port"]
         web_port = self.config()["web_server_port"]

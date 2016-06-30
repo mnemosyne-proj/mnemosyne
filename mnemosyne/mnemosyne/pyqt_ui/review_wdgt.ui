@@ -32,7 +32,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QWebEngineView" name="question">
+        <widget class="QWebEngineView2" name="question">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -67,7 +67,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QWebEngineView" name="answer">
+        <widget class="QWebEngineView2" name="answer">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -111,14 +111,14 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <widget class="QPushButton" name="grade_0_button">
+           <widget class="QPushButton2" name="grade_0_button">
             <property name="text">
              <string>0</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="grade_1_button">
+           <widget class="QPushButton2" name="grade_1_button">
             <property name="text">
              <string>1</string>
             </property>
@@ -132,28 +132,28 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="grade_2_button">
+           <widget class="QPushButton2" name="grade_2_button">
             <property name="text">
              <string>2</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="grade_3_button">
+           <widget class="QPushButton2" name="grade_3_button">
             <property name="text">
              <string>3</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="grade_4_button">
+           <widget class="QPushButton2" name="grade_4_button">
             <property name="text">
              <string>4</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="grade_5_button">
+           <widget class="QPushButton2" name="grade_5_button">
             <property name="text">
              <string>5</string>
             </property>
@@ -170,9 +170,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QWebEngineView</class>
+   <class>QWebEngineView2</class>
    <extends>QWidget</extends>
-   <header>Qt5/QtWebEngineWidgets</header>
+   <header>mnemosyne/pyqt_ui/qwebengineview2</header>
+  </customwidget>
+  <customwidget>
+   <class>QPushButton2</class>
+   <extends>QWidget</extends>
+   <header>mnemosyne/pyqt_ui/qpushbutton2</header>
   </customwidget>
  </customwidgets>
  <resources/>

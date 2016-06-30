@@ -17,8 +17,8 @@ class StatisticsDlg(QtWidgets.QDialog, Ui_StatisticsDlg, StatisticsDialog):
 
     """
 
-    def __init__(self, component_manager):
-        super().__init__(self.main_widget(), component_manager=component_manager)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
 
     def activate(self):
         self.setupUi(self)
@@ -30,8 +30,9 @@ class StatisticsDlg(QtWidgets.QDialog, Ui_StatisticsDlg, StatisticsDialog):
         page_index = 0
         for page in self.component_manager.all("statistics_page"):
             page = page(self.component_manager)
-            self.tab_widget.addTab(StatisticsPageWdgt(self.component_manager,
-                self, page, page_index), _(page.name))
+            self.tab_widget.addTab(StatisticsPageWdgt(parent=self, page=page,
+                component_manager=self.component_manager, 
+                page_index=page_index), _(page.name))
             page_index += 1
         self.tab_widget.tabBar().setVisible(self.tab_widget.count() > 1)
         if previous_page_index >= self.tab_widget.count():

@@ -10,8 +10,8 @@ from mnemosyne.libmnemosyne.ui_components.dialogs import GettingStartedDialog
 class GettingStartedDlg(QtWidgets.QWizard, Ui_GettingStartedDlg,
         GettingStartedDialog):
 
-    def __init__(self, component_manager):
-        super().__init__(self.main_widget(), component_manager=component_manager)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)

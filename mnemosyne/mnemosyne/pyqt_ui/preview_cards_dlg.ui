@@ -45,7 +45,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QWebView" name="question">
+        <widget class="QWebEngineView2" name="question">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -80,7 +80,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QWebView" name="answer">
+        <widget class="QWebEngineView2" name="answer">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -160,10 +160,10 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>QWebView</class>
+   <customwidget>
+   <class>QWebEngineView2</class>
    <extends>QWidget</extends>
-   <header>QtWebKit/QWebView</header>
+   <header>mnemosyne/pyqt_ui/qwebengineview2</header>
   </customwidget>
  </customwidgets>
  <resources/>

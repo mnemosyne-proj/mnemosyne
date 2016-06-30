@@ -12,8 +12,8 @@ from mnemosyne.pyqt_ui.ui_delete_unused_media_files_dlg import \
 class DeleteUnusedMediaFilesDlg(QtWidgets.QDialog, Ui_DeleteUnusedMediaFilesDlg,
                                 Component):
 
-    def __init__(self, component_manager, unused_media_files):
-        super().__init__(self.main_widget(), component_manager=component_manager)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
