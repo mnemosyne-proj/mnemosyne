@@ -51,19 +51,18 @@ class ServerThread(QtCore.QThread, SyncServer):
 
     sync_started_signal = QtCore.pyqtSignal()
     sync_ended_signal = QtCore.pyqtSignal()
-    information_signal = QtCore.pyqtSignal(QtCore.QString)
-    error_signal = QtCore.pyqtSignal(QtCore.QString)
-    question_signal = QtCore.pyqtSignal(QtCore.QString, QtCore.QString,
-        QtCore.QString, QtCore.QString)
-    set_progress_text_signal = QtCore.pyqtSignal(QtCore.QString)
+    information_signal = QtCore.pyqtSignal(str)
+    error_signal = QtCore.pyqtSignal(str)
+    question_signal = QtCore.pyqtSignal(str, str, str, str)
+    set_progress_text_signal = QtCore.pyqtSignal(str)
     set_progress_range_signal = QtCore.pyqtSignal(int)
     set_progress_update_interval_signal = QtCore.pyqtSignal(int)
     increase_progress_signal = QtCore.pyqtSignal(int)
     set_progress_value_signal = QtCore.pyqtSignal(int)
     close_progress_signal = QtCore.pyqtSignal()
 
-    def __init__(self, component_manager):
-        super().__init__(component_manager, self)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
         self.server_has_connection = False
         # A fast moving progress bar seems to cause crashes on Windows.
         self.show_numeric_progress_bar = (sys.platform != "win32")
@@ -184,9 +183,8 @@ class QtSyncServer(Component, QtCore.QObject):
 
     component_type = "sync_server"
 
-    def __init__(self, component_manager):
-        super().__init__(component_manager)
-        super().__init__()
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
         self.thread = None
         # Since we will overwrite the true main widget in the thread, we need
         # to save it here.

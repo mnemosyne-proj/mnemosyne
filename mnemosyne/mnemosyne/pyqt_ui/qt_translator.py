@@ -19,16 +19,16 @@ class QtTranslator(GetTextTranslator):
 
     """
 
-    def __init__(self, component_manager):
-        super().__init__(component_manager)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
         self.qt_translator = QTranslator(QCoreApplication.instance())
         try:
             self.qt_dir = os.environ["QTDIR"]
         except:
             if sys.platform == "win32":
-                self.qt_dir = os.path.join(sys.exec_prefix, "share", "qt4")
+                self.qt_dir = os.path.join(sys.exec_prefix, "share", "qt5")
             else:
-                self.qt_dir = os.path.join("/usr", "share", "qt4")
+                self.qt_dir = os.path.join("/usr", "share", "qt5")
         # Avoid stuff like Thai numerals if the language is not explicitly
         # set to Thai.
         QLocale.setDefault(QLocale(QLocale.English, QLocale.UnitedStates))

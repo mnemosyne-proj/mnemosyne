@@ -10,8 +10,8 @@ from mnemosyne.pyqt_ui.review_wdgt import ReviewWdgt
 
 class ReviewWdgtCramming(ReviewWdgt):
 
-    def __init__(self, component_manager):
-        super().__init__(component_manager)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
         self.grade_0_button.setText(_("&Wrong"))
         self.grade_1_button.hide()
         self.line.hide()

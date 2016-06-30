@@ -12,9 +12,8 @@ from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 class MainWdgt(QtWidgets.QMainWindow, Ui_MainWdgt, MainWidget):
 
-    def __init__(self, component_manager):
-        super().__init__()
-        MainWidget.__init__(self, component_manager)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
         self.setupUi(self)
         # Qt designer does not allow setting multiple shortcuts per action.
         self.actionDeleteCurrentCard.setShortcuts\

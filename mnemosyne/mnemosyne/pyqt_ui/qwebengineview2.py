@@ -1,5 +1,5 @@
 #
-# qwebview2.py <Peter.Bienstman@UGent.be>
+# qwebengineview2.py <Peter.Bienstman@UGent.be>
 #
 
 import webbrowser
@@ -8,9 +8,9 @@ from PyQt5 import QtGui, QtWidgets, QtWebEngineWidgets
 from mnemosyne.libmnemosyne.translator import _
 
 
-class QWebView2(QtWebEngineWidgets.QWebEngineView):
+class QWebEngineView2(QtWebEngineWidgets.QWebEngineView):
 
-    """QWebView which restores the focus to the review widget,
+    """QWebEngineView which restores the focus to the review widget,
     so that the keyboard shortcuts still continue to work.
 
     """

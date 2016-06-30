@@ -12,8 +12,8 @@ class HelloWorldPlugin(Plugin):
     name = "Hello world"
     description = "Add a menu item to the help menu"
 
-    def __init__(self, component_manager):
-        Plugin.__init__(self, component_manager)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
         self.action_hello = None
 
     def activate(self):

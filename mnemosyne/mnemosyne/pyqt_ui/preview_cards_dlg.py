@@ -17,14 +17,13 @@ class PreviewCardsDlg(QtWidgets.QDialog, Ui_PreviewCardsDlg, Component,
     UP = 0
     DOWN = 1
 
-    def __init__(self, component_manager, cards, tag_text, parent=None):
-
+    def __init__(self, cards, tag_text, parent, **kwds): 
+        
         """We need to provide tag_text explicitly, since it's possible that
         the cards have not yet been added to the database.
 
         """
-
-        super().__init__(component_manager)
+        super().__init__(**kwds)
         if parent is None:
             parent = self.main_widget()
         super().__init__(parent)

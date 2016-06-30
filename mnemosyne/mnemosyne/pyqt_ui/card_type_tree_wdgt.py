@@ -45,8 +45,8 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
     
     card_types_changed_signal = QtCore.pyqtSignal()
 
-    def __init__(self, component_manager, parent, acquire_database=None):
-        super().__init__(component_manager, parent)
+    def __init__(self, acquire_database=None, **kwds):
+        super().__init__(**kwds)
         self.delegate = CardTypeDelegate(component_manager, self)
         self.tree_wdgt.setItemDelegate(self.delegate)
         self.delegate.rename_node.connect(self.rename_node)

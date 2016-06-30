@@ -5,11 +5,11 @@
 from PyQt5 import QtGui, QtWidgets
 
 from matplotlib import use
-use("Qt4Agg")
+use("Qt5Agg")
 
 from matplotlib import rcParams
 from matplotlib.figure import Figure
-from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.statistics_pages.grades import Grades
@@ -28,8 +28,8 @@ class PlotStatisticsWdgt(QtWidgets.QWidget, StatisticsWidget):
 
     """
 
-    def __init__(self, component_manager, parent, page):
-        super().__init__(parent, component_manager=component_manager)
+    def __init__(self, parent, page, **kwds):
+        super().__init__(**kwds)
         self.parent = parent
         self.page = page
 

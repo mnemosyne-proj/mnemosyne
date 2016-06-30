@@ -12,8 +12,8 @@ class Grades(PlotStatisticsPage):
 
     ALL_CARDS = -1
 
-    def __init__(self, component_manager):
-        PlotStatisticsPage.__init__(self, component_manager)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
         self.variants = [(self.ALL_CARDS, _("All cards"))]
         self.tag_with_internal_id = {}
         for tag in self.database().tags():

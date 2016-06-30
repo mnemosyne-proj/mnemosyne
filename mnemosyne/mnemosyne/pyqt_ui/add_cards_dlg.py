@@ -97,12 +97,12 @@ class AddEditCards(TipAfterStartingNTimes):
         try:
             self.card_type_widget = self.component_manager.current \
                 ("card_type_widget", used_for=self.card_type.__class__) \
-                (self.component_manager, parent=self)
+                (component_manager=self.component_manager, parent=self)
         except:
             if not self.card_type_widget:
                 self.card_type_widget = self.component_manager.current \
-                    ("generic_card_type_widget")(self.component_manager,
-                    parent=self, card_type=self.card_type)
+                    ("generic_card_type_widget")(card_type=self.card_type,
+                    component_manager=self.component_manager, parent=self)
         self.card_type_widget.set_fact_data(prefill_fact_data)
         self.card_type_widget.show()
         self.vbox_layout.insertWidget(1, self.card_type_widget)
@@ -153,7 +153,8 @@ class AddEditCards(TipAfterStartingNTimes):
         fact = Fact(fact_data)
         cards = self.card_type.create_sister_cards(fact)
         tag_text = str(self.tags.currentText())
-        dlg = PreviewCardsDlg(self.component_manager, cards, tag_text, self)
+        dlg = PreviewCardsDlg(cards, tag_text, 
+            component_manager=self.component_manager, parent=self)
         dlg.exec_()
 
     def __del__(self):
@@ -163,8 +164,8 @@ class AddEditCards(TipAfterStartingNTimes):
 
 class AddCardsDlg(QtWidgets.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
 
-    def __init__(self, component_manager):
-        super().__init__(self.main_widget(), component_manager=component_manager)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)    
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)

@@ -12,8 +12,8 @@ from mnemosyne.libmnemosyne.ui_components.dialogs import ExportMetadataDialog
 class ExportMetadataDlg(QtWidgets.QDialog, Ui_ExportMetadataDlg,
     ExportMetadataDialog):
 
-    def __init__(self, component_manager):
-        super().__init__(self.main_widget(), component_manager=component_manager)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)    
         self.setupUi(self)
         self.setWindowFlags(QtCore.Qt.Dialog \
                 | QtCore.Qt.CustomizeWindowHint \

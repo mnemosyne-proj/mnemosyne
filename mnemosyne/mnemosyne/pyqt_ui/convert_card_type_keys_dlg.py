@@ -12,7 +12,8 @@ from mnemosyne.pyqt_ui.ui_convert_card_type_keys_dlg import \
 class ConvertCardTypeKeysDlg(QtWidgets.QDialog, Ui_ConvertCardTypeKeysDlg):
 
     def __init__(self, old_card_type, new_card_type, correspondence,
-                 check_required_fact_keys=True, parent=None):
+                 check_required_fact_keys=True, **kwds):
+        super().__init__(**kwds)    
         super().__init__(parent)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \

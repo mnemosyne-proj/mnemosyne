@@ -8,8 +8,8 @@ from mnemosyne.pyqt_ui.review_wdgt import ReviewWdgt
 
 class MyReviewWdgt(ReviewWdgt):
 
-    def __init__(self, component_manager):
-        ReviewWdgt.__init__(self, component_manager)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
     
         self.auto_focus_grades = False
 

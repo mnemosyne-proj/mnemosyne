@@ -23,8 +23,8 @@ class TagDelegate(QtWidgets.QStyledItemDelegate):
     rename_node = QtCore.pyqtSignal(str, str)
     redraw_node = QtCore.pyqtSignal(str)
 
-    def __init__(self, component_manager, parent=None):
-        super().__init__(parent)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
         self.previous_node_name = None
 
     def createEditor(self, parent, option, index):
@@ -73,9 +73,8 @@ class TagsTreeWdgt(QtWidgets.QWidget, Component):
 
     tags_changed_signal = QtCore.pyqtSignal()
 
-    def __init__(self, component_manager, parent, acquire_database=None):
-        super().__init__(component_manager)
-        super().__init__(parent)
+    def __init__(self, acquire_database=None, **kwds):
+        super().__init__(**kwds)
         self.layout = QtWidgets.QVBoxLayout(self)
         self.tree_wdgt = QtWidgets.QTreeWidget(self)
         self.tree_wdgt.setColumnCount(2)

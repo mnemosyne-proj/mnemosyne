@@ -11,8 +11,8 @@ from mnemosyne.pyqt_ui.ui_card_set_name_dlg import Ui_CardSetNameDlg
 
 class CardSetNameDlg(QtWidgets.QDialog, Ui_CardSetNameDlg, UiComponent):
 
-    def __init__(self, component_manager, criterion, existing_names, parent):
-        super().__init__(parent, component_manager=component_manager)
+    def __init__(self, criterion, existing_names, **kwds):
+        super().__init__(**kwds)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \

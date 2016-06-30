@@ -20,9 +20,9 @@ class ActivateCardsDlg(QtWidgets.QDialog, Ui_ActivateCardsDlg,
          6 : _("Double-click on the name of a saved set to quickly activate it and close the dialog."),
          9 : _("You can right-click on the name of a saved set to rename or delete it."),
          12 : _("If you single-click the name of a saved set, modifications to the selected tags and card types are not saved to that set unless you press 'Save this set for later use' again. This allows you to make some quick-and-dirty temporary modifications.")}
-    
-    def __init__(self, component_manager):
-        super().__init__(self.main_widget(), component_manager=component_manager)
+
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
@@ -112,8 +112,8 @@ class ActivateCardsDlg(QtWidgets.QDialog, Ui_ActivateCardsDlg,
             self.main_widget().show_error(\
                 _("This set can never contain any cards!"))
             return
-        CardSetNameDlg(self.component_manager, criterion,
-                       list(self.criteria_by_name.keys()), self).exec_()
+        CardSetNameDlg(criterion, list(self.criteria_by_name.keys()), 
+                       component_manager=self.component_manager, parent=self).exec_()
         if not criterion.name:  # User cancelled.
             return
         if criterion.name in list(self.criteria_by_name.keys()):
@@ -156,8 +156,8 @@ class ActivateCardsDlg(QtWidgets.QDialog, Ui_ActivateCardsDlg,
         criterion.name = name
         other_names = list(self.criteria_by_name.keys())
         other_names.remove(name)
-        CardSetNameDlg(self.component_manager, criterion,
-                       other_names, self).exec_()
+        CardSetNameDlg(criterion, other_names, component_manager=self.component_manager, 
+                       parent=self).exec_()
         if criterion.name == name:  # User cancelled.
             return
         self.database().update_criterion(criterion)

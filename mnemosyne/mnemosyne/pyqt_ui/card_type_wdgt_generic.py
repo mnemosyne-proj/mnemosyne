@@ -12,8 +12,8 @@ from mnemosyne.libmnemosyne.ui_components.card_type_widget \
 
 class GenericCardTypeWdgt(QtWidgets.QWidget, GenericCardTypeWidget):
 
-    def __init__(self, component_manager, parent, card_type):
-        super().__init__(parent, component_manager=component_manager)
+    def __init__(self, card_type, **kwds):
+        super().__init__(**kwds)
         self.card_type = card_type
         self.hboxlayout = QtWidgets.QHBoxLayout(self)
         self.hboxlayout.setMargin(0)

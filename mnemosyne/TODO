@@ -1,3 +1,4 @@
+multiple inheritance: check all instances of component_manager
 look at all instances of str
 
 test 'Modern greek' in language dialog
@@ -8,6 +9,8 @@ custom pyuic5 to translate Qt strings
 
 reenable py2exe
 reenable custum error handling windows (main 'mnemosyne' file)
+
+recheck plugins
 
 
 Emilian autocompletion patch, mnemosyne proj dev post

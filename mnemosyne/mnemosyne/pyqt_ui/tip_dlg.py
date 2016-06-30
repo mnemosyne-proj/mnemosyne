@@ -11,8 +11,8 @@ from mnemosyne.libmnemosyne.ui_components.dialogs import TipDialog
 
 class TipDlg(QtWidgets.QDialog, Ui_TipDlg, TipDialog):
 
-    def __init__(self, component_manager):
-        super().__init__(self.main_widget(), component_manager=component_manager)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)    
         self.tips = []
         self.tips.append(_("""For optimal results, it's best to do your repetitions every day."""))
         self.tips.append(_("""You don't need to finish all your daily scheduled repetitions in a single session."""))
