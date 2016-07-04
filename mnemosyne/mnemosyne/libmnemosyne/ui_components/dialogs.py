@@ -25,8 +25,8 @@ class EditCardDialog(Dialog):
 
     component_type = "edit_card_dialog"
 
-    def __init__(self, card, component_manager, allow_cancel=True):
-        pass
+    def __init__(self, card, component_manager, allow_cancel=True, **kwds):
+        super().__init__(**kwds)
 
 
 class ActivateCardsDialog(Dialog):

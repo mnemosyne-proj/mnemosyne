@@ -2,18 +2,40 @@
 # main_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
-import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.ui_main_wdgt import Ui_MainWdgt
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
-
 class MainWdgt(QtWidgets.QMainWindow, Ui_MainWdgt, MainWidget):
+#class MainWdgt(QtWidgets.QMainWindow, Ui_MainWdgt):
+    
+    
+    
+    #component_type = "main_widget"
+    
+    #from mnemosyne.libmnemosyne.ui_component import UiComponent    
+
+    #instantiate = UiComponent.IMMEDIATELY
+
+    #def activate(self):
+    #    pass
+    
+    
+    # so, problem does not seem to be in the libmnemosyne class, but rather PyQt
+    
+    
+    
+    
 
     def __init__(self, **kwds):
-        super().__init__(**kwds)
+        print(MainWdgt.__mro__)
+        super(MainWdgt, self).__init__()        
+        #super(QtWidgets.QMainWindow, self).__init__()
+        super(MainWidget, self).__init__(component_manager=kwds["component_manager"])
+        #super().__init__(**kwds)
+        print("done")
         self.setupUi(self)
         # Qt designer does not allow setting multiple shortcuts per action.
         self.actionDeleteCurrentCard.setShortcuts\

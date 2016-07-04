@@ -45,7 +45,7 @@ class Component(object):
     instantiate = IMMEDIATELY
 
     def __init__(self, component_manager, **kwds):
-        super().__init__(**kwds)
+        super().__init__(**kwds)        
         self.component_manager = component_manager
 
     def activate(self):

@@ -457,7 +457,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         card = self.database().card(_card_ids.pop(), is_id_internal=True)
         self.edit_dlg = self.component_manager.current("edit_card_dialog")\
             (card, allow_cancel=True, started_from_card_browser=True,
-            parent=selfcomponent_manager=self.component_manager)
+            parent=self, component_manager=self.component_manager)
         # Here, we don't unload the database already by ourselves, but leave
         # it to the edit dialog to only do so if needed.
         self.edit_dlg.before_apply_hook = self.unload_qt_database

@@ -235,14 +235,14 @@ class Client(Partner):
             self.program_version == self.server_info["program_version"]
 
     def resolve_conflicts(self, restored_from_backup=False):
-        if restored_from_backup:
+        if restored_from_backup:    
             message = "The database was restored from a backup, either " + \
-                "automatically because of an aborted sync or manually by " + \
-                "the user.\nFor safety, a full sync needs to happen and " + \
-                "you need to choose which copy of the database to keep and " + \
-                "which copy to discard.\n"
+    "automatically because of an aborted sync or manually by " + \
+    "the user.\nFor safety, a full sync of cards and history needs to happen and " + \
+    "you need to choose which copy of the database to keep and " + \
+    "which copy to discard.\n"
         else:
-            message = "Conflicts detected during sync! This typically happens if you review the same card on both machines. Choose which version to keep and which version to discard."
+            message = "Conflicts detected during sync! This typically happens if you review the same card on both machines. Choose which version of the database (cards + history) to keep and which version to discard."
         # Ask for conflict resolution direction.
         if self.supports_binary_upload():
             result = self.ui.show_question(message,
