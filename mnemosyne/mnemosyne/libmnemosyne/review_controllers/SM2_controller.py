@@ -56,7 +56,7 @@ class SM2Controller(ReviewController):
         self.active_count = None
         self.rep_count = 0
         self.widget = self.component_manager.current("review_widget")\
-                      (self.component_manager)
+                      (component_manager=self.component_manager)
         self.widget.activate()
         self.scheduler().reset()
         self.show_new_question()

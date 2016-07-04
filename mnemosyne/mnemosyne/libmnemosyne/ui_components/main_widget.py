@@ -15,6 +15,10 @@ class MainWidget(UiComponent):
     component_type = "main_widget"
 
     instantiate = UiComponent.IMMEDIATELY
+    
+    def __init__(self, **kwds):
+        print("2" + str(super()))
+        super().__init__(**kwds)    
 
     def activate(self):
         pass

@@ -41,7 +41,7 @@ class SyncThread(QtCore.QThread):
     set_progress_value_signal = QtCore.pyqtSignal(int)
     close_progress_signal = QtCore.pyqtSignal()
 
-    def __init__(self, mnemosyne, server, port, username, password, **kwds)):
+    def __init__(self, mnemosyne, server, port, username, password, **kwds):
         super().__init__(**kwds)
         self.mnemosyne = mnemosyne
         self.server = server
