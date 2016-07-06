@@ -14,8 +14,8 @@ from mnemosyne.pyqt_ui.ui_configuration_wdgt_servers import \
      Ui_ConfigurationWdgtServers
 
 
-class ConfigurationWdgtServers(QtWidgets.QWidget,
-    Ui_ConfigurationWdgtServers, ConfigurationWidget):
+class ConfigurationWdgtServers(QtWidgets.QWidget, ConfigurationWidget,
+    Ui_ConfigurationWdgtServers):
 
     name = _("Servers")
 

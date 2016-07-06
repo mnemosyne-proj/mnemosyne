@@ -52,64 +52,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-mnemosyne.libmnemosyne.component_manager">
-<span id="componentmanager"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">ComponentManager</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.component_manager" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager">
-<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.component_manager.</tt><tt class="descname">ComponentManager</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Manages the different components. Typically, instances of the different
-components are stored, as opposed to classes. In such a way, the component
-manager stores all the state of the user. Exceptions are widgets other
-than the main widget, which are lazily created for efficiency reasons.</p>
-<p>For certain components, many can be active at the same time (card types,
-filters, function hooks, ...). For others, there can be only on active
-at the same time, like schedule, database ... The idea is that the last
-one registered takes preference. This means that e.g. the default
-scheduler needs to be registered first.</p>
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.add_component_to_plugin">
-<tt class="descname">add_component_to_plugin</tt><big>(</big><em>plugin_class_name</em>, <em>component_class</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.add_component_to_plugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Typical use case for this is when a plugin has a GUI component
-which obviously does not live inside libmnemosyne, and which needs to
-be added at a later stage.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.all">
-<tt class="descname">all</tt><big>(</big><em>comp_type</em>, <em>used_for=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.all" title="Permalink to this definition">¶</a></dt>
-<dd><p>For components for which there can be many active at once.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.current">
-<tt class="descname">current</tt><big>(</big><em>comp_type</em>, <em>used_for=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.current" title="Permalink to this definition">¶</a></dt>
-<dd><p>For components for which there can be only one active at any
-time.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.deactivate_all">
-<tt class="descname">deactivate_all</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.deactivate_all" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.debug">
-<tt class="descname">debug</tt><big>(</big><em>msg</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.debug" title="Permalink to this definition">¶</a></dt>
-<dd><p>Log a debugging message if debugging is enabled.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.register">
-<tt class="descname">register</tt><big>(</big><em>component</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.register" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.unregister">
-<tt class="descname">unregister</tt><big>(</big><em>component</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.unregister" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+  <div class="section" id="componentmanager">
+<h1><tt class="xref py py-mod docutils literal"><span class="pre">ComponentManager</span></tt><a class="headerlink" href="#componentmanager" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -166,7 +110,7 @@ time.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 29, 2015.
+      Last updated on Jul 06, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
     </div>
   </body>

@@ -109,16 +109,15 @@ if sys.platform == "win32": # For py2exe.
     sys.path.append("C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\redist\\x86\\Microsoft.VC90.CRT")
     base_path = ""
     data_files = [("Microsoft.VC90.CRT", glob.glob(r"C:\Program Files\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\*.*")),
-                  ("mpl-data", glob.glob(r"C:\Python27\Lib\site-packages\matplotlib\mpl-data\*.*")),
+                  ("mpl-data", glob.glob(r"C:\Program Files\Python35\Lib\site-packages\matplotlib\mpl-data\*.*")),
                   # Because matplotlibrc does not have an extension, glob does not find it (at least I think that"s why)
                   # So add it manually here:
-                  ("mpl-data", [r"C:\Python27\Lib\site-packages\matplotlib\mpl-data\matplotlibrc"]),
-                  (r"mpl-data\images", glob.glob(r"C:\Python27\Lib\site-packages\matplotlib\mpl-data\images\*.*")),
-                  (r"mpl-data\fonts\ttf", glob.glob(r"C:\Python27\Lib\site-packages\matplotlib\mpl-data\fonts\ttf\*.*")),
-                  ("phonon_backend", ["C:\Python27\Lib\site-packages\PyQt5\plugins\phonon_backend\phonon_ds94.dll"]),
-                  ("imageformats", glob.glob(r"C:\Python27\Lib\site-packages\PyQt5\plugins\imageformats\*.dll")),
-                  ("sqldrivers", ["C:\Python27\Lib\site-packages\PyQt5\plugins\sqldrivers\qsqlite4.dll"]),
-                  ("", [r"C:\Python27\mplayer.exe"])
+                  ("mpl-data", [r"C:\Program Files\Python35\Lib\site-packages\matplotlib\mpl-data\matplotlibrc"]),
+                  (r"mpl-data\images", glob.glob(r"C:\Program Files\Python35\Lib\site-packages\matplotlib\mpl-data\images\*.*")),
+                  (r"mpl-data\fonts\ttf", glob.glob(r"C:\Program Files\Python35\Lib\site-packages\matplotlib\mpl-data\fonts\ttf\*.*")),
+                  ("imageformats", glob.glob(r"C:\Program Files\Python35\Lib\site-packages\PyQt5\plugins\imageformats\*.dll")),
+                  ("sqldrivers", ["C:\Program Files\Python35\Lib\site-packages\PyQt5\plugins\sqldrivers\qsqlite.dll"]),
+                  ("", [r"C:\Program Files\Python35\mplayer.exe"])
                   ]
 elif sys.platform == "darwin": # For py2app.
     base_path = ""
@@ -137,7 +136,7 @@ if sys.platform == "win32":
             os.path.split(mo)[1], "LC_MESSAGES"),
             [os.path.join(mo, "LC_MESSAGES", "mnemosyne.mo")]))
     data_files.append((os.path.join("share", "qt4", "translations"),
-        glob.glob(r"C:\Python27\Lib\site-packages\PyQt5\translations\qt_*")))
+        glob.glob(r"C:\Program Files\Python35\Lib\site-packages\PyQt5\translations\qt_*")))
 else:
     for mo in [x for x in glob.glob(os.path.join("mo", "*"))
                if os.path.isdir(x)]:

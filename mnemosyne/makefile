@@ -44,10 +44,19 @@ setup:
 	./bin/pip install coverage
 	cd po && make
 
+# Note: virtualenvs seem impossible at the moment: qwebengine view simly refuses
+# to show content, both with and without system-site-packages and both by copying
+# the directory and by using pip.
+# (Moreover I cannot get numpy to compile from sounce, but that's a different issue)
+
 setup-windows:
-	virtualenv -p python3 --system-site-packages --python=C:/Program\ Files/python35/python.exe .
-	cp C:/python27/mplayer.exe Scripts/
-	#p C:/python27/qt.conf Scripts/
+	#virtualenv -p python3 --system-site-packages --python=C:/Program\ Files/python35/python.exe .
+	virtualenv -p python3 --no-site-packages --python=C:/Program\ Files/python35/python.exe .
+	cp C:/Program\ Files/Python35/mplayer.exe Scripts/
+	cp -r C:/Program\ Files/Python35/Lib/site-packages/ Lib/
+	Scripts/pip.exe install pyqt5
+	#cp -r C:/Program\ Files/Python35/Lib/site-packages/PyQt5/ Lib/site-packages/
+	#cp C:/Program\ Files/Python35/Lib/site-packages/PyQt5/resources/* Scripts
 	Scripts/pip.exe install nose
 	Scripts/pip.exe install coverage
 
@@ -55,6 +64,15 @@ install-virtual-env-windows:
 	cd mnemosyne/pyqt_ui && make
 	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc
 	Scripts/python.exe setup.py develop
+	
+	
+install-system-tmp:
+	cd mnemosyne/pyqt_ui && make clean
+	cd mnemosyne/pyqt_ui && make
+	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc
+	C:/Program\ Files/python35/python.exe setup.py install $(INSTALL_OPTS)
+	rm -f -R build
+	
 
 install-system:
 	# Also rebuilds the docs and the translations.

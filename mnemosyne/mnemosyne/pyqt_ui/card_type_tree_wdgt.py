@@ -47,7 +47,8 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
 
     def __init__(self, acquire_database=None, **kwds):
         super().__init__(**kwds)
-        self.delegate = CardTypeDelegate(component_manager, self)
+        self.delegate = CardTypeDelegate(\
+            component_manager=component_manager, parent=self)
         self.tree_wdgt.setItemDelegate(self.delegate)
         self.delegate.rename_node.connect(self.rename_node)
         self.delegate.redraw_node.connect(self.redraw_node)        

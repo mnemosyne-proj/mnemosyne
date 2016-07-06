@@ -52,10 +52,6 @@ class ServerThread(QtCore.QThread, WebServer):
 
     def __init__(self, port, data_dir, config_dir, filename, **kwds):
         super().__init__(**kwds)
-        
-    def __init__(self, component_manager, ):
-        super().__init__(component_manager, port, data_dir, 
-                           config_dir, filename)
         self.server_has_connection = False
         # A fast moving progress bar seems to cause crashes on Windows.
         self.show_numeric_progress_bar = (sys.platform != "win32")

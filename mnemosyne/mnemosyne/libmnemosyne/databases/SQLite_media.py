@@ -29,10 +29,10 @@ class SQLiteMedia(object):
     def media_dir(self):
         if self.config()["last_database"] == \
             os.path.basename(self.config()["last_database"]):
-            return str(os.path.join(self.config().data_dir,
-                os.path.basename(self.config()["last_database"]) + "_media"))
+            return os.path.join(self.config().data_dir,
+                os.path.basename(self.config()["last_database"]) + "_media")
         else:
-            return str(self.config()["last_database"] + "_media")
+            return self.config()["last_database"] + "_media"
 
     def create_media_dir_if_needed(self):
         media_dir = self.media_dir()

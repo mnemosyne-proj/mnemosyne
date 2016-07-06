@@ -84,7 +84,7 @@ class DefaultController(Controller):
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("add_cards_dialog")\
-            (self.component_manager).activate()
+            (component_manager=self.component_manager).activate()
         # This dialog calls 'create_new_cards' at some point.
         self.database().save()
         review_controller = self.review_controller()
@@ -201,7 +201,8 @@ class DefaultController(Controller):
         # This dialog calls 'edit_card_and_sisters' at some point.
         state = review_controller.state()
         accepted = self.component_manager.current("edit_card_dialog")\
-            (review_controller.card, self.component_manager).activate()
+            (review_controller.card, 
+             component_manager=self.component_manager).activate()
         if not accepted:
             self.stopwatch().unpause()
             return
@@ -695,7 +696,7 @@ _("The configuration database cannot be used to store cards."))
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("compact_database_dialog")\
-            (self.component_manager).activate()
+            (component_manager=self.component_manager).activate()
         self.review_controller().reset_but_try_to_keep_current_card()
         self.stopwatch().unpause()       
             
@@ -776,7 +777,7 @@ _("The configuration database cannot be used to store cards."))
         self.flush_sync_server()
         review_controller = self.review_controller()
         self.component_manager.current("browse_cards_dialog")\
-            (self.component_manager).activate()
+            (component_manager=self.component_manager).activate()
         review_controller.reset_but_try_to_keep_current_card()
         review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
@@ -789,7 +790,7 @@ _("The configuration database cannot be used to store cards."))
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("activate_cards_dialog")\
-            (self.component_manager).activate()
+            (component_manager=self.component_manager).activate()
         
     def show_activate_cards_dialog_post(self):       
         review_controller = self.review_controller()
@@ -815,7 +816,7 @@ _("This will tag all the cards in a given card type which have the same question
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("manage_plugins_dialog")\
-            (self.component_manager).activate()
+            (component_manager=self.component_manager).activate()
         self.review_controller().update_dialog(redraw_all=True)
         self.stopwatch().unpause()
 
@@ -898,21 +899,21 @@ _("This will tag all the cards in a given card type which have the same question
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("manage_card_types_dialog")\
-            (self.component_manager).activate()
+            (component_manager=self.component_manager).activate()
         self.stopwatch().unpause()
 
     def show_statistics_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("statistics_dialog")\
-            (self.component_manager).activate()
+            (component_manager=self.component_manager).activate()
         self.stopwatch().unpause()
 
     def show_configuration_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("configuration_dialog")\
-            (self.component_manager).activate()
+            (component_manager=self.component_manager).activate()
         self.config().save()
         self.review_controller().reset_but_try_to_keep_current_card()
         self.review_controller().update_dialog(redraw_all=True)
@@ -922,7 +923,7 @@ _("This will tag all the cards in a given card type which have the same question
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("import_dialog")\
-            (self.component_manager).activate()
+            (component_manager=self.component_manager).activate()
         self.database().save()
         self.log().saved_database()
         review_controller = self.review_controller()
@@ -936,14 +937,14 @@ _("This will tag all the cards in a given card type which have the same question
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("export_dialog")\
-            (self.component_manager).activate()
+            (component_manager=self.component_manager).activate()
         self.stopwatch().unpause()
 
     def show_export_metadata_dialog(self, metadata=None, read_only=False):
         self.stopwatch().pause()
         self.flush_sync_server()
         dialog = self.component_manager.current("export_metadata_dialog")\
-            (self.component_manager)
+            (component_manager=self.component_manager)
         if metadata:
             dialog.set_values(metadata)
         if read_only:
@@ -961,7 +962,7 @@ _("This will tag all the cards in a given card type which have the same question
         self.flush_sync_server()
         self.database().save()
         self.component_manager.current("sync_dialog")\
-            (self.component_manager).activate()
+            (component_manager=self.component_manager).activate()
         
     def show_sync_dialog_post(self):
         self.database().save()
@@ -1021,20 +1022,20 @@ _("This will tag all the cards in a given card type which have the same question
     def show_getting_started_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
-        self.component_manager.current("getting_started_dialog")(
-           self.component_manager).activate()
+        self.component_manager.current("getting_started_dialog")\
+            (component_manager=self.component_manager).activate()
         self.stopwatch().unpause()
 
     def show_tip_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
-        self.component_manager.current("tip_dialog")(
-            self.component_manager).activate()
+        self.component_manager.current("tip_dialog")\
+            (component_manager=self.component_manager).activate()
         self.stopwatch().unpause()
 
     def show_about_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
-        self.component_manager.current("about_dialog")(
-            self.component_manager).activate()
+        self.component_manager.current("about_dialog")\
+            (component_manager=self.component_manager).activate()
         self.stopwatch().unpause()

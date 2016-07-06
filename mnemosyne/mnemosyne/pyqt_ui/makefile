@@ -25,7 +25,7 @@ default: $(WIDGETS)
 	pyrcc5 mnemosyne.qrc -o mnemosyne_rc.py
 
 $(WIDGETS): ui_%.py: %.ui
-	$(PYUIC5) $< > $@
+	$(PYUIC5) --import-from="mnemosyne.pyqt_ui" $< > $@
 
 clean:
 	rm -f *~ *.pyc

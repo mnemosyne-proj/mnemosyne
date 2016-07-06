@@ -16,7 +16,7 @@ class GenericCardTypeWdgt(QtWidgets.QWidget, GenericCardTypeWidget):
         super().__init__(**kwds)
         self.card_type = card_type
         self.hboxlayout = QtWidgets.QHBoxLayout(self)
-        self.hboxlayout.setMargin(0)
+        self.hboxlayout.setContentsMargins(0, 0, 0, 0)
         self.vboxlayout = QtWidgets.QVBoxLayout()
         self.fact_key_for_edit_box = {}
         self.top_edit_box = None
@@ -30,6 +30,7 @@ class GenericCardTypeWdgt(QtWidgets.QWidget, GenericCardTypeWidget):
             pronunciation_hiding = self.config().card_type_property(\
                 "hide_pronunciation_field", self.card_type, default=False)
         # Construct the rest of the dialog.
+        parent = kwds["parent"] # Also used by other parent classes inits.
         parent.setTabOrder(parent.card_types_widget, parent.tags)
         for fact_key, fact_key_name in self.card_type.fact_keys_and_names:
             l = QtWidgets.QLabel(_(fact_key_name) + ":", self)

@@ -14,8 +14,8 @@ from mnemosyne.pyqt_ui.ui_configuration_wdgt_main import \
     Ui_ConfigurationWdgtMain
 
 
-class ConfigurationWdgtMain(QtWidgets.QWidget, Ui_ConfigurationWdgtMain,
-    ConfigurationWidget):
+class ConfigurationWdgtMain(QtWidgets.QWidget, ConfigurationWidget,
+                            Ui_ConfigurationWdgtMain):
 
     name = _("General")
 

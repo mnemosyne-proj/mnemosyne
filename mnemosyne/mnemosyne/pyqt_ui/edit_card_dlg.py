@@ -10,8 +10,8 @@ from mnemosyne.pyqt_ui.ui_edit_card_dlg import Ui_EditCardDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import EditCardDialog
 
 
-class EditCardDlg(QtWidgets.QDialog, Ui_EditCardDlg, AddEditCards,
-                  EditCardDialog):
+class EditCardDlg(QtWidgets.QDialog, AddEditCards,
+                  EditCardDialog, Ui_EditCardDlg):
 
     page_up_down_signal = QtCore.pyqtSignal(int)
     UP = 0
@@ -37,7 +37,6 @@ class EditCardDlg(QtWidgets.QDialog, Ui_EditCardDlg, AddEditCards,
         # types.
         if parent is None:
             parent = self.main_widget()
-        super().__init__(parent, component_manager=component_manager)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
@@ -145,7 +144,6 @@ class EditCardDlg(QtWidgets.QDialog, Ui_EditCardDlg, AddEditCards,
         return False   
         
     def apply_changes(self):
-        print('apply changes')
         if self.is_changed() == False:
             return 0
         new_fact_data = self.card_type_widget.fact_data()

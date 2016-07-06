@@ -27,7 +27,7 @@ class TipAfterStartingNTimes(Component):
     def show_tip_after_starting_n_times(self):
         counter = self.config()[self.started_n_times_counter]
         if counter in self.tip_after_n_times:
-            tip_dlg = TipDlg(self.component_manager)
+            tip_dlg = TipDlg(component_manager=self.component_manager)
             tip_dlg.setWindowTitle(_("Mnemosyne"))
             tip_dlg.show_tips.hide()
             tip_dlg.previous_button.hide()

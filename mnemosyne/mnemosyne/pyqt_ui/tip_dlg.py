@@ -9,7 +9,7 @@ from mnemosyne.pyqt_ui.ui_tip_dlg import Ui_TipDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import TipDialog
 
 
-class TipDlg(QtWidgets.QDialog, Ui_TipDlg, TipDialog):
+class TipDlg(QtWidgets.QDialog, TipDialog, Ui_TipDlg):
 
     def __init__(self, **kwds):
         super().__init__(**kwds)    
@@ -90,7 +90,7 @@ class TipDlg(QtWidgets.QDialog, Ui_TipDlg, TipDialog):
             (self.config()["current_tip"] - 1) % len(self.tips)
         self.update_dialog()
 
-    def __next__(self):
+    def next(self):
         self.config()["current_tip"] = \
             (self.config()["current_tip"] + 1) % len(self.tips)
         self.update_dialog()

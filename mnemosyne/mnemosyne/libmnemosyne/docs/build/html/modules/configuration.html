@@ -52,95 +52,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-mnemosyne.libmnemosyne.configuration">
-<span id="configuration"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">Configuration</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.configuration" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="mnemosyne.libmnemosyne.configuration.Configuration">
-<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.configuration.</tt><tt class="descname">Configuration</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
-<dt id="mnemosyne.libmnemosyne.configuration.Configuration.activate">
-<tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.activate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.configuration.Configuration.card_type_property">
-<tt class="descname">card_type_property</tt><big>(</big><em>property_name</em>, <em>card_type</em>, <em>fact_key=None</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.card_type_property" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.configuration.Configuration.change_user_id">
-<tt class="descname">change_user_id</tt><big>(</big><em>new_user_id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.change_user_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>When a client syncs for the first time with a server, we need to
-set the client&#8217;s user_id identical to the one of the server, in order
-for the uploaded anonymous logs to be consistent.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.configuration.Configuration.clone_card_type_properties">
-<tt class="descname">clone_card_type_properties</tt><big>(</big><em>old_card_type</em>, <em>new_card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.clone_card_type_properties" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.configuration.Configuration.component_type">
-<tt class="descname">component_type</tt><em class="property"> = 'config'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.component_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.configuration.Configuration.delete_card_type_properties">
-<tt class="descname">delete_card_type_properties</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.delete_card_type_properties" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.configuration.Configuration.determine_dirs">
-<tt class="descname">determine_dirs</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.determine_dirs" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.configuration.Configuration.fill_dirs">
-<tt class="descname">fill_dirs</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.fill_dirs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fill data_dir and config_dir. Do this even if they already exist,
-because we might have added new files since the last version.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.configuration.Configuration.load">
-<tt class="descname">load</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.load" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.configuration.Configuration.load_user_config">
-<tt class="descname">load_user_config</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.load_user_config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.configuration.Configuration.machine_id">
-<tt class="descname">machine_id</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.machine_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.configuration.Configuration.save">
-<tt class="descname">save</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.save" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.configuration.Configuration.set_card_type_property">
-<tt class="descname">set_card_type_property</tt><big>(</big><em>property_name</em>, <em>property_value</em>, <em>card_type</em>, <em>fact_key=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.set_card_type_property" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set a property (like font, colour, ..) for a certain card type.
-If fact_key is None, then this will be applied to all fact keys.</p>
-<p>This info is not stored in the database, but in the configuration,
-to allow different clients to have different settings, even though
-they exchange data during sync.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.configuration.Configuration.set_defaults">
-<tt class="descname">set_defaults</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.set_defaults" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fill the config with default values.  Is called after every load,
-since a new version of Mnemosyne might have introduced new keys.</p>
-</dd></dl>
-
-</dd></dl>
-
+  <div class="section" id="configuration">
+<h1><tt class="xref py py-mod docutils literal"><span class="pre">Configuration</span></tt><a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -197,7 +110,7 @@ since a new version of Mnemosyne might have introduced new keys.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Feb 16, 2016.
+      Last updated on Jul 06, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
     </div>
   </body>

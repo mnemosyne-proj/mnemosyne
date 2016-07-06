@@ -1,16 +1,30 @@
-multiple inheritance: check all instances of component_manager
-look at all instances of str
+look at all instances of str (done: add cards, add tags, but need to check with
+running software)
 
 test 'Modern greek' in language dialog
+
+autosplitting of q/a
+
+rework: show_question dialog
 
 test if localhost_IP works
 
 custom pyuic5 to translate Qt strings
 
+qwebengineview open links in external browser?
+
+test start from empty directory
+
 reenable py2exe
-reenable custum error handling windows (main 'mnemosyne' file)
+
+check custum error handling windows (main 'mnemosyne' file)
 
 recheck plugins
+
+reenable progress bar on windows?
+
+rework makefile to get rid of virtualenv under windows, update
+windows build instructions.
 
 
 Emilian autocompletion patch, mnemosyne proj dev post

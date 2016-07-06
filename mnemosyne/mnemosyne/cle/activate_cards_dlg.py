@@ -5,10 +5,7 @@
 from mnemosyne.libmnemosyne.ui_components.dialogs import ActivateCardsDialog
 
 
-class ActivateCardsDlg(ActivateCardsDialog):
-    
-    def __init__(self, component_manager):
-        ActivateCardsDialog.__init__(self, component_manager)    
+class ActivateCardsDlg(ActivateCardsDialog): 
         
     def activate(self):
         self.criteria_by_name = {}

@@ -11,8 +11,8 @@ from mnemosyne.libmnemosyne.ui_components.dialogs import ActivateCardsDialog
 from mnemosyne.pyqt_ui.tip_after_starting_n_times import \
      TipAfterStartingNTimes
 
-class ActivateCardsDlg(QtWidgets.QDialog, Ui_ActivateCardsDlg,
-                       ActivateCardsDialog, TipAfterStartingNTimes):
+class ActivateCardsDlg(QtWidgets.QDialog, ActivateCardsDialog, 
+                       TipAfterStartingNTimes, Ui_ActivateCardsDlg):
     
     started_n_times_counter = "started_activate_cards_n_times"
     tip_after_n_times = \
@@ -39,7 +39,7 @@ class ActivateCardsDlg(QtWidgets.QDialog, Ui_ActivateCardsDlg,
         for criterion_class in self.criterion_classes:
             widget = self.component_manager.current\
                 ("criterion_widget", used_for=criterion_class)\
-                (self.component_manager, self)
+                (component_manager=self.component_manager, parent=self)
             self.tab_widget.addTab(widget, criterion_class.criterion_type)
             self.widget_for_criterion_type[criterion_class.criterion_type] \
                 = widget
@@ -144,19 +144,20 @@ class ActivateCardsDlg(QtWidgets.QDialog, Ui_ActivateCardsDlg,
         if answer == 1:  # Cancel.
             return -1
         else:
-            name = str(self.saved_sets.currentItem().text())
+            name = self.saved_sets.currentItem().text()
             criterion = self.criteria_by_name[name]
             self.database().delete_criterion(criterion)
             self.database().save()
             self.update_saved_sets_pane()
 
     def rename_set(self):
-        name = str(self.saved_sets.currentItem().text())
+        name = self.saved_sets.currentItem().text()
         criterion = self.criteria_by_name[name]
         criterion.name = name
         other_names = list(self.criteria_by_name.keys())
         other_names.remove(name)
-        CardSetNameDlg(criterion, other_names, component_manager=self.component_manager, 
+        CardSetNameDlg(criterion, other_names, 
+                       component_manager=self.component_manager, 
                        parent=self).exec_()
         if criterion.name == name:  # User cancelled.
             return
@@ -184,7 +185,7 @@ class ActivateCardsDlg(QtWidgets.QDialog, Ui_ActivateCardsDlg,
         # set, so we need to discard the event then.
         if item is None:
             return
-        name = str(item.text())
+        name = item.text()
         criterion = self.criteria_by_name[name]
         self.tab_widget.setCurrentWidget(self.widget_for_criterion_type\
                                              [criterion.criterion_type])
@@ -231,7 +232,7 @@ class ActivateCardsDlg(QtWidgets.QDialog, Ui_ActivateCardsDlg,
 _("You can double-click on the name of a saved set to activate it and close the dialog."))
             self.config()["showed_help_on_double_clicking_sets"] = True
         if len(self.saved_sets.selectedItems()) > 0:
-            criterion.name = str(self.saved_sets.currentItem().text())
+            criterion.name = self.saved_sets.currentItem().text()
         self.database().set_current_criterion(criterion)
         # 'accept' does not generate a close event.
         self._store_state()

@@ -11,8 +11,8 @@ from mnemosyne.pyqt_ui.ui_manage_card_types_dlg import Ui_ManageCardTypesDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import ManageCardTypesDialog
 
 
-class ManageCardTypesDlg(QtWidgets.QDialog, Ui_ManageCardTypesDlg,
-                        ManageCardTypesDialog):
+class ManageCardTypesDlg(QtWidgets.QDialog, ManageCardTypesDialog,
+                         Ui_ManageCardTypesDlg):
 
     def __init__(self, **kwds):
         super().__init__(**kwds)
@@ -49,7 +49,7 @@ class ManageCardTypesDlg(QtWidgets.QDialog, Ui_ManageCardTypesDlg,
             self.main_widget().show_information(\
 _("Here, you can make clones of existing card types. This allows you to format cards in this type independently from cards in the original type. E.g. you can make a clone of 'Vocabulary', call it 'Thai' and set a Thai font specifically for this card type without disturbing your other cards."))
             self.config()["clone_help_shown"] = True
-        dlg = CloneCardTypeDlg(self, self.component_manager)
+        dlg = CloneCardTypeDlg(parent=self, component_manager=self.component_manager)
         dlg.exec_()
         self.update()
 

@@ -295,8 +295,8 @@ class SM2Controller(ReviewController):
             # Button text.
             if self._state == "SELECT GRADE" and \
                self.config()["show_intervals"] == "buttons":
-                w.set_grade_text(grade, str(self.scheduler().process_answer(\
-                                            self.card, grade, dry_run=True)))
+                w.set_grade_text(grade, self.scheduler().process_answer(\
+                                        self.card, grade, dry_run=True))
             else:
                 w.set_grade_text(grade, str(grade))
 

@@ -13,8 +13,8 @@ from mnemosyne.pyqt_ui.card_type_tree_wdgt import CardTypesTreeWdgt
 from mnemosyne.pyqt_ui.ui_criterion_wdgt_default import Ui_DefaultCriterionWdgt
 
 
-class DefaultCriterionWdgt(QtWidgets.QWidget, Ui_DefaultCriterionWdgt,
-                           CriterionWidget):
+class DefaultCriterionWdgt(QtWidgets.QWidget, CriterionWidget,
+                           Ui_DefaultCriterionWdgt):
 
     """Note that this dialog can support active tags and forbidden tags,
     but not at the same time, in order to keep the interface compact.
@@ -23,9 +23,10 @@ class DefaultCriterionWdgt(QtWidgets.QWidget, Ui_DefaultCriterionWdgt,
 
     used_for = DefaultCriterion
 
-    def __init__(self, parent, **kwds):
+    def __init__(self, **kwds):
         super().__init__(**kwds)
-        self.parent = parent
+        self.parent = kwds["parent"]
+        component_manager = kwds["component_manager"]
         self.setupUi(self)
         self.card_type_tree_wdgt = CardTypesTreeWdgt(\
             component_manager=component_manager, parent=self)

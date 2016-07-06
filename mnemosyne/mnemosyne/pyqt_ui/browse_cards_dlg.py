@@ -266,8 +266,8 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
         painter.restore()            
         
 
-class BrowseCardsDlg(QtWidgets.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
-                     TipAfterStartingNTimes):
+class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
+                     TipAfterStartingNTimes, Ui_BrowseCardsDlg):
 
     started_n_times_counter = "started_browse_cards_n_times"
     tip_after_n_times = \
@@ -558,7 +558,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
         return_values = {}
         from mnemosyne.pyqt_ui.change_card_type_dlg import ChangeCardTypeDlg
         dlg = ChangeCardTypeDlg(current_card_type, return_values,
-                                component_manager=self.component_manager,parent=self)
+                                component_manager=self.component_manager, parent=self)
         if dlg.exec_() != QtWidgets.QDialog.Accepted:
             return
         new_card_type = return_values["new_card_type"]
@@ -655,7 +655,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             QtSql.QSqlDatabase.database().connectionName())
 
     def display_card_table(self, run_filter=True):
-        self.card_model = CardModel(self.component_manager)
+        self.card_model = CardModel(component_manager=self.component_manager)
         self.card_model.setTable("cards")
         headers = {QUESTION: _("Question"), ANSWER: _("Answer"),
             TAGS: _("Tags"), GRADE: _("Grade"), NEXT_REP: _("Next rep"),
@@ -674,9 +674,11 @@ class BrowseCardsDlg(QtWidgets.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog,
             self.table.horizontalHeader().restoreState(table_settings)
         self.table.horizontalHeader().setMovable(True)
         self.table.setItemDelegateForColumn(\
-            QUESTION, QA_Delegate(QUESTION, self.component_manager, self))
+            QUESTION, QA_Delegate(QUESTION, 
+                component_manager=self.component_manager, parent=self))
         self.table.setItemDelegateForColumn(\
-            ANSWER, QA_Delegate(ANSWER, self.component_manager, self))
+            ANSWER, QA_Delegate(ANSWER, 
+                component_manager=self.component_manager, parent=self))
         self.table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         # Since this function can get called multiple times, we need to make
         # sure there is only a single connection for the double-click event.
