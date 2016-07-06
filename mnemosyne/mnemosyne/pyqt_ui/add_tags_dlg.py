@@ -25,6 +25,6 @@ class AddTagsDlg(QtWidgets.QDialog, Ui_AddTagsDlg, AddEditCards):
 
     def accept(self):
         self.return_values["tag_names"] = [c.strip() for c in \
-                     str(self.tags.currentText()).split(',')]
+                     self.tags.currentText().split(',')]
         return QtWidgets.QDialog.accept(self)
 

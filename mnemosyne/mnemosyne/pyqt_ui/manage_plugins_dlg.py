@@ -10,8 +10,8 @@ from mnemosyne.pyqt_ui.ui_manage_plugins_dlg import Ui_ManagePluginsDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import ManagePluginsDialog
 
 
-class ManagePluginsDlg(QtWidgets.QDialog, Ui_ManagePluginsDlg,
-    ManagePluginsDialog):
+class ManagePluginsDlg(QtWidgets.QDialog, ManagePluginsDialog, 
+                       Ui_ManagePluginsDlg):
 
     def __init__(self, **kwds):
         super().__init__(**kwds)

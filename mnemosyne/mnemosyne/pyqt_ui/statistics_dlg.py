@@ -10,7 +10,7 @@ from mnemosyne.pyqt_ui.ui_statistics_dlg import Ui_StatisticsDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import StatisticsDialog
 
 
-class StatisticsDlg(QtWidgets.QDialog, Ui_StatisticsDlg, StatisticsDialog):
+class StatisticsDlg(QtWidgets.QDialog, StatisticsDialog, Ui_StatisticsDlg):
 
     """A tab widget containing several statistics pages. The number and names
     of the tab pages are determined at run time.
@@ -118,8 +118,8 @@ class StatisticsPageWdgt(QtWidgets.QWidget, Component):
                 (self.variant_ids[variant_index])
             widget_class = self.component_manager.current(\
                 "statistics_widget", used_for=self.statistics_page.__class__)
-            widget = widget_class(self.component_manager, self,
-                self.statistics_page)
+            widget = widget_class(component_manager=self.component_manager, 
+                parent=self, page=self.statistics_page)
             widget.show_statistics(self.variant_ids[variant_index])
             self.variant_widgets[variant_index] = widget
         # Show the widget created earlier.

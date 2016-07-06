@@ -7,8 +7,8 @@ from PyQt5 import QtGui, QtCore, QtWidgets
 from mnemosyne.pyqt_ui.ui_getting_started_dlg import Ui_GettingStartedDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import GettingStartedDialog
 
-class GettingStartedDlg(QtWidgets.QWizard, Ui_GettingStartedDlg,
-        GettingStartedDialog):
+class GettingStartedDlg(QtWidgets.QWizard, GettingStartedDialog, 
+                        Ui_GettingStartedDlg):
 
     def __init__(self, **kwds):
         super().__init__(**kwds)

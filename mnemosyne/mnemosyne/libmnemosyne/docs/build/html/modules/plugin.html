@@ -52,54 +52,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-mnemosyne.libmnemosyne.plugin">
-<span id="plugin"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">Plugin</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.plugin" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="mnemosyne.libmnemosyne.plugin.Plugin">
-<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.plugin.</tt><tt class="descname">Plugin</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.plugin.Plugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>A Plugin is a group of components which can be activated and
-deactivated by the user when the program is running.</p>
-<p>Plugins are used as a separate class, and not as mixins, in order to
-allow for the fact that a Plugin can group multiple components.</p>
-<p>&#8216;components&#8217; is a list of component classes (not instances) that will
-be registered and/or instantiated when the Plugin becomes active.</p>
-<p>Activating and deactivating certain components needs to give rise to
-certain side effects. It&#8217;s cumbersone to implement those in the
-&#8216;activate&#8217; and &#8216;deactivate&#8217; methods of the components, as these also
-are called when the program is still starting up and the context can
-be completely different. Therefore, they are handled here.</p>
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.plugin.Plugin.activate">
-<tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.plugin.Plugin.activate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.plugin.Plugin.component_type">
-<tt class="descname">component_type</tt><em class="property"> = 'plugin'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.plugin.Plugin.component_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.plugin.Plugin.components">
-<tt class="descname">components</tt><em class="property"> = []</em><a class="headerlink" href="#mnemosyne.libmnemosyne.plugin.Plugin.components" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.plugin.Plugin.deactivate">
-<tt class="descname">deactivate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.plugin.Plugin.deactivate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.plugin.Plugin.description">
-<tt class="descname">description</tt><em class="property"> = ''</em><a class="headerlink" href="#mnemosyne.libmnemosyne.plugin.Plugin.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.plugin.Plugin.name">
-<tt class="descname">name</tt><em class="property"> = ''</em><a class="headerlink" href="#mnemosyne.libmnemosyne.plugin.Plugin.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+  <div class="section" id="plugin">
+<h1><tt class="xref py py-mod docutils literal"><span class="pre">Plugin</span></tt><a class="headerlink" href="#plugin" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -156,7 +110,7 @@ be completely different. Therefore, they are handled here.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 09, 2014.
+      Last updated on Jul 06, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
     </div>
   </body>

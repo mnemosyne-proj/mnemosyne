@@ -9,7 +9,7 @@ from mnemosyne.pyqt_ui.ui_configuration_dlg import Ui_ConfigurationDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import ConfigurationDialog
 
 
-class ConfigurationDlg(QtWidgets.QDialog, Ui_ConfigurationDlg, ConfigurationDialog):
+class ConfigurationDlg(QtWidgets.QDialog, ConfigurationDialog, Ui_ConfigurationDlg):
 
     """A tab widget containing several configuration widgets. The number and
     names of the tab pages are determined at run time.

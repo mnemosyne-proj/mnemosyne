@@ -83,7 +83,8 @@ class TagsTreeWdgt(QtWidgets.QWidget, Component):
         self.tree_wdgt.setHeaderHidden(True)
         self.tree_wdgt.setSelectionMode(\
             QtWidgets.QAbstractItemView.ExtendedSelection)
-        self.delegate = TagDelegate(component_manager, self)
+        self.delegate = TagDelegate(\
+            component_manager=kwds["component_manager"], parent=self)
         self.tree_wdgt.setItemDelegate(self.delegate)
         self.delegate.rename_node.connect(self.rename_node)
         self.delegate.redraw_node.connect(self.redraw_node)

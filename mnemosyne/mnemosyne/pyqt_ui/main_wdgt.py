@@ -7,35 +7,15 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.ui_main_wdgt import Ui_MainWdgt
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
+ 
+# Note: inheritance from Ui_MainWdgt should come last, as it inherits
+# directly from 'object' with supporting a correct super().__init__
+# call.
 
-class MainWdgt(QtWidgets.QMainWindow, Ui_MainWdgt, MainWidget):
-#class MainWdgt(QtWidgets.QMainWindow, Ui_MainWdgt):
+class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
     
-    
-    
-    #component_type = "main_widget"
-    
-    #from mnemosyne.libmnemosyne.ui_component import UiComponent    
-
-    #instantiate = UiComponent.IMMEDIATELY
-
-    #def activate(self):
-    #    pass
-    
-    
-    # so, problem does not seem to be in the libmnemosyne class, but rather PyQt
-    
-    
-    
-    
-
     def __init__(self, **kwds):
-        print(MainWdgt.__mro__)
-        super(MainWdgt, self).__init__()        
-        #super(QtWidgets.QMainWindow, self).__init__()
-        super(MainWidget, self).__init__(component_manager=kwds["component_manager"])
-        #super().__init__(**kwds)
-        print("done")
+        super().__init__(**kwds)
         self.setupUi(self)
         # Qt designer does not allow setting multiple shortcuts per action.
         self.actionDeleteCurrentCard.setShortcuts\
@@ -90,15 +70,14 @@ class MainWdgt(QtWidgets.QMainWindow, Ui_MainWdgt, MainWidget):
 
     def show_information(self, text):
         QtWidgets.QMessageBox.information(self.top_window(), _("Mnemosyne"),
-            text, _("&OK"))
+            text)
 
     def show_question(self, text, option0, option1, option2):
         return QtWidgets.QMessageBox.question(self.top_window(),  _("Mnemosyne"),
             text, option0, option1, option2, 0, -1)
 
     def show_error(self, text):
-        QtWidgets.QMessageBox.critical(self.top_window(), _("Mnemosyne"), text,
-            _("&OK"), "", "", 0, -1)
+        QtWidgets.QMessageBox.critical(self.top_window(), _("Mnemosyne"), text)
 
     def default_font_size(self):
         return QtWidgets.qApp.font().pointSize()

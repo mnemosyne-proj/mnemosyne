@@ -15,10 +15,11 @@ class QWebEngineView2(QtWebEngineWidgets.QWebEngineView):
 
     """
     
+    
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.linkClicked.connect(self.link_clicked) 
-        self.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
+        # self.linkClicked.connect(self.link_clicked) 
+        # self.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
     
     def link_clicked(self, url):
         webbrowser.open(str(url.toString()))

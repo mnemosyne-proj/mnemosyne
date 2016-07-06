@@ -21,10 +21,16 @@ if sys.platform == "win32":
 
         def write(self, text):
             if text.strip():
+                
+                
+                # TMP
+                print(text)
+                return
+            
                 MessageBox = ctypes.windll.user32.MessageBoxA
                 MessageBox(None, text, "Mnemosyne", 0)
 
-    #sys.stderr = Stderr()
+    sys.stderr = Stderr()
 
 from optparse import OptionParser
 
@@ -61,9 +67,9 @@ if options.version == True:
 data_dir = None
 if options.data_dir != None:
     data_dir = os.path.abspath(options.data_dir)
-elif os.path.exists(os.path.join(os.getcwdu(), "mnemosyne")) and \
-    os.path.isdir(os.path.join(os.getcwdu(), "mnemosyne")):
-    data_dir = os.path.abspath(os.path.join(os.getcwdu(), "mnemosyne"))
+elif os.path.exists(os.path.join(os.getcwd(), "mnemosyne")) and \
+    os.path.isdir(os.path.join(os.getcwd(), "mnemosyne")):
+    data_dir = os.path.abspath(os.path.join(os.getcwd(), "mnemosyne"))
     
 # Filename argument.
 if len(args) > 0:

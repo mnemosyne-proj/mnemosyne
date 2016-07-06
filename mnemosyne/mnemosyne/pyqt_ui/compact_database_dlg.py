@@ -105,8 +105,8 @@ class CompactThread(QtCore.QThread):
         self.close_progress_signal.emit()        
 
 
-class CompactDatabaseDlg(QtWidgets.QDialog, Ui_CompactDatabaseDlg,
-    CompactDatabaseDialog):
+class CompactDatabaseDlg(QtWidgets.QDialog, CompactDatabaseDialog, 
+                         Ui_CompactDatabaseDlg):
 
     def __init__(self, started_automatically=False, **kwds):
         super().__init__(**kwds)

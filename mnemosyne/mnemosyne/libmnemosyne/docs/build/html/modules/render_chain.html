@@ -52,110 +52,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-mnemosyne.libmnemosyne.render_chain">
-<span id="renderchain"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">RenderChain</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.render_chain" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain">
-<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.render_chain.</tt><tt class="descname">RenderChain</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain" title="Permalink to this definition">¶</a></dt>
-<dd><p>A RenderChain details the operations needed to get from the raw data
-in a card to a representation of its question and answer, in a form either
-suitable for displaying in a browser, or exporting to a text file, ... .</p>
-<p>First the raw data is sent through Filters, which perform operations which
-can be useful for many card types, like expanding relative paths.</p>
-<p>Then this data is assembled in the right order in a Renderer, which can be
-card type specific.</p>
-<p>&#8216;filters&#8217;: list of Filter classes
-&#8216;renderers&#8217;: list or Renderer classes</p>
-<p>Plugins can add Filters or Renderers for a new card type to a chain at run
-time.</p>
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.component_type">
-<tt class="descname">component_type</tt><em class="property"> = 'render_chain'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.component_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.filter">
-<tt class="descname">filter</tt><big>(</big><em>filter_class</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.filter" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.filters">
-<tt class="descname">filters</tt><em class="property"> = []</em><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.filters" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.id">
-<tt class="descname">id</tt><em class="property"> = 'default'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.register_filter">
-<tt class="descname">register_filter</tt><big>(</big><em>filter_class</em>, <em>in_front=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.register_filter" title="Permalink to this definition">¶</a></dt>
-<dd><p>&#8216;filter_class&#8217; should be a class, not an instance.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.register_filter_at_back">
-<tt class="descname">register_filter_at_back</tt><big>(</big><em>filter_class</em>, <em>before=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.register_filter_at_back" title="Permalink to this definition">¶</a></dt>
-<dd><p>Register a filter at the back of the render chain, but before
-a list of other filters already in the chain. The list should
-contain class names. (Using strings instead of classes means a
-plugin writer does not need to import the filters he wants to use
-in this list.)</p>
-<p>&#8216;filter_class&#8217; should be a class, not an instance.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.register_filter_at_front">
-<tt class="descname">register_filter_at_front</tt><big>(</big><em>filter_class</em>, <em>after=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.register_filter_at_front" title="Permalink to this definition">¶</a></dt>
-<dd><p>Register a filter at the very front of the render chain, but after
-a list of other filters already in the chain. The list should
-contain class names. (Using strings instead of classes means a
-plugin writer does not need to import the filters he wants to use
-in this list.)</p>
-<p>&#8216;filter_class&#8217; should be a class, not an instance.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.register_renderer">
-<tt class="descname">register_renderer</tt><big>(</big><em>renderer_class</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.register_renderer" title="Permalink to this definition">¶</a></dt>
-<dd><p>&#8216;renderer_class&#8217; should be a class, not an instance.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.render_answer">
-<tt class="descname">render_answer</tt><big>(</big><em>card</em>, <em>**render_args</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.render_answer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.render_question">
-<tt class="descname">render_question</tt><big>(</big><em>card</em>, <em>**render_args</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.render_question" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.renderer_for_card_type">
-<tt class="descname">renderer_for_card_type</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.renderer_for_card_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.renderers">
-<tt class="descname">renderers</tt><em class="property"> = []</em><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.renderers" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.unregister_filter">
-<tt class="descname">unregister_filter</tt><big>(</big><em>filter_class</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.unregister_filter" title="Permalink to this definition">¶</a></dt>
-<dd><p>&#8216;filter_class&#8217; should be a class, not an instance.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.unregister_renderer">
-<tt class="descname">unregister_renderer</tt><big>(</big><em>renderer_class</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.unregister_renderer" title="Permalink to this definition">¶</a></dt>
-<dd><p>&#8216;renderer_class&#8217; should be a class, not an instance.</p>
-</dd></dl>
-
-</dd></dl>
-
+  <div class="section" id="renderchain">
+<h1><tt class="xref py py-mod docutils literal"><span class="pre">RenderChain</span></tt><a class="headerlink" href="#renderchain" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -212,7 +110,7 @@ in this list.)</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 09, 2014.
+      Last updated on Jul 06, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
     </div>
   </body>

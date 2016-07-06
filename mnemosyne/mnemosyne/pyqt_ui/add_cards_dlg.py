@@ -58,7 +58,7 @@ class AddEditCards(TipAfterStartingNTimes):
             self.card_type_index = 0
         self.card_types_widget.setCurrentIndex(self.card_type_index)
         # Now that the combobox is filled, we can connect the signal.
-        self.card_types_widget.currentIndexChanged[QtCore.QString].\
+        self.card_types_widget.currentIndexChanged[str].\
             connect(self.card_type_changed)
         self.correspondence = {}  # Used when changing card types.
         self.update_card_widget()
@@ -92,17 +92,17 @@ class AddEditCards(TipAfterStartingNTimes):
         if not keep_data_from_previous_widget:
             prefill_fact_data = self.card.fact.data
         # Show new card type widget.
-        card_type_name = str(self.card_types_widget.currentText())
+        card_type_name = self.card_types_widget.currentText()
         self.card_type = self.card_type_by_name[card_type_name]
         try:
             self.card_type_widget = self.component_manager.current \
                 ("card_type_widget", used_for=self.card_type.__class__) \
-                (component_manager=self.component_manager, parent=self)
+                (parent=self, component_manager=self.component_manager)
         except:
             if not self.card_type_widget:
                 self.card_type_widget = self.component_manager.current \
                     ("generic_card_type_widget")(card_type=self.card_type,
-                    component_manager=self.component_manager, parent=self)
+                    parent=self, component_manager=self.component_manager)
         self.card_type_widget.set_fact_data(prefill_fact_data)
         self.card_type_widget.show()
         self.vbox_layout.insertWidget(1, self.card_type_widget)
@@ -127,10 +127,10 @@ class AddEditCards(TipAfterStartingNTimes):
             if self.tags.itemText(i) == current_tag_name:
                 self.tags.setCurrentIndex(i)
                 break
-        self.previous_tags = str(self.tags.currentText())
+        self.previous_tags = self.tags.currentText()
 
     def card_type_changed(self, new_card_type_name):
-        new_card_type_name = str(new_card_type_name)
+        new_card_type_name = new_card_type_name
         new_card_type = self.card_type_by_name[new_card_type_name]
         if self.card_type.fact_keys().issubset(new_card_type.fact_keys()) or \
             self.card_type_widget.is_empty():
@@ -152,7 +152,7 @@ class AddEditCards(TipAfterStartingNTimes):
         fact_data = self.card_type_widget.fact_data()
         fact = Fact(fact_data)
         cards = self.card_type.create_sister_cards(fact)
-        tag_text = str(self.tags.currentText())
+        tag_text = self.tags.currentText()
         dlg = PreviewCardsDlg(cards, tag_text, 
             component_manager=self.component_manager, parent=self)
         dlg.exec_()
@@ -162,7 +162,7 @@ class AddEditCards(TipAfterStartingNTimes):
         self.card_type_widget = None
 
 
-class AddCardsDlg(QtWidgets.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
+class AddCardsDlg(QtWidgets.QDialog, AddEditCards, AddCardsDialog, Ui_AddCardsDlg):
 
     def __init__(self, **kwds):
         super().__init__(**kwds)    
@@ -204,7 +204,6 @@ class AddCardsDlg(QtWidgets.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialo
     def card_type_changed(self, new_card_type_name):
         # We only store the last used tags when creating a new card,
         # not when editing.
-        new_card_type_name = str(new_card_type_name)
         new_card_type = self.card_type_by_name[new_card_type_name] 
         self.config()["last_used_card_type_id"] = new_card_type.id
         if new_card_type.id not in \
@@ -212,10 +211,10 @@ class AddCardsDlg(QtWidgets.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialo
             self.config()["last_used_tags_for_card_type_id"]\
                 [new_card_type.id] = ""
         if not self.config()["is_last_used_tags_per_card_type"]:
-            if not str(self.tags.currentText()):
+            if not self.tags.currentText():
                 self.update_tags_combobox(self.config()["last_used_tags"])
         else:
-            if not str(self.tags.currentText()) \
+            if not self.tags.currentText() \
                 or self.card_type_widget.is_empty():
                 self.update_tags_combobox(self.config()\
                     ["last_used_tags_for_card_type_id"][new_card_type.id]) 
@@ -252,8 +251,8 @@ class AddCardsDlg(QtWidgets.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialo
             grade = -1
         fact_data = self.card_type_widget.fact_data()
         tag_names = [c.strip() for c in \
-                     str(self.tags.currentText()).split(',')]
-        card_type_name = str(self.card_types_widget.currentText())
+                     self.tags.currentText().split(',')]
+        card_type_name = self.card_types_widget.currentText()
         card_type = self.card_type_by_name[card_type_name]
         c = self.controller()
         c.create_new_cards(fact_data, card_type, grade, tag_names, save=True)

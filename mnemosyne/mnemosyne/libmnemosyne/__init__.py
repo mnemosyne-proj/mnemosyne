@@ -249,7 +249,6 @@ class Mnemosyne(Component):
                 component = component(component_manager=self.component_manager)
             self.component_manager.register(component)
         for plugin_name in self.extra_components_for_plugin:
-            print(plugin_name)
             for module_name, class_name in \
                     self.extra_components_for_plugin[plugin_name]:
                 exec("from %s import %s" % (module_name, class_name))

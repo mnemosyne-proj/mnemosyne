@@ -10,7 +10,7 @@ from mnemosyne.pyqt_ui.ui_review_wdgt import Ui_ReviewWdgt
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
 
-class QAOptimalSplit:
+class QAOptimalSplit(object):
 
     """Algorithm to make sure the split between question and answer boxes is
     as optimal as possible.
@@ -21,8 +21,11 @@ class QAOptimalSplit:
     """
 
     used_for_reviewing = True
+    
+    def __init__(self, **kwds):
+        super().__init__(**kwds)    
 
-    def __init__(self):
+    def setup(self): 
         self.question.settings().setAttribute(\
             QtWebEngineWidgets.QWebEngineSettings.PluginsEnabled, True)
         self.answer.settings().setAttribute(\
@@ -67,14 +70,30 @@ class QAOptimalSplit:
         return QtWidgets.QWidget.resizeEvent(self, event)
 
     def question_preview_load_finished(self):
-        self.required_question_size = \
-            self.question_preview.page().currentFrame().contentsSize()
-        self.update_stretch_factors()
+        
+        #webView->page()->runJavaScript("document.documentElement.scrollWidth;",[=](QVariant result){
+        #int newWidth=result.toInt();
+        #webView->resize(newWidth,webView->height());
+        #});
+        
+        #webView->page()->runJavaScript("document.documentElement.scrollHeight;",[=](QVariant result){
+        #int newHeight=result.toInt();
+        #webView->resize(webView->width(),newHeight);
+        #});
+        
+        pass
+
+        #self.required_question_size = \
+        #    self.question_preview.page().currentFrame().contentsSize()
+        #self.update_stretch_factors()
 
     def answer_preview_load_finished(self):
-        self.required_answer_size = \
-            self.answer_preview.page().currentFrame().contentsSize()
-        self.update_stretch_factors()
+        
+        pass
+    
+        #self.required_answer_size = \
+        #    self.answer_preview.page().currentFrame().contentsSize()
+        #self.update_stretch_factors()
 
     def update_stretch_factors(self):
         total_height_available = self.question.height() + self.answer.height()
@@ -152,16 +171,18 @@ class QAOptimalSplit:
     def set_question(self, text):
         #self.main_widget().show_information(text.replace("<", "&lt;"))
         self.question_text = text
-        self.question_preview.page().setPreferredContentsSize(\
-            QtCore.QSize(self.question.size().width(), 1))
+        #self.question_preview.page().setPreferredContentsSize(\
+        #    QtCore.QSize(self.question.size().width(), 1))
         self.question_preview.setHtml(self.silence_media(text))
+        #self.question_preview.show()
 
     def set_answer(self, text):
         #self.main_widget().show_information(text.replace("<", "&lt;"))        
         self.answer_text = text
-        self.answer_preview.page().setPreferredContentsSize(\
-            QtCore.QSize(self.answer.size().width(), 1))
+        #self.answer_preview.page().setPreferredContentsSize(\
+        #    QtCore.QSize(self.answer.size().width(), 1))
         self.answer_preview.setHtml(self.silence_media(text))
+        #self.answer_preview.show()
 
     def reveal_question(self):
         self.question.setHtml(self.question_text)
@@ -181,7 +202,7 @@ class QAOptimalSplit:
 
 
 
-class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget):
+class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt):
 
     auto_focus_grades = True
     number_keys_show_answer = True
@@ -195,6 +216,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget)
         parent = self.main_widget()
         parent.setCentralWidget(self)
         self.setupUi(self)
+        QAOptimalSplit.setup(self)
         # TODO: move this to designer with update of PyQt.
         self.grade_buttons = QtWidgets.QButtonGroup()
         self.grade_buttons.addButton(self.grade_0_button, 0)
@@ -223,7 +245,6 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget)
         self.widget_with_last_selection = self.question
         self.question.selectionChanged.connect(self.selection_changed_in_q)
         self.answer.selectionChanged.connect(self.selection_changed_in_a)
-        super().__init__() 
         self.mplayer = QtCore.QProcess()
         self.media_queue = []
         
@@ -425,7 +446,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, Ui_ReviewWdgt, ReviewWidget)
         
     def stop_media(self):
         if self.mplayer is not None:
-            self.mplayer.write("quit\n");
+            self.mplayer.write(b"quit\n");
         self.media_queue = []
 
     def redraw_now(self):
