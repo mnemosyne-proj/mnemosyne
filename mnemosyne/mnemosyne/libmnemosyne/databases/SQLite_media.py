@@ -84,7 +84,7 @@ media_dir + ".\n" + _("Check your file permissions and make sure the directory i
         # The following implementation uses the modification date. Less
         # robust, but could be useful on a mobile device.
 
-        #return str(os.path.getmtime(media_file))
+        #return os.path.getmtime(media_file)
 
     def check_for_edited_media_files(self):
         # Regular media files.

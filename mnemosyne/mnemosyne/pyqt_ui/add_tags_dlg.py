@@ -8,13 +8,11 @@ from mnemosyne.pyqt_ui.add_cards_dlg import AddEditCards
 from mnemosyne.pyqt_ui.ui_add_tags_dlg import Ui_AddTagsDlg
 
 
-class AddTagsDlg(QtWidgets.QDialog, Ui_AddTagsDlg, AddEditCards):
+class AddTagsDlg(QtWidgets.QDialog, AddEditCards, Ui_AddTagsDlg):
 
     def __init__(self, return_values, **kwds):
+        
         super().__init__(**kwds)
-        if parent is None:
-            parent = self.main_widget()
-        super().__init__(parent)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)

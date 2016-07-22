@@ -10,7 +10,7 @@ from mnemosyne.pyqt_ui.ui_import_dlg import Ui_ImportDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import ImportDialog
 
 
-class ImportDlg(QtWidgets.QDialog, Ui_ImportDlg, ImportDialog):
+class ImportDlg(QtWidgets.QDialog, ImportDialog, Ui_ImportDlg):
 
     def __init__(self, **kwds):
         super().__init__(**kwds)

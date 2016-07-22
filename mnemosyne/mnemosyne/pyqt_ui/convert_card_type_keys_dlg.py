@@ -14,7 +14,6 @@ class ConvertCardTypeKeysDlg(QtWidgets.QDialog, Ui_ConvertCardTypeKeysDlg):
     def __init__(self, old_card_type, new_card_type, correspondence,
                  check_required_fact_keys=True, **kwds):
         super().__init__(**kwds)    
-        super().__init__(parent)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)

@@ -13,8 +13,8 @@ from mnemosyne.libmnemosyne.schedulers.cramming import RANDOM, \
     EARLIEST_FIRST, LATEST_FIRST, MOST_LAPSES_FIRST
 
 
-class ConfigurationWdgtCramming(QtWidgets.QWidget,
-    Ui_ConfigurationWdgtCramming, ConfigurationWidget):
+class ConfigurationWdgtCramming(QtWidgets.QWidget, ConfigurationWidget,
+    Ui_ConfigurationWdgtCramming):
 
     name = _("Cramming")
 

@@ -293,9 +293,9 @@ class Mnemosyne(Component):
         # Note that we put user plugins in the data_dir and not the
         # config_dir as there could be plugins (e.g. new card types) for
         # which the database does not make sense without them.
-        plugin_dir = str(os.path.join(self.config().data_dir, "plugins"))
+        plugin_dir = os.path.join(self.config().data_dir, "plugins")
         sys.path.insert(0, plugin_dir)
-        for component in os.listdir(str(plugin_dir)):
+        for component in os.listdir(plugin_dir):
             if component.endswith(".py"):
                 try:
                     __import__(component[:-3])

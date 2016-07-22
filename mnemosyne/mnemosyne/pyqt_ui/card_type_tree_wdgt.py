@@ -48,7 +48,7 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
     def __init__(self, acquire_database=None, **kwds):
         super().__init__(**kwds)
         self.delegate = CardTypeDelegate(\
-            component_manager=component_manager, parent=self)
+            component_manager=kwds["component_manager"], parent=self)
         self.tree_wdgt.setItemDelegate(self.delegate)
         self.delegate.rename_node.connect(self.rename_node)
         self.delegate.redraw_node.connect(self.redraw_node)        
@@ -124,7 +124,7 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
                 QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
             card_type_item.setCheckState(0, QtCore.Qt.Checked)
             card_type_item.setData(NODE, QtCore.Qt.DisplayRole,
-                    QtCore.QVariant(QtCore.QString(card_type.id)))
+                    QtCore.QVariant(card_type.id))
             if count_for_card_type[card_type] == 0 and \
                 self.database().is_user_card_type(card_type):
                     self.nodes_which_can_be_deleted.append(card_type.id)

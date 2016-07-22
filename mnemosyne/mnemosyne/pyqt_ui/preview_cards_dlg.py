@@ -10,24 +10,22 @@ from mnemosyne.pyqt_ui.review_wdgt import QAOptimalSplit
 from mnemosyne.pyqt_ui.ui_preview_cards_dlg import Ui_PreviewCardsDlg
 
 
-class PreviewCardsDlg(QtWidgets.QDialog, Ui_PreviewCardsDlg, Component,
-                      QAOptimalSplit):
+class PreviewCardsDlg(QtWidgets.QDialog, Component, QAOptimalSplit,
+                      Ui_PreviewCardsDlg):
 
     page_up_down_signal = QtCore.pyqtSignal(int)
     UP = 0
     DOWN = 1
 
-    def __init__(self, cards, tag_text, parent, **kwds): 
+    def __init__(self, cards, tag_text, **kwds): 
         
         """We need to provide tag_text explicitly, since it's possible that
         the cards have not yet been added to the database.
 
         """
         super().__init__(**kwds)
-        if parent is None:
-            parent = self.main_widget()
-        super().__init__(parent)
         self.setupUi(self)
+        QAOptimalSplit.setup(self)
         self.used_for_reviewing = False
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
@@ -82,7 +80,7 @@ class PreviewCardsDlg(QtWidgets.QDialog, Ui_PreviewCardsDlg, Component,
         self.index -= 1
         self.update_dialog()
 
-    def __next__(self):
+    def next(self):
         self.review_widget().stop_media()
         self.index += 1
         self.update_dialog()

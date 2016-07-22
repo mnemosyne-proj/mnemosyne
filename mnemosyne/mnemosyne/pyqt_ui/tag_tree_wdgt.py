@@ -23,7 +23,7 @@ class TagDelegate(QtWidgets.QStyledItemDelegate):
     rename_node = QtCore.pyqtSignal(str, str)
     redraw_node = QtCore.pyqtSignal(str)
 
-    def __init__(self, **kwds):
+    def __init__(self, component_manager, **kwds):
         super().__init__(**kwds)
         self.previous_node_name = None
 
@@ -67,7 +67,7 @@ class TagDelegate(QtWidgets.QStyledItemDelegate):
         self.closeEditor.emit(editor, QtWidgets.QAbstractItemDelegate.NoHint)
 
 
-class TagsTreeWdgt(QtWidgets.QWidget, Component):
+class TagsTreeWdgt(Component, QtWidgets.QWidget):
 
     """Displays all the tags in a tree together with check boxes. """
 
