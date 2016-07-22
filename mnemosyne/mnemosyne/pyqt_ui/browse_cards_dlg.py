@@ -477,7 +477,6 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
             shift = -1
         elif up_down == self.edit_dlg.DOWN:
             shift = 1
-        print((shift, current_row + shift))
         self.table.selectRow(current_row + shift)
         _card_ids = self._card_ids_from_selection()
         card = self.database().card(_card_ids.pop(), is_id_internal=True)

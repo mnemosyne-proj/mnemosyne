@@ -3,6 +3,7 @@
 #
 
 import os
+import re
 import sys
 import time
 import sqlite3
@@ -15,6 +16,9 @@ from mnemosyne.libmnemosyne.utils import rand_uuid, traceback_string
 
 HOUR = 60 * 60 # Seconds in an hour.
 DAY = 24 * HOUR # Seconds in a day.
+
+re_long_int = re.compile(r"\d+L")
+
 
 config_py = \
 """# Mnemosyne configuration file.
@@ -216,8 +220,11 @@ class Configuration(Component, dict):
             pass
         # Set config settings.
         for cursor in con.execute("select key, value from config"):
+            # When importing Python 2 representations, strip the L
+            # from long integers.
+            value =  re_long_int.sub(lambda x : x.group()[:-1], cursor[1])
             try:
-                self[cursor[0]] = eval(cursor[1])
+                self[cursor[0]] = eval(value)
             except:
                 # This can fail if we are running headless now after running
                 # the GUI previously.

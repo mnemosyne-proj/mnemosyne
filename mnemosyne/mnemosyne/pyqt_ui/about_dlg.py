@@ -31,4 +31,5 @@ class AboutDlg(QtWidgets.QDialog, AboutDialog, Ui_AboutDlg):
 
     def activate(self):
         AboutDialog.activate(self)
-        self.show()
+        self.exec_()
+        #self.show()

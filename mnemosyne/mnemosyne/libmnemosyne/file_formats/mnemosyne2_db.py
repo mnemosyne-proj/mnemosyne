@@ -56,7 +56,6 @@ _("Abort"), _("Continue"), "")
         self.log().active = False
         self.config().load()
         config_to_merge = self.config().copy()
-        print(config_to_merge["background_colour"])
         self.config().config_dir = old_config_dir
         self.config().load()
         self.log().active = True
@@ -72,14 +71,11 @@ _("Abort"), _("Continue"), "")
         db.current_criterion().deactivated_card_type_fact_view_ids.update(\
             old_deactivated_card_type_fact_view_ids)
         db.set_current_criterion(db.current_criterion())
-        print(config_to_merge["background_colour"])
         for property_name in ["background_colour", "font", "font_colour",
             "alignment", "hide_pronunciation_field"]:
             self.log().edited_setting(property_name)
             for card_type in user_card_types:
-                print(card_type.id)
                 if card_type.id in config_to_merge[property_name]:
-                    print("yes")
                     self.config()[property_name][card_type.id] = \
                         config_to_merge[property_name][card_type.id]
         db.skip_science_log()

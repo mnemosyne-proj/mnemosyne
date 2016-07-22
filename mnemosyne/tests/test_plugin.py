@@ -112,7 +112,6 @@ class TestPlugin(MnemosyneTest):
         last_error = ""
 
 
-
     def test_3(self):
 
         from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack

@@ -29,10 +29,10 @@ class StatisticsDlg(QtWidgets.QDialog, StatisticsDialog, Ui_StatisticsDlg):
         previous_page_index = self.config()["previous_statistics_page"]
         page_index = 0
         for page in self.component_manager.all("statistics_page"):
-            page = page(self.component_manager)
-            self.tab_widget.addTab(StatisticsPageWdgt(parent=self, page=page,
-                component_manager=self.component_manager, 
-                page_index=page_index), _(page.name))
+            page = page(component_manager=self.component_manager)
+            self.tab_widget.addTab(StatisticsPageWdgt(page, page_index,
+                parent=self, component_manager=self.component_manager),
+                                   _(page.name))
             page_index += 1
         self.tab_widget.tabBar().setVisible(self.tab_widget.count() > 1)
         if previous_page_index >= self.tab_widget.count():
@@ -80,10 +80,9 @@ class StatisticsPageWdgt(QtWidgets.QWidget, Component):
     becomes visible.
 
     """
-
-    def __init__(self, component_manager, parent, statistics_page, page_index):
-        super().__init__(component_manager)
-        super().__init__(parent)
+        
+    def __init__(self, statistics_page, page_index, **kwds):
+        super().__init__(**kwds)
         self.statistics_page = statistics_page
         self.page_index = page_index
         self.vbox_layout = QtWidgets.QVBoxLayout(self)
@@ -97,7 +96,7 @@ class StatisticsPageWdgt(QtWidgets.QWidget, Component):
         for variant_id, variant_name in variants:
             self.variant_ids.append(variant_id)
             self.variant_widgets.append(None)
-            self.combobox.addItem(str(_(variant_name)))
+            self.combobox.addItem(_(variant_name))
         if len(self.variant_ids) <= 1 or \
            self.statistics_page.show_variants_in_combobox == False:
             self.combobox.hide()
