@@ -55,21 +55,12 @@ class SuperMemo7Txt(FileFormat, MediaPreprocessor):
         # SuperMemo uses 0x03 to represent the accented u character. Since
         # this does not seem to be a standard encoding, we simply replace this.
         line = line.replace("\x03", "\xfa")
-        try:
-            line = str(line, "utf-8")
-        except:
-            try:
-                line = str(line, "latin")
-            except:
-                self.main_widget().show_error(\
-                        _("Could not determine encoding."))
-                return
         return self.process_html_unicode(line.rstrip())
 
     def do_import(self, filename, extra_tag_names=None):
         f = None
         try:
-            f = file(filename, 'rb')
+            f = open(filename, 'r')
         except:
             self.main_widget().show_error(_("Could not load file."))
             return

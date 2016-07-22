@@ -675,7 +675,7 @@ class TestMemImport(MnemosyneTest):
         tag = self.database().get_or_create_tag_with_name("666")
         assert self.database().card_count_for_grade_and_tag(0, tag, active_only=True) == 0
         from mnemosyne.libmnemosyne.statistics_pages.grades import Grades
-        page = Grades(self.mnemosyne.component_manager)
+        page = Grades(component_manager=self.mnemosyne.component_manager)
         page.prepare_statistics(tag._id)
         assert page.y == [0, 0, 0, 0, 0, 0, 0]
         page.prepare_statistics(-1)

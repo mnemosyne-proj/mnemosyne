@@ -78,7 +78,10 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
                 del category.__dict__[b"name"]
                 del category.__dict__[b"active"]
             for item in self.items:
-                item.id = item.__dict__[b"id"]
+                if type(item.__dict__[b"id"]) == bytes:
+                    item.id = str(item.__dict__[b"id"], "utf-8")
+                else:
+                    item.id = item.__dict__[b"id"]
                 item.cat = item.__dict__[b"cat"]
                 item.q = item.__dict__[b"q"]
                 item.a = item.__dict__[b"a"]
@@ -107,7 +110,7 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
                 del item.__dict__[b"ret_reps"]  
                 del item.__dict__[b"lapses"] 
                 del item.__dict__[b"acq_reps_since_lapse"] 
-                del item.__dict__[b"ret_reps_since_lapse"]                 
+                del item.__dict__[b"ret_reps_since_lapse"]
         except Exception as e:
             self.main_widget().show_error(_("Unable to open file."))
             raise MnemosyneError

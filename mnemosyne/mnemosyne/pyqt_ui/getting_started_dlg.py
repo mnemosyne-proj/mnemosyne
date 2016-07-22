@@ -25,7 +25,7 @@ class GettingStartedDlg(QtWidgets.QWizard, GettingStartedDialog,
 
     def activate(self):
         GettingStartedDialog.activate(self)
-        self.show()
+        self.exec_()
 
     def accept(self):
         self.config()["upload_science_logs"] = self.upload_box.isChecked()

@@ -75,7 +75,7 @@ class TipDlg(QtWidgets.QDialog, TipDialog, Ui_TipDlg):
 
     def activate(self):
         TipDialog.activate(self)
-        self.show()
+        self.exec_()
 
     def update_dialog(self):
         # We need an extra modulo operation here to deal with the possibility

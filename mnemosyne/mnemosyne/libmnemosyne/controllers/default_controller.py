@@ -868,7 +868,8 @@ _("This will tag all the cards in a given card type which have the same question
             if module_name in sys.modules:
                 del sys.modules[module_name]
             __import__(module_name)
-        except:
+        except Exception as e:
+            print(e)
             from mnemosyne.libmnemosyne.utils import traceback_string
             msg = _("Error when running plugin:") \
                 + "\n" + traceback_string()
@@ -883,7 +884,7 @@ _("This will tag all the cards in a given card type which have the same question
         plugin_dir = os.path.join(self.config().data_dir, "plugins")
         manifest_filename = os.path.join(plugin_dir,
             plugin.__class__.__name__ + ".manifest")
-        manifest = file(manifest_filename, "r")
+        manifest = open(manifest_filename, "r")
         plugin_dir = os.path.join(self.config().data_dir, "plugins")
         for filename in manifest:
             filename = os.path.join(plugin_dir, filename.rstrip())
@@ -951,7 +952,7 @@ _("This will tag all the cards in a given card type which have the same question
             dialog.set_read_only()
         dialog.activate()
         self.stopwatch().unpause()
-        return list(dialog.values())
+        return dialog.values()
 
     def show_sync_dialog(self):
         self.show_sync_dialog_pre()

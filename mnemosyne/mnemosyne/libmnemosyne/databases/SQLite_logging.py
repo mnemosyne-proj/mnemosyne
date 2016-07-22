@@ -390,7 +390,7 @@ class SQLiteLogging(object):
         # Create empty archive database.
         db_name = os.path.basename(self.database().path()).rsplit(".", 1)[0]
         archive_name = db_name + "-" + self.config().machine_id() + "-" +\
-            datetime.datetime.today().strftime("%Y%m%d-%H%M%S.db")            
+            datetime.datetime.today().strftime("%Y%m%d-%H%M%S.db")
         archive_path = os.path.join(archive_dir, archive_name)
         from mnemosyne.libmnemosyne.databases._sqlite3 import _Sqlite3
         arch_con = _Sqlite3(self.component_manager, archive_path)        
