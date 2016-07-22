@@ -9,8 +9,8 @@ from mnemosyne.pyqt_ui.ui_export_metadata_dlg import Ui_ExportMetadataDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import ExportMetadataDialog
 
 
-class ExportMetadataDlg(QtWidgets.QDialog, Ui_ExportMetadataDlg,
-    ExportMetadataDialog):
+class ExportMetadataDlg(QtWidgets.QDialog, ExportMetadataDialog, 
+                        Ui_ExportMetadataDlg):
 
     def __init__(self, **kwds):
         super().__init__(**kwds)    

@@ -9,13 +9,10 @@ from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.pyqt_ui.ui_change_card_type_dlg import Ui_ChangeCardTypeDlg
 
 
-class ChangeCardTypeDlg(QtWidgets.QDialog, Ui_ChangeCardTypeDlg, Component):
+class ChangeCardTypeDlg(QtWidgets.QDialog, Component, Ui_ChangeCardTypeDlg):
 
     def __init__(self, current_card_type, return_values, **kwds):
         super().__init__(**kwds)
-        if parent is None:
-            parent = self.main_widget()
-        super().__init__(parent)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)

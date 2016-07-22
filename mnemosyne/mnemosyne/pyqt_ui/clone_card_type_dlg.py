@@ -9,7 +9,7 @@ from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.pyqt_ui.ui_clone_card_type_dlg import Ui_CloneCardTypeDlg
 
 
-class CloneCardTypeDlg(QtWidgets.QDialog, Ui_CloneCardTypeDlg, Component):
+class CloneCardTypeDlg(QtWidgets.QDialog, Component, Ui_CloneCardTypeDlg):
 
     def __init__(self, **kwds):
         super().__init__(**kwds)

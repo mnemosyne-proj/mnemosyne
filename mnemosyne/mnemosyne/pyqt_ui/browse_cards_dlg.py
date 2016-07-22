@@ -281,7 +281,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         24 : _("Cards with strike-through text are inactive in the current set.")}
 
     def __init__(self, **kwds):
-        super().__init__(**kwds)    
+        super().__init__(**kwds)  
         self.show_tip_after_starting_n_times()
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
@@ -298,7 +298,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         self.layout_1.addWidget(self.label_1)
         self.card_type_tree_wdgt = \
             CardTypesTreeWdgt(acquire_database=self.unload_qt_database,
-                              component_manager=component_manager,
+                              component_manager=kwds["component_manager"],
                               parent=self.container_1)
         self.card_type_tree_wdgt.card_types_changed_signal.\
             connect(self.reload_database_and_redraw)
@@ -312,7 +312,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         self.layout_2.addWidget(self.label_2)
         self.tag_tree_wdgt = \
             TagsTreeWdgt(acquire_database=self.unload_qt_database,
-                component_manager=component_manager, parent=self.container_2)
+                component_manager=kwds["component_manager"], parent=self.container_2)
         self.tag_tree_wdgt.tags_changed_signal.\
             connect(self.reload_database_and_redraw) 
         self.layout_2.addWidget(self.tag_tree_wdgt)

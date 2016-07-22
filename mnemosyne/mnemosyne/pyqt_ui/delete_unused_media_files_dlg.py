@@ -9,8 +9,8 @@ from mnemosyne.pyqt_ui.ui_delete_unused_media_files_dlg import \
      Ui_DeleteUnusedMediaFilesDlg
 
 
-class DeleteUnusedMediaFilesDlg(QtWidgets.QDialog, Ui_DeleteUnusedMediaFilesDlg,
-                                Component):
+class DeleteUnusedMediaFilesDlg(QtWidgets.QDialog, Component,
+                                Ui_DeleteUnusedMediaFilesDlg):
 
     def __init__(self, **kwds):
         super().__init__(**kwds)

@@ -70,6 +70,8 @@ class TestDBImport(MnemosyneTest):
         assert self.database().active_count() == 6
         assert self.database().fact_count() == 5
         card_type = self.database().card_type("2::new clone", is_id_internal=False)
+        print(card_type)
+        print(self.config().card_type_property("background_colour", card_type))
         assert self.config().card_type_property("background_colour", card_type) == 4278233600
 
 

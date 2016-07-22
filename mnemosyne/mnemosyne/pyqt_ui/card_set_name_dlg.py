@@ -9,7 +9,7 @@ from mnemosyne.libmnemosyne.ui_component import UiComponent
 from mnemosyne.pyqt_ui.ui_card_set_name_dlg import Ui_CardSetNameDlg
 
 
-class CardSetNameDlg(QtWidgets.QDialog, Ui_CardSetNameDlg, UiComponent):
+class CardSetNameDlg(QtWidgets.QDialog, UiComponent, Ui_CardSetNameDlg):
 
     def __init__(self, criterion, existing_names, **kwds):
         super().__init__(**kwds)

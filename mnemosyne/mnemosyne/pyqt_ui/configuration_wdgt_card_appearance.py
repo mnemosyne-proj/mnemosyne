@@ -16,8 +16,8 @@ from mnemosyne.pyqt_ui.ui_configuration_wdgt_card_appearance import \
      Ui_ConfigurationWdgtCardAppearance
 
 
-class ConfigurationWdgtCardAppearance(QtWidgets.QWidget,
-    Ui_ConfigurationWdgtCardAppearance, ConfigurationWidget):
+class ConfigurationWdgtCardAppearance(QtWidgets.QWidget, ConfigurationWidget,
+    Ui_ConfigurationWdgtCardAppearance):
 
     name = _("Card appearance")
 

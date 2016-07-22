@@ -30,7 +30,9 @@ class Mnemosyne2Db(FileFormat):
         db.dump_to_science_log()
         # Heuristic to check if we haven't imported this database before.
         current_tag_ids = set([tag.id for tag in db.tags()])
+        self.log().active = False
         db.load(filename)
+        self.log().active = True
         tag_ids_to_import = set([tag.id for tag in db.tags()])
         if len(tag_ids_to_import.intersection(current_tag_ids)) >= 2:
             answer = self.main_widget().show_question(\
@@ -38,6 +40,7 @@ _("It looks like you've imported this database before. Importing it twice will g
 _("Abort"), _("Continue"), "")
             if answer == 0:
                 db.load(receiving_database_filename)
+                self.log().active = True
                 return
         # Export to temporary *.cards file.
         cards_format = Mnemosyne2Cards(self.component_manager)
@@ -52,7 +55,8 @@ _("Abort"), _("Continue"), "")
         self.config().config_dir = os.path.dirname(filename)
         self.log().active = False
         self.config().load()
-        old_config = self.config().copy()
+        config_to_merge = self.config().copy()
+        print(config_to_merge["background_colour"])
         self.config().config_dir = old_config_dir
         self.config().load()
         self.log().active = True
@@ -68,11 +72,14 @@ _("Abort"), _("Continue"), "")
         db.current_criterion().deactivated_card_type_fact_view_ids.update(\
             old_deactivated_card_type_fact_view_ids)
         db.set_current_criterion(db.current_criterion())
+        print(config_to_merge["background_colour"])
         for property_name in ["background_colour", "font", "font_colour",
             "alignment", "hide_pronunciation_field"]:
             self.log().edited_setting(property_name)
             for card_type in user_card_types:
-                if card_type.id in old_config[property_name]:
+                print(card_type.id)
+                if card_type.id in config_to_merge[property_name]:
+                    print("yes")
                     self.config()[property_name][card_type.id] = \
-                        old_config[property_name][card_type.id]
+                        config_to_merge[property_name][card_type.id]
         db.skip_science_log()

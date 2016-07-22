@@ -10,7 +10,7 @@ from mnemosyne.pyqt_ui.ui_export_dlg import Ui_ExportDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import ExportDialog
 
 
-class ExportDlg(QtWidgets.QDialog, Ui_ExportDlg, ExportDialog):
+class ExportDlg(QtWidgets.QDialog, ExportDialog, Ui_ExportDlg):
 
     def __init__(self, **kwds):
         super().__init__(**kwds)
