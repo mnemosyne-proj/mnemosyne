@@ -18,19 +18,7 @@ from .partner import Partner
 from .log_entry import EventTypes
 from .text_formats.xml_format import XMLFormat
 from .utils import traceback_string, rand_uuid
-from mnemosyne.libmnemosyne.utils import path_exists, path_getsize, path_join
 import collections
-
-
-# Avoid delays caused by Nagle's algorithm.
-# http://www.cmlenz.net/archives/2008/03/python-httplib-performance-problems
-
-realsocket = socket.socket
-def socketwrap(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0):
-    sockobj = realsocket(family, type, proto)
-    sockobj.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-    return sockobj
-socket.socket = socketwrap
 
 
 # Register binary formats.
@@ -142,7 +130,7 @@ class Server(Partner):
         if mnemosyne_content_length is not None:
             response_headers.append(\
                 ("mnemosyne-content-length", str(mnemosyne_content_length)))
-        if type(data) == bytes:
+        if type(data) == bytes or type(data) == str:
             response_headers.append(("content-length", str(len(data))))
             start_response("200 OK", response_headers)
             return [data]
@@ -152,7 +140,7 @@ class Server(Partner):
         # beforehand. This obviously results in higher memory requirements for
         # the server and less concurrent processing between client and server.
             if environ["SERVER_PROTOCOL"] == "HTTP/1.0":
-                message = "".join(data)
+                message = b"".join(data)
                 response_headers.append(("content-length", str(len(message))))
                 start_response("200 OK", response_headers)
                 return [message]
@@ -226,7 +214,7 @@ class Server(Partner):
             "The next sync will need to be a full sync.")
 
     def is_sync_in_progress(self):
-        for session_token, session in list(self.sessions.items()):
+        for session_token, session in self.sessions.items():
             if not session.is_expired():
                 return True
         return False
@@ -238,12 +226,12 @@ class Server(Partner):
         return (len(self.sessions) == 0)
 
     def expire_old_sessions(self):
-        for session_token, session in list(self.sessions.items()):
+        for session_token, session in self.sessions.items():
             if session.is_expired():
                 self.terminate_session_with_token(session_token)
 
     def terminate_all_sessions(self):
-        for session_token in list(self.sessions.keys()):
+        for session_token in self.sessions.keys():
             self.terminate_session_with_token(session_token)
 
     def handle_error(self, session=None, traceback_string=None):
@@ -575,7 +563,6 @@ class Server(Partner):
             session = self.sessions[session_token]
             socket = environ["wsgi.input"]
             size = int(environ["CONTENT_LENGTH"])
-            filename = str(filename, "utf-8")
             # Make sure a malicious client cannot overwrite anything outside
             # of the media directory.
             filename = filename.replace("../", "").replace("..\\", "")
@@ -609,7 +596,7 @@ class Server(Partner):
             if len(filenames) == 0:
                 return ""
             for filename in filenames:
-                mnemosyne_content_length += path_getsize((os.path.join(\
+                mnemosyne_content_length += os.path.getsize((os.path.join(\
                         session.database.data_dir(), filename)))
             return "\n".join(filenames).encode("utf-8")
         except:
@@ -643,7 +630,6 @@ class Server(Partner):
             session = self.sessions[session_token]
             global mnemosyne_content_length
             socket = environ["wsgi.input"]
-            filename = str(filename, "utf-8")
             # Make sure a malicious client cannot access anything outside
             # of the media directory.
             filename = filename.replace("../", "").replace("..\\", "")

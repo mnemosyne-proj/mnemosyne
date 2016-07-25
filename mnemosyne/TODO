@@ -1,6 +1,8 @@
 look at all instances of str (done: add cards, add tags, but need to check with
 running software)
 
+instances of list(..keys())
+
 test 'Modern greek' in language dialog
 
 autosplitting of q/a
@@ -35,6 +37,24 @@ https://bugs.launchpad.net/mnemosyne-proj/+bug/1582509
 https://bugs.launchpad.net/bugs/1592975
 
 clean up unicode and android/w10 issues. Check why testsuite did not register this error.
+
+    https://code.google.com/p/python-for-android/issues/detail?id=35
+    
+    """
+    
+    return file(filename, mode)
+
+    # tmp
+    
+    #try:
+    #    return file(filename, mode)
+    #except (UnicodeEncodeError, UnicodeDecodeError):
+    #    _ENCODING = sys.getfilesystemencoding() or \
+    #        locale.getdefaultlocale()[1] or "utf-8"
+    #    return file(filename.encode(_ENCODING), mode)
+    
+
+
 archive files wont download from dot_test to android
 server.py imports from libmnemosyne.utils
 

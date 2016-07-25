@@ -39,7 +39,7 @@ class TestStatistics(MnemosyneTest):
 
     def test_easiness(self):
         from mnemosyne.libmnemosyne.statistics_pages.easiness import Easiness
-        page = Easiness(self.mnemosyne.component_manager)
+        page = Easiness(component_manager=self.mnemosyne.component_manager)
         page.prepare_statistics(-1)
         assert len(page.data) == 0
 
@@ -49,7 +49,7 @@ class TestStatistics(MnemosyneTest):
           card_type, grade=-1, tag_names=["default"])
         self.review_controller().show_new_question()
         self.review_controller().grade_answer(1)
-        page = Easiness(self.mnemosyne.component_manager)
+        page = Easiness(component_manager=self.mnemosyne.component_manager)
 
         page.prepare_statistics(-1)
         assert page.data == [2.5]
