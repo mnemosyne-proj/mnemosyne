@@ -12,30 +12,7 @@ import http.client
 
 from .partner import Partner
 from .text_formats.xml_format import XMLFormat
-from .utils import SyncError, SeriousSyncError
-from .utils import path_exists, path_getsize, path_join, traceback_string
-
-# Avoid delays caused by Nagle's algorithm.
-# http://www.cmlenz.net/archives/2008/03/python-httplib-performance-problems
-
-realsocket = socket.socket
-def socketwrap(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0):
-    sockobj = realsocket(family, type, proto)
-    sockobj.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-    return sockobj
-socket.socket = socketwrap
-
-# Buffer the response socket.
-# http://mail.python.org/pipermail/python-bugs-list/2006-September/035156.html
-# Fix included here for systems running Python 2.5.
-
-class HTTPResponse(http.client.HTTPResponse):
-
-    def __init__(self, sock, **kw):
-        http.client.HTTPResponse.__init__(self, sock, **kw)
-        self.fp = sock.makefile("rb") # Was unbuffered: sock.makefile("rb", 0)
-
-http.client.HTTPConnection.response_class = HTTPResponse
+from .utils import SyncError, SeriousSyncError, traceback_string
 
 # Register binary formats.
 
@@ -97,7 +74,7 @@ class Client(Partner):
         # If we haven't done so, determine whether we're behind a proxy.
         if self.behind_proxy is None:
             import urllib.request, urllib.parse, urllib.error
-            proxies = urllib.getproxies()
+            proxies = urllib.request.getproxies()
             if "http" in proxies:
                 self.behind_proxy = True
                 self.proxy = proxies["http"]
@@ -281,7 +258,8 @@ class Client(Partner):
     def _check_response_for_errors(self, response, can_consume_response=True):
         # Check for non-Mnemosyne error messages.
         if response.status != http.client.OK:
-            raise SeriousSyncError("Internal server error:\n" + response.read())
+            raise SeriousSyncError("Internal server error:\n" + \
+                                   str(response.read(), "utf-8"))
         if can_consume_response == False:
             return
         # Check for Mnemosyne error messages.
@@ -318,9 +296,10 @@ class Client(Partner):
             self.request_connection()
             self.con.request("PUT", self.url("/login"),
                 self.text_format.repr_partner_info(client_info).\
-                encode("utf-8") + "\n")
+                encode("utf-8") + b"\n")
             response = self.con.getresponse()
         except Exception as e:
+            print(e)
             raise SyncError("Could not connect to server!")
         # Check for errors, but don't force a restore from backup if we can't
         # login.
@@ -329,7 +308,7 @@ class Client(Partner):
                 response, can_consume_response=False)
         except SeriousSyncError:
             raise SyncError("Logging in: server error.")
-        response = response.read()
+        response = str(response.read(), "utf-8")
         if "message" in response:
             message, traceback = self.text_format.parse_message(response)
             message = message.lower()
@@ -532,7 +511,7 @@ class Client(Partner):
         # Calculate file size and upload.
         total_size = 0
         for filename in filenames:
-            total_size += path_getsize(os.path.join(\
+            total_size += os.path.getsize(os.path.join(\
                 self.database.data_dir(), filename))
         self.put_client_binary_files(filenames, total_size)
         self.ui.close_progress()
@@ -565,8 +544,8 @@ class Client(Partner):
                 self.url("/client_binary_file?session_token=%s&filename=%s" \
                 % (self.server_info["session_token"],
                 urllib.parse.quote(filename.encode("utf-8"), ""))))
-            full_path = path_join(self.database.data_dir(), filename)
-            file_size = path_getsize(full_path)
+            full_path = os.path.join(self.database.data_dir(), filename)
+            file_size = os.path.getsize(full_path)
             self.con.putheader("content-length", file_size)
             self.con.endheaders()
             for buffer in self.stream_binary_file(full_path, progress_bar=False):
@@ -594,7 +573,7 @@ class Client(Partner):
             response.read()
             return
         filenames = []
-        for filename in response.read().split("\n"):
+        for filename in response.read().split(b"\n"):
             filenames.append(str(filename, "utf-8"))
         self.ui.set_progress_text("Getting media files...")
         self.get_server_binary_files(filenames, total_size)    
@@ -617,7 +596,7 @@ class Client(Partner):
             response.read()
             return
         filenames = []
-        for filename in response.read().split("\n"):
+        for filename in response.read().split(b"\n"):
             filenames.append(str(filename, "utf-8"))
         self.ui.set_progress_text("Getting archive files...")
         self.get_server_binary_files(filenames, total_size)    

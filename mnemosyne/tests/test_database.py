@@ -222,6 +222,7 @@ class TestDatabase(MnemosyneTest):
         self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])
 
+        self.database().unload()
         self.database().new(self.config()["last_database"])
 
         assert self.database().fact_count() == 0

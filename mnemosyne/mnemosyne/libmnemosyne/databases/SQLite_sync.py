@@ -18,7 +18,6 @@ from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
-from mnemosyne.libmnemosyne.utils import path_exists, path_join
 from mnemosyne.libmnemosyne.utils import expand_path, MnemosyneError
 
 re_src = re.compile(r"""(src|data)=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
@@ -186,7 +185,7 @@ class SQLiteSync(object):
             """select object_id from log where _id>? and (event_type=? or
             event_type=?)""", (_id, EventTypes.ADDED_MEDIA_FILE,
             EventTypes.EDITED_MEDIA_FILE))]:
-            if path_exists(expand_path(filename, self.media_dir())):
+            if os.path.exists(expand_path(filename, self.media_dir())):
                 filenames.add(filename)                
         return filenames
 
@@ -202,7 +201,7 @@ class SQLiteSync(object):
         for root, dirs, files in os.walk(self.media_dir()):
             subdir = root.replace(self.media_dir(), "")
             for name in files:
-                filename = path_join(subdir, name)
+                filename = os.path.join(subdir, name)
                 if filename.startswith("\\") or filename.startswith("/"):
                     filename = filename[1:]
                 filenames.add(filename)
@@ -666,7 +665,7 @@ class SQLiteSync(object):
 
         filename = log_entry["fname"]
         full_path = expand_path(filename, self.media_dir())
-        if path_exists(full_path):
+        if os.path.exists(full_path):
             self.con.execute("""insert or replace into media(filename, _hash)
                 values(?,?)""", (filename, self._media_hash(filename)))
         self.log().added_media_file(filename)
@@ -687,7 +686,7 @@ class SQLiteSync(object):
         #full_path = expand_path(filename, self.media_dir())
         # The file could have been remotely deleted before it got a chance to
         # be synced, so we need to check if the file exists before deleting.
-        #if path_exists(full_path):
+        #if os.path_exists(full_path):
         #    os.remove(full_path)
         #self.log().deleted_media_file(filename)
 

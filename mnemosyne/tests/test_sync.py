@@ -115,7 +115,7 @@ class MyServer(Server, Thread):
         server_initialised.release()
         try:
             self.serve_until_stopped()
-        except: # Socket not ready.
+        except Exception as e: # Socket not ready.
             time.sleep(0.3)
             self.serve_until_stopped()
         # Also running the actual tests we need to do inside this thread and
@@ -1014,7 +1014,7 @@ class TestSync(object):
 
         filename = os.path.join(os.path.abspath("dot_sync_client"),
             "default.db_media", "a", chr(0x628) + "a.ogg")
-        f = file(filename, "w")
+        f = open(filename, "w")
         f.write("A")
         f.close()
         fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
@@ -1031,7 +1031,7 @@ class TestSync(object):
         filename = os.path.join(os.path.abspath("dot_sync_client"),
             "default.db_media", "b", chr(0x628) + "b.ogg")
         assert os.path.exists(filename)
-        assert file(filename).read() == "B"
+        assert open(filename).read() == "B"
         db = self.client.mnemosyne.database()
         assert db.con.execute("select count() from log").fetchone()[0] == 38
         assert db.con.execute("select count() from log where event_type=?",
@@ -1049,7 +1049,7 @@ class TestSync(object):
 
             filename = os.path.join(os.path.abspath("dot_sync_server"),
                 "default.db_media", "b", chr(0x628) + "b.ogg")
-            f = file(filename, "w")
+            f = open(filename, "w")
             f.write("B")
             f.close()
             fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
@@ -1075,7 +1075,7 @@ class TestSync(object):
 
         filename = os.path.join(os.path.abspath("dot_sync_client"),
             "default.db_media", "a", chr(0x628) + "a.ogg")
-        f = file(filename, "w")
+        f = open(filename, "w")
         f.write("A")
         f.close()
         fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
@@ -1095,7 +1095,7 @@ class TestSync(object):
 
             filename = os.path.join(os.path.abspath("dot_sync_server"),
                 "default.db_media", "b", chr(0x628) + "b.ogg")
-            f = file(filename, "w")
+            f = open(filename, "w")
             f.write("B")
             f.close()
             fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
@@ -1122,7 +1122,7 @@ class TestSync(object):
 
         filename = os.path.join(os.path.abspath("dot_sync_client"),
             "default.db_media", "a", chr(0x628) + "a.ogg")
-        f = file(filename, "w")
+        f = open(filename, "w")
         f.write("A")
         f.close()
         fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
@@ -1204,7 +1204,7 @@ class TestSync(object):
             "default.db_media", "a"))
         filename = os.path.join(os.path.abspath("dot_sync_client"),
             "default.db_media", "a", chr(0x628) + "a.ogg")
-        f = file(filename, "w")
+        f = open(filename, "w")
         f.write("A")
         f.close()
         fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
@@ -1309,7 +1309,7 @@ class TestSync(object):
             filename = os.path.join(os.path.abspath("dot_sync_server"),
                 "default.db_media", "a.ogg")
             assert os.path.exists(filename)
-            assert file(filename).read() == "B"
+            assert open(filename).read() == "B"
             assert db.con.execute("""select count() from media""").fetchone()[0] == 1
             assert db.con.execute("select count() from log").fetchone()[0] == 30
             assert db.con.execute("select count() from log where event_type=?",
@@ -1326,7 +1326,7 @@ class TestSync(object):
 
         filename = os.path.join(os.path.abspath("dot_sync_client"),
             "default.db_media", "a.ogg")
-        f = file(filename, "w")
+        f = open(filename, "w")
         f.write("A")
         f.close()
 
@@ -1344,7 +1344,7 @@ class TestSync(object):
         # Sleep 1 sec to make sure the timestamp detection mechanism works.
         import time; time.sleep(1)
 
-        f = file(filename, "w")
+        f = open(filename, "w")
         f.write("B")
         f.close()
 
@@ -1778,7 +1778,7 @@ class TestSync(object):
             assert db.con.execute("select count() from log where event_type=?",
                (EventTypes.REPETITION, )).fetchone()[0] == 3
             db.dump_to_science_log()
-            f = file(os.path.join(os.path.abspath("dot_sync_server"), "log.txt"))
+            f = open(os.path.join(os.path.abspath("dot_sync_server"), "log.txt"))
             assert len(f.readlines()) == 27
 
         self.server = MyServer()
@@ -1829,7 +1829,7 @@ class TestSync(object):
             assert db.con.execute("select count() from log where event_type=?",
                (EventTypes.REPETITION, )).fetchone()[0] == 3
             db.dump_to_science_log()
-            f = file(os.path.join(os.path.abspath("dot_sync_server"), "log.txt"))
+            f = open(os.path.join(os.path.abspath("dot_sync_server"), "log.txt"))
             assert len(f.readlines()) == 14
 
         self.server = MyServer()
@@ -1855,7 +1855,7 @@ class TestSync(object):
         db = self.client.database
         assert db.con.execute("select count() from log where event_type=?",
                (EventTypes.REPETITION, )).fetchone()[0] == 1
-        f = file(os.path.join(os.path.abspath("dot_sync_client"), "log.txt"))
+        f = open(os.path.join(os.path.abspath("dot_sync_client"), "log.txt"))
 
         assert len(f.readlines()) == 6+7
 
@@ -2349,7 +2349,7 @@ class TestSync(object):
         def fill_server_database(self):
             filename = os.path.join(os.path.abspath("dot_sync_server"),
                 "default.db_media", "b.ogg")
-            f = file(filename, "w")
+            f = open(filename, "w")
             f.write("B")
             f.close()
             fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
@@ -2432,7 +2432,7 @@ class TestSync(object):
         def fill_server_database(self):
             filename = os.path.join(os.path.abspath("dot_sync_server"),
                 "default.db_media", "b.ogg")
-            f = file(filename, "w")
+            f = open(filename, "w")
             f.write("B")
             f.close()
             fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
@@ -2593,7 +2593,8 @@ class TestSync(object):
             db = self.mnemosyne.database()
             criterion = db.criterion(self.criterion_id,
                 is_id_internal=False)
-            assert criterion.data_to_string() == "(set([]), set([2, 4]), set([]))"
+            print(criterion.data_to_string())
+            assert criterion.data_to_string() == "(set(), {2, 4}, set())"
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -2637,7 +2638,7 @@ class TestSync(object):
             db = self.mnemosyne.database()
             criterion = db.criterion(self.criterion_id,
                 is_id_internal=False)
-            assert criterion.data_to_string() == "(set([]), set([2, 4]), set([3]))"
+            assert criterion.data_to_string() == "(set(), {2, 4}, {3})"
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -2683,7 +2684,7 @@ class TestSync(object):
             db = self.mnemosyne.database()
             criterion = db.criterion(self.criterion_id,
                 is_id_internal=False)
-            assert criterion.data_to_string() == "(set([]), set([2]), set([3, 4]))"
+            assert criterion.data_to_string() == "(set(), {2}, {3, 4})"
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -2730,7 +2731,7 @@ class TestSync(object):
             db = self.mnemosyne.database()
             criterion = db.criterion(self.criterion_id,
                 is_id_internal=False)
-            assert criterion.data_to_string() == "(set([]), set([2]), set([]))"
+            assert criterion.data_to_string() == "(set(), {2}, set())"
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -2774,7 +2775,7 @@ class TestSync(object):
             db = self.mnemosyne.database()
             criterion = db.criterion(self.criterion_id,
                 is_id_internal=False)
-            assert criterion.data_to_string() == "(set([]), set([2]), set([]))"
+            assert criterion.data_to_string() == "(set(), {2}, set())"
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -2816,7 +2817,7 @@ class TestSync(object):
             db = self.mnemosyne.database()
             criterion = db.criterion(self.criterion_id,
                 is_id_internal=False)
-            assert criterion.data_to_string() == "(set([('1::1 cloned', u'1::1 cloned.1')]), set([2]), set([]))"
+            assert criterion.data_to_string() == "({('1::1 cloned', '1::1 cloned.1')}, {2}, set())"
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -2883,7 +2884,7 @@ class TestSync(object):
             db = self.mnemosyne.database()
             criterion = db.criterion(self.criterion_id,
                 is_id_internal=False)
-            assert criterion.data_to_string() == "(set([('5', '5.1')]), set([3]), set([4]))"
+            assert criterion.data_to_string() == "({('5', '5.1')}, {3}, {4})"
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -2936,7 +2937,8 @@ class TestSync(object):
             db = self.mnemosyne.database()
             criterion = db.criterion(self.criterion_id,
                 is_id_internal=False)
-            assert criterion.data_to_string() == "(set([('5', '5.1')]), set([3]), set([]))"
+            print (criterion.data_to_string())
+            assert criterion.data_to_string() == "({('5', '5.1')}, {3}, set())"
 
         self.server = MyServer()
         self.server.test_server = test_server
