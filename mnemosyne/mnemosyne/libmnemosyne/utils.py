@@ -284,9 +284,8 @@ class CompareOnId(object):
 
 def localhost_IP():
     import socket
-    from openSM2sync.server import realsocket
     try:      
-        s = realsocket(socket.AF_INET, socket.SOCK_DGRAM)
+        s = socket(socket.AF_INET, socket.SOCK_DGRAM)
         import sys; sys.stderr.write(get_real_socket())
         s.connect(("google.com", 8000))
         return s.getsockname()[0]

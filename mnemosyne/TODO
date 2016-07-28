@@ -1,11 +1,18 @@
+https://bugreports.qt.io/browse/QTBUG-50523
+stackedlayout
+setvisible i.o. show
+
 look at all instances of str (done: add cards, add tags, but need to check with
 running software)
 
 instances of list(..keys())
 
+sizehint in card browser delegate?
+
 test 'Modern greek' in language dialog
 
 autosplitting of q/a
+webengineview custom event filter? See source paste.
 
 rework: show_question dialog
 
