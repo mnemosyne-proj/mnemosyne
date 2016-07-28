@@ -25,9 +25,9 @@ class CardTypeDelegate(TagDelegate):
     def setEditorData(self, editor, index):
         # Get rid of the card count.
         self.previous_node_name = \
-            str(index.model().data(index).toString()).rsplit(" (", 1)[0]
+            index.model().data(index).rsplit(" (", 1)[0]
         node_index = index.model().index(index.row(), NODE, index.parent())
-        self.card_type_id = index.model().data(node_index).toString()        
+        self.card_type_id = index.model().data(node_index)       
         editor.setText(self.previous_node_name)
         
     def commit_and_close_editor(self):
@@ -111,7 +111,8 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
         self.nodes_which_can_be_deleted = []
         self.nodes_which_can_be_renamed = []
         self.tree_wdgt.clear()
-        self.card_type_fact_view_ids_for_node_item = {}
+        self.node_items = []
+        self.card_type_fact_view_ids_for_node_item = []
         root_item = QtWidgets.QTreeWidgetItem(self.tree_wdgt,
             [_("All card types (%d)") % root_count], 0)
         root_item.setFlags(root_item.flags() | \
@@ -144,14 +145,18 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
                 else:
                     check_state = QtCore.Qt.Checked
                 fact_view_item.setCheckState(0, check_state)
-                self.card_type_fact_view_ids_for_node_item[fact_view_item] = \
-                    (card_type.id, fact_view.id)
+                # Since fact_view_item seems mutable, we cannot use a dict.
+                self.node_items.append(fact_view_item)
+                self.card_type_fact_view_ids_for_node_item.append(\
+                    (card_type.id, fact_view.id))
         self.tree_wdgt.expandAll()
 
     def checked_to_criterion(self, criterion):
         criterion.deactivated_card_type_fact_view_ids = set()
-        for item, card_type_fact_view_ids in \
-                list(self.card_type_fact_view_ids_for_node_item.items()):
+        for i in range(len(self.node_items)):
+            item = self.node_items[i]
+            card_type_fact_view_ids = \
+                self.card_type_fact_view_ids_for_node_item[i]
             if item.checkState(0) == QtCore.Qt.Unchecked:
                 criterion.deactivated_card_type_fact_view_ids.add(\
                     card_type_fact_view_ids)

@@ -79,7 +79,7 @@ class CardModel(QtSql.QSqlTableModel, Component):
         if role == QtCore.Qt.TextColorRole:
             card_type_id_index = self.index(index.row(), CARD_TYPE_ID)
             card_type_id = str(QtSql.QSqlTableModel.data(\
-                self, card_type_id_index).toString())
+                self, card_type_id_index))
             colour = QtGui.QColor(QtCore.Qt.black)
             if card_type_id in self.font_colour_for_card_type_id:
                 colour = self.font_colour_for_card_type_id[card_type_id]
@@ -87,7 +87,7 @@ class CardModel(QtSql.QSqlTableModel, Component):
         if role == QtCore.Qt.BackgroundColorRole:
             card_type_id_index = self.index(index.row(), CARD_TYPE_ID)
             card_type_id = str(QtSql.QSqlTableModel.data(\
-                self, card_type_id_index).toString())
+                self, card_type_id_index))
             if card_type_id in self.background_colour_for_card_type_id:
                 return QtCore.QVariant(\
                     self.background_colour_for_card_type_id[card_type_id])
@@ -101,7 +101,7 @@ class CardModel(QtSql.QSqlTableModel, Component):
         if role == QtCore.Qt.FontRole and column not in \
             (QUESTION, ANSWER, TAGS):
             active_index = self.index(index.row(), ACTIVE)
-            active = super().data(active_index).toInt()[0]
+            active = super().data(active_index)
             font = QtGui.QFont()
             if not active:
                 font.setStrikeOut(True)
@@ -112,32 +112,32 @@ class CardModel(QtSql.QSqlTableModel, Component):
         # sorting still uses the orginal database keys, which is good
         # for speed.
         if column == GRADE:
-            grade = super().data(index).toInt()[0]
+            grade = super().data(index)
             if grade == -1:
                 return QtCore.QVariant(_("Yet to learn"))
             else:
                 return QtCore.QVariant(grade)
         if column == NEXT_REP:
             grade_index = self.index(index.row(), GRADE)
-            grade = super().data(grade_index).toInt()[0]
+            grade = super().data(grade_index)
             if grade < 2:
                 return QtCore.QVariant("")
-            next_rep = super().data(index, role).toInt()[0]
+            next_rep = super().data(index, role)
             if next_rep <= 0:
                 return QtCore.QVariant("")
             return QtCore.QVariant(\
                 self.scheduler().next_rep_to_interval_string(next_rep))
         if column == LAST_REP:
-            last_rep = super().data(index, role).toInt()[0]
+            last_rep = super().data(index, role)
             if last_rep <= 0:
                 return QtCore.QVariant("")
             return QtCore.QVariant(\
                 self.scheduler().last_rep_to_interval_string(last_rep))
         if column == EASINESS:
-            old_data = super().data(index, role).toString()
+            old_data = super().data(index, role)
             return QtCore.QVariant("%.2f" % float(old_data))
         if column in (CREATION_TIME, MODIFICATION_TIME):
-            old_data = super().data(index, role).toInt()[0]
+            old_data = super().data(index, role)
             return QtCore.QVariant(time.strftime(self.date_format,
                 time.localtime(old_data)))
         return super().data(index, role)
@@ -162,7 +162,7 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
         query = QtSql.QSqlQuery(\
             "select name from tags where _id=%d" % (_id, ))
         query.first()
-        tag = Tag(str(query.value(0).toString()), "dummy_id")
+        tag = Tag(query.value(0), "dummy_id")
         tag._id = _id
         return tag
 
@@ -171,11 +171,10 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
         fact_data = {}
         query = QtSql.QSqlQuery(\
            "select key, value from data_for_fact where _fact_id=%d" % (_id, ))
-        next(query)
+        query.next()
         while query.isValid():
-            fact_data[str(query.value(0).toString())] = \
-                str(query.value(1).toString())
-            next(query)
+            fact_data[query.value(0)] = query.value(1)
+            query.next()
         # Create fact.
         fact = Fact(fact_data, "dummy_id")
         fact._id = _id
@@ -185,17 +184,17 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
         query = QtSql.QSqlQuery("""select _fact_id, card_type_id,
             fact_view_id, extra_data from cards where _id=%d""" % (_id, ))
         query.first()
-        fact = self.fact(query.value(0).toInt()[0])
+        fact = self.fact(query.value(0))
         # Note that for the card type, we turn to the component manager as
         # opposed to this database, as we would otherwise miss the built-in
         # system card types
-        card_type = self.card_type_with_id(str(query.value(1).toString()))
-        fact_view_id = str(query.value(2).toString())
+        card_type = self.card_type_with_id(query.value(1))
+        fact_view_id = query.value(2)
         for fact_view in card_type.fact_views:
             if fact_view.id == fact_view_id:
                 card = Card(card_type, fact, fact_view)
                 # We need extra_data to display the cloze cards.
-                extra_data = str(query.value(3).toString())
+                extra_data = query.value(3)
                 if extra_data == "":
                     card.extra_data = {}
                 else:
@@ -209,23 +208,25 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
         #    where _card_id=%d""" % (_id, ))
         #query.next()
         #while query.isValid():
-        #    card.tags.add(self.tag(query.value(0).toInt()[0]))
+        #    card.tags.add(self.tag(query.value(0)))
         #    query.next()
 
         return card
 
     def paint(self, painter, option, index):
-        optionV4 = QtWidgets.QStyleOptionViewItemV4(option)
-        self.initStyleOption(optionV4, index)
-        if optionV4.widget:
-            style = optionV4.widget.style()
+        painter.save()
+        option = QtWidgets.QStyleOptionViewItem(option)
+        self.initStyleOption(option, index)
+        if option.widget:
+            style = option.widget.style()
         else:
             style = QtWidgets.QApplication.style()
         # Get the data.
         _id_index = index.model().index(index.row(), _ID)
-        _id = index.model().data(_id_index).toInt()[0]
-        if optionV4.state & QtWidgets.QStyle.State_Selected:
-            force_text_colour = optionV4.palette.color(\
+        _id = index.model().data(_id_index)
+        print (_id)
+        if option.state & QtWidgets.QStyle.State_Selected:
+            force_text_colour = option.palette.color(\
                 QtGui.QPalette.Active, QtGui.QPalette.HighlightedText).rgb()
         else:
             force_text_colour = None
@@ -241,29 +242,25 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
                 search_string=search_string))
         # Background colour.
         rect = \
-             style.subElementRect(QtWidgets.QStyle.SE_ItemViewItemText, optionV4)
-        if optionV4.state & QtWidgets.QStyle.State_Selected:
-            background_colour = optionV4.palette.color(QtGui.QPalette.Active,
+             style.subElementRect(QtWidgets.QStyle.SE_ItemViewItemText, option)
+        if option.state & QtWidgets.QStyle.State_Selected:
+            background_colour = option.palette.color(QtGui.QPalette.Active,
                                        QtGui.QPalette.Highlight)
         else:
             background_colour = index.model().background_colour_for_card_type_id.\
-                get(card.card_type.id, None)
+                get(card.card_type.id, None)   
         if background_colour:
-            painter.fillRect(rect, background_colour)
-        painter.save()
-        
-        # No longer used (done in model for all columns),
-        # but kept for reference.
-        #if not (optionV4.state & QtWidgets.QStyle.State_Selected) and \
-        #    not (optionV4.state & QtWidgets.QStyle.State_MouseOver):
-        #     painter.fillRect(rect, QtGui.QColor("red"))
-
+            painter.fillRect(rect, background_colour) 
+        # Actual data.
         painter.translate(rect.topLeft())
         painter.setClipRect(rect.translated(-rect.topLeft()))
         self.doc.setStyleSheet("background:transparent")
-        self.doc.setAttribute(QtCore.Qt.WA_TranslucentBackground)     
+        self.doc.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.doc.render(painter)
-        painter.restore()            
+        
+        self.doc.show()
+        
+        painter.restore() 
         
 
 class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
@@ -423,7 +420,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         index = selected_rows[0]
         _fact_id_index = index.model().index(\
             index.row(), _FACT_ID, index.parent())
-        _fact_id = index.model().data(_fact_id_index).toInt()[0]
+        _fact_id = index.model().data(_fact_id_index)
         fact = self.database().fact(_fact_id, is_id_internal=True)
         return self.database().cards_from_fact(fact)
 
@@ -432,7 +429,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         for index in self.table.selectionModel().selectedRows():
             _fact_id_index = index.model().index(\
                 index.row(), _FACT_ID, index.parent())
-            _fact_id = index.model().data(_fact_id_index).toInt()[0]
+            _fact_id = index.model().data(_fact_id_index)
             _fact_ids.add(_fact_id)
         facts = []
         for _fact_id in _fact_ids:
@@ -444,7 +441,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         for index in self.table.selectionModel().selectedRows():
             _card_id_index = index.model().index(\
                 index.row(), _ID, index.parent())
-            _card_id = index.model().data(_card_id_index).toInt()[0]
+            _card_id = index.model().data(_card_id_index)
             _card_ids.add(_card_id)
         return _card_ids
 
@@ -525,7 +522,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         for index in self.table.selectionModel().selectedRows():
             _fact_id_index = index.model().index(\
                 index.row(), _FACT_ID, index.parent())
-            _fact_id = index.model().data(_fact_id_index).toInt()[0]
+            _fact_id = index.model().data(_fact_id_index)
             _fact_ids.add(_fact_id)
         facts = []
         for _fact_id in _fact_ids:
@@ -544,8 +541,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         for index in self.table.selectionModel().selectedRows():
             card_type_id_index = index.model().index(\
                 index.row(), CARD_TYPE_ID, index.parent())
-            card_type_id = \
-                str(index.model().data(card_type_id_index).toString())
+            card_type_id = index.model().data(card_type_id_index)
             current_card_type_ids.add(card_type_id)
             if len(current_card_type_ids) > 1:
                 self.main_widget().show_error\
@@ -662,7 +658,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
             ACQ_REPS: _("Learning\nreps"),
             RET_REPS: _("Review\nreps"), LAPSES: _("Lapses"),
             CREATION_TIME: _("Created"), MODIFICATION_TIME: _("Modified")}
-        for key, value in list(headers.items()):
+        for key, value in headers.items():
               self.card_model.setHeaderData(key, QtCore.Qt.Horizontal,
                   QtCore.QVariant(value))
         self.table.setModel(self.card_model)
@@ -671,7 +667,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         table_settings = self.config()["browse_cards_dlg_table_settings"]
         if table_settings:
             self.table.horizontalHeader().restoreState(table_settings)
-        self.table.horizontalHeader().setMovable(True)
+        self.table.horizontalHeader().setSectionsMovable(True)
         self.table.setItemDelegateForColumn(\
             QUESTION, QA_Delegate(QUESTION, 
                 component_manager=self.component_manager, parent=self))
@@ -689,7 +685,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         self.table.verticalHeader().hide()
         query = QtSql.QSqlQuery("select count() from tags")
         query.first()
-        self.tag_count = query.value(0).toInt()[0]
+        self.tag_count = query.value(0)
         if run_filter:
             self.update_filter() # Needed after tag rename.
         if self.saved_index:
@@ -750,8 +746,8 @@ _("You chose to sort this table. Operations in the card browser could now be slo
             # Determine all _card_ids.
             query = QtSql.QSqlQuery("select _id from cards")
             all__card_ids = set()
-            while next(query):
-                all__card_ids.add(str(query.value(0).toInt()[0]))
+            while query.next():
+                all__card_ids.add(str(query.value(0)))
             # Determine _card_ids of card with an active tag.
             query = "select _card_id from tags_for_card where _tag_id in ("
             for _tag_id in criterion._tag_ids_active:
@@ -759,8 +755,8 @@ _("You chose to sort this table. Operations in the card browser could now be slo
             query = query[:-2] + ")"
             query = QtSql.QSqlQuery(query)
             active__card_ids = set()
-            while next(query):
-                active__card_ids.add(str(query.value(0).toInt()[0]))
+            while query.next():
+                active__card_ids.add(str(query.value(0)))
             # Construct most optimal query.
             if len(active__card_ids) > len(all__card_ids)/2:
                 filter += "_id not in (" + \
@@ -768,7 +764,7 @@ _("You chose to sort this table. Operations in the card browser could now be slo
             else:
                 filter += "_id in (" + ",".join(active__card_ids) + ")"
         # Search string.
-        search_string = str(self.search_box.text()).replace("'", "''")
+        search_string = self.search_box.text().replace("'", "''")
         self.card_model.search_string = search_string
         if search_string:
             if filter:
@@ -787,7 +783,7 @@ _("You chose to sort this table. Operations in the card browser could now be slo
             query_string += " where " + filter
         query = QtSql.QSqlQuery(query_string)
         query.first()
-        selected = query.value(0).toInt()[0]
+        selected = query.value(0)
         # Active selected count.
         if not filter:
             query_string += " where active=1"
@@ -795,7 +791,7 @@ _("You chose to sort this table. Operations in the card browser could now be slo
             query_string += " and active=1"
         query = QtSql.QSqlQuery(query_string)
         query.first()
-        active = query.value(0).toInt()[0]
+        active = query.value(0)
         self.counter_label.setText(\
             _("%d cards shown, of which %d active.") % (selected, active))
 

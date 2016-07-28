@@ -54,7 +54,7 @@ class TagDelegate(QtWidgets.QStyledItemDelegate):
         # We display the full node (i.e. all levels including ::), so that
         # the hierarchy can be changed upon editing.
         node_index = index.model().index(index.row(), NODE, index.parent())
-        self.previous_node_name = index.model().data(node_index).toString().\
+        self.previous_node_name = index.model().data(node_index).\
             replace("::" + _("Untagged"), "" )
         editor.setText(self.previous_node_name)
 
@@ -99,7 +99,7 @@ class TagsTreeWdgt(Component, QtWidgets.QWidget):
         for index in self.tree_wdgt.selectedIndexes():
             node_index = \
                 index.model().index(index.row(), NODE, index.parent())
-            node = index.model().data(node_index).toString()
+            node = index.model().data(node_index)
             if node in self.nodes_which_can_be_renamed:
                 nodes.append(node)
         return nodes
@@ -109,7 +109,7 @@ class TagsTreeWdgt(Component, QtWidgets.QWidget):
         for index in self.tree_wdgt.selectedIndexes():
             node_index = \
                 index.model().index(index.row(), NODE, index.parent())
-            node = index.model().data(node_index).toString()
+            node = index.model().data(node_index)
             if node in self.nodes_which_can_be_deleted:
                 nodes.append(node)
         return nodes
@@ -194,10 +194,11 @@ class TagsTreeWdgt(Component, QtWidgets.QWidget):
                 self.nodes_which_can_be_renamed.append(node)
                 self.nodes_which_can_be_deleted.append(node)
             if node in self.tag_tree.tag_for_node:
-                self.tag_for_node_item[node_item] = \
-                    self.tag_tree.tag_for_node[node]
+                # Since node_item seems mutable, we cannot use a dict.
+                self.node_items.append(node_item)
+                self.tag_for_node_item.append(self.tag_tree.tag_for_node[node])
             node_item.setData(NODE, QtCore.Qt.DisplayRole,
-                    QtCore.QVariant(QtCore.QString(node)))
+                    QtCore.QVariant(node))
             self.create_tree(tree=self.tag_tree[node], qt_parent=node_item)
 
     def display(self, criterion=None):
@@ -209,7 +210,8 @@ class TagsTreeWdgt(Component, QtWidgets.QWidget):
         # Create tree.
         self.tag_tree = TagTree(self.component_manager)
         self.tree_wdgt.clear()
-        self.tag_for_node_item = {}
+        self.node_items = []
+        self.tag_for_node_item = []
         self.nodes_which_can_be_deleted = []
         self.nodes_which_can_be_renamed = []
         node = "__ALL__"
@@ -224,7 +226,9 @@ class TagsTreeWdgt(Component, QtWidgets.QWidget):
         self.create_tree(self.tag_tree[node], qt_parent=root_item)
         # Set forbidden tags.
         if len(criterion._tag_ids_forbidden):
-            for node_item, tag in list(self.tag_for_node_item.items()):
+            for i in range(len(node_items)):
+                node_item = self.node_items[i]
+                tag = self.tag_for_node_item[i]
                 if tag._id in criterion._tag_ids_forbidden:
                     node_item.setCheckState(0, QtCore.Qt.Checked)
                 else:
@@ -235,9 +239,11 @@ class TagsTreeWdgt(Component, QtWidgets.QWidget):
             # second branch of the upcoming 'if' statement, as then an
             # inactive parent tag coming later in the list will deactivate
             # active child tags coming earlier in the list.
-            for node_item in self.tag_for_node_item:
-                node_item.setCheckState(0, QtCore.Qt.Unchecked)
-            for node_item, tag in list(self.tag_for_node_item.items()):
+            for node_item in self.node_items:
+                node_item.setCheckState(0, QtCore.Qt.Unchecked)     
+            for i in range(len(self.node_items)):
+                node_item = self.node_items[i]
+                tag = self.tag_for_node_item[i]
                 if tag._id in criterion._tag_ids_active:
                     node_item.setCheckState(0, QtCore.Qt.Checked)
         # Restore state of the tree.
@@ -252,23 +258,26 @@ class TagsTreeWdgt(Component, QtWidgets.QWidget):
             iterator += 1
 
     def checked_to_active_tags_in_criterion(self, criterion):
-        for item, tag in list(self.tag_for_node_item.items()):
-            if item.checkState(0) == QtCore.Qt.Checked:
+        for i in range(len(self.node_items)):
+            tag = self.tag_for_node_item[i]
+            if self.node_items[i].checkState(0) == QtCore.Qt.Checked:
                 criterion._tag_ids_active.add(tag._id)
         criterion._tag_ids_forbidden = set()
         return criterion
 
-    def checked_to_forbidden_tags_in_criterion(self, criterion):
-        for item, tag in list(self.tag_for_node_item.items()):
-            if item.checkState(0) == QtCore.Qt.Checked:
+    def checked_to_forbidden_tags_in_criterion(self, criterion):     
+        for i in range(len(self.node_items)):
+            tag = self.tag_for_node_item[i]        
+            if self.node_items[i].checkState(0) == QtCore.Qt.Checked:
                 criterion._tag_ids_forbidden.add(tag._id)
         criterion._tag_ids_active = \
             set([tag._id for tag in list(self.tag_for_node_item.values())])
         return criterion
     
-    def unchecked_to_forbidden_tags_in_criterion(self, criterion):
-        for item, tag in list(self.tag_for_node_item.items()):
-            if item.checkState(0) == QtCore.Qt.Unchecked:
+    def unchecked_to_forbidden_tags_in_criterion(self, criterion): 
+        for i in range(len(self.node_items)):
+            tag = self.tag_for_node_item[i]        
+            if self.node_items[i].checkState(0) == QtCore.Qt.Unchecked:
                 criterion._tag_ids_forbidden.add(tag._id)
         return criterion
 

@@ -37,6 +37,16 @@ class QWebEngineView2(QtWebEngineWidgets.QWebEngineView):
         action.setShortcuts(QtGui.QKeySequence(_("Ctrl+C")))
         menu.addAction(action)
         menu.exec_(self.mapToGlobal(event.pos()))
+        
+        
+        
+        #bool CustomWebEngine::eventFilter(QObject* object, QEvent* event)
+        #{
+        #    if (event->type() == QEvent::UpdateRequest)
+        #    {
+        #        emit updateFinished();
+        #    }
+        #}        
 
       
 
