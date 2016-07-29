@@ -1,30 +1,16 @@
-https://bugreports.qt.io/browse/QTBUG-50523
-stackedlayout
-setvisible i.o. show
-
-look at all instances of str (done: add cards, add tags, but need to check with
-running software)
-
-instances of list(..keys())
-
-sizehint in card browser delegate?
+test clone card type and rename it in card type tree, both inline editor and right click
 
 test 'Modern greek' in language dialog
-
-autosplitting of q/a
-webengineview custom event filter? See source paste.
-
-rework: show_question dialog
 
 test if localhost_IP works
 
 custom pyuic5 to translate Qt strings
 
-qwebengineview open links in external browser?
+qwebengineview open links in external browser? QWebEnginePage::acceptNavigationRequest() 
 
 test start from empty directory
 
-reenable py2exe
+reenable py2exe? Or move to pyinstaller? or pyqt's own solution?
 
 check custum error handling windows (main 'mnemosyne' file)
 

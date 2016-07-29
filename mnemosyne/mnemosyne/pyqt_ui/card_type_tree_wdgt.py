@@ -32,7 +32,7 @@ class CardTypeDelegate(TagDelegate):
         
     def commit_and_close_editor(self):
         editor = self.sender()
-        if str(self.previous_node_name) == str(editor.text()):
+        if self.previous_node_name == editor.text():
             self.redraw_node.emit(self.card_type_id)
         else:
             self.rename_node.emit(self.card_type_id, editor.text())
@@ -71,10 +71,10 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
                 self.setupUi(self)
                 self.card_type_name.setText(old_card_type_name)
 
-        old_card_type_name = self.card_type_with_id(str(nodes[0])).name
+        old_card_type_name = self.card_type_with_id(nodes[0]).name
         dlg = RenameDlg(old_card_type_name)
         if dlg.exec_() == QtWidgets.QDialog.Accepted:
-            self.rename_node(nodes[0], str(dlg.card_type_name.text()))
+            self.rename_node(nodes[0], dlg.card_type_name.text())
 
     def menu_delete(self):
         nodes = self.selected_nodes_which_can_be_deleted()
@@ -195,7 +195,7 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
         if self.acquire_database:
             self.acquire_database()
         self.save_criterion()
-        card_type = self.card_type_with_id(str(node))
+        card_type = self.card_type_with_id(node)
         self.controller().rename_card_type(card_type, new_name)
         self.restore_criterion()
         self.card_types_changed_signal.emit()
@@ -205,7 +205,7 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
             self.acquire_database()
         self.save_criterion()
         for node in nodes:
-            card_type = self.card_type_with_id(str(node))
+            card_type = self.card_type_with_id(node)
             self.controller().delete_card_type(card_type)
         self.restore_criterion()
         self.card_types_changed_signal.emit()

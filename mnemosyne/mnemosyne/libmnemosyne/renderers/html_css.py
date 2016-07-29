@@ -52,7 +52,7 @@ class HtmlCss(Renderer):
         css += "}\n"
         # Key tags.
         for true_fact_key, proxy_fact_key in \
-            list(card_type.fact_key_format_proxies().items()):
+            card_type.fact_key_format_proxies().items():
             css += "div.%s { " % true_fact_key
             # Set alignment within table cell.
             alignment = self.config().card_type_property(\

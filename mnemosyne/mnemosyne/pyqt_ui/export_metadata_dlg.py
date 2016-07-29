@@ -88,13 +88,13 @@ class ExportMetadataDlg(QtWidgets.QDialog, ExportMetadataDialog,
         if self.cancelled:
             return None
         metadata = {}
-        metadata["card_set_name"] = str(self.card_set_name.text())
-        metadata["author_name"] = str(self.author_name.text())
-        metadata["author_email"] = str(self.author_email.text())
-        metadata["tags"] = str(self.tags.text())
-        metadata["date"] = str(self.date.date().toString())
-        metadata["revision"] = str(self.revision.value())
-        metadata["notes"] = str(self.notes.toPlainText())
-        self.config()["author_name"] = str(metadata["author_name"])
-        self.config()["author_email"] = str(metadata["author_email"])
+        metadata["card_set_name"] = self.card_set_name.text()
+        metadata["author_name"] = self.author_name.text()
+        metadata["author_email"] = self.author_email.text()
+        metadata["tags"] = self.tags.text()
+        metadata["date"] = self.date.date().toString()
+        metadata["revision"] = self.revision.value()
+        metadata["notes"] = self.notes.toPlainText()
+        self.config()["author_name"] = metadata["author_name"]
+        self.config()["author_email"] = metadata["author_email"]
         return metadata

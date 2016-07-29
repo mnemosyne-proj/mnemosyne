@@ -58,7 +58,7 @@ class ManagePluginsDlg(QtWidgets.QDialog, ManagePluginsDialog,
         # If we get there through activating of the item, make sure we move
         # the selection to the activated item.
         self.plugin_list.setCurrentItem(list_item)
-        plugin = self.plugin_with_name[str(list_item.text())]
+        plugin = self.plugin_with_name[list_item.text()]
         self.plugin_description.setText(_(plugin.description))
         self.delete_button.setEnabled(\
             plugin.__class__.__name__ in self.can_be_deleted)
@@ -78,7 +78,7 @@ class ManagePluginsDlg(QtWidgets.QDialog, ManagePluginsDialog,
         self._store_state()
         for index in range(self.plugin_list.count()):
             list_item = self.plugin_list.item(index)
-            plugin_name = str(list_item.text())
+            plugin_name = list_item.text()
             if list_item.checkState() == QtCore.Qt.Checked and \
                 self.previously_active[plugin_name] == False:
                 self.plugin_with_name[plugin_name].activate()
@@ -93,7 +93,7 @@ class ManagePluginsDlg(QtWidgets.QDialog, ManagePluginsDialog,
         self.build_plugin_list()
 
     def delete_plugin(self):
-        plugin_name = str(self.plugin_list.selectedItems()[0].text())
+        plugin_name = self.plugin_list.selectedItems()[0].text()
         question = _("Are you sure you want to delete the plugin") + " \"" + \
             plugin_name + "\" " + _("and not just deactivate it?")
         answer = self.main_widget().show_question(question,

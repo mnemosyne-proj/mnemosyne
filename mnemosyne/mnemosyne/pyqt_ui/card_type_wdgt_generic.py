@@ -122,7 +122,7 @@ class GenericCardTypeWdgt(QtWidgets.QWidget, GenericCardTypeWidget):
 
     def is_empty(self):
         for edit_box in self.fact_key_for_edit_box:
-            if str(edit_box.document().toPlainText()):
+            if edit_box.document().toPlainText():
                 return False
         return True
 
@@ -131,14 +131,14 @@ class GenericCardTypeWdgt(QtWidgets.QWidget, GenericCardTypeWidget):
 
     def fact_data(self):
         _fact_data = {}
-        for edit_box, fact_key in list(self.fact_key_for_edit_box.items()):
-            _fact_data[fact_key] = str(edit_box.document().toPlainText())
+        for edit_box, fact_key in self.fact_key_for_edit_box.items():
+            _fact_data[fact_key] = edit_box.document().toPlainText()
         return _fact_data
 
     def set_fact_data(self, fact_data):
         self.fact_data_before_edit = fact_data
         if fact_data:
-            for edit_box, fact_key in list(self.fact_key_for_edit_box.items()):
+            for edit_box, fact_key in self.fact_key_for_edit_box.items():
                 if fact_key in fact_data:
                     edit_box.setPlainText(fact_data[fact_key])
 

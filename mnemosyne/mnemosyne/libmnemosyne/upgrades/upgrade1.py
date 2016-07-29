@@ -25,7 +25,7 @@ class Upgrade1(Component):
         home = os.path.expanduser("~")
         if sys.platform == "darwin":
             # This is where backup_old_dir put the old data dir.
-            old_data_dir = join(str(home), "Library", "Mnemosyne_1")
+            old_data_dir = join(home, "Library", "Mnemosyne_1")
         else:
             try:
                 home = home.decode(locale.getdefaultlocale()[1])
@@ -42,8 +42,8 @@ class Upgrade1(Component):
         # different directory anyway.
         if sys.platform == "darwin":
             home = os.path.expanduser("~")
-            old_data_dir = join(str(home), "Library", "Mnemosyne")
-            backup_dir = join(str(home), "Library", "Mnemosyne_1")
+            old_data_dir = join(home, "Library", "Mnemosyne")
+            backup_dir = join(home, "Library", "Mnemosyne_1")
             # Work around os.path.exists seeming to give wrong results on
             # OSX 10.6 (but not 10.7).
             if os.path.exists(join(old_data_dir, "default.db")):
@@ -65,17 +65,13 @@ _("Tried to backup your old 1.x files to %s, but that directory already exists."
                     
     def upgrade_from_old_data_dir(self, old_data_dir):
         join = os.path.join
-        try:
-            old_data_dir = str(old_data_dir)
-        except:
-            old_data_dir = str(old_data_dir, "mbcs")
         # Warn people that this directory is no longer used.
         open(join(old_data_dir,
             "DIRECTORY_NO_LONGER_USED_BY_MNEMOSYNE2"), "w").close()
         # Read old configuration.
         old_config = {}
         config_file = open(join(old_data_dir, "config"), "rb")
-        for key, value in list(pickle.load(config_file).items()):
+        for key, value in pickle.load(config_file).items():
             old_config[key] = value
         # Migrate configuration settings.
         if "user_id" in old_config:
@@ -97,7 +93,7 @@ _("Tried to backup your old 1.x files to %s, but that directory already exists."
         setting_for_file = {"dvipng": "dvipng",
                             "preamble": "latex_preamble",
                             "postamble": "latex_postamble"}
-        for filename, setting in list(setting_for_file.items()):
+        for filename, setting in setting_for_file.items():
             full_filename = join(old_data_dir, "latex", filename)
             self.config()[setting] = ""
             if os.path.exists(full_filename):

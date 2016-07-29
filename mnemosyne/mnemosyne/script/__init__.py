@@ -21,7 +21,7 @@ class ScriptMainWidget(MainWidget):
     def show_question(self, question, option0, option1, option2):
         print((question, option0, option1, option2))
         if self.q_and_a is not None:
-            for q, a  in list(self.q_and_a.items()):
+            for q, a in self.q_and_a.items():
                 if question.startswith(q):
                     return a
         raise NotImplementedError

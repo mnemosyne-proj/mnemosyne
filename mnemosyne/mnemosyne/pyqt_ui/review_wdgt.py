@@ -19,6 +19,10 @@ class QAOptimalSplit(object):
     in Preview Cards.
 
     """
+    
+    # Unfortunately, due to the port from Webkit in Qt4 to Webengine in Qt5
+    # this is not supported at the moment...
+    # See: https://bugreports.qt.io/browse/QTBUG-50523
 
     used_for_reviewing = True
     
@@ -53,7 +57,7 @@ class QAOptimalSplit(object):
         self.is_answer_showing = False
         self.times_resized = 0
 
-    def resizeEvent(self, event):
+    def resizeEvent_off(self, event):
         # Update stretch factors when changing the size of the window.
         self.set_question(self.question_text)
         self.set_answer(self.answer_text)
@@ -70,7 +74,6 @@ class QAOptimalSplit(object):
         return QtWidgets.QWidget.resizeEvent(self, event)
 
     def question_preview_load_finished(self):
-        
         #webView->page()->runJavaScript("document.documentElement.scrollWidth;",[=](QVariant result){
         #int newWidth=result.toInt();
         #webView->resize(newWidth,webView->height());
@@ -82,20 +85,19 @@ class QAOptimalSplit(object):
         #});
         
         pass
-
         #self.required_question_size = \
         #    self.question_preview.page().currentFrame().contentsSize()
         #self.update_stretch_factors()
 
     def answer_preview_load_finished(self):
-        
         pass
-    
         #self.required_answer_size = \
         #    self.answer_preview.page().currentFrame().contentsSize()
         #self.update_stretch_factors()
 
     def update_stretch_factors(self):
+        return
+        
         total_height_available = self.question.height() + self.answer.height()
         # Correct the required heights of question and answer for the
         # presence of horizontal scrollbars.
@@ -173,7 +175,7 @@ class QAOptimalSplit(object):
         self.question_text = text
         #self.question_preview.page().setPreferredContentsSize(\
         #    QtCore.QSize(self.question.size().width(), 1))
-        self.question_preview.setHtml(self.silence_media(text))
+        #self.question_preview.setHtml(self.silence_media(text))
         #self.question_preview.show()
 
     def set_answer(self, text):
@@ -181,7 +183,7 @@ class QAOptimalSplit(object):
         self.answer_text = text
         #self.answer_preview.page().setPreferredContentsSize(\
         #    QtCore.QSize(self.answer.size().width(), 1))
-        self.answer_preview.setHtml(self.silence_media(text))
+        #self.answer_preview.setHtml(self.silence_media(text))
         #self.answer_preview.show()
 
     def reveal_question(self):
@@ -216,7 +218,11 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         parent = self.main_widget()
         parent.setCentralWidget(self)
         self.setupUi(self)
-        QAOptimalSplit.setup(self)
+        
+        
+        #QAOptimalSplit.setup(self)
+        
+        
         # TODO: move this to designer with update of PyQt.
         self.grade_buttons = QtWidgets.QButtonGroup()
         self.grade_buttons.addButton(self.grade_0_button, 0)

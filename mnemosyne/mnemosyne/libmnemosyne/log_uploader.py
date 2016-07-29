@@ -60,7 +60,7 @@ class LogUploader(Thread, Component):
         data_dir = self.config().data_dir
         join = os.path.join
         # Find out which files haven't been uploaded yet.
-        dir = os.listdir(str(join(data_dir, "history")))
+        dir = os.listdir(join(data_dir, "history"))
         history_files = [x for x in dir if x.endswith(".bz2")]
         uploaded_filename = join(data_dir, "history", "uploaded")
         if os.path.exists(uploaded_filename):

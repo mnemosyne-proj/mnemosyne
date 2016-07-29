@@ -133,7 +133,7 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
         # Manage database indexes.
         db.before_1x_log_import()
         filenames = [os.path.join(log_dir, logname) for logname in \
-            sorted(os.listdir(str(log_dir))) if logname.endswith(".bz2")]
+            sorted(os.listdir(log_dir)) if logname.endswith(".bz2")]
         # log.txt can also contain data we need to import, especially on the
         # initial upgrade from 1.x. 'ids_to_parse' will make sure we only pick
         # up the relevant events. (If we do the importing after having used

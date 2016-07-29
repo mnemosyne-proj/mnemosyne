@@ -35,6 +35,6 @@ class CardSetNameDlg(QtWidgets.QDialog, UiComponent, Ui_CardSetNameDlg):
         return QtWidgets.QDialog.reject(self)
 
     def accept(self):
-        self.criterion.name = str(self.set_name.currentText())
+        self.criterion.name = self.set_name.currentText()
         return QtWidgets.QDialog.accept(self)
 

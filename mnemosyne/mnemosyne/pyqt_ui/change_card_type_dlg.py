@@ -27,7 +27,7 @@ class ChangeCardTypeDlg(QtWidgets.QDialog, Component, Ui_ChangeCardTypeDlg):
             self.card_types_widget.addItem(_(card_type.name))
 
     def accept(self):
-        card_type_name = str(self.card_types_widget.currentText())
+        card_type_name = self.card_types_widget.currentText()
         self.return_values["new_card_type"] = \
             self.card_type_by_name[card_type_name]
         return QtWidgets.QDialog.accept(self)

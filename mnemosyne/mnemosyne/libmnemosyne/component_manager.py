@@ -82,7 +82,7 @@ class ComponentManager(object):
             # tuple and a single class.
             if isinstance(used_for, tuple):
                 tuple_class_keys = \
-                    [_key for _key in list(self.components.keys()) if \
+                    [_key for _key in self.components.keys() if \
                     not isinstance(_key, str) and not (_key == None) \
                     and isinstance(_key, tuple)]
                 for key in tuple_class_keys:
@@ -95,7 +95,7 @@ class ComponentManager(object):
                 return []
             else:
                 non_tuple_class_keys = \
-                    [_key for _key in list(self.components.keys()) if \
+                    [_key for _key in self.components.keys() if \
                     not isinstance(_key, str) and not (_key == None) \
                     and not isinstance(_key, tuple)]
                 for key in non_tuple_class_keys:

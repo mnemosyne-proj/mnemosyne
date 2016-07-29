@@ -355,7 +355,7 @@ class SQLiteSync(object):
                 return None
             if self.has_fact_with_id(log_entry["o_id"]):
                 fact = self.fact(log_entry["o_id"], is_id_internal=False)
-                for fact_key, value in list(fact.data.items()):
+                for fact_key, value in fact.data.items():
                     log_entry[fact_key] = value
             else: # The object has been deleted at a later stage.
                 pass
@@ -483,7 +483,7 @@ class SQLiteSync(object):
             return self.fact(log_entry["o_id"], is_id_internal=False)
         # Create fact object.
         fact_data = {}
-        for key, value in list(log_entry.items()):
+        for key, value in log_entry.items():
             if key not in ["time", "type", "o_id"]:
                 fact_data[key] = value
         fact = Fact(fact_data, log_entry["o_id"])

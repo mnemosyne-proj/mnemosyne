@@ -60,7 +60,7 @@ class TagDelegate(QtWidgets.QStyledItemDelegate):
 
     def commit_and_close_editor(self):
         editor = self.sender()
-        if str(self.previous_node_name) == str(editor.text()):
+        if self.previous_node_name == editor.text():
             self.redraw_node.emit(self.previous_node_name)
         else:
             self.rename_node.emit(self.previous_node_name, editor.text())
@@ -163,7 +163,7 @@ class TagsTreeWdgt(Component, QtWidgets.QWidget):
         old_tag_name = nodes[0]
         dlg = RenameDlg(old_tag_name)
         if dlg.exec_() == QtWidgets.QDialog.Accepted:
-            self.rename_node(nodes[0], str(dlg.tag_name.text()))
+            self.rename_node(nodes[0], dlg.tag_name.text())
 
     def menu_delete(self):
         nodes = self.selected_nodes_which_can_be_deleted()
@@ -253,7 +253,7 @@ class TagsTreeWdgt(Component, QtWidgets.QWidget):
             collapsed = []
         iterator = QtWidgets.QTreeWidgetItemIterator(self.tree_wdgt)
         while iterator.value():
-            if str(iterator.value().text(1)) in collapsed:
+            if iterator.value().text(1) in collapsed:
                 iterator.value().setExpanded(False)
             iterator += 1
 
@@ -271,7 +271,7 @@ class TagsTreeWdgt(Component, QtWidgets.QWidget):
             if self.node_items[i].checkState(0) == QtCore.Qt.Checked:
                 criterion._tag_ids_forbidden.add(tag._id)
         criterion._tag_ids_active = \
-            set([tag._id for tag in list(self.tag_for_node_item.values())])
+            set([tag._id for tag in self.tag_for_node_item.values()])
         return criterion
     
     def unchecked_to_forbidden_tags_in_criterion(self, criterion): 
@@ -311,7 +311,7 @@ class TagsTreeWdgt(Component, QtWidgets.QWidget):
         iterator = QtWidgets.QTreeWidgetItemIterator(self.tree_wdgt)
         while iterator.value():
             if not iterator.value().isExpanded():
-                collapsed.append(str(iterator.value().text(1)))
+                collapsed.append(iterator.value().text(1))
             iterator += 1
         self.config()["tag_tree_wdgt_state"] = collapsed
 
@@ -320,7 +320,7 @@ class TagsTreeWdgt(Component, QtWidgets.QWidget):
             self.acquire_database()
         self.save_criterion()
         self.store_tree_state()
-        self.tag_tree.rename_node(str(node), str(new_name))
+        self.tag_tree.rename_node(node, new_name)
         self.restore_criterion()
         self.tags_changed_signal.emit()
 
@@ -330,7 +330,7 @@ class TagsTreeWdgt(Component, QtWidgets.QWidget):
         self.save_criterion()
         self.store_tree_state()
         for node in nodes:
-            self.tag_tree.delete_subtree(str(node))
+            self.tag_tree.delete_subtree(node)
         self.restore_criterion()
         self.tags_changed_signal.emit()
 

@@ -29,7 +29,7 @@ class ExportDlg(QtWidgets.QDialog, ExportDialog, Ui_ExportDlg):
             self.file_formats.setCurrentIndex(current_index)
 
     def file_format_changed(self):
-        filename = str(self.filename_box.text())
+        filename = self.filename_box.text()
         if "." in filename:
             filename = old_filename.rsplit(".")[0] + self.format().extension
             self.filename_box.setText(filename)
@@ -40,8 +40,7 @@ class ExportDlg(QtWidgets.QDialog, ExportDialog, Ui_ExportDlg):
 
     def format(self):
         for _format in self.component_manager.all("file_format"):
-            if _(_format.description) == \
-                str(self.file_formats.currentText()):
+            if _(_format.description) == self.file_formats.currentText():
                 return _format
 
     def browse(self):
@@ -53,7 +52,7 @@ class ExportDlg(QtWidgets.QDialog, ExportDialog, Ui_ExportDlg):
             self.config()["export_dir"] = os.path.dirname(filename)
 
     def accept(self):
-        filename = str(self.filename_box.text())
+        filename = self.filename_box.text()
         if not filename:
             return QtWidgets.QDialog.accept(self)
         if not filename.endswith(self.format().extension):
