@@ -30,7 +30,7 @@ class CloneCardTypeDlg(QtWidgets.QDialog, Component, Ui_CloneCardTypeDlg):
 
     def accept(self):
         parent_instance = self.sorted_card_types[self.parent_type.currentIndex()]
-        clone_name = str(self.name.text())
+        clone_name = self.name.text()
         clone = self.controller().clone_card_type(\
             parent_instance, clone_name)
         if not clone:

@@ -54,8 +54,7 @@ class ImportDlg(QtWidgets.QDialog, ImportDialog, Ui_ImportDlg):
 
     def format(self):
         for _format in self.component_manager.all("file_format"):
-            if _(_format.description) == \
-                str(self.file_formats.currentText()):
+            if _(_format.description) == self.file_formats.currentText():
                 return _format
 
     def browse(self):
@@ -67,9 +66,9 @@ class ImportDlg(QtWidgets.QDialog, ImportDialog, Ui_ImportDlg):
             self.config()["import_dir"] = os.path.dirname(filename)
 
     def accept(self):
-        filename = str(self.filename_box.text())
+        filename = self.filename_box.text()
         if filename and os.path.exists(filename):
-            extra_tag_names = str(self.tags.currentText())
+            extra_tag_names = self.tags.currentText()
             self.config()["import_extra_tag_names"] = extra_tag_names
             if not extra_tag_names:
                 extra_tag_names = None

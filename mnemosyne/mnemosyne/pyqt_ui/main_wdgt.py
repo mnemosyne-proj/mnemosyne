@@ -73,8 +73,21 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
             text)
 
     def show_question(self, text, option0, option1, option2):
-        return QtWidgets.QMessageBox.question(self.top_window(),  _("Mnemosyne"),
-            text, option0, option1, option2, 0, -1)
+        dialog = QtWidgets.QMessageBox(self.top_window())
+        dialog.setIcon(QtWidgets.QMessageBox.Question)
+        dialog.setWindowTitle(_("Mnemosyne"))
+        dialog.setText(text)
+        button0 = dialog.addButton(option0, QtWidgets.QMessageBox.ActionRole)
+        button1 = dialog.addButton(option1, QtWidgets.QMessageBox.ActionRole)
+        button2 = dialog.addButton(option2, QtWidgets.QMessageBox.ActionRole)
+        dialog.exec_()
+        if dialog.clickedButton() == button0:
+            result = 0
+        elif dialog.clickedButton() == button1:
+            result = 1
+        elif dialog.clickedButton() == button2:
+            result = 2
+        return result
 
     def show_error(self, text):
         QtWidgets.QMessageBox.critical(self.top_window(), _("Mnemosyne"), text)
@@ -83,12 +96,12 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
         return QtWidgets.qApp.font().pointSize()
 
     def get_filename_to_open(self, path, filter, caption=""):
-        return str(QtWidgets.QFileDialog.\
-            getOpenFileName(self, caption, path, filter))
+        return QtWidgets.QFileDialog.\
+            getOpenFileName(self, caption, path, filter)
 
     def get_filename_to_save(self, path, filter, caption=""):
-        return str(QtWidgets.QFileDialog.\
-            getSaveFileName(self, caption, path, filter))
+        return QtWidgets.QFileDialog.\
+            getSaveFileName(self, caption, path, filter)
 
     def set_status_bar_message(self, text):
         self.status_bar.showMessage(text)

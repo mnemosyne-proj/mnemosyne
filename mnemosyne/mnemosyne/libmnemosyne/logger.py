@@ -152,8 +152,7 @@ class Logger(Component):
 
         """
 
-        _dir = os.listdir(str(\
-            os.path.join(self.config().data_dir, "history")))
+        _dir = os.listdir(os.path.join(self.config().data_dir, "history"))
         history_files = [x for x in _dir if x[-4:] == ".bz2"]
         max_log_index = 0
         this_machine_id = self.config().machine_id()

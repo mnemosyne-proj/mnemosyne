@@ -26,7 +26,7 @@ class HtmlCssCardBrowser(HtmlCss):
         css += "._search { color: red; }\n"       
         # Key tags.
         for true_fact_key, proxy_fact_key in \
-            list(card_type.fact_key_format_proxies().items()):
+            card_type.fact_key_format_proxies().items():
             css += ".%s { " % true_fact_key 
             # Font colours.
             if "force_text_colour" in render_args and render_args["force_text_colour"]:

@@ -60,7 +60,7 @@ class CardModel(QtSql.QSqlTableModel, Component):
             self.date_format = "%m/%d/%y"
         self.background_colour_for_card_type_id = {}
         for card_type_id, rgb in \
-            list(self.config()["background_colour"].items()):
+            self.config()["background_colour"].items():
             # If the card type has been deleted since, don't bother.
             if not card_type_id in self.component_manager.card_type_with_id:
                 continue
@@ -75,19 +75,19 @@ class CardModel(QtSql.QSqlTableModel, Component):
             self.font_colour_for_card_type_id[card_type_id] = QtGui.QColor(\
                 self.config()["font_colour"][card_type_id][first_key])
 
-    def data(self, index, role=QtCore.Qt.DisplayRole):
+    def data(self, index, role=QtCore.Qt.DisplayRole):       
         if role == QtCore.Qt.TextColorRole:
             card_type_id_index = self.index(index.row(), CARD_TYPE_ID)
-            card_type_id = str(QtSql.QSqlTableModel.data(\
-                self, card_type_id_index))
+            card_type_id = QtSql.QSqlTableModel.data(\
+                self, card_type_id_index)
             colour = QtGui.QColor(QtCore.Qt.black)
             if card_type_id in self.font_colour_for_card_type_id:
                 colour = self.font_colour_for_card_type_id[card_type_id]
             return QtCore.QVariant(colour)
         if role == QtCore.Qt.BackgroundColorRole:
             card_type_id_index = self.index(index.row(), CARD_TYPE_ID)
-            card_type_id = str(QtSql.QSqlTableModel.data(\
-                self, card_type_id_index))
+            card_type_id = QtSql.QSqlTableModel.data(\
+                self, card_type_id_index)
             if card_type_id in self.background_colour_for_card_type_id:
                 return QtCore.QVariant(\
                     self.background_colour_for_card_type_id[card_type_id])
@@ -143,13 +143,25 @@ class CardModel(QtSql.QSqlTableModel, Component):
         return super().data(index, role)
 
 
+
 class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
 
     """Uses webview to render the questions and answers."""
+    
+    # Unfortunately, due to the port from Webkit in Qt4 to Webengine in Qt5
+    # this is not supported at the moment...
+    # See: https://bugreports.qt.io/browse/QTBUG-50523    
 
     def __init__(self, Q_or_A, **kwds):
         super().__init__(**kwds)
-        self.doc = QWebEngineView2()
+        
+        self.doc = QtGui.QTextDocument(self)
+        
+        #self.doc = QWebEngineView2()
+        #self.doc.show()
+        #self.doc.loadFinished.connect(self.loaded_html)
+        #self.load_finished = False
+        
         self.Q_or_A = Q_or_A
         
     # We need to reimplement the database access functions here using Qt's
@@ -212,8 +224,52 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
         #    query.next()
 
         return card
-
+    
+    def loaded_html(self, result):
+        self.load_finished = True
+        
     def paint(self, painter, option, index):
+        option = QtWidgets.QStyleOptionViewItem(option)
+        self.initStyleOption(option, index)
+        if option.widget:
+            style = option.widget.style()
+        else:
+            style = QtGui.QApplication.style()
+        # Get the data.
+        _id_index = index.model().index(index.row(), _ID)
+        _id = index.model().data(_id_index)
+        ignore_text_colour = bool(option.state & QtWidgets.QStyle.State_Selected)
+        search_string = index.model().search_string
+        card = self.card(_id)
+        if self.Q_or_A == QUESTION:
+            self.doc.setHtml(card.question(render_chain="card_browser",
+                ignore_text_colour=ignore_text_colour,
+                search_string=search_string))
+        else:
+            self.doc.setHtml(card.answer(render_chain="card_browser",
+                ignore_text_colour=ignore_text_colour,
+                search_string=search_string))
+        # Paint the item without the text.
+        option.text = ""
+        style.drawControl(QtWidgets.QStyle.CE_ItemViewItem, option, painter)
+        context = QtGui.QAbstractTextDocumentLayout.PaintContext()
+        # Highlight text if item is selected.
+        if option.state & QtWidgets.QStyle.State_Selected:
+            painter.fillRect(option.rect, option.palette.highlight())
+            context.palette.setColor(QtGui.QPalette.Text,
+                option.palette.color(QtGui.QPalette.Active,
+                                     QtGui.QPalette.HighlightedText))
+        rect = \
+             style.subElementRect(QtWidgets.QStyle.SE_ItemViewItemText, option)
+        # Render.
+        painter.save()
+        painter.translate(rect.topLeft())
+        painter.translate(0, 2)  # There seems to be a small offset needed...
+        painter.setClipRect(rect.translated(-rect.topLeft()))
+        self.doc.documentLayout().draw(painter, context)
+        painter.restore()
+
+    def paint_webengine(self, painter, option, index):
         painter.save()
         option = QtWidgets.QStyleOptionViewItem(option)
         self.initStyleOption(option, index)
@@ -224,14 +280,15 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
         # Get the data.
         _id_index = index.model().index(index.row(), _ID)
         _id = index.model().data(_id_index)
-        print (_id)
         if option.state & QtWidgets.QStyle.State_Selected:
             force_text_colour = option.palette.color(\
-                QtGui.QPalette.Active, QtGui.QPalette.HighlightedText).rgb()
+                QtWidgets.QPalette.Active, QtWidgets.QPalette.HighlightedText).rgb()
         else:
             force_text_colour = None
         search_string = index.model().search_string
         card = self.card(_id)
+        # Set the html.
+        self.load_finished = False
         if self.Q_or_A == QUESTION:
             self.doc.setHtml(card.question(render_chain="card_browser",
                 force_text_colour=force_text_colour,
@@ -240,26 +297,31 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
             self.doc.setHtml(card.answer(render_chain="card_browser",
                 force_text_colour=force_text_colour,
                 search_string=search_string))
+        self.doc.setStyleSheet("background:transparent")
+        self.doc.setAttribute(QtCore.Qt.WA_TranslucentBackground)        
+        self.doc.show()
+        while not self.load_finished:
+            QtWidgets.QApplication.instance().processEvents(\
+                QtCore.QEventLoop.ExcludeUserInputEvents | \
+                QtCore.QEventLoop.ExcludeSocketNotifiers | \
+                QtCore.QEventLoop.WaitForMoreEvents)      
         # Background colour.
         rect = \
              style.subElementRect(QtWidgets.QStyle.SE_ItemViewItemText, option)
         if option.state & QtWidgets.QStyle.State_Selected:
-            background_colour = option.palette.color(QtGui.QPalette.Active,
-                                       QtGui.QPalette.Highlight)
+            background_colour = option.palette.color(QtWidgets.QPalette.Active,
+                                       QtWidgets.QPalette.Highlight)
         else:
             background_colour = index.model().background_colour_for_card_type_id.\
                 get(card.card_type.id, None)   
         if background_colour:
             painter.fillRect(rect, background_colour) 
-        # Actual data.
+        # Render from browser.
         painter.translate(rect.topLeft())
         painter.setClipRect(rect.translated(-rect.topLeft()))
         self.doc.setStyleSheet("background:transparent")
         self.doc.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.doc.render(painter)
-        
-        self.doc.show()
-        
         painter.restore() 
         
 

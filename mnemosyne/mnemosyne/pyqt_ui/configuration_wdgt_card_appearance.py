@@ -52,7 +52,7 @@ class ConfigurationWdgtCardAppearance(QtWidgets.QWidget, ConfigurationWidget,
                 self.non_latin_font_size_increase]:
                 widget.show()
         else:
-            new_card_type_name = str(new_card_type_name)
+            new_card_type_name = new_card_type_name
             new_card_type = self.card_type_by_name[new_card_type_name]
             self.affected_card_types = [new_card_type]
             self.fact_key_names = new_card_type.fact_key_names()
@@ -155,7 +155,7 @@ class ConfigurationWdgtCardAppearance(QtWidgets.QWidget, ConfigurationWidget,
         # Set new font.
         font, ok = QtWidgets.QFontDialog.getFont(current_font, self)
         if ok:
-            font_string = str(font.toString())
+            font_string = font.toString()
             for card_type in self.affected_card_types:
                 self.config().set_card_type_property("font", font_string,
                     card_type, affected_fact_key)

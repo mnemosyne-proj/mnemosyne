@@ -147,10 +147,10 @@ class SyncDlg(QtWidgets.QDialog, Ui_SyncDlg, SyncDialog):
 
     def accept(self):
         # Store input for later use.
-        server = str(self.server.text())
+        server = self.server.text()
         port = self.port.value()
-        username = str(self.username.text())
-        password = str(self.password.text())
+        username = self.username.text()
+        password = self.password.text()
         self.config()["server_for_sync_as_client"] = server
         self.config()["port_for_sync_as_client"] = port
         self.config()["username_for_sync_as_client"] = username

@@ -120,7 +120,7 @@ class RenderChain(Component):
 
         """'renderer_class' should be a class, not an instance."""
 
-        for card_type, renderer in list(self._renderer_for_card_type.items()):
+        for card_type, renderer in self._renderer_for_card_type.items():
             if isinstance(renderer, renderer_class):
                 del self._renderer_for_card_type[card_type]
                 break

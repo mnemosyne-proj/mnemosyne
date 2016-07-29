@@ -73,8 +73,8 @@ class ConfigurationWdgtServers(QtWidgets.QWidget, ConfigurationWidget,
     def apply(self):
         self.config()["run_sync_server"] = self.run_sync_server.isChecked()
         self.config()["sync_server_port"] = self.sync_port.value()
-        self.config()["remote_access_username"] = str(self.username.text())
-        self.config()["remote_access_password"] = str(self.password.text())
+        self.config()["remote_access_username"] = self.username.text()
+        self.config()["remote_access_password"] = self.password.text()
         self.config()["check_for_edited_local_media_files"] = \
             self.check_for_edited_local_media_files.isChecked()
         self.config()["run_web_server"] = self.run_web_server.isChecked()

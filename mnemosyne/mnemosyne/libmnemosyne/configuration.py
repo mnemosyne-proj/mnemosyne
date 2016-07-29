@@ -180,7 +180,7 @@ class Configuration(Component, dict):
         # of the program, or because the user deleted the config file. In the
         # latter case, we try to recuperate the id from the history files.
         if self["user_id"] is None:
-            _dir = os.listdir(str(os.path.join(self.data_dir, "history")))
+            _dir = os.listdir(os.path.join(self.data_dir, "history"))
             history_files = [x for x in _dir if x[-4:] == ".bz2"]
             if not history_files:
                 self["user_id"] = rand_uuid()

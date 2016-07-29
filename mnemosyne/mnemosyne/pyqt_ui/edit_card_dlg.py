@@ -76,7 +76,7 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
         self.card_types_widget.currentIndexChanged[QtCore.QString].\
             disconnect(self.card_type_changed)
         for i in range(self.card_types_widget.count()):
-            if str(self.card_types_widget.itemText(i)) \
+            if self.card_types_widget.itemText(i) \
                 == _(card.card_type.name):
                 self.card_types_widget.setCurrentIndex(i)
                 break
@@ -127,9 +127,9 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
         
     def is_changed(self):
         if self.previous_card_type_name != \
-           str(self.card_types_widget.currentText()):
+           self.card_types_widget.currentText():
             return True
-        if self.previous_tags != str(self.tags.currentText()):
+        if self.previous_tags != self.tags.currentText():
             return True
         changed = False
         for fact_key in self.card.card_type.fact_keys():
@@ -148,8 +148,8 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
             return 0
         new_fact_data = self.card_type_widget.fact_data()
         new_tag_names = [tag.strip() for tag in \
-            str(self.tags.currentText()).split(',')]
-        new_card_type_name = str(self.card_types_widget.currentText())
+            self.tags.currentText().split(',')]
+        new_card_type_name = self.card_types_widget.currentText()
         new_card_type = self.card_type_by_name[new_card_type_name]
         if new_fact_data == self.card.fact.data and \
             ", ".join(new_tag_names) == self.card.tag_string() and \

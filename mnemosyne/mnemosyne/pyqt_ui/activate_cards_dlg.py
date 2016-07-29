@@ -112,11 +112,11 @@ class ActivateCardsDlg(QtWidgets.QDialog, ActivateCardsDialog,
             self.main_widget().show_error(\
                 _("This set can never contain any cards!"))
             return
-        CardSetNameDlg(criterion, list(self.criteria_by_name.keys()), 
+        CardSetNameDlg(criterion, self.criteria_by_name.keys(), 
                        component_manager=self.component_manager, parent=self).exec_()
         if not criterion.name:  # User cancelled.
             return
-        if criterion.name in list(self.criteria_by_name.keys()):
+        if criterion.name in self.criteria_by_name.keys():
             answer = self.main_widget().show_question(_("Update this set?"),
                 _("&OK"), _("&Cancel"), "")
             if answer == 1:  # Cancel.

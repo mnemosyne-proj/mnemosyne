@@ -776,7 +776,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # Create data_for_fact.
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
             values(?,?,?)""", ((fact._id, fact_key, value)
-            for fact_key, value in list(fact.data.items()) if value))
+            for fact_key, value in fact.data.items() if value))
         self.log().added_fact(fact)
         # Process media files.
         self._process_media(fact)
@@ -804,7 +804,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             (fact._id, ))
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
             values(?,?,?)""", ((fact._id, key, value)
-                for key, value in list(fact.data.items()) if value))
+                for key, value in fact.data.items() if value))
         self.log().edited_fact(fact)
         # Process media files.
         self._process_media(fact)

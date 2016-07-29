@@ -20,7 +20,8 @@ class RemoveTagsDlg(QtWidgets.QDialog, Ui_RemoveTagsDlg):
         for tag in tags:
             if tag.name != "__UNTAGGED__":
                 list_item = QtWidgets.QListWidgetItem(tag.name)
-                list_item.setFlags(list_item.flags() | QtCore.Qt.ItemIsUserCheckable)
+                list_item.setFlags(\
+                    list_item.flags() | QtCore.Qt.ItemIsUserCheckable)
                 list_item.setCheckState(QtCore.Qt.Unchecked)
                 self.tag_list.addItem(list_item)
 
@@ -29,6 +30,5 @@ class RemoveTagsDlg(QtWidgets.QDialog, Ui_RemoveTagsDlg):
         for index in range(self.tag_list.count()):
             list_item = self.tag_list.item(index)
             if list_item.checkState() == QtCore.Qt.Checked:
-                self.return_values["tag_names"].append(\
-                    str(list_item.text()))
+                self.return_values["tag_names"].append(list_item.text())
         return QtWidgets.QDialog.accept(self)

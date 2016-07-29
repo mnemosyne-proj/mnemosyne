@@ -78,7 +78,7 @@ class ConfigurationWdgtMain(QtWidgets.QWidget, ConfigurationWidget,
 
     def apply(self):
         self.config()["ui_language"] = iso6931_code_for_language_name(\
-                str(self.languages.currentText()))
+                self.languages.currentText())
         self.translator().set_language(self.config()["ui_language"])
         if self.new_cards.currentIndex() == 1:
             self.config()["randomise_new_cards"] = True

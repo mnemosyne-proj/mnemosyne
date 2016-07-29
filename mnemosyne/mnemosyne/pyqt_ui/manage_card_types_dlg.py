@@ -82,6 +82,6 @@ _("Here, you can make clones of existing card types. This allows you to format c
             [self.cloned_card_types.selectedItems()[0]]
         dlg = RenameDlg(card_type.name)
         if dlg.exec_() == QtWidgets.QDialog.Accepted:
-            new_name = str(dlg.card_type_name.text())
+            new_name = dlg.card_type_name.text()
             self.controller().rename_card_type(card_type, new_name)
         self.update()
