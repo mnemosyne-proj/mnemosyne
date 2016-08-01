@@ -79,7 +79,8 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
         dialog.setText(text)
         button0 = dialog.addButton(option0, QtWidgets.QMessageBox.ActionRole)
         button1 = dialog.addButton(option1, QtWidgets.QMessageBox.ActionRole)
-        button2 = dialog.addButton(option2, QtWidgets.QMessageBox.ActionRole)
+        if option2:
+            button2 = dialog.addButton(option2, QtWidgets.QMessageBox.ActionRole)
         dialog.exec_()
         if dialog.clickedButton() == button0:
             result = 0
@@ -96,12 +97,14 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
         return QtWidgets.qApp.font().pointSize()
 
     def get_filename_to_open(self, path, filter, caption=""):
-        return QtWidgets.QFileDialog.\
+        filename, _ = QtWidgets.QFileDialog.\
             getOpenFileName(self, caption, path, filter)
-
+        return filename
+    
     def get_filename_to_save(self, path, filter, caption=""):
-        return QtWidgets.QFileDialog.\
+        filename, _ = QtWidgets.QFileDialog.\
             getSaveFileName(self, caption, path, filter)
+        return filename
 
     def set_status_bar_message(self, text):
         self.status_bar.showMessage(text)

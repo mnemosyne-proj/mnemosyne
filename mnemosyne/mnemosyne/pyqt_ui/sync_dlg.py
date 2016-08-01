@@ -116,7 +116,7 @@ class SyncThread(QtCore.QThread):
         self.close_progress_signal.emit()
 
 
-class SyncDlg(QtWidgets.QDialog, Ui_SyncDlg, SyncDialog):
+class SyncDlg(QtWidgets.QDialog, SyncDialog, Ui_SyncDlg):
 
     def __init__(self, **kwds):
         super().__init__(**kwds)

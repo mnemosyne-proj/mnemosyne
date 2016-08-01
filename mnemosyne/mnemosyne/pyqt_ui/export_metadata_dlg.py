@@ -93,7 +93,7 @@ class ExportMetadataDlg(QtWidgets.QDialog, ExportMetadataDialog,
         metadata["author_email"] = self.author_email.text()
         metadata["tags"] = self.tags.text()
         metadata["date"] = self.date.date().toString()
-        metadata["revision"] = self.revision.value()
+        metadata["revision"] = str(self.revision.value())
         metadata["notes"] = self.notes.toPlainText()
         self.config()["author_name"] = metadata["author_name"]
         self.config()["author_email"] = metadata["author_email"]

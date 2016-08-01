@@ -33,7 +33,8 @@ class Upgrade1(Component):
                 pass
             old_data_dir = join(home, ".mnemosyne")
         # We split off the rest to a separate function for testability.
-        if os.path.exists(old_data_dir):
+        if os.path.exists(old_data_dir) and not os.path.exists(\
+            join(old_data_dir, "DIRECTORY_NO_LONGER_USED_BY_MNEMOSYNE2")):
             self.upgrade_from_old_data_dir(old_data_dir)
 
     def backup_old_dir(self):  # pragma: no cover
