@@ -31,9 +31,6 @@
        <property name="editable">
         <bool>false</bool>
        </property>
-       <property name="autoCompletion">
-        <bool>true</bool>
-       </property>
        <property name="duplicatesEnabled">
         <bool>false</bool>
        </property>

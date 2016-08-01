@@ -40,8 +40,8 @@ class Mnemosyne2Cards(FileFormat):
             return -1
         metadata_file = open("METADATA", "w")
         for key, value in metadata.items():
-            print(key + ":" + \
-                value.strip().replace("\n", "<br>").encode("utf-8"), file=metadata_file)
+            print(key + ":" + value.strip().replace("\n", "<br>"), 
+                  file=metadata_file)
         metadata_file.close()
         db = self.database()
         w = self.main_widget()

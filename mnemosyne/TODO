@@ -6,9 +6,11 @@ test if localhost_IP works
 
 custom pyuic5 to translate Qt strings
 
-qwebengineview open links in external browser? QWebEnginePage::acceptNavigationRequest() 
+import/export dialog alignment does not look nice
 
-test start from empty directory
+test: text <audio> text
+
+qwebengineview open links in external browser? QWebEnginePage::acceptNavigationRequest() 
 
 reenable py2exe? Or move to pyinstaller? or pyqt's own solution?
 
@@ -138,9 +140,6 @@ to  "last_db_maintenance": time.time() ?
 -running a headless sync server in an empty datadir does not create a default database.
 
 -a crash during a full sync can lead to 'sync cycle' detected
-
--starting the program when no cards are shown does not draw a border around the
- Q field
  
 -clickable links in browser (difficult, as after drawing Q or A, only the bitmap is saved,
 not the browser widget)
