@@ -1,8 +1,6 @@
-test clone card type and rename it in card type tree, both inline editor and right click
+test if localhost_IP works
 
 test 'Modern greek' in language dialog
-
-test if localhost_IP works
 
 custom pyuic5 to translate Qt strings
 

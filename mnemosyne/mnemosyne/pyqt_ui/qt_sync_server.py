@@ -62,7 +62,7 @@ class ServerThread(QtCore.QThread, SyncServer):
     close_progress_signal = QtCore.pyqtSignal()
 
     def __init__(self, **kwds):
-        super().__init__(**kwds)
+        super().__init__(ui=self, **kwds)
         self.server_has_connection = False
         # A fast moving progress bar seems to cause crashes on Windows.
         self.show_numeric_progress_bar = (sys.platform != "win32")
@@ -195,9 +195,10 @@ class QtSyncServer(Component, QtCore.QObject):
             # Restart the thread to have the new settings take effect.
             self.deactivate()
             try:
-                self.thread = ServerThread(self.component_manager)
-            except socket.error as xxx_todo_changeme:
-                (errno, e) = xxx_todo_changeme.args
+                self.thread = ServerThread(\
+                    component_manager=self.component_manager)
+            except socket.error as exception:
+                (errno, e) = exception.args
                 if errno == 98:
                     self.main_widget().show_error(\
                         _("Unable to start sync server.") + " " + \
