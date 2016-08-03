@@ -28,14 +28,17 @@ class ManageCardTypesDlg(QtWidgets.QDialog, ManageCardTypesDialog,
 
     def update(self):
         self.cloned_card_types.clear()
-        self.card_type_with_item = {}
+        self.items = []
+        self.card_type_with_item = []
         for card_type in self.database().sorted_card_types():
             if self.database().is_user_card_type(card_type):
                 name = "%s (%s)" % (_(card_type.name),
                                     _(card_type.__class__.__bases__[0].name))
                 item = QtWidgets.QListWidgetItem(name)
                 self.cloned_card_types.addItem(item)
-                self.card_type_with_item[item] = card_type
+                # Since node_item seems mutable, we cannot use a dict.
+                self.items.append(item)
+                self.card_type_with_item.append(card_type)
         if self.cloned_card_types.count() == 0:
             self.rename_button.setEnabled(False)
             self.delete_button.setEnabled(False)
@@ -60,10 +63,13 @@ _("Here, you can make clones of existing card types. This allows you to format c
             (_("Delete this card type?"), _("&OK"), _("&Cancel"), "")
         if answer == 1: # Cancel.
             return
-        card_type = self.card_type_with_item\
-            [self.cloned_card_types.selectedItems()[0]]
-        self.controller().delete_card_type(card_type)
-        self.update()
+        selected_item = self.cloned_card_types.selectedItems()[0]
+        for i in range(len(self.items)):
+            if selected_item == self.items[i]:
+                card_type = self.card_type_with_item[i]
+                self.controller().delete_card_type(card_type)
+                self.update()
+                return
 
     def rename_card_type(self):
         if len(self.cloned_card_types.selectedItems()) == 0:
@@ -78,10 +84,13 @@ _("Here, you can make clones of existing card types. This allows you to format c
                 self.setupUi(self)
                 self.card_type_name.setText(old_card_type_name)
 
-        card_type = self.card_type_with_item\
-            [self.cloned_card_types.selectedItems()[0]]
-        dlg = RenameDlg(card_type.name)
-        if dlg.exec_() == QtWidgets.QDialog.Accepted:
-            new_name = dlg.card_type_name.text()
-            self.controller().rename_card_type(card_type, new_name)
-        self.update()
+        selected_item = self.cloned_card_types.selectedItems()[0]
+        for i in range(len(self.items)):
+            if selected_item == self.items[i]:
+                card_type = self.card_type_with_item[i]
+                dlg = RenameDlg(card_type.name)
+                if dlg.exec_() == QtWidgets.QDialog.Accepted:
+                    new_name = dlg.card_type_name.text()
+                    self.controller().rename_card_type(card_type, new_name)
+                self.update()
+                return

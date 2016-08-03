@@ -20,11 +20,14 @@ class SyncServer(Component, Server):
     program_name = "Mnemosyne"
     program_version = mnemosyne.version.version
 
-    def __init__(self, component_manager, ui, server_only=False):
-        Component.__init__(self, component_manager)
-        Server.__init__(self, self.config().machine_id(),
-            self.config()["sync_server_port"], ui)
-        self.server_only = server_only
+    def __init__(self, **kwds):
+        config = kwds["component_manager"].current("config")
+        super().__init__(machine_id=config.machine_id(),
+            port=config["sync_server_port"], **kwds)
+        if "server_only" in kwds:
+            self.server_only = kwds["server_only"]
+        else:
+            self.server_only = False
         self.check_for_edited_local_media_files = \
             self.config()["check_for_edited_local_media_files"]
 

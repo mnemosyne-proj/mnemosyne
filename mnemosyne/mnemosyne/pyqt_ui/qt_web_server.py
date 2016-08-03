@@ -25,7 +25,7 @@ database_released = QtCore.QWaitCondition()
 
 
 
-class ServerThread(QtCore.QThread, WebServer):
+class ServerThread(WebServer, QtCore.QThread):
 
     """When a review request comes in, the main thread will release the
     database connection, which will be recreated in the server thread. After
@@ -180,8 +180,8 @@ class QtWebServer(Component, QtCore.QObject):
                     self.config()["web_server_port"], self.config().data_dir,
                     self.config().config_dir, self.config()["last_database"],
                     component_manager=self.component_manager)
-            except socket.error as xxx_todo_changeme:
-                (errno, e) = xxx_todo_changeme.args
+            except socket.error as exception:
+                (errno, e) = exception.args
                 if errno == 98:
                     self.main_widget().show_error(\
                         _("Unable to start web server.") + " " + \
