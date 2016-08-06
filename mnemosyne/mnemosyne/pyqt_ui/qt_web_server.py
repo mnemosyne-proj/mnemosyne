@@ -25,7 +25,7 @@ database_released = QtCore.QWaitCondition()
 
 
 
-class ServerThread(WebServer, QtCore.QThread):
+class ServerThread(QtCore.QThread, WebServer):
 
     """When a review request comes in, the main thread will release the
     database connection, which will be recreated in the server thread. After
@@ -50,7 +50,7 @@ class ServerThread(WebServer, QtCore.QThread):
     set_progress_value_signal = QtCore.pyqtSignal(int)
     close_progress_signal = QtCore.pyqtSignal()
 
-    def __init__(self, port, data_dir, config_dir, filename, **kwds):
+    def __init__(self, **kwds):
         super().__init__(**kwds)
         self.server_has_connection = False
         # A fast moving progress bar seems to cause crashes on Windows.
@@ -177,8 +177,10 @@ class QtWebServer(Component, QtCore.QObject):
             self.deactivate()
             try:
                 self.thread = ServerThread(
-                    self.config()["web_server_port"], self.config().data_dir,
-                    self.config().config_dir, self.config()["last_database"],
+                    port=self.config()["web_server_port"], 
+                    data_dir=self.config().data_dir,
+                    config_dir=self.config().config_dir, 
+                    filename=self.config()["last_database"],
                     component_manager=self.component_manager)
             except socket.error as exception:
                 (errno, e) = exception.args

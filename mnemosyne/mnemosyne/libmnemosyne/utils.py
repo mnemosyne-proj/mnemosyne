@@ -284,10 +284,9 @@ class CompareOnId(object):
 
 def localhost_IP():
     import socket
-    try:      
-        s = socket(socket.AF_INET, socket.SOCK_DGRAM)
-        import sys; sys.stderr.write(get_real_socket())
+    try:     
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(("google.com", 8000))
         return s.getsockname()[0]
-    except:
+    except Exception as e:
         return socket.gethostbyname(socket.getfqdn())
