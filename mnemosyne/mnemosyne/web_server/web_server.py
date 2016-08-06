@@ -122,7 +122,7 @@ class WebServer(Component):
         self.is_mnemosyne_loaded = False
 
     def wsgi_app(self, environ, start_response):
-        filename = environ["PATH_INFO"].decode("utf-8")
+        filename = environ["PATH_INFO"]
         if filename == "/status":
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)

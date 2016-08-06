@@ -51,10 +51,10 @@ class ConfigurationWdgtServers(QtWidgets.QWidget, ConfigurationWidget,
             socket.setdefaulttimeout(0.1)
             con = http.client.HTTPConnection(localhost_IP(), port)
             con.request("GET", "/status")
-            assert "OK" in con.getresponse().read()
+            assert b"OK" in con.getresponse().read()
             socket.setdefaulttimeout(timeout)
             return True
-        except socket.error:
+        except socket.error as e:
             socket.setdefaulttimeout(timeout)
             return False
 

@@ -1,5 +1,3 @@
-test if localhost_IP works
-
 test 'Modern greek' in language dialog
 
 custom pyuic5 to translate Qt strings
