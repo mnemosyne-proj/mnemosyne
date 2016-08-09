@@ -62,6 +62,13 @@ public class MnemosyneThread extends Thread {
             }
         });
 
+        try {
+            System.load("/data/data/"+getPackageName()+"/lib/libpython3.4m.so");
+        }
+        catch(UnsatisfiedLinkError ex) {
+            System.out.println(ex.toString());
+        }
+
         StarCoreFactoryPath.StarCoreCoreLibraryPath = basedir + "/lib";
         StarCoreFactoryPath.StarCoreShareLibraryPath = basedir + "/lib";
         StarCoreFactoryPath.StarCoreOperationPath = basedir + "/files";
@@ -76,7 +83,7 @@ public class MnemosyneThread extends Thread {
             Service = starcore._InitSimple("cle", "123", 0, 0);
             Service._CheckPassword(false);
             SrvGroup = (StarSrvGroupClass) Service._Get("_ServiceGroup");
-            SrvGroup._InitRaw("python", Service);
+            SrvGroup._InitRaw("python34", Service);
         }
         python = Service._ImportRawContext("python", "", false, "");
 
@@ -84,10 +91,8 @@ public class MnemosyneThread extends Thread {
         python._Call("import", "sys");
         StarObjectClass pythonSys = python._GetObject("sys");
         StarObjectClass pythonPath = (StarObjectClass) pythonSys._Get("path");
-        pythonPath._Call("insert", 0, basedir + "/files/python_extras_r14.zip");
-        pythonPath._Call("insert", 0, basedir + "/lib");
-        pythonPath._Call("insert", 0, basedir + "/files/lib-dynload");
-        pythonPath._Call("insert", 0, basedir + "/files");
+        pythonPath._Call("insert",0, basedir + "/files");
+        pythonPath._Call("insert",0, basedir + "/lib");
 
         Log.d("Mnemosyne", "About to start Mnemosyne");
 

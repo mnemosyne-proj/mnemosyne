@@ -49,15 +49,15 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
         }
     }
 
-    private void copyFile(String Name, String desPath) throws IOException {
-        File outfile = new File(basedir + "/files/" + desPath + Name);
+    private void copyFile(String Name) throws IOException {
+        File outfile = new File(basedir + "/files/" + Name);
         if (!outfile.exists()) {
             outfile.createNewFile();
             FileOutputStream out = new FileOutputStream(outfile);
             byte[] buffer = new byte[1024];
             InputStream in;
             int readLen = 0;
-            in = UIActivity.getAssets().open(desPath + Name);
+            in = UIActivity.getAssets().open(Name);
             while ((readLen = in.read(buffer)) != -1){
                 out.write(buffer, 0, readLen);
             }
@@ -146,88 +146,26 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
 
     @Override
     protected Void doInBackground (Void... params) {
-        Log.d("Mnemosyne", "About to install Mnemosyne");
+        Log.d("Mnemosyne", "About to extract Mnemosyne");
 
-        java.io.File python_extras_r14File = new java.io.File(basedir +
-                "/files/python_extras_r14.zip");
-        if (!python_extras_r14File.exists()) {
-            ArrayList<String> StarCoreFiles =  new ArrayList<String>();
-            StarCoreFiles.add("python_extras_r14_aa");
-            StarCoreFiles.add("python_extras_r14_ab");
-            StarCoreFiles.add("python_extras_r14_ac");
-            StarCoreFiles.add("python_extras_r14_ad");
-            try {
-                mergeApkFile(StarCoreFiles, "python_extras_r14.zip");
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        File destDir = new File(basedir + "/files/lib-dynload");
-        if (!destDir.exists())
+        File destDir = new File(basedir + "/files");
+        if( !destDir.exists() )
             destDir.mkdirs();
-        try {
-            copyFile("_bisect.so", "lib-dynload/");
-            copyFile("_bytesio.so", "lib-dynload/");
-            copyFile("_codecs_cn.so", "lib-dynload/");
-            copyFile("_codecs_hk.so", "lib-dynload/");
-            copyFile("_codecs_iso2022.so", "lib-dynload/");
-            copyFile("_codecs_jp.so", "lib-dynload/");
-            copyFile("_codecs_kr.so", "lib-dynload/");
-            copyFile("_codecs_tw.so", "lib-dynload/");
-            copyFile("_collections.so", "lib-dynload/");
-            copyFile("_ctypes.so", "lib-dynload/");
-            copyFile("_ctypes_test.so", "lib-dynload/");
-            copyFile("_elementtree.so", "lib-dynload/");
-            copyFile("_fileio.so", "lib-dynload/");
-            copyFile("_functools.so", "lib-dynload/");
-            copyFile("_heapq.so", "lib-dynload/");
-            copyFile("_hotshot.so", "lib-dynload/");
-            copyFile("_json.so", "lib-dynload/");
-            copyFile("_lsprof.so", "lib-dynload/");
-            copyFile("_md5.so", "lib-dynload/");
-            copyFile("_multibytecodec.so", "lib-dynload/");
-            copyFile("_multiprocessing.so", "lib-dynload/");
-            copyFile("_random.so", "lib-dynload/");
-            copyFile("_sha256.so", "lib-dynload/");
-            copyFile("_sha512.so", "lib-dynload/");
-            copyFile("_sha.so", "lib-dynload/");
-            copyFile("_socket.so", "lib-dynload/");
-            copyFile("_sqlite3.so", "lib-dynload/");
-            copyFile("_ssl.so", "lib-dynload/");
-            copyFile("_struct.so", "lib-dynload/");
-            copyFile("_testcapi.so", "lib-dynload/");
-            copyFile("_weakref.so", "lib-dynload/");
-            copyFile("array.so", "lib-dynload/");
-            copyFile("audioop.so", "lib-dynload/");
-            copyFile("binascii.so", "lib-dynload/");
-            copyFile("bz2.so", "lib-dynload/");
-            copyFile("cmath.so", "lib-dynload/");
-            copyFile("cPickle.so", "lib-dynload/");
-            copyFile("crypt.so", "lib-dynload/");
-            copyFile("cStringIO.so", "lib-dynload/");
-            copyFile("datetime.so", "lib-dynload/");
-            copyFile("fcntl.so", "lib-dynload/");
-            copyFile("future_builtins.so", "lib-dynload/");
-            copyFile("imageop.so", "lib-dynload/");
-            copyFile("itertools.so", "lib-dynload/");
-            copyFile("math.so", "lib-dynload/");
-            copyFile("mmap.so", "lib-dynload/");
-            copyFile("operator.so", "lib-dynload/");
-            copyFile("parser.so", "lib-dynload/");
-            copyFile("pyexpat.so", "lib-dynload/");
-            copyFile("resource.so", "lib-dynload/");
-            copyFile("select.so", "lib-dynload/");
-            copyFile("strop.so", "lib-dynload/");
-            copyFile("syslog.so", "lib-dynload/");
-            copyFile("termios.so", "lib-dynload/");
-            copyFile("time.so", "lib-dynload/");
-            copyFile("unicodedata.so", "lib-dynload/");
-            copyFile("zlib.so", "lib-dynload/");
+        java.io.File pythonlibFile = new java.io.File(basedir +"/files/python3.4.zip");
+        if( !pythonlibFile.exists() ){
+            try{
+                copyFile("python3.4.zip");
+            }
+            catch(Exception e){
+            }
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        java.io.File zlibFile = new java.io.File(basedir + "/files/zlib.cpython-34m.so");
+        if( !zlibFile.exists() ){
+            try{
+                copyFile("zlib.cpython-34m.so");
+            }
+            catch(Exception e){
+            }
         }
 
         try {
@@ -239,7 +177,7 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
             e.printStackTrace();
         }
 
-        Log.d("Mnemosyne", "installed Mnemosyne");
+        Log.d("Mnemosyne", "Exctracted Mnemosyne");
         return null;
     }
 
