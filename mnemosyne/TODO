@@ -1,11 +1,10 @@
 Android:
 
 -decrease size of python library
+-precompile python files
 -get rid of unnecessary functions in MnemosyneInstaller.java
 
-test 'Modern greek' in language dialog
 
-custom pyuic5 to translate Qt strings
 
 import/export dialog alignment does not look nice
 
@@ -13,7 +12,6 @@ test: text <audio> text
 
 qwebengineview open links in external browser? QWebEnginePage::acceptNavigationRequest() 
 
-reenable py2exe? Or move to pyinstaller? or pyqt's own solution pyqtdeploy?
 
 check custum error handling windows (main 'mnemosyne' file)
 

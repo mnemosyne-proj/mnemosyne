@@ -1,9 +1,7 @@
 # Make sure we use our own custom pyuic5 in order to be able to translate
 # Qt strings:
 
-#PYUIC5      := $(PYTHON) ./pyuic5
-
-PYUIC5  := '/cygdrive/c/Program Files (x86)/Python35-32/Scripts/pyuic5.exe'
+PYUIC5      := $(PYTHON) ./pyuic5
 
 WIDGETS = ui_main_wdgt.py ui_add_cards_dlg.py \
 	ui_edit_card_dlg.py ui_review_wdgt.py \
@@ -25,7 +23,7 @@ default: $(WIDGETS)
 	pyrcc5 mnemosyne.qrc -o mnemosyne_rc.py
 
 $(WIDGETS): ui_%.py: %.ui
-	$(PYUIC5) --import-from="mnemosyne.pyqt_ui" $< > $@
+	$(PYUIC5) $< > $@
 
 clean:
 	rm -f *~ *.pyc

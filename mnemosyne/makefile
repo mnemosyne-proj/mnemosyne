@@ -166,10 +166,7 @@ installer:
 	cd mnemosyne/pyqt_ui && make clean
 	cd mnemosyne/pyqt_ui && make
 	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc
-	
-	# TMP	
-	
-	#cd po && make
+	cd po && make
 	
 	
 	

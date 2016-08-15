@@ -1,3 +1,9 @@
+PYTHON      := python
+# If `python3` exists:
+ifeq (1,$(shell python3 -c "print(1)" 2>&- ))
+PYTHON      := python3
+endif
+
 LANGS = ../mo/cs/LC_MESSAGES/mnemosyne.mo \
 	../mo/da/LC_MESSAGES/mnemosyne.mo \
 	../mo/de/LC_MESSAGES/mnemosyne.mo \
