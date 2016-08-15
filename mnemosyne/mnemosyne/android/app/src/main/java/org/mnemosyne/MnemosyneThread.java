@@ -63,7 +63,7 @@ public class MnemosyneThread extends Thread {
         });
 
         try {
-            System.load("/data/data/"+getPackageName()+"/lib/libpython3.4m.so");
+            System.load(basedir + "/lib/libpython3.4m.so");
         }
         catch(UnsatisfiedLinkError ex) {
             System.out.println(ex.toString());

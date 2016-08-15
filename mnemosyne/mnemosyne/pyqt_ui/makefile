@@ -3,7 +3,7 @@
 
 #PYUIC5      := $(PYTHON) ./pyuic5
 
-PYUIC5  := /cygdrive/c/Program\ Files/Python35/Lib/site-packages/PyQt5/pyuic5.bat
+PYUIC5  := '/cygdrive/c/Program Files (x86)/Python35-32/Scripts/pyuic5.exe'
 
 WIDGETS = ui_main_wdgt.py ui_add_cards_dlg.py \
 	ui_edit_card_dlg.py ui_review_wdgt.py \

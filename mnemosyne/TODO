@@ -13,7 +13,7 @@ test: text <audio> text
 
 qwebengineview open links in external browser? QWebEnginePage::acceptNavigationRequest() 
 
-reenable py2exe? Or move to pyinstaller? or pyqt's own solution?
+reenable py2exe? Or move to pyinstaller? or pyqt's own solution pyqtdeploy?
 
 check custum error handling windows (main 'mnemosyne' file)
 
@@ -55,6 +55,8 @@ clean up unicode and android/w10 issues. Check why testsuite did not register th
 
 archive files wont download from dot_test to android
 server.py imports from libmnemosyne.utils
+
+dont archive on first run, scares off Android users
 
 RUBY issue from uservoice with non vocabulary cards
 

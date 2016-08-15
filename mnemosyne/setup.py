@@ -1,20 +1,10 @@
-import os, sys, shutil, glob
-
-from distutils.core import Extension
-from setuptools import setup
-
-if sys.platform == "win32":
-    pass
-    #import py2exe
-    #from py2exe.build_exe import py2exe
-else:
-    class py2exe:
-        pass
-
+import os, sys, shutil, glob, subprocess
+from setuptools import setup, Command
 import mnemosyne.version
 
 
 class InnoScript:
+    
     def __init__(self, name, lib_dir, dist_dir, windows_exe_files = [],
                  lib_files = [], qm_files = [],
                  version = mnemosyne.version.version):
@@ -34,7 +24,7 @@ class InnoScript:
     def create(self, pathname="dist\\mnemosyne.iss"):
         self.pathname = pathname
         ofi = self.file = open(pathname, "w")
-        print("; WARNING: This script has been created by py2exe. "+\
+        print("; WARNING: This script has been created automatically. "+\
                         "Changes to this script", file=ofi)
         print("; will be overwritten the next time py2exe is run!", file=ofi)
         print(r"[Setup]", file=ofi)
@@ -73,31 +63,42 @@ class InnoScript:
                 os.startfile(self.pathname)
             else:
                 print("Ok, using win32api.")
-                win32api.ShellExecute(0,"compile", self.pathname, None, None, 0)
+                win32api.ShellExecute(0, "compile", self.pathname, None, None, 0)
         else:
-            print("Cool, you have ctypes installed.")
             res = ctypes.windll.shell32.ShellExecuteA(0, "compile",
                 self.pathname, None, None, 0)
             if res < 32:
                 raise RuntimeError("ShellExecute failed, error %d" % res)
 
 
-class build_installer(): #py2exe):
+class build_installer(Command):
 
     """This first builds the exe file(s), then creates a Windows installer.
     You need InnoSetup for it.
 
     """
+    
+    user_options = []
+    
+    def initialize_options(self):
+        self.cwd = None
+        
+    def finalize_options(self):
+        self.cwd = os.getcwd()    
 
     def run(self):
-        # First, let py2exe do it's work.
-        py2exe.run(self)
-        lib_dir = self.lib_dir
-        dist_dir = self.dist_dir
-        # Create the Installer, using the files py2exe has created.
-        # Hack to include web server, which does not seem to get picked up
-        # automatically.
-        script = InnoScript("Mnemosyne", lib_dir, dist_dir,
+        # First, let pyinstaller do it's work.
+        subprocess.call(["pyinstaller", 
+                os.path.join("mnemosyne", "pyqt_ui", "mnemosyne")])
+        
+        return
+    
+        if not sys.platform == "win32":
+            return
+        # Then, create installer with InnoSetup.
+        self.lib_dir = lib_dir
+        self.dist_dir = dist_dir
+        script = InnoScript("Mnemosyne", self.lib_dir, self.dist_dir,
                             self.windows_exe_files, self.lib_files,
                             version=mnemosyne.version.version)
         script.create()
@@ -105,19 +106,8 @@ class build_installer(): #py2exe):
         # Note: the final setup.exe will be in an Output subdirectory.
 
 if sys.platform == "win32": # For py2exe.
-    import matplotlib
-    sys.path.append("C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\redist\\x86\\Microsoft.VC90.CRT")
     base_path = ""
-    data_files = [("Microsoft.VC90.CRT", glob.glob(r"C:\Program Files\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\*.*")),
-                  ("mpl-data", glob.glob(r"C:\Program Files\Python35\Lib\site-packages\matplotlib\mpl-data\*.*")),
-                  # Because matplotlibrc does not have an extension, glob does not find it (at least I think that"s why)
-                  # So add it manually here:
-                  ("mpl-data", [r"C:\Program Files\Python35\Lib\site-packages\matplotlib\mpl-data\matplotlibrc"]),
-                  (r"mpl-data\images", glob.glob(r"C:\Program Files\Python35\Lib\site-packages\matplotlib\mpl-data\images\*.*")),
-                  (r"mpl-data\fonts\ttf", glob.glob(r"C:\Program Files\Python35\Lib\site-packages\matplotlib\mpl-data\fonts\ttf\*.*")),
-                  ("imageformats", glob.glob(r"C:\Program Files\Python35\Lib\site-packages\PyQt5\plugins\imageformats\*.dll")),
-                  ("sqldrivers", ["C:\Program Files\Python35\Lib\site-packages\PyQt5\plugins\sqldrivers\qsqlite.dll"]),
-                  ("", [r"C:\Program Files\Python35\mplayer.exe"])
+    data_files = [("", [r"C:\Program files\Python3.5\mplayer.exe"])
                   ]
 elif sys.platform == "darwin": # For py2app.
     base_path = ""
@@ -127,6 +117,7 @@ else:
                              "site-packages","mnemosyne")
     data_files = [("share/applications", ["mnemosyne.desktop"]),
                   ("share/icons", ["pixmaps/mnemosyne.png"])]
+
 # Translations.
 if sys.platform == "win32":
     for mo in [x for x in glob.glob(os.path.join("mo", "*")) \
@@ -184,7 +175,7 @@ if "py2app" in sys.argv:
     if os.path.exists(appscript):
         os.unlink(appscript)
     shutil.copyfile(source, appscript)
-
+    
 package_name = "mnemosyne"
 packages = ["mnemosyne",
             "mnemosyne.pyqt_ui",
@@ -212,19 +203,6 @@ packages = ["mnemosyne",
             "openSM2sync.text_formats"
             ]
 
-py2exe_options = {
-    "unbuffered": True,
-    "packages": ["mnemosyne", "numpy", "six", "sip", "xml.sax", "xml.etree"],
-    "optimize": 2,
-    "includes": ["numpy", "sip", "six", "xml.sax", "xml.etree", "PyQt5.QtNetwork",
-                 "zmq.backend.cython"],
-    "excludes": ["_gtkagg", "_tkagg", "_agg2", "_cairo", "_cocoaagg", "zmq.libzmq",
-                 "_fltkagg", "_gtk", "_gtkcairo", "tcl", "Tkconstants", "Tkinter",
-                 "pydoc", "doctest", "test"], #, "sqlite3"],
-    "dll_excludes": ["libgdk-win32-2.0-0.dll", "libgobject-2.0-0.dll", "libzmq.pyd",
-                     "tcl84.dll", "tk84.dll", "w9xpopen.exe"] #, "sqlite3.dll"]
-}
-
 setup(name = "Mnemosyne",
       version = mnemosyne.version.version,
       author = "Peter Bienstman",
@@ -233,13 +211,11 @@ setup(name = "Mnemosyne",
       package_dir = {"mnemosyne": "mnemosyne"},
       data_files = data_files,
       scripts = ["mnemosyne/pyqt_ui/mnemosyne"],
-      # py2exe
       #windows = [{"script": "mnemosyne/pyqt_ui/mnemosyne",
       #            "icon_resources": [(1, "pixmaps/mnemosyne.ico")]}],
-      #cmdclass = {"py2exe": build_installer},
+      cmdclass = {"pyinstaller": build_installer},
       # py2app
       setup_requires = setup_requires,
       options = {"py2app": py2app_options, "py2exe": py2exe_options},
-      app = py2app_app
+      app = py2app_app      
 )
-
