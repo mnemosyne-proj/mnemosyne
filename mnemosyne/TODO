@@ -1,3 +1,5 @@
+only import qt5 backend matplotlib
+
 Android:
 
 -decrease size of python library
