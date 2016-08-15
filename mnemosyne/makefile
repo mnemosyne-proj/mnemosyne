@@ -148,9 +148,6 @@ osx: 	# Contributed by Patrick Kenny and Devin Howard
 	sudo mkdir -p dist/Mnemosyne.app/Contents/Resources/share
 	sudo cp -R mo dist/Mnemosyne.app/Contents/Resources/share/locale
 
-wm: install-virtual-env
-	cp mnemosyne/ppygui_ui/ppygui_ui/*.py mnemosyne/ppygui_ui/
-	./bin/python mnemosyne/ppygui_ui/Mnemosyne\ Mobile.py
 
 docs:
 	cd mnemosyne/libmnemosyne/docs && make html
@@ -163,14 +160,23 @@ android: # Creats the assets file with the Python code.
 	zip	-r mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/cle -i \*.py
 	zip	mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/version.py mnemosyne/__init__.py	
 	
-windows-installer:
+installer:
 	rm -rf dist
 	rm -rf build
 	cd mnemosyne/pyqt_ui && make clean
 	cd mnemosyne/pyqt_ui && make
-	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
-	cd po && make
-	$(PYTHON) setup.py py2exe
+	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc
+	
+	# TMP	
+	
+	#cd po && make
+	
+	
+	
+	$(PYTHON) setup.py pyinstaller
+
+	#cp tmpdist/* dist/mnemosyne
+	
 	read -p "Press any key when InnoSetup has finished..."
 	V=`$(PYTHON) mnemosyne/version.py` && cp dist/Output/setup.exe mnemosyne-$${V}-setup.exe
 
@@ -192,22 +198,6 @@ distrib: FORCE
 	cd mnemosyne/libmnemosyne/docs && make html
 	cd mnemosyne/pyqt_ui && make
 	$(PYTHON) setup.py sdist --formats=gztar
-
-distrib-WM: FORCE
-	# Windows Mobile.
-
-	mkdir distrib
-
-	cp mnemosyne/ppygui_ui/INSTALL Mnemosyne\ Mobile.py distrib
-	mkdir distrib/ppygui_ui
-	cp -r mnemosyne/ppygui_ui/*.py distrib/ppygui_ui
-
-	V=`$(PYTHON) mnemosyne/version.py` && mv distrib mnemosyne-WM-$${V}
-
-	V=`$(PYTHON) mnemosyne/version.py` && tar cvfz mnemosyne-WM-$${V}.tgz \
-		mnemosyne-WM-$${V}/*
-
-	V=`$(PYTHON) mnemosyne/version.py` && rm -R mnemosyne-WM-$${V}
 
 
 FORCE:
