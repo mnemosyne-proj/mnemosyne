@@ -86,7 +86,13 @@ class build_installer(Command):
     def finalize_options(self):
         self.cwd = os.getcwd()    
 
-    def run(self):          
+    def run(self):  
+        
+        subprocess.call(["pyinstaller", "mnemosyne.spec"])
+                        
+        return
+    
+        
         # First, let pyinstaller do it's work.
         subprocess.call(["pyinstaller",           
             "--hidden-import", "mnemosyne.version",
