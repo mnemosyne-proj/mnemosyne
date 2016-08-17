@@ -1,4 +1,8 @@
+icudtl.dat?
+
 only import qt5 backend matplotlib
+
+use spec file? if not, remove from bzr
 
 Android:
 
@@ -59,6 +63,8 @@ server.py imports from libmnemosyne.utils
 dont archive on first run, scares off Android users
 
 RUBY issue from uservoice with non vocabulary cards
+
+Qt's own translation
 
 
 Android:
