@@ -1,11 +1,31 @@
 # -*- mode: python -*-
 
+import os, sys, shutil
+
 block_cipher = None
 
+datas = [("mo", "mo")]
+excludes = [] 
+
+if sys.platform == "win32":
+             datas.append(("C:\\Program Files (x86)\\mplayer.exe", "."))
+             
+             # Note: PyQt5.7 does not yet seem to be supported by pyinstaller
+             # Also need to use the dev version of pyinstaller
+             #     pip install -e https://github.com/pyinstaller/pyinstaller/archive/develop.zip
+             # There are some missing files that are not picked up on.
+             
+             pyqt_dir = "C:\\Program Files (x86)\\Python35-32\\Lib\\site-packages\\PyQt5\\"
+             datas.append((pyqt_dir + "QtWebEngineProcess.exe", "."))
+             datas.append((pyqt_dir + "QtWebEngineCore.pyd", "."))
+             datas.append((pyqt_dir + "resources\\*", "."))
+             
+             excludes = ['IPython', 'lib2to3']
+    
 a = Analysis(['mnemosyne\\pyqt_ui\\mnemosyne'],
-             pathex=['C:\\Users\\Peter\\Documents\\files\\source\\mnemosyne-proj-pbienst\\pbienst\\mnemosyne'],
+             pathex=[os.getcwd()],
              binaries=[],
-             datas=[],
+             datas=datas,
              hiddenimports=['mnemosyne.version', 
              'mnemosyne.libmnemosyne.card', 
              'mnemosyne.libmnemosyne.card_type', 
@@ -163,12 +183,19 @@ a = Analysis(['mnemosyne\\pyqt_ui\\mnemosyne'],
              'mnemosyne.web_server.web_server_render_chain'],
              hookspath=[],
              runtime_hooks=[],
-             excludes=[],
+             excludes=excludes,
              win_no_prefer_redirects=False,
              win_private_assemblies=False,
              cipher=block_cipher)
+
+# http://stackoverflow.com/questions/4890159/python-excluding-modules-pyinstaller            
+a.binaries = a.binaries - TOC([
+             ('tcl86t.dll', None, None),
+             ('tk86t.dll', None, None)])          
+             
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
+             
 exe = EXE(pyz,
           a.scripts,
           exclude_binaries=True,
@@ -177,7 +204,8 @@ exe = EXE(pyz,
           strip=False,
           upx=True,
           console=False,
-          icon='pixmaps/mnemosyne.ico' )
+          icon='pixmaps\\mnemosyne.ico')
+          
 coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,
@@ -185,3 +213,6 @@ coll = COLLECT(exe,
                strip=False,
                upx=True,
                name='Mnemosyne')
+               
+if sys.platform == "win32":
+             shutil.move("dist\\mnemosyne\\QtWebEngineCore.pyd", "dist\\mnemosyne\\PyQt5.QtWebEngineCore.pyd")
