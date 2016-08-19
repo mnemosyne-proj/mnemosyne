@@ -191,7 +191,7 @@ a = Analysis(['mnemosyne\\pyqt_ui\\mnemosyne'],
 # http://stackoverflow.com/questions/4890159/python-excluding-modules-pyinstaller            
 a.binaries = a.binaries - TOC([
              ('tcl86t.dll', None, None),
-             ('tk86t.dll', None, None)])          
+             ('tk86t.dll', None, None)])         
              
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)

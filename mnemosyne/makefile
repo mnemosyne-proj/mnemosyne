@@ -154,28 +154,22 @@ docs:
 	
 android: # Creats the assets file with the Python code.
 	rm -f mnemosyne/android/app/src/main/assets/mnemosyne.zip
-	#python -m compileall mnemosyne
+	python -m compileall mnemosyne
 	zip	-r mnemosyne/android/app/src/main/assets/mnemosyne.zip openSM2sync -i \*.py
 	zip -r mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/libmnemosyne -i \*.py
 	zip	-r mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/cle -i \*.py
 	zip	mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/version.py mnemosyne/__init__.py	
 	
-installer:
+windows-installer:
 	rm -rf dist
 	rm -rf build
 	cd mnemosyne/pyqt_ui && make clean
 	cd mnemosyne/pyqt_ui && make
 	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc
 	cd po && make
-	
-	
-	
-	$(PYTHON) setup.py pyinstaller
-
-	#cp tmpdist/* dist/mnemosyne
-	
+	$(PYTHON) setup.py build_windows_installer
 	read -p "Press any key when InnoSetup has finished..."
-	V=`$(PYTHON) mnemosyne/version.py` && cp dist/Output/setup.exe mnemosyne-$${V}-setup.exe
+	V=`$(PYTHON) mnemosyne/version.py` && cp dist/Mnemosyne/Output/setup.exe mnemosyne-$${V}-setup.exe
 
 clean:
 	rm -f *~ *.pyc *.tgz process_profile.py
