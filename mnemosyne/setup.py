@@ -5,28 +5,22 @@ import mnemosyne.version
 
 class InnoScript:
     
-    def __init__(self, name, lib_dir, dist_dir, windows_exe_files = [],
-                 lib_files = [], qm_files = [],
-                 version = mnemosyne.version.version):
-        self.lib_dir = lib_dir
-        self.dist_dir = dist_dir
-        if not self.dist_dir[-1] in "\\/":
-            self.dist_dir += "\\"
-        self.name = name
-        self.version = version
-        self.windows_exe_files = [self.chop(p) for p in windows_exe_files]
-        self.lib_files = [self.chop(p) for p in lib_files]
+    def __init__(self):
+        self.name = "Mnemosyne"
+        self.dist_dir = os.path.join("dist", "Mnemosyne")
+        self.version = mnemosyne.version.version
 
     def chop(self, pathname):
         assert pathname.startswith(self.dist_dir)
-        return pathname[len(self.dist_dir):]
+        return pathname[len(self.dist_dir)+1:]
 
-    def create(self, pathname="dist\\mnemosyne.iss"):
-        self.pathname = pathname
-        ofi = self.file = open(pathname, "w")
+    def create(self):
+        self.pathname = os.path.join(\
+            os.getcwd(), "dist", "Mnemosyne", "mnemosyne.iss")
+        ofi = self.file = open(self.pathname, "w")
         print("; WARNING: This script has been created automatically. "+\
                         "Changes to this script", file=ofi)
-        print("; will be overwritten the next time py2exe is run!", file=ofi)
+        print("; will be overwritten the next time setup.py is run!", file=ofi)
         print(r"[Setup]", file=ofi)
         print(r"AppName=%s" % self.name, file=ofi)
         print(r"AppVerName=%s %s" % (self.name, self.version), file=ofi)
@@ -35,43 +29,23 @@ class InnoScript:
         print(file=ofi)
 
         print(r"[Files]", file=ofi)
-        for path in self.windows_exe_files + self.lib_files:
-            print(r'Source: "%s"; DestDir: "{app}\%s"; Flags: ignoreversion' \
-                                    % (path, os.path.dirname(path)), file=ofi)
+        for root, dirnames, filenames in os.walk(self.dist_dir):
+            for filename in filenames:
+                path = self.chop(os.path.join(root, filename))
+                print(r'Source: "%s"; DestDir: "{app}\%s"; Flags: ignoreversion' \
+                      % (path, os.path.dirname(path)), file=ofi)            
         print(file=ofi)
 
         print(r"[Icons]", file=ofi)
-        path = self.windows_exe_files[0]
+        path = "mnemosyne.exe"
         print(r'Name: "{group}\%s"; Filename: "{app}\%s"' \
                             % (self.name, path), end=' ', file=ofi)
         print(' ; WorkingDir: {app}', file=ofi)
-        #path = self.windows_exe_files[1]
-        #print >> ofi, r'Name: "{group}\%s webserver"; Filename: "{app}\%s"' \
-        #                    % (self.name, path),
-        #print >> ofi, ' ; WorkingDir: {app}'
-        #print >> ofi, 'Name: "{group}\Uninstall %s"; Filename: "{uninstallexe}"'\
-        #                    % self.name
-
-    def compile(self):
-        try:
-            import ctypes
-        except ImportError:
-            try:
-                import win32api
-            except ImportError:
-                import os
-                os.startfile(self.pathname)
-            else:
-                print("Ok, using win32api.")
-                win32api.ShellExecute(0, "compile", self.pathname, None, None, 0)
-        else:
-            res = ctypes.windll.shell32.ShellExecuteA(0, "compile",
-                self.pathname, None, None, 0)
-            if res < 32:
-                raise RuntimeError("ShellExecute failed, error %d" % res)
+        print(r'Name: "{group}\Uninstall %s"; Filename: "{uninstallexe}"'
+                            % self.name, file=ofi)
 
 
-class build_installer(Command):
+class build_windows_installer(Command):
 
     """This first builds the exe file(s), then creates a Windows installer.
     You need InnoSetup for it.
@@ -89,20 +63,13 @@ class build_installer(Command):
     def run(self):  
         # First, let pyinstaller do it's work.
         subprocess.call(["pyinstaller", "mnemosyne.spec"])
-                        
-        return # TMP
-
-        if not sys.platform == "win32":
-            return
         # Then, create installer with InnoSetup.
-        self.lib_dir = lib_dir
-        self.dist_dir = dist_dir
-        script = InnoScript("Mnemosyne", self.lib_dir, self.dist_dir,
-                            self.windows_exe_files, self.lib_files,
-                            version=mnemosyne.version.version)
-        script.create()
-        script.compile()
+        InnoScript().create()
+        subprocess.call([\
+            "C:\Program Files (x86)\Inno Setup 5\Compil32.exe", "/cc",
+            "dist\Mnemosyne\Mnemosyne.iss"])
         # Note: the final setup.exe will be in an Output subdirectory.
+
 
 if sys.platform == "darwin": # For py2app.
     base_path = ""
@@ -197,7 +164,7 @@ setup(name = "Mnemosyne",
       package_dir = {"mnemosyne": "mnemosyne"},
       data_files = data_files,
       scripts = ["mnemosyne/pyqt_ui/mnemosyne"],
-      cmdclass = {"pyinstaller": build_installer},
+      cmdclass = {"build_windows_installer": build_windows_installer},
       # py2app
       setup_requires = setup_requires,
       options = {"py2app": py2app_options},
