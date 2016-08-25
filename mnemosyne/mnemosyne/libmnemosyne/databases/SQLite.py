@@ -341,7 +341,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self.unload()
         self._path = expand_path(path, self.config().data_dir)
         if not os.path.exists(self._path):
-            return new(path)
+            return self.new(path)
         # Check database version.
         try:
             sql_res = self.con.execute("""select value from global_variables

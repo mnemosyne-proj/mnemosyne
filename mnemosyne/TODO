@@ -1,11 +1,32 @@
 profile application startup (now 3 sec, cold and warm)
 
+no impages
+
+add silence before mp3?
+
+QString html;
+ 
+QImage img("c:\\temp\\sample.png"); // todo: generate image in memory
+myTextEdit->document()->addResource(QTextDocument::ImageResource, QUrl("sample.png" ), img);
+ 
+html.append("<p><img src=\":sample.png\"></p>");
+ 
+myTextEdit->setHtml(html);
+
+
+size of edit window not saved
+
+reenable database version check
+
+test sync and webserver, from GUI and from command line
+
 Android:
 
 -decrease size of python library
 -precompile python files
 -get rid of unnecessary functions in MnemosyneInstaller.java
 
+update install instructions linux, windows devel
 
 import/export dialog alignment does not look nice
 
