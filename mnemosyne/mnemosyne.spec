@@ -5,7 +5,9 @@ import os, sys, shutil
 block_cipher = None
 
 datas = [("mo", "mo")]
-excludes = [] 
+excludes = []
+
+my_fixes = False
 
 if sys.platform == "win32":
              datas.append(("C:\\Program Files (x86)\\mplayer.exe", "."))
@@ -15,10 +17,11 @@ if sys.platform == "win32":
              #     pip install -e https://github.com/pyinstaller/pyinstaller/archive/develop.zip
              # There are some missing files that are not picked up on.
              
-             pyqt_dir = "C:\\Program Files (x86)\\Python35-32\\Lib\\site-packages\\PyQt5\\"
-             datas.append((pyqt_dir + "QtWebEngineProcess.exe", "."))
-             datas.append((pyqt_dir + "QtWebEngineCore.pyd", "."))
-             datas.append((pyqt_dir + "resources\\*", "."))
+             if my_fixes:
+                          pyqt_dir = "C:\\Program Files (x86)\\Python35-32\\Lib\\site-packages\\PyQt5\\"
+                          datas.append((pyqt_dir + "QtWebEngineProcess.exe", "."))
+                          datas.append((pyqt_dir + "QtWebEngineCore.pyd", "."))
+                          datas.append((pyqt_dir + "resources\\*", "."))
              
              excludes = ['IPython', 'lib2to3']
     
@@ -214,5 +217,5 @@ coll = COLLECT(exe,
                upx=True,
                name='Mnemosyne')
                
-if sys.platform == "win32":
+if my_fixes and (sys.platform == "win32"):
              shutil.move("dist\\mnemosyne\\QtWebEngineCore.pyd", "dist\\mnemosyne\\PyQt5.QtWebEngineCore.pyd")

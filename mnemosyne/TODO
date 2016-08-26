@@ -1,17 +1,11 @@
 profile application startup (now 3 sec, cold and warm)
 
-no impages
+image server:
+
+-make html custom
+-make filter custom
 
 add silence before mp3?
-
-QString html;
- 
-QImage img("c:\\temp\\sample.png"); // todo: generate image in memory
-myTextEdit->document()->addResource(QTextDocument::ImageResource, QUrl("sample.png" ), img);
- 
-html.append("<p><img src=\":sample.png\"></p>");
- 
-myTextEdit->setHtml(html);
 
 
 size of edit window not saved
