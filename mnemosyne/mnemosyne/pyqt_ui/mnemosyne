@@ -195,6 +195,8 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.qt_sync_server",
                              "QtSyncServer"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.qt_web_server",
                              "QtWebServer"))
+mnemosyne.components.append(("mnemosyne.libmnemosyne.media_server",
+                             "MediaServer"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_wdgt_main",
                              "ConfigurationWdgtMain"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_wdgt_card_appearance",

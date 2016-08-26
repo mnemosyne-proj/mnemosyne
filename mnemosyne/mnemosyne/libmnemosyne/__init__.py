@@ -190,7 +190,7 @@ class Mnemosyne(Component):
             Upgrade3(self.component_manager).run() 
         self.activate_components()
         register_component_manager(self.component_manager,
-            self.config()["user_id"])
+                                   self.config()["user_id"])
         self.execute_user_plugin_dir()
         self.activate_saved_plugins()
         # If we are only running a sync or a review server, do not yet load
@@ -282,6 +282,9 @@ class Mnemosyne(Component):
                 self.component_manager.current(component).activate()
             except RuntimeError as e:
                 self.main_widget().show_error(str(e))
+        media_server = self.component_manager.current("media_server")
+        if media_server:
+            media_server.activate()        
         sync_server = self.component_manager.current("sync_server")
         if sync_server:
             sync_server.activate()
