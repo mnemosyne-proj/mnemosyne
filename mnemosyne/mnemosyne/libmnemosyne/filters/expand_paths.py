@@ -13,10 +13,12 @@ class ExpandPaths(Filter):
     """Fill out relative paths for src tags (e.g. img src or sound src)."""
 
     def run(self, text, card, fact_key, **render_args):
-        
-        # tmp
-        
-        text = self.expand_tag("audio src", text)
+        if self.component_manager.current("media_server") is not None:
+            # Media server handles pictures, so we only need to deal with 
+            # audio.
+            text = self.expand_tag("audio src", text)
+        else:
+            text = self.expand_tag("src", text)
         text = self.expand_tag("data", text) # For Flash.
         return text
 
