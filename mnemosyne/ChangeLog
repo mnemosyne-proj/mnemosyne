@@ -1,3 +1,6 @@
+-Tag combobox now expands to give suggestions for tags also when using more
+ than one tag (patch by Emilian Mihalache)
+
 Android 20160502:
 
 -Upgraded backend to Mnemosyne 2.3.6, meaning that logs older than 1 year

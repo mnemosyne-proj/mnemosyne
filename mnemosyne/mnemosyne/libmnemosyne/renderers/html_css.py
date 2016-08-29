@@ -119,7 +119,12 @@ class HtmlCss(Renderer):
     def render(self, fact_data, fact_keys, card_type, **render_args):
         css = self.css(card_type)
         body = self.body(fact_data, fact_keys, card_type, **render_args)
-        from mnemosyne.libmnemosyne.media_server import MediaServer
+        if self.component_manager.current("media_server") is not None:
+            from mnemosyne.libmnemosyne.media_server import MediaServer
+            base = """<base href="http://localhost:%d/">""" \
+                % (MediaServer.PORT, )
+        else:
+            base = ""
         return """
         <!DOCTYPE html>
         <html>
@@ -128,7 +133,7 @@ class HtmlCss(Renderer):
         <style type="text/css">
         %s
         </style>
-        <base href="http://localhost:%d/">
+        %s
         </head>
         <body>
           <table id="mnem1" class="mnem">
@@ -137,5 +142,5 @@ class HtmlCss(Renderer):
             </tr>
           </table>
         </body>
-        </html>""" % (css, MediaServer.PORT, body)
+        </html>""" % (css, base, body)
 

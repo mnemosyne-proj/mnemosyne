@@ -1,12 +1,7 @@
 profile application startup (now 3 sec, cold and warm)
+profile image server
 
-image server:
-
--make html custom
--make filter custom
-
-add silence before mp3?
-
+approximate image size handler
 
 size of edit window not saved
 
@@ -27,7 +22,6 @@ import/export dialog alignment does not look nice
 test: text <audio> text
 
 qwebengineview open links in external browser? QWebEnginePage::acceptNavigationRequest() 
-
 
 check custum error handling windows (main 'mnemosyne' file)
 
