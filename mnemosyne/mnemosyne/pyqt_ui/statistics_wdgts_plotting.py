@@ -4,13 +4,6 @@
 
 from PyQt5 import QtGui, QtWidgets
 
-from matplotlib import use
-use("Qt5Agg")
-
-from matplotlib import rcParams
-from matplotlib.figure import Figure
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.statistics_pages.grades import Grades
 from mnemosyne.libmnemosyne.statistics_pages.schedule import Schedule
@@ -34,6 +27,15 @@ class PlotStatisticsWdgt(QtWidgets.QWidget, StatisticsWidget):
         self.page = page
 
     def activate(self):
+        # Late import to speed up app startup.
+        from matplotlib import use
+        use("Qt5Agg")
+        
+        from matplotlib import rcParams
+        from matplotlib.figure import Figure
+        from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas        
+        
+        
         self.vbox_layout = QtWidgets.QVBoxLayout(self)
         # The idea was to lazily import matplotlib only when we open the
         # statistics dialog. However, the import statements below can often

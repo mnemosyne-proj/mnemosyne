@@ -19,10 +19,6 @@ class QAOptimalSplit(object):
     in Preview Cards.
 
     """
-    
-    # Unfortunately, due to the port from Webkit in Qt4 to Webengine in Qt5
-    # this is not supported at the moment...
-    # See: https://bugreports.qt.io/browse/QTBUG-50523
 
     used_for_reviewing = True
     
@@ -56,6 +52,13 @@ class QAOptimalSplit(object):
         self.required_answer_size = self.answer.size()
         self.is_answer_showing = False
         self.times_resized = 0
+        
+    #
+    # Code to determine optimal QA split based on prerendering the html
+    # in a headless server. Does not work yet in PyQt5, because WebEngine
+    # does not yet support headless mode.
+    # See: https://bugreports.qt.io/browse/QTBUG-50523
+    #
 
     def resizeEvent_off(self, event):
         # Update stretch factors when changing the size of the window.
@@ -95,18 +98,50 @@ class QAOptimalSplit(object):
         #    self.answer_preview.page().currentFrame().contentsSize()
         #self.update_stretch_factors()
 
-    def update_stretch_factors(self):
-        return
+    #
+    # TMP workaround involving a heuristic to determine the height.
+    # 
+    
+    import re
+    
+    re_img = re.compile(r"""<img src=\"(.+?)\"(.*?)>""",
+        re.DOTALL | re.IGNORECASE)    
+
+    def estimate_height(self, html):
+        import math
+        from mnemosyne.libmnemosyne.utils import expand_path
+        from PIL import Image
         
-        total_height_available = self.question.height() + self.answer.height()
-        # Correct the required heights of question and answer for the
-        # presence of horizontal scrollbars.
-        required_question_height = self.required_question_size.height()
-        if self.required_question_size.width() > self.question.width():
-            required_question_height += self.scrollbar_width
-        required_answer_height = self.required_answer_size.height()
-        if self.required_answer_size.width() > self.answer.width():
-            required_answer_height += self.scrollbar_width
+        max_img_height = 0
+        total_img_width = 0
+        for match in self.re_img.finditer(html):
+            img_file = match.group(1)
+            img_file = expand_path(img_file, self.database().media_dir())
+            with Image.open(img_file) as im:
+                width, height = im.size
+                if height > max_img_height:
+                    max_img_height = height
+                total_img_width += width
+        number_of_rows = math.ceil(total_img_width / self.question.width())
+        return number_of_rows * max_img_height + 24
+        
+    def update_stretch_factors(self):
+        if self.config()["optimise_Q_A_split"] == False:
+            return
+        if 0: # Using prerendered html
+            # Correct the required heights of question and answer for the
+            # presence of horizontal scrollbars.
+            required_question_height = self.required_question_size.height()
+            if self.required_question_size.width() > self.question.width():
+                required_question_height += self.scrollbar_width
+            required_answer_height = self.required_answer_size.height()
+            if self.required_answer_size.width() > self.answer.width():
+                required_answer_height += self.scrollbar_width
+        else: # Tmp workaround using heuristic
+            required_question_height = \
+                self.estimate_height(self.question_text)
+            required_answer_height = \
+                self.estimate_height(self.answer_text)
         total_height_available = self.question.height() + self.answer.height()
         # If both question and answer fit in their own boxes, there is no need
         # to deviate from a 50/50 split.
@@ -214,14 +249,11 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
             QtCore.Qt.Key_4: 4, QtCore.Qt.Key_5: 5}
 
     def __init__(self, **kwds):
-        super().__init__(**kwds)     
+        super().__init__(**kwds)
         parent = self.main_widget()
         parent.setCentralWidget(self)
         self.setupUi(self)
-        
-        
-        #QAOptimalSplit.setup(self)
-        
+        QAOptimalSplit.setup(self)
         
         # TODO: move this to designer with update of PyQt.
         self.grade_buttons = QtWidgets.QButtonGroup()

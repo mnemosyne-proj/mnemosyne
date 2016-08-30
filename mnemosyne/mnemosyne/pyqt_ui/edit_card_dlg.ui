@@ -119,7 +119,7 @@
   <customwidget>
    <class>CompletionComboBox</class>
    <extends>QComboBox</extends>
-   <header>completion_combo_box.h</header>
+   <header>mnemosyne/pyqt_ui/completion_combo_box</header>
   </customwidget>
  </customwidgets> 
  <resources>

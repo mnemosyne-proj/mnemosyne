@@ -3,7 +3,7 @@
 #
 
 import re
-import urllib.request, urllib.parse, urllib.error
+import urllib
 
 from mnemosyne.libmnemosyne.filter import Filter
 
