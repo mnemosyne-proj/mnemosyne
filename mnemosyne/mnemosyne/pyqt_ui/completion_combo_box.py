@@ -5,6 +5,7 @@
 from PyQt5 import QtCore, QtWidgets
 from mnemosyne.pyqt_ui.tag_line_edit import TagLineEdit
 
+
 class CompletionComboBox(QtWidgets.QComboBox):
 
     def __init__(self, parent=None):

@@ -7,7 +7,7 @@ block_cipher = None
 datas = [("mo", "mo")]
 excludes = []
 
-my_fixes = False
+my_fixes = True
 
 if sys.platform == "win32":
              datas.append(("C:\\Program Files (x86)\\mplayer.exe", "."))
@@ -138,6 +138,7 @@ a = Analysis(['mnemosyne\\pyqt_ui\\mnemosyne'],
              'mnemosyne.pyqt_ui.card_type_wdgt_generic', 
              'mnemosyne.pyqt_ui.change_card_type_dlg', 
              'mnemosyne.pyqt_ui.clone_card_type_dlg',
+             'mnemosyne.pyqt_ui.completion_combo_box', 
              'mnemosyne.pyqt_ui.compact_database_dlg', 
              'mnemosyne.pyqt_ui.configuration',
              'mnemosyne.pyqt_ui.configuration_dlg', 

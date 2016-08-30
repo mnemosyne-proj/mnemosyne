@@ -123,6 +123,10 @@ profile: install-virtual-env
 
 gui-profile:
 	./bin/python -m cProfile -s cumulative bin/mnemosyne -d ./dot_mnemosyne2/ | more
+	
+gui-profile-windows:
+	cp mnemosyne/pyqt_ui/mnemosyne tmp.py
+	python -m cProfile -s cumulative tmp.py -d C:\dot_test_2 | more
 
 benchmark: install-virtual-env
 	./bin/python tests/benchmark.py

@@ -1,13 +1,8 @@
-profile application startup (now 3 sec, cold and warm)
-profile image server
-
-approximate image size handler
-
 size of edit window not saved
 
 reenable database version check
 
-test sync and webserver, from GUI and from command line
+test sync and webserver, from GUI and from command line (since late instantiation)
 
 Android:
 
@@ -15,7 +10,7 @@ Android:
 -precompile python files
 -get rid of unnecessary functions in MnemosyneInstaller.java
 
-update install instructions linux, windows devel
+
 
 import/export dialog alignment does not look nice
 
@@ -29,12 +24,6 @@ recheck plugins
 
 reenable progress bar on windows?
 
-rework makefile to get rid of virtualenv under windows, update
-windows build instructions.
-
-
-Emilian autocompletion patch, mnemosyne proj dev post
-https://bazaar.launchpad.net/~emihalac/mnemosyne-proj/mnemosyne-proj/revision/1941
 
 https://bugs.launchpad.net/mnemosyne-proj/+bug/1582509
 
@@ -57,16 +46,22 @@ clean up unicode and android/w10 issues. Check why testsuite did not register th
     #        locale.getdefaultlocale()[1] or "utf-8"
     #    return file(filename.encode(_ENCODING), mode)
     
-
+- update install instructions linux, windows devel
+- document optimise_Q_A_split
+- rework makefile to get rid of virtualenv under windows, update
+windows build instructions.
 
 -sync of changed saved set does not update title on target machine
 
+- tag completion box: does not work when clicking in the box, and does not
+ work when going back to a previous tag, e.g. if you have a,b,c and want
+ to go back to an expansion on a
+
 archive files wont download from dot_test to android
+
 server.py imports from libmnemosyne.utils
 
 dont archive on first run, scares off Android users
-
-RUBY issue from uservoice with non vocabulary cards
 
 Qt's own translation
 

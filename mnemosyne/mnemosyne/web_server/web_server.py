@@ -10,11 +10,6 @@ import locale
 import http.client
 import threading
 
-from webob import Request
-from webob.static import FileApp
-
-from cherrypy import wsgiserver
-
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.utils import localhost_IP
 from mnemosyne.libmnemosyne.component import Component
@@ -69,6 +64,14 @@ class WebServer(Component):
         self.is_just_started = True
         self.is_mnemosyne_loaded = False
         self.is_shutting_down = False
+        
+    def activate(self):
+        # Late import to speed up application startup.
+        from webob import Request
+        from webob.static import FileApp
+        
+        from cherrypy import wsgiserver        
+
         self.wsgi_server = wsgiserver.CherryPyWSGIServer(\
             ("0.0.0.0", port), self.wsgi_app, server_name="localhost",
             numthreads=1, timeout=5)

@@ -40,7 +40,7 @@ class MediaServer(Component, threading.Thread):
     def run(self):
         self.wsgi_server = wsgiserver.CherryPyWSGIServer(\
             ("0.0.0.0", self.PORT), self.wsgi_app, server_name="localhost",
-            numthreads=1, timeout=5)
+            numthreads=5, timeout=2)
         self.wsgi_server.start()
 
     def wsgi_app(self, environ, start_response):

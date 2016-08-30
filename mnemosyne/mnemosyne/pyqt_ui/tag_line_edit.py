@@ -65,13 +65,15 @@ class TagLineEdit(QtWidgets.QLineEdit):
         return False
 
     def handleHighlight(self, highlightedText):
+        print("highlight" + highlightedText)
         self.last_highlighted_text_ = highlightedText
 
     def insertCompletion(self, completion):
         full_text = self.text()
         cursor_position = self.cursorPosition()
         last_relevant_comma_index = full_text[0:cursor_position].rfind(",")
-        replaced_text = full_text[:last_relevant_comma_index] + completion + full_text[cursor_position:]
+        replaced_text = full_text[:last_relevant_comma_index + 1]  +\
+            completion + full_text[cursor_position:]
         print("----")
         print(full_text)
         print(completion)

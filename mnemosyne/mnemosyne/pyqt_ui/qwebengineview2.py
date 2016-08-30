@@ -2,7 +2,6 @@
 # qwebengineview2.py <Peter.Bienstman@UGent.be>
 #
 
-import webbrowser
 from PyQt5 import QtCore, QtGui, QtWidgets, QtWebEngineWidgets
 
 from mnemosyne.libmnemosyne.translator import _
@@ -22,6 +21,7 @@ class QWebEngineView2(QtWebEngineWidgets.QWebEngineView):
         # self.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
     
     def link_clicked(self, url):
+        import webbrowser  # Slow import
         webbrowser.open(url.toString())
         
     def focusInEvent(self, event):
