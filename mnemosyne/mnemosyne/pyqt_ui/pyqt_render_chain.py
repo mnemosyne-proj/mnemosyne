@@ -11,6 +11,7 @@ from mnemosyne.libmnemosyne.filters.RTL_handler import RTLHandler
 #from mnemosyne.libmnemosyne.filters.html5_audio import Html5Audio
 #from mnemosyne.libmnemosyne.filters.html5_video import Html5Video
 from mnemosyne.libmnemosyne.filters.expand_paths import ExpandPaths
+from mnemosyne.libmnemosyne.filters.embed_images import EmbedImages
 from mnemosyne.libmnemosyne.filters.escape_to_html import EscapeToHtml
 from mnemosyne.libmnemosyne.filters.non_latin_font_size_increase import \
      NonLatinFontSizeIncrease
@@ -21,7 +22,7 @@ class PyQtRenderChain(RenderChain):
 
     id = "default"
 
-    filters = [Latex, EscapeToHtml, ExpandPaths, MplayerAudio,
+    filters = [Latex, EscapeToHtml, ExpandPaths, EmbedImages, MplayerAudio,
         MplayerVideo, RTLHandler, NonLatinFontSizeIncrease]
 
     # Note: the sound system under Debian seems broken now, so we

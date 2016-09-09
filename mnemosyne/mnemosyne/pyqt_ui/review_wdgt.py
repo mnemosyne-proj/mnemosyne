@@ -104,14 +104,14 @@ class QAOptimalSplit(object):
     
     import re
     
-    re_img = re.compile(r"""<img src=\"(.+?)\"(.*?)>""",
+    re_img = re.compile(r"""alt=\"(.+?)\"(.*?)>""",
         re.DOTALL | re.IGNORECASE)    
 
     def estimate_height(self, html):
         import math
         from mnemosyne.libmnemosyne.utils import expand_path
         from PIL import Image
-        
+         
         max_img_height = 0
         total_img_width = 0
         for match in self.re_img.finditer(html):
