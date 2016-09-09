@@ -133,7 +133,9 @@ if options.web_server == True or options.sync_server == True:
 
 from PyQt5 import QtWebEngineWidgets  # Needs to happen first for some reason.
 from PyQt5.QtWidgets import QApplication
+from PyQt5 import QtGui, QtCore
 
+QtGui.QGuiApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
 a = QApplication(sys.argv)
 a.setApplicationName("Mnemosyne")
 
@@ -195,8 +197,6 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.qt_sync_server",
                              "QtSyncServer"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.qt_web_server",
                              "QtWebServer"))
-mnemosyne.components.append(("mnemosyne.libmnemosyne.media_server",
-                             "MediaServer"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_wdgt_main",
                              "ConfigurationWdgtMain"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_wdgt_card_appearance",

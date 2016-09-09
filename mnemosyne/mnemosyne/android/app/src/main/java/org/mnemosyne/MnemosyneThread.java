@@ -91,8 +91,10 @@ public class MnemosyneThread extends Thread {
         python._Call("import", "sys");
         StarObjectClass pythonSys = python._GetObject("sys");
         StarObjectClass pythonPath = (StarObjectClass) pythonSys._Get("path");
-        pythonPath._Call("insert",0, basedir + "/files");
-        pythonPath._Call("insert",0, basedir + "/lib");
+        pythonPath._Call("insert", 0, basedir + "/files");
+        pythonPath._Call("insert", 0, basedir + "/files/python3.4.zip");
+        pythonPath._Call("insert", 0, basedir + "/files/lib-dynload");
+        pythonPath._Call("insert", 0, basedir + "/lib");
 
         Log.d("Mnemosyne", "About to start Mnemosyne");
 

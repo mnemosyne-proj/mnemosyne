@@ -1,15 +1,20 @@
+profile startup again
+
 size of edit window not saved
 
-reenable database version check
+reenable database version check, download of media and archive
 
 test sync and webserver, from GUI and from command line (since late instantiation)
 
 Android:
 
+-clean up old data dir
+-make sure extracting runs in separate thread
 -decrease size of python library
 -precompile python files
 -get rid of unnecessary functions in MnemosyneInstaller.java
 
+-pybridge: don't extract individual assets but extract zip file? Faster?
 
 
 import/export dialog alignment does not look nice
@@ -91,6 +96,7 @@ Android:
 
 
 
+-speed up non-latin font size increase
 
 -after the next release, change "last_db_maintenance": time.time() - 91 * DAY
 to  "last_db_maintenance": time.time() ?
