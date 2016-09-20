@@ -190,12 +190,15 @@ class QAOptimalSplit(object):
                     answer_stretch = required_answer_height
                     question_stretch = total_height_available - answer_stretch
                     if question_stretch < 50:
-                        question_stretch = 50        
+                        question_stretch = 50                
         self.vertical_layout.setStretchFactor(\
             self.question_box, question_stretch + self.stretch_offset)
         self.vertical_layout.setStretchFactor(\
             self.answer_box, answer_stretch + self.stretch_offset)
-
+        
+        # http://stackoverflow.com/questions/37527714/qt-qml-webview-resizes-really-slowly-when-window-resizing
+        
+        
     def silence_media(self, text):
         # Silence media, but make sure the player widget still shows to get
         # correct information about the geometry.
@@ -236,7 +239,6 @@ class QAOptimalSplit(object):
         self.is_answer_showing = False
         self.update_stretch_factors()
         self.answer.setHtml(self.empty())
-
 
 
 class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt):
@@ -284,7 +286,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         self.question.selectionChanged.connect(self.selection_changed_in_q)
         self.answer.selectionChanged.connect(self.selection_changed_in_a)
         self.mplayer = QtCore.QProcess()
-        self.media_queue = []
+        self.media_queue = []       
         
     def deactivate(self):
         self.stop_media()
@@ -380,8 +382,6 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         self.review_controller().show_answer()
 
     def grade_answer(self, grade):
-        self.vertical_layout.setStretchFactor(self.question_box, 50)
-        self.vertical_layout.setStretchFactor(self.answer_box, 50)
         self.review_controller().grade_answer(grade)
 
     def set_question_box_visible(self, is_visible):
