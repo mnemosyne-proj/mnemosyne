@@ -231,6 +231,9 @@ class QAOptimalSplit(object):
         self.is_answer_showing = True
         self.update_stretch_factors()
         self.answer.setHtml(self.answer_text)
+        # Forced repaint seems to make things snappier.
+        self.question.repaint()
+        self.answer.repaint()
 
     def clear_question(self):
         self.question.setHtml(self.empty())
@@ -239,6 +242,9 @@ class QAOptimalSplit(object):
         self.is_answer_showing = False
         self.update_stretch_factors()
         self.answer.setHtml(self.empty())
+        # Forced repaint seems to make things snappier.
+        self.question.repaint()
+        self.answer.repaint()
 
 
 class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt):

@@ -1,10 +1,8 @@
-profile startup again
-
--set stretchfactors after setting html?
-
-size of edit window not saved
-
 reenable database version check, download of media and archive
+
+only extract data once, write version string
+
+profile startup on Android (now: 16 sec --> precompiling: 8 sec)
 
 test sync and webserver, from GUI and from command line (since late instantiation)
 
@@ -15,6 +13,7 @@ Android:
 -decrease size of python library
 -precompile python files
 -get rid of unnecessary functions in MnemosyneInstaller.java
+-menu button after app goes to background
 
 -pybridge: don't extract individual assets but extract zip file? Faster?
 
@@ -36,25 +35,9 @@ https://bugs.launchpad.net/mnemosyne-proj/+bug/1582509
 
 https://bugs.launchpad.net/bugs/1592975
 
-clean up unicode and android/w10 issues. Check why testsuite did not register this error.
 
-    https://code.google.com/p/python-for-android/issues/detail?id=35
-    
-    """
-    
-    return file(filename, mode)
-
-    # tmp
-    
-    #try:
-    #    return file(filename, mode)
-    #except (UnicodeEncodeError, UnicodeDecodeError):
-    #    _ENCODING = sys.getfilesystemencoding() or \
-    #        locale.getdefaultlocale()[1] or "utf-8"
-    #    return file(filename.encode(_ENCODING), mode)
     
 - update install instructions linux, windows devel
-- document optimise_Q_A_split
 - rework makefile to get rid of virtualenv under windows, update
 windows build instructions.
 
