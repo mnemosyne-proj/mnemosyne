@@ -155,15 +155,25 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
 
         if( !destDir.exists() )
             destDir.mkdirs();
-        java.io.File pythonlibFile = new java.io.File(basedir +"/files/python3.4.zip");
-        if( !pythonlibFile.exists() ){
-            try{
-                copyFile("python3.4.zip", "");
-            }
-            catch(Exception e){
-                e.printStackTrace();
-            }
-        }
+
+        //try {
+        //    InputStream dataSource = UIActivity.getAssets().open("python3.4.zip");
+        //    unzip(dataSource, basedir + "/files", true);
+        //}
+        //catch (IOException e) {
+        //    e.printStackTrace();
+        //}
+
+        //java.io.File pythonlibFile = new java.io.File(basedir +"/files/python3.4.zip");
+        //if( !pythonlibFile.exists() ){
+         //   try{
+         //       copyFile("python3.4.zip", "");
+         //   }
+        //    catch(Exception e){
+        //        e.printStackTrace();
+        //    }
+        //
+        // }
         java.io.File zlibFile = new java.io.File(basedir + "/files/zlib.cpython-34m.so");
         if( !zlibFile.exists() ){
             try{
@@ -244,15 +254,15 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
 
         Log.d("Mnemosyne", "Extracted Mnemosyne");
 
-        String path = basedir + "/files/lib-dynload";
-        Log.d("Mnemosyne", "Path: " + path);
-        File f = new File(path);
-        File file[] = f.listFiles();
-        Log.d("Mnemosyne", "Size: "+ file.length);
-        for (int i=0; i < file.length; i++)
-        {
-            Log.d("Mnemosyne", "FileName:" + file[i].getName());
-        }
+        //String path = basedir + "/files/lib-dynload";
+        //Log.d("Mnemosyne", "Path: " + path);
+        //File f = new File(path);
+        //File file[] = f.listFiles();
+        //Log.d("Mnemosyne", "Size: "+ file.length);
+        //for (int i=0; i < file.length; i++)
+        //{
+        //    Log.d("Mnemosyne", "FileName:" + file[i].getName());
+        //}
 
 
         return null;

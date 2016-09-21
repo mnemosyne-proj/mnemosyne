@@ -13,9 +13,9 @@ class ActivateCardsDlg(ActivateCardsDialog):
         active_criterion = self.database().current_criterion()
         for criterion in self.database().criteria():
             if criterion._id != 1:
-                self.criteria_by_name[criterion.name.encode("utf-8")] = criterion
+                self.criteria_by_name[criterion.name] = criterion
                 if criterion == active_criterion:
-                    active_set_name = criterion.name.encode("utf-8")  
+                    active_set_name = criterion.name  
         self.component_manager.android.showActivateCardsDialog(\
             "____".join(sorted(self.criteria_by_name.keys())), active_set_name, self)
         

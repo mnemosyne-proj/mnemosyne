@@ -340,8 +340,6 @@ public class MnemosyneThread extends Thread {
         return result;
     }
 
-
-
     public void showSyncDialog() {
         final String server = config._Call("__getitem__", "server_for_sync_as_client").toString();
         final String port = config._Call("__getitem__", "port_for_sync_as_client").toString();
