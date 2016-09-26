@@ -42,7 +42,12 @@ public class MnemosyneThread extends Thread {
     public MnemosyneThread(MnemosyneActivity activity, Handler handler, String packageName) {
         UIActivity = activity;
         UIHandler = handler;
-        basedir = "/data/data/" + packageName;
+        String basedir2 = "/data/data/" + packageName;
+        basedir = UIActivity.getApplicationInfo().dataDir;
+        if (basedir2 != basedir)
+        {
+            Log.d("Mnemosyne", "BASEDIR ERROR");
+        }
     }
 
     public Handler getHandler() {
@@ -163,7 +168,7 @@ public class MnemosyneThread extends Thread {
 
     @Override
     public void run() {
-        Log.d("Mnemosyne", "starting running Mnemosyne thread");
+        Log.d("Mnemosyne", "About to run Mnemosyne thread");
         startMnemosyne();
         Looper.prepare();
         mnemosyneHandler = new Handler();

@@ -1,6 +1,6 @@
-reenable database version check, download of media and archive
-
 only extract data once, write version string
+
+reenable database version check, download of media and archive
 
 profile startup on Android (now: 16 sec --> precompiling: 8 sec)
 
@@ -14,6 +14,7 @@ Android:
 -precompile python files
 -get rid of unnecessary functions in MnemosyneInstaller.java
 -menu button after app goes to background
+-order of question with 3 buttons (e.g. sync conflict)
 
 -pybridge: don't extract individual assets but extract zip file? Faster?
 
