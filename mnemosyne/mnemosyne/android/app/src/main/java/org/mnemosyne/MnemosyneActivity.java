@@ -116,7 +116,6 @@ public class MnemosyneActivity extends AppCompatActivity {
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public void continueOnCreate() {
-
         mnemosyneThread = new MnemosyneThread(this, activityHandler, getPackageName());
         mnemosyneThread.start();
 
@@ -488,11 +487,15 @@ public class MnemosyneActivity extends AppCompatActivity {
             }
         } catch(Exception e){
         }
-        mnemosyneThread.getHandler().post(new Runnable() {
+
+        if ((mnemosyneThread != null) && (mnemosyneThread.getHandler() != null))
+        {
+            mnemosyneThread.getHandler().post(new Runnable() {
             public void run() {
                 mnemosyneThread.pauseMnemosyne();
-            }
-        });
+                }
+            });
+        }
     }
 
     @Override

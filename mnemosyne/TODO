@@ -1,6 +1,8 @@
-only extract data once, write version string
+check from empty install
 
 reenable database version check, download of media and archive
+
+precompile Android before packaging
 
 profile startup on Android (now: 16 sec --> precompiling: 8 sec)
 

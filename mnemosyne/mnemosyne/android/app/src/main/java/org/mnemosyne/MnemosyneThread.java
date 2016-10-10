@@ -11,6 +11,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -42,12 +43,7 @@ public class MnemosyneThread extends Thread {
     public MnemosyneThread(MnemosyneActivity activity, Handler handler, String packageName) {
         UIActivity = activity;
         UIHandler = handler;
-        String basedir2 = "/data/data/" + packageName;
         basedir = UIActivity.getApplicationInfo().dataDir;
-        if (basedir2 != basedir)
-        {
-            Log.d("Mnemosyne", "BASEDIR ERROR");
-        }
     }
 
     public Handler getHandler() {
@@ -109,7 +105,7 @@ public class MnemosyneThread extends Thread {
 
         mnemosyne = python._GetObject("mnemosyne");
 
-        String dataDir = "/sdcard/Mnemosyne/";
+        String dataDir = Environment.getExternalStorageDirectory().getPath() + "/Mnemosyne/";
         String filename = "default.db";
         python._Call("start_mnemosyne", dataDir, filename, this);
 
@@ -119,7 +115,7 @@ public class MnemosyneThread extends Thread {
         componentManager = python._GetObject("mnemosyne.component_manager");
         reviewController = (StarObjectClass) mnemosyne._Call("review_controller");
 
-        File file = new File("/sdcard/Mnemosyne/.nomedia");
+        File file = new File(Environment.getExternalStorageDirectory().getPath() + "/Mnemosyne/.nomedia");
         if (!file.exists()){
             try {
                 file.createNewFile();
