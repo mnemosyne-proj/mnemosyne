@@ -30,7 +30,6 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
     {
         UIActivity = activity;
         UIHandler = handler;
-
         basedir = UIActivity.getApplicationInfo().dataDir;
     }
 
@@ -170,7 +169,7 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
             progressDialog = new ProgressDialog(UIActivity);
             progressDialog.setCancelable(false);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setMessage("Finalising Mnemosyne install...");
+            progressDialog.setMessage("Finalising Mnemosyne install. Please be patient...");
             progressDialog.setIndeterminate(true);
             progressDialog.show();
         }
