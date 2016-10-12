@@ -1,24 +1,14 @@
-check from empty install
-
-reenable database version check, download of media and archive
-
-precompile Android before packaging
-
-profile startup on Android (now: 16 sec --> precompiling: 8 sec)
-
 test sync and webserver, from GUI and from command line (since late instantiation)
 
 Android:
 
--clean up old data dir
--make sure extracting runs in separate thread
 -decrease size of python library
 -precompile python files
--get rid of unnecessary functions in MnemosyneInstaller.java
 -menu button after app goes to background
 -order of question with 3 buttons (e.g. sync conflict)
 
 -pybridge: don't extract individual assets but extract zip file? Faster?
+
 
 
 import/export dialog alignment does not look nice
@@ -378,7 +368,9 @@ created with just the "»" symbol.
  of a big hierarchy. ItemActivated only seems to catch double clicks
 -Qt issue: font size is rounded up to the nearest default integer in font selection
  dialog.
-
+ 
+ 
+- component_manager:deactivate_all: https://bugreports.qt.io/browse/QTBUG-52988 
 
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 

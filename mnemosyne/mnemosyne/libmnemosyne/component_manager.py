@@ -125,7 +125,9 @@ class ComponentManager(object):
                 for component in self.components[used_for][comp_type]:
                     if not isinstance(component, type):
                         component.deactivate()
-        self.components = {}
+        # Following line deactivated to work around
+        # https://bugreports.qt.io/browse/QTBUG-52988                 
+        #self.components = {}
         self.card_type_with_id = {}
 
     def debug(self, msg):

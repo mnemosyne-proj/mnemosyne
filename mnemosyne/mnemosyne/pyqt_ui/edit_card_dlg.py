@@ -73,14 +73,14 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
     def set_new_card(self, card):
         # Called from card browser.
         self.card = card
-        self.card_types_widget.currentIndexChanged[QtCore.QString].\
+        self.card_types_widget.currentIndexChanged[str].\
             disconnect(self.card_type_changed)
         for i in range(self.card_types_widget.count()):
             if self.card_types_widget.itemText(i) \
                 == _(card.card_type.name):
                 self.card_types_widget.setCurrentIndex(i)
                 break
-        self.card_types_widget.currentIndexChanged[QtCore.QString].\
+        self.card_types_widget.currentIndexChanged[str].\
             connect(self.card_type_changed)
         self.update_card_widget(keep_data_from_previous_widget=False)
         self.update_tags_combobox(self.card.tag_string())
