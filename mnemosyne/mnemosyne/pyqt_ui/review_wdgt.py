@@ -3,6 +3,7 @@
 #
 
 from PyQt5 import QtCore, QtGui, QtWidgets, QtWebEngineWidgets
+import os
 import sys
 
 from mnemosyne.libmnemosyne.translator import _
@@ -117,6 +118,9 @@ class QAOptimalSplit(object):
         for match in self.re_img.finditer(html):
             img_file = match.group(1)
             img_file = expand_path(img_file, self.database().media_dir())
+            if not os.path.exists(img_file):
+                print("Missing path", img_file)
+                continue
             with Image.open(img_file) as im:
                 width, height = im.size
                 if height > max_img_height:

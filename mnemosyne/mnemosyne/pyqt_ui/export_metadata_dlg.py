@@ -46,7 +46,7 @@ class ExportMetadataDlg(QtWidgets.QDialog, ExportMetadataDialog,
         if "revision" in metadata:
             self.revision.setValue(int(metadata["revision"]))
         if "notes" in metadata:
-            self.notes.setPlainText(QtCore.QString.fromUtf8(metadata["notes"]))
+            self.notes.setPlainText(metadata["notes"])
 
     def set_read_only(self):
         self.card_set_name.setReadOnly(True)
