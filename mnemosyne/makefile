@@ -9,9 +9,9 @@ ifeq (1,$(shell python3 -c "print(1)" 2>&- ))
 PYTHON      := python3
 endif
 # If we are on cygwin:
-ifeq (1,$(shell /cygdrive/c/Program\ Files/Python35/python.exe -c "print(1)" 2>&- ))
-PYTHON      := /cygdrive/c/Program\ Files/Python35/python.exe
-VIRTUALENV  := /cygdrive/c/Program\ Files/Python35/Scripts/virtualenv.exe
+ifeq (1,$(shell /cygdrive/c/Program\ Files\ \(x86\)/Python35-32/python.exe -c "print(1)" 2>&- ))
+PYTHON      := /cygdrive/c/Program\ Files\ \(x86\)/Python35-32/python.exe
+VIRTUALENV  := /cygdrive/c/Program\ Files\ \(x86\)/Python35-32/Scripts/virtualenv.exe
 endif
 # If "--system-site-packages" supported:
 ifneq (,$(shell $(VIRTUALENV) --system-site-packages --version 3>&- ))
@@ -131,32 +131,26 @@ gui-profile-windows:
 benchmark: install-virtual-env
 	./bin/python tests/benchmark.py
 
-osx: 	# Contributed by Patrick Kenny and Devin Howard
-	# make sure there are no existing build files
-	sudo rm -rf build/ dist/
-
+osx:
 	# build the UI and the translations
-	cd mnemosyne/pyqt_ui && make clean
 	cd mnemosyne/pyqt_ui && make
-	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
 	cd po && make
 
-	# build the app with py2app
-	sudo $(PYTHON) setup.py py2app
+	# build the bundled app based on the specification file
+	pyinstaller mnemosyne.spec
 
-	# add a blank qt.conf so that the system will used the bundled qt instead of the system qt if the system already has qt installed
-	sudo touch dist/Mnemosyne.app/Contents/Resources/qt.conf
-	sudo cp -R /usr/local/opt/qt/lib/QtGui.framework/Versions/4/Resources/qt_menu.nib dist/Mnemosyne.app/Contents/Resources/
+	# blank qt.conf to ensure that bundled qt is used over system qt
+	touch dist/Mnemosyne.app/Contents/Resources/qt.conf
 
 	# add the translations
-	sudo mkdir -p dist/Mnemosyne.app/Contents/Resources/share
-	sudo cp -R mo dist/Mnemosyne.app/Contents/Resources/share/locale
-
+	mkdir -p dist/Mnemosyne.app/Contents/Resources/share
+	cp -R mo dist/Mnemosyne.app/Contents/Resources/share/locale
+	ln -s ../Resources/share dist/Mnemosyne.app/Contents/MacOS/share
 
 docs:
 	cd mnemosyne/libmnemosyne/docs && make html
 	
-android: # Creats the assets file with the Python code.
+android: # Creates the assets file with the Python code.
 	rm -f mnemosyne/android/app/src/main/assets/mnemosyne.zip
 	python -m compileall mnemosyne
 	zip	-r mnemosyne/android/app/src/main/assets/mnemosyne.zip openSM2sync -i \*.py

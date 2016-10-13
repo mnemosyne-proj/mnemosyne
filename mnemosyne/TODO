@@ -34,6 +34,8 @@ https://bugs.launchpad.net/bugs/1592975
 - rework makefile to get rid of virtualenv under windows, update
 windows build instructions.
 
+
+
 -sync of changed saved set does not update title on target machine
 
 - tag completion box: does not work when clicking in the box, and does not

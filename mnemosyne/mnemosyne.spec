@@ -7,29 +7,12 @@ block_cipher = None
 datas = [("mo", "mo")]
 excludes = []
 
-my_fixes = True
+my_fixes = True # TMP workaround on Windows for pyinstaller and webkit issues
 
-if sys.platform == "win32":
-             datas.append(("C:\\Program Files (x86)\\mplayer.exe", "."))
-             
-             # Note: PyQt5.7 does not yet seem to be supported by pyinstaller
-             # Also need to use the dev version of pyinstaller
-             #     pip install -e https://github.com/pyinstaller/pyinstaller/archive/develop.zip
-             # There are some missing files that are not picked up on.
-             
-             if my_fixes:
-                          pyqt_dir = "C:\\Program Files (x86)\\Python35-32\\Lib\\site-packages\\PyQt5\\"
-                          datas.append((pyqt_dir + "QtWebEngineProcess.exe", "."))
-                          datas.append((pyqt_dir + "QtWebEngineCore.pyd", "."))
-                          datas.append((pyqt_dir + "resources\\*", "."))
-             
-             excludes = ['IPython', 'lib2to3']
-    
-a = Analysis(['mnemosyne\\pyqt_ui\\mnemosyne'],
-             pathex=[os.getcwd()],
-             binaries=[],
-             datas=datas,
-             hiddenimports=['mnemosyne.version', 
+binaries = []
+
+hiddenimports = [
+             'mnemosyne.version', 
              'mnemosyne.libmnemosyne.card', 
              'mnemosyne.libmnemosyne.card_type', 
              'mnemosyne.libmnemosyne.card_type_converter', 
@@ -179,12 +162,41 @@ a = Analysis(['mnemosyne\\pyqt_ui\\mnemosyne'],
              'mnemosyne.pyqt_ui.tag_tree_wdgt',
              'mnemosyne.pyqt_ui.tip_after_starting_n_times', 
              'mnemosyne.pyqt_ui.tip_dlg',
+             'mnemosyne.pyqt_ui.ui_main_wdgt',
              'mnemosyne.web_server.jquery_mb_html5_audio',
              'mnemosyne.web_server.review_wdgt',
              'mnemosyne.web_server.simple_html5_audio', 
              'mnemosyne.web_server.web_server', 
              'mnemosyne.web_server.web_server_renderer', 
-             'mnemosyne.web_server.web_server_render_chain'],
+             'mnemosyne.web_server.web_server_render_chain'
+]
+
+if sys.platform == "win32":
+             datas.append(("C:\\Program Files (x86)\\mplayer.exe", "."))
+             
+             # Note: PyQt5.7 does not yet seem to be supported by pyinstaller
+             # Also need to use the dev version of pyinstaller
+             #     pip install -e https://github.com/pyinstaller/pyinstaller/archive/develop.zip
+             # There are some missing files that are not picked up on.
+             
+             if my_fixes:
+                          pyqt_dir = "C:\\Program Files (x86)\\Python35-32\\Lib\\site-packages\\PyQt5\\ "
+                          datas.append((pyqt_dir + "QtWebEngineProcess.exe", "."))
+                          datas.append((pyqt_dir + "QtWebEngineCore.pyd", "."))
+                          datas.append((pyqt_dir + "resources\\*", "."))
+             
+             excludes = ['IPython', 'lib2to3']
+
+if sys.platform == "darwin":
+             hiddenimports.append('PyQt5.QtWebEngineCore')
+             hiddenimports.append('PyQt5.QtWebEngineWidgets')
+             binaries.append(('/usr/local/bin/mplayer', '.'))
+
+a = Analysis([os.path.join('mnemosyne', 'pyqt_ui', 'mnemosyne')],
+             pathex=[os.getcwd()],
+             binaries=binaries,
+             datas=datas,
+             hiddenimports=hiddenimports,
              hookspath=[],
              runtime_hooks=[],
              excludes=excludes,
@@ -208,7 +220,7 @@ exe = EXE(pyz,
           strip=False,
           upx=True,
           console=False,
-          icon='pixmaps\\mnemosyne.ico')
+          icon=os.path.join('pixmaps', 'mnemosyne.ico'))
           
 coll = COLLECT(exe,
                a.binaries,
@@ -217,6 +229,13 @@ coll = COLLECT(exe,
                strip=False,
                upx=True,
                name='Mnemosyne')
-               
+
+if sys.platform == "darwin":
+  app = BUNDLE(coll,
+               name='Mnemosyne.app',
+               icon=os.path.join('pixmaps', 'mnemosyne.icns'),
+               bundle_identifier='org.qt-project.Qt.QtWebEngineCore')
+
 if my_fixes and (sys.platform == "win32"):
              shutil.move("dist\\mnemosyne\\QtWebEngineCore.pyd", "dist\\mnemosyne\\PyQt5.QtWebEngineCore.pyd")
+             
