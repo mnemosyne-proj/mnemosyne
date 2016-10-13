@@ -4,8 +4,8 @@ INSTALLATION FROM SOURCE:
 
 First install the following dependencies:
 
--Python 2.5 or later (http://www.python.org)
--PyQt 4.5 or later
+-Python 3.5 or later (http://www.python.org)
+-PyQt 5.6 or later
  (http://www.riverbankcomputing.co.uk/software/pyqt/download)
 -If you want to be able to enter formulas using latex syntax, make sure
  that latex and dvipng are installed.
@@ -14,17 +14,10 @@ First install the following dependencies:
 -CherryPy 3.2 or later (http://www.cherrypy.org)
 -Webob 1.4 or later (http://webob.org)
 
-Under Ubuntu, these dependencies can be resolved by installing the
-following packages:
-
-python-cherrypy3 python-virtualenv python-qt4-dev pyqt4-dev-tools
-qt4-designer python-qt4-sql libqt4-sql-sqlite python-matplotlib
-python-qt4-phonon python-sphinx python-webob python-setuptools
-
 To actually install mnemosyne:
 -Extraxt the .tar.gz file and change to its root directory (i.e.
  probably the directory where you found this README file).
--Type 'python setup.py install' as root.
+-Type 'python3 setup.py install' as root.
 
 To test the installation:
 -Change to any other directory e.g. by typing 'cd ~'.
@@ -36,32 +29,28 @@ matplotlib.
 
 2) MAC OS/X
 
- - Download and install the latest version of Homebrew
- - Open the Terminal.
- - Make sure you are using the latest version of Homebrew:
+ -Download and install Homebrew (see http://brew.sh)
+ -Open the Terminal.
+ -Make sure you are using the latest version of Homebrew:
 
-    brew update
+     brew update
+    
+ -Install the dependencies for Mnemosyne.
+ 
+     brew install python3 qt5 pyqt5 mplayer
+     pip3 install webob tornado matplotlib numpy sip pillow
+     # https://github.com/pyinstaller/pyinstaller/issues/1874
+     pip3 install git+git://github.com/pyinstaller/pyinstaller.git@5812b64470e2232f6b6f8f68c81dc220b2aedfd7
+ 
+ -Build it:
+ 
+     export PYTHON=python3
+     export QT5DIR=/usr/local/opt/qt5 # help pyinstaller find the qt5 path
+     make clean
+     make osx
 
- - Install the dependencies for Mnemosyne. You'll need a few extra steps to install gdk-pixbuf to avoid a nasty error with py2app and macholib:
+ -Test the new application (back up your data directory first!):
 
-    brew install bzr python qt4 pyqt sip matplotlib mplayer
-    brew install $(brew deps gdk-pixbuf)
-    brew fetch --build-from-source gdk-pixbuf
-    sed -i '' -e '/append_to_cflags/ {
-      a\
-      ENV.append("LDFLAGS", "-Xlinker")
-      a\
-      ENV.append("LDFLAGS", "-headerpad_max_install_names")
-      }' /usr/local/Library/Formula/gdk-pixbuf.rb #add helpful flags
-    brew install --build-from-source gdk-pixbuf
-    pip install distribute==0.7.3 cherrypy==3.8.0 webob==1.5.0 virtualenvwrapper==4.7.1 virtualenv==13.1.2
+     open dist/Mnemosyne.app
 
- - Build it (filling in the version from the top line of "brew info qt4"):
-
-    sudo make osx
-
- - Test the new application (back up your data directory first!):
-
-    open dist/Mnemosyne.app
-
- - and optionally drag and drop this new app to /Applications
+ -and optionally drag and drop this new app to /Applications
