@@ -1,7 +1,6 @@
 # Choose the correct python and virtualenv commands:
 
 PYTHON      := python
-VIRTUALENV  := virtualenv
 SPHINXBUILD := sphinx-build
 
 # If `python3` exists:
@@ -11,11 +10,6 @@ endif
 # If we are on cygwin:
 ifeq (1,$(shell /cygdrive/c/Program\ Files\ \(x86\)/Python35-32/python.exe -c "print(1)" 2>&- ))
 PYTHON      := /cygdrive/c/Program\ Files\ \(x86\)/Python35-32/python.exe
-VIRTUALENV  := /cygdrive/c/Program\ Files\ \(x86\)/Python35-32/Scripts/virtualenv.exe
-endif
-# If "--system-site-packages" supported:
-ifneq (,$(shell $(VIRTUALENV) --system-site-packages --version 3>&- ))
-VIRTUALENV  += --system-site-packages
 endif
 # If `sphinx-build2` exists:
 ifneq (,$(shell command -v sphinx-build2 2>&- ))
@@ -30,125 +24,94 @@ ifdef DESTDIR
 INSTALL_OPTS += --root="$(DESTDIR)"
 endif
 
-install-and-run-virtual-env: install-virtual-env
-	./bin/mnemosyne -d dot_mnemosyne2
-
-install-virtual-env:
-	cd mnemosyne/pyqt_ui && make
-	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc
-	./bin/python setup.py develop
-
-setup:
-	$(VIRTUALENV) --python=$(PYTHON) .
-	./bin/pip install nose
-	./bin/pip install coverage
-	cd po && make
-
-# Note: virtualenvs seem impossible at the moment: qwebengine view simly refuses
-# to show content, both with and without system-site-packages and both by copying
-# the directory and by using pip.
-# (Moreover I cannot get numpy to compile from sounce, but that's a different issue)
-
-setup-windows:
-	#virtualenv -p python3 --system-site-packages --python=C:/Program\ Files/python35/python.exe .
-	virtualenv -p python3 --no-site-packages --python=C:/Program\ Files/python35/python.exe .
-	cp C:/Program\ Files/Python35/mplayer.exe Scripts/
-	cp -r C:/Program\ Files/Python35/Lib/site-packages/ Lib/
-	Scripts/pip.exe install pyqt5
-	#cp -r C:/Program\ Files/Python35/Lib/site-packages/PyQt5/ Lib/site-packages/
-	#cp C:/Program\ Files/Python35/Lib/site-packages/PyQt5/resources/* Scripts
-	Scripts/pip.exe install nose
-	Scripts/pip.exe install coverage
-
-install-virtual-env-windows:
-	cd mnemosyne/pyqt_ui && make
-	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc
-	Scripts/python.exe setup.py develop
+run: build
+	# For debugging: running the code in place.
+	PYTHONPATH=. $(PYTHON) mnemosyne/pyqt_ui/mnemosyne -d dot_mnemosyne2
 	
-	
-install-system-tmp:
-	cd mnemosyne/pyqt_ui && make clean
+build:
+	# Just the bare minimum to get things running
 	cd mnemosyne/pyqt_ui && make
-	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc
-	C:/Program\ Files/python35/python.exe setup.py install $(INSTALL_OPTS)
-	rm -f -R build
-	
-
-install-system:
-	# Also rebuilds the docs and the translations.
-	cd mnemosyne/libmnemosyne/docs && make SPHINXBUILD=$(SPHINXBUILD) html
-	cd mnemosyne/pyqt_ui && make clean
-	cd mnemosyne/pyqt_ui && make
-	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc
-	cd po && make update
-	cd po && make
-	$(PYTHON) setup.py install $(INSTALL_OPTS)
-	rm -f -R build
+	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc	
 	
 build-all-deps:
 	# Also rebuilds the docs and the translations.
 	cd mnemosyne/libmnemosyne/docs && make SPHINXBUILD=$(SPHINXBUILD) html
-	# cd mnemosyne/pyqt_ui && make clean
+	cd mnemosyne/pyqt_ui && make clean
 	cd mnemosyne/pyqt_ui && make
 	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc
 	cd po && make update
 	cd po && make
-
-test: install-virtual-env
-	./bin/nosetests tests
 	
-test-windows:
-	Scripts/nosetests.exe tests
+install-system: build-all-deps
+	$(PYTHON) setup.py install $(INSTALL_OPTS)
+	rm -f -R build
 	
-coverage: install-virtual-env
+test: FORCE
+	nosetests tests
+		
+coverage: FORCE
 	rm -rf .coverage cover htmlcov
 	./bin/nosetests --with-coverage --cover-erase \
 	--cover-package=mnemosyne.libmnemosyne,openSM2sync || (echo "testsuite failed")
 	./bin/coverage html
 	firefox htmlcov/index.html || chromium htmlcov/index.html || google-chrome htmlcov/index.html
 	
-coverage-windows: install-virtual-env-windows
+coverage-windows: FORCE
 	rm -rf .coverage cover htmlcov
 	Scripts/nosetests --with-coverage --cover-erase \
 	--cover-package=mnemosyne.libmnemosyne,openSM2sync || (echo "testsuite failed")
 	Scripts/coverage html
 	firefox htmlcov/index.html || chromium htmlcov/index.html || google-chrome htmlcov/index.html
 	
-profile: install-virtual-env
+profile: FORCE
 	echo "from hotshot import stats" > process_profile.py
 	echo "s = stats.load(\"stats.dat\")" >> process_profile.py
 	echo "s.sort_stats(\"time\").print_stats()" >> process_profile.py
 	./bin/nosetests --with-profile --profile-stats-file=stats.dat
 	$(PYTHON) process_profile.py
 
-gui-profile:
-	./bin/python -m cProfile -s cumulative bin/mnemosyne -d ./dot_mnemosyne2/ | more
+gui-profile: FORCE
+	$(PYTHON) -m cProfile -s cumulative bin/mnemosyne -d ./dot_mnemosyne2/ | more
 	
-gui-profile-windows:
+gui-profile-windows: FORCE
 	cp mnemosyne/pyqt_ui/mnemosyne tmp.py
-	python -m cProfile -s cumulative tmp.py -d C:\dot_test_2 | more
+	$(PYTHON) -m cProfile -s cumulative tmp.py -d C:\dot_test_2 | more
 
-benchmark: install-virtual-env
-	./bin/python tests/benchmark.py
+benchmark: FORCE
+	$(PYTHON) tests/benchmark.py
+	
+windows-installer: FORCE
+	# Erase previous directories to make sure we're clean.
+	rm -rf dist
+	rm -rf build
+	make build-all-deps
+	$(PYTHON) setup.py build_windows_installer
+	read -p "Press any key when InnoSetup has finished..."
+	V=`$(PYTHON) mnemosyne/version.py` && cp dist/Mnemosyne/Output/setup.exe mnemosyne-$${V}-setup.exe
+
+distrib: FORCE
+	# Erase previous directories to make sure we're clean.
+	rm -rf dist
+	rm -rf Mnemosyne.egg-info
+	make build-all-deps
+	$(PYTHON) setup.py sdist --formats=gztar
 
 osx:
-	# build the UI and the translations
+	# Build the UI and the translations.
 	cd mnemosyne/pyqt_ui && make
 	cd po && make
 
-	# build the bundled app based on the specification file
+	# Build the bundled app based on the specification file.
 	pyinstaller mnemosyne.spec
 
-	# blank qt.conf to ensure that bundled qt is used over system qt
+	# Blank qt.conf to ensure that bundled qt is used over system qt.
 	touch dist/Mnemosyne.app/Contents/Resources/qt.conf
 
-	# add the translations
+	# Add the translations.
 	mkdir -p dist/Mnemosyne.app/Contents/Resources/share
 	cp -R mo dist/Mnemosyne.app/Contents/Resources/share/locale
 	ln -s ../Resources/share dist/Mnemosyne.app/Contents/MacOS/share
 
-docs:
-	cd mnemosyne/libmnemosyne/docs && make html
 	
 android: # Creates the assets file with the Python code.
 	rm -f mnemosyne/android/app/src/main/assets/mnemosyne.zip
@@ -158,17 +121,6 @@ android: # Creates the assets file with the Python code.
 	zip	-r mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/cle -i \*.py
 	zip	mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/version.py mnemosyne/__init__.py	
 	
-windows-installer:
-	rm -rf dist
-	rm -rf build
-	cd mnemosyne/pyqt_ui && make clean
-	cd mnemosyne/pyqt_ui && make
-	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc
-	cd po && make
-	$(PYTHON) setup.py build_windows_installer
-	read -p "Press any key when InnoSetup has finished..."
-	V=`$(PYTHON) mnemosyne/version.py` && cp dist/Mnemosyne/Output/setup.exe mnemosyne-$${V}-setup.exe
-
 clean:
 	rm -f *~ *.pyc *.tgz process_profile.py
 	rm -rf dist
@@ -179,14 +131,5 @@ clean:
 	cd po && make clean
 	rm -f mnemosyne/*~ mnemosyne/*.pyc
 	rm -f mnemosyne/libmnemosyne/*~ mnemosyne/libmnemosyne/*.pyc
-
-distrib: FORCE
-	rm -rf dist
-	rm -rf Mnemosyne.egg-info
-	cd po && make
-	cd mnemosyne/libmnemosyne/docs && make html
-	cd mnemosyne/pyqt_ui && make
-	$(PYTHON) setup.py sdist --formats=gztar
-
-
+	
 FORCE:

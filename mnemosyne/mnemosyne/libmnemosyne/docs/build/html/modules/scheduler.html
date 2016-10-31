@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Scheduler &mdash; libmnemosyne 2.0 documentation</title>
+    <title>Scheduler &#8212; libmnemosyne 2.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -23,48 +23,39 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="top" title="libmnemosyne 2.0 documentation" href="../index.html" />
     <link rel="next" title="Stopwatch" href="stopwatch.html" />
-    <link rel="prev" title="Plugin" href="plugin.html" /> 
+    <link rel="prev" title="Plugin" href="plugin.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
   </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="stopwatch.html" title="Stopwatch"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="plugin.html" title="Plugin"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="module-mnemosyne.libmnemosyne.scheduler">
-<span id="scheduler"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">Scheduler</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.scheduler" title="Permalink to this headline">¶</a></h1>
+<span id="scheduler"></span><h1><code class="xref py py-mod docutils literal"><span class="pre">Scheduler</span></code><a class="headerlink" href="#module-mnemosyne.libmnemosyne.scheduler" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler">
-<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.scheduler.</tt><tt class="descname">Scheduler</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">mnemosyne.libmnemosyne.scheduler.</code><code class="descname">Scheduler</code><span class="sig-paren">(</span><em>component_manager</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.active_count">
-<tt class="descname">active_count</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.active_count" title="Permalink to this definition">¶</a></dt>
+<code class="descname">active_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.active_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.avoid_sister_cards">
-<tt class="descname">avoid_sister_cards</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.avoid_sister_cards" title="Permalink to this definition">¶</a></dt>
+<code class="descname">avoid_sister_cards</code><span class="sig-paren">(</span><em>card</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.avoid_sister_cards" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change card.next_rep to make sure that the card is not scheduled
 on the same day as a sister card.</p>
 <p>Factored out here to allow this to be used by e.g. MnemoGogo.</p>
@@ -72,7 +63,7 @@ on the same day as a sister card.</p>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.card_count_scheduled_n_days_from_now">
-<tt class="descname">card_count_scheduled_n_days_from_now</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.card_count_scheduled_n_days_from_now" title="Permalink to this definition">¶</a></dt>
+<code class="descname">card_count_scheduled_n_days_from_now</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.card_count_scheduled_n_days_from_now" title="Permalink to this definition">¶</a></dt>
 <dd><p>Yesterday: n=-1, today: n=0, tomorrow: n=1, ... .</p>
 <p>Is not implemented in the database, because this could need internal
 scheduler information.</p>
@@ -80,58 +71,58 @@ scheduler information.</p>
 
 <dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.component_type">
-<tt class="descname">component_type</tt><em class="property"> = 'scheduler'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.component_type" title="Permalink to this definition">¶</a></dt>
+<code class="descname">component_type</code><em class="property"> = 'scheduler'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.component_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.grade_answer">
-<tt class="descname">grade_answer</tt><big>(</big><em>card</em>, <em>new_grade</em>, <em>dry_run=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.grade_answer" title="Permalink to this definition">¶</a></dt>
+<code class="descname">grade_answer</code><span class="sig-paren">(</span><em>card</em>, <em>new_grade</em>, <em>dry_run=False</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.grade_answer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.is_in_queue">
-<tt class="descname">is_in_queue</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.is_in_queue" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_in_queue</code><span class="sig-paren">(</span><em>card</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.is_in_queue" title="Permalink to this definition">¶</a></dt>
 <dd><p>To check whether the queue needs to be rebuilt, e.g. if it contains
 a card that was deleted in the GUI.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.is_prefetch_allowed">
-<tt class="descname">is_prefetch_allowed</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.is_prefetch_allowed" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_prefetch_allowed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.is_prefetch_allowed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Can we display a new card before having processed the grading of
 the previous one?</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.last_rep_to_interval_string">
-<tt class="descname">last_rep_to_interval_string</tt><big>(</big><em>last_rep</em>, <em>now=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.last_rep_to_interval_string" title="Permalink to this definition">¶</a></dt>
+<code class="descname">last_rep_to_interval_string</code><span class="sig-paren">(</span><em>last_rep</em>, <em>now=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.last_rep_to_interval_string" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts last_rep to a string like &#8216;yesterday&#8217;, &#8216;2 weeks ago&#8217;, ...</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.name">
-<tt class="descname">name</tt><em class="property"> = ''</em><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.name" title="Permalink to this definition">¶</a></dt>
+<code class="descname">name</code><em class="property"> = ''</em><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.next_card">
-<tt class="descname">next_card</tt><big>(</big><em>learn_ahead=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.next_card" title="Permalink to this definition">¶</a></dt>
+<code class="descname">next_card</code><span class="sig-paren">(</span><em>learn_ahead=False</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.next_card" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.next_rep_to_interval_string">
-<tt class="descname">next_rep_to_interval_string</tt><big>(</big><em>next_rep</em>, <em>now=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.next_rep_to_interval_string" title="Permalink to this definition">¶</a></dt>
+<code class="descname">next_rep_to_interval_string</code><span class="sig-paren">(</span><em>next_rep</em>, <em>now=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.next_rep_to_interval_string" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts next_rep to a string like &#8216;tomorrow&#8217;, &#8216;in 2 weeks&#8217;, ...</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.non_memorised_count">
-<tt class="descname">non_memorised_count</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.non_memorised_count" title="Permalink to this definition">¶</a></dt>
+<code class="descname">non_memorised_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.non_memorised_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.rebuild_queue">
-<tt class="descname">rebuild_queue</tt><big>(</big><em>learn_ahead=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.rebuild_queue" title="Permalink to this definition">¶</a></dt>
+<code class="descname">rebuild_queue</code><span class="sig-paren">(</span><em>learn_ahead=False</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.rebuild_queue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called by the rest of the library when an existing queue risks
 becoming invalid, e.g. when cards have been deleted in the GUI.
 &#8216;next_card&#8217; also makes use of this in certain implementations.</p>
@@ -139,23 +130,23 @@ becoming invalid, e.g. when cards have been deleted in the GUI.
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.remove_from_queue_if_present">
-<tt class="descname">remove_from_queue_if_present</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.remove_from_queue_if_present" title="Permalink to this definition">¶</a></dt>
+<code class="descname">remove_from_queue_if_present</code><span class="sig-paren">(</span><em>card</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.remove_from_queue_if_present" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.reset">
-<tt class="descname">reset</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.reset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called when starting the scheduler for the first time.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.scheduled_count">
-<tt class="descname">scheduled_count</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.scheduled_count" title="Permalink to this definition">¶</a></dt>
+<code class="descname">scheduled_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.scheduled_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.set_initial_grade">
-<tt class="descname">set_initial_grade</tt><big>(</big><em>cards</em>, <em>grade</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.set_initial_grade" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_initial_grade</code><span class="sig-paren">(</span><em>cards</em>, <em>grade</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.set_initial_grade" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the initial grades for a set of sister cards, making sure
 their next repetitions do no fall on the same day.</p>
 <p>Called when cards are given their initial grade outside of the
@@ -181,58 +172,51 @@ but all the relevant information can still be parsed from them.)</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="plugin.html"
-                        title="previous chapter"><tt class="docutils literal"><span class="pre">Plugin</span></tt></a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="stopwatch.html"
-                        title="next chapter"><tt class="docutils literal"><span class="pre">Stopwatch</span></tt></a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/modules/scheduler.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="plugin.html" title="previous chapter"><code class="docutils literal"><span class="pre">Plugin</span></code></a></li>
+      <li>Next: <a href="stopwatch.html" title="next chapter"><code class="docutils literal"><span class="pre">Stopwatch</span></code></a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/scheduler.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="stopwatch.html" title="Stopwatch"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="plugin.html" title="Plugin"
-             >previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 29, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      &copy;2008, Peter Bienstman.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../_sources/modules/scheduler.txt"
+          rel="nofollow">Page source</a>
     </div>
+
+    
+
+    
   </body>
 </html>

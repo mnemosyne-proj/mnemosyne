@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Controller &mdash; libmnemosyne 2.0 documentation</title>
+    <title>Controller &#8212; libmnemosyne 2.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -23,40 +23,31 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="top" title="libmnemosyne 2.0 documentation" href="../index.html" />
     <link rel="next" title="ReviewController" href="review_controller.html" />
-    <link rel="prev" title="Renderer" href="renderer.html" /> 
+    <link rel="prev" title="Renderer" href="renderer.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
   </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="review_controller.html" title="ReviewController"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="renderer.html" title="Renderer"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="module-mnemosyne.libmnemosyne.controller">
-<span id="controller"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">Controller</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.controller" title="Permalink to this headline">¶</a></h1>
+<span id="controller"></span><h1><code class="xref py py-mod docutils literal"><span class="pre">Controller</span></code><a class="headerlink" href="#module-mnemosyne.libmnemosyne.controller" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.controller.Controller">
-<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.controller.</tt><tt class="descname">Controller</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">mnemosyne.libmnemosyne.controller.</code><code class="descname">Controller</code><span class="sig-paren">(</span><em>component_manager</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller" title="Permalink to this definition">¶</a></dt>
 <dd><p>A collection of logic used by the GUI.  The logic related to the
 review process is split out in a separated controller class, to
 allow that to be swapped out easily.</p>
@@ -67,175 +58,175 @@ dialog can use to perform GUI-independent operations.</p>
 <p>See also &#8216;How to write a new frontend&#8217; in the docs.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.change_card_type">
-<tt class="descname">change_card_type</tt><big>(</big><em>facts</em>, <em>old_card_type</em>, <em>new_card_type</em>, <em>correspondence</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.change_card_type" title="Permalink to this definition">¶</a></dt>
+<code class="descname">change_card_type</code><span class="sig-paren">(</span><em>facts</em>, <em>old_card_type</em>, <em>new_card_type</em>, <em>correspondence</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.change_card_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Note: all facts should have the same card type.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.clone_card_type">
-<tt class="descname">clone_card_type</tt><big>(</big><em>card_type</em>, <em>clone_name</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.clone_card_type" title="Permalink to this definition">¶</a></dt>
+<code class="descname">clone_card_type</code><span class="sig-paren">(</span><em>card_type</em>, <em>clone_name</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.clone_card_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.component_type">
-<tt class="descname">component_type</tt><em class="property"> = 'controller'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.component_type" title="Permalink to this definition">¶</a></dt>
+<code class="descname">component_type</code><em class="property"> = 'controller'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.component_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.create_new_cards">
-<tt class="descname">create_new_cards</tt><big>(</big><em>fact_data</em>, <em>card_type</em>, <em>grade</em>, <em>tag_names</em>, <em>check_for_duplicates=True</em>, <em>save=True</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.create_new_cards" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create_new_cards</code><span class="sig-paren">(</span><em>fact_data</em>, <em>card_type</em>, <em>grade</em>, <em>tag_names</em>, <em>check_for_duplicates=True</em>, <em>save=True</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.create_new_cards" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.delete_card_type">
-<tt class="descname">delete_card_type</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.delete_card_type" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delete_card_type</code><span class="sig-paren">(</span><em>card_type</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.delete_card_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.delete_current_card">
-<tt class="descname">delete_current_card</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.delete_current_card" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delete_current_card</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.delete_current_card" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.delete_facts_and_their_cards">
-<tt class="descname">delete_facts_and_their_cards</tt><big>(</big><em>facts</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.delete_facts_and_their_cards" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delete_facts_and_their_cards</code><span class="sig-paren">(</span><em>facts</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.delete_facts_and_their_cards" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.delete_plugin">
-<tt class="descname">delete_plugin</tt><big>(</big><em>plugin</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.delete_plugin" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delete_plugin</code><span class="sig-paren">(</span><em>plugin</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.delete_plugin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.edit_card_and_sisters">
-<tt class="descname">edit_card_and_sisters</tt><big>(</big><em>card</em>, <em>new_fact_data</em>, <em>new_card_type</em>, <em>new_tag_names</em>, <em>correspondence</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.edit_card_and_sisters" title="Permalink to this definition">¶</a></dt>
+<code class="descname">edit_card_and_sisters</code><span class="sig-paren">(</span><em>card</em>, <em>new_fact_data</em>, <em>new_card_type</em>, <em>new_tag_names</em>, <em>correspondence</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.edit_card_and_sisters" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.heartbeat">
-<tt class="descname">heartbeat</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.heartbeat" title="Permalink to this definition">¶</a></dt>
+<code class="descname">heartbeat</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.heartbeat" title="Permalink to this definition">¶</a></dt>
 <dd><p>For code that needs to run periodically.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.install_plugin">
-<tt class="descname">install_plugin</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.install_plugin" title="Permalink to this definition">¶</a></dt>
+<code class="descname">install_plugin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.install_plugin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.save_file">
-<tt class="descname">save_file</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.save_file" title="Permalink to this definition">¶</a></dt>
+<code class="descname">save_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.save_file" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.show_add_cards_dialog">
-<tt class="descname">show_add_cards_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_add_cards_dialog" title="Permalink to this definition">¶</a></dt>
+<code class="descname">show_add_cards_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_add_cards_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.show_browse_cards_dialog">
-<tt class="descname">show_browse_cards_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_browse_cards_dialog" title="Permalink to this definition">¶</a></dt>
+<code class="descname">show_browse_cards_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_browse_cards_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.show_configuration_dialog">
-<tt class="descname">show_configuration_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_configuration_dialog" title="Permalink to this definition">¶</a></dt>
+<code class="descname">show_configuration_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_configuration_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.show_edit_card_dialog">
-<tt class="descname">show_edit_card_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_edit_card_dialog" title="Permalink to this definition">¶</a></dt>
+<code class="descname">show_edit_card_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_edit_card_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.show_export_file_dialog">
-<tt class="descname">show_export_file_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_export_file_dialog" title="Permalink to this definition">¶</a></dt>
+<code class="descname">show_export_file_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_export_file_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.show_getting_started_dialog">
-<tt class="descname">show_getting_started_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_getting_started_dialog" title="Permalink to this definition">¶</a></dt>
+<code class="descname">show_getting_started_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_getting_started_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.show_import_file_dialog">
-<tt class="descname">show_import_file_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_import_file_dialog" title="Permalink to this definition">¶</a></dt>
+<code class="descname">show_import_file_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_import_file_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.show_insert_img_dialog">
-<tt class="descname">show_insert_img_dialog</tt><big>(</big><em>filter</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_insert_img_dialog" title="Permalink to this definition">¶</a></dt>
+<code class="descname">show_insert_img_dialog</code><span class="sig-paren">(</span><em>filter</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_insert_img_dialog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filter contains the file dialog filter with the supported
 filetypes.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.show_insert_sound_dialog">
-<tt class="descname">show_insert_sound_dialog</tt><big>(</big><em>filter</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_insert_sound_dialog" title="Permalink to this definition">¶</a></dt>
+<code class="descname">show_insert_sound_dialog</code><span class="sig-paren">(</span><em>filter</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_insert_sound_dialog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filter contains the file dialog filter with the supported
 filetypes.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.show_insert_video_dialog">
-<tt class="descname">show_insert_video_dialog</tt><big>(</big><em>filter</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_insert_video_dialog" title="Permalink to this definition">¶</a></dt>
+<code class="descname">show_insert_video_dialog</code><span class="sig-paren">(</span><em>filter</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_insert_video_dialog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filter contains the file dialog filter with the supported
 filetypes.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.show_manage_card_types_dialog">
-<tt class="descname">show_manage_card_types_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_manage_card_types_dialog" title="Permalink to this definition">¶</a></dt>
+<code class="descname">show_manage_card_types_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_manage_card_types_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.show_manage_plugins_dialog">
-<tt class="descname">show_manage_plugins_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_manage_plugins_dialog" title="Permalink to this definition">¶</a></dt>
+<code class="descname">show_manage_plugins_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_manage_plugins_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.show_new_file_dialog">
-<tt class="descname">show_new_file_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_new_file_dialog" title="Permalink to this definition">¶</a></dt>
+<code class="descname">show_new_file_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_new_file_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.show_open_file_dialog">
-<tt class="descname">show_open_file_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_open_file_dialog" title="Permalink to this definition">¶</a></dt>
+<code class="descname">show_open_file_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_open_file_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.show_save_file_as_dialog">
-<tt class="descname">show_save_file_as_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_save_file_as_dialog" title="Permalink to this definition">¶</a></dt>
+<code class="descname">show_save_file_as_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_save_file_as_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.show_statistics_dialog">
-<tt class="descname">show_statistics_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_statistics_dialog" title="Permalink to this definition">¶</a></dt>
+<code class="descname">show_statistics_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_statistics_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.show_sync_dialog">
-<tt class="descname">show_sync_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_sync_dialog" title="Permalink to this definition">¶</a></dt>
+<code class="descname">show_sync_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_sync_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.show_tip_dialog">
-<tt class="descname">show_tip_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_tip_dialog" title="Permalink to this definition">¶</a></dt>
+<code class="descname">show_tip_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_tip_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.star_current_card">
-<tt class="descname">star_current_card</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.star_current_card" title="Permalink to this definition">¶</a></dt>
+<code class="descname">star_current_card</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.star_current_card" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.sync">
-<tt class="descname">sync</tt><big>(</big><em>server</em>, <em>port</em>, <em>username</em>, <em>password</em>, <em>ui=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.sync" title="Permalink to this definition">¶</a></dt>
+<code class="descname">sync</code><span class="sig-paren">(</span><em>server</em>, <em>port</em>, <em>username</em>, <em>password</em>, <em>ui=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.sync" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.update_title">
-<tt class="descname">update_title</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.update_title" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update_title</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.update_title" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -246,58 +237,51 @@ filetypes.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="renderer.html"
-                        title="previous chapter"><tt class="docutils literal"><span class="pre">Renderer</span></tt></a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="review_controller.html"
-                        title="next chapter"><tt class="docutils literal"><span class="pre">ReviewController</span></tt></a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/modules/controller.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="renderer.html" title="previous chapter"><code class="docutils literal"><span class="pre">Renderer</span></code></a></li>
+      <li>Next: <a href="review_controller.html" title="next chapter"><code class="docutils literal"><span class="pre">ReviewController</span></code></a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/controller.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="review_controller.html" title="ReviewController"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="renderer.html" title="Renderer"
-             >previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Nov 07, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      &copy;2008, Peter Bienstman.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../_sources/modules/controller.txt"
+          rel="nofollow">Page source</a>
     </div>
+
+    
+
+    
   </body>
 </html>

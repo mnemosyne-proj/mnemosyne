@@ -1,3 +1,13 @@
+app = QApplication(["--disable-web-security"])
+--allow-external-pages, allow-file-access, allow-file-access-from-files
+clear-data-reduction-proxy-data-savings
+tracing
+media-cache-size
+http://peter.sh/experiments/chromium-command-line-switches/
+view.setHtml("<html><head></head><body>Test <img src='file:///C:/test.png'></body></html>", QUrl("file://"));
+
+why is .mnemosyne created on first start, even on Windows?
+
 test sync and webserver, from GUI and from command line (since late instantiation)
 
 Android:
@@ -8,7 +18,6 @@ Android:
 -order of question with 3 buttons (e.g. sync conflict)
 
 -pybridge: don't extract individual assets but extract zip file? Faster?
-
 
 
 import/export dialog alignment does not look nice
@@ -28,12 +37,8 @@ https://bugs.launchpad.net/mnemosyne-proj/+bug/1582509
 
 https://bugs.launchpad.net/bugs/1592975
 
-
     
 - update install instructions linux, windows devel
-- rework makefile to get rid of virtualenv under windows, update
-windows build instructions.
-
 
 
 -sync of changed saved set does not update title on target machine
