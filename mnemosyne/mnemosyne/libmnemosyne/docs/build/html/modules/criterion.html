@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Criterion &mdash; libmnemosyne 2.0 documentation</title>
+    <title>Criterion &#8212; libmnemosyne 2.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -23,57 +23,48 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="top" title="libmnemosyne 2.0 documentation" href="../index.html" />
     <link rel="next" title="How to write a new frontend" href="how_to_write_a_new_frontend.html" />
-    <link rel="prev" title="StatisticsPage" href="statistics_page.html" /> 
+    <link rel="prev" title="StatisticsPage" href="statistics_page.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
   </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="how_to_write_a_new_frontend.html" title="How to write a new frontend"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="statistics_page.html" title="StatisticsPage"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="module-mnemosyne.libmnemosyne.criterion">
-<span id="criterion"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">Criterion</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.criterion" title="Permalink to this headline">¶</a></h1>
+<span id="criterion"></span><h1><code class="xref py py-mod docutils literal"><span class="pre">Criterion</span></code><a class="headerlink" href="#module-mnemosyne.libmnemosyne.criterion" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion">
-<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.criterion.</tt><tt class="descname">Criterion</tt><big>(</big><em>component_manager</em>, <em>id=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">mnemosyne.libmnemosyne.criterion.</code><code class="descname">Criterion</code><span class="sig-paren">(</span><em>component_manager</em>, <em>id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Used to select a subset of cards, e.g. which cards are currently
 active, i.e. included in the review process.</p>
 <p>The available criteria are stored as classes in the component_manager,
 the actual instances together with their data are stored in the database.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.active_card_type_added">
-<tt class="descname">active_card_type_added</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.active_card_type_added" title="Permalink to this definition">¶</a></dt>
+<code class="descname">active_card_type_added</code><span class="sig-paren">(</span><em>card_type</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.active_card_type_added" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.active_tag_added">
-<tt class="descname">active_tag_added</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.active_tag_added" title="Permalink to this definition">¶</a></dt>
+<code class="descname">active_tag_added</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.active_tag_added" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.apply_to_card">
-<tt class="descname">apply_to_card</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.apply_to_card" title="Permalink to this definition">¶</a></dt>
+<code class="descname">apply_to_card</code><span class="sig-paren">(</span><em>card</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.apply_to_card" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the card active or not depending on the criterion. Does not
 write to the database. Called e.g. after creating, updating or
 reviewing cards, to see whether these cards should start out their
@@ -85,22 +76,22 @@ destroyed, such that Criteria can update their status if needed.</p>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.card_type_deleted">
-<tt class="descname">card_type_deleted</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.card_type_deleted" title="Permalink to this definition">¶</a></dt>
+<code class="descname">card_type_deleted</code><span class="sig-paren">(</span><em>card_type</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.card_type_deleted" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.component_type">
-<tt class="descname">component_type</tt><em class="property"> = 'criterion'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.component_type" title="Permalink to this definition">¶</a></dt>
+<code class="descname">component_type</code><em class="property"> = 'criterion'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.component_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.criterion_type">
-<tt class="descname">criterion_type</tt><em class="property"> = ''</em><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.criterion_type" title="Permalink to this definition">¶</a></dt>
+<code class="descname">criterion_type</code><em class="property"> = ''</em><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.criterion_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.data_to_string">
-<tt class="descname">data_to_string</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.data_to_string" title="Permalink to this definition">¶</a></dt>
+<code class="descname">data_to_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.data_to_string" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert variables to a string for storage in the database. We don&#8217;t
 use pickle here as that would make it difficult for non-Python programs
 to read the database.</p>
@@ -108,7 +99,7 @@ to read the database.</p>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.data_to_sync_string">
-<tt class="descname">data_to_sync_string</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.data_to_sync_string" title="Permalink to this definition">¶</a></dt>
+<code class="descname">data_to_sync_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.data_to_sync_string" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert variables to a string for sending across during syncing.
 Could be different from &#8216;data_to_string&#8217;, as it should use ids instead
 of _ids.</p>
@@ -116,51 +107,51 @@ of _ids.</p>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.deactivated_card_type_added">
-<tt class="descname">deactivated_card_type_added</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.deactivated_card_type_added" title="Permalink to this definition">¶</a></dt>
+<code class="descname">deactivated_card_type_added</code><span class="sig-paren">(</span><em>card_type</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.deactivated_card_type_added" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.deactivated_tag_added">
-<tt class="descname">deactivated_tag_added</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.deactivated_tag_added" title="Permalink to this definition">¶</a></dt>
+<code class="descname">deactivated_tag_added</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.deactivated_tag_added" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.instantiate">
-<tt class="descname">instantiate</tt><em class="property"> = 1</em><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.instantiate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">instantiate</code><em class="property"> = 1</em><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.instantiate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.is_empty">
-<tt class="descname">is_empty</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.is_empty" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.is_empty" title="Permalink to this definition">¶</a></dt>
 <dd><p>Used to prevent people from creating a criterion which can never
 contain any cards (e.g. disabling all card types).</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.is_tag_active">
-<tt class="descname">is_tag_active</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.is_tag_active" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_tag_active</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.is_tag_active" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.set_data_from_string">
-<tt class="descname">set_data_from_string</tt><big>(</big><em>data_string</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.set_data_from_string" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_data_from_string</code><span class="sig-paren">(</span><em>data_string</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.set_data_from_string" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.set_data_from_sync_string">
-<tt class="descname">set_data_from_sync_string</tt><big>(</big><em>data_string</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.set_data_from_sync_string" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_data_from_sync_string</code><span class="sig-paren">(</span><em>data_string</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.set_data_from_sync_string" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.tag_deleted">
-<tt class="descname">tag_deleted</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.tag_deleted" title="Permalink to this definition">¶</a></dt>
+<code class="descname">tag_deleted</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.tag_deleted" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.criterion.CriterionApplier">
-<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.criterion.</tt><tt class="descname">CriterionApplier</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.CriterionApplier" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">mnemosyne.libmnemosyne.criterion.</code><code class="descname">CriterionApplier</code><span class="sig-paren">(</span><em>component_manager</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.CriterionApplier" title="Permalink to this definition">¶</a></dt>
 <dd><p>Can be registered &#8216;used_for&#8217; a certain Criterion to apply it in bulk to
 all the cards in the database. Is much faster than fetching each card from
 the database, calling Criterion.apply_to_card, and storing it back in the
@@ -169,12 +160,12 @@ database.</p>
 backend.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.criterion.CriterionApplier.apply_to_database">
-<tt class="descname">apply_to_database</tt><big>(</big><em>criterion</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.CriterionApplier.apply_to_database" title="Permalink to this definition">¶</a></dt>
+<code class="descname">apply_to_database</code><span class="sig-paren">(</span><em>criterion</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.CriterionApplier.apply_to_database" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.criterion.CriterionApplier.component_type">
-<tt class="descname">component_type</tt><em class="property"> = 'criterion_applier'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.CriterionApplier.component_type" title="Permalink to this definition">¶</a></dt>
+<code class="descname">component_type</code><em class="property"> = 'criterion_applier'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.CriterionApplier.component_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -185,58 +176,51 @@ backend.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="statistics_page.html"
-                        title="previous chapter"><tt class="docutils literal"><span class="pre">StatisticsPage</span></tt></a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="how_to_write_a_new_frontend.html"
-                        title="next chapter">How to write a new frontend</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/modules/criterion.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="statistics_page.html" title="previous chapter"><code class="docutils literal"><span class="pre">StatisticsPage</span></code></a></li>
+      <li>Next: <a href="how_to_write_a_new_frontend.html" title="next chapter">How to write a new frontend</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/criterion.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="how_to_write_a_new_frontend.html" title="How to write a new frontend"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="statistics_page.html" title="StatisticsPage"
-             >previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 09, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      &copy;2008, Peter Bienstman.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../_sources/modules/criterion.txt"
+          rel="nofollow">Page source</a>
     </div>
+
+    
+
+    
   </body>
 </html>

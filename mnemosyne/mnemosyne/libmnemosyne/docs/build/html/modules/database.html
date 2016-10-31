@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Database &mdash; libmnemosyne 2.0 documentation</title>
+    <title>Database &#8212; libmnemosyne 2.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -23,40 +23,31 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="top" title="libmnemosyne 2.0 documentation" href="../index.html" />
     <link rel="next" title="FileFormat" href="file_format.html" />
-    <link rel="prev" title="Configuration" href="configuration.html" /> 
+    <link rel="prev" title="Configuration" href="configuration.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
   </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="file_format.html" title="FileFormat"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="configuration.html" title="Configuration"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="module-mnemosyne.libmnemosyne.database">
-<span id="database"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">Database</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.database" title="Permalink to this headline">¶</a></h1>
+<span id="database"></span><h1><code class="xref py py-mod docutils literal"><span class="pre">Database</span></code><a class="headerlink" href="#module-mnemosyne.libmnemosyne.database" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.database.Database">
-<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.database.</tt><tt class="descname">Database</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">mnemosyne.libmnemosyne.database.</code><code class="descname">Database</code><span class="sig-paren">(</span><em>component_manager</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interface class describing the functions to be implemented by the
 actual database classes.</p>
 <p>Apart from the basic interface defined here, depending on the situation
@@ -64,337 +55,337 @@ a database can also implement functions for logging, statistics and
 syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.abandon">
-<tt class="descname">abandon</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.abandon" title="Permalink to this definition">¶</a></dt>
+<code class="descname">abandon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.abandon" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.add_card">
-<tt class="descname">add_card</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_card" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_card</code><span class="sig-paren">(</span><em>card</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_card" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.add_card_type">
-<tt class="descname">add_card_type</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_card_type" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_card_type</code><span class="sig-paren">(</span><em>card_type</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_card_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.add_criterion">
-<tt class="descname">add_criterion</tt><big>(</big><em>criterion</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_criterion" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_criterion</code><span class="sig-paren">(</span><em>criterion</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_criterion" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.add_fact">
-<tt class="descname">add_fact</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_fact" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_fact</code><span class="sig-paren">(</span><em>fact</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_fact" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.add_fact_view">
-<tt class="descname">add_fact_view</tt><big>(</big><em>fact_view</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_fact_view" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_fact_view</code><span class="sig-paren">(</span><em>fact_view</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_fact_view" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.add_tag">
-<tt class="descname">add_tag</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_tag" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_tag</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.add_tag_to_cards_with_internal_ids">
-<tt class="descname">add_tag_to_cards_with_internal_ids</tt><big>(</big><em>tag</em>, <em>_card_ids</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_tag_to_cards_with_internal_ids" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_tag_to_cards_with_internal_ids</code><span class="sig-paren">(</span><em>tag</em>, <em>_card_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_tag_to_cards_with_internal_ids" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.backup">
-<tt class="descname">backup</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.backup" title="Permalink to this definition">¶</a></dt>
+<code class="descname">backup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.backup" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.card">
-<tt class="descname">card</tt><big>(</big><em>id</em>, <em>is_id_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.card" title="Permalink to this definition">¶</a></dt>
+<code class="descname">card</code><span class="sig-paren">(</span><em>id</em>, <em>is_id_internal</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.card" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.card_type">
-<tt class="descname">card_type</tt><big>(</big><em>id</em>, <em>is_id_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.card_type" title="Permalink to this definition">¶</a></dt>
+<code class="descname">card_type</code><span class="sig-paren">(</span><em>id</em>, <em>is_id_internal</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.card_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.card_types_in_use">
-<tt class="descname">card_types_in_use</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.card_types_in_use" title="Permalink to this definition">¶</a></dt>
+<code class="descname">card_types_in_use</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.card_types_in_use" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.cards">
-<tt class="descname">cards</tt><big>(</big><em>sort_key=''</em>, <em>limit=-1</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cards</code><span class="sig-paren">(</span><em>sort_key=''</em>, <em>limit=-1</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.cards_due_for_ret_rep">
-<tt class="descname">cards_due_for_ret_rep</tt><big>(</big><em>now</em>, <em>sort_key=''</em>, <em>limit=-1</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_due_for_ret_rep" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cards_due_for_ret_rep</code><span class="sig-paren">(</span><em>now</em>, <em>sort_key=''</em>, <em>limit=-1</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_due_for_ret_rep" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.cards_from_fact">
-<tt class="descname">cards_from_fact</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_from_fact" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cards_from_fact</code><span class="sig-paren">(</span><em>fact</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_from_fact" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of the cards deriving from a fact.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.cards_learn_ahead">
-<tt class="descname">cards_learn_ahead</tt><big>(</big><em>now</em>, <em>sort_key=''</em>, <em>limit=-1</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_learn_ahead" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cards_learn_ahead</code><span class="sig-paren">(</span><em>now</em>, <em>sort_key=''</em>, <em>limit=-1</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_learn_ahead" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.cards_new_memorising">
-<tt class="descname">cards_new_memorising</tt><big>(</big><em>grade</em>, <em>sort_key=''</em>, <em>limit=-1</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_new_memorising" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cards_new_memorising</code><span class="sig-paren">(</span><em>grade</em>, <em>sort_key=''</em>, <em>limit=-1</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_new_memorising" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.cards_to_relearn">
-<tt class="descname">cards_to_relearn</tt><big>(</big><em>grade</em>, <em>sort_key=''</em>, <em>limit=-1</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_to_relearn" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cards_to_relearn</code><span class="sig-paren">(</span><em>grade</em>, <em>sort_key=''</em>, <em>limit=-1</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_to_relearn" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.cards_unseen">
-<tt class="descname">cards_unseen</tt><big>(</big><em>sort_key=''</em>, <em>limit=-1</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_unseen" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cards_unseen</code><span class="sig-paren">(</span><em>sort_key=''</em>, <em>limit=-1</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_unseen" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.cards_with_scheduler_data">
-<tt class="descname">cards_with_scheduler_data</tt><big>(</big><em>scheduler_data</em>, <em>sort_key=''</em>, <em>limit=-1</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_with_scheduler_data" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cards_with_scheduler_data</code><span class="sig-paren">(</span><em>scheduler_data</em>, <em>sort_key=''</em>, <em>limit=-1</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_with_scheduler_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.change_user_id">
-<tt class="descname">change_user_id</tt><big>(</big><em>user_id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.change_user_id" title="Permalink to this definition">¶</a></dt>
+<code class="descname">change_user_id</code><span class="sig-paren">(</span><em>user_id</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.change_user_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.database.Database.component_type">
-<tt class="descname">component_type</tt><em class="property"> = 'database'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.component_type" title="Permalink to this definition">¶</a></dt>
+<code class="descname">component_type</code><em class="property"> = 'database'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.component_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.criteria">
-<tt class="descname">criteria</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.criteria" title="Permalink to this definition">¶</a></dt>
+<code class="descname">criteria</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.criteria" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.criterion">
-<tt class="descname">criterion</tt><big>(</big><em>id</em>, <em>is_id_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.criterion" title="Permalink to this definition">¶</a></dt>
+<code class="descname">criterion</code><span class="sig-paren">(</span><em>id</em>, <em>is_id_internal</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.criterion" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.current_criterion">
-<tt class="descname">current_criterion</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.current_criterion" title="Permalink to this definition">¶</a></dt>
+<code class="descname">current_criterion</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.current_criterion" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.data_dir">
-<tt class="descname">data_dir</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.data_dir" title="Permalink to this definition">¶</a></dt>
+<code class="descname">data_dir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.data_dir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns directory of the database.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.deactivate">
-<tt class="descname">deactivate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.deactivate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">deactivate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.deactivate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.database.Database.default_criterion_name">
-<tt class="descname">default_criterion_name</tt><em class="property"> = '__DEFAULT__'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.default_criterion_name" title="Permalink to this definition">¶</a></dt>
+<code class="descname">default_criterion_name</code><em class="property"> = '__DEFAULT__'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.default_criterion_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.database.Database.default_name">
-<tt class="descname">default_name</tt><em class="property"> = 'default'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.default_name" title="Permalink to this definition">¶</a></dt>
+<code class="descname">default_name</code><em class="property"> = 'default'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.default_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.delete_card">
-<tt class="descname">delete_card</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_card" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delete_card</code><span class="sig-paren">(</span><em>card</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_card" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.delete_card_type">
-<tt class="descname">delete_card_type</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_card_type" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delete_card_type</code><span class="sig-paren">(</span><em>card_type</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_card_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.delete_criterion">
-<tt class="descname">delete_criterion</tt><big>(</big><em>criterion</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_criterion" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delete_criterion</code><span class="sig-paren">(</span><em>criterion</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_criterion" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.delete_fact">
-<tt class="descname">delete_fact</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_fact" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delete_fact</code><span class="sig-paren">(</span><em>fact</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_fact" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.delete_fact_view">
-<tt class="descname">delete_fact_view</tt><big>(</big><em>fact_view</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_fact_view" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delete_fact_view</code><span class="sig-paren">(</span><em>fact_view</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_fact_view" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.delete_tag">
-<tt class="descname">delete_tag</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_tag" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delete_tag</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.delete_tag_if_unused">
-<tt class="descname">delete_tag_if_unused</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_tag_if_unused" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delete_tag_if_unused</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_tag_if_unused" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.display_name">
-<tt class="descname">display_name</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.display_name" title="Permalink to this definition">¶</a></dt>
+<code class="descname">display_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.display_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns bare name of the database, without parent paths and
 without extension.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.duplicates_for_fact">
-<tt class="descname">duplicates_for_fact</tt><big>(</big><em>fact</em>, <em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.duplicates_for_fact" title="Permalink to this definition">¶</a></dt>
+<code class="descname">duplicates_for_fact</code><span class="sig-paren">(</span><em>fact</em>, <em>card_type</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.duplicates_for_fact" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return facts with same &#8216;card_type.unique_fact_keys&#8217; data as &#8216;fact&#8217;.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.fact">
-<tt class="descname">fact</tt><big>(</big><em>id</em>, <em>is_id_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.fact" title="Permalink to this definition">¶</a></dt>
+<code class="descname">fact</code><span class="sig-paren">(</span><em>id</em>, <em>is_id_internal</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.fact" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.fact_view">
-<tt class="descname">fact_view</tt><big>(</big><em>id</em>, <em>is_id_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.fact_view" title="Permalink to this definition">¶</a></dt>
+<code class="descname">fact_view</code><span class="sig-paren">(</span><em>id</em>, <em>is_id_internal</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.fact_view" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.get_or_create_tag_with_name">
-<tt class="descname">get_or_create_tag_with_name</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_or_create_tag_with_name" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_or_create_tag_with_name</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_or_create_tag_with_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.get_or_create_tags_with_names">
-<tt class="descname">get_or_create_tags_with_names</tt><big>(</big><em>names</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_or_create_tags_with_names" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_or_create_tags_with_names</code><span class="sig-paren">(</span><em>names</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_or_create_tags_with_names" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.has_card_type_with_id">
-<tt class="descname">has_card_type_with_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.has_card_type_with_id" title="Permalink to this definition">¶</a></dt>
+<code class="descname">has_card_type_with_id</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.has_card_type_with_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.has_card_with_id">
-<tt class="descname">has_card_with_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.has_card_with_id" title="Permalink to this definition">¶</a></dt>
+<code class="descname">has_card_with_id</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.has_card_with_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.has_clone">
-<tt class="descname">has_clone</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.has_clone" title="Permalink to this definition">¶</a></dt>
+<code class="descname">has_clone</code><span class="sig-paren">(</span><em>card_type</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.has_clone" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.has_criterion_with_id">
-<tt class="descname">has_criterion_with_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.has_criterion_with_id" title="Permalink to this definition">¶</a></dt>
+<code class="descname">has_criterion_with_id</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.has_criterion_with_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.has_fact_view_with_id">
-<tt class="descname">has_fact_view_with_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.has_fact_view_with_id" title="Permalink to this definition">¶</a></dt>
+<code class="descname">has_fact_view_with_id</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.has_fact_view_with_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.has_fact_with_id">
-<tt class="descname">has_fact_with_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.has_fact_with_id" title="Permalink to this definition">¶</a></dt>
+<code class="descname">has_fact_with_id</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.has_fact_with_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.has_tag_with_id">
-<tt class="descname">has_tag_with_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.has_tag_with_id" title="Permalink to this definition">¶</a></dt>
+<code class="descname">has_tag_with_id</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.has_tag_with_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.is_empty">
-<tt class="descname">is_empty</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.is_empty" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.is_empty" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.is_in_use">
-<tt class="descname">is_in_use</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.is_in_use" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_in_use</code><span class="sig-paren">(</span><em>card_type</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.is_in_use" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.is_loaded">
-<tt class="descname">is_loaded</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.is_loaded" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_loaded</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.is_loaded" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.is_user_card_type">
-<tt class="descname">is_user_card_type</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.is_user_card_type" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_user_card_type</code><span class="sig-paren">(</span><em>card_type</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.is_user_card_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.load">
-<tt class="descname">load</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.load" title="Permalink to this definition">¶</a></dt>
+<code class="descname">load</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.load" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.name">
-<tt class="descname">name</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.name" title="Permalink to this definition">¶</a></dt>
+<code class="descname">name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns name of the database, without parent paths, but with
 extensions.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.new">
-<tt class="descname">new</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.new" title="Permalink to this definition">¶</a></dt>
+<code class="descname">new</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.new" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.path">
-<tt class="descname">path</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.path" title="Permalink to this definition">¶</a></dt>
+<code class="descname">path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns full path of the database.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.release_connection">
-<tt class="descname">release_connection</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.release_connection" title="Permalink to this definition">¶</a></dt>
+<code class="descname">release_connection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.release_connection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Release the connection, so that it may be recreated in a separate
 thread.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.remove_tag_from_cards_with_internal_ids">
-<tt class="descname">remove_tag_from_cards_with_internal_ids</tt><big>(</big><em>tag</em>, <em>_card_ids</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.remove_tag_from_cards_with_internal_ids" title="Permalink to this definition">¶</a></dt>
+<code class="descname">remove_tag_from_cards_with_internal_ids</code><span class="sig-paren">(</span><em>tag</em>, <em>_card_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.remove_tag_from_cards_with_internal_ids" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.restore">
-<tt class="descname">restore</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.restore" title="Permalink to this definition">¶</a></dt>
+<code class="descname">restore</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.restore" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.save">
-<tt class="descname">save</tt><big>(</big><em>path=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.save" title="Permalink to this definition">¶</a></dt>
+<code class="descname">save</code><span class="sig-paren">(</span><em>path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.save" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.scheduler_data_count">
-<tt class="descname">scheduler_data_count</tt><big>(</big><em>scheduler_data</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.scheduler_data_count" title="Permalink to this definition">¶</a></dt>
+<code class="descname">scheduler_data_count</code><span class="sig-paren">(</span><em>scheduler_data</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.scheduler_data_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.set_current_criterion">
-<tt class="descname">set_current_criterion</tt><big>(</big><em>criterion</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.set_current_criterion" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_current_criterion</code><span class="sig-paren">(</span><em>criterion</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.set_current_criterion" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.set_scheduler_data">
-<tt class="descname">set_scheduler_data</tt><big>(</big><em>scheduler_data</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.set_scheduler_data" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_scheduler_data</code><span class="sig-paren">(</span><em>scheduler_data</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.set_scheduler_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.sorted_card_types">
-<tt class="descname">sorted_card_types</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.sorted_card_types" title="Permalink to this definition">¶</a></dt>
+<code class="descname">sorted_card_types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.sorted_card_types" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sorts card types so that all the built-in card types appear first,
 in the order determined by their id, and then all the user card types
 appear alphabetically.</p>
@@ -402,67 +393,67 @@ appear alphabetically.</p>
 
 <dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.database.Database.suffix">
-<tt class="descname">suffix</tt><em class="property"> = ''</em><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.suffix" title="Permalink to this definition">¶</a></dt>
+<code class="descname">suffix</code><em class="property"> = ''</em><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.suffix" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.tag">
-<tt class="descname">tag</tt><big>(</big><em>id</em>, <em>is_id_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.tag" title="Permalink to this definition">¶</a></dt>
+<code class="descname">tag</code><span class="sig-paren">(</span><em>id</em>, <em>is_id_internal</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.tags">
-<tt class="descname">tags</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.tags" title="Permalink to this definition">¶</a></dt>
+<code class="descname">tags</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.tags" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.tags_from_cards_with_internal_ids">
-<tt class="descname">tags_from_cards_with_internal_ids</tt><big>(</big><em>_card_ids</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.tags_from_cards_with_internal_ids" title="Permalink to this definition">¶</a></dt>
+<code class="descname">tags_from_cards_with_internal_ids</code><span class="sig-paren">(</span><em>_card_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.tags_from_cards_with_internal_ids" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.unload">
-<tt class="descname">unload</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.unload" title="Permalink to this definition">¶</a></dt>
+<code class="descname">unload</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.unload" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.update_card">
-<tt class="descname">update_card</tt><big>(</big><em>card</em>, <em>repetition_only=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_card" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update_card</code><span class="sig-paren">(</span><em>card</em>, <em>repetition_only=False</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_card" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.update_card_type">
-<tt class="descname">update_card_type</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_card_type" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update_card_type</code><span class="sig-paren">(</span><em>card_type</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_card_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.update_criterion">
-<tt class="descname">update_criterion</tt><big>(</big><em>criterion</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_criterion" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update_criterion</code><span class="sig-paren">(</span><em>criterion</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_criterion" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.update_fact">
-<tt class="descname">update_fact</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_fact" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update_fact</code><span class="sig-paren">(</span><em>fact</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_fact" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.update_fact_view">
-<tt class="descname">update_fact_view</tt><big>(</big><em>fact_view</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_fact_view" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update_fact_view</code><span class="sig-paren">(</span><em>fact_view</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_fact_view" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.update_tag">
-<tt class="descname">update_tag</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_tag" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update_tag</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.user_id">
-<tt class="descname">user_id</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.user_id" title="Permalink to this definition">¶</a></dt>
+<code class="descname">user_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.user_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.database.Database.version">
-<tt class="descname">version</tt><em class="property"> = ''</em><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.version" title="Permalink to this definition">¶</a></dt>
+<code class="descname">version</code><em class="property"> = ''</em><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.version" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -473,58 +464,51 @@ appear alphabetically.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="configuration.html"
-                        title="previous chapter"><tt class="docutils literal"><span class="pre">Configuration</span></tt></a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="file_format.html"
-                        title="next chapter"><tt class="docutils literal"><span class="pre">FileFormat</span></tt></a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/modules/database.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="configuration.html" title="previous chapter"><code class="docutils literal"><span class="pre">Configuration</span></code></a></li>
+      <li>Next: <a href="file_format.html" title="next chapter"><code class="docutils literal"><span class="pre">FileFormat</span></code></a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/database.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="file_format.html" title="FileFormat"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="configuration.html" title="Configuration"
-             >previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Feb 16, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      &copy;2008, Peter Bienstman.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../_sources/modules/database.txt"
+          rel="nofollow">Page source</a>
     </div>
+
+    
+
+    
   </body>
 </html>

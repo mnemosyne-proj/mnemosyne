@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>CardTypeConverter &mdash; libmnemosyne 2.0 documentation</title>
+    <title>CardTypeConverter &#8212; libmnemosyne 2.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -23,40 +23,31 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="top" title="libmnemosyne 2.0 documentation" href="../index.html" />
     <link rel="next" title="RenderChain" href="render_chain.html" />
-    <link rel="prev" title="Card" href="card.html" /> 
+    <link rel="prev" title="Card" href="card.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
   </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="render_chain.html" title="RenderChain"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="card.html" title="Card"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="module-mnemosyne.libmnemosyne.card_type_converter">
-<span id="cardtypeconverter"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">CardTypeConverter</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.card_type_converter" title="Permalink to this headline">¶</a></h1>
+<span id="cardtypeconverter"></span><h1><code class="xref py py-mod docutils literal"><span class="pre">CardTypeConverter</span></code><a class="headerlink" href="#module-mnemosyne.libmnemosyne.card_type_converter" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter">
-<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.card_type_converter.</tt><tt class="descname">CardTypeConverter</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">mnemosyne.libmnemosyne.card_type_converter.</code><code class="descname">CardTypeConverter</code><span class="sig-paren">(</span><em>component_manager</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts a set of sister cards to a new card type.</p>
 <p>used_for = (old_type class, new_type class)</p>
 <p>Note that the function of this class is NOT to edit the fact data behind
@@ -70,12 +61,12 @@ way cards should be created or deleted.</p>
 to handle them in the database storage.</p>
 <dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.component_type">
-<tt class="descname">component_type</tt><em class="property"> = 'card_type_converter'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.component_type" title="Permalink to this definition">¶</a></dt>
+<code class="descname">component_type</code><em class="property"> = 'card_type_converter'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.component_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.convert">
-<tt class="descname">convert</tt><big>(</big><em>cards</em>, <em>old_card_type</em>, <em>new_card_type</em>, <em>correspondence</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.convert" title="Permalink to this definition">¶</a></dt>
+<code class="descname">convert</code><span class="sig-paren">(</span><em>cards</em>, <em>old_card_type</em>, <em>new_card_type</em>, <em>correspondence</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.convert" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -86,58 +77,51 @@ to handle them in the database storage.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="card.html"
-                        title="previous chapter"><tt class="docutils literal"><span class="pre">Card</span></tt></a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="render_chain.html"
-                        title="next chapter"><tt class="docutils literal"><span class="pre">RenderChain</span></tt></a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/modules/card_type_converter.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="card.html" title="previous chapter"><code class="docutils literal"><span class="pre">Card</span></code></a></li>
+      <li>Next: <a href="render_chain.html" title="next chapter"><code class="docutils literal"><span class="pre">RenderChain</span></code></a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/card_type_converter.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="render_chain.html" title="RenderChain"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="card.html" title="Card"
-             >previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 09, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      &copy;2008, Peter Bienstman.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../_sources/modules/card_type_converter.txt"
+          rel="nofollow">Page source</a>
     </div>
+
+    
+
+    
   </body>
 </html>

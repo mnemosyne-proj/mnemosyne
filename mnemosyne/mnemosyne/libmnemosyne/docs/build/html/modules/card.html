@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Card &mdash; libmnemosyne 2.0 documentation</title>
+    <title>Card &#8212; libmnemosyne 2.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -23,95 +23,138 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="top" title="libmnemosyne 2.0 documentation" href="../index.html" />
     <link rel="next" title="CardTypeConverter" href="card_type_converter.html" />
-    <link rel="prev" title="CardType" href="card_type.html" /> 
+    <link rel="prev" title="CardType" href="card_type.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
   </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="card_type_converter.html" title="CardTypeConverter"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="card_type.html" title="CardType"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
-  <div class="section" id="card">
-<h1><tt class="xref py py-mod docutils literal"><span class="pre">Card</span></tt><a class="headerlink" href="#card" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-mnemosyne.libmnemosyne.card">
+<span id="card"></span><h1><code class="xref py py-mod docutils literal"><span class="pre">Card</span></code><a class="headerlink" href="#module-mnemosyne.libmnemosyne.card" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="mnemosyne.libmnemosyne.card.Card">
+<em class="property">class </em><code class="descclassname">mnemosyne.libmnemosyne.card.</code><code class="descname">Card</code><span class="sig-paren">(</span><em>card_type</em>, <em>fact</em>, <em>fact_view</em>, <em>creation_time=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.card.Card" title="Permalink to this definition">¶</a></dt>
+<dd><p>A card has a question and an answer and also stores repetition data.</p>
+<p>Questions and answers are dynamically generated depending on the card
+type. Different render chains are supported, to e.g. render the question
+for use in the review window, in the card browser, ... .</p>
+<p>Creation and modification dates are POSIX timestamps stored as integers.</p>
+<p>For card types which need extra information (e.g. cloze deletion), the
+variable &#8216;extra_data&#8217; can be used to store this extra information in the
+database. It&#8217;s dictionary which should contain only standard Python
+objects.</p>
+<p>&#8216;scheduler_data&#8217; is a variable that can be used by a scheduler to save
+state. It is an integer as opposed to a complex datatype to to allow for
+fast sql queries. If a scheduler needs additional data, it can be stored
+in &#8216;extra_data&#8217;, but then the custom scheduler needs to make sure it
+explicitly logs an &#8216;edited_card&#8217; event so that &#8216;extra data&#8217; gets sent
+across during sync.</p>
+<p>&#8216;active&#8217; is used to determine whether a card is included in the review
+process. Currently, the UI allows setting cards as active if they belong to
+certain card type/fact view combos. We choose to store this information on
+card level and not as a flag in fact view or tag, so that plugins have the
+possibility to offer more flexibility, e.g. by having cards active based
+on grade, ...</p>
+<p>&#8216;id&#8217; is used to identify this object to the external world (logs, xml
+files, sync, ...), whereas &#8216;_id&#8217; is an internal id that could be different
+and that can be used by the database for efficiency reasons.</p>
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card.Card.answer">
+<code class="descname">answer</code><span class="sig-paren">(</span><em>render_chain='default'</em>, <em>**render_args</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.card.Card.answer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card.Card.question">
+<code class="descname">question</code><span class="sig-paren">(</span><em>render_chain='default'</em>, <em>**render_args</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.card.Card.question" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card.Card.reset_learning_data">
+<code class="descname">reset_learning_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.card.Card.reset_learning_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used when creating a card for the first time, or when choosing
+&#8216;reset learning data&#8217; on import.</p>
+<p>&#8216;acq_reps&#8217; and &#8216;ret_reps&#8217; are the number of repetitions this card has
+seen in the acquisition phase (grade 0 and 1) and the retention phase
+(grades 3 through 5) respectively.</p>
+<p>&#8216;lapses&#8217; is the number of times a card with grade 2 or higher was
+forgotten, i.e. graded 0 or 1.</p>
+<p>&#8216;last_rep&#8217; and &#8216;next_rep&#8217; are integer POSIX timestamps. Since they have
+a resolution in seconds, they accomodate plugins doing minute-level
+scheduling. Storing them as int makes it very efficient in SQL.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card.Card.tag_string">
+<code class="descname">tag_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.card.Card.tag_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 
 
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="card_type.html"
-                        title="previous chapter"><tt class="docutils literal"><span class="pre">CardType</span></tt></a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="card_type_converter.html"
-                        title="next chapter"><tt class="docutils literal"><span class="pre">CardTypeConverter</span></tt></a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/modules/card.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="card_type.html" title="previous chapter"><code class="docutils literal"><span class="pre">CardType</span></code></a></li>
+      <li>Next: <a href="card_type_converter.html" title="next chapter"><code class="docutils literal"><span class="pre">CardTypeConverter</span></code></a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/card.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="card_type_converter.html" title="CardTypeConverter"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="card_type.html" title="CardType"
-             >previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Oct 13, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      &copy;2008, Peter Bienstman.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../_sources/modules/card.txt"
+          rel="nofollow">Page source</a>
     </div>
+
+    
+
+    
   </body>
 </html>

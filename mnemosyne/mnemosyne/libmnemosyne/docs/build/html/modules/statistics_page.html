@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>StatisticsPage &mdash; libmnemosyne 2.0 documentation</title>
+    <title>StatisticsPage &#8212; libmnemosyne 2.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -23,40 +23,31 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="top" title="libmnemosyne 2.0 documentation" href="../index.html" />
     <link rel="next" title="Criterion" href="criterion.html" />
-    <link rel="prev" title="Stopwatch" href="stopwatch.html" /> 
+    <link rel="prev" title="Stopwatch" href="stopwatch.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
   </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="criterion.html" title="Criterion"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="stopwatch.html" title="Stopwatch"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="module-mnemosyne.libmnemosyne.statistics_page">
-<span id="statisticspage"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">StatisticsPage</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.statistics_page" title="Permalink to this headline">¶</a></h1>
+<span id="statisticspage"></span><h1><code class="xref py py-mod docutils literal"><span class="pre">StatisticsPage</span></code><a class="headerlink" href="#module-mnemosyne.libmnemosyne.statistics_page" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.statistics_page.StatisticsPage">
-<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.statistics_page.</tt><tt class="descname">StatisticsPage</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">mnemosyne.libmnemosyne.statistics_page.</code><code class="descname">StatisticsPage</code><span class="sig-paren">(</span><em>component_manager</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage" title="Permalink to this definition">¶</a></dt>
 <dd><p>A self-contained piece of statistical information, typically displayed
 in the GUI as a page in a tabbed widget.</p>
 <p>Each StatisticsPage can have several &#8216;variants&#8217;, e.g. displaying the
@@ -68,47 +59,47 @@ manager as a &#8216;statistics_widget&#8217; &#8216;used_for&#8217; a particular
 (or a parent class of a StatisticsPage).</p>
 <dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.statistics_page.StatisticsPage.component_type">
-<tt class="descname">component_type</tt><em class="property"> = 'statistics_page'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage.component_type" title="Permalink to this definition">¶</a></dt>
+<code class="descname">component_type</code><em class="property"> = 'statistics_page'</em><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage.component_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.statistics_page.StatisticsPage.instantiate">
-<tt class="descname">instantiate</tt><em class="property"> = 1</em><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage.instantiate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">instantiate</code><em class="property"> = 1</em><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage.instantiate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.statistics_page.StatisticsPage.name">
-<tt class="descname">name</tt><em class="property"> = ''</em><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage.name" title="Permalink to this definition">¶</a></dt>
+<code class="descname">name</code><em class="property"> = ''</em><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage.name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.statistics_page.StatisticsPage.prepare_statistics">
-<tt class="descname">prepare_statistics</tt><big>(</big><em>variant_id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage.prepare_statistics" title="Permalink to this definition">¶</a></dt>
+<code class="descname">prepare_statistics</code><span class="sig-paren">(</span><em>variant_id</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage.prepare_statistics" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method calculates the data for the requested variant and sets
 the approriate hints to be picked up by the corresponding widget.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.statistics_page.StatisticsPage.show_variants_in_combobox">
-<tt class="descname">show_variants_in_combobox</tt><em class="property"> = True</em><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage.show_variants_in_combobox" title="Permalink to this definition">¶</a></dt>
+<code class="descname">show_variants_in_combobox</code><em class="property"> = True</em><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage.show_variants_in_combobox" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.statistics_page.StatisticsPage.variants">
-<tt class="descname">variants</tt><em class="property"> = []</em><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage.variants" title="Permalink to this definition">¶</a></dt>
+<code class="descname">variants</code><em class="property"> = []</em><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage.variants" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.statistics_page.PlotStatisticsPage">
-<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.statistics_page.</tt><tt class="descname">PlotStatisticsPage</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.PlotStatisticsPage" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">mnemosyne.libmnemosyne.statistics_page.</code><code class="descname">PlotStatisticsPage</code><span class="sig-paren">(</span><em>component_manager</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.PlotStatisticsPage" title="Permalink to this definition">¶</a></dt>
 <dd><p>A statistics page where the data is represented on a graphical plot.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.statistics_page.HtmlStatisticsPage">
-<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.statistics_page.</tt><tt class="descname">HtmlStatisticsPage</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.HtmlStatisticsPage" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">mnemosyne.libmnemosyne.statistics_page.</code><code class="descname">HtmlStatisticsPage</code><span class="sig-paren">(</span><em>component_manager</em><span class="sig-paren">)</span><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.HtmlStatisticsPage" title="Permalink to this definition">¶</a></dt>
 <dd><p>A statistics page which generates html to displayed in a browser
 widget.</p>
 </dd></dl>
@@ -119,58 +110,51 @@ widget.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="stopwatch.html"
-                        title="previous chapter"><tt class="docutils literal"><span class="pre">Stopwatch</span></tt></a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="criterion.html"
-                        title="next chapter"><tt class="docutils literal"><span class="pre">Criterion</span></tt></a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/modules/statistics_page.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="stopwatch.html" title="previous chapter"><code class="docutils literal"><span class="pre">Stopwatch</span></code></a></li>
+      <li>Next: <a href="criterion.html" title="next chapter"><code class="docutils literal"><span class="pre">Criterion</span></code></a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/statistics_page.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="criterion.html" title="Criterion"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="stopwatch.html" title="Stopwatch"
-             >previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne 2.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 09, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      &copy;2008, Peter Bienstman.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../_sources/modules/statistics_page.txt"
+          rel="nofollow">Page source</a>
     </div>
+
+    
+
+    
   </body>
 </html>
