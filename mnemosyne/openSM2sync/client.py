@@ -333,10 +333,10 @@ class Client(Partner):
                 "Backup then delete the local database and try again.")
         if self.server_info["database_version"] != client_info["database_version"]:
             raise SyncError("Error: database version mismatch.\n" + \
-                "Upgrade client and server to latest version.")
+                "Make sure you are running the latest Mnemosyne version on both devices involved in the sync.")
         if self.server_info["program_version"] != client_info["program_version"]:
             raise SyncError("Error: Mnemosyne version mismatch.\n" + \
-                "Upgrade client and server to latest version.")           
+                "Make sure you are running the latest Mnemosyne version on both devices involved in the sync.")         
         self.database.create_if_needed_partnership_with(\
             self.server_info["machine_id"])
         self.database.merge_partners(self.server_info["partners"])
