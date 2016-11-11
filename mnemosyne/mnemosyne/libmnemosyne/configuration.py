@@ -248,7 +248,7 @@ class Configuration(Component, dict):
         con.commit()
         con.close()
 
-    def determine_dirs(self):  # pragma: no cover
+    def determine_dirs(self):  # pragma: no cover        
         # If the config dir was already set by the user, use that.
         if self.config_dir is not None:
             return

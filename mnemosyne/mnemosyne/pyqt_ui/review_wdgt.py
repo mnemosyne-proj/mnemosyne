@@ -105,7 +105,7 @@ class QAOptimalSplit(object):
     
     import re
     
-    re_img = re.compile(r"""alt=\"(.+?)\"(.*?)>""",
+    re_img = re.compile(r"""img src=\"file:///(.+?)\"(.*?)>""",
         re.DOTALL | re.IGNORECASE)    
 
     def estimate_height(self, html):
@@ -117,7 +117,6 @@ class QAOptimalSplit(object):
         total_img_width = 0
         for match in self.re_img.finditer(html):
             img_file = match.group(1)
-            img_file = expand_path(img_file, self.database().media_dir())
             if not os.path.exists(img_file):
                 print("Missing path", img_file)
                 continue
@@ -229,12 +228,12 @@ class QAOptimalSplit(object):
         #self.answer_preview.show()
 
     def reveal_question(self):
-        self.question.setHtml(self.question_text)
+        self.question.setHtml(self.question_text, QtCore.QUrl("file://"))
 
     def reveal_answer(self):
         self.is_answer_showing = True
         self.update_stretch_factors()
-        self.answer.setHtml(self.answer_text)
+        self.answer.setHtml(self.answer_text, QtCore.QUrl("file://"))
         # Forced repaint seems to make things snappier.
         self.question.repaint()
         self.answer.repaint()

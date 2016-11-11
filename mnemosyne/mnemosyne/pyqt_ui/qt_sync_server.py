@@ -65,7 +65,7 @@ class ServerThread(QtCore.QThread, SyncServer):
         super().__init__(ui=self, **kwds)
         self.server_has_connection = False
         # A fast moving progress bar seems to cause crashes on Windows.
-        self.show_numeric_progress_bar = (sys.platform != "win32")
+        self.show_numeric_progress_bar = True # (sys.platform != "win32")
 
     def run(self):
         try:

@@ -229,7 +229,7 @@ class Mnemosyne(Component):
         # Upgrade from 1.x if needed.
         if automatic_upgrades:
             from mnemosyne.libmnemosyne.upgrades.upgrade1 import Upgrade1
-            Upgrade1(self.component_manager).run()          
+            Upgrade1(self.component_manager).run()
         # Finally, we can activate the main widget.
         self.main_widget().activate()
 

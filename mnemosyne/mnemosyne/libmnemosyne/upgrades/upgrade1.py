@@ -18,6 +18,7 @@ class Upgrade1(Component):
 
     def run(self):  # pragma: no cover
         join = os.path.join
+        exists = os.path.exists
         # Only do this upgrade once.
         if not self.database().is_empty():
             return
@@ -33,7 +34,8 @@ class Upgrade1(Component):
                 pass
             old_data_dir = join(home, ".mnemosyne")
         # We split off the rest to a separate function for testability.
-        if os.path.exists(old_data_dir) and not os.path.exists(\
+        config_file = join(old_data_dir, "config")
+        if exists(old_data_dir) and exists(config_file) and not exists(\
             join(old_data_dir, "DIRECTORY_NO_LONGER_USED_BY_MNEMOSYNE2")):
             self.upgrade_from_old_data_dir(old_data_dir)
 

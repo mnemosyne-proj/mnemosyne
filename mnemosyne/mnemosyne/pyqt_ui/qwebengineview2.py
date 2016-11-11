@@ -16,6 +16,8 @@ class QWebEngineView2(QtWebEngineWidgets.QWebEngineView):
     
     def __init__(self, parent=None):
         super().__init__(parent)
+        #self.page().profile().setPersistentCookiesPolicy(\
+        #    QtWebEngineWidgets.QWebEngineProfile.NoPersistentCookies)
         self.installEventFilter(self)
         # self.linkClicked.connect(self.link_clicked) 
         # self.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)

@@ -1,12 +1,8 @@
-app = QApplication(["--disable-web-security"])
---allow-external-pages, allow-file-access, allow-file-access-from-files
-clear-data-reduction-proxy-data-savings
-tracing
-media-cache-size
-http://peter.sh/experiments/chromium-command-line-switches/
-view.setHtml("<html><head></head><body>Test <img src='file:///C:/test.png'></body></html>", QUrl("file://"));
+remove embed images, both in source, and extra file
 
-why is .mnemosyne created on first start, even on Windows?
+tip of the day icon
+
+remove check numeric progress bar
 
 test sync and webserver, from GUI and from command line (since late instantiation)
 
@@ -30,7 +26,6 @@ check custum error handling windows (main 'mnemosyne' file)
 
 recheck plugins
 
-reenable progress bar on windows?
 
 
 https://bugs.launchpad.net/mnemosyne-proj/+bug/1582509

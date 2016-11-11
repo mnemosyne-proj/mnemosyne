@@ -24,7 +24,10 @@ class PyQtRenderChain(RenderChain):
 
     filters = [Latex, EscapeToHtml, ExpandPaths, EmbedImages, MplayerAudio,
         MplayerVideo, RTLHandler, NonLatinFontSizeIncrease]
-
+    
+    filters = [Latex, EscapeToHtml, ExpandPaths, MplayerAudio,
+        MplayerVideo, RTLHandler, NonLatinFontSizeIncrease]
+    
     # Note: the sound system under Debian seems broken now, so we
     # resort to mplayer everywhere.
         

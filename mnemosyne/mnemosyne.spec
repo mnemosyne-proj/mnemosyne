@@ -180,7 +180,7 @@ if sys.platform == "win32":
              # There are some missing files that are not picked up on.
              
              if my_fixes:
-                          pyqt_dir = "C:\\Program Files (x86)\\Python35-32\\Lib\\site-packages\\PyQt5\\ "
+                          pyqt_dir = "C:\\Program Files (x86)\\Python35-32\\Lib\\site-packages\\PyQt5\\"
                           datas.append((pyqt_dir + "QtWebEngineProcess.exe", "."))
                           datas.append((pyqt_dir + "QtWebEngineCore.pyd", "."))
                           datas.append((pyqt_dir + "resources\\*", "."))
