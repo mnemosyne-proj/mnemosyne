@@ -51,14 +51,17 @@ class StopServerAfterTimeout(threading.Thread):
 
 class WebServer(Component):
 
-    def __init__(self, component_manager, port, data_dir, config_dir,
-                 filename, is_server_local=False):
-        Component.__init__(self, component_manager)
+    def __init__(self, port, data_dir, config_dir, filename, **kwds):
+        if "is_server_local" in kwds:
+            self.is_server_local = kwds["is_server_local"]
+            del kwds["is_server_local"]
+        else:
+            self.is_server_local = False
+        super().__init__(**kwds)
         self.port = port
         self.data_dir = data_dir
         self.config_dir = config_dir
         self.filename = filename
-        self.is_server_local = is_server_local
         # When restarting the server, make sure we discard info from the
         # browser resending the form from the previous session.
         self.is_just_started = True
