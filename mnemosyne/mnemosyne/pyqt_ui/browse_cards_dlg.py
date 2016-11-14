@@ -244,11 +244,11 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
         if self.Q_or_A == QUESTION:
             self.doc.setHtml(card.question(render_chain="card_browser",
                 ignore_text_colour=ignore_text_colour,
-                search_string=search_string), QtCore.QUrl("file://"))
+                search_string=search_string))
         else:
             self.doc.setHtml(card.answer(render_chain="card_browser",
                 ignore_text_colour=ignore_text_colour,
-                search_string=search_string), QtCore.QUrl("file://"))
+                search_string=search_string))
         # Paint the item without the text.
         option.text = ""
         style.drawControl(QtWidgets.QStyle.CE_ItemViewItem, option, painter)
@@ -292,11 +292,11 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
         if self.Q_or_A == QUESTION:
             self.doc.setHtml(card.question(render_chain="card_browser",
                 force_text_colour=force_text_colour,
-                search_string=search_string), QtCore.QUrl("file://"))
+                search_string=search_string))
         else:
             self.doc.setHtml(card.answer(render_chain="card_browser",
                 force_text_colour=force_text_colour,
-                search_string=search_string), QtCore.QUrl("file://"))
+                search_string=search_string))
         self.doc.setStyleSheet("background:transparent")
         self.doc.setAttribute(QtCore.Qt.WA_TranslucentBackground)        
         self.doc.show()

@@ -21,18 +21,13 @@ if sys.platform == "win32":
 
         def write(self, text):
             if text.strip():
-                             
-                # TMP
-                print(text)
-                return
-            
-                MessageBox = ctypes.windll.user32.MessageBoxA
+                MessageBox = ctypes.windll.user32.MessageBoxW
                 MessageBox(None, text, "Mnemosyne", 0)
                 
-        def flush():
+        def flush(self):
             pass
 
-    #sys.stderr = Stderr()
+    sys.stderr = Stderr()
 
 from optparse import OptionParser
 
@@ -51,6 +46,9 @@ parser.add_option("--web-server", dest="web_server",
     action="store_true", help="run web server without GUI", default=False)
 parser.add_option("--sync-server", dest="sync_server",
     action="store_true", help="run sync server without GUI", default=False)
+parser.add_option("--high-dpi-scaling", dest="high_dpi_scaling",
+    action="store_true", help="enable better scaling on displays with high DPI", 
+    default=False)
 parser.add_option("--version", dest="version",
     action="store_true", help="show version information", default=False)
 (options, args) = parser.parse_args()
@@ -135,7 +133,9 @@ from PyQt5 import QtWebEngineWidgets  # Needs to happen first for some reason.
 from PyQt5.QtWidgets import QApplication
 from PyQt5 import QtGui, QtCore
 
-QtGui.QGuiApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
+if options.high_dpi_scaling:
+    QtGui.QGuiApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
+    
 a = QApplication(sys.argv)
 a.setApplicationName("Mnemosyne")
 

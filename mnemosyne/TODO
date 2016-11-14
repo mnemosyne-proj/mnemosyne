@@ -1,10 +1,9 @@
-remove embed images, both in source, and extra file
-
-tip of the day icon
-
-remove check numeric progress bar
-
 test sync and webserver, from GUI and from command line (since late instantiation)
+
+recheck plugins
+
+compare with previous Mnemosyne
+
 
 Android:
 
@@ -22,17 +21,8 @@ test: text <audio> text
 
 qwebengineview open links in external browser? QWebEnginePage::acceptNavigationRequest() 
 
-check custum error handling windows (main 'mnemosyne' file)
+https://bugs.launchpad.net/mnemosyne-proj/+bug/1582509 still relevant?
 
-recheck plugins
-
-
-
-https://bugs.launchpad.net/mnemosyne-proj/+bug/1582509
-
-https://bugs.launchpad.net/bugs/1592975
-
-    
 - update install instructions linux, windows devel
 
 
