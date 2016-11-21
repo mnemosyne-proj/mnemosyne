@@ -52,11 +52,11 @@ class StopServerAfterTimeout(threading.Thread):
 class WebServer(Component):
 
     def __init__(self, port, data_dir, config_dir, filename, **kwds):
-        if "is_server_local" in kwds:
-            self.is_server_local = kwds["is_server_local"]
-            del kwds["is_server_local"]
+        if "client_on_same_machine_as_server" in kwds:
+            self.client_on_same_machine_as_server = kwds["client_on_same_machine_as_server"]
+            del kwds["client_on_same_machine_as_server"]
         else:
-            self.is_server_local = False
+            self.client_on_same_machine_as_server = False
         super().__init__(**kwds)
         self.port = port
         self.data_dir = data_dir
@@ -70,13 +70,9 @@ class WebServer(Component):
         
     def activate(self):
         # Late import to speed up application startup.
-        from webob import Request
-        from webob.static import FileApp
-        
         from cherrypy import wsgiserver        
-
         self.wsgi_server = wsgiserver.CherryPyWSGIServer(\
-            ("0.0.0.0", port), self.wsgi_app, server_name="localhost",
+            ("0.0.0.0", self.port), self.wsgi_app, server_name="localhost",
             numthreads=1, timeout=5)
         # We need to set the timeout relatively low, otherwise it will take
         # too long for the server to process a 'stop' request.
@@ -113,8 +109,8 @@ class WebServer(Component):
         self.save_after_n_reps = self.mnemosyne.config()["save_after_n_reps"]
         self.mnemosyne.config()["save_after_n_reps"] = 1
         self.mnemosyne.start_review()
-        self.mnemosyne.review_widget().set_is_server_local(\
-            self.is_server_local)
+        self.mnemosyne.review_widget().set_client_on_same_machine_as_server(\
+            self.client_on_same_machine_as_server)
         self.is_mnemosyne_loaded = True
         self.release_database_after_timeout = \
             ReleaseDatabaseAfterTimeout(self.port)
@@ -132,13 +128,13 @@ class WebServer(Component):
         if filename == "/status":
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)
-            return ["200 OK"]
+            return [b"200 OK"]
         # Sometimes, even after the user has clicked 'exit' in the page,
         # a browser sends a request for e.g. an audio file.
         if self.is_shutting_down and filename != "/release_database":
             response_headers = [("Content-type", "text/html")]
             start_response("503 Service Unavailable", response_headers)
-            return ["Server stopped"]
+            return [b"Server stopped"]
         # Load database if needed.
         if not self.is_mnemosyne_loaded and filename != "/release_database":
             self.load_mnemosyne()
@@ -173,26 +169,21 @@ class WebServer(Component):
             # Serve the web page.
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)
-            return [page]
+            return [page.encode("utf-8")]
         elif filename == "/release_database":
             self.unload_mnemosyne()
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)
-            return ["200 OK"]
+            return [b"200 OK"]
         # We need to serve a media file.
         else:
+            # Late import to speed up application startup.
+            from webob import Request
+            from webob.static import FileApp            
             full_path = self.mnemosyne.database().media_dir()
             for word in filename.split("/"):
                 full_path = os.path.join(full_path, word)
             request = Request(environ)
-            # Check if file exists, but work around Android not reporting
-            # the correct filesystem encoding.
-            try:
-                exists = os.path.exists(full_path)
-            except (UnicodeEncodeError, UnicodeDecodeError):
-                _ENCODING = sys.getfilesystemencoding() or \
-                    locale.getdefaultlocale()[1] or "utf-8"              
-                full_path = full_path.encode(_ENCODING)
             if os.path.exists(full_path):
                 etag = "%s-%s-%s" % (os.path.getmtime(full_path),
                     os.path.getsize(full_path), hash(full_path))
@@ -211,17 +202,19 @@ class WebServerThread(threading.Thread, WebServer):
 
     """
 
-    def __init__(self, component_manager, is_server_local=False):
-        self.is_server_local = is_server_local
+    def __init__(self, component_manager, client_on_same_machine_as_server=False):
+        self.client_on_same_machine_as_server = client_on_same_machine_as_server
         threading.Thread.__init__(self)
         self.config = component_manager.current("config")
-        WebServer.__init__(self, component_manager,
+        WebServer.__init__(self, 
             self.config["web_server_port"], self.config.data_dir,
             self.config.config_dir, self.config["last_database"], 
-            self.is_server_local)
+            component_manager=component_manager, 
+            client_on_same_machine_as_server=self.client_on_same_machine_as_server)
 
     def run(self):
-        if not self.is_server_local:  # Could fail if we are offline.
+        self.activate()
+        if not self.client_on_same_machine_as_server:  # Could fail if we are offline.
             print(("Web server listening on http://" + \
                 localhost_IP() + ":" + str(self.config["web_server_port"])))
         self.serve_until_stopped()

@@ -23,7 +23,7 @@ class ReviewWdgt(ReviewWidget):
 
     def __init__(self, component_manager):
         ReviewWidget.__init__(self, component_manager)
-        self.is_server_local = False
+        self.client_on_same_machine_as_server = False
         self.question_label = ""
         self.question = ""
         self.is_question_box_visible = True
@@ -89,8 +89,10 @@ $card_css
 </html>
 """)
         
-    def set_is_server_local(self, is_server_local):
-        self.is_server_local = is_server_local
+    def set_client_on_same_machine_as_server\
+        (self, client_on_same_machine_as_server):
+        self.client_on_same_machine_as_server = \
+            client_on_same_machine_as_server
 
     def redraw_now(self):
         pass
@@ -178,7 +180,7 @@ $card_css
         if not self.answer:
             self.answer = "&nbsp;"
         extended_status_bar = self.status_bar
-        if self.is_server_local:
+        if self.client_on_same_machine_as_server:
             extended_status_bar = extended_status_bar.replace(\
             "</tr></table>", \
             """<td>
