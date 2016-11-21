@@ -244,7 +244,7 @@ class Server(Partner):
             else:
                 self.ui.show_error(traceback_string)
             return self.text_format.repr_message("Internal server error",
-                traceback_string)
+                traceback_string).encode("utf-8")
 
     def stop(self):
         self.terminate_all_sessions()
@@ -299,7 +299,7 @@ class Server(Partner):
     # request.
 
     def get_status(self, environ):
-        return self.text_format.repr_message("OK")
+        return self.text_format.repr_message(b"OK")
 
     def put_login(self, environ):
         session = None
@@ -311,7 +311,7 @@ class Server(Partner):
             if not self.authorise(client_info["username"],
                 client_info["password"]):
                 self.ui.close_progress()
-                return self.text_format.repr_message("Access denied")
+                return self.text_format.repr_message(b"Access denied")
             # Close old session waiting in vain for client input.
             # This will also close any session which timed out while
             # trying to log in just before, so we need to make sure the
@@ -340,13 +340,13 @@ class Server(Partner):
                 if not session.client_info["is_database_empty"]:
                     self.terminate_session_with_token(session.token)
                     self.ui.close_progress()
-                    return self.text_format.repr_message("Sync cycle detected")
+                    return self.text_format.repr_message(b"Sync cycle detected")
             # Detect the case where a user has copied the entire mnemosyne
             # directory before syncing.
             if session.client_info["machine_id"] == self.machine_id:
                 self.terminate_session_with_token(session.token)
                 self.ui.close_progress()
-                return self.text_format.repr_message("same machine ids")
+                return self.text_format.repr_message(b"same machine ids")
             # Create partnerships.
             session.database.create_if_needed_partnership_with(\
                 client_info["machine_id"])
@@ -395,7 +395,7 @@ class Server(Partner):
             # Always create media files, otherwise they are not synced across.
             self.ui.set_progress_text("Dynamically creating media files...")
             session.database.dynamically_create_media_files()
-            return self.text_format.repr_message("OK")
+            return self.text_format.repr_message(b"OK")
         except:
             return self.handle_error(session, traceback_string())
 
@@ -435,7 +435,7 @@ class Server(Partner):
                     return self.text_format.repr_message("Conflict")
             if session.database.is_empty():
                 session.database.change_user_id(session.client_info["user_id"])
-            return self.text_format.repr_message("OK")
+            return self.text_format.repr_message(b"OK")
         except:
             return self.handle_error(session, traceback_string())
 
@@ -455,7 +455,7 @@ class Server(Partner):
             session.database.remove_partnership_with(self.machine_id)
             # Next sync with a third party should be a full sync too.
             session.database.reset_partnerships()
-            return self.text_format.repr_message("OK")
+            return self.text_format.repr_message(b"OK")
         except:
             return self.handle_error(session, traceback_string())
 
@@ -554,7 +554,7 @@ class Server(Partner):
         try:
             session = self.sessions[session_token]
             session.database.generate_log_entries_for_settings()
-            return self.text_format.repr_message("OK")
+            return self.text_format.repr_message(b"OK")
         except:
             return self.handle_error(session, traceback_string())
 
@@ -594,7 +594,7 @@ class Server(Partner):
                              session.database.media_filenames_to_sync_for(\
                                  session.client_info["machine_id"])]                 
             if len(filenames) == 0:
-                return ""
+                return b""
             for filename in filenames:
                 mnemosyne_content_length += os.path.getsize((os.path.join(\
                         session.database.data_dir(), filename)))
@@ -612,12 +612,12 @@ class Server(Partner):
             # relative to the data_dir. Note we always use / internally.       
             archive_dir = os.path.join(session.database.data_dir(), "archive")
             if not os.path.exists(archive_dir):
-                return ""
+                return b""
             filenames = ["archive/" + filename for filename in \
                          os.listdir(archive_dir) if os.path.isfile\
                          (os.path.join(archive_dir, filename))]            
             if len(filenames) == 0:
-                return ""
+                return b""
             for filename in filenames:
                 mnemosyne_content_length += os.path.getsize(os.path.join(\
                         session.database.data_dir(), filename))
@@ -663,7 +663,7 @@ class Server(Partner):
             if session_token != "none":
                 self.cancel_session_with_token(session_token)
             self.ui.close_progress()
-            return self.text_format.repr_message("OK")
+            return self.text_format.repr_message(b"OK")
         except:
             if session_token != "none":
                 session = self.sessions[session_token]
@@ -678,6 +678,6 @@ class Server(Partner):
             self.close_session_with_token(session_token)
             # Now is a good time to garbage-collect dangling sessions.
             self.expire_old_sessions()
-            return self.text_format.repr_message("OK")
+            return self.text_format.repr_message(b"OK")
         except:
             return self.handle_error(session, traceback_string())

@@ -1,6 +1,10 @@
-test sync and webserver, from GUI and from command line (since late instantiation)
+-check unicode
+-explicitly activate needed?
+recheck test sync and webserver from GUI and console
 
 recheck plugins
+
+testsuite
 
 compare with previous Mnemosyne
 
@@ -210,7 +214,7 @@ http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-
  http://lesswrong.com/r/discussion/lw/ivw/what_should_normal_people_do/9yuy
 suggests that there's some SQLite3 functionality relating to the
 'union' operator which could massively speed up insertion, pointing to
-http://stackoverflow.com/questions/1609637/is-it-possible-to-insert-multiple-rows-at-a-time-in-an-sqlite-database_is_empty
+http://stackoverflow.com/questions/1609637/is-it-possible-to-insert-multiple-rows-at-a-time-in-an-sqlite-database_is_
 
 -optimise away DISTINCT and do it at the python level
 -more sqlite profiling

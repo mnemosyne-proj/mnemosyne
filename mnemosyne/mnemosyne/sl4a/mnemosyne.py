@@ -112,7 +112,7 @@ if mnemosyne.main_widget().show_question(\
 mnemosyne.database().release_connection()
 from .mnemosyne.web_server.web_server import WebServerThread
 web_server_thread = WebServerThread\
-        (mnemosyne.component_manager, is_server_local=True)
+        (mnemosyne.component_manager, client_on_same_machine_as_server=True)
 web_server_thread.daemon = True
 web_server_thread.start() 
 if mnemosyne.main_widget().show_question(\
