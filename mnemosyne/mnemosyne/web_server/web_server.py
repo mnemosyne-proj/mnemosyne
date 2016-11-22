@@ -53,7 +53,8 @@ class WebServer(Component):
 
     def __init__(self, port, data_dir, config_dir, filename, **kwds):
         if "client_on_same_machine_as_server" in kwds:
-            self.client_on_same_machine_as_server = kwds["client_on_same_machine_as_server"]
+            self.client_on_same_machine_as_server = \
+                kwds["client_on_same_machine_as_server"]
             del kwds["client_on_same_machine_as_server"]
         else:
             self.client_on_same_machine_as_server = False
@@ -169,7 +170,7 @@ class WebServer(Component):
             # Serve the web page.
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)
-            return [page.encode("utf-8")]
+            return [page]
         elif filename == "/release_database":
             self.unload_mnemosyne()
             response_headers = [("Content-type", "text/html")]

@@ -26,7 +26,7 @@ endif
 
 run: build
 	# For debugging: running the code in place.
-	PYTHONPATH=. $(PYTHON) mnemosyne/pyqt_ui/mnemosyne -d dot_test #dot_mnemosyne2
+	PYTHONPATH=. $(PYTHON) mnemosyne/pyqt_ui/mnemosyne -d dot_mnemosyne2
 	
 build:
 	# Just the bare minimum to get things running

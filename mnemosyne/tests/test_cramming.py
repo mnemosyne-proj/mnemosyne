@@ -135,7 +135,7 @@ class TestCrammingScheduler(MnemosyneTest):
 
         self.mnemosyne.finalise()
         self.mnemosyne.components.insert(0,
-                                         ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
+            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("test_cramming", "Widget"))
         self.mnemosyne.components.append(\

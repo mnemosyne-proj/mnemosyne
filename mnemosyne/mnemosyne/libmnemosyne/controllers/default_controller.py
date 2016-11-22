@@ -175,8 +175,8 @@ class DefaultController(Controller):
                     card.fact.data = merged_fact_data
                     card.tags = tags
                     self.component_manager.current("edit_card_dialog")\
-                        (card, self.component_manager, allow_cancel=False).\
-                        activate()
+                        (card, component_manager=self.component_manager, 
+                         allow_cancel=False).activate()
                     return db.cards_from_fact(fact)
         # Create cards.
         cards = card_type.create_sister_cards(fact)

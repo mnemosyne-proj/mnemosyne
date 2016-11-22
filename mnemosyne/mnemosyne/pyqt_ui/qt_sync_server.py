@@ -67,7 +67,6 @@ class ServerThread(QtCore.QThread, SyncServer):
 
     def run(self):
         try:
-            self.activate()
             self.serve_until_stopped()
         except socket.error:
             self.show_error(_("Unable to start sync server."))

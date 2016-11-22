@@ -1,10 +1,9 @@
--check unicode
--explicitly activate needed?
-recheck test sync and webserver from GUI and console
+testsuite
+
+location of add cards window saved? (mail David Schuler)
 
 recheck plugins
 
-testsuite
 
 compare with previous Mnemosyne
 
