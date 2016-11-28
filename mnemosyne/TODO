@@ -1,9 +1,4 @@
-testsuite
-
-location of add cards window saved? (mail David Schuler)
-
 recheck plugins
-
 
 compare with previous Mnemosyne
 
@@ -28,6 +23,7 @@ https://bugs.launchpad.net/mnemosyne-proj/+bug/1582509 still relevant?
 
 - update install instructions linux, windows devel
 
+-location of add cards window saved? (mail David Schuler)
 
 -sync of changed saved set does not update title on target machine
 
@@ -111,6 +107,8 @@ to  "last_db_maintenance": time.time() ?
 
 -windows 'python setup.py install': missing share locale path when starting configure
 -profile testsuite
+
+-fix race condition in test_cramming:Test_3 (off_3)
 
 
 -select saved set, delete that set: set name is still visible in windows header

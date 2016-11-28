@@ -148,8 +148,8 @@ class TestMedia(MnemosyneTest):
         assert os.path.exists(full_path_in_media_dir)
         assert full_path not in card.fact.data["f"]
         assert full_path_in_media_dir not in card.fact.data["f"]
-        assert full_path not in card.question()
-        assert full_path_in_media_dir in card.question()
+        assert full_path.replace(" ", "%20") not in card.question()
+        assert full_path_in_media_dir.replace(" ", "%20") in card.question()
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 1
