@@ -2,7 +2,7 @@
 # add_menu_item.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt5 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.plugin import Plugin
 
@@ -18,11 +18,10 @@ class HelloWorldPlugin(Plugin):
 
     def activate(self):
         Plugin.activate(self)
-        self.action_hello = QtGui.QAction(self.main_widget())
+        self.action_hello = QtWidgets.QAction(self.main_widget())
         self.action_hello.setText("Hello world")
         self.main_widget().menu_Help.addAction(self.action_hello)
-        QtCore.QObject.connect(self.action_hello, QtCore.SIGNAL("activated()"),
-                               self.hello_world)
+        self.action_hello.triggered.connect(self.hello_world)
 
     def deactivate(self):
         Plugin.deactivate(self)

@@ -136,5 +136,5 @@ def register_user_plugin(plugin_class):
     from .component_manager import _component_managers
     key = list(_component_managers.keys())[0]
     component_manager = _component_managers[key]
-    plugin = plugin_class(component_manager)
+    plugin = plugin_class(component_manager=component_manager)
     component_manager.register(plugin)

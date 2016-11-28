@@ -115,7 +115,7 @@ osx:
 	
 android: # Creates the assets file with the Python code.
 	rm -f mnemosyne/android/app/src/main/assets/mnemosyne.zip
-	python -m compileall mnemosyne
+	#python -m compileall mnemosyne
 	zip	-r mnemosyne/android/app/src/main/assets/mnemosyne.zip openSM2sync -i \*.py
 	zip -r mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/libmnemosyne -i \*.py
 	zip	-r mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/cle -i \*.py
