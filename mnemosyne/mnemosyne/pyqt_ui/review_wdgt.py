@@ -193,11 +193,13 @@ class QAOptimalSplit(object):
                     answer_stretch = required_answer_height
                     question_stretch = total_height_available - answer_stretch
                     if question_stretch < 50:
-                        question_stretch = 50                
+                        question_stretch = 50
+        self.setUpdatesEnabled(False)
         self.vertical_layout.setStretchFactor(\
             self.question_box, question_stretch + self.stretch_offset)
         self.vertical_layout.setStretchFactor(\
             self.answer_box, answer_stretch + self.stretch_offset)
+        self.setUpdatesEnabled(True)
         
         # http://stackoverflow.com/questions/37527714/qt-qml-webview-resizes-really-slowly-when-window-resizing
         

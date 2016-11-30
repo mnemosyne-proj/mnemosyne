@@ -2,7 +2,7 @@
 # configuration.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt5 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.hook import Hook
 from mnemosyne.libmnemosyne.plugin import Plugin
@@ -23,17 +23,17 @@ class MyPluginConfiguration(Hook):
 from mnemosyne.libmnemosyne.ui_components.configuration_widget import \
      ConfigurationWidget
 
-class MyConfigurationWdgt(QtGui.QWidget, ConfigurationWidget):
+class MyConfigurationWdgt(QtWidgets.QWidget, ConfigurationWidget):
 
     name = "My plugin"
 
     def __init__(self, **kwds):
         super().__init__(**kwds)
-        self.vlayout = QtGui.QVBoxLayout(self)
-        self.hlayout = QtGui.QHBoxLayout()
-        self.label = QtGui.QLabel("My value")
+        self.vlayout = QtWidgets.QVBoxLayout(self)
+        self.hlayout = QtWidgets.QHBoxLayout()
+        self.label = QtWidgets.QLabel("My value")
         self.hlayout.addWidget(self.label)
-        self.my_value = QtGui.QSpinBox(self)
+        self.my_value = QtWidgets.QSpinBox(self)
         self.my_value.setValue(self.config()["my_value"])
         self.hlayout.addWidget(self.my_value)
         self.vlayout.addLayout(self.hlayout)
