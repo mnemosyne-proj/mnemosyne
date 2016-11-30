@@ -1,5 +1,5 @@
 recheck plugins
-
+disable redraw now?
 
 Android:
 
@@ -36,6 +36,8 @@ server.py imports from libmnemosyne.utils
 dont archive on first run, scares off Android users
 
 Qt's own translation
+
+Qt SDK: back to webkit?
 
 
 Android:

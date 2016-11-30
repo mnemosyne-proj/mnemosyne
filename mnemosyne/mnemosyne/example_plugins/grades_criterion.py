@@ -46,23 +46,23 @@ class GradesCriterionApplier(CriterionApplier):
 from mnemosyne.libmnemosyne.ui_components.criterion_widget \
      import CriterionWidget
 
-from PyQt5 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
-class GradesCriterionWdgt(QtGui.QWidget, CriterionWidget):
+class GradesCriterionWdgt(QtWidgets.QWidget, CriterionWidget):
 
     used_for = GradesCriterion
 
     def __init__(self, **kwds):
         super().__init__(**kwds)    
-        self.verticalLayout = QtGui.QVBoxLayout(self)
-        self.horizontalLayout = QtGui.QHBoxLayout()
-        self.label = QtGui.QLabel("Activate cards with grade <=", self)
+        self.verticalLayout = QtWidgets.QVBoxLayout(self)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.label = QtWidgets.QLabel("Activate cards with grade <=", self)
         self.horizontalLayout.addWidget(self.label)
-        self.threshold = QtGui.QSpinBox(self)
+        self.threshold = QtWidgets.QSpinBox(self)
         self.threshold.setMaximum(5)
         self.horizontalLayout.addWidget(self.threshold)
         self.verticalLayout.addLayout(self.horizontalLayout)
-        self.parent_saved_sets = parent.saved_sets
+        self.parent_saved_sets = self.parent().saved_sets
         self.threshold.valueChanged.connect(self.criterion_changed)
         self.threshold.setValue(5)
 

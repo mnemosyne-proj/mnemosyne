@@ -202,7 +202,7 @@ class SM2Controller(ReviewController):
         self.update_status_bar_counters()
         self.update_menu_bar()
         self.widget.redraw_now()  # Don't wait until disk activity dies down.
-
+        
     def update_qa_area(self, redraw_all=False):
         if redraw_all and self.card:
             self.card = \

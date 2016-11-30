@@ -2,7 +2,7 @@
 # lock_down.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt5 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.plugin import Plugin
 
@@ -20,7 +20,7 @@ class LockDownPlugin(Plugin):
     def deactivate(self):
         Plugin.deactivate(self)
         self.main_widget().menuBar().show()
-        self.main_widget().findChild(QtGui.QToolBar).show()
+        self.main_widget().findChild(QtWidgets.QToolBar).show()
         self.main_widget().tool_bar.show()
 
 
