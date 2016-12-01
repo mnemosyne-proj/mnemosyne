@@ -1,7 +1,10 @@
+Mnemosyne 2.4 : 2016-12-05
+
 -Upgraded all code to Python3 and PyQt5, so that Mnemosyne no longer
  depends on libraries which are gradually becoming unsupported.
 -The move to PyQt5 enabled to show progress bars with percentages for
  certain long operations like initial sync.
+-Improved startup speed. 
 -New command line option "--high-dpi-scaling" to enable scaling for displays
  with high DPI values. Not enabled by default because it can cause some
  issues with multiple connected displays.

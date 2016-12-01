@@ -97,8 +97,10 @@ class AddEditCards(TipAfterStartingNTimes):
         try:
             self.card_type_widget = self.component_manager.current \
                 ("card_type_widget", used_for=self.card_type.__class__) \
-                (parent=self, component_manager=self.component_manager)
-        except:
+                (card_type=self.card_type, parent=self, 
+                 component_manager=self.component_manager)
+        except Exception as e:
+            print(e)
             if not self.card_type_widget:
                 self.card_type_widget = self.component_manager.current \
                     ("generic_card_type_widget")(card_type=self.card_type,

@@ -1,6 +1,3 @@
-recheck plugins
-disable redraw now?
-
 Android:
 
 -decrease size of python library

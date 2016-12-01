@@ -25,10 +25,8 @@ class RedCardTypeWdgt(GenericCardTypeWdgt):
     component_type = "card_type_widget"
     used_for = FrontToBack
 
-    def __init__(self, component_manager, parent, card_type, **kwds):
+    def __init__(self, **kwds):
         super().__init__(**kwds)
-        GenericCardTypeWdgt.__init__(self, component_manager,
-                                     parent, card_type)
         for edit_box in self.edit_boxes:
             p = QtGui.QPalette()
             p.setColor(QtGui.QPalette.Active, QtGui.QPalette.Base, \
