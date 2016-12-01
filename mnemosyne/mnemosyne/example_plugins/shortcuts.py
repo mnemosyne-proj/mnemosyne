@@ -14,7 +14,6 @@ class MyReviewWdgt(ReviewWdgt):
         self.auto_focus_grades = False
 
         # Change shortcuts for the grade buttons.
-
         self.grade_0_button.setShortcut("q")
         self.grade_1_button.setShortcut("w")
         self.grade_2_button.setShortcut("e")
@@ -23,7 +22,7 @@ class MyReviewWdgt(ReviewWdgt):
         self.grade_5_button.setShortcut("y")
 
         # Some more examples.
-
+        
         #self.grade_0_button.setShortcut("Enter") # Numerical keypad
         #self.grade_1_button.setShortcut("Space")
         #self.grade_2_button.setShortcut("Return") 

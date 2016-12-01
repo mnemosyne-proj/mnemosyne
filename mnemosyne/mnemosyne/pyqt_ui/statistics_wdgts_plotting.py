@@ -35,7 +35,6 @@ class PlotStatisticsWdgt(QtWidgets.QWidget, StatisticsWidget):
         from matplotlib.figure import Figure
         from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas        
         
-        
         self.vbox_layout = QtWidgets.QVBoxLayout(self)
         # The idea was to lazily import matplotlib only when we open the
         # statistics dialog. However, the import statements below can often

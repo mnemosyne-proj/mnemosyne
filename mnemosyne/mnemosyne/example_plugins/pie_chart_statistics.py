@@ -30,9 +30,9 @@ class PieChartWdgt(PlotStatisticsWdgt):
         if not self.page.y:
             self.display_message(_("No stats available."))
             return
+        self.activate()
         # Pie charts look better on a square canvas.
-        self.figure.set_size_inches(self.figure.get_figheight(),
-                                    self.figure.get_figheight())
+        self.axes.set_aspect('equal')
         labels = ["Unseen" if self.page.y[0] > 0 else ""] + \
             ["Grade %d" % (g-1) if self.page.y[g] > 0 \
             else "" for g in range(1, 7)]

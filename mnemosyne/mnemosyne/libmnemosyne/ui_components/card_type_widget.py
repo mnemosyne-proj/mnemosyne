@@ -16,6 +16,10 @@ class CardTypeWidget(UiComponent):
 
     component_type = "card_type_widget"
     instantiate = Component.LATER
+    
+    def __init__(self, card_type, **kwds):
+        super().__init__(**kwds)        
+        self.card_type = card_type
 
     def is_empty(self):
         raise NotImplementedError
