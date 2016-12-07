@@ -168,7 +168,8 @@ hiddenimports = [
              'mnemosyne.web_server.simple_html5_audio', 
              'mnemosyne.web_server.web_server', 
              'mnemosyne.web_server.web_server_renderer', 
-             'mnemosyne.web_server.web_server_render_chain'
+             'mnemosyne.web_server.web_server_render_chain',
+             'cherrypy.wsgiserver.wsgiserver3'
 ]
 
 if sys.platform == "win32":
