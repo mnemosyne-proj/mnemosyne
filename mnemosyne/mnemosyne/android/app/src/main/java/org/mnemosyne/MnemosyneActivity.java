@@ -1,12 +1,10 @@
 package org.mnemosyne;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -16,12 +14,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.os.Message;
-import android.support.v4.view.WindowCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -30,7 +24,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -38,11 +31,8 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 public class MnemosyneActivity extends AppCompatActivity {
 
@@ -58,6 +48,7 @@ public class MnemosyneActivity extends AppCompatActivity {
 
     Handler activityHandler = new Handler();
     MnemosyneThread mnemosyneThread;
+    boolean paused = false;
 
     TextView questionLabel;
     TextView answerLabel;
@@ -239,7 +230,7 @@ public class MnemosyneActivity extends AppCompatActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    private void setFullscreen() {
+    public void setFullscreen() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getSupportActionBar().hide();
             getWindow().getDecorView().setSystemUiVisibility(
@@ -365,6 +356,9 @@ public class MnemosyneActivity extends AppCompatActivity {
             Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 
     public String handleSoundFiles(String html) {
+        if (html == null) {
+            return html;
+        }
         if (mediaPlayer != null) {
             mediaPlayer.release();
         }
@@ -475,6 +469,7 @@ public class MnemosyneActivity extends AppCompatActivity {
 
     @Override
     public void onPause() {
+        this.paused = true;
         super.onPause();
         try {
             if (mediaPlayer != null) {
@@ -496,6 +491,14 @@ public class MnemosyneActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public void onResume() {
+        super.onResume();
+        if (this.paused == true) { // Make sure this does not get called on initial startup.
+            setFullscreen();
+        }
+        this.paused = false;
     }
 
     @Override

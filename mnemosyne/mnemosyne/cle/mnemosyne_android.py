@@ -97,6 +97,7 @@ mnemosyne.components = [\
           "ActivateCardsDlg")]
 
 def start_mnemosyne(data_dir, filename, wrapper):
+    mnemosyne.android = wrapper
     mnemosyne.initialise(data_dir=data_dir, filename=filename)
     mnemosyne.review_controller().set_render_chain("android")
     mnemosyne.component_manager.android = wrapper

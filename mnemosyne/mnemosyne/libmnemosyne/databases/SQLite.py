@@ -255,7 +255,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             from mnemosyne.libmnemosyne.databases._sqlite3 import _Sqlite3
             self._connection = _Sqlite3(self.component_manager, self._path)
             #from mnemosyne.libmnemosyne.databases._apsw import _APSW
-            #self._connection = _APSW(self.component_manager, self._path)
+            #self._connection = _APSW(self.component_manager, self._path)       
         return self._connection
 
     def release_connection(self):
