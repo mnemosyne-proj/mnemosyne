@@ -16,6 +16,7 @@ class MainWdgt(MainWidget):
     def show_information(self, text):
         if self.is_progress_bar_showing:
             self.close_progress()
+        self.component_manager.android.Log("Mnemosyne", text.encode("utf-8") )
         self.component_manager.android.showInformation(text.encode("utf-8"))            
 
     def show_question(self, text, option0, option1, option2):
@@ -63,3 +64,4 @@ class MainWdgt(MainWidget):
         self.is_progress_bar_showing = False
         self.component_manager.android.closeProgress()
 
+ 

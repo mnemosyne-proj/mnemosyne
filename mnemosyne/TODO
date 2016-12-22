@@ -1,32 +1,58 @@
+2.4.1:
+
+- fix autoscaling sometimes not working under Linux.
+- fix error related missing idna encoding when starting server 
+  (reported by Andrea Giordano).
+
+
+bugreports:
+
+
+- upgrade to latest Qt version? DuncansionTaylor
+-progress bar does not close after sync (launchpad)
+-missing windows dll
+-headless server resets password (launchpad)
+-location of add cards window saved? (mail David Schuler)
+-keyboard focus lost? Jan Egil Hagen
+
 Android:
 
+- unicode error strftime --> syncing problems abacus
+- Nicolas Powell error
+
+
+-update install instructions linux, windows devel
+
+
+Android:
+-disk io error not detected?
+-setting temporary sqlite folder location
+-reenable archiving of old logs
 -decrease size of python library
 -precompile python files
 -menu button after app goes to background
 -order of question with 3 buttons (e.g. sync conflict)
-
 -pybridge: don't extract individual assets but extract zip file? Faster?
 
 
-import/export dialog alignment does not look nice
+-memrise import seems to mess up scheduling after sync?
+-when adding cards through API, missing media tag does not show up?
 
-test: text <audio> text
+-sync no longer seems to respect changes in active set?
+-rename plugin folder?
+-import/export dialog alignment does not look nice
+-test: text <audio> text
 
-qwebengineview open links in external browser? QWebEnginePage::acceptNavigationRequest() 
 
-https://bugs.launchpad.net/mnemosyne-proj/+bug/1582509 still relevant?
-
-- update install instructions linux, windows devel
-
--location of add cards window saved? (mail David Schuler)
+-qwebengineview open links in external browser? QWebEnginePage::acceptNavigationRequest() 
 
 -sync of changed saved set does not update title on target machine
 
-- tag completion box: does not work when clicking in the box, and does not
+-tag completion box: does not work when clicking in the box, and does not
  work when going back to a previous tag, e.g. if you have a,b,c and want
  to go back to an expansion on a
-
-archive files wont download from dot_test to android
+ 
+-archive files wont download from dot_test to android
 
 server.py imports from libmnemosyne.utils
 
@@ -51,6 +77,8 @@ Android:
 -set default grade?
 -check 'redraw now
 -latex on android, media table corrupt?
+
+-plugin to hide card?
 
 -video
 

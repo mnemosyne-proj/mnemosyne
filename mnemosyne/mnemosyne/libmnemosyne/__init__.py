@@ -149,13 +149,17 @@ class Mnemosyne(Component):
           "CuecardWcu")]
         self.extra_components_for_plugin = {}
 
-    def handle_exception(self, type, value, tb):
+    def handle_exception(self, type, value, tb):        
         body = "An unexpected error has occurred.\n" + \
             "Please forward the following info to the developers:\n\n" + \
             "Traceback (innermost last):\n"
         list = traceback.format_tb(tb, limit=None) + \
                traceback.format_exception_only(type, value)
         body = body + "%-20s %s" % ("".join(list[:-1]), list[-1])
+        
+        if hasattr(self, "android"):
+            self.android.Log("Mnemosyne", body)
+        
         try:
             if sys.platform != "win32":
                 sys.stderr.write(body)
@@ -188,7 +192,7 @@ class Mnemosyne(Component):
         if automatic_upgrades:
             from mnemosyne.libmnemosyne.upgrades.upgrade3 import Upgrade3
             Upgrade3(self.component_manager).run() 
-        self.activate_components()
+        self.activate_components()      
         register_component_manager(self.component_manager,
                                    self.config()["user_id"])
         self.execute_user_plugin_dir()
@@ -262,7 +266,7 @@ class Mnemosyne(Component):
         in the correct order: first config, followed by log and then the rest.
 
         """
-
+        
         # Activate config and inject necessary settings.
         try:
             self.component_manager.current("config").activate()

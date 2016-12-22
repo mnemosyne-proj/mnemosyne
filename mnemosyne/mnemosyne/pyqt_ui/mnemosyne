@@ -8,6 +8,9 @@ import os
 import sys
 import time
 
+# Workaround for this bug: https://github.com/pyinstaller/pyinstaller/issues/1113
+import encodings.idna
+
 # Custom error handling on Windows.
 
 if sys.platform == "win32":

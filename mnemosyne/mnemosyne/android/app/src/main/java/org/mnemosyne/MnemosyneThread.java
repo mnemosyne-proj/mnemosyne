@@ -68,6 +68,17 @@ public class MnemosyneThread extends Thread {
         }
         catch(UnsatisfiedLinkError ex) {
             System.out.println(ex.toString());
+            final String string = new String(ex.toString());
+            UIHandler.post(new Runnable() {
+                public void run() {
+                    Log.d("Mnemosyne", "linker error " + string);
+                    progressDialog.dismiss();
+                    AlertDialog.Builder alert = new AlertDialog.Builder(UIActivity);
+                    alert.setMessage(string);
+                    alert.setCancelable(false);
+                    alert.show();
+                }
+            });
         }
 
         StarCoreFactoryPath.StarCoreCoreLibraryPath = basedir + "/lib";
@@ -129,20 +140,23 @@ public class MnemosyneThread extends Thread {
         UIHandler.post(new Runnable() {
             public void run() {
                 progressDialog.dismiss();
+                UIActivity.setFullscreen();
             }
         });
 
         // Heartbeat: run at startup and then every 5 seconds.
-        controller._Call("heartbeat");
-        this.scheduler.scheduleAtFixedRate(new Runnable() {
-            public void run() {
-                mnemosyneHandler.post(new Runnable() {
-                    public void run() {
-                        controller._Call("heartbeat");
-                    }
-                });
-            }
-        }, 0, 5, TimeUnit.SECONDS);
+        // TODO: probably not threadsafe!
+        //controller._Call("heartbeat");
+        //this.scheduler.scheduleAtFixedRate(new Runnable() {
+        //    public void run() {
+        //        mnemosyneHandler.post(new Runnable() {
+        //            public void run() {
+        //                Log.d("Mnemosyne", "Heartbeat");
+        //                controller._Call("heartbeat");
+        //            }
+        //        });
+        //    }
+        //}, 0, 5, TimeUnit.SECONDS);
     }
 
     public void pauseMnemosyne() {
@@ -160,6 +174,10 @@ public class MnemosyneThread extends Thread {
         Log.d("Mnemosyne", "Mnemosyne stopped");
         // This seems to be the best way to ensure that CLE can be restarted properly.
         android.os.Process.killProcess(android.os.Process.myPid());
+    }
+
+    public void Log(String label, String text) {
+        Log.d(label, text);
     }
 
     @Override

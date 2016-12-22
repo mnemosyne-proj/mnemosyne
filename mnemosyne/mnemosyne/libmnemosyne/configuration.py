@@ -101,7 +101,7 @@ class Configuration(Component, dict):
         since a new version of Mnemosyne might have introduced new keys.
 
         """
-
+        
         for key, value in \
             list({"last_database": \
                 self.database().default_name + self.database().suffix,
@@ -194,7 +194,7 @@ class Configuration(Component, dict):
         # Allow other plugins or frontend to set their configuration data.
         for f in self.component_manager.all("hook", "configuration_defaults"):
             f.run()
-        self.save()
+        self.save()       
 
     def __setitem__(self, key, value):
         if key in self.keys_to_sync:
@@ -224,7 +224,7 @@ class Configuration(Component, dict):
         except:
             pass
         # Set config settings.
-        for cursor in con.execute("select key, value from config"):
+        for cursor in con.execute("select key, value from config"):          
             # When importing Python 2 representations, strip the L
             # from long integers.
             value =  re_long_int.sub(lambda x : x.group()[:-1], cursor[1])
@@ -233,19 +233,19 @@ class Configuration(Component, dict):
             except:
                 # This can fail if we are running headless now after running
                 # the GUI previously.
-                pass
+                pass       
         con.close()
-
+        
     def save(self):
         filename = os.path.join(self.config_dir, "config.db")
-        con = sqlite3.connect(filename)
+        con = sqlite3.connect(filename)      
         # Make sure the entries exist.
         con.executemany("insert or ignore into config(key, value) values(?,?)", 
             ((key, repr(value)) for key, value in self.items()))
         # Make sure they have the right data.
         con.executemany("update config set value=? where key=?",
-            ((repr(value), key) for key, value in self.items()))   
-        con.commit()
+            ((repr(value), key) for key, value in self.items())) 
+        con.commit()      
         con.close()
 
     def determine_dirs(self):  # pragma: no cover        

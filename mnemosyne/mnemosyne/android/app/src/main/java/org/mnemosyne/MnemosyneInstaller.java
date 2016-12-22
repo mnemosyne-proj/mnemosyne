@@ -1,5 +1,6 @@
 package org.mnemosyne;
 
+import android.app.AlertDialog;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.app.ProgressDialog;
@@ -183,13 +184,28 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
             Log.i("Mnemosyne", "Assets are up to date");
         } else {
             Log.i("Mnemosyne", "Removing previous assets");
+
+            File oldDir = new File("/data/data/" + UIActivity.getPackageName() + "/files");
+            if (oldDir.exists()) {
+                deleteRecursive(oldDir);}
+
             File destDir = new File(basedir + "/files");
-            deleteRecursive(destDir);
+            if (destDir.exists()) {
+                deleteRecursive(destDir);}
             destDir.mkdirs();
+
             Log.d("Mnemosyne", "About to extract Mnemosyne");
             try {
                 InputStream dataSource = UIActivity.getAssets().open("python3.4.zip");
-                unzip(dataSource, basedir + "/files", true);
+                boolean result = unzip(dataSource, basedir + "/files", true);
+                if (! result) {
+                    Log.i("Mnemosyne", "Could not unzip mnemosyne.zip.");
+                    progressDialog.dismiss();
+                    AlertDialog.Builder alert = new AlertDialog.Builder(UIActivity);
+                    alert.setMessage("Could not unzip python3.4.zip");
+                    alert.setCancelable(false);
+                    alert.show();
+                }
 
                 java.io.File zlibFile = new java.io.File(basedir + "/files/zlib.cpython-34m.so");
                 copyFile("zlib.cpython-34m.so", "");
@@ -249,8 +265,20 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
                 copyFile("zlib.cpython-34m.so", "lib-dynload/");
 
                 dataSource = UIActivity.getAssets().open("mnemosyne.zip");
-                unzip(dataSource, basedir + "/files", true);
+                result = unzip(dataSource, basedir + "/files", true);
+                if (! result) {
+                    Log.i("Mnemosyne", "Could not unzip mnemosyne.zip.");
+                    progressDialog.dismiss();
+                    AlertDialog.Builder alert = new AlertDialog.Builder(UIActivity);
+                    alert.setMessage("Could not unzip mnemosyne.zip.");
+                    alert.setCancelable(false);
+                    alert.show();
+                }
             } catch (Exception e) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(UIActivity);
+                alert.setMessage(e.toString());
+                alert.setCancelable(false);
+                alert.show();
                 e.printStackTrace();
             }
             this.setAssetLastModified(appLastUpdate);
