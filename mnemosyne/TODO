@@ -8,12 +8,16 @@
 bugreports:
 
 
+- crammingplugin stevengeorg
 - upgrade to latest Qt version? DuncansionTaylor
 -progress bar does not close after sync (launchpad)
 -missing windows dll
+-osx packaging issues dan schmidt
 -headless server resets password (launchpad)
 -location of add cards window saved? (mail David Schuler)
 -keyboard focus lost? Jan Egil Hagen
+
+-when activating prefill tag plugin, checkbox does not update immediately
 
 Android:
 
