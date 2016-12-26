@@ -440,6 +440,7 @@ public class MnemosyneActivity extends AppCompatActivity {
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
                         mnemosyneThread.controller._Call("show_sync_dialog_post");
+                        mnemosyneThread.UIActivity.setFullscreen();
                     }
                 });
             }
@@ -461,6 +462,7 @@ public class MnemosyneActivity extends AppCompatActivity {
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
                         mnemosyneThread.controller._Call("show_activate_cards_dialog_post");
+                        mnemosyneThread.UIActivity.setFullscreen();
                     }
                 });
             }
