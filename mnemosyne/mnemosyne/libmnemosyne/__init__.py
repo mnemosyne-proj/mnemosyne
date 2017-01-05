@@ -255,8 +255,7 @@ class Mnemosyne(Component):
         for plugin_name in self.extra_components_for_plugin:
             for module_name, class_name in \
                     self.extra_components_for_plugin[plugin_name]:
-                exec("from %s import %s" % (module_name, class_name))
-                exec("component = %s" % class_name)
+                component = getattr(importlib.import_module(module_name), class_name)
                 self.component_manager.add_component_to_plugin(\
                     plugin_name, component)
 

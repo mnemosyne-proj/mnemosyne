@@ -20,11 +20,14 @@ class GetTextTranslator(Translator):
             self.lang_path = os.path.join(sys.exec_prefix, "share", "locale")
 
     def supported_languages(self):
-        return [os.path.split(x)[1] for x in os.listdir(self.lang_path) \
+        try:
+            return [os.path.split(x)[1] for x in os.listdir(self.lang_path) \
             if os.path.isdir(os.path.join(self.lang_path, x)) and \
             os.path.exists(os.path.join(self.lang_path, x, "LC_MESSAGES")) \
             and "mnemosyne.mo" in os.listdir(\
             os.path.join(self.lang_path, x, "LC_MESSAGES"))]
+        except:
+            return []
 
     def set_translator(self, language):
         self._translator = gettext.translation("mnemosyne",

@@ -28,9 +28,10 @@ class QWebEngineView2(QtWebEngineWidgets.QWebEngineView):
         import webbrowser  # Slow import
         webbrowser.open(url.toString())
         
-    def focusInEvent(self, event):
-        if hasattr(self.parent(), "restore_focus"):
-            self.parent().restore_focus()
-        super().focusInEvent(event)
+    #def focusInEvent(self, event):
+    #    print ("focusInEvent")
+    #    if hasattr(self.parent(), "restore_focus"):
+    #        self.parent().restore_focus()
+    #    super().focusInEvent(event)
 
         
