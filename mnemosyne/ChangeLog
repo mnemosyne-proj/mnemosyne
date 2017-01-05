@@ -1,3 +1,10 @@
+Mnemosyne 2.4.1 :
+
+-Fix autoscaling sometimes not working under Linux.
+-Fix error related missing idna encoding when starting server 
+ (reported by Andrea Giordano).
+-Fix encoding problems with tsv import (reported by register2).
+
 Mnemosyne 2.4 : 2016-12-05
 
 -Upgraded all code to Python3 and PyQt5, so that Mnemosyne no longer

@@ -1,29 +1,16 @@
-2.4.1:
-
-- fix autoscaling sometimes not working under Linux.
-- fix error related missing idna encoding when starting server 
-  (reported by Andrea Giordano).
-
-
 bugreports:
 
 
-- crammingplugin stevengeorg
-- upgrade to latest Qt version? DuncansionTaylor
+-crammingplugin stevengeorg
+-check translations
+-upgrade to latest Qt version? DuncansionTaylor
 -progress bar does not close after sync (launchpad)
 -missing windows dll
--osx packaging issues dan schmidt
 -headless server resets password (launchpad)
 -location of add cards window saved? (mail David Schuler)
 -keyboard focus lost? Jan Egil Hagen
 
 -when activating prefill tag plugin, checkbox does not update immediately
-
-Android:
-
-- unicode error strftime --> syncing problems abacus
-- Nicolas Powell error
-
 
 -update install instructions linux, windows devel
 
@@ -37,6 +24,7 @@ Android:
 -menu button after app goes to background
 -order of question with 3 buttons (e.g. sync conflict)
 -pybridge: don't extract individual assets but extract zip file? Faster?
+-'Nicolas Powell' error: different Python backend?
 
 
 -memrise import seems to mess up scheduling after sync?

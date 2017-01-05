@@ -34,7 +34,7 @@ class Tsv(FileFormat, MediaPreprocessor):
     def do_import(self, filename, extra_tag_names=None):
         FileFormat.do_import(self, filename, extra_tag_names)
         try:
-            f = open(filename)
+            f = open(filename, encoding="utf-8")
         except:
             self.main_widget().show_error(_("Could not load file."))
             return
