@@ -1,7 +1,6 @@
 bugreports:
 
 
--crammingplugin stevengeorg
 -check translations
 -upgrade to latest Qt version? DuncansionTaylor
 -progress bar does not close after sync (launchpad)

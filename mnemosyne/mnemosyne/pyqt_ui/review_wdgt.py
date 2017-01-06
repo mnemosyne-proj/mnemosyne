@@ -286,7 +286,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         self.setTabOrder(self.grade_4_button, self.grade_5_button)
         self.setTabOrder(self.grade_5_button, self.grade_0_button)
         self.setTabOrder(self.grade_0_button, self.grade_1_button)
-        #self.focus_widget = None
+        self.focus_widget = None
         self.sched = QtWidgets.QLabel("", parent.status_bar)
         self.notmem = QtWidgets.QLabel("", parent.status_bar)
         self.act = QtWidgets.QLabel("", parent.status_bar)
@@ -416,16 +416,16 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
     def set_question_label(self, text):
         self.question_label.setText(text)
 
-    #def restore_focus(self):
+    def restore_focus(self):
         # After clicking on the question or the answer, that widget grabs the
         # focus, so that the keyboard shortcuts no longer work. This functions
         # is used to set the focus back to the correct widget.
         #
         # TODO: doesn't seem to be called anymore?
-        #print("restore focus")
-        #if self.focus_widget:
-        #    self.focus_widget.setDefault(True)
-        #    self.focus_widget.setFocus()
+        print("restore focus")
+        if self.focus_widget:
+            self.focus_widget.setDefault(True)
+            self.focus_widget.setFocus()
 
     def update_show_button(self, text, is_default, is_enabled):
         self.show_button.setText(text)
@@ -433,7 +433,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         if is_default:
             self.show_button.setDefault(True)
             self.show_button.setFocus()
-            #self.focus_widget = self.show_button
+            self.focus_widget = self.show_button
 
     def set_grades_enabled(self, is_enabled):
         self.grades.setEnabled(is_enabled)
@@ -449,7 +449,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
                 self.grade_buttons.button(grade_i).setDefault(False)
             self.grade_buttons.button(grade).setDefault(True)
             self.grade_buttons.button(grade).setFocus()
-            #self.focus_widget = self.grade_buttons.button(grade)
+            self.focus_widget = self.grade_buttons.button(grade)
 
     def set_grades_title(self, text):
         self.grades.setTitle(text)
