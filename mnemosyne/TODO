@@ -1,7 +1,9 @@
 bugreports:
 
 
+-MarcoP encoding issue?
 -check translations
+-check effect of mutex on Android bug
 -upgrade to latest Qt version? DuncansionTaylor
 -progress bar does not close after sync (launchpad)
 -missing windows dll
