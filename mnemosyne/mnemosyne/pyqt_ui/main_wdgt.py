@@ -46,12 +46,12 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
         state = self.config()["main_window_state"]
         if state:
             self.restoreGeometry(state)
+        self.start_review()
+        self.retranslateUi(self)
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.controller_heartbeat)
         self.timer.start(1000)  # 1 sec.
-        self.start_review()
-        self.retranslateUi(self)
-
+        
     def controller_heartbeat(self):
         # Need late binding to allow for inheritance.
         self.controller().heartbeat()

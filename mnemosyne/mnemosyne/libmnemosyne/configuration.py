@@ -241,14 +241,19 @@ class Configuration(Component, dict):
         
     def save(self):
         with self.lock:
+            #self.component_manager.android.Log("Mnemosyne", "About to save config")
             filename = os.path.join(self.config_dir, "config.db")
             con = sqlite3.connect(filename)      
             # Make sure the entries exist.
-            con.executemany("insert or ignore into config(key, value) values(?,?)", 
-                ((key, repr(value)) for key, value in self.items()))
-            # Make sure they have the right data.
-            con.executemany("update config set value=? where key=?",
-                ((repr(value), key) for key, value in self.items())) 
+            try:
+                con.executemany("insert or ignore into config(key, value) values(?,?)", 
+                    ((key, repr(value)) for key, value in self.items()))
+                # Make sure they have the right data.
+                con.executemany("update config set value=? where key=?",
+                    ((repr(value), key) for key, value in self.items()))
+            except Exception as e:
+                pass
+                #self.component_manager.android.Log("Mnemosyne", str(e))             
             con.commit()      
             con.close()
 

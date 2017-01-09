@@ -173,19 +173,15 @@ hiddenimports = [
 ]
 
 if sys.platform == "win32":
-             datas.append(("C:\\Program Files (x86)\\mplayer.exe", "."))
-             
-             # Note: PyQt5.7 does not yet seem to be supported by pyinstaller
-             # Also need to use the dev version of pyinstaller
+             datas.append(("C:\\Program Files (x86)\\mplayer.exe", "."))     
+             # Note: need to use the dev version of pyinstaller
              #     pip install -e https://github.com/pyinstaller/pyinstaller/archive/develop.zip
-             # There are some missing files that are not picked up on.
-             
+             # There are also some missing files that are not picked up on.            
              if my_fixes:
                           pyqt_dir = "C:\\Program Files (x86)\\Python35-32\\Lib\\site-packages\\PyQt5\\"
-                          datas.append((pyqt_dir + "QtWebEngineProcess.exe", "."))
                           datas.append((pyqt_dir + "QtWebEngineCore.pyd", "."))
-                          datas.append((pyqt_dir + "resources\\*", "."))
-             
+                          datas.append((pyqt_dir + "Qt\\resources\\*", "."))
+                          datas.append((pyqt_dir + "Qt\\bin\\*", "."))
              excludes = ['IPython', 'lib2to3']
 
 if sys.platform == "darwin":

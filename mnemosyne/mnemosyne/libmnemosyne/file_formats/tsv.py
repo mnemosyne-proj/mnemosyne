@@ -99,7 +99,7 @@ class Tsv(FileFormat, MediaPreprocessor):
         number_of_cards = db.active_count()
         w.set_progress_range(number_of_cards)
         w.set_progress_update_interval(number_of_cards/50)
-        outfile = open(filename, "w")
+        outfile = open(filename, "w", encoding="utf-8")
         for _card_id, _fact_id in db.active_cards():
             card = db.card(_card_id, is_id_internal=True)
             q = self.process_string_for_text_export(\
