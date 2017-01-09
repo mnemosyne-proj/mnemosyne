@@ -1,7 +1,17 @@
 Mnemosyne 2.4.1 :
 
+(Note: if you run into problems related to missing api-ms-win-crt-runtime-l1-1-0-dll
+make sure your machine has the latest Windows patches and/or download this:
+
+https://www.microsoft.com/en-us/download/details.aspx?id=48145
+
+This might also help with other hard crashes.)
+
+
 -Fix broken cramming plugin (reported by stevengeorg) 
--Fix encoding problems with import (reported by register2 and MarcoP).
+-Fix encoding problems with import and export (reported by register2, 
+ MarcoP, abacus).
+-Fix removing tags through card browser (reported by bvauquelin).
 -Fix autoscaling sometimes not working under Linux.
 -Fix error related missing idna encoding when starting server 
  (reported by Andrea Giordano).
@@ -20,6 +30,7 @@ Mnemosyne 2.4 : 2016-12-05
 -Tag combobox now expands to give suggestions for tags also when using more
  than one tag (patch by Emilian Mihalache)
 
+
 Android 20160502:
 
 -Upgraded backend to Mnemosyne 2.3.6, meaning that logs older than 1 year
@@ -30,6 +41,7 @@ Android 20160502:
 -Implemented full screen immersive mode for Android KitKat and higher.
 -Buttons are now in the middle of the screen to better facilitate
  ergonomic one-handed operation.
+
 
 Mnemosyne 2.3.6 : 2016-05-02
 

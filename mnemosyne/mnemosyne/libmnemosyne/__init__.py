@@ -266,6 +266,8 @@ class Mnemosyne(Component):
 
         """
         
+        if hasattr(self, "android"):  # To help with debugging.
+            self.component_manager.android = self.android
         # Activate config and inject necessary settings.
         try:
             self.component_manager.current("config").activate()

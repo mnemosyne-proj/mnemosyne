@@ -673,7 +673,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         # from the dialog.
         return_values = {}
         from mnemosyne.pyqt_ui.remove_tags_dlg import RemoveTagsDlg
-        dlg = RemoveTagsDlg(self, tags, return_values)
+        dlg = RemoveTagsDlg(tags, return_values, parent=self)
         if dlg.exec_() != QtWidgets.QDialog.Accepted:
             return
         # Remove the tags.
