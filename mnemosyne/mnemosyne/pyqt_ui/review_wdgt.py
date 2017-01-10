@@ -299,10 +299,15 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         self.question.selectionChanged.connect(self.selection_changed_in_q)
         self.answer.selectionChanged.connect(self.selection_changed_in_a)
         self.mplayer = QtCore.QProcess()
-        self.media_queue = []       
+        self.media_queue = [] 
+        self.setFocusPolicy(QtCore.Qt.StrongFocus)
         
     def deactivate(self):
         self.stop_media()
+           
+    def focusInEvent(self, event):
+        self.restore_focus()
+        super().focusInEvent(event)    
 
     def changeEvent(self, event):
         if hasattr(self, "show_button"):
@@ -420,9 +425,6 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         # After clicking on the question or the answer, that widget grabs the
         # focus, so that the keyboard shortcuts no longer work. This functions
         # is used to set the focus back to the correct widget.
-        #
-        # TODO: doesn't seem to be called anymore?
-        print("restore focus")
         if self.focus_widget:
             self.focus_widget.setDefault(True)
             self.focus_widget.setFocus()
