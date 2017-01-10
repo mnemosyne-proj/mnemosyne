@@ -7,11 +7,14 @@ https://www.microsoft.com/en-us/download/details.aspx?id=48145
 
 This might also help with other hard crashes.)
 
-
+-Updated to the latest released Qt libraries.
 -Fix broken cramming plugin (reported by stevengeorg) 
 -Fix encoding problems with import and export (reported by register2, 
  MarcoP, abacus).
+-Make configuration storing more thread-safe. 
 -Fix removing tags through card browser (reported by bvauquelin).
+-Fix loss of keyboard focus when switching back to the main window
+ (reported by Jan Egil Hagen and Dan Schmidt).
 -Fix autoscaling sometimes not working under Linux.
 -Fix error related missing idna encoding when starting server 
  (reported by Andrea Giordano).

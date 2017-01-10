@@ -14,12 +14,30 @@
    <string/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_5">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
     <layout class="QVBoxLayout" name="vertical_layout">
-     <property name="margin">
+     <property name="leftMargin">
+      <number>9</number>
+     </property>
+     <property name="topMargin">
+      <number>9</number>
+     </property>
+     <property name="rightMargin">
+      <number>9</number>
+     </property>
+     <property name="bottomMargin">
       <number>9</number>
      </property>
      <item>
@@ -32,7 +50,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QWebEngineView2" name="question">
+        <widget class="QWebEngineView2" name="question" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -45,10 +63,13 @@
            <height>50</height>
           </size>
          </property>
+         <property name="focusPolicy">
+          <enum>Qt::StrongFocus</enum>
+         </property>
          <property name="acceptDrops">
           <bool>false</bool>
          </property>
-         <property name="url">
+         <property name="url" stdset="0">
           <url>
            <string>about:blank</string>
           </url>
@@ -67,7 +88,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QWebEngineView2" name="answer">
+        <widget class="QWebEngineView2" name="answer" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -80,10 +101,13 @@
            <height>50</height>
           </size>
          </property>
+         <property name="focusPolicy">
+          <enum>Qt::StrongFocus</enum>
+         </property>
          <property name="acceptDrops">
           <bool>false</bool>
          </property>
-         <property name="url">
+         <property name="url" stdset="0">
           <url>
            <string>about:blank</string>
           </url>
@@ -111,15 +135,15 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <widget class="QPushButton2" name="grade_0_button">
-            <property name="text">
+           <widget class="QPushButton2" name="grade_0_button" native="true">
+            <property name="text" stdset="0">
              <string>0</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton2" name="grade_1_button">
-            <property name="text">
+           <widget class="QPushButton2" name="grade_1_button" native="true">
+            <property name="text" stdset="0">
              <string>1</string>
             </property>
            </widget>
@@ -132,29 +156,29 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton2" name="grade_2_button">
-            <property name="text">
+           <widget class="QPushButton2" name="grade_2_button" native="true">
+            <property name="text" stdset="0">
              <string>2</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton2" name="grade_3_button">
-            <property name="text">
+           <widget class="QPushButton2" name="grade_3_button" native="true">
+            <property name="text" stdset="0">
              <string>3</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton2" name="grade_4_button">
-            <property name="text">
+           <widget class="QPushButton2" name="grade_4_button" native="true">
+            <property name="text" stdset="0">
              <string>4</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton2" name="grade_5_button">
-            <property name="text">
+           <widget class="QPushButton2" name="grade_5_button" native="true">
+            <property name="text" stdset="0">
              <string>5</string>
             </property>
            </widget>

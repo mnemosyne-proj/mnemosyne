@@ -4,14 +4,7 @@ Bug reports:
 
 -check effect of mutex on Android bug
 
--upgrade to latest Qt version? DuncansionTaylor
-
-reenable all components in make windows-installer
-
-   -progress bar does not close after sync (launchpad)
-   -missing windows dll: api-ms-win-crt-runtime-l1-1-0-dll
-   
--keyboard focus lost? Jan Egil Hagen
+-progress bar does not close after sync (launchpad, Ubuntu bug?)
 
 -MarcoP encoding issue on import? probably solved
 -headless server resets password (launchpad): fixed with mutex?
@@ -19,6 +12,7 @@ reenable all components in make windows-installer
 
 
 Android:
+-keep phone awake during initial sync? http://stackoverflow.com/questions/13209518/disable-sleep-on-certain-activity
 -disk io error not detected?
 -setting temporary sqlite folder location
 -reenable archiving of old logs
@@ -26,9 +20,7 @@ Android:
 -precompile python files
 -order of question with 3 buttons (e.g. sync conflict)
 -pybridge: don't extract individual assets but extract zip file? Faster?
--keep phone awake during initial sync? http://stackoverflow.com/questions/13209518/disable-sleep-on-certain-activity
 -'Nicolas Powell' error: different Python backend?
-
 
 
 -when activating prefill tag plugin, checkbox does not update immediately
@@ -36,7 +28,6 @@ Android:
 -memrise import seems to mess up scheduling after sync?
 -when adding cards through API, missing media tag does not show up?
 
--sync no longer seems to respect changes in active set?
 -rename plugin folder?
 -import/export dialog alignment does not look nice
 -test: text <audio> text
