@@ -18,7 +18,7 @@ class Upgrade3(Component):
             return
         import pickle
         old_config_file = \
-            file(os.path.join(self.config().config_dir, "config"), "rb")
+            open(os.path.join(self.config().config_dir, "config"), "rb")
         try:    
             for key, value in pickle.load(old_config_file).items():
                 if key not in ["import_format", "export_format"]:

@@ -15,9 +15,13 @@ This might also help with other hard crashes.)
 -Fix removing tags through card browser (reported by bvauquelin).
 -Fix loss of keyboard focus when switching back to the main window
  (reported by Jan Egil Hagen and Dan Schmidt).
+-Fixed crash in card browser when working with forbidden tags 
+ (reported by Benjamin Brueck). 
 -Fix autoscaling sometimes not working under Linux.
 -Fix error related missing idna encoding when starting server 
  (reported by Andrea Giordano).
+-Fix error related to upgrading from very old databases (reported by 
+ David Schuler) 
 
 
 Mnemosyne 2.4 : 2016-12-05

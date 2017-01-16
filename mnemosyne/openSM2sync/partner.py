@@ -32,6 +32,7 @@ class Partner(object):
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)
+        print("download binary file:" + filename)
         downloaded_file = open(filename, "wb")
         if progress_bar:
             self.ui.set_progress_range(file_size)

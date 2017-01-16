@@ -31,7 +31,7 @@ run: build
 build:
 	# Just the bare minimum to get things running
 	cd mnemosyne/pyqt_ui && make
-	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc	
+	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc
 	
 build-all-deps:
 	# Also rebuilds the docs and the translations.
