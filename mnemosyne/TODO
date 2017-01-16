@@ -1,8 +1,17 @@
+Remove traceback (2x) from login, sqlite.load
+remove a few android debug statements
+
+opening db file with media dir does not work
+
 Bug reports:
 
--MarcoP: unable to load file, query failed (google groups reply). Check database myself. Add lock?
+-abacus: sync error: add workaround to format latex files: \storage   _latex : replace \\ by /. Pathlib?  
+-appcrash duncantaylor
 
--check effect of mutex on Android bug
+-(MarcoP)/duncantaylor: unable to load file, query failed (google groups reply). Check database myself. Add lock?
+try aspw for Win7 'none' result?
+
+-blank window: bt69ady@gmail.com
 
 -progress bar does not close after sync (launchpad, Ubuntu bug?)
 
@@ -10,21 +19,26 @@ Bug reports:
 -headless server resets password (launchpad): fixed with mutex?
 -location of add cards window saved? (mail David Schuler): fixed with mutex?
 
+dont archive on first run, scares off Android users
 
 Android:
 -keep phone awake during initial sync? http://stackoverflow.com/questions/13209518/disable-sleep-on-certain-activity
 -disk io error not detected?
 -setting temporary sqlite folder location
 -reenable archiving of old logs
+-'Nicolas Powell' error: wait for new sqlite version
+
+------------------------------
+
+Android tweaks:
 -decrease size of python library
 -precompile python files
 -order of question with 3 buttons (e.g. sync conflict)
 -pybridge: don't extract individual assets but extract zip file? Faster?
--'Nicolas Powell' error: different Python backend?
-
 
 -when activating prefill tag plugin, checkbox does not update immediately
 -update install instructions linux, windows devel
+
 -memrise import seems to mess up scheduling after sync?
 -when adding cards through API, missing media tag does not show up?
 
@@ -44,7 +58,6 @@ Android:
 
 server.py imports from libmnemosyne.utils
 
-dont archive on first run, scares off Android users
 
 Qt's own translation
 

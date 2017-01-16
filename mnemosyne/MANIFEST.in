@@ -4,4 +4,4 @@ include mnemosyne/example_plugins/*.py mnemosyne/example_plugins/README
 include mnemosyne/example_scripts/*.py mnemosyne/example_scripts/README
 include mnemosyne/pyqt_ui/pixmaps/* pixmaps/*
 recursive-include mo *
-recursive-include mnemosyne/libmnemosyne/docs/build/html *
+recursive-include mnemosyne/libmnemosyne/docs/ *

@@ -148,6 +148,10 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.file_formats.cuecard_wcu",
           "CuecardWcu")]
         self.extra_components_for_plugin = {}
+        
+    def android_log(self, message):
+        if hasattr(self, "android"):
+            self.android.Log("Mnemosyne", message)        
 
     def handle_exception(self, type, value, tb):        
         body = "An unexpected error has occurred.\n" + \
@@ -156,10 +160,7 @@ class Mnemosyne(Component):
         list = traceback.format_tb(tb, limit=None) + \
                traceback.format_exception_only(type, value)
         body = body + "%-20s %s" % ("".join(list[:-1]), list[-1])
-        
-        if hasattr(self, "android"):
-            self.android.Log("Mnemosyne", body)
-        
+        self.android_log(body)
         try:
             if sys.platform != "win32":
                 sys.stderr.write(body)
@@ -266,8 +267,8 @@ class Mnemosyne(Component):
 
         """
         
-        if hasattr(self, "android"):  # To help with debugging.
-            self.component_manager.android = self.android
+        # Help with debugging under Android.  
+        self.component_manager.android_log = self.android_log
         # Activate config and inject necessary settings.
         try:
             self.component_manager.current("config").activate()
@@ -333,8 +334,10 @@ class Mnemosyne(Component):
         try:
             if not os.path.exists(path):
                 try:
+                    self.component_manager.android_log("Creating new database") 
                     self.database().new(path)
-                except:
+                except Exception as e:
+                    self.component_manager.android_log(traceback_string()) 
                     from mnemosyne.libmnemosyne.translator import _
                     raise RuntimeError(_("Previous drive letter no longer available."))
             else:
@@ -342,17 +345,23 @@ class Mnemosyne(Component):
             self.controller().update_title()
         except RuntimeError as e:
             from mnemosyne.libmnemosyne.translator import _
+            self.component_manager.android_log(traceback_string())
             self.main_widget().show_error(str(e))
             self.main_widget().show_information(\
 _("If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."))
+            # Try to open a new database, but not indefinitely, otherwise this
+            # could turn a crash into a much nastier one on Android.
             success = False
-            while not success:
+            counter = 0
+            while not success and counter <= 5:
+                counter += 1  
                 try:
                     self.database().abandon()
                     self.controller().show_open_file_dialog()
                     success = True
                 except RuntimeError as e:
                     self.main_widget().show_error(str(e))
+                    self.component_manager.android_log(traceback_string())
 
     def finalise(self):
         # Deactivate the sync server first, so that we make sure it reverts

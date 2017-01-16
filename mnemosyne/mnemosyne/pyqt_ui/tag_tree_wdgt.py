@@ -226,7 +226,7 @@ class TagsTreeWdgt(Component, QtWidgets.QWidget):
         self.create_tree(self.tag_tree[node], qt_parent=root_item)
         # Set forbidden tags.
         if len(criterion._tag_ids_forbidden):
-            for i in range(len(node_items)):
+            for i in range(len(self.node_items)):
                 node_item = self.node_items[i]
                 tag = self.tag_for_node_item[i]
                 if tag._id in criterion._tag_ids_forbidden:

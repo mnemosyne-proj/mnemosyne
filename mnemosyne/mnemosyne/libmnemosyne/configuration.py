@@ -96,7 +96,7 @@ class Configuration(Component, dict):
         self.load()
         self.load_user_config()
         self.set_defaults()
-
+   
     def set_defaults(self):
 
         """Fill the config with default values.  Is called after every load,
@@ -208,17 +208,27 @@ class Configuration(Component, dict):
 
     def load(self):
         filename = os.path.join(self.config_dir, "config.db")
-        con = sqlite3.connect(filename)
         # Create database tables if needed.
-        is_new = (con.execute("""select count() from sqlite_master where 
-            type='table' and name='config';""").fetchone()[0] == 0)
-        if is_new:
-            con.executescript("""
-            create table config(
-                key text primary key,
-                value text
-            );""")
-            con.commit()
+        with self.lock:
+            self.component_manager.android_log("About to check if config exists " + filename)
+            try:
+                con = sqlite3.connect(filename)
+                is_new = (con.execute(\
+                    """select count() from sqlite_master where 
+                    type='table' and name='config';""").fetchone()[0] == 0)
+            except Exception as e:
+                self.component_manager.android_log(traceback_string())                  
+            if is_new:
+                self.component_manager.android_log("About to create config")
+                try:
+                    con.executescript("""
+                    create table config(
+                        key text primary key,
+                        value text
+                    );""")
+                    con.commit()
+                except Exception as e:
+                    self.component_manager.android_log(traceback_string())    
         # Quick-and-dirty system to allow us to instantiate GUI variables
         # from the config db. The alternatives (e.g. having the frontend pass
         # along modules to import) seem to be much more verbose and quirky.
@@ -236,26 +246,38 @@ class Configuration(Component, dict):
             except:
                 # This can fail if we are running headless now after running
                 # the GUI previously.
-                pass       
-        con.close()
+                pass
+        with self.lock:
+            self.component_manager.android_log("About to commit")
+            try:        
+                con.commit()
+            except Exception as e:
+                self.component_manager.android_log(traceback_string())      
+        con.close()        
         
     def save(self):
         with self.lock:
-            #self.component_manager.android.Log("Mnemosyne", "About to save config")
+            self.component_manager.android_log("About to save config")
             filename = os.path.join(self.config_dir, "config.db")
             con = sqlite3.connect(filename)      
             # Make sure the entries exist.
             try:
-                con.executemany("insert or ignore into config(key, value) values(?,?)", 
+                con.executemany\
+                    ("insert or ignore into config(key, value) values(?,?)", 
                     ((key, repr(value)) for key, value in self.items()))
                 # Make sure they have the right data.
                 con.executemany("update config set value=? where key=?",
                     ((repr(value), key) for key, value in self.items()))
             except Exception as e:
-                pass
-                #self.component_manager.android.Log("Mnemosyne", str(e))             
-            con.commit()      
-            con.close()
+                self.component_manager.android_log(traceback_string())               
+        with self.lock:
+            self.component_manager.android_log("About to commit")
+            try:        
+                con.commit()
+            except Exception as e:
+                self.component_manager.android_log(traceback_string())             
+            con.commit()    
+        con.close()
 
     def determine_dirs(self):  # pragma: no cover        
         # If the config dir was already set by the user, use that.

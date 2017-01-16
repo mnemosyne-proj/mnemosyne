@@ -14,6 +14,7 @@ First install the following dependencies:
 -EasyInstall (http://peak.telecommunity.com/DevCenter/EasyInstall)
 -CherryPy 3.2 or later (http://www.cherrypy.org)
 -Webob 1.4 or later (http://webob.org)
+-PIL (https://python-pillow.org, pip3 install pillow)
 
 To actually install mnemosyne:
 -Extraxt the .tar.gz file and change to its root directory (i.e.
