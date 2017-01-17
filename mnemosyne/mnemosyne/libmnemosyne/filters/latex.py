@@ -60,7 +60,7 @@ class Latex(Filter):
         rel_filename = "_latex" + "/" + img_name  # To be stored in database.
         if not os.path.exists(filename):
             if not os.path.exists(latex_dir):
-                os.mkdir(latex_dir)
+                os.makedirs(latex_dir)
             previous_dir = os.getcwd()
             os.chdir(latex_dir)
             if os.path.exists("tmp1.png"):

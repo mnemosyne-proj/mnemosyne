@@ -4,6 +4,7 @@
 
 import os
 import re
+from pathlib import Path
 try:
     from hashlib import md5
 except ImportError:
@@ -60,18 +61,10 @@ media_dir + ".\n" + _("Check your file permissions and make sure the directory i
 
         """
 
-        filename = os.path.join(self.media_dir(), os.path.normcase(filename))
+        filename = str(Path(os.path.join(self.media_dir(), filename)))
         if not os.path.exists(filename):
             return "0"
-        
-        media_file = open(filename, "rb")
-        
-        #try:
-        #    media_file = file(filename, "rb")
-        #except UnicodeEncodeError:  # Android specific issue.
-        #    media_file = file(filename.encode("utf-8"), "rb")
-                
-            
+        media_file = open(filename, "rb")      
         hasher = md5()
         while True:
             buffer = media_file.read(8096)
@@ -89,7 +82,7 @@ media_dir + ".\n" + _("Check your file permissions and make sure the directory i
         # Regular media files.
         new_hashes = {}
         for sql_res in self.con.execute("select filename, _hash from media"):
-            filename, hash = sql_res[0], sql_res[1]
+            filename, hash = str(Path(sql_res[0])), sql_res[1]
             if not os.path.exists(expand_path(filename, self.media_dir())):
                 continue
             new_hash = self._media_hash(filename)
