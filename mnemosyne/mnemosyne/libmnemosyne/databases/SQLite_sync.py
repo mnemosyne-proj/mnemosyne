@@ -8,6 +8,7 @@ import os
 import re
 import time
 import sqlite3
+from pathlib import Path
 
 from openSM2sync.log_entry import LogEntry
 from openSM2sync.log_entry import EventTypes
@@ -185,7 +186,8 @@ class SQLiteSync(object):
             """select object_id from log where _id>? and (event_type=? or
             event_type=?)""", (_id, EventTypes.ADDED_MEDIA_FILE,
             EventTypes.EDITED_MEDIA_FILE))]:
-            if os.path.exists(expand_path(filename, self.media_dir())):
+            if os.path.exists(\
+                str(Path(expand_path(filename, self.media_dir())))):
                 filenames.add(filename)                
         return filenames
 
@@ -664,7 +666,7 @@ class SQLiteSync(object):
         """
 
         filename = log_entry["fname"]
-        full_path = expand_path(filename, self.media_dir())
+        full_path = str(Path(expand_path(filename, self.media_dir())))
         if os.path.exists(full_path):
             self.con.execute("""insert or replace into media(filename, _hash)
                 values(?,?)""", (filename, self._media_hash(filename)))

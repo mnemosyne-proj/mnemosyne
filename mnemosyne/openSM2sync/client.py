@@ -177,7 +177,7 @@ class Client(Partner):
                 self.ui.show_error("Could not find server!")
                 serious = False
             elif type(exception) == type(socket.error()):
-                self.ui.show_error("Could not connect to server!" + traceback_string())
+                self.ui.show_error("Could not connect to server!")
                 serious = False
             elif type(exception) == type(socket.timeout()):
                 self.ui.show_error("Timeout while waiting for server!")
@@ -300,7 +300,7 @@ class Client(Partner):
             response = self.con.getresponse()
         except Exception as e:
             print(e)
-            raise SyncError("Could not connect to server!" + traceback_string())
+            raise SyncError("Could not connect to server!")
         # Check for errors, but don't force a restore from backup if we can't
         # login.
         try:

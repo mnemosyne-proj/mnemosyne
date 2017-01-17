@@ -266,7 +266,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         """
 
         if self._connection:
-            self.component_manager.android_log("release connection")
             self._connection.commit()
             self._connection.close()
             self._connection = None
@@ -305,43 +304,37 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self.main_widget().close_progress()
 
     def new(self, path):
-        self.component_manager.android_log("About to create new database")
-        try:
-            self.unload()
-            self._path = expand_path(path, self.config().data_dir)
-            if os.path.exists(self._path):
-                os.remove(self._path)
-            self.create_media_dir_if_needed()
-            # Create tables.
-            self.component_manager.android_log("About to create tables " + self._path)
-            if self.store_pregenerated_data:
-                self.con.executescript(\
-                    SCHEMA.substitute(pregenerated_data=pregenerated_data))
-            else:
-                self.con.executescript(\
-                    SCHEMA.substitute(pregenerated_data=""))
-            self.con.execute(\
-                "insert into global_variables(key, value) values(?,?)",
-                ("version", self.version))
-            self.con.execute("""insert into partnerships(partner, _last_log_id)
-                values(?,?)""", ("log.txt", 0))
-            self.config()["last_database"] = \
-                contract_path(self._path, self.config().data_dir)
-            # Create __UNTAGGED__ tag.
-            tag = Tag("__UNTAGGED__", "__UNTAGGED__")
-            self.add_tag(tag)
-            # Create default criterion.
-            from mnemosyne.libmnemosyne.criteria.default_criterion import \
-                 DefaultCriterion
-            self._current_criterion = DefaultCriterion(self.component_manager)
-            self._current_criterion._id = 1
-            self._current_criterion.id = "__DEFAULT__"
-            self._current_criterion.name = self.default_criterion_name
-            self._current_criterion._tag_ids_active.add(tag._id)
-            self.add_criterion(self._current_criterion)
-            self.component_manager.android_log("database created")
-        except Exception as e:
-            self.component_manager.android_log(traceback_string())         
+        self.unload()
+        self._path = expand_path(path, self.config().data_dir)
+        if os.path.exists(self._path):
+            os.remove(self._path)
+        self.create_media_dir_if_needed()
+        # Create tables.
+        if self.store_pregenerated_data:
+            self.con.executescript(\
+                SCHEMA.substitute(pregenerated_data=pregenerated_data))
+        else:
+            self.con.executescript(\
+                SCHEMA.substitute(pregenerated_data=""))
+        self.con.execute(\
+            "insert into global_variables(key, value) values(?,?)",
+            ("version", self.version))
+        self.con.execute("""insert into partnerships(partner, _last_log_id)
+            values(?,?)""", ("log.txt", 0))
+        self.config()["last_database"] = \
+            contract_path(self._path, self.config().data_dir)
+        # Create __UNTAGGED__ tag.
+        tag = Tag("__UNTAGGED__", "__UNTAGGED__")
+        self.add_tag(tag)
+        # Create default criterion.
+        from mnemosyne.libmnemosyne.criteria.default_criterion import \
+             DefaultCriterion
+        self._current_criterion = DefaultCriterion(self.component_manager)
+        self._current_criterion._id = 1
+        self._current_criterion.id = "__DEFAULT__"
+        self._current_criterion.name = self.default_criterion_name
+        self._current_criterion._tag_ids_active.add(tag._id)
+        self.add_criterion(self._current_criterion)     
 
     def load(self, path):
         if self.is_loaded():
@@ -354,7 +347,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             sql_res = self.con.execute("""select value from global_variables
                 where key=?""", ("version", )).fetchone()
         except:
-            raise RuntimeError(_("Unable to load file at") + " " + self._path + traceback_string())
+            raise RuntimeError(_("Unable to load file at") + " " + self._path)
         if sql_res is None:
             raise RuntimeError(_("Unable to load file, query failed."))
         if sql_res[0] != self.version:
@@ -474,7 +467,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
 
     def unload(self):
         if not self._connection:
-            self.component_manager.android_log("no need to unload")
             return
         # Unregister card types in this database.
         for cursor in self.con.execute("select id from card_types"):

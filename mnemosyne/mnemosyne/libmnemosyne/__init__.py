@@ -334,10 +334,8 @@ class Mnemosyne(Component):
         try:
             if not os.path.exists(path):
                 try:
-                    self.component_manager.android_log("Creating new database") 
                     self.database().new(path)
                 except Exception as e:
-                    self.component_manager.android_log(traceback_string()) 
                     from mnemosyne.libmnemosyne.translator import _
                     raise RuntimeError(_("Previous drive letter no longer available."))
             else:
@@ -345,7 +343,6 @@ class Mnemosyne(Component):
             self.controller().update_title()
         except RuntimeError as e:
             from mnemosyne.libmnemosyne.translator import _
-            self.component_manager.android_log(traceback_string())
             self.main_widget().show_error(str(e))
             self.main_widget().show_information(\
 _("If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."))
@@ -361,7 +358,6 @@ _("If you are using a USB key, refer to the instructions on the website so as no
                     success = True
                 except RuntimeError as e:
                     self.main_widget().show_error(str(e))
-                    self.component_manager.android_log(traceback_string())
 
     def finalise(self):
         # Deactivate the sync server first, so that we make sure it reverts

@@ -1,21 +1,12 @@
-Remove traceback (2x) from login, sqlite.load
-remove a few android debug statements
-
-opening db file with media dir does not work
-
 Bug reports:
 
--abacus: sync error: add workaround to format latex files: \storage   _latex : replace \\ by /. Pathlib?  
--appcrash duncantaylor
-
--(MarcoP)/duncantaylor: unable to load file, query failed (google groups reply). Check database myself. Add lock?
-try aspw for Win7 'none' result?
+-abacus/duncantaylor (mail 2x): sync error: add workaround to format latex files: \storage   _latex : replace \\ by /. Pathlib?  
 
 -blank window: bt69ady@gmail.com
 
 -progress bar does not close after sync (launchpad, Ubuntu bug?)
 
--MarcoP encoding issue on import? probably solved
+
 -headless server resets password (launchpad): fixed with mutex?
 -location of add cards window saved? (mail David Schuler): fixed with mutex?
 
@@ -26,7 +17,7 @@ Android:
 -disk io error not detected?
 -setting temporary sqlite folder location
 -reenable archiving of old logs
--'Nicolas Powell' error: wait for new sqlite version
+-'Nicolas Powell' error: wait for new sqlite version, disable arm64-v8a
 
 ------------------------------
 
@@ -55,6 +46,8 @@ Android tweaks:
  to go back to an expansion on a
  
 -archive files wont download from dot_test to android
+
+-OSX: move database location out of iSync?
 
 server.py imports from libmnemosyne.utils
 
@@ -115,12 +108,12 @@ to  "last_db_maintenance": time.time() ?
  
 - disable latex version check in testsuite 
  
--Migrate to Python 3 and starcore 2.5 http://www.srplab.com/data/starcore_for_android.2.5.0.zip
+-note: sync from a to b and then to c adds latex files to the media table. Is this a
+ problem?
 
 -rework make windows-installer so as not to require keypress, so that it can be used from
  qtconsole
- 
--migrate to http://www.pyinstaller.org/
+
 
 -better in dialog explanation for hold n cards in your hand?
 
