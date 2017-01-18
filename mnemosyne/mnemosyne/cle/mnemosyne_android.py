@@ -103,6 +103,13 @@ def start_mnemosyne(data_dir, filename, wrapper):
     mnemosyne.component_manager.android = wrapper
     mnemosyne.start_review()
     
+    path_1 = "/a/b"
+    path_2 = "\\a\\b"
+    from mnemosyne.libmnemosyne.utils import normalise_path
+    mnemosyne.main_widget().show_information(\
+        path_1 + "-->" + normalise_path(path_1) + "\n" + \
+        path_2 + "-->" + normalise_path(path_2))
+    
 def pause_mnemosyne():
     mnemosyne.database().save()
     mnemosyne.config().save()

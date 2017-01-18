@@ -47,3 +47,15 @@ def rand_uuid():
         uuid += chars[int(rand() * 62.0 - 1)]
     return uuid
 
+
+def normalise_path(path):
+    
+    """Make sure the correct types of slashes are used. 
+    'pathlib' itself turns out to be not sufficient for that. 
+    
+    """
+    
+    if os.name == "posix":
+        return path.replace("\\", "/")
+    else:
+        return path.replace("/", "\\")

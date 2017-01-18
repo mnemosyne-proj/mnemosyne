@@ -2,6 +2,9 @@ Bug reports:
 
 -abacus/duncantaylor (mail 2x): sync error: add workaround to format latex files: \storage   _latex : replace \\ by /. Pathlib?  
 
+(remove 2 debug statements in could not connect to server)
+try and make sure this shows a traceback next time?
+
 -blank window: bt69ady@gmail.com
 
 -progress bar does not close after sync (launchpad, Ubuntu bug?)
@@ -32,6 +35,8 @@ Android tweaks:
 
 -memrise import seems to mess up scheduling after sync?
 -when adding cards through API, missing media tag does not show up?
+
+-sister card not automatically updated when pg-dwn through card browser?
 
 -rename plugin folder?
 -import/export dialog alignment does not look nice

@@ -141,6 +141,19 @@ def expand_path(path, start):
         return os.path.normpath(os.path.join(start, path))
 
 
+def normalise_path(path):
+    
+    """Make sure the correct types of slashes are used. 
+    'pathlib' itself turns out to be not sufficient for that. 
+    
+    """
+    
+    if os.name == "posix":
+        return path.replace("\\", "/")
+    else:
+        return path.replace("/", "\\")
+
+
 def copy_file_to_dir(filename, dirname):
 
     """If the file is not in the directory, copy it there. Return the relative
