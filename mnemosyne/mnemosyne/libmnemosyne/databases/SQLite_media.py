@@ -4,14 +4,14 @@
 
 import os
 import re
-from pathlib import Path
 try:
     from hashlib import md5
 except ImportError:
     from md5 import md5
 
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.libmnemosyne.utils import expand_path, contract_path
+from mnemosyne.libmnemosyne.utils import normalise_path
+from mnemosyne.libmnemosyne.utils import expand_path, contract_path 
 from mnemosyne.libmnemosyne.utils import is_filesystem_case_insensitive
 from mnemosyne.libmnemosyne.utils import copy_file_to_dir, remove_empty_dirs_in
 
@@ -61,7 +61,7 @@ media_dir + ".\n" + _("Check your file permissions and make sure the directory i
 
         """
 
-        filename = str(Path(os.path.join(self.media_dir(), filename)))
+        filename = normalise_path(os.path.join(self.media_dir(), filename))
         if not os.path.exists(filename):
             return "0"
         media_file = open(filename, "rb")      
@@ -82,7 +82,7 @@ media_dir + ".\n" + _("Check your file permissions and make sure the directory i
         # Regular media files.
         new_hashes = {}
         for sql_res in self.con.execute("select filename, _hash from media"):
-            filename, hash = str(Path(sql_res[0])), sql_res[1]
+            filename, hash = normalise_path(sql_res[0]), sql_res[1]
             if not os.path.exists(expand_path(filename, self.media_dir())):
                 continue
             new_hash = self._media_hash(filename)

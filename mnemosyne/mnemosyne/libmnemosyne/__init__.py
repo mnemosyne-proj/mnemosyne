@@ -236,7 +236,7 @@ class Mnemosyne(Component):
             from mnemosyne.libmnemosyne.upgrades.upgrade1 import Upgrade1
             Upgrade1(self.component_manager).run()
         # Finally, we can activate the main widget.
-        self.main_widget().activate()
+        self.main_widget().activate()    
 
     def register_components(self):
         

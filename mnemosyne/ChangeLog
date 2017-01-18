@@ -11,6 +11,7 @@ This might also help with other hard crashes.)
 -Fix broken cramming plugin (reported by stevengeorg) 
 -Fix encoding problems with import and export (reported by register2, 
  MarcoP, abacus).
+-Improve subdirectory handling (reported by abacus, duncantaylor). 
 -Make configuration storing more thread-safe. 
 -Fix removing tags through card browser (reported by bvauquelin).
 -Fix loss of keyboard focus when switching back to the main window

@@ -3,7 +3,7 @@
 #
 
 import os
-from pathlib import Path
+from openSM2sync.utils import normalise_path
 
 
 class Partner(object):
@@ -14,7 +14,7 @@ class Partner(object):
         self.ui = ui
 
     def stream_binary_file(self, filename, progress_bar=True):
-        filename = str(Path(filename))
+        filename = normalise_path(filename)
         binary_file = open(filename, "rb")
         file_size = os.path.getsize(filename)
         buffer = binary_file.read(self.BUFFER_SIZE)
@@ -35,7 +35,7 @@ class Partner(object):
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)
-        filename = str(Path(filename))
+        filename = normalise_path(filename)
         downloaded_file = open(filename, "wb")
         if progress_bar:
             self.ui.set_progress_range(file_size)
