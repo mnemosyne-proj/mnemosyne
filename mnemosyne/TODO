@@ -1,26 +1,29 @@
+Qt5.8?
+
 Bug reports:
 
--abacus/duncantaylor (mail 2x): sync error: add workaround to format latex files: \storage   _latex : replace \\ by /. Pathlib?  
+-abacus/duncantaylor (mail 2x): sync error / vs \, probably fixed
+-socket.timeout not captured on login? Alok Mishra sync error
 
-(remove 2 debug statements in could not connect to server)
-try and make sure this shows a traceback next time?
+-cannot press pgup/down in q/a window
+-david schuler: utf8 error on upgrade database
+-location of add cards window saved? (David Schuler)
 
--blank window: bt69ady@gmail.com
+-dont archive on first run, scares off Android users
+
+-warn if plugin has wrong version instead of crashing
+-upgrade a few old plugins. (Mathhias Ernst)
 
 -progress bar does not close after sync (launchpad, Ubuntu bug?)
-
-
 -headless server resets password (launchpad): fixed with mutex?
--location of add cards window saved? (mail David Schuler): fixed with mutex?
+-blurry font issues DuncanTaylor (probably nothing more to be done)
 
-dont archive on first run, scares off Android users
 
 Android:
 -keep phone awake during initial sync? http://stackoverflow.com/questions/13209518/disable-sleep-on-certain-activity
 -disk io error not detected?
 -setting temporary sqlite folder location
 -reenable archiving of old logs
--'Nicolas Powell' error: wait for new sqlite version, disable arm64-v8a
 
 ------------------------------
 
@@ -30,8 +33,17 @@ Android tweaks:
 -order of question with 3 buttons (e.g. sync conflict)
 -pybridge: don't extract individual assets but extract zip file? Faster?
 
+
+-to combat slow resizing, everything in one browser?
+
+-after sync, a cloze card type displays all hints
+
+-first cloze in arabic does not get positioned right
+
+-don't generate card edited logs when importing a card and no change occurs in a card?
+
 -when activating prefill tag plugin, checkbox does not update immediately
--update install instructions linux, windows devel
+-update devl instructions linux, windows
 
 -memrise import seems to mess up scheduling after sync?
 -when adding cards through API, missing media tag does not show up?
@@ -45,6 +57,8 @@ Android tweaks:
 -qwebengineview open links in external browser? QWebEnginePage::acceptNavigationRequest() 
 
 -sync of changed saved set does not update title on target machine
+
+-create a new cardtype through *.cards import, setting font, does not seem to sync across?
 
 -tag completion box: does not work when clicking in the box, and does not
  work when going back to a previous tag, e.g. if you have a,b,c and want
@@ -60,6 +74,8 @@ server.py imports from libmnemosyne.utils
 Qt's own translation
 
 Qt SDK: back to webkit?
+Make use of 'print to pdf' for resizing?
+custom context menu
 
 
 Android:
