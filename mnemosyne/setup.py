@@ -27,7 +27,9 @@ class InnoScript:
         print(r"DefaultDirName={pf}\%s" % self.name, file=ofi)
         print(r"DefaultGroupName=%s" % self.name, file=ofi)
         print(file=ofi)
-
+        print(r"[Messages]", file=ofi)
+        print(r"ConfirmUninstall=Are you really really sure you want to remove %1? Your cards will not be deleted.", file=ofi)        
+        print(file=ofi)
         print(r"[Files]", file=ofi)
         for root, dirnames, filenames in os.walk(self.dist_dir):
             for filename in filenames:

@@ -39,7 +39,7 @@ from mnemosyne.libmnemosyne import Mnemosyne
 # Parse options.
 parser = OptionParser()
 parser.usage = "%prog [<database_file>]"
-parser.add_option("-d", "--datadir", dest="data_dir",
+parser.add_option("-d", "--datadir", dest="data_dir", type="string",
                   help="data directory", default=None)
 parser.add_option("--no-upgrades", dest="automatic_upgrades",
     action="store_false", help="do not upgrade automatically", default=True)
@@ -52,6 +52,9 @@ parser.add_option("--sync-server", dest="sync_server",
 parser.add_option("--high-dpi-scaling", dest="high_dpi_scaling",
     action="store_true", help="enable better scaling on displays with high DPI", 
     default=False)
+parser.add_option("--qt-opengl", dest="qt_opengl", type="string", action="store", 
+    help="OpenGL implementation to be used by Qt ('desktop', 'angle', 'software')",
+    default=None)
 parser.add_option("--version", dest="version",
     action="store_true", help="show version information", default=False)
 (options, args) = parser.parse_args()
@@ -137,8 +140,20 @@ from PyQt5.QtWidgets import QApplication
 from PyQt5 import QtGui, QtCore
 
 if options.high_dpi_scaling:
-    QtGui.QGuiApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
-    
+    QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
+else:
+    QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_DisableHighDpiScaling)    
+if options.qt_opengl:
+    if options.qt_opengl not in ["desktop", "angle", "software"]:
+        print("Invalid argument for qt-opengl. Should be 'desktop', 'angle' or 'software'")
+        sys.exit(-1)
+    if options.qt_opengl == "desktop":
+        QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_UseDesktopOpenGL)
+    elif options.qt_opengl == "angle":
+        QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_UseOpenGLES)           
+    elif options.qt_opengl == "software":
+        QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_UseSoftwareOpenGL)   
+
 a = QApplication(sys.argv)
 a.setApplicationName("Mnemosyne")
 

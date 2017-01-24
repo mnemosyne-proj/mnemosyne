@@ -32,11 +32,11 @@ class Partner(object):
 
     def download_binary_file(self, stream, filename, file_size,
                              progress_bar=True):
-        directory = os.path.dirname(filename)
+        directory = normalise_path(os.path.dirname(filename))
         if not os.path.exists(directory):
             os.makedirs(directory)
         filename = normalise_path(filename)
-        downloaded_file = open(filename, "wb")
+        downloaded_file = open(filename, "wb")         
         if progress_bar:
             self.ui.set_progress_range(file_size)
             self.ui.set_progress_update_interval(file_size/50)

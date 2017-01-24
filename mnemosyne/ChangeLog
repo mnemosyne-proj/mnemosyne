@@ -7,7 +7,7 @@ https://www.microsoft.com/en-us/download/details.aspx?id=48145
 
 This might also help with other hard crashes.)
 
--Updated to the latest released Qt libraries.
+-Updated to PyQt 5.7.1.
 -Fix broken cramming plugin (reported by stevengeorg) 
 -Fix encoding problems with import and export (reported by register2, 
  MarcoP, abacus).
@@ -18,11 +18,14 @@ This might also help with other hard crashes.)
  (reported by Jan Egil Hagen and Dan Schmidt).
 -Fixed crash in card browser when working with forbidden tags 
  (reported by Benjamin Brueck). 
--Fix autoscaling sometimes not working under Linux.
+-Fix autoscaling of Q and A sometimes not working under Linux.
 -Fix error related missing idna encoding when starting server 
  (reported by Andrea Giordano).
 -Fix error related to upgrading from very old databases (reported by 
- David Schuler) 
+ David Schuler)
+-New command line option "--qt-opengl" which can be set to either
+ 'desktop', 'angle' or 'software', which you can play around with if
+ you have display issues.
 
 
 Mnemosyne 2.4 : 2016-12-05
