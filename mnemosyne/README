@@ -12,7 +12,8 @@ First install the following dependencies:
  that latex and dvipng are installed.
 -Matplotlib (http://matplotlib.sourceforge.net/)
 -EasyInstall (http://peak.telecommunity.com/DevCenter/EasyInstall)
--CherryPy 3.2 or later (http://www.cherrypy.org)
+-cheroot 5 or later (https://pypi.python.org/pypi/Cheroot/, 
+ pip3 install cheroot)
 -Webob 1.4 or later (http://webob.org)
 -PIL (https://python-pillow.org, pip3 install pillow)
 

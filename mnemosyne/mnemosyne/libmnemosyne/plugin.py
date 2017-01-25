@@ -29,6 +29,7 @@ class Plugin(Component):
     description = ""
     component_type = "plugin"
     components = []
+    current_API_level = 2
 
     def __init__(self, component_manager):
         Component.__init__(self, component_manager)
@@ -39,6 +40,11 @@ class Plugin(Component):
         self.review_reset_needed = False
 
     def activate(self):
+        if not hasattr(self, "supported_API_level") or \
+            self.supported_API_level < self.current_API_level:
+            self.main_widget().show_error(\
+    _("Plugin '" + self.name + "' needs to be upgraded. Please contact its author."))
+            return
         # Don't activate a plugin twice.
         if self.instantiated_components or self.registered_components:
             return

@@ -52,6 +52,7 @@ class SettingsExamplePlugin(Plugin):
     name = "Settings example"
     description = "Example on how to store settings for your plugin"
     components = [MyPluginConfiguration, MyConfigurationWdgt]
+    supported_API_level = 2
     
     def __init__(self, component_manager):
         Plugin.__init__(self, component_manager)

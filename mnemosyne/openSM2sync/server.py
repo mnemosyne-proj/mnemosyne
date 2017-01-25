@@ -95,8 +95,8 @@ class Server(Partner):
         self.machine_id = machine_id
         # We only use 1 thread, such that subsequent requests don't run into
         # SQLite access problems.
-        from cherrypy import wsgiserver
-        self.wsgi_server = wsgiserver.CherryPyWSGIServer\
+        from cheroot import wsgi
+        self.wsgi_server = wsgi.Server\
             (("0.0.0.0", port), self.wsgi_app, server_name="localhost",
             numthreads=1, timeout=1000)
         Partner.__init__(self, ui)

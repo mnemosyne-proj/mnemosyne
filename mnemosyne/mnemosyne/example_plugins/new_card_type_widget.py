@@ -41,6 +41,7 @@ class RedPlugin(Plugin):
     name = "Red"
     description = "Red widget for front-to-back cards"
     components = [RedCardTypeWdgt]
+    supported_API_level = 2
 
 from mnemosyne.libmnemosyne.plugin import register_user_plugin
 register_user_plugin(RedPlugin)

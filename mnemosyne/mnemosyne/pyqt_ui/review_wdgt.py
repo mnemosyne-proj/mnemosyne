@@ -365,6 +365,9 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         </td></tr></table></body></html>"""
 
     def scroll_down(self):
+        return
+        # TODO: reimplement after webkit is back.
+        
         if self.review_controller().is_question_showing() or \
            self.review_controller().card.fact_view.a_on_top_of_q:
             frame = self.question.page().mainFrame()
@@ -376,6 +379,9 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         frame.evaluateJavaScript("window.scrollTo(%d, %d);" % (x, y))
 
     def scroll_up(self):
+        return
+        # TODO: reimplement after webkit is back.
+         
         if self.review_controller().is_question_showing() or \
            self.review_controller().card.fact_view.a_on_top_of_q:
             frame = self.question.page().mainFrame()

@@ -1,23 +1,15 @@
-Qt5.8?
-
 Bug reports:
 
 -abacus/duncantaylor (mail 2x): sync error / vs \, probably fixed
 -socket.timeout not captured on login? Alok Mishra sync error
 
--cannot press pgup/down in q/a window
--david schuler: utf8 error on upgrade database
--location of add cards window saved? (David Schuler)
-
 -dont archive on first run, scares off Android users
-
--warn if plugin has wrong version instead of crashing
--upgrade a few old plugins. (Mathhias Ernst)
+Qt5.8?
 
 -progress bar does not close after sync (launchpad, Ubuntu bug?)
 -headless server resets password (launchpad): fixed with mutex?
 -blurry font issues DuncanTaylor (probably nothing more to be done)
-
+-david schuler: utf8 error on upgrade database (probably fixed)
 
 Android:
 -keep phone awake during initial sync? http://stackoverflow.com/questions/13209518/disable-sleep-on-certain-activity

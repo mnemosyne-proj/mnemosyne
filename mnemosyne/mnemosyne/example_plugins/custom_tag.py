@@ -49,6 +49,7 @@ class CustomTagPlugin(Plugin):
     name = "Custom tag"
     description = "Intercepts custom tags like <my_tag src=\"filename\"> and runs them in an external program.\n\nEdit the source to customise."
     components = [CustomTag]
+    supported_API_level = 2
 
     def activate(self):
         Plugin.activate(self)
