@@ -100,7 +100,6 @@ class AddEditCards(TipAfterStartingNTimes):
                 (card_type=self.card_type, parent=self, 
                  component_manager=self.component_manager)
         except Exception as e:
-            print(e)
             if not self.card_type_widget:
                 self.card_type_widget = self.component_manager.current \
                     ("generic_card_type_widget")(card_type=self.card_type,
@@ -266,6 +265,8 @@ class AddCardsDlg(QtWidgets.QDialog, AddEditCards, AddCardsDialog, Ui_AddCardsDl
         self.card_type_widget.clear()
 
     def reject(self):
+        # Generated when pressing escape or clicking the exit button.
+        self._store_state()
         if not self.card_type_widget.is_empty() and \
             self.card_type_widget.is_changed():
             status = self.main_widget().show_question(\

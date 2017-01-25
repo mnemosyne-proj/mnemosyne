@@ -101,7 +101,7 @@ setup_requires = []
 
 py2app_options = {
 "argv_emulation": True,
-"includes": "sip,numpy,cherrypy,cPickle,md5,logging,shutil,xml.sax",
+"includes": "sip,numpy,cheroot,cPickle,md5,logging,shutil,xml.sax",
 "iconfile": "pixmaps/mnemosyne.icns",
 "qt_plugins": ["sqldrivers", "imageformats"],
 "packages": "mnemosyne, mnemosyne.pyqt_ui, mnemosyne.libmnemosyne, \

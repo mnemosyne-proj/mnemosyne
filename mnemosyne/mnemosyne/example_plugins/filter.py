@@ -17,7 +17,8 @@ class AlignImgTopPlugin(Plugin):
     name = "Top align images"
     description = "Align all your images to the top"
     components = [AlignImgTop]
-
+    supported_API_level = 2
+    
     def activate(self):
         Plugin.activate(self)
         self.render_chain("default").\

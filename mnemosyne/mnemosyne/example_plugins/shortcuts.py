@@ -33,7 +33,7 @@ class ShortcutsPlugin(Plugin):
     name = "Custom shortcuts"
     description = "Customise review widget shortcuts."
     components = [MyReviewWdgt]
-
+    supported_API_level = 2
 
 # Register plugin.
 

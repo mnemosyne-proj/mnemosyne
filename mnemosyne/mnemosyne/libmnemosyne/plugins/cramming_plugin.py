@@ -17,3 +17,4 @@ class CrammingPlugin(Plugin):
 Once this plugin is active, you can configure the cramming scheduler through 'Configure Mnemosyne'.\n
 To return to the original scheduler, just deactivate this plugin.""")
     components = [Cramming, SM2ControllerCramming]
+    supported_API_level = 2

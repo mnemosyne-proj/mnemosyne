@@ -11,7 +11,8 @@ class LockDownPlugin(Plugin):
 
     name = "Lock down the UI"
     description = "Hides the menu bar and the icon bar. The only way to remove this plugin later is by deleting 'lock_down.py' from Mnemosyne's plugin directory'"
-
+    supported_API_level = 2
+    
     def activate(self):
         Plugin.activate(self)
         self.main_widget().menuBar().hide()

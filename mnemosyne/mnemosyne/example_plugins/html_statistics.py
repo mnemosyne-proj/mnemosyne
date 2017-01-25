@@ -11,7 +11,7 @@ from mnemosyne.libmnemosyne.statistics_page import HtmlStatisticsPage
 class MyHtmlStatistics(HtmlStatisticsPage):
 
     name = "My html staticsics"
-        
+         
     def prepare_statistics(self, variant):
         card = self.review_controller().card
         self.html = """<html<body>
@@ -34,6 +34,7 @@ class MyHtmlStatisticsPlugin(Plugin):
     name = "Html statistics example"
     description = "Example plugin for html statistics"
     components = [MyHtmlStatistics]
+    supported_API_level = 2
 
 from mnemosyne.libmnemosyne.plugin import register_user_plugin
 register_user_plugin(MyHtmlStatisticsPlugin)

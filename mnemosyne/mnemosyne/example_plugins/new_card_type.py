@@ -36,7 +36,8 @@ class DecoratedVocabularyPlugin(Plugin):
     name = "Decorated vocabulary"
     description = "Vocabulary card type with some extra text"
     components = [DecoratedVocabulary]
-
+    supported_API_level = 2
+    
 from mnemosyne.libmnemosyne.plugin import register_user_plugin
 register_user_plugin(DecoratedVocabularyPlugin)
 

@@ -107,6 +107,7 @@ class AvgGradePlugin(Plugin):
     name = "Average grades"
     description = "Average grade given to scheduled cards as a function of time"
     components = [AvgGrade, AvgGradeWdgt]
+    supported_API_level = 2
 
 from mnemosyne.libmnemosyne.plugin import register_user_plugin
 register_user_plugin(AvgGradePlugin)
