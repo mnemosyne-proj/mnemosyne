@@ -1,4 +1,4 @@
-Mnemosyne 2.4.1 :
+Mnemosyne 2.4.1 : 2017-01-30
 
 (Note: if you run into problems related to missing api-ms-win-crt-runtime-l1-1-0-dll
 make sure your machine has the latest Windows patches and/or download this:
@@ -13,6 +13,7 @@ This might also help with other hard crashes.)
  MarcoP, abacus).
 -Improve subdirectory handling (reported by abacus, duncantaylor). 
 -Make configuration storing more thread-safe.
+-Warn if an old plugin needs to be updated. 
 -Location and size of 'Add cards' window is saved again (reported by
  David Schuler).
 -Fix removing tags through card browser (reported by bvauquelin).
@@ -27,7 +28,6 @@ This might also help with other hard crashes.)
  David Schuler)
 -Fix for latest version of cherrypy unbundling its WSGIserver
  (reported by Aramís Concepción Durán). 
--Warn if an old plugin needs to be updated. 
 -New command line option "--qt-opengl" which can be set to either
  'desktop', 'angle' or 'software', which you can play around with if
  you have display issues.

@@ -189,10 +189,6 @@ class Mnemosyne(Component):
             self.config().config_dir = data_dir
         if config_dir:
             self.config().config_dir = config_dir
-        # Upgrade config if needed.
-        if automatic_upgrades:
-            from mnemosyne.libmnemosyne.upgrades.upgrade3 import Upgrade3
-            Upgrade3(self.component_manager).run() 
         self.activate_components()      
         register_component_manager(self.component_manager,
                                    self.config()["user_id"])
