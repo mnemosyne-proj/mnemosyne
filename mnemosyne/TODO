@@ -1,4 +1,4 @@
-tranlations
+db mismatch should not result in resync
 
 Android:
 -keep phone awake during initial sync? http://stackoverflow.com/questions/13209518/disable-sleep-on-certain-activity
