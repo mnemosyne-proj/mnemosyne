@@ -34,7 +34,7 @@ LANGS = ../mo/cs/LC_MESSAGES/mnemosyne.mo \
 	../mo/sv/LC_MESSAGES/mnemosyne.mo \
 	../mo/sr/LC_MESSAGES/mnemosyne.mo
 
-# don't copy am and vi (unless updated), en_GB, zh_SH, nb_no
+# don't copy am and vi (unless updated), en_GB, zh_SH, nb_no, uz, szl
 
 default: $(LANGS)
 
@@ -48,4 +48,4 @@ clean:
 
 update:
 	cd ../mnemosyne/pyqt_ui && make
-	$(PYTHON) ./pygettext -o mnemosyne.pot ..
+	find .. -name "*.py" | xargs python3 ./pygettext.py -v -o mnemosyne.pot
