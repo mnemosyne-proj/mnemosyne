@@ -1,23 +1,28 @@
-Bug reports:
-
--abacus/duncantaylor (mail 2x): sync error / vs \, probably fixed
--socket.timeout not captured on login? Alok Mishra sync error
-
--dont archive on first run, scares off Android users
-Qt5.8?
-
--progress bar does not close after sync (launchpad, Ubuntu bug?)
--headless server resets password (launchpad): fixed with mutex?
--blurry font issues DuncanTaylor (probably nothing more to be done)
--david schuler: utf8 error on upgrade database (probably fixed)
-
 Android:
 -keep phone awake during initial sync? http://stackoverflow.com/questions/13209518/disable-sleep-on-certain-activity
 -disk io error not detected?
 -setting temporary sqlite folder location
 -reenable archiving of old logs
 
-------------------------------
+-dont archive on first run, scares off Android users
+
+-don't generate card edited logs when importing a card and no change occurs in a card?
+  #if (eval(log_entry["extra"]) == orig_card.extra_data) && \
+  # tags, unless extra tags on import
+  # card type
+  # factview		   
+  # Important: fact, media, tag (check all 'already_imported' statements)
+
+-Qt5.8?
+
+Probably fixed:
+
+-abacus/duncantaylor (mail 2x): sync error / vs \, probably fixed
+-socket.timeout not captured on login? Alok Mishra sync error
+-progress bar does not close after sync (launchpad, Ubuntu bug?)
+-headless server resets password (launchpad): fixed with mutex?
+-blurry font issues DuncanTaylor (probably nothing more to be done)
+
 
 Android tweaks:
 -decrease size of python library
@@ -25,14 +30,11 @@ Android tweaks:
 -order of question with 3 buttons (e.g. sync conflict)
 -pybridge: don't extract individual assets but extract zip file? Faster?
 
-
 -to combat slow resizing, everything in one browser?
 
 -after sync, a cloze card type displays all hints
 
 -first cloze in arabic does not get positioned right
-
--don't generate card edited logs when importing a card and no change occurs in a card?
 
 -when activating prefill tag plugin, checkbox does not update immediately
 -update devl instructions linux, windows

@@ -54,7 +54,7 @@ coverage: FORCE
 	./bin/nosetests --with-coverage --cover-erase \
 	--cover-package=mnemosyne.libmnemosyne,openSM2sync || (echo "testsuite failed")
 	./bin/coverage html
-	firefox htmlcov/index.html || chromium htmlcov/index.html || google-chrome htmlcov/index.html
+	firefox htmlcov/index.html || chromium htmlcov/index.html || google-chrome htmlcov/index.html || chrome htmlcov/index.html	
 	
 coverage-windows: FORCE
 	rm -rf .coverage cover htmlcov
