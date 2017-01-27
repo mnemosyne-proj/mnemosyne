@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: mnemosyne-proj\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-18 18:42+0000\n"
-"PO-Revision-Date: 2016-03-17 20:29+0000\n"
-"Last-Translator: Kim Paulin <axlape+launchpad@gmail.com>\n"
+"PO-Revision-Date: 2016-06-01 17:02+0000\n"
+"Last-Translator: Marco <mavs877@gmail.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-03-18 05:40+0000\n"
-"X-Generator: Launchpad (build 17947)\n"
+"X-Launchpad-Export-Date: 2016-06-02 05:51+0000\n"
+"X-Generator: Launchpad (build 18053)\n"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:11
 msgid "Null character in input stream, replaced with U+FFFD."
@@ -189,25 +189,25 @@ msgstr "Oväntat mellanslag efter '--' i kommentar"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:94
 msgid "Incorrect comment."
-msgstr ""
+msgstr "Fel kommentär."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:96
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:104
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:106
 msgid "Unexpected end of file in comment."
-msgstr ""
+msgstr "Oväntad slut på filen i kommentär."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:98
 msgid "Unexpected end of file in comment (-)"
-msgstr ""
+msgstr "Oväntad slut på filen i kommentär (-)"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:100
 msgid "Unexpected '-' after '--' found in comment."
-msgstr ""
+msgstr "Oväntad '-' efter '--' hittat i kommentär."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:102
 msgid "Unexpected end of file in comment (--)."
-msgstr ""
+msgstr "Oväntad slut på filen i kommentär (--)."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:108
 msgid "Unexpected character in comment found."
@@ -263,7 +263,7 @@ msgstr ""
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:134
 msgid "Erroneous DOCTYPE."
-msgstr ""
+msgstr "Fel DOCTYPE."
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:136
 msgid "Unexpected non-space characters. Expected DOCTYPE."
@@ -4400,7 +4400,7 @@ msgstr ""
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:68
 #: ..\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:68
 msgid "Cloned card types:"
-msgstr ""
+msgstr "Klonerade kort typer:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:69
 #: ..\mnemosyne\pyqt_ui\ui_manage_card_types_dlg.py:69
@@ -4410,27 +4410,27 @@ msgstr "&Ny klon"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:80
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:80
 msgid "Installed plugins (active and inactive):"
-msgstr ""
+msgstr "Installerade pluginer (aktiva och inaktiva):"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:81
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:81
 msgid "Plugin description:"
-msgstr ""
+msgstr "Plugin beskrivning:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:83
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:83
 msgid "&Install new plugin"
-msgstr ""
+msgstr "&Installera ny plugin"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:84
 #: ..\mnemosyne\pyqt_ui\ui_manage_plugins_dlg.py:84
 msgid "&Delete plugin"
-msgstr ""
+msgstr "& Ta bort plugin"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:105
 #: ..\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:105
 msgid "Preview cards"
-msgstr ""
+msgstr "Förhandsvisa kort"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_preview_cards_dlg.py:106
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:116
@@ -4467,27 +4467,27 @@ msgstr "Ta bort taggar"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_remove_tags_dlg.py:64
 #: ..\mnemosyne\pyqt_ui\ui_remove_tags_dlg.py:64
 msgid "Tags to remove:"
-msgstr ""
+msgstr "Taggar att tas bort:"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_rename_card_type_dlg.py:61
 #: ..\mnemosyne\pyqt_ui\ui_rename_card_type_dlg.py:61
 msgid "Rename card type"
-msgstr ""
+msgstr "Döpa om korttyp"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_rename_card_type_dlg.py:62
 #: ..\mnemosyne\pyqt_ui\ui_rename_card_type_dlg.py:62
 msgid "Enter new card type name:"
-msgstr ""
+msgstr "Mata in namn på nytt kort"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_rename_tag_dlg.py:61
 #: ..\mnemosyne\pyqt_ui\ui_rename_tag_dlg.py:61
 msgid "Rename tag"
-msgstr ""
+msgstr "Byt namn på tagg"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_rename_tag_dlg.py:62
 #: ..\mnemosyne\pyqt_ui\ui_rename_tag_dlg.py:62
 msgid "Enter new tag name:"
-msgstr ""
+msgstr "Mata in nytt namn på tagg"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_review_wdgt.py:118
 #: ..\mnemosyne\pyqt_ui\ui_review_wdgt.py:118
@@ -4539,7 +4539,7 @@ msgstr "5"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:96
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:96
 msgid "Sync with server"
-msgstr ""
+msgstr "Synkronisera med server"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:97
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:97
@@ -4549,7 +4549,7 @@ msgstr "Server:"
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_sync_dlg.py:101
 #: ..\mnemosyne\pyqt_ui\ui_sync_dlg.py:101
 msgid "Check for changed media files on client"
-msgstr ""
+msgstr "Kolla på ändrade media filer på klienten"
 
 #: ..\build\lib\mnemosyne\pyqt_ui\ui_tip_dlg.py:107
 #: ..\mnemosyne\pyqt_ui\ui_tip_dlg.py:107
@@ -4622,4 +4622,4 @@ msgstr ""
 
 #: ..\tests\test_translator.py:32
 msgid "This is a test."
-msgstr ""
+msgstr "Det här är ett test."
