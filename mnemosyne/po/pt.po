@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: mnemosyne-proj\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-18 18:42+0000\n"
-"PO-Revision-Date: 2013-06-05 13:59+0000\n"
-"Last-Translator: Rubens Bueno <rubensvsbueno@gmail.com>\n"
+"PO-Revision-Date: 2016-07-10 08:32+0000\n"
+"Last-Translator: mapache <Unknown>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-19 06:12+0000\n"
-"X-Generator: Launchpad (build 17048)\n"
+"X-Launchpad-Export-Date: 2016-07-11 05:15+0000\n"
+"X-Generator: Launchpad (build 18115)\n"
 
 #: ..\Lib\site-packages\pip\vendor\html5lib\constants.py:11
 msgid "Null character in input stream, replaced with U+FFFD."
@@ -646,13 +646,13 @@ msgstr ""
 #: ..\mnemosyne\libmnemosyne\__init__.py:216
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\__init__.py:211
 msgid "Another copy of Mnemosyne is still running."
-msgstr "Outra cópia de Mnemosyne está sendo executada."
+msgstr "Outra cópia de Mnemosyne ainda está em execução."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\__init__.py:217
 #: ..\mnemosyne\libmnemosyne\__init__.py:217
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\__init__.py:212
 msgid "Continuing is impossible and will lead to data loss!"
-msgstr "Continuar é impossível e irá leva a perda de dados!"
+msgstr "Continuar é impossível e irá levar à perda de dados!"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\__init__.py:300
 #: ..\build\lib\mnemosyne\libmnemosyne\__init__.py:313
@@ -754,21 +754,21 @@ msgid ""
 "You can also specify hints, e.g. [cloze:hint] will show\n"
 " [hint] in the question as opposed to [...]."
 msgstr ""
-"Um tipo de cartão onde faltam fragmentos de um texto. \n"
+"Um tipo de carta onde faltam fragmentos de um texto.\n"
 "\n"
-"P. ex., o texto \"A capital da [França] é [Paris]\" resultará nos cartões "
-"\"A capital da França é [...]\" e \" A capital da [...] é Paris.\n"
+"P. ex., o texto \"A capital da [França] é [Paris]\" resultará nas cartas \"A "
+"capital da França é [...]\" e \" A capital da [...] é Paris.\n"
 "\n"
-"Ao se editar o texto, todos os cartões irmãos serão atualizados.\n"
+"Ao editar o texto, todas as cartas irmãos serão actualizadas.\n"
 "\n"
-"Pode também especificar dicas. p. ex., [palavra omitida:dica] mostrará\n"
-"[dica] na pergunta em vez de [...]."
+"Pode também especificar dicas, p. ex., [palavra omitida:dica] mostrará\n"
+" [dica] na pergunta em vez de [...]."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\front_to_back.py:13
 #: ..\mnemosyne\libmnemosyne\card_types\front_to_back.py:13
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\front_to_back.py:13
 msgid "Front-to-back only"
-msgstr "Frente para verso apenas"
+msgstr "Apenas frente-verso"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\map.py:16
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\map.py:51
@@ -832,7 +832,7 @@ msgid ""
 "Displays the answer map on top of the question map, rather than below it as "
 "a second map."
 msgstr ""
-"Um tipo de cartão para aprender localidades em um mapa.\n"
+"Um tipo de carta para aprender localidades num mapa.\n"
 "\n"
 "Apresenta o mapa de resposta em cima do mapa de pergunta, em vez de embaixo "
 "dele como um segundo mapa."
@@ -847,7 +847,7 @@ msgstr ""
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\sentence.py:33
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\sentence.py:94
 msgid "Sentence"
-msgstr "Sentença"
+msgstr "Frase"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\sentence.py:34
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\vocabulary.py:19
@@ -874,7 +874,7 @@ msgstr "Significado"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\sentence.py:36
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\card_types\vocabulary.py:21
 msgid "Notes"
-msgstr "Observações"
+msgstr "Notas"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\sentence.py:95
 #: ..\mnemosyne\libmnemosyne\card_types\sentence.py:95
@@ -887,12 +887,12 @@ msgid ""
 "E.g. if in the sentence field you write \"La [casa:house] es [grande:big]\", "
 "you'll get cards with questions like \"La [house] es grande\"."
 msgstr ""
-"Um tipo de cartão que usa frases para estudar línguas estrangeiras.\n"
+"Um tipo de carta que usa frases para estudar línguas estrangeiras.\n"
 "\n"
-"Além de simples reconhecimento da frase, pode adicionar cartões de produção "
+"Além de simples reconhecimento da frase, pode adicionar cartas de produção "
 "usando omissão de palavras.\n"
 "Ex.: se no campo da frase escrever \"The [house:casa] is [big:grande]\", "
-"terá cartões com questões como \"The [casa] is big\"."
+"terá cartas com perguntas como \"The [casa] is big\"."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\card_types\vocabulary.py:15
 #: ..\mnemosyne\libmnemosyne\card_types\vocabulary.py:15
@@ -938,7 +938,7 @@ msgstr "Mnemosyne"
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:117
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:117
 msgid "Identical card is already in database."
-msgstr "Já há um cartão idêntico no banco de dados."
+msgstr "Já há uma carta idêntica na base de dados."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:118
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:142
@@ -1119,7 +1119,7 @@ msgstr "&OK"
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:297
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:297
 msgid "This will delete cards and their history."
-msgstr "Isto apagará as cartas e o seu histórico"
+msgstr "Isto apagará as cartas e o seu histórico."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:298
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:431
@@ -1131,7 +1131,7 @@ msgstr "Isto apagará as cartas e o seu histórico"
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:431
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:436
 msgid "Are you sure you want to do this,"
-msgstr "Está seguro de que quer fazer isto,"
+msgstr "Está seguro/a de que quer fazer isto,"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:299
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:432
@@ -1175,7 +1175,7 @@ msgstr ""
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:386
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:382
 msgid "Converting cards..."
-msgstr "A converter cartas"
+msgstr "A converter cartas..."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:412
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:416
@@ -1223,45 +1223,45 @@ msgstr "&Apagar"
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:457
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:453
 msgid "Deleting cards..."
-msgstr "Apagando cartões..."
+msgstr "A apagar cartas..."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:465
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:469
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:465
 msgid "Checking for unused tags..."
-msgstr "Verificando marcadores não usados..."
+msgstr "A verificar etiquetas não usadas..."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:480
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:484
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:480
 msgid "Card type name already exists."
-msgstr "Já existe o nome do tipo de carta"
+msgstr "Já existe o nome do tipo de carta."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:500
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:504
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:500
 msgid "Card type %s is in use or is a system card type, cannot delete it."
 msgstr ""
-"Tipo de cartão %s está em uso ou é um tipo de cartão de sistema, impossível "
+"O tipo de carta %s está em uso ou é um tipo de carta de sistema, impossível "
 "apagá-lo."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:505
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:509
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:505
 msgid "Card type %s has clones, cannot delete it."
-msgstr "Tipo de cartão %s tem clones, impossível apagá-lo."
+msgstr "O tipo de carta %s tem clones, impossível apagá-lo."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:520
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:524
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:520
 msgid "Cannot rename a system card type."
-msgstr "Impossível renomear um tipo de cartão de sistema."
+msgstr "Impossível renomear um tipo de carta de sistema."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:525
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:529
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:525
 msgid "This card type name is already in use."
-msgstr "Este tipo de nome de cartão já está em uso."
+msgstr "Este nome de tipo de carta já está em uso."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:532
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:536
@@ -1271,9 +1271,9 @@ msgid ""
 "determine which cards to study is much more convenient than having to load "
 "and unload several databases."
 msgstr ""
-"Recomenda-se colocar todos seus cartões em um único banco de dados. Usar "
-"etiquetas para determinar quais cartões estudar é muito mais conveniente do "
-"que carregar e descarregar vários bancos de dados."
+"Recomenda-se colocar todas as suas cartas numa única base de dados. Usar "
+"etiquetas para determinar quais cartas estudar é muito mais conveniente do "
+"que carregar e descarregar várias bases de dados."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:543
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:573
@@ -1285,7 +1285,7 @@ msgstr ""
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:573
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:642
 msgid "Mnemosyne databases"
-msgstr "Bancos de dados de Mnemosyne"
+msgstr "Bases de dados de Mnemosyne"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:544
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:548
@@ -1297,7 +1297,7 @@ msgstr "Novo"
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:554
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:550
 msgid "Creating new database..."
-msgstr "Criando novo banco de dados..."
+msgstr "A criar nova base de dados..."
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:579
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:583
@@ -1316,7 +1316,7 @@ msgid ""
 "Note that this will result in conflicts during the next sync, which need to "
 "be resolved by a full sync."
 msgstr ""
-"Quer substituir seu atual banco de dados por aquele restaurado por este "
+"Quer substituir a sua base de dados actual por aquela restaurada por este "
 "backup?\n"
 "Note que isto resultará em conflitos na próxima sincronização, que deverá "
 "ser resolvido com uma sincronização completa."
@@ -1405,7 +1405,7 @@ msgstr "Inserir vídeo"
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:738
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:734
 msgid "Flash files"
-msgstr "Ficheiros flash"
+msgstr "Ficheiros Flash"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:736
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:740
@@ -1427,13 +1427,13 @@ msgstr ""
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:794
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:790
 msgid "Install plugin"
-msgstr "Instalar plugin"
+msgstr "Instalar extensão"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:790
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:794
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:790
 msgid "Plugins"
-msgstr "Plugins"
+msgstr "Extensões"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:815
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:819
@@ -1445,7 +1445,7 @@ msgstr "Extensão não encontrada!"
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:980
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\controllers\default_controller.py:976
 msgid "For instructions on how to download Mnemosyne's source,"
-msgstr "Para instruções sobre como baixar o código-fonte de Mnemosyne,"
+msgstr "Para instruções sobre como descarregar o código-fonte de Mnemosyne,"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\controllers\default_controller.py:977
 #: ..\mnemosyne\libmnemosyne\controllers\default_controller.py:981
@@ -1457,7 +1457,7 @@ msgstr "visite http://www.mnemosyne-proj.org"
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:345
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:345
 msgid "Missing plugin for card type with id:"
-msgstr "Faltando extensão para tipo de cartão com id:"
+msgstr "A faltar extensão para tipo de carta com id:"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite.py:357
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:357
@@ -1501,13 +1501,13 @@ msgstr "Atenção: falhou a criação de backup para"
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:623
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:623
 msgid "Make tag '%s' active in saved set '%s'?"
-msgstr "Usar o marcador '%s' ativa no grupo salvo '%s'?"
+msgstr "Usar a etiqueta '%s' activa no grupo gravado '%s'?"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite.py:1116
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:1116
 #: ..\mnemosyne\sl4a\Mnemosyne Android\scripts\mnemosyne\libmnemosyne\databases\SQLite.py:1116
 msgid "Make new card type active in saved set '%s'?"
-msgstr "Tornar este novo tipo de cartão ativo na opção salva '%s'?"
+msgstr "Tornar este novo tipo de carta activo no grupo gravado '%s'?"
 
 #: ..\build\lib\mnemosyne\libmnemosyne\databases\SQLite.py:1345
 #: ..\mnemosyne\libmnemosyne\databases\SQLite.py:1345

@@ -3,7 +3,7 @@
 # pyuic5 <Johannes.Baiter@gmail.com> <Peter.Bienstman@UGent.be>
 #
 
-# This wraps PyQt5's uic to provide support for mnemosyne's own translation
+# This wraps PyQt5's uic to provide support for Mnemosyne's own translation
 # infrastructure.
 # Most of the code is taken from a blogpost by mandel_macaque:
 # http://www.themacaque.com/?p=816
