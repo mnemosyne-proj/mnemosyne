@@ -96,7 +96,7 @@ distrib: FORCE
 	make build-all-deps
 	$(PYTHON) setup.py sdist --formats=gztar
 
-osx:
+macos:
 	# Build the UI and the translations.
 	cd mnemosyne/pyqt_ui && make
 	cd po && make
@@ -112,6 +112,7 @@ osx:
 	cp -R mo dist/Mnemosyne.app/Contents/Resources/share/locale
 	ln -s ../Resources/share dist/Mnemosyne.app/Contents/MacOS/share
 
+osx: macos
 	
 android: # Creates the assets file with the Python code.
 	rm -f mnemosyne/android/app/src/main/assets/mnemosyne.zip
