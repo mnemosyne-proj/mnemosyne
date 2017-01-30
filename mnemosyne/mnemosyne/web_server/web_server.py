@@ -71,8 +71,8 @@ class WebServer(Component):
         
     def activate(self):
         # Late import to speed up application startup.
-        import cheroot 
-        self.wsgi_server = cheroot.wsgi.Server(\
+        from cheroot import wsgi 
+        self.wsgi_server = wsgi.Server(\
             ("0.0.0.0", self.port), self.wsgi_app, server_name="localhost",
             numthreads=1, timeout=5)
         # We need to set the timeout relatively low, otherwise it will take
