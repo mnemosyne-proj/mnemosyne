@@ -30,30 +30,31 @@ If you run into the issue of non-latin characters not displaying on statistic
 plots, install ttf-mscorefonts-installer and regenerate the font cache of
 matplotlib.
 
-2) MAC OS/X
+2) macOS
 
- -Download and install Homebrew (see http://brew.sh)
- -Open the Terminal.
- -Make sure you are using the latest version of Homebrew:
+ - Download and install Homebrew (see http://brew.sh)
+ - Open the Terminal.
+ - Make sure you are using the latest version of Homebrew:
 
      brew update
     
- -Install the dependencies for Mnemosyne.
+ - Install the dependencies for Mnemosyne. You may need to install qt5 or python3 manually to get the correct version.
  
-     brew install python3 qt5 pyqt5 mplayer
-     pip3 install webob tornado matplotlib numpy sip pillow
-     # https://github.com/pyinstaller/pyinstaller/issues/1874
-     pip3 install git+git://github.com/pyinstaller/pyinstaller.git@5812b64470e2232f6b6f8f68c81dc220b2aedfd7
+     brew install python3 qt5 mplayer
+     pip3 install virtualenv
+     virtualenv --python=python3 venv
+     source venv/bin/activate
+     pip3 install webob tornado matplotlib numpy sip pillow cheroot pyqt5 pyinstaller
  
- -Build it:
+ - Build it:
  
      export PYTHON=python3
      export QT5DIR=/usr/local/opt/qt5 # help pyinstaller find the qt5 path
      make clean
      make osx
 
- -Test the new application (back up your data directory first!):
+ - Test the new application (back up your data directory first!):
 
      open dist/Mnemosyne.app
 
- -and optionally drag and drop this new app to /Applications
+ - and optionally drag and drop this new app to /Applications
