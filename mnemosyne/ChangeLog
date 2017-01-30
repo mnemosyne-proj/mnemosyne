@@ -1,14 +1,19 @@
-Mnemosyne 2.4.1 : 2017-01-30
-
-(Note: if you run into problems related to missing api-ms-win-crt-runtime-l1-1-0-dll
-make sure your machine has the latest Windows patches and/or download this:
+(Note for Windows 7 users: if you run into problems related to 
+missing api-ms-win-crt-runtime-l1-1-0-dll make sure your machine
+has the latest Windows patches and/or download this:
 
 https://www.microsoft.com/en-us/download/details.aspx?id=48145
 
-This might also help with other hard crashes.)
+This might also help with other hard crashes.
+
+Additionally, if you see a black screen, start Mnemosyne with the
+--qt-opengl=desktop command line argument.)
+
+
+Mnemosyne 2.4.1 : 2017-01-30
 
 -Updated to PyQt 5.7.1.
--Fix broken cramming plugin (reported by stevengeorg) 
+-Fix broken cramming plugin (reported by stevengeorg). 
 -Fix encoding problems with import and export (reported by register2, 
  MarcoP, abacus).
 -Improve subdirectory handling (reported by abacus, duncantaylor). 

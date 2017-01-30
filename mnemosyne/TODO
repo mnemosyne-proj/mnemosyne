@@ -1,13 +1,10 @@
-db mismatch should not result in resync
-
-
-check translations on website
-
 Android:
 -keep phone awake during initial sync? http://stackoverflow.com/questions/13209518/disable-sleep-on-certain-activity
 -disk io error not detected?
 -setting temporary sqlite folder location
 -reenable archiving of old logs
+
+-capture socket.timeout on login
 
 -dont archive on first run, scares off Android users
 
@@ -22,12 +19,8 @@ Android:
 
 Probably fixed:
 
--abacus/duncantaylor (mail 2x): sync error / vs \, probably fixed
--socket.timeout not captured on login? Alok Mishra sync error
 -progress bar does not close after sync (launchpad, Ubuntu bug?)
 -headless server resets password (launchpad): fixed with mutex?
--blurry font issues DuncanTaylor (probably nothing more to be done)
-
 
 Android tweaks:
 -decrease size of python library
@@ -49,7 +42,6 @@ Android tweaks:
 
 -sister card not automatically updated when pg-dwn through card browser?
 
--rename plugin folder?
 -import/export dialog alignment does not look nice
 -test: text <audio> text
 
@@ -103,13 +95,14 @@ Android:
 
 
 
+-Mnemosyne version mismatch should not result in a full sync
 
 -speed up non-latin font size increase
 
 -after the next release, change "last_db_maintenance": time.time() - 91 * DAY
 to  "last_db_maintenance": time.time() ?
 
--readlang importer
+
 -memrise importer
 -type answer
 -new learning modes for initial learning of tag? multiple choice? Select audio?
