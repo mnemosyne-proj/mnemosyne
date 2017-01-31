@@ -408,7 +408,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 drive = os.path.splitdrive(path)[0]
                 import ctypes
                 if ctypes.windll.kernel32.GetDriveTypeW("%s\\" % drive) == 4:
-                    raise RuntimeError(_("Putting a database on a network drive is forbidden under Windows to avoid data corruption."))
+                    raise RuntimeError(\
+_("Putting a database on a network drive is forbidden under Windows to avoid data corruption."))
             copy(self._path, dest_path)
             self._path = dest_path
         self.config()["last_database"] \
@@ -1115,7 +1116,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                             raise RuntimeError(_("Error when running plugin:") \
                                 + "\n" + traceback_string())
             if not found:
-                raise RuntimeError(_("Missing plugin for card type with id:") + " " + card_type_id)      
+                raise RuntimeError(_("Missing plugin for card type with id:") +\
+                                   " " + card_type_id)      
 
     def add_card_type(self, card_type):
         self.con.execute("""insert into card_types(id, name,
@@ -1543,7 +1545,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             % sort_key, (timestamp, limit)))
 
     #
-    # Extra commands for custom schedulers.
+    # Extra queries for custom schedulers.
     #
 
     def set_scheduler_data(self, scheduler_data):
@@ -1561,3 +1563,30 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         return self.con.execute("""select count() from cards
             where active=1 and scheduler_data=?""",
             (scheduler_data, )).fetchone()[0]
+
+    # 
+    # Extra queries for language analysis.
+    #
+    
+    def _where_clause_known_recognition_questions(self, card_type_ids):
+        clause = "where grade>=2 and ( "
+        args = []
+        for card_type_id in card_type_ids:
+            clause += "(card_type_id=? and fact_view_id=?) or "
+            args += [card_type_id, card_type_id + ".1"]
+        clause = clause.rsplit("or ", 1)[0] + ")"
+        return clause, args
+    
+    def known_recognition_questions_count_from_card_types_ids(\
+        self, card_type_ids):
+        clause, args = \
+            self._where_clause_known_recognition_questions(card_type_ids)
+        return self.con.execute(\
+            "select count() from cards " + clause, args).fetchone()[0]    
+    
+    def known_recognition_questions_from_card_types_ids(self, card_type_ids):
+        clause, args = \
+            self._where_clause_known_recognition_questions(card_type_ids)
+        return (cursor[0] for cursor in \
+                self.con.execute("select question from cards " + clause, args))
+    

@@ -750,3 +750,60 @@ class TestDatabase(MnemosyneTest):
         card_2 = self.database().card(2, is_id_internal=True)
         assert card_1.id == "id"
         assert card_2.id == "id.1"
+        
+    def test_known_recognition(self):
+        card_type = self.card_type_with_id("3")
+        self.controller().clone_card_type(card_type, "my_3")
+        card_type = self.card_type_with_id("3::my_3")
+        fact_data = {"f": "yes_1",
+                     "p_1": "pronunciation",
+                     "m_1": "translation"}
+        self.controller().create_new_cards(fact_data, card_type,
+                                          grade=5, tag_names=["default"])
+        
+        fact_data = {"f": "no_1",
+                     "p_1": "pronunciation",
+                     "m_1": "translation"}
+        self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"]) 
+        
+        card_type = self.card_type_with_id("3")
+        self.controller().clone_card_type(card_type, "my_3_bis")
+        card_type = self.card_type_with_id("3::my_3_bis")
+        fact_data = {"f": "no_2",
+                     "p_1": "pronunciation",
+                     "m_1": "translation"}
+        self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])
+        
+        for plugin in self.plugins():
+            component = plugin.components[0]
+            if component.component_type == "card_type" and component.id == "6":
+                plugin.activate()
+
+        card_type = self.card_type_with_id("6")
+        fact_data = {"f": "yes_2",
+                     "p_1": "pronunciation",
+                     "m_1": "translation"}
+        self.controller().create_new_cards(fact_data, card_type,
+                                          grade=5, tag_names=["default"])
+
+        fact_data = {"f": "no_3",
+                     "p_1": "pronunciation",
+                     "m_1": "translation"}
+        self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])
+
+        assert self.database().\
+           known_recognition_questions_count_from_card_types_ids(["3::my_3"]) == 1
+        assert self.database().\
+           known_recognition_questions_count_from_card_types_ids(["3::my_3_bis"]) == 0
+        assert self.database().\
+           known_recognition_questions_count_from_card_types_ids(["6"]) == 1
+        assert self.database().\
+           known_recognition_questions_count_from_card_types_ids(\
+               ["6", "3::my_3", "3::my_3_bis"]) == 2 
+        
+        assert set((self.database().\
+           known_recognition_questions_from_card_types_ids(\
+               ["6", "3::my_3", "3::my_3_bis"]))) == set(["yes_1", "yes_2"])

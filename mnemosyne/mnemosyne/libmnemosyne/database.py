@@ -286,7 +286,7 @@ class Database(Component):
     def cards_learn_ahead(self, now, sort_key="", limit=-1):
         raise NotImplementedError
 
-    # Extra commands for custom schedulers.
+    # Extra queries for custom schedulers.
 
     def set_scheduler_data(self, scheduler_data):
         raise NotImplementedError
@@ -296,7 +296,20 @@ class Database(Component):
 
     def scheduler_data_count(self, scheduler_data):
         raise NotImplementedError
+    
+    # 
+    # Extra queries for language analysis.
+    #
+    
 
+    
+    def known_recognition_questions_count_from_card_types_ids(\
+        self, card_type_ids):
+        raise NotImplementedError  
+    
+    def known_recognition_questions_from_card_types_ids(self, card_type_ids):
+        raise NotImplementedError
+    
     def sorted_card_types(self):
 
         """Sorts card types so that all the built-in card types appear first,
