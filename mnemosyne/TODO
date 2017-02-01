@@ -1,5 +1,8 @@
-has_tag_with_id: stop sql loop after finding one
-first doing a count and then the actual a query is not a good idea 
+first doing a count and then the actual a query is not a good idea:? 
+
+number_of_log_entries_to_sync_for
+number_of_log_entries
+
 
 Android:
 -keep phone awake during initial sync? http://stackoverflow.com/questions/13209518/disable-sleep-on-certain-activity

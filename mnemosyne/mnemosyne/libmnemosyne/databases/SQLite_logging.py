@@ -224,7 +224,8 @@ class SQLiteLogging(object):
         for cursor in self.con.execute("""select _id, event_type, timestamp,
             object_id, grade, easiness, acq_reps, ret_reps, lapses,
             acq_reps_since_lapse, ret_reps_since_lapse, scheduled_interval,
-            actual_interval, thinking_time, next_rep from log where _id>?""", (last_index, )):
+            actual_interval, thinking_time, next_rep from log where _id>?""",
+                        (last_index, )):
             index = int(cursor[0])
             event_type = cursor[1]
             timestamp = time.strftime("%Y-%m-%d %H:%M:%S",

@@ -146,7 +146,8 @@ _("Media filename rather long. This could cause problems using this file on a di
 _("Filename contains '#', which could cause problems on some operating systems."))
             if not os.path.exists(filename) and \
                 not os.path.exists(expand_path(filename, self.media_dir())):
-                self.main_widget().show_error(_("Missing media file!") + "\n\n" + filename)              
+                self.main_widget().show_error(\
+                    _("Missing media file!") + "\n\n" + filename)              
                 for fact_key, value in fact.data.items():
                     fact.data[fact_key] = \
                         fact.data[fact_key].replace(match.group(),
@@ -164,8 +165,8 @@ _("Filename contains '#', which could cause problems on some operating systems."
                 self.con.execute("""update data_for_fact set value=? where
                     _fact_id=? and key=?""",
                     (fact.data[fact_key], fact._id, fact_key))
-            if self.con.execute("select count() from media where filename=?",
-                                (filename, )).fetchone()[0] == 0:
+            if self.con.execute("select 1 from media where filename=? limit 1",
+                                (filename, )).fetchone() is None:
                 self.con.execute("""insert into media(filename, _hash)
                     values(?,?)""", (filename, self._media_hash(filename)))
                 # When we are applying log entries during sync or import, the
