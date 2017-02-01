@@ -413,10 +413,10 @@ class SQLiteSync(object):
     def add_tag_from_log_entry(self, log_entry):
         already_imported = self.has_tag_with_id(log_entry["o_id"])
         if "name" not in log_entry:
-            log_entry["name"] = "dummy"  # Added and immediately deleted.        
+            log_entry["name"] = "dummy"  # Added and immediately deleted.
         same_name_in_database = self.con.execute(\
-            "select count() from tags where name=? and id!=?",
-            (log_entry["name"], log_entry["o_id"])).fetchone()[0] == 1
+            "select 1 from tags where name=? and id!=? limit 1",
+            (log_entry["name"], log_entry["o_id"])).fetchone() is not None
         if same_name_in_database:
             # Merging with the tag which is already in the database is more
             # difficult, as then the tag links in the cards would need to
@@ -696,8 +696,8 @@ class SQLiteSync(object):
     def add_fact_view_from_log_entry(self, log_entry):
         if self.importing:
             already_imported = self.con.execute(\
-                "select count() from fact_views where id=?",
-                (log_entry["o_id"], )).fetchone()[0] != 0
+                "select 1 from fact_views where id=? limit 1",
+                (log_entry["o_id"], )).fetchone() is not None
             # No need to rename fact views here, as the user only names the
             # card types.
             if already_imported:
@@ -733,13 +733,13 @@ class SQLiteSync(object):
 
     def add_card_type_from_log_entry(self, log_entry):
         already_imported = self.con.execute(\
-            "select count() from card_types where id=?",
-            (log_entry["o_id"], )).fetchone()[0] != 0
+            "select 1 from card_types where id=? limit 1",
+            (log_entry["o_id"], )).fetchone() is not None
         if "name" not in log_entry:
             log_entry["name"] = "dummy"  # Added and immediately deleted.
         same_name_in_database = self.con.execute(\
-            "select count() from card_types where name=? and id!=?",
-            (log_entry["name"], log_entry["o_id"] )).fetchone()[0] == 1
+            "select 1 from card_types where name=? and id!=? limit 1",
+            (log_entry["name"], log_entry["o_id"] )).fetchone() is not None
         if same_name_in_database:
             # Merging with the card type which is already in the database
             # is more difficult, as then the card type links in the cards
@@ -760,7 +760,7 @@ class SQLiteSync(object):
         except sqlite3.IntegrityError:
             # Leftover from old bug, should not reoccur.
             self.main_widget().show_information(\
-    _("Creating same card type twice during sync. Inform the developpers."))            
+    _("Creating same card type twice during sync. Inform the developpers."))
 
     def card_type_from_log_entry(self, log_entry):
         # Get card type object to be deleted now.

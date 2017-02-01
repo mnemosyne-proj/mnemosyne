@@ -215,7 +215,8 @@ class TestDatabase(MnemosyneTest):
         card = self.database().cards_from_fact(fact)[0]
         card.question()
 
-    def test_new_database_overriding_existing_one(self):
+    def off_new_database_overriding_existing_one(self):
+        # causes permission problems under windows.
         fact_data = {"f": "question",
                      "b": "answer"}
         card_type = self.card_type_with_id("1")

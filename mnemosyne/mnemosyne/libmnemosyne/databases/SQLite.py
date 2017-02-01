@@ -392,7 +392,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         for f in self.component_manager.all("hook", "after_load"):
             f.run()
         # We don't log the database load here, but in libmnemosyne.__init__,
-        # as we prefer to log the start of the program first.                          
+        # as we prefer to log the start of the program first.
 
     def save(self, path=None):
         # Update format.
@@ -643,8 +643,8 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         new_name = tag.name
         stored_name = self.con.execute("select name from tags where _id=?",
             (tag._id, )).fetchone()[0]
-        if new_name != stored_name and self.con.execute("""select count() from
-            tags where name=?""", (new_name, )).fetchone()[0] != 0:
+        if new_name != stored_name and self.con.execute("""select 1 from
+            tags where name=? limit 1""", (new_name, )).fetchone() is not None:
             _existing_tag_id = self.con.execute("""select _id from tags where
             name=?""", (new_name, )).fetchone()[0]
             _card_ids_affected = [cursor[0] for cursor in self.con.execute(\
@@ -653,9 +653,9 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             for _card_id in _card_ids_affected:
                 # If the card already had a tag with the updated name, delete
                 # the other tag.
-                if self.con.execute("""select count() from tags_for_card where
-                    _tag_id=? and _card_id=?""", (_existing_tag_id, _card_id))\
-                    .fetchone()[0] > 0:
+                if self.con.execute("""select 1 from tags_for_card where
+                    _tag_id=? and _card_id=? limit 1""", 
+                    (_existing_tag_id, _card_id)).fetchone() is not None:
                     self.con.execute("""delete from tags_for_card where
                     _tag_id=? and _card_id=?""", (tag._id, _card_id))
                 # If not, update the link.
@@ -711,8 +711,8 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         self.con.execute("delete from tags_for_card where _tag_id=?",
             (tag._id, ))
         for _card_id in _card_ids_affected:
-            if self.con.execute("""select count() from tags_for_card where
-                _card_id=?""", (_card_id, )).fetchone()[0] == 0:
+            if self.con.execute("""select 1 from tags_for_card where
+                _card_id=? limit 1""", (_card_id, )).fetchone() is None:
                 untagged = self.get_or_create_tag_with_name("__UNTAGGED__")
                 self.con.execute("""insert into tags_for_card(_tag_id,
                     _card_id) values(?,?)""", (untagged._id, _card_id))
@@ -741,9 +741,9 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
     def delete_tag_if_unused(self, tag):
         if tag.id == "__UNTAGGED__":
             return
-        if self.con.execute("""select count() from tags as cat,
+        if self.con.execute("""select 1 from tags as cat,
             tags_for_card as cat_c where cat_c._tag_id=cat._id and
-            cat._id=?""", (tag._id, )).fetchone()[0] == 0:
+            cat._id=? limit 1""", (tag._id, )).fetchone() is None:
             self.delete_tag(tag)
 
     def tags(self):
@@ -767,8 +767,8 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         return result
     
     def has_tag_with_id(self, id):
-        return self.con.execute("select count() from tags where id=?",
-            (id, )).fetchone()[0] != 0
+        return self.con.execute("select 1 from tags where id=? limit 1",
+            (id, )).fetchone() is not None
 
     #
     # Facts.
@@ -822,8 +822,8 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         del fact
         
     def has_fact_with_id(self, id):
-        return self.con.execute("select count() from facts where id=?",
-            (id, )).fetchone()[0] != 0        
+        return self.con.execute("select 1 from facts where id=? limit 1",
+            (id, )).fetchone() is not None       
 
     #
     # Cards.
@@ -1029,8 +1029,8 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
                 (EventTypes.EDITED_CARD, int(time.time()), card_id))
 
     def has_card_with_id(self, id):
-        return self.con.execute("select count() from cards where id=?",
-            (id, )).fetchone()[0] != 0 
+        return self.con.execute("select 1 from cards where id=? limit 1",
+            (id, )).fetchone() is not None
     
     #
     # Fact views.
@@ -1084,8 +1084,8 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         del fact_view
         
     def has_fact_view_with_id(self, id):
-        return self.con.execute("select count() from fact_views where id=?",
-            (id, )).fetchone()[0] != 0         
+        return self.con.execute("select 1 from fact_views where id=? limit 1",
+            (id, )).fetchone() is not None         
 
     #
     # Card types.
@@ -1193,18 +1193,18 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         return card_type
 
     def is_user_card_type(self, card_type):
-        return self.con.execute("select count() from card_types where id=?",
-            (card_type.id, )).fetchone()[0] == 1
+        return self.con.execute("select 1 from card_types where id=? limit 1",
+            (card_type.id, )).fetchone() is not None
 
     def is_in_use(self, card_type):
         return self.con.execute(\
-            "select count() from cards where card_type_id=?",
-            (card_type.id, )).fetchone()[0] != 0
+            "select 1 from cards where card_type_id=? limit 1",
+            (card_type.id, )).fetchone() is not None
 
     def has_clones(self, card_type):
-         return self.con.execute(\
-            "select count() from card_types where id like ?",
-            (card_type.id + "::%", )).fetchone()[0] != 0
+        return self.con.execute(\
+            "select 1 from card_types where id like ? limit 1",
+            (card_type.id + "::%", )).fetchone() is not None
 
     def update_card_type(self, card_type):
         # Updating of the fact views should happen at the controller level,
@@ -1240,8 +1240,8 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         del card_type
         
     def has_card_type_with_id(self, id):
-        #if self.con.execute("select count() from card_types where id=?",
-        #    (id, )).fetchone()[0] != 0:
+        #if self.con.execute("select 1 from card_types where id=? limit 1",
+        #    (id, )).fetchone() is not None:
         #    return True
         #else: # It could be a built-in card type.
         return id in [card_type.id for card_type in self.card_types()]
@@ -1307,8 +1307,8 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             for cursor in self.con.execute("select _id from criteria"))
     
     def has_criterion_with_id(self, id):
-        return self.con.execute("select count() from criteria where id=?",
-            (id, )).fetchone()[0] != 0 
+        return self.con.execute("select 1 from criteria where id=? limit 1",
+            (id, )).fetchone() is not None 
     
 
     #

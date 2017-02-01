@@ -211,9 +211,9 @@ class Configuration(Component, dict):
         # Create database tables if needed.
         with self.lock:
             con = sqlite3.connect(filename)
-            is_new = (con.execute(\
-                """select count() from sqlite_master where 
-                type='table' and name='config';""").fetchone()[0] == 0)               
+            is_new = (con.execute("""select 1 from sqlite_master where 
+                type='table' and name='config' limit 1;""").\
+                      fetchone() is None)
             if is_new:
                 con.executescript("""
                 create table config(
