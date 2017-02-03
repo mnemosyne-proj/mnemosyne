@@ -1,20 +1,10 @@
-first doing a count and then the actual a query is not a good idea:? 
-
-number_of_log_entries_to_sync_for
-number_of_log_entries
-
-
 Android:
--keep phone awake during initial sync? http://stackoverflow.com/questions/13209518/disable-sleep-on-certain-activity
--disk io error not detected?
--setting temporary sqlite folder location
--reenable archiving of old logs
+
+-disable sleep during sync
+-capture socket.timeout on login
+-don't archive on first run, scares off users
 
 -timezone of rollover point? Terje Halvorsen
-
--capture socket.timeout on login
-
--dont archive on first run, scares off Android users
 
 -don't generate card edited logs when importing a card and no change occurs in a card?
   #if (eval(log_entry["extra"]) == orig_card.extra_data) && \
@@ -22,13 +12,15 @@ Android:
   # card type
   # factview		   
   # Important: fact, media, tag (check all 'already_imported' statements)
+  
+first doing a count and then the actual a query is not a good idea:? 
+
+number_of_log_entries_to_sync_for
+number_of_log_entries
 
 -Qt5.8?
 
-Probably fixed:
-
--progress bar does not close after sync (launchpad, Ubuntu bug?)
--headless server resets password (launchpad): fixed with mutex?
+-for sync, check only database version, not program version?
 
 Android tweaks:
 -decrease size of python library

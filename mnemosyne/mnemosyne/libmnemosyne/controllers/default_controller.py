@@ -36,7 +36,7 @@ class DefaultController(Controller):
     def activate(self):
         Controller.activate(self)
         self.next_rollover = self.database().start_of_day_n_days_ago(n=-1)
-
+        
     def heartbeat(self):
 
         """Making sure, even if the user leaves the program open indefinitely,

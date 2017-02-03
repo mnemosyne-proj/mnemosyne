@@ -222,7 +222,7 @@ public class MnemosyneActivity extends AppCompatActivity {
                                     public void run() {
                                         setFullscreen();
                                     }
-                                }, 3500);
+                                }, 5000);
                             }
                         }
                     });

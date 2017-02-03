@@ -401,7 +401,10 @@ class SQLiteLogging(object):
                                   drop index i_log_object_id;""")        
         arch_con.commit()
         arch_con.close()
-        # Transfer old logs.
+        # Needed for Android.
+        self.con.execute("PRAGMA temp_store_directory='%s';" % \
+                         (archive_dir, ))
+        # Transfer old logs. 
         script = string.Template("""   
             attach "$archive_path" as archive;
             begin; 
@@ -422,4 +425,5 @@ class SQLiteLogging(object):
         """).substitute(archive_path=archive_path, one_year_ago=one_year_ago)
         self.con.executescript(script) 
         self.main_widget().close_progress()
-        
+
+            
