@@ -163,21 +163,26 @@ class AddEditCards(TipAfterStartingNTimes):
         self.card_type_widget = None
 
 
-class AddCardsDlg(QtWidgets.QDialog, AddEditCards, AddCardsDialog, Ui_AddCardsDlg):
+class AddCardsDlg(QtWidgets.QDialog, AddEditCards, 
+                  AddCardsDialog, Ui_AddCardsDlg):
 
-    def __init__(self, **kwds):
+    def __init__(self, card_type=None, fact_data=None, **kwds):
         super().__init__(**kwds)    
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
-        last_used_card_type_id = self.config()["last_used_card_type_id"]
-        try:
-            last_used_card_type = self.card_type_with_id(last_used_card_type_id)
-        except:
-            # First time use, or card type was deleted.
-            last_used_card_type = self.card_type_with_id("1")
+        if card_type:
+            last_used_card_type = card_type
+        else:
+            last_used_card_type_id = self.config()["last_used_card_type_id"]
+            try:
+                last_used_card_type = self.card_type_with_id(\
+                    last_used_card_type_id)
+            except:
+                # First time use, or card type was deleted.
+                last_used_card_type = self.card_type_with_id("1")
         self.initialise_card_types_combobox(last_used_card_type.name)
         if last_used_card_type.id not in \
             self.config()["last_used_tags_for_card_type_id"]:
@@ -188,6 +193,8 @@ class AddCardsDlg(QtWidgets.QDialog, AddEditCards, AddCardsDialog, Ui_AddCardsDl
         else:
             self.update_tags_combobox(self.config()\
                 ["last_used_tags_for_card_type_id"][last_used_card_type.id])
+        if fact_data:
+            self.card_type_widget.set_fact_data(fact_data)
         self.grades = QtWidgets.QButtonGroup()
         # Negative indexes have special meanings in Qt, so we can't use -1 for
         # 'yet to learn'.

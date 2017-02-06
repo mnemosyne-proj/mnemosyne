@@ -2,6 +2,7 @@ package org.mnemosyne;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -431,7 +433,14 @@ public class MnemosyneActivity extends AppCompatActivity {
                         mnemosyneThread.config._Call("__setitem__", "username_for_sync_as_client", username);
                         mnemosyneThread.config._Call("__setitem__", "password_for_sync_as_client", password);
                         mnemosyneThread.config._Call("save");
-                        mnemosyneThread.controller._Call("sync", server, port, username, password);
+                        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "My Tag");
+                        wl.acquire();
+                        try {
+                            mnemosyneThread.controller._Call("sync", server, port, username, password);
+                        } finally {
+                            wl.release();
+                        }
                         mnemosyneThread.controller._Call("show_sync_dialog_post");
                     }
                 });

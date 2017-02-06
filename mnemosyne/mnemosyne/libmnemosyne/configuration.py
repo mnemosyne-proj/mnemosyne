@@ -172,7 +172,7 @@ class Configuration(Component, dict):
              "import_extra_tag_names": "",
              "export_dir": os.path.expanduser("~"),
              "export_format": None,
-             "last_db_maintenance": time.time() - 91 * DAY
+             "last_db_maintenance": time.time() - 1 * DAY
             }.items()):
             self.setdefault(key, value)
         # These keys will be shared in the sync protocol. Front-ends can

@@ -1,10 +1,4 @@
-Android:
-
--disable sleep during sync
--capture socket.timeout on login
--don't archive on first run, scares off users
-
--timezone of rollover point? Terje Halvorsen
+-android: make sure we are really saving to the sdcard?
 
 -don't generate card edited logs when importing a card and no change occurs in a card?
   #if (eval(log_entry["extra"]) == orig_card.extra_data) && \
@@ -17,6 +11,8 @@ first doing a count and then the actual a query is not a good idea:?
 
 number_of_log_entries_to_sync_for
 number_of_log_entries
+
+-Mac problems: settings menu not accessible, crash on pictures
 
 -Qt5.8?
 
@@ -57,7 +53,6 @@ Android tweaks:
  
 -archive files wont download from dot_test to android
 
--OSX: move database location out of iSync?
 
 server.py imports from libmnemosyne.utils
 
