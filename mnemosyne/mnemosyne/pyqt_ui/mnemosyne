@@ -252,5 +252,13 @@ if mnemosyne.config()["first_run"] == True:
     mnemosyne.config()["first_run"] = False
 elif mnemosyne.config()["show_daily_tips"] == True:
     mnemosyne.controller().show_tip_dialog()
+    
+    
+#from mnemosyne.pyqt_ui.add_cards_dlg import AddCardsDlg
+#b = AddCardsDlg(card_type=mnemosyne.card_type_with_id("1"),
+#                fact_data={"f": "front", "b": "back"},
+#                component_manager=mnemosyne.component_manager)
+#b.show()
+
 a.exec_()
 mnemosyne.finalise()

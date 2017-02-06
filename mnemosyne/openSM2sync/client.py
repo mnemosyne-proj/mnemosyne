@@ -173,13 +173,7 @@ class Client(Partner):
         except Exception as exception:
             self.ui.close_progress()
             serious = True
-            if type(exception) == type(socket.gaierror()):
-                self.ui.show_error("Could not find server!")
-                serious = False
-            elif type(exception) == type(socket.error()):
-                self.ui.show_error("Could not connect to server!")
-                serious = False
-            elif type(exception) == type(socket.timeout()):
+            if type(exception) == type(socket.timeout()):
                 self.ui.show_error("Timeout while waiting for server!")
             elif type(exception) == type(SyncError()):
                 self.ui.show_error(str(exception))
@@ -298,6 +292,10 @@ class Client(Partner):
                 self.text_format.repr_partner_info(client_info).\
                 encode("utf-8") + b"\n")
             response = self.con.getresponse()
+        except socket.gaierror:
+            raise SyncError("Could not find server!")        
+        except socket.timeout:
+            raise SyncError("Timeout when trying to connect to server!")
         except Exception as e:
             print(e)
             raise SyncError("Could not connect to server!\n\n" \

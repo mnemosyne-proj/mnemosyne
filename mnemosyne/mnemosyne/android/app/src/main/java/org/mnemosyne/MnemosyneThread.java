@@ -150,7 +150,6 @@ public class MnemosyneThread extends Thread {
             public void run() {
                 mnemosyneHandler.post(new Runnable() {
                     public void run() {
-                        Log.d("Mnemosyne", "Heartbeat");
                         controller._Call("heartbeat");
                     }
                 });
