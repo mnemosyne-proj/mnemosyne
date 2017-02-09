@@ -8,4 +8,6 @@
           android:title="Star card" />
     <item android:id="@+id/menu_activate"
           android:title="(De)activate cards" />
+    <item android:id="@+id/menu_archive_logs"
+          android:title="Archive old logs" />
 </menu>

@@ -37,7 +37,7 @@ class DefaultController(Controller):
         Controller.activate(self)
         self.next_rollover = self.database().start_of_day_n_days_ago(n=-1)
         
-    def heartbeat(self):
+    def heartbeat(self, db_maintenance=True):
 
         """Making sure, even if the user leaves the program open indefinitely,
         that backups get taken, that the cards scheduled for the day get dumped
@@ -63,7 +63,18 @@ class DefaultController(Controller):
             self.config().save()
             self.review_controller().reset()
             self.next_rollover = self.database().start_of_day_n_days_ago(n=-1)
-        if time.time() > self.config()["last_db_maintenance"] + 90 * DAY:
+        if db_maintenance and \
+           (time.time() > self.config()["last_db_maintenance"] + 90 * DAY):
+            self.component_manager.current("database_maintenance").run()        
+            self.config()["last_db_maintenance"] = time.time()
+            self.config().save()
+            
+    def do_db_maintenance(self):
+        if time.time() > self.config()["last_db_maintenance"] + 30 * DAY:
+            self.main_widget().show_information(\
+          _("No need to do database maintenance more than once per month."))
+            return
+        else:
             self.component_manager.current("database_maintenance").run()        
             self.config()["last_db_maintenance"] = time.time()
             self.config().save()
