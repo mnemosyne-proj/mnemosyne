@@ -126,7 +126,8 @@ public class MnemosyneThread extends Thread {
         componentManager = python._GetObject("mnemosyne.component_manager");
         reviewController = (StarObjectClass) mnemosyne._Call("review_controller");
 
-        File file = new File(Environment.getExternalStorageDirectory().getPath() + "/Mnemosyne/.nomedia");
+        File file = new File(Environment.getExternalStorageDirectory().getPath()
+            + "/Mnemosyne/.nomedia");
         if (!file.exists()){
             try {
                 file.createNewFile();
@@ -145,16 +146,16 @@ public class MnemosyneThread extends Thread {
         });
 
         // Heartbeat: run at startup and then every 5 seconds.
-        //controller._Call("heartbeat");
-        //this.scheduler.scheduleAtFixedRate(new Runnable() {
-        //    public void run() {
-        //        mnemosyneHandler.post(new Runnable() {
-        //            public void run() {
-        //                controller._Call("heartbeat");
-        //            }
-        //        });
-        //    }
-        //}, 0, 5, TimeUnit.SECONDS);
+        controller._Call("heartbeat");
+        this.scheduler.scheduleAtFixedRate(new Runnable() {
+            public void run() {
+                mnemosyneHandler.post(new Runnable() {
+                    public void run() {
+                        controller._Call("heartbeat", false);
+                    }
+                });
+            }
+        }, 0, 5, TimeUnit.SECONDS);
     }
 
     public void pauseMnemosyne() {

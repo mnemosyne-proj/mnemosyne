@@ -285,6 +285,14 @@ public class MnemosyneActivity extends AppCompatActivity {
                 });
                 return true;
 
+            case R.id.menu_archive_logs:
+                mnemosyneThread.getHandler().post(new Runnable() {
+                    public void run() {
+                        mnemosyneThread.controller._Call("do_db_maintenance");
+                    }
+                });
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
