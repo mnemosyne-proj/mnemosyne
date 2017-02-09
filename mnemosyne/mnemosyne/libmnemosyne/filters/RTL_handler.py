@@ -43,8 +43,8 @@ class RTLHandler(Filter):
         # around.
         if text[0] == "[" and text[1] in string.ascii_letters and "]" in text:
             part1, part2 = text.split("]", 1)
-            return "<span dir=\"ltr\">" + part1 + "]</span>" + \
-                "<span dir=\"rtl\">" + part2 + "</span>"
+            return "<span dir=\"rtl\">" + part2 + "</span>" + \
+                   "<span dir=\"ltr\"> " + part1 + "]</span>"
         # If we start with latin, we'll keep the paragraph ordering as ltr.
         if text[0] in string.ascii_letters or text[1] in string.ascii_letters:
             return text

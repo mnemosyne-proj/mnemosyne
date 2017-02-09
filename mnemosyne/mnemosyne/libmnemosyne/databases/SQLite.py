@@ -225,7 +225,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     suffix = ".db"
     store_pregenerated_data = True
 
-    def __init__(self, component_manager):
+    def __init__(self, component_manager):        
         Database.__init__(self, component_manager)
         self._connection = None
         self._path = None # Needed for lazy creation of connection.
@@ -255,7 +255,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             from mnemosyne.libmnemosyne.databases._sqlite3 import _Sqlite3
             self._connection = _Sqlite3(self.component_manager, self._path)
             #from mnemosyne.libmnemosyne.databases._apsw import _APSW
-            #self._connection = _APSW(self.component_manager, self._path)       
+            #self._connection = _APSW(self.component_manager, self._path)
         return self._connection
 
     def release_connection(self):
@@ -394,7 +394,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # We don't log the database load here, but in libmnemosyne.__init__,
         # as we prefer to log the start of the program first.
 
-    def save(self, path=None):
+    def save(self, path=None):      
         # Update format.
         self.con.execute("update global_variables set value=? where key=?",
             (self.version, "version"))
@@ -466,7 +466,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         # database should mitigate that effect.
         self.reset_partnerships()
 
-    def unload(self):
+    def unload(self):      
         if not self._connection:
             return
         # Unregister card types in this database.
@@ -489,7 +489,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             self._path = None
         return True
 
-    def abandon(self):
+    def abandon(self):     
         if self._connection:
             self._connection.close()
         self._connection = None

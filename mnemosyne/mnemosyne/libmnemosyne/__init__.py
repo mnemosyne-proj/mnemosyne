@@ -245,14 +245,16 @@ class Mnemosyne(Component):
         """
 
         for module_name, class_name in self.components:
-            component = getattr(importlib.import_module(module_name), class_name)
+            component = \
+                getattr(importlib.import_module(module_name), class_name)
             if component.instantiate == Component.IMMEDIATELY:
                 component = component(component_manager=self.component_manager)
             self.component_manager.register(component)
         for plugin_name in self.extra_components_for_plugin:
             for module_name, class_name in \
                     self.extra_components_for_plugin[plugin_name]:
-                component = getattr(importlib.import_module(module_name), class_name)
+                component = \
+                    getattr(importlib.import_module(module_name), class_name)
                 self.component_manager.add_component_to_plugin(\
                     plugin_name, component)
 
@@ -333,7 +335,8 @@ class Mnemosyne(Component):
                     self.database().new(path)
                 except Exception as e:
                     from mnemosyne.libmnemosyne.translator import _
-                    raise RuntimeError(_("Previous drive letter no longer available."))
+                    raise RuntimeError(\
+                        _("Previous drive letter no longer available."))
             else:
                 self.database().load(path)
             self.controller().update_title()
