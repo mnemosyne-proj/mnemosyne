@@ -140,7 +140,6 @@ class GenericCardTypeWdgt(QtWidgets.QWidget, GenericCardTypeWidget):
             for edit_box, fact_key in self.fact_key_for_edit_box.items():
                 if fact_key in fact_data:
                     edit_box.setPlainText(fact_data[fact_key])
-        self.text_changed()
 
     def clear(self):
         self.fact_data_before_edit = {}

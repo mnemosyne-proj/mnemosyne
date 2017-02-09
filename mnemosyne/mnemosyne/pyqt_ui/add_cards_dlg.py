@@ -204,7 +204,8 @@ class AddCardsDlg(QtWidgets.QDialog, AddEditCards,
         self.grades.addButton(self.grade_4_button, 4)
         self.grades.addButton(self.grade_5_button, 5)
         self.grades.buttonClicked[int].connect(self.create_new_cards)
-        self.set_valid(False)
+        if not (card_type and fact_data):
+            self.set_valid(False)
         state = self.config()["add_cards_dlg_state"]
         if state:
             self.restoreGeometry(state)

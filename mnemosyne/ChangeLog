@@ -12,7 +12,12 @@ Additionally, if you see a black screen, start Mnemosyne with the
 
 Mnemosyne 2.4.2
 
--small performance optimisations in the database.
+-Small performance optimisations in the database.
+-Update RTL code to work with latest browser widget in the case
+ of a cloze deletion in the first word of a sentence.
+-Added warning if OpenGL libraries are missing under Linux
+ (Andy Rayner).
+ 
 
 Mnemosyne 2.4.1 : 2017-01-30
 

@@ -8,8 +8,17 @@ import os
 import sys
 import time
 
-# Workaround for this bug: https://github.com/pyinstaller/pyinstaller/issues/1113
+# Workaround for this bug: 
+#    https://github.com/pyinstaller/pyinstaller/issues/1113
 import encodings.idna
+
+# Workaround/warning on some Debian systems.
+#    https://github.com/Ultimaker/Cura/issues/88
+try:    
+    from OpenGL import GL
+except:
+    print("Warning: Could not import OpenGL. Might cause a black screen on " +\
+        "some Linux distributions. Try installing python3-opengl in that case.")
 
 # Custom error handling on Windows.
 
@@ -252,13 +261,5 @@ if mnemosyne.config()["first_run"] == True:
     mnemosyne.config()["first_run"] = False
 elif mnemosyne.config()["show_daily_tips"] == True:
     mnemosyne.controller().show_tip_dialog()
-    
-    
-#from mnemosyne.pyqt_ui.add_cards_dlg import AddCardsDlg
-#b = AddCardsDlg(card_type=mnemosyne.card_type_with_id("1"),
-#                fact_data={"f": "front", "b": "back"},
-#                component_manager=mnemosyne.component_manager)
-#b.show()
-
 a.exec_()
 mnemosyne.finalise()

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-01-30 14:25+0100\n"
+"POT-Creation-Date: 2017-02-08 16:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,26 +97,26 @@ msgstr ""
 msgid "Command line argument is not a *.db file."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:222
+#: ../mnemosyne/libmnemosyne/__init__.py:224
 msgid "Another copy of Mnemosyne is still running."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:223
+#: ../mnemosyne/libmnemosyne/__init__.py:225
 msgid "Continuing is impossible and will lead to data loss!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:309
-#: ../mnemosyne/libmnemosyne/__init__.py:322
+#: ../mnemosyne/libmnemosyne/__init__.py:311
+#: ../mnemosyne/libmnemosyne/__init__.py:324
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:874
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1115
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1135
 msgid "Error when running plugin:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:336
+#: ../mnemosyne/libmnemosyne/__init__.py:342
 msgid "Previous drive letter no longer available."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:344
+#: ../mnemosyne/libmnemosyne/__init__.py:351
 msgid "If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."
 msgstr ""
 
@@ -234,7 +234,7 @@ msgstr ""
 msgid "Foreign word or phrase"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/configuration.py:415
+#: ../mnemosyne/libmnemosyne/configuration.py:417
 msgid "Error in config.py:"
 msgstr ""
 
@@ -476,15 +476,15 @@ msgid ""
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:609
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:607
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1154
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:627
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1175
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 msgid "No"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:609
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:607
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1154
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:627
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1175
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 msgid "Yes"
 msgstr ""
@@ -557,68 +557,68 @@ msgstr ""
 msgid "go to http://www.mnemosyne-proj.org"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/database.py:341
+#: ../mnemosyne/libmnemosyne/database.py:352
 #: ../mnemosyne/pyqt_ui/compact_database_dlg.py:143
 msgid "Compacting database..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:290
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:298
 msgid "Defragmenting database..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:350
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:365
 msgid "Unable to load file at"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:352
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:367
 msgid "Unable to load file, query failed."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:364
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:379
 msgid "Database upgrade failed."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:376
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:391
 msgid "Unable to load file."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:411
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:427
 msgid "Putting a database on a network drive is forbidden under Windows to avoid data corruption."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:440
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:456
 msgid "Warning: backup creation failed for"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:606
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:626
 msgid "Make tag '%s' active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1118
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1138
 msgid "Missing plugin for card type with id:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1153
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1174
 msgid "Make new card type active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1394
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1415
 msgid "No duplicates found."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1397
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1418
 msgid "Found %d duplicate cards. They have been given the tag 'DUPLICATE'."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1403
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1424
 msgid "DUPLICATE"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite_logging.py:350
+#: ../mnemosyne/libmnemosyne/databases/SQLite_logging.py:351
 msgid "Merging logs..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite_logging.py:383
+#: ../mnemosyne/libmnemosyne/databases/SQLite_logging.py:384
 msgid "Archiving old logs..."
 msgstr ""
 
@@ -638,7 +638,7 @@ msgstr ""
 msgid "Filename contains '#', which could cause problems on some operating systems."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:149
+#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:150
 msgid "Missing media file!"
 msgstr ""
 
@@ -1309,11 +1309,11 @@ msgstr ""
 msgid "If you use 'Edit cards', changes are made to all the sister cards simultaneously."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:273
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:281
 msgid "Abandon current card?"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:273
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:281
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:232
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_cramming.py:39
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:67
@@ -1322,7 +1322,7 @@ msgstr ""
 msgid "&No"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:273
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:281
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:232
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_cramming.py:39
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:67

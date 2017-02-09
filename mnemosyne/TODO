@@ -1,358 +1,120 @@
--android: make sure we are really saving to the sdcard?
+-timezone rollover / archive issues: new android version
 
--don't generate card edited logs when importing a card and no change occurs in a card?
+-kienan launchpad: sync dialog box stays open
+-kienan launchpad: password gets overwritten
+
+-don't generate card edited logs when importing a card and no change occurs 
+ in a card
   #if (eval(log_entry["extra"]) == orig_card.extra_data) && \
   # tags, unless extra tags on import
   # card type
   # factview		   
-  # Important: fact, media, tag (check all 'already_imported' statements)
-  
-first doing a count and then the actual a query is not a good idea:? 
+  # Important: fact, 
+media, tag (check all 'already_imported' statements)
 
+-when importing, do we save after adding every card?
+  
+-first doing a count and then the actual a query is not a good idea:? 
 number_of_log_entries_to_sync_for
 number_of_log_entries
 
--Mac problems: settings menu not accessible, crash on pictures
-
--Qt5.8?
-
--for sync, check only database version, not program version?
-
-Android tweaks:
--decrease size of python library
--precompile python files
--order of question with 3 buttons (e.g. sync conflict)
--pybridge: don't extract individual assets but extract zip file? Faster?
+-for sync, check only database version, not program version
 
 -to combat slow resizing, everything in one browser?
 
 -after sync, a cloze card type displays all hints
 
--first cloze in arabic does not get positioned right
+-update dev instructions linux, windows
 
--when activating prefill tag plugin, checkbox does not update immediately
--update devl instructions linux, windows
+-sister card not automatically updated when pg-dwn through card browser
 
--memrise import seems to mess up scheduling after sync?
--when adding cards through API, missing media tag does not show up?
-
--sister card not automatically updated when pg-dwn through card browser?
-
--import/export dialog alignment does not look nice
 -test: text <audio> text
-
--qwebengineview open links in external browser? QWebEnginePage::acceptNavigationRequest() 
-
--sync of changed saved set does not update title on target machine
-
--create a new cardtype through *.cards import, setting font, does not seem to sync across?
-
--tag completion box: does not work when clicking in the box, and does not
- work when going back to a previous tag, e.g. if you have a,b,c and want
- to go back to an expansion on a
  
--archive files wont download from dot_test to android
+-test if initial sync on Android download archive files download, using a custom
+ dot_test directory
+ 
+-Mac problems: crash on pictures
+-Rusty May: sync works, but no cards visible: reminded to send feedback
 
+-move to Qt5.8
 
-server.py imports from libmnemosyne.utils
-
-
-Qt's own translation
-
-Qt SDK: back to webkit?
-Make use of 'print to pdf' for resizing?
-custom context menu
 
 
 Android:
 
+-check 'redraw now'
+-decrease size of python library
+-precompile python files
+-order of question with 3 buttons (e.g. sync conflict)
+-pybridge: don't extract individual assets but extract zip file? Faster?
+-setting to allow choosing the database location?
 -progress bar before 'sync finished'?
-
 -revisit multiple database option?
--'sync' button should sync directly without going through the sync settings dialog. Put
- the settings in a settings window instead.
- 
--dropbox integration
+-'sync' button should sync directly without going through the sync settings 
+ dialog. Putthe settings in a settings window instead.
 -make sure Android uploads logs as well
- 
 -set default grade?
--check 'redraw now
--latex on android, media table corrupt?
-
--plugin to hide card?
-
+-plugin to hide card, i.e. no longer show it?
 -video
-
--gestures
-
+-gestures?
 -option to globally increase / decrease font size with respect to desktop
 -custom fonts?
 
 
 
--Mnemosyne version mismatch should not result in a full sync
+Minor bugs:
 
--speed up non-latin font size increase
-
--after the next release, change "last_db_maintenance": time.time() - 91 * DAY
-to  "last_db_maintenance": time.time() ?
-
-
--memrise importer
--type answer
--new learning modes for initial learning of tag? multiple choice? Select audio?
--gamification? userinfuser, habitica
-
--daily goals: memorise x, review y, streak chart, ...
-
--add creation date / modification date to current card statistics
-
--creating a new clone does not generate appearance setting events for sync
-
--duplicate check on answer too? Needs to check whether all necessary fields are marked as unique,
- also in F2B and B2F, vocabulary
- 
--sync failed because of version mismatch seems to result in requirement for full sync?
- 
-- disable latex version check in testsuite 
- 
--note: sync from a to b and then to c adds latex files to the media table. Is this a
- problem?
-
--rework make windows-installer so as not to require keypress, so that it can be used from
- qtconsole
-
-
--better in dialog explanation for hold n cards in your hand?
-
--option to turn off card count per tag?
-
--heartbeat in headless server: if a sync request comes in while this is running, it will
- fail because of threading issues.
-
--do create_database in a separate thread (see compact_database_dlg.py)
-
--windows 'python setup.py install': missing share locale path when starting configure
--profile testsuite
-
--fix race condition in test_cramming:Test_3 (off_3)
-
-
--select saved set, delete that set: set name is still visible in windows header
-
--factor out duplication of threaded UI stuff in sync and compact
-
--remote webserver sometimes does not want to send multiple pictures
--sometimes, need to click website buttons twice
-
--merging cards: should give an option to go back and edit?
-
--sometimes adding and deleting a card gives a wrong id for the deleted card in the log?
-
--add login to webserver?
-
--running a headless sync server in an empty datadir does not create a default database.
-
--a crash during a full sync can lead to 'sync cycle' detected
- 
--clickable links in browser (difficult, as after drawing Q or A, only the bitmap is saved,
-not the browser widget)
- 
--editing cards in card browser, pressing pg up / down sometimes results in
- list index out of range, or simply card edit widget disappearing
--editing in card browser, pg-up/down: sister cards are not updated
-
-
- 
--reverse arabic plugin no longer seems to work?
- http://mpcabd.igeex.biz/python-arabic-text-reshaper/
- 
--settings in config.py don't play well with syncing: if the user does not update config.py
- on the target machine as well, these settings will get reset by the default config.py there.
- So, get rid of config.py and move it to an advanced settings plugin?
-
--activate cards: 'having any of these tags:' is not aligned with tag with tag tree
+-server.py imports from libmnemosyne.utils
+-import/export dialog alignment does not look nice
+-Select saved set, switch tab to other criterion (deselects set) and switch 
+ back to original one.The set should then be autoselected again.
 -layout of "add clone" is not optimal under Windows
--splitters on XP are not visible
-http://stackoverflow.com/questions/2545577/qsplitter-becoming-undistinguishable-between-qwidget-and-qtabwidget
-
+-running a headless sync server in an empty datadir does not create a default
+ database.
+-select saved set, delete that set: set name is still visible in windows header
+-sync of changed saved set does not update title on target machine
+-creating a new clone does not generate appearance setting events for sync
+-Related: create a new cardtype through *.cards import, setting font, does not 
+ seem to sync across?
 -if the sync changed the appearance settings, the current card's question still
  shows the old appearance
- 
--Michael Campbell: I changed the background color of Mnemosyne to something other than white, and I 
- noticed that it uses that color when adding new content. However, when that window does not have 
- focus, it turns white again.
- 
--command line switch for headless server not to check for updated card types. 
-
--option to move dividers in edit field (e.g. for large font sizes)
-
--for the sentence card type without hints, use the 'meaning' font for Q in production, 
- instead of the sentence font?
-
- 
--optimisation: change card type for many facts which calls
- 'delete_facts_and_their_data' does checking for unused tags multiple times.
- 
--fine tuning: when merging a database, merge also the 'active' tag instead of just looking
- at the deactivated fact views? Probably more general and also more future proof in case
- of new criteria.
-
--menu option to copy database to USB key?
-
--Database locking mechanism can be circumvented if the first Mnemosyne copy is in the browser
-(or apparently has just done file-new) (Scott Youngman)
-
--why trying new fonts, sometimes the fonts get automatically accepted even
- when clicking 'cancel'?
-
--mass convert to cloze
-
--do honour delete media events under sync, by checking if there are no later 
- 'added_media' events with the same file.
-
--website font size under windows
-
--move to qt5?
-
--profile test suite
-
+-sync failed because of version mismatch seems to result in requirement for 
+ full sync?
+-note: sync from a to b and then to c adds latex files to the media table. Is 
+ this aproblem? Can the table become corrupt?
+-heartbeat in headless server: if a sync request comes in while this is running,
+ it will fail because of threading issues.
+-Michael Campbell: I changed the background color of Mnemosyne to something 
+ other than white, and I noticed that it uses that color when adding new 
+ content. However, when that window does not have focus, it turns white again.
 -tag on client, same tag on server, then sync. 
  Tag names get renamed, but original tag is set inactive.
-
-
 -cloze deletion in combination with latex or html does not pick up any open
  environments
- 
--check past schedule info when changing a lot between card sets
-
--when converting f2b to map through the card browser 'change card type',
- check if it's at all possible to convert (enough fields), before showing
- correspondence dialog.
-
--with full sync, option to skip media sync
- 
--Possible to get rid of unloading in python / reloading in Qt?
-
--speed up science log parser?
- http://lesswrong.com/r/discussion/lw/ivw/what_should_normal_people_do/9yuy
-suggests that there's some SQLite3 functionality relating to the
-'union' operator which could massively speed up insertion, pointing to
-http://stackoverflow.com/questions/1609637/is-it-possible-to-insert-multiple-rows-at-a-time-in-an-sqlite-database_is_
-
--optimise away DISTINCT and do it at the python level
--more sqlite profiling
- !./bin/python /home/pbienst/apswtrace.py ./bin/nosetests -v tests/test_sync.py:TestSync.test_add_tag
--archive old learning data, check interplay with sync
--index on cards._fact_id to speed up e.g. sister_card_count_scheduled_between?
--profile different versions of sister_card_count_scheduled_between
--try apsw again, but make sure every statement is inside a transaction
-
--save cookies
- http://stackoverflow.com/questions/3382640/how-can-i-load-session-information-into-qtwebkit
-
--Jiri Palacek: conflict resolution at card level, e.g. if 1 card causes conflict, but both
- database a and b have different non-conflicting new cards, merge the non-conflicting cards
- and keep one of the conflicting version.
-
--add debug information for conflict detection?
-
--refactor audio/video backend to move more functionality to libmnemosyne, simplify Android
- and pyqt code, merge audio and video filter
-
--automatic font size adjustment: http://www.spookandpuff.com/examples/dynamicTextSize.html
-
--synonym checking just like duplicate checking?
-
--option to pick location of backups in config? Also shows you where the datadir
- is. Backup config too? Or explicit 'backup' option?
-
--When making a changes in the selection in the (de)activate dialog, the warning
- that you have learned 15 cards does not show
-
--bundle grades criterion? add criterion names i.e. type. Fix bug saving sets.
- Other mechanism to skip scheduled cards? What happens to saved set after
- disabling plugin?
--criterion to select last X added cards, useful for cramming
-
--apply button on edit window as called from the card browser?
-
--don't switch to text entry field when changing card type with the keys.
-
--plugin for card types with prefilled data?
-
--merge translations (del en_gb, am, vi, uz)
-
--integrate with forvo
-
-
--insert latex tags shortcut and menu (phyTech)
-
--errors in scripting engine related to main_widget
-
--replace locking mechanism by switching to running instance of Mnemosyne?
-
--plugin for interval multiplication factor
-
--make doc: errors related to _
-
--card templates?
-
--when exporting, progress bar when creating latex?
-
--add up and down arrows on browsing through the preview window?
-
--remove TMP adding of default o_id in sync
-
--if last card had unequal split, learn ahead of schedule message does not go
- back to 50/50 split.
-
--fix race condition in test_sync where dot_sync_test does not get created
-
--circadian rythm plugin
--plugin to move basedir to dropbox?
--bundle more of the example plugins?
-
--'duplicate card' option in menu and browser? Or as plugin?
-
-
+-don't switch to text entry field when changing card type with the keys. 
 -when the server thread hangs and the main program is terminated, the cleanup
  code gets called from the main thread as opposed to from the server thread,
  and will therefore fail. (The server thread should release its connection
  itself)
-
--default input method/keyboard layout per field?
-
--remove hack to preview cloze cards in card type appearance.
-
--plugin to reset active cards to unlearned
-
--really fix sync test suite races: after first client request fails and client
- goes to sleep, sometimes server cannot create socket.
-
--make statistics refer to active cards only. Profile. (Dan Schmidt)
-
--Windows makefile: ln -s pyuic4.bat pyuic, full path to python, py2exe needed, rename mnemosyne to mnemosyne.py, numpy
--py2exe: downloads 64 bit by default
--py2exe: download: http://www.microsoft.com/downloads/en/details.aspx?FamilyID=9b2da534-3e03-4391-8a4d-074b9f2bc1bf&displaylang=en
--put __init__.py in numpy.distutils.test
--set default matplotlib backend: http://www.py2exe.org/index.cgi/MatPlotLib
--run test suite under windows
--document on how to make mnemosyne scripts run on Windows
-
--add plugin example on card type specific renderer
--add doc on how to write plugin to sfinx doc
-
+-if last card had unequal split, learn ahead of schedule message does not go
+ back to 50/50 split.
+-webserver: map card type does not really hide the question box, just blanks the
+ question 
+-corner case: If M > 0 and k < 0 then (a,b) is a local maximum
+If M > 0 and k > 0 then (a,b) is a local minimum: eats < ... > 
+-move button group in review widget to designer code after pyqt upgrade.
+ Also possible in add cards?
+*These were all reported using Qt4, and probably no longer apply:
 -Qt bug? different font size in edit box and in css
 -Qt bug? Cannot restore scroll_to column in card browser after tag rename.
--Qt bug? Cntl+a select all in card browser only selects all the prefetched entries
+-Qt bug? Cntl+a select all in card browser only selects all the prefetched 
+ entries
 -Qt bug? insertAtTop on tags combobox in add_cards does not seem to work
--Qt bug? Windows: progress bars for sync often crash when they get called too quickly
- (reproduce: download_binary_database for HTTP 1.0)
 -Qt bug? cursor is always black, also on a black background
  https://bugreports.qt.nokia.com/browse/QTBUG-52
 -Qt bug? error dialogs don't allow copying the text from it on all platforms
--Qt bug? svg Mnemosyne watermark for tip and getting started does not work under Linux
+-Qt bug? svg Mnemosyne watermark for tip and getting started does not work under
+ Linux
 -Qt bug? review widget: frame.scroll does not seem to work reliably for PageUp
 -Qt bug? preview dialog does not pass on keypressevents it does not handle
 -Qt bug? QGraphicsWebView.loadFinished sometimes fires before images are loaded?
@@ -386,18 +148,176 @@ created with just the "�" symbol.
  card list. Catched itemChanged instead of itemClicked would solve this in
  theory, but this would cause a lot of spurious updates if you toggle the parent
  of a big hierarchy. ItemActivated only seems to catch double clicks
--Qt issue: font size is rounded up to the nearest default integer in font selection
- dialog.
- 
- 
-- component_manager:deactivate_all: https://bugreports.qt.io/browse/QTBUG-52988 
+-Qt issue: font size is rounded up to the nearest default integer in font 
+ selection dialog.
+-component_manager:deactivate_all: https://bugreports.qt.io/browse/QTBUG-52988  
+-tag browser editor of tag names does not capture focus out event, so card 
+ count is not redrawn.
+-Qt performance problem with selectRow
 
--coverage bug?: default_controller().sync() does not seem to get picked up.
+-grep through TODO's in source code
+-flake8
+ 
+ 
+Features:
+
+-Qt's own translation
+
+-Qt SDK: back to webkit?
+ Make use of 'print to pdf' for resizing?
+ custom context menu
+ open links in external browser, QWebEnginePage::acceptNavigationRequest() 
+
+-speed up non-latin font size increase
+
+-memrise importer
+
+-type answer
+
+-new learning modes for initial learning of tag? multiple choice? Select audio?
+
+-gamification? userinfuser, habitica
+
+-dropbox integration
+
+-Improve tag completion box: does not work when clicking in the box, and does
+ not work when going back to a previous tag, e.g. if you have a,b,c and want
+ to go back to an expansion on a
+
+-daily goals: memorise x, review y, streak chart, ...
+
+-add creation date / modification date to current card statistics
+
+-duplicate check on answer too? Needs to check whether all necessary fields are
+ marked as unique, also in F2B and B2F, vocabulary
+
+-profile testsuite
+-increase coverage
+-disable latex version check in testsuite 
+ 
+-rework make windows-installer so as not to require keypress, so that it can be 
+ used from qtconsole
+
+-better in dialog explanation for hold n cards in your hand?
+
+-option to turn off card count per tag?
+
+-do create_database in a separate thread (see compact_database_dlg.py)
+
+-factor out duplication of threaded UI stuff in sync and compact
+
+-merging cards: should give an option to go back and edit?
+
+-add login to webserver?
+ 
+-clickable links in card browser (difficult, as after drawing Q or A, only the 
+ bitmap is saved,not the browser widget)
+ 
+-settings in config.py don't play well with syncing: if the user does not 
+ update config.py on the target machine as well, these settings will get reset
+ by the default config.py there. So, get rid of config.py and move it to an 
+ advanced settings plugin?
+
+-activate cards: 'having any of these tags:' is not aligned with tag with tag 
+ tree
+ 
+-command line switch for headless server not to check for updated card types. 
+
+-option to move dividers in edit field (e.g. for large font sizes)
+
+-for the sentence card type without hints, use the 'meaning' font for Q in 
+ production, instead of the sentence font?
+
+-optimisation: change card type for many facts which calls
+ 'delete_facts_and_their_data' does checking for unused tags multiple times.
+ 
+-fine tuning: when merging a database, merge also the 'active' tag instead of 
+ just looking at the deactivated fact views? Probably more general and also 
+ more future proof in case of new criteria.
+
+-menu option to copy database to USB key?
+
+-Database locking mechanism can be circumvented if the first Mnemosyne copy 
+ is in the browser (or apparently has just done file-new) (Scott Youngman)
+-replace locking mechanism by switching to running instance of Mnemosyne?
+
+-do honour delete media events under sync, by checking if there are no later 
+ 'added_media' events with the same file.
+
+-when converting f2b to map through the card browser 'change card type',
+ check if it's at all possible to convert (enough fields), before showing
+ correspondence dialog.
+
+-with full sync, option to skip media sync
+ 
+-Possible to get rid of unloading in python / reloading in Qt?
+
+-speed up science log parser?
+ http://lesswrong.com/r/discussion/lw/ivw/what_should_normal_people_do/9yuy
+suggests that there's some SQLite3 functionality relating to the
+'union' operator which could massively speed up insertion, pointing to
+http://stackoverflow.com/questions/1609637/is-it-possible-to-insert-multiple-rows-at-a-time-in-an-sqlite-database_is_
+
+-optimise away DISTINCT and do it at the python level
+-more sqlite profiling
+ !./bin/python /home/pbienst/apswtrace.py ./bin/nosetests -v tests/test_sync.py:TestSync.test_add_tag
+-archive old learning data, check interplay with sync
+-index on cards._fact_id to speed up e.g. sister_card_count_scheduled_between?
+-profile different versions of sister_card_count_scheduled_between
+-try apsw again, but make sure every statement is inside a transaction
+
+-save cookies
+ http://stackoverflow.com/questions/3382640/how-can-i-load-session-information-into-qtwebkit
+
+-Jiri Palacek: conflict resolution at card level, e.g. if 1 card causes 
+ conflict, but both database a and b have different non-conflicting new cards,
+ merge the non-conflicting cards ond keep one of the conflicting version.
+
+-add debug information for conflict detection?
+
+-automatic font size adjustment: 
+  http://www.spookandpuff.com/examples/dynamicTextSize.html
+
+-synonym checking just like duplicate checking?
+
+-option to pick location of backups in config? Also shows you where the datadir
+ is. Backup config too? Or explicit 'backup' option?
+
+-bundle grades criterion? add criterion names i.e. type. Fix bug saving sets.
+ Other mechanism to skip scheduled cards? What happens to saved set after
+ disabling plugin?
+
+-integrate with forvo
+
+-insert latex tags shortcut and menu (phyTech)
+
+-plugin for interval multiplication factor
+
+-when exporting, progress bar when creating latex?
+
+-add up and down arrows on browsing through the preview window?
+
+-remove TMP adding of default o_id in sync
+
+-circadian rythm plugin
+
+-bundle more of the example plugins?
+
+-'duplicate card' option in menu and browser? Or as plugin?
+
+-default input method/keyboard layout per field?
+
+-remove hack to preview cloze cards in card type appearance.
+
+-plugin to reset active cards to unlearned
+
+-make statistics refer to active cards only. Profile. (Dan Schmidt)
+
+-add plugin example on card type specific renderer
+
+-add doc on how to write plugin to sfinx doc
 
 -leech detection
-
-
--text to speech plugin google
 
 -Faq about how to pronounce Mnemosyne
 
@@ -412,15 +332,10 @@ created with just the "�" symbol.
 
 -way to escape [] in latex cloze cards, so as not be interpreted as cloze?
 
--docs on dealing with synonyms and words which have multiple meanings (if implemented, update card converter too)
- check fonts for new meanings, check decorators
-
--http://gitorious.org/hooq/hooq? Qt4 testing
- http://www.fredemmott.co.uk/blog/2010/01/18/Qt4%20GUI%20Testing%20with%20Hooq
-
--Select saved set, switch tab to other criterion (deselects set) and switch back to original one.
- The set should then be autoselected again.
--being able to edit existing set, replace input box by combobox with old sets
+-docs on dealing with synonyms and words which have multiple meanings 
+ (if implemented, update card converter too) check fonts for new meanings, 
+ check decorators
+ 
 -removing plugin with criterion should not happen if it is in use.
 -warn when syncing and the other criterion plugin is not present?
 -make 'grade activity criterion' an official plugin? Add tests?
@@ -431,31 +346,17 @@ created with just the "�" symbol.
 
 -scrape from websites: https://bitbucket.org/nosklo/supymemo/downloads
 
--also allow scrolling webview widgets using up and down keys? Will probably require global
- event filter and slow everything down
+-also allow scrolling webview widgets using up and down keys? Will probably 
+ require global event filter and slow everything down
 
 -install kde translator to translate file dialogs and color dialogs
 -different translators for different users?
 
--integrate webserver in GUI, login mechanism, session_token, cookies
--add webserver in testsuite, case when the database is empty
--make empty lines respect font size
+-drag and drop in card browser, within tag tree
 
--card formatting options on remote web server: act on config info that the client sent across
- Add hook in set_partner_info
--check if online username is still free
--threading/multiprocess for sync and review servers? Threading prob. works automatically if persistent
- connections are supported (CherryPy), perhaps also for multiprocess. Multiprocess probably only useful
- to get round the GIL, which is only useful on a dedicated server.
--sync to empty webserver (add 'database_is_empty' to server and act upon it)
--add support for error messages on protocol mismatch, expired credit
--add support for render chain selection
--create latex dir in filter plugin?
-
--drag and drop in card browser, with tag tree
-
--worthwhile to apply same tricks from card browser to criterion applier, i.e. inverting selection to
- go from 'in large set' to 'not in small set'? Max time 0.6 secs, so perhaps not needed that much
+-worthwhile to apply same tricks from card browser to criterion applier, i.e. 
+ inverting selection to go from 'in large set' to 'not in small set'? 
+ Max time 0.6 secs, so perhaps not needed that much
 
 -condition coverage
  http://lautaportti.wordpress.com/2011/05/07/test-coverage-analysis/
@@ -470,15 +371,11 @@ created with just the "�" symbol.
 
 -zooming on statistics?
 
--mark/star cards plugin, also on desktop, also with right click
--edit/delete card on right click
+-minimalist mode, without toolbar, extra text in review window. 
+ F11 to move fullscreen
 
--minimalist mode, without toolbar, extra text in review window. F11 to move fullscreen
-
--move button group in review widget to designer code after pyqt upgrade.
- Also possible in add cards?
-
--partial implementation of type answer (none/all/special tag? Db Attribute? Button?)
+-partial implementation of type answer (none/all/special tag? Db Attribute? 
+ Button?)
 -draw answer, make configurable by card type
 
 -more plugin examples: file format, custom tag, activate all cards,
@@ -493,8 +390,6 @@ created with just the "�" symbol.
 
 -explain license on our website
 
--grep through TODO's in source code
-
 -make filters more efficients by using regex instead of loops.
 
 -easier function to do tag detection in plugin
@@ -504,41 +399,31 @@ created with just the "�" symbol.
 -Cramming scheduler changes card on heartbeart. Make something like
  'reset_and_add_current_card_to_queue_if_needed'?
 
+-when deleting cards, only mention sister cards if there are actually sister 
+ cards
 
-pylint:
-	find ./mnemosyne/libmnemosyne/ -name \*.py | while read f ; do echo $f;pylint $f 2>&1|grep ^E:; done
-
--compression on backup to reduce write time to SD card?
--move from httplib to urllib2 to make use of automatic proxy detection? However, could have
- an impact on performance/streaming upload.
-
--if there are actual card based clients, remove pragma: no cover and test these as well
-
--try adding images to card browser.
-http://developer.qt.nokia.com/faq/answer/how_can_i_add_a_non-resource_image_to_a_qtextdocument
-using Qwebit http://stackoverflow.com/questions/3142132/how-to-use-a-qgraphicswebview is not
-a good alternative, as it does not obey selection coloring
--Tree widgets: save expanded/collapsed state of nodes
--when deleting cards, only mention sister cards if there are actually sister cards
 -allow users to show/hide/rearrange columns
+
 -show full text on mouseover in case text does not fit in column
+
 -integrate sqlite with ICU for unicode/chinese sorting:
- http://stackoverflow.com/questions/611459/how-to-sort-text-in-sqlite3-with-specified-locale
+http://stackoverflow.com/questions/611459/how-to-sort-text-in-sqlite3-with-specified-locale
+
 -ellisis in QTextDocument in card browser?
--rewrite card browser in C++, or at least delegate? In that case, move question and answer getting
- to data, and eliminate the text colors at selection using Qt.
+
+-rewrite card browser in C++, or at least delegate? In that case, move 
+ question and answer gettingto data, and eliminate the text colors at selection
+ using Qt.
+
 -inline editing in card browser?
+
 -editing names of card type clones, also in browser
--tag browser editor of tag names does not capture focus out event, so card count is not redrawn.
--save selection state (not checkstate) in tag and card type browser through hibernation
--Qt performance problem with selectRow
+
 -"Browse Cards" dialog box. "Preview card" option should have a keyboard
  shortcut.
 
--send across cards as pictures (see stubs in client.py and server.py). Add resolution to filename? (device rotation)
--Tim's gogorender plugin
--option purge history, refactor logging test. Should only happen in no other sync partners are
- interested in it
+-option purge history, refactor logging test. Should only happen in no other 
+ sync partners are interested in it
 
 -synchronise history folder to guard against mobile clients not uploading their
  logs, even though they set upload_logs=True?
@@ -554,17 +439,6 @@ a good alternative, as it does not obey selection coloring
 -improve sphinxdocs: autoclass='both', document module members
 
 -show latex errors in GUI?
--adding latex cards on non-latex device currently requires 2 syncs with main server to
- show the images
-
--add media to a card but then abandoning/editing the card keeps the media in
- media directory (they are not referenced in the database, though)
-
--pythoscope? http://pypi.python.org/pypi/pythoscope/0.2.1
-http://pythoscope.org/
--pyflakes?
-
--prevent presses 2 different keys at the same time
 
 -hover over extra hanzi information, hanzi statistics
 
@@ -576,26 +450,9 @@ http://pythoscope.org/
 
 -improve learn ahead, by learing ahead per day and prioritising within each day
 
-http://lost-theory.org/python/ltchinese/
-
-
--control B format character in supermemo import?
-
--make autosuggest in tag dialog also work for the second tag after the comma.
- (see calibre implementation)
-
-
-Multiuser statistics analysis:
-
--break out card id stringss to a different table and use interger _id in the rest of
- the database to save space
--move times from a later start date to save space?
--investigate origin of ._ logs
--don't do card checks for post 2.0
+-http://lost-theory.org/python/ltchinese/
 
 -download media files when giving URL
-
--webserver: map card type does not really hide the question box, just blanks the question
 
 -synonym handling plugin?
 
@@ -603,31 +460,17 @@ Multiuser statistics analysis:
 
 -add 'add card' option to deck manager?
 
--active alert as plugin
-
 -animated strokes: http://lost-theory.org/ocrat/
 
 -congratulations screen
 
--language text based card types, with 'graduating' from word cards once they are learned enough,
- and only keeping sentence cards (mail by querido, scheduler feedback needed)
-
 -scheduler with minute granularity?
-
--widget to create new card types. Makes sure the criteria updating code gets called.
-
-
-* Miscellaneous:
 
 -change file suffix when changing export format
 
 -sound recorder
 
 -store _fact_ids_learned in config, such that they persist over sessions?
-
--auto identifying similar cards
-
--clean up interval when importing from txt
 
 -paste from clipboard
 
@@ -649,13 +492,17 @@ Multiuser statistics analysis:
 
 -research papers: http://act-r.psy.cmu.edu/people/index.php?id=11
 
--importing cards from rss feed
-
--swac plugin, smart.fm
-
--corner case: If M > 0 and k < 0 then (a,b) is a local maximum
-If M > 0 and k > 0 then (a,b) is a local minimum: eats < ... >
-
-- Refactor build process so that all files/directories created by
+-Refactor build process so that all files/directories created by
   `make setup`, `make`, `make test`, and `make coverage`, etc, all
   end up under a single 'build' directory. See https://goo.gl/Nrd5nz
+  
+  
+  
+Multiuser statistics analysis:
+
+-break out card id stringss to a different table and use interger _id in the 
+ rest of the database to save space
+-move times from a later start date to save space?
+-investigate origin of ._ logs
+-don't do card checks for post 2.0
+ 
