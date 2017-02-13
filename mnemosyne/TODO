@@ -1,3 +1,5 @@
+-database location under Android
+
 -kienan launchpad: sync dialog box stays open
 -kienan launchpad: password gets overwritten
 
@@ -10,7 +12,9 @@
   # Important: fact, 
 media, tag (check all 'already_imported' statements)
 
--when importing, do we save after adding every card?
+-drawing canvas Gnome
+
+-double check RTL on Android 
   
 -first doing a count and then the actual a query is not a good idea:? 
 number_of_log_entries_to_sync_for
@@ -49,7 +53,7 @@ Android:
 -progress bar before 'sync finished'?
 -revisit multiple database option?
 -'sync' button should sync directly without going through the sync settings 
- dialog. Putthe settings in a settings window instead.
+ dialog. Put the settings in a settings window instead.
 -make sure Android uploads logs as well
 -set default grade?
 -plugin to hide card, i.e. no longer show it?
