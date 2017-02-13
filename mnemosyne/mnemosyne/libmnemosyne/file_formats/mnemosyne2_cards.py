@@ -213,7 +213,8 @@ class Mnemosyne2Cards(FileFormat):
             for line in open(metadata_filename, encoding="utf-8"):
                 key, value = line.split(":", 1)
                 metadata[key] = value.replace("<br>", "\n")
-            self.controller().show_export_metadata_dialog(metadata, read_only=True)
+            self.controller().show_export_metadata_dialog(\
+                metadata, read_only=True)
         # Parse XML.
         w.set_progress_text(_("Importing cards..."))
         self.database().card_types_to_instantiate_later = set()

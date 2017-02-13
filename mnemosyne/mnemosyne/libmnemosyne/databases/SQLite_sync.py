@@ -477,7 +477,7 @@ class SQLiteSync(object):
         if log_entry["type"] != EventTypes.ADDED_FACT and \
            not self.has_fact_with_id(log_entry["o_id"]):
             self.main_widget().show_information(\
-        _("Deleting same fact twice during sync. Inform the developpers."))                
+        _("Deleting same fact twice during sync. Inform the developpers."))
             fact = Fact({}, log_entry["o_id"])
             fact._id = -1
             return fact             

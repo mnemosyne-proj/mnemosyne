@@ -70,7 +70,7 @@ class DefaultController(Controller):
             self.config().save()
             
     def do_db_maintenance(self):
-        if time.time() > self.config()["last_db_maintenance"] + 30 * DAY:
+        if time.time() < self.config()["last_db_maintenance"] + 30 * DAY:
             self.main_widget().show_information(\
           _("No need to do database maintenance more than once per month."))
             return
