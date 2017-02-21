@@ -235,10 +235,10 @@ class Configuration(Component, dict):
             value = re_long_int.sub(lambda x : x.group()[:-1], cursor[1])
             try:
                 self[cursor[0]] = eval(value)
-            except:
+            except Exception as e:
                 # This can fail if we are running headless now after running
                 # the GUI previously.
-                pass
+                print(e)
         with self.lock:    
             con.commit()   
             con.close()        

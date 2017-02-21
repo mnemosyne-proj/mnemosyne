@@ -169,6 +169,7 @@ class Client(Partner):
                     self.get_sync_finish()
                 else:
                     self.resolve_conflicts()
+            self.ui.close_progress()
             self.ui.show_information("Sync finished!")
         except Exception as exception:
             self.ui.close_progress()

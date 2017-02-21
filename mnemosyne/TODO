@@ -1,45 +1,33 @@
 -database location under Android
 
--kienan launchpad: sync dialog box stays open
--kienan launchpad: password gets overwritten
+http://stackoverflow.com/questions/40068984/universal-way-to-write-to-external-sd-card-on-android
+http://stackoverflow.com/questions/35109307/mkdir-works-while-inside-internal-flash-storage-but-not-sd-card/35175460#35175460
+http://www.raviyp.com/android/192-how-to-access-external-memory-in-android-lollipop-and-above-solution
 
--don't generate card edited logs when importing a card and no change occurs 
- in a card
-  #if (eval(log_entry["extra"]) == orig_card.extra_data) && \
-  # tags, unless extra tags on import
-  # card type
-  # factview		   
-  # Important: fact, 
-media, tag (check all 'already_imported' statements)
+-no scary errow with ConnectionRefusedError 111
 
--drawing canvas Gnome
+-order of question with 3 buttons (e.g. sync conflict)
+http://stackoverflow.com/questions/6947557/stopping-multiline-text-for-buttons-in-an-alertdialog
 
--double check RTL on Android 
-  
--first doing a count and then the actual a query is not a good idea:? 
-number_of_log_entries_to_sync_for
-number_of_log_entries
+-Angelika Blaschka: html widget eats keyboard shortcuts
+
+-to combat slow resizing, option to have everything in one browser
+
+
+
 
 -for sync, check only database version, not program version
-
--to combat slow resizing, everything in one browser?
-
--after sync, a cloze card type displays all hints
-
 -update dev instructions linux, windows
-
--sister card not automatically updated when pg-dwn through card browser
-
--test: text <audio> text
  
--test if initial sync on Android download archive files download, using a custom
- dot_test directory
+-Mac problems: crash on pictures; crash when activating cards 
+ (claymerickson@gmail.com)
  
--Mac problems: crash on pictures
--Rusty May: sync works, but no cards visible: reminded to send feedback
+-move to Qt5.8? https://github.com/spyder-ide/spyder/issues/4146
 
--move to Qt5.8
+-Note: high DPI on Mac (http://doc.qt.io/qt-5/highdpi.html) is enabled by 
+ settings in the Info.plist file.
 
+-kienan launchpad: sync dialog box stays open. Ask for feedback.
 
 
 Android:
@@ -47,13 +35,13 @@ Android:
 -check 'redraw now'
 -decrease size of python library
 -precompile python files
--order of question with 3 buttons (e.g. sync conflict)
 -pybridge: don't extract individual assets but extract zip file? Faster?
--setting to allow choosing the database location?
+-setting to allow choosing the database location?\
 -progress bar before 'sync finished'?
 -revisit multiple database option?
 -'sync' button should sync directly without going through the sync settings 
  dialog. Put the settings in a settings window instead.
+ http://alvinalexander.com/android/android-tutorial-preferencescreen-preferenceactivity-preferencefragment
 -make sure Android uploads logs as well
 -set default grade?
 -plugin to hide card, i.e. no longer show it?
@@ -66,13 +54,20 @@ Android:
 
 Minor bugs:
 
+-double check RTL on Android, + RTL tag (doesn't work on PC)
+ http://dotancohen.com/howto/rtl_right_to_left.html
+-after sync, a cloze card type displays all hints
+-sister card not automatically updated when pg-dwn through card browser
+-"A <audio> B" displays only "A"
+-test if initial sync on Android download archive files download, using a custom
+ dot_test directory
+-edit card to update a media file, sync with 'check for updated media files on
+ client fails'
 -server.py imports from libmnemosyne.utils
 -import/export dialog alignment does not look nice
 -Select saved set, switch tab to other criterion (deselects set) and switch 
  back to original one.The set should then be autoselected again.
 -layout of "add clone" is not optimal under Windows
--running a headless sync server in an empty datadir does not create a default
- database.
 -select saved set, delete that set: set name is still visible in windows header
 -sync of changed saved set does not update title on target machine
 -creating a new clone does not generate appearance setting events for sync
@@ -163,6 +158,23 @@ created with just the "»" symbol.
  
 Features:
 
+-first doing a count and then the actual a query is not a good idea:? 
+time 'number_of_log_entries_to_sync_for' vs 'number_of_log_entries'
+
+-don't generate card edited logs when importing a card and no change occurs 
+ in a card
+  #if (eval(log_entry["extra"]) == orig_card.extra_data) && \
+  # tags, unless extra tags on import
+  # card type
+  # factview		   
+  # Important: fact, 
+media, tag (check all 'already_imported' statements)
+
+-drawing canvas Gnome
+
+-disable vocalisation, but only when not showing answer 
+ jonas.vonderhagen@gmail.com
+
 -Qt's own translation
 
 -Qt SDK: back to webkit?
@@ -181,6 +193,8 @@ Features:
 -gamification? userinfuser, habitica
 
 -dropbox integration
+
+-mplayer to mpv?
 
 -Improve tag completion box: does not work when clicking in the box, and does
  not work when going back to a previous tag, e.g. if you have a,b,c and want

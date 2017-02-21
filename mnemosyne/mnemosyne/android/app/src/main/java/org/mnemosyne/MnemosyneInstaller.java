@@ -35,7 +35,7 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
     }
 
     private void setAssetLastModified(long time) {
-        String filename = this.basedir + "/files/" + mAssetModifiedPath;
+        String filename = basedir + "/files/" + mAssetModifiedPath;
         try {
             BufferedWriter bwriter = new BufferedWriter(new FileWriter(new File(filename)));
             bwriter.write(String.format("%d", time));
@@ -46,7 +46,7 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
     }
 
     private long getAssetLastModified() {
-        String filename = this.basedir + "/files/" + mAssetModifiedPath;
+        String filename = basedir + "/files/" + mAssetModifiedPath;
         try {
             BufferedReader breader = new BufferedReader(new FileReader(new File(filename)));
             String contents = breader.readLine();
@@ -111,9 +111,11 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
             ZipInputStream in = new ZipInputStream(zipFileName);
             ZipEntry entry = in.getNextEntry();
             byte[] buffer = new byte[1024];
-            while (entry != null) {
-                File file = new File(outputDirectory);
+            File file = new File(outputDirectory);
+            if (! file.exists()) {
                 file.mkdir();
+            }
+            while (entry != null) {
                 if (entry.isDirectory()) {
                     String name = entry.getName();
                     name = name.substring(0, name.length() - 1);
@@ -157,7 +159,6 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
         if (fileOrDirectory.isDirectory())
             for (File child : fileOrDirectory.listFiles())
                 deleteRecursive(child);
-
         fileOrDirectory.delete();
     }
 
@@ -192,10 +193,10 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
             File destDir = new File(basedir + "/files");
             if (destDir.exists()) {
                 deleteRecursive(destDir);}
-            destDir.mkdirs();
 
             Log.d("Mnemosyne", "About to extract Mnemosyne");
             try {
+                destDir.mkdirs();
                 InputStream dataSource = UIActivity.getAssets().open("python3.4.zip");
                 boolean result = unzip(dataSource, basedir + "/files", true);
                 if (! result) {
@@ -290,8 +291,7 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
         //File f = new File(path);
         //File file[] = f.listFiles();
         //Log.d("Mnemosyne", "Size: "+ file.length);
-        //for (int i=0; i < file.length; i++)
-        //{
+        //for (int i=0; i < file.length; i++) {
         //    Log.d("Mnemosyne", "FileName:" + file[i].getName());
         //}
 
