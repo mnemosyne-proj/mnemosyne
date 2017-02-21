@@ -251,7 +251,7 @@ class DefaultController(Controller):
         assert cards_from_fact[0].card_type == old_card_type
         if not new_card_type.is_fact_data_valid(new_fact_data):
             self.main_widget().show_error(\
-                _("Card data not correctly formatted for conversion.\n\nSkipping ") +\
+        _("Card data not correctly formatted for conversion.\n\nSkipping ") +\
                 "|".join(list(fact.data.values())) + ".\n")
             return -2
         converter = self.component_manager.current\
@@ -379,7 +379,7 @@ class DefaultController(Controller):
         tag_for_current_card_only = False
         if len(current_tag_strings) > 1:
             tag_for_current_card_only = bool(self.main_widget().show_question(
-            _("This card has different tags than its sister cards. Update tags for current card only or for all sister cards?"),
+_("This card has different tags than its sister cards. Update tags for current card only or for all sister cards?"),
             _("Current card only"), _("All sister cards"), "") == 0)
         old_tags = set()
         tags = db.get_or_create_tags_with_names(new_tag_names)

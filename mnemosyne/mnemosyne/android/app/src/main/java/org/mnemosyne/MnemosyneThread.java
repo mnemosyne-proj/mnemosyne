@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import java.io.File;
@@ -117,6 +118,17 @@ public class MnemosyneThread extends Thread {
         mnemosyne = python._GetObject("mnemosyne");
 
         String dataDir = Environment.getExternalStorageDirectory().getPath() + "/Mnemosyne/";
+
+        //for (File f : ContextCompat.getExternalFilesDirs(UIActivity, null)) {
+        //    Log.d("Mnemosyne", "external " + f);
+        //}
+        //String dataDir = "/storage/3738-3234/Android/data/org.mnemosyne/files";
+
+        File file = new File(dataDir);
+        if (! file.exists()) {
+            file.mkdirs();
+        }
+
         String filename = "default.db";
         python._Call("start_mnemosyne", dataDir, filename, this);
 
@@ -126,11 +138,10 @@ public class MnemosyneThread extends Thread {
         componentManager = python._GetObject("mnemosyne.component_manager");
         reviewController = (StarObjectClass) mnemosyne._Call("review_controller");
 
-        File file = new File(Environment.getExternalStorageDirectory().getPath()
-            + "/Mnemosyne/.nomedia");
-        if (!file.exists()){
+        File file2 = new File(dataDir + "/.nomedia");
+        if (!file2.exists()){
             try {
-                file.createNewFile();
+                file2.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
