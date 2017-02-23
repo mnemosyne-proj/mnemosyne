@@ -334,7 +334,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self._current_criterion.id = "__DEFAULT__"
         self._current_criterion.name = self.default_criterion_name
         self._current_criterion._tag_ids_active.add(tag._id)
-        self.add_criterion(self._current_criterion)     
+        self.add_criterion(self._current_criterion)
+        self.save()
 
     def load(self, path):
         if self.is_loaded():
@@ -394,7 +395,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # We don't log the database load here, but in libmnemosyne.__init__,
         # as we prefer to log the start of the program first.
 
-    def save(self, path=None):      
+    def save(self, path=None):
         # Update format.
         self.con.execute("update global_variables set value=? where key=?",
             (self.version, "version"))

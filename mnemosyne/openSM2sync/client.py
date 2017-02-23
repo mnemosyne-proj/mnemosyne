@@ -297,6 +297,8 @@ class Client(Partner):
             raise SyncError("Could not find server!")        
         except socket.timeout:
             raise SyncError("Timeout when trying to connect to server!")
+        except socket.error as e:
+            raise SyncError("Socket error: " + str(e))
         except Exception as e:
             print(e)
             raise SyncError("Could not connect to server!\n\n" \

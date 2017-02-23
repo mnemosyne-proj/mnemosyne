@@ -259,8 +259,8 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
             context.palette.setColor(QtGui.QPalette.Text,
                 option.palette.color(QtGui.QPalette.Active,
                                      QtGui.QPalette.HighlightedText))
-        rect = \
-             style.subElementRect(QtWidgets.QStyle.SE_ItemViewItemText, option)
+        rect = style.subElementRect(QtWidgets.QStyle.SE_ItemViewItemText, 
+                                    option, None)
         # Render.
         painter.save()
         painter.translate(rect.topLeft())
