@@ -17,8 +17,13 @@ import android.os.Looper;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.Semaphore;
@@ -117,17 +122,48 @@ public class MnemosyneThread extends Thread {
 
         mnemosyne = python._GetObject("mnemosyne");
 
+        // Determine datadir.
+        //
+        // A user can set a datadir directory by putting a file 'datadir.txt' with
+        // the directory in the default datadir.
+        // This file contains e.g. "/storage/3738-3234/Android/data/org.mnemosyne/files"
+        // in order to use a true external SD card. Note that /Android/... part is
+        // important, otherwise we don't get access.
+
         String dataDir = Environment.getExternalStorageDirectory().getPath() + "/Mnemosyne/";
 
-        //for (File f : ContextCompat.getExternalFilesDirs(UIActivity, null)) {
-        //    Log.d("Mnemosyne", "external " + f);
-        //}
-        //String dataDir = "/storage/3738-3234/Android/data/org.mnemosyne/files";
+        // Strangely enough we need this call first in order to be able to write
+        // to the external directories.
+        String dirList = "";
+        for (File f : ContextCompat.getExternalFilesDirs(UIActivity, null)) {
+            dirList += f.getPath() + "\n\n";
+        }
+
+        try {
+            InputStream is = new FileInputStream(dataDir + "datadir.txt");
+            BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+            String line = buf.readLine();
+            if (! line.isEmpty()) {
+                dataDir = line;
+            }
+        }
+        catch (FileNotFoundException e) {
+            Log.i("Mnemosyne", "Redirection file not found:" + e.toString());
+        }
+        catch (IOException e) {
+            Log.i("Mnemosyne", "Redirection file could not be read:" + e.toString());
+        }
 
         File file = new File(dataDir);
         if (! file.exists()) {
-            file.mkdirs();
+            Boolean result = file.mkdirs();
+            if (result == false) {
+                showInformation("Could not create data dir at " + dataDir + "\n" +
+                        "Use a directory like:\n\n" + dirList);
+            }
         }
+
+        Log.d("Mnemosyne", "datadir " + dataDir);
 
         String filename = "default.db";
         python._Call("start_mnemosyne", dataDir, filename, this);
@@ -345,18 +381,21 @@ public class MnemosyneThread extends Thread {
                         semaphore.release();
                     }
                 });
-                alert.setNeutralButton(_option1, new DialogInterface.OnClickListener() {
+                alert.setNegativeButton(_option1, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         result = 1;
                         semaphore.release();
                     }
                 });
-                alert.setNegativeButton(_option2, new DialogInterface.OnClickListener() {
+                alert.setNeutralButton(_option2, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         result = 2;
                         semaphore.release();
                     }
                 });
+
+                //(AlertDialog)alert.getButton(DialogInterface.BUTTON_NEUTRAL).setMaxLines(2);
+
                 alert.show();
             }
         });

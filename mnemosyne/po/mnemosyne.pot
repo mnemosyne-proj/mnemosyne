@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-02-21 16:45+0100\n"
+"POT-Creation-Date: 2017-02-22 14:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -248,7 +248,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:60
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:72
 #: ../mnemosyne/pyqt_ui/main_wdgt.py:72 ../mnemosyne/pyqt_ui/main_wdgt.py:78
-#: ../mnemosyne/pyqt_ui/main_wdgt.py:94 ../mnemosyne/pyqt_ui/main_wdgt.py:125
+#: ../mnemosyne/pyqt_ui/main_wdgt.py:94 ../mnemosyne/pyqt_ui/main_wdgt.py:123
 #: ../mnemosyne/pyqt_ui/tip_after_starting_n_times.py:31
 msgid "Mnemosyne"
 msgstr ""
@@ -1759,7 +1759,7 @@ msgstr ""
 msgid "Not seen"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/sync_dlg.py:126
+#: ../mnemosyne/pyqt_ui/sync_dlg.py:124
 msgid ""
 "Here, you can sync this machine with a remote server. Of course, that remote computer needs to have a server running, which can be started from the configuration screen on that remote machine.\n"
 "\n"

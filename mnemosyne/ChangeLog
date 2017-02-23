@@ -12,7 +12,12 @@ Additionally, if you see a black screen, start Mnemosyne with the
 
 Mnemosyne 2.4.2
 
+-Updated to PyQt 5.8.
+-Scaling for high-definition displays now enabled by default.
+ (start with --disable-high-dpi-scaling if you prefer the previous behaviour).
 -Small performance optimisations in the database.
+-Improved compatibility with different Qt versions under Linux
+ (reported by Huang Shuhan).
 -Added warning if OpenGL libraries are missing under Linux
  (Andy Rayner).
 -Try and work around cases where the progress bar after sync wouldn't

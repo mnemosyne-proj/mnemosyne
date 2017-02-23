@@ -58,9 +58,9 @@ parser.add_option("--web-server", dest="web_server",
     action="store_true", help="run web server without GUI", default=False)
 parser.add_option("--sync-server", dest="sync_server",
     action="store_true", help="run sync server without GUI", default=False)
-parser.add_option("--high-dpi-scaling", dest="high_dpi_scaling",
-    action="store_true", help="enable better scaling on displays with high DPI", 
-    default=False)
+parser.add_option("--disable-high-dpi-scaling", dest="high_dpi_scaling",
+    action="store_false", help="disable scaling for high-resolution displays", 
+    default=True)
 parser.add_option("--qt-opengl", dest="qt_opengl", type="string", action="store", 
     help="OpenGL implementation to be used by Qt ('desktop', 'angle', 'software')",
     default=None)

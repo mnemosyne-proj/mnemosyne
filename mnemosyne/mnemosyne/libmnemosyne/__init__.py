@@ -151,7 +151,7 @@ class Mnemosyne(Component):
         
     def android_log(self, message):
         if hasattr(self, "android"):
-            self.android.Log("Mnemosyne", message)        
+            self.android.Log("Mnemosyne", message)
 
     def handle_exception(self, type, value, tb):        
         body = "An unexpected error has occurred.\n" + \
@@ -341,8 +341,9 @@ class Mnemosyne(Component):
                 self.database().load(path)
             self.controller().update_title()
         except RuntimeError as e:
-            from mnemosyne.libmnemosyne.translator import _
+            self.android_log(str(e))
             self.main_widget().show_error(str(e))
+            from mnemosyne.libmnemosyne.translator import _
             self.main_widget().show_information(\
 _("If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."))
             # Try to open a new database, but not indefinitely, otherwise this
