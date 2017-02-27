@@ -1,4 +1,4 @@
--Angelika Blaschka: html widget eats keyboard shortcuts
+-turned off event filter to speed up resizing?
 
 -to combat slow resizing, option to have everything in one browser
 
@@ -8,14 +8,8 @@
 
 -update dev instructions linux, windows
  
--Mac problems: crash on pictures; crash when activating cards 
- (claymerickson@gmail.com)
-
 -Note: high DPI on Mac (http://doc.qt.io/qt-5/highdpi.html) is enabled by 
  settings in the Info.plist file.
-
--kienan launchpad: sync dialog box stays open. Ask for feedback.
-
 
 Android:
 
