@@ -302,6 +302,14 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         self.media_queue = [] 
         self.setFocusPolicy(QtCore.Qt.StrongFocus)
         
+        # When clicking out of the app, and clicking back on the web widgets,
+        # the focus does not get properly restored, and for QWebEngineView, the
+        # event handling for keypresses and focusIn events doesn't work, so
+        # we do a crude workaround: https://bugreports.qt.io/browse/QTBUG-46251
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.restore_focus)
+        self.timer.start(200)
+        
     def deactivate(self):
         self.stop_media()
            

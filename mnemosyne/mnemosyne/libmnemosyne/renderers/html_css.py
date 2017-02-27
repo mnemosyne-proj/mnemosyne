@@ -68,7 +68,10 @@ class HtmlCss(Renderer):
             font_string = self.config().card_type_property(\
                 "font", card_type, proxy_fact_key)
             if font_string:
-                family,size,x,x,w,i,u,s,x,x = font_string.split(",")
+                if font_string.count(",") == 10:
+                    family,size,x,x,w,i,u,s,x,x,x = font_string.split(",")
+                else:
+                    family,size,x,x,w,i,u,s,x,x = font_string.split(",")
                 css += "font-family: \"%s\"; " % family
                 css += "font-size: %spt; " % size
                 if w == "25":

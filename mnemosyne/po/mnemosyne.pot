@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-02-22 14:24+0100\n"
+"POT-Creation-Date: 2017-02-27 15:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,7 +108,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/__init__.py:311
 #: ../mnemosyne/libmnemosyne/__init__.py:324
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:885
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1116
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1117
 msgid "Error when running plugin:"
 msgstr ""
 
@@ -116,7 +116,7 @@ msgstr ""
 msgid "Previous drive letter no longer available."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:347
+#: ../mnemosyne/libmnemosyne/__init__.py:348
 msgid "If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."
 msgstr ""
 
@@ -480,15 +480,15 @@ msgid ""
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:620
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:608
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1156
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:609
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1157
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 msgid "No"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:620
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:608
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1156
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:609
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1157
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 msgid "Yes"
 msgstr ""
@@ -570,51 +570,51 @@ msgstr ""
 msgid "Defragmenting database..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:350
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:351
 msgid "Unable to load file at"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:352
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:353
 msgid "Unable to load file, query failed."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:364
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:365
 msgid "Database upgrade failed."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:376
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:377
 msgid "Unable to load file."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:412
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:413
 msgid "Putting a database on a network drive is forbidden under Windows to avoid data corruption."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:441
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:442
 msgid "Warning: backup creation failed for"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:607
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:608
 msgid "Make tag '%s' active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1119
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1120
 msgid "Missing plugin for card type with id:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1155
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1156
 msgid "Make new card type active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1396
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1397
 msgid "No duplicates found."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1399
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1400
 msgid "Found %d duplicate cards. They have been given the tag 'DUPLICATE'."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1405
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1406
 msgid "DUPLICATE"
 msgstr ""
 
@@ -1696,15 +1696,15 @@ msgstr ""
 msgid "&Hide pronunciation field for this card type"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:474
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:482
 msgid "Scheduled: %d "
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:475
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:483
 msgid "Not memorised: %d "
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:476
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:484
 msgid "Active: %d "
 msgstr ""
 
