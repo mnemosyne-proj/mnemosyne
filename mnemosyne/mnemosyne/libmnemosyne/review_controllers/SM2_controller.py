@@ -212,7 +212,8 @@ class SM2Controller(ReviewController):
         # answer in the question field to eliminate flicker.
         w.set_question_box_visible(True)
         if self.card is not None:
-            if self.card.fact_view.a_on_top_of_q:
+            if self.config()["QA_split"] == "single_window" or \
+               self.card.fact_view.a_on_top_of_q:
                 w.set_answer_box_visible(False)
             else:
                 w.set_answer_box_visible(True)
@@ -228,7 +229,8 @@ class SM2Controller(ReviewController):
             # Giving the widget info about the answer even before it is shown
             # allows it to optimise its layout.
             w.set_question(self.card.question(self.render_chain))
-            if not self.card.fact_view.a_on_top_of_q:
+            if not self.config()["QA_split"] == "single_window" and \
+               not self.card.fact_view.a_on_top_of_q:
                 w.set_answer(self.card.answer(\
                     self.render_chain, no_side_effects=True))
             w.reveal_question()
@@ -236,7 +238,8 @@ class SM2Controller(ReviewController):
         if self.card is None or self._state == "SELECT SHOW":
             w.clear_answer()
         else:
-            if not self.card.fact_view.a_on_top_of_q:
+            if not self.config()["QA_split"] == "single_window" and \
+               not self.card.fact_view.a_on_top_of_q:
                 w.set_answer(self.card.answer(\
                     self.render_chain, no_side_effects=False))
                 w.reveal_answer()

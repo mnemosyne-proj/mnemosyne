@@ -73,10 +73,6 @@ latex = "latex -interaction=nonstopmode"
 
 # Latex dvipng command.
 dvipng = "dvipng -D 200 -T tight tmp.dvi"
-
-# Try to optimise height of Q and A window to show maximum amount of relevant
-# information
-optimise_Q_A_split = True
 """
 
 class Configuration(Component, dict):
@@ -150,7 +146,6 @@ class Configuration(Component, dict):
              "latex_postamble": "\\end{document}",
              "latex": "latex -interaction=nonstopmode",
              "dvipng": "dvipng -D 200 -T tight tmp.dvi",
-             "optimise_Q_A_split": True,
              "active_plugins": set(), # Plugin classes, not instances.
              "media_autoplay": True,
              "media_controls": False,

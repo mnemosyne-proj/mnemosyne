@@ -131,7 +131,7 @@ class QAOptimalSplit(object):
         return number_of_rows * max_img_height + 24
         
     def update_stretch_factors(self):
-        if self.config()["optimise_Q_A_split"] == False:
+        if self.config()["QA_split"] != "adaptive":
             return
         if 0: # Using prerendered html
             # Correct the required heights of question and answer for the
@@ -313,9 +313,9 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
     def deactivate(self):
         self.stop_media()
            
-    def focusInEvent(self, event):
-        self.restore_focus()
-        super().focusInEvent(event)    
+    #def focusInEvent(self, event):
+    #    self.restore_focus()
+    #    super().focusInEvent(event)    
 
     def changeEvent(self, event):
         if hasattr(self, "show_button"):
@@ -439,9 +439,10 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         # After clicking on the question or the answer, that widget grabs the
         # focus, so that the keyboard shortcuts no longer work. This functions
         # is used to set the focus back to the correct widget.
-        if self.focus_widget:
-            self.focus_widget.setDefault(True)
-            self.focus_widget.setFocus()
+        if self.question.hasFocus() or self.answer.hasFocus():
+            if self.focus_widget:
+                self.focus_widget.setDefault(True)
+                self.focus_widget.setFocus()
 
     def update_show_button(self, text, is_default, is_enabled):
         self.show_button.setText(text)
