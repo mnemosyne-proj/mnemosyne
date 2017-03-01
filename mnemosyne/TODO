@@ -1,7 +1,5 @@
--turned off event filter to speed up resizing?
-
--to combat slow resizing, option to have everything in one browser
-
+-ui setting
+-scroll to answer (in Qt? on from SM2 controller?)
 
 
 -for sync, check only database version, not program version
@@ -34,7 +32,8 @@ Android:
 
 Minor bugs:
 
--double check RTL on Android, + RTL tag (doesn't work on PC)
+-RTL still does not work for first cloze, in the case the sentence is more than
+ 1 line
  http://dotancohen.com/howto/rtl_right_to_left.html
 -after sync, a cloze card type displays all hints
 -sister card not automatically updated when pg-dwn through card browser

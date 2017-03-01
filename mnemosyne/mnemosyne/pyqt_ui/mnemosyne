@@ -154,12 +154,13 @@ else:
     QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_DisableHighDpiScaling)    
 if options.qt_opengl:
     if options.qt_opengl not in ["desktop", "angle", "software"]:
-        print("Invalid argument for qt-opengl. Should be 'desktop', 'angle' or 'software'")
+        print(\
+"Invalid argument for qt-opengl. Should be 'desktop', 'angle' or 'software'")
         sys.exit(-1)
     if options.qt_opengl == "desktop":
         QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_UseDesktopOpenGL)
     elif options.qt_opengl == "angle":
-        QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_UseOpenGLES)           
+        QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_UseOpenGLES)
     elif options.qt_opengl == "software":
         QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_UseSoftwareOpenGL)   
 

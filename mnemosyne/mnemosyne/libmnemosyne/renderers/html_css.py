@@ -28,7 +28,9 @@ class HtmlCss(Renderer):
         self._css = {} # {card_type.id: render_args: css}
 
     def body_css(self, **render_args):
-        return "html, body { margin: 0px; height: 100%;  width: 100%;}\n"
+        css = "html, body { margin: 0px; height: 100%;  width: 100%;}\n"
+        css += "hr { background-color: black; height: 1px; border: 0; }\n"
+        return css
 
     def card_type_css(self, card_type, **render_args):
         # Set aligment of the table (but not the contents within the table).
@@ -107,7 +109,10 @@ class HtmlCss(Renderer):
         html = ""
         for fact_key in fact_keys:
             if fact_key in fact_data and fact_data[fact_key]:
-                line = "<div id=\"%s\" class=\"%s\">%s</div>" % \
+                line = ""
+                if render_args.get("align_top", False):
+                    line +="<br>"
+                line += "<div id=\"%s\" class=\"%s\">%s</div>" % \
                     (fact_key, fact_key, fact_data[fact_key])
                 # Honour paragraph style also in user-created tables.
                 line = line.replace("<td>",
@@ -121,7 +126,9 @@ class HtmlCss(Renderer):
 
     def render(self, fact_data, fact_keys, card_type, **render_args):
         css = self.css(card_type)
+        valign = "valign=\"top\"" if render_args.get("align_top", False) else ""
         body = self.body(fact_data, fact_keys, card_type, **render_args)
+
         return """
         <!DOCTYPE html>
         <html>
@@ -133,10 +140,10 @@ class HtmlCss(Renderer):
         </head>
         <body>
           <table id="mnem1" class="mnem">
-            <tr>
+            <tr %s>
               <td>%s</td>
             </tr>
           </table>
         </body>
-        </html>""" % (css, body)
+        </html>""" % (css, valign, body)
 

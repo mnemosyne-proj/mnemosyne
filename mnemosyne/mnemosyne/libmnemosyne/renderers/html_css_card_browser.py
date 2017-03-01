@@ -29,7 +29,8 @@ class HtmlCssCardBrowser(HtmlCss):
             card_type.fact_key_format_proxies().items():
             css += ".%s { " % true_fact_key 
             # Font colours.
-            if "force_text_colour" in render_args and render_args["force_text_colour"]:
+            if "force_text_colour" in render_args and \
+               render_args["force_text_colour"]:
                 colour = render_args["force_text_colour"]
             else:
                 colour = self.config().card_type_property(\
