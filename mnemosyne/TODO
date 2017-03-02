@@ -1,5 +1,3 @@
--ui setting
--scroll to answer (in Qt? on from SM2 controller?)
 
 
 -for sync, check only database version, not program version
@@ -29,9 +27,9 @@ Android:
 -custom fonts?
 
 
-
 Minor bugs:
 
+-keeping a key pressed after 'grade answer' proceeds to show the question
 -RTL still does not work for first cloze, in the case the sentence is more than
  1 line
  http://dotancohen.com/howto/rtl_right_to_left.html

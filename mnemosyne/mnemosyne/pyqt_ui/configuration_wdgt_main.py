@@ -42,6 +42,12 @@ class ConfigurationWdgtMain(QtWidgets.QWidget, ConfigurationWidget,
             self.media_controls.setCheckState(QtCore.Qt.Checked)
         else:
             self.media_controls.setCheckState(QtCore.Qt.Unchecked)
+        if self.config()["QA_split"] == "fixed":
+            self.card_presentation.setCurrentIndex(0)
+        elif self.config()["QA_split"] == "adaptive":
+            self.card_presentation.setCurrentIndex(1)
+        elif self.config()["QA_split"] == "single_window":
+            self.card_presentation.setCurrentIndex(2)
         if self.config()["upload_science_logs"] == True:
             self.upload_science_logs.setCheckState(QtCore.Qt.Checked)
         else:
@@ -55,8 +61,9 @@ class ConfigurationWdgtMain(QtWidgets.QWidget, ConfigurationWidget,
         self.languages.setCurrentIndex(self.languages.findText(\
             language_name_for_iso6931_code[self.config()["ui_language"]]))
         self.media_autoplay.stateChanged.connect(self.changed_media_autoplay)
-        if sys.platform == "win32":
-            self.audio_box.hide()
+        
+        # No longer relevant.
+        self.audio_box.hide()
 
     def changed_media_autoplay(self, state):
         if state == QtCore.Qt.Unchecked:
@@ -73,6 +80,7 @@ class ConfigurationWdgtMain(QtWidgets.QWidget, ConfigurationWidget,
         self.save_after_n_reps.setValue(10)
         self.media_autoplay.setCheckState(QtCore.Qt.Checked)
         self.media_controls.setCheckState(QtCore.Qt.Unchecked)
+        self.card_presentation.setCurrentIndex(0)
         self.upload_science_logs.setCheckState(QtCore.Qt.Checked)
         self.languages.setCurrentIndex(self.languages.findText("English"))
 
@@ -100,6 +108,12 @@ class ConfigurationWdgtMain(QtWidgets.QWidget, ConfigurationWidget,
             self.config()["media_controls"] = True
         else:
             self.config()["media_controls"] = False
+        if self.card_presentation.currentIndex() == 0:
+            self.config()["QA_split"] = "fixed"
+        elif self.card_presentation.currentIndex() == 1:
+            self.config()["QA_split"] = "adaptive"  
+        elif self.card_presentation.currentIndex() == 2:
+            self.config()["QA_split"] = "single_window"    
         if self.upload_science_logs.checkState() == QtCore.Qt.Checked:
             self.config()["upload_science_logs"] = True
         else:

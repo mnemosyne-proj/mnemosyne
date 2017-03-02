@@ -128,7 +128,7 @@ class HtmlCss(Renderer):
         css = self.css(card_type)
         valign = "valign=\"top\"" if render_args.get("align_top", False) else ""
         body = self.body(fact_data, fact_keys, card_type, **render_args)
-
+        
         return """
         <!DOCTYPE html>
         <html>
@@ -137,8 +137,13 @@ class HtmlCss(Renderer):
         <style type="text/css">
         %s
         </style>
+        <script type="text/javascript">
+          function scroll_to_answer () {
+            window.location.hash = "#answer"
+          };
+        </script>
         </head>
-        <body>
+        <body onload="scroll_to_answer()">
           <table id="mnem1" class="mnem">
             <tr %s>
               <td>%s</td>

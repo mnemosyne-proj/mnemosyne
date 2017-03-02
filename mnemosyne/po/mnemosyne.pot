@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-02-28 13:10+0100\n"
+"POT-Creation-Date: 2017-03-02 15:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -234,7 +234,7 @@ msgstr ""
 msgid "Foreign word or phrase"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/configuration.py:415
+#: ../mnemosyne/libmnemosyne/configuration.py:410
 msgid "Error in config.py:"
 msgstr ""
 
@@ -970,26 +970,26 @@ msgstr ""
 msgid "Next repetition in "
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:220
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:221
 #: ../mnemosyne/pyqt_ui/preview_cards_dlg.py:63
 msgid "Question: "
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:250
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:253
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:256
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:259
 msgid "Show answer"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:260
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:263
 msgid "Learn ahead of schedule"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:279
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:282
 msgid "Pick days until next repetition:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:281
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:284
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:105
 msgid "Grade your answer:"
 msgstr ""
@@ -1320,7 +1320,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:281
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:232
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_cramming.py:39
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:67
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:74
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:181
 msgid "&No"
@@ -1329,7 +1329,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:281
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:232
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_cramming.py:39
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:67
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:74
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:181
 msgid "&Yes"
@@ -1515,7 +1515,7 @@ msgid "Cramming"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_cramming.py:39
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:67
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:74
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
 msgid "Reset current tab to defaults?"
 msgstr ""
@@ -1696,15 +1696,15 @@ msgstr ""
 msgid "&Hide pronunciation field for this card type"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:483
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:484
 msgid "Scheduled: %d "
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:484
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:485
 msgid "Not memorised: %d "
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:485
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:486
 msgid "Active: %d "
 msgstr ""
 
@@ -2074,7 +2074,7 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:123
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_cramming.py:74
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:121
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:142
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:89
 msgid "Form"
 msgstr ""
@@ -2120,8 +2120,8 @@ msgid "Show cards"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_cramming.py:76
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:125
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:128
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:146
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:149
 msgid "in random order"
 msgstr ""
 
@@ -2141,63 +2141,83 @@ msgstr ""
 msgid "Remember which cards you've seen when restarting Mnemosyne."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:122
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:143
 msgid "Scheduler"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:123
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:144
 msgid "Show new cards for the first time"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:124
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:145
 msgid "in the order they were added"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:126
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:147
 msgid "Review memorised cards"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:127
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:148
 msgid "most urgent first"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:129
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:150
 msgid "Hold"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:130
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:151
 msgid "non-memorised cards in your hand"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:131
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:152
 msgid "Autosave after"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:132
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:153
 msgid "repetitions"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:133
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:154
 msgid "Audio/video"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:134
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:155
 msgid "Start automatically when displaying card"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:135
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:156
 msgid "Show controls (pause, ...)"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:136
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:157
+msgid "Card presentation"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:158
+msgid "Show question and answer"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:159
+msgid "in two boxes with fixed size"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:160
+msgid "in two boxes with adaptive size"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:161
+msgid "in a single box, top-aligned"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:162
 msgid "Science"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:137
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:163
 msgid "Upload anonymous science logs"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:138
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:164
 msgid "Language"
 msgstr ""
 
