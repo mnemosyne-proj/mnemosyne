@@ -126,7 +126,8 @@ class SM2Controller(ReviewController):
     def show_answer(self):
         if self._state == "SELECT AHEAD":
             if self.config()["warned_about_learning_ahead"] == False:
-                self.main_widget().show_information(_("Use 'Learn ahead of schedule' sparingly. For cramming before an exam, it's much better to use the cramming scheduler plugin"))
+                self.main_widget().show_information(\
+_("Use 'Learn ahead of schedule' sparingly. For cramming before an exam, it's much better to use the cramming scheduler plugin"))
                 self.config()["warned_about_learning_ahead"] = True
             self.learning_ahead = True
             self.show_new_question()
@@ -143,7 +144,8 @@ class SM2Controller(ReviewController):
         # Guide the learning process. 
         if self.config()["shown_learn_new_cards_help"] == False:
             if self.scheduled_count == 1:
-                self.main_widget().show_information(_("You have finished your scheduled reviews. Now, learn as many failed or new cards as you feel like."))
+                self.main_widget().show_information(\
+_("You have finished your scheduled reviews. Now, learn as many failed or new cards as you feel like."))
                 self.config()["shown_learn_new_cards_help"] = True          
         card_to_grade = self.card
         previous_grade = card_to_grade.grade

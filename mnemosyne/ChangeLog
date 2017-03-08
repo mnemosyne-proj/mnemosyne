@@ -12,12 +12,17 @@ Additionally, if you see a black screen, start Mnemosyne with the
 
 Mnemosyne 2.4.2
 
--Updated to PyQt 5.8.
+-daily goal
+-more schedulers
+
+
 -Added option to "Configure Mnemosyne" to affect how cards are displayed, 
  in two boxes with fixed size, two boxes with adaptive size, or a single
  box top aligned.
+-Updated to PyQt 5.8.
 -Scaling for high-definition displays now enabled by default.
  (start with --disable-high-dpi-scaling if you prefer the previous behaviour).
+-Fix crash when deleting unused media files (reported by gorgar). 
 -Small performance optimisations in the database.
 -Fix problems under Linux with some Japanese fonts (e.g. Google Noto fonts) 
  (fix by m4984).

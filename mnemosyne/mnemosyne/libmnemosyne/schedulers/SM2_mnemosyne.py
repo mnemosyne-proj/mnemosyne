@@ -103,8 +103,8 @@ class SM2Mnemosyne(Scheduler):
         interval = card.next_rep - card.last_rep
         if card.grade < 2:
             if interval != 0:
-                self.main_widget().show_error("Internal error: interval not zero.")
-            #assert interval == 0
+                self.main_widget().show_error(\
+                    "Internal error: interval not zero.")
             return interval
         interval += self.config()["day_starts_at"] * HOUR
         if time.localtime(time.time()).tm_isdst and time.daylight:
@@ -220,7 +220,8 @@ class SM2Mnemosyne(Scheduler):
         if self.stage == 1:
             if self.config()["shown_backlog_help"] == False:
                 if db.scheduled_count(self.adjusted_now() - DAY) != 0:
-                    self.main_widget().show_information(_("You appear to have missed some reviews. Don't worry too much about this backlog, and do as many cards as you feel comfortable with to catch up each day. Mnemosyne will automatically reschedule your cards such that the most urgent ones are shown first."))
+                    self.main_widget().show_information(\
+_("You appear to have missed some reviews. Don't worry too much about this backlog, and do as many cards as you feel comfortable with to catch up each day. Mnemosyne will automatically reschedule your cards such that the most urgent ones are shown first."))
                     self.config()["shown_backlog_help"] = True
             if self.config()["randomise_scheduled_cards"] == True:
                 sort_key = "random"
