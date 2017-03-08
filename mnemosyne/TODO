@@ -1,3 +1,33 @@
+bug report with delete unused media
+https://bugs.launchpad.net/bugs/1670668
+mention in contributors
+
+-status bar: scheduled: x / not memorised: x / goal new cards: x/y
+-new cards goal can overshoot, e.g. 7/5
+-save state upon exit, reset at midnight 
+-config: goal_new_cards, new_cards_today
+
+-hold in your hand --> work on at most 'X' non memorised cards. 
+ Rephrase tips, docs
+
+Learning mode menu:
+-review scheduled / learn forgotten / learn new: old scheduler
+-learn new: old scheduler with 'new_only=False', to set stage to 3
+-learn new / cram recent: new scheduler
+-cram recent: same new scheduler, but setting 'new' to zero
+-cram all: old cramming scheduler
+
+Merge review controllers, also take cramming buttons into account
+For 'cramming' cards, show yes/no buttons instead of 0-5 as visual indicator
+
+GUI Config: 
+- cram recent: X days, only new cards vs new + relearned cards
+- learn new / cram recent: ratio between new and recent
+
+
+-Android GUI: menu, new status bar
+
+-later: add 'difficult' tag, and add 'cram difficult?'
 
 
 -for sync, check only database version, not program version
@@ -190,8 +220,6 @@ media, tag (check all 'already_imported' statements)
  
 -rework make windows-installer so as not to require keypress, so that it can be 
  used from qtconsole
-
--better in dialog explanation for hold n cards in your hand?
 
 -option to turn off card count per tag?
 

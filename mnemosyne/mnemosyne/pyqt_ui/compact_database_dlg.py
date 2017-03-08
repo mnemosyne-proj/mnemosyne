@@ -119,7 +119,7 @@ class CompactDatabaseDlg(QtWidgets.QDialog, CompactDatabaseDialog,
     def activate(self):
         self.exec_()
 
-    def accept(self):
+    def accept(self):        
         defragment_database = \
             (self.defragment_database.checkState() == QtCore.Qt.Checked)
         delete_unused_media_files = \
@@ -133,7 +133,8 @@ class CompactDatabaseDlg(QtWidgets.QDialog, CompactDatabaseDialog,
             unused_media_files = self.database().unused_media_files()
             if len(unused_media_files) != 0:
                 DeleteUnusedMediaFilesDlg(\
-                    self.component_manager, unused_media_files).activate()
+                    component_manager=self.component_manager, 
+                    unused_media_files=unused_media_files).activate()
         if defragment_database or archive_old_logs:
             self.compact_in_thread(defragment_database, archive_old_logs)
         else:
