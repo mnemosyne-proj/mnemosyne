@@ -37,6 +37,16 @@ class DefaultController(Controller):
         Controller.activate(self)
         self.next_rollover = self.database().start_of_day_n_days_ago(n=-1)
         
+    def start_review(self):
+        if self.config()["study_mode"] == "default":
+            # TODO: make sure we have the default controller
+            self.review_controller().reset(new_only=False)
+        elif self.config()["study_mode"] == "new_only":
+            # TODO: make sure we have the default controller
+            self.review_controller().reset(new_only=True)            
+        elif self.config()["study_mode"] == "cram_all":
+            pass                  
+        
     def heartbeat(self, db_maintenance=True):
 
         """Making sure, even if the user leaves the program open indefinitely,

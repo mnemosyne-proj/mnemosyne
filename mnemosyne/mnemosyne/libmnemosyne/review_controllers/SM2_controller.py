@@ -40,7 +40,7 @@ class SM2Controller(ReviewController):
     tooltip[RET_PHASE][5] = \
         _("Correct answer, but without any difficulties. The interval was probably too short.")
 
-    def reset(self):
+    def reset(self, new_only=False):
 
         """A Plugin can have a new scheduler, a new review controller or both,
         and in order to avoid running this time consuming code more than once,
@@ -58,7 +58,7 @@ class SM2Controller(ReviewController):
         self.widget = self.component_manager.current("review_widget")\
                       (component_manager=self.component_manager)
         self.widget.activate()
-        self.scheduler().reset()
+        self.scheduler().reset(new_only=new_only)
         self.show_new_question()
 
     def reset_but_try_to_keep_current_card(self):

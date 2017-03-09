@@ -24,7 +24,6 @@ class PyQtConfiguration(Hook):
              "previous_configuration_wdgt": 0,
              "previous_variant_for_statistics_page": {}, # dict[page] = variant
              "main_window_state": None,
-             "QA_split": "fixed", # "fixed", "adaptive", "single_window"
              "add_cards_dlg_state": None,
              "preview_cards_dlg_state": None,
              "edit_card_dlg_state": None,

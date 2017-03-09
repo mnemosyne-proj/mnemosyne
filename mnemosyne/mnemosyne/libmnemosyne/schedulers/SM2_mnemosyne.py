@@ -113,7 +113,7 @@ class SM2Mnemosyne(Scheduler):
             interval += time.timezone
         return int(interval)
 
-    def reset(self):
+    def reset(self, new_only=False):
 
         """'_card_ids_in_queue' contains the _ids of the cards making up the
         queue.
@@ -140,7 +140,10 @@ class SM2Mnemosyne(Scheduler):
         self._fact_ids_in_queue = []
         self._fact_ids_memorised = []
         self._card_id_last = None
-        self.stage = 1
+        if new_only == False:
+            self.stage = 1
+        else:
+            self.stage = 3
         self.warned_about_too_many_cards = False     
 
     def set_initial_grade(self, cards, grade):

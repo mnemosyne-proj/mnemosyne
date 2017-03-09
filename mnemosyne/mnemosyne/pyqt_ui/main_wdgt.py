@@ -16,7 +16,7 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
     
     def __init__(self, **kwds):
         super().__init__(**kwds)
-        self.setupUi(self)
+        self.setupUi(self)    
         # Qt designer does not allow setting multiple shortcuts per action.
         self.actionDeleteCurrentCard.setShortcuts\
             ([QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace])
@@ -46,11 +46,32 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
         state = self.config()["main_window_state"]
         if state:
             self.restoreGeometry(state)
-        self.start_review()
+        # Selection of study mode.
+        study_mode_group = QtWidgets.QActionGroup(self)
+        study_mode_group.addAction(self.actionStudyDefault)
+        study_mode_group.addAction(self.actionStudyNew)
+        study_mode_group.addAction(self.actionCramAll)
+        study_mode_group.triggered.connect(self.change_study_mode)
+        trigger = QtWidgets.QAction.Trigger
+        if self.config()["study_mode"] == "default":
+            self.actionStudyDefault.activate(trigger)
+        elif self.config()["study_mode"] == "new_only":
+            self.actionStudyNew.activate(trigger)
+        elif self.config()["study_mode"] == "cram_all":
+            self.actionCramAll.activate(trigger)
         self.retranslateUi(self)
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.controller_heartbeat)
         self.timer.start(1000)  # 1 sec.
+        
+    def change_study_mode(self, action):
+        if action == self.actionStudyDefault:
+            self.config()["study_mode"] = "default"
+        elif action == self.actionStudyNew:
+            self.config()["study_mode"] = "new_only" 
+        elif action == self.actionCramAll:
+            self.config()["study_mode"] = "cram_all"
+        self.controller().start_review()
         
     def controller_heartbeat(self):
         # Need late binding to allow for inheritance.

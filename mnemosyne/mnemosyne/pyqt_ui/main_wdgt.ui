@@ -77,8 +77,17 @@
     <addaction name="separator"/>
     <addaction name="actionShowStatistics"/>
    </widget>
+   <widget class="QMenu" name="menuStudy_mode">
+    <property name="title">
+     <string>Study</string>
+    </property>
+    <addaction name="actionStudyDefault"/>
+    <addaction name="actionStudyNew"/>
+    <addaction name="actionCramAll"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menu_Cards"/>
+   <addaction name="menuStudy_mode"/>
    <addaction name="menu_Settings"/>
    <addaction name="menu_Help"/>
   </widget>
@@ -299,6 +308,33 @@
   <action name="actionFindDuplicates">
    <property name="text">
     <string>Find duplicate questions</string>
+   </property>
+  </action>
+  <action name="actionStudyDefault">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Scheduled -&gt; forgotten -&gt; new</string>
+   </property>
+  </action>
+  <action name="actionStudyNew">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Study new cards only</string>
+   </property>
+  </action>
+  <action name="actionCramAll">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Cram all cards</string>
    </property>
   </action>
  </widget>
