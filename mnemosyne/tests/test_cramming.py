@@ -59,7 +59,7 @@ class TestCrammingScheduler(MnemosyneTest):
                      grade=2, tag_names=["default"])[0]
         card_4.next_rep -= 1000
         self.database().update_card(card_4)
-        self.review_controller().start_review()
+        self.mnemosyne().start_review()
 
         assert self.database().scheduler_data_count(Cramming.UNSEEN) == 4
         assert self.database().scheduler_data_count(Cramming.WRONG) == 0
@@ -95,7 +95,7 @@ class TestCrammingScheduler(MnemosyneTest):
                      grade=2, tag_names=["default"])[0]
         card_4.next_rep -= 1000
         self.database().update_card(card_4)
-        self.review_controller().start_review()
+        self.mnemosyne().start_review()
 
         assert self.database().scheduler_data_count(Cramming.UNSEEN) == 4
         assert self.database().scheduler_data_count(Cramming.WRONG) == 0

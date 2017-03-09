@@ -1,6 +1,19 @@
-bug report with delete unused media
-https://bugs.launchpad.net/bugs/1670668
-mention in contributors
+How to support plugins for new learning modes?
+
+Learning mode menu:
+-learn new / cram recent: new scheduler
+-cram recent: same new scheduler, but setting 'new' to zero
+-cram all: old cramming scheduler
+
+Merge review controllers, also take cramming buttons into account
+For 'cramming' cards, show yes/no buttons instead of 0-5 as visual indicator
+log that the card is crammed
+
+mnemosyne.start_review vs mnemosyne.controller().start_review()
+
+GUI Config: 
+- cram recent: X days, only new cards vs new + relearned cards
+- learn new / cram recent: ratio between new and recent
 
 -status bar: scheduled: x / not memorised: x / goal new cards: x/y
 -new cards goal can overshoot, e.g. 7/5
@@ -9,22 +22,7 @@ mention in contributors
 
 -hold in your hand --> work on at most 'X' non memorised cards. 
  Rephrase tips, docs
-
-Learning mode menu:
--review scheduled / learn forgotten / learn new: old scheduler
--learn new: old scheduler with 'new_only=False', to set stage to 3
--learn new / cram recent: new scheduler
--cram recent: same new scheduler, but setting 'new' to zero
--cram all: old cramming scheduler
-
-Merge review controllers, also take cramming buttons into account
-For 'cramming' cards, show yes/no buttons instead of 0-5 as visual indicator
-
-GUI Config: 
-- cram recent: X days, only new cards vs new + relearned cards
-- learn new / cram recent: ratio between new and recent
-
-
+ 
 -Android GUI: menu, new status bar
 
 -later: add 'difficult' tag, and add 'cram difficult?'

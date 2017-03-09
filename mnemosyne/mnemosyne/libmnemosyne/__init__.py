@@ -232,7 +232,7 @@ class Mnemosyne(Component):
             from mnemosyne.libmnemosyne.upgrades.upgrade1 import Upgrade1
             Upgrade1(self.component_manager).run()
         # Finally, we can activate the main widget.
-        self.main_widget().activate() 
+        self.main_widget().activate()
 
     def register_components(self):
         
@@ -358,6 +358,9 @@ _("If you are using a USB key, refer to the instructions on the website so as no
                     success = True
                 except RuntimeError as e:
                     self.main_widget().show_error(str(e))
+                    
+    def start_review(self):  # Syntactic sugar.
+        self.controller().start_review()    
 
     def finalise(self):
         # Deactivate the sync server first, so that we make sure it reverts

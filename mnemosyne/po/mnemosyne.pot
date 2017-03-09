@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-03-02 15:14+0100\n"
+"POT-Creation-Date: 2017-03-08 16:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -247,8 +247,8 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:696
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:60
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:72
-#: ../mnemosyne/pyqt_ui/main_wdgt.py:72 ../mnemosyne/pyqt_ui/main_wdgt.py:78
-#: ../mnemosyne/pyqt_ui/main_wdgt.py:94 ../mnemosyne/pyqt_ui/main_wdgt.py:123
+#: ../mnemosyne/pyqt_ui/main_wdgt.py:94 ../mnemosyne/pyqt_ui/main_wdgt.py:100
+#: ../mnemosyne/pyqt_ui/main_wdgt.py:116 ../mnemosyne/pyqt_ui/main_wdgt.py:145
 #: ../mnemosyne/pyqt_ui/tip_after_starting_n_times.py:31
 msgid "Mnemosyne"
 msgstr ""
@@ -562,7 +562,7 @@ msgid "go to http://www.mnemosyne-proj.org"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/database.py:352
-#: ../mnemosyne/pyqt_ui/compact_database_dlg.py:143
+#: ../mnemosyne/pyqt_ui/compact_database_dlg.py:144
 msgid "Compacting database..."
 msgstr ""
 
@@ -858,7 +858,7 @@ msgid "Waiting for uploader thread to stop..."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/logger.py:200
-#: ../mnemosyne/pyqt_ui/compact_database_dlg.py:171
+#: ../mnemosyne/pyqt_ui/compact_database_dlg.py:172
 #: ../mnemosyne/pyqt_ui/export_dlg.py:63
 msgid "Done!"
 msgstr ""
@@ -936,144 +936,144 @@ msgstr ""
 msgid "You have no more work for today. Either add more cards or come back tomorrow."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:129
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:130
 msgid "Use 'Learn ahead of schedule' sparingly. For cramming before an exam, it's much better to use the cramming scheduler plugin"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:146
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:148
 msgid "You have finished your scheduled reviews. Now, learn as many failed or new cards as you feel like."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:167
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:169
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:33
 msgid "Returns in"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:168
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:170
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:34
 msgid " day(s)."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:172
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:174
 msgid "Next repetition: today."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:174
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:176
 msgid "Next repetition: tomorrow."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:176
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:178
 msgid " days."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:176
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:178
 msgid "Next repetition in "
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:221
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:223
 #: ../mnemosyne/pyqt_ui/preview_cards_dlg.py:63
 msgid "Question: "
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:253
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:256
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:259
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:255
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:258
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:261
 msgid "Show answer"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:263
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:265
 msgid "Learn ahead of schedule"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:282
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:284
 msgid "Pick days until next repetition:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:284
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:286
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:105
 msgid "Grade your answer:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:223
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:226
 msgid "You appear to have missed some reviews. Don't worry too much about this backlog, and do as many cards as you feel comfortable with to catch up each day. Mnemosyne will automatically reschedule your cards such that the most urgent ones are shown first."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:547
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:550
 msgid "You've memorised 15 new or failed cards."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:548
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:551
 msgid "If you do this for many days, you could get a big workload later."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:594
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:598
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:603
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:597
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:601
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:606
 msgid "in"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:595
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:598
 msgid "years"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:599
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:602
 msgid "months"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:601
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:604
 msgid "in 1 month"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:604
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:607
 msgid "days"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:606
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:609
 msgid "tomorrow"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:608
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:638
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:611
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:641
 msgid "today"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:610
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:613
 msgid "1 day overdue"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:612
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:615
 msgid "days overdue"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:614
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:617
 msgid "1 month overdue"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:617
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:620
 msgid "months overdue"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:620
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:623
 msgid "years overdue"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:640
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:643
 msgid "yesterday"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:642
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:645
 msgid "days ago"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:644
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:647
 msgid "1 month ago"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:647
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:650
 msgid "months ago"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:650
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:653
 msgid "years ago"
 msgstr ""
 
@@ -1671,7 +1671,7 @@ msgid "Insert &sound"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:32
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:212
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:229
 msgid "Ctrl+S"
 msgstr ""
 
@@ -1680,7 +1680,7 @@ msgid "Insert vi&deo"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:34
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:195
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:212
 msgid "Ctrl+D"
 msgstr ""
 
@@ -2044,7 +2044,7 @@ msgid "Clone name:"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:56
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:226
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:243
 msgid "Compact database"
 msgstr ""
 
@@ -2443,151 +2443,167 @@ msgstr ""
 msgid "Add additional tag(s) to cards:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:189
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:205
 msgid "&Settings"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:190
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:206
 msgid "&Help"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:191
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:207
 msgid "&File"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:192
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:208
 msgid "&Cards"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:193
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:209
+msgid "Study"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:210
 msgid "toolBar"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:194
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:211
 msgid "(De)a&ctivate cards..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:196
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:213
 msgid "&Add cards..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:197
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:214
 msgid "Ctrl+A"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:198
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:215
 msgid "&Configure Mnemosyne..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:199
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:216
 msgid "&Delete current card"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:200
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:217
 msgid "Del"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:201
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:218
 msgid "&Edit current card..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:202
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:219
 msgid "Ctrl+E"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:203
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:220
 msgid "&Browse cards..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:204
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:221
 msgid "Ctrl+B"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:205
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:222
 msgid "&Export..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:206
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:223
 #: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:58
 #: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:70
 msgid "E&xit"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:207
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:224
 msgid "&New..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:208
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:225
 msgid "Ctrl+N"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:209
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:226
 msgid "&Open..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:210
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:227
 msgid "Ctrl+O"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:211
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:228
 msgid "&Save"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:213
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:230
 msgid "Save &as..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:214
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:231
 msgid "&About"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:215
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:232
 msgid "&Import..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:216
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:233
 msgid "&Getting started"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:217
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:234
 msgid "Show s&tatistics..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:218
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:235
 msgid "Ctrl+T"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:219
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:236
 msgid "&Tip of the day"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:220
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:237
 msgid "Manage &plugins..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:221
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:238
 #: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:64
 msgid "Manage plugins"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:222
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:239
 msgid "&Manage card types..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:223
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:240
 msgid "S&ync..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:224
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:241
 msgid "Ctrl+Y"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:225
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:242
 msgid "Compact..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:227
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:244
 msgid "Find duplicate questions"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:245
+msgid "Scheduled -> forgotten -> new"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:246
+msgid "Study new cards only"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:247
+msgid "Cram all cards"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:53
