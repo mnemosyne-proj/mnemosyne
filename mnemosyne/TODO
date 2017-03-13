@@ -1,4 +1,9 @@
-How to support plugins for new learning modes?
+who activates study mode? libmnemosyne init or review widget?
+better not in the GUI code to allow reuse
+
+dynamically build up study mode menu
+
+factor out instantiation code for study mode?
 
 Learning mode menu:
 -learn new / cram recent: new scheduler
@@ -11,9 +16,16 @@ log that the card is crammed
 
 mnemosyne.start_review vs mnemosyne.controller().start_review()
 
+scheduler() vs learning_mode().scheduler?
+
 GUI Config: 
 - cram recent: X days, only new cards vs new + relearned cards
 - learn new / cram recent: ratio between new and recent
+
+Each learning mode separate config widget?
+
+example plugin for new learning modes
+
 
 -status bar: scheduled: x / not memorised: x / goal new cards: x/y
 -new cards goal can overshoot, e.g. 7/5

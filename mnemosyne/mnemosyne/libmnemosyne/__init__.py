@@ -61,8 +61,6 @@ class Mnemosyne(Component):
           "Configuration"),
          ("mnemosyne.libmnemosyne.loggers.database_logger",
           "DatabaseLogger"),
-         ("mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne",
-          "SM2Mnemosyne"),
          ("mnemosyne.libmnemosyne.stopwatch",
           "Stopwatch"),
          ("mnemosyne.libmnemosyne.card_types.front_to_back",
@@ -103,8 +101,12 @@ class Mnemosyne(Component):
           "PostprocessQAClozeLatex"),
          ("mnemosyne.libmnemosyne.controllers.default_controller",
           "DefaultController"),
-         ("mnemosyne.libmnemosyne.review_controllers.SM2_controller",
-          "SM2Controller"),
+         ("mnemosyne.libmnemosyne.study_modes.scheduled_forgotten_new",
+          "ScheduledForgottenNew"),
+         ("mnemosyne.libmnemosyne.study_modes.new_only",
+          "NewOnly"),           
+         ("mnemosyne.libmnemosyne.study_modes.cram_all",
+          "CramAll"),         
          ("mnemosyne.libmnemosyne.card_types.map",
           "MapPlugin"),
          ("mnemosyne.libmnemosyne.card_types.cloze",
@@ -115,8 +117,6 @@ class Mnemosyne(Component):
           "DefaultCriterion"),
          ("mnemosyne.libmnemosyne.databases.SQLite_criterion_applier",
           "DefaultCriterionApplier"),
-         ("mnemosyne.libmnemosyne.plugins.cramming_plugin",
-          "CrammingPlugin"),
          ("mnemosyne.libmnemosyne.statistics_pages.schedule",
           "Schedule"),
          ("mnemosyne.libmnemosyne.statistics_pages.retention_score",
@@ -280,7 +280,7 @@ class Mnemosyne(Component):
         self.config()["interested_in_old_reps"] = self.interested_in_old_reps
         self.config()["asynchronous_database"] = self.asynchronous_database
         # Activate other components.
-        for component in ["log", "translator", "database", "scheduler",
+        for component in ["log", "translator", "database", "study_mode",
                           "controller"]:
             try:
                 self.component_manager.current(component).activate()

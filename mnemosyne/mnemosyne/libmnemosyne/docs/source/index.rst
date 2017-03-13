@@ -76,6 +76,7 @@ Contents
     modules/renderer
     modules/controller
     modules/review_controller
+    modules/study_mode
     modules/configuration
     modules/database
     modules/file_format
