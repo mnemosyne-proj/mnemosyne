@@ -224,15 +224,13 @@ class Mnemosyne(Component):
                 sys.exit()
             else:
                 raise e
-        self.log().started_scheduler()
-        self.log().loaded_database()
-        self.log().future_schedule()
         # Upgrade from 1.x if needed.
         if automatic_upgrades:
             from mnemosyne.libmnemosyne.upgrades.upgrade1 import Upgrade1
             Upgrade1(self.component_manager).run()
-        # Finally, we can activate the main widget.
+        # Finally, we can start the main widget and the review.
         self.main_widget().activate()
+        self.start_review()
 
     def register_components(self):
         
@@ -280,8 +278,7 @@ class Mnemosyne(Component):
         self.config()["interested_in_old_reps"] = self.interested_in_old_reps
         self.config()["asynchronous_database"] = self.asynchronous_database
         # Activate other components.
-        for component in ["log", "translator", "database", "study_mode",
-                          "controller"]:
+        for component in ["log", "translator", "database", "controller"]:
             try:
                 self.component_manager.current(component).activate()
             except RuntimeError as e:
@@ -359,8 +356,12 @@ _("If you are using a USB key, refer to the instructions on the website so as no
                 except RuntimeError as e:
                     self.main_widget().show_error(str(e))
                     
-    def start_review(self):  # Syntactic sugar.
-        self.controller().start_review()    
+    def start_review(self):
+        for study_mode_i in self.component_manager.all("study_mode"):
+            if study_mode_i.__class__.__name__ == \
+               self.config()["study_mode"]:
+                study_mode = study_mode_i
+        study_mode.activate()
 
     def finalise(self):
         # Deactivate the sync server first, so that we make sure it reverts

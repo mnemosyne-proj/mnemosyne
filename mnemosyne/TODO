@@ -1,30 +1,33 @@
-who activates study mode? libmnemosyne init or review widget?
-better not in the GUI code to allow reuse
+rework self.log().loaded_database(). Have it called by scheduler start log?
+future_schedule
 
-dynamically build up study mode menu
+profile switch of learning mode. Future schedule?
 
-factor out instantiation code for study mode?
+Merge review controllers, also take cramming buttons into account
+For 'cramming' cards, show yes/no buttons instead of 0-5 as visual indicator
+log that the card is crammed
 
 Learning mode menu:
 -learn new / cram recent: new scheduler
 -cram recent: same new scheduler, but setting 'new' to zero
 -cram all: old cramming scheduler
 
-Merge review controllers, also take cramming buttons into account
-For 'cramming' cards, show yes/no buttons instead of 0-5 as visual indicator
-log that the card is crammed
+retire cramming plugin, but check that if the plugin was active upon upgrade
+it does not cause problems.
 
-mnemosyne.start_review vs mnemosyne.controller().start_review()
+Each learning mode separate config widget?
 
-scheduler() vs learning_mode().scheduler?
+Mode with forgotten only?
+
+Generate end message for new learning modes. (learn ahead of schedule is not 
+always relevant)
 
 GUI Config: 
 - cram recent: X days, only new cards vs new + relearned cards
 - learn new / cram recent: ratio between new and recent
 
-Each learning mode separate config widget?
-
 example plugin for new learning modes
+revisit 'review_reset_needed' in Plugin
 
 
 -status bar: scheduled: x / not memorised: x / goal new cards: x/y

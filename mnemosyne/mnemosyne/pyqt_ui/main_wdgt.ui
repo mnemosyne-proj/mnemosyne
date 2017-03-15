@@ -46,7 +46,7 @@
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
-   <widget class="QMenu" name="menuFile">
+   <widget class="QMenu" name="menu_File">
     <property name="title">
      <string>&amp;File</string>
     </property>
@@ -77,17 +77,14 @@
     <addaction name="separator"/>
     <addaction name="actionShowStatistics"/>
    </widget>
-   <widget class="QMenu" name="menuStudy_mode">
+   <widget class="QMenu" name="menu_Study">
     <property name="title">
      <string>Study</string>
     </property>
-    <addaction name="actionStudyDefault"/>
-    <addaction name="actionStudyNew"/>
-    <addaction name="actionCramAll"/>
    </widget>
-   <addaction name="menuFile"/>
+   <addaction name="menu_File"/>
    <addaction name="menu_Cards"/>
-   <addaction name="menuStudy_mode"/>
+   <addaction name="menu_Study"/>
    <addaction name="menu_Settings"/>
    <addaction name="menu_Help"/>
   </widget>
