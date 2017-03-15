@@ -46,32 +46,33 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
         state = self.config()["main_window_state"]
         if state:
             self.restoreGeometry(state)
-        # Selection of study mode.
+        # Dynamically fill study mode menu.
+        study_modes = [x for x in self.component_manager.all("study_mode")]
+        study_modes.sort(key=lambda x:x.id)
         study_mode_group = QtWidgets.QActionGroup(self)
-        study_mode_group.addAction(self.actionStudyDefault)
-        study_mode_group.addAction(self.actionStudyNew)
-        study_mode_group.addAction(self.actionCramAll)
+        self.study_mode_for_action = {}
+        for study_mode in study_modes:
+            action = QtWidgets.QAction(study_mode.name, self)
+            action.setCheckable(True)
+
+            if self.config()["study_mode"] == study_mode.__class__.__name__:
+                action.setChecked(True)
+            study_mode_group.addAction(action)
+            self.menu_Study.addAction(action)
+            self.study_mode_for_action[action] = study_mode
         study_mode_group.triggered.connect(self.change_study_mode)
-        trigger = QtWidgets.QAction.Trigger
-        if self.config()["study_mode"] == "default":
-            self.actionStudyDefault.activate(trigger)
-        elif self.config()["study_mode"] == "new_only":
-            self.actionStudyNew.activate(trigger)
-        elif self.config()["study_mode"] == "cram_all":
-            self.actionCramAll.activate(trigger)
         self.retranslateUi(self)
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.controller_heartbeat)
         self.timer.start(1000)  # 1 sec.
         
-    def change_study_mode(self, action):
-        if action == self.actionStudyDefault:
-            self.config()["study_mode"] = "default"
-        elif action == self.actionStudyNew:
-            self.config()["study_mode"] = "new_only" 
-        elif action == self.actionCramAll:
-            self.config()["study_mode"] = "cram_all"
-        self.controller().start_review()
+    def change_study_mode(self, action):       
+        study_mode = self.study_mode_for_action[action]
+        if self.config()["study_mode"] == study_mode.__class__.__name__:
+            return
+        action.setChecked(True)
+        self.config()["study_mode"] = study_mode.__class__.__name__
+        study_mode.activate()
         
     def controller_heartbeat(self):
         # Need late binding to allow for inheritance.

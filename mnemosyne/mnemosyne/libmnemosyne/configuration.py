@@ -146,7 +146,7 @@ class Configuration(Component, dict):
              "latex_postamble": "\\end{document}",
              "latex": "latex -interaction=nonstopmode",
              "dvipng": "dvipng -D 200 -T tight tmp.dvi",
-             "active_plugins": set(), # Plugin classes, not instances.
+             "active_plugins": set(), # Plugin class name, not instance.
              "media_autoplay": True,
              "media_controls": False,
              "run_sync_server": False,
@@ -169,7 +169,7 @@ class Configuration(Component, dict):
              "export_format": None,
              "last_db_maintenance": time.time() - 1 * DAY,
              "QA_split": "fixed", # "fixed", "adaptive", "single_window",
-             "study_mode": "default" # "default", "new_only", "cram_all"
+             "study_mode": "ScheduledForgottenNew"
             }.items()):
             self.setdefault(key, value)
         # These keys will be shared in the sync protocol. Front-ends can

@@ -22,7 +22,7 @@ class Cramming(SM2Mnemosyne):
         SM2Mnemosyne.__init__(self, component_manager)
         self.first_run = True
 
-    def reset(self):
+    def reset(self, new_only=False):
         if self.first_run and self.config()["cramming_store_state"] == False:
             self.database().set_scheduler_data(self.UNSEEN)
         self.first_run = False
