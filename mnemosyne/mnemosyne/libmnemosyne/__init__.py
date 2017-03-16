@@ -80,7 +80,7 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.card_types.vocabulary",
           "VocabularyToFrontToBack"),
          ("mnemosyne.libmnemosyne.card_types.vocabulary",
-          "VocabularyToBothWays"),
+          "VocabularyToBothWays"),       
          ("mnemosyne.libmnemosyne.render_chains.default_render_chain",
           "DefaultRenderChain"),
          ("mnemosyne.libmnemosyne.render_chains.plain_text_chain",
@@ -362,6 +362,12 @@ _("If you are using a USB key, refer to the instructions on the website so as no
                self.config()["study_mode"]:
                 study_mode = study_mode_i
         study_mode.activate()
+        # Design wart: log().load_database() needs the scheduler to be active,
+        # so we can only call it here.
+        self.log().loaded_database()
+        # No need to log the future schedule everytime we change study
+        # mode, so we only do it only on program start and roll-over.
+        self.log().future_schedule()
 
     def finalise(self):
         # Deactivate the sync server first, so that we make sure it reverts
