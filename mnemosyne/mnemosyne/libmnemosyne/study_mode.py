@@ -26,8 +26,6 @@ class StudyMode(Component):
         self.component_manager.register(\
             self.Scheduler(self.component_manager))
         self.log().started_scheduler()
-        self.log().loaded_database()  # Backwards compatibility
-        self.log().future_schedule()
         # Review controller.
         previous_review_controller = self.review_controller()
         if previous_review_controller:

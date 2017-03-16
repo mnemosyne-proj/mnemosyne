@@ -1,7 +1,5 @@
-rework self.log().loaded_database(). Have it called by scheduler start log?
-future_schedule
-
-profile switch of learning mode. Future schedule?
+Port old cram scheduler: extra components like review and configuration widget
+neew to rework extra_components_for_plugin? Or use 'used_for'?
 
 Merge review controllers, also take cramming buttons into account
 For 'cramming' cards, show yes/no buttons instead of 0-5 as visual indicator
@@ -10,10 +8,6 @@ log that the card is crammed
 Learning mode menu:
 -learn new / cram recent: new scheduler
 -cram recent: same new scheduler, but setting 'new' to zero
--cram all: old cramming scheduler
-
-retire cramming plugin, but check that if the plugin was active upon upgrade
-it does not cause problems.
 
 Each learning mode separate config widget?
 
