@@ -18,5 +18,5 @@ class ScheduledForgottenNew(StudyMode):
     ReviewController = SM2Controller
 
     def activate(self):
-        self.register_components()
+        self.activate_components()
         self.review_controller().reset(new_only=False)

@@ -245,12 +245,11 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.export_metadata_dlg",
                              "ExportMetadataDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.prefill_tag_behaviour_plugin",
                              "PrefillTagBehaviourPlugin"))
-mnemosyne.extra_components_for_plugin["CramAll"] = \
-                            [("mnemosyne.pyqt_ui.review_wdgt_cramming",
-                             "ReviewWdgtCramming"),
-                             ("mnemosyne.pyqt_ui.configuration_wdgt_cramming",
-                             "ConfigurationWdgtCramming")]
-
+mnemosyne.gui_for_component["CramAll"] = \
+    [("mnemosyne.pyqt_ui.review_wdgt_cramming",
+        "ReviewWdgtCramming"),
+        ("mnemosyne.pyqt_ui.configuration_wdgt_cramming",
+        "ConfigurationWdgtCramming")]
 # Run Mnemosyne.
 mnemosyne.initialise(data_dir=data_dir, filename=filename,
 		     automatic_upgrades=options.automatic_upgrades,

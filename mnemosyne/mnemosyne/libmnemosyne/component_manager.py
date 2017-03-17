@@ -22,6 +22,7 @@ class ComponentManager(object):
         self.components = {} # {used_for: {type: [component]} }
         self.card_type_with_id = {}
         self.render_chain_by_id = {}
+        self.current_study_mode = None
         self.debug_file = None
 
     def register(self, component):
@@ -50,17 +51,19 @@ class ComponentManager(object):
         elif component.component_type == "render_chain":
             del self.render_chain_by_id[component.id]
 
-    def add_component_to_plugin(self, plugin_class_name, component_class):
+    def add_gui_to_component(self, component_name, gui_component):
 
         """Typical use case for this is when a plugin has a GUI component
         which obviously does not live inside libmnemosyne, and which needs to
         be added at a later stage.
 
         """
-
-        for plugin in self.all("plugin"):
-            if plugin.__class__.__name__ == plugin_class_name:
-                plugin.components.append(component_class)
+        
+        for used_for in self.components:
+            for component_type in self.components[used_for]:
+                for component in self.components[used_for][component_type]:
+                    if component.__class__.__name__ == component_name:
+                        component.gui_components.append(gui_component)
 
     def all(self, comp_type, used_for=None):
 

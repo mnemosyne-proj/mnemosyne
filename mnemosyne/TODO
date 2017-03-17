@@ -1,5 +1,4 @@
-Port old cram scheduler: extra components like review and configuration widget
-neew to rework extra_components_for_plugin? Or use 'used_for'?
+Make sure review widget gets reset appropriately
 
 Merge review controllers, also take cramming buttons into account
 For 'cramming' cards, show yes/no buttons instead of 0-5 as visual indicator
@@ -21,7 +20,6 @@ GUI Config:
 - learn new / cram recent: ratio between new and recent
 
 example plugin for new learning modes
-revisit 'review_reset_needed' in Plugin
 
 
 -status bar: scheduled: x / not memorised: x / goal new cards: x/y
@@ -35,6 +33,8 @@ revisit 'review_reset_needed' in Plugin
 -Android GUI: menu, new status bar
 
 -later: add 'difficult' tag, and add 'cram difficult?'
+
+-delay when using keyboard shortcuts
 
 
 -for sync, check only database version, not program version

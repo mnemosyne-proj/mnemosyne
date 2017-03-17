@@ -42,8 +42,8 @@ class Plugin(Component):
     def activate(self):
         if not hasattr(self, "supported_API_level") or \
             self.supported_API_level < self.current_API_level:
-            self.main_widget().show_error(\
-    _("Plugin '" + self.name + "' needs to be upgraded. Please contact its author."))
+            self.main_widget().show_error(_("Plugin '" + self.name +\
+                "' needs to be upgraded. Please contact its author."))
             return
         # Don't activate a plugin twice.
         if self.instantiated_components or self.registered_components:
@@ -55,9 +55,9 @@ class Plugin(Component):
                 ["scheduler", "review_controller", "review_widget"]:
                 self.review_reset_needed = True
         # Register all our components. Instantiate them if needed.
-        for component in self.components:
+        for component in self.components + self.gui_components:
             if component.instantiate == Component.IMMEDIATELY:
-                component = component(self.component_manager)
+                component = component(component_manager=self.component_manager)
                 self.component_manager.register(component)
                 component.activate()
                 self.instantiated_components.append(component)

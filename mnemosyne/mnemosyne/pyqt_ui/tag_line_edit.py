@@ -32,7 +32,6 @@ class TagLineEdit(QtWidgets.QLineEdit):
         super(TagLineEdit, self).keyPressEvent(key_event)
         completer = self.completer()
         if completer is None:
-            print("Null completer object!")
             return
         completer.setCompletionPrefix(self.lastTagPrefix())
         if len(completer.completionPrefix()) < 1:
@@ -65,7 +64,6 @@ class TagLineEdit(QtWidgets.QLineEdit):
         return False
 
     def handleHighlight(self, highlightedText):
-        print("highlight" + highlightedText)
         self.last_highlighted_text_ = highlightedText
 
     def insertCompletion(self, completion):
@@ -74,10 +72,6 @@ class TagLineEdit(QtWidgets.QLineEdit):
         last_relevant_comma_index = full_text[0:cursor_position].rfind(",")
         replaced_text = full_text[:last_relevant_comma_index + 1]  +\
             completion + full_text[cursor_position:]
-        print("----")
-        print(full_text)
-        print(completion)
-        print(replaced_text)
         self.setText(replaced_text)
 
     def lastTagPrefix(self):

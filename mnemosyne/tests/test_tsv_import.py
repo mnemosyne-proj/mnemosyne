@@ -64,7 +64,6 @@ class TestTsvImport(MnemosyneTest):
 
     def test_1(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "tsv_1.txt")
-        print(filename)
         self.tsv_importer().do_import(filename)
         assert last_error == ""
         self.review_controller().reset()

@@ -41,13 +41,6 @@ class SM2Controller(ReviewController):
         _("Correct answer, but without any difficulties. The interval was probably too short.")
 
     def reset(self, new_only=False):
-
-        """A Plugin can have a new scheduler, a new review controller or both,
-        and in order to avoid running this time consuming code more than once,
-        it is not folded into 'activate'.
-
-        """
-
         self.card = None
         self._state = "EMPTY"
         self.learning_ahead = False
@@ -55,9 +48,7 @@ class SM2Controller(ReviewController):
         self.scheduled_count = None
         self.active_count = None
         self.rep_count = 0
-        self.widget = self.component_manager.current("review_widget")\
-                      (component_manager=self.component_manager)
-        self.widget.activate()
+        self.widget = self.component_manager.current("review_widget")
         self.scheduler().reset(new_only=new_only)
         self.show_new_question()
 
@@ -102,6 +93,7 @@ class SM2Controller(ReviewController):
         self._state = state
 
     def show_new_question(self):
+        print(self.widget)
         self.widget.stop_media()
         # Reload the counters if they have not yet been initialised. Also do
         # this if the active counter is zero, make sure it is really zero to

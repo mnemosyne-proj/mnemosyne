@@ -33,6 +33,9 @@ class Component(object):
     constructor, as many component make use of it in their __init__ method.
     This means that derived components should always call the
     Component.__init__ if they provide their own constructor.
+    
+    In case the GUI needs to add functionality to a certain component, that
+    can be done through component_manager.add_gui_to_component().
 
     """
 
@@ -43,6 +46,8 @@ class Component(object):
     LATER = 1
 
     instantiate = IMMEDIATELY
+    
+    gui_components = []
 
     def __init__(self, component_manager, **kwds):
         super().__init__(**kwds)  # For parent classes other than 'Object'.   
