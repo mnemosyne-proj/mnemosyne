@@ -147,7 +147,7 @@ class Mnemosyne(Component):
           "Smconv_XML"),
          ("mnemosyne.libmnemosyne.file_formats.cuecard_wcu",
           "CuecardWcu")]
-        self.extra_components_for_plugin = {}
+        self.gui_for_component = {}
         
     def android_log(self, message):
         if hasattr(self, "android"):
@@ -243,18 +243,18 @@ class Mnemosyne(Component):
         """
 
         for module_name, class_name in self.components:
-            component = \
-                getattr(importlib.import_module(module_name), class_name)
+            component = getattr(\
+                importlib.import_module(module_name), class_name)
             if component.instantiate == Component.IMMEDIATELY:
                 component = component(component_manager=self.component_manager)
             self.component_manager.register(component)
-        for plugin_name in self.extra_components_for_plugin:
-            for module_name, class_name in \
-                    self.extra_components_for_plugin[plugin_name]:
-                component = \
-                    getattr(importlib.import_module(module_name), class_name)
-                self.component_manager.add_component_to_plugin(\
-                    plugin_name, component)
+        for component_name in self.gui_for_component:
+            for gui_module_name, gui_class_name in \
+                    self.gui_for_component[component_name]:
+                gui_component = getattr(\
+                    importlib.import_module(gui_module_name), gui_class_name)
+                self.component_manager.add_gui_to_component(\
+                    component_name, gui_component)
 
     def activate_components(self):
 
@@ -357,6 +357,9 @@ _("If you are using a USB key, refer to the instructions on the website so as no
                     self.main_widget().show_error(str(e))
                     
     def start_review(self):
+        print("current mode", self.component_manager.current_study_mode)
+        if self.component_manager.current_study_mode is not None:
+            self.component_manager.current_study_mode.deactivate()
         for study_mode_i in self.component_manager.all("study_mode"):
             if study_mode_i.__class__.__name__ == \
                self.config()["study_mode"]:

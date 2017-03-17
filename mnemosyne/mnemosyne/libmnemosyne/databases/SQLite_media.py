@@ -39,7 +39,7 @@ class SQLiteMedia(object):
         if not os.path.exists(media_dir):
             try:
                 os.makedirs(media_dir)
-            except WindowsError:
+            except OSError:
                 self.main_widget().show_error(_("Could not create" ) + " " + \
 media_dir + ".\n" + _("Check your file permissions and make sure the directory is not open in a file browser."))
 

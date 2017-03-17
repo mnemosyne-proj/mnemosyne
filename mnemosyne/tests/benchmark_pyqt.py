@@ -120,9 +120,6 @@ def startup():
                                  "ConfigurationWdgtMain"))
     mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_wdgt_sync_server",
                                  "ConfigurationWdgtSyncServer"))
-    mnemosyne.extra_components_for_plugin["CrammingPlugin"] = \
-                                [("mnemosyne.pyqt_ui.review_wdgt_cramming",
-                                 "ReviewWdgtCramming")]
 
     # Run Mnemosyne.
     mnemosyne.initialise(data_dir=data_dir, filename=filename)

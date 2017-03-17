@@ -16,8 +16,3 @@ class CramAll(StudyMode):
     Scheduler = Cramming
     ReviewController = SM2ControllerCramming
     
-    def activate(self):
-        self.register_components()
-        self.review_controller().reset()
-        print(self.review_widget())
-        self.review_widget().activate()

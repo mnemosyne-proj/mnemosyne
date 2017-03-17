@@ -2593,7 +2593,6 @@ class TestSync(object):
             db = self.mnemosyne.database()
             criterion = db.criterion(self.criterion_id,
                 is_id_internal=False)
-            print(criterion.data_to_string())
             assert criterion.data_to_string() == "(set(), {2, 4}, set())"
 
         self.server = MyServer()

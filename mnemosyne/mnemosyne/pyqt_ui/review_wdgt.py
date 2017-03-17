@@ -312,6 +312,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         self.timer.start(200)
         
     def deactivate(self):
+        print("deactivate", self)
         self.stop_media()
            
     #def focusInEvent(self, event):
