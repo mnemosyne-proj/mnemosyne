@@ -11,6 +11,9 @@ class StudyMode(Component):
     Different study modes can share e.g. the same scheduler, but instantiated
     with different parameters.
     
+    Each study more should also have a review widget, indicated through the
+    'gui_for_component' mechanism.
+    
     """
 
     id = 0  # To determine sorting order in menu
@@ -28,6 +31,7 @@ class StudyMode(Component):
         for component in self.gui_components:
             component = component(component_manager=self.component_manager) 
             self.component_manager.register(component)
+            component.activate()
         self.component_manager.current_study_mode = self
        
     def activate(self):   
@@ -35,11 +39,13 @@ class StudyMode(Component):
         self.review_controller().reset()
         
     def deactivate(self):
-        print("deactivate", self)
+        print("dectivate study mode", self)
         self.scheduler().deactivate()
         self.component_manager.unregister(self.scheduler())
         self.review_controller().deactivate()
         self.component_manager.unregister(self.review_controller())
         for component in self.gui_components:
-            component.deactivate()
+            print(component, type(component))
+            if type(component) != type:
+                component.deactivate()
             self.component_manager.unregister(component)     

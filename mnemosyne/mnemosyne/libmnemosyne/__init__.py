@@ -357,13 +357,14 @@ _("If you are using a USB key, refer to the instructions on the website so as no
                     self.main_widget().show_error(str(e))
                     
     def start_review(self):
-        print("current mode", self.component_manager.current_study_mode)
+        print("current mode before", self.component_manager.current_study_mode)
         if self.component_manager.current_study_mode is not None:
             self.component_manager.current_study_mode.deactivate()
         for study_mode_i in self.component_manager.all("study_mode"):
             if study_mode_i.__class__.__name__ == \
                self.config()["study_mode"]:
                 study_mode = study_mode_i
+        print("current mode after", study_mode)
         study_mode.activate()
         # Design wart: log().load_database() needs the scheduler to be active,
         # so we can only call it here.

@@ -58,8 +58,7 @@ class ConvertCardTypeKeysDlg(QtWidgets.QDialog, Ui_ConvertCardTypeKeysDlg):
                      self.new_card_type.fact_key_with_name(new_fact_key_name)
                 if new_fact_key in self.correspondence.values():
                     QtWidgets.QMessageBox.critical(self, _("Mnemosyne"),
-                        _("No duplicate in new fact keys allowed."),
-                        _("&OK"), "", "", 0, -1)
+                        _("No duplicate in new fact keys allowed."))
                     self.ok_button.setEnabled(False)
                     return
                 self.correspondence[old_fact_key] = new_fact_key
@@ -70,8 +69,7 @@ class ConvertCardTypeKeysDlg(QtWidgets.QDialog, Ui_ConvertCardTypeKeysDlg):
                     if len(self.correspondence) == \
                        len(self.old_card_type.fact_keys()):
                         QtWidgets.QMessageBox.critical(self, _("Mnemosyne"),
-                            _("A required field is missing."),
-                            _("&OK"), "", "", 0, -1)
+                            _("A required field is missing."))
                     return
 
     def accept(self):
