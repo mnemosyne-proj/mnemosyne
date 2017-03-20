@@ -46,12 +46,11 @@ class Component(object):
     LATER = 1
 
     instantiate = IMMEDIATELY
-    
-    gui_components = []
 
     def __init__(self, component_manager, **kwds):
         super().__init__(**kwds)  # For parent classes other than 'Object'.   
         self.component_manager = component_manager
+        self.gui_components = []
 
     def activate(self):
 

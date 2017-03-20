@@ -1,4 +1,22 @@
-Make sure review widget gets reset appropriately
+web review broken? Upgrade libraries?
+
+https://groups.google.com/d/msgid/mnemosyne-proj-users/997a919f-a7a5-4af2-87c6-2aeea91a3f39%40googlegroups.com
+
+
+studymode deactivate: only deactivate instances, not classes
+
+why doesn't review_widget.deactivate get printed?
+
+document that self.gui_components only contains classes, not instances
+get rid of gui_components.deactivate in study mode
+
+design review: why do we have both instantiate_immediatly=False and their
+difference between init and activate? Don't they both serve the same purpose?
+(see comment in component.activate)
+
+try to get rid of cases where e.g. one main widget overwrites the other?
+Might still be useful for the threaded syncing though.
+
 
 Merge review controllers, also take cramming buttons into account
 For 'cramming' cards, show yes/no buttons instead of 0-5 as visual indicator
@@ -20,6 +38,9 @@ GUI Config:
 - learn new / cram recent: ratio between new and recent
 
 example plugin for new learning modes
+
+
+check if font is saved in font dialog settings
 
 
 -status bar: scheduled: x / not memorised: x / goal new cards: x/y

@@ -61,10 +61,10 @@ class ComponentManager(object):
         
         for used_for in self.components:
             for component_type in self.components[used_for]:
-                for component in self.components[used_for][component_type]:
+                for component in self.components[used_for][component_type]:   
                     if component.__class__.__name__ == component_name:
                         component.gui_components.append(gui_component)
-
+            
     def all(self, comp_type, used_for=None):
 
         """For components for which there can be many active at once."""

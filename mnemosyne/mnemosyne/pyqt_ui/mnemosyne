@@ -175,8 +175,6 @@ mnemosyne.components.insert(0,
                              "QtTranslator"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.main_wdgt",
                              "MainWdgt"))
-mnemosyne.components.append(("mnemosyne.pyqt_ui.review_wdgt",
-                             "ReviewWdgt"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration",
                              "PyQtConfiguration"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.pyqt_render_chain",
@@ -245,11 +243,15 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.export_metadata_dlg",
                              "ExportMetadataDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.prefill_tag_behaviour_plugin",
                              "PrefillTagBehaviourPlugin"))
-mnemosyne.gui_for_component["CramAll"] = \
-    [("mnemosyne.pyqt_ui.review_wdgt_cramming",
-        "ReviewWdgtCramming"),
-        ("mnemosyne.pyqt_ui.configuration_wdgt_cramming",
-        "ConfigurationWdgtCramming")]
+mnemosyne.gui_for_component["ScheduledForgottenNew"] = [\
+                            ("mnemosyne.pyqt_ui.review_wdgt",
+                             "ReviewWdgt")]
+mnemosyne.gui_for_component["NewOnly"] = [\
+                            ("mnemosyne.pyqt_ui.review_wdgt",
+                             "ReviewWdgt")]
+mnemosyne.gui_for_component["CramAll"] = [\
+                            ("mnemosyne.pyqt_ui.review_wdgt_cramming",
+                             "ReviewWdgtCramming")]
 # Run Mnemosyne.
 mnemosyne.initialise(data_dir=data_dir, filename=filename,
 		     automatic_upgrades=options.automatic_upgrades,
