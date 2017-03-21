@@ -251,10 +251,10 @@ class Mnemosyne(Component):
         for component_name in self.gui_for_component:
             for gui_module_name, gui_class_name in \
                     self.gui_for_component[component_name]:
-                gui_component = getattr(\
+                gui_class = getattr(\
                     importlib.import_module(gui_module_name), gui_class_name)
                 self.component_manager.add_gui_to_component(\
-                    component_name, gui_component)
+                    component_name, gui_class)
 
     def activate_components(self):
 
@@ -357,14 +357,12 @@ _("If you are using a USB key, refer to the instructions on the website so as no
                     self.main_widget().show_error(str(e))
                     
     def start_review(self):
-        print("current mode before", self.component_manager.current_study_mode)
         if self.component_manager.current_study_mode is not None:
             self.component_manager.current_study_mode.deactivate()
         for study_mode_i in self.component_manager.all("study_mode"):
             if study_mode_i.__class__.__name__ == \
                self.config()["study_mode"]:
                 study_mode = study_mode_i
-        print("current mode after", study_mode)
         study_mode.activate()
         # Design wart: log().load_database() needs the scheduler to be active,
         # so we can only call it here.

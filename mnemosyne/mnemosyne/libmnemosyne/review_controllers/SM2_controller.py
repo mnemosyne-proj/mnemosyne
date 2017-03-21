@@ -48,7 +48,6 @@ class SM2Controller(ReviewController):
         self.scheduled_count = None
         self.active_count = None
         self.rep_count = 0
-        self.widget = self.component_manager.current("review_widget")
         self.scheduler().reset(new_only=new_only)
         self.show_new_question()
 
@@ -93,7 +92,7 @@ class SM2Controller(ReviewController):
         self._state = state
 
     def show_new_question(self):
-        self.widget.stop_media()
+        self.review_widget().stop_media()
         # Reload the counters if they have not yet been initialised. Also do
         # this if the active counter is zero, make sure it is really zero to
         # get a correct test for no more cards.
@@ -108,7 +107,8 @@ class SM2Controller(ReviewController):
                 self._state = "SELECT SHOW"
             else:
                 if self.config()["shown_schedule_help"] == False:
-                    self.main_widget().show_information(_("You have no more work for today. Either add more cards or come back tomorrow."))
+                    self.main_widget().show_information(\
+_("You have no more work for today. Either add more cards or come back tomorrow."))
                     self.config()["shown_schedule_help"] = True
                 self._state = "SELECT AHEAD"
         self.update_dialog()
@@ -194,13 +194,14 @@ _("You have finished your scheduled reviews. Now, learn as many failed or new ca
         self.update_grades_area()
         self.update_status_bar_counters()
         self.update_menu_bar()
-        self.widget.redraw_now()  # Don't wait until disk activity dies down.
+        # Don't wait until disk activity dies down.
+        self.review_widget().redraw_now()  
         
     def update_qa_area(self, redraw_all=False):
         if redraw_all and self.card:
             self.card = \
                 self.database().card(self.card._id, is_id_internal=True)
-        w = self.widget
+        w = self.review_widget()
         # When the answer should be shown on top of the question, we draw the
         # answer in the question field to eliminate flicker.
         w.set_question_box_visible(True)
@@ -258,7 +259,7 @@ _("You have finished your scheduled reviews. Now, learn as many failed or new ca
         w.update_show_button(text, default, show_enabled)
 
     def update_grades_area(self):
-        w = self.widget
+        w = self.review_widget()
         # Update grade buttons.
         if self.card and self.card.grade < 2:
             phase = ACQ_PHASE
@@ -312,7 +313,7 @@ _("You have finished your scheduled reviews. Now, learn as many failed or new ca
         w.enable_browse_cards(self.database().is_loaded())
 
     def update_status_bar_counters(self):
-        self.widget.update_status_bar_counters()
+        self.review_widget().update_status_bar_counters()
 
     def is_question_showing(self):
         return self.review_controller()._state == "SELECT SHOW"

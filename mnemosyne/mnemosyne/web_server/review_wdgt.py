@@ -189,6 +189,9 @@ $card_css
                   </form>
                 </td>
             </tr></table>""")
+            
+        print(self.question)
+        print(11111111111111111111)
         return self.template.substitute(card_css=card_css, buttons=buttons,
             question_label=self.question_label, question=self.question,
             answer_label=self.answer_label, answer=self.answer,

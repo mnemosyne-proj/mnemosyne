@@ -51,19 +51,30 @@ class Component(object):
         super().__init__(**kwds)  # For parent classes other than 'Object'.   
         self.component_manager = component_manager
         self.gui_components = []
+        self.instantiated_gui_components = []
 
     def activate(self):
 
         """Initialisation code called when the component is about to do actual
         work, and which can't happen in the constructor, e.g. because
         components on which it relies have not yet been registered.
+        
+        GUI classes are only instantiated when activated, since that can take
+        a lot of time on mobile clients.
 
         """
 
-        pass
+        for component in self.gui_components:
+            component = component(component_manager=self.component_manager) 
+            self.component_manager.register(component)
+            component.activate()  
+            self.instantiated_gui_components.append(component)
 
     def deactivate(self):
-        pass
+        for component in self.instantiated_gui_components:
+            component.deactivate()
+            self.component_manager.unregister(component)            
+        self.instantiated_gui_components = []
 
     # Convenience functions, for easier access to all of the context of
     # libmnemosyne from within a component.

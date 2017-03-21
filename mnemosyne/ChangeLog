@@ -26,6 +26,7 @@ Mnemosyne 2.4.2
 -Small performance optimisations in the database.
 -Fix problems under Linux with some Japanese fonts (e.g. Google Noto fonts) 
  (fix by m4984).
+-Fix crash when selecting negative tags (reported by 2a216566f1). 
 -Fix keyboard shortcuts not working sometimes (reported by Angelika Blaschka).
 -Improved compatibility with different Qt versions under Linux
  (reported by Huang Shuhan).

@@ -55,7 +55,7 @@ class Plugin(Component):
                 ["scheduler", "review_controller", "review_widget"]:
                 self.review_reset_needed = True
         # Register all our components. Instantiate them if needed.
-        for component in self.components + self.gui_components:
+        for component in self.components:
             if component.instantiate == Component.IMMEDIATELY:
                 component = component(component_manager=self.component_manager)
                 self.component_manager.register(component)

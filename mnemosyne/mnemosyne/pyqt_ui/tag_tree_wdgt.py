@@ -271,7 +271,7 @@ class TagsTreeWdgt(Component, QtWidgets.QWidget):
             if self.node_items[i].checkState(0) == QtCore.Qt.Checked:
                 criterion._tag_ids_forbidden.add(tag._id)
         criterion._tag_ids_active = \
-            set([tag._id for tag in self.tag_for_node_item.values()])
+            set([tag._id for tag in self.tag_for_node_item])
         return criterion
     
     def unchecked_to_forbidden_tags_in_criterion(self, criterion): 

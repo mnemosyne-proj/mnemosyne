@@ -1,14 +1,12 @@
-web review broken? Upgrade libraries?
+web review table height too big.
 
-https://groups.google.com/d/msgid/mnemosyne-proj-users/997a919f-a7a5-4af2-87c6-2aeea91a3f39%40googlegroups.com
+------------
 
-
-studymode deactivate: only deactivate instances, not classes
-
-why doesn't review_widget.deactivate get printed?
+Check if review widgets get activated and deactivated
 
 document that self.gui_components only contains classes, not instances
-get rid of gui_components.deactivate in study mode
+
+make sure all classes call componenent.(de)activate
 
 design review: why do we have both instantiate_immediatly=False and their
 difference between init and activate? Don't they both serve the same purpose?
@@ -17,6 +15,7 @@ difference between init and activate? Don't they both serve the same purpose?
 try to get rid of cases where e.g. one main widget overwrites the other?
 Might still be useful for the threaded syncing though.
 
+------------------------
 
 Merge review controllers, also take cramming buttons into account
 For 'cramming' cards, show yes/no buttons instead of 0-5 as visual indicator
@@ -55,7 +54,9 @@ check if font is saved in font dialog settings
 
 -later: add 'difficult' tag, and add 'cram difficult?'
 
--delay when using keyboard shortcuts
+
+-OSX: make sure cheroot is updated, ask v.turuchev@gmail.com to check webreview
+https://groups.google.com/d/msgid/mnemosyne-proj-users/997a919f-a7a5-4af2-87c6-2aeea91a3f39%40googlegroups.com
 
 
 -for sync, check only database version, not program version
