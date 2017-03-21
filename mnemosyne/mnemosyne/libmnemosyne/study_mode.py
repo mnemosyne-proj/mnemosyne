@@ -34,18 +34,15 @@ class StudyMode(Component):
             component.activate()
         self.component_manager.current_study_mode = self
        
-    def activate(self):   
+    def activate(self):
+        Component.activate(self)
         self.activate_components()
         self.review_controller().reset()
         
     def deactivate(self):
         print("dectivate study mode", self)
+        Component.deactivate(self)
         self.scheduler().deactivate()
         self.component_manager.unregister(self.scheduler())
         self.review_controller().deactivate()
         self.component_manager.unregister(self.review_controller())
-        for component in self.gui_components:
-            print(component, type(component))
-            if type(component) != type:
-                component.deactivate()
-            self.component_manager.unregister(component)     
