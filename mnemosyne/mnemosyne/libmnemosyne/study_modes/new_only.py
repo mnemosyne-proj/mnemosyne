@@ -12,8 +12,9 @@ from mnemosyne.libmnemosyne.review_controllers.SM2_controller \
 
 class NewOnly(StudyMode):
     
-    id = 2
+    id = "NewOnly"
     name = _("Study new cards only")
+    menu_weight = 2
     Scheduler = SM2Mnemosyne
     ReviewController = SM2Controller
 

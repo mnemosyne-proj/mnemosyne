@@ -104,15 +104,7 @@ class Component(object):
         return self.component_manager.current("main_widget")
 
     def review_widget(self):
-
-        """Apart from the main widget, we create all other widgets lazily for
-        efficiency reasons. The review widget instance is therefore not stored
-        in the component manager, but is under the control of the review
-        controller.
-
-        """
-
-        return self.review_controller().widget
+        return self.component_manager.current("review_widget")
 
     def controller(self):
         return self.component_manager.current("controller")
@@ -127,8 +119,11 @@ class Component(object):
         return self.component_manager.card_type_with_id[id]
 
     def render_chain(self, id="default"):
-        return self.component_manager.render_chain_by_id[id]
-
+        return self.component_manager.render_chain_with_id[id]
+    
+    def study_mode_with_id(self, id):
+        return self.component_manager.study_mode_with_id[id]
+    
     def plugins(self):
         return self.component_manager.all("plugin")
 

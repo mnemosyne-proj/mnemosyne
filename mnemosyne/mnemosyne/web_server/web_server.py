@@ -106,7 +106,6 @@ class WebServer(Component):
              "ReviewWdgt")]      
         self.mnemosyne.initialise(self.data_dir, config_dir=self.config_dir,
             filename=self.filename, automatic_upgrades=False)
-        self.mnemosyne.review_controller().set_render_chain("web_server")
         self.save_after_n_reps = self.mnemosyne.config()["save_after_n_reps"]
         self.mnemosyne.config()["save_after_n_reps"] = 1
         self.mnemosyne.config()["study_mode"] = "ScheduledForgottenNew"
@@ -169,7 +168,6 @@ class WebServer(Component):
                 page = self.mnemosyne.review_widget().to_html()
             if self.is_just_started:
                 self.is_just_started = False
-            print(str(page))
             # Serve the web page.
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)

@@ -1,8 +1,6 @@
-web review table height too big.
+componenent_manager.set_study_mode ---> controller.set_study_mode
 
-------------
-
-Check if review widgets get activated and deactivated
+Check if review widgets and study modes get activated and deactivated
 
 document that self.gui_components only contains classes, not instances
 

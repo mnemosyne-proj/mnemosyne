@@ -16,8 +16,9 @@ class StudyMode(Component):
     
     """
 
-    id = 0  # To determine sorting order in menu
-    name = ""  # Menu text
+    id = "" 
+    name = ""
+    menu_weight = 0 # To determine sorting order in menu
     component_type = "study_mode"
     Scheduler = None  # Class
     ReviewController = None  # Class
@@ -32,15 +33,15 @@ class StudyMode(Component):
             component = component(component_manager=self.component_manager) 
             self.component_manager.register(component)
             component.activate()
-        self.component_manager.current_study_mode = self
        
     def activate(self):
+        print("activate study mode", self)        
         Component.activate(self)
         self.activate_components()
         self.review_controller().reset()
         
     def deactivate(self):
-        print("dectivate study mode", self)
+        print("deactivate study mode", self)
         Component.deactivate(self)
         self.scheduler().deactivate()
         self.component_manager.unregister(self.scheduler())

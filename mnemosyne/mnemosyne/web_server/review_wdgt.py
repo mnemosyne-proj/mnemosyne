@@ -23,6 +23,7 @@ class ReviewWdgt(ReviewWidget):
 
     def __init__(self, component_manager):
         ReviewWidget.__init__(self, component_manager)
+        self.review_controller().set_render_chain("web_server")
         self.client_on_same_machine_as_server = False
         self.question_label = ""
         self.question = ""
@@ -189,9 +190,6 @@ $card_css
                   </form>
                 </td>
             </tr></table>""")
-            
-        print(self.question)
-        print(11111111111111111111)
         return self.template.substitute(card_css=card_css, buttons=buttons,
             question_label=self.question_label, question=self.question,
             answer_label=self.answer_label, answer=self.answer,
