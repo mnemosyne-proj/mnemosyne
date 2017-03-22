@@ -21,8 +21,9 @@ class ComponentManager(object):
     def __init__(self):
         self.components = {} # {used_for: {type: [component]} }
         self.card_type_with_id = {}
-        self.render_chain_by_id = {}
-        self.current_study_mode = None
+        self.render_chain_with_id = {}
+        self.study_mode_with_id = {}
+        self.study_mode = None
         self.debug_file = None
 
     def register(self, component):
@@ -40,7 +41,9 @@ class ComponentManager(object):
         if comp_type == "card_type":
             self.card_type_with_id[component.id] = component
         elif comp_type == "render_chain":
-            self.render_chain_by_id[component.id] = component
+            self.render_chain_with_id[component.id] = component
+        elif comp_type == "study_mode":
+            self.study_mode_with_id[component.id] = component
 
     def unregister(self, component):
         comp_type = component.component_type
@@ -49,7 +52,7 @@ class ComponentManager(object):
         if component.component_type == "card_type":
             del self.card_type_with_id[component.id]
         elif component.component_type == "render_chain":
-            del self.render_chain_by_id[component.id]
+            del self.render_chain_with_id[component.id]
 
     def add_gui_to_component(self, component_name, gui_component):
 
@@ -141,7 +144,16 @@ class ComponentManager(object):
 
         if self.debug_file:
             self.debug_file.write(str(msg + "\n").encode('UTF-8'))
-
+            
+    def set_study_mode(self, study_mode):
+        if self.study_mode == study_mode:
+            return
+        if self.study_mode is not None:
+            self.study_mode.deactivate()        
+        study_mode.activate()        
+        self.study_mode = study_mode
+        self.current("config")["study_mode"] = study_mode.id
+        
 # A component manager stores the entire session state of a user through the
 # different components it registers. To enable multiple users to use a single
 # instance of libmnemosyne simultaneously, we store a component manager

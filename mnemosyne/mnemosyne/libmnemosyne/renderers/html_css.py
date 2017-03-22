@@ -127,8 +127,7 @@ class HtmlCss(Renderer):
     def render(self, fact_data, fact_keys, card_type, **render_args):
         css = self.css(card_type)
         valign = "valign=\"top\"" if render_args.get("align_top", False) else ""
-        body = self.body(fact_data, fact_keys, card_type, **render_args)
-        
+        body = self.body(fact_data, fact_keys, card_type, **render_args) 
         return """
         <!DOCTYPE html>
         <html>

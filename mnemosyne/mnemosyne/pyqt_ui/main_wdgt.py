@@ -48,14 +48,13 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
             self.restoreGeometry(state)
         # Dynamically fill study mode menu.
         study_modes = [x for x in self.component_manager.all("study_mode")]
-        study_modes.sort(key=lambda x:x.id)
+        study_modes.sort(key=lambda x:x.menu_weight)
         study_mode_group = QtWidgets.QActionGroup(self)
         self.study_mode_for_action = {}
         for study_mode in study_modes:
             action = QtWidgets.QAction(study_mode.name, self)
             action.setCheckable(True)
-
-            if self.config()["study_mode"] == study_mode.__class__.__name__:
+            if self.config()["study_mode"] == study_mode.id:
                 action.setChecked(True)
             study_mode_group.addAction(action)
             self.menu_Study.addAction(action)
@@ -66,13 +65,10 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
         self.timer.timeout.connect(self.controller_heartbeat)
         self.timer.start(1000)  # 1 sec.
         
-    def change_study_mode(self, action):       
-        study_mode = self.study_mode_for_action[action]
-        if self.config()["study_mode"] == study_mode.__class__.__name__:
-            return
+    def change_study_mode(self, action):
         action.setChecked(True)
-        self.config()["study_mode"] = study_mode.__class__.__name__
-        study_mode.activate()
+        study_mode = self.study_mode_for_action[action]
+        self.component_manager.set_study_mode(study_mode)
         
     def controller_heartbeat(self):
         # Need late binding to allow for inheritance.

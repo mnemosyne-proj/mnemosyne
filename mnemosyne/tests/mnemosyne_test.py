@@ -104,7 +104,7 @@ class MnemosyneTest():
         return self.mnemosyne.component_manager.all("plugin")
 
     def render_chain(self, id="default"):
-        return self.mnemosyne.component_manager.render_chain_by_id[id]
+        return self.mnemosyne.component_manager.render_chain_with_id[id]
 
     def card_type_with_id(self, id):
         return self.mnemosyne.component_manager.card_type_with_id[id]

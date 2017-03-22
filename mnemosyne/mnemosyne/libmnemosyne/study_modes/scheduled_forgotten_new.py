@@ -12,8 +12,9 @@ from mnemosyne.libmnemosyne.review_controllers.SM2_controller \
 
 class ScheduledForgottenNew(StudyMode):
     
-    id = 1
+    id = "ScheduledForgottenNew"
     name = _("Scheduled -> forgotten -> new")
+    menu_weight = 1
     Scheduler = SM2Mnemosyne
     ReviewController = SM2Controller
 

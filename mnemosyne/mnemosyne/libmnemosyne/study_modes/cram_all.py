@@ -11,8 +11,9 @@ from mnemosyne.libmnemosyne.review_controllers.SM2_controller_cramming \
 
 class CramAll(StudyMode):
     
-    id = 3
+    id = "CramAll"
     name = _("Cram all cards")
+    menu_weight = 3
     Scheduler = Cramming
     ReviewController = SM2ControllerCramming
     
