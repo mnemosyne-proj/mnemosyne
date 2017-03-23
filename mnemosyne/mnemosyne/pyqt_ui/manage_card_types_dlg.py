@@ -24,6 +24,7 @@ class ManageCardTypesDlg(QtWidgets.QDialog, ManageCardTypesDialog,
         self.update()
 
     def activate(self):
+        ManageCardTypesDialog.activate(self)
         self.exec_()
 
     def update(self):

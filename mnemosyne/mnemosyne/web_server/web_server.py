@@ -59,6 +59,7 @@ class WebServer(Component):
         else:
             self.client_on_same_machine_as_server = False
         super().__init__(**kwds)
+        self.wsgi_server = None
         self.port = port
         self.data_dir = data_dir
         self.config_dir = config_dir
@@ -70,6 +71,7 @@ class WebServer(Component):
         self.is_shutting_down = False
         
     def activate(self):
+        Component.activate(self)
         # Late import to speed up application startup.
         from cheroot import wsgi 
         self.wsgi_server = wsgi.Server(\
@@ -86,7 +88,8 @@ class WebServer(Component):
             self.unload_mnemosyne()
 
     def stop(self):
-        self.wsgi_server.stop()
+        if self.wsgi_server:
+            self.wsgi_server.stop()
         self.unload_mnemosyne()
 
     def load_mnemosyne(self):

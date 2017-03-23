@@ -24,8 +24,8 @@ Mnemosyne 2.4.2
  (start with --disable-high-dpi-scaling if you prefer the previous behaviour).
 -Fix crash when deleting unused media files (reported by gorgar). 
 -Small performance optimisations in the database.
--Fix problems under Linux with some Japanese fonts (e.g. Google Noto fonts) 
- (fix by m4984).
+-Fix crash in configuration widget under Linux with some fonts (e.g. Google
+ Noto fonts) (fix by m4984).
 -Fix crash when selecting negative tags (reported by 2a216566f1). 
 -Fix keyboard shortcuts not working sometimes (reported by Angelika Blaschka).
 -Improved compatibility with different Qt versions under Linux

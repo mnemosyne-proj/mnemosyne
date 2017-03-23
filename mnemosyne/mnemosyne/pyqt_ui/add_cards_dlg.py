@@ -33,6 +33,7 @@ class AddEditCards(TipAfterStartingNTimes):
          18: _("If you use 'Edit cards', changes are made to all the sister cards simultaneously.")}
 
     def activate(self):
+        AddCardsDialog.activate(self)
         self.show_tip_after_starting_n_times()
         status = self.exec_()
         return (status == QtWidgets.QDialog.Accepted)

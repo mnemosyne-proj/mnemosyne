@@ -34,6 +34,7 @@ class DefaultController(Controller):
     """
 
     def activate(self):
+        self.study_mode = None
         Controller.activate(self)
         self.next_rollover = self.database().start_of_day_n_days_ago(n=-1)
                 
@@ -90,6 +91,15 @@ class DefaultController(Controller):
             db.current_criterion().name != db.default_criterion_name:
             title += " - " + db.current_criterion().name
         self.main_widget().set_window_title(title)
+
+    def set_study_mode(self, study_mode):
+        if self.study_mode == study_mode:
+            return
+        if self.study_mode is not None:
+            self.study_mode.deactivate()        
+        study_mode.activate()        
+        self.study_mode = study_mode
+        self.config()["study_mode"] = study_mode.id        
 
     def show_add_cards_dialog(self):
         self.stopwatch().pause()

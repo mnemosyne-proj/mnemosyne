@@ -70,6 +70,7 @@ class ActivateCardsDlg(QtWidgets.QDialog, ActivateCardsDialog,
         self.saved_sets.clearSelection()
 
     def activate(self):
+        ActivateCardsDialog.activate(self)
         self.exec_()
 
     def update_saved_sets_pane(self):

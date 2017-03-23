@@ -310,13 +310,10 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.restore_focus)
         self.timer.start(200)
-
-    def activate(self):
-        print("activate review widget", self)
         
     def deactivate(self):
-        print("deactivate review widget", self)
         self.stop_media()
+        ReviewWidget.deactivate(self)
            
     #def focusInEvent(self, event):
     #    self.restore_focus()

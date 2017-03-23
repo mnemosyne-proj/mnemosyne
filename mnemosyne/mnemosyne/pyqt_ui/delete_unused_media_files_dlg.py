@@ -23,6 +23,7 @@ class DeleteUnusedMediaFilesDlg(QtWidgets.QDialog, Component,
         self.file_list.setText("\n".join(self.unused_media_files))
 
     def activate(self):
+        Component.activate(self)
         self.exec_()
 
     def accept(self):

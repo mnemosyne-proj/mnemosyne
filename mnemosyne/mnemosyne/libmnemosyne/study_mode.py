@@ -24,26 +24,24 @@ class StudyMode(Component):
     ReviewController = None  # Class
     
     def activate_components(self):
+        Component.activate(self)  # Also activates GUI components.
         self.component_manager.register(\
             self.Scheduler(self.component_manager))
+        self.scheduler().activate()
         self.log().started_scheduler()
         self.component_manager.register(\
             self.ReviewController(self.component_manager))
-        for component in self.gui_components:
-            component = component(component_manager=self.component_manager) 
-            self.component_manager.register(component)
-            component.activate()
+        self.review_controller().activate()
        
-    def activate(self):
-        print("activate study mode", self)        
-        Component.activate(self)
+    def activate(self):       
         self.activate_components()
         self.review_controller().reset()
         
     def deactivate(self):
-        print("deactivate study mode", self)
+        if self.scheduler():
+            self.scheduler().deactivate()
+            self.component_manager.unregister(self.scheduler())
+        if self.review_controller():
+            self.review_controller().deactivate()
+            self.component_manager.unregister(self.review_controller())
         Component.deactivate(self)
-        self.scheduler().deactivate()
-        self.component_manager.unregister(self.scheduler())
-        self.review_controller().deactivate()
-        self.component_manager.unregister(self.review_controller())

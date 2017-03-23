@@ -43,6 +43,7 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
         self._store_state()
 
     def activate(self):
+        MainWidget.activate(self)
         state = self.config()["main_window_state"]
         if state:
             self.restoreGeometry(state)
@@ -68,7 +69,7 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
     def change_study_mode(self, action):
         action.setChecked(True)
         study_mode = self.study_mode_for_action[action]
-        self.component_manager.set_study_mode(study_mode)
+        self.controller().set_study_mode(study_mode)
         
     def controller_heartbeat(self):
         # Need late binding to allow for inheritance.

@@ -167,6 +167,7 @@ class QtWebServer(Component, QtCore.QObject):
         self.true_main_widget = self.main_widget()
 
     def activate(self):
+        Component.activate(self)
         if self.config()["run_web_server"]:
             # Restart the thread to have the new settings take effect.
             self.deactivate()
@@ -272,6 +273,7 @@ class QtWebServer(Component, QtCore.QObject):
         self.thread.stop()
         self.thread.wait()
         self.thread = None
+        Component.deactivate(self)
 
     def threaded_show_information(self, message):
         global answer

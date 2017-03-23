@@ -31,6 +31,7 @@ class Translator(Component):
         self._translator = lambda x : x
 
     def activate(self):
+        Component.activate(self)
         self.set_language(self.config()["ui_language"])
         # We cannot perform this in __init__, as we need to wait until
         # 'config' has been activated.

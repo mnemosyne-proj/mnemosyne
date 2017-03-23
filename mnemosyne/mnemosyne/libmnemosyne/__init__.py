@@ -282,10 +282,7 @@ class Mnemosyne(Component):
             try:
                 self.component_manager.current(component).activate()
             except RuntimeError as e:
-                self.main_widget().show_error(str(e))
-        media_server = self.component_manager.current("media_server")
-        if media_server:
-            media_server.activate()        
+                self.main_widget().show_error(str(e))     
         sync_server = self.component_manager.current("sync_server")
         if sync_server:
             sync_server.activate()
@@ -357,7 +354,7 @@ _("If you are using a USB key, refer to the instructions on the website so as no
                     self.main_widget().show_error(str(e))
                     
     def start_review(self):
-        self.component_manager.set_study_mode(self.study_mode_with_id(\
+        self.controller().set_study_mode(self.study_mode_with_id(\
             self.config()["study_mode"]))
         # Design wart: log().load_database() needs the scheduler to be active,
         # so we can only call it here.
