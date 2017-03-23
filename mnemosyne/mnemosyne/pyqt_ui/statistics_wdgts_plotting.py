@@ -27,6 +27,7 @@ class PlotStatisticsWdgt(QtWidgets.QWidget, StatisticsWidget):
         self.page = page
 
     def activate(self):
+        StatisticsWidget.activate(self)
         # Late import to speed up app startup.
         from matplotlib import use
         use("Qt5Agg")

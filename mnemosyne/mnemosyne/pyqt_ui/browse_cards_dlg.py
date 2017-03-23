@@ -780,6 +780,7 @@ _("You chose to sort this table. Operations in the card browser could now be slo
             self.config()["browse_cards_dlg_sorting_warning_shown"] = True
 
     def activate(self):
+        BrowseCardsDialog.activate(self)
         self.exec_()
 
     def search_text_changed(self):

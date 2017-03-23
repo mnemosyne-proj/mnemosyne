@@ -22,9 +22,15 @@ class Component(object):
     time on a mobile device, and should be done lazily.) Only the main
     widget is stored as an instance here.
 
-    When 'instantiate == LATER', the component is lazily created when needed.
+    To achieve this lazy instantiation for widget, set 'instantiate == LATER'.
+    Other components can then instantiate the widget when they see fit.
     The instance is not cached for subsequent reuse, as these widgets
     typically can become obsolete/overwritten by plugins.
+    
+    It can be that when instantiating a component, not all the other components
+    on which it relies have been instantiated yet. E.g., the log and the 
+    database depend on each other before doing actual work. Therefore, some of
+    the  actual initialisation work can be postponed to the 'activate' function.
 
     Each component has access to all of the context of the other components
     because it hold a reference to the user's component manager.

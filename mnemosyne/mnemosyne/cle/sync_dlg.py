@@ -11,5 +11,6 @@ class SyncDlg(SyncDialog):
         SyncDialog.__init__(self, component_manager)    
         
     def activate(self):
+        SyncDialog.activate(self)
         self.component_manager.android.showSyncDialog()
         

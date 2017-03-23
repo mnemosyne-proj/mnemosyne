@@ -1,43 +1,13 @@
-componenent_manager.set_study_mode ---> controller.set_study_mode
+-Move deactivate cards to 'study' menu
 
-Check if review widgets and study modes get activated and deactivated
+-Move GUI of cramming scheduler config over to new system
 
-document that self.gui_components only contains classes, not instances
+-hold in your hand --> work on at most 'X' non memorised cards. 
+ Rephrase tips, docs
+ 
+-example plugin for new learning modes
 
-make sure all classes call componenent.(de)activate
-
-design review: why do we have both instantiate_immediatly=False and their
-difference between init and activate? Don't they both serve the same purpose?
-(see comment in component.activate)
-
-try to get rid of cases where e.g. one main widget overwrites the other?
-Might still be useful for the threaded syncing though.
-
-------------------------
-
-Merge review controllers, also take cramming buttons into account
-For 'cramming' cards, show yes/no buttons instead of 0-5 as visual indicator
-log that the card is crammed
-
-Learning mode menu:
--learn new / cram recent: new scheduler
--cram recent: same new scheduler, but setting 'new' to zero
-
-Each learning mode separate config widget?
-
-Mode with forgotten only?
-
-Generate end message for new learning modes. (learn ahead of schedule is not 
-always relevant)
-
-GUI Config: 
-- cram recent: X days, only new cards vs new + relearned cards
-- learn new / cram recent: ratio between new and recent
-
-example plugin for new learning modes
-
-
-check if font is saved in font dialog settings
+-check if font is saved in font dialog settings
 
 
 -status bar: scheduled: x / not memorised: x / goal new cards: x/y
@@ -45,12 +15,8 @@ check if font is saved in font dialog settings
 -save state upon exit, reset at midnight 
 -config: goal_new_cards, new_cards_today
 
--hold in your hand --> work on at most 'X' non memorised cards. 
- Rephrase tips, docs
- 
--Android GUI: menu, new status bar
 
--later: add 'difficult' tag, and add 'cram difficult?'
+-Android GUI: menu, new status bar
 
 
 -OSX: make sure cheroot is updated, ask v.turuchev@gmail.com to check webreview
@@ -189,8 +155,23 @@ created with just the "»" symbol.
 -grep through TODO's in source code
 -flake8
  
+
+Other learning modes:
+-learn new / cram recent:
+   -config: cram recent: X days, only new cards vs new + relearned cards, 
+    ratio between new and recent
+   -for 'cramming' cards, show yes/no buttons instead of 0-5 
+    as visual indicator
+   -log that the card is crammed
+   -Unify review controllers and widgets, taking cramming buttons into account?
+-cram recent only?   
+-forgotten only?
+-add 'difficult' tag, and add 'cram difficult?'
+-generate end message for new learning modes. (learn ahead of schedule is not 
+always relevant) 
  
-Features:
+ 
+Other features:
 
 -first doing a count and then the actual a query is not a good idea:? 
 time 'number_of_log_entries_to_sync_for' vs 'number_of_log_entries'

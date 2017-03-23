@@ -8,6 +8,7 @@ from mnemosyne.libmnemosyne.ui_components.dialogs import ActivateCardsDialog
 class ActivateCardsDlg(ActivateCardsDialog): 
         
     def activate(self):
+        ActivateCardsDialog.activate(self)
         self.criteria_by_name = {}
         active_set_name = ""
         active_criterion = self.database().current_criterion()

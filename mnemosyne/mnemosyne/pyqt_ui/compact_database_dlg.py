@@ -117,6 +117,7 @@ class CompactDatabaseDlg(QtWidgets.QDialog, CompactDatabaseDialog,
         self.true_main_widget = self.main_widget()
 
     def activate(self):
+        CompactDatabaseDialog.activate(self)
         self.exec_()
 
     def accept(self):        

@@ -88,6 +88,7 @@ class Configuration(Component, dict):
         self.determine_dirs()
         
     def activate(self):
+        Component.activate(self)
         self.fill_dirs()
         self.load()
         self.load_user_config()

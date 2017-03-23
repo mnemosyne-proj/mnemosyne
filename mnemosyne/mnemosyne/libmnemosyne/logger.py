@@ -17,6 +17,7 @@ class Logger(Component):
         Component.__init__(self, component_manager)
 
     def activate(self):
+        Component.activate(self)
         self._timestamp = None
         self.upload_thread = None
         self.archive_old_log()

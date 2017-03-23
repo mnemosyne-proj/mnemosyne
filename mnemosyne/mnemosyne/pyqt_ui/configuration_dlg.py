@@ -38,6 +38,7 @@ class ConfigurationDlg(QtWidgets.QDialog, ConfigurationDialog, Ui_ConfigurationD
             self.restoreGeometry(state)
 
     def activate(self):
+        ConfigurationDialog.activate(self)
         self.exec_()
 
     def _store_state(self):

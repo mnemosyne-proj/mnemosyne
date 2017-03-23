@@ -21,6 +21,7 @@ class StatisticsDlg(QtWidgets.QDialog, StatisticsDialog, Ui_StatisticsDlg):
         super().__init__(**kwds)
 
     def activate(self):
+        StatisticsDialog.activate(self)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)

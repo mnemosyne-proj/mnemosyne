@@ -13,8 +13,7 @@ class ComponentManager(object):
     For certain components, many can be active at the same time (card types,
     filters, function hooks, ...). For others, there can be only on active
     at the same time, like schedule, database ... The idea is that the last
-    one registered takes preference. This means that e.g. the default
-    scheduler needs to be registered first.
+    one registered takes preference.
 
     """
 
@@ -23,7 +22,6 @@ class ComponentManager(object):
         self.card_type_with_id = {}
         self.render_chain_with_id = {}
         self.study_mode_with_id = {}
-        self.study_mode = None
         self.debug_file = None
 
     def register(self, component):
@@ -144,15 +142,7 @@ class ComponentManager(object):
 
         if self.debug_file:
             self.debug_file.write(str(msg + "\n").encode('UTF-8'))
-            
-    def set_study_mode(self, study_mode):
-        if self.study_mode == study_mode:
-            return
-        if self.study_mode is not None:
-            self.study_mode.deactivate()        
-        study_mode.activate()        
-        self.study_mode = study_mode
-        self.current("config")["study_mode"] = study_mode.id
+
         
 # A component manager stores the entire session state of a user through the
 # different components it registers. To enable multiple users to use a single
