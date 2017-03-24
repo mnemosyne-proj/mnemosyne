@@ -62,7 +62,7 @@ class DefaultController(Controller):
             self.log().deactivate()
             self.log().activate()
             self.config().save()
-            self.review_controller().reset()
+            self.reset_study_mode()
             self.next_rollover = self.database().start_of_day_n_days_ago(n=-1)
         if db_maintenance and \
            (time.time() > self.config()["last_db_maintenance"] + 90 * DAY):
@@ -91,7 +91,7 @@ class DefaultController(Controller):
             db.current_criterion().name != db.default_criterion_name:
             title += " - " + db.current_criterion().name
         self.main_widget().set_window_title(title)
-
+        
     def set_study_mode(self, study_mode):
         if self.study_mode == study_mode:
             return
@@ -99,8 +99,12 @@ class DefaultController(Controller):
             self.study_mode.deactivate()        
         study_mode.activate()        
         self.study_mode = study_mode
-        self.config()["study_mode"] = study_mode.id        
-
+        self.config()["study_mode"] = study_mode.id
+        
+    def reset_study_mode(self, study_mode):
+        self.study_mode.deactivate()        
+        self.study_mode.activate()
+        
     def show_add_cards_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
@@ -212,7 +216,7 @@ class DefaultController(Controller):
         if save:
             db.save()
         if self.review_controller().learning_ahead == True:
-            self.review_controller().reset()
+            self.reset_study_mode()
         return cards
 
     def show_edit_card_dialog(self): 
@@ -341,7 +345,7 @@ class DefaultController(Controller):
             for card in edited_cards:
                 db.update_card(card)
             if new_cards and self.review_controller().learning_ahead:
-                self.review_controller().reset()
+                self.reset_study_mode()
             return 0
 
     def edit_card_and_sisters(self, card, new_fact_data, new_card_type,
@@ -381,7 +385,7 @@ class DefaultController(Controller):
         for edited_card in edited_cards:
             db.update_card(edited_card)
         if new_cards and self.review_controller().learning_ahead == True:
-            self.review_controller().reset()
+            self.reset_study_mode()
         # Apply new tags and modification time to cards and save them back to
         # the database. Note that this makes sure there is an EDITED_CARD log
         # entry for each sister card, which is needed when syncing with a
@@ -597,7 +601,7 @@ _("It is recommended to put all your cards in a single database. Using tags to d
         self.main_widget().close_progress()
         db.load(self.config()["last_database"])
         self.log().loaded_database()
-        self.review_controller().reset()
+        self.reset_study_mode()
         self.review_controller().update_dialog()
         self.update_title()
         self.stopwatch().unpause()
@@ -633,7 +637,7 @@ _("'*.cards' files are not separate databases, but need to be imported in your c
                 # case, as the user wants to throw it away. This mainly
                 # prohibits dumping to the science log.
                 db.restore(filename)
-                self.review_controller().reset()
+                self.reset_study_mode()
                 self.update_title()
             self.stopwatch().unpause()
             return
@@ -656,7 +660,7 @@ _("'*.cards' files are not separate databases, but need to be imported in your c
             db.load(old_path)
             self.stopwatch().unpause()
             return
-        self.review_controller().reset()
+        self.reset_study_mode()
         self.update_title()
         self.stopwatch().unpause()
 

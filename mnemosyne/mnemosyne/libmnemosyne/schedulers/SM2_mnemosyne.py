@@ -140,7 +140,8 @@ class SM2Mnemosyne(Scheduler):
         self._fact_ids_in_queue = []
         self._fact_ids_memorised = []
         self._card_id_last = None
-        if new_only == False:
+        self.new_only = new_only
+        if self.new_only == False:
             self.stage = 1
         else:
             self.stage = 3
@@ -353,7 +354,10 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
         # earliest scheduled cards first. We only put 50 cards at the same
         # time into the queue, in order to save memory.
         if learn_ahead == False:
-            self.stage = 2
+            if self.new_only == False:
+                self.stage = 2
+            else:
+                self.stage = 3            
             return
         for _card_id, _fact_id in db.cards_learn_ahead(self.adjusted_now(),
                 sort_key="next_rep", limit=50):
