@@ -1,4 +1,4 @@
--Move deactivate cards to 'study' menu
+-cram recent
 
 -Move GUI of cramming scheduler config over to new system
 
@@ -157,14 +157,13 @@ created with just the "»" symbol.
  
 
 Other learning modes:
--learn new / cram recent:
+-mixture of learn new / cram recent?
    -config: cram recent: X days, only new cards vs new + relearned cards, 
     ratio between new and recent
    -for 'cramming' cards, show yes/no buttons instead of 0-5 
     as visual indicator
    -log that the card is crammed
-   -Unify review controllers and widgets, taking cramming buttons into account?
--cram recent only?   
+   -Unify review controllers and widgets, taking cramming buttons into account? 
 -forgotten only?
 -add 'difficult' tag, and add 'cram difficult?'
 -generate end message for new learning modes. (learn ahead of schedule is not 

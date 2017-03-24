@@ -71,7 +71,6 @@
     <addaction name="actionDeleteCurrentCard"/>
     <addaction name="separator"/>
     <addaction name="actionBrowseCards"/>
-    <addaction name="actionActivateCards"/>
     <addaction name="actionFindDuplicates"/>
     <addaction name="actionManageTypes"/>
     <addaction name="separator"/>
@@ -81,6 +80,8 @@
     <property name="title">
      <string>Study</string>
     </property>
+    <addaction name="actionActivateCards"/>
+    <addaction name="separator"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Cards"/>

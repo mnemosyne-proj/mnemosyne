@@ -149,7 +149,7 @@ _("Tried to backup your old 1.x files to %s, but that directory already exists."
         for format in self.component_manager.all("file_format"):
             if format.__class__.__name__ == "Mnemosyne1Mem":
                 format.do_import(old_database)
-                self.review_controller().reset()
+                self.controller().reset_study_mode()
         # Give info to the user.
         info = _("Upgrade from Mnemosyne 1.x complete!") + "\n\n"
         info += _("Mnemosyne 2.x now stores its data here:") + "\n\n"

@@ -76,7 +76,7 @@ class Plugin(Component):
                         criterion.active_card_type_added(component)
                         db.update_criterion(criterion)
         if self.database().is_loaded() and self.review_reset_needed:
-            self.review_controller().reset()
+            self.controller().reset_study_mode()
             # We need to log 'started_scheduler' events manually and not
             # from e.g. the 'activate' function of the scheduler because
             # during startup, the database is not yet loaded when the
@@ -119,7 +119,7 @@ _("There are cards with this card type (or a clone of it) in the database."))
             return True
         # Make necessary side effects happen.
         if self.review_reset_needed:
-            self.review_controller().reset()
+            self.controller().reset_study_mode()
             self.log().started_scheduler()
         # Use names instead of instances here in order to survive pickling.
         if self.__class__.__name__ in self.config()["active_plugins"]:
