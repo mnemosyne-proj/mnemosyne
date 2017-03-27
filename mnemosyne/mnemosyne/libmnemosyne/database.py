@@ -286,16 +286,20 @@ class Database(Component):
 
     def cards_learn_ahead(self, now, sort_key="", limit=-1):
         raise NotImplementedError
+    
+    def recently_memorised_count(self, max_ret_reps):
+        raise NotImplementedError
 
     # Extra queries for custom schedulers.
 
     def set_scheduler_data(self, scheduler_data):
         raise NotImplementedError
 
-    def cards_with_scheduler_data(self, scheduler_data, sort_key="", limit=-1):
+    def cards_with_scheduler_data(self, scheduler_data, sort_key="", limit=-1, 
+                                  max_ret_reps=-1):
         raise NotImplementedError
 
-    def scheduler_data_count(self, scheduler_data):
+    def scheduler_data_count(self, scheduler_data, max_ret_reps=-1):
         raise NotImplementedError
     
     # 

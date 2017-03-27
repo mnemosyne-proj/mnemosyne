@@ -1,11 +1,10 @@
--cram recent
-
 -Move GUI of cramming scheduler config over to new system
-
+-cram recent: make make ret reps configurable?
 -hold in your hand --> work on at most 'X' non memorised cards. 
  Rephrase tips, docs
  
 -example plugin for new learning modes
+
 
 -check if font is saved in font dialog settings
 

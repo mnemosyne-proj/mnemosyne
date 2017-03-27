@@ -48,6 +48,7 @@ class SM2Controller(ReviewController):
         self.scheduled_count = None
         self.active_count = None
         self.rep_count = 0
+        self.new_only = new_only
         self.scheduler().reset(new_only=new_only)
         self.show_new_question()
 

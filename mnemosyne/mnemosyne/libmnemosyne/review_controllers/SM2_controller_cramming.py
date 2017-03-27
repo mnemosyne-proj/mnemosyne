@@ -35,8 +35,10 @@ class SM2ControllerCramming(SM2Controller):
 
     def counters(self):
         db = self.database()
-        return db.scheduler_data_count(Cramming.WRONG), \
-            db.scheduler_data_count(Cramming.UNSEEN), db.active_count()
+        max_ret_reps = 1 if self.new_only else -1
+        return db.scheduler_data_count(Cramming.WRONG, max_ret_reps), \
+            db.scheduler_data_count(Cramming.UNSEEN, max_ret_reps),  \
+            db.active_count()
 
     def reload_counters(self):
         pass

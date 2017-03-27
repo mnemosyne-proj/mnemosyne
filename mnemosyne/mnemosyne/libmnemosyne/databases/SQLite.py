@@ -1544,6 +1544,11 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             select _id, _fact_id from cards where
             active=1 and grade>=2 and ?<next_rep order by %s limit ?"""
             % sort_key, (timestamp, limit)))
+    
+    def recently_memorised_count(self, max_ret_reps):
+        return self.con.execute("""select count() from cards where active=1 
+            and ret_reps between 1 and ?""",
+            (max_ret_reps, )).fetchone()[0]    
 
     #
     # Extra queries for custom schedulers.
@@ -1553,16 +1558,21 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         self.con.execute("update cards set scheduler_data=?",
             (scheduler_data, ))
 
-    def cards_with_scheduler_data(self, scheduler_data, sort_key="", limit=-1):
+    def cards_with_scheduler_data(self, scheduler_data, sort_key="", 
+                                  limit=-1, max_ret_reps=-1):
         sort_key = self._process_sort_key(sort_key)
+        extra_cond = "" if max_ret_reps == -1 else str(
+            "and acq_reps>1 and ret_reps between 1 and " + str(max_ret_reps))
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
-            select _id, _fact_id from cards where
-            active=1 and scheduler_data=? order by %s limit ?"""
-            % sort_key, (scheduler_data, limit)))
+            select _id, _fact_id from cards where active=1 and scheduler_data=?
+            %s order by %s limit ?"""
+            % (extra_cond, sort_key), (scheduler_data, limit)))
 
-    def scheduler_data_count(self, scheduler_data):
+    def scheduler_data_count(self, scheduler_data, max_ret_reps=-1):
+        extra_cond = "" if max_ret_reps == -1 else str(
+            "and acq_reps>1 and ret_reps between 1 and " + str(max_ret_reps))
         return self.con.execute("""select count() from cards
-            where active=1 and scheduler_data=?""",
+            where active=1 and scheduler_data=? %s """ % extra_cond,
             (scheduler_data, )).fetchone()[0]
 
     # 

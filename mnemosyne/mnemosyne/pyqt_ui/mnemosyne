@@ -252,6 +252,10 @@ mnemosyne.gui_for_component["NewOnly"] = [\
 mnemosyne.gui_for_component["CramAll"] = [\
                             ("mnemosyne.pyqt_ui.review_wdgt_cramming",
                              "ReviewWdgtCramming")]
+mnemosyne.gui_for_component["CramRecent"] = [\
+                           ("mnemosyne.pyqt_ui.review_wdgt_cramming",
+                            "ReviewWdgtCramming")]
+
 # Run Mnemosyne.
 mnemosyne.initialise(data_dir=data_dir, filename=filename,
 		     automatic_upgrades=options.automatic_upgrades,
