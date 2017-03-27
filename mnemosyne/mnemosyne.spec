@@ -100,6 +100,7 @@ hiddenimports = [
              'mnemosyne.libmnemosyne.statistics_pages.retention_score', 
              'mnemosyne.libmnemosyne.statistics_pages.schedule',
              'mnemosyne.libmnemosyne.study_modes.cram_all',
+             'mnemosyne.libmnemosyne.study_modes.cram_recent',
              'mnemosyne.libmnemosyne.study_modes.new_only',
              'mnemosyne.libmnemosyne.study_modes.scheduled_forgotten_new',
              'mnemosyne.libmnemosyne.translators.gettext_translator', 

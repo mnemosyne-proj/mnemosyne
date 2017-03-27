@@ -328,7 +328,10 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
                     self._fact_ids_in_queue.append(_fact_id)
                     non_memorised_in_queue += 1
                     if non_memorised_in_queue == limit:
-                        self.stage = 2
+                        if self.new_only == False:
+                            self.stage = 2
+                        else:
+                            self.stage = 3
                         return
             # If the queue is close to empty, start pulling in sister cards.
             if len(self._fact_ids_in_queue) <= 2:
@@ -339,7 +342,10 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
                         self._fact_ids_in_queue.append(_fact_id)
                         non_memorised_in_queue += 1
                         if non_memorised_in_queue == limit:
-                            self.stage = 2
+                            if self.new_only == False:
+                                self.stage = 2
+                            else:
+                                self.stage = 3
                             return
             # If the queue is still empty, go to learn ahead of schedule.
             if len(self._card_ids_in_queue) == 0:
