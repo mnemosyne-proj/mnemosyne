@@ -31,6 +31,7 @@ https://groups.google.com/d/msgid/mnemosyne-proj-users/997a919f-a7a5-4af2-87c6-2
 
 Android:
 
+-'Unfortunately...' message on Redmi (shreyajain.vmmc12@gmail.com)
 -check 'redraw now'
 -decrease size of python library
 -precompile python files
@@ -156,6 +157,7 @@ created with just the "»" symbol.
  
 
 Other learning modes:
+-add 'difficult' tag, and add 'cram difficult?'
 -mixture of learn new / cram recent?
    -config: cram recent: X days, only new cards vs new + relearned cards, 
     ratio between new and recent
@@ -164,7 +166,7 @@ Other learning modes:
    -log that the card is crammed
    -Unify review controllers and widgets, taking cramming buttons into account? 
 -forgotten only?
--add 'difficult' tag, and add 'cram difficult?'
+
 -generate end message for new learning modes. (learn ahead of schedule is not 
 always relevant) 
  

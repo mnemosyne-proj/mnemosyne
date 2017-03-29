@@ -101,7 +101,7 @@ class DefaultController(Controller):
         self.study_mode = study_mode
         self.config()["study_mode"] = study_mode.id
         
-    def reset_study_mode(self, study_mode):
+    def reset_study_mode(self):
         self.study_mode.deactivate()        
         self.study_mode.activate()
         
