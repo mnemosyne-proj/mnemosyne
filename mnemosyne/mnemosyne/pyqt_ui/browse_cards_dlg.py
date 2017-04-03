@@ -831,7 +831,7 @@ _("You chose to sort this table. Operations in the card browser could now be slo
         self.card_model.search_string = search_string
         if search_string:
             if filter:
-                filter += "and "
+                filter += " and "
             filter += "(question like '%%%s%%' or answer like '%%%s%%')" \
                 % (search_string, search_string)
         self.card_model.setFilter(filter)
