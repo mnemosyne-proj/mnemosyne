@@ -1,7 +1,14 @@
--Move GUI of cramming scheduler config over to new system
--cram recent: make make ret reps configurable?
--hold in your hand --> work on at most 'X' non memorised cards. 
- Rephrase tips, docs
+
+-make make ret reps configurable?
+-move over number of backups to keep
+
+card 5878 Gruntrekk for evolusjonsteorien
+
+ 
+-gnome browser problem? 
+ 
+ 
+-hold in your hand --> work on at most 'X' non memorised cards: Rephrase tips, docs
  
 -example plugin for new learning modes
 

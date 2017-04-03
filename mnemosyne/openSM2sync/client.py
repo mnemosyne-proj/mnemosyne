@@ -176,6 +176,9 @@ class Client(Partner):
             serious = True
             if type(exception) == type(socket.timeout()):
                 self.ui.show_error("Timeout while waiting for server!")
+            elif type(exception) == type(socket.gaierror()):
+                self.ui.show_error("Could not find server!")
+                serious = False
             elif type(exception) == type(SyncError()):
                 self.ui.show_error(str(exception))
                 serious = False
