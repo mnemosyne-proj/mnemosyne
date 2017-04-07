@@ -19,6 +19,7 @@ Mnemosyne 2.4.2
 -Added option to "Configure Mnemosyne" to affect how cards are displayed, 
  in two boxes with fixed size, two boxes with adaptive size, or a single
  box top aligned.
+-Tweaks to tag combobox (Emilian Mihalache).
 -Updated to PyQt 5.8.
 -Scaling for high-definition displays now enabled by default.
  (start with --disable-high-dpi-scaling if you prefer the previous behaviour).

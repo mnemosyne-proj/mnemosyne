@@ -130,6 +130,7 @@ class AddEditCards(TipAfterStartingNTimes):
                 self.tags.setCurrentIndex(i)
                 break
         self.previous_tags = self.tags.currentText()
+        self.tags.refresh_completion_model()
 
     def card_type_changed(self, new_card_type_name):
         new_card_type_name = new_card_type_name
