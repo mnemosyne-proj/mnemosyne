@@ -54,8 +54,8 @@ class TestController(MnemosyneTest):
             ("test_controller", "ExportWidget"))
         self.mnemosyne.components.append(\
             ("test_controller", "DataWidget"))
-        self.mnemosyne.components.append(\
-            ("mnemosyne_test", "TestReviewWidget"))
+        self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
+            [("mnemosyne_test", "TestReviewWidget")]        
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "AddCardsDialog"))
         self.mnemosyne.components.append(\

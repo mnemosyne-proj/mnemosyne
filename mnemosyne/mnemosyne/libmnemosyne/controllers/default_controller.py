@@ -92,11 +92,11 @@ class DefaultController(Controller):
             title += " - " + db.current_criterion().name
         self.main_widget().set_window_title(title)
         
-    def set_study_mode(self, study_mode):        
+    def set_study_mode(self, study_mode):      
         if self.study_mode == study_mode:
             return
         if self.study_mode is not None:
-            self.study_mode.deactivate()        
+            self.study_mode.deactivate()  
         study_mode.activate()        
         self.study_mode = study_mode
         self.config()["study_mode"] = study_mode.id

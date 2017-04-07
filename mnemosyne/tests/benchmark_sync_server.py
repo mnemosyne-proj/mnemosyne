@@ -49,7 +49,8 @@ class MyServer(Server):
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
             "GetTextTranslator"))
         self.mnemosyne.components.append(("test_sync", "Widget"))
-        self.mnemosyne.components.append(("mnemosyne_test", "TestReviewWidget"))
+        self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
+            [("mnemosyne_test", "TestReviewWidget")]        
         self.mnemosyne.initialise(os.path.abspath("dot_sync_server"), automatic_upgrades=False)
         self.mnemosyne.config().change_user_id("user_id")
         self.mnemosyne.review_controller().reset()

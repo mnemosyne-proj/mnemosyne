@@ -51,8 +51,8 @@ class TestMnemosyne2Cards(MnemosyneTest):
             ("test_mnemosyne2cards", "Widget"))
         self.mnemosyne.components.append(\
             ("test_mnemosyne2cards", "MyMainWidget"))
-        self.mnemosyne.components.append(\
-            ("mnemosyne_test", "TestReviewWidget"))
+        self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
+            [("mnemosyne_test", "TestReviewWidget")]        
         self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
         self.review_controller().reset()
 
