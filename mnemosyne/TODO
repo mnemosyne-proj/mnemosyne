@@ -1,6 +1,8 @@
+-fix testsuite
+
 
 -make make ret reps configurable?
--move over number of backups to keep
+-move over number of backups to keep, also as sync variable
 
 
 charlottehenstra.ch@gmail.com: plugin problem

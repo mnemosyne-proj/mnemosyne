@@ -27,9 +27,8 @@ def startup():
     mnemosyne.components.append(
         ("mnemosyne.libmnemosyne.ui_components.main_widget",
          "MainWidget"))
-    mnemosyne.components.append(
-        ("mnemosyne_test",
-         "TestReviewWidget"))
+    smnemosyne.gui_for_component["ScheduledForgottenNew"] = \
+        [("mnemosyne_test", "TestReviewWidget")]    
 
     mnemosyne.initialise(data_dir=os.path.abspath("dot_benchmark"),
         automatic_upgrades=False)
@@ -114,8 +113,8 @@ def test_setup():
         "GetTextTranslator"))
     mnemosyne.components.append(\
         ("test_add_cards", "Widget"))
-    mnemosyne.components.append(\
-        ("mnemosyne_test", "TestReviewWidget"))
+    mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
+        [("mnemosyne_test", "TestReviewWidget")]    
     mnemosyne.components.append(\
         ("mnemosyne.libmnemosyne.ui_components.dialogs", "EditCardDialog"))
     mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)

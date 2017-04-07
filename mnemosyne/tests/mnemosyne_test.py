@@ -58,13 +58,13 @@ class MnemosyneTest():
              "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.main_widget", "MainWidget"))
-        self.mnemosyne.components.append(\
-            ("mnemosyne_test", "TestReviewWidget"))
+        self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
+            [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.initialise(os.path.abspath("dot_test"),
                                   automatic_upgrades=False)
         self.mnemosyne.start_review()
 
-    def teardown(self):
+    def teardown(self):      
         self.mnemosyne.finalise()
         # Avoid having multiple component_managers active.
         from mnemosyne.libmnemosyne.component_manager import clear_component_managers

@@ -63,8 +63,8 @@ class TestMemImport(MnemosyneTest):
                     asynchronous_database=True)
         self.mnemosyne.components.insert(0,
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
-        self.mnemosyne.components.append(\
-            ("mnemosyne_test", "TestReviewWidget"))
+        self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
+            [("mnemosyne_test", "TestReviewWidget")]        
         self.mnemosyne.components.append(\
             ("test_mem_import", "Widget"))
         self.mnemosyne.components.append(\
