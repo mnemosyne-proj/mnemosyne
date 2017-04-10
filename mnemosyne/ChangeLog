@@ -35,6 +35,7 @@ Mnemosyne 2.4.2
  (Andy Rayner).
 -Try and work around cases where the progress bar after sync wouldn't
  close under Linux (reported by Kienan).
+-Fix crash when running with the --debug option (reported by themusicgod1). 
  
 
 Mnemosyne 2.4.1 : 2017-01-30

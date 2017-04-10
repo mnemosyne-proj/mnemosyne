@@ -136,7 +136,9 @@ public class MnemosyneThread extends Thread {
         // to the external directories.
         String dirList = "";
         for (File f : ContextCompat.getExternalFilesDirs(UIActivity, null)) {
-            dirList += f.getPath() + "\n\n";
+            if (f != null) {  // Permission failure on some devices.
+                dirList += f.getPath() + "\n\n";
+            }
         }
 
         try {
