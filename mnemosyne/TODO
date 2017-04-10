@@ -5,13 +5,19 @@
 -move over number of backups to keep, also as sync variable
 
 
-charlottehenstra.ch@gmail.com: plugin problem
+charlottehenstra.ch@gmail.com: plugin problem, reminded
 
+Chris Nadt: multiuser fix, update docs
+Angelika: crash, update docs
  
+preview card should not use single page split 
  
 -hold in your hand --> work on at most 'X' non memorised cards: Rephrase tips, docs
  
 -example plugin for new learning modes
+
+https://developers.google.com/analytics/devguides/collection/android/v4/exceptions
+http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-button
 
 
 -check if font is saved in font dialog settings

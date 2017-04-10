@@ -185,11 +185,6 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
             Log.i("Mnemosyne", "Assets are up to date");
         } else {
             Log.i("Mnemosyne", "Removing previous assets");
-
-            File oldDir = new File("/data/data/" + UIActivity.getPackageName() + "/files");
-            if (oldDir.exists()) {
-                deleteRecursive(oldDir);}
-
             File destDir = new File(basedir + "/files");
             if (destDir.exists()) {
                 deleteRecursive(destDir);}
