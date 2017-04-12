@@ -38,7 +38,7 @@ sS'last_add_category'
 p15
 V<default>
 p16
-sS'backups_to_keep'
+sS'max_backups'
 p17
 I5
 sS'tip'

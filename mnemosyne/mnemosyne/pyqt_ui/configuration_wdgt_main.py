@@ -22,36 +22,18 @@ class ConfigurationWdgtMain(QtWidgets.QWidget, ConfigurationWidget,
     def __init__(self, **kwds):
         super().__init__(**kwds)
         self.setupUi(self)
-        if self.config()["randomise_new_cards"] == True:
-            self.new_cards.setCurrentIndex(1)
+        self.save_after_n_reps.setValue(self.config()["save_after_n_reps"])
+        self.max_backups.setValue(self.config()["max_backups"])
+        if self.config()["upload_science_logs"] == True:
+            self.upload_science_logs.setCheckState(QtCore.Qt.Checked)
         else:
-            self.new_cards.setCurrentIndex(0)
-        if self.config()["randomise_scheduled_cards"] == True:
-            self.scheduled_cards.setCurrentIndex(1)
-        else:
-            self.scheduled_cards.setCurrentIndex(0)
-        self.non_memorised_cards.setValue(self.config()\
-            ["non_memorised_cards_in_hand"])
-        self.save_after_n_reps.setValue(self.config()\
-            ["save_after_n_reps"])
-        if self.config()["media_autoplay"] == True:
-            self.media_autoplay.setCheckState(QtCore.Qt.Checked)
-        else:
-            self.media_autoplay.setCheckState(QtCore.Qt.Unchecked)
-        if self.config()["media_controls"] == True:
-            self.media_controls.setCheckState(QtCore.Qt.Checked)
-        else:
-            self.media_controls.setCheckState(QtCore.Qt.Unchecked)
+            self.upload_science_logs.setCheckState(QtCore.Qt.Unchecked)
         if self.config()["QA_split"] == "fixed":
             self.card_presentation.setCurrentIndex(0)
         elif self.config()["QA_split"] == "adaptive":
             self.card_presentation.setCurrentIndex(1)
         elif self.config()["QA_split"] == "single_window":
             self.card_presentation.setCurrentIndex(2)
-        if self.config()["upload_science_logs"] == True:
-            self.upload_science_logs.setCheckState(QtCore.Qt.Checked)
-        else:
-            self.upload_science_logs.setCheckState(QtCore.Qt.Unchecked)
         language_names = ["English"]
         for language in self.translator().supported_languages():
             language_names.append(language_name_for_iso6931_code[language])
@@ -60,61 +42,31 @@ class ConfigurationWdgtMain(QtWidgets.QWidget, ConfigurationWidget,
             self.languages.addItem(language_name)
         self.languages.setCurrentIndex(self.languages.findText(\
             language_name_for_iso6931_code[self.config()["ui_language"]]))
-        self.media_autoplay.stateChanged.connect(self.changed_media_autoplay)
-        
-        # No longer relevant.
-        self.audio_box.hide()
-
-    def changed_media_autoplay(self, state):
-        if state == QtCore.Qt.Unchecked:
-            self.media_controls.setCheckState(QtCore.Qt.Checked)
 
     def reset_to_defaults(self):
         answer = self.main_widget().show_question(\
             _("Reset current tab to defaults?"), _("&Yes"), _("&No"), "")
         if answer == 1:
             return
-        self.new_cards.setCurrentIndex(0)
-        self.scheduled_cards.setCurrentIndex(0)
-        self.non_memorised_cards.setValue(10)
         self.save_after_n_reps.setValue(10)
-        self.media_autoplay.setCheckState(QtCore.Qt.Checked)
-        self.media_controls.setCheckState(QtCore.Qt.Unchecked)
+        self.max_backups.setValue(10)
         self.card_presentation.setCurrentIndex(0)
         self.upload_science_logs.setCheckState(QtCore.Qt.Checked)
         self.languages.setCurrentIndex(self.languages.findText("English"))
 
     def apply(self):
-        self.config()["ui_language"] = iso6931_code_for_language_name(\
-                self.languages.currentText())
-        self.translator().set_language(self.config()["ui_language"])
-        if self.new_cards.currentIndex() == 1:
-            self.config()["randomise_new_cards"] = True
+        self.config()["save_after_n_reps"] = self.save_after_n_reps.value()
+        self.config()["max_backups"] = self.max_backups.value()
+        if self.upload_science_logs.checkState() == QtCore.Qt.Checked:
+            self.config()["upload_science_logs"] = True
         else:
-            self.config()["randomise_new_cards"] = False
-        if self.scheduled_cards.currentIndex() == 1:
-            self.config()["randomise_scheduled_cards"] = True
-        else:
-            self.config()["randomise_scheduled_cards"] = False
-        self.config()["non_memorised_cards_in_hand"] = \
-            self.non_memorised_cards.value()
-        self.config()["save_after_n_reps"] = \
-            self.save_after_n_reps.value()
-        if self.media_autoplay.checkState() == QtCore.Qt.Checked:
-            self.config()["media_autoplay"] = True
-        else:
-            self.config()["media_autoplay"] = False
-        if self.media_controls.checkState() == QtCore.Qt.Checked:
-            self.config()["media_controls"] = True
-        else:
-            self.config()["media_controls"] = False
+            self.config()["upload_science_logs"] = False         
         if self.card_presentation.currentIndex() == 0:
             self.config()["QA_split"] = "fixed"
         elif self.card_presentation.currentIndex() == 1:
             self.config()["QA_split"] = "adaptive"  
         elif self.card_presentation.currentIndex() == 2:
             self.config()["QA_split"] = "single_window"    
-        if self.upload_science_logs.checkState() == QtCore.Qt.Checked:
-            self.config()["upload_science_logs"] = True
-        else:
-            self.config()["upload_science_logs"] = False
+        self.config()["ui_language"] = iso6931_code_for_language_name(\
+                self.languages.currentText())
+        self.translator().set_language(self.config()["ui_language"])

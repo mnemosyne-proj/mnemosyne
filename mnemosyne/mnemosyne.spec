@@ -131,7 +131,7 @@ hiddenimports = [
              'mnemosyne.pyqt_ui.configuration',
              'mnemosyne.pyqt_ui.configuration_dlg', 
              'mnemosyne.pyqt_ui.configuration_wdgt_card_appearance', 
-             'mnemosyne.pyqt_ui.configuration_wdgt_cramming', 
+             'mnemosyne.pyqt_ui.configuration_wdgt_study', 
              'mnemosyne.pyqt_ui.configuration_wdgt_main',
              'mnemosyne.pyqt_ui.configuration_wdgt_servers', 
              'mnemosyne.pyqt_ui.convert_card_type_keys_dlg',
