@@ -41,7 +41,7 @@ only_editable_when_answer_shown = False
 show_tags_during_review = True
 
 # The number of daily backups to keep. Set to -1 for no limit.
-backups_to_keep = 10
+max_backups = 10
 
 # Start the card browser with the last used colum sort. Can have a serious
 # performance penalty for large databases.
@@ -126,12 +126,13 @@ class Configuration(Component, dict):
              "randomise_new_cards": False,
              "randomise_scheduled_cards": False,
              "cramming_store_state": True,
+             "max_ret_reps_for_recent_cards": 1,
              "cramming_order": RANDOM,
              "show_intervals": "never",
              "only_editable_when_answer_shown": False,
              "show_tags_during_review": True,
              "ui_language": "en",
-             "backups_to_keep": 10,
+             "max_backups": 10,
              "backup_before_sync": True,
              "check_for_edited_local_media_files": False,
              "interested_in_old_reps": True,
@@ -180,7 +181,7 @@ class Configuration(Component, dict):
              "hide_pronunciation_field", "non_memorised_cards_in_hand",
              "randomise_new_cards", "randomise_scheduled_cards",
              "ui_language", "day_starts_at", "latex_preamble",
-             "latex_postamble", "latex", "dvipng"]
+             "latex_postamble", "latex", "dvipng", "max_backups"]
         # If the user id is not set, it's either because this is the first run
         # of the program, or because the user deleted the config file. In the
         # latter case, we try to recuperate the id from the history files.

@@ -11,7 +11,7 @@ WIDGETS = ui_main_wdgt.py ui_add_cards_dlg.py \
 	ui_configuration_wdgt_card_appearance.py \
 	ui_activate_cards_dlg.py ui_card_set_name_dlg.py \
 	ui_configuration_dlg.py ui_criterion_wdgt_default.py \
-	ui_statistics_dlg.py ui_sync_dlg.py ui_configuration_wdgt_cramming.py \
+	ui_statistics_dlg.py ui_sync_dlg.py ui_configuration_wdgt_study.py \
 	ui_configuration_wdgt_servers.py ui_preview_cards_dlg.py \
 	ui_browse_cards_dlg.py ui_rename_tag_dlg.py ui_change_card_type_dlg.py \
 	ui_add_tags_dlg.py ui_remove_tags_dlg.py ui_getting_started_dlg.py \

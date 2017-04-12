@@ -20,7 +20,7 @@ only_editable_when_answer_shown = False
 locale = None
 
 # The number of daily backups to keep. Set to -1 for no limit.
-backups_to_keep = 5
+max_backups = 5
 
 # The moment the new day starts. Defaults to 3 am. Could be useful to
 # change if you are a night bird.

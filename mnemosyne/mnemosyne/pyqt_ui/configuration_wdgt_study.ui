@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ConfigurationWdgtCramming</class>
- <widget class="QWidget" name="ConfigurationWdgtCramming">
+ <class>ConfigurationWdgtStudy</class>
+ <widget class="QWidget" name="ConfigurationWdgtStudy">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -32,7 +32,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="scheduled_cards_2">
+           <widget class="QComboBox" name="scheduled_cards">
             <item>
              <property name="text">
               <string>most urgent first</string>
@@ -70,7 +70,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="non_memorised_cards_2">
+           <widget class="QSpinBox" name="non_memorised_cards">
             <property name="minimum">
              <number>1</number>
             </property>
@@ -111,7 +111,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="new_cards_2">
+           <widget class="QComboBox" name="new_cards">
             <item>
              <property name="text">
               <string>in the order they were added</string>

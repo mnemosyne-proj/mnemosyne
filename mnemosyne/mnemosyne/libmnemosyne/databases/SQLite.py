@@ -420,7 +420,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
 
     def backup(self):
         self.save()
-        if self.config()["backups_to_keep"] == 0:
+        if self.config()["max_backups"] == 0:
             return
         backupdir = os.path.join(self.config().data_dir, "backups")
         db_name = os.path.basename(self._path).rsplit(".", 1)[0]
@@ -444,13 +444,11 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         for f in self.component_manager.all("hook", "after_backup"):
             f.run(backupfile)
         # Only keep the last logs.
-        if self.config()["backups_to_keep"] < 0:
-            return backupfile
         files = [f for f in os.listdir(backupdir) \
                 if f.startswith(db_name + "-")]
         files.sort()
-        if len(files) > self.config()["backups_to_keep"]:
-            surplus = len(files) - self.config()["backups_to_keep"]
+        if len(files) > self.config()["max_backups"]:
+            surplus = len(files) - self.config()["max_backups"]
             for file in files[0:surplus]:
                 os.remove(os.path.join(backupdir, file))
         return backupfile

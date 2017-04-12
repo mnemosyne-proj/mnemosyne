@@ -78,7 +78,11 @@
              </widget>
             </item>
             <item>
-             <widget class="QSpinBox" name="spinBox"/>
+             <widget class="QSpinBox" name="max_backups">
+              <property name="value">
+               <number>10</number>
+              </property>
+             </widget>
             </item>
             <item>
              <widget class="QLabel" name="label_3">

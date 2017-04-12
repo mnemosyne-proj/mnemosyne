@@ -4,11 +4,6 @@
 -make make ret reps configurable?
 -move over number of backups to keep, also as sync variable
 
-
-charlottehenstra.ch@gmail.com: plugin problem, reminded
-
-Chris Nadt: multiuser fix, update docs
-Angelika: crash, update docs
  
 preview card should not use single page split 
  
