@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-04-12 13:23+0200\n"
+"POT-Creation-Date: 2017-04-14 14:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -234,7 +234,7 @@ msgstr ""
 msgid "Foreign word or phrase"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/configuration.py:413
+#: ../mnemosyne/libmnemosyne/configuration.py:414
 msgid "Error in config.py:"
 msgstr ""
 
@@ -1324,7 +1324,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:232
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:49
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:181
 msgid "&No"
 msgstr ""
@@ -1333,7 +1333,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:232
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:49
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:181
 msgid "&Yes"
 msgstr ""
@@ -1519,7 +1519,7 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:49
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
 msgid "Reset current tab to defaults?"
 msgstr ""
 
@@ -2077,7 +2077,6 @@ msgid "&Defaults"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:123
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_cramming.py:74
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:111
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:89
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:144
@@ -2118,36 +2117,6 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:133
 msgid "(This setting will be overridden in card types cloned from 'Vocabulary'.)"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_cramming.py:75
-msgid "Show cards"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_cramming.py:76
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:148
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:153
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:156
-msgid "in random order"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_cramming.py:77
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:157
-msgid "earliest scheduled first"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_cramming.py:78
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:158
-msgid "lastest scheduled first"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_cramming.py:79
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:159
-msgid "most lapses first"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_cramming.py:80
-msgid "Remember which cards you've seen when restarting Mnemosyne."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:112
@@ -2249,6 +2218,12 @@ msgstr ""
 msgid "most urgent first"
 msgstr ""
 
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:148
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:153
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:156
+msgid "in random order"
+msgstr ""
+
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:149
 msgid "Work on at most"
 msgstr ""
@@ -2271,6 +2246,18 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:155
 msgid "Cram cards"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:157
+msgid "earliest scheduled first"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:158
+msgid "lastest scheduled first"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:159
+msgid "most lapses first"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:160

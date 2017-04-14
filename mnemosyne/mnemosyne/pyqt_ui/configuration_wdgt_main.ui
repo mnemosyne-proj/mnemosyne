@@ -34,7 +34,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QSpinBox" name="save_after_n_reps_2">
+             <widget class="QSpinBox" name="save_after_n_reps">
               <property name="minimum">
                <number>1</number>
               </property>
