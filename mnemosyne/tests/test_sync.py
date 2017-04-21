@@ -3773,7 +3773,7 @@ class TestSync(object):
         assert "1" not in self.client.mnemosyne.config()["font"]
         db = self.client.database
         assert db.con.execute("select count() from log where event_type=?",
-               (EventTypes.EDITED_SETTING, )).fetchone()[0] == 16
+               (EventTypes.EDITED_SETTING, )).fetchone()[0] == 17
 
     def test_setting_5(self):
 

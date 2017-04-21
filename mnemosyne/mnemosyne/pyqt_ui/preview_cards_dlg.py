@@ -66,10 +66,13 @@ class PreviewCardsDlg(QtWidgets.QDialog, Component, QAOptimalSplit,
             self.next_button.setVisible(False)
             self.fact_view_name.setVisible(False)
         card = self.cards[self.index]
+        stored = self.config()["QA_split"]
+        self.config()["QA_split"] = "fixed"
         self.set_question(card.question())
         self.set_answer(card.answer())
         self.reveal_question()
         self.reveal_answer()
+        self.config()["QA_split"] = stored
         self.fact_view_name.setText(_(card.fact_view.name) + " (" + \
             str(self.index + 1) + "/" + str(len(self.cards)) + ")")
         self.previous_button.setEnabled(self.index != 0)

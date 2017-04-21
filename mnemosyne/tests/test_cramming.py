@@ -30,14 +30,11 @@ class TestCrammingScheduler(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("test_cramming", "Widget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
-            [("mnemosyne_test", "TestReviewWidget")]        
+            [("mnemosyne_test", "TestReviewWidget")]
+        self.mnemosyne.gui_for_component["CramAll"] = \
+            [("mnemosyne_test", "TestReviewWidget")]         
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
-
-        from mnemosyne.libmnemosyne.plugins.cramming_plugin import CrammingPlugin
-        for plugin in self.plugins():
-            if isinstance(plugin, CrammingPlugin):
-                plugin.activate()
-                break
+        self.config()["study_mode"] = "CramAll"
         self.mnemosyne.start_review()
 
     def test_1(self):
@@ -59,7 +56,7 @@ class TestCrammingScheduler(MnemosyneTest):
                      grade=2, tag_names=["default"])[0]
         card_4.next_rep -= 1000
         self.database().update_card(card_4)
-        self.mnemosyne().start_review()
+        self.mnemosyne.start_review()
 
         assert self.database().scheduler_data_count(Cramming.UNSEEN) == 4
         assert self.database().scheduler_data_count(Cramming.WRONG) == 0
@@ -95,7 +92,7 @@ class TestCrammingScheduler(MnemosyneTest):
                      grade=2, tag_names=["default"])[0]
         card_4.next_rep -= 1000
         self.database().update_card(card_4)
-        self.mnemosyne().start_review()
+        self.mnemosyne.start_review()
 
         assert self.database().scheduler_data_count(Cramming.UNSEEN) == 4
         assert self.database().scheduler_data_count(Cramming.WRONG) == 0
@@ -121,7 +118,7 @@ class TestCrammingScheduler(MnemosyneTest):
         self.controller().delete_current_card()
         assert self.review_controller().card == None
 
-    def off_3(self): # suffers from some sort of race condition with the finalise.
+    def test_3(self): # suffers from some sort of race condition with the finalise.
         card_type = self.card_type_with_id("1")
 
         fact_data = {"f": "1", "b": "b"}

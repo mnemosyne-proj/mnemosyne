@@ -26,7 +26,7 @@ class MnemosyneTest():
         shutil.rmtree(data_dir, ignore_errors=True)
         
         if os.path.exists(data_dir):
-            shutil.copy(os.path.join("tests", "files", "empty.db"), 
+            shutil.copy(os.path.join("mnemosyne", "tests", "files", "empty.db"), 
                         os.path.join(data_dir, "default.db"))
             for directory in ["default.db_media", "plugins", "backups",
                               "history"]:
