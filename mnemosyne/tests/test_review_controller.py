@@ -37,11 +37,11 @@ class TestReviewController(MnemosyneTest):
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.main_widget", "MainWidget"))
-        self.mnemosyne.components.append(\
-            ("test_review_controller", "MyReviewWidget"))
+        self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
+            [("test_review_controller", "MyReviewWidget")]
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "EditCardDialog"))
-        self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
+        self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.review_controller().reset()
 
     def test_1(self):

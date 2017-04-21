@@ -31,6 +31,8 @@ Mnemosyne 2.5
 -Fix keyboard shortcuts not working sometimes (reported by Angelika Blaschka).
 -Improved compatibility with different Qt versions under Linux
  (reported by Huang Shuhan).
+-When setting the fonts for all the card types at once, the dialog will now
+ correctly remember the setting (reported by 2a216566f1).
 -Added warning if OpenGL libraries are missing under Linux
  (Andy Rayner).
 -Try and work around cases where the progress bar after sync wouldn't

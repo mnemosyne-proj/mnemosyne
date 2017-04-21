@@ -1,22 +1,6 @@
 -fix testsuite
 
-
--make make ret reps configurable?
--move over number of backups to keep, also as sync variable
-
- 
-preview card should not use single page split 
- 
--hold in your hand --> work on at most 'X' non memorised cards: Rephrase tips, docs
- 
 -example plugin for new learning modes
-
-https://developers.google.com/analytics/devguides/collection/android/v4/exceptions
-http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-button
-
-
--check if font is saved in font dialog settings
-
 
 -status bar: scheduled: x / not memorised: x / goal new cards: x/y
 -new cards goal can overshoot, e.g. 7/5
@@ -25,22 +9,21 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 
 
 -Android GUI: menu, new status bar
-
-
--OSX: make sure cheroot is updated, ask v.turuchev@gmail.com to check webreview
-https://groups.google.com/d/msgid/mnemosyne-proj-users/997a919f-a7a5-4af2-87c6-2aeea91a3f39%40googlegroups.com
-
-
 -for sync, check only database version, not program version
 
 -update dev instructions linux, windows
- 
+
+-OSX: make sure cheroot is updated, ask v.turuchev@gmail.com to check webreview
+https://groups.google.com/d/msgid/mnemosyne-proj-users/997a919f-a7a5-4af2-87c6-2aeea91a3f39%40googlegroups.com
 -Note: high DPI on Mac (http://doc.qt.io/qt-5/highdpi.html) is enabled by 
  settings in the Info.plist file.
+-Mac mplayer missing
 
 Android:
 
--'Unfortunately...' message on Redmi (shreyajain.vmmc12@gmail.com)
+-integrated error reporting:
+https://developers.google.com/analytics/devguides/collection/android/v4/exceptions
+http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-button
 -check 'redraw now'
 -decrease size of python library
 -precompile python files

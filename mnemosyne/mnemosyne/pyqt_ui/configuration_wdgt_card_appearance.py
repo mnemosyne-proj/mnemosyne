@@ -140,8 +140,10 @@ class ConfigurationWdgtCardAppearance(QtWidgets.QWidget, ConfigurationWidget,
         if len(self.affected_card_types) > 1:
             font_strings = set()
             for card_type in self.affected_card_types:
-                font_strings.add(self.config().card_type_property(\
+                print("card type", card_type, self.config().card_type_property(\
                     "font", card_type, "f"))
+                font_strings.add(self.config().card_type_property(\
+                    "font", card_type, card_type.fact_keys_and_names[0][0]))
             if len(font_strings) > 1:
                 font_string = None
             else:

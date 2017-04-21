@@ -55,8 +55,14 @@ mnemosyne.components = [\
           "PostprocessQAClozeLatex"),
          ("mnemosyne.libmnemosyne.controllers.default_controller",
           "DefaultController"),
-         ("mnemosyne.libmnemosyne.review_controllers.SM2_controller",
-          "SM2Controller"),
+         ("mnemosyne.libmnemosyne.study_modes.scheduled_forgotten_new",
+          "ScheduledForgottenNew"),
+         ("mnemosyne.libmnemosyne.study_modes.new_only",
+          "NewOnly"),           
+         ("mnemosyne.libmnemosyne.study_modes.cram_all",
+          "CramAll"),
+         ("mnemosyne.libmnemosyne.study_modes.cram_recent",
+          "CramRecent"),           
          ("mnemosyne.libmnemosyne.card_types.map",
           "MapPlugin"),
          ("mnemosyne.libmnemosyne.card_types.cloze",
@@ -85,8 +91,6 @@ mnemosyne.components = [\
           "CurrentCard"),
          ("mnemosyne.cle.main_widget", 
           "MainWdgt"),
-         ("mnemosyne.cle.review_widget", 
-          "ReviewWdgt"),
          ("mnemosyne.cle.configuration", 
           "AndroidConfiguration"),
          ("mnemosyne.cle.android_render_chain", 
@@ -95,6 +99,20 @@ mnemosyne.components = [\
           "SyncDlg"),
          ("mnemosyne.cle.activate_cards_dlg", 
           "ActivateCardsDlg")]
+
+mnemosyne.gui_for_component["ScheduledForgottenNew"] = [\
+    ("mnemosyne.cle.review_widget", 
+     "ReviewWdgt")]    
+mponent["NewOnly"] = [\
+    ("mnemosyne.cle.review_widget", 
+     "ReviewWdgt")]
+mnemosyne.gui_for_component["CramAll"] = [\
+    ("mnemosyne.cle.review_widget", 
+     "ReviewWdgt")]      
+mnemosyne.gui_for_component["CramRecent"] = [\
+    ("mnemosyne.cle.review_widget", 
+     "ReviewWdgt")]    
+
 
 def start_mnemosyne(data_dir, filename, wrapper):
     mnemosyne.android = wrapper

@@ -17,9 +17,6 @@ last_error = ""
 
 class Widget(MainWidget):
 
-    def activate(self):
-        self.review_controller().reset()
-
     def show_information(self, message):
         if message.startswith("Warning: "):
             return 0

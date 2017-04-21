@@ -16,9 +16,6 @@ last_error = ""
 
 class Widget(MainWidget):
 
-    def activate(self):
-        self.review_controller().reset()
-
     def show_error(self, message):
         global last_error
         last_error = message
