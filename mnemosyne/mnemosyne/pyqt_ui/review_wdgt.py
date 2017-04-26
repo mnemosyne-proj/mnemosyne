@@ -506,8 +506,16 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
             command = "mplayer.exe -slave -ao win32 -quiet \"" + filename + \
                 "\" -ss " + str(start) + " -endpos " + str(duration) 
         elif sys.platform == "darwin":
-            command = "mplayer -slave -ao coreaudio -quiet \"" + filename + \
-                "\" -ss " + str(start) + " -endpos " + str(duration)
+            # e.g. /path/to/Mnemosyne.app/Contents/MacOS/mnemosyne/pyqt_ui/review_wdgt.py
+            SCRIPT_PATH = os.path.dirname(os.path.realpath(__file__))
+            # e.g. /path/to/Mnemosyne.app/Contents
+            CONTENTS_FOLDER = SCRIPT_PATH[:SCRIPT_PATH.index("/MacOS")]
+            # e.g. /path/to/Mnemosyne.app/Contents/MacOS/mplayer
+            MPLAYER_PATH = CONTENTS_FOLDER + "/MacOS/mplayer"
+
+            command = "{} -slave -ao coreaudio -quiet \"{}\" -ss {} -endpos {}".format(
+                MPLAYER_PATH, filename, str(start), str(duration)
+            )
         else:
             command = "mplayer -slave -quiet \"" + filename + \
                 "\" -ss " + str(start) + " -endpos " + str(duration)
