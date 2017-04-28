@@ -1,3 +1,7 @@
+Android: need to ask for write permission:
+
+http://stackoverflow.com/questions/33139754/android-6-0-marshmallow-cannot-write-to-sd-card
+
 -fix testsuite
 
 -example plugin for new learning modes

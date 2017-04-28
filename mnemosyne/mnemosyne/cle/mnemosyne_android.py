@@ -73,8 +73,6 @@ mnemosyne.components = [\
           "DefaultCriterion"),
          ("mnemosyne.libmnemosyne.databases.SQLite_criterion_applier",
           "DefaultCriterionApplier"),
-         ("mnemosyne.libmnemosyne.plugins.cramming_plugin",
-          "CrammingPlugin"),
          ("mnemosyne.libmnemosyne.statistics_pages.schedule",
           "Schedule"),
          ("mnemosyne.libmnemosyne.statistics_pages.retention_score",
@@ -103,7 +101,7 @@ mnemosyne.components = [\
 mnemosyne.gui_for_component["ScheduledForgottenNew"] = [\
     ("mnemosyne.cle.review_widget", 
      "ReviewWdgt")]    
-mponent["NewOnly"] = [\
+mnemosyne.gui_for_component["NewOnly"] = [\
     ("mnemosyne.cle.review_widget", 
      "ReviewWdgt")]
 mnemosyne.gui_for_component["CramAll"] = [\

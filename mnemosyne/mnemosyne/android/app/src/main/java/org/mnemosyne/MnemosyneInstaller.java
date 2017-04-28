@@ -281,11 +281,11 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
             Log.i("Mnemosyne", "Done extracting Mnemosyne");
         }
 
-        //String path = basedir + "/files/lib-dynload";
-        //Log.d("Mnemosyne", "Path: " + path);
+        //String path = basedir + "/lib"; // + "/files/lib-dynload";
+        //Log.d("Mnemosyne", "Listing files in path: " + path);
         //File f = new File(path);
         //File file[] = f.listFiles();
-        //Log.d("Mnemosyne", "Size: "+ file.length);
+        //Log.d("Mnemosyne", "Number of files: "+ file.length);
         //for (int i=0; i < file.length; i++) {
         //    Log.d("Mnemosyne", "FileName:" + file[i].getName());
         //}
