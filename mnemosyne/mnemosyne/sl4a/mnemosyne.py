@@ -79,8 +79,6 @@ mnemosyne.components = [\
           "DefaultCriterion"),
          ("mnemosyne.libmnemosyne.databases.SQLite_criterion_applier",
           "DefaultCriterionApplier"),
-         ("mnemosyne.libmnemosyne.plugins.cramming_plugin",
-          "CrammingPlugin"),
          ("mnemosyne.libmnemosyne.statistics_pages.schedule",
           "Schedule"),
          ("mnemosyne.libmnemosyne.statistics_pages.retention_score",

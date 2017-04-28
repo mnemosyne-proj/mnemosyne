@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -90,10 +91,10 @@ public class MnemosyneThread extends Thread {
         StarCoreFactoryPath.StarCoreCoreLibraryPath = basedir + "/lib";
         StarCoreFactoryPath.StarCoreShareLibraryPath = basedir + "/lib";
         StarCoreFactoryPath.StarCoreOperationPath = basedir + "/files";
-        starcore = StarCoreFactory.GetFactory();
 
         Log.d("Mnemosyne", "About to initialise starcore");
 
+        starcore = StarCoreFactory.GetFactory();
         StarSrvGroupClass SrvGroup = starcore._GetSrvGroup(0);
         StarServiceClass Service = SrvGroup._GetService("cle", "123");
         if (Service == null) {  // The service has not been initialized.
