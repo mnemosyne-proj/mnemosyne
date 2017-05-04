@@ -1,11 +1,13 @@
 package org.mnemosyne;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -16,20 +18,21 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,6 +43,8 @@ public class MnemosyneActivity extends AppCompatActivity {
 
     public static final int SYNC_ACTIVITY_RESULT = 0;
     public static final int ACTIVATE_CARDS_ACTIVITY_RESULT = 1;
+
+    private static final int REQUEST_WRITE_STORAGE = 112;
 
     String currentHtml;
     MediaPlayer mediaPlayer = null;
@@ -103,8 +108,33 @@ public class MnemosyneActivity extends AppCompatActivity {
         question.getSettings().setJavaScriptEnabled(true);
         answer.getSettings().setJavaScriptEnabled(true);
 
+        boolean hasPermission = (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+        if (!hasPermission) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_WRITE_STORAGE);
+        }
+
         MnemosyneInstaller installer = new MnemosyneInstaller(this, activityHandler);
         installer.execute();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode)
+        {
+            case REQUEST_WRITE_STORAGE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    // Reload my activity with permission granted or use the features what required the permission
+                } else
+                {
+                    Toast.makeText(this, "Mnemosyne was not allowed to write to your storage and cannot function properly. Please consider granting it this permission.", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
