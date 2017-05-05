@@ -179,6 +179,8 @@ class Mnemosyne(Component):
 
         """
 
+        if hasattr(self, "android"):
+            self.component_manager.android = self.android
         if debug_file:
             self.component_manager.debug_file = open(debug_file, "w")
         self.register_components()
@@ -191,7 +193,7 @@ class Mnemosyne(Component):
             self.config().config_dir = data_dir
         if config_dir:
             self.config().config_dir = config_dir
-        self.activate_components()      
+        self.activate_components()
         register_component_manager(self.component_manager,
                                    self.config()["user_id"])
         self.execute_user_plugin_dir()
