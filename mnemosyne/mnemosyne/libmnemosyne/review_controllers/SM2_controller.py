@@ -196,7 +196,7 @@ _("You have finished your scheduled reviews. Now, learn as many failed or new ca
         self.update_status_bar_counters()
         self.update_menu_bar()
         # Don't wait until disk activity dies down.
-        self.review_widget().redraw_now()  
+        self.review_widget().redraw_now()
         
     def update_qa_area(self, redraw_all=False):
         if redraw_all and self.card:
