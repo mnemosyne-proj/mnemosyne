@@ -1,5 +1,5 @@
 #
-# tag_line_edit.py: Emilian Mihalache <emihalac@gmail.com>
+# tag_line_edit.py Emilian Mihalache <emihalac@gmail.com>
 #
 
 from PyQt5 import QtCore, QtWidgets

@@ -1,8 +1,13 @@
-Android: need to ask for write permission:
+Android: no longer works after rollover?
 
-http://stackoverflow.com/questions/33139754/android-6-0-marshmallow-cannot-write-to-sd-card
+Alisha Prybyszczuk Mac crash
+Charlotte Henstra Mac crash
 
 -fix testsuite
+
+-after deactivating cards, learning mode is reset
+-single pane layout: show answer hides tag
+
 
 -example plugin for new learning modes
 
@@ -14,6 +19,7 @@ http://stackoverflow.com/questions/33139754/android-6-0-marshmallow-cannot-write
 
 -Android GUI: menu, new status bar
 -for sync, check only database version, not program version
+-Android: no hibernate during archiving
 
 -update dev instructions linux, windows
 
@@ -21,7 +27,6 @@ http://stackoverflow.com/questions/33139754/android-6-0-marshmallow-cannot-write
 https://groups.google.com/d/msgid/mnemosyne-proj-users/997a919f-a7a5-4af2-87c6-2aeea91a3f39%40googlegroups.com
 -Note: high DPI on Mac (http://doc.qt.io/qt-5/highdpi.html) is enabled by 
  settings in the Info.plist file.
--Mac mplayer missing
 
 Android:
 

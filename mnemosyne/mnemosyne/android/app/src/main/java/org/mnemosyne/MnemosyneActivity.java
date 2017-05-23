@@ -22,6 +22,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -115,9 +116,10 @@ public class MnemosyneActivity extends AppCompatActivity {
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_WRITE_STORAGE);
         }
-
-        MnemosyneInstaller installer = new MnemosyneInstaller(this, activityHandler);
-        installer.execute();
+        else {
+            MnemosyneInstaller installer = new MnemosyneInstaller(this, activityHandler);
+            installer.execute();
+        }
     }
 
     @Override
@@ -126,12 +128,10 @@ public class MnemosyneActivity extends AppCompatActivity {
         switch (requestCode)
         {
             case REQUEST_WRITE_STORAGE: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                {
-                    // Reload my activity with permission granted or use the features what required the permission
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 } else
                 {
-                    Toast.makeText(this, "Mnemosyne was not allowed to write to your storage and cannot function properly. Please consider granting it this permission.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Mnemosyne was not allowed to write to your storage and will not be able to function properly.", Toast.LENGTH_LONG).show();
                 }
             }
         }
