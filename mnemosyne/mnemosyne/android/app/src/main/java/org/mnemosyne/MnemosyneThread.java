@@ -19,9 +19,11 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -70,27 +72,20 @@ public class MnemosyneThread extends Thread {
             }
         });
 
-        try {
-            System.load(basedir + "/lib/libpython3.4m.so");
-        }
-        catch(UnsatisfiedLinkError ex) {
-            System.out.println(ex.toString());
-            final String string = new String(ex.toString());
-            UIHandler.post(new Runnable() {
-                public void run() {
-                    Log.d("Mnemosyne", "linker error " + string);
-                    progressDialog.dismiss();
-                    AlertDialog.Builder alert = new AlertDialog.Builder(UIActivity);
-                    alert.setMessage(string);
-                    alert.setCancelable(false);
-                    alert.show();
-                }
-            });
-        }
-
         StarCoreFactoryPath.StarCoreCoreLibraryPath = basedir + "/lib";
         StarCoreFactoryPath.StarCoreShareLibraryPath = basedir + "/lib";
         StarCoreFactoryPath.StarCoreOperationPath = basedir + "/files";
+
+        String path = basedir + "/lib";
+        Log.d("Mnemosyne", "Listing files in path: " + path);
+        File ff = new File(path);
+        if (ff.exists()) {
+            File files[] = ff.listFiles();
+            Log.d("Mnemosyne", "Number of files: " + files.length);
+            for (int i = 0; i < files.length; i++) {
+                Log.d("Mnemosyne", "FileName:" + files[i].getName() + " " + files[i].lastModified());
+            }
+        }
 
         Log.d("Mnemosyne", "About to initialise starcore");
 
@@ -143,7 +138,7 @@ public class MnemosyneThread extends Thread {
         }
 
         try {
-            InputStream is = new FileInputStream(dataDir + "datadir.txt");
+            InputStream is = new FileInputStream(dataDir + "/datadir.txt");
             BufferedReader buf = new BufferedReader(new InputStreamReader(is));
             String line = buf.readLine();
             if (! line.isEmpty()) {
@@ -163,6 +158,20 @@ public class MnemosyneThread extends Thread {
             if (result == false) {
                 showInformation("Could not create data dir at " + dataDir + "\n" +
                         "Use a directory like:\n\n" + dirList);
+            }
+        }
+        else {
+            try {
+                File tmp = new File(dataDir + "/test.txt");
+                if (tmp.exists()) {
+                    tmp.delete();
+                }
+                BufferedWriter bwriter = new BufferedWriter(new FileWriter(new File(dataDir + "/test.txt")));
+                bwriter.write("123");
+                bwriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                showInformation("Could not create file in " + dataDir + "\nMake sure to give Mnemosyne write permission.");
             }
         }
 
@@ -196,7 +205,7 @@ public class MnemosyneThread extends Thread {
         });
 
         // Heartbeat: run at startup and then every 5 seconds.
-        controller._Call("heartbeat");
+        controller._Call("heartbeat", false);
         this.scheduler.scheduleAtFixedRate(new Runnable() {
             public void run() {
                 mnemosyneHandler.post(new Runnable() {

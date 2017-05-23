@@ -53,7 +53,7 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
             breader.close();
             return Long.valueOf(contents).longValue();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d("Mnemosyne", filename + " does not exist.");
             return 0;
         }
     }
@@ -184,10 +184,10 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
         if (appLastUpdate <= assetLastModified) {
             Log.i("Mnemosyne", "Assets are up to date");
         } else {
-            Log.i("Mnemosyne", "Removing previous assets");
             File destDir = new File(basedir + "/files");
             if (destDir.exists()) {
                 deleteRecursive(destDir);}
+            Log.i("Mnemosyne", "Removed previous assets from " + destDir);
 
             Log.d("Mnemosyne", "About to extract Mnemosyne");
             try {
