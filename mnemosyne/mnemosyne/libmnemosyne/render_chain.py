@@ -25,6 +25,8 @@ class RenderChain(Component):
 
     Plugins can add Filters or Renderers for a new card type to a chain at run
     time.
+    
+    Each client should have a render chain with id="default" on startup.
 
     """
 

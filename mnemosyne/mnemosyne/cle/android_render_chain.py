@@ -22,7 +22,7 @@ class AndroidRenderChain(RenderChain):
 
     """
 
-    id = "android"
+    id = "default"
 
     filters = [Latex, EscapeToHtml, ExpandPaths, Html5Video,
                RTLHandler, NonLatinFontSizeIncrease]

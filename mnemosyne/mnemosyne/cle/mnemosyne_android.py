@@ -115,7 +115,6 @@ mnemosyne.gui_for_component["CramRecent"] = [\
 def start_mnemosyne(data_dir, filename, wrapper):
     mnemosyne.android = wrapper
     mnemosyne.initialise(data_dir=data_dir, filename=filename)
-    mnemosyne.review_controller().set_render_chain("android")
     mnemosyne.start_review()
     
 def pause_mnemosyne():
