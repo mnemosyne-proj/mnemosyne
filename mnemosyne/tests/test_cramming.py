@@ -39,7 +39,7 @@ class TestCrammingScheduler(MnemosyneTest):
 
     def test_1(self):
         from mnemosyne.libmnemosyne.schedulers.cramming import Cramming
-
+                
         card_type = self.card_type_with_id("1")
 
         fact_data = {"f": "1", "b": "b"}
@@ -56,7 +56,7 @@ class TestCrammingScheduler(MnemosyneTest):
                      grade=2, tag_names=["default"])[0]
         card_4.next_rep -= 1000
         self.database().update_card(card_4)
-        self.mnemosyne.start_review()
+        self.review_controller().reset()
 
         assert self.database().scheduler_data_count(Cramming.UNSEEN) == 4
         assert self.database().scheduler_data_count(Cramming.WRONG) == 0
@@ -92,7 +92,7 @@ class TestCrammingScheduler(MnemosyneTest):
                      grade=2, tag_names=["default"])[0]
         card_4.next_rep -= 1000
         self.database().update_card(card_4)
-        self.mnemosyne.start_review()
+        self.review_controller().reset()
 
         assert self.database().scheduler_data_count(Cramming.UNSEEN) == 4
         assert self.database().scheduler_data_count(Cramming.WRONG) == 0
@@ -149,7 +149,8 @@ class TestCrammingScheduler(MnemosyneTest):
         fact_data = {"f": "1", "b": "b"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
-
+        
+        self.review_controller().reset()
         self.review_controller().show_new_question()
         self.database().unload()
         self.review_controller().reset()

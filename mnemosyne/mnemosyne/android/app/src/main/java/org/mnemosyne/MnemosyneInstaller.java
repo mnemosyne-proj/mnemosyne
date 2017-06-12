@@ -189,7 +189,7 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
                 deleteRecursive(destDir);}
             Log.i("Mnemosyne", "Removed previous assets from " + destDir);
 
-            Log.d("Mnemosyne", "About to extract Mnemosyne");
+            Log.i("Mnemosyne", "About to extract Mnemosyne");
             try {
                 destDir.mkdirs();
                 InputStream dataSource = UIActivity.getAssets().open("python3.4.zip");

@@ -33,7 +33,7 @@ class StudyMode(Component):
             self.ReviewController(self.component_manager))
         self.review_controller().activate()
        
-    def activate(self):       
+    def activate(self):
         self.activate_components()
         self.review_controller().reset()
         
