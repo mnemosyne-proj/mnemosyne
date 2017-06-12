@@ -24,6 +24,7 @@ class MnemosyneTest():
         
         # Note: disabled this, as it does not seem to be very reliable.
         shutil.rmtree(data_dir, ignore_errors=True)
+        return
         
         if os.path.exists(data_dir):
             shutil.copy(os.path.join("mnemosyne", "tests", "files", "empty.db"), 

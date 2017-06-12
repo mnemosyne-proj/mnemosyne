@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-04-14 14:54+0200\n"
+"POT-Creation-Date: 2017-06-12 11:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,30 +93,30 @@ msgstr ""
 msgid "Production"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:212
+#: ../mnemosyne/libmnemosyne/__init__.py:214
 msgid "Command line argument is not a *.db file."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:224
+#: ../mnemosyne/libmnemosyne/__init__.py:226
 msgid "Another copy of Mnemosyne is still running."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:225
+#: ../mnemosyne/libmnemosyne/__init__.py:227
 msgid "Continuing is impossible and will lead to data loss!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:307
-#: ../mnemosyne/libmnemosyne/__init__.py:320
+#: ../mnemosyne/libmnemosyne/__init__.py:309
+#: ../mnemosyne/libmnemosyne/__init__.py:322
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:899
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1115
 msgid "Error when running plugin:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:335
+#: ../mnemosyne/libmnemosyne/__init__.py:337
 msgid "Previous drive letter no longer available."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:344
+#: ../mnemosyne/libmnemosyne/__init__.py:346
 msgid "If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."
 msgstr ""
 
@@ -917,64 +917,64 @@ msgstr ""
 msgid "Correct answer, but without any difficulties. The interval was probably too short."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:112
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:117
 msgid "You have no more work for today. Either add more cards or come back tomorrow."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:122
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:127
 msgid "Use 'Learn ahead of schedule' sparingly. For cramming before an exam, it's much better to use the cramming scheduler plugin"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:140
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:145
 msgid "You have finished your scheduled reviews. Now, learn as many failed or new cards as you feel like."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:161
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:166
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:33
 msgid "Returns in"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:162
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:167
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:34
 msgid " day(s)."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:166
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:171
 msgid "Next repetition: today."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:168
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:173
 msgid "Next repetition: tomorrow."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:170
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:175
 msgid " days."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:170
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:175
 msgid "Next repetition in "
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:216
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:221
 #: ../mnemosyne/pyqt_ui/preview_cards_dlg.py:63
 msgid "Question: "
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:248
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:251
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:254
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:256
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:259
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:262
 msgid "Show answer"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:258
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:266
 msgid "Learn ahead of schedule"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:277
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:285
 msgid "Pick days until next repetition:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:279
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:287
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:105
 msgid "Grade your answer:"
 msgstr ""
@@ -1800,7 +1800,7 @@ msgid "Sister cards are cards which are based on the same information, e.g. a fr
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:21
-msgid "The 'number of non-memorised cards to hold in your hand' setting determines how many cards you are trying to (re)learn at the same time. It does <b>not</b> tell you how many new cards you need to learn per day. You are the judge of that: you can learn more cards or less cards, depending on how you feel."
+msgid "The 'Work on at most X non-memorised cards at the same time' setting determines how many cards you are trying to (re)learn at the same time. It does <b>not</b> tell you how many new cards you need to learn per day. You are the judge of that: you can learn more cards or less cards, depending on how you feel."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:22

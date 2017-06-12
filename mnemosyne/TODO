@@ -1,30 +1,20 @@
-Alisha Prybyszczuk Mac crash
-Charlotte Henstra Mac crash
+-fix testsuite: active count==0?
 
--fix testsuite
+-after browse cards, learning mode resets
 
--after deactivating cards, learning mode is reset
--single pane layout: show answer hides tag
-
-
--example plugin for new learning modes
-
--status bar: scheduled: x / not memorised: x / goal new cards: x/y
--new cards goal can overshoot, e.g. 7/5
--save state upon exit, reset at midnight 
--config: goal_new_cards, new_cards_today
-
-
--Android GUI: menu, new status bar
 -for sync, check only database version, not program version
 -Android: no hibernate during archiving
+-Android: 2 out of 4 learning modes
 
--update dev instructions linux, windows
-
+-Alisha Prybyszczuk Mac crash
+-Charlotte Henstra Mac crash
 -OSX: make sure cheroot is updated, ask v.turuchev@gmail.com to check webreview
 https://groups.google.com/d/msgid/mnemosyne-proj-users/997a919f-a7a5-4af2-87c6-2aeea91a3f39%40googlegroups.com
 -Note: high DPI on Mac (http://doc.qt.io/qt-5/highdpi.html) is enabled by 
  settings in the Info.plist file.
+ 
+-example plugin for new learning modes
+-update dev instructions linux, windows
 
 Android:
 
@@ -32,6 +22,7 @@ Android:
 https://developers.google.com/analytics/devguides/collection/android/v4/exceptions
 http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-button
 -check 'redraw now'
+-Cramming widget for Android
 -decrease size of python library
 -precompile python files
 -pybridge: don't extract individual assets but extract zip file? Faster?
@@ -154,6 +145,12 @@ created with just the "»" symbol.
 -grep through TODO's in source code
 -flake8
  
+ 
+-status bar: scheduled: x / not memorised: x / goal new cards: x/y
+-new cards goal can overshoot, e.g. 7/5
+-save state upon exit, reset at midnight 
+-config: goal_new_cards, new_cards_today
+-Android 
 
 Other learning modes:
 -add 'difficult' tag, and add 'cram difficult?'

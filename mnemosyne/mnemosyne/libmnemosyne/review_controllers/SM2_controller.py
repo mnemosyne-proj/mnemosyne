@@ -240,7 +240,10 @@ _("You have finished your scheduled reviews. Now, learn as many failed or new ca
                 w.reveal_answer()
             else:
                 # Draw answer in question box.
-                w.set_question_label("Answer:")
+                question_label_text = "Answer: "
+                if self.config()["show_tags_during_review"]:
+                    question_label_text += self.card.tag_string()
+                w.set_question_label(question_label_text)
                 w.set_question(self.card.answer(self.render_chain))
                 w.reveal_question()
         # Update 'Show answer' button.

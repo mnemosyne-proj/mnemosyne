@@ -77,13 +77,13 @@ public class MnemosyneThread extends Thread {
         StarCoreFactoryPath.StarCoreOperationPath = basedir + "/files";
 
         String path = basedir + "/lib";
-        Log.d("Mnemosyne", "Listing files in path: " + path);
+        Log.i("Mnemosyne", "Listing files in path: " + path);
         File ff = new File(path);
         if (ff.exists()) {
             File files[] = ff.listFiles();
-            Log.d("Mnemosyne", "Number of files: " + files.length);
+            Log.i("Mnemosyne", "Number of files: " + files.length);
             for (int i = 0; i < files.length; i++) {
-                Log.d("Mnemosyne", "FileName:" + files[i].getName() + " " + files[i].lastModified());
+                Log.i("Mnemosyne", "FileName:" + files[i].getName() + " " + files[i].lastModified());
             }
         }
 
@@ -110,7 +110,7 @@ public class MnemosyneThread extends Thread {
         pythonPath._Call("insert", 0, basedir + "/files/lib-dynload");
         pythonPath._Call("insert", 0, basedir + "/lib");
 
-        Log.d("Mnemosyne", "About to start Mnemosyne");
+        Log.i("Mnemosyne", "About to start Mnemosyne");
 
         // Start Mnemosyne.
         SrvGroup._LoadRawModule("python", "", basedir +
@@ -175,7 +175,7 @@ public class MnemosyneThread extends Thread {
             }
         }
 
-        Log.d("Mnemosyne", "datadir " + dataDir);
+        Log.i("Mnemosyne", "datadir " + dataDir);
 
         String filename = "default.db";
         python._Call("start_mnemosyne", dataDir, filename, this);
@@ -195,7 +195,7 @@ public class MnemosyneThread extends Thread {
             }
         }
 
-        Log.d("Mnemosyne", "started Mnemosyne");
+        Log.i("Mnemosyne", "started Mnemosyne");
 
         UIHandler.post(new Runnable() {
             public void run() {
@@ -240,7 +240,7 @@ public class MnemosyneThread extends Thread {
 
     @Override
     public void run() {
-        Log.d("Mnemosyne", "About to run Mnemosyne thread");
+        Log.i("Mnemosyne", "About to run Mnemosyne thread");
         startMnemosyne();
         Looper.prepare();
         mnemosyneHandler = new Handler();
