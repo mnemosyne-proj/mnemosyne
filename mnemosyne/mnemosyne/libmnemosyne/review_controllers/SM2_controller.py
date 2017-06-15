@@ -68,7 +68,7 @@ class SM2Controller(ReviewController):
         except Exception: # No previous card, or it was deleted.
             self.previous_card = None
         sch = self.scheduler()
-        sch.reset()
+        sch.reset(self.new_only)
         sch.rebuild_queue()
         self.reload_counters()
         self.update_status_bar_counters()

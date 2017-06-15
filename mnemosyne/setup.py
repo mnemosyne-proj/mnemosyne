@@ -111,7 +111,7 @@ py2app_options = {
     mnemosyne.libmnemosyne.plugins, mnemosyne.libmnemosyne.renderers, \
     mnemosyne.libmnemosyne.render_chains, mnemosyne.libmnemosyne.schedulers, \
     mnemosyne.libmnemosyne.controllers, mnemosyne.libmnemosyne.ui_components, \
-    mnemosyne.libmnemosyne.statistics_pages, \
+    mnemosyne.libmnemosyne.statistics_pages, mnemosyne.libmnemosyne.study_modes, \
     mnemosyne.libmnemosyne.review_controllers, \
     mnemosyne.libmnemosyne.criteria, mnemosyne.libmnemosyne.upgrades, \
     mnemosyne.script, mnemosyne.web_server, openSM2sync, \
@@ -147,6 +147,7 @@ packages = ["mnemosyne",
             "mnemosyne.libmnemosyne.schedulers",
             "mnemosyne.libmnemosyne.controllers",
             "mnemosyne.libmnemosyne.ui_components",
+            "mnemosyne.libmnemosyne.study_modes",
             "mnemosyne.libmnemosyne.statistics_pages",
             "mnemosyne.libmnemosyne.review_controllers",
             "mnemosyne.libmnemosyne.criteria",

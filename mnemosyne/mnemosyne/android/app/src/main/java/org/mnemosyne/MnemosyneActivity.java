@@ -315,10 +315,42 @@ public class MnemosyneActivity extends AppCompatActivity {
                 });
                 return true;
 
+            case R.id.menu_study_mode:
+                mnemosyneThread.getHandler().post(new Runnable() {
+                    public void run() {
+                        final String[] items = {
+                                "Scheduled -> forgotten -> new",
+                                "Study new unlearned cards only"};
+                        final String[] ids = {
+                                "ScheduledForgottenNew",
+                                "NewOnly"};
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MnemosyneActivity.this);
+                        builder.setTitle("Select study mode");
+                        builder.setItems(items, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mnemosyneThread.controller._Call("set_study_mode",
+                                        mnemosyneThread.controller._Call("study_mode_with_id", ids[which]));
+                            }
+                        });
+                        builder.setCancelable(false);
+                        builder.create();
+                        builder.show();
+                    }
+                });
+                return true;
+
             case R.id.menu_archive_logs:
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
-                        mnemosyneThread.controller._Call("do_db_maintenance");
+                        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "My Tag");
+                        wl.acquire();
+                        try {
+                            mnemosyneThread.controller._Call("do_db_maintenance");
+                        } finally {
+                            wl.release();
+                        }
                     }
                 });
                 return true;

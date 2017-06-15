@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-06-12 11:05+0200\n"
+"POT-Creation-Date: 2017-06-15 14:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -917,64 +917,64 @@ msgstr ""
 msgid "Correct answer, but without any difficulties. The interval was probably too short."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:117
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:112
 msgid "You have no more work for today. Either add more cards or come back tomorrow."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:127
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:122
 msgid "Use 'Learn ahead of schedule' sparingly. For cramming before an exam, it's much better to use the cramming scheduler plugin"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:145
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:140
 msgid "You have finished your scheduled reviews. Now, learn as many failed or new cards as you feel like."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:166
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:161
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:33
 msgid "Returns in"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:167
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:162
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:34
 msgid " day(s)."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:171
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:166
 msgid "Next repetition: today."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:173
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:168
 msgid "Next repetition: tomorrow."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:175
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:170
 msgid " days."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:175
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:170
 msgid "Next repetition in "
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:221
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:216
 #: ../mnemosyne/pyqt_ui/preview_cards_dlg.py:63
 msgid "Question: "
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:256
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:259
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:262
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:251
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:254
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:257
 msgid "Show answer"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:266
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:261
 msgid "Learn ahead of schedule"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:285
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:280
 msgid "Pick days until next repetition:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:287
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:282
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:105
 msgid "Grade your answer:"
 msgstr ""
