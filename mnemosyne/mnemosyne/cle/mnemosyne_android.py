@@ -111,7 +111,6 @@ mnemosyne.gui_for_component["CramRecent"] = [\
     ("mnemosyne.cle.review_widget", 
      "ReviewWdgt")]    
 
-
 def start_mnemosyne(data_dir, filename, wrapper):
     mnemosyne.android = wrapper
     mnemosyne.initialise(data_dir=data_dir, filename=filename)
