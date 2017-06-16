@@ -76,16 +76,16 @@ public class MnemosyneThread extends Thread {
         StarCoreFactoryPath.StarCoreShareLibraryPath = basedir + "/lib";
         StarCoreFactoryPath.StarCoreOperationPath = basedir + "/files";
 
-        String path = basedir + "/lib";
-        Log.i("Mnemosyne", "Listing files in path: " + path);
-        File ff = new File(path);
-        if (ff.exists()) {
-            File files[] = ff.listFiles();
-            Log.i("Mnemosyne", "Number of files: " + files.length);
-            for (int i = 0; i < files.length; i++) {
-                Log.i("Mnemosyne", "FileName:" + files[i].getName() + " " + files[i].lastModified());
-            }
-        }
+        //String path = basedir + "/lib";
+        //Log.i("Mnemosyne", "Listing files in path: " + path);
+        //File ff = new File(path);
+        //if (ff.exists()) {
+        //    File files[] = ff.listFiles();
+        //    Log.i("Mnemosyne", "Number of files: " + files.length);
+        //    for (int i = 0; i < files.length; i++) {
+        //        Log.i("Mnemosyne", "FileName:" + files[i].getName() + " " + files[i].lastModified());
+        //    }
+        //}
 
         Log.d("Mnemosyne", "About to initialise starcore");
 

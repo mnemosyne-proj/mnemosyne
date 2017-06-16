@@ -35,6 +35,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.srplab.www.starcore.StarObjectClass;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -331,6 +333,7 @@ public class MnemosyneActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 mnemosyneThread.controller._Call("set_study_mode",
                                         mnemosyneThread.controller._Call("study_mode_with_id", ids[which]));
+                                mnemosyneThread.reviewController = (StarObjectClass) mnemosyneThread.mnemosyne._Call("review_controller");
                             }
                         });
                         builder.setCancelable(false);
