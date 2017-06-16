@@ -141,8 +141,25 @@ created with just the "»" symbol.
 
 -grep through TODO's in source code
 -flake8
- 
- 
+
+
+
+Other features:
+
+-first doing a count and then the actual a query is not a good idea:? 
+time 'number_of_log_entries_to_sync_for' vs 'number_of_log_entries'
+
+
+-don't generate card edited logs when importing a card and no change occurs 
+ in a card
+  #if (eval(log_entry["extra"]) == orig_card.extra_data) && \
+  # tags, unless extra tags on import
+  # card type
+  # factview		   
+  # Important: fact, 
+media, tag (check all 'already_imported' statements)
+
+
 -status bar: scheduled: x / not memorised: x / goal new cards: x/y
 -new cards goal can overshoot, e.g. 7/5
 -save state upon exit, reset at midnight 
@@ -165,20 +182,6 @@ always relevant)
  
 
 
- 
-Other features:
-
--first doing a count and then the actual a query is not a good idea:? 
-time 'number_of_log_entries_to_sync_for' vs 'number_of_log_entries'
-
--don't generate card edited logs when importing a card and no change occurs 
- in a card
-  #if (eval(log_entry["extra"]) == orig_card.extra_data) && \
-  # tags, unless extra tags on import
-  # card type
-  # factview		   
-  # Important: fact, 
-media, tag (check all 'already_imported' statements)
 
 -drawing canvas Gnome
 

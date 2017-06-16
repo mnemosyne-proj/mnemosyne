@@ -50,7 +50,7 @@ class SM2Controller(ReviewController):
         self.rep_count = 0
         self.new_only = new_only
         self.scheduler().reset(new_only=new_only)
-        self.show_new_question()
+        self.show_new_question()     
 
     def reset_but_try_to_keep_current_card(self):
 
@@ -198,7 +198,7 @@ _("You have finished your scheduled reviews. Now, learn as many failed or new ca
         # Don't wait until disk activity dies down.
         self.review_widget().redraw_now()
         
-    def update_qa_area(self, redraw_all=False):
+    def update_qa_area(self, redraw_all=False):      
         if redraw_all and self.card:
             self.card = \
                 self.database().card(self.card._id, is_id_internal=True)
@@ -224,7 +224,7 @@ _("You have finished your scheduled reviews. Now, learn as many failed or new ca
             # Giving the widget info about the answer even before it is shown
             # allows it to optimise its layout.
             w.set_question(self.card.question(self.render_chain))
-            if not self.config()["QA_split"] == "single_window" and \
+            if self.config()["QA_split"] == "adaptive" and \
                not self.card.fact_view.a_on_top_of_q:
                 w.set_answer(self.card.answer(\
                     self.render_chain, no_side_effects=True))
