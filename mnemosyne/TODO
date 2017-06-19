@@ -13,6 +13,8 @@
 -example plugin for new learning modes
 -update dev instructions linux, windows
 
+-make sure initial settings are sync using binary sync.
+
 Android:
 
 -integrated error reporting:
