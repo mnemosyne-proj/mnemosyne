@@ -345,10 +345,11 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
             self.scroll_up()
         elif event.key() == QtCore.Qt.Key_R and \
             event.modifiers() == QtCore.Qt.ControlModifier:
-            self.review_controller().update_dialog(redraw_all=True) # Replay media.
-        elif event.key() == QtCore.Qt.Key_C and \
-            event.modifiers() == QtCore.Qt.ControlModifier:
-            self.copy()
+            self.review_controller().update_dialog(redraw_all=True) #Replay media.
+        # QtWebengine issue.   
+        #elif event.key() == QtCore.Qt.Key_C and \
+        #    event.modifiers() == QtCore.Qt.ControlModifier:
+        #    self.copy()
         # Work around Qt issue.
         elif event.key() in [QtCore.Qt.Key_Backspace, QtCore.Qt.Key_Delete]:
             self.controller().delete_current_card()
