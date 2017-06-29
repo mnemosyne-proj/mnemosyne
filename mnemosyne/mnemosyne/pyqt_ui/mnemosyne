@@ -98,18 +98,17 @@ mnemosyne = Mnemosyne(upload_science_logs=None, interested_in_old_reps=True)
 # Run as server.
 if options.web_server == True or options.sync_server == True:
     # Initialise Mnemosyne.
+    
     mnemosyne.components.insert(0,
         ("mnemosyne.libmnemosyne.translators.no_translator", 
          "NoTranslator"))
     mnemosyne.components.append(\
         ("mnemosyne.libmnemosyne.ui_components.main_widget", 
-         "MainWidget"))   
-    mnemosyne.components.append(\
-        ("mnemosyne.libmnemosyne.ui_components.headless_review_widget", 
-         "HeadlessReviewWidget"))      
+         "MainWidget"))     
     mnemosyne.initialise(data_dir=data_dir, filename=filename,
         automatic_upgrades=options.automatic_upgrades,
         debug_file=options.debug_file, server_only=True)
+    mnemosyne.config().server_only = True
     # Sync server.
     if options.sync_server == True:
         from mnemosyne.libmnemosyne.sync_server import SyncServerThread

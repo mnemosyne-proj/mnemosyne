@@ -10,7 +10,9 @@ Additionally, if you see a black screen, start Mnemosyne with the
 --qt-opengl=desktop command line argument.)
 
 
-Mnemosyne 2.5
+- Fix crash in headless server.
+
+Mnemosyne 2.5 : 2017-06-26
 
 -New feature: Study Modes, allowing you to e.g. only study unlearned
  cards. The Cramming scheduler is also migrated to this functionality.

@@ -76,16 +76,29 @@ public class MnemosyneThread extends Thread {
         StarCoreFactoryPath.StarCoreShareLibraryPath = basedir + "/lib";
         StarCoreFactoryPath.StarCoreOperationPath = basedir + "/files";
 
-        //String path = basedir + "/lib";
-        //Log.i("Mnemosyne", "Listing files in path: " + path);
-        //File ff = new File(path);
-        //if (ff.exists()) {
-        //    File files[] = ff.listFiles();
-        //    Log.i("Mnemosyne", "Number of files: " + files.length);
-        //    for (int i = 0; i < files.length; i++) {
-        //        Log.i("Mnemosyne", "FileName:" + files[i].getName() + " " + files[i].lastModified());
-        //    }
-        //}
+        String path = basedir + "/files/lib-dynload";
+        Log.i("Mnemosyne", "Listing files in path: " + path);
+        File ff = new File(path);
+        if (ff.exists()) {
+            File files[] = ff.listFiles();
+            Log.i("Mnemosyne", "Number of files: " + files.length);
+            for (int i = 0; i < files.length; i++) {
+                Log.i("Mnemosyne", "FileName:" + files[i].getName() + " " + files[i].lastModified());
+            }
+        }
+
+        try{
+            //--load python34 core library first;
+            System.load(UIActivity.getApplicationInfo().nativeLibraryDir+"/libpython3.4m.so");
+            System.load(UIActivity.getApplicationInfo().nativeLibraryDir+"/libstar_python34.so");
+            System.load(basedir+"/files/lib-dynload/time.cpython-34m.so");
+            System.out.println("Load trial success.");
+        }
+        catch(UnsatisfiedLinkError ex)
+        {
+            System.out.println(ex.toString());
+        }
+
 
         Log.d("Mnemosyne", "About to initialise starcore");
 

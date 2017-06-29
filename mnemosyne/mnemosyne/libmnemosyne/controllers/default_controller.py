@@ -48,21 +48,25 @@ class DefaultController(Controller):
         """
 
         if time.time() > self.next_rollover:
-            self.flush_sync_server()
-            if not self.database().is_loaded() or \
-                not self.database().is_accessible():
-                # Make sure we don't continue if e.g. the GUI or another thread
-                # holds the database
-                return
-            self.database().backup()
-            self.log().saved_database()
-            self.log().loaded_database()
-            self.log().future_schedule()
-            self.log().dump_to_science_log()
-            self.log().deactivate()
-            self.log().activate()
-            self.config().save()
-            self.reset_study_mode()
+            if self.config().server_only:
+                self.database().backup()
+                self.log().dump_to_science_log()
+            else:
+                self.flush_sync_server()
+                if not self.database().is_loaded() or \
+                    not self.database().is_accessible():
+                    # Make sure we don't continue if e.g. the GUI or another 
+                    # thread holds the database.
+                    return
+                self.database().backup()
+                self.log().saved_database()
+                self.log().loaded_database()
+                self.log().future_schedule()
+                self.log().dump_to_science_log()
+                self.log().deactivate()
+                self.log().activate()
+                self.config().save()
+                self.reset_study_mode()
             self.next_rollover = self.database().start_of_day_n_days_ago(n=-1)
         if db_maintenance and \
            (time.time() > self.config()["last_db_maintenance"] + 90 * DAY):
