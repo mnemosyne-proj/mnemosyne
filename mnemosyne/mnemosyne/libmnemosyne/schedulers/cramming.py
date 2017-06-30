@@ -47,7 +47,7 @@ class Cramming(SM2Mnemosyne):
             sort_key = "next_rep desc"
         elif self.config()["cramming_order"] == MOST_LAPSES_FIRST:
             sort_key = "lapses desc"
-        # Stage 1 : do all the unseen cards.
+        # Stage 1: do all the unseen cards.
         if self.stage == 1:
             for _card_id, _fact_id in db.cards_with_scheduler_data(self.UNSEEN,
                     sort_key=sort_key, limit=25, max_ret_reps=max_ret_reps):

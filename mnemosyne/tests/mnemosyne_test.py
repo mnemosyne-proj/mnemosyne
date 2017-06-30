@@ -61,6 +61,8 @@ class MnemosyneTest():
             ("mnemosyne.libmnemosyne.ui_components.main_widget", "MainWidget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
             [("mnemosyne_test", "TestReviewWidget")]
+        self.mnemosyne.gui_for_component["CramAll"] = \
+            [("mnemosyne_test", "TestReviewWidget")]        
         self.mnemosyne.initialise(os.path.abspath("dot_test"),
                                   automatic_upgrades=False)
         self.mnemosyne.start_review()

@@ -32,7 +32,6 @@ class TestLogging(MnemosyneTest):
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
             [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
-        self.mnemosyne.start_review()
 
     def test_logging(self):
         card_type = self.card_type_with_id("1")
@@ -373,12 +372,12 @@ class TestLogging(MnemosyneTest):
         # Import old history.
         filename = os.path.join(os.getcwd(), "tests", "files", "basedir_bz2",
                                 "default.mem")
-        self.mem_importer().do_import(filename)        
+        self.mem_importer().do_import(filename)  
         assert self.database().con.execute("select count() from log").fetchone()[0] == 23
         assert not os.path.exists(os.path.join("dot_test", "archive"))
         # Archive.
         self.database().archive_old_logs()
-        #assert self.database().con.execute("select count() from log").fetchone()[0] == 12
+        assert self.database().con.execute("select count() from log").fetchone()[0] == 12
         archive_name = os.listdir(os.path.join(os.getcwd(), "dot_test", "archive"))[0]
         archive_path = os.path.join(os.getcwd(), "dot_test", "archive", archive_name)
         import sqlite3

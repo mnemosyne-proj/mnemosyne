@@ -153,5 +153,5 @@ class TestCrammingScheduler(MnemosyneTest):
         self.review_controller().reset()
         self.review_controller().show_new_question()
         self.database().unload()
-        self.review_controller().reset()
+        self.review_controller().reset()      
         self.restart()
