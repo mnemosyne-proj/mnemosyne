@@ -16,6 +16,7 @@ First install the following dependencies:
  pip3 install cheroot)
 -Webob 1.4 or later (http://webob.org)
 -PIL (https://python-pillow.org, pip3 install pillow)
+-mplayer (http://www.mplayerhq.hu/)
 
 To actually install mnemosyne:
 -Extraxt the .tar.gz file and change to its root directory (i.e.

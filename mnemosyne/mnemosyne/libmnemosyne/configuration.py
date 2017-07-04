@@ -84,6 +84,7 @@ class Configuration(Component, dict):
         self.data_dir = None
         self.config_dir = None
         self.keys_to_sync = []
+        self.server_only = False
         self.lock = threading.Lock()
         self.determine_dirs()
         

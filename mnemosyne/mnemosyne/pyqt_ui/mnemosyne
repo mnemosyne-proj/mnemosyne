@@ -98,7 +98,6 @@ mnemosyne = Mnemosyne(upload_science_logs=None, interested_in_old_reps=True)
 # Run as server.
 if options.web_server == True or options.sync_server == True:
     # Initialise Mnemosyne.
-    
     mnemosyne.components.insert(0,
         ("mnemosyne.libmnemosyne.translators.no_translator", 
          "NoTranslator"))

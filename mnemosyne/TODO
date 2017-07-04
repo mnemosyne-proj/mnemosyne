@@ -162,6 +162,9 @@ time 'number_of_log_entries_to_sync_for' vs 'number_of_log_entries'
 media, tag (check all 'already_imported' statements)
 
 
+-if pyinstaller supports Python 3.6, upgrade to 3.6
+(search Python35 in files, makefile, Mnemosyne.pyd)
+
 -status bar: scheduled: x / not memorised: x / goal new cards: x/y
 -new cards goal can overshoot, e.g. 7/5
 -save state upon exit, reset at midnight 
