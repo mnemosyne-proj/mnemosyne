@@ -240,7 +240,7 @@ class TagsTreeWdgt(Component, QtWidgets.QWidget):
             # inactive parent tag coming later in the list will deactivate
             # active child tags coming earlier in the list.
             for node_item in self.node_items:
-                node_item.setCheckState(0, QtCore.Qt.Unchecked)     
+                node_item.setCheckState(0, QtCore.Qt.Unchecked)
             for i in range(len(self.node_items)):
                 node_item = self.node_items[i]
                 tag = self.tag_for_node_item[i]
@@ -265,18 +265,18 @@ class TagsTreeWdgt(Component, QtWidgets.QWidget):
         criterion._tag_ids_forbidden = set()
         return criterion
 
-    def checked_to_forbidden_tags_in_criterion(self, criterion):     
+    def checked_to_forbidden_tags_in_criterion(self, criterion):
         for i in range(len(self.node_items)):
-            tag = self.tag_for_node_item[i]        
+            tag = self.tag_for_node_item[i]
             if self.node_items[i].checkState(0) == QtCore.Qt.Checked:
                 criterion._tag_ids_forbidden.add(tag._id)
         criterion._tag_ids_active = \
             set([tag._id for tag in self.tag_for_node_item])
         return criterion
-    
-    def unchecked_to_forbidden_tags_in_criterion(self, criterion): 
+
+    def unchecked_to_forbidden_tags_in_criterion(self, criterion):
         for i in range(len(self.node_items)):
-            tag = self.tag_for_node_item[i]        
+            tag = self.tag_for_node_item[i]
             if self.node_items[i].checkState(0) == QtCore.Qt.Unchecked:
                 criterion._tag_ids_forbidden.add(tag._id)
         return criterion

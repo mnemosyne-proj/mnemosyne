@@ -1,4 +1,4 @@
-(Note for Windows 7 users: if you run into problems related to 
+(Note for Windows 7 users: if you run into problems related to
 missing api-ms-win-crt-runtime-l1-1-0-dll make sure your machine
 has the latest Windows patches and/or download this:
 
@@ -10,24 +10,31 @@ Additionally, if you see a black screen, start Mnemosyne with the
 --qt-opengl=desktop command line argument.)
 
 
+Mnemosyne 2.x
+
+- Upgrade to PyQt 5.9.1.
+- In case you get crashes in the browser when trying to display only untagged
+  cards, you can now run 'File - Compact - Defragment database' to fix this
+  (reported by abacus).
 - Fix crash in headless server.
+
 
 Mnemosyne 2.5 : 2017-06-26
 
 -New feature: Study Modes, allowing you to e.g. only study unlearned
  cards. The Cramming scheduler is also migrated to this functionality.
--Added option to "Configure Mnemosyne" to affect how cards are displayed, 
+-Added option to "Configure Mnemosyne" to affect how cards are displayed,
  in two boxes with fixed size, two boxes with adaptive size, or a single
  box top aligned.
 -Tweaks to tag combobox (Emilian Mihalache).
 -Updated to PyQt 5.8.2.
 -Scaling for high-definition displays now enabled by default.
  (start with --disable-high-dpi-scaling if you prefer the previous behaviour).
--Fix crash when deleting unused media files (reported by gorgar). 
+-Fix crash when deleting unused media files (reported by gorgar).
 -Small performance optimisations in the database.
 -Fix crash in configuration widget under Linux with some fonts (e.g. Google
  Noto fonts) (fix by m4984).
--Fix crash when selecting negative tags (reported by 2a216566f1). 
+-Fix crash when selecting negative tags (reported by 2a216566f1).
 -Fix keyboard shortcuts not working sometimes (reported by Angelika Blaschka).
 -Improved compatibility with different Qt versions under Linux
  (reported by Huang Shuhan).
@@ -37,32 +44,32 @@ Mnemosyne 2.5 : 2017-06-26
  (Andy Rayner).
 -Try and work around cases where the progress bar after sync wouldn't
  close under Linux (reported by Kienan).
--Fix crash when running with the --debug option (reported by themusicgod1). 
- 
+-Fix crash when running with the --debug option (reported by themusicgod1).
+
 
 Mnemosyne 2.4.1 : 2017-01-30
 
 -Updated to PyQt 5.7.1.
--Fix broken cramming plugin (reported by stevengeorg). 
--Fix encoding problems with import and export (reported by register2, 
+-Fix broken cramming plugin (reported by stevengeorg).
+-Fix encoding problems with import and export (reported by register2,
  MarcoP, abacus).
--Improve subdirectory handling (reported by abacus, duncantaylor). 
+-Improve subdirectory handling (reported by abacus, duncantaylor).
 -Make configuration storing more thread-safe.
--Warn if an old plugin needs to be updated. 
+-Warn if an old plugin needs to be updated.
 -Location and size of 'Add cards' window is saved again (reported by
  David Schuler).
 -Fix removing tags through card browser (reported by bvauquelin).
 -Fix loss of keyboard focus when switching back to the main window
  (reported by Jan Egil Hagen and Dan Schmidt).
--Fixed crash in card browser when working with forbidden tags 
- (reported by Benjamin Brueck). 
+-Fixed crash in card browser when working with forbidden tags
+ (reported by Benjamin Brueck).
 -Fix autoscaling of Q and A sometimes not working under Linux.
--Fix error related missing idna encoding when starting server 
+-Fix error related missing idna encoding when starting server
  (reported by Andrea Giordano).
--Fix error related to upgrading from very old databases (reported by 
+-Fix error related to upgrading from very old databases (reported by
  David Schuler)
 -Fix for latest version of cherrypy unbundling its WSGIserver
- (reported by Aramís Concepción Durán). 
+ (reported by Aramís Concepción Durán).
 -New command line option "--qt-opengl" which can be set to either
  'desktop', 'angle' or 'software', which you can play around with if
  you have display issues.
@@ -74,7 +81,7 @@ Mnemosyne 2.4 : 2016-12-05
  depends on libraries which are gradually becoming unsupported.
 -The move to PyQt5 enabled to show progress bars with percentages for
  certain long operations like initial sync.
--Improved startup speed. 
+-Improved startup speed.
 -New command line option "--high-dpi-scaling" to enable scaling for displays
  with high DPI values. Not enabled by default because it can cause some
  issues with multiple connected displays.
@@ -85,9 +92,9 @@ Mnemosyne 2.4 : 2016-12-05
 Android 20160502:
 
 -Upgraded backend to Mnemosyne 2.3.6, meaning that logs older than 1 year
- are now automatically archived in a separate file, which is not backed 
+ are now automatically archived in a separate file, which is not backed
  up all the time, speeding up the sync process and taking less space.
--Switched to Material design, also making it easier to access the menu on 
+-Switched to Material design, also making it easier to access the menu on
  some devices which had problems with this before.
 -Implemented full screen immersive mode for Android KitKat and higher.
 -Buttons are now in the middle of the screen to better facilitate
@@ -98,23 +105,23 @@ Mnemosyne 2.3.6 : 2016-05-02
 
 -Logs older than 1 year are now automatically archived in a separate file,
  which is not backed up all the time, speeding up e.g. the sync process.
--The card browser now supports more html formatting, e.g. ruby tags. 
--URLs in cards in the review widget now open in an external browser, rather 
+-The card browser now supports more html formatting, e.g. ruby tags.
+-URLs in cards in the review widget now open in an external browser, rather
  than the internal Qt webview which does not have back buttons e.g..
 -Only changing a card type in the 'Edit current card' dialog now works again
  (reported by Henrik).
 -Failed cards no longer are listed as overdue in the card browser (requested
  by Samuel Innes)
--Fixed bugs related to Unicode filenames under Android (reported by Jan 
- Egil Hagen). 
--When adding a tag with the same name both on client and server before 
+-Fixed bugs related to Unicode filenames under Android (reported by Jan
+ Egil Hagen).
+-When adding a tag with the same name both on client and server before
  syncing, rename one of these tags. Users still need to unify and activate
- the tags though (reported by Jan Egil Hagen). 
+ the tags though (reported by Jan Egil Hagen).
 -Added a --version command line argument to display the version (requested by
  Matthew Exon).
 -Also accept files with *.tsv extention when importing tab-separated data
- (requested by Ojas A). 
--Don't leave the 'Client Logging in...'' dialog on the sync server open in 
+ (requested by Ojas A).
+-Don't leave the 'Client Logging in...'' dialog on the sync server open in
  case the client provides a wrong password (reported by Eric).
 -Fixed formatting when using 'db_media:///' in cards with javascript (
  reported by Pete Kovalenko).
@@ -152,23 +159,23 @@ Mnemosyne 2.3.4 : 2015-10-05
  the changes (reported by vmixeen).
 -Fixed issue where creating clones of card types would sometimes clone the wrong
  card type.
--Prefill tag behaviour plugin: don't update the last used tags when editing a 
+-Prefill tag behaviour plugin: don't update the last used tags when editing a
  card, only when adding new cards.
--Better runtime documentation for the '(De)activate cards' dialog (requested by 
+-Better runtime documentation for the '(De)activate cards' dialog (requested by
  Matthias Ernst).
 -Allow Cntl-C to copy text from question if answer is showing (reported by
- Mathias Ernst). 
+ Mathias Ernst).
 -Fix Windows-specific bug, where Mnemosyne would not notice that you were trying
  to open a backup and would not take the appropriate actions.
--When running the sync server on e.g. a headless machine which does not have 
+-When running the sync server on e.g. a headless machine which does not have
  latex installed, don't waste time looking for updated latex cards.
 -Fix regression where a currently active set would not show up as highlighed
- in the 'saved sets' panel when starting '(de)activate cards' (reported by 
+ in the 'saved sets' panel when starting '(de)activate cards' (reported by
  Matthias Ernst).
 -Improve run-time help with respect to editing a saved set (requested by
- Mathias Ernst). 
+ Mathias Ernst).
 -To work around bugs in Qt under Linux, media are also played using
- mplayer, just like under Windows (reported by Francesco Ariis). 
+ mplayer, just like under Windows (reported by Francesco Ariis).
 -Fix problems with not detecting autorepeat when pressing grade buttons
  (patch by Kilian Evang).
 -Fix RTL issues (reported by Mateusz Konieczny).
@@ -180,33 +187,33 @@ Mnemosyne 2.3.3 : 2015-04-13
 (Note that for Windows users we recommend uninstalling the previous version
 before installing the new one.)
 
--Fix regression where it was not possible to grade map cards (reported by 
+-Fix regression where it was not possible to grade map cards (reported by
  Mateusz Konieczny).
--Also allow mass conversion of cards to Cloze and Sentence card types 
- (requested by Chris Nadt). 
--Change ',' to ' - ' when importing legacy tag names (reported by Matthias 
+-Also allow mass conversion of cards to Cloze and Sentence card types
+ (requested by Chris Nadt).
+-Change ',' to ' - ' when importing legacy tag names (reported by Matthias
  Ernst).
--Fix some keyboard shortcuts while displaying map cards (reported by 
+-Fix some keyboard shortcuts while displaying map cards (reported by
  Mateusz Konieczny).
 
 
 Mnemosyne 2.3.2 : 2015-02-25
 
 -Option to merge databases (under File - Import - Mnemosyne 2.x *.db files).
--Make sure latex files are always pregenerated before sync (reported by Eric 
+-Make sure latex files are always pregenerated before sync (reported by Eric
  Freeman).
 -Fix error syncing filenames containing double dots (reported by Eric Freeman).
--Strip control characters from strings when exporting and syncing (reported 
+-Strip control characters from strings when exporting and syncing (reported
  by Carl Kennedy).
 -Smart sorting of card types in dialog boxes (patch by Emilian Mihalache).
 -Fix when importing 1.x databases containing a single quote in a media filename
  (reported by Jan Egil Hagen).
--Don't replace newline with <br> inside textarea tags (patch by Pete 
+-Don't replace newline with <br> inside textarea tags (patch by Pete
  Kovalenko).
--Fix crash when running in headless mode after having run with the GUI 
+-Fix crash when running in headless mode after having run with the GUI
  (reported by Chris Nadt).
 -Fix handling of media filenames containing '#' (reported by Philip Gubser).
--Don't crash the SQL engine if you have more than 1000 tags (reported by Mats 
+-Don't crash the SQL engine if you have more than 1000 tags (reported by Mats
  Hansson).
 -Fix regression in merging and editing duplicate cards (reported by Marcin M.).
 -Update the window title on a sync server if a different database was loaded.
@@ -216,7 +223,7 @@ Mnemosyne 2.3.2 : 2015-02-25
 -Make sure we can run on systems with PyQt5 installed (patch by Nuno Araujo).
 -The "db_media:" tag now expands to an absolute path on all systems (reported
  by Gnome).
--The local timezone is now stored in the science logs. 
+-The local timezone is now stored in the science logs.
 
 
 Mnemosyne 2.3.1 : 2014-06-18
@@ -229,7 +236,7 @@ Mnemosyne 2.3.1 : 2014-06-18
  when creating new clozes when editing a card (reported by Scott Youngman).
 -Fixed some issues with tabbing to buttons in a dialog not selecting the right
  button (reported by Scott Youngman).
- 
+
 Mnemosyne 2.3 : 2014-04-23
 
 
@@ -241,7 +248,7 @@ the client and the server at the same time.
  This client has full support for the syncing protocol.
 -The functionality of mnemosyne-webserver has now been merged into the main
  program and can be activated through 'Configure Mnemosyne - servers'.
--Time to create backups has decreased, in some situations even by a factor 
+-Time to create backups has decreased, in some situations even by a factor
  of 2 or more, speeding up syncing and program exit.
 -Sped up all editing operations in the card browser.
 -The name of the currently active saved set of cards is now listed in title
@@ -256,14 +263,14 @@ the client and the server at the same time.
  in its previous location.
 -Keep the sort order in the card browser when editing cards (reported by
  Gnome and Tristan).
--Added command line options --sync-server and --web-server which starts the 
- sync and the web server in headless mode (i.e. without a GUI) (useful to run 
+-Added command line options --sync-server and --web-server which starts the
+ sync and the web server in headless mode (i.e. without a GUI) (useful to run
  e.g. on a NAS server).
 -Fix more errors coming from loading config files (thanks to Alex Fevery for
  reporting this).
 -Added an extra popup to guide new people better through the learning process
  (feedback from Bjorn Maes).
--Fix crash when exporting to cards format when Latex was not installed 
+-Fix crash when exporting to cards format when Latex was not installed
  (reported by Gwern).
 -Make card conversion more robust for badly formatted card (reported by Gnome).
 -When editing a card through the browser, make sure the correct set of tags is
@@ -273,7 +280,7 @@ the client and the server at the same time.
 -Instruct people on the correct way to deal with '*.cards' files if they try
  to open it as a separate database (Kensor0).
 -Make it clearer what 'Find duplicates' does.
--Various cosmetic fixes when importing *.cards files (reported by Ansgar 
+-Various cosmetic fixes when importing *.cards files (reported by Ansgar
  Bohmann).
 -Fix tag tree sometimes not updating correctly if the user adds a new tag.
 -People writing e.g. Javascript card and needing access to the full path of
@@ -287,10 +294,10 @@ the client and the server at the same time.
 -Make Mnemosyne 1.x import more robust (reported by Jack Thro).
 -Don't allow saving the database to a network drive under Windows to prevent
  corruption (reported by Brendan Sinclair).
--Fix sync error that could occur when adding and immediately deleting multiple 
+-Fix sync error that could occur when adding and immediately deleting multiple
  sister cards from the card browser.
 -Fix latex / cloze interaction corner case (reported by Daniele Parisi).
--Fix corner case of overzealous introduction of media dir in expansion 
+-Fix corner case of overzealous introduction of media dir in expansion
 (reported by Toni Alsford).
 -Make sure latex images are always in sync when updating text.
 -If adding an extra tag when importing a 'cards' file, don't keep the tag

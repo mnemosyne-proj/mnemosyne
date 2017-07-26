@@ -1,19 +1,7 @@
 -fix testsuite
--update translations
+-bug with clicking untagged cards in browser (abacus):
+ delete from tag_for_card where _card_id = NULL
 
--Alisha Prybyszczuk Mac crash
- https://groups.google.com/forum/#!topic/mnemosyne-proj-users/DcluDuPUrGA
--Charlotte Henstra Mac crash
- https://groups.google.com/forum/#!topic/mnemosyne-proj-users/niuaqHB8I0Y
--OSX: make sure cheroot is updated, ask v.turuchev@gmail.com to check webreview
- https://groups.google.com/d/msgid/mnemosyne-proj-users/997a919f-a7a5-4af2-87c6-2aeea91a3f39%40googlegroups.com
--Note: high DPI on Mac (http://doc.qt.io/qt-5/highdpi.html) is enabled by 
- settings in the Info.plist file.
- 
--example plugin for new learning modes
--update dev instructions linux, windows
-
--make sure initial settings are sync using binary sync.
 
 Android:
 
@@ -27,7 +15,7 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 -pybridge: don't extract individual assets but extract zip file? Faster?
 -setting to allow choosing the database location?\
 -revisit multiple database option?
--'sync' button should sync directly without going through the sync settings 
+-'sync' button should sync directly without going through the sync settings
  dialog. Put the settings in a settings window instead.
  http://alvinalexander.com/android/android-tutorial-preferencescreen-preferenceactivity-preferencefragment
 -make sure Android uploads logs as well
@@ -39,8 +27,10 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 -custom fonts?
 
 
-Minor bugs:
-
+Minor bugs / issues:
+-example plugin for new learning modes
+-update dev instructions linux, windows
+-make sure initial settings are synced using binary sync.
 -keeping a key pressed after 'grade answer' proceeds to show the question
 -RTL still does not work for first cloze, in the case the sentence is more than
  1 line
@@ -54,30 +44,30 @@ Minor bugs:
  client fails'
 -server.py imports from libmnemosyne.utils
 -import/export dialog alignment does not look nice
--Select saved set, switch tab to other criterion (deselects set) and switch 
+-Select saved set, switch tab to other criterion (deselects set) and switch
  back to original one.The set should then be autoselected again.
 -layout of "add clone" is not optimal under Windows
 -select saved set, delete that set: set name is still visible in windows header
 -sync of changed saved set does not update title on target machine
 -creating a new clone does not generate appearance setting events for sync
--Related: create a new cardtype through *.cards import, setting font, does not 
+-Related: create a new cardtype through *.cards import, setting font, does not
  seem to sync across?
 -if the sync changed the appearance settings, the current card's question still
  shows the old appearance
--sync failed because of version mismatch seems to result in requirement for 
+-sync failed because of version mismatch seems to result in requirement for
  full sync?
--note: sync from a to b and then to c adds latex files to the media table. Is 
+-note: sync from a to b and then to c adds latex files to the media table. Is
  this aproblem? Can the table become corrupt?
 -heartbeat in headless server: if a sync request comes in while this is running,
  it will fail because of threading issues.
--Michael Campbell: I changed the background color of Mnemosyne to something 
- other than white, and I noticed that it uses that color when adding new 
+-Michael Campbell: I changed the background color of Mnemosyne to something
+ other than white, and I noticed that it uses that color when adding new
  content. However, when that window does not have focus, it turns white again.
--tag on client, same tag on server, then sync. 
+-tag on client, same tag on server, then sync.
  Tag names get renamed, but original tag is set inactive.
 -cloze deletion in combination with latex or html does not pick up any open
  environments
--don't switch to text entry field when changing card type with the keys. 
+-don't switch to text entry field when changing card type with the keys.
 -when the server thread hangs and the main program is terminated, the cleanup
  code gets called from the main thread as opposed to from the server thread,
  and will therefore fail. (The server thread should release its connection
@@ -85,15 +75,15 @@ Minor bugs:
 -if last card had unequal split, learn ahead of schedule message does not go
  back to 50/50 split.
 -webserver: map card type does not really hide the question box, just blanks the
- question 
+ question
 -corner case: If M > 0 and k < 0 then (a,b) is a local maximum
-If M > 0 and k > 0 then (a,b) is a local minimum: eats < ... > 
+If M > 0 and k > 0 then (a,b) is a local minimum: eats < ... >
 -move button group in review widget to designer code after pyqt upgrade.
  Also possible in add cards?
 *These were all reported using Qt4, and probably no longer apply:
 -Qt bug? different font size in edit box and in css
 -Qt bug? Cannot restore scroll_to column in card browser after tag rename.
--Qt bug? Cntl+a select all in card browser only selects all the prefetched 
+-Qt bug? Cntl+a select all in card browser only selects all the prefetched
  entries
 -Qt bug? insertAtTop on tags combobox in add_cards does not seem to work
 -Qt bug? cursor is always black, also on a black background
@@ -128,16 +118,16 @@ Milesteiner
 3. Enter "« test »" (alt+174, alt+175) on back
 The card gets closed the moment one has hit the alt+..5 key and a new card is
 created with just the "»" symbol.
--Qt bug: enabling word wrap on tag label breaks setting of stretch factors in 
+-Qt bug: enabling word wrap on tag label breaks setting of stretch factors in
  q and a
 -Qt issue: toggling a tag in the card browser using 'space' does not update the
  card list. Catched itemChanged instead of itemClicked would solve this in
  theory, but this would cause a lot of spurious updates if you toggle the parent
  of a big hierarchy. ItemActivated only seems to catch double clicks
--Qt issue: font size is rounded up to the nearest default integer in font 
+-Qt issue: font size is rounded up to the nearest default integer in font
  selection dialog.
--component_manager:deactivate_all: https://bugreports.qt.io/browse/QTBUG-52988  
--tag browser editor of tag names does not capture focus out event, so card 
+-component_manager:deactivate_all: https://bugreports.qt.io/browse/QTBUG-52988
+-tag browser editor of tag names does not capture focus out event, so card
  count is not redrawn.
 -Qt performance problem with selectRow
 
@@ -148,57 +138,54 @@ created with just the "»" symbol.
 
 Other features:
 
--first doing a count and then the actual a query is not a good idea:? 
+-first doing a count and then the actual a query is not a good idea:?
 time 'number_of_log_entries_to_sync_for' vs 'number_of_log_entries'
 
-
--don't generate card edited logs when importing a card and no change occurs 
+-don't generate card edited logs when importing a card and no change occurs
  in a card
   #if (eval(log_entry["extra"]) == orig_card.extra_data) && \
   # tags, unless extra tags on import
   # card type
-  # factview		   
-  # Important: fact, 
+  # factview
+  # Important: fact,
 media, tag (check all 'already_imported' statements)
-
 
 -if pyinstaller supports Python 3.6, upgrade to 3.6
 (search Python35 in files, makefile, Mnemosyne.pyd)
 
 -status bar: scheduled: x / not memorised: x / goal new cards: x/y
 -new cards goal can overshoot, e.g. 7/5
--save state upon exit, reset at midnight 
+-save state upon exit, reset at midnight
 -config: goal_new_cards, new_cards_today
--Android 
+-Android
 
 Other learning modes:
 -add 'difficult' tag, and add 'cram difficult?'
 -mixture of learn new / cram recent?
-   -config: cram recent: X days, only new cards vs new + relearned cards, 
+   -config: cram recent: X days, only new cards vs new + relearned cards,
     ratio between new and recent
-   -for 'cramming' cards, show yes/no buttons instead of 0-5 
+   -for 'cramming' cards, show yes/no buttons instead of 0-5
     as visual indicator
    -log that the card is crammed
-   -Unify review controllers and widgets, taking cramming buttons into account? 
+   -Unify review controllers and widgets, taking cramming buttons into account?
 -forgotten only?
 
--generate end message for new learning modes. (learn ahead of schedule is not 
-always relevant) 
- 
-
+-generate end message for new learning modes. (learn ahead of schedule is not
+always relevant)
 
 
 -drawing canvas Gnome
 
--disable vocalisation, but only when not showing answer 
+-disable vocalisation, but only when not showing answer
  jonas.vonderhagen@gmail.com
 
 -Qt's own translation
 
--Qt SDK: back to webkit?
+-Qt SDK: back to webkit? https://github.com/annulen/webkit
+ https://github.com/annulen/webkit/releases
  Make use of 'print to pdf' for resizing?
  custom context menu
- open links in external browser, QWebEnginePage::acceptNavigationRequest() 
+ open links in external browser, QWebEnginePage::acceptNavigationRequest()
 
 -speed up non-latin font size increase
 
@@ -227,9 +214,9 @@ always relevant)
 
 -profile testsuite
 -increase coverage
--disable latex version check in testsuite 
- 
--rework make windows-installer so as not to require keypress, so that it can be 
+-disable latex version check in testsuite
+
+-rework make windows-installer so as not to require keypress, so that it can be
  used from qtconsole
 
 -option to turn off card count per tag?
@@ -241,39 +228,39 @@ always relevant)
 -merging cards: should give an option to go back and edit?
 
 -add login to webserver?
- 
--clickable links in card browser (difficult, as after drawing Q or A, only the 
+
+-clickable links in card browser (difficult, as after drawing Q or A, only the
  bitmap is saved,not the browser widget)
- 
--settings in config.py don't play well with syncing: if the user does not 
+
+-settings in config.py don't play well with syncing: if the user does not
  update config.py on the target machine as well, these settings will get reset
- by the default config.py there. So, get rid of config.py and move it to an 
+ by the default config.py there. So, get rid of config.py and move it to an
  advanced settings plugin?
 
--activate cards: 'having any of these tags:' is not aligned with tag with tag 
+-activate cards: 'having any of these tags:' is not aligned with tag with tag
  tree
- 
--command line switch for headless server not to check for updated card types. 
+
+-command line switch for headless server not to check for updated card types.
 
 -option to move dividers in edit field (e.g. for large font sizes)
 
--for the sentence card type without hints, use the 'meaning' font for Q in 
+-for the sentence card type without hints, use the 'meaning' font for Q in
  production, instead of the sentence font?
 
 -optimisation: change card type for many facts which calls
  'delete_facts_and_their_data' does checking for unused tags multiple times.
- 
--fine tuning: when merging a database, merge also the 'active' tag instead of 
- just looking at the deactivated fact views? Probably more general and also 
+
+-fine tuning: when merging a database, merge also the 'active' tag instead of
+ just looking at the deactivated fact views? Probably more general and also
  more future proof in case of new criteria.
 
 -menu option to copy database to USB key?
 
--Database locking mechanism can be circumvented if the first Mnemosyne copy 
+-Database locking mechanism can be circumvented if the first Mnemosyne copy
  is in the browser (or apparently has just done file-new) (Scott Youngman)
 -replace locking mechanism by switching to running instance of Mnemosyne?
 
--do honour delete media events under sync, by checking if there are no later 
+-do honour delete media events under sync, by checking if there are no later
  'added_media' events with the same file.
 
 -when converting f2b to map through the card browser 'change card type',
@@ -281,7 +268,7 @@ always relevant)
  correspondence dialog.
 
 -with full sync, option to skip media sync
- 
+
 -Possible to get rid of unloading in python / reloading in Qt?
 
 -speed up science log parser?
@@ -301,13 +288,13 @@ http://stackoverflow.com/questions/1609637/is-it-possible-to-insert-multiple-row
 -save cookies
  http://stackoverflow.com/questions/3382640/how-can-i-load-session-information-into-qtwebkit
 
--Jiri Palacek: conflict resolution at card level, e.g. if 1 card causes 
+-Jiri Palacek: conflict resolution at card level, e.g. if 1 card causes
  conflict, but both database a and b have different non-conflicting new cards,
  merge the non-conflicting cards ond keep one of the conflicting version.
 
 -add debug information for conflict detection?
 
--automatic font size adjustment: 
+-automatic font size adjustment:
   http://www.spookandpuff.com/examples/dynamicTextSize.html
 
 -synonym checking just like duplicate checking?
@@ -364,10 +351,10 @@ http://stackoverflow.com/questions/1609637/is-it-possible-to-insert-multiple-row
 
 -way to escape [] in latex cloze cards, so as not be interpreted as cloze?
 
--docs on dealing with synonyms and words which have multiple meanings 
- (if implemented, update card converter too) check fonts for new meanings, 
+-docs on dealing with synonyms and words which have multiple meanings
+ (if implemented, update card converter too) check fonts for new meanings,
  check decorators
- 
+
 -removing plugin with criterion should not happen if it is in use.
 -warn when syncing and the other criterion plugin is not present?
 -make 'grade activity criterion' an official plugin? Add tests?
@@ -378,7 +365,7 @@ http://stackoverflow.com/questions/1609637/is-it-possible-to-insert-multiple-row
 
 -scrape from websites: https://bitbucket.org/nosklo/supymemo/downloads
 
--also allow scrolling webview widgets using up and down keys? Will probably 
+-also allow scrolling webview widgets using up and down keys? Will probably
  require global event filter and slow everything down
 
 -install kde translator to translate file dialogs and color dialogs
@@ -386,8 +373,8 @@ http://stackoverflow.com/questions/1609637/is-it-possible-to-insert-multiple-row
 
 -drag and drop in card browser, within tag tree
 
--worthwhile to apply same tricks from card browser to criterion applier, i.e. 
- inverting selection to go from 'in large set' to 'not in small set'? 
+-worthwhile to apply same tricks from card browser to criterion applier, i.e.
+ inverting selection to go from 'in large set' to 'not in small set'?
  Max time 0.6 secs, so perhaps not needed that much
 
 -condition coverage
@@ -403,10 +390,10 @@ http://stackoverflow.com/questions/1609637/is-it-possible-to-insert-multiple-row
 
 -zooming on statistics?
 
--minimalist mode, without toolbar, extra text in review window. 
+-minimalist mode, without toolbar, extra text in review window.
  F11 to move fullscreen
 
--partial implementation of type answer (none/all/special tag? Db Attribute? 
+-partial implementation of type answer (none/all/special tag? Db Attribute?
  Button?)
 -draw answer, make configurable by card type
 
@@ -431,7 +418,7 @@ http://stackoverflow.com/questions/1609637/is-it-possible-to-insert-multiple-row
 -Cramming scheduler changes card on heartbeart. Make something like
  'reset_and_add_current_card_to_queue_if_needed'?
 
--when deleting cards, only mention sister cards if there are actually sister 
+-when deleting cards, only mention sister cards if there are actually sister
  cards
 
 -allow users to show/hide/rearrange columns
@@ -443,7 +430,7 @@ http://stackoverflow.com/questions/611459/how-to-sort-text-in-sqlite3-with-speci
 
 -ellisis in QTextDocument in card browser?
 
--rewrite card browser in C++, or at least delegate? In that case, move 
+-rewrite card browser in C++, or at least delegate? In that case, move
  question and answer gettingto data, and eliminate the text colors at selection
  using Qt.
 
@@ -454,7 +441,7 @@ http://stackoverflow.com/questions/611459/how-to-sort-text-in-sqlite3-with-speci
 -"Browse Cards" dialog box. "Preview card" option should have a keyboard
  shortcut.
 
--option purge history, refactor logging test. Should only happen in no other 
+-option purge history, refactor logging test. Should only happen in no other
  sync partners are interested in it
 
 -synchronise history folder to guard against mobile clients not uploading their
@@ -527,14 +514,13 @@ http://stackoverflow.com/questions/611459/how-to-sort-text-in-sqlite3-with-speci
 -Refactor build process so that all files/directories created by
   `make setup`, `make`, `make test`, and `make coverage`, etc, all
   end up under a single 'build' directory. See https://goo.gl/Nrd5nz
-  
-  
-  
+
+
+
 Multiuser statistics analysis:
 
--break out card id stringss to a different table and use interger _id in the 
+-break out card id stringss to a different table and use interger _id in the
  rest of the database to save space
 -move times from a later start date to save space?
 -investigate origin of ._ logs
 -don't do card checks for post 2.0
- 

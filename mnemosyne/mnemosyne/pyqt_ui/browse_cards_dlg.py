@@ -75,7 +75,7 @@ class CardModel(QtSql.QSqlTableModel, Component):
             self.font_colour_for_card_type_id[card_type_id] = QtGui.QColor(\
                 self.config()["font_colour"][card_type_id][first_key])
 
-    def data(self, index, role=QtCore.Qt.DisplayRole):       
+    def data(self, index, role=QtCore.Qt.DisplayRole):
         if role == QtCore.Qt.TextColorRole:
             card_type_id_index = self.index(index.row(), CARD_TYPE_ID)
             card_type_id = QtSql.QSqlTableModel.data(\
@@ -147,23 +147,23 @@ class CardModel(QtSql.QSqlTableModel, Component):
 class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
 
     """Uses webview to render the questions and answers."""
-    
+
     # Unfortunately, due to the port from Webkit in Qt4 to Webengine in Qt5
     # this is not supported at the moment...
-    # See: https://bugreports.qt.io/browse/QTBUG-50523    
+    # See: https://bugreports.qt.io/browse/QTBUG-50523
 
     def __init__(self, Q_or_A, **kwds):
         super().__init__(**kwds)
-        
+
         self.doc = QtGui.QTextDocument(self)
-        
+
         #self.doc = QWebEngineView2()
         #self.doc.show()
         #self.doc.loadFinished.connect(self.loaded_html)
         #self.load_finished = False
-        
+
         self.Q_or_A = Q_or_A
-        
+
     # We need to reimplement the database access functions here using Qt's
     # database driver. Otherwise, both Qt and libmnemosyne try to claim
     # ownership at the same time. We don't reconstruct everything in order
@@ -224,10 +224,10 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
         #    query.next()
 
         return card
-    
+
     def loaded_html(self, result):
         self.load_finished = True
-        
+
     def paint(self, painter, option, index):
         option = QtWidgets.QStyleOptionViewItem(option)
         self.initStyleOption(option, index)
@@ -259,7 +259,7 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
             context.palette.setColor(QtGui.QPalette.Text,
                 option.palette.color(QtGui.QPalette.Active,
                                      QtGui.QPalette.HighlightedText))
-        rect = style.subElementRect(QtWidgets.QStyle.SE_ItemViewItemText, 
+        rect = style.subElementRect(QtWidgets.QStyle.SE_ItemViewItemText,
                                     option, None)
         # Render.
         painter.save()
@@ -298,13 +298,13 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
                 force_text_colour=force_text_colour,
                 search_string=search_string))
         self.doc.setStyleSheet("background:transparent")
-        self.doc.setAttribute(QtCore.Qt.WA_TranslucentBackground)        
+        self.doc.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.doc.show()
         while not self.load_finished:
             QtWidgets.QApplication.instance().processEvents(\
                 QtCore.QEventLoop.ExcludeUserInputEvents | \
                 QtCore.QEventLoop.ExcludeSocketNotifiers | \
-                QtCore.QEventLoop.WaitForMoreEvents)      
+                QtCore.QEventLoop.WaitForMoreEvents)
         # Background colour.
         rect = \
              style.subElementRect(QtWidgets.QStyle.SE_ItemViewItemText, option)
@@ -313,17 +313,17 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
                                        QtWidgets.QPalette.Highlight)
         else:
             background_colour = index.model().background_colour_for_card_type_id.\
-                get(card.card_type.id, None)   
+                get(card.card_type.id, None)
         if background_colour:
-            painter.fillRect(rect, background_colour) 
+            painter.fillRect(rect, background_colour)
         # Render from browser.
         painter.translate(rect.topLeft())
         painter.setClipRect(rect.translated(-rect.topLeft()))
         self.doc.setStyleSheet("background:transparent")
         self.doc.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.doc.render(painter)
-        painter.restore() 
-        
+        painter.restore()
+
 
 class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
                      TipAfterStartingNTimes, Ui_BrowseCardsDlg):
@@ -340,7 +340,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         24 : _("Cards with strike-through text are inactive in the current set.")}
 
     def __init__(self, **kwds):
-        super().__init__(**kwds)  
+        super().__init__(**kwds)
         self.show_tip_after_starting_n_times()
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
@@ -373,7 +373,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
             TagsTreeWdgt(acquire_database=self.unload_qt_database,
                 component_manager=kwds["component_manager"], parent=self.container_2)
         self.tag_tree_wdgt.tags_changed_signal.\
-            connect(self.reload_database_and_redraw) 
+            connect(self.reload_database_and_redraw)
         self.layout_2.addWidget(self.tag_tree_wdgt)
         self.label_3 = QtWidgets.QLabel(_("containing this text in the cards:"),
             self.container_2)
@@ -401,7 +401,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         self.card_type_tree_wdgt.tree_wdgt.\
             itemClicked.connect(self.update_filter)
         self.tag_tree_wdgt.tree_wdgt.\
-            itemClicked.connect(self.update_filter)        
+            itemClicked.connect(self.update_filter)
         # Context menu.
         self.table.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.table.customContextMenuRequested.connect(self.context_menu)
@@ -418,7 +418,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         if not splitter_2_state:
             self.splitter_2.setSizes([333, 630])
         else:
-            self.splitter_2.restoreState(splitter_2_state)   
+            self.splitter_2.restoreState(splitter_2_state)
         for column in (_ID, ID, CARD_TYPE_ID, _FACT_ID, FACT_VIEW_ID,
             ACQ_REPS_SINCE_LAPSE, RET_REPS_SINCE_LAPSE,
             EXTRA_DATA, ACTIVE, SCHEDULER_DATA):
@@ -543,7 +543,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         def after_apply():
             self.load_qt_database()
             self.display_card_table()
-        self.edit_dlg.after_apply_hook = after_apply 
+        self.edit_dlg.after_apply_hook = after_apply
         self.edit_dlg.apply_changes()
         self.edit_dlg.set_new_card(card)
 
@@ -552,7 +552,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         cards = self.sister_cards_from_single_selection()
         tag_text = cards[0].tag_string()
         self.preview_dlg = \
-            PreviewCardsDlg(cards, tag_text, 
+            PreviewCardsDlg(cards, tag_text,
                 component_manager=self.component_manager, parent=self)
         self.preview_dlg.page_up_down_signal.connect(\
             self.page_up_down_preview)
@@ -731,10 +731,10 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
             self.table.horizontalHeader().restoreState(table_settings)
         self.table.horizontalHeader().setSectionsMovable(True)
         self.table.setItemDelegateForColumn(\
-            QUESTION, QA_Delegate(QUESTION, 
+            QUESTION, QA_Delegate(QUESTION,
                 component_manager=self.component_manager, parent=self))
         self.table.setItemDelegateForColumn(\
-            ANSWER, QA_Delegate(ANSWER, 
+            ANSWER, QA_Delegate(ANSWER,
                 component_manager=self.component_manager, parent=self))
         self.table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         # Since this function can get called multiple times, we need to make
@@ -767,7 +767,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
             if len(self.saved_selection) < 10:
                 for index in self.saved_selection:
                     self.table.selectRow(index.row())
-            self.table.setSelectionMode(old_selection_mode)   
+            self.table.setSelectionMode(old_selection_mode)
 
     def reload_database_and_redraw(self):
         self.load_qt_database()
@@ -788,7 +788,7 @@ _("You chose to sort this table. Operations in the card browser could now be slo
         # keypress was 300 ms ago.
         self.timer.start(300)
 
-    def update_filter(self):  
+    def update_filter(self):
         # Card types and fact views.
         criterion = DefaultCriterion(self.component_manager)
         self.card_type_tree_wdgt.checked_to_criterion(criterion)

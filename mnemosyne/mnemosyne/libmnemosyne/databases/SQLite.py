@@ -225,7 +225,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     suffix = ".db"
     store_pregenerated_data = True
 
-    def __init__(self, component_manager):        
+    def __init__(self, component_manager):
         Database.__init__(self, component_manager)
         self._connection = None
         self._path = None # Needed for lazy creation of connection.
@@ -272,9 +272,9 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
 
     def path(self):
         return self._path
-    
+
     def data_dir(self):
-        return os.path.dirname(self._path)    
+        return os.path.dirname(self._path)
 
     def name(self):
         return os.path.basename(self._path)
@@ -290,7 +290,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self.main_widget().set_progress_text(_("Defragmenting database..."))
         self.con.execute("vacuum")
         # Make sure the "Untagged" tag does not show up together with
-        # different tags.
+        # different tags (not sure if bug causing this has been fixed).
         untagged = self.tag("__UNTAGGED__", is_id_internal=False)
         for cursor in self.con.execute("select _id from cards"):
             _card_id = cursor[0]
@@ -301,6 +301,9 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 self.con.execute(\
                     "delete from tags_for_card where _card_id=? and _tag_id=?",
                     (_card_id, untagged._id))
+        # Make sure no orphaned card tags exist (not sure if bug causing
+        # this has been fixed).
+        self.con.execute("delete from tags_for_card where _card_id is null")
         self.main_widget().close_progress()
 
     def new(self, path):
@@ -380,7 +383,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         defined_in_database_ids = [cursor[0] for cursor in \
             self.con.execute("select id from card_types")]
         for id in used_ids + defined_in_database_ids:
-            self.activate_plugins_for_card_type_with_id(id) 
+            self.activate_plugins_for_card_type_with_id(id)
         # Instantiate card types stored in this database. Since they could
         # depend on a plugin, the card types need to be instatiated last.
         for id in defined_in_database_ids:
@@ -426,10 +429,10 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         db_name = os.path.basename(self._path).rsplit(".", 1)[0]
         try:
             backupfile = db_name + "-" + \
-                datetime.datetime.today().strftime("%Y%m%d-%H%M%S.db")        
+                datetime.datetime.today().strftime("%Y%m%d-%H%M%S.db")
         except:  # Work around strange Android library bug.
             from mnemosyne.libmnemosyne.utils import rand_uuid
-            backupfile = db_name + "-" + rand_uuid() + ".db" 
+            backupfile = db_name + "-" + rand_uuid() + ".db"
         backupfile = os.path.join(backupdir, backupfile)
         failed = False
         try:
@@ -465,7 +468,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         # database should mitigate that effect.
         self.reset_partnerships()
 
-    def unload(self):      
+    def unload(self):
         if not self._connection:
             return
         # Unregister card types in this database.
@@ -488,7 +491,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             self._path = None
         return True
 
-    def abandon(self):     
+    def abandon(self):
         if self._connection:
             self._connection.close()
         self._connection = None
@@ -605,7 +608,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
                 answer = self.main_widget().show_question(\
                     _("Make tag '%s' active in saved set '%s'?") % \
                     (tag.name, saved_criterion.name), _("Yes"), _("No"), "")
-            except NotImplementedError: 
+            except NotImplementedError:
                 # We are running in a non interactive mode.
                 answer = 0  # Yes
             if answer == 1:  # No.
@@ -653,7 +656,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
                 # If the card already had a tag with the updated name, delete
                 # the other tag.
                 if self.con.execute("""select 1 from tags_for_card where
-                    _tag_id=? and _card_id=? limit 1""", 
+                    _tag_id=? and _card_id=? limit 1""",
                     (_existing_tag_id, _card_id)).fetchone() is not None:
                     self.con.execute("""delete from tags_for_card where
                     _tag_id=? and _card_id=?""", (tag._id, _card_id))
@@ -764,7 +767,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
                 break
             index += 1
         return result
-    
+
     def has_tag_with_id(self, id):
         return self.con.execute("select 1 from tags where id=? limit 1",
             (id, )).fetchone() is not None
@@ -819,10 +822,10 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             (fact._id, ))
         self.log().deleted_fact(fact)
         del fact
-        
+
     def has_fact_with_id(self, id):
         return self.con.execute("select 1 from facts where id=? limit 1",
-            (id, )).fetchone() is not None       
+            (id, )).fetchone() is not None
 
     #
     # Cards.
@@ -945,7 +948,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
                 _card_id) values(?,?)""", (tag._id, card._id))
 
     def delete_card(self, card, check_for_unused_tags=True):
-        if card._id is None: 
+        if card._id is None:
             # A card which was created and deleted before a sync, so that
             # it has incomplete information.
             self.con.execute("delete from cards where id=?", (card.id, ))
@@ -1030,7 +1033,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
     def has_card_with_id(self, id):
         return self.con.execute("select 1 from cards where id=? limit 1",
             (id, )).fetchone() is not None
-    
+
     #
     # Fact views.
     #
@@ -1081,19 +1084,19 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             (fact_view.id, ))
         self.log().deleted_fact_view(fact_view)
         del fact_view
-        
+
     def has_fact_view_with_id(self, id):
         return self.con.execute("select 1 from fact_views where id=? limit 1",
-            (id, )).fetchone() is not None         
+            (id, )).fetchone() is not None
 
     #
     # Card types.
     #
-    
+
     def activate_plugins_for_card_type_with_id(self, id):
         builtin_ids = set(card_type.id for card_type in self.card_types())
         defined_in_database_ids = [cursor[0] for cursor in \
-            self.con.execute("select id from card_types")]        
+            self.con.execute("select id from card_types")]
         # Check if parents are missing plugins.
         plugin_needed_ids = set()
         while "::" in id: # Move up one level of the hierarchy.
@@ -1116,7 +1119,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
                                 + "\n" + traceback_string())
             if not found:
                 raise RuntimeError(_("Missing plugin for card type with id:") +\
-                                   " " + card_type_id)      
+                                   " " + card_type_id)
 
     def add_card_type(self, card_type):
         self.con.execute("""insert into card_types(id, name,
@@ -1237,14 +1240,14 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             criterion.card_type_deleted(card_type)
             self.update_criterion(criterion)
         del card_type
-        
+
     def has_card_type_with_id(self, id):
         #if self.con.execute("select 1 from card_types where id=? limit 1",
         #    (id, )).fetchone() is not None:
         #    return True
         #else: # It could be a built-in card type.
         return id in [card_type.id for card_type in self.card_types()]
-    
+
     #
     # Criteria.
     #
@@ -1304,11 +1307,11 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
     def criteria(self):
         return (self.criterion(cursor[0], is_id_internal=True) \
             for cursor in self.con.execute("select _id from criteria"))
-    
+
     def has_criterion_with_id(self, id):
         return self.con.execute("select 1 from criteria where id=? limit 1",
-            (id, )).fetchone() is not None 
-    
+            (id, )).fetchone() is not None
+
 
     #
     # Queries.
@@ -1542,11 +1545,11 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             select _id, _fact_id from cards where
             active=1 and grade>=2 and ?<next_rep order by %s limit ?"""
             % sort_key, (timestamp, limit)))
-    
+
     def recently_memorised_count(self, max_ret_reps):
-        return self.con.execute("""select count() from cards where active=1 
+        return self.con.execute("""select count() from cards where active=1
             and ret_reps between 1 and ?""",
-            (max_ret_reps, )).fetchone()[0]    
+            (max_ret_reps, )).fetchone()[0]
 
     #
     # Extra queries for custom schedulers.
@@ -1556,7 +1559,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         self.con.execute("update cards set scheduler_data=?",
             (scheduler_data, ))
 
-    def cards_with_scheduler_data(self, scheduler_data, sort_key="", 
+    def cards_with_scheduler_data(self, scheduler_data, sort_key="",
                                   limit=-1, max_ret_reps=-1):
         sort_key = self._process_sort_key(sort_key)
         extra_cond = "" if max_ret_reps == -1 else str(
@@ -1573,10 +1576,10 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             where active=1 and scheduler_data=? %s """ % extra_cond,
             (scheduler_data, )).fetchone()[0]
 
-    # 
+    #
     # Extra queries for language analysis.
     #
-    
+
     def _where_clause_known_recognition_questions(self, card_type_ids):
         clause = "where grade>=2 and ( "
         args = []
@@ -1585,17 +1588,17 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             args += [card_type_id, card_type_id + ".1"]
         clause = clause.rsplit("or ", 1)[0] + ")"
         return clause, args
-    
+
     def known_recognition_questions_count_from_card_types_ids(\
         self, card_type_ids):
         clause, args = \
             self._where_clause_known_recognition_questions(card_type_ids)
         return self.con.execute(\
-            "select count() from cards " + clause, args).fetchone()[0]    
-    
+            "select count() from cards " + clause, args).fetchone()[0]
+
     def known_recognition_questions_from_card_types_ids(self, card_type_ids):
         clause, args = \
             self._where_clause_known_recognition_questions(card_type_ids)
         return (cursor[0] for cursor in \
                 self.con.execute("select question from cards " + clause, args))
-    
+
