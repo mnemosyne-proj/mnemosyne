@@ -94,6 +94,10 @@ class TagTree(Component, dict):
         return tags
 
     def rename_node(self, node, new_name):
+        if "," in new_name:
+            self.main_widget().show_error(\
+                _("Cannot rename a single tag to multiple tags."))
+            return
         if new_name == "__UNTAGGED__": # Forbidden.
             new_name = "Untagged"
         for tag in self._tags_in_subtree(node):

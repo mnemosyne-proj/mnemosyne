@@ -13,6 +13,8 @@ Additionally, if you see a black screen, start Mnemosyne with the
 Mnemosyne 2.x
 
 - Upgrade to PyQt 5.9.1.
+- Disallow renaming a single tag to multiple tags in the tag tree widget.
+  (reported by abacus).
 - In case you get crashes in the browser when trying to display only untagged
   cards, you can now run 'File - Compact - Defragment database' to fix this
   (reported by abacus).

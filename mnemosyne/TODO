@@ -1,7 +1,4 @@
 -fix testsuite
--bug with clicking untagged cards in browser (abacus):
- delete from tag_for_card where _card_id = NULL
-
 
 Android:
 
