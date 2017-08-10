@@ -1122,6 +1122,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
                                    " " + card_type_id)
 
     def add_card_type(self, card_type):
+        card_type.extra_data["hidden_from_UI"] = card_type.hidden_from_UI
         self.con.execute("""insert into card_types(id, name,
             fact_keys_and_names, unique_fact_keys, required_fact_keys,
             fact_view_ids, keyboard_shortcuts, extra_data)
@@ -1190,6 +1191,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         card_type.required_fact_keys = eval(sql_res[3])
         card_type.keyboard_shortcuts = eval(sql_res[5])
         self._construct_extra_data(sql_res[6], card_type)
+        card_type.hidden_from_UI = card_type.extra_data["hidden_from_UI"]
         card_type.fact_views = [self.fact_view(fact_view_id,
             is_id_internal=False) for fact_view_id in eval(sql_res[4])]
         return card_type

@@ -21,28 +21,28 @@ DISPLAY_STRING = 0
 NODE = 1
 
 class CardTypeDelegate(TagDelegate):
-    
+
     def setEditorData(self, editor, index):
         # Get rid of the card count.
         self.previous_node_name = \
             index.model().data(index).rsplit(" (", 1)[0]
         node_index = index.model().index(index.row(), NODE, index.parent())
-        self.card_type_id = index.model().data(node_index)       
+        self.card_type_id = index.model().data(node_index)
         editor.setText(self.previous_node_name)
-        
+
     def commit_and_close_editor(self):
         editor = self.sender()
         if self.previous_node_name == editor.text():
             self.redraw_node.emit(self.card_type_id)
         else:
             self.rename_node.emit(self.card_type_id, editor.text())
-        self.closeEditor.emit(editor, QtWidgets.QAbstractItemDelegate.NoHint)    
+        self.closeEditor.emit(editor, QtWidgets.QAbstractItemDelegate.NoHint)
 
 
 class CardTypesTreeWdgt(TagsTreeWdgt):
 
     """Displays all the card types in a tree together with check boxes."""
-    
+
     card_types_changed_signal = QtCore.pyqtSignal()
 
     def __init__(self, acquire_database=None, **kwds):
@@ -51,7 +51,7 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
             component_manager=kwds["component_manager"], parent=self)
         self.tree_wdgt.setItemDelegate(self.delegate)
         self.delegate.rename_node.connect(self.rename_node)
-        self.delegate.redraw_node.connect(self.redraw_node)        
+        self.delegate.redraw_node.connect(self.redraw_node)
         self.acquire_database = acquire_database
 
     def menu_rename(self):
@@ -119,6 +119,8 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
            QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
         root_item.setCheckState(0, QtCore.Qt.Checked)
         for card_type in self.database().sorted_card_types():
+            if card_type.hidden_from_UI:
+                continue
             card_type_item = QtWidgets.QTreeWidgetItem(root_item, ["%s (%d)" % \
                 (_(card_type.name), count_for_card_type[card_type])], 0)
             card_type_item.setFlags(card_type_item.flags() | \

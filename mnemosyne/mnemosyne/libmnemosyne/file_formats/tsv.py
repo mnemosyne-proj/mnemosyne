@@ -31,7 +31,7 @@ class Tsv(FileFormat, MediaPreprocessor):
         FileFormat.__init__(self, component_manager)
         MediaPreprocessor.__init__(self, component_manager)
 
-    def do_import(self, filename, extra_tag_names=None):
+    def do_import(self, filename, extra_tag_names=""):
         FileFormat.do_import(self, filename, extra_tag_names)
         try:
             f = open(filename, encoding="utf-8")
@@ -68,10 +68,8 @@ class Tsv(FileFormat, MediaPreprocessor):
                     + " " + str(line_number) + ":\n" + line)
                 return
         # Now that we know all the data is well-formed, create the cards.
-        tag_names = []
-        if extra_tag_names:
-            tag_names += [tag_name.strip() for tag_name \
-                in extra_tag_names.split(",")]
+        tag_names = [tag_name.strip() for \
+            tag_name in extra_tag_names.split(",") if tag_name.strip()]
         for fact_data in facts_data:
             if len(list(fact_data.keys())) == 2:
                 card_type = self.card_type_with_id("1")

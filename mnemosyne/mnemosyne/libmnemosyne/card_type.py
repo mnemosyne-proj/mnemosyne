@@ -45,6 +45,7 @@ class CardType(Component, CompareOnId):
     id = "-1"
     name = ""
     component_type = "card_type"
+    hidden_from_UI = False
 
     fact_keys_and_names = None
     fact_views = None

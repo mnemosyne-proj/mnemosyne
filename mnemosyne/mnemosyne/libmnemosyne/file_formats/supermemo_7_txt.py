@@ -57,7 +57,7 @@ class SuperMemo7Txt(FileFormat, MediaPreprocessor):
         line = line.replace("\x03", "\xfa")
         return self.process_html_unicode(line.rstrip())
 
-    def do_import(self, filename, extra_tag_names=None):
+    def do_import(self, filename, extra_tag_names=""):
         f = None
         try:
             f = open(filename, 'r')
@@ -68,10 +68,8 @@ class SuperMemo7Txt(FileFormat, MediaPreprocessor):
         next_state = None
         error = False
         card_type = self.card_type_with_id("1")
-        tag_names = []
-        if extra_tag_names:
-            tag_names += [tag_name.strip() for tag_name \
-                in extra_tag_names.split(",")]
+        tag_names = [tag_name.strip() for \
+            tag_name in extra_tag_names.split(",") if tag_name.strip()]
         while not error and state != "END-OF-FILE":
             line = self.read_line_sm7qa(f)
             # Perform the actions of the current state and calculate

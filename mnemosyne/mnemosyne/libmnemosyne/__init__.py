@@ -56,7 +56,7 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.databases.SQLite",
           "SQLite"),
          ("mnemosyne.libmnemosyne.database",
-          "DatabaseMaintenance"),         
+          "DatabaseMaintenance"),
          ("mnemosyne.libmnemosyne.configuration",
           "Configuration"),
          ("mnemosyne.libmnemosyne.loggers.database_logger",
@@ -80,7 +80,7 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.card_types.vocabulary",
           "VocabularyToFrontToBack"),
          ("mnemosyne.libmnemosyne.card_types.vocabulary",
-          "VocabularyToBothWays"),       
+          "VocabularyToBothWays"),
          ("mnemosyne.libmnemosyne.render_chains.default_render_chain",
           "DefaultRenderChain"),
          ("mnemosyne.libmnemosyne.render_chains.plain_text_chain",
@@ -104,17 +104,19 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.study_modes.scheduled_forgotten_new",
           "ScheduledForgottenNew"),
          ("mnemosyne.libmnemosyne.study_modes.new_only",
-          "NewOnly"),           
+          "NewOnly"),
          ("mnemosyne.libmnemosyne.study_modes.cram_all",
           "CramAll"),
          ("mnemosyne.libmnemosyne.study_modes.cram_recent",
-          "CramRecent"),          
+          "CramRecent"),
          ("mnemosyne.libmnemosyne.card_types.map",
           "MapPlugin"),
          ("mnemosyne.libmnemosyne.card_types.cloze",
           "ClozePlugin"),
          ("mnemosyne.libmnemosyne.card_types.sentence",
           "SentencePlugin"),
+         ("mnemosyne.libmnemosyne.card_types.M_sided",
+          "MSided"),
          ("mnemosyne.libmnemosyne.criteria.default_criterion",
           "DefaultCriterion"),
          ("mnemosyne.libmnemosyne.databases.SQLite_criterion_applier",
@@ -140,9 +142,11 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.file_formats.mnemosyne2_cards",
           "Mnemosyne2Cards"),
          ("mnemosyne.libmnemosyne.file_formats.mnemosyne2_db",
-          "Mnemosyne2Db"),         
+          "Mnemosyne2Db"),
          ("mnemosyne.libmnemosyne.file_formats.tsv",
           "Tsv"),
+         ("mnemosyne.libmnemosyne.file_formats.anki2",
+          "Anki2"),
          ("mnemosyne.libmnemosyne.file_formats.supermemo_7_txt",
           "SuperMemo7Txt"),
          ("mnemosyne.libmnemosyne.file_formats.smconv_XML",
@@ -150,12 +154,12 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.file_formats.cuecard_wcu",
           "CuecardWcu")]
         self.gui_for_component = {}
-        
+
     def android_log(self, message):
         if hasattr(self, "android"):
             self.android.Log("Mnemosyne", message)
 
-    def handle_exception(self, type, value, tb):        
+    def handle_exception(self, type, value, tb):
         body = "An unexpected error has occurred.\n" + \
             "Please forward the following info to the developers:\n\n" + \
             "Traceback (innermost last):\n"
@@ -171,7 +175,7 @@ class Mnemosyne(Component):
             sys.stderr.write(body)
 
     def initialise(self, data_dir=None, config_dir=None,
-                   filename=None, automatic_upgrades=True, debug_file=None, 
+                   filename=None, automatic_upgrades=True, debug_file=None,
                    server_only=False):
 
         """The automatic upgrades of the database can be turned off by setting
@@ -237,7 +241,7 @@ class Mnemosyne(Component):
         self.start_review()
 
     def register_components(self):
-        
+
         """We register all components, but don't activate them yet, because in
         order to activate certain components, certain other components already
         need to be registered. Also, the activation needs to happen in a
@@ -266,8 +270,8 @@ class Mnemosyne(Component):
         in the correct order: first config, followed by log and then the rest.
 
         """
-        
-        # Help with debugging under Android.  
+
+        # Help with debugging under Android.
         self.component_manager.android_log = self.android_log
         # Activate config and inject necessary settings.
         try:
@@ -286,7 +290,7 @@ class Mnemosyne(Component):
             try:
                 self.component_manager.current(component).activate()
             except RuntimeError as e:
-                self.main_widget().show_error(str(e))     
+                self.main_widget().show_error(str(e))
         sync_server = self.component_manager.current("sync_server")
         if sync_server:
             sync_server.activate()
@@ -349,14 +353,14 @@ _("If you are using a USB key, refer to the instructions on the website so as no
             success = False
             counter = 0
             while not success and counter <= 5:
-                counter += 1  
+                counter += 1
                 try:
                     self.database().abandon()
                     self.controller().show_open_file_dialog()
                     success = True
                 except RuntimeError as e:
                     self.main_widget().show_error(str(e))
-                    
+
     def start_review(self):
         self.controller().set_study_mode(self.study_mode_with_id(\
             self.config()["study_mode"]))
@@ -395,4 +399,3 @@ _("If you are using a USB key, refer to the instructions on the website so as no
         unregister_component_manager(user_id)
         if self.component_manager.debug_file:
             self.component_manager.debug_file.close()
-            

@@ -37,7 +37,7 @@ class DefaultController(Controller):
         self.study_mode = None
         Controller.activate(self)
         self.next_rollover = self.database().start_of_day_n_days_ago(n=-1)
-                
+
     def heartbeat(self, db_maintenance=True):
 
         """Making sure, even if the user leaves the program open indefinitely,
@@ -55,7 +55,7 @@ class DefaultController(Controller):
                 self.flush_sync_server()
                 if not self.database().is_loaded() or \
                     not self.database().is_accessible():
-                    # Make sure we don't continue if e.g. the GUI or another 
+                    # Make sure we don't continue if e.g. the GUI or another
                     # thread holds the database.
                     return
                 self.database().backup()
@@ -70,17 +70,17 @@ class DefaultController(Controller):
             self.next_rollover = self.database().start_of_day_n_days_ago(n=-1)
         if db_maintenance and \
            (time.time() > self.config()["last_db_maintenance"] + 90 * DAY):
-            self.component_manager.current("database_maintenance").run()        
+            self.component_manager.current("database_maintenance").run()
             self.config()["last_db_maintenance"] = time.time()
             self.config().save()
-            
+
     def do_db_maintenance(self):
         if time.time() < self.config()["last_db_maintenance"] + 30 * DAY:
             self.main_widget().show_information(\
           _("No need to do database maintenance more than once per month."))
             return
         else:
-            self.component_manager.current("database_maintenance").run()        
+            self.component_manager.current("database_maintenance").run()
             self.config()["last_db_maintenance"] = time.time()
             self.config().save()
 
@@ -95,20 +95,20 @@ class DefaultController(Controller):
             db.current_criterion().name != db.default_criterion_name:
             title += " - " + db.current_criterion().name
         self.main_widget().set_window_title(title)
-        
+
     def set_study_mode(self, study_mode):
         if self.study_mode == study_mode:
             return
         if self.study_mode is not None:
             self.study_mode.deactivate()
-        study_mode.activate() 
+        study_mode.activate()
         self.study_mode = study_mode
         self.config()["study_mode"] = study_mode.id
-        
+
     def reset_study_mode(self):
-        self.study_mode.deactivate()        
+        self.study_mode.deactivate()
         self.study_mode.activate()
-        
+
     def show_add_cards_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
@@ -204,7 +204,7 @@ class DefaultController(Controller):
                     card.fact.data = merged_fact_data
                     card.tags = tags
                     self.component_manager.current("edit_card_dialog")\
-                        (card, component_manager=self.component_manager, 
+                        (card, component_manager=self.component_manager,
                          allow_cancel=False).activate()
                     return db.cards_from_fact(fact)
         # Create cards.
@@ -223,14 +223,14 @@ class DefaultController(Controller):
             self.reset_study_mode()
         return cards
 
-    def show_edit_card_dialog(self): 
+    def show_edit_card_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         review_controller = self.review_controller()
         # This dialog calls 'edit_card_and_sisters' at some point.
         state = review_controller.state()
         accepted = self.component_manager.current("edit_card_dialog")\
-            (review_controller.card, 
+            (review_controller.card,
              component_manager=self.component_manager).activate()
         if not accepted:
             self.stopwatch().unpause()
@@ -257,7 +257,7 @@ class DefaultController(Controller):
         """This is an internal function, used by 'edit_card_and_sisters' and
         'change_card_type'. It should not be called from the outside by
         itself, otherwise the database will not be saved.
-        
+
         Returns -2 for error, -1 for cancel and 0 for success.
 
         """
@@ -363,7 +363,7 @@ class DefaultController(Controller):
         fact = db.fact(card.fact._id, is_id_internal=True)
         current_sister_cards = self.database().cards_from_fact(fact)
         current_tag_strings = set([sister_card.tag_string() \
-            for sister_card in current_sister_cards])        
+            for sister_card in current_sister_cards])
         # Change the card type if needed. This does not take into account
         # changes to fact yet, which will come just afterwards.
         result = self._change_card_type(card.fact, card.card_type,
@@ -433,14 +433,14 @@ _("This card has different tags than its sister cards. Update tags for current c
                 if new_card_type.is_fact_data_valid(new_fact_data):
                     fact.data = new_fact_data
             else:
-                new_fact_data = copy.copy(fact.data)  
+                new_fact_data = copy.copy(fact.data)
             result = self._change_card_type(fact, old_card_type,
                     new_card_type, correspondence, new_fact_data, warn)
             if result == -1:  # Cancel.
                 w.close_progress()
-                return                    
-            if correspondence and result != -2:  # Error. 
-                db.update_fact(fact)              
+                return
+            if correspondence and result != -2:  # Error.
+                db.update_fact(fact)
             warn = False
             w.increase_progress(1)
         db.save()
@@ -452,7 +452,7 @@ _("This card has different tags than its sister cards. Update tags for current c
         if self.config()["star_help_shown"] == False:
             self.main_widget().show_information(\
 _("This will add a tag 'Starred' to the current card, so that you can find it back easily, e.g. to edit it on a desktop."))
-            self.config()["star_help_shown"] = True        
+            self.config()["star_help_shown"] = True
         db = self.database()
         review_controller = self.review_controller()
         tag = db.get_or_create_tag_with_name(_("Starred"))
@@ -701,7 +701,7 @@ _("Your database will be autosaved before exiting. Also, it is saved every coupl
             self.main_widget().show_information(\
 _("The configuration database cannot be used to store cards."))
             self.stopwatch().unpause()
-            return          
+            return
         if not filename.endswith(suffix):
             filename += suffix
         try:
@@ -727,8 +727,8 @@ _("The configuration database cannot be used to store cards."))
         self.component_manager.current("compact_database_dialog")\
             (component_manager=self.component_manager).activate()
         self.review_controller().reset_but_try_to_keep_current_card()
-        self.stopwatch().unpause()       
-            
+        self.stopwatch().unpause()
+
     def show_insert_img_dialog(self, filter):
 
         """Show a file dialog filtered on the supported filetypes, get a
@@ -814,14 +814,14 @@ _("The configuration database cannot be used to store cards."))
     def show_activate_cards_dialog(self):
         self.show_activate_cards_dialog_pre()
         self.show_activate_cards_dialog_post()
-         
+
     def show_activate_cards_dialog_pre(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("activate_cards_dialog")\
             (component_manager=self.component_manager).activate()
-        
-    def show_activate_cards_dialog_post(self):       
+
+    def show_activate_cards_dialog_post(self):
         review_controller = self.review_controller()
         review_controller.reset_but_try_to_keep_current_card()
         review_controller.update_status_bar_counters()
@@ -986,14 +986,14 @@ _("This will tag all the cards in a given card type which have the same question
     def show_sync_dialog(self):
         self.show_sync_dialog_pre()
         self.show_sync_dialog_post()
-        
-    def show_sync_dialog_pre(self): 
+
+    def show_sync_dialog_pre(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         self.database().save()
         self.component_manager.current("sync_dialog")\
             (component_manager=self.component_manager).activate()
-        
+
     def show_sync_dialog_post(self):
         self.database().save()
         self.log().saved_database()
@@ -1018,7 +1018,7 @@ _("This will tag all the cards in a given card type which have the same question
             self.database().store_pregenerated_data
         client.do_backup = self.config()["backup_before_sync"]
         client.upload_science_logs = self.config()["upload_science_logs"]
-        try:         
+        try:
             client.sync(server, port, username, password)
         finally:
             client.database.release_connection()

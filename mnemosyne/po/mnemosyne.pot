@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-07-25 14:32+0200\n"
+"POT-Creation-Date: 2017-08-10 14:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,31 +93,35 @@ msgstr ""
 msgid "Production"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:214
+#: ../mnemosyne/libmnemosyne/__init__.py:218
 msgid "Command line argument is not a *.db file."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:226
+#: ../mnemosyne/libmnemosyne/__init__.py:230
 msgid "Another copy of Mnemosyne is still running."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:227
+#: ../mnemosyne/libmnemosyne/__init__.py:231
 msgid "Continuing is impossible and will lead to data loss!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:309
-#: ../mnemosyne/libmnemosyne/__init__.py:322
+#: ../mnemosyne/libmnemosyne/__init__.py:313
+#: ../mnemosyne/libmnemosyne/__init__.py:326
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:903
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1115
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1118
 msgid "Error when running plugin:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:337
+#: ../mnemosyne/libmnemosyne/__init__.py:341
 msgid "Previous drive letter no longer available."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:346
+#: ../mnemosyne/libmnemosyne/__init__.py:350
 msgid "If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/card_types/M_sided.py:20
+msgid "M-sided"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:15
@@ -149,7 +153,7 @@ msgid "Cloze deletion"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:41
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:49
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:51
 msgid "Text"
 msgstr ""
 
@@ -299,7 +303,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:144
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:580
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:88
-#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:64
+#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:65
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:177
 #: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:80
 #: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:61
@@ -323,7 +327,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:144
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:580
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:88
-#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:64
+#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:65
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:177
 #: ../mnemosyne/pyqt_ui/ui_about_dlg.py:85
 #: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:78
@@ -478,15 +482,15 @@ msgid ""
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:638
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:607
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1155
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:610
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1159
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 msgid "No"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:638
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:607
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1155
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:610
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1159
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 msgid "Yes"
 msgstr ""
@@ -568,51 +572,51 @@ msgstr ""
 msgid "Defragmenting database..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:351
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:354
 msgid "Unable to load file at"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:353
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:356
 msgid "Unable to load file, query failed."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:365
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:368
 msgid "Database upgrade failed."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:377
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:380
 msgid "Unable to load file."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:413
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:416
 msgid "Putting a database on a network drive is forbidden under Windows to avoid data corruption."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:442
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:445
 msgid "Warning: backup creation failed for"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:606
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:609
 msgid "Make tag '%s' active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1118
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1121
 msgid "Missing plugin for card type with id:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1154
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1158
 msgid "Make new card type active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1395
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1400
 msgid "No duplicates found."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1398
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1403
 msgid "Found %d duplicate cards. They have been given the tag 'DUPLICATE'."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1404
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1409
 msgid "DUPLICATE"
 msgstr ""
 
@@ -670,6 +674,14 @@ msgstr ""
 msgid "Putting a database on a network drive is forbidden under Windows to avoid data corruption. Mnemosyne will now close."
 msgstr ""
 
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:38
+msgid "Anki2 collections"
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:40
+msgid "Anki2 files (*.anki2)"
+msgstr ""
+
 #: ../mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:15
 msgid "Cuecard .wcu"
 msgstr ""
@@ -684,15 +696,15 @@ msgstr ""
 msgid "Unable to parse file:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:45
-#: ../mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:46
+#: ../mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:43
+#: ../mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:44
 #: ../mnemosyne/libmnemosyne/file_formats/media_preprocessor.py:63
-#: ../mnemosyne/libmnemosyne/file_formats/smconv_XML.py:115
-#: ../mnemosyne/libmnemosyne/file_formats/smconv_XML.py:116
-#: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:182
-#: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:183
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:83
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:84
+#: ../mnemosyne/libmnemosyne/file_formats/smconv_XML.py:113
+#: ../mnemosyne/libmnemosyne/file_formats/smconv_XML.py:114
+#: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:180
+#: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:181
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:81
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:82
 msgid "MISSING_MEDIA"
 msgstr ""
 
@@ -761,7 +773,7 @@ msgid "Extracting cards..."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:52
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:98
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:96
 msgid "Exporting cards..."
 msgstr ""
 
@@ -818,7 +830,7 @@ msgstr ""
 msgid "Could not load file."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:199
+#: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:197
 msgid "An error occured while parsing."
 msgstr ""
 
@@ -867,6 +879,34 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/plugin.py:105
 msgid "There are cards with this card type (or a clone of it) in the database."
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/renderers/anki/template/hint.py:17
+msgid "Show %s"
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:51
+msgid "%sy"
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:52
+msgid "%smo"
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:53
+msgid "%sd"
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:54
+msgid "%sh"
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:55
+msgid "%sm"
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:56
+msgid "%ss"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:18
@@ -1221,6 +1261,10 @@ msgstr ""
 msgid "All tags"
 msgstr ""
 
+#: ../mnemosyne/libmnemosyne/tag_tree.py:99
+msgid "Cannot rename a single tag to multiple tags."
+msgstr ""
+
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:65
 msgid "Tried to backup your old 1.x files to %s, but that directory already exists."
 msgstr ""
@@ -1316,12 +1360,12 @@ msgstr ""
 msgid "If you use 'Edit cards', changes are made to all the sister cards simultaneously."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:283
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:285
 msgid "Abandon current card?"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:283
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:232
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:285
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:234
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
@@ -1329,8 +1373,8 @@ msgstr ""
 msgid "&No"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:283
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:232
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:285
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:234
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
@@ -1480,7 +1524,7 @@ msgid "Delete these card types?"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:86
-#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:64
+#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:65
 msgid "Delete this card type?"
 msgstr ""
 
@@ -1493,23 +1537,23 @@ msgid "Card appearance"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:34
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:47
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:49
 msgid "<all card types>"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:78
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:80
 msgid "Select font"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:83
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:85
 msgid "Select colour"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:227
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:229
 msgid "Reset all card types to default system font?"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:229
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:231
 msgid "Reset '%s' to default system font?"
 msgstr ""
 
@@ -1604,7 +1648,7 @@ msgstr ""
 msgid "File does not exist."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:54
+#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:55
 msgid "Here, you can make clones of existing card types. This allows you to format cards in this type independently from cards in the original type. E.g. you can make a clone of 'Vocabulary', call it 'Thai' and set a Thai font specifically for this card type without disturbing your other cards."
 msgstr ""
 

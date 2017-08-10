@@ -22,11 +22,11 @@ class QAOptimalSplit(object):
     """
 
     used_for_reviewing = True
-    
-    def __init__(self, **kwds):
-        super().__init__(**kwds)    
 
-    def setup(self): 
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
+
+    def setup(self):
         self.question.settings().setAttribute(\
             QtWebEngineWidgets.QWebEngineSettings.PluginsEnabled, True)
         self.answer.settings().setAttribute(\
@@ -53,7 +53,7 @@ class QAOptimalSplit(object):
         self.required_answer_size = self.answer.size()
         self.is_answer_showing = False
         self.times_resized = 0
-        
+
     #
     # Code to determine optimal QA split based on prerendering the html
     # in a headless server. Does not work yet in PyQt5, because WebEngine
@@ -82,12 +82,12 @@ class QAOptimalSplit(object):
         #int newWidth=result.toInt();
         #webView->resize(newWidth,webView->height());
         #});
-        
+
         #webView->page()->runJavaScript("document.documentElement.scrollHeight;",[=](QVariant result){
         #int newHeight=result.toInt();
         #webView->resize(webView->width(),newHeight);
         #});
-        
+
         pass
         #self.required_question_size = \
         #    self.question_preview.page().currentFrame().contentsSize()
@@ -101,18 +101,18 @@ class QAOptimalSplit(object):
 
     #
     # TMP workaround involving a heuristic to determine the height.
-    # 
-    
+    #
+
     import re
-    
+
     re_img = re.compile(r"""img src=\"file:///(.+?)\"(.*?)>""",
-        re.DOTALL | re.IGNORECASE)    
+        re.DOTALL | re.IGNORECASE)
 
     def estimate_height(self, html):
         import math
         from mnemosyne.libmnemosyne.utils import expand_path, _abs_path
         from PIL import Image
-         
+
         max_img_height = 0
         total_img_width = 0
         for match in self.re_img.finditer(html):
@@ -129,7 +129,7 @@ class QAOptimalSplit(object):
                 total_img_width += width
         number_of_rows = math.ceil(total_img_width / self.question.width())
         return number_of_rows * max_img_height + 24
-        
+
     def update_stretch_factors(self):
         if self.config()["QA_split"] != "adaptive":
             return
@@ -202,10 +202,10 @@ class QAOptimalSplit(object):
         self.vertical_layout.setStretchFactor(\
             self.answer_box, answer_stretch + self.stretch_offset)
         self.setUpdatesEnabled(True)
-        
+
         # http://stackoverflow.com/questions/37527714/qt-qml-webview-resizes-really-slowly-when-window-resizing
-        
-        
+
+
     def silence_media(self, text):
         # Silence media, but make sure the player widget still shows to get
         # correct information about the geometry.
@@ -224,9 +224,9 @@ class QAOptimalSplit(object):
         #self.question_preview.show()
 
     def set_answer(self, text):
-        #self.main_widget().show_information(text.replace("<", "&lt;"))        
+        #self.main_widget().show_information(text.replace("<", "&lt;"))
         self.answer_text = text
-        
+
         #self.answer_preview.page().setPreferredContentsSize(\
         #    QtCore.QSize(self.answer.size().width(), 1))
         #self.answer_preview.setHtml(self.silence_media(text))
@@ -237,7 +237,7 @@ class QAOptimalSplit(object):
 
     def reveal_answer(self):
         self.is_answer_showing = True
-        self.update_stretch_factors() 
+        self.update_stretch_factors()
         self.answer.setHtml(self.answer_text, QtCore.QUrl("file://"))
         # Forced repaint seems to make things snappier.
         self.question.repaint()
@@ -270,7 +270,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         parent.setCentralWidget(self)
         self.setupUi(self)
         QAOptimalSplit.setup(self)
-        
+
         # TODO: move this to designer with update of PyQt.
         self.grade_buttons = QtWidgets.QButtonGroup()
         self.grade_buttons.addButton(self.grade_0_button, 0)
@@ -300,9 +300,9 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         self.question.selectionChanged.connect(self.selection_changed_in_q)
         self.answer.selectionChanged.connect(self.selection_changed_in_a)
         self.mplayer = QtCore.QProcess()
-        self.media_queue = [] 
+        self.media_queue = []
         self.setFocusPolicy(QtCore.Qt.StrongFocus)
-        
+
         # When clicking out of the app, and clicking back on the web widgets,
         # the focus does not get properly restored, and for QWebEngineView, the
         # event handling for keypresses and focusIn events doesn't work, so
@@ -310,14 +310,14 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.restore_focus)
         self.timer.start(200)
-        
+
     def deactivate(self):
         self.stop_media()
         ReviewWidget.deactivate(self)
-           
+
     #def focusInEvent(self, event):
     #    self.restore_focus()
-    #    super().focusInEvent(event)    
+    #    super().focusInEvent(event)
 
     def changeEvent(self, event):
         if hasattr(self, "show_button"):
@@ -338,7 +338,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
                 if self.number_keys_show_answer:
                     self.show_answer()
             else:
-                self.grade_answer(self.key_to_grade_map[event.key()])   
+                self.grade_answer(self.key_to_grade_map[event.key()])
         elif event.key() == QtCore.Qt.Key_PageDown:
             self.scroll_down()
         elif event.key() == QtCore.Qt.Key_PageUp:
@@ -346,7 +346,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         elif event.key() == QtCore.Qt.Key_R and \
             event.modifiers() == QtCore.Qt.ControlModifier:
             self.review_controller().update_dialog(redraw_all=True) #Replay media.
-        # QtWebengine issue.   
+        # QtWebengine issue.
         #elif event.key() == QtCore.Qt.Key_C and \
         #    event.modifiers() == QtCore.Qt.ControlModifier:
         #    self.copy()
@@ -378,7 +378,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
     def scroll_down(self):
         return
         # TODO: reimplement after webkit is back.
-        
+
         if self.review_controller().is_question_showing() or \
            self.review_controller().card.fact_view.a_on_top_of_q:
             frame = self.question.page().mainFrame()
@@ -392,7 +392,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
     def scroll_up(self):
         return
         # TODO: reimplement after webkit is back.
-         
+
         if self.review_controller().is_question_showing() or \
            self.review_controller().card.fact_view.a_on_top_of_q:
             frame = self.question.page().mainFrame()
@@ -402,18 +402,18 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         y -= int(0.9*(frame.geometry().height()))
         #frame.scroll(x, y)  # Seems buggy 20111121.
         frame.evaluateJavaScript("window.scrollTo(%d, %d);" % (x, y))
-        
+
     def selection_changed_in_q(self):
         self.widget_with_last_selection = self.question
-        
+
     def selection_changed_in_a(self):
         self.widget_with_last_selection = self.answer
-        
+
     def copy(self):
         self.widget_with_last_selection.pageAction(\
             QtWebEngineKit.QWebEnginePage.Copy).trigger()
 
-    def show_answer(self):     
+    def show_answer(self):
         self.review_controller().show_answer()
 
     def grade_answer(self, grade):
@@ -486,7 +486,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         self.sched.setText(_("Scheduled: %d ") % scheduled_count)
         self.notmem.setText(_("Not memorised: %d ") % non_memorised_count)
         self.act.setText(_("Active: %d ") % active_count)
-        
+
     def play_media(self, filename, start=None, stop=None):
         if start is None:
             start = 0
@@ -495,17 +495,17 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         self.media_queue.append((filename, start, stop))
         if self.mplayer.state() != QtCore.QProcess.Running:
             self.play_next_file()
-            
+
     def play_next_file(self):
         filename, start, stop = self.media_queue.pop(0)
         duration = stop - start
         if duration > 400:
-            duration -= 300 # Compensate for mplayer overshoot. 
+            duration -= 300 # Compensate for mplayer overshoot.
         self.mplayer = QtCore.QProcess()
         self.mplayer.finished.connect(self.done_playing)
-        if sys.platform == "win32":            
+        if sys.platform == "win32":
             command = "mplayer.exe -slave -ao win32 -quiet \"" + filename + \
-                "\" -ss " + str(start) + " -endpos " + str(duration) 
+                "\" -ss " + str(start) + " -endpos " + str(duration)
         elif sys.platform == "darwin":
             # e.g. /path/to/Mnemosyne.app/Contents/MacOS/mnemosyne/pyqt_ui/review_wdgt.py
             SCRIPT_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -521,11 +521,11 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
             command = "mplayer -slave -quiet \"" + filename + \
                 "\" -ss " + str(start) + " -endpos " + str(duration)
         self.mplayer.start(command)
-            
+
     def done_playing(self, result):
         if len(self.media_queue) >= 1:
             self.play_next_file()
-        
+
     def stop_media(self):
         if self.mplayer is not None:
             self.mplayer.write(b"quit\n");

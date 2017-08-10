@@ -25,7 +25,7 @@ class Mnemosyne1XML(FileFormat, Mnemosyne1):
         Mnemosyne1.__init__(self, component_manager)
         self.anon_to_id = {}
 
-    def do_import(self, filename, extra_tag_names=None):
+    def do_import(self, filename, extra_tag_names=""):
         FileFormat.do_import(self, filename, extra_tag_names)
         w = self.main_widget()
         # The import process generates card log entries which have new 2.0

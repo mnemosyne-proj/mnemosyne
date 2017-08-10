@@ -25,7 +25,7 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
     import_possible = True
     export_possible = False
 
-    def do_import(self, filename, extra_tag_names=None):
+    def do_import(self, filename, extra_tag_names=""):
         FileFormat.do_import(self, filename, extra_tag_names)
         w = self.main_widget()
         w.set_progress_text(_("Importing cards..."))
@@ -90,14 +90,14 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
                 item.grade = item.__dict__[b"grade"]
                 item.next_rep = item.__dict__[b"next_rep"]
                 item.last_rep = item.__dict__[b"last_rep"]
-                item.easiness = item.__dict__[b"easiness"] 
-                item.acq_reps = item.__dict__[b"acq_reps"] 
-                item.ret_reps = item.__dict__[b"ret_reps"]  
-                item.lapses = item.__dict__[b"lapses"] 
+                item.easiness = item.__dict__[b"easiness"]
+                item.acq_reps = item.__dict__[b"acq_reps"]
+                item.ret_reps = item.__dict__[b"ret_reps"]
+                item.lapses = item.__dict__[b"lapses"]
                 item.acq_reps_since_lapse = \
-                    item.__dict__[b"acq_reps_since_lapse"] 
+                    item.__dict__[b"acq_reps_since_lapse"]
                 item.ret_reps_since_lapse = \
-                    item.__dict__[b"ret_reps_since_lapse"]                
+                    item.__dict__[b"ret_reps_since_lapse"]
                 del item.__dict__[b"id"]
                 del item.__dict__[b"cat"]
                 del item.__dict__[b"q"]
@@ -105,12 +105,12 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
                 del item.__dict__[b"unseen"]
                 del item.__dict__[b"grade"]
                 del item.__dict__[b"next_rep"]
-                del item.__dict__[b"last_rep"] 
-                del item.__dict__[b"easiness"] 
-                del item.__dict__[b"acq_reps"] 
-                del item.__dict__[b"ret_reps"]  
-                del item.__dict__[b"lapses"] 
-                del item.__dict__[b"acq_reps_since_lapse"] 
+                del item.__dict__[b"last_rep"]
+                del item.__dict__[b"easiness"]
+                del item.__dict__[b"acq_reps"]
+                del item.__dict__[b"ret_reps"]
+                del item.__dict__[b"lapses"]
+                del item.__dict__[b"acq_reps_since_lapse"]
                 del item.__dict__[b"ret_reps_since_lapse"]
         except Exception as e:
             self.main_widget().show_error(_("Unable to open file."))

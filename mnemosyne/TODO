@@ -1,7 +1,10 @@
 -fix testsuite
+-singe box / top aligned: answer box shows question as well. I though this was
+ pregenerated?
 
 Android:
 
+remove debug info
 -integrated error reporting:
 https://developers.google.com/analytics/devguides/collection/android/v4/exceptions
 http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-button
@@ -25,6 +28,7 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 
 
 Minor bugs / issues:
+-strip HTML when doing rlt check?
 -example plugin for new learning modes
 -update dev instructions linux, windows
 -make sure initial settings are synced using binary sync.

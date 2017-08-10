@@ -24,8 +24,10 @@ class RenderChain(Component):
     'renderers': list or Renderer classes
 
     Plugins can add Filters or Renderers for a new card type to a chain at run
-    time.
-    
+    time. In case the rendering of a card type does not fit comfortably in the
+    scheme below, an alternative is to override 'render_question' and
+    'render_answer' in CardType directly.
+
     Each client should have a render chain with id="default" on startup.
 
     """
@@ -128,16 +130,18 @@ class RenderChain(Component):
                 break
 
     def renderer_for_card_type(self, card_type):
-        if card_type not in self._renderer_for_card_type:
-            return self._renderer_for_card_type[None]
-        else:
+        if card_type in self._renderer_for_card_type:
             return self._renderer_for_card_type[card_type]
+        if "::" in card_type.id:
+            return self.renderer_for_card_type(\
+                card_type.__class__.__bases__[0])
+        return self._renderer_for_card_type[None]
 
     def render_question(self, card, **render_args):
         fact_keys = card.fact_view.q_fact_keys
         decorators = card.fact_view.q_fact_key_decorators
         if self.config()["QA_split"] == "single_window":
-            render_args["align_top"] = True        
+            render_args["align_top"] = True
         return self._render(card, fact_keys, decorators, **render_args)
 
     def render_answer(self, card, **render_args):
@@ -146,7 +150,7 @@ class RenderChain(Component):
             render_args["align_top"] = True
             fact_keys += card.fact_view.q_fact_keys
             fact_keys.append("__line__")
-            decorators.update(card.fact_view.q_fact_key_decorators)       
+            decorators.update(card.fact_view.q_fact_key_decorators)
         fact_keys += card.fact_view.a_fact_keys
         decorators.update(card.fact_view.a_fact_key_decorators)
         return self._render(card, fact_keys, decorators, **render_args)
@@ -157,7 +161,7 @@ class RenderChain(Component):
         fact_data = copy.copy(card.card_type.fact_data(card))
         for fact_key in fact_keys:
             if fact_key == "__line__":
-                fact_data[fact_key] = "<hr id=answer>"            
+                fact_data[fact_key] = "<hr id=answer>"
             if fact_key not in fact_data:  # Optional key.
                 continue
             for filter in self._filters:

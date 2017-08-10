@@ -49,6 +49,8 @@ class AddEditCards(TipAfterStartingNTimes):
         self.previous_card_type_name = current_card_type_name
         db_sorted_card_types = self.database().sorted_card_types()
         for card_type in db_sorted_card_types:
+            if card_type.hidden_from_UI == True:
+                continue
             if _(card_type.name) == current_card_type_name:
                 self.card_type = card_type
                 self.card_type_index = self.card_types_widget.count()
@@ -98,7 +100,7 @@ class AddEditCards(TipAfterStartingNTimes):
         try:
             self.card_type_widget = self.component_manager.current \
                 ("card_type_widget", used_for=self.card_type.__class__) \
-                (card_type=self.card_type, parent=self, 
+                (card_type=self.card_type, parent=self,
                  component_manager=self.component_manager)
         except Exception as e:
             if not self.card_type_widget:
@@ -156,7 +158,7 @@ class AddEditCards(TipAfterStartingNTimes):
         fact = Fact(fact_data)
         cards = self.card_type.create_sister_cards(fact)
         tag_text = self.tags.currentText()
-        dlg = PreviewCardsDlg(cards, tag_text, 
+        dlg = PreviewCardsDlg(cards, tag_text,
             component_manager=self.component_manager, parent=self)
         dlg.exec_()
 
@@ -165,11 +167,11 @@ class AddEditCards(TipAfterStartingNTimes):
         self.card_type_widget = None
 
 
-class AddCardsDlg(QtWidgets.QDialog, AddEditCards, 
+class AddCardsDlg(QtWidgets.QDialog, AddEditCards,
                   AddCardsDialog, Ui_AddCardsDlg):
 
     def __init__(self, card_type=None, fact_data=None, **kwds):
-        super().__init__(**kwds)    
+        super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
@@ -211,11 +213,11 @@ class AddCardsDlg(QtWidgets.QDialog, AddEditCards,
         state = self.config()["add_cards_dlg_state"]
         if state:
             self.restoreGeometry(state)
-            
+
     def card_type_changed(self, new_card_type_name):
         # We only store the last used tags when creating a new card,
         # not when editing.
-        new_card_type = self.card_type_by_name[new_card_type_name] 
+        new_card_type = self.card_type_by_name[new_card_type_name]
         self.config()["last_used_card_type_id"] = new_card_type.id
         if new_card_type.id not in \
             self.config()["last_used_tags_for_card_type_id"]:
@@ -228,7 +230,7 @@ class AddCardsDlg(QtWidgets.QDialog, AddEditCards,
             if not self.tags.currentText() \
                 or self.card_type_widget.is_empty():
                 self.update_tags_combobox(self.config()\
-                    ["last_used_tags_for_card_type_id"][new_card_type.id]) 
+                    ["last_used_tags_for_card_type_id"][new_card_type.id])
         AddEditCards.card_type_changed(self, new_card_type_name)
 
     def keyPressEvent(self, event):

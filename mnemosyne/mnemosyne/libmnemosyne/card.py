@@ -41,6 +41,11 @@ class Card(CompareOnId):
     files, sync, ...), whereas '_id' is an internal id that could be different
     and that can be used by the database for efficiency reasons.
 
+    Card types have been designed so as to require minimal typing when creating
+    a custom card type, which is why we use class variables. Therefore, when
+    creating new cards programatically, we need to take care to overwrite the
+    class variables with instance variables.
+
     """
 
     def __init__(self, card_type, fact, fact_view, creation_time=None):

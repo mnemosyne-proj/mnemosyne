@@ -10,8 +10,11 @@ Additionally, if you see a black screen, start Mnemosyne with the
 --qt-opengl=desktop command line argument.)
 
 
-Mnemosyne 2.x
+Mnemosyne 2.6
 
+- <Anki import>
+- Fix bug with increase of non-latin fonts using some fonts (reported by
+  JDD).
 - Upgrade to PyQt 5.9.1.
 - Disallow renaming a single tag to multiple tags in the tag tree widget.
   (reported by abacus).

@@ -21,7 +21,7 @@ class ChangeCardTypeDlg(QtWidgets.QDialog, Component, Ui_ChangeCardTypeDlg):
         self.card_type_by_name = {}
         self.return_values = return_values
         for card_type in self.database().sorted_card_types():
-            if card_type == current_card_type:
+            if card_type == current_card_type or card_type.hidden_from_UI:
                 continue
             self.card_type_by_name[_(card_type.name)] = card_type
             self.card_types_widget.addItem(_(card_type.name))

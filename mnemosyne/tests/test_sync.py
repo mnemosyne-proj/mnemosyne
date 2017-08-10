@@ -76,7 +76,7 @@ class MyServer(Server, Thread):
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(("test_sync", "Widget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
-            [("mnemosyne_test", "TestReviewWidget")]        
+            [("mnemosyne_test", "TestReviewWidget")]
         global server_is_initialised
         server_is_initialised = None
         self.passed_tests = None
@@ -98,7 +98,7 @@ class MyServer(Server, Thread):
         # We use a condition object here to prevent the client from accessing
         # the server until the server is ready.
         server_initialised.acquire()
-        self.mnemosyne.initialise(self.data_dir, config_dir=self.data_dir, 
+        self.mnemosyne.initialise(self.data_dir, config_dir=self.data_dir,
             filename=self.filename, automatic_upgrades=False)
         self.mnemosyne.config().change_user_id(self.user_id)
         self.mnemosyne.review_controller().reset()
@@ -148,7 +148,7 @@ class MyServer(Server, Thread):
             pass
         global server_is_initialised
         server_is_initialised = None
-        
+
 
 class MyClient(Client):
 
@@ -171,7 +171,7 @@ class MyClient(Client):
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(("test_sync", "Widget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
-            [("mnemosyne_test", "TestReviewWidget")]        
+            [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.initialise(data_dir, config_dir=data_dir, filename=filename,  automatic_upgrades=False)
         self.mnemosyne.config().change_user_id("user_id")
         self.mnemosyne.review_controller().reset()
@@ -510,8 +510,8 @@ class TestSync(object):
     def test_delete_tag(self):
         def test_server(self):
             db = self.mnemosyne.database()
-            assert db.con.execute("select count() from tags where id=?", 
-                (self.client_tag_id, )).fetchone()[0] == 0            
+            assert db.con.execute("select count() from tags where id=?",
+                (self.client_tag_id, )).fetchone()[0] == 0
             assert db.con.execute("select count() from log").\
                    fetchone()[0] == 26
 
@@ -580,8 +580,8 @@ class TestSync(object):
 
         def test_server(self):
             db = self.mnemosyne.database()
-            assert db.con.execute("select count() from facts where id=?", 
-                (self.client_fact_id, )).fetchone()[0] == 0            
+            assert db.con.execute("select count() from facts where id=?",
+                (self.client_fact_id, )).fetchone()[0] == 0
             assert db.con.execute("select count() from log").fetchone()[0] == 25
 
         self.server = MyServer()
@@ -768,10 +768,10 @@ class TestSync(object):
 
         def test_server(self):
             db = self.mnemosyne.database()
-            assert db.con.execute("select count() from cards where id=?", 
+            assert db.con.execute("select count() from cards where id=?",
                 (self.client_card.id, )).fetchone()[0] == 0
-            assert db.con.execute("select count() from facts").fetchone()[0] == 0   
-            assert db.con.execute("select count() from tags").fetchone()[0] == 1  
+            assert db.con.execute("select count() from facts").fetchone()[0] == 0
+            assert db.con.execute("select count() from tags").fetchone()[0] == 1
             assert db.con.execute("select count() from log").fetchone()[0] == 34
 
         self.server = MyServer()
@@ -915,55 +915,55 @@ class TestSync(object):
         assert db.con.execute("""select object_id from log where event_type=?
             order by _id desc limit 1""", (EventTypes.ADDED_MEDIA_FILE, )).\
             fetchone()[0].startswith("b/")
-        
-        
+
+
     def test_add_delete_add_media(self):
-    
+
             def fill_server_database(self):
                 os.mkdir(os.path.join(os.path.abspath("dot_sync_server"),
                     "default.db_media", "b"))
-    
+
                 filename = os.path.join(os.path.abspath("dot_sync_server"),
                     "default.db_media", "b", chr(0x628) + "b..ogg")
                 f = open(filename, "w")
                 f.write("B")
                 f.close()
-                
+
                 fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
                              "b": "answer"}
                 card_type = self.mnemosyne.card_type_with_id("1")
                 card = self.mnemosyne.controller().create_new_cards(fact_data,
                    card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
-                
-                new_fact_data = {"f": "question", "b": "answer"}                
+
+                new_fact_data = {"f": "question", "b": "answer"}
                 self.mnemosyne.controller().edit_card_and_sisters(card, new_fact_data,
                     card_type, ["tag_1", "tag_2"], {})
                 self.mnemosyne.database().delete_unused_media_files(\
                     self.mnemosyne.database().unused_media_files())
-                
+
                 os.mkdir(os.path.join(os.path.abspath("dot_sync_server"),
-                    "default.db_media", "b"))                
+                    "default.db_media", "b"))
                 f = open(filename, "w")
                 f.write("B")
                 f.close()
-                
+
                 self.mnemosyne.controller().edit_card_and_sisters(card, fact_data,
-                    card_type, ["tag_1", "tag_2"], {})                
-                
+                    card_type, ["tag_1", "tag_2"], {})
+
                 self.mnemosyne.controller().save_file()
-    
+
             def test_server(self):
                 pass
-    
+
             self.server = MyServer()
             self.server.test_server = test_server
             self.server.fill_server_database = fill_server_database
             self.server.start()
-    
+
             self.client = MyClient()
-    
+
             self.client.do_sync(); assert last_error is None
-    
+
             filename = os.path.join(os.path.abspath("dot_sync_client"),
                 "default.db_media", "b", chr(0x628) + "b..ogg")
             assert os.path.exists(filename)
@@ -1155,18 +1155,18 @@ class TestSync(object):
 
         self.client = MyClient()
         self.client.check_for_edited_local_media_files = False
-        
+
         card_type = self.client.mnemosyne.card_type_with_id("2")
         fact_data = {"f": "question",
                      "b": "answer"}
         card_1 = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=-1, tag_names=[])[0]
-        
+
         fact_data = {"f": "question2",
                      "b": "answer"}
         card_2 = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=-1, tag_names=[])[0]
-        
+
         self.client.mnemosyne.start_review()
         self.server.client_card = self.client.mnemosyne.review_controller().card
         self.client.mnemosyne.controller().star_current_card()
@@ -1174,20 +1174,20 @@ class TestSync(object):
         self.client.mnemosyne.review_controller().grade_answer(5)
         self.client.mnemosyne.controller().star_current_card()
         self.client.mnemosyne.controller().star_current_card()
-        self.client.mnemosyne.review_controller().grade_answer(5)        
+        self.client.mnemosyne.review_controller().grade_answer(5)
         self.client.mnemosyne.controller().star_current_card()
         self.client.mnemosyne.controller().star_current_card()
         self.client.mnemosyne.review_controller().grade_answer(5)
         self.client.mnemosyne.controller().star_current_card()
         self.client.mnemosyne.controller().star_current_card()
-        self.client.mnemosyne.review_controller().grade_answer(5)        
-            
+        self.client.mnemosyne.review_controller().grade_answer(5)
+
         self.client.do_sync(); assert last_error is None
 
     def test_delete_media(self):
-        
+
         # We cannot delete media during sync.
-        
+
 
         # First sync.
 
@@ -1493,11 +1493,11 @@ class TestSync(object):
                  os.path.join(os.path.abspath("dot_sync_client"),
             "default.db_media", "_latex",
             "ff66949244c3f6a9018230b95bddfe2b.png")]
-        
+
         for latex_file in files:
             assert os.path.exists(latex_file)
             os.remove(latex_file)
-           
+
     def test_latex_edit(self):
 
         def fill_server_database(self):
@@ -2993,8 +2993,8 @@ class TestSync(object):
 
         def test_server(self):
             db = self.mnemosyne.database()
-            assert db.con.execute("select count() from criteria where id=?", 
-                (self.criterion_id, )).fetchone()[0] == 0            
+            assert db.con.execute("select count() from criteria where id=?",
+                (self.criterion_id, )).fetchone()[0] == 0
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -3113,8 +3113,8 @@ class TestSync(object):
 
         def test_server(self):
             db = self.mnemosyne.database()
-            assert db.con.execute("select count() from fact_views where id=?", 
-                (self.fact_view_id, )).fetchone()[0] == 0            
+            assert db.con.execute("select count() from fact_views where id=?",
+                (self.fact_view_id, )).fetchone()[0] == 0
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -3168,9 +3168,9 @@ class TestSync(object):
 
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
-        
+
     def test_add_card_type_needing_plugin(self):
-    
+
         def test_server(self):
             db = self.mnemosyne.database()
             assert db.con.execute("select count() from fact_views").fetchone()[0] == 1
@@ -3182,7 +3182,7 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient()
-        
+
         from mnemosyne.libmnemosyne.card_types.cloze import ClozePlugin
         for plugin in self.client.mnemosyne.plugins():
             if isinstance(plugin, ClozePlugin):
@@ -3190,13 +3190,13 @@ class TestSync(object):
                 plugin.activate()
                 break
 
-        card_type_1 = self.client.mnemosyne.card_type_with_id("5")        
+        card_type_1 = self.client.mnemosyne.card_type_with_id("5")
 
         card_type = self.client.mnemosyne.card_type_with_id("5")
         card_type_1 = self.client.mnemosyne.controller().clone_card_type(\
             card_type, "5 cloned")
         self.server.card_type_id = card_type_1.id
-        
+
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
 
@@ -3244,7 +3244,7 @@ class TestSync(object):
 
         def test_server(self):
             db = self.mnemosyne.database()
-            assert db.con.execute("select count() from card_types where id=?", 
+            assert db.con.execute("select count() from card_types where id=?",
                 (self.card_type_id, )).fetchone()[0] == 0
 
         self.server = MyServer()
@@ -3504,7 +3504,7 @@ class TestSync(object):
             card_type, card_type_clone, correspondence={})
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
-        
+
     def test_convert_chain(self):
 
         def test_server(self):
@@ -3525,8 +3525,8 @@ class TestSync(object):
         self.client.mnemosyne.controller().change_card_type([card.fact],
             card_type_1, card_type_2, correspondence={})
         self.client.mnemosyne.controller().change_card_type([card.fact],
-            card_type_2, card_type_1, correspondence={})        
-        
+            card_type_2, card_type_1, correspondence={})
+
         from mnemosyne.libmnemosyne.card_types.sentence import SentencePlugin
         for plugin in self.client.mnemosyne.plugins():
             if isinstance(plugin, SentencePlugin):
@@ -3801,9 +3801,9 @@ class TestSync(object):
             ("font", "my_font,12,x,x,25,2,1,1,x,x", card_type)
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync(); assert last_error is None
-        
+
     def test_binary_sync_setting_1(self):
-        
+
         def test_server(self):
             assert self.mnemosyne.config().card_type_property("font",
                 self.mnemosyne.card_type_with_id("1"), "f") \
@@ -3855,7 +3855,7 @@ class TestSync(object):
 
         assert self.client.mnemosyne.config()["font"]["1"]["f"] == \
                "my_font,12,x,x,25,2,1,1,x,x"
-        
+
     def test_restore_backup(self):
 
         # Sync 1.
@@ -3967,11 +3967,11 @@ class TestSync(object):
         answer = 0 # keep local
         self.client.do_sync(); assert last_error is None
         assert self.client.mnemosyne.database().fact_count() == 1
-        
+
     def test_upload_archive(self):
 
         def test_server(self):
-            assert self.client_archive_names == os.listdir(self.archive_path)            
+            assert self.client_archive_names == os.listdir(self.archive_path)
 
         def fill_server_database(self):
             self.archive_path = os.path.join(os.getcwd(), "dot_sync_server", "archive")
@@ -3982,16 +3982,16 @@ class TestSync(object):
         self.server.test_server = test_server
         self.server.fill_server_database = fill_server_database
         self.server.start()
-        
-        
+
+
         # This is a throwaway variable to deal with a python bug
         import datetime
-        throwaway = datetime.datetime.strptime('20110101','%Y%m%d')        
-        
+        throwaway = datetime.datetime.strptime('20110101','%Y%m%d')
+
 
         self.client = MyClient()
-        self.client.binary_upload = True      
-        
+        self.client.binary_upload = True
+
         # Import old history.
         filename = os.path.join(os.getcwd(), "tests", "files", "basedir_bz2",
                                 "default.mem")
@@ -3999,19 +3999,19 @@ class TestSync(object):
         for format in self.client.mnemosyne.component_manager.all("file_format"):
             if format.__class__.__name__ == "Mnemosyne1Mem":
                 mem_importer = format
-                break        
-        mem_importer.do_import(filename) 
+                break
+        mem_importer.do_import(filename)
         self.client.mnemosyne.database().archive_old_logs()
-        
-        archive_path = os.path.join(os.getcwd(), "dot_sync_client", "archive")  
+
+        archive_path = os.path.join(os.getcwd(), "dot_sync_client", "archive")
         self.server.client_archive_names = os.listdir(archive_path)
-        
+
         self.client.do_sync(); assert last_error is None
 
     def test_download_archive(self):
 
         def test_server(self):
-            pass           
+            pass
 
         def fill_server_database(self):
             # Import old history.
@@ -4022,7 +4022,7 @@ class TestSync(object):
                 if format.__class__.__name__ == "Mnemosyne1Mem":
                     mem_importer = format
                     break
-            mem_importer.do_import(filename)        
+            mem_importer.do_import(filename)
             self.mnemosyne.database().archive_old_logs()
 
         self.server = MyServer()
@@ -4032,16 +4032,16 @@ class TestSync(object):
 
         self.client = MyClient()
         self.client.binary_upload = True
-        
-        client_archive_path = os.path.join(os.getcwd(), "dot_sync_client", "archive") 
+
+        client_archive_path = os.path.join(os.getcwd(), "dot_sync_client", "archive")
         if os.path.exists(client_archive_path):
             shutil.rmtree(client_archive_path)
 
         self.client.do_sync(); assert last_error is None
 
         client_archive_names = os.listdir(client_archive_path)
-        
-        server_archive_path = os.path.join(os.getcwd(), "dot_sync_server", "archive")  
-        server_archive_names = os.listdir(server_archive_path) 
-        
+
+        server_archive_path = os.path.join(os.getcwd(), "dot_sync_server", "archive")
+        server_archive_names = os.listdir(server_archive_path)
+
         assert client_archive_names == server_archive_names

@@ -11,7 +11,7 @@ except ImportError:
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.utils import normalise_path
-from mnemosyne.libmnemosyne.utils import expand_path, contract_path 
+from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.utils import is_filesystem_case_insensitive
 from mnemosyne.libmnemosyne.utils import copy_file_to_dir, remove_empty_dirs_in
 
@@ -64,7 +64,7 @@ media_dir + ".\n" + _("Check your file permissions and make sure the directory i
         filename = normalise_path(os.path.join(self.media_dir(), filename))
         if not os.path.exists(filename):
             return "0"
-        media_file = open(filename, "rb")      
+        media_file = open(filename, "rb")
         hasher = md5()
         while True:
             buffer = media_file.read(8096)
@@ -147,7 +147,7 @@ _("Filename contains '#', which could cause problems on some operating systems."
             if not os.path.exists(filename) and \
                 not os.path.exists(expand_path(filename, self.media_dir())):
                 self.main_widget().show_error(\
-                    _("Missing media file!") + "\n\n" + filename)              
+                    _("Missing media file!") + "\n\n" + filename)
                 for fact_key, value in fact.data.items():
                     fact.data[fact_key] = \
                         fact.data[fact_key].replace(match.group(),

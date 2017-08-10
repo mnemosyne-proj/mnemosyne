@@ -22,7 +22,7 @@ class CuecardWcu(FileFormat, MediaPreprocessor):
         FileFormat.__init__(self, component_manager)
         MediaPreprocessor.__init__(self, component_manager)
 
-    def do_import(self, filename, extra_tag_names=None):
+    def do_import(self, filename, extra_tag_names=""):
         FileFormat.do_import(self, filename, extra_tag_names)
         w = self.main_widget()
         try:
@@ -31,10 +31,8 @@ class CuecardWcu(FileFormat, MediaPreprocessor):
             w.show_error(_("Unable to parse file:") + str(e))
             return
         card_type = self.card_type_with_id("1")
-        tag_names = []
-        if extra_tag_names:
-            tag_names += [tag_name.strip() for tag_name \
-                in extra_tag_names.split(",")]
+        tag_names = [tag_name.strip() for \
+            tag_name in extra_tag_names.split(",") if tag_name.strip()]
         for element in tree.getroot().findall("Card"):
             fact_data = {"f": element.attrib["Question"],
                 "b": element.attrib["Answer"]}

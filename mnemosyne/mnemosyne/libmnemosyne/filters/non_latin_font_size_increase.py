@@ -41,8 +41,11 @@ class NonLatinFontSizeIncrease(Filter):
         font_string = self.config().card_type_property(\
             "font", card.card_type, proxy_key)
         if font_string:
-            family,base_font_size,x,x,w,i,u,s,x,x = font_string.split(",")
-            base_font_size = int(base_font_size)
+            if font_string.count(",") == 10:
+                family,size,x,x,w,i,u,s,x,x,x = font_string.split(",")
+            else:
+                family,size,x,x,w,i,u,s,x,x = font_string.split(",")
+            base_font_size = int(size)
         else:
             base_font_size = self.main_widget().default_font_size()
         non_latin_size = base_font_size + \

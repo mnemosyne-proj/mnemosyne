@@ -20,7 +20,7 @@ class Mnemosyne1(MediaPreprocessor):
     class MnemosyneCore(object):
 
         """Dummy 1.x module structure."""
-      
+
         class StartTime:
             pass
         class Category:
@@ -49,7 +49,7 @@ class Mnemosyne1(MediaPreprocessor):
             while item.id in self.items_by_id:
                 item.id = "dup" + item.id
             self.items_by_id[item.id] = item
-        for item in self.items: 
+        for item in self.items:
             w.increase_progress(1)
             self.create_card_from_item(item, extra_tag_names)
         w.set_progress_value(len(self.items))
@@ -60,9 +60,8 @@ class Mnemosyne1(MediaPreprocessor):
             item.cat.name == "" or item.cat.name is None:
             item.cat.name = "__UNTAGGED__"
         tag_names = [item.cat.name]
-        if extra_tag_names:
-            tag_names += [tag_name.strip() for tag_name \
-                in extra_tag_names.split(",")]
+        tag_names += [tag_name.strip() for \
+            tag_name in extra_tag_names.split(",") if tag_name.strip()]
         # Don't create 'secondary' cards here, but create them together with
         # the 'main' card, except when the 'main' card has been deleted.
         # Only exception is when there is no main card.
@@ -102,7 +101,7 @@ class Mnemosyne1(MediaPreprocessor):
             if not fact_data["marked"]:
                 fact_data["marked"] = "(blank)"
             if not fact_data["blank"]:
-                fact_data["blank"] = "(blank)"                
+                fact_data["blank"] = "(blank)"
             self.preprocess_media(fact_data, tag_names)
             card_1, card_2 = self.controller().create_new_cards(fact_data,
                 card_type, grade=-1, tag_names=tag_names,

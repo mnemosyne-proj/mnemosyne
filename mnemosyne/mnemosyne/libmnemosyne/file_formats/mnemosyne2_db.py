@@ -18,12 +18,12 @@ class Mnemosyne2Db(FileFormat):
     import_possible = True
     export_possible = False
 
-    def do_import(self, filename, extra_tag_names=None):
+    def do_import(self, filename, extra_tag_names=""):
         db = self.database()
         if filename.endswith("config.db"):
             self.main_widget().show_error(\
                 _("The configuration database is not used to store cards."))
-            return     
+            return
         data_dir = self.config().data_dir
         receiving_database_filename = \
             expand_path(self.config()["last_database"], data_dir)

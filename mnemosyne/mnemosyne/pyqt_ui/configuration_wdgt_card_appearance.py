@@ -34,6 +34,8 @@ class ConfigurationWdgtCardAppearance(QtWidgets.QWidget, ConfigurationWidget,
         self.card_types_widget.addItem(_("<all card types>"))
         self.card_type_by_name = {}
         for card_type in self.database().sorted_card_types():
+            if card_type.hidden_from_UI:
+                continue
             self.card_type_by_name[_(card_type.name)] = card_type
             self.card_types_widget.addItem(_(card_type.name))
         # Store backups in order to be able to revert our changes.
@@ -218,7 +220,7 @@ class ConfigurationWdgtCardAppearance(QtWidgets.QWidget, ConfigurationWidget,
         fact = Fact(fact_data)
         cards = card_type.create_sister_cards(fact)
         tag_text = ""
-        dlg = PreviewCardsDlg(cards, tag_text, 
+        dlg = PreviewCardsDlg(cards, tag_text,
             component_manager=self.component_manager, parent=self)
         dlg.exec_()
 

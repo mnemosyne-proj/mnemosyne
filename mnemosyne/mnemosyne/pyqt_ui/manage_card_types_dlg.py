@@ -32,7 +32,8 @@ class ManageCardTypesDlg(QtWidgets.QDialog, ManageCardTypesDialog,
         self.items = []
         self.card_type_with_item = []
         for card_type in self.database().sorted_card_types():
-            if self.database().is_user_card_type(card_type):
+            if self.database().is_user_card_type(card_type) and \
+               not card_type.hidden_from_UI:
                 name = "%s (%s)" % (_(card_type.name),
                                     _(card_type.__class__.__bases__[0].name))
                 item = QtWidgets.QListWidgetItem(name)

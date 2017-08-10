@@ -28,7 +28,7 @@ class TestLogging(MnemosyneTest):
         self.mnemosyne.components.insert(0,
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\
-            ("test_logging", "MyMainWidget")) 
+            ("test_logging", "MyMainWidget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
             [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
@@ -190,6 +190,7 @@ class TestLogging(MnemosyneTest):
         # Note: we need to keep the last log entry intact, otherwise indexes
         # start again at 1 and mess up the sync.
         self.database().con.execute("""delete from log where _id <?""", (log_index,))
+        self.database().save()
         self.database().con.execute("""vacuum""")
         fact_data = {"f": "question2",
                      "b": "answer2"}
@@ -214,7 +215,7 @@ class TestLogging(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("test_logging", "MyMainWidget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
-            [("mnemosyne_test", "TestReviewWidget")]        
+            [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.mnemosyne.start_review()
 
@@ -234,7 +235,7 @@ class TestLogging(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("test_logging", "MyMainWidget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
-            [("mnemosyne_test", "TestReviewWidget")]        
+            [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.mnemosyne.start_review()
 
@@ -295,7 +296,7 @@ class TestLogging(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("test_logging", "MyMainWidget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
-            [("mnemosyne_test", "TestReviewWidget")]        
+            [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.mnemosyne.start_review()
         MnemosyneTest.teardown(self)
@@ -319,7 +320,7 @@ class TestLogging(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("test_logging", "MyMainWidget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
-            [("mnemosyne_test", "TestReviewWidget")]        
+            [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.mnemosyne.start_review()
 
@@ -347,7 +348,7 @@ class TestLogging(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("test_logging", "MyMainWidget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
-            [("mnemosyne_test", "TestReviewWidget")]        
+            [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.mnemosyne.start_review()
         MnemosyneTest.teardown(self)
@@ -359,20 +360,20 @@ class TestLogging(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("test_logging", "MyMainWidget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
-            [("mnemosyne_test", "TestReviewWidget")]        
+            [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.mnemosyne.start_review()
-        
+
     def mem_importer(self):
         for format in self.mnemosyne.component_manager.all("file_format"):
             if format.__class__.__name__ == "Mnemosyne1Mem":
-                return format        
+                return format
 
     def test_archive_old_logs(self):
         # Import old history.
         filename = os.path.join(os.getcwd(), "tests", "files", "basedir_bz2",
                                 "default.mem")
-        self.mem_importer().do_import(filename)  
+        self.mem_importer().do_import(filename)
         assert self.database().con.execute("select count() from log").fetchone()[0] == 23
         assert not os.path.exists(os.path.join("dot_test", "archive"))
         # Archive.
@@ -383,5 +384,4 @@ class TestLogging(MnemosyneTest):
         import sqlite3
         arch_con = sqlite3.connect(archive_path)
         assert arch_con.execute("select count() from log").fetchone()[0] == 11
-        
-        
+

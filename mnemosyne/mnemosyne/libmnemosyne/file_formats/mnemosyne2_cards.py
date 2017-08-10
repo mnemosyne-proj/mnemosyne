@@ -40,7 +40,7 @@ class Mnemosyne2Cards(FileFormat):
             return -1
         metadata_file = open("METADATA", "w", encoding="utf-8")
         for key, value in metadata.items():
-            print(key + ":" + value.strip().replace("\n", "<br>"), 
+            print(key + ":" + value.strip().replace("\n", "<br>"),
                   file=metadata_file)
         metadata_file.close()
         db = self.database()
@@ -134,7 +134,7 @@ class Mnemosyne2Cards(FileFormat):
             log_entry["tags"] = ",".join([tag.id for tag in card.tags])
             if used_for_merging_dbs:
                 log_entry["c_time"] = card.creation_time
-                log_entry["m_time"] = card.modification_time 
+                log_entry["m_time"] = card.modification_time
                 log_entry["gr"] = card.grade
                 log_entry["e"] = card.easiness
                 log_entry["ac_rp"] = card.acq_reps
@@ -143,7 +143,7 @@ class Mnemosyne2Cards(FileFormat):
                 log_entry["ac_rp_l"] = card.acq_reps_since_lapse
                 log_entry["rt_rp_l"] = card.ret_reps_since_lapse
                 log_entry["l_rp"] = card.last_rep
-                log_entry["n_rp"] = card.next_rep               
+                log_entry["n_rp"] = card.next_rep
             else:
                 log_entry["gr"] = -1
                 log_entry["e"] = 2.5
@@ -192,7 +192,7 @@ class Mnemosyne2Cards(FileFormat):
         os.chdir(self.orig_dir)
         w.close_progress()
 
-    def do_import(self, filename, extra_tag_names=None, show_metadata=True):
+    def do_import(self, filename, extra_tag_names="", show_metadata=True):
         FileFormat.do_import(self, filename, extra_tag_names)
         if not extra_tag_names:
             extra_tags = []
@@ -200,12 +200,12 @@ class Mnemosyne2Cards(FileFormat):
             extra_tags = [self.database().get_or_create_tag_with_name(\
                 tag_name.strip()) for tag_name in extra_tag_names.split(",")]
         self.database().set_extra_tags_on_import(extra_tags)
-        # Extract zipfile. 
+        # Extract zipfile.
         w = self.main_widget()
         w.set_progress_text(_("Decompressing..."))
         zip_file = zipfile.ZipFile(filename, "r")
         zip_file.extractall(self.database().media_dir())
-        # Show metadata.          
+        # Show metadata.
         metadata_filename = os.path.join(\
                 self.database().media_dir(), "METADATA")
         if show_metadata:

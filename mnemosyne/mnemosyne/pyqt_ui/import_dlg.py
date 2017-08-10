@@ -71,7 +71,7 @@ class ImportDlg(QtWidgets.QDialog, ImportDialog, Ui_ImportDlg):
             extra_tag_names = self.tags.currentText()
             self.config()["import_extra_tag_names"] = extra_tag_names
             if not extra_tag_names:
-                extra_tag_names = None
+                extra_tag_names = ""
             self.config()["import_format"] = str(type(self.format()))
             self.format().do_import(filename, extra_tag_names)
             QtWidgets.QDialog.accept(self)
