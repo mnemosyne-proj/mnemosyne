@@ -55,7 +55,8 @@ class TestAnkiImport(MnemosyneTest):
         filename = os.path.join(os.getcwd(), "files", "anki1", "collection.anki2")
         self.anki_importer().do_import(filename)
         self.review_controller().reset()
-        assert self.database().card_count() == 3
+        assert self.database().card_count() == 5
+        assert self.database().fact_count() == 4
 
         card = self.database().card("1502277582871", is_id_internal=False)
         assert "img src=\"al.png\"" in card.question(render_chain="plain_text")
@@ -66,3 +67,15 @@ class TestAnkiImport(MnemosyneTest):
         card = self.database().card("1502277686022", is_id_internal=False)
         assert "<$$>x</$$>&nbsp;<latex>x^2</latex>&nbsp;<$>x^3</$>" in\
                card.question(render_chain="plain_text")
+
+        card = self.database().card("1502797276041", is_id_internal=False)
+        assert "aa <span class=cloze>[...]</span> cc" in\
+                   card.question(render_chain="plain_text")
+        assert "aa <span class=cloze>bbb</span> cc" in\
+                   card.answer(render_chain="plain_text")
+
+        card = self.database().card("1502797276050", is_id_internal=False)
+        assert "aa bbb <span class=cloze>[...]</span>" in\
+                   card.question(render_chain="plain_text")
+        assert "aa bbb <span class=cloze>cc</span>" in\
+                   card.answer(render_chain="plain_text")

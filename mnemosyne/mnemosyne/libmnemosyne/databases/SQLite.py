@@ -1191,7 +1191,8 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         card_type.required_fact_keys = eval(sql_res[3])
         card_type.keyboard_shortcuts = eval(sql_res[5])
         self._construct_extra_data(sql_res[6], card_type)
-        card_type.hidden_from_UI = card_type.extra_data["hidden_from_UI"]
+        if "hidden_from_UI" in card_type.extra_data:
+            card_type.hidden_from_UI = card_type.extra_data["hidden_from_UI"]
         card_type.fact_views = [self.fact_view(fact_view_id,
             is_id_internal=False) for fact_view_id in eval(sql_res[4])]
         return card_type

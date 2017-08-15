@@ -19,6 +19,8 @@ from mnemosyne.libmnemosyne.card_types.M_sided import MSided
 from mnemosyne.libmnemosyne.file_formats.media_preprocessor \
     import MediaPreprocessor
 
+sound_re = re.compile("(?i)(\[sound:(?P<fname>[^]]+)\])")
+
 
 class TagCache(dict, Component):
 
@@ -135,7 +137,7 @@ class Anki2(FileFormat, MediaPreprocessor):
                 latex_preamble = models[mid]["latexPre"] # Ignore.
                 latex_postamble = models[mid]["latexPost"] # Ignore.
                 # Save to database.
-                card_type.extra_data = {"css":css, "id":id}
+                card_type.extra_data = {"css":css, "id":id, "type":type}
                 self.database().add_card_type(card_type)
         # nid are Anki-internal indices for notes, so we need to temporarily
         # store some information.
@@ -161,8 +163,7 @@ class Anki2(FileFormat, MediaPreprocessor):
                 fact_key = card_type.fact_keys_and_names[i][0]
                 data = fields[i]
                 # Deal with sound tags.
-                for match in re.finditer(\
-                    "(?i)(\[sound:(?P<fname>[^]]+)\])", data):
+                for match in sound_re.finditer(data):
                     fname = match.group("fname")
                     data = data.replace(\
                         match.group(0), "<audio src=\"" + fname + "\">")
@@ -207,9 +208,13 @@ class Anki2(FileFormat, MediaPreprocessor):
             fact = fact_for_nid[nid]
             card_type = card_type_for_nid[nid]
             creation_time = time.time() # TODO
-            fact_view = card_type.fact_views[ord]
+            if card_type.extra_data["type"] == 0:
+                fact_view = card_type.fact_views[ord]
+            else:  # Cloze.
+                fact_view = card_type.fact_views[0]
             card = Card(card_type, fact, fact_view, creation_time=creation_time)
             card.id = id
+            card.extra_data["ord"] = ord  # Needed separately for clozes.
             tag_names = [tag_name.strip() for \
                              tag_name in extra_tag_names.split(",")]
             tag_names += [tag_name.strip() for \

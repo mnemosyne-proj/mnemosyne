@@ -19,6 +19,7 @@ class AnkiRenderer(Renderer):
     def render(self, card, filtered_fact_data, render_chain, **render_args):
         card_type = card.card_type
         extra_data = card.fact_view.extra_data
+        extra_data["ord"] = card.extra_data["ord"]
         fields = {}
         for fact_key, fact_key_name in card_type.fact_keys_and_names:
             fields[fact_key_name] = filtered_fact_data.get(fact_key, "")
@@ -50,7 +51,7 @@ class AnkiRenderer(Renderer):
             else:
                 template = extra_data["afmt"]
             template = re.sub("{{(.*?)cloze:", r"{{\1ca-%d:" \
-                              % (extra_data["ord"] + 1), template)
+                              % (extra_data["ord"]+1), template)
             template = template.replace("<%cloze:", "<%%ca:%d:" % (
                     extra_data["ord"] + 1))
             if "FrontSide" in render_args:
