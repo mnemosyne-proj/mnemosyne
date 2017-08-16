@@ -40,16 +40,17 @@ class AnkiRenderer(Renderer):
             template = template.replace("<%cloze:", "<%%cq:%d:" % (
                     extra_data["ord"] + 1))
         else:
-            if render_chain in ["plain_text", "card_browser"]:
-                if extra_data["bafmt"]:
+            if render_chain in ["plain_text", "card_browser"] and \
+               extra_data["bafmt"]:
                     template = extra_data["bafmt"]
-                else:
-                    template = extra_data["afmt"]
-                    if "\n\n<hr id=answer>\n\n" in template:
-                        template = template.split(\
-                            "\n\n<hr id=answer>\n\n", 1)[1]
             else:
                 template = extra_data["afmt"]
+            # If possible, strip the question part from the template, so that
+            # we can display Q and A in a separate window.
+            if self.config()["QA_split"] != "single_window":
+                if "<hr id=answer>" in template:
+                    template = template.split("<hr id=answer>", 1)[1].strip()
+            # Deal with clozes.
             template = re.sub("{{(.*?)cloze:", r"{{\1ca-%d:" \
                               % (extra_data["ord"]+1), template)
             template = template.replace("<%cloze:", "<%%ca:%d:" % (

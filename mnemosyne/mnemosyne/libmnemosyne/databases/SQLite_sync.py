@@ -189,7 +189,7 @@ class SQLiteSync(object):
             EventTypes.EDITED_MEDIA_FILE))]:
             if os.path.exists(\
                 normalise_path(expand_path(filename, self.media_dir()))):
-                filenames.add(filename)                
+                filenames.add(filename)
         return filenames
 
     def all_media_filenames(self):
@@ -199,7 +199,7 @@ class SQLiteSync(object):
         # We cannot rely on logs in the database here, since part of it
         # may have been archived, so we simply send across the entire
         # media directory.
-        
+
         filenames = set()
         for root, dirs, files in os.walk(self.media_dir()):
             subdir = root.replace(self.media_dir(), "")
@@ -270,7 +270,7 @@ class SQLiteSync(object):
             _fact_id from cards where active=1) and value like '%src=%'"""):
             for match in re_src.finditer(result[0]):
                 active_objects["media_filenames"].add(match.group(2))
-        return active_objects     
+        return active_objects
 
     def set_extra_tags_on_import(self, tags):
         self.extra_tags_on_import = tags
@@ -436,7 +436,7 @@ class SQLiteSync(object):
         # the object from the database. This is a bit slower than just filling
         # in harmless missing keys, but it is more robust against future
         # side effects of tag deletion.
-        if log_entry["type"] == EventTypes.DELETED_TAG:           
+        if log_entry["type"] == EventTypes.DELETED_TAG:
             # Work around legacy logs which contain duplicate deletion events.
             if self.has_tag_with_id(log_entry["o_id"]):
                 return self.tag(log_entry["o_id"], is_id_internal=False)
@@ -445,7 +445,7 @@ class SQLiteSync(object):
                 self.main_widget().show_information(\
             _("Deleting same tag twice during sync. Inform the developpers."))
                 log_entry["name"] = "irrelevant"
-                return Tag(log_entry["name"], log_entry["o_id"])                
+                return Tag(log_entry["name"], log_entry["o_id"])
         # If we are creating a tag that will be deleted at a later stage
         # during this sync, we are missing some (irrelevant) information
         # needed to properly create a tag object.
@@ -480,7 +480,7 @@ class SQLiteSync(object):
         _("Deleting same fact twice during sync. Inform the developpers."))
             fact = Fact({}, log_entry["o_id"])
             fact._id = -1
-            return fact             
+            return fact
         # Get fact object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_FACT:
             return self.fact(log_entry["o_id"], is_id_internal=False)
@@ -492,7 +492,7 @@ class SQLiteSync(object):
         fact = Fact(fact_data, log_entry["o_id"])
         if log_entry["type"] != EventTypes.ADDED_FACT:
             fact._id = self.con.execute("select _id from facts where id=?",
-                (fact.id, )).fetchone()[0]                
+                (fact.id, )).fetchone()[0]
         return fact
 
     def add_card_from_log_entry(self, log_entry):
@@ -542,7 +542,7 @@ class SQLiteSync(object):
                 return self.card(log_entry["o_id"], is_id_internal=False)
             except MnemosyneError:  # There is no fact in the database.
                 # We have created and deleted this card since the last sync,
-                # so we just return an empty shell.                              
+                # so we just return an empty shell.
                 card_type = self.card_type_with_id("1")
                 fact = Fact({"f": "f", "b": "b"}, id="")
                 card = Card(card_type, fact, card_type.fact_views[0],
@@ -567,10 +567,10 @@ class SQLiteSync(object):
             if log_entry["card_t"] not in \
                 self.component_manager.card_type_with_id:
                 # If the card type is not in the database, it's possible that
-                # the data for this card type will follow later during the 
-                # sync. In that case, create a dummy card type here, which 
-                # will be corrected by a later edit event. Hovewer, we still 
-                # need to instantiate this card type later, so that we can 
+                # the data for this card type will follow later during the
+                # sync. In that case, create a dummy card type here, which
+                # will be corrected by a later edit event. Hovewer, we still
+                # need to instantiate this card type later, so that we can
                 # catch errors, e.g. due to bad plugins.
                 try:
                     self.activate_plugins_for_card_type_with_id\
@@ -681,10 +681,10 @@ class SQLiteSync(object):
 
     def delete_media_file(self, log_entry):
         # Actually, we cannot take the responsibility to delete a media file,
-        # since it would e.g. break the corner case to add a media file, 
+        # since it would e.g. break the corner case to add a media file,
         # delete it and than add it again.
         pass
-    
+
         #filename = log_entry["fname"]
         #full_path = expand_path(filename, self.media_dir())
         # The file could have been remotely deleted before it got a chance to
@@ -787,7 +787,7 @@ class SQLiteSync(object):
         card_type.required_fact_keys = eval(log_entry["required_fact_keys"])
         card_type.keyboard_shortcuts = eval(log_entry["keyboard_shortcuts"])
         if "extra" in log_entry:
-            card_type.extra_data = eval(log_entry["extra"])           
+            card_type.extra_data = eval(log_entry["extra"])
         return card_type
 
     def criterion_from_log_entry(self, log_entry):
@@ -826,11 +826,11 @@ class SQLiteSync(object):
             self.importing = True
         event_type = log_entry["type"]
         if "time" in log_entry:
-            self.log().timestamp = int(log_entry["time"]) 
+            self.log().timestamp = int(log_entry["time"])
         # TMP measure to allow syncing partners which did not yet store
         # machine ids for LOADED_DATABASE and SAVED_DATABASE.
         if not "o_id" in log_entry:
-            log_entry["o_id"] = ""        
+            log_entry["o_id"] = ""
         try:
             if event_type == EventTypes.STARTED_PROGRAM:
                 self.log().started_program(log_entry["o_id"])
@@ -892,7 +892,7 @@ class SQLiteSync(object):
                     self.reapply_default_criterion_needed = True
             elif event_type == EventTypes.DELETED_CRITERION:
                 self.delete_criterion(self.criterion_from_log_entry(log_entry))
-            elif event_type == EventTypes.EDITED_SETTING:              
+            elif event_type == EventTypes.EDITED_SETTING:
                 key, value = log_entry["o_id"], eval(log_entry["value"])
                 if key in self.config().keys_to_sync:
                     self.config()[key] = value

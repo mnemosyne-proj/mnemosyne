@@ -38,11 +38,15 @@ class MSided(CardType):
         return self._render(card, render_chain, render_QA="Q", **render_args)
 
     def render_answer(self, card, render_chain="default", **render_args):
-        if "FrontSide" in card.fact_view.extra_data["afmt"]:
-            new_render_args = copy.copy(render_args)
-            new_render_args["body_only"] = True
-            render_args["FrontSide"] = \
-                self.render_question(card, render_chain, **new_render_args)
+        # If we cannot isolate the question from the answer, and we need
+        # the 'FrontSide' info, calculate this info first.
+        if self.config()["QA_split"] == "single_window" or \
+                "<hr id=answer>" not in card.fact_view.extra_data["afmt"]:
+            if "FrontSide" in card.fact_view.extra_data["afmt"]:
+                new_render_args = copy.copy(render_args)
+                new_render_args["body_only"] = True
+                render_args["FrontSide"] = \
+                    self.render_question(card, render_chain, **new_render_args)
         return self._render(card, render_chain, render_QA="A", **render_args)
 
     def _render(self, card, render_chain="default", **render_args):

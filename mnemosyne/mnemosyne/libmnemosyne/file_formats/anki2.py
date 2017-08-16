@@ -59,11 +59,14 @@ class Anki2(FileFormat, MediaPreprocessor):
         # Open database.
         con = sqlite3.connect(filename)
         # Copy media directory.
+        w = self.main_widget()
+        w.set_progress_text(_("Copying media files..."))
         src = filename.replace(".anki2", ".media")
         dst = self.database().media_dir()
         for item in os.listdir(src):
             shutil.copy(os.path.join(src, item), os.path.join(dst, item))
         # Import collection table.
+        w.set_progress_text(_("Importing card types..."))
         card_type_for_mid = {}  # mid: model id
         deck_name_for_did = {}  # did: deck id
         for id, crt, mod, scm, ver, dty, usn, ls, conf, models, decks, \
@@ -93,6 +96,8 @@ class Anki2(FileFormat, MediaPreprocessor):
                 card_type.hidden_from_UI = False
                 if card_type.id in self.component_manager.card_type_with_id:
                     # Don't import same card type twice.
+                    card_type_for_mid[int(mid)] = \
+                        self.component_manager.card_type_with_id[card_type.id]
                     continue
                 card_type_for_mid[int(mid)] = card_type
                 vers = models[mid]["vers"] # Version, ignore.
@@ -132,7 +137,7 @@ class Anki2(FileFormat, MediaPreprocessor):
                     self.database().add_fact_view(fact_view)
                 mod = models[mid]["mod"] # Modification time, ignore.
                 type = models[mid]["type"] # 0: standard, 1 cloze
-                id = models[mid]["id"] # ignore
+                id = models[mid]["id"]
                 css = models[mid]["css"]
                 latex_preamble = models[mid]["latexPre"] # Ignore.
                 latex_postamble = models[mid]["latexPost"] # Ignore.
@@ -141,6 +146,8 @@ class Anki2(FileFormat, MediaPreprocessor):
                 self.database().add_card_type(card_type)
         # nid are Anki-internal indices for notes, so we need to temporarily
         # store some information.
+        w.set_progress_text(_("Importing cards..."))
+        # TODO: count number of notes and cards and update the progress bar.
         fact_for_nid = {}
         tag_names_for_nid = {}
         card_type_for_nid = {}
