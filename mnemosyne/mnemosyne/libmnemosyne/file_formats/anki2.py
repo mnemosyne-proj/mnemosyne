@@ -53,20 +53,25 @@ class Anki2(FileFormat, MediaPreprocessor):
         pr.enable()
 
         FileFormat.do_import(self, filename, extra_tag_names)
+        w = self.main_widget()
+        db = self.database()
         # Set up tag cache.
         tag_with_name = TagCache(self.component_manager)
-        w = self.main_widget()
         # Open database.
         con = sqlite3.connect(filename)
         # Copy media directory.
-        w = self.main_widget()
         w.set_progress_text(_("Copying media files..."))
         src = filename.replace(".anki2", ".media")
-        dst = self.database().media_dir()
+        dst = db.media_dir()
+        number_of_files = len(os.listdir(src))
+        w.set_progress_range(number_of_files)
+        w.set_progress_update_interval(number_of_files/50)
         for item in os.listdir(src):
             shutil.copy(os.path.join(src, item), os.path.join(dst, item))
+            w.increase_progress(1)
         # Import collection table.
         w.set_progress_text(_("Importing card types..."))
+        # Too few in number to warrant counted progress bar.
         card_type_for_mid = {}  # mid: model id
         deck_name_for_did = {}  # did: deck id
         for id, crt, mod, scm, ver, dty, usn, ls, conf, models, decks, \
@@ -90,15 +95,17 @@ class Anki2(FileFormat, MediaPreprocessor):
             # Models will be converted to CardTypes
             models = json.loads(models)
             for mid in models:  # mid: model id
-                card_type = MSided(self.component_manager)
+                card_type_id = "7::" + mid
+                card_type_already_imported = \
+                    db.has_card_type_with_id(card_type_id)
+                if card_type_already_imported:
+                    card_type = self.component_manager.card_type_with_id[\
+                        card_type_id]
+                else:
+                    card_type = MSided(self.component_manager)
                 card_type.name = models[mid]["name"]
-                card_type.id = clone_id="7::" + mid
+                card_type.id = card_type_id
                 card_type.hidden_from_UI = False
-                if card_type.id in self.component_manager.card_type_with_id:
-                    # Don't import same card type twice.
-                    card_type_for_mid[int(mid)] = \
-                        self.component_manager.card_type_with_id[card_type.id]
-                    continue
                 card_type_for_mid[int(mid)] = card_type
                 vers = models[mid]["vers"] # Version, ignore.
                 tags = models[mid]["tags"] # TODO, seems empty
@@ -125,8 +132,15 @@ class Anki2(FileFormat, MediaPreprocessor):
                 # Fact views.
                 card_type.fact_views = []
                 for template in tmpls:
-                    fact_view = FactView(template["name"],
-                        card_type.id + "." + str(template["ord"]))
+                    fact_view_id = card_type.id + "." + str(template["ord"])
+                    fact_view_already_imported = \
+                        db.has_fact_view_with_id(fact_view_id)
+                    if fact_view_already_imported:
+                        fact_view = db.fact_view(\
+                            fact_view_id, is_id_internal=False)
+                        fact_view.name = template["name"]
+                    else:
+                        fact_view = FactView(template["name"], fact_view_id)
                     fact_view.extra_data["qfmt"] = template["qfmt"]
                     fact_view.extra_data["afmt"] = template["afmt"]
                     fact_view.extra_data["bqfmt"] = template["bqfmt"]
@@ -134,7 +148,10 @@ class Anki2(FileFormat, MediaPreprocessor):
                     fact_view.extra_data["ord"] = template["ord"]
                     did = template["did"] # Deck id, ignore.
                     card_type.fact_views.append(fact_view)
-                    self.database().add_fact_view(fact_view)
+                    if fact_view_already_imported:
+                        db.update_fact_view(fact_view)
+                    else:
+                        db.add_fact_view(fact_view)
                 mod = models[mid]["mod"] # Modification time, ignore.
                 type = models[mid]["type"] # 0: standard, 1 cloze
                 id = models[mid]["id"]
@@ -143,15 +160,20 @@ class Anki2(FileFormat, MediaPreprocessor):
                 latex_postamble = models[mid]["latexPost"] # Ignore.
                 # Save to database.
                 card_type.extra_data = {"css":css, "id":id, "type":type}
-                self.database().add_card_type(card_type)
+                if card_type_already_imported:
+                    db.update_card_type(card_type)
+                else:
+                    db.add_card_type(card_type)
         # nid are Anki-internal indices for notes, so we need to temporarily
         # store some information.
-        w.set_progress_text(_("Importing cards..."))
-        # TODO: count number of notes and cards and update the progress bar.
-        fact_for_nid = {}
         tag_names_for_nid = {}
         card_type_for_nid = {}
         # Import facts and tags.
+        w.set_progress_text(_("Importing notes..."))
+        number_of_notes = con.execute("select count() from notes").fetchone()[0]
+        w.set_progress_range(number_of_notes)
+        w.set_progress_update_interval(number_of_notes/20)
+        fact_for_nid = {}
         for id, guid, mid, mod, usn, tags, flds, sfld, csum, flags, data in \
             con.execute("""select id, guid, mid, mod, usn, tags, flds, sfld,
             csum, flags, data from notes"""):
@@ -182,11 +204,21 @@ class Anki2(FileFormat, MediaPreprocessor):
                 data = data.replace("[$$]", "<$$>")
                 data = data.replace("[/$$]", "</$$>")
                 fact_data[fact_key] = data
-            fact = Fact(fact_data, id=guid)
-            self.database().add_fact(fact)
+            if db.has_fact_with_id(guid):
+                fact = db.fact(guid, is_id_internal=False)
+                fact.data = fact_data
+                db.update_fact(fact)
+            else:
+                fact = Fact(fact_data, id=guid)
+                db.add_fact(fact)
             fact_for_nid[id] = fact
             tag_names_for_nid[id] = tags
+            w.increase_progress(1)
         # Import cards.
+        w.set_progress_text(_("Importing cards..."))
+        number_of_cards = con.execute("select count() from cards").fetchone()[0]
+        w.set_progress_range(number_of_cards)
+        w.set_progress_update_interval(number_of_cards/20)
         for id, nid, did, ord, mod, usn, type, queue, due, ivl, factor, reps, \
             lapses, left, odue, odid, flags, data in con.execute("""select id,
             nid, did, ord, mod, usn, type, queue, due, ivl, factor, reps,
@@ -219,7 +251,16 @@ class Anki2(FileFormat, MediaPreprocessor):
                 fact_view = card_type.fact_views[ord]
             else:  # Cloze.
                 fact_view = card_type.fact_views[0]
-            card = Card(card_type, fact, fact_view, creation_time=creation_time)
+            already_imported = db.has_card_with_id(id)
+            if already_imported:
+                card = db.card(id, is_id_internal=False)
+                card.card_type = card_type
+                card.fact = fact
+                card.fact_view = fact_view
+                card.creation_time = creation_time
+            else:
+                card = Card(card_type, fact, fact_view,
+                            creation_time=creation_time)
             card.id = id
             card.extra_data["ord"] = ord  # Needed separately for clozes.
             tag_names = [tag_name.strip() for \
@@ -243,10 +284,18 @@ class Anki2(FileFormat, MediaPreprocessor):
             #self._construct_extra_data(sql_res[16], card)
             #card.scheduler_data = sql_res[17]
             #card.active = sql_res[18]
-            self.database().add_card(card)
+            if already_imported:
+                db.update_card(card)
+            else:
+                db.add_card(card)
+            w.increase_progress(1)
         # Import logs.
+        w.set_progress_text(_("Importing logs..."))
+        number_of_logs = con.execute("select count() from revlog").fetchone()[0]
+        w.set_progress_range(number_of_logs)
+        w.set_progress_update_interval(number_of_logs/20)
 
-
+        w.close_progress()
         self.warned_about_missing_media = False
 
         pr.disable()

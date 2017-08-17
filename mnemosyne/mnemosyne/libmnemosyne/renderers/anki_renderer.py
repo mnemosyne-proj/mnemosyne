@@ -58,6 +58,8 @@ class AnkiRenderer(Renderer):
             if "FrontSide" in render_args:
                 fields["FrontSide"] = render_args["FrontSide"].\
                     replace("audio src", "audio_off src")
+        # Hide {{type:...}} fields.
+        template = re.sub("{{type:.+}}", "", template)
         body = _render(template, fields)
         if render_chain in ["plain_text", "card_browser"] or \
            ("body_only" in render_args and render_args["body_only"] == True):
