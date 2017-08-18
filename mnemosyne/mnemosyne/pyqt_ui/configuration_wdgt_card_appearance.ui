@@ -97,7 +97,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontal_layout_bg_colour">
        <item>
-        <widget class="QLabel" name="bg_label">
+        <widget class="QLabel" name="background_label">
          <property name="text">
           <string>Background:</string>
          </property>

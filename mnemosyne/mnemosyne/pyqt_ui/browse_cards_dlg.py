@@ -724,6 +724,9 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
               self.card_model.setHeaderData(key, QtCore.Qt.Horizontal,
                   QtCore.QVariant(value))
         self.table.setModel(self.card_model)
+        # Slow, and doesn't work very well.
+        #self.table.verticalHeader().setSectionResizeMode(\
+        #    QtWidgets.QHeaderView.ResizeToContents)
         self.table.horizontalHeader().sectionClicked.connect(\
             self.horizontal_header_section_clicked)
         table_settings = self.config()["browse_cards_dlg_table_settings"]

@@ -132,7 +132,9 @@ class RenderChain(Component):
     def renderer_for_card_type(self, card_type):
         if card_type in self._renderer_for_card_type:
             return self._renderer_for_card_type[card_type]
-        if "::" in card_type.id:
+        if "::" in card_type.id: # TODO: object has no attr.id
+            print(card_type.id)
+            print(card_type.__class__.__bases__)
             return self.renderer_for_card_type(\
                 card_type.__class__.__bases__[0])
         return self._renderer_for_card_type[None]

@@ -16,6 +16,8 @@ from mnemosyne.libmnemosyne.fact_view import FactView
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.file_format import FileFormat
 from mnemosyne.libmnemosyne.card_types.M_sided import MSided
+from mnemosyne.libmnemosyne.criteria.default_criterion import \
+     DefaultCriterion
 from mnemosyne.libmnemosyne.file_formats.media_preprocessor \
     import MediaPreprocessor
 
@@ -48,10 +50,6 @@ class Anki2(FileFormat, MediaPreprocessor):
         MediaPreprocessor.__init__(self, component_manager)
 
     def do_import(self, filename, extra_tag_names=""):
-        import cProfile, pstats, io
-        pr = cProfile.Profile()
-        pr.enable()
-
         FileFormat.do_import(self, filename, extra_tag_names)
         w = self.main_widget()
         db = self.database()
@@ -79,17 +77,16 @@ class Anki2(FileFormat, MediaPreprocessor):
             usn, ls, conf, models, decks, dconf, tags from col"""):
             # crt: creation time, ignore.
             # mod: modification time, ignore.
-            # scm: TODO
+            # scm: schema modification time, ignore.
             # ver: schema version, ignore.
-            # dty: TODO
+            # dty: no longer used according to Anki source.
             # usn: syncing related, ignore.
-            # ls: TODO
+            # ls: last sync, ignore.
             # conf: configuration, ignore.
             # dconf: deck configuration, ignore.
             # tags: list of tags, but they turn up later in the notes, ignore.
-
-            # Decks will be converted to Tags when creating cards.
             decks = json.loads(decks)
+            # Decks will be converted to Tags when creating cards.
             for did in decks:
                 deck_name_for_did[int(did)] = decks[did]["name"]
             # Models will be converted to CardTypes
@@ -108,11 +105,14 @@ class Anki2(FileFormat, MediaPreprocessor):
                 card_type.hidden_from_UI = False
                 card_type_for_mid[int(mid)] = card_type
                 vers = models[mid]["vers"] # Version, ignore.
-                tags = models[mid]["tags"] # TODO, seems empty
+                tags = models[mid]["tags"] # Seems empty, ignore.
                 did = models[mid]["did"] # Deck id, ignore.
                 usn = models[mid]["usn"] # Syncing related, ignore.
                 if "req" in models[mid]:
-                    required = models[mid]["req"] # TODO,"req": [[0, "all", [0]]], "
+                    required = models[mid]["req"]
+                    # Cache for a calculation to determine which fields are
+                    # required. "req": [[0, "all", [0]]]
+                    # Not yet implemented.
                 else:
                     required = []
                 flds = models[mid]["flds"]
@@ -121,12 +121,14 @@ class Anki2(FileFormat, MediaPreprocessor):
                 for field in flds:
                     card_type.fact_keys_and_names.append(\
                         (str(field["ord"]), field["name"]))
-                    media = field["media"] # TODO
+                    media = field["media"] # Reserved for future use, ignore.
                     sticky = field["sticky"] # Sticky field, ignore.
                     rtl = field["rtl"] # Text direction, ignore.
-                    font = field["font"] # TODO
-                    size = field["size"] # TODO
-                sortf = models[mid]["sortf"] # Sorting field, ignore. TODO: related to unique?
+                    font_string = field["font"] + "," + str(field["size"]) + \
+                        ",-1,5,50,0,0,0,0,0,Regular"
+                    self.config().set_card_type_property("font", font_string,
+                        card_type, str(field["ord"]))
+                sortf = models[mid]["sortf"] # Sorting field, ignore.
                 tmpls = models[mid]["tmpls"]
                 tmpls.sort(key=lambda x : x["ord"])
                 # Fact views.
@@ -180,9 +182,9 @@ class Anki2(FileFormat, MediaPreprocessor):
             # mod: modification time, ignore.
             # usn: syncing related, ignore.
             # sfld: sorting field, ignore.
-            # csum: checksum? TODO
-            # flags: TODO
-            # data: TODO
+            # csum: checksum, ignore.
+            # flags: seems empty, ignore.
+            # data: seems empty, ignore.
             card_type = card_type_for_mid[int(mid)]
             card_type_for_nid[id] = card_type
             fields = flds.split("\x1f")
@@ -241,12 +243,13 @@ class Anki2(FileFormat, MediaPreprocessor):
             # lapses,
             # left,
             # odue,
-            # odid,
+            # odid: in a cram deck, ignore.
             # flags,
             # data
             fact = fact_for_nid[nid]
             card_type = card_type_for_nid[nid]
             creation_time = time.time() # TODO
+            # TODO: modification time.
             if card_type.extra_data["type"] == 0:
                 fact_view = card_type.fact_views[ord]
             else:  # Cloze.
@@ -295,12 +298,18 @@ class Anki2(FileFormat, MediaPreprocessor):
         w.set_progress_range(number_of_logs)
         w.set_progress_update_interval(number_of_logs/20)
 
+        # Create criteria for 'database' tags.
+        for deck_name in deck_name_for_did.values():
+            deck_name = deck_name.strip().replace(",", ";")
+            if deck_name in [criterion.name for criterion in db.criteria()]:
+                continue
+            tag = tag_with_name[deck_name]
+            criterion = DefaultCriterion(\
+                component_manager=self.component_manager)
+            criterion.name = deck_name
+            criterion._tag_ids_active.add(tag._id)
+            criterion._tag_ids_forbidden = set()
+            db.add_criterion(criterion)
         w.close_progress()
         self.warned_about_missing_media = False
 
-        pr.disable()
-        s = io.StringIO()
-        sortby = 'cumulative'
-        ps = pstats.Stats(pr, stream=s).strip_dirs().sort_stats(sortby)
-        ps.print_stats(50)
-        print(s.getvalue())

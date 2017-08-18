@@ -55,11 +55,14 @@ class TestAnkiImport(MnemosyneTest):
         filename = os.path.join(os.getcwd(), "files", "anki1", "collection.anki2")
         self.anki_importer().do_import(filename)
         self.review_controller().reset()
-        assert self.database().card_count() == 6
-        assert self.database().fact_count() == 5
+        assert self.database().card_count() == 7
+        assert self.database().fact_count() == 6
 
         card = self.database().card("1502277582871", is_id_internal=False)
         assert "img src=\"al.png\"" in card.question(render_chain="plain_text")
+        assert self.config().card_type_property(\
+                "font", card.card_type, "0") == \
+               "Algerian,23,-1,5,50,0,0,0,0,0,Regular"
 
         card = self.database().card("1502277594395", is_id_internal=False)
         assert "audio src=\"1.mp3\"" in card.question(render_chain="plain_text")
@@ -86,6 +89,10 @@ class TestAnkiImport(MnemosyneTest):
         assert "{{type:Back}}" not in\
                    card.question(render_chain="plain_text")
 
+        criterion = self.database().criterion(id=2, is_id_internal=True)
+        assert criterion.data_to_string() == "(set(), {2}, set())"
+        assert criterion.name == "Deck 1"
+        assert len(list(self.database().criteria())) == 3
 
     def test_anki_2(self):
         # Import twice.
@@ -93,11 +100,14 @@ class TestAnkiImport(MnemosyneTest):
         self.anki_importer().do_import(filename)
         self.anki_importer().do_import(filename)
         self.review_controller().reset()
-        assert self.database().card_count() == 6
-        assert self.database().fact_count() == 5
+        assert self.database().card_count() == 7
+        assert self.database().fact_count() == 6
 
         card = self.database().card("1502277582871", is_id_internal=False)
         assert "img src=\"al.png\"" in card.question(render_chain="plain_text")
+        assert self.config().card_type_property(\
+                "font", card.card_type, "0") == \
+                   "Algerian,23,-1,5,50,0,0,0,0,0,Regular"
 
         card = self.database().card("1502277594395", is_id_internal=False)
         assert "audio src=\"1.mp3\"" in card.question(render_chain="plain_text")
@@ -123,3 +133,8 @@ class TestAnkiImport(MnemosyneTest):
                    card.question(render_chain="plain_text")
         assert "{{type:Back}}" not in\
                    card.question(render_chain="plain_text")
+
+        criterion = self.database().criterion(id=2, is_id_internal=True)
+        assert criterion.data_to_string() == "(set(), {2}, set())"
+        assert criterion.name == "Deck 1"
+        assert len(list(self.database().criteria())) == 3

@@ -29,6 +29,7 @@ class AnkiRenderer(Renderer):
         fields["Subdeck"] = ""
         fields["Card"] = card.fact_view.name
         fields["c%d" % (extra_data["ord"] + 1)] = "1"
+        # Determine template.
         if render_args["render_QA"] == "Q":
             if render_chain in ["plain_text", "card_browser"] \
                and extra_data["bqfmt"]:
@@ -36,7 +37,7 @@ class AnkiRenderer(Renderer):
             else:
                 template = extra_data["qfmt"]
             template = re.sub("{{(?!type:)(.*?)cloze:", r"{{\1cq-%d:" \
-                                % (extra_data["ord"]+1), template)
+                                % (extra_data["ord"] + 1), template)
             template = template.replace("<%cloze:", "<%%cq:%d:" % (
                     extra_data["ord"] + 1))
         else:
@@ -47,7 +48,8 @@ class AnkiRenderer(Renderer):
                 template = extra_data["afmt"]
             # If possible, strip the question part from the template, so that
             # we can display Q and A in a separate window.
-            if self.config()["QA_split"] != "single_window":
+            if self.config()["QA_split"] != "single_window" or \
+               render_chain in ["plain_text", "card_browser"]:
                 if "<hr id=answer>" in template:
                     template = template.split("<hr id=answer>", 1)[1].strip()
             # Deal with clozes.
@@ -58,11 +60,49 @@ class AnkiRenderer(Renderer):
             if "FrontSide" in render_args:
                 fields["FrontSide"] = render_args["FrontSide"].\
                     replace("audio src", "audio_off src")
+        # Determine colours and fonts.
+        for fact_key, fact_key_name in card.card_type.fact_keys_and_names:
+            style = ""
+            colour = self.config().card_type_property(\
+                "font_colour", card_type, fact_key)
+            if colour:
+                colour_string = ("%X" % colour)[2:] # Strip alpha.
+                style += "color: #%s; " % colour_string
+            font_string = self.config().card_type_property(\
+                "font", card.card_type, fact_key)
+            if font_string:
+                if font_string.count(",") == 10:
+                    family,size,x,x,w,i,u,s,x,x,x = font_string.split(",")
+                else:
+                    family,size,x,x,w,i,u,s,x,x = font_string.split(",")
+                style += "font-family: '%s'; " % family
+                style += "font-size: %spt; " % size
+                if w == "25":
+                    style += "font-weight: light; "
+                if w == "75":
+                    style += "font-weight: bold; "
+                if i == "1":
+                    style += "font-style: italic; "
+                if i == "2":
+                    style += "font-style: oblique; "
+                if u == "1":
+                    style += "text-decoration: underline; "
+                if s == "1":
+                    style += "text-decoration: line-through; "
+                fields[fact_key_name] = "<span style=\"%s\">%s</span>" % \
+                    (style, fields[fact_key_name])
         # Hide {{type:...}} fields.
         template = re.sub("{{type:.+}}", "", template)
+        # Hide {{hint:...}} fields in card browser.
+        if render_chain in ["plain_text", "card_browser"]:
+            template = re.sub("{{hint:.+}}", "", template)
         body = _render(template, fields)
+        # Some heuristic to have a decent display in the card browser.
         if render_chain in ["plain_text", "card_browser"] or \
            ("body_only" in render_args and render_args["body_only"] == True):
+            if "bqfmt" not in extra_data or not extra_data["bqfmt"]:
+                body = body.replace("font-size", "font-size-off")
+                body = body.replace("\n", "").replace("<br", "<br_off")
             return body
         else:
             return """

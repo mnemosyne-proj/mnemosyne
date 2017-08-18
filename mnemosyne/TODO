@@ -1,6 +1,36 @@
+- bug: renderer for clone of clone
+
+- get rid of tcl tk
+
+Anki import:
+
+-       elif type == "noteCrt":
+            return time.strftime("%Y-%m-%d", time.localtime(c.note().id/1000))
+        elif type == "noteMod":
+            return time.strftime("%Y-%m-%d", time.localtime(c.note().mod))
+        elif type == "cardMod":
+            return time.strftime("%Y-%m-%d", time.localtime(c.mod))
+
+- import learning data
+
+- import logs
+
+- apgk files
+
+- port card type editor, with restrictions
+- allow clones of Anki card types?
+- don't allow editing existing cloze so as to create a new card
+- don't allow creating new cloze card, add warning to use Mnemosyne clozes
+  instead
+- card type editor cannot change number of fact views nor number of fields
+- appropriate warning on all limitations on import, also add beta status and
+  invite bug reports
+
+- Q and A align top, no boundaries around content: document how to add CSS to
+  fix this?
+
 -fix testsuite
--singe box / top aligned: answer box shows question as well. I though this was
- pregenerated?
+
 
 Android:
 
@@ -138,6 +168,8 @@ created with just the "»" symbol.
 
 
 Other features:
+
+-check for required fields when using the Anki card type.
 
 -first doing a count and then the actual a query is not a good idea:?
 time 'number_of_log_entries_to_sync_for' vs 'number_of_log_entries'

@@ -46,21 +46,27 @@ class ConfigurationWdgtCardAppearance(QtWidgets.QWidget, ConfigurationWidget,
         self.old_alignment = deepcopy(self.config()["alignment"])
 
     def card_type_changed(self, new_card_type_name):
+        non_latin_widgets = [self.label_non_latin_1, self.label_non_latin_2,
+                self.label_non_latin_3, self.line_non_latin,
+                self.non_latin_font_size_increase]
+        background_align_widgets = [self.background_label,
+            self.background_button, self.align_label, self.alignment]
         if new_card_type_name == _("<all card types>"):
             self.affected_card_types = self.card_types()
             self.fact_key_names = [_("Text")]
-            for widget in [self.label_non_latin_1, self.label_non_latin_2,
-                self.label_non_latin_3, self.line_non_latin,
-                self.non_latin_font_size_increase]:
+            for widget in non_latin_widgets + background_align_widgets:
                 widget.show()
         else:
             new_card_type_name = new_card_type_name
             new_card_type = self.card_type_by_name[new_card_type_name]
             self.affected_card_types = [new_card_type]
             self.fact_key_names = new_card_type.fact_key_names()
-            for widget in [self.label_non_latin_1, self.label_non_latin_2,
-                self.label_non_latin_3, self.line_non_latin,
-                self.non_latin_font_size_increase]:
+            for widget in background_align_widgets:
+                if new_card_type.id.startswith("7::"):
+                    widget.hide()
+                else:
+                    widget.show()
+            for widget in non_latin_widgets:
                 widget.hide()
         for widget in self.dynamic_widgets:
             self.gridLayout.removeWidget(widget)
@@ -219,6 +225,9 @@ class ConfigurationWdgtCardAppearance(QtWidgets.QWidget, ConfigurationWidget,
                 fact_data[fact_key] = "[" + _(fact_key_name) + "]"
         fact = Fact(fact_data)
         cards = card_type.create_sister_cards(fact)
+        # Tmp hack for Anki
+        for card in cards:
+            card.extra_data["ord"] = 1
         tag_text = ""
         dlg = PreviewCardsDlg(cards, tag_text,
             component_manager=self.component_manager, parent=self)

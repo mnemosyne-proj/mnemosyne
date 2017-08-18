@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-08-11 13:48+0200\n"
+"POT-Creation-Date: 2017-08-18 17:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -153,7 +153,7 @@ msgid "Cloze deletion"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:41
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:51
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:56
 msgid "Text"
 msgstr ""
 
@@ -674,12 +674,36 @@ msgstr ""
 msgid "Putting a database on a network drive is forbidden under Windows to avoid data corruption. Mnemosyne will now close."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:38
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:42
 msgid "Anki2 collections"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:40
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:44
 msgid "Anki2 files (*.anki2)"
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:61
+msgid "Copying media files..."
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:71
+msgid "Importing card types..."
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:174
+msgid "Importing notes..."
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:220
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:42
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:31
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:37
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:219
+msgid "Importing cards..."
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:296
+msgid "Importing logs..."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:15
@@ -714,13 +738,6 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:40
 msgid "These cards seem to have been imported before. Aborting..."
-msgstr ""
-
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:42
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:31
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:37
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:219
-msgid "Importing cards..."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:22
@@ -1365,7 +1382,7 @@ msgid "Abandon current card?"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:285
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:234
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:243
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
@@ -1374,7 +1391,7 @@ msgid "&No"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:285
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:234
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:243
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
@@ -1511,11 +1528,11 @@ msgstr ""
 msgid "Modified"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:779
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:782
 msgid "You chose to sort this table. Operations in the card browser could now be slower. Next time you start the card browser, the table will be unsorted again."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:859
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:862
 msgid "%d cards shown, of which %d active."
 msgstr ""
 
@@ -1537,23 +1554,23 @@ msgid "Card appearance"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:34
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:49
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:54
 msgid "<all card types>"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:80
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:86
 msgid "Select font"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:85
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:91
 msgid "Select colour"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:229
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:238
 msgid "Reset all card types to default system font?"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:231
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:240
 msgid "Reset '%s' to default system font?"
 msgstr ""
 

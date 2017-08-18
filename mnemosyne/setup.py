@@ -4,7 +4,7 @@ import mnemosyne.version
 
 
 class InnoScript:
-    
+
     def __init__(self):
         self.name = "Mnemosyne"
         self.dist_dir = os.path.join("dist", "Mnemosyne")
@@ -28,14 +28,14 @@ class InnoScript:
         print(r"DefaultGroupName=%s" % self.name, file=ofi)
         print(file=ofi)
         print(r"[Messages]", file=ofi)
-        print(r"ConfirmUninstall=Are you really really sure you want to remove %1? Your cards will not be deleted.", file=ofi)        
+        print(r"ConfirmUninstall=Are you really really sure you want to remove %1? Your cards will not be deleted.", file=ofi)
         print(file=ofi)
         print(r"[Files]", file=ofi)
         for root, dirnames, filenames in os.walk(self.dist_dir):
             for filename in filenames:
                 path = self.chop(os.path.join(root, filename))
                 print(r'Source: "%s"; DestDir: "{app}\%s"; Flags: ignoreversion' \
-                      % (path, os.path.dirname(path)), file=ofi)            
+                      % (path, os.path.dirname(path)), file=ofi)
         print(file=ofi)
 
         print(r"[Icons]", file=ofi)
@@ -53,16 +53,16 @@ class build_windows_installer(Command):
     You need InnoSetup for it.
 
     """
-    
+
     user_options = []
-    
+
     def initialize_options(self):
         self.cwd = None
-        
-    def finalize_options(self):
-        self.cwd = os.getcwd()    
 
-    def run(self):  
+    def finalize_options(self):
+        self.cwd = os.getcwd()
+
+    def run(self):
         # First, let pyinstaller do it's work.
         subprocess.call(["pyinstaller", "mnemosyne.spec"])
         # Then, create installer with InnoSetup.
@@ -109,6 +109,8 @@ py2app_options = {
     mnemosyne.libmnemosyne.databases, mnemosyne.libmnemosyne.file_formats, \
     mnemosyne.libmnemosyne.filters, mnemosyne.libmnemosyne.loggers, \
     mnemosyne.libmnemosyne.plugins, mnemosyne.libmnemosyne.renderers, \
+    mnemosyne.libmnemosyne.renderers.anki, \
+    mnemosyne.libmnemosyne.renderers.anki.template \
     mnemosyne.libmnemosyne.render_chains, mnemosyne.libmnemosyne.schedulers, \
     mnemosyne.libmnemosyne.controllers, mnemosyne.libmnemosyne.ui_components, \
     mnemosyne.libmnemosyne.statistics_pages, mnemosyne.libmnemosyne.study_modes, \
@@ -130,7 +132,7 @@ if "py2app" in sys.argv:
     if os.path.exists(appscript):
         os.unlink(appscript)
     shutil.copyfile(source, appscript)
-    
+
 package_name = "mnemosyne"
 packages = ["mnemosyne",
             "mnemosyne.pyqt_ui",
@@ -143,6 +145,8 @@ packages = ["mnemosyne",
             "mnemosyne.libmnemosyne.loggers",
             "mnemosyne.libmnemosyne.plugins",
             "mnemosyne.libmnemosyne.renderers",
+            "mnemosyne.libmnemosyne.renderers.anki",
+            "mnemosyne.libmnemosyne.renderers.anki.template",
             "mnemosyne.libmnemosyne.render_chains",
             "mnemosyne.libmnemosyne.schedulers",
             "mnemosyne.libmnemosyne.controllers",
@@ -171,5 +175,5 @@ setup(name = "Mnemosyne",
       # py2app
       setup_requires = setup_requires,
       options = {"py2app": py2app_options},
-      app = py2app_app      
+      app = py2app_app
 )
