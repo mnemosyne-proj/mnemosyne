@@ -176,15 +176,16 @@ class Anki2(FileFormat, MediaPreprocessor):
         w.set_progress_range(number_of_notes)
         w.set_progress_update_interval(number_of_notes/20)
         fact_for_nid = {}
+        modification_time_for_nid = {}
         for id, guid, mid, mod, usn, tags, flds, sfld, csum, flags, data in \
             con.execute("""select id, guid, mid, mod, usn, tags, flds, sfld,
             csum, flags, data from notes"""):
-            # mod: modification time, ignore.
             # usn: syncing related, ignore.
             # sfld: sorting field, ignore.
             # csum: checksum, ignore.
             # flags: seems empty, ignore.
             # data: seems empty, ignore.
+            modification_time_for_nid[id] = mod
             card_type = card_type_for_mid[int(mid)]
             card_type_for_nid[id] = card_type
             fields = flds.split("\x1f")
@@ -225,31 +226,24 @@ class Anki2(FileFormat, MediaPreprocessor):
             lapses, left, odue, odid, flags, data in con.execute("""select id,
             nid, did, ord, mod, usn, type, queue, due, ivl, factor, reps,
             lapses, left, odue, odid, flags, data from cards"""):
-            # type: 0=new, 1=learning, 2=due: ignore
+            # type: 0=new, 1=learning, 2=due
             # queue: same as above, and -1=suspended,
             #        -2=user buried, -3=sched buried
             # due is used differently for different queues.
             # - new queue: note id or random int
             # - rev queue: integer day
             # - lrn queue: integer timestamp
-            # TODO
-            # queue: use suspended status to set card inactive?
-            # mod: modification time?
+            # In Mnemosyne, type=2 / rev queue corresponds to grades >= 2.
+            # mod: modification time, but gets updated on each answer.
             # usn: syncing related, ignore.
-            # due,
-            # ivl,
-            # factor,
-            # reps,
-            # lapses,
-            # left,
-            # odue,
-            # odid: in a cram deck, ignore.
-            # flags,
-            # data
+            # left: repetitions left to graduation, ignore.
+            # odue: original due, related to filtered decks, ignore.
+            # odid: original deck id, related to filtered decks, ignore.
+            # flags: seems empty, ignore.
+            # data: seems empty, ignore
             fact = fact_for_nid[nid]
             card_type = card_type_for_nid[nid]
-            creation_time = time.time() # TODO
-            # TODO: modification time.
+            creation_time = nid / 1000
             if card_type.extra_data["type"] == 0:
                 fact_view = card_type.fact_views[ord]
             else:  # Cloze.
@@ -274,19 +268,22 @@ class Anki2(FileFormat, MediaPreprocessor):
             for tag_name in tag_names:
                 if tag_name:
                     card.tags.add(tag_with_name[tag_name])
-            #card.grade = sql_res[5]
-            #card.next_rep = sql_res[6]
-            #card.last_rep = sql_res[7]
-            #card.easiness = sql_res[8]
-            #card.acq_reps = sql_res[9]
-            #card.ret_reps = sql_res[10]
-            #card.lapses = sql_res[11]
-            #card.acq_reps_since_lapse = sql_res[12]
-            #card.ret_reps_since_lapse = sql_res[13]
-            #card.modification_time = sql_res[15]
-            #self._construct_extra_data(sql_res[16], card)
-            #card.scheduler_data = sql_res[17]
-            #card.active = sql_res[18]
+            card.next_rep = due * 86400  # Convert to seconds.
+            card.last_rep = max(0, (due - ivl) * 86400)
+            card.easiness = factor / 1000
+            card.acq_reps = 0   # No information.
+            card.ret_reps = reps
+            card.lapses = lapses
+            card.acq_reps_since_lapse = 0  # No information.
+            card.ret_reps_since_lapse = 0  # No information.
+            card.modification_time = modification_time_for_nid[nid]
+            self.active = (queue >= 0)
+            if type == 0:  # 'new', unseen.
+                card.reset_learning_data()
+            elif type == 1:  # 'learning', memorising.
+                card.grade = 0
+            else:  # 'due', long-term scheduled.
+                card.grade = 4  # No information.
             if already_imported:
                 db.update_card(card)
             else:

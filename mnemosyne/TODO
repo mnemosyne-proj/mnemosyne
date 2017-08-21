@@ -2,16 +2,7 @@
 
 - get rid of tcl tk
 
-Anki import:
-
--       elif type == "noteCrt":
-            return time.strftime("%Y-%m-%d", time.localtime(c.note().id/1000))
-        elif type == "noteMod":
-            return time.strftime("%Y-%m-%d", time.localtime(c.note().mod))
-        elif type == "cardMod":
-            return time.strftime("%Y-%m-%d", time.localtime(c.mod))
-
-- import learning data
+- import learning data: last rep invalid?
 
 - import logs
 

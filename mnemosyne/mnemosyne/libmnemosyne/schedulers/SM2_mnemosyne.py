@@ -145,7 +145,7 @@ class SM2Mnemosyne(Scheduler):
             self.stage = 1
         else:
             self.stage = 3
-        self.warned_about_too_many_cards = False     
+        self.warned_about_too_many_cards = False
 
     def set_initial_grade(self, cards, grade):
 
@@ -363,7 +363,7 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
             if self.new_only == False:
                 self.stage = 2
             else:
-                self.stage = 3            
+                self.stage = 3
             return
         for _card_id, _fact_id in db.cards_learn_ahead(self.adjusted_now(),
                 sort_key="next_rep", limit=50):
@@ -560,7 +560,7 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
             self.main_widget().show_information(\
         _("You've memorised 15 new or failed cards.") + " " +\
         _("If you do this for many days, you could get a big workload later."))
-            self.warned_about_too_many_cards = True       
+            self.warned_about_too_many_cards = True
         # Run hooks.
         self.database().current_criterion().apply_to_card(card)
         for f in self.component_manager.all("hook", "after_repetition"):
@@ -641,6 +641,7 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
 
         if now is None:
             now = time.time()
+        print(last_rep)
         # To perform the calculation, we need to 'snap' the two timestamps
         # to midnight UTC before calculating the interval.
         now = self.midnight_UTC(\
