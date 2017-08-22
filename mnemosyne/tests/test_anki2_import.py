@@ -63,6 +63,8 @@ class TestAnkiImport(MnemosyneTest):
         assert self.config().card_type_property(\
                 "font", card.card_type, "0") == \
                "Algerian,23,-1,5,50,0,0,0,0,0,Regular"
+        assert card.next_rep == 1503021600
+        assert card.last_rep == card.next_rep - 3 * 86400
 
         card = self.database().card("1502277594395", is_id_internal=False)
         assert "audio src=\"1.mp3\"" in card.question(render_chain="plain_text")
@@ -82,12 +84,23 @@ class TestAnkiImport(MnemosyneTest):
                    card.question(render_chain="plain_text")
         assert "aa bbb <span class=cloze>cc</span>" in\
                    card.answer(render_chain="plain_text")
+        assert card.next_rep == -1
+        assert card.last_rep == -1
 
         card = self.database().card("1502970432696", is_id_internal=False)
         assert "type answer" in\
                    card.question(render_chain="plain_text")
         assert "{{type:Back}}" not in\
                    card.question(render_chain="plain_text")
+        assert card.next_rep == 1502970472
+        assert card.last_rep == 1502970472
+
+        card = self.database().card("1503047582690", is_id_internal=False)
+        assert "subdeck card" in\
+                   card.question(render_chain="plain_text")
+        assert card.next_rep == -1
+        assert card.last_rep == -1
+        assert card.easiness == 2.5
 
         criterion = self.database().criterion(id=2, is_id_internal=True)
         assert criterion.data_to_string() == "(set(), {2}, set())"
@@ -100,6 +113,7 @@ class TestAnkiImport(MnemosyneTest):
         self.anki_importer().do_import(filename)
         self.anki_importer().do_import(filename)
         self.review_controller().reset()
+
         assert self.database().card_count() == 7
         assert self.database().fact_count() == 6
 
@@ -108,13 +122,15 @@ class TestAnkiImport(MnemosyneTest):
         assert self.config().card_type_property(\
                 "font", card.card_type, "0") == \
                    "Algerian,23,-1,5,50,0,0,0,0,0,Regular"
+        assert card.next_rep == 1503021600
+        assert card.last_rep == card.next_rep - 3 * 86400
 
         card = self.database().card("1502277594395", is_id_internal=False)
         assert "audio src=\"1.mp3\"" in card.question(render_chain="plain_text")
 
         card = self.database().card("1502277686022", is_id_internal=False)
         assert "<$$>x</$$>&nbsp;<latex>x^2</latex>&nbsp;<$>x^3</$>" in\
-               card.question(render_chain="plain_text")
+                   card.question(render_chain="plain_text")
 
         card = self.database().card("1502797276041", is_id_internal=False)
         assert "aa <span class=cloze>[...]</span> cc" in\
@@ -127,12 +143,23 @@ class TestAnkiImport(MnemosyneTest):
                    card.question(render_chain="plain_text")
         assert "aa bbb <span class=cloze>cc</span>" in\
                    card.answer(render_chain="plain_text")
+        assert card.next_rep == -1
+        assert card.last_rep == -1
 
         card = self.database().card("1502970432696", is_id_internal=False)
         assert "type answer" in\
                    card.question(render_chain="plain_text")
         assert "{{type:Back}}" not in\
                    card.question(render_chain="plain_text")
+        assert card.next_rep == 1502970472
+        assert card.last_rep == 1502970472
+
+        card = self.database().card("1503047582690", is_id_internal=False)
+        assert "subdeck card" in\
+                   card.question(render_chain="plain_text")
+        assert card.next_rep == -1
+        assert card.last_rep == -1
+        assert card.easiness == 2.5
 
         criterion = self.database().criterion(id=2, is_id_internal=True)
         assert criterion.data_to_string() == "(set(), {2}, set())"

@@ -75,7 +75,6 @@ class Anki2(FileFormat, MediaPreprocessor):
         for id, crt, mod, scm, ver, dty, usn, ls, conf, models, decks, \
             dconf, tags in con.execute("""select id, crt, mod, scm, ver, dty,
             usn, ls, conf, models, decks, dconf, tags from col"""):
-            # crt: creation time, ignore.
             # mod: modification time, ignore.
             # scm: schema modification time, ignore.
             # ver: schema version, ignore.
@@ -85,6 +84,7 @@ class Anki2(FileFormat, MediaPreprocessor):
             # conf: configuration, ignore.
             # dconf: deck configuration, ignore.
             # tags: list of tags, but they turn up later in the notes, ignore.
+            collection_creation_time = crt
             decks = json.loads(decks)
             # Decks will be converted to Tags when creating cards.
             for did in decks:
@@ -155,13 +155,13 @@ class Anki2(FileFormat, MediaPreprocessor):
                     else:
                         db.add_fact_view(fact_view)
                 mod = models[mid]["mod"] # Modification time, ignore.
-                type = models[mid]["type"] # 0: standard, 1 cloze
+                type_ = models[mid]["type"] # 0: standard, 1 cloze
                 id = models[mid]["id"]
                 css = models[mid]["css"]
                 latex_preamble = models[mid]["latexPre"] # Ignore.
                 latex_postamble = models[mid]["latexPost"] # Ignore.
                 # Save to database.
-                card_type.extra_data = {"css":css, "id":id, "type":type}
+                card_type.extra_data = {"css":css, "id":id, "type":type_}
                 if card_type_already_imported:
                     db.update_card_type(card_type)
                 else:
@@ -222,7 +222,7 @@ class Anki2(FileFormat, MediaPreprocessor):
         number_of_cards = con.execute("select count() from cards").fetchone()[0]
         w.set_progress_range(number_of_cards)
         w.set_progress_update_interval(number_of_cards/20)
-        for id, nid, did, ord, mod, usn, type, queue, due, ivl, factor, reps, \
+        for id, nid, did, ord, mod, usn, type_, queue, due, ivl, factor, reps, \
             lapses, left, odue, odid, flags, data in con.execute("""select id,
             nid, did, ord, mod, usn, type, queue, due, ivl, factor, reps,
             lapses, left, odue, odid, flags, data from cards"""):
@@ -243,7 +243,7 @@ class Anki2(FileFormat, MediaPreprocessor):
             # data: seems empty, ignore
             fact = fact_for_nid[nid]
             card_type = card_type_for_nid[nid]
-            creation_time = nid / 1000
+            creation_time = int(nid / 1000)
             if card_type.extra_data["type"] == 0:
                 fact_view = card_type.fact_views[ord]
             else:  # Cloze.
@@ -268,21 +268,23 @@ class Anki2(FileFormat, MediaPreprocessor):
             for tag_name in tag_names:
                 if tag_name:
                     card.tags.add(tag_with_name[tag_name])
-            card.next_rep = due * 86400  # Convert to seconds.
-            card.last_rep = max(0, (due - ivl) * 86400)
-            card.easiness = factor / 1000
-            card.acq_reps = 0   # No information.
-            card.ret_reps = reps
+            card.next_rep = collection_creation_time + due*86400
+            card.last_rep = card.next_rep - ivl*86400
+            card.easiness = factor/1000 if factor else 2.5
+            card.acq_reps = 1   # No information.
+            card.ret_reps = 0 if reps == 0 else reps - 1
             card.lapses = lapses
             card.acq_reps_since_lapse = 0  # No information.
             card.ret_reps_since_lapse = 0  # No information.
             card.modification_time = modification_time_for_nid[nid]
             self.active = (queue >= 0)
-            if type == 0:  # 'new', unseen.
+            if type_ == 0:  # 'new', unseen.
                 card.reset_learning_data()
-            elif type == 1:  # 'learning', memorising.
+            elif type_ == 1:  # 'learning', acquisition phase.
                 card.grade = 0
-            else:  # 'due', long-term scheduled.
+                card.last_rep = mod
+                card.next_rep = mod
+            else:  # 'due', retention phase.
                 card.grade = 4  # No information.
             if already_imported:
                 db.update_card(card)
@@ -294,7 +296,27 @@ class Anki2(FileFormat, MediaPreprocessor):
         number_of_logs = con.execute("select count() from revlog").fetchone()[0]
         w.set_progress_range(number_of_logs)
         w.set_progress_update_interval(number_of_logs/20)
-
+        for id, cid, usn, ease, ivl, lastIvl, factor, time, type_ in \
+            con.execute("""select id, cid, usn, ease, ivl, lastIvl, factor,
+            time, type from revlog"""):
+            # usn: syncing related, ignore.
+            if type_ == 0:  # Acquisition phase.
+                grade = 0
+            else:  # Retention phase.
+                grade = ease + 1  # Anki ease is from 1 to 4.
+            timestamp = int(id/1000)
+            scheduled_interval = lastIvl*86400 if lastIvl > 0 else 0
+            new_interval = ivl*86400 if ivl > 0 else 0
+            next_rep = timestamp + new_interval
+            easiness = factor/1000 if factor else 2.5
+            db.log_repetition(timestamp=timestamp, card_id=cid, grade=grade,
+                easiness=easiness, acq_reps=0, ret_reps=0, lapses=0,
+                acq_reps_since_lapse=0, ret_reps_since_lapse=0,
+                scheduled_interval=scheduled_interval,
+                actual_interval=scheduled_interval,
+                thinking_time=int(time/1000), next_rep=next_rep,
+                scheduler_data=0)
+            w.increase_progress(1)
         # Create criteria for 'database' tags.
         for deck_name in deck_name_for_did.values():
             deck_name = deck_name.strip().replace(",", ";")

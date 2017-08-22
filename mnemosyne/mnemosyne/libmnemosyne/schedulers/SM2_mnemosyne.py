@@ -623,7 +623,7 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
         elif interval_days >= -2:
             return _("1 day overdue")
         elif interval_days >= -31:
-            return str(int(-interval_days) - 1) + " " + _("days overdue")
+            return str(int(-interval_days)) + " " + _("days overdue")
         elif interval_days >= -62:
             return _("1 month overdue")
         elif interval_days >= -365:
@@ -641,7 +641,6 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
 
         if now is None:
             now = time.time()
-        print(last_rep)
         # To perform the calculation, we need to 'snap' the two timestamps
         # to midnight UTC before calculating the interval.
         now = self.midnight_UTC(\
