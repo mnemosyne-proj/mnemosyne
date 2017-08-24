@@ -18,6 +18,8 @@ class CardBrowserRenderChain(RenderChain):
 
     id = "card_browser"
 
+    never_join_q_to_a = True
+
     filters = [EscapeToHtmlForCardBrowser, RTLHandler]
     renderers = [HtmlCssCardBrowser]
 

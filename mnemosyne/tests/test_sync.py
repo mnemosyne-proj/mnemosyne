@@ -69,7 +69,7 @@ class MyServer(Server, Thread):
         Thread.__init__(self)
         if erase_previous:
             MnemosyneTest().initialise_data_dir(data_dir)
-            #shutil.rmtree(unicode(data_dir), ignore_errors=True)
+            assert not os.path.exists(data_dir)
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
             asynchronous_database=True)
         self.mnemosyne.components.insert(0,
@@ -1167,7 +1167,10 @@ class TestSync(object):
         card_2 = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=-1, tag_names=[])[0]
 
-        self.client.mnemosyne.start_review()
+        assert self.client.mnemosyne.database().fact_count() == 2
+        assert self.client.mnemosyne.database().card_count() == 4
+
+        self.client.mnemosyne.review_controller().reset()
         self.server.client_card = self.client.mnemosyne.review_controller().card
         self.client.mnemosyne.controller().star_current_card()
         self.client.mnemosyne.controller().star_current_card()

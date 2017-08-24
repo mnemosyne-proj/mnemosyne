@@ -3,6 +3,7 @@
 #
 
 import os
+import sys
 import shutil
 
 from mnemosyne.libmnemosyne import Mnemosyne
@@ -16,30 +17,32 @@ class TestReviewWidget(ReviewWidget):
 
 
 class MnemosyneTest():
-    
+
     def initialise_data_dir(self, data_dir="dot_test"):
         # Creating a new database seems a very time-consuming operation,
         # so we don't delete the test directory everytime, but take a short
         # cut.
-        
+
         # Note: disabled this, as it does not seem to be very reliable.
-        shutil.rmtree(data_dir, ignore_errors=True)
-        return
-        
         if os.path.exists(data_dir):
-            shutil.copy(os.path.join("mnemosyne", "tests", "files", "empty.db"), 
+            shutil.rmtree(data_dir)
+        assert not os.path.exists(data_dir)
+        return
+
+        if os.path.exists(data_dir):
+            shutil.copy(os.path.join("mnemosyne", "tests", "files", "empty.db"),
                         os.path.join(data_dir, "default.db"))
             for directory in ["default.db_media", "plugins", "backups",
                               "history"]:
                 full_path = str(os.path.join(data_dir, directory))
                 if os.path.exists(full_path):
                     shutil.rmtree(full_path)
-            for file in ["default.db-journal", "config", 
+            for file in ["default.db-journal", "config",
                          "config.py", "machine.id", "log.txt"]:
                 full_path = str(os.path.join(data_dir, file))
                 if os.path.exists(full_path):
                     os.remove(full_path)
- 
+
     def setup(self):
         self.initialise_data_dir()
         self.restart()
@@ -52,7 +55,9 @@ class MnemosyneTest():
                 self.mnemosyne.finalise()
             except:
                 pass
-        self.mnemosyne = Mnemosyne(upload_science_logs=False, 
+        sys.path.append(os.path.join(\
+            os.getcwd(), "..", "mnemosyne", "libmnemosyne", "renderers"))
+        self.mnemosyne = Mnemosyne(upload_science_logs=False,
             interested_in_old_reps=True, asynchronous_database=True)
         self.mnemosyne.components.insert(0,
             ("mnemosyne.libmnemosyne.translators.gettext_translator",
@@ -62,16 +67,19 @@ class MnemosyneTest():
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
             [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.gui_for_component["CramAll"] = \
-            [("mnemosyne_test", "TestReviewWidget")]        
+            [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.initialise(os.path.abspath("dot_test"),
                                   automatic_upgrades=False)
         self.mnemosyne.start_review()
 
-    def teardown(self):      
-        self.mnemosyne.finalise()
-        # Avoid having multiple component_managers active.
-        from mnemosyne.libmnemosyne.component_manager import clear_component_managers
-        clear_component_managers()
+    def teardown(self):
+        try:
+            self.mnemosyne.finalise()
+            # Avoid having multiple component_managers active.
+            from mnemosyne.libmnemosyne.component_manager import clear_component_managers
+            clear_component_managers()
+        except: # Can throw some errors when we artificially mutilate plugins.
+            self.mnemosyne.database().abandon()
 
     def config(self):
         return self.mnemosyne.component_manager.current("config")

@@ -235,7 +235,17 @@ a = Analysis([os.path.join('mnemosyne', 'pyqt_ui', 'mnemosyne')],
 # http://stackoverflow.com/questions/4890159/python-excluding-modules-pyinstaller
 a.binaries = a.binaries - TOC([
              ('tcl86t.dll', None, None),
-             ('tk86t.dll', None, None)])
+             ('tk86t.dll', None, None),
+             ('tcl86t.lib', None, None),
+             ('tk86t.lib', None, None),
+             ('tcl86tg.lib', None, None),
+             ('tk86tg.lib', None, None),
+             ('tclstub86.lib', None, None),
+             ('tkstub86.lib', None, None)])
+
+# Remove Tcl and Tk stuff
+a.datas = [x for x in a.datas if not x[0].startswith("tcl")]
+a.datas = [x for x in a.datas if not x[0].startswith("tk")]
 
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)

@@ -10,5 +10,7 @@ class PlainTextChain(RenderChain):
 
     id = "plain_text"
 
+    never_join_q_to_a = True
+
     filters = []
     renderers = [PlainText]

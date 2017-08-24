@@ -3,6 +3,7 @@
 #
 
 import os
+import sys
 import shutil
 
 from nose.tools import raises
@@ -27,6 +28,7 @@ class Widget(MainWidget):
         if question.startswith("Identical card is already in database"):
             return answer
         else:
+            print(question)
             raise NotImplementedError
 
 
@@ -34,6 +36,8 @@ class TestDatabase(MnemosyneTest):
 
     def setup(self):
         self.initialise_data_dir()
+        sys.path.append(os.path.join(\
+            os.getcwd(), "..", "mnemosyne", "libmnemosyne", "renderers"))
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
             asynchronous_database=True)
         self.mnemosyne.components.insert(0,
@@ -41,7 +45,7 @@ class TestDatabase(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("test_database", "Widget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
-            [("mnemosyne_test", "TestReviewWidget")]        
+            [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
         self.review_controller().reset()
 
@@ -84,7 +88,6 @@ class TestDatabase(MnemosyneTest):
         assert self.database().fact_count() == 1
         card = self.database().card(old_card._id, is_id_internal=True)
         fact = card.fact
-
 
         assert fact.data["f"] == "question"
         assert fact.data["b"] == "answer"
@@ -228,21 +231,6 @@ class TestDatabase(MnemosyneTest):
 
         assert self.database().fact_count() == 0
 
-    def test_delete_fact(self):
-        fact_data = {"f": "question",
-                     "b": "answer"}
-        card_type = self.card_type_with_id("1")
-        card = self.controller().create_new_cards(fact_data, card_type,
-                                          grade=-1, tag_names=["default"])[0]
-
-        fact = card.fact
-        self.controller().delete_facts_and_their_cards([fact])
-
-        assert self.database().fact_count() == 0
-        assert self.database().card_count() == 0
-        assert len(self.database().tags()) == 1
-
-    @raises(RuntimeError)
     def test_missing_plugin(self):
         for plugin in self.plugins():
             component = plugin.components[0]
@@ -273,19 +261,32 @@ class TestDatabase(MnemosyneTest):
                 plugin.deactivate()
                 self.mnemosyne.component_manager.unregister(plugin)
 
-        def dont_finalise():
-            from mnemosyne.libmnemosyne.component_manager import clear_component_managers
-            clear_component_managers()
+        try:
+            self.database().load(self.config()["last_database"])
+            1/0
+        except Exception as e:
+            assert type(e) == RuntimeError
 
-        self.mnemosyne.finalise = dont_finalise
 
-        self.database().load(self.config()["last_database"])
+    def test_delete_fact(self):
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])[0]
+
+        fact = card.fact
+        self.controller().delete_facts_and_their_cards([fact])
+
+        assert self.database().fact_count() == 0
+        assert self.database().card_count() == 0
+        assert len(self.database().tags()) == 1
 
     def infinity(self):
         return 1/0
 
-    @raises(RuntimeError)
     def test_corrupt_plugin(self):
+
         for plugin in self.plugins():
             component = plugin.components[0]
             if component.component_type == "card_type" and component.id == "4":
@@ -303,8 +304,6 @@ class TestDatabase(MnemosyneTest):
         new_card_type = self.card_type_with_id("4::my_4")
         self.controller().edit_card_and_sisters(card, fact_data,
                new_card_type, new_tag_names=["default2"], correspondence=[])
-
-
         self.mnemosyne.finalise()
         self.restart()
         self.database().unload()
@@ -317,12 +316,11 @@ class TestDatabase(MnemosyneTest):
                 plugin.activate = self.infinity
                 break
 
-        def dont_finalise():
-            from mnemosyne.libmnemosyne.component_manager import clear_component_managers
-            clear_component_managers()
-        self.mnemosyne.finalise = dont_finalise
-
-        self.database().load(self.config()["last_database"])
+        try:
+            self.database().load(self.config()["last_database"])
+            1/0
+        except Exception as e:
+            assert type(e) == RuntimeError
 
     def test_save_as(self):
         fact_data = {"f": "question",
@@ -751,7 +749,7 @@ class TestDatabase(MnemosyneTest):
         card_2 = self.database().card(2, is_id_internal=True)
         assert card_1.id == "id"
         assert card_2.id == "id.1"
-        
+
     def test_known_recognition(self):
         card_type = self.card_type_with_id("3")
         self.controller().clone_card_type(card_type, "my_3")
@@ -761,13 +759,13 @@ class TestDatabase(MnemosyneTest):
                      "m_1": "translation"}
         self.controller().create_new_cards(fact_data, card_type,
                                           grade=5, tag_names=["default"])
-        
+
         fact_data = {"f": "no_1",
                      "p_1": "pronunciation",
                      "m_1": "translation"}
         self.controller().create_new_cards(fact_data, card_type,
-                                          grade=-1, tag_names=["default"]) 
-        
+                                          grade=-1, tag_names=["default"])
+
         card_type = self.card_type_with_id("3")
         self.controller().clone_card_type(card_type, "my_3_bis")
         card_type = self.card_type_with_id("3::my_3_bis")
@@ -776,7 +774,7 @@ class TestDatabase(MnemosyneTest):
                      "m_1": "translation"}
         self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])
-        
+
         for plugin in self.plugins():
             component = plugin.components[0]
             if component.component_type == "card_type" and component.id == "6":
@@ -803,8 +801,8 @@ class TestDatabase(MnemosyneTest):
            known_recognition_questions_count_from_card_types_ids(["6"]) == 1
         assert self.database().\
            known_recognition_questions_count_from_card_types_ids(\
-               ["6", "3::my_3", "3::my_3_bis"]) == 2 
-        
+               ["6", "3::my_3", "3::my_3_bis"]) == 2
+
         assert set((self.database().\
            known_recognition_questions_from_card_types_ids(\
                ["6", "3::my_3", "3::my_3_bis"]))) == set(["yes_1", "yes_2"])

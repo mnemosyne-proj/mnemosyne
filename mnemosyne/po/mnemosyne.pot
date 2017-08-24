@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-08-18 17:05+0200\n"
+"POT-Creation-Date: 2017-08-23 16:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -674,27 +674,36 @@ msgstr ""
 msgid "Putting a database on a network drive is forbidden under Windows to avoid data corruption. Mnemosyne will now close."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:42
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:43
 msgid "Anki2 collections"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:44
-msgid "Anki2 files (*.anki2)"
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:45
+msgid "Anki2 collections (*.anki2 *.apkg)"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:61
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:56
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:205
+msgid "Decompressing..."
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:66
+msgid "Processing media files..."
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:98
 msgid "Copying media files..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:71
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:108
 msgid "Importing card types..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:174
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:211
 msgid "Importing notes..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:220
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:258
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:42
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:31
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:37
@@ -702,7 +711,7 @@ msgstr ""
 msgid "Importing cards..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:296
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:332
 msgid "Importing logs..."
 msgstr ""
 
@@ -800,10 +809,6 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:172
 msgid "Bundling media files..."
-msgstr ""
-
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:205
-msgid "Decompressing..."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_db.py:15

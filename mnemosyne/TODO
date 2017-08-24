@@ -1,15 +1,7 @@
-- bug: renderer for clone of clone
-
-- get rid of tcl tk
-
-- card browser answer, when single window, shows only Q
-
-- review: import logs
-
-- apgk files
+- separate thread for import
 
 - port card type editor, with restrictions
-- allow clones of Anki card types?
+- don't allow clones of Anki card types
 - don't allow editing existing cloze so as to create a new card
 - don't allow creating new cloze card, add warning to use Mnemosyne clozes
   instead
@@ -20,7 +12,7 @@
 - Q and A align top, no boundaries around content: document how to add CSS to
   fix this?
 
--fix testsuite
+- update website, import, shared decks
 
 
 Android:
@@ -50,8 +42,10 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 
 Minor bugs / issues:
 -strip HTML when doing rlt check?
+-decrease size of installer by seeing if more libraries can be removed.
 -example plugin for new learning modes
 -update dev instructions linux, windows
+-run tests in different threads
 -make sure initial settings are synced using binary sync.
 -keeping a key pressed after 'grade answer' proceeds to show the question
 -RTL still does not work for first cloze, in the case the sentence is more than

@@ -8,6 +8,7 @@ import json
 import time
 import shutil
 import sqlite3
+import zipfile
 
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.card import Card
@@ -41,7 +42,7 @@ class Anki2(FileFormat, MediaPreprocessor):
 
     description = _("Anki2 collections")
     extension = ".anki2"
-    filename_filter = _("Anki2 files (*.anki2)")
+    filename_filter = _("Anki2 collections (*.anki2 *.apkg)")
     import_possible = True
     export_possible = False
 
@@ -49,10 +50,46 @@ class Anki2(FileFormat, MediaPreprocessor):
         FileFormat.__init__(self, component_manager)
         MediaPreprocessor.__init__(self, component_manager)
 
+    def extract_apkg(self, filename):
+        # Extract zipfile.
+        w = self.main_widget()
+        w.set_progress_text(_("Decompressing..."))
+        zip_file = zipfile.ZipFile(filename, "r")
+        tmp_dir = os.path.join(os.path.dirname(filename), "__TMP__")
+        if os.path.exists(tmp_dir):
+            shutil.rmtree(tmp_dir)
+        zip_file.extractall(tmp_dir)
+        # Rename media.
+        media_file_with_id = json.loads(\
+            open(os.path.join(tmp_dir, "media")).read())
+        number_of_files = len(media_file_with_id)
+        w.set_progress_text(_("Processing media files..."))
+        w.set_progress_range(number_of_files)
+        w.set_progress_update_interval(number_of_files/50)
+        media_dir = os.path.join(tmp_dir, "collection.media")
+        os.mkdir(media_dir)
+        for id, media_file in media_file_with_id.items():
+            w.increase_progress(1)
+            if media_file.startswith("latex-"):
+                continue
+            os.rename(os.path.join(tmp_dir, id),
+                      os.path.join(media_dir, media_file))
+        # Note: Anki itself goes through some trouble of making sure ids
+        # are unique and updating them if needed, because their id scheme
+        # is very sensitive to collisions. We decided not to do that here
+        # because it would break being able to reimport an updated version
+        # of the cards.
+        return tmp_dir
+
     def do_import(self, filename, extra_tag_names=""):
         FileFormat.do_import(self, filename, extra_tag_names)
         w = self.main_widget()
         db = self.database()
+        # Preprocess apkg files.
+        tmp_dir = None
+        if filename.endswith(".apkg"):
+            tmp_dir = self.extract_apkg(filename)
+            filename = os.path.join(tmp_dir, "collection.anki2" )
         # Set up tag cache.
         tag_with_name = TagCache(self.component_manager)
         # Open database.
@@ -329,6 +366,10 @@ class Anki2(FileFormat, MediaPreprocessor):
             criterion._tag_ids_active.add(tag._id)
             criterion._tag_ids_forbidden = set()
             db.add_criterion(criterion)
+        # Clean up.
+        con.close()
+        if tmp_dir:
+            shutil.rmtree(tmp_dir)
         w.close_progress()
         self.warned_about_missing_media = False
 

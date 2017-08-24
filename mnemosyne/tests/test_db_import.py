@@ -30,7 +30,7 @@ class TestDBImport(MnemosyneTest):
         self.mnemosyne.components.insert(0,
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
-            [("mnemosyne_test", "TestReviewWidget")]        
+            [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.components.append(\
             ("test_db_import", "Widget"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
@@ -41,11 +41,12 @@ class TestDBImport(MnemosyneTest):
             if format.__class__.__name__ == "Mnemosyne2Db":
                 return format
 
-    def test_1(self):        
+    def test_1(self):
+        print(os.getcwd())
         filename = os.path.join(os.getcwd(), "tests", "files", "basedir_to_merge", "config.db")
         self.db_importer().do_import(filename)
         assert "configuration database" in last_error
-        
+
     def test_2(self):
         fact_data = {"f": "question",
                      "b": "answer"}
@@ -53,9 +54,9 @@ class TestDBImport(MnemosyneTest):
         old_card = self.controller().create_new_cards(fact_data, card_type,
                                  grade=-1, tag_names=["default"])[0]
         assert len([self.database().cards()]) == 1
-        
+
         filename = os.path.join(os.getcwd(), "tests", "files", "basedir_to_merge", "to_merge.db")
-        
+
         global last_error
         last_error = ""
         self.db_importer().do_import(filename)
@@ -70,4 +71,3 @@ class TestDBImport(MnemosyneTest):
         assert self.config().card_type_property("background_colour", card_type) == 4278233600
 
 
-        

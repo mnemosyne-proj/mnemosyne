@@ -59,13 +59,13 @@ class ComponentManager(object):
         be added at a later stage.
 
         """
-        
+
         for used_for in self.components:
             for component_type in self.components[used_for]:
-                for component in self.components[used_for][component_type]:   
+                for component in self.components[used_for][component_type]:
                     if component.__class__.__name__ == component_name:
                         component.gui_components.append(gui_component)
-            
+
     def all(self, comp_type, used_for=None):
 
         """For components for which there can be many active at once."""
@@ -130,7 +130,7 @@ class ComponentManager(object):
                     if not isinstance(component, type):
                         component.deactivate()
         # Following line deactivated to work around
-        # https://bugreports.qt.io/browse/QTBUG-52988                 
+        # https://bugreports.qt.io/browse/QTBUG-52988
         #self.components = {}
         self.card_type_with_id = {}
 
@@ -143,7 +143,7 @@ class ComponentManager(object):
         if self.debug_file:
             self.debug_file.write(str(msg + "\n").encode('UTF-8'))
 
-        
+
 # A component manager stores the entire session state of a user through the
 # different components it registers. To enable multiple users to use a single
 # instance of libmnemosyne simultaneously, we store a component manager

@@ -27,12 +27,12 @@ endif
 run: build
 	# For debugging: running the code in place.
 	PYTHONPATH=. $(PYTHON) mnemosyne/pyqt_ui/mnemosyne -d dot_mnemosyne2
-	
+
 build:
 	# Just the bare minimum to get things running
 	cd mnemosyne/pyqt_ui && make
 	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc
-	
+
 build-all-deps:
 	# Also rebuilds the docs and the translations.
 	cd mnemosyne/libmnemosyne/docs && make SPHINXBUILD=$(SPHINXBUILD) html
@@ -41,28 +41,28 @@ build-all-deps:
 	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc
 	cd po && make update
 	cd po && make
-	
+
 install-system: build-all-deps
 	$(PYTHON) setup.py install $(INSTALL_OPTS)
 	rm -f -R build
-	
+
 test: FORCE
 	nosetests tests
-		
+
 coverage: FORCE
 	rm -rf .coverage cover htmlcov
-	./bin/nosetests --with-coverage --cover-erase \
+	./bin/nosetests tests --with-coverage --cover-erase \
 	--cover-package=mnemosyne.libmnemosyne,openSM2sync || (echo "testsuite failed")
 	./bin/coverage html
-	firefox htmlcov/index.html || chromium htmlcov/index.html || google-chrome htmlcov/index.html || chrome htmlcov/index.html	
-	
+	firefox htmlcov/index.html || chromium htmlcov/index.html || google-chrome htmlcov/index.html || chrome htmlcov/index.html
+
 coverage-windows: FORCE
 	rm -rf .coverage cover htmlcov
-	Scripts/nosetests --with-coverage --cover-erase \
+	nosetests tests --with-coverage --cover-erase \
 	--cover-package=mnemosyne.libmnemosyne,openSM2sync || (echo "testsuite failed")
-	Scripts/coverage html
+	coverage html
 	firefox htmlcov/index.html || chromium htmlcov/index.html || google-chrome htmlcov/index.html
-	
+
 profile: FORCE
 	echo "from hotshot import stats" > process_profile.py
 	echo "s = stats.load(\"stats.dat\")" >> process_profile.py
@@ -72,14 +72,14 @@ profile: FORCE
 
 gui-profile: FORCE
 	$(PYTHON) -m cProfile -s cumulative bin/mnemosyne -d ./dot_mnemosyne2/ | more
-	
+
 gui-profile-windows: FORCE
 	cp mnemosyne/pyqt_ui/mnemosyne tmp.py
 	$(PYTHON) -m cProfile -s cumulative tmp.py -d C:\dot_test_2 | more
 
 benchmark: FORCE
 	$(PYTHON) tests/benchmark.py
-	
+
 windows-installer: FORCE
 	# Erase previous directories to make sure we're clean.
 	rm -rf dist
@@ -113,15 +113,15 @@ macos:
 	ln -s ../Resources/share dist/Mnemosyne.app/Contents/MacOS/share
 
 osx: macos
-	
+
 android: # Creates the assets file with the Python code.
 	rm -f mnemosyne/android/app/src/main/assets/mnemosyne.zip
 	#python -m compileall mnemosyne
 	zip	-r mnemosyne/android/app/src/main/assets/mnemosyne.zip openSM2sync -i \*.py
 	zip -r mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/libmnemosyne -i \*.py
 	zip	-r mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/cle -i \*.py
-	zip	mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/version.py mnemosyne/__init__.py	
-	
+	zip	mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/version.py mnemosyne/__init__.py
+
 clean:
 	rm -f *~ *.pyc *.tgz process_profile.py
 	rm -rf dist
@@ -132,5 +132,5 @@ clean:
 	cd po && make clean
 	rm -f mnemosyne/*~ mnemosyne/*.pyc
 	rm -f mnemosyne/libmnemosyne/*~ mnemosyne/libmnemosyne/*.pyc
-	
+
 FORCE:

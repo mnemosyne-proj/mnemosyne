@@ -17,6 +17,11 @@ class RenderChain(Component):
     First the raw data is sent through Filters, which perform operations which
     can be useful for many card types, like expanding relative paths.
 
+    Sometimes Mnemosyne will try to assemble the answer together with the
+    question on a single page, e.g. if config()["QA_split"] == "single_window".
+    For some Renderers where this does not make sense, e.g. the card browser,
+    set 'never_join_q_to_a = True'.
+
     Then this data is assembled in the right order in a Renderer, which can be
     card type specific.
 
@@ -34,6 +39,8 @@ class RenderChain(Component):
 
     component_type = "render_chain"
     id = "default"
+
+    never_join_q_to_a = False
 
     filters = []
     renderers = []
@@ -132,11 +139,10 @@ class RenderChain(Component):
     def renderer_for_card_type(self, card_type):
         if card_type in self._renderer_for_card_type:
             return self._renderer_for_card_type[card_type]
-        if "::" in card_type.id: # TODO: object has no attr.id
-            print(card_type.id)
-            print(card_type.__class__.__bases__)
-            return self.renderer_for_card_type(\
-                card_type.__class__.__bases__[0])
+        if "::" in card_type.id:
+            parent_id, child_id = card_type.id.rsplit("::", 1)
+            parent = self.database().card_type(parent_id, is_id_internal=-1)
+            return self.renderer_for_card_type(parent)
         return self._renderer_for_card_type[None]
 
     def render_question(self, card, **render_args):
@@ -148,7 +154,8 @@ class RenderChain(Component):
 
     def render_answer(self, card, **render_args):
         fact_keys, decorators = [], {}
-        if self.config()["QA_split"] == "single_window":
+        if self.config()["QA_split"] == "single_window" and \
+           not self.never_join_q_to_a:
             render_args["align_top"] = True
             fact_keys += card.fact_view.q_fact_keys
             fact_keys.append("__line__")

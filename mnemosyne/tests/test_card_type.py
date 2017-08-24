@@ -3,6 +3,7 @@
 #
 
 import os
+import sys
 import shutil
 
 from mnemosyne_test import MnemosyneTest
@@ -51,7 +52,8 @@ class TestCardType(MnemosyneTest):
 
     def setup(self):
         self.initialise_data_dir()
-
+        sys.path.append(os.path.join(\
+            os.getcwd(), "..", "mnemosyne", "libmnemosyne", "renderers"))
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
             asynchronous_database=True)
         self.mnemosyne.components.insert(0,
@@ -61,7 +63,7 @@ class TestCardType(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("test_card_type", "Widget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
-            [("mnemosyne_test", "TestReviewWidget")]        
+            [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
         self.review_controller().reset()
 
@@ -271,6 +273,7 @@ class TestCardType(MnemosyneTest):
         assert self.database().is_user_card_type(card_type) == True
         card_type.extra_data = {"b": "b"}
         self.database().update_card_type(card_type)
+        assert self.render_chain().renderer_for_card_type(card_type) is not None
         self.mnemosyne.component_manager.unregister(card_type)
         card_type_out = self.database().card_type(card_type.id,
                                                       is_id_internal=False)

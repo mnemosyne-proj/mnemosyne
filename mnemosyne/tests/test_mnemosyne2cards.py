@@ -3,6 +3,7 @@
 #
 
 import os
+import sys
 import shutil
 
 from mnemosyne_test import MnemosyneTest
@@ -42,7 +43,8 @@ class TestMnemosyne2Cards(MnemosyneTest):
 
     def setup(self):
         self.initialise_data_dir()
-
+        sys.path.append(os.path.join(\
+            os.getcwd(), "..", "mnemosyne", "libmnemosyne", "renderers"))
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
             asynchronous_database=True)
         self.mnemosyne.components.insert(0,
@@ -52,7 +54,7 @@ class TestMnemosyne2Cards(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("test_mnemosyne2cards", "MyMainWidget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
-            [("mnemosyne_test", "TestReviewWidget")]        
+            [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
         self.review_controller().reset()
 
@@ -168,13 +170,13 @@ class TestMnemosyne2Cards(MnemosyneTest):
         fact_data = {"f": "question",
                      "b": "answer"}
         card_type = self.card_type_with_id("1")
-        assert len(self.card_types()) == 4
-        card_type = self.controller().clone_card_type(\
-            card_type, ("1 clone"))
         assert len(self.card_types()) == 5
         card_type = self.controller().clone_card_type(\
-            card_type, ("1 clone cloned"))
+            card_type, ("1 clone"))
         assert len(self.card_types()) == 6
+        card_type = self.controller().clone_card_type(\
+            card_type, ("1 clone cloned"))
+        assert len(self.card_types()) == 7
         card_type.extra_data = {1:1}
         card_type.fact_views[0].extra_data = {2:2}
         card_1 = self.controller().create_new_cards(\
@@ -184,28 +186,28 @@ class TestMnemosyne2Cards(MnemosyneTest):
         self.cards_format().do_export(os.path.abspath("test.cards"))
 
         self.database().new("import.db")
-        assert len(self.card_types()) == 4
+        assert len(self.card_types()) == 5
         card_type = self.card_type_with_id("1")
         card_type = self.controller().clone_card_type(\
             card_type, ("1 clone cloned"))
 
-        assert len(self.card_types()) == 5
+        assert len(self.card_types()) == 6
         self.cards_format().do_import(os.path.abspath("test.cards"))
-        assert len(self.card_types()) == 7
+        assert len(self.card_types()) == 8
         self.cards_format().do_import(os.path.abspath("test.cards"))
-        assert len(self.card_types()) == 7
+        assert len(self.card_types()) == 8
 
     def test_rename_card_type(self):
         fact_data = {"f": "question",
                      "b": "answer"}
         card_type = self.card_type_with_id("1")
-        assert len(self.card_types()) == 4
-        card_type = self.controller().clone_card_type(\
-            card_type, ("1 clone"))
         assert len(self.card_types()) == 5
         card_type = self.controller().clone_card_type(\
-            card_type, ("1 clone cloned"))
+            card_type, ("1 clone"))
         assert len(self.card_types()) == 6
+        card_type = self.controller().clone_card_type(\
+            card_type, ("1 clone cloned"))
+        assert len(self.card_types()) == 7
         card_type.extra_data = {1:1}
         card_type.fact_views[0].extra_data = {2:2}
         card_1 = self.controller().create_new_cards(\
@@ -219,16 +221,16 @@ class TestMnemosyne2Cards(MnemosyneTest):
 
         self.database().new("import.db")
         self.cards_format().do_import(os.path.abspath("test.cards"))
-        assert len(self.card_types()) == 6
+        assert len(self.card_types()) == 7
         card_type = self.card_type_with_id("1::1 clone")
         card_type.name = "renamed"
         self.database().update_card_type(card_type)
         assert "renamed" in [card_type.name for card_type in self.card_types()]
         self.cards_format().do_import(os.path.abspath("test.cards"))
-        assert len(self.card_types()) == 6
+        assert len(self.card_types()) == 7
         assert "renamed" not in [card_type.name for card_type in self.card_types()]
         self.cards_format().do_import(os.path.abspath("test.cards"))
-        assert len(self.card_types()) == 6
+        assert len(self.card_types()) == 7
         assert "renamed" not in [card_type.name for card_type in self.card_types()]
 
     def test_update_fact(self):

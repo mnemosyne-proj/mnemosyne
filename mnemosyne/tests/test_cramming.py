@@ -3,6 +3,7 @@
 #
 
 import os
+import sys
 import shutil
 
 from mnemosyne_test import MnemosyneTest
@@ -22,7 +23,8 @@ class TestCrammingScheduler(MnemosyneTest):
 
     def setup(self):
         self.initialise_data_dir()
-
+        sys.path.append(os.path.join(\
+            os.getcwd(), "..", "mnemosyne", "libmnemosyne", "renderers"))
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
             asynchronous_database=True)
         self.mnemosyne.components.insert(0,
@@ -32,14 +34,14 @@ class TestCrammingScheduler(MnemosyneTest):
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
             [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.gui_for_component["CramAll"] = \
-            [("mnemosyne_test", "TestReviewWidget")]         
+            [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.config()["study_mode"] = "CramAll"
         self.mnemosyne.start_review()
 
     def test_1(self):
         from mnemosyne.libmnemosyne.schedulers.cramming import Cramming
-                
+
         card_type = self.card_type_with_id("1")
 
         fact_data = {"f": "1", "b": "b"}
@@ -130,15 +132,15 @@ class TestCrammingScheduler(MnemosyneTest):
         self.review_controller().grade_answer(0)
         self.review_controller().counters()
 
-        self.mnemosyne.finalise()      
-        
+        self.mnemosyne.finalise()
+
         self.mnemosyne.components.insert(0,
             ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("test_cramming", "Widget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
-            [("mnemosyne_test", "TestReviewWidget")]               
-        self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)     
+            [("mnemosyne_test", "TestReviewWidget")]
+        self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.mnemosyne.start_review()
 
         assert self.scheduler().name == "cramming"
@@ -149,9 +151,9 @@ class TestCrammingScheduler(MnemosyneTest):
         fact_data = {"f": "1", "b": "b"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
-        
+
         self.review_controller().reset()
         self.review_controller().show_new_question()
         self.database().unload()
-        self.review_controller().reset()      
+        self.review_controller().reset()
         self.restart()

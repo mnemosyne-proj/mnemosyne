@@ -3,6 +3,7 @@
 #
 
 import os
+import sys
 import copy
 import shutil
 
@@ -37,7 +38,8 @@ class TestConvertCards(MnemosyneTest):
 
     def setup(self):
         self.initialise_data_dir()
-
+        sys.path.append(os.path.join(\
+            os.getcwd(), "..", "mnemosyne", "libmnemosyne", "renderers"))
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
             asynchronous_database=True)
         self.mnemosyne.components.insert(0,
@@ -45,7 +47,7 @@ class TestConvertCards(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("test_convert_cards", "Widget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
-            [("mnemosyne_test", "TestReviewWidget")]        
+            [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
         self.review_controller().reset()
 
@@ -357,7 +359,7 @@ class TestConvertCards(MnemosyneTest):
 
         new_card.question()
         new_card.answer()
-        
+
     def test_3_to_1_c(self):
         # Missing required field.
         fact_data = {"f": "foreign word",
@@ -383,7 +385,7 @@ class TestConvertCards(MnemosyneTest):
         card_1, card_2 = self.database().cards_from_fact(fact)
         assert card_1.card_type.id == "3"
         assert card_2.card_type.id == "3"
-             
+
 
     def test_2_to_3_a(self):
         fact_data = {"f": "question",

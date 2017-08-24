@@ -28,3 +28,4 @@ class DefaultRenderChain(RenderChain):
     filters = [Latex, EscapeToHtml, ExpandPaths, Html5Audio, Html5Video,
                RTLHandler, NonLatinFontSizeIncrease]
     renderers = [HtmlCss]
+
