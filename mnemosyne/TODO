@@ -1,10 +1,11 @@
-- separate thread for import
+- separate thread for import, add new file to installer.
 
 - port card type editor, with restrictions
 - don't allow clones of Anki card types
 - don't allow editing existing cloze so as to create a new card
 - don't allow creating new cloze card, add warning to use Mnemosyne clozes
   instead
+- try converting of card types
 - card type editor cannot change number of fact views nor number of fields
 - appropriate warning on all limitations on import, also add beta status and
   invite bug reports
@@ -12,6 +13,7 @@
 - Q and A align top, no boundaries around content: document how to add CSS to
   fix this?
 
+- boost database version
 - update website, import, shared decks
 
 

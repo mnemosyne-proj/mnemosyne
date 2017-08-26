@@ -101,11 +101,14 @@ class XMLFormat(object):
             if key in self.keys_in_attribs:
                 attribs += " %s=\"%s\"" % (key, value)
             else:
+                # Anki keys can be numbers.
+                if key[0].isdigit():
+                    key = "___" + key
                 tags += "<%s>%s</%s>" % (key, saxutils.escape(value), key)
         xml = "<log%s>%s</log>\n" % (attribs, tags)
         # Strip control characters.
         xml = "".join([i for i in xml if 31 < ord(i) or ord(i) in [9, 10, 13]])
-        #import sys; sys.stderr.write(xml.encode("utf-8"))
+        #import sys; sys.stderr.write(xml)
         return xml
 
     def parse_log_entries(self, xml):
@@ -115,7 +118,6 @@ class XMLFormat(object):
         See http://effbot.org/zone/element-iterparse.htm
 
         """
-
         context = iter(cElementTree.iterparse(xml, events=("start", "end")))
         event, root = next(context)  # 'start' event on openSM2 tag.
         for key, value in list(root.attrib.items()):
@@ -131,13 +133,15 @@ class XMLFormat(object):
                         values = float(value)
                     log_entry[key] = value
                 for child in element:
+                    if child.tag.startswith("___"):  # Escaped number.
+                        child.tag = child.tag[3:]
                     if child.text:
                         log_entry[child.tag] = child.text
                     else:
                         # Should be string instead of None.
                         log_entry[child.tag] = ""
                 root.clear()  # Avoid taking up unnecessary memory.
-                #import sys; sys.stderr.write(str(log_entry).encode("utf-8"))
+                #import sys; sys.stderr.write(str(log_entry) + "\n")
                 yield log_entry
 
     def repr_message(self, message, traceback=None):

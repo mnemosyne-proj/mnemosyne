@@ -105,7 +105,6 @@ class TestAnkiImport(MnemosyneTest):
         assert len(list(self.database().criteria())) == 3
 
     def test_anki_1(self):
-        print(os.getcwd())
         filename = os.path.join(os.getcwd(), "tests", "files", "anki1", "collection.anki2")
         self.anki_importer().do_import(filename)
         self.review_controller().reset()

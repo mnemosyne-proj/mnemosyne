@@ -10,6 +10,8 @@ import shutil
 import sqlite3
 import zipfile
 
+from xml.sax.saxutils import escape as xml_escape
+
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.translator import _
@@ -222,6 +224,7 @@ class Anki2(FileFormat, MediaPreprocessor):
             # csum: checksum, ignore.
             # flags: seems empty, ignore.
             # data: seems empty, ignore.
+            guid = xml_escape(guid)  # Make compatible with openSM2sync.
             modification_time_for_nid[id] = mod
             card_type = card_type_for_mid[int(mid)]
             card_type_for_nid[id] = card_type
@@ -253,6 +256,34 @@ class Anki2(FileFormat, MediaPreprocessor):
                 db.add_fact(fact)
             fact_for_nid[id] = fact
             tag_names_for_nid[id] = tags
+            w.increase_progress(1)
+        # Import logs. This needs to happen before creating the cards,
+        # otherwise, the sync protocol will use the scheduling data from the
+        # latest repetition log, instead of the correct current one.
+        w.set_progress_text(_("Importing logs..."))
+        number_of_logs = con.execute("select count() from revlog").fetchone()[0]
+        w.set_progress_range(number_of_logs)
+        w.set_progress_update_interval(number_of_logs/20)
+        for id, cid, usn, ease, ivl, lastIvl, factor, time, type_ in \
+            con.execute("""select id, cid, usn, ease, ivl, lastIvl, factor,
+            time, type from revlog"""):
+            # usn: syncing related, ignore.
+            if type_ == 0:  # Acquisition phase.
+                grade = 0
+            else:  # Retention phase.
+                grade = ease + 1  # Anki ease is from 1 to 4.
+            timestamp = int(id/1000)
+            scheduled_interval = lastIvl*86400 if lastIvl > 0 else 0
+            new_interval = ivl*86400 if ivl > 0 else 0
+            next_rep = timestamp + new_interval
+            easiness = factor/1000 if factor else 2.5
+            db.log_repetition(timestamp=timestamp, card_id=cid, grade=grade,
+                easiness=easiness, acq_reps=0, ret_reps=0, lapses=0,
+                acq_reps_since_lapse=0, ret_reps_since_lapse=0,
+                scheduled_interval=scheduled_interval,
+                actual_interval=scheduled_interval,
+                thinking_time=int(time/1000), next_rep=next_rep,
+                scheduler_data=0)
             w.increase_progress(1)
         # Import cards.
         w.set_progress_text(_("Importing cards..."))
@@ -327,32 +358,6 @@ class Anki2(FileFormat, MediaPreprocessor):
                 db.update_card(card)
             else:
                 db.add_card(card)
-            w.increase_progress(1)
-        # Import logs.
-        w.set_progress_text(_("Importing logs..."))
-        number_of_logs = con.execute("select count() from revlog").fetchone()[0]
-        w.set_progress_range(number_of_logs)
-        w.set_progress_update_interval(number_of_logs/20)
-        for id, cid, usn, ease, ivl, lastIvl, factor, time, type_ in \
-            con.execute("""select id, cid, usn, ease, ivl, lastIvl, factor,
-            time, type from revlog"""):
-            # usn: syncing related, ignore.
-            if type_ == 0:  # Acquisition phase.
-                grade = 0
-            else:  # Retention phase.
-                grade = ease + 1  # Anki ease is from 1 to 4.
-            timestamp = int(id/1000)
-            scheduled_interval = lastIvl*86400 if lastIvl > 0 else 0
-            new_interval = ivl*86400 if ivl > 0 else 0
-            next_rep = timestamp + new_interval
-            easiness = factor/1000 if factor else 2.5
-            db.log_repetition(timestamp=timestamp, card_id=cid, grade=grade,
-                easiness=easiness, acq_reps=0, ret_reps=0, lapses=0,
-                acq_reps_since_lapse=0, ret_reps_since_lapse=0,
-                scheduled_interval=scheduled_interval,
-                actual_interval=scheduled_interval,
-                thinking_time=int(time/1000), next_rep=next_rep,
-                scheduler_data=0)
             w.increase_progress(1)
         # Create criteria for 'database' tags.
         for deck_name in deck_name_for_did.values():

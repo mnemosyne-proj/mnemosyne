@@ -1362,6 +1362,80 @@ class TestSync(object):
             (EventTypes.EDITED_MEDIA_FILE, )).fetchone()[0] == 1
         assert db.con.execute("select count() from log").fetchone()[0] == 30
 
+    def test_anki_import(self):
+
+        def fill_server_database(self):
+            filename = os.path.join(os.getcwd(), "tests", "files", "anki1", "collection.anki2")
+            for format in self.mnemosyne.component_manager.all("file_format"):
+                if format.__class__.__name__ == "Anki2":
+                    format.do_import(filename)
+            self.mnemosyne.controller().save_file()
+            card = self.mnemosyne.database().card("1502277582871", is_id_internal=False)
+            assert card.next_rep == 1503021600
+
+        def test_server(self):
+            pass
+
+        self.server = MyServer()
+        self.server.fill_server_database = fill_server_database
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        self.client.do_sync(); assert last_error is None
+
+        assert self.client.database.card_count() == 7
+        assert self.client.database.fact_count() == 6
+
+        card = self.client.database.card("1502277582871", is_id_internal=False)
+        assert "img src=\"al.png\"" in card.question(render_chain="plain_text")
+        assert self.client.mnemosyne.config().card_type_property(\
+                "font", card.card_type, "0") == \
+                   "Algerian,23,-1,5,50,0,0,0,0,0,Regular"
+        assert card.next_rep == 1503021600
+        assert card.last_rep == card.next_rep - 3 * 86400
+
+        card = self.client.database.card("1502277594395", is_id_internal=False)
+        assert "audio src=\"1.mp3\"" in card.question(render_chain="plain_text")
+
+        card = self.client.database.card("1502277686022", is_id_internal=False)
+        assert "<$$>x</$$>&nbsp;<latex>x^2</latex>&nbsp;<$>x^3</$>" in\
+                   card.question(render_chain="plain_text")
+
+        card = self.client.database.card("1502797276041", is_id_internal=False)
+        assert "aa <span class=cloze>[...]</span> cc" in\
+                   card.question(render_chain="plain_text")
+        assert "aa <span class=cloze>bbb</span> cc" in\
+                   card.answer(render_chain="plain_text")
+
+        card = self.client.database.card("1502797276050", is_id_internal=False)
+        assert "aa bbb <span class=cloze>[...]</span>" in\
+                   card.question(render_chain="plain_text")
+        assert "aa bbb <span class=cloze>cc</span>" in\
+                   card.answer(render_chain="plain_text")
+        assert card.next_rep == -1
+        assert card.last_rep == -1
+
+        card = self.client.database.card("1502970432696", is_id_internal=False)
+        assert "type answer" in\
+                   card.question(render_chain="plain_text")
+        assert "{{type:Back}}" not in\
+                   card.question(render_chain="plain_text")
+        assert card.next_rep == 1502970472
+        assert card.last_rep == 1502970472
+
+        card = self.client.database.card("1503047582690", is_id_internal=False)
+        assert "subdeck card" in\
+                   card.question(render_chain="plain_text")
+        assert card.next_rep == -1
+        assert card.last_rep == -1
+        assert card.easiness == 2.5
+
+        criterion = self.client.database.criterion(id=2, is_id_internal=True)
+        assert criterion.data_to_string() == "(set(), {2}, set())"
+        assert criterion.name == "Deck 1"
+        assert len(list(self.client.database.criteria())) == 3
+
     def test_mem_import(self):
 
         def fill_server_database(self):

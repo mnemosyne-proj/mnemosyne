@@ -12,7 +12,11 @@ Additionally, if you see a black screen, start Mnemosyne with the
 
 Mnemosyne 2.6
 
-- <Anki import>
+- Import of Anki databases (both *.anki2 and *.apgk) as well as
+  possibility to edit these M-sided card types. (Though not yet in a way
+  that would change the number of cards per fact.)
+- Fix display of question in the card browser in case you configured
+  Mnemosyne to show question and answer in the same window.
 - Fix bug with increase of non-latin fonts using some fonts (reported by
   JDD).
 - Upgrade to PyQt 5.9.1.
