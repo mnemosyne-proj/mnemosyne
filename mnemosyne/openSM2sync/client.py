@@ -116,7 +116,7 @@ class Client(Partner):
             # Always create media files, otherwise they are not synced across.
             self.ui.set_progress_text("Dynamically creating media files...")
             self.database.dynamically_create_media_files()
-            # Set timeout long enough for e.g. a slow NAS waking from 
+            # Set timeout long enough for e.g. a slow NAS waking from
             # hibernation.
             socket.setdefaulttimeout(60)
             self.login(username, password)
@@ -190,27 +190,27 @@ class Client(Partner):
                 # Only serious errors should result in the need for a full
                 # sync next time.
                 self.ui.show_error("Sync failed, restoring from backup. " + \
-                    "The next sync will need to be a full sync.")
+                    "The next sync will be a full sync.")
                 if backup_file:
                     self.database.restore(backup_file)
         finally:
-            
+
             # TMP: preparation for future fix
             #self.get_sync_cancel()
-            
-            
+
+
             if self.con:
                 self.con.close()
             self.ui.close_progress()
 
-    def supports_binary_upload(self):        
+    def supports_binary_upload(self):
         return self.capabilities == "mnemosyne_dynamic_cards" and \
             self.interested_in_old_reps and self.store_pregenerated_data \
             and self.program_name == self.server_info["program_name"] and \
             self.program_version == self.server_info["program_version"]
 
     def resolve_conflicts(self, restored_from_backup=False):
-        if restored_from_backup:    
+        if restored_from_backup:
             message = "The database was restored from a backup, either " + \
     "automatically because of an aborted sync or manually by " + \
     "the user.\nFor safety, a full sync of cards and history needs to happen and " + \
@@ -297,7 +297,7 @@ class Client(Partner):
                 encode("utf-8") + b"\n")
             response = self.con.getresponse()
         except socket.gaierror:
-            raise SyncError("Could not find server!")        
+            raise SyncError("Could not find server!")
         except socket.timeout:
             raise SyncError("Timeout when trying to connect to server!")
         except socket.error as e:
@@ -341,7 +341,7 @@ class Client(Partner):
                 "Make sure you are running the latest Mnemosyne version on both devices involved in the sync.")
         #if self.server_info["program_version"] != client_info["program_version"]:
         #    raise SyncError("Error: Mnemosyne version mismatch.\n" + \
-        #        "Make sure you are running the latest Mnemosyne version on both devices involved in the sync.")         
+        #        "Make sure you are running the latest Mnemosyne version on both devices involved in the sync.")
         self.database.create_if_needed_partnership_with(\
             self.server_info["machine_id"])
         self.database.merge_partners(self.server_info["partners"])
@@ -504,7 +504,7 @@ class Client(Partner):
     def put_client_media_files(self, reupload_all=False):
         self.ui.set_progress_text("Sending media files...")
         # Get list of filenames in the format <mediadir>/<filename>, i.e.
-        # relative to the data_dir. Note we always use / internally. 
+        # relative to the data_dir. Note we always use / internally.
         subdir = os.path.basename(self.database.media_dir())
         if reupload_all:
             filenames = [subdir + "/" + filename for filename in \
@@ -520,14 +520,14 @@ class Client(Partner):
                 self.database.data_dir(), filename))
         self.put_client_binary_files(filenames, total_size)
         self.ui.close_progress()
-          
-    def put_client_archive_files(self):  
+
+    def put_client_archive_files(self):
         archive_dir = os.path.join(self.database.data_dir(), "archive")
         if not os.path.exists(archive_dir):
             return
         # Get list of filenames in the format "archive"/<filename>, i.e.
-        # relative to the data_dir. Note we always use / internally. 
-        self.ui.set_progress_text("Sending archive files...")       
+        # relative to the data_dir. Note we always use / internally.
+        self.ui.set_progress_text("Sending archive files...")
         filenames = ["archive/" + filename for filename in \
                      os.listdir(archive_dir) if os.path.isfile\
                      (os.path.join(archive_dir, filename))]
@@ -537,9 +537,9 @@ class Client(Partner):
             total_size += os.path.getsize(os.path.join(\
                 self.database.data_dir(), filename))
         self.put_client_binary_files(filenames, total_size)
-        self.ui.close_progress()        
-            
-    def put_client_binary_files(self, filenames, total_size):   
+        self.ui.close_progress()
+
+    def put_client_binary_files(self, filenames, total_size):
         # Filenames are relative to the data_dir.
         self.ui.set_progress_range(total_size)
         self.ui.set_progress_update_interval(total_size/50)
@@ -581,9 +581,9 @@ class Client(Partner):
         for filename in response.read().split(b"\n"):
             filenames.append(str(filename, "utf-8"))
         self.ui.set_progress_text("Getting media files...")
-        self.get_server_binary_files(filenames, total_size)    
+        self.get_server_binary_files(filenames, total_size)
         self.ui.close_progress()
-  
+
     def get_server_archive_files(self):
         self.ui.set_progress_text("Getting list of archive files to download...")
         # Get list of names of all archive files to download.
@@ -604,12 +604,12 @@ class Client(Partner):
         for filename in response.read().split(b"\n"):
             filenames.append(str(filename, "utf-8"))
         self.ui.set_progress_text("Getting archive files...")
-        self.get_server_binary_files(filenames, total_size)    
-        self.ui.close_progress()  
-               
+        self.get_server_binary_files(filenames, total_size)
+        self.ui.close_progress()
+
     def get_server_binary_files(self, filenames, total_size):
         self.ui.set_progress_range(total_size)
-        self.ui.set_progress_update_interval(total_size/50)  
+        self.ui.set_progress_update_interval(total_size/50)
         for filename in filenames:
             self.request_connection()
             self.con.request("GET",
@@ -635,7 +635,7 @@ class Client(Partner):
         self.request_connection()
         session_token = self.server_info.get("session_token", "none")
         self.con.request("GET", self.url("/sync_cancel?session_token=%s" \
-            % (session_token, )), headers={"connection": "close"})          
+            % (session_token, )), headers={"connection": "close"})
         self._check_response_for_errors(self.con.getresponse())
 
     def get_sync_finish(self):

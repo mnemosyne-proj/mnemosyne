@@ -64,7 +64,7 @@ class Session(object):
     def terminate(self):
 
         """Restore from backup if the session failed to close normally."""
-        
+
         if self.backup_file:
             self.database.restore(self.backup_file)
 
@@ -170,7 +170,7 @@ class Server(Partner):
         else:
             return "404 Not Found", None, None
 
-    # The following functions are not yet thread-safe.  
+    # The following functions are not yet thread-safe.
 
     def create_session(self, client_info):
         database = self.load_database(client_info["database_name"])
@@ -211,7 +211,7 @@ class Server(Partner):
         del self.sessions[session_token]
         self.ui.close_progress()
         self.ui.show_error("Sync failed, restoring from backup. " + \
-            "The next sync will need to be a full sync.")
+            "The next sync will be a full sync.")
 
     def is_sync_in_progress(self):
         for session_token, session in self.sessions.items():
@@ -570,7 +570,7 @@ class Server(Partner):
             # Make sure a malicious client cannot overwrite anything outside
             # of the media directory.
             filename = filename.replace("../", "").replace("..\\", "")
-            filename = filename.replace("/..", "").replace("\\..", "")            
+            filename = filename.replace("/..", "").replace("\\..", "")
             filename = os.path.join(session.database.data_dir(), filename)
             # We don't have progress bars here, as 'put_client_binary_file'
             # gets called too frequently, and this would slow down the UI.
@@ -588,15 +588,15 @@ class Server(Partner):
             mnemosyne_content_length = 0
             self.ui.set_progress_text("Sending media files...")
             # Send list of filenames in the format <mediadir>/<filename>, i.e.
-            # relative to the data_dir. Note we always use / internally.           
+            # relative to the data_dir. Note we always use / internally.
             subdir = os.path.basename(session.database.media_dir())
             if redownload_all in ["1", "True", "true"]:
                 filenames = [subdir + "/" + filename for filename in \
-                             session.database.all_media_filenames()]                
+                             session.database.all_media_filenames()]
             else:
                 filenames = [subdir + "/" + filename  for filename in \
                              session.database.media_filenames_to_sync_for(\
-                                 session.client_info["machine_id"])]                 
+                                 session.client_info["machine_id"])]
             if len(filenames) == 0:
                 return b""
             for filename in filenames:
@@ -613,13 +613,13 @@ class Server(Partner):
             mnemosyne_content_length = 0
             self.ui.set_progress_text("Sending archive files...")
             # Send list of filenames in the format "archive"/<filename>, i.e.
-            # relative to the data_dir. Note we always use / internally.       
+            # relative to the data_dir. Note we always use / internally.
             archive_dir = os.path.join(session.database.data_dir(), "archive")
             if not os.path.exists(archive_dir):
                 return b""
             filenames = ["archive/" + filename for filename in \
                          os.listdir(archive_dir) if os.path.isfile\
-                         (os.path.join(archive_dir, filename))]            
+                         (os.path.join(archive_dir, filename))]
             if len(filenames) == 0:
                 return b""
             for filename in filenames:

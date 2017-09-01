@@ -6,11 +6,26 @@ import os
 from PyQt5 import QtGui, QtCore, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.pyqt_ui.qt_worker_thread import \
+    QtWorkerThread, QtGuiThread
 from mnemosyne.pyqt_ui.ui_import_dlg import Ui_ImportDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import ImportDialog
 
 
-class ImportDlg(QtWidgets.QDialog, ImportDialog, Ui_ImportDlg):
+class ImportThread(QtWorkerThread):
+
+    def __init__(self, filename, format, extra_tag_names, **kwds):
+        super().__init__(**kwds)
+        self.filename = filename
+        self.format = format
+        self.extra_tag_names = extra_tag_names
+
+    def do_work(self):
+        self.mnemosyne.config()["import_format"] = str(type(self.format))
+        self.format.do_import(self.filename, self.extra_tag_names)
+
+
+class ImportDlg(QtWidgets.QDialog, QtGuiThread, ImportDialog, Ui_ImportDlg):
 
     def __init__(self, **kwds):
         super().__init__(**kwds)
@@ -72,8 +87,15 @@ class ImportDlg(QtWidgets.QDialog, ImportDialog, Ui_ImportDlg):
             self.config()["import_extra_tag_names"] = extra_tag_names
             if not extra_tag_names:
                 extra_tag_names = ""
+            self.worker_thread = ImportThread(filename,
+                self.format(), extra_tag_names, mnemosyne=self)
+            self.run_worker_thread()
             self.config()["import_format"] = str(type(self.format()))
             self.format().do_import(filename, extra_tag_names)
-            QtWidgets.QDialog.accept(self)
         else:
             self.main_widget().show_error(_("File does not exist."))
+
+    def work_ended(self):
+        self.main_widget().close_progress()
+        self.main_widget().show_information(_("Done!"))
+        QtWidgets.QDialog.accept(self)

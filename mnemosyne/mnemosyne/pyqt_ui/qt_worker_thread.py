@@ -2,9 +2,6 @@
 # qt_worker_thread.py <Peter.Bienstman@UGent.be>
 #
 
-import os
-import sys
-
 from PyQt5 import QtCore
 
 from mnemosyne.libmnemosyne import Mnemosyne
@@ -18,7 +15,7 @@ mutex = QtCore.QMutex()
 dialog_closed = QtCore.QWaitCondition()
 
 
-class WorkerThread(QtCore.QThread):
+class QtWorkerThread(QtCore.QThread):
 
     """Note that in Qt, we cannot do GUI updates in the worker thread, so we
     use the signal/slot mechanism to notify the main thread to do the
@@ -26,8 +23,8 @@ class WorkerThread(QtCore.QThread):
 
     """
 
-    sync_started_signal = QtCore.pyqtSignal()
-    sync_ended_signal = QtCore.pyqtSignal()
+    work_started_signal = QtCore.pyqtSignal()
+    work_ended_signal = QtCore.pyqtSignal()
     information_signal = QtCore.pyqtSignal(str)
     error_signal = QtCore.pyqtSignal(str)
     question_signal = QtCore.pyqtSignal(str, str, str, str)
@@ -37,6 +34,27 @@ class WorkerThread(QtCore.QThread):
     increase_progress_signal = QtCore.pyqtSignal(int)
     set_progress_value_signal = QtCore.pyqtSignal(int)
     close_progress_signal = QtCore.pyqtSignal()
+
+    def __init__(self, mnemosyne):
+        super().__init__()
+        self.mnemosyne = mnemosyne
+
+    def do_work(self):
+        pass  # Override this with the actual task.
+
+    def run(self):
+        try:
+            # Libmnemosyne itself could also generate dialog messages, so
+            # we temporarily override the main_widget with the threaded
+            # routines in this class.
+            self.mnemosyne.component_manager.components\
+                [None]["main_widget"].append(self)
+            self.do_work()
+        finally:
+            self.mnemosyne.database().release_connection()
+            self.mnemosyne.component_manager.components\
+                [None]["main_widget"].pop()
+        self.work_ended_signal.emit()
 
     def show_information(self, message):
         global answer
@@ -85,34 +103,37 @@ class WorkerThread(QtCore.QThread):
         self.close_progress_signal.emit()
 
 
-class GUIThread(Component, QtCore.QObject):
+class QtGuiThread(Component, QtCore.QObject):
 
     def __init__(self, **kwds):
         super().__init__(**kwds)
-        self.thread = None
-        # Since we will overwrite the true main widget in the thread, we need
-        # to save it here.
+        self.worker_thread = None  # Assign a QtWorkerThread here.
+        # Since we will overwrite the true main widget in the worker thread,
+        # we need to save it here.
         self.true_main_widget = self.main_widget()
 
-    def connect_signals(self):
-        self.thread.information_signal.connect(\
+    def run_worker_thread(self):
+        self.database().release_connection()
+        self.worker_thread.information_signal.connect(\
             self.threaded_show_information)
-        self.thread.error_signal.connect(\
+        self.worker_thread.error_signal.connect(\
             self.threaded_show_error)
-        self.thread.question_signal.connect(\
+        self.worker_thread.question_signal.connect(\
             self.threaded_show_question)
-        self.thread.set_progress_text_signal.connect(\
+        self.worker_thread.set_progress_text_signal.connect(\
             self.true_main_widget.set_progress_text)
-        self.thread.set_progress_range_signal.connect(\
+        self.worker_thread.set_progress_range_signal.connect(\
             self.true_main_widget.set_progress_range)
-        self.thread.set_progress_update_interval_signal.connect(\
+        self.worker_thread.set_progress_update_interval_signal.connect(\
             self.true_main_widget.set_progress_update_interval)
-        self.thread.increase_progress_signal.connect(\
+        self.worker_thread.increase_progress_signal.connect(\
             self.true_main_widget.increase_progress)
-        self.thread.set_progress_value_signal.connect(\
+        self.worker_thread.set_progress_value_signal.connect(\
             self.true_main_widget.set_progress_value)
-        self.thread.close_progress_signal.connect(\
+        self.worker_thread.close_progress_signal.connect(\
             self.true_main_widget.close_progress)
+        self.worker_thread.work_ended_signal.connect(self.work_ended)
+        self.worker_thread.start()
 
     def threaded_show_information(self, message):
         global answer
@@ -137,3 +158,6 @@ class GUIThread(Component, QtCore.QObject):
             option1, option2)
         dialog_closed.wakeAll()
         mutex.unlock()
+
+    def work_ended(self):
+        pass  # Override if necessary.

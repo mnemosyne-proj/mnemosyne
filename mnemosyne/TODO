@@ -1,4 +1,6 @@
 - separate thread for import, add new file to installer.
+overwriting of mean widget?
+
 
 - port card type editor, with restrictions
 - don't allow clones of Anki card types
@@ -19,7 +21,7 @@
 
 Android:
 
-remove debug info
+- remove debug info
 -integrated error reporting:
 https://developers.google.com/analytics/devguides/collection/android/v4/exceptions
 http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-button

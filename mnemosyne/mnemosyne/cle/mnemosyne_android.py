@@ -1,5 +1,5 @@
 #
-# mnemosyne.py <Peter.Bienstman@UGent.be>
+# mnemosyne_android.py <Peter.Bienstman@UGent.be>
 #
 
 try:
@@ -16,6 +16,7 @@ try:
 except Exception as e:
     print(e)
     import traceback
+    traceback.print_exc()
     traceback.print_stack()
     print(traceback.format_stack())
 
