@@ -38,6 +38,8 @@ class ServerThread(QtCore.QThread, WebServer):
 
     """
 
+    # TODO: migrate to qt_worker_thread mechanism.
+
     review_started_signal = QtCore.pyqtSignal()
     review_ended_signal = QtCore.pyqtSignal()
     information_signal = QtCore.pyqtSignal(str)
@@ -70,7 +72,7 @@ class ServerThread(QtCore.QThread, WebServer):
             self.component_manager.components[None]["main_widget"].pop()
         database_released.wakeAll()
 
-    def load_mnemosyne(self): 
+    def load_mnemosyne(self):
         # Load Mnemosyne and its database in the review server thread.
         self.set_progress_text(_("Remote review in progress..."))
         mutex.lock()
@@ -173,9 +175,9 @@ class QtWebServer(Component, QtCore.QObject):
             self.deactivate()
             try:
                 self.thread = ServerThread(
-                    port=self.config()["web_server_port"], 
+                    port=self.config()["web_server_port"],
                     data_dir=self.config().data_dir,
-                    config_dir=self.config().config_dir, 
+                    config_dir=self.config().config_dir,
                     filename=self.config()["last_database"],
                     component_manager=self.component_manager)
             except socket.error as exception:
@@ -219,7 +221,7 @@ class QtWebServer(Component, QtCore.QObject):
                 self.true_main_widget.close_progress)
             self.thread.start()
 
-    def unload_database(self): 
+    def unload_database(self):
         # Unload database in main thread.
         mutex.lock()
         # Since this function can get called by libmnemosyne outside of the
@@ -236,7 +238,7 @@ class QtWebServer(Component, QtCore.QObject):
         database_released.wakeAll()
         mutex.unlock()
 
-    def load_database(self): 
+    def load_database(self):
         # Load database in main thread.
         self.stopwatch().pause()
         mutex.lock()

@@ -50,6 +50,8 @@ class QtWorkerThread(QtCore.QThread):
             self.mnemosyne.component_manager.components\
                 [None]["main_widget"].append(self)
             self.do_work()
+        except Exception as e:
+            self.show_error(str(e) + "\n" + traceback_string())
         finally:
             self.mnemosyne.database().release_connection()
             self.mnemosyne.component_manager.components\

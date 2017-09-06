@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-08-25 14:33+0200\n"
+"POT-Creation-Date: 2017-09-06 14:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -564,7 +564,7 @@ msgid "go to http://www.mnemosyne-proj.org"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/database.py:357
-#: ../mnemosyne/pyqt_ui/compact_database_dlg.py:145
+#: ../mnemosyne/pyqt_ui/compact_database_dlg.py:66
 msgid "Compacting database..."
 msgstr ""
 
@@ -674,45 +674,45 @@ msgstr ""
 msgid "Putting a database on a network drive is forbidden under Windows to avoid data corruption. Mnemosyne will now close."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:43
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:45
 msgid "Anki2 collections"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:45
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:47
 msgid "Anki2 collections (*.anki2 *.apkg)"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:56
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:58
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:205
 msgid "Decompressing..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:66
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:68
 msgid "Processing media files..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:98
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:100
 msgid "Copying media files..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:108
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:110
 msgid "Importing card types..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:211
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:213
 msgid "Importing notes..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:258
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:263
+msgid "Importing logs..."
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:289
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:42
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:31
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:37
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:219
 msgid "Importing cards..."
-msgstr ""
-
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:332
-msgid "Importing logs..."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:15
@@ -890,8 +890,8 @@ msgid "Waiting for uploader thread to stop..."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/logger.py:201
-#: ../mnemosyne/pyqt_ui/compact_database_dlg.py:173
-#: ../mnemosyne/pyqt_ui/export_dlg.py:63
+#: ../mnemosyne/pyqt_ui/compact_database_dlg.py:76
+#: ../mnemosyne/pyqt_ui/export_dlg.py:63 ../mnemosyne/pyqt_ui/import_dlg.py:98
 msgid "Done!"
 msgstr ""
 
@@ -1666,7 +1666,7 @@ msgstr ""
 msgid "Import cards"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/import_dlg.py:79
+#: ../mnemosyne/pyqt_ui/import_dlg.py:94
 msgid "File does not exist."
 msgstr ""
 
@@ -1697,34 +1697,34 @@ msgid ""
 "With this plugin, Mnemosyne will for each card type remember the last tag you used, such that e.g. Chinese cards get a prefilled tag like \"My Chinese textbook::Chapter 10\", whereas Front-to-Back cards get \"European Capitals\"."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:72
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:199
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:206
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:74
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:201
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:208
 msgid "Unable to start sync server."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:200
-#: ../mnemosyne/pyqt_ui/qt_web_server.py:186
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:202
+#: ../mnemosyne/pyqt_ui/qt_web_server.py:188
 msgid "There still seems to be an old server running on the requested port."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:201
-#: ../mnemosyne/pyqt_ui/qt_web_server.py:187
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:203
+#: ../mnemosyne/pyqt_ui/qt_web_server.py:189
 msgid "Terminate that process and try again."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:207
-#: ../mnemosyne/pyqt_ui/qt_web_server.py:193
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:209
+#: ../mnemosyne/pyqt_ui/qt_web_server.py:195
 msgid "You don't have the permission to use the requested port."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qt_web_server.py:62
-#: ../mnemosyne/pyqt_ui/qt_web_server.py:185
-#: ../mnemosyne/pyqt_ui/qt_web_server.py:192
+#: ../mnemosyne/pyqt_ui/qt_web_server.py:64
+#: ../mnemosyne/pyqt_ui/qt_web_server.py:187
+#: ../mnemosyne/pyqt_ui/qt_web_server.py:194
 msgid "Unable to start web server."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qt_web_server.py:75
+#: ../mnemosyne/pyqt_ui/qt_web_server.py:77
 msgid "Remote review in progress..."
 msgstr ""
 
@@ -1829,7 +1829,7 @@ msgstr ""
 msgid "Not seen"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/sync_dlg.py:124
+#: ../mnemosyne/pyqt_ui/sync_dlg.py:125
 msgid ""
 "Here, you can sync this machine with a remote server. Of course, that remote computer needs to have a server running, which can be started from the configuration screen on that remote machine.\n"
 "\n"

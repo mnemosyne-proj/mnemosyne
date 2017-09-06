@@ -90,8 +90,6 @@ class ImportDlg(QtWidgets.QDialog, QtGuiThread, ImportDialog, Ui_ImportDlg):
             self.worker_thread = ImportThread(filename,
                 self.format(), extra_tag_names, mnemosyne=self)
             self.run_worker_thread()
-            self.config()["import_format"] = str(type(self.format()))
-            self.format().do_import(filename, extra_tag_names)
         else:
             self.main_widget().show_error(_("File does not exist."))
 

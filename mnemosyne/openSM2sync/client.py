@@ -189,8 +189,8 @@ class Client(Partner):
             if serious and self.do_backup:
                 # Only serious errors should result in the need for a full
                 # sync next time.
-                self.ui.show_error("Sync failed, restoring from backup. " + \
-                    "The next sync will be a full sync.")
+                self.ui.show_error(\
+                    "Sync failed, the next sync will be a full sync.")
                 if backup_file:
                     self.database.restore(backup_file)
         finally:

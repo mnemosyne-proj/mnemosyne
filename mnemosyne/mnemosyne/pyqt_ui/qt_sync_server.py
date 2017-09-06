@@ -49,6 +49,8 @@ class ServerThread(QtCore.QThread, SyncServer):
 
     """
 
+    # TODO: migrate to qt_worker_thread mechanism.
+
     sync_started_signal = QtCore.pyqtSignal()
     sync_ended_signal = QtCore.pyqtSignal()
     information_signal = QtCore.pyqtSignal(str)
@@ -95,8 +97,8 @@ class ServerThread(QtCore.QThread, SyncServer):
         # we temporarily override the main_widget with the threaded
         # routines in this class.
         self.component_manager.components[None]["main_widget"].append(self)
-        self.sync_started_signal.emit()  # Unload database in main thread. 
-        if not self.server_has_connection:           
+        self.sync_started_signal.emit()  # Unload database in main thread.
+        if not self.server_has_connection:
             database_released.wait(mutex)
         SyncServer.load_database(self, database_name)
         self.server_has_connection = True
@@ -109,7 +111,7 @@ class ServerThread(QtCore.QThread, SyncServer):
         # Put back the widget now, as it needs to be in place before
         # 'emit' resets the GUI.
         if self in self.component_manager.components[None]["main_widget"]:
-            self.component_manager.components[None]["main_widget"].pop()        
+            self.component_manager.components[None]["main_widget"].pop()
         if self.server_has_connection:
             self.database().release_connection()
             self.server_has_connection = False

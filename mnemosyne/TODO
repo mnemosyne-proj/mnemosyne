@@ -1,7 +1,3 @@
-- separate thread for import, add new file to installer.
-overwriting of mean widget?
-
-
 - port card type editor, with restrictions
 - don't allow clones of Anki card types
 - don't allow editing existing cloze so as to create a new card
@@ -45,6 +41,8 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 
 
 Minor bugs / issues:
+-migrate sync server / web server / sync dialog to qt_worker_thread
+ infrastructure.
 -strip HTML when doing rlt check?
 -decrease size of installer by seeing if more libraries can be removed.
 -example plugin for new learning modes

@@ -167,6 +167,7 @@ hiddenimports = [
              'mnemosyne.pyqt_ui.qt_sync_server',
              'mnemosyne.pyqt_ui.qt_translator',
              'mnemosyne.pyqt_ui.qt_web_server',
+             'mnemosyne.pyqt_ui.qt_worker_thread',
              'mnemosyne.pyqt_ui.qwebengineview2',
              'mnemosyne.pyqt_ui.remove_tags_dlg',
              'mnemosyne.pyqt_ui.review_wdgt',

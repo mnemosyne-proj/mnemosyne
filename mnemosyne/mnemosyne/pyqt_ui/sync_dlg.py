@@ -31,6 +31,7 @@ class SyncThread(QtCore.QThread):
 
     """
 
+    # TODO: migrate to qt_worker_thread mechanism.
     information_signal = QtCore.pyqtSignal(str)
     error_signal = QtCore.pyqtSignal(str)
     question_signal = QtCore.pyqtSignal(str, str, str, str)
