@@ -29,25 +29,39 @@ class ManageCardTypesDlg(QtWidgets.QDialog, ManageCardTypesDialog,
 
     def update(self):
         self.cloned_card_types.clear()
-        self.items = []
-        self.card_type_with_item = []
+        self.M_sided_card_types.clear()
+        self.items_used = []
+        self.card_types_used = []
+        # Fill up cloned card types panel.
         for card_type in self.database().sorted_card_types():
             if self.database().is_user_card_type(card_type) and \
-               not card_type.hidden_from_UI:
+               not card_type.hidden_from_UI and \
+               not card_type.id.startswith("7"):
                 name = "%s (%s)" % (_(card_type.name),
                                     _(card_type.__class__.__bases__[0].name))
                 item = QtWidgets.QListWidgetItem(name)
                 self.cloned_card_types.addItem(item)
                 # Since node_item seems mutable, we cannot use a dict.
-                self.items.append(item)
-                self.card_type_with_item.append(card_type)
+                self.items_used.append(item)
+                self.card_types_used.append(card_type)
         if self.cloned_card_types.count() == 0:
-            self.rename_button.setEnabled(False)
-            self.delete_button.setEnabled(False)
+            self.rename_clone_button.setEnabled(False)
+            self.delete_clone_button.setEnabled(False)
         else:
-            self.rename_button.setEnabled(True)
-            self.delete_button.setEnabled(True)
-            self.cloned_card_types.item(0).setSelected(True)
+            self.rename_clone_button.setEnabled(True)
+            self.delete_clone_button.setEnabled(True)
+        # Fill up M-sided card types panel.
+        for card_type in self.database().sorted_card_types():
+            if self.database().is_user_card_type(card_type) and \
+               not card_type.hidden_from_UI and \
+               card_type.id.startswith("7"):
+                item = QtWidgets.QListWidgetItem(card_type.name)
+                self.M_sided_card_types.addItem(item)
+                # Since node_item seems mutable, we cannot use a dict.
+                self.items_used.append(item)
+                self.card_types_used.append(card_type)
+        if self.M_sided_card_types.count() == 0:
+            self.M_sided_card_types_box.hide()
 
     def clone_card_type(self):
         if not self.config()["clone_help_shown"]:
@@ -58,23 +72,35 @@ _("Here, you can make clones of existing card types. This allows you to format c
         dlg.exec_()
         self.update()
 
-    def delete_card_type(self):
-        if len(self.cloned_card_types.selectedItems()) == 0:
+    def delete_cloned_card_type(self):
+        self.delete_selected_card_type(self.cloned_card_types.selectedItems())
+
+    def delete_M_sided_card_type(self):
+        self.delete_selected_card_type(self.M_sided_card_types.selectedItems())
+
+    def delete_selected_card_type(self, selected_items):
+        if len(selected_items) == 0:
             return
         answer = self.main_widget().show_question\
             (_("Delete this card type?"), _("&OK"), _("&Cancel"), "")
         if answer == 1: # Cancel.
             return
-        selected_item = self.cloned_card_types.selectedItems()[0]
-        for i in range(len(self.items)):
-            if selected_item == self.items[i]:
-                card_type = self.card_type_with_item[i]
+        selected_item = selected_items[0]
+        for i in range(len(self.items_used)):
+            if selected_item == self.items_used[i]:
+                card_type = self.card_types_used[i]
                 self.controller().delete_card_type(card_type)
                 self.update()
                 return
 
-    def rename_card_type(self):
-        if len(self.cloned_card_types.selectedItems()) == 0:
+    def rename_cloned_card_type(self):
+        self.rename_selected_card_type(self.cloned_card_types.selectedItems())
+
+    def rename_M_sided_card_type(self):
+        self.rename_selected_card_type(self.M_sided_card_types.selectedItems())
+
+    def rename_selected_card_type(self, selected_items):
+        if len(selected_items) == 0:
             return
 
         from mnemosyne.pyqt_ui.ui_rename_card_type_dlg \
@@ -86,13 +112,16 @@ _("Here, you can make clones of existing card types. This allows you to format c
                 self.setupUi(self)
                 self.card_type_name.setText(old_card_type_name)
 
-        selected_item = self.cloned_card_types.selectedItems()[0]
-        for i in range(len(self.items)):
-            if selected_item == self.items[i]:
-                card_type = self.card_type_with_item[i]
+        selected_item = selected_items[0]
+        for i in range(len(self.items_used)):
+            if selected_item == self.items_used[i]:
+                card_type = self.card_types_used[i]
                 dlg = RenameDlg(card_type.name)
                 if dlg.exec_() == QtWidgets.QDialog.Accepted:
                     new_name = dlg.card_type_name.text()
                     self.controller().rename_card_type(card_type, new_name)
                 self.update()
                 return
+
+    def edit_M_sided_card_type(self):
+        pass# TODO: factor out finding the selected item through card type

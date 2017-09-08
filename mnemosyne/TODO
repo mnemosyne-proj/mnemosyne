@@ -1,3 +1,6 @@
+- reminder Android sync problems.
+
+-when no card type is selected, grey out edit/delete/rename buttons
 - port card type editor, with restrictions
 - don't allow clones of Anki card types
 - don't allow editing existing cloze so as to create a new card

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>352</width>
-    <height>245</height>
+    <width>389</width>
+    <height>389</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -19,46 +19,131 @@
   <property name="windowTitle">
    <string>Card type manager</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout_4">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Cloned card types:</string>
+      <widget class="QGroupBox" name="cloned_card_types_box">
+       <property name="title">
+        <string>Cloned card types</string>
        </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QListWidget" name="cloned_card_types"/>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QPushButton" name="clone_button">
+            <property name="text">
+             <string>&amp;New clone</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="rename_clone_button">
+            <property name="text">
+             <string>&amp;Rename</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="delete_clone_button">
+            <property name="text">
+             <string>&amp;Delete</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
      </item>
      <item>
-      <widget class="QListWidget" name="cloned_card_types"/>
+      <widget class="QGroupBox" name="M_sided_card_types_box">
+       <property name="title">
+        <string>M-sided card types</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QListWidget" name="M_sided_card_types"/>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QPushButton" name="edit_M_sided_button">
+            <property name="text">
+             <string>&amp;Edit</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="rename_M_sided_button">
+            <property name="text">
+             <string>&amp;Rename</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="delete_M_sided_button">
+            <property name="text">
+             <string>&amp;Delete</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QPushButton" name="clone_button">
-         <property name="text">
-          <string>&amp;New clone</string>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="rename_button">
-         <property name="text">
-          <string>&amp;Rename</string>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="delete_button">
-         <property name="text">
-          <string>&amp;Delete</string>
-         </property>
-        </widget>
+        </spacer>
        </item>
        <item>
         <widget class="QPushButton" name="exit_button">
          <property name="text">
           <string>E&amp;xit</string>
+         </property>
+         <property name="default">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -103,10 +188,26 @@
    </hints>
   </connection>
   <connection>
-   <sender>delete_button</sender>
+   <sender>rename_clone_button</sender>
    <signal>clicked()</signal>
    <receiver>ManageCardTypesDlg</receiver>
-   <slot>delete_card_type()</slot>
+   <slot>rename_cloned_card_type()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>140</x>
+     <y>225</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>175</x>
+     <y>122</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>delete_clone_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ManageCardTypesDlg</receiver>
+   <slot>delete_cloned_card_type()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>223</x>
@@ -119,18 +220,50 @@
    </hints>
   </connection>
   <connection>
-   <sender>rename_button</sender>
+   <sender>delete_M_sided_button</sender>
    <signal>clicked()</signal>
    <receiver>ManageCardTypesDlg</receiver>
-   <slot>rename_card_type()</slot>
+   <slot>delete_M_sided_card_type()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>140</x>
-     <y>225</y>
+     <x>220</x>
+     <y>325</y>
     </hint>
     <hint type="destinationlabel">
-     <x>175</x>
-     <y>122</y>
+     <x>194</x>
+     <y>194</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rename_M_sided_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ManageCardTypesDlg</receiver>
+   <slot>rename_M_sided_card_type()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>139</x>
+     <y>325</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>194</x>
+     <y>194</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>edit_M_sided_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ManageCardTypesDlg</receiver>
+   <slot>edit_M_sided_card_type()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>58</x>
+     <y>325</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>194</x>
+     <y>194</y>
     </hint>
    </hints>
   </connection>
