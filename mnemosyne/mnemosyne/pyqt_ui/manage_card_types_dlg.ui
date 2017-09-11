@@ -267,5 +267,37 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>cloned_card_types</sender>
+   <signal>itemClicked()</signal>
+   <receiver>ManageCardTypesDlg</receiver>
+   <slot>activate_cloned_card_type</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>194</x>
+     <y>83</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>194</x>
+     <y>194</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>M_sided_card_types</sender>
+   <signal>itemClicked()</signal>
+   <receiver>ManageCardTypesDlg</receiver>
+   <slot>activate_M_sided_card_type</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>194</x>
+     <y>255</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>194</x>
+     <y>194</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>

@@ -44,12 +44,8 @@ class ManageCardTypesDlg(QtWidgets.QDialog, ManageCardTypesDialog,
                 # Since node_item seems mutable, we cannot use a dict.
                 self.items_used.append(item)
                 self.card_types_used.append(card_type)
-        if self.cloned_card_types.count() == 0:
-            self.rename_clone_button.setEnabled(False)
-            self.delete_clone_button.setEnabled(False)
-        else:
-            self.rename_clone_button.setEnabled(True)
-            self.delete_clone_button.setEnabled(True)
+        self.rename_clone_button.setEnabled(False)
+        self.delete_clone_button.setEnabled(False)
         # Fill up M-sided card types panel.
         for card_type in self.database().sorted_card_types():
             if self.database().is_user_card_type(card_type) and \
@@ -60,6 +56,9 @@ class ManageCardTypesDlg(QtWidgets.QDialog, ManageCardTypesDialog,
                 # Since node_item seems mutable, we cannot use a dict.
                 self.items_used.append(item)
                 self.card_types_used.append(card_type)
+        self.edit_M_sided_button.setEnabled(False)
+        self.rename_M_sided_button.setEnabled(False)
+        self.delete_M_sided_button.setEnabled(False)
         if self.M_sided_card_types.count() == 0:
             self.M_sided_card_types_box.hide()
 
@@ -71,6 +70,22 @@ _("Here, you can make clones of existing card types. This allows you to format c
         dlg = CloneCardTypeDlg(parent=self, component_manager=self.component_manager)
         dlg.exec_()
         self.update()
+
+    def activate_cloned_card_type(self):
+        print("clone")
+        self.rename_clone_button.setEnabled(True)
+        self.delete_clone_button.setEnabled(True)
+        self.edit_M_sided_button.setEnabled(False)
+        self.rename_M_sided_button.setEnabled(False)
+        self.delete_M_sided_button.setEnabled(False)
+
+    def activate_M_sided_card_type(self):
+        print("M sided")
+        self.rename_clone_button.setEnabled(False)
+        self.delete_clone_button.setEnabled(False)
+        self.edit_M_sided_button.setEnabled(True)
+        self.rename_M_sided_button.setEnabled(True)
+        self.delete_M_sided_button.setEnabled(True)
 
     def delete_cloned_card_type(self):
         self.delete_selected_card_type(self.cloned_card_types.selectedItems())
