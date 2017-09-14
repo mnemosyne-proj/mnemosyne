@@ -141,6 +141,8 @@ public class MnemosyneActivity extends AppCompatActivity {
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public void continueOnCreate() {
+        WebView.setWebContentsDebuggingEnabled(false);
+
         mnemosyneThread = new MnemosyneThread(this, activityHandler, getPackageName());
         mnemosyneThread.start();
 

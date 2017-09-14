@@ -1,3 +1,5 @@
+reenable android javascript
+
 - port card type editor, with restrictions
 - don't allow clones of Anki card types
 - don't allow editing existing cloze so as to create a new card

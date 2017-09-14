@@ -10,9 +10,6 @@ try:
     from mnemosyne.libmnemosyne import Mnemosyne
     mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
 
-    print(1)
-    1/0
-
 except Exception as e:
     print(e)
     import traceback
@@ -124,9 +121,16 @@ mnemosyne.gui_for_component["CramRecent"] = [\
      "ReviewWdgt")]
 
 def start_mnemosyne(data_dir, filename, wrapper):
-    mnemosyne.android = wrapper
-    mnemosyne.initialise(data_dir=data_dir, filename=filename)
-    mnemosyne.start_review()
+    try:
+        mnemosyne.android = wrapper
+        mnemosyne.initialise(data_dir=data_dir, filename=filename)
+        mnemosyne.start_review()
+    except Exception as e:
+        print(e)
+        import traceback
+        traceback.print_exc()
+        traceback.print_stack()
+        print(traceback.format_stack())
 
 def pause_mnemosyne():
     mnemosyne.database().save()

@@ -7,16 +7,13 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-# TODO: check
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.libmnemosyne.card_type import CardType
-from mnemosyne.pyqt_ui.clone_card_type_dlg import CloneCardTypeDlg
-from mnemosyne.pyqt_ui.ui_manage_card_types_dlg import Ui_ManageCardTypesDlg
-from mnemosyne.libmnemosyne.ui_components.dialogs import ManageCardTypesDialog
+
+from mnemosyne.pyqt_ui.ui_edit_M_side_card_type_dlg import \
+     Ui_EditMSidedCardTypeDlg
 
 
-class ManageCardTypesDlg(QtWidgets.QDialog, ManageCardTypesDialog,
-                         Ui_ManageCardTypesDlg):
+class EditMSidedCardTypeDlg(QtWidgets.QDialog, Ui_EditMSidedCardTypeDlg):
 
     def __init__(self, **kwds):
         super().__init__(**kwds)
@@ -33,30 +30,23 @@ class ManageCardTypesDlg(QtWidgets.QDialog, ManageCardTypesDialog,
         # template area ("template.ui")
         tform = aqt.forms.template.Ui_Form()
         tform.setupUi(left)
-        tform.label1.setText(" →")
-        tform.label2.setText(" →")
-        tform.labelc1.setText(" ↗")
-        tform.labelc2.setText(" ↘")
-        if self.style().objectName() == "gtk+":
-            # gtk+ requires margins in inner layout
-            tform.tlayout1.setContentsMargins(0, 11, 0, 0)
-            tform.tlayout2.setContentsMargins(0, 11, 0, 0)
-            tform.tlayout3.setContentsMargins(0, 11, 0, 0)
-        if len(self.cards) > 1:
-            tform.groupBox_3.setTitle(_(
-                "Styling (shared between cards)"))
-        tform.front.textChanged.connect(self.saveCard)
-        tform.css.textChanged.connect(self.saveCard)
-        tform.back.textChanged.connect(self.saveCard)
-        l.addWidget(left, 5)
+        self.label1.setText(" →")
+        self.label2.setText(" →")
+        self.labelc1.setText(" ↗")
+        self.labelc2.setText(" ↘")
+
+        #if len(self.cards) > 1:
+        #    tform.groupBox_3.setTitle(_(
+        #        "Styling (shared between cards)"))
+        self.front.textChanged.connect(self.update_preview)
+        self.css.textChanged.connect(self.update_preview)
+        self.back.textChanged.connect(self.update_preview)
+
         # preview area: preview.ui
         right = QtGui.QWidget()
         pform = aqt.forms.preview.Ui_Form()
         pform.setupUi(right)
-        if self.style().objectName() == "gtk+":
-            # gtk+ requires margins in inner layout
-            pform.frontPrevBox.setContentsMargins(0, 11, 0, 0)
-            pform.backPrevBox.setContentsMargins(0, 11, 0, 0)
+
         # for cloze notes, show that it's one of n cards
         if self.model['type'] == MODEL_CLOZE:
             cnt = len(self.mm.availOrds(

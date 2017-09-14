@@ -98,8 +98,19 @@ public class MnemosyneThread extends Thread {
             for (int i = 0; i < files.length; i++) {
                 //cannot locate symbol "crypt" referenced by "/data/data/org.mnemosyne/files/lib-dynload/_crypt.cpython-34m.so".
                 //cannot locate symbol "setgrent" referenced by "/data/data/org.mnemosyne/files/lib-dynload/grp.cpython-34m.so".
-                if (    !files[i].getName().contentEquals("_crypt.cpython-34m.so") &
-                        !files[i].getName().contentEquals("grp.cpython-34m.so")   )
+                //if (    !files[i].getName().contentEquals("_crypt.cpython-34m.so") &
+                //        !files[i].getName().contentEquals("grp.cpython-34m.so")   )
+                if ( files[i].getName().contentEquals("_md5.cpython-34m.so") |
+                        files[i].getName().contentEquals("_sha1.cpython-34m.so") |
+                        files[i].getName().contentEquals("_sha512.cpython-34m.so") |
+                        files[i].getName().contentEquals("_struct.cpython-34m.so") |
+                        files[i].getName().contentEquals("math.cpython-34m.so") |
+                        files[i].getName().contentEquals("_random.cpython-34m.so") |
+                        files[i].getName().contentEquals("_sha256.cpython-34m.so") |
+                        files[i].getName().contentEquals("_sqlite3.cpython-34m.so") |
+                        files[i].getName().contentEquals("time.cpython-34m.so") |
+                        files[i].getName().contentEquals("")
+                        )
                 {
                     Log.i("Mnemosyne", "Preloading FileName:" + files[i].getName() + " " + files[i].lastModified());
                     System.load(files[i].getAbsolutePath());
