@@ -8,6 +8,7 @@ from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.pyqt_ui.clone_card_type_dlg import CloneCardTypeDlg
 from mnemosyne.pyqt_ui.ui_manage_card_types_dlg import Ui_ManageCardTypesDlg
+from mnemosyne.pyqt_ui.edit_M_sided_card_type_dlg import EditMSidedCardTypeDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import ManageCardTypesDialog
 
 
@@ -72,7 +73,6 @@ _("Here, you can make clones of existing card types. This allows you to format c
         self.update()
 
     def activate_cloned_card_type(self):
-        print("clone")
         self.rename_clone_button.setEnabled(True)
         self.delete_clone_button.setEnabled(True)
         self.edit_M_sided_button.setEnabled(False)
@@ -80,7 +80,6 @@ _("Here, you can make clones of existing card types. This allows you to format c
         self.delete_M_sided_button.setEnabled(False)
 
     def activate_M_sided_card_type(self):
-        print("M sided")
         self.rename_clone_button.setEnabled(False)
         self.delete_clone_button.setEnabled(False)
         self.edit_M_sided_button.setEnabled(True)
@@ -139,4 +138,5 @@ _("Here, you can make clones of existing card types. This allows you to format c
                 return
 
     def edit_M_sided_card_type(self):
+        dlg = EditMSidedCardTypeDlg(card_type)
         pass# TODO: factor out finding the selected item through card type

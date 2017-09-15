@@ -150,6 +150,7 @@ hiddenimports = [
              'mnemosyne.pyqt_ui.delete_unused_media_files_dlg',
              'mnemosyne.pyqt_ui.edit_card_dlg',
              'mnemosyne.pyqt_ui.edit_M_sided_card_type_dlg',
+             'mnemosyne.pyqt_ui.edit_M_sided_card_template_wdgt',
              'mnemosyne.pyqt_ui.export_dlg',
              'mnemosyne.pyqt_ui.export_metadata_dlg',
              'mnemosyne.pyqt_ui.getting_started_dlg',

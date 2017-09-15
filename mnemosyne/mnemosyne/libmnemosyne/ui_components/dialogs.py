@@ -100,3 +100,8 @@ class ExportMetadataDialog(Dialog):
 class CompactDatabaseDialog(Dialog):
 
     component_type = "compact_database_dialog"
+
+
+class EditMSideCardTypeDialog(Dialog):
+
+    component_type = "edit_M_sided_card_type_dialog"
