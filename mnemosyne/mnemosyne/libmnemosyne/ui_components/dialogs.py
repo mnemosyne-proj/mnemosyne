@@ -102,6 +102,11 @@ class CompactDatabaseDialog(Dialog):
     component_type = "compact_database_dialog"
 
 
-class EditMSideCardTypeDialog(Dialog):
+class EditMSidedCardTypeDialog(Dialog):
 
     component_type = "edit_M_sided_card_type_dialog"
+
+
+class EditMSidedCardTemplateWidget(Dialog):
+
+    component_type = "edit_M_sided_card_template_widget"

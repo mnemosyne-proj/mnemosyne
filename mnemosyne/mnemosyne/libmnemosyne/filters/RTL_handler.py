@@ -46,7 +46,8 @@ class RTLHandler(Filter):
             return "<span dir=\"rtl\">" + part2 + "</span>" + \
                    "<span dir=\"ltr\"> " + part1 + "]</span>"
         # If we start with latin, we'll keep the paragraph ordering as ltr.
-        if text[0] in string.ascii_letters or text[1] in string.ascii_letters:
+        if text[0] in string.ascii_letters or \
+           (len(text) >= 2 and text[1] in string.ascii_letters):
             return text
         # Otherwise, make everything RTL.
         return "<span dir=\"rtl\">" + text + "</span>"

@@ -246,9 +246,9 @@ a.binaries = a.binaries - TOC([
              ('tclstub86.lib', None, None),
              ('tkstub86.lib', None, None)])
 
-# Remove Tcl and Tk stuff
-a.datas = [x for x in a.datas if not x[0].startswith("tcl")]
-a.datas = [x for x in a.datas if not x[0].startswith("tk")]
+# Remove Tcl and Tk stuff (seems to cause troubles on some systems.)
+# a.datas = [x for x in a.datas if not x[0].startswith("tcl")]
+# a.datas = [x for x in a.datas if not x[0].startswith("tk")]
 
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)

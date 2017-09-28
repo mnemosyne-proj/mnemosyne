@@ -5,6 +5,10 @@
 try:
     import os
 
+    # Workaround for this bug:
+    #    https://github.com/pyinstaller/pyinstaller/issues/1113
+    import encodings.idna
+
     # Initialise Mnemosyne.
 
     from mnemosyne.libmnemosyne import Mnemosyne

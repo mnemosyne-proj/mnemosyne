@@ -104,6 +104,7 @@ class Client(Partner):
         try:
             self.server = socket.gethostbyname(server)
             self.port = port
+            self.backup_file = None
             if self.do_backup:
                 self.ui.set_progress_text("Creating backup...")
                 backup_file = self.database.backup()
@@ -172,6 +173,14 @@ class Client(Partner):
             self.ui.close_progress()
             self.ui.show_information("Sync finished!")
         except Exception as exception:
+
+            e = exception
+            print(e)
+            import traceback
+            traceback.print_exc()
+            traceback.print_stack()
+            print(traceback.format_stack())
+
             self.ui.close_progress()
             serious = True
             if type(exception) == type(socket.timeout()):

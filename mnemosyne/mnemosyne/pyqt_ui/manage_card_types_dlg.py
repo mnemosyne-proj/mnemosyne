@@ -23,6 +23,9 @@ class ManageCardTypesDlg(QtWidgets.QDialog, ManageCardTypesDialog,
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
         self.update()
+        state = self.config()["manage_card_types_dlg_state"]
+        if state:
+            self.restoreGeometry(state)
 
     def activate(self):
         ManageCardTypesDialog.activate(self)
@@ -138,5 +141,32 @@ _("Here, you can make clones of existing card types. This allows you to format c
                 return
 
     def edit_M_sided_card_type(self):
-        dlg = EditMSidedCardTypeDlg(card_type)
-        pass# TODO: factor out finding the selected item through card type
+        selected_items = self.M_sided_card_types.selectedItems()
+        if len(selected_items) == 0:
+            return
+        selected_item = selected_items[0]
+        for i in range(len(self.items_used)):
+            if selected_item == self.items_used[i]:
+                card_type = self.card_types_used[i]
+                dlg = EditMSidedCardTypeDlg(card_type,
+                    component_manager=self.component_manager)
+                if dlg.exec_() == QtWidgets.QDialog.Accepted:
+                    self.database().update_card_type(card_type)
+                self.update()
+                return
+
+    def _store_state(self):
+        self.config()["manage_card_types_dlg_state"] = self.saveGeometry()
+
+    def closeEvent(self, event):
+        # Generated when clicking the window's close button.
+        self._store_state()
+
+    def accept(self):
+        self._store_state()
+        return QtWidgets.QDialog.accept(self)
+
+    def reject(self):
+        self._store_state()
+        return QtWidgets.QDialog.reject(self)
+

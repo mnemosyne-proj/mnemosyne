@@ -140,6 +140,13 @@ class SyncDlg(QtWidgets.QDialog, SyncDialog, Ui_SyncDlg):
     def activate(self):
         self.exec_()
 
+    def _store_state(self):
+        self.config()["sync_dlg_state"] = self.saveGeometry()
+
+    def closeEvent(self, event):
+        # Generated when clicking the window's close button.
+        self._store_state()
+
     def accept(self):
         # Store input for later use.
         server = self.server.text()
@@ -152,6 +159,7 @@ class SyncDlg(QtWidgets.QDialog, SyncDialog, Ui_SyncDlg):
         self.config()["password_for_sync_as_client"] = password
         self.config()["check_for_edited_local_media_files"] = \
             self.check_for_edited_local_media_files.isChecked()
+        self._store_state()
         # Prevent user from interrupting a sync.
         self.can_reject = False
         self.ok_button.setEnabled(False)
@@ -182,6 +190,7 @@ class SyncDlg(QtWidgets.QDialog, SyncDialog, Ui_SyncDlg):
 
     def reject(self):
         if self.can_reject:
+            self._store_state()
             QtWidgets.QDialog.reject(self)
 
     def finish_sync(self):

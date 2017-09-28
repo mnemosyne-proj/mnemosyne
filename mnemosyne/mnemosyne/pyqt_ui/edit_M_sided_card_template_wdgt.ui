@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>614</width>
+    <width>636</width>
     <height>484</height>
    </rect>
   </property>
@@ -43,7 +43,7 @@
          <item row="0" column="1">
           <widget class="QLabel" name="label1_2">
            <property name="text">
-            <string>→</string>
+            <string>a</string>
            </property>
           </widget>
          </item>
@@ -82,7 +82,7 @@
            <item>
             <widget class="QLabel" name="labelc1">
              <property name="text">
-              <string>↗</string>
+              <string>a</string>
              </property>
             </widget>
            </item>
@@ -102,7 +102,7 @@
            <item>
             <widget class="QLabel" name="labelc2">
              <property name="text">
-              <string>↘</string>
+              <string>a</string>
              </property>
             </widget>
            </item>
@@ -141,7 +141,7 @@
          <item row="2" column="1">
           <widget class="QLabel" name="label1_3">
            <property name="text">
-            <string>→</string>
+            <string>a</string>
            </property>
           </widget>
          </item>
@@ -232,9 +232,6 @@
    <header>mnemosyne/pyqt_ui/qwebengineview2</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../../../../../anki/designer/icons.qrc"/>
- </resources>
  <connections>
   <connection>
    <sender>front_template</sender>

@@ -63,12 +63,15 @@ class CompactDatabaseDlg(QtWidgets.QDialog, QtGuiThread, CompactDatabaseDialog,
                     component_manager=self.component_manager,
                     unused_media_files=unused_media_files).activate()
         if defragment_database or archive_old_logs:
-            self.main_widget().set_progress_text(_("Compacting database..."))
-            self.worker_thread = CompactThread(\
-                defragment_database, archive_old_logs, mnemosyne=self)
-            self.run_worker_thread()
+            self.compact_in_thread(defragment_database, archive_old_logs)
         else:
             QtWidgets.QDialog.accept(self)
+
+    def compact_in_thread(self, defragment_database, archive_old_logs):
+        self.main_widget().set_progress_text(_("Compacting database..."))
+        self.worker_thread = CompactThread(\
+            defragment_database, archive_old_logs, mnemosyne=self)
+        self.run_worker_thread()
 
     def work_ended(self):
         self.main_widget().close_progress()

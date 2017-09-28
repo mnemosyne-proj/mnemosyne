@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-09-06 14:17+0200\n"
+"POT-Creation-Date: 2017-09-28 13:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -303,7 +303,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:144
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:580
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:88
-#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:65
+#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:102
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:177
 #: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:80
 #: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:61
@@ -313,6 +313,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:57
 #: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:69
 #: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:50
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_type_dlg.py:49
 #: ../mnemosyne/pyqt_ui/ui_export_dlg.py:89
 #: ../mnemosyne/pyqt_ui/ui_import_dlg.py:95
 #: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:51
@@ -327,7 +328,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:144
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:580
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:88
-#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:65
+#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:102
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:177
 #: ../mnemosyne/pyqt_ui/ui_about_dlg.py:85
 #: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:78
@@ -339,6 +340,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:55
 #: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:68
 #: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:49
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_type_dlg.py:48
 #: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:76
 #: ../mnemosyne/pyqt_ui/ui_export_dlg.py:87
 #: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:98
@@ -416,7 +418,8 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:486
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:437
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:129
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:57
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:94
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:98
 msgid "&Delete"
 msgstr ""
 
@@ -555,16 +558,16 @@ msgstr ""
 msgid "No plugin found!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:1048
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:1067
 msgid "For instructions on how to download Mnemosyne's source,"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:1049
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:1068
 msgid "go to http://www.mnemosyne-proj.org"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/database.py:357
-#: ../mnemosyne/pyqt_ui/compact_database_dlg.py:66
+#: ../mnemosyne/pyqt_ui/compact_database_dlg.py:71
 msgid "Compacting database..."
 msgstr ""
 
@@ -890,7 +893,7 @@ msgid "Waiting for uploader thread to stop..."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/logger.py:201
-#: ../mnemosyne/pyqt_ui/compact_database_dlg.py:76
+#: ../mnemosyne/pyqt_ui/compact_database_dlg.py:79
 #: ../mnemosyne/pyqt_ui/export_dlg.py:63 ../mnemosyne/pyqt_ui/import_dlg.py:98
 msgid "Done!"
 msgstr ""
@@ -1459,6 +1462,7 @@ msgid "containing this text in the cards:"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:429
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:96
 msgid "&Edit"
 msgstr ""
 
@@ -1546,7 +1550,7 @@ msgid "Delete these card types?"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:86
-#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:65
+#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:102
 msgid "Delete this card type?"
 msgstr ""
 
@@ -1670,7 +1674,7 @@ msgstr ""
 msgid "File does not exist."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:55
+#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:72
 msgid "Here, you can make clones of existing card types. This allows you to format cards in this type independently from cards in the original type. E.g. you can make a clone of 'Vocabulary', call it 'Thai' and set a Thai font specifically for this card type without disturbing your other cards."
 msgstr ""
 
@@ -1837,7 +1841,8 @@ msgid ""
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:121
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:56
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:93
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:97
 msgid "&Rename"
 msgstr ""
 
@@ -2146,6 +2151,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:111
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:89
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:144
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:122
 msgid "Form"
 msgstr ""
 
@@ -2364,6 +2370,37 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:48
 msgid "Delete these unused media files?"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:123
+msgid "Front template:"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:124
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:126
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:127
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:129
+msgid "a"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:125
+msgid "Styling (shared between sister cards):"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:128
+msgid "Back template:"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:130
+msgid "Front preview:"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:131
+msgid "Back preview:"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_type_dlg.py:47
+msgid "Edit M-sided card type"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:73
@@ -2586,7 +2623,7 @@ msgid "&Export..."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:221
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:58
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:99
 #: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:70
 msgid "E&xit"
 msgstr ""
@@ -2672,16 +2709,20 @@ msgstr ""
 msgid "Study new cards only"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:53
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:90
 msgid "Card type manager"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:54
-msgid "Cloned card types:"
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:91
+msgid "Cloned card types"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:55
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:92
 msgid "&New clone"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:95
+msgid "M-sided card types"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:65

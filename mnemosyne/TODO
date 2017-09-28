@@ -1,5 +1,3 @@
-reenable android javascript
-
 - factor out selected card type code in manage card types dialog. store state.
 
 - port card type editor, with restrictions
