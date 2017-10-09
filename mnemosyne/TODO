@@ -1,4 +1,12 @@
-- factor out selected card type code in manage card types dialog. store state.
+-Scott Youngman:
+close preview with escape
+crash on pgdown in card browser (launchpad bug)
+sizes of windows not saved (create debug version)
+
+anki import 2x crashes
+
+webserver launchpad bugs
+
 
 - port card type editor, with restrictions
 - don't allow clones of Anki card types

@@ -26,7 +26,7 @@ class ScriptMainWidget(MainWidget):
                     return a
         raise NotImplementedError
 
-        
+
 class Mnemosyne(MnemosyneParent):
 
     def __init__(self, data_dir=None):
@@ -39,4 +39,6 @@ class Mnemosyne(MnemosyneParent):
             ("mnemosyne.script", "ScriptMainWidget"))
         self.components.append(\
             ("mnemosyne.script", "ScriptReviewWidget"))
+        self.gui_for_component["ScheduledForgottenNew"] = \
+            [("mnemosyne.script", "ScriptReviewWidget")]
         self.initialise(data_dir)
