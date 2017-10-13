@@ -7,6 +7,19 @@ anki import 2x crashes
 
 webserver launchpad bugs
 
+Julian Mehne: Mnemosyne seems to try to evaluate a `PyQt5.QtCore.QByteArray`
+string which requires to import PyQt5.QtCore or otherwise the module is not found
+
++++ b/mnemosyne/mnemosyne/libmnemosyne/configuration.py
+@@ -224,7 +224,7 @@ class Configuration(Component, dict):
+         # from the config db. The alternatives (e.g. having the frontend pass
+         # along modules to import) seem to be much more verbose and quirky.
+         try:
+-            import PyQt5
++            import PyQt5.QtCore
+
+negative scheduled count
+
 
 - port card type editor, with restrictions
 - don't allow clones of Anki card types

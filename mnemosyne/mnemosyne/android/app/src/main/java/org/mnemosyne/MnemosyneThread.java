@@ -295,6 +295,7 @@ public class MnemosyneThread extends Thread {
     }
 
     public void setQuestion(String html) {
+        Log.i("Mnemosyne", "SetQuestion" + html);
         final String _html = html;
         UIHandler.post(new Runnable() {
             public void run() {
@@ -304,6 +305,7 @@ public class MnemosyneThread extends Thread {
     }
 
     public void setAnswer(String html, Boolean processAudio) {
+        Log.i("Mnemosyne", "SetAnswer" + html);
         final String _html = html;
         final Boolean _processAudio = processAudio;
         UIHandler.post(new Runnable() {

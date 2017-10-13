@@ -476,7 +476,9 @@ public class MnemosyneActivity extends AppCompatActivity {
     public void setQuestion(String html) {
         currentHtml = html;
         html = handleSoundFiles(html);
+        Log.i("Mnemosyne", "SetQuestionUI_" + html);
         question.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+        Log.i("Mnemosyne", "SetQuestionUI_ done");
     }
 
     public void setAnswer(String html, Boolean processAudio) {
@@ -484,7 +486,9 @@ public class MnemosyneActivity extends AppCompatActivity {
             currentHtml = html;
             html = handleSoundFiles(html);
         }
+        Log.i("Mnemosyne", "SetAnswerUI_" + html);
         answer.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+        Log.i("Mnemosyne", "SetAnswerUI_ done");
     }
 
     // Get results back from sync activity.

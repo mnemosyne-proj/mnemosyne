@@ -5,11 +5,11 @@
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
 
-class ReviewWdgt(ReviewWidget):    
+class ReviewWdgt(ReviewWidget):
 
     def redraw_now(self):
         pass
-    
+
     def empty(self):
         background = "white"
         if self.review_controller().card:
@@ -27,7 +27,7 @@ class ReviewWdgt(ReviewWidget):
                 border: thin solid #8F8F8F; }
         </style></head>
         <body><table><tr><td>
-        </td></tr></table></body></html>"""    
+        </td></tr></table></body></html>"""
 
     def show_answer(self):
         self.review_controller().show_answer()
@@ -40,28 +40,30 @@ class ReviewWdgt(ReviewWidget):
 
     def set_answer_box_visible(self, is_visible):
         self.component_manager.android.setAnswerBoxVisible(is_visible)
-        
+
     def set_question_label(self, text):
         self.component_manager.android.setQuestionLabel(text.encode("utf-8"))
 
     def set_question(self, text):
         self.question = text
-        
+
     def set_answer(self, text):
         self.answer = text
-        
+
     def reveal_question(self):
+        print("Q:", self.question.encode("utf-8"))
         self.component_manager.android.setQuestion(\
             self.question.encode("utf-8"))
-        
+
     def reveal_answer(self, process_audio=True):
+        print("A:", self.answer.encode("utf-8"))
         self.component_manager.android.setAnswer(\
             self.answer.encode("utf-8"), process_audio)
-        
+
     def clear_question(self):
         self.question = self.empty()
         self.reveal_question()
-        
+
     def clear_answer(self):
         # We don't process the audio here, as that would kill the pending
         # audio events from the question.

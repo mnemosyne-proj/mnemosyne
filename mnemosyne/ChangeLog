@@ -27,6 +27,7 @@ Mnemosyne 2.6
   cards, you can now run 'File - Compact - Defragment database' to fix this
   (reported by abacus).
 - Fix crash in headless server.
+- Fix crashes when running separate scripts (patch by Julian Mehne).
 
 
 Mnemosyne 2.5 : 2017-06-26
