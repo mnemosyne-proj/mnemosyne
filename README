@@ -1,0 +1,68 @@
+INSTALLATION FROM SOURCE:
+
+1) LINUX
+
+First install the following dependencies:
+
+-Python 3.5 or later (http://www.python.org)
+-PyQt 5.6 or later
+ (http://www.riverbankcomputing.co.uk/software/pyqt/download, which boils
+ down to 'sudo pip3 install PyQt5').
+-If you want to be able to enter formulas using latex syntax, make sure
+ that latex and dvipng are installed.
+-Matplotlib (http://matplotlib.sourceforge.net/)
+-EasyInstall (http://peak.telecommunity.com/DevCenter/EasyInstall)
+-cheroot 5 or later (https://pypi.python.org/pypi/Cheroot/, 
+ pip3 install cheroot)
+-Webob 1.4 or later (http://webob.org)
+-PIL (https://python-pillow.org, pip3 install pillow)
+
+To actually install mnemosyne:
+-Extraxt the .tar.gz file and change to its root directory (i.e.
+ probably the directory where you found this README file).
+-Type 'python3 setup.py install' as root.
+
+To test the installation:
+-Change to any other directory e.g. by typing 'cd ~'.
+-Run the application by typing 'mnemosyne'.
+
+If you run into the issue of non-latin characters not displaying on statistic
+plots, install ttf-mscorefonts-installer and regenerate the font cache of
+matplotlib.
+
+2) macOS
+
+ - Download and install Homebrew (see http://brew.sh)
+ - Open the Terminal.
+ - Make sure you are using the latest version of Homebrew:
+
+     brew update
+
+ - Patch the python3 formula so you'll get python 3.5 and not a later version (pyinstaller still requires python 3.5):
+
+     brew uninstall python3
+     brew edit python3
+     # replace the file with the contents of https://raw.githubusercontent.com/Homebrew/homebrew-core/1e62c645b2fc2d82042d9f7c364c6a246f2e11ed/Formula/python3.rb and save it
+     brew install python3
+     brew pin python3
+    
+ - Install the dependencies for Mnemosyne. You may need to install qt5 or python3 manually to get the correct version.
+ 
+     brew install qt@5.7 mplayer
+     pip3 install virtualenv
+     virtualenv --python=python3 venv
+     source venv/bin/activate
+     pip3 install webob tornado matplotlib numpy sip pillow cheroot pyqt5 pyinstaller
+ 
+ - Build it:
+ 
+     export PYTHON=python3
+     export QT5DIR=/usr/local/opt/qt@5.7 # help pyinstaller find the qt5 path
+     make clean
+     make osx
+
+ - Test the new application (back up your data directory first!):
+
+     open dist/Mnemosyne.app
+
+ - and optionally drag and drop this new app to /Applications
