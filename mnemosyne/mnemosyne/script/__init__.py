@@ -2,6 +2,8 @@
 # script <Peter.Bienstman@UGent.be>
 #
 
+import os.path
+
 from mnemosyne.libmnemosyne import Mnemosyne as MnemosyneParent
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
@@ -16,6 +18,7 @@ class ScriptReviewWidget(ReviewWidget):
 class ScriptMainWidget(MainWidget):
 
     def __init__(self, component_manager):
+        super().__init__(component_manager)
         self.q_and_a = None
 
     def show_question(self, question, option0, option1, option2):
@@ -41,4 +44,6 @@ class Mnemosyne(MnemosyneParent):
             ("mnemosyne.script", "ScriptReviewWidget"))
         self.gui_for_component["ScheduledForgottenNew"] = \
             [("mnemosyne.script", "ScriptReviewWidget")]
+        if data_dir is not None:
+            data_dir = os.path.abspath(data_dir)
         self.initialise(data_dir)
