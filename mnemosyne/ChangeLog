@@ -21,6 +21,7 @@ Mnemosyne 2.6
   Youngman).
 - Fix cornercase bug in RTL handler (reported by Fonzo99).
 - Upgrade to PyQt 5.9.1.
+- Improve keyboard shortcuts (reported by Scott Youngman).
 - Disallow renaming a single tag to multiple tags in the tag tree widget.
   (reported by abacus).
 - In case you get crashes in the browser when trying to display only untagged

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-09-28 13:18+0200\n"
+"POT-Creation-Date: 2017-10-18 17:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -238,7 +238,7 @@ msgstr ""
 msgid "Foreign word or phrase"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/configuration.py:415
+#: ../mnemosyne/libmnemosyne/configuration.py:419
 msgid "Error in config.py:"
 msgstr ""
 
@@ -1021,7 +1021,7 @@ msgid "Next repetition in "
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:216
-#: ../mnemosyne/pyqt_ui/preview_cards_dlg.py:63
+#: ../mnemosyne/pyqt_ui/preview_cards_dlg.py:67
 msgid "Question: "
 msgstr ""
 

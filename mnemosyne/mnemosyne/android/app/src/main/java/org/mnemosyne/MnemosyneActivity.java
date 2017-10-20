@@ -86,6 +86,7 @@ public class MnemosyneActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.i("Mnemosyne", "on create");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
@@ -108,12 +109,24 @@ public class MnemosyneActivity extends AppCompatActivity {
         button5 = (Button) this.findViewById(R.id.button5);
         statusbar = (TextView) this.findViewById(R.id.statusbar);
 
-        question.getSettings().setJavaScriptEnabled(true);
-        answer.getSettings().setJavaScriptEnabled(true);
+        Log.i("Mnemosyne", "created webviews");
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            question.setWebContentsDebuggingEnabled(false);
+            answer.setWebContentsDebuggingEnabled(false);
+        }
+
+        Log.d("Mnemosyne", "turned off debugging");
+
+        question.getSettings().setJavaScriptEnabled(false);
+        answer.getSettings().setJavaScriptEnabled(false);
+
+        Log.i("Mnemosyne", "enabled javascript");
 
         boolean hasPermission = (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
         if (!hasPermission) {
+            Log.i("Mnemosyne", "request permissions");
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_WRITE_STORAGE);
@@ -121,6 +134,7 @@ public class MnemosyneActivity extends AppCompatActivity {
         else {
             MnemosyneInstaller installer = new MnemosyneInstaller(this, activityHandler);
             installer.execute();
+            Log.i("Mnemosyne", "started installer");
         }
     }
 
@@ -137,10 +151,12 @@ public class MnemosyneActivity extends AppCompatActivity {
                 }
             }
         }
+        Log.i("Mnemosyne", "got permission");
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public void continueOnCreate() {
+        Log.i("Mnemosyne", "continueOnCreate");
         WebView.setWebContentsDebuggingEnabled(false);
 
         mnemosyneThread = new MnemosyneThread(this, activityHandler, getPackageName());
@@ -263,10 +279,12 @@ public class MnemosyneActivity extends AppCompatActivity {
                         }
                     });
         }
+        Log.i("Mnemosyne", "continue on create finished");
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public void setFullscreen() {
+        Log.i("Mnemosyne", "SetFullscreen");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getSupportActionBar().hide();
             getWindow().getDecorView().setSystemUiVisibility(
@@ -603,14 +621,16 @@ public class MnemosyneActivity extends AppCompatActivity {
                 mediaPlayer.release();
                 mediaPlayer = null;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
         }
-        mnemosyneThread.getHandler().post(new Runnable() {
-            public void run() {
-                mnemosyneThread.stopMnemosyne();
-            }
-        });
 
+        if (mnemosyneThread != null) {
+            mnemosyneThread.getHandler().post(new Runnable() {
+                public void run() {
+                    mnemosyneThread.stopMnemosyne();
+                }
+            });
+        }
     }
 
     //@Override

@@ -87,21 +87,21 @@ class Configuration(Component, dict):
         self.server_only = False
         self.lock = threading.Lock()
         self.determine_dirs()
-        
+
     def activate(self):
         Component.activate(self)
         self.fill_dirs()
         self.load()
         self.load_user_config()
         self.set_defaults()
-   
+
     def set_defaults(self):
 
         """Fill the config with default values.  Is called after every load,
         since a new version of Mnemosyne might have introduced new keys.
 
         """
-        
+
         for key, value in \
             list({"last_database": \
                 self.database().default_name + self.database().suffix,
@@ -196,7 +196,7 @@ class Configuration(Component, dict):
         # Allow other plugins or frontend to set their configuration data.
         for f in self.component_manager.all("hook", "configuration_defaults"):
             f.run()
-        self.save()       
+        self.save()
 
     def __setitem__(self, key, value):
         with self.lock:
@@ -211,7 +211,7 @@ class Configuration(Component, dict):
         # Create database tables if needed.
         with self.lock:
             con = sqlite3.connect(filename)
-            is_new = (con.execute("""select 1 from sqlite_master where 
+            is_new = (con.execute("""select 1 from sqlite_master where
                 type='table' and name='config' limit 1;""").\
                       fetchone() is None)
             if is_new:
@@ -228,8 +228,12 @@ class Configuration(Component, dict):
             import PyQt5
         except:
             pass
+        try:
+            import PyQt5.QtCore
+        except:
+            pass
         # Set config settings.
-        for cursor in con.execute("select key, value from config"):          
+        for cursor in con.execute("select key, value from config"):
             # When importing Python 2 representations, strip the L
             # from long integers.
             value = re_long_int.sub(lambda x : x.group()[:-1], cursor[1])
@@ -239,25 +243,25 @@ class Configuration(Component, dict):
                 # This can fail if we are running headless now after running
                 # the GUI previously.
                 print(e)
-        with self.lock:    
-            con.commit()   
-            con.close()        
-        
+        with self.lock:
+            con.commit()
+            con.close()
+
     def save(self):
         with self.lock:
             filename = os.path.join(self.config_dir, "config.db")
-            con = sqlite3.connect(filename)      
+            con = sqlite3.connect(filename)
             # Make sure the entries exist.
             con.executemany\
-                ("insert or ignore into config(key, value) values(?,?)", 
+                ("insert or ignore into config(key, value) values(?,?)",
                 ((key, repr(value)) for key, value in self.items()))
             # Make sure they have the right data.
             con.executemany("update config set value=? where key=?",
-                ((repr(value), key) for key, value in self.items()))         
-            con.commit()    
+                ((repr(value), key) for key, value in self.items()))
+            con.commit()
             con.close()
 
-    def determine_dirs(self):  # pragma: no cover        
+    def determine_dirs(self):  # pragma: no cover
         # If the config dir was already set by the user, use that.
         if self.config_dir is not None:
             return

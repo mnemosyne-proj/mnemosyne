@@ -13,18 +13,17 @@ class QWebEngineView2(QtWebEngineWidgets.QWebEngineView):
     so that the keyboard shortcuts still continue to work.
 
     """
-    
+
     def __init__(self, parent=None):
         super().__init__(parent)
         QtWebEngineWidgets.QWebEngineProfile.defaultProfile().\
          setHttpCacheType(QtWebEngineWidgets.QWebEngineProfile.MemoryHttpCache)
         #self.page().profile().setPersistentCookiesPolicy(\
         #    QtWebEngineWidgets.QWebEngineProfile.NoPersistentCookies)
-        # self.linkClicked.connect(self.link_clicked) 
+        # self.linkClicked.connect(self.link_clicked)
         # self.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
-    
+
     def link_clicked(self, url):
         import webbrowser  # Slow import
         webbrowser.open(url.toString())
 
-        

@@ -47,11 +47,14 @@ class Mnemosyne(Component):
 
         """
 
+        print("A")
         sys.excepthook = self.handle_exception
+        print("B")
         self.upload_science_logs = upload_science_logs
         self.interested_in_old_reps = interested_in_old_reps
         self.asynchronous_database = asynchronous_database
         self.component_manager = new_component_manager()
+        print("C")
         self.components = [
          ("mnemosyne.libmnemosyne.databases.SQLite",
           "SQLite"),
@@ -154,12 +157,14 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.file_formats.cuecard_wcu",
           "CuecardWcu")]
         self.gui_for_component = {}
+        print("Done init")
 
     def android_log(self, message):
         if hasattr(self, "android"):
             self.android.Log("Mnemosyne", message)
 
     def handle_exception(self, type, value, tb):
+        print("handle exception")
         body = "An unexpected error has occurred.\n" + \
             "Please forward the following info to the developers:\n\n" + \
             "Traceback (innermost last):\n"
@@ -167,6 +172,7 @@ class Mnemosyne(Component):
                traceback.format_exception_only(type, value)
         body = body + "%-20s %s" % ("".join(list[:-1]), list[-1])
         self.android_log(body)
+        print("log body", body)
         try:
             if sys.platform != "win32":
                 sys.stderr.write(body)
@@ -251,6 +257,7 @@ class Mnemosyne(Component):
         """
 
         for module_name, class_name in self.components:
+            print("register", module_name, class_name)
             component = getattr(\
                 importlib.import_module(module_name), class_name)
             if component.instantiate == Component.IMMEDIATELY:
@@ -287,6 +294,7 @@ class Mnemosyne(Component):
         self.config()["asynchronous_database"] = self.asynchronous_database
         # Activate other components.
         for component in ["log", "translator", "database", "controller"]:
+            print("activate", component)
             try:
                 self.component_manager.current(component).activate()
             except RuntimeError as e:

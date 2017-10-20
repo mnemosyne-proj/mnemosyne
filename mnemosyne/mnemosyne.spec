@@ -7,7 +7,7 @@ block_cipher = None
 datas = [("mo", "mo")]
 excludes = []
 
-my_fixes = True # TMP workaround on Windows for pyinstaller and webkit issues
+my_fixes = False #True # TMP workaround on Windows for pyinstaller and webkit issues
 
 binaries = []
 
@@ -250,8 +250,7 @@ a.binaries = a.binaries - TOC([
 # a.datas = [x for x in a.datas if not x[0].startswith("tcl")]
 # a.datas = [x for x in a.datas if not x[0].startswith("tk")]
 
-pyz = PYZ(a.pure, a.zipped_data,
-             cipher=block_cipher)
+pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
 exe = EXE(pyz,
           a.scripts,

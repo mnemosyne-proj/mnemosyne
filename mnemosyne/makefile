@@ -8,8 +8,8 @@ ifeq (1,$(shell python3 -c "print(1)" 2>&- ))
 PYTHON      := python3
 endif
 # If we are on cygwin:
-ifeq (1,$(shell /cygdrive/c/Program\ Files\ \(x86\)/Python35-32/python.exe -c "print(1)" 2>&- ))
-PYTHON      := /cygdrive/c/Program\ Files\ \(x86\)/Python35-32/python.exe
+ifeq (1,$(shell /cygdrive/c/Program\ Files\ \(x86\)/Python36-32/python.exe -c "print(1)" 2>&- ))
+PYTHON      := /cygdrive/c/Program\ Files\ \(x86\)/Python36-32/python.exe
 endif
 # If `sphinx-build2` exists:
 ifneq (,$(shell command -v sphinx-build2 2>&- ))

@@ -154,7 +154,11 @@ public class MnemosyneThread extends Thread {
         SrvGroup._LoadRawModule("python", "", basedir +
                 "/files/mnemosyne/cle/mnemosyne_android.py", false);
 
+        Log.i("Mnemosyne", "Loaded Module");
+
         mnemosyne = python._GetObject("mnemosyne");
+
+        Log.i("Mnemosyne", "Got Mnemosyne object");
 
         // Determine datadir.
         //
@@ -316,6 +320,7 @@ public class MnemosyneThread extends Thread {
     }
 
     public void setQuestionBoxVisible(boolean isVisible) {
+        Log.i("Mnemosyne", "SetQuestionBoxVisible");
         final boolean _isVisible = isVisible;
         UIHandler.post(new Runnable() {
             public void run() {

@@ -1,12 +1,13 @@
+-if pyinstaller supports Python 3.6, upgrade to 3.6
+(search Python35 in files, makefile, Mnemosyne.pyd)
+
+https://medium.com/mobiwise-blog/unsatisfiedlinkerror-problem-on-some-android-devices-b77f2f83837d
+
+update matplotlib for borders
+
 -Scott Youngman:
-close preview with escape
-crash on pgdown in card browser (launchpad bug)
+
 sizes of windows not saved (create debug version)
-
-anki import 2x crashes
-
-webserver launchpad bugs
-
 Julian Mehne: Mnemosyne seems to try to evaluate a `PyQt5.QtCore.QByteArray`
 string which requires to import PyQt5.QtCore or otherwise the module is not found
 
@@ -17,6 +18,12 @@ string which requires to import PyQt5.QtCore or otherwise the module is not foun
          try:
 -            import PyQt5
 +            import PyQt5.QtCore
+
+crash on pgdown in card browser (launchpad bug)
+
+anki import 2x crashes
+
+webserver launchpad bugs
 
 negative scheduled count
 
@@ -39,6 +46,10 @@ negative scheduled count
 
 
 Android:
+
+try:
+<application android:hardwareAccelerated="false" ...>
+reenable javascript
 
 - remove debug info
 -integrated error reporting:
@@ -133,7 +144,7 @@ If M > 0 and k > 0 then (a,b) is a local minimum: eats < ... >
 -Qt bug? svg Mnemosyne watermark for tip and getting started does not work under
  Linux
 -Qt bug? review widget: frame.scroll does not seem to work reliably for PageUp
--Qt bug? preview dialog does not pass on keypressevents it does not handle
+-Qt bug? clicking on web widget in preview dialog eats escape keypress
 -Qt bug? QGraphicsWebView.loadFinished sometimes fires before images are loaded?
 -Qt bug? bulleted lists: bullets are always aligned left, not centered:
 Milesteiner
@@ -193,8 +204,7 @@ time 'number_of_log_entries_to_sync_for' vs 'number_of_log_entries'
   # Important: fact,
 media, tag (check all 'already_imported' statements)
 
--if pyinstaller supports Python 3.6, upgrade to 3.6
-(search Python35 in files, makefile, Mnemosyne.pyd)
+
 
 -status bar: scheduled: x / not memorised: x / goal new cards: x/y
 -new cards goal can overshoot, e.g. 7/5

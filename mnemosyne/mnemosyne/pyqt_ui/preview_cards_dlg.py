@@ -17,14 +17,18 @@ class PreviewCardsDlg(QtWidgets.QDialog, Component, QAOptimalSplit,
     UP = 0
     DOWN = 1
 
-    def __init__(self, cards, tag_text, **kwds): 
-        
+    def __init__(self, cards, tag_text, **kwds):
+
         """We need to provide tag_text explicitly, since it's possible that
         the cards have not yet been added to the database.
 
         """
         super().__init__(**kwds)
         self.setupUi(self)
+        # Needed to make sure we can process e.g. escape keys. Not yet perfect
+        # though, as clicking on the html widget eats those keys again.
+        self.question.setFocusProxy(self)
+        self.answer.setFocusProxy(self)
         QAOptimalSplit.setup(self)
         self.used_for_reviewing = False
         self.setWindowFlags(self.windowFlags() \
