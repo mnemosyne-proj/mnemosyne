@@ -192,6 +192,8 @@ class Configuration(Component, dict):
                 self["user_id"] = rand_uuid()
             else:
                 self["user_id"] = history_files[0].split("_", 1)[0]
+        self["latex"] = self["latex"].strip().split()
+        self["dvipng"] = self["dvipng"].strip().split()
         # Allow other plugins or frontend to set their configuration data.
         for f in self.component_manager.all("hook", "configuration_defaults"):
             f.run()
