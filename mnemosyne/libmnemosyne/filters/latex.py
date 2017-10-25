@@ -1,10 +1,10 @@
-#
 # latex.py <Peter.Bienstman@UGent.be>
 #
 
 import os
 import re
 import shutil
+import subprocess as sp
 try:
     from hashlib import md5
 except ImportError:
@@ -40,8 +40,8 @@ class Latex(Filter):
         hash_input = latex_command.rstrip() + \
             self.config()["latex_preamble"].rstrip() + \
             self.config()["latex_postamble"].rstrip() + \
-            self.config()["dvipng"].rstrip() + \
-            self.config()["latex"].rstrip()
+            " ".join(self.config()["dvipng"]) + \
+            " ".join(self.config()["latex"])
         return md5(hash_input.encode("utf-8")).hexdigest() + ".png"
 
     def create_latex_img_file(self, latex_command):
@@ -74,15 +74,37 @@ class Latex(Filter):
             print(latex_command, file=f)
             print(self.config()["latex_postamble"], file=f)
             f.close()
-            os.system(self.config()["latex"] + " tmp.tex 2>&1 1>latex_out.txt")
-            os.system(self.config()["dvipng"].rstrip())
+            in_file = "tmp.tex"
+            self._call_cmd(self.config()["latex"] + [in_file],
+                           "latex_out.txt", in_file)
+            self._call_cmd(self.config()["dvipng"], "dvipng_out.txt")
             if not os.path.exists("tmp1.png"):
                 return None
             copy("tmp1.png", img_name)
             self.log().added_media_file(rel_filename)
             os.chdir(previous_dir)
         return rel_filename
-       
+
+    def _call_cmd(self, cmd, out_file, in_file=None):
+        """ Used to call latex or dvipng. """
+        try:
+            with open(out_file, "wb") as f:
+                sp.check_call(cmd, stdout=f, stderr=sp.STDOUT, timeout=60)
+        except FileNotFoundError:
+            print("Could not find executable: `%s`" % " ".join(cmd))
+        except sp.TimeoutExpired:
+            print("Command timed out: `%s`" % " ".join(cmd))
+        except sp.CalledProcessError as err:
+            print("Command `%s` failed with rc=%i" % (" ".join(cmd),
+                                                      err.returncode))
+            with open(out_file, "r") as f:
+                print("Command output:")
+                print(f.read())
+            if in_file:
+                with open(in_file, "r") as f:
+                    print("Command input:")
+                    print(f.read())
+
     def process_latex_img_tag(self, latex_command):
 
         """Transform the latex tags to image tags."""
@@ -128,9 +150,15 @@ class CheckForUpdatedLatexFiles(Hook):
     def __init__(self, component_manager):
         Hook.__init__(self, component_manager)
         self.latex = Latex(component_manager)
-        
+
     def is_working(self):
-        return (os.system(self.config()["latex"] + " -version") == 0)
+        try:
+            p = sp.check_output(self.config()["latex"] + ["-version"],
+                                stderr=sp.STDOUT, timeout=5)
+            return True
+        except (sp.TimeoutExpired, sp.CalledProcessError, FileNotFoundError):
+            return False
+
 
     def run(self, data):
         self.latex.run(data, None, None)
