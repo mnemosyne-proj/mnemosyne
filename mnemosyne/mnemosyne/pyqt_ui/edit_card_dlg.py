@@ -28,10 +28,10 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
             else:
                 return False
         return False
-    
-    def __init__(self, card, allow_cancel=True, 
+
+    def __init__(self, card, allow_cancel=True,
                  started_from_card_browser=False, parent=None, **kwds):
-        super().__init__(**kwds)        
+        super().__init__(**kwds)
         # Note: even though this is in essence an EditFactDlg, we don't use
         # 'fact' as argument, as 'fact' does not know anything about card
         # types.
@@ -124,7 +124,7 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
     def set_valid(self, valid):
         self.OK_button.setEnabled(valid)
         self.preview_button.setEnabled(valid)
-        
+
     def is_changed(self):
         if self.previous_card_type_name != \
            self.card_types_widget.currentText():
@@ -141,8 +141,8 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
                 if self.card_type_widget.fact_data()[fact_key] \
                    != previous_content:
                     return True
-        return False   
-        
+        return False
+
     def apply_changes(self):
         if self.is_changed() == False:
             return 0
@@ -154,7 +154,7 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
         if new_fact_data == self.card.fact.data and \
             ", ".join(new_tag_names) == self.card.tag_string() and \
             new_card_type == self.card.card_type and self.allow_cancel == True:
-                # No need to update the dialog, except when we're merging 
+                # No need to update the dialog, except when we're merging
                 # a card when 'allow_cancel' is False.
                 QtWidgets.QDialog.reject(self)
                 return -1
@@ -162,10 +162,10 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
         # the Qt database.
         if self.before_apply_hook:
             self.before_apply_hook()
-        status = self.controller().edit_card_and_sisters(self.card, 
+        status = self.controller().edit_card_and_sisters(self.card,
             new_fact_data, new_card_type, new_tag_names, self.correspondence)
         if self.after_apply_hook:
-            self.after_apply_hook()        
+            self.after_apply_hook()
         return status
 
     def accept(self):
@@ -176,6 +176,7 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
             QtWidgets.QDialog.accept(self)
 
     def reject(self):  # Override 'add cards' behaviour.
+        self._store_state()
         if self.is_changed() == True:
             status = self.main_widget().show_question(\
                 _("Abandon changes to current card?"), _("&Yes"), _("&No"), "")

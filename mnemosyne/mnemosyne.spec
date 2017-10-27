@@ -6,9 +6,6 @@ block_cipher = None
 
 datas = [("mo", "mo")]
 excludes = []
-
-my_fixes = False #True # TMP workaround on Windows for pyinstaller and webkit issues
-
 binaries = []
 
 hiddenimports = [
@@ -193,14 +190,6 @@ hiddenimports = [
 
 if sys.platform == "win32":
              datas.append(("C:\\Program Files (x86)\\mplayer.exe", "."))
-             # Note: need to use the dev version of pyinstaller
-             #     pip install -e https://github.com/pyinstaller/pyinstaller/archive/develop.zip
-             # There are also some missing files that are not picked up on.
-             if my_fixes:
-                          pyqt_dir = "C:\\Program Files (x86)\\Python35-32\\Lib\\site-packages\\PyQt5\\"
-                          datas.append((pyqt_dir + "QtWebEngineCore.pyd", "."))
-                          datas.append((pyqt_dir + "Qt\\resources\\*", "."))
-                          datas.append((pyqt_dir + "Qt\\bin\\*", "."))
              excludes = ['IPython', 'lib2to3']
 
 if sys.platform == "darwin":
@@ -275,6 +264,3 @@ if sys.platform == "darwin":
                name='Mnemosyne.app',
                icon=os.path.join('pixmaps', 'mnemosyne.icns'),
                bundle_identifier='org.qt-project.Qt.QtWebEngineCore')
-
-if my_fixes and (sys.platform == "win32"):
-             shutil.move("dist\\mnemosyne\\QtWebEngineCore.pyd", "dist\\mnemosyne\\PyQt5.QtWebEngineCore.pyd")

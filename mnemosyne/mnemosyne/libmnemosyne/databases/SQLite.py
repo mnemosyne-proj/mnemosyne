@@ -6,7 +6,6 @@ import os
 import sys
 import time
 import string
-import shutil
 import datetime
 import copy as objcopy
 
@@ -22,7 +21,6 @@ from mnemosyne.libmnemosyne.fact_view import FactView
 from mnemosyne.libmnemosyne.utils import traceback_string, copy
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.utils import numeric_string_cmp_key, mangle
-
 
 # All ids beginning with an underscore refer to primary keys in the SQL
 # database. All other id's correspond to the id's used in libmnemosyne.
@@ -205,6 +203,7 @@ from mnemosyne.libmnemosyne.databases.SQLite_sync import SQLiteSync
 from mnemosyne.libmnemosyne.databases.SQLite_media import SQLiteMedia
 from mnemosyne.libmnemosyne.databases.SQLite_logging import SQLiteLogging
 from mnemosyne.libmnemosyne.databases.SQLite_statistics import SQLiteStatistics
+
 
 class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
              SQLiteStatistics):

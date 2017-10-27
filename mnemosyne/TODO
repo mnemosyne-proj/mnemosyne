@@ -1,31 +1,23 @@
+MOVE TO GITHUB
+
 -if pyinstaller supports Python 3.6, upgrade to 3.6
 (search Python35 in files, makefile, Mnemosyne.pyd)
 
 https://medium.com/mobiwise-blog/unsatisfiedlinkerror-problem-on-some-android-devices-b77f2f83837d
 
-update matplotlib for borders
-
--Scott Youngman:
-
-sizes of windows not saved (create debug version)
-Julian Mehne: Mnemosyne seems to try to evaluate a `PyQt5.QtCore.QByteArray`
-string which requires to import PyQt5.QtCore or otherwise the module is not found
-
-+++ b/mnemosyne/mnemosyne/libmnemosyne/configuration.py
-@@ -224,7 +224,7 @@ class Configuration(Component, dict):
-         # from the config db. The alternatives (e.g. having the frontend pass
-         # along modules to import) seem to be much more verbose and quirky.
-         try:
--            import PyQt5
-+            import PyQt5.QtCore
-
-crash on pgdown in card browser (launchpad bug)
-
-anki import 2x crashes
+mail Marketa?
 
 webserver launchpad bugs
 
+-Scott Youngman:
+
+crash on pgdown in card browser (launchpad bug): cannot reproduce
+
+anki import 2x crashes
+
 negative scheduled count
+
+Chris Shanks: latex error: cannot reproduce, waiting for info on plugins, config
 
 
 - port card type editor, with restrictions
@@ -182,6 +174,9 @@ created with just the "»" symbol.
 -tag browser editor of tag names does not capture focus out event, so card
  count is not redrawn.
 -Qt performance problem with selectRow
+-Qt bug: cntro-Tabbing to different windows eats keyboard shortcuts: *-Tab to
+ "Current card", *-Tab stops working and the Statistics window will not close
+ with Escape.
 
 -grep through TODO's in source code
 -flake8

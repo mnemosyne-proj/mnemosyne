@@ -51,12 +51,10 @@ class ReviewWdgt(ReviewWidget):
         self.answer = text
 
     def reveal_question(self):
-        print("Q:", self.question.encode("utf-8"))
         self.component_manager.android.setQuestion(\
             self.question.encode("utf-8"))
 
     def reveal_answer(self, process_audio=True):
-        print("A:", self.answer.encode("utf-8"))
         self.component_manager.android.setAnswer(\
             self.answer.encode("utf-8"), process_audio)
 

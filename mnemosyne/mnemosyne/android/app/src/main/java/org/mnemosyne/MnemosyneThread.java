@@ -90,11 +90,11 @@ public class MnemosyneThread extends Thread {
         }
 
         String path = basedir + "/files/lib-dynload";
-        Log.i("Mnemosyne", "Listing files in path: " + path);
+        //Log.i("Mnemosyne", "Listing files in path: " + path);
         File ff = new File(path);
         if (ff.exists()) {
             File files[] = ff.listFiles();
-            Log.i("Mnemosyne", "Number of files: " + files.length);
+            //Log.i("Mnemosyne", "Number of files: " + files.length);
             for (int i = 0; i < files.length; i++) {
                 //cannot locate symbol "crypt" referenced by "/data/data/org.mnemosyne/files/lib-dynload/_crypt.cpython-34m.so".
                 //cannot locate symbol "setgrent" referenced by "/data/data/org.mnemosyne/files/lib-dynload/grp.cpython-34m.so".
@@ -119,7 +119,7 @@ public class MnemosyneThread extends Thread {
                 //        files[i].getName().contentEquals("")
                 //        )
                 {
-                    Log.i("Mnemosyne", "Preloading FileName:" + files[i].getName() + " " + files[i].lastModified());
+                    //Log.i("Mnemosyne", "Preloading FileName:" + files[i].getName() + " " + files[i].lastModified());
                     System.load(files[i].getAbsolutePath());
                 }
             }
@@ -148,17 +148,13 @@ public class MnemosyneThread extends Thread {
         pythonPath._Call("insert", 0, basedir + "/files/lib-dynload");
         pythonPath._Call("insert", 0, basedir + "/lib");
 
-        Log.i("Mnemosyne", "About to start Mnemosyne");
+        Log.i("Mnemosyne", "Starting Mnemosyne Python script");
 
         // Start Mnemosyne.
         SrvGroup._LoadRawModule("python", "", basedir +
                 "/files/mnemosyne/cle/mnemosyne_android.py", false);
 
-        Log.i("Mnemosyne", "Loaded Module");
-
         mnemosyne = python._GetObject("mnemosyne");
-
-        Log.i("Mnemosyne", "Got Mnemosyne object");
 
         // Determine datadir.
         //
@@ -260,12 +256,10 @@ public class MnemosyneThread extends Thread {
     }
 
     public void pauseMnemosyne() {
-        Log.d("Mnemosyne", "pausing Mnemosyne");
         python._Call("pause_mnemosyne");
     }
 
     public void stopMnemosyne() {
-        Log.d("Mnemosyne", "stopping Mnemosyne");
         this.scheduler.shutdownNow();
         python._Call("stop_mnemosyne");
         // Wait until the CLE core queue is empty.
@@ -299,7 +293,6 @@ public class MnemosyneThread extends Thread {
     }
 
     public void setQuestion(String html) {
-        Log.i("Mnemosyne", "SetQuestion" + html);
         final String _html = html;
         UIHandler.post(new Runnable() {
             public void run() {
@@ -309,7 +302,6 @@ public class MnemosyneThread extends Thread {
     }
 
     public void setAnswer(String html, Boolean processAudio) {
-        Log.i("Mnemosyne", "SetAnswer" + html);
         final String _html = html;
         final Boolean _processAudio = processAudio;
         UIHandler.post(new Runnable() {
@@ -320,7 +312,6 @@ public class MnemosyneThread extends Thread {
     }
 
     public void setQuestionBoxVisible(boolean isVisible) {
-        Log.i("Mnemosyne", "SetQuestionBoxVisible");
         final boolean _isVisible = isVisible;
         UIHandler.post(new Runnable() {
             public void run() {

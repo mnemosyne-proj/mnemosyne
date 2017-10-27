@@ -9,13 +9,11 @@ import sys
 import stat
 import html
 import random
-import tempfile
 import traceback
-
 
 # The following functions are modified from shutil:
 #
-# - buffer is much larger than the default 16kB in order to improve 
+# - buffer is much larger than the default 16kB in order to improve
 #   performance.
 # - mode bits are not copied since python on Android does not like this
 
@@ -103,7 +101,7 @@ def _abs_path(path):
 
     return    ((len(path) > 1) and path[0] == "/") \
            or ((len(path) > 2) and path[1] == ":")
-    
+
 
 def contract_path(path, start):
 
@@ -142,12 +140,12 @@ def expand_path(path, start):
 
 
 def normalise_path(path):
-    
-    """Make sure the correct types of slashes are used. 
-    'pathlib' itself turns out to be not sufficient for that. 
-    
+
+    """Make sure the correct types of slashes are used.
+    'pathlib' itself turns out to be not sufficient for that.
+
     """
-    
+
     if os.name == "posix":
         return path.replace("\\", "/")
     else:
@@ -190,6 +188,10 @@ def remove_empty_dirs_in(path, level=0):
 
 
 def is_filesystem_case_insensitive():
+    # We don't import tempfile at module level, since it can crash some
+    # Android versions. (This function is not needed on Android devices
+    # anyhow.)
+    import tempfile
     # By default mkstemp() creates a file with a name that begins with
     # 'tmp' (lowercase)
     tmp_handle, tmp_path = tempfile.mkstemp()
@@ -202,7 +204,7 @@ def is_filesystem_case_insensitive():
 
 def numeric_string_cmp_key(s):
 
-    """Key for comparing two strings using numeric ordering. so that, e.g., 
+    """Key for comparing two strings using numeric ordering. so that, e.g.,
     "abc2" < "abc10".
 
     The strings are first split into tuples consisting of the alphabetic and
@@ -211,7 +213,7 @@ def numeric_string_cmp_key(s):
     using the standard python cmp().
 
     """
-    
+
     atoi = lambda s: int(s) if s.isdigit() else s.lower()
     return tuple(atoi(str) for str in re.split('(\d+)', s))
 
@@ -297,7 +299,7 @@ class CompareOnId(object):
 
 def localhost_IP():
     import socket
-    try:     
+    try:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(("google.com", 8000))
         return s.getsockname()[0]

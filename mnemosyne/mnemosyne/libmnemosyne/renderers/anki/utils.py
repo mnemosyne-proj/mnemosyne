@@ -10,7 +10,6 @@ import math
 from html.entities import name2codepoint
 import subprocess
 import tempfile
-import shutil
 import string
 import sys
 import locale
@@ -280,6 +279,7 @@ def tmpdir():
     global _tmpdir
     if not _tmpdir:
         def cleanup():
+            import shutil
             shutil.rmtree(_tmpdir)
         import atexit
         atexit.register(cleanup)

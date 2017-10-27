@@ -1,28 +1,16 @@
 #
 # mnemosyne_android.py <Peter.Bienstman@UGent.be>
 #
-print("before try")
-try:
-    print("starting import")
-    import os
-    print("1")
 
-    # Workaround for this bug:
-    #    https://github.com/pyinstaller/pyinstaller/issues/1113
-    import encodings.idna
-    print("2")
-    # Initialise Mnemosyne.
-    print("3")
-    from mnemosyne.libmnemosyne import Mnemosyne
-    print("4")
-    mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
-    print("5")
-except Exception as e:
-    print(e)
-    import traceback
-    traceback.print_exc()
-    traceback.print_stack()
-    print(traceback.format_stack())
+import os
+# Workaround for this bug:
+#    https://github.com/pyinstaller/pyinstaller/issues/1113
+import encodings.idna
+
+# Initialise Mnemosyne.
+from mnemosyne.libmnemosyne import Mnemosyne
+mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
+
 
 mnemosyne.components = [\
          ("mnemosyne.libmnemosyne.translators.no_translator",

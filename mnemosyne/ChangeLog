@@ -20,8 +20,10 @@ Mnemosyne 2.6
 - Fix bugs with increase of non-latin fonts (reported by JDD annd Scott
   Youngman).
 - Fix cornercase bug in RTL handler (reported by Fonzo99).
-- Upgrade to PyQt 5.9.1.
+- Upgrade to latest version of libraries (PyQt, Python, Matplolib).
 - Improve keyboard shortcuts (reported by Scott Youngman).
+- Also save window size when exiting window by pressing escape (reported by
+  Scott Youngman).
 - Disallow renaming a single tag to multiple tags in the tag tree widget.
   (reported by abacus).
 - In case you get crashes in the browser when trying to display only untagged

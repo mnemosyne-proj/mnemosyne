@@ -880,6 +880,7 @@ _("You chose to sort this table. Operations in the card browser could now be slo
         self.tag_tree_wdgt.close()
 
     def reject(self):
+        self._store_state()
         # Generated when pressing escape.
         self.unload_qt_database()
         return QtWidgets.QDialog.reject(self)

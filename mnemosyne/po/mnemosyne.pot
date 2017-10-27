@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-10-18 17:04+0200\n"
+"POT-Creation-Date: 2017-10-25 17:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -65,13 +65,13 @@ msgstr ""
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:68
 #: ../mnemosyne/example_plugins/pie_chart_statistics.py:31
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:125
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:263
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:286
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:264
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:287
 msgid "No stats available."
 msgstr ""
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:98
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:195
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:196
 msgid "Days"
 msgstr ""
 
@@ -93,30 +93,30 @@ msgstr ""
 msgid "Production"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:218
+#: ../mnemosyne/libmnemosyne/__init__.py:242
 msgid "Command line argument is not a *.db file."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:230
+#: ../mnemosyne/libmnemosyne/__init__.py:254
 msgid "Another copy of Mnemosyne is still running."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:231
+#: ../mnemosyne/libmnemosyne/__init__.py:255
 msgid "Continuing is impossible and will lead to data loss!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:313
-#: ../mnemosyne/libmnemosyne/__init__.py:326
+#: ../mnemosyne/libmnemosyne/__init__.py:347
+#: ../mnemosyne/libmnemosyne/__init__.py:360
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:903
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1118
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1138
 msgid "Error when running plugin:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:341
+#: ../mnemosyne/libmnemosyne/__init__.py:375
 msgid "Previous drive letter no longer available."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:350
+#: ../mnemosyne/libmnemosyne/__init__.py:384
 msgid "If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."
 msgstr ""
 
@@ -242,11 +242,11 @@ msgstr ""
 msgid "Error in config.py:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:80
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:79
 msgid "No need to do database maintenance more than once per month."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:88
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:87
 #: ../mnemosyne/pyqt_ui/about_dlg.py:27
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:696
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:60
@@ -257,48 +257,48 @@ msgstr ""
 msgid "Mnemosyne"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:153
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:152
 msgid "Identical card is already in database."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:154
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:178
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:153
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:177
 msgid "&Add anyway"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:154
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:178
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:153
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:177
 msgid "&Do not add"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:158
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:157
 msgid ""
 "There is already data present for this card:\n"
 "\n"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:178
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:177
 msgid "&Merge and edit"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:272
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:271
 msgid ""
 "Card data not correctly formatted for conversion.\n"
 "\n"
 "Skipping "
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:302
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:301
 msgid "Can't preserve history when converting between these card types."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:303
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:302
 msgid "The learning history of the cards will be reset."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:304
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:338
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:485
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:303
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:337
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:484
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:122
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:144
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:580
@@ -323,7 +323,7 @@ msgstr ""
 msgid "&Cancel"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:304
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:303
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:122
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:144
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:580
@@ -355,67 +355,67 @@ msgstr ""
 msgid "&OK"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:335
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:334
 msgid "This will delete cards and their history."
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:335
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:477
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:482
+msgid "Are you sure you want to do this,"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:336
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:478
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:483
-msgid "Are you sure you want to do this,"
-msgstr ""
-
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:337
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:479
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:484
 msgid "and not just deactivate cards in the 'Activate cards' dialog?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:338
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:337
 msgid "&Proceed and delete"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:400
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:399
 msgid "This card has different tags than its sister cards. Update tags for current card only or for all sister cards?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:401
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:400
 msgid "All sister cards"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:401
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:400
 msgid "Current card only"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:424
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:423
 msgid "Converting cards..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:454
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:453
 msgid "This will add a tag 'Starred' to the current card, so that you can find it back easily, e.g. to edit it on a desktop."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:458
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:457
 msgid "Starred"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:475
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:474
 msgid "Delete this card?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:477
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:476
 msgid "Delete this card and 1 sister card?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:481
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:480
 msgid "Delete this card and"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:482
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:481
 msgid "sister cards?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:486
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:485
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:437
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:129
 #: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:94
@@ -423,90 +423,90 @@ msgstr ""
 msgid "&Delete"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:500
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:499
 msgid "Deleting cards..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:512
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:511
 msgid "Checking for unused tags..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:527
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:526
 msgid "Card type name already exists."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:547
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:546
 msgid "Card type %s is in use or is a system card type, cannot delete it."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:552
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:551
 msgid "Card type %s has clones, cannot delete it."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:567
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:566
 msgid "Cannot rename a system card type."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:572
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:571
 msgid "This card type name is already in use."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:579
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:578
 msgid "It is recommended to put all your cards in a single database. Using tags to determine which cards to study is much more convenient than having to load and unload several databases."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:590
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:620
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:696
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:589
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:619
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:695
 msgid "Mnemosyne databases"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:591
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:590
 msgid "New"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:597
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:596
 msgid "Creating new database..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:627
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:626
 msgid "'*.cards' files are not separate databases, but need to be imported in your current database through 'File - Import'."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:632
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:631
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_db.py:25
 msgid "The configuration database is not used to store cards."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:637
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:636
 msgid ""
 "Do you want to replace your current database with one restored from this backup?\n"
 "Note that this will result in conflicts during the next sync, which need to be resolved by a full sync."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:638
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:610
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1159
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:637
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:630
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1179
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 msgid "No"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:638
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:610
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1159
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:637
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:630
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1179
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 msgid "Yes"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:676
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:675
 msgid "Your database will be autosaved before exiting. Also, it is saved every couple of repetitions, as set in the configuration options."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:681
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:680
 msgid "Database saved."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:702
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:701
 msgid "The configuration database cannot be used to store cards."
 msgstr ""
 
@@ -571,55 +571,55 @@ msgstr ""
 msgid "Compacting database..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:290
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:310
 msgid "Defragmenting database..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:354
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:374
 msgid "Unable to load file at"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:356
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:376
 msgid "Unable to load file, query failed."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:368
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:388
 msgid "Database upgrade failed."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:380
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:400
 msgid "Unable to load file."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:416
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:436
 msgid "Putting a database on a network drive is forbidden under Windows to avoid data corruption."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:445
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:465
 msgid "Warning: backup creation failed for"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:609
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:629
 msgid "Make tag '%s' active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1121
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1141
 msgid "Missing plugin for card type with id:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1158
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1178
 msgid "Make new card type active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1401
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1421
 msgid "No duplicates found."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1404
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1424
 msgid "Found %d duplicate cards. They have been given the tag 'DUPLICATE'."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1410
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1430
 msgid "DUPLICATE"
 msgstr ""
 
@@ -673,15 +673,15 @@ msgid "Creating same card type twice during sync. Inform the developpers."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/databases/_apsw.py:54
-#: ../mnemosyne/libmnemosyne/databases/_sqlite3.py:51
+#: ../mnemosyne/libmnemosyne/databases/_sqlite3.py:53
 msgid "Putting a database on a network drive is forbidden under Windows to avoid data corruption. Mnemosyne will now close."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:45
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:44
 msgid "Anki2 collections"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:47
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:46
 msgid "Anki2 collections (*.anki2 *.apkg)"
 msgstr ""
 
@@ -694,23 +694,23 @@ msgstr ""
 msgid "Processing media files..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:100
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:101
 msgid "Copying media files..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:110
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:111
 msgid "Importing card types..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:213
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:214
 msgid "Importing notes..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:263
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:264
 msgid "Importing logs..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:289
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:290
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:42
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:31
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:37
@@ -871,8 +871,8 @@ msgstr ""
 msgid "Badly formed input on line"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/filters/latex.py:93
-#: ../mnemosyne/libmnemosyne/filters/latex.py:168
+#: ../mnemosyne/libmnemosyne/filters/latex.py:92
+#: ../mnemosyne/libmnemosyne/filters/latex.py:167
 msgid "Problem with latex. Are latex and dvipng installed?"
 msgstr ""
 
@@ -910,27 +910,27 @@ msgstr ""
 msgid "Show %s"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:51
+#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:50
 msgid "%sy"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:52
+#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:51
 msgid "%smo"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:53
+#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:52
 msgid "%sd"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:54
+#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:53
 msgid "%sh"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:55
+#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:54
 msgid "%sm"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:56
+#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:55
 msgid "%ss"
 msgstr ""
 
@@ -1162,7 +1162,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:32
 #: ../mnemosyne/libmnemosyne/statistics_pages/easiness.py:11
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:719
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:291
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:292
 msgid "Easiness"
 msgstr ""
 
@@ -1212,7 +1212,7 @@ msgid "Untagged"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/grades.py:11
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:268
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:269
 msgid "Grades"
 msgstr ""
 
@@ -1290,19 +1290,19 @@ msgstr ""
 msgid "Cannot rename a single tag to multiple tags."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:65
+#: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:64
 msgid "Tried to backup your old 1.x files to %s, but that directory already exists."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:114
+#: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:117
 msgid "Copying files from 1.x..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:154
+#: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:157
 msgid "Upgrade from Mnemosyne 1.x complete!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:155
+#: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:158
 msgid "Mnemosyne 2.x now stores its data here:"
 msgstr ""
 
@@ -1394,7 +1394,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:181
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:182
 msgid "&No"
 msgstr ""
 
@@ -1403,7 +1403,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:181
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:182
 msgid "&Yes"
 msgstr ""
 
@@ -1662,7 +1662,7 @@ msgstr ""
 msgid "You are not allowed to cancel the merging."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:181
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:182
 msgid "Abandon changes to current card?"
 msgstr ""
 
@@ -1808,28 +1808,28 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:214
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:215
 msgid "Number of cards scheduled"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:226
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:227
 msgid "Retention score (%)"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:238
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:239
 msgid "Number of cards added"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:249
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:250
 msgid "Number of new cards learned"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:267
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:290
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:268
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:291
 msgid "Number of cards"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:270
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:271
 msgid "Not seen"
 msgstr ""
 

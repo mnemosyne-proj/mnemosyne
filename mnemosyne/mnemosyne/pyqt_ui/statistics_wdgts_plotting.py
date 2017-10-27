@@ -31,11 +31,11 @@ class PlotStatisticsWdgt(QtWidgets.QWidget, StatisticsWidget):
         # Late import to speed up app startup.
         from matplotlib import use
         use("Qt5Agg")
-        
+
         from matplotlib import rcParams
         from matplotlib.figure import Figure
-        from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas        
-        
+        from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+
         self.vbox_layout = QtWidgets.QVBoxLayout(self)
         # The idea was to lazily import matplotlib only when we open the
         # statistics dialog. However, the import statements below can often
@@ -45,7 +45,7 @@ class PlotStatisticsWdgt(QtWidgets.QWidget, StatisticsWidget):
         #from matplotlib.backends.backend_qt4agg import \
         #     FigureCanvasQTAgg as FigureCanvas
         colour = self._background_colour(self.parent)
-        fig = Figure(figsize=(6.5, 5.2), facecolor=colour, edgecolor=colour)
+        fig = Figure(facecolor=colour, edgecolor=colour)
         self.canvas = FigureCanvas(fig)
         self.vbox_layout.addWidget(self.canvas)
         self.canvas.setSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding,
@@ -190,7 +190,8 @@ class BarChartDaysWdgt(PlotStatisticsWdgt):
             raise AttributeError("Invalid variant")
         # Plot data.
         self.axes.bar(self.page.x, self.page.y, width=1, align="center",
-                      linewidth=linewidth, color=self.colour, alpha=0.75)
+                      linewidth=linewidth, color=self.colour, alpha=0.75,
+                      edgecolor="black")
         self.axes.set_title(self.title)
         self.axes.set_xlabel(_("Days"))
         self.axes.set_xticks(xticks)

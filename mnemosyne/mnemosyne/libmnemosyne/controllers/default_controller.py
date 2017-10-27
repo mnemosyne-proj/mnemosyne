@@ -6,7 +6,6 @@ import os
 import sys
 import copy
 import time
-import shutil
 
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.translator import _
@@ -709,6 +708,7 @@ _("The configuration database cannot be used to store cards."))
             new_media_dir = self.database().media_dir()
             if old_media_dir == new_media_dir:
                 return
+            import shutil
             if os.path.exists(new_media_dir):
                 shutil.rmtree(new_media_dir)
             shutil.copytree(old_media_dir, new_media_dir)
@@ -988,21 +988,11 @@ _("This will tag all the cards in a given card type which have the same question
         self.show_sync_dialog_post()
 
     def show_sync_dialog_pre(self):
-        try:
-
-
-            self.stopwatch().pause()
-            self.flush_sync_server()
-            self.database().save()
-            self.component_manager.current("sync_dialog")\
-            (component_manager=self.component_manager).activate()
-        except Exception as e:
-            print(e)
-            import traceback
-            traceback.print_exc()
-            traceback.print_stack()
-            print(traceback.format_stack())
-
+        self.stopwatch().pause()
+        self.flush_sync_server()
+        self.database().save()
+        self.component_manager.current("sync_dialog")\
+        (component_manager=self.component_manager).activate()
 
     def show_sync_dialog_post(self):
         self.database().save()
@@ -1012,35 +1002,26 @@ _("This will tag all the cards in a given card type which have the same question
         self.stopwatch().unpause()
 
     def sync(self, server, port, username, password, ui=None):
+        if ui is None:
+            ui = self.main_widget()
+        from openSM2sync.client import Client
+        client = Client(self.config().machine_id(), self.database(), ui)
+        client.program_name = "Mnemosyne"
+        import mnemosyne.version
+        client.program_version = mnemosyne.version.version
+        client.capabilities = "mnemosyne_dynamic_cards"
+        client.check_for_edited_local_media_files = \
+            self.config()["check_for_edited_local_media_files"]
+        client.interested_in_old_reps = \
+            self.config()["interested_in_old_reps"]
+        client.store_pregenerated_data = \
+            self.database().store_pregenerated_data
+        client.do_backup = self.config()["backup_before_sync"]
+        client.upload_science_logs = self.config()["upload_science_logs"]
         try:
-            if ui is None:
-                ui = self.main_widget()
-            from openSM2sync.client import Client
-            client = Client(self.config().machine_id(), self.database(), ui)
-            client.program_name = "Mnemosyne"
-            import mnemosyne.version
-            client.program_version = mnemosyne.version.version
-            client.capabilities = "mnemosyne_dynamic_cards"
-            client.check_for_edited_local_media_files = \
-                self.config()["check_for_edited_local_media_files"]
-            client.interested_in_old_reps = \
-                self.config()["interested_in_old_reps"]
-            client.store_pregenerated_data = \
-                self.database().store_pregenerated_data
-            client.do_backup = self.config()["backup_before_sync"]
-            client.upload_science_logs = self.config()["upload_science_logs"]
-            try:
-                client.sync(server, port, username, password)
-            finally:
-                client.database.release_connection()
-
-        except Exception as e:
-            print(e)
-            import traceback
-            traceback.print_exc()
-            traceback.print_stack()
-            print(traceback.format_stack())
-
+            client.sync(server, port, username, password)
+        finally:
+            client.database.release_connection()
 
     def show_download_source_dialog(self):
 

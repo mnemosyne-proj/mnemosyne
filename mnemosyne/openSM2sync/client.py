@@ -173,14 +173,6 @@ class Client(Partner):
             self.ui.close_progress()
             self.ui.show_information("Sync finished!")
         except Exception as exception:
-
-            e = exception
-            print(e)
-            import traceback
-            traceback.print_exc()
-            traceback.print_stack()
-            print(traceback.format_stack())
-
             self.ui.close_progress()
             serious = True
             if type(exception) == type(socket.timeout()):

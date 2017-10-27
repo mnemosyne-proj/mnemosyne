@@ -4,8 +4,6 @@
 
 import os
 import sys
-import shutil
-import pickle
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.utils import expand_path
@@ -55,6 +53,7 @@ class Upgrade1(Component):
             if os.path.exists(old_data_dir):
                 if not os.path.exists(backup_dir):
                     old_files = sorted(os.listdir(old_data_dir))
+                    import shutil  # Crashes on some Android machines at top level.
                     shutil.move(old_data_dir, backup_dir)
                     new_files = sorted(os.listdir(backup_dir))
                     assert old_files == new_files
@@ -65,7 +64,7 @@ class Upgrade1(Component):
 _("Tried to backup your old 1.x files to %s, but that directory already exists.") \
                     % (backup_dir,))
                     sys.exit()
-                    
+
     def upgrade_from_old_data_dir(self, old_data_dir):
         join = os.path.join
         # Warn people that this directory is no longer used.
@@ -74,6 +73,7 @@ _("Tried to backup your old 1.x files to %s, but that directory already exists."
         # Read old configuration.
         old_config = {}
         config_file = open(join(old_data_dir, "config"), "rb")
+        import pickle
         for key, value in pickle.load(config_file).items():
             old_config[key] = value
         # Migrate configuration settings.
@@ -105,6 +105,7 @@ _("Tried to backup your old 1.x files to %s, but that directory already exists."
         # Copy over everything that does not interfere with Mnemosyne 2.
         new_data_dir = self.config().data_dir
         new_media_dir = self.database().media_dir()
+        import shutil
         shutil.rmtree(join(new_data_dir, "history"))
         names = [name for name in os.listdir(old_data_dir) if name not in
             ["backups", "config", "config.py", "config.pyc",
@@ -116,7 +117,7 @@ _("Tried to backup your old 1.x files to %s, but that directory already exists."
         # preserve the state of all the files that need to uploaded to the
         # science server.
         self.main_widget().set_progress_range(len(names) + 2)
-        if os.path.exists(join(old_data_dir, "history")):    
+        if os.path.exists(join(old_data_dir, "history")):
             shutil.copytree(join(old_data_dir, "history"),
                             join(new_data_dir, "history"))
         self.main_widget().increase_progress(1)
@@ -135,7 +136,7 @@ _("Tried to backup your old 1.x files to %s, but that directory already exists."
                 except OSError as e:
                     # https://bugs.launchpad.net/mnemosyne-proj/+bug/1210435
                     import errno
-                    if e.errno != errno.EEXIST: 
+                    if e.errno != errno.EEXIST:
                         raise e
                     self.main_widget().show_information(\
                         "Skipping copying of %s because it already exists.") \

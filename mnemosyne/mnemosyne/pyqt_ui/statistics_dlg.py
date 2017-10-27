@@ -60,6 +60,10 @@ class StatisticsDlg(QtWidgets.QDialog, StatisticsDialog, Ui_StatisticsDlg):
         self._store_state()
         return QtWidgets.QDialog.accept(self)
 
+    def reject(self):
+        self._store_state()
+        return QtWidgets.QDialog.reject(self)
+
     def display_page(self, page_index):
         page = self.tab_widget.widget(page_index)
         self.config()["previous_statistics_page"] = page_index
@@ -81,7 +85,7 @@ class StatisticsPageWdgt(QtWidgets.QWidget, Component):
     becomes visible.
 
     """
-        
+
     def __init__(self, statistics_page, page_index, **kwds):
         super().__init__(**kwds)
         self.statistics_page = statistics_page
@@ -118,7 +122,7 @@ class StatisticsPageWdgt(QtWidgets.QWidget, Component):
                 (self.variant_ids[variant_index])
             widget_class = self.component_manager.current(\
                 "statistics_widget", used_for=self.statistics_page.__class__)
-            widget = widget_class(component_manager=self.component_manager, 
+            widget = widget_class(component_manager=self.component_manager,
                 parent=self, page=self.statistics_page)
             widget.show_statistics(self.variant_ids[variant_index])
             self.variant_widgets[variant_index] = widget
