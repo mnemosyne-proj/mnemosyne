@@ -5,3 +5,4 @@ webob
 sphinx
 pyqt5
 nose
+decorator
