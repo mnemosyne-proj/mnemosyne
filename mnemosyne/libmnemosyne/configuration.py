@@ -405,7 +405,8 @@ class Configuration(Component, dict):
             readline().rstrip()
 
     def load_user_config(self):
-        sys.path.insert(0, self.config_dir)
+        if self.config_dir not in sys.path:
+            sys.path.insert(0, self.config_dir)
         config_file_c = os.path.join(self.config_dir, "config.pyc")
         if os.path.exists(config_file_c):
             os.remove(config_file_c)

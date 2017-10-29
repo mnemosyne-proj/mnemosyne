@@ -29,8 +29,10 @@ class MSided(CardType):
     def __init__(self, component_manager):
         super().__init__(component_manager)
         # Add Anki files to Python path.
-        sys.path.append(os.path.join(\
-            os.getcwd(), "mnemosyne", "libmnemosyne", "renderers"))
+        path = os.path.join(os.getcwd(), "mnemosyne", "libmnemosyne",
+                                 "renderers")
+        if path not in sys.path:
+            sys.path.append(path)
         from mnemosyne.libmnemosyne.renderers.anki_renderer import AnkiRenderer
         self.renderer = AnkiRenderer(component_manager)
 
