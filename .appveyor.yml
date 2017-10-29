@@ -38,6 +38,8 @@ install:
     - cmd: "mpm --install=zhmetrics"
     - cmd: "latex -interaction=nonstopmode -version"
     - cmd: "%PYTHON%\\python.exe -m pip install --cache-dir C:\\cache\\pip -r requirements.txt"
+    - ps: "mkdir -p mo\\de\\LC_MESSAGES"
+    - cmd: "%PYTHON%\\python.exe po\\msgfmt.py -o mo\\de\\LC_MESSAGES\\mnemosyne.mo po\\de.po"
 
 test_script:
     # Use -v to list test names
