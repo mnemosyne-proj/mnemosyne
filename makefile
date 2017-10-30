@@ -124,11 +124,13 @@ android: # Creates the assets file with the Python code.
 	zip	mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/version.py mnemosyne/__init__.py
 
 clean:
-	rm -f *~ *.pyc *.tgz process_profile.py
-	rm -rf dist
+	rm -f *~ *.pyc *.tgz process_profile.py outside.db outside.db-journal
+	rm -f tests/files/basedir_to_merge/to_merge.db-journal
+	rm -rf dist .coverage
 	rm -f -R Mnemosyne.egg-info
 	rm -f -R distrib build bin lib Lib Scripts include dot_mnemosyne2 dot_test dot_sync_*
 	rm -f -R dot_benchmark dist
+	find . -type d -path ".*/__pycache__" -print0 | xargs -0 rm -rf
 	cd mnemosyne/pyqt_ui && make clean
 	cd po && make clean
 	rm -f mnemosyne/*~ mnemosyne/*.pyc
