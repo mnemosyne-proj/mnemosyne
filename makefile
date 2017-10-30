@@ -57,7 +57,7 @@ coverage: test-prep
 	nosetests tests --with-coverage --cover-erase \
 	--cover-package=mnemosyne.libmnemosyne,openSM2sync || (echo "testsuite failed")
 	coverage html
-	firefox htmlcov/index.html || chromium htmlcov/index.html || google-chrome htmlcov/index.html || chrome htmlcov/index.html
+	@echo "Open file://$(PWD)/htmlcov/index.html in a browser for a nicer visualization."
 
 coverage-windows: FORCE
 	rm -rf .coverage cover htmlcov
