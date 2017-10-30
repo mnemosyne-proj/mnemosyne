@@ -46,15 +46,17 @@ install-system: build-all-deps
 	$(PYTHON) setup.py install $(INSTALL_OPTS)
 	rm -f -R build
 
-test: FORCE
+test-prep:
 	cd po && make ../mo/de/LC_MESSAGES/mnemosyne.mo
+
+test: test-prep
 	nosetests tests
 
-coverage: FORCE
+coverage: test-prep
 	rm -rf .coverage cover htmlcov
-	./bin/nosetests tests --with-coverage --cover-erase \
+	nosetests tests --with-coverage --cover-erase \
 	--cover-package=mnemosyne.libmnemosyne,openSM2sync || (echo "testsuite failed")
-	./bin/coverage html
+	coverage html
 	firefox htmlcov/index.html || chromium htmlcov/index.html || google-chrome htmlcov/index.html || chrome htmlcov/index.html
 
 coverage-windows: FORCE
