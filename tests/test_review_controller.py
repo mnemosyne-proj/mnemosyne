@@ -31,8 +31,10 @@ class TestReviewController(MnemosyneTest):
         global expected_scheduled_count
         expected_scheduled_count = None
         self.initialise_data_dir()
-        sys.path.append(os.path.join(\
-            os.getcwd(), "..", "mnemosyne", "libmnemosyne", "renderers"))
+        path = os.path.join(os.getcwd(), "..", "mnemosyne", "libmnemosyne",
+                            "renderers")
+        if path not in sys.path:
+            sys.path.append(path)
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
             asynchronous_database=True)
         self.mnemosyne.components.insert(0,

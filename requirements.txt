@@ -1,0 +1,8 @@
+cheroot
+cherrypy
+matplotlib
+webob
+sphinx
+pyqt5
+nose
+decorator

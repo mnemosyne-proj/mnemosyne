@@ -193,6 +193,8 @@ class Configuration(Component, dict):
                 self["user_id"] = rand_uuid()
             else:
                 self["user_id"] = history_files[0].split("_", 1)[0]
+        self["latex"] = self["latex"].strip().split()
+        self["dvipng"] = self["dvipng"].strip().split()
         # Allow other plugins or frontend to set their configuration data.
         for f in self.component_manager.all("hook", "configuration_defaults"):
             f.run()
@@ -403,7 +405,8 @@ class Configuration(Component, dict):
             readline().rstrip()
 
     def load_user_config(self):
-        sys.path.insert(0, self.config_dir)
+        if self.config_dir not in sys.path:
+            sys.path.insert(0, self.config_dir)
         config_file_c = os.path.join(self.config_dir, "config.pyc")
         if os.path.exists(config_file_c):
             os.remove(config_file_c)

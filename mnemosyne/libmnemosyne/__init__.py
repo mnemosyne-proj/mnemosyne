@@ -302,7 +302,8 @@ class Mnemosyne(Component):
         # config_dir as there could be plugins (e.g. new card types) for
         # which the database does not make sense without them.
         plugin_dir = os.path.join(self.config().data_dir, "plugins")
-        sys.path.insert(0, plugin_dir)
+        if plugin_dir not in sys.path:
+            sys.path.insert(0, plugin_dir)
         for component in os.listdir(plugin_dir):
             if component.endswith(".py"):
                 try:

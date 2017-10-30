@@ -47,6 +47,7 @@ install-system: build-all-deps
 	rm -f -R build
 
 test: FORCE
+	cd po && make ../mo/de/LC_MESSAGES/mnemosyne.mo
 	nosetests tests
 
 coverage: FORCE

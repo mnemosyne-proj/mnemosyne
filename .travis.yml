@@ -1,0 +1,18 @@
+sudo: required
+
+language: python
+
+cache: pip
+
+python:
+    - "3.5"
+    - "3.6"
+
+before_install:
+  - if echo "$TRAVIS_COMMIT_MESSAGE" | grep -F -q "[skip travis]" ; then echo "[skip travis] has been found, exiting" && exit 0 ; else echo "[skip travis] has not been found, continuing" ; fi
+  - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-latex-base dvipng
+
+install:
+  - pip install -r requirements.txt
+
+script: make test
