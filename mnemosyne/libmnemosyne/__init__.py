@@ -12,6 +12,7 @@ from mnemosyne.libmnemosyne.utils import expand_path, contract_path, \
 from mnemosyne.libmnemosyne.component_manager import new_component_manager, \
     register_component_manager, unregister_component_manager
 
+
 class Mnemosyne(Component):
 
     """This class groups the functionality needed to initialise and finalise

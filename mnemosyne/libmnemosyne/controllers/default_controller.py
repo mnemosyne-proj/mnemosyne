@@ -85,7 +85,6 @@ class DefaultController(Controller):
 
     def update_title(self):
         title = _("Mnemosyne")
-        test = _("TRANSLATION TEST") # TMP, REMOVE.
         db = self.database()
         database_name = db.display_name()
         if database_name and database_name != db.default_name:
