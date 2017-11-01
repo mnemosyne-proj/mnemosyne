@@ -1,0 +1,14 @@
+coverage:
+  status:
+    project:
+      default:
+        enabled: true
+    patch:
+      default:
+        enabled: true
+
+codecov:
+  ci:
+    - !appveyor # ignore appveyor status
+
+comment: false
