@@ -154,8 +154,9 @@ class RenderChain(Component):
 
     def render_answer(self, card, **render_args):
         fact_keys, decorators = [], {}
+        a_on_top_of_q = render_args.get("a_on_top_of_q", False)
         if self.config()["QA_split"] == "single_window" and \
-           not self.never_join_q_to_a:
+           not self.never_join_q_to_a and not a_on_top_of_q:
             render_args["align_top"] = True
             fact_keys += card.fact_view.q_fact_keys
             fact_keys.append("__line__")
