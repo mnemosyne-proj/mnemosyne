@@ -46,16 +46,18 @@ install-system: build-all-deps
 	$(PYTHON) setup.py install $(INSTALL_OPTS)
 	rm -f -R build
 
-test: FORCE
+test-prep:
 	cd po && make ../mo/de/LC_MESSAGES/mnemosyne.mo
+
+test: test-prep
 	nosetests tests
 
-coverage: FORCE
+coverage: test-prep
 	rm -rf .coverage cover htmlcov
-	./bin/nosetests tests --with-coverage --cover-erase \
+	nosetests tests --with-coverage --cover-erase \
 	--cover-package=mnemosyne.libmnemosyne,openSM2sync || (echo "testsuite failed")
-	./bin/coverage html
-	firefox htmlcov/index.html || chromium htmlcov/index.html || google-chrome htmlcov/index.html || chrome htmlcov/index.html
+	coverage html
+	@echo "Open file://$(PWD)/htmlcov/index.html in a browser for a nicer visualization."
 
 coverage-windows: FORCE
 	rm -rf .coverage cover htmlcov
@@ -124,11 +126,13 @@ android: # Creates the assets file with the Python code.
 	zip	mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/version.py mnemosyne/__init__.py
 
 clean:
-	rm -f *~ *.pyc *.tgz process_profile.py
-	rm -rf dist
+	rm -f *~ *.pyc *.tgz process_profile.py outside.db outside.db-journal
+	rm -f tests/files/basedir_to_merge/to_merge.db-journal
+	rm -rf dist .coverage
 	rm -f -R Mnemosyne.egg-info
 	rm -f -R distrib build bin lib Lib Scripts include dot_mnemosyne2 dot_test dot_sync_*
 	rm -f -R dot_benchmark dist
+	find . -type d -path ".*/__pycache__" -print0 | xargs -0 rm -rf
 	cd mnemosyne/pyqt_ui && make clean
 	cd po && make clean
 	rm -f mnemosyne/*~ mnemosyne/*.pyc

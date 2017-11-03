@@ -1,6 +1,7 @@
 # Mnemosyne: Optimized Flashcards and Research Project
 Linux: ![Linux build status](https://travis-ci.org/mnemosyne-proj/mnemosyne.svg?branch=master "Linux build status")
 Windows: [![Windows build status](https://ci.appveyor.com/api/projects/status/38t8nk439x3b9e5b?svg=true)](https://ci.appveyor.com/project/three-comrades/mnemosyne)
+[![Coverage Status](https://coveralls.io/repos/github/mnemosyne-proj/mnemosyne/badge.svg?branch=master)](https://coveralls.io/github/mnemosyne-proj/mnemosyne?branch=master)
 
 Mnemosyne is:
 

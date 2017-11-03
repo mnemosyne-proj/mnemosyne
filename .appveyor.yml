@@ -19,7 +19,7 @@ clone_depth: 20
 build: off
 
 cache:
-  - C:\cache -> .appveyor.yml
+  - C:\cache
 
 # Enable rdp connections on init or finish
 #init:
