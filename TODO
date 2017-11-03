@@ -1,7 +1,4 @@
-webserver launchpad bugs
-
--Scott Youngman: anki import 2x crashes
-
+- Scott Youngman: map not shown in single box QA (issue #9)
 
 - port card type editor, with restrictions
 - don't allow clones of Anki card types
@@ -16,7 +13,7 @@ webserver launchpad bugs
 - Q and A align top, no boundaries around content: document how to add CSS to
   fix this?
 
-- boost database version
+- boost database version?
 - update website, import, shared decks
 
 

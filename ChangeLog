@@ -24,6 +24,8 @@ Mnemosyne 2.6
 - Improve keyboard shortcuts (reported by Scott Youngman).
 - Also save window size when exiting window by pressing escape (reported by
   Scott Youngman).
+- Fix display of map cards when showing Q and A in the same box (reported by
+  Scott Youngman).
 - Disallow renaming a single tag to multiple tags in the tag tree widget.
   (reported by abacus).
 - In case you get crashes in the browser when trying to display only untagged
