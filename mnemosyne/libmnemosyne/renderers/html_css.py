@@ -93,11 +93,11 @@ class HtmlCss(Renderer):
 
     def update(self, card_type, **render_args):
         if card_type.id not in self._css:
-            self._css[card_type.id] = {}    
+            self._css[card_type.id] = {}
         self._css[card_type.id][repr(sorted(render_args.items()))] =\
             self.body_css(**render_args) + \
             self.card_type_css(card_type, **render_args)
-            
+
     def css(self, card_type, **render_args):
         render_args_hash = repr(sorted(render_args.items()))
         if not card_type.id in self._css or \
@@ -127,7 +127,7 @@ class HtmlCss(Renderer):
     def render(self, fact_data, fact_keys, card_type, **render_args):
         css = self.css(card_type)
         valign = "valign=\"top\"" if render_args.get("align_top", False) else ""
-        body = self.body(fact_data, fact_keys, card_type, **render_args) 
+        body = self.body(fact_data, fact_keys, card_type, **render_args)
         return """
         <!DOCTYPE html>
         <html>

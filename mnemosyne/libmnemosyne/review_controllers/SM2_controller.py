@@ -50,7 +50,7 @@ class SM2Controller(ReviewController):
         self.rep_count = 0
         self.new_only = new_only
         self.scheduler().reset(new_only=new_only)
-        self.show_new_question()     
+        self.show_new_question()
 
     def reset_but_try_to_keep_current_card(self):
 
@@ -133,16 +133,16 @@ _("Use 'Learn ahead of schedule' sparingly. For cramming before an exam, it's mu
         """Note that this also pulls in a new question."""
 
         self.flush_sync_server()
-        # Guide the learning process. 
+        # Guide the learning process.
         if self.config()["shown_learn_new_cards_help"] == False:
             if self.scheduled_count == 1:
                 self.main_widget().show_information(\
 _("You have finished your scheduled reviews. Now, learn as many failed or new cards as you feel like."))
-                self.config()["shown_learn_new_cards_help"] = True          
+                self.config()["shown_learn_new_cards_help"] = True
         card_to_grade = self.card
         previous_grade = card_to_grade.grade
         self.update_counters(previous_grade, grade)
-        self.rep_count += 1     
+        self.rep_count += 1
         if self.scheduler().is_prefetch_allowed(card_to_grade):
             self.show_new_question()
             interval = self.scheduler().grade_answer(card_to_grade, grade)
@@ -197,8 +197,8 @@ _("You have finished your scheduled reviews. Now, learn as many failed or new ca
         self.update_menu_bar()
         # Don't wait until disk activity dies down.
         self.review_widget().redraw_now()
-        
-    def update_qa_area(self, redraw_all=False):      
+
+    def update_qa_area(self, redraw_all=False):
         if redraw_all and self.card:
             self.card = \
                 self.database().card(self.card._id, is_id_internal=True)
@@ -244,7 +244,8 @@ _("You have finished your scheduled reviews. Now, learn as many failed or new ca
                 if self.config()["show_tags_during_review"]:
                     question_label_text += self.card.tag_string()
                 w.set_question_label(question_label_text)
-                w.set_question(self.card.answer(self.render_chain))
+                w.set_question(self.card.answer(self.render_chain,
+                        a_on_top_of_q=self.card.fact_view.a_on_top_of_q))
                 w.reveal_question()
         # Update 'Show answer' button.
         if self._state == "EMPTY":
