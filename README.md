@@ -37,7 +37,7 @@ If you want to hack on Mnemosyne and propose your changes for merging later ('pu
 Then, [fork](https://github.com/mnemosyne-proj/mnemosyne#fork-destination-box) the project on Github.
 You now have your own copy of the Mnemosyne repository on Github.
 
-To work with the code, you need to clone your private Mnemosyne fork on Github fork to your local machine.
+To work with the code, you need to clone your personal Mnemosyne fork on Github fork to your local machine.
 It's best to setup [ssh for Github](https://help.github.com/articles/connecting-to-github-with-ssh/), but you don't have to.
 Change to your working directory on the terminal and then clone your repository of Mnemosyne (in this example without ssh):
 ```
@@ -60,6 +60,20 @@ git status
 git add <files to add>
 git commit -v
 ```
+
+To pull in the latest changes of the official repository, do the following:
+```
+git pull upstream master
+```
+
+To push your latest changes to your own public repository, typo:
+```
+git push origin <branch name>
+```
+
+When your code is ready to be merged, submit a pull request on github to notify the maintainers.
+
+Finally, some more background on the whole workflow can be found [here](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow)
 
 ## About the code base
 To get an overview of how all the different bits of the library fit together, see the documentation in the code at `mnemosyne/libmnemosyne/docs/build/html/index.html`.
