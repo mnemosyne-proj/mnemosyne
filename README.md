@@ -103,7 +103,7 @@ git push origin <branch name>
 To create a pull request for your changes, go to the Mnemosyne project page on Github and click on the pull request tab.
 Click on 'New pull request' and follow the instructions.
 
-Finally, some more background on the whole workflow can be found [here](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow)
+Finally, some more background on the whole workflow can be found [here](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow).
 
 ## About the code base
 To get an overview of how all the different bits of the library fit together, see the documentation in the code at `mnemosyne/libmnemosyne/docs/build/html/index.html`.

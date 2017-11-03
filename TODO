@@ -1,23 +1,6 @@
-MOVE TO GITHUB
-
--if pyinstaller supports Python 3.6, upgrade to 3.6
-(search Python35 in files, makefile, Mnemosyne.pyd)
-
-https://medium.com/mobiwise-blog/unsatisfiedlinkerror-problem-on-some-android-devices-b77f2f83837d
-
-mail Marketa?
-
 webserver launchpad bugs
 
--Scott Youngman:
-
-crash on pgdown in card browser (launchpad bug): cannot reproduce
-
-anki import 2x crashes
-
-negative scheduled count
-
-Chris Shanks: latex error: cannot reproduce, waiting for info on plugins, config
+-Scott Youngman: anki import 2x crashes
 
 
 - port card type editor, with restrictions
@@ -39,11 +22,6 @@ Chris Shanks: latex error: cannot reproduce, waiting for info on plugins, config
 
 Android:
 
-try:
-<application android:hardwareAccelerated="false" ...>
-reenable javascript
-
-- remove debug info
 -integrated error reporting:
 https://developers.google.com/analytics/devguides/collection/android/v4/exceptions
 http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-button
@@ -67,6 +45,7 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 
 
 Minor bugs / issues:
+-sometimes scheduled counter goes negative? Hard to reproduce...
 -migrate sync server / web server / sync dialog to qt_worker_thread
  infrastructure.
 -strip HTML when doing rlt check?

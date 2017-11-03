@@ -120,7 +120,7 @@ public class MnemosyneThread extends Thread {
                 //        )
                 {
                     //Log.i("Mnemosyne", "Preloading FileName:" + files[i].getName() + " " + files[i].lastModified());
-                    System.load(files[i].getAbsolutePath());
+                    //System.load(files[i].getAbsolutePath());
                 }
             }
         }
@@ -483,7 +483,7 @@ public class MnemosyneThread extends Thread {
 
         final String _activeSet = activeSet;
         activateCardsDialog = dialog;
-        
+
         UIHandler.post(new Runnable() {
             public void run() {
                 Intent activateActivity = new Intent(UIActivity, ActivateCardsActivity.class);
@@ -538,7 +538,7 @@ public class MnemosyneThread extends Thread {
             }
         });
     }
-    
+
     public void setProgressValue(int value) {
         final int _value = value;
         UIHandler.post(new Runnable() {
@@ -552,7 +552,7 @@ public class MnemosyneThread extends Thread {
             }
         });
     }
-    
+
     public void closeProgress() {
         UIHandler.post(new Runnable() {
             public void run() {
@@ -562,5 +562,5 @@ public class MnemosyneThread extends Thread {
             }
         });
     }
-    
+
 }
