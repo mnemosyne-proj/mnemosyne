@@ -7,6 +7,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.add_cards_dlg import AddEditCards
 from mnemosyne.pyqt_ui.ui_edit_card_dlg import Ui_EditCardDlg
+from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import EditCardDialog
 
 
@@ -167,6 +168,17 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
         if self.after_apply_hook:
             self.after_apply_hook()
         return status
+
+    def preview(self):
+        # For previewing exisiting cards we need to pull them from the database,
+        # rather than creating dummy cards from scratch, as we do in
+        # 'Add cards". That way, we are sure we create cards with all the
+        # required extra_data.
+        cards = self.database().cards_from_fact(self.card.fact)
+        tag_text = self.tags.currentText()
+        dlg = PreviewCardsDlg(cards, tag_text,
+            component_manager=self.component_manager, parent=self)
+        dlg.exec_()
 
     def accept(self):
         self._store_state()
