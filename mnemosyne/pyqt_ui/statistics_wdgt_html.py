@@ -12,13 +12,10 @@ from mnemosyne.libmnemosyne.ui_components.statistics_widget import \
 class HtmlStatisticsWdgt(QtWebEngineWidgets.QWebEngineView, StatisticsWidget):
 
     used_for = HtmlStatisticsPage
-  
-    def __init__(self, page, **kwds):
-        super().__init__(**kwds)    
-        self.page = page
 
-    def sizeHint(self):
-        return QtCore.QSize(400, 320)
+    def __init__(self, page, **kwds):
+        super().__init__(**kwds)
+        self.page = page
 
     def show_statistics(self, variant):
         self.setHtml(self.page.html)
