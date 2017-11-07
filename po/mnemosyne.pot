@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-11-03 12:03+0100\n"
+"POT-Creation-Date: 2017-11-07 14:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,14 +64,14 @@ msgstr ""
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:68
 #: ../mnemosyne/example_plugins/pie_chart_statistics.py:31
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:125
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:264
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:287
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:118
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:257
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:280
 msgid "No stats available."
 msgstr ""
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:98
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:196
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:189
 msgid "Days"
 msgstr ""
 
@@ -1025,21 +1025,21 @@ msgstr ""
 msgid "Question: "
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:251
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:254
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:257
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:252
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:255
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:258
 msgid "Show answer"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:261
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:262
 msgid "Learn ahead of schedule"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:280
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:281
 msgid "Pick days until next repetition:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:282
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:283
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:105
 msgid "Grade your answer:"
 msgstr ""
@@ -1162,7 +1162,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:32
 #: ../mnemosyne/libmnemosyne/statistics_pages/easiness.py:11
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:719
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:292
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:285
 msgid "Easiness"
 msgstr ""
 
@@ -1212,7 +1212,7 @@ msgid "Untagged"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/grades.py:11
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:269
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:262
 msgid "Grades"
 msgstr ""
 
@@ -1394,7 +1394,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:182
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:194
 msgid "&No"
 msgstr ""
 
@@ -1403,7 +1403,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:182
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:194
 msgid "&Yes"
 msgstr ""
 
@@ -1657,12 +1657,12 @@ msgstr ""
 msgid "Cards you (de)activate now will not be stored in the previously selected set unless you click 'Save this set for later use' again. This allows you to make some quick-and-dirty modifications."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:99
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:112
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:100
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:113
 msgid "You are not allowed to cancel the merging."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:182
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:194
 msgid "Abandon changes to current card?"
 msgstr ""
 
@@ -1808,28 +1808,28 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:215
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:208
 msgid "Number of cards scheduled"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:227
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:220
 msgid "Retention score (%)"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:239
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:232
 msgid "Number of cards added"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:250
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:243
 msgid "Number of new cards learned"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:268
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:291
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:261
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:284
 msgid "Number of cards"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:271
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:264
 msgid "Not seen"
 msgstr ""
 
