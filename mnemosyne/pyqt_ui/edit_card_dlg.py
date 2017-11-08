@@ -175,6 +175,9 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
         # 'Add cards". That way, we are sure we create cards with all the
         # required extra_data.
         cards = self.database().cards_from_fact(self.card.fact)
+        fact_data = self.card_type_widget.fact_data()
+        for card in cards:
+            card.fact.update(fact_data)
         tag_text = self.tags.currentText()
         dlg = PreviewCardsDlg(cards, tag_text,
             component_manager=self.component_manager, parent=self)

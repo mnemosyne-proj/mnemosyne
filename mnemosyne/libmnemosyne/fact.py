@@ -9,7 +9,7 @@ class Fact(CompareOnId):
 
     """Basic unit of information from which several cards can be derived.
 
-    The fields are stored in a dictionary called 'data', and can be get and 
+    The fields are stored in a dictionary called 'data', and can be get and
     set using the standard dictionary syntax.
 
     'id' is used to identify this object to the external world (logs, xml
@@ -18,7 +18,7 @@ class Fact(CompareOnId):
 
     The keys in data should not contain characters like <, >, &, ..., as they
     are used as unescaped tag names during sync.
-    
+
     When making new card types, it is best to reuse the keys below as much
     as possible, to facilitate conversion between card types:
 
@@ -38,13 +38,16 @@ class Fact(CompareOnId):
             id = rand_uuid()
         self.id = id
         self._id = None
-    
+
     def __getitem__(self, key):
         return self.data[key]
-    
+
     def __setitem__(self, key, value):
         self.data[key] = value
-        
+
     def __contains__(self, key):
         return key in self.data
-        
+
+    def update(self, new_dict):
+        return self.data.update(new_dict)
+

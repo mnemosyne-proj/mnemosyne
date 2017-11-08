@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-11-07 14:45+0100\n"
+"POT-Creation-Date: 2017-11-08 12:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1394,7 +1394,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:194
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:197
 msgid "&No"
 msgstr ""
 
@@ -1403,7 +1403,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:194
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:197
 msgid "&Yes"
 msgstr ""
 
@@ -1662,7 +1662,7 @@ msgstr ""
 msgid "You are not allowed to cancel the merging."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:194
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:197
 msgid "Abandon changes to current card?"
 msgstr ""
 
