@@ -22,6 +22,8 @@ Mnemosyne 2.6
 - Fix cornercase bug in RTL handler (reported by Fonzo99).
 - Upgrade to latest version of libraries (PyQt, Python, Matplolib).
 - Improve keyboard shortcuts (reported by Scott Youngman).
+- Fixes to the behaviour of the Edit dialog of the Card Browser (reported by
+  Scott Youngman).
 - Also save window size when exiting window by pressing escape (reported by
   Scott Youngman).
 - Fix display of map cards when showing Q and A in the same box (reported by
