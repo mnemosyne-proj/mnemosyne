@@ -200,7 +200,7 @@
   </customwidget>
   <customwidget>
    <class>QPushButton2</class>
-   <extends>QWidget</extends>
+   <extends>QPushButton</extends>
    <header>mnemosyne/pyqt_ui/qpushbutton2</header>
   </customwidget>
  </customwidgets>
