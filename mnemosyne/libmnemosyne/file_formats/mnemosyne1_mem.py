@@ -112,8 +112,12 @@ class Mnemosyne1Mem(FileFormat, Mnemosyne1):
                 del item.__dict__[b"lapses"]
                 del item.__dict__[b"acq_reps_since_lapse"]
                 del item.__dict__[b"ret_reps_since_lapse"]
-        except Exception as e:
+        except (FileNotFoundError, PermissionError) as e:
             self.main_widget().show_error(_("Unable to open file."))
+            raise MnemosyneError
+        except Exception as e:
+            import traceback
+            self.main_widget().show_error(traceback.format_exc())
             raise MnemosyneError
 
     def import_logs(self, filename):
