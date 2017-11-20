@@ -34,25 +34,24 @@ class EditMSidedCardTemplateWdgt(QtWidgets.QDialog,
         self.labelc1.setText("↗")
         self.labelc2.setText("↘")
         # Fill templates.
-        self.redrawing = True
         self.front_template.setPlainText(self.fact_view.extra_data["qfmt"])
         self.back_template.setPlainText(self.fact_view.extra_data["afmt"])
         self.css.setPlainText(self.card_type.extra_data["css"])
-        self.redrawing = False
         self.update_preview()
-        # TODO: move to designer?
-        self.front_template.textChanged.connect(self.update_preview)
-        self.css.textChanged.connect(self.update_preview)
-        self.back_template.textChanged.connect(self.update_preview)
 
-    def update_preview(self):
-        if self.redrawing:
-            return
-        print("update_preview")
-        print(self.css.toPlainText())
+    def front_template_changed(self):
+        return self.update_preview(self.front_template)
+
+    def back_template_changed(self):
+        return self.update_preview(self.back_template)
+
+    def css_changed(self):
+        return self.update_preview(self.css)
+
+    def update_preview(self, focus_widget=None):
         fact_data = {}
         for fact_key, name in self.card_type.fact_keys_and_names:
-            fact_data[fact_key] = name
+            fact_data[fact_key] = "(" + name + ")"
         fact = Fact(fact_data)
         fact_view = copy.deepcopy(self.fact_view)
         fact_view.extra_data["qfmt"] = self.front_template.toPlainText()
@@ -65,9 +64,12 @@ class EditMSidedCardTemplateWdgt(QtWidgets.QDialog,
         card.extra_data["ord"] = 0 # TODO: check
         self.front_preview.setHtml(card.question())
         self.back_preview.setHtml(card.answer())
+        # The html widget seems to grab the focus, so we need to restore the
+        # focus to the editor if needed.
+        if focus_widget:
+            focus_widget.setFocus()
 
     def apply(self):
         pass
-        # check if number of cards did not change.
-        # TODO: <br>\n
+        # check if number of cards did not change for cloze
 
