@@ -52,7 +52,7 @@ class DefaultController(Controller):
                 self.log().dump_to_science_log()
             else:
                 self.flush_sync_server()
-                if not self.database().is_loaded() or \
+                if not self.database() or not self.database().is_loaded() or \
                     not self.database().is_accessible():
                     # Make sure we don't continue if e.g. the GUI or another
                     # thread holds the database.
