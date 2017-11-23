@@ -20,9 +20,13 @@ class CloneCardTypeDlg(QtWidgets.QDialog, Component, Ui_CloneCardTypeDlg):
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
         self.sorted_card_types = []
         for card_type in self.database().sorted_card_types():
-            if not card_type.hidden_from_UI:
-                self.sorted_card_types.append(card_type)
-                self.parent_type.addItem(_(card_type.name))
+            if card_type.hidden_from_UI:
+                continue
+            # Cloning M-sided card types is not (yet) supported.
+            if card_type.id.startswith("7"):
+                continue
+            self.sorted_card_types.append(card_type)
+            self.parent_type.addItem(_(card_type.name))
 
     def name_changed(self):
         if not self.name.text():

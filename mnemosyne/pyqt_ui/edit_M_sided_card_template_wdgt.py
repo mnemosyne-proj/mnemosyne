@@ -51,7 +51,11 @@ class EditMSidedCardTemplateWdgt(QtWidgets.QDialog,
     def update_preview(self, focus_widget=None):
         fact_data = {}
         for fact_key, name in self.card_type.fact_keys_and_names:
-            fact_data[fact_key] = "(" + name + ")"
+            if name == "Text" and \
+               "{{cloze:Text}}" in self.front_template.toPlainText():
+                fact_data[fact_key] = "This is a {{c1::sample}} cloze deletion."
+            else:
+                fact_data[fact_key] = "(" + name + ")"
         fact = Fact(fact_data)
         fact_view = copy.deepcopy(self.fact_view)
         fact_view.extra_data["qfmt"] = self.front_template.toPlainText()
@@ -61,7 +65,7 @@ class EditMSidedCardTemplateWdgt(QtWidgets.QDialog,
         card_type.extra_data = copy.copy(self.card_type.extra_data)
         card_type.extra_data["css"] = self.css.toPlainText()
         card = Card(card_type, fact, fact_view)
-        card.extra_data["ord"] = 0 # TODO: check
+        card.extra_data["ord"] = 0
         self.front_preview.setHtml(card.question())
         self.back_preview.setHtml(card.answer())
         # The html widget seems to grab the focus, so we need to restore the
@@ -70,6 +74,9 @@ class EditMSidedCardTemplateWdgt(QtWidgets.QDialog,
             focus_widget.setFocus()
 
     def apply(self):
-        pass
-        # check if number of cards did not change for cloze
+        self.fact_view.extra_data["qfmt"] = self.front_template.toPlainText()
+        self.fact_view.extra_data["afmt"] = self.back_template.toPlainText()
+        self.card_type.extra_data["css"] = self.css.toPlainText()
+        self.database().update_fact_view(self.fact_view)
+        self.database().update_card_type(self.card_type)
 
