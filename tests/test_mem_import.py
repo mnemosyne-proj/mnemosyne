@@ -30,6 +30,8 @@ class Widget(MainWidget):
             return 0
         if message.startswith("Your queue is running empty, "):
             return 0
+        if message.startswith("Note that"):
+            return 0
         raise NotImplementedError
 
     def show_error(self, message):
@@ -61,7 +63,7 @@ class TestMemImport(MnemosyneTest):
         self.mnemosyne.components.insert(0,
            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
-            [("mnemosyne_test", "TestReviewWidget")]        
+            [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.components.append(\
             ("test_mem_import", "Widget"))
         self.mnemosyne.components.append(\
@@ -250,15 +252,15 @@ class TestMemImport(MnemosyneTest):
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 3
-        
+
     def test_media_quotes(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "basedir_media",
                                     "default.mem")
-        self.mem_importer().do_import(filename)        
+        self.mem_importer().do_import(filename)
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 1
-        
+
     def test_sound(self):
         os.mkdir(os.path.join(\
             os.getcwd(), "tests", "files", "soundfiles"))

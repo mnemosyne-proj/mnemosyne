@@ -51,6 +51,10 @@ class AddEditCards(TipAfterStartingNTimes):
         for card_type in db_sorted_card_types:
             if card_type.hidden_from_UI == True:
                 continue
+            # Adding M-sided cards or converting to them is not (yet) supported.
+            if _(card_type.name) != current_card_type_name \
+               and card_type.id.startswith("7"):
+                continue
             if _(card_type.name) == current_card_type_name:
                 self.card_type = card_type
                 self.card_type_index = self.card_types_widget.count()
