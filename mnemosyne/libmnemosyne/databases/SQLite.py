@@ -220,7 +220,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
 
     """
 
-    version = "3"
+    version = "4"
     suffix = ".db"
     store_pregenerated_data = True
 

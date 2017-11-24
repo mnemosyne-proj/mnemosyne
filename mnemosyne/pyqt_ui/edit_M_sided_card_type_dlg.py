@@ -47,7 +47,9 @@ class EditMSidedCardTypeDlg(QtWidgets.QDialog, EditMSidedCardTypeDialog,
 
     def accept(self):
         for index in range(self.tab_widget.count()):
-            self.tab_widget.widget(index).apply()
+            ok = self.tab_widget.widget(index).apply()
+            if not ok:
+                return
         self._store_state()
         return QtWidgets.QDialog.accept(self)
 
