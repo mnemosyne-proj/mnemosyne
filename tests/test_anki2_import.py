@@ -12,20 +12,6 @@ from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.ui_components.dialogs import ImportDialog
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
-last_error = ""
-
-class Widget(MainWidget):
-
-    def show_information(self, message):
-        raise NotImplementedError
-
-    def show_error(self, message):
-        global last_error
-        last_error = message
-        #if message.startswith("Unable to open"):
-        #    return
-        raise NotImplementedError
-
 
 class TestAnkiImport(MnemosyneTest):
 

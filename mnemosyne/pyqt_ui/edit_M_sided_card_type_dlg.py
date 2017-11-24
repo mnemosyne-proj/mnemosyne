@@ -25,7 +25,7 @@ class EditMSidedCardTypeDlg(QtWidgets.QDialog, EditMSidedCardTypeDialog,
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
         self.card_type = card_type
         for fact_view in self.card_type.fact_views:
-            widget = EditMSidedCardTemplateWdgt(\
+            widget = EditMSidedCardTemplateWdgt(card_type, fact_view,
                 component_manager=self.component_manager, parent=self)
             self.tab_widget.addTab(widget, _(fact_view.name))
         self.tab_widget.tabBar().setVisible(self.tab_widget.count() > 1)
@@ -47,11 +47,14 @@ class EditMSidedCardTypeDlg(QtWidgets.QDialog, EditMSidedCardTypeDialog,
 
     def accept(self):
         for index in range(self.tab_widget.count()):
-            self.tab_widget.widget(index).apply()
+            ok = self.tab_widget.widget(index).apply()
+            if not ok:
+                return
         self._store_state()
         return QtWidgets.QDialog.accept(self)
 
     def reject(self):
+        self._store_state()
         for index in range(self.tab_widget.count()):
             if hasattr(self.tab_widget.widget(index), "reject"):
                 self.tab_widget.widget(index).reject()

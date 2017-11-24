@@ -206,9 +206,9 @@ class Client(Partner):
 
     def supports_binary_upload(self):
         return self.capabilities == "mnemosyne_dynamic_cards" and \
-            self.interested_in_old_reps and self.store_pregenerated_data \
-            and self.program_name == self.server_info["program_name"] and \
-            self.program_version == self.server_info["program_version"]
+            self.interested_in_old_reps and self.store_pregenerated_data and \
+            self.program_name == self.server_info["program_name"] and \
+            self.database.version == self.server_info["database_version"]
 
     def resolve_conflicts(self, restored_from_backup=False):
         if restored_from_backup:
@@ -226,9 +226,7 @@ class Client(Partner):
             results = {0: "KEEP_LOCAL", 1: "KEEP_REMOTE", 2: "CANCEL"}
             result = results[result]
         else:
-            message += " " + "Your local client only stores part of the remote server " + \
-                "database or uses a different software version, " + \
-                "so you can only fetch the remote version."
+            message += " " + "Your local client uses a different software version or only stores part of the remote server database, so you can only fetch the remote version."
             result = self.ui.show_question(message,
                 "Fetch remote version", "Cancel", "")
             results = {0: "KEEP_REMOTE", 1: "CANCEL"}

@@ -37,13 +37,6 @@ class PlotStatisticsWdgt(QtWidgets.QWidget, StatisticsWidget):
         from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
         self.vbox_layout = QtWidgets.QVBoxLayout(self)
-        # The idea was to lazily import matplotlib only when we open the
-        # statistics dialog. However, the import statements below can often
-        # take ten times as long as compared to the a static import at the
-        # module level above. This is probably related to disc cache issues.
-        #from matplotlib.figure import Figure
-        #from matplotlib.backends.backend_qt4agg import \
-        #     FigureCanvasQTAgg as FigureCanvas
         colour = self._background_colour(self.parent)
         fig = Figure(facecolor=colour, edgecolor=colour)
         self.canvas = FigureCanvas(fig)

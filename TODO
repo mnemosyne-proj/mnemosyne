@@ -1,21 +1,7 @@
-- Scott Youngman: map not shown in single box QA (issue #9)
+-check only database version
 
-- port card type editor, with restrictions
-- don't allow clones of Anki card types
-- don't allow editing existing cloze so as to create a new card
-- don't allow creating new cloze card, add warning to use Mnemosyne clozes
-  instead
-- try converting of card types
-- card type editor cannot change number of fact views nor number of fields
-- appropriate warning on all limitations on import, also add beta status and
-  invite bug reports
-
-- Q and A align top, no boundaries around content: document how to add CSS to
-  fix this?
-
-- boost database version?
-- update website, import, shared decks
-
+-test Anki cards on Android
+-update website, import, shared decks
 
 Android:
 
@@ -42,6 +28,8 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 
 
 Minor bugs / issues:
+-Anki: Q and A align top, no boundaries around content: document how to add CSS
+ to fix this?
 -sometimes scheduled counter goes negative? Hard to reproduce...
 -migrate sync server / web server / sync dialog to qt_worker_thread
  infrastructure.

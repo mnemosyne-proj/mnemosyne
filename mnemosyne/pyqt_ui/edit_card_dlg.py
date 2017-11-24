@@ -2,11 +2,14 @@
 # edit_card_dlg.py <Peter.Bienstman@UGent.be>
 #
 
+import re
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.add_cards_dlg import AddEditCards
 from mnemosyne.pyqt_ui.ui_edit_card_dlg import Ui_EditCardDlg
+from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import EditCardDialog
 
 
@@ -125,6 +128,23 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
         self.OK_button.setEnabled(valid)
         self.preview_button.setEnabled(valid)
 
+    def number_of_anki_clozes_changed(self):
+        if not self.card.card_type.id.startswith("7"):
+            return False
+        re_cloze = "\{\{c[0-9]+::.*?\}\}"
+        for fact_key in self.card.card_type.fact_keys():
+            if fact_key in self.card_type_widget.fact_data():
+                new_content = self.card_type_widget.fact_data()[fact_key]
+                if fact_key in self.card.fact.data:
+                    previous_content = self.card.fact.data[fact_key]
+                else:
+                    previous_content = ""
+                previous_clozes = re.findall(re_cloze, previous_content)
+                new_clozes = re.findall(re_cloze, new_content)
+                if len(previous_clozes) != len(new_clozes):
+                    return True
+        return False
+
     def is_changed(self):
         if self.previous_card_type_name != \
            self.card_types_widget.currentText():
@@ -134,18 +154,18 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
         changed = False
         for fact_key in self.card.card_type.fact_keys():
             if fact_key in self.card_type_widget.fact_data():
+                new_content = self.card_type_widget.fact_data()[fact_key]
                 if fact_key in self.card.fact.data:
                     previous_content = self.card.fact.data[fact_key]
                 else:
                     previous_content = ""
-                if self.card_type_widget.fact_data()[fact_key] \
-                   != previous_content:
+                if new_content != previous_content:
                     return True
         return False
 
     def apply_changes(self):
-        if self.is_changed() == False:
-            return 0
+        if not self.is_changed():
+            return 0  # OK.
         new_fact_data = self.card_type_widget.fact_data()
         new_tag_names = [tag.strip() for tag in \
             self.tags.currentText().split(',')]
@@ -166,9 +186,31 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
             new_fact_data, new_card_type, new_tag_names, self.correspondence)
         if self.after_apply_hook:
             self.after_apply_hook()
-        return status
+        return status  # 0 for OK.
+
+    def preview(self):
+        if self.number_of_anki_clozes_changed():
+            self.main_widget().show_error(_(\
+    "Changing the number of clozes in Anki cards is currently not supported."))
+            return
+        # For previewing exisiting cards we need to pull them from the database,
+        # rather than creating dummy cards from scratch, as we do in
+        # 'Add cards". That way, we are sure we create cards with all the
+        # required extra_data.
+        cards = self.database().cards_from_fact(self.card.fact)
+        fact_data = self.card_type_widget.fact_data()
+        for card in cards:
+            card.fact.update(fact_data)
+        tag_text = self.tags.currentText()
+        dlg = PreviewCardsDlg(cards, tag_text,
+            component_manager=self.component_manager, parent=self)
+        dlg.exec_()
 
     def accept(self):
+        if self.number_of_anki_clozes_changed():
+            self.main_widget().show_error(_(\
+    "Changing the number of clozes in Anki cards is currently not supported."))
+            return
         self._store_state()
         status = self.apply_changes()
         if status == 0:

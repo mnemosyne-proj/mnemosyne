@@ -6,6 +6,7 @@ import os
 import re
 import json
 import time
+import shutil
 import sqlite3
 import zipfile
 
@@ -52,7 +53,6 @@ class Anki2(FileFormat, MediaPreprocessor):
         MediaPreprocessor.__init__(self, component_manager)
 
     def extract_apkg(self, filename):
-        import shutil  # Crashes on some Android machines at top level.
         # Extract zipfile.
         w = self.main_widget()
         w.set_progress_text(_("Decompressing..."))
@@ -84,7 +84,8 @@ class Anki2(FileFormat, MediaPreprocessor):
         return tmp_dir
 
     def do_import(self, filename, extra_tag_names=""):
-        import shutil  # Crashes on some Android machines at top level.
+        self.main_widget().show_information(_(\
+"Note that while you can edit imported cards, adding new cards to Anki's card types is currently not supported.\n\nAlso, in case you run into problems, don't hesitate to contact the developers."))
         FileFormat.do_import(self, filename, extra_tag_names)
         w = self.main_widget()
         db = self.database()

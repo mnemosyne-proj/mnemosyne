@@ -102,6 +102,11 @@ class PreviewCardsDlg(QtWidgets.QDialog, Component, QAOptimalSplit,
 
     def accept(self):
         # 'accept' does not generate a close event.
-        self._store_state()
         self.review_widget().stop_media()
+        self._store_state()
         return QtWidgets.QDialog.accept(self)
+
+    def reject(self):
+        self.review_widget().stop_media()
+        self._store_state()
+        QtWidgets.QDialog.reject(self)
