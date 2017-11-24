@@ -147,12 +147,12 @@ make test
 ```
 or:
 ```
-nosetests tests
+python3 -m nose tests
 ```
 
 Single tests can be run like this:
 ```
-nosetests tests/<file_name>.py:<class_name>:<method_name>
+python3 -m nose tests/<file_name>.py:<class_name>:<method_name>
 ```
 
 Nose captures `stdout` by default.
@@ -160,7 +160,7 @@ Use the `-s` switch if you want to print output during the test run.
 
 You can increase the verbosity level with the `-v` switch.
 
-Add --pdb to the command line to automatically drop into the debugger on errors and failures.
+Add `--pdb` to the command line to automatically drop into the debugger on errors and failures.
 If you want to drop into the debugger before a failure, edit the test and add the following code at the exact spot where you want the debugger to be started:
 ```
 from nose.tools import set_trace; set_trace()
@@ -177,7 +177,7 @@ Then, run the following command from within the top-level directory of the repos
 sudo python setup.py install
 ```
 
-To test the installation, change to any other directory and run `menmosyne`.
+To test the installation, change to any other directory and run `mnemosyne`.
 For example:
 ```
 cd ~

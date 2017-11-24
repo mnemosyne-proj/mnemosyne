@@ -271,7 +271,8 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         self.setupUi(self)
         QAOptimalSplit.setup(self)
 
-        # TODO: move this to designer with update of PyQt.
+        # TODO: Move this to designer, once QButtonGroup elements can be set
+        # to custom ID from designer.
         self.grade_buttons = QtWidgets.QButtonGroup()
         self.grade_buttons.addButton(self.grade_0_button, 0)
         self.grade_buttons.addButton(self.grade_1_button, 1)

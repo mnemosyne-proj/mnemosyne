@@ -4,6 +4,7 @@
 
 import os
 import shutil
+from unittest import mock
 from nose.tools import raises
 
 from mnemosyne_test import MnemosyneTest
@@ -41,7 +42,10 @@ class Widget(MainWidget):
             return
         if message.startswith("Unable to open"):
             return
-        raise NotImplementedError
+        if message.strip().endswith("IndexError: Mocked Error"):
+            return
+        print(message)
+        raise Exception("Unexpected error.")
 
 
 class MyImportDialog(ImportDialog):
@@ -76,10 +80,17 @@ class TestMemImport(MnemosyneTest):
             if format.__class__.__name__ == "Mnemosyne1Mem":
                 return format
 
-    def test_file_not_found(self):
+    @mock.patch("mnemosyne.libmnemosyne.file_formats.mnemosyne1_mem.open",
+                mock.Mock(side_effect=[FileNotFoundError,
+                                       IndexError("Mocked Error")]))
+    def test_exceptions(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "nothere.mem")
         self.mem_importer().do_import(filename)
         assert last_error.startswith("Unable to open")
+
+        self.mem_importer().do_import("name_does_not_matter")
+        assert last_error.strip().endswith("IndexError: Mocked Error")
+
 
     def test_card_type_1(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "1sided.mem")
