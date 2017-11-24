@@ -9,6 +9,7 @@ from PyQt5 import QtCore, QtWidgets
 
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.fact import Fact
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.ui_edit_M_sided_card_template_wdgt import \
      Ui_EditMSidedCardTemplateWdgt
 from mnemosyne.libmnemosyne.ui_components.dialogs import \
@@ -74,9 +75,19 @@ class EditMSidedCardTemplateWdgt(QtWidgets.QDialog,
             focus_widget.setFocus()
 
     def apply(self):
+        # Check that the user didn't change the number of clozes.
+        if self.fact_view.extra_data["qfmt"].count("{{cloze:Text}}") != \
+           self.front_template.toPlainText().count("{{cloze:Text}}") or \
+           self.fact_view.extra_data["afmt"].count("{{cloze:Text}}") != \
+           self.back_template.toPlainText().count("{{cloze:Text}}"):
+            self.main_widget().show_error(_(\
+    "Changing the number of clozes in Anki cards is currently not supported."))
+            return False
+        # Apply changes.
         self.fact_view.extra_data["qfmt"] = self.front_template.toPlainText()
         self.fact_view.extra_data["afmt"] = self.back_template.toPlainText()
         self.card_type.extra_data["css"] = self.css.toPlainText()
         self.database().update_fact_view(self.fact_view)
         self.database().update_card_type(self.card_type)
+        return True
 

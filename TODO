@@ -1,12 +1,7 @@
--don't allow editing existing cloze so as to create a new card, both in
- edit card and in edit card stype
+-check only database version
 
--boost database version
+-test Anki cards on Android
 -update website, import, shared decks
-
--Q and A align top, no boundaries around content: document how to add CSS to
-  fix this?
-
 
 Android:
 
@@ -33,6 +28,8 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 
 
 Minor bugs / issues:
+-Anki: Q and A align top, no boundaries around content: document how to add CSS
+ to fix this?
 -sometimes scheduled counter goes negative? Hard to reproduce...
 -migrate sync server / web server / sync dialog to qt_worker_thread
  infrastructure.

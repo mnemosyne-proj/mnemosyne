@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-11-10 13:18+0100\n"
+"POT-Creation-Date: 2017-11-24 17:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -677,11 +677,11 @@ msgstr ""
 msgid "Putting a database on a network drive is forbidden under Windows to avoid data corruption. Mnemosyne will now close."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:44
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:45
 msgid "Anki2 collections"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:46
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:47
 msgid "Anki2 collections (*.anki2 *.apkg)"
 msgstr ""
 
@@ -694,23 +694,30 @@ msgstr ""
 msgid "Processing media files..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:101
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:87
+msgid ""
+"Note that while you can edit imported cards, adding new cards to Anki's card types is currently not supported.\n"
+"\n"
+"Also, in case you run into problems, don't hesitate to contact the developers."
+msgstr ""
+
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:102
 msgid "Copying media files..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:111
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:112
 msgid "Importing card types..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:214
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:215
 msgid "Importing notes..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:264
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:265
 msgid "Importing logs..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:290
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:291
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:42
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:31
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:37
@@ -765,15 +772,15 @@ msgstr ""
 msgid "Unable to open file."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:122
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:126
 msgid "Importing history..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:126
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:130
 msgid "No history found to import."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:156
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:160
 msgid "Ignoring unparsable files:<br/>"
 msgstr ""
 
@@ -871,8 +878,8 @@ msgstr ""
 msgid "Badly formed input on line"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/filters/latex.py:115
-#: ../mnemosyne/libmnemosyne/filters/latex.py:195
+#: ../mnemosyne/libmnemosyne/filters/latex.py:117
+#: ../mnemosyne/libmnemosyne/filters/latex.py:198
 msgid "Problem with latex. Are latex and dvipng installed?"
 msgstr ""
 
@@ -1040,7 +1047,7 @@ msgid "Pick days until next repetition:"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:283
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:105
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:107
 msgid "Grade your answer:"
 msgstr ""
 
@@ -1385,25 +1392,25 @@ msgstr ""
 msgid "If you use 'Edit cards', changes are made to all the sister cards simultaneously."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:285
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:289
 msgid "Abandon current card?"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:285
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:289
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:243
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:197
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:224
 msgid "&No"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:285
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:289
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:243
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:197
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:224
 msgid "&Yes"
 msgstr ""
 
@@ -1657,12 +1664,18 @@ msgstr ""
 msgid "Cards you (de)activate now will not be stored in the previously selected set unless you click 'Save this set for later use' again. This allows you to make some quick-and-dirty modifications."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:100
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:113
+#: ../mnemosyne/pyqt_ui/edit_M_sided_card_template_wdgt.py:83
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:193
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:211
+msgid "Changing the number of clozes in Anki cards is currently not supported."
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:102
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:115
 msgid "You are not allowed to cancel the merging."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:197
+#: ../mnemosyne/pyqt_ui/edit_card_dlg.py:224
 msgid "Abandon changes to current card?"
 msgstr ""
 
@@ -1770,15 +1783,15 @@ msgstr ""
 msgid "&Hide pronunciation field for this card type"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:486
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:487
 msgid "Scheduled: %d "
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:487
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:488
 msgid "Not memorised: %d "
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:488
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:489
 msgid "Active: %d "
 msgstr ""
 
@@ -2746,12 +2759,12 @@ msgid "Preview cards"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:92
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:102
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:104
 msgid "Question:"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:93
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:103
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:105
 #: ../mnemosyne/web_server/review_wdgt.py:32
 msgid "Answer:"
 msgstr ""
@@ -2788,31 +2801,31 @@ msgstr ""
 msgid "Enter new tag name:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:104
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:106
 msgid "Show &answer"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:106
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:108
 msgid "0"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:107
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:109
 msgid "1"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:108
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:110
 msgid "2"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:109
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:111
 msgid "3"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:110
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:112
 msgid "4"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:111
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:113
 msgid "5"
 msgstr ""
 

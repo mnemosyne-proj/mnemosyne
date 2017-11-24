@@ -90,6 +90,8 @@ class Latex(Filter):
         try:
             with open(out_file, "wb") as f:
                 sp.check_call(cmd, stdout=f, stderr=sp.STDOUT, timeout=60)
+        except PermissionError:
+            print("Permission denied.")
         except FileNotFoundError:
             print("Could not find executable: `%s`" % " ".join(cmd))
         except sp.TimeoutExpired:
@@ -156,7 +158,8 @@ class CheckForUpdatedLatexFiles(Hook):
             p = sp.check_output(self.config()["latex"] + ["-version"],
                                 stderr=sp.STDOUT, timeout=5)
             return True
-        except (sp.TimeoutExpired, sp.CalledProcessError, FileNotFoundError):
+        except (sp.TimeoutExpired, sp.CalledProcessError, FileNotFoundError,
+                PermissionError):
             return False
 
     def run(self, data):

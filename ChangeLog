@@ -13,14 +13,14 @@ Additionally, if you see a black screen, start Mnemosyne with the
 Mnemosyne 2.6
 
 - Import of Anki databases (both *.anki2 and *.apgk) as well as
-  possibility to edit these M-sided card types. (Though not yet in a way
-  that would change the number of cards per fact.)
+  possibility to edit these M-sided card types (though not yet in a way
+  that would change the number of sister cards).
 - Fix display of question in the card browser in case you configured
   Mnemosyne to show question and answer in the same window.
 - Fix bugs with increase of non-latin fonts (reported by JDD annd Scott
   Youngman).
 - Fix cornercase bug in RTL handler (reported by Fonzo99).
-- Upgrade to latest version of libraries (PyQt, Python, Matplolib).
+- Upgrade to latest version of libraries (PyQt, Python, Matplotlib).
 - Improve keyboard shortcuts (reported by Scott Youngman).
 - Fixes to the behaviour of the Edit dialog of the Card Browser (reported by
   Scott Youngman).
