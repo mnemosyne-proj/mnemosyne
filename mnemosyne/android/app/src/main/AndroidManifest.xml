@@ -33,7 +33,7 @@
             android:configChanges="orientation"
             >          
         </activity>
-        
+
         <activity
             android:label="(De)activate cards"
             android:name="ActivateCardsActivity" 

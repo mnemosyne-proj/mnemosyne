@@ -234,8 +234,9 @@ class Client(Partner):
         # Keep remote. Reset the partnerships afterwards, such that syncing
         # with a third party will also trigger a full sync.
         if result == "KEEP_REMOTE":
-            self.get_server_media_files(redownload_all=True)
-            self.get_server_archive_files()
+            # TMP!!!!
+            #self.get_server_media_files(redownload_all=True)
+            #self.get_server_archive_files()
             if self.server_info["supports_binary_transfer"]:
                 self.get_server_entire_database_binary()
             else:
@@ -244,8 +245,8 @@ class Client(Partner):
             self.get_sync_finish()
         # Keep local.
         elif result == "KEEP_LOCAL":
-            self.put_client_media_files(reupload_all=True)
-            self.put_client_archive_files()
+            #self.put_client_media_files(reupload_all=True)
+            #self.put_client_archive_files()
             self.put_client_entire_database_binary()
             self.get_sync_finish()
         # Cancel.
@@ -338,9 +339,6 @@ class Client(Partner):
         if self.server_info["database_version"] != client_info["database_version"]:
             raise SyncError("Error: database version mismatch.\n" + \
                 "Make sure you are running the latest Mnemosyne version on both devices involved in the sync.")
-        #if self.server_info["program_version"] != client_info["program_version"]:
-        #    raise SyncError("Error: Mnemosyne version mismatch.\n" + \
-        #        "Make sure you are running the latest Mnemosyne version on both devices involved in the sync.")
         self.database.create_if_needed_partnership_with(\
             self.server_info["machine_id"])
         self.database.merge_partners(self.server_info["partners"])

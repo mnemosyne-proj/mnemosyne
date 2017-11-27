@@ -73,6 +73,8 @@ mnemosyne.components = [\
           "ClozePlugin"),
          ("mnemosyne.libmnemosyne.card_types.sentence",
           "SentencePlugin"),
+         ("mnemosyne.libmnemosyne.card_types.M_sided",
+          "MSided"),
          ("mnemosyne.libmnemosyne.criteria.default_criterion",
           "DefaultCriterion"),
          ("mnemosyne.libmnemosyne.databases.SQLite_criterion_applier",

@@ -227,6 +227,7 @@ class Anki2(FileFormat, MediaPreprocessor):
             # flags: seems empty, ignore.
             # data: seems empty, ignore.
             guid = xml_escape(guid)  # Make compatible with openSM2sync.
+            guid = guid.replace("`", "").replace("\"", "")
             modification_time_for_nid[id] = mod
             card_type = card_type_for_mid[int(mid)]
             card_type_for_nid[id] = card_type

@@ -122,7 +122,6 @@ To start working on Mnemosyne, you need at least the following software.
 - [cheroot](https://pypi.python.org/pypi/Cheroot/) 5 or later
 - [Webob](http://webob.org) 1.4 or later
 - [pillow](http://python-pillow.org)
-- [Decorator](https://pypi.python.org/pypi/decorator)
 - For Latex support: the `latex` and `dvipng` commands must be available (e.g., `TeXLive` on Linux, `MacTeX` on Mac, and `MikTeX` on Windows).
 - For building the docs: [sphinx](http://sphinx-doc.org)
 - For running the tests: [nose](https://nose.readthedocs.io/en/latest/)

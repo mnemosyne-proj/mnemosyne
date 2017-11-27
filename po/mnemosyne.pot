@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-11-24 17:19+0100\n"
+"POT-Creation-Date: 2017-11-27 13:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -608,7 +608,7 @@ msgid "Missing plugin for card type with id:"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1157
-msgid "Make new card type active in saved set '%s'?"
+msgid "Make new card type '%s' active in saved set '%s'?"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1400
@@ -713,11 +713,11 @@ msgstr ""
 msgid "Importing notes..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:265
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:266
 msgid "Importing logs..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:291
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:292
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:42
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:31
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:37

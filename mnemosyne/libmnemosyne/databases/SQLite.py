@@ -1154,8 +1154,8 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             criteria_to_activate_card_type_in = [current_criterion]
         else:
             answer = self.main_widget().show_question(\
-                _("Make new card type active in saved set '%s'?") % \
-                (saved_criterion.name,), _("Yes"), _("No"), "")
+                _("Make new card type '%s' active in saved set '%s'?") % \
+                (card_type.name, saved_criterion.name), _("Yes"), _("No"), "")
             if answer == 1:  # No.
                 criteria_to_activate_card_type_in = []
             else:

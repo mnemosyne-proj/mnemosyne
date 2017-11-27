@@ -84,6 +84,7 @@ hiddenimports = [
              'mnemosyne.libmnemosyne.renderers.html_css_card_browser',
              'mnemosyne.libmnemosyne.renderers.plain_text',
              'mnemosyne.libmnemosyne.renderers.anki_renderer',
+             'mnemosyne.libmnemosyne.renderers.anki.decorator',
              'mnemosyne.libmnemosyne.renderers.anki.hooks',
              'mnemosyne.libmnemosyne.renderers.anki.lang',
              'mnemosyne.libmnemosyne.renderers.anki.utils',
@@ -200,6 +201,7 @@ if sys.platform == "darwin":
 datas.append(('mnemosyne\\libmnemosyne\\renderers\\anki\\hooks.py', 'anki'))
 datas.append(('mnemosyne\\libmnemosyne\\renderers\\anki\\lang.py', 'anki'))
 datas.append(('mnemosyne\\libmnemosyne\\renderers\\anki\\utils.py', 'anki'))
+datas.append(('mnemosyne\\libmnemosyne\\renderers\\anki\\decorator.py', 'anki'))
 datas.append(('mnemosyne\\libmnemosyne\\renderers\\anki\\__init__.py', 'anki'))
 datas.append(('mnemosyne\\libmnemosyne\\renderers\\anki\\template\\furigana.py',
              'anki\\template'))
