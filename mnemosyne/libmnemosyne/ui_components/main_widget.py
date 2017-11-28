@@ -104,3 +104,19 @@ class MainWidget(UiComponent):
 
     def enable_browse_cards(self, is_enabled):
         pass
+
+    # Moved here from default_controller.py to simplify the multithreaded
+    # implementation.
+    def show_export_metadata_dialog(self, metadata=None, read_only=False):
+        self.stopwatch().pause()
+        self.flush_sync_server()
+        dialog = self.component_manager.current("export_metadata_dialog")\
+            (component_manager=self.component_manager)
+        if metadata:
+            dialog.set_values(metadata)
+        if read_only:
+            dialog.set_read_only()
+        dialog.activate()
+        self.stopwatch().unpause()
+        return dialog.values()
+

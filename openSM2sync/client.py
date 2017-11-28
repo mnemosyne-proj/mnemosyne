@@ -234,9 +234,8 @@ class Client(Partner):
         # Keep remote. Reset the partnerships afterwards, such that syncing
         # with a third party will also trigger a full sync.
         if result == "KEEP_REMOTE":
-            # TMP!!!!
-            #self.get_server_media_files(redownload_all=True)
-            #self.get_server_archive_files()
+            self.get_server_media_files(redownload_all=True)
+            self.get_server_archive_files()
             if self.server_info["supports_binary_transfer"]:
                 self.get_server_entire_database_binary()
             else:
@@ -245,8 +244,8 @@ class Client(Partner):
             self.get_sync_finish()
         # Keep local.
         elif result == "KEEP_LOCAL":
-            #self.put_client_media_files(reupload_all=True)
-            #self.put_client_archive_files()
+            self.put_client_media_files(reupload_all=True)
+            self.put_client_archive_files()
             self.put_client_entire_database_binary()
             self.get_sync_finish()
         # Cancel.

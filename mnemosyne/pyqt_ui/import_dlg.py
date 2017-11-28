@@ -12,7 +12,23 @@ from mnemosyne.pyqt_ui.ui_import_dlg import Ui_ImportDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import ImportDialog
 
 
+answer = None
+mutex = QtCore.QMutex()
+dialog_closed = QtCore.QWaitCondition()
+
+
 class ImportThread(QtWorkerThread):
+
+    show_export_metadata_signal = QtCore.pyqtSignal(dict, bool)
+
+    def show_export_metadata_dialog(self, metadata, read_only=True):
+        global answer
+        mutex.lock()
+        answer = None
+        self.show_export_metadata_signal.emit(metadata, read_only)
+        if not answer:
+            dialog_closed.wait(mutex)
+        mutex.unlock()
 
     def __init__(self, filename, format, extra_tag_names, **kwds):
         super().__init__(**kwds)
@@ -89,9 +105,19 @@ class ImportDlg(QtWidgets.QDialog, QtGuiThread, ImportDialog, Ui_ImportDlg):
                 extra_tag_names = ""
             self.worker_thread = ImportThread(filename,
                 self.format(), extra_tag_names, mnemosyne=self)
+            self.worker_thread.show_export_metadata_signal.connect(\
+                self.threaded_show_export_metadata)
             self.run_worker_thread()
         else:
             self.main_widget().show_error(_("File does not exist."))
+
+    def threaded_show_export_metadata(self, metadata, read_only):
+        global answer
+        mutex.lock()
+        self.true_main_widget.show_export_metadata_dialog(metadata, read_only)
+        answer = True
+        dialog_closed.wakeAll()
+        mutex.unlock()
 
     def work_ended(self):
         self.main_widget().close_progress()
