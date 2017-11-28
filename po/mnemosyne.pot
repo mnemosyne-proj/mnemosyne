@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-11-24 17:19+0100\n"
+"POT-Creation-Date: 2017-11-28 15:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -558,11 +558,11 @@ msgstr ""
 msgid "No plugin found!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:1048
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:1035
 msgid "For instructions on how to download Mnemosyne's source,"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:1049
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:1036
 msgid "go to http://www.mnemosyne-proj.org"
 msgstr ""
 
@@ -608,7 +608,7 @@ msgid "Missing plugin for card type with id:"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1157
-msgid "Make new card type active in saved set '%s'?"
+msgid "Make new card type '%s' active in saved set '%s'?"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1400
@@ -677,39 +677,39 @@ msgstr ""
 msgid "Putting a database on a network drive is forbidden under Windows to avoid data corruption. Mnemosyne will now close."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:45
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:43
 msgid "Anki2 collections"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:47
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:45
 msgid "Anki2 collections (*.anki2 *.apkg)"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:58
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:56
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:205
 msgid "Decompressing..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:68
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:66
 msgid "Processing media files..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:87
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:85
 msgid ""
 "Note that while you can edit imported cards, adding new cards to Anki's card types is currently not supported.\n"
 "\n"
 "Also, in case you run into problems, don't hesitate to contact the developers."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:102
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:100
 msgid "Copying media files..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:112
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:110
 msgid "Importing card types..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:215
+#: ../mnemosyne/libmnemosyne/file_formats/anki2.py:213
 msgid "Importing notes..."
 msgstr ""
 
@@ -901,7 +901,8 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/logger.py:201
 #: ../mnemosyne/pyqt_ui/compact_database_dlg.py:79
-#: ../mnemosyne/pyqt_ui/export_dlg.py:63 ../mnemosyne/pyqt_ui/import_dlg.py:98
+#: ../mnemosyne/pyqt_ui/export_dlg.py:63
+#: ../mnemosyne/pyqt_ui/import_dlg.py:124
 msgid "Done!"
 msgstr ""
 
@@ -1683,7 +1684,7 @@ msgstr ""
 msgid "Import cards"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/import_dlg.py:94
+#: ../mnemosyne/pyqt_ui/import_dlg.py:112
 msgid "File does not exist."
 msgstr ""
 

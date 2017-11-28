@@ -970,19 +970,6 @@ _("This will tag all the cards in a given card type which have the same question
             (component_manager=self.component_manager).activate()
         self.stopwatch().unpause()
 
-    def show_export_metadata_dialog(self, metadata=None, read_only=False):
-        self.stopwatch().pause()
-        self.flush_sync_server()
-        dialog = self.component_manager.current("export_metadata_dialog")\
-            (component_manager=self.component_manager)
-        if metadata:
-            dialog.set_values(metadata)
-        if read_only:
-            dialog.set_read_only()
-        dialog.activate()
-        self.stopwatch().unpause()
-        return dialog.values()
-
     def show_sync_dialog(self):
         self.show_sync_dialog_pre()
         self.show_sync_dialog_post()

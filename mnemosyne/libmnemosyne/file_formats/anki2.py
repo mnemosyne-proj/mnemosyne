@@ -10,8 +10,6 @@ import shutil
 import sqlite3
 import zipfile
 
-from xml.sax.saxutils import escape as xml_escape
-
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.translator import _
@@ -226,7 +224,9 @@ class Anki2(FileFormat, MediaPreprocessor):
             # csum: checksum, ignore.
             # flags: seems empty, ignore.
             # data: seems empty, ignore.
-            guid = xml_escape(guid)  # Make compatible with openSM2sync.
+            # Make compatible with openSM2sync:
+            guid = guid.replace("`", "ap").replace("\"", "qu")
+            guid = guid.replace("&", "am").replace("<", "lt").replace(">", "gt")
             modification_time_for_nid[id] = mod
             card_type = card_type_for_mid[int(mid)]
             card_type_for_nid[id] = card_type
