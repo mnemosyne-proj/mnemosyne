@@ -198,21 +198,21 @@ if sys.platform == "darwin":
              hiddenimports.append('PyQt5.QtWebEngineWidgets')
              binaries.append(('/usr/local/bin/mplayer', '.'))
 
-datas.append(('mnemosyne\\libmnemosyne\\renderers\\anki\\hooks.py', 'anki'))
-datas.append(('mnemosyne\\libmnemosyne\\renderers\\anki\\lang.py', 'anki'))
-datas.append(('mnemosyne\\libmnemosyne\\renderers\\anki\\utils.py', 'anki'))
-datas.append(('mnemosyne\\libmnemosyne\\renderers\\anki\\decorator.py', 'anki'))
-datas.append(('mnemosyne\\libmnemosyne\\renderers\\anki\\__init__.py', 'anki'))
-datas.append(('mnemosyne\\libmnemosyne\\renderers\\anki\\template\\furigana.py',
-             'anki\\template'))
-datas.append(('mnemosyne\\libmnemosyne\\renderers\\anki\\template\\hint.py',
-             'anki\\template'))
-datas.append(('mnemosyne\\libmnemosyne\\renderers\\anki\\template\\template.py',
-             'anki\\template'))
-datas.append(('mnemosyne\\libmnemosyne\\renderers\\anki\\template\\view.py',
-             'anki\\template'))
-datas.append(('mnemosyne\\libmnemosyne\\renderers\\anki\\template\\__init__.py',
-             'anki\\template'))
+datas.append((os.path.join('mnemosyne', 'libmnemosyne', 'renderers', 'anki', 'hooks.py'), 'anki'))
+datas.append((os.path.join('mnemosyne', 'libmnemosyne', 'renderers', 'anki', 'lang.py'), 'anki'))
+datas.append((os.path.join('mnemosyne', 'libmnemosyne', 'renderers', 'anki', 'utils.py'), 'anki'))
+datas.append((os.path.join('mnemosyne', 'libmnemosyne', 'renderers', 'anki', 'decorator.py'), 'anki'))
+datas.append((os.path.join('mnemosyne', 'libmnemosyne', 'renderers', 'anki', '__init__.py'), 'anki'))
+datas.append((os.path.join('mnemosyne', 'libmnemosyne', 'renderers', 'anki', 'template', 'furigana.py'),
+             os.path.join('anki', 'template')))
+datas.append((os.path.join('mnemosyne', 'libmnemosyne', 'renderers', 'anki', 'template', 'hint.py'),
+             os.path.join('anki', 'template')))
+datas.append((os.path.join('mnemosyne', 'libmnemosyne', 'renderers', 'anki', 'template', 'template.py'),
+             os.path.join('anki', 'template')))
+datas.append((os.path.join('mnemosyne', 'libmnemosyne', 'renderers', 'anki', 'template', 'view.py'),
+             os.path.join('anki', 'template')))
+datas.append((os.path.join('mnemosyne', 'libmnemosyne', 'renderers', 'anki', 'template', '__init__.py'),
+             os.path.join('anki', 'template')))
 
 a = Analysis([os.path.join('mnemosyne', 'pyqt_ui', 'mnemosyne')],
              pathex=[os.getcwd()],

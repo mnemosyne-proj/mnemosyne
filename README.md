@@ -197,12 +197,12 @@ matplotlib.
 brew update
 ```
 
-- Patch the python3 formula so you'll get python 3.5 and not a later version (pyinstaller still requires python 3.5):
+- Patch the python3 formula so you'll get python 3.6 and not a later version (pyinstaller still requires python 3.6):
 
 ```
 brew uninstall python3
 brew edit python3
-# replace the file with the contents of https://raw.githubusercontent.com/Homebrew/homebrew-core/1e62c645b2fc2d82042d9f7c364c6a246f2e11ed/Formula/python3.rb and save it
+# replace the file with the contents of https://raw.githubusercontent.com/Homebrew/homebrew-core/e76ed3606c8008d2b8d9636a7e4e6f62cfeb6120/Formula/python3.rb and save it
 brew install python3
 brew pin python3
 ```
@@ -213,19 +213,21 @@ brew install qt@5.7 mplayer
 pip3 install virtualenv
 virtualenv --python=python3 venv
 source venv/bin/activate
-pip3 install webob tornado matplotlib numpy sip pillow cheroot pyqt5 pyinstaller
+pip3 install webob tornado matplotlib numpy sip pillow cheroot decorator pyqt5==5.7.1 pyinstaller
 ```
+
  - Build it:
 ```
 export PYTHON=python3
 export QT5DIR=/usr/local/opt/qt@5.7 # help pyinstaller find the qt5 path
 make clean
-make osx
+make macos
 ```
 
  - Test the new application (back up your data directory first!):
+
 ```
-     open dist/Mnemosyne.app
+open dist/Mnemosyne.app
 ```
 
  - Optionally drag and drop this new app to /Applications
