@@ -79,7 +79,6 @@ hiddenimports = [
              'mnemosyne.libmnemosyne.filters.non_latin_font_size_increase',
              'mnemosyne.libmnemosyne.filters.RTL_handler',
              'mnemosyne.libmnemosyne.loggers.database_logger',
-             'mnemosyne.libmnemosyne.plugins.cramming_plugin',
              'mnemosyne.libmnemosyne.renderers.html_css',
              'mnemosyne.libmnemosyne.renderers.html_css_card_browser',
              'mnemosyne.libmnemosyne.renderers.plain_text',
@@ -118,13 +117,11 @@ hiddenimports = [
              'mnemosyne.libmnemosyne.ui_components.configuration_widget',
              'mnemosyne.libmnemosyne.ui_components.criterion_widget',
              'mnemosyne.libmnemosyne.ui_components.dialogs',
-             'mnemosyne.libmnemosyne.ui_components.headless_review_widget',
              'mnemosyne.libmnemosyne.ui_components.main_widget',
              'mnemosyne.libmnemosyne.ui_components.review_widget',
              'mnemosyne.libmnemosyne.ui_components.statistics_widget',
              'mnemosyne.libmnemosyne.upgrades.upgrade1',
              'mnemosyne.libmnemosyne.upgrades.upgrade2',
-             'mnemosyne.libmnemosyne.upgrades.upgrade3',
              'mnemosyne.pyqt_ui.about_dlg',
              'mnemosyne.pyqt_ui.activate_cards_dlg',
              'mnemosyne.pyqt_ui.add_cards_dlg',
@@ -185,8 +182,7 @@ hiddenimports = [
              'mnemosyne.web_server.simple_html5_audio',
              'mnemosyne.web_server.web_server',
              'mnemosyne.web_server.web_server_renderer',
-             'mnemosyne.web_server.web_server_render_chain',
-             'cherrypy.wsgiserver.wsgiserver3'
+             'mnemosyne.web_server.web_server_render_chain'
 ]
 
 if sys.platform == "win32":

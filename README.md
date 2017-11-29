@@ -98,7 +98,9 @@ git rebase master
 
 Follow the instructions (`git status` gives additional information).
 Once you've successfully rebased your branch, push it to your Github account:
+```
 git push origin <branch name>
+```
 
 To create a pull request for your changes, go to the Mnemosyne project page on Github and click on the pull request tab.
 Click on 'New pull request' and follow the instructions.
@@ -213,7 +215,7 @@ brew install qt@5.7 mplayer
 pip3 install virtualenv
 virtualenv --python=python3 venv
 source venv/bin/activate
-pip3 install webob tornado matplotlib numpy sip pillow cheroot decorator pyqt5==5.7.1 pyinstaller
+pip3 install webob tornado matplotlib numpy sip pillow cheroot pyqt5==5.7.1 pyinstaller
 ```
 
  - Build it:
