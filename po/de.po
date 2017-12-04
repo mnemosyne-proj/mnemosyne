@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: mnemosyne-proj\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-11-28 15:47+0100\n"
-"PO-Revision-Date: 2017-12-02 02:00+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2017-12-02 18:57+0000\n"
+"Last-Translator: Julian Mehne <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-12-02 05:36+0000\n"
+"X-Launchpad-Export-Date: 2017-12-03 05:37+0000\n"
 "X-Generator: Launchpad (build 18511)\n"
 
 #: ../mnemosyne/cle/database_maintenance.py:14
@@ -130,6 +130,9 @@ msgid ""
 "If you are using a USB key, refer to the instructions on the website so as "
 "not to be affected by drive letter changes."
 msgstr ""
+"Falls die Mnemosyne-Daten auf einem Wechseldatenträger (z.B. USB-Stick) "
+"liegen, ist auf der Webseite erklärt, wie mit wechselnden "
+"Laufwerksbuchstaben umzugehen ist."
 
 #: ../mnemosyne/libmnemosyne/card_types/M_sided.py:20
 msgid "M-sided"
@@ -701,7 +704,7 @@ msgstr "Fehlendes Plugin für den Kartentyp mit der ID:"
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1157
 msgid "Make new card type '%s' active in saved set '%s'?"
-msgstr ""
+msgstr "Aktiviere neuen Kartentyp '%s' in gespeichertem Kartendeck '%s'?"
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1400
 msgid "No duplicates found."
@@ -814,6 +817,9 @@ msgid ""
 "Also, in case you run into problems, don't hesitate to contact the "
 "developers."
 msgstr ""
+"Bitte beachten: importierte Karteikarten können bearbeitet werden, jedoch "
+"ist es derzeit nicht möglich neue Karteikarten als Anki-Karteikarten "
+"hinzuzufügen."
 
 #: ../mnemosyne/libmnemosyne/file_formats/anki2.py:100
 msgid "Copying media files..."
@@ -1438,11 +1444,11 @@ msgstr "Letztes Jahr (alle Karten)"
 #: ../mnemosyne/libmnemosyne/study_modes/cram_all.py:15
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:245
 msgid "Cram all cards"
-msgstr ""
+msgstr "Pauke alle Karteikarten"
 
 #: ../mnemosyne/libmnemosyne/study_modes/cram_recent.py:15
 msgid "Cram recently learned new cards"
-msgstr ""
+msgstr "Pauke kürzlich gelernte Karteikarten"
 
 #: ../mnemosyne/libmnemosyne/study_modes/new_only.py:16
 msgid "Study new unlearned cards only"
@@ -1513,6 +1519,8 @@ msgid ""
 "Double-click on the name of a saved set to quickly activate it and close the "
 "dialog."
 msgstr ""
+"Ein Doppel-Klick auf den Namen eines gespeicherten Sets  erlaubt dessen "
+"schnelle Aktivierung und schließt das Fenster."
 
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:21
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:137
@@ -1931,6 +1939,8 @@ msgstr ""
 msgid ""
 "Changing the number of clozes in Anki cards is currently not supported."
 msgstr ""
+"Das Ändern der Anzahl der Lückentexte in Anki-Karteikarten wird noch nicht "
+"unterstützt."
 
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:102
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:115
