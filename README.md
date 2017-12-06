@@ -232,4 +232,4 @@ make macos
 open dist/Mnemosyne.app
 ```
 
- - Optionally drag and drop this new app to /Applications
+ - Optionally drag and drop this new app to /Applications.
