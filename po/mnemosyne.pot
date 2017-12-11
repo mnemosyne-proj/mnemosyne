@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-12-04 16:18+0100\n"
+"POT-Creation-Date: 2017-12-11 10:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1398,7 +1398,7 @@ msgid "Abandon current card?"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:289
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:243
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:245
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
@@ -1407,7 +1407,7 @@ msgid "&No"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:289
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:243
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:245
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
@@ -1583,11 +1583,11 @@ msgstr ""
 msgid "Select colour"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:238
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:240
 msgid "Reset all card types to default system font?"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:240
+#: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:242
 msgid "Reset '%s' to default system font?"
 msgstr ""
 
