@@ -10,7 +10,7 @@ Additionally, if you see a black screen, start Mnemosyne with the
 --qt-opengl=desktop command line argument.)
 
 
-Mnemosyne 2.6
+Mnemosyne 2.6 : 2017-12-11
 
 - Import of Anki databases (both *.anki2 and *.apgk) as well as
   possibility to edit these M-sided card types (though not yet in a way
