@@ -104,7 +104,7 @@ class Client(Partner):
         try:
             self.server = socket.gethostbyname(server)
             self.port = port
-            self.backup_file = None
+            backup_file = None
             if self.do_backup:
                 self.ui.set_progress_text("Creating backup...")
                 backup_file = self.database.backup()
