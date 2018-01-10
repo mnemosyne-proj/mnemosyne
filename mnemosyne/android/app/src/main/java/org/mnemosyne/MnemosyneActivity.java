@@ -108,11 +108,6 @@ public class MnemosyneActivity extends AppCompatActivity {
         button5 = (Button) this.findViewById(R.id.button5);
         statusbar = (TextView) this.findViewById(R.id.statusbar);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            question.setWebContentsDebuggingEnabled(false);
-            answer.setWebContentsDebuggingEnabled(false);
-        }
-
         question.getSettings().setJavaScriptEnabled(true);
         answer.getSettings().setJavaScriptEnabled(true);
 
@@ -147,8 +142,6 @@ public class MnemosyneActivity extends AppCompatActivity {
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public void continueOnCreate() {
-        WebView.setWebContentsDebuggingEnabled(false);
-
         mnemosyneThread = new MnemosyneThread(this, activityHandler, getPackageName());
         mnemosyneThread.start();
 
@@ -297,6 +290,7 @@ public class MnemosyneActivity extends AppCompatActivity {
     {
         switch (item.getItemId())
         {
+            // TODO: replace _Call
             case R.id.menu_sync:
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {

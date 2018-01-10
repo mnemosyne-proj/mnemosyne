@@ -8,15 +8,22 @@
 
 Android:
 
+- precompile Mnemosyne code, make sure to use Python 3.5
+-compile stdlib? remove unneeded libraries?
+-check if try/catch captures crashes even deep in python libraries
+-display stack track to user
+
+- only remove assets if they are outdated
+
+- make sure all starcore assets are removed
+
+
 -integrated error reporting:
 https://developers.google.com/analytics/devguides/collection/android/v4/exceptions
 http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-button
 -check 'redraw now'
 -Cramming widget for Android
--decrease size of python library
--precompile python files
--pybridge: don't extract individual assets but extract zip file? Faster?
--setting to allow choosing the database location?\
+-setting to allow choosing the database location?
 -revisit multiple database option?
 -'sync' button should sync directly without going through the sync settings
  dialog. Put the settings in a settings window instead.
