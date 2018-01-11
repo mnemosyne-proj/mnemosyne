@@ -9,6 +9,7 @@ import time
 import sqlite3
 import threading
 import importlib
+import textwrap
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
@@ -20,60 +21,70 @@ DAY = 24 * HOUR # Seconds in a day.
 
 re_long_int = re.compile(r"\d+L")
 
+def config_py():
+  config_py = textwrap.dedent(
+  """  # Mnemosyne configuration file.
 
-config_py = \
-"""# Mnemosyne configuration file.
+  # This file contains settings which we deem to be too specialised to be
+  # accesible from the GUI. However, if you use some of these settings, feel
+  # free to inform the developers so that it can be re-evaluated if these
+  # settings need to be exposed in the GUI.
 
-# This file contains settings which we deem to be too specialised to be
-# accesible from the GUI. However, if you use some of these settings, feel
-# free to inform the developers so that it can be re-evaluated if these
-# settings need to be exposed in the GUI.
+  # Science server. Only change when prompted by the developers.
+  science_server = "mnemosyne-proj.dyndns.org:80"
 
-# Science server. Only change when prompted by the developers.
-science_server = "mnemosyne-proj.dyndns.org:80"
+  # Set to True to prevent you from accidentally revealing the answer when
+  # clicking the edit button.
+  only_editable_when_answer_shown = False
 
-# Set to True to prevent you from accidentally revealing the answer when
-# clicking the edit button.
-only_editable_when_answer_shown = False
+  # Set to False if you don't want the tag names to be shown in the review
+  # window.
+  show_tags_during_review = True
 
-# Set to False if you don't want the tag names to be shown in the review
-# window.
-show_tags_during_review = True
+  # The number of daily backups to keep. Set to -1 for no limit.
+  max_backups = 10
 
-# The number of daily backups to keep. Set to -1 for no limit.
-max_backups = 10
+  # Start the card browser with the last used colum sort. Can have a serious
+  # performance penalty for large databases.
+  start_card_browser_sorted = False
 
-# Start the card browser with the last used colum sort. Can have a serious
-# performance penalty for large databases.
-start_card_browser_sorted = False
+  # The moment the new day starts. Defaults to 3 am. Could be useful to change
+  # if you are a night bird. You can only set the hours, not minutes, and
+  # midnight corresponds to 0.
+  day_starts_at = 3
 
-# The moment the new day starts. Defaults to 3 am. Could be useful to change
-# if you are a night bird. You can only set the hours, not minutes, and
-# midnight corresponds to 0.
-day_starts_at = 3
+  # On mobile clients with slow SD cards copying a large database for the backup
+  # before sync can take longer than the sync itself, so we offer reckless users
+  # the possibility to skip this.
+  backup_before_sync = True
 
-# On mobile clients with slow SD cards copying a large database for the backup
-# before sync can take longer than the sync itself, so we offer reckless users
-# the possibility to skip this.
-backup_before_sync = True
+  # Latex preamble. Note that for the pre- and postamble you need to use double
+  # slashes instead of single slashes here, to have them escaped when Python
+  # reads them in.
+  latex_preamble = r\"\"\"
+  \documentclass[12pt]{article}
+  \pagestyle{empty}
+  \\begin{document}\"\"\"
 
-# Latex preamble. Note that for the pre- and postamble you need to use double
-# slashes instead of single slashes here, to have them escaped when Python
-# reads them in.
-latex_preamble = r\"\"\"
-\documentclass[12pt]{article}
-\pagestyle{empty}
-\\begin{document}\"\"\"
+  # Latex postamble.
+  latex_postamble = r\"\"\"\end{document}\"\"\"
 
-# Latex postamble.
-latex_postamble = r\"\"\"\end{document}\"\"\"
+  # Latex command.
+  latex = "latex -interaction=nonstopmode"
 
-# Latex command.
-latex = "latex -interaction=nonstopmode"
+  # Latex dvipng command.
+  dvipng = "dvipng -D 200 -T tight tmp.dvi"
+  """)
 
-# Latex dvipng command.
-dvipng = "dvipng -D 200 -T tight tmp.dvi"
-"""
+  if sys.platform == "darwin":
+    # We could use format strings, but the LaTeX has too many { } characters
+    config_py = config_py.replace(
+        'latex = "latex -interaction=nonstopmode"',
+        'latex = "/Library/TeX/texbin/latex -output-format=dvi -interactiononstopmode"')
+    config_py = config_py.replace(
+        'dvipng = "dvipng -D 200 -T tight tmp.dvi"',
+        'dvipng = "/Library/TeX/texbin/dvipng -D 200 -T tight tmp.dvi"')
+  return config_py
 
 class Configuration(Component, dict):
 
@@ -322,7 +333,7 @@ class Configuration(Component, dict):
         config_file = join(self.config_dir, "config.py")
         if not exists(config_file):
             f = open(config_file, "w")
-            print(config_py, file=f)
+            print(config_py(), file=f)
             f.close()
         # Create machine_id. Do this in a separate file, as extra warning
         # signal that people should not copy this file to a different machine.
