@@ -8,6 +8,7 @@
 
 Android:
 
+- reenable db_maintenance
 - precompile Mnemosyne code, make sure to use Python 3.5
 -compile stdlib? remove unneeded libraries?
 -check if try/catch captures crashes even deep in python libraries

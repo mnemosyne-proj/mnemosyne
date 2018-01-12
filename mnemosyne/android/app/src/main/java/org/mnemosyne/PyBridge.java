@@ -49,7 +49,7 @@ public class PyBridge {
         }
     }
 
-    // Load library
+    // Load library.
     static {
         System.loadLibrary("pybridge");
     }

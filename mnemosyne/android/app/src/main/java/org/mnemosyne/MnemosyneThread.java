@@ -25,7 +25,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-import org.mnemosyne.PyBridge;
+import org.mnemosyne.MnemosyneBridge;
+
 
 public class MnemosyneThread extends Thread {
 
@@ -34,11 +35,13 @@ public class MnemosyneThread extends Thread {
     Handler UIHandler;
     String basedir;
     ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+    MnemosyneBridge bridge;
 
     public MnemosyneThread(MnemosyneActivity activity, Handler handler, String packageName) {
         UIActivity = activity;
         UIHandler = handler;
         basedir = UIActivity.getApplicationInfo().dataDir;
+        bridge = new MnemosyneBridge();
     }
 
     public Handler getHandler() {
@@ -58,8 +61,6 @@ public class MnemosyneThread extends Thread {
             }
         });
 
-        PyBridge.start(basedir + "/assets/python", UIActivity);
-        Log.d("Mnemosyne", "Started pybridge");
 
         // Determine datadir.
         //
@@ -120,14 +121,6 @@ public class MnemosyneThread extends Thread {
 
         Log.i("Mnemosyne", "datadir " + dataDir);
 
-        String filename = "default.db";
-        JSONObject json = new JSONObject();
-        json.put("function", "start_mnemosyne");
-        json.put("data_dir", "Python 3.5");
-        json.put("filename", "Python 3.5");
-        JSONObject result = PyBridge.call(json);
-
-
         File file2 = new File(dataDir + "/.nomedia");
         if (!file2.exists()){
             try {
@@ -137,7 +130,7 @@ public class MnemosyneThread extends Thread {
             }
         }
 
-        Log.i("Mnemosyne", "started Mnemosyne");
+        bridge.startMnemosyne(dataDir, "default.db");
 
         UIHandler.post(new Runnable() {
             public void run() {
@@ -147,12 +140,12 @@ public class MnemosyneThread extends Thread {
         });
 
         // Heartbeat: run at startup and then every 5 seconds.
-        controller._Call("heartbeat", false);
+        bridge.controller_heartbeat();
         this.scheduler.scheduleAtFixedRate(new Runnable() {
             public void run() {
                 mnemosyneHandler.post(new Runnable() {
                     public void run() {
-                        controller._Call("heartbeat", false);
+                        bridge.controller_heartbeat();
                     }
                 });
             }
@@ -160,17 +153,12 @@ public class MnemosyneThread extends Thread {
     }
 
     public void pauseMnemosyne() {
-        python._Call("pause_mnemosyne");
+        bridge.pauseMnemosyne();
     }
 
     public void stopMnemosyne() {
-        PyBridge.stop();
+        bridge.stopMnemosyne();
         this.scheduler.shutdownNow();
-        Log.d("Mnemosyne", "Mnemosyne stopped");
-    }
-
-    public void Log(String label, String text) {
-        Log.d(label, text);
     }
 
     @Override

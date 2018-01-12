@@ -154,10 +154,6 @@ class Mnemosyne(Component):
           "CuecardWcu")]
         self.gui_for_component = {}
 
-    def android_log(self, message):
-        if hasattr(self, "android"):
-            self.android.Log("Mnemosyne", message)
-
     def handle_exception(self, type, value, tb):
         body = "An unexpected error has occurred.\n" + \
             "Please forward the following info to the developers:\n\n" + \
@@ -165,7 +161,6 @@ class Mnemosyne(Component):
         list = traceback.format_tb(tb, limit=None) + \
                traceback.format_exception_only(type, value)
         body = body + "%-20s %s" % ("".join(list[:-1]), list[-1])
-        self.android_log(body)
         print("Log body", body)
         try:
             if sys.platform != "win32":
@@ -183,8 +178,6 @@ class Mnemosyne(Component):
 
         """
 
-        if hasattr(self, "android"):
-            self.component_manager.android = self.android
         if debug_file:
             self.component_manager.debug_file = open(debug_file, "w")
         self.register_components()
@@ -271,8 +264,6 @@ class Mnemosyne(Component):
 
         """
 
-        # Help with debugging under Android.
-        self.component_manager.android_log = self.android_log
         # Activate config and inject necessary settings.
         try:
             self.component_manager.current("config").activate()
@@ -344,7 +335,6 @@ class Mnemosyne(Component):
                 self.database().load(path)
             self.controller().update_title()
         except RuntimeError as e:
-            self.android_log(str(e))
             self.main_widget().show_error(str(e))
             from mnemosyne.libmnemosyne.translator import _
             self.main_widget().show_information(\

@@ -134,3 +134,7 @@ def pause_mnemosyne():
 
 def stop_mnemosyne():
     mnemosyne.finalise()
+
+def controller_heartbeat(db_maintenance):
+    mnemosyne.controller().heartbeat(db_maintenance
+                                     )
