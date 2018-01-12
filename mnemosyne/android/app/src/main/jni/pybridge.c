@@ -207,7 +207,7 @@ JNIEXPORT jint JNICALL Java_com_jventura_pybridge_PyBridge_start
     setAndroidLog();
 
     // Bootstrap
-    PyRun_SimpleString("import bootstrap");
+    PyRun_SimpleString("import mnemosyne.android_python.mnemosyne_android");
 
     // Cleanup
     (*env)->ReleaseStringUTFChars(env, path, pypath);

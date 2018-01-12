@@ -1,16 +1,9 @@
 package org.mnemosyne;
 
-import com.srplab.www.starcore.StarCoreFactory;
-import com.srplab.www.starcore.StarCoreFactoryPath;
-import com.srplab.www.starcore.StarObjectClass;
-import com.srplab.www.starcore.StarServiceClass;
-import com.srplab.www.starcore.StarSrvGroupClass;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -32,17 +25,10 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
+import org.mnemosyne.PyBridge;
+
 public class MnemosyneThread extends Thread {
 
-    StarCoreFactory starcore;
-    StarObjectClass python;
-    StarObjectClass mnemosyne;
-    StarObjectClass config;
-    StarObjectClass database;
-    StarObjectClass controller;
-    StarObjectClass reviewController;
-    StarObjectClass componentManager;
-    StarObjectClass activateCardsDialog;
     MnemosyneActivity UIActivity;
     Handler mnemosyneHandler;
     Handler UIHandler;
@@ -72,89 +58,8 @@ public class MnemosyneThread extends Thread {
             }
         });
 
-        StarCoreFactoryPath.StarCoreCoreLibraryPath = basedir + "/lib";
-        StarCoreFactoryPath.StarCoreShareLibraryPath = basedir + "/lib";
-        StarCoreFactoryPath.StarCoreOperationPath = basedir + "/files";
-
-        try{
-            //--load python34 core library first;
-            System.load(UIActivity.getApplicationInfo().nativeLibraryDir+"/libpython3.4m.so");
-            System.load(UIActivity.getApplicationInfo().nativeLibraryDir+"/libstar_python34.so");
-            System.load(basedir+"/files/lib-dynload/time.cpython-34m.so");
-            System.load(basedir+"/files/lib-dynload/math.cpython-34m.so");
-            System.out.println("Load trial success.");
-        }
-        catch(UnsatisfiedLinkError ex)
-        {
-            System.out.println(ex.toString());
-        }
-
-        String path = basedir + "/files/lib-dynload";
-        //Log.i("Mnemosyne", "Listing files in path: " + path);
-        File ff = new File(path);
-        if (ff.exists()) {
-            File files[] = ff.listFiles();
-            //Log.i("Mnemosyne", "Number of files: " + files.length);
-            for (int i = 0; i < files.length; i++) {
-                //cannot locate symbol "crypt" referenced by "/data/data/org.mnemosyne/files/lib-dynload/_crypt.cpython-34m.so".
-                //cannot locate symbol "setgrent" referenced by "/data/data/org.mnemosyne/files/lib-dynload/grp.cpython-34m.so".
-                if (    !files[i].getName().contentEquals("_crypt.cpython-34m.so") &
-                        !files[i].getName().contentEquals("grp.cpython-34m.so")   )
-                //if ( files[i].getName().contentEquals("_md5.cpython-34m.so") |
-                //        files[i].getName().contentEquals("_sha1.cpython-34m.so") |
-                //        files[i].getName().contentEquals("_sha512.cpython-34m.so") |
-                //        files[i].getName().contentEquals("_struct.cpython-34m.so") |
-                //        files[i].getName().contentEquals("math.cpython-34m.so") |
-                //        files[i].getName().contentEquals("_random.cpython-34m.so") |
-                //        files[i].getName().contentEquals("_sha256.cpython-34m.so") |
-                //        files[i].getName().contentEquals("_sqlite3.cpython-34m.so") |
-                //        files[i].getName().contentEquals("time.cpython-34m.so") |
-                //        files[i].getName().contentEquals("select.cpython-34m.so") |
-                //        files[i].getName().contentEquals("_ctypes.cpython-34m.so") |
-                //        files[i].getName().contentEquals("_socket.cpython-34m.so") |
-                //        files[i].getName().contentEquals("_pickle.cpython-34m.so") |
-                //        files[i].getName().contentEquals("binascii.cpython-34m.so") |
-                //        files[i].getName().contentEquals("unicodedata.cpython-34m.so") |
-                //        files[i].getName().contentEquals("_struct.cpython-34m.so") |
-                //        files[i].getName().contentEquals("")
-                //        )
-                {
-                    //Log.i("Mnemosyne", "Preloading FileName:" + files[i].getName() + " " + files[i].lastModified());
-                    //System.load(files[i].getAbsolutePath());
-                }
-            }
-        }
-
-        Log.d("Mnemosyne", "About to initialise starcore");
-
-        starcore = StarCoreFactory.GetFactory();
-        StarSrvGroupClass SrvGroup = starcore._GetSrvGroup(0);
-        StarServiceClass Service = SrvGroup._GetService("cle", "123");
-        if (Service == null) {  // The service has not been initialized.
-            Log.d("Mnemosyne", "Initialising starcore");
-            Service = starcore._InitSimple("cle", "123", 0, 0);
-            Service._CheckPassword(false);
-            SrvGroup = (StarSrvGroupClass) Service._Get("_ServiceGroup");
-            SrvGroup._InitRaw("python34", Service);
-        }
-        python = Service._ImportRawContext("python", "", false, "");
-
-        // Set up extra paths.
-        python._Call("import", "sys");
-        StarObjectClass pythonSys = python._GetObject("sys");
-        StarObjectClass pythonPath = (StarObjectClass) pythonSys._Get("path");
-        pythonPath._Call("insert", 0, basedir + "/files");
-        pythonPath._Call("insert", 0, basedir + "/files/python3.4.zip");
-        pythonPath._Call("insert", 0, basedir + "/files/lib-dynload");
-        pythonPath._Call("insert", 0, basedir + "/lib");
-
-        Log.i("Mnemosyne", "Starting Mnemosyne Python script");
-
-        // Start Mnemosyne.
-        SrvGroup._LoadRawModule("python", "", basedir +
-                "/files/mnemosyne/cle/mnemosyne_android.py", false);
-
-        mnemosyne = python._GetObject("mnemosyne");
+        PyBridge.start(basedir + "/assets/python", UIActivity);
+        Log.d("Mnemosyne", "Started pybridge");
 
         // Determine datadir.
         //
@@ -216,13 +121,12 @@ public class MnemosyneThread extends Thread {
         Log.i("Mnemosyne", "datadir " + dataDir);
 
         String filename = "default.db";
-        python._Call("start_mnemosyne", dataDir, filename, this);
+        JSONObject json = new JSONObject();
+        json.put("function", "start_mnemosyne");
+        json.put("data_dir", "Python 3.5");
+        json.put("filename", "Python 3.5");
+        JSONObject result = PyBridge.call(json);
 
-        config = (StarObjectClass) mnemosyne._Call("config");
-        database = (StarObjectClass) mnemosyne._Call("database");
-        controller = (StarObjectClass) mnemosyne._Call("controller");
-        componentManager = python._GetObject("mnemosyne.component_manager");
-        reviewController = (StarObjectClass) mnemosyne._Call("review_controller");
 
         File file2 = new File(dataDir + "/.nomedia");
         if (!file2.exists()){
@@ -260,14 +164,9 @@ public class MnemosyneThread extends Thread {
     }
 
     public void stopMnemosyne() {
+        PyBridge.stop();
         this.scheduler.shutdownNow();
-        python._Call("stop_mnemosyne");
-        // Wait until the CLE core queue is empty.
-        while (starcore._SRPDispatch(false) == true); // Empty loop, consume current queue message.
-        starcore._SRPDispatch(true); // Wait a message cycle, the longest time is 10ms.
         Log.d("Mnemosyne", "Mnemosyne stopped");
-        // This seems to be the best way to ensure that CLE can be restarted properly.
-        android.os.Process.killProcess(android.os.Process.myPid());
     }
 
     public void Log(String label, String text) {

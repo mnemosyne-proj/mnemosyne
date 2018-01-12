@@ -20,6 +20,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+// Based on code from https://github.com/joaoventura/pybridge.
+
 public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
 
     private MnemosyneActivity UIActivity;

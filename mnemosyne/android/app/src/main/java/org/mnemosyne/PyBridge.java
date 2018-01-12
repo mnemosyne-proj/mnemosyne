@@ -1,10 +1,12 @@
-package com.jventura.pybridge;
+package org.mnemosyne;
 
-import com.jventura.pyapp.MainActivity;
+import org.mnemosyne.MnemosyneActivity;
 
 import org.json.JSONObject;
 import org.json.JSONException;
 
+
+// Based on code from https://github.com/joaoventura/pybridge.
 
 public class PyBridge {
 
@@ -14,7 +16,7 @@ public class PyBridge {
      * @param datapath the location of the extracted python files
      * @return error code
      */
-    public static native int start(String datapath, MainActivity activity);
+    public static native int start(String datapath, MnemosyneActivity activity);
 
     /**
      * Stops the Python interpreter.
