@@ -34,10 +34,10 @@ class ReleaseDatabaseAfterTimeout(threading.Thread):
 
 
 class StopServerAfterTimeout(threading.Thread):
-    
+
     """Stop server after a certain timeout, so that it has
     enough time to serve the final page.
-    
+
     """
 
     def __init__(self, wsgi_server):
@@ -69,11 +69,11 @@ class WebServer(Component):
         self.is_just_started = True
         self.is_mnemosyne_loaded = False
         self.is_shutting_down = False
-        
+
     def activate(self):
         Component.activate(self)
         # Late import to speed up application startup.
-        from cheroot import wsgi 
+        from cheroot import wsgi
         self.wsgi_server = wsgi.Server(\
             ("0.0.0.0", self.port), self.wsgi_app, server_name="localhost",
             numthreads=1, timeout=5)
@@ -106,16 +106,25 @@ class WebServer(Component):
              "WebServerRenderChain"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = [\
             ("mnemosyne.web_server.review_wdgt",
-             "ReviewWdgt")]      
+             "ReviewWdgt")]
+        self.mnemosyne.gui_for_component["NewOnly"] = [\
+            ("mnemosyne.web_server.review_wdgt",
+             "ReviewWdgt")]
+        self.mnemosyne.gui_for_component["CramAll"] = [\
+            ("mnemosyne.web_server.review_wdgt",
+             "ReviewWdgt")]
+        self.mnemosyne.gui_for_component["CramRecent"] = [\
+            ("mnemosyne.web_server.review_wdgt",
+             "ReviewWdgt")]
         self.mnemosyne.initialise(self.data_dir, config_dir=self.config_dir,
             filename=self.filename, automatic_upgrades=False)
         self.save_after_n_reps = self.mnemosyne.config()["save_after_n_reps"]
         self.mnemosyne.config()["save_after_n_reps"] = 1
         self.mnemosyne.config()["study_mode"] = "ScheduledForgottenNew"
         self.mnemosyne.config()["QA_split"] = "fixed"
-        self.mnemosyne.start_review()
         self.mnemosyne.review_widget().set_client_on_same_machine_as_server(\
             self.client_on_same_machine_as_server)
+        self.mnemosyne.controller().reset_study_mode()
         self.is_mnemosyne_loaded = True
         self.release_database_after_timeout = \
             ReleaseDatabaseAfterTimeout(self.port)
@@ -184,7 +193,7 @@ class WebServer(Component):
         else:
             # Late import to speed up application startup.
             from webob import Request
-            from webob.static import FileApp            
+            from webob.static import FileApp
             full_path = self.mnemosyne.database().media_dir()
             for word in filename.split("/"):
                 full_path = os.path.join(full_path, word)
@@ -211,10 +220,10 @@ class WebServerThread(threading.Thread, WebServer):
         self.client_on_same_machine_as_server = client_on_same_machine_as_server
         threading.Thread.__init__(self)
         self.config = component_manager.current("config")
-        WebServer.__init__(self, 
+        WebServer.__init__(self,
             self.config["web_server_port"], self.config.data_dir,
-            self.config.config_dir, self.config["last_database"], 
-            component_manager=component_manager, 
+            self.config.config_dir, self.config["last_database"],
+            component_manager=component_manager,
             client_on_same_machine_as_server=self.client_on_same_machine_as_server)
 
     def run(self):

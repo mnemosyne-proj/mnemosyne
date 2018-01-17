@@ -89,7 +89,7 @@ $card_css
 </body>
 </html>
 """)
-        
+
     def set_client_on_same_machine_as_server\
         (self, client_on_same_machine_as_server):
         self.client_on_same_machine_as_server = \
