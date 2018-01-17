@@ -6,25 +6,25 @@ from mnemosyne.libmnemosyne.component import Component
 
 
 class StudyMode(Component):
-    
-    """A study mode is a collection of a scheduler and a review controller. 
+
+    """A study mode is a collection of a scheduler and a review controller.
     Different study modes can share e.g. the same scheduler, but instantiated
     with different parameters.
-    
+
     Each study more should also have a review widget, indicated through the
     'gui_for_component' mechanism.
-    
+
     """
 
-    id = "" 
+    id = ""
     name = ""
     menu_weight = 0 # To determine sorting order in menu
     component_type = "study_mode"
     Scheduler = None  # Class
     ReviewController = None  # Class
-    
+
     def activate_components(self):
-        Component.activate(self)  # Also activates GUI components.
+        # Register dependent classes first.
         self.component_manager.register(\
             self.Scheduler(self.component_manager))
         self.scheduler().activate()
@@ -32,11 +32,12 @@ class StudyMode(Component):
         self.component_manager.register(\
             self.ReviewController(self.component_manager))
         self.review_controller().activate()
-       
+        Component.activate(self)  # Also activates GUI components.
+
     def activate(self):
         self.activate_components()
         self.review_controller().reset()
-        
+
     def deactivate(self):
         if self.scheduler():
             self.scheduler().deactivate()

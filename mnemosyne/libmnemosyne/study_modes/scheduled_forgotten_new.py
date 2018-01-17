@@ -11,7 +11,7 @@ from mnemosyne.libmnemosyne.review_controllers.SM2_controller \
 
 
 class ScheduledForgottenNew(StudyMode):
-    
+
     id = "ScheduledForgottenNew"
     name = _("Scheduled -> forgotten -> new")
     menu_weight = 1
@@ -21,4 +21,3 @@ class ScheduledForgottenNew(StudyMode):
     def activate(self):
         self.activate_components()
         self.review_controller().reset(new_only=False)
-        

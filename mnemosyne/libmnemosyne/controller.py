@@ -33,9 +33,9 @@ class Controller(Component):
 
     def show_add_cards_dialog(self):
         raise NotImplementedError
-    
+
     def set_study_mode(self, study_mode):
-        raise NotImplementedError        
+        raise NotImplementedError
 
     def create_new_cards(self, fact_data, card_type, grade,
             tag_names, check_for_duplicates=True, save=True):
@@ -56,7 +56,7 @@ class Controller(Component):
         raise NotImplementedError
 
     def star_current_card(self):
-         raise NotImplementedError 
+         raise NotImplementedError
 
     def delete_current_card(self):
         raise NotImplementedError
