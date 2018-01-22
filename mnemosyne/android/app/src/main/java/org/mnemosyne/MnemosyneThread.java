@@ -41,7 +41,7 @@ public class MnemosyneThread extends Thread {
         UIActivity = activity;
         UIHandler = handler;
         basedir = UIActivity.getApplicationInfo().dataDir;
-        bridge = new MnemosyneBridge();
+        bridge = new MnemosyneBridge(basedir, activity);
     }
 
     public Handler getHandler() {
@@ -144,8 +144,7 @@ public class MnemosyneThread extends Thread {
         this.scheduler.scheduleAtFixedRate(new Runnable() {
             public void run() {
                 mnemosyneHandler.post(new Runnable() {
-                    public void run() {
-                        bridge.controller_heartbeat();
+                    public void run() {bridge.controller_heartbeat();
                     }
                 });
             }
@@ -344,10 +343,10 @@ public class MnemosyneThread extends Thread {
     }
 
     public void showSyncDialog() {
-        final String server = config._Call("__getitem__", "server_for_sync_as_client").toString();
-        final String port = config._Call("__getitem__", "port_for_sync_as_client").toString();
-        final String username = config._Call("__getitem__", "username_for_sync_as_client").toString();
-        final String password = config._Call("__getitem__", "password_for_sync_as_client").toString();
+        final String server = bridge.config_get("server_for_sync_as_client");
+        final String port = bridge.config_get("port_for_sync_as_client");
+        final String username = bridge.config_get("username_for_sync_as_client");
+        final String password = bridge.config_get("password_for_sync_as_client");
 
         UIHandler.post(new Runnable() {
             public void run() {
@@ -361,7 +360,7 @@ public class MnemosyneThread extends Thread {
         });
     }
 
-    public void showActivateCardsDialog(String savedSets, String activeSet, StarObjectClass dialog) {
+    public void showActivateCardsDialog(String savedSets, String activeSet) {
         final String[] _savedSets = savedSets.split("____");
         if (_savedSets.length == 1 && _savedSets[0].equals("")) {
             showInformation("You don't have any saved sets defined. Please do so in the desktop app.");
@@ -369,7 +368,6 @@ public class MnemosyneThread extends Thread {
         }
 
         final String _activeSet = activeSet;
-        activateCardsDialog = dialog;
 
         UIHandler.post(new Runnable() {
             public void run() {

@@ -136,5 +136,22 @@ def stop_mnemosyne():
     mnemosyne.finalise()
 
 def controller_heartbeat(db_maintenance):
-    mnemosyne.controller().heartbeat(db_maintenance
-                                     )
+    mnemosyne.controller().heartbeat(db_maintenance)
+
+def config_get(key):
+    return mnemosyne.config()[key]
+
+def review_controller_show_answer():
+    mnemosyne.review_controller.show_answer()
+
+def review_controller_grade_answer(grade):
+    mnemosyne.review_controller.grade_answer(grade)
+
+def controller_show_sync_dialog_pre():
+    mnemosyne.controller.show_sync_dialog_pre()
+
+def controller_star_current_card():
+    mnemosyne.controller.star_current_card()
+
+def controller_show_activate_cards_dialog_pre():
+    mnemosyne.controller.show_activate_cards_dialog_pre()

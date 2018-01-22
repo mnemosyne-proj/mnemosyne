@@ -1,3 +1,4 @@
+-revisit architecture and function order
 -make android more robust against missing media files.
 
 -upgrade PyQt
