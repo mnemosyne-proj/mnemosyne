@@ -141,17 +141,39 @@ def controller_heartbeat(db_maintenance):
 def config_get(key):
     return mnemosyne.config()[key]
 
+def config_set(key, value):
+    mnemosyne.config()[key] = value
+
+def config_save():
+    mnemosyne.config().save()
+
 def review_controller_show_answer():
-    mnemosyne.review_controller.show_answer()
+    mnemosyne.review_controller().show_answer()
 
 def review_controller_grade_answer(grade):
-    mnemosyne.review_controller.grade_answer(grade)
+    mnemosyne.review_controller().grade_answer(grade)
 
 def controller_show_sync_dialog_pre():
-    mnemosyne.controller.show_sync_dialog_pre()
+    mnemosyne.controller().show_sync_dialog_pre()
+
+def controller_sync(server, port, username, password):
+    mnemosyne.controller().sync(server, port, username, password)
+
+def controller_show_sync_dialog_post():
+    mnemosyne.controller().show_sync_dialog_post()
 
 def controller_star_current_card():
-    mnemosyne.controller.star_current_card()
+    mnemosyne.controller().star_current_card()
 
 def controller_show_activate_cards_dialog_pre():
-    mnemosyne.controller.show_activate_cards_dialog_pre()
+    mnemosyne.controller().show_activate_cards_dialog_pre()
+
+def controller_show_activate_cards_dialog_post():
+    mnemosyne.controller().show_activate_cards_dialog_post()
+
+def controller_set_study_mode_with_id(id):
+    study_mode =  mnemosyne.controller().study_mode_with_id(id)
+    mnemosyne.controller().set_study_mode(study_mode)
+
+def controller_do_db_maintenance():
+    mnemosyne.controller().do_db_maintenance()

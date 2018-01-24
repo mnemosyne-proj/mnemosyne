@@ -1,4 +1,6 @@
+-update bootstrap.py
 -revisit architecture and function order
+-document development process
 -make android more robust against missing media files.
 
 -upgrade PyQt

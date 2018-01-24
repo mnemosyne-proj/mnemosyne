@@ -118,12 +118,12 @@ macos:
 osx: macos
 
 android: # Creates the assets file with the Python code.
-	rm -f mnemosyne/android/app/src/main/assets/mnemosyne.zip
+	rm -f mnemosyne/android/app/src/main/assets/python/mnemosyne.zip
 	#python -m compileall mnemosyne
-	zip	-r mnemosyne/android/app/src/main/assets/mnemosyne.zip openSM2sync -i \*.py
-	zip -r mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/libmnemosyne -i \*.py
-	zip	-r mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/cle -i \*.py
-	zip	mnemosyne/android/app/src/main/assets/mnemosyne.zip mnemosyne/version.py mnemosyne/__init__.py
+	zip	-r mnemosyne/android/app/src/main/assets/python/mnemosyne.zip openSM2sync -i \*.py
+	zip -r mnemosyne/android/app/src/main/assets/python/mnemosyne.zip mnemosyne/libmnemosyne -i \*.py
+	zip	-r mnemosyne/android/app/src/main/assets/python/mnemosyne.zip mnemosyne/android_python -i \*.py
+	zip	mnemosyne/android/app/src/main/assets/python/mnemosyne.zip mnemosyne/version.py mnemosyne/__init__.py
 
 clean:
 	rm -f *~ *.pyc *.tgz process_profile.py outside.db outside.db-journal

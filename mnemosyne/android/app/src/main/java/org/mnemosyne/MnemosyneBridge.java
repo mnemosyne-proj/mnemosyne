@@ -77,6 +77,40 @@ public class MnemosyneBridge {
         }
     }
 
+    public void config_set_string(String key, String value) {
+        try {
+            JSONObject json = new JSONObject();
+            json.put("function", "config_set");
+            json.put("key", key);
+            json.put("value", value);
+            JSONObject result = PyBridge.call(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void config_set_integer(String key, Integer value) {
+        try {
+            JSONObject json = new JSONObject();
+            json.put("function", "config_set");
+            json.put("key", key);
+            json.put("value", value);
+            JSONObject result = PyBridge.call(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void config_save() {
+        try {
+            JSONObject json = new JSONObject();
+            json.put("function", "config_save");
+            JSONObject result = PyBridge.call(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void review_controller_show_answer() {
         try {
             JSONObject json = new JSONObject();
@@ -108,6 +142,31 @@ public class MnemosyneBridge {
         }
     }
 
+    public void controller_sync(String server, Integer port,
+                                String username, String password) {
+        try {
+            JSONObject json = new JSONObject();
+            json.put("function", "controller_sync");
+            json.put("server", server);
+            json.put("port", port);
+            json.put("username", username);
+            json.put("password", password);
+            JSONObject result = PyBridge.call(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void controller_show_sync_dialog_post() {
+        try {
+            JSONObject json = new JSONObject();
+            json.put("function", "controller_show_sync_dialog_post");
+            JSONObject result = PyBridge.call(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void controller_star_current_card() {
         try {
             JSONObject json = new JSONObject();
@@ -121,7 +180,38 @@ public class MnemosyneBridge {
     public void controller_show_activate_cards_dialog_pre() {
         try {
             JSONObject json = new JSONObject();
-            json.put("function", "show_activate_cards_dialog_pre");
+            json.put("function", "controller_show_activate_cards_dialog_pre");
+            JSONObject result = PyBridge.call(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void controller_show_activate_cards_dialog_post() {
+        try {
+            JSONObject json = new JSONObject();
+            json.put("function", "controller_show_activate_cards_dialog_post");
+            JSONObject result = PyBridge.call(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void controller_set_study_mode_with_id(String id) {
+        try {
+            JSONObject json = new JSONObject();
+            json.put("function", "controller_set_study_mode_with_id");
+            json.put("id", id);
+            JSONObject result = PyBridge.call(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void controller_do_db_maintenance() {
+        try {
+            JSONObject json = new JSONObject();
+            json.put("function", "controller_do_db_maintenance");
             JSONObject result = PyBridge.call(json);
         } catch (JSONException e) {
             e.printStackTrace();

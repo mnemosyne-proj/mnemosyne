@@ -331,9 +331,7 @@ public class MnemosyneActivity extends AppCompatActivity {
                         builder.setItems(items, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                mnemosyneThread.controller._Call("set_study_mode",
-                                        mnemosyneThread.controller._Call("study_mode_with_id", ids[which]));
-                                mnemosyneThread.reviewController = (StarObjectClass) mnemosyneThread.mnemosyne._Call("review_controller");
+                                mnemosyneThread.bridge.controller_set_study_mode_with_id(ids[which]);
                             }
                         });
                         builder.setCancelable(false);
@@ -350,7 +348,7 @@ public class MnemosyneActivity extends AppCompatActivity {
                         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "My Tag");
                         wl.acquire();
                         try {
-                            mnemosyneThread.controller._Call("do_db_maintenance");
+                            mnemosyneThread.bridge.controller_do_db_maintenance();
                         } finally {
                             wl.release();
                         }
@@ -501,27 +499,27 @@ public class MnemosyneActivity extends AppCompatActivity {
 
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
-                        mnemosyneThread.config._Call("__setitem__", "server_for_sync_as_client", server);
-                        mnemosyneThread.config._Call("__setitem__", "port_for_sync_as_client", port);
-                        mnemosyneThread.config._Call("__setitem__", "username_for_sync_as_client", username);
-                        mnemosyneThread.config._Call("__setitem__", "password_for_sync_as_client", password);
-                        mnemosyneThread.config._Call("save");
+                        mnemosyneThread.bridge.config_set_string("server_for_sync_as_client", server);
+                        mnemosyneThread.bridge.config_set_integer("port_for_sync_as_client", port);
+                        mnemosyneThread.bridge.config_set_string("username_for_sync_as_client", username);
+                        mnemosyneThread.bridge.config_set_string("password_for_sync_as_client", password);
+                        mnemosyneThread.bridge.config_save();
                         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "My Tag");
                         wl.acquire();
                         try {
-                            mnemosyneThread.controller._Call("sync", server, port, username, password);
+                            mnemosyneThread.bridge.controller_sync(server, port, username, password);
                         } finally {
                             wl.release();
                         }
-                        mnemosyneThread.controller._Call("show_sync_dialog_post");
+                        mnemosyneThread.bridge.controller_show_sync_dialog_post();
                     }
                 });
             }
             else {
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
-                        mnemosyneThread.controller._Call("show_sync_dialog_post");
+                        mnemosyneThread.bridge.controller_show_sync_dialog_post();
                         mnemosyneThread.UIActivity.setFullscreen();
                     }
                 });
@@ -534,8 +532,9 @@ public class MnemosyneActivity extends AppCompatActivity {
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
                         mnemosyneThread.setProgressText("(De)activating cards...");
-                        mnemosyneThread.activateCardsDialog._Call("set_criterion_with_name", savedSet);
-                        mnemosyneThread.controller._Call("show_activate_cards_dialog_post");
+                        // TODO
+                        //mnemosyneThread.activateCardsDialog._Call("set_criterion_with_name", savedSet);
+                        mnemosyneThread.bridge.controller_show_activate_cards_dialog_post();
                         mnemosyneThread.closeProgress();
                     }
                 });
@@ -543,7 +542,7 @@ public class MnemosyneActivity extends AppCompatActivity {
             else {
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
-                        mnemosyneThread.controller._Call("show_activate_cards_dialog_post");
+                        mnemosyneThread.bridge.controller_show_activate_cards_dialog_post();
                         mnemosyneThread.UIActivity.setFullscreen();
                     }
                 });

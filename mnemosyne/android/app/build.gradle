@@ -23,6 +23,5 @@ android {
 }
 
 dependencies {
-    compile files('libs/starcore_android_r2.5.jar')
     compile "com.android.support:appcompat-v7:25.+"
 }
