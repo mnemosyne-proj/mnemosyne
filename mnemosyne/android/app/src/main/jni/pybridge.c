@@ -104,7 +104,7 @@ static PyObject* _main_wdgt_show_question(PyObject* self, PyObject* args)
   // fact complains about the VM still being running.
   JNIEnv *env;
   (*javaVM)->AttachCurrentThread(javaVM, &env, NULL);
-  int result = (*env)->CallIntMethod(env, activityObj, answer_to_life_method);
+  int result = 42; //(*env)->CallIntMethod(env, activityObj, answer_to_life_method);
 
   char str[500];
   sprintf(str, "Received %d in C from Java, using Python module", result);
@@ -146,7 +146,7 @@ int call_java(void) {
     // fact complains about the VM still being running.
     JNIEnv *env;
     (*javaVM)->AttachCurrentThread(javaVM, &env, NULL);
-    int result = (*env)->CallIntMethod(env, activityObj, answer_to_life_method);
+    int result = 42; //(*env)->CallIntMethod(env, activityObj, answer_to_life_method);
 
     char str[250];
     sprintf(str, "Received %d in C from Java, no Python", result);
@@ -173,7 +173,7 @@ int call_java(void) {
 */
 
 
-JNIEXPORT jint JNICALL Java_com_jventura_pybridge_PyBridge_start
+JNIEXPORT jint JNICALL Java_org_mnemosyne_PyBridge_start
         (JNIEnv *env, jclass jc, jstring path, jobject activity)
 {
     // Cache function pointers and objects.
@@ -182,10 +182,10 @@ JNIEXPORT jint JNICALL Java_com_jventura_pybridge_PyBridge_start
     activityObj = (*env)->NewGlobalRef(env, activity);
     jclass cls = (*env)->GetObjectClass(env, activity);
     activityClass = (jclass) (*env)->NewGlobalRef(env, cls);
-    answer_to_life_method = (*env)->GetMethodID(env, activityClass, "answer_to_life", "()I");
+    //answer_to_life_method = (*env)->GetMethodID(env, activityClass, "answer_to_life", "()I");
 
     // TMP TEST: Test call back.
-    call_java();
+    //call_java();
 
     LOG("Initializing the Python interpreter");
 
@@ -207,7 +207,12 @@ JNIEXPORT jint JNICALL Java_com_jventura_pybridge_PyBridge_start
     setAndroidLog();
 
     // Bootstrap
+	PyRun_SimpleString("import cmath");
+	LOG("Imported cmath");
+	 PyRun_SimpleString("import mnemosyne");
+	LOG("Imported mnemosyne");
     PyRun_SimpleString("import mnemosyne.android_python.mnemosyne_android");
+	LOG("Imported mnemosyne_android");
 
     // Cleanup
     (*env)->ReleaseStringUTFChars(env, path, pypath);
@@ -217,7 +222,7 @@ JNIEXPORT jint JNICALL Java_com_jventura_pybridge_PyBridge_start
 }
 
 
-JNIEXPORT jint JNICALL Java_com_jventura_pybridge_PyBridge_stop
+JNIEXPORT jint JNICALL Java_org_mnemosyne_PyBridge_stop
         (JNIEnv *env, jclass jc)
 {
     LOG("Trying to free global references");
@@ -236,7 +241,7 @@ JNIEXPORT jint JNICALL Java_com_jventura_pybridge_PyBridge_stop
     file.
 
 */
-JNIEXPORT jstring JNICALL Java_com_jventura_pybridge_PyBridge_call
+JNIEXPORT jstring JNICALL Java_org_mnemosyne_PyBridge_call
         (JNIEnv *env, jclass jc, jstring payload)
 {
     LOG("Call into Python interpreter");

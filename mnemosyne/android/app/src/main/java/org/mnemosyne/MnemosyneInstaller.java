@@ -37,7 +37,7 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
     }
 
     private void setAssetLastModified(long time) {
-        String filename = basedir + mAssetModifiedPath;
+        String filename = basedir + "/" + mAssetModifiedPath;
         try {
             BufferedWriter bwriter = new BufferedWriter(new FileWriter(new File(filename)));
             bwriter.write(String.format("%d", time));
@@ -48,7 +48,7 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
     }
 
     private long getAssetLastModified() {
-        String filename = basedir + mAssetModifiedPath;
+        String filename = basedir + "/" + mAssetModifiedPath;
         try {
             BufferedReader breader = new BufferedReader(new FileReader(new File(filename)));
             String contents = breader.readLine();

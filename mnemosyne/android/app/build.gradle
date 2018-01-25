@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
 
     defaultConfig {
         applicationId "org.mnemosyne"
@@ -20,8 +19,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+	
+	sourceSets.main {
+        jni.srcDirs = []
+        jniLibs.srcDir 'src/main/libs'
+    }
 }
 
 dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "com.android.support:appcompat-v7:25.+"
 }

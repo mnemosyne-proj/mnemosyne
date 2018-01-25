@@ -1,5 +1,7 @@
 package org.mnemosyne;
 
+import android.util.Log;
+
 import org.mnemosyne.MnemosyneActivity;
 
 import org.json.JSONObject;
@@ -52,5 +54,6 @@ public class PyBridge {
     // Load library.
     static {
         System.loadLibrary("pybridge");
+        Log.i("Mnemosyne", "Pybridge loaded");
     }
 }

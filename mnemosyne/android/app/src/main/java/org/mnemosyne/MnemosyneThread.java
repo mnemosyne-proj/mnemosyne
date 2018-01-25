@@ -61,7 +61,6 @@ public class MnemosyneThread extends Thread {
             }
         });
 
-
         // Determine datadir.
         //
         // A user can set a datadir directory by putting a file 'datadir.txt' with
