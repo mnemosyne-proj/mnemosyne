@@ -179,7 +179,7 @@ Then, run the following command from within the top-level directory of the repos
 sudo python setup.py install
 ```
 
-To test the installation, change to any other directory and run `mnemosyne`.
+Depending on your setup, you might need to replace `python` with `python3`. To test the installation, change to any other directory and run `mnemosyne`.
 For example:
 ```
 cd ~
