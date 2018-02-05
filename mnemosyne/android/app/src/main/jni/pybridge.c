@@ -173,7 +173,7 @@ int call_java(void) {
 */
 
 
-JNIEXPORT jint JNICALL Java_org_mnemosyne_PyBridge_start
+JNIEXPORT jint JNICALL Java_org_mnemosyne2_PyBridge_start
         (JNIEnv *env, jclass jc, jstring path, jobject activity)
 {
     // Cache function pointers and objects.
@@ -194,7 +194,7 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne_PyBridge_start
 
     // Build paths for the Python interpreter
     char paths[512];
-    snprintf(paths, sizeof(paths), "%s:%s/stdlib.zip", pypath, pypath);
+    snprintf(paths, sizeof(paths), "%s:%s/stdlib.zip:%s/mnemosyne.zip", pypath, pypath, pypath);
 
     // Set Python paths
     wchar_t *wchar_paths = Py_DecodeLocale(paths, NULL);
@@ -207,6 +207,7 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne_PyBridge_start
     setAndroidLog();
 
     // Bootstrap
+	PyRun_SimpleString("import sys; print(sys.path)");
 	PyRun_SimpleString("import cmath");
 	LOG("Imported cmath");
 	 PyRun_SimpleString("import mnemosyne");
@@ -222,7 +223,7 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne_PyBridge_start
 }
 
 
-JNIEXPORT jint JNICALL Java_org_mnemosyne_PyBridge_stop
+JNIEXPORT jint JNICALL Java_org_mnemosyne2_PyBridge_stop
         (JNIEnv *env, jclass jc)
 {
     LOG("Trying to free global references");
@@ -241,7 +242,7 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne_PyBridge_stop
     file.
 
 */
-JNIEXPORT jstring JNICALL Java_org_mnemosyne_PyBridge_call
+JNIEXPORT jstring JNICALL Java_org_mnemosyne2_PyBridge_call
         (JNIEnv *env, jclass jc, jstring payload)
 {
     LOG("Call into Python interpreter");

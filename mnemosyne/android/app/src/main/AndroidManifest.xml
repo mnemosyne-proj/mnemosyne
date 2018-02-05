@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.mnemosyne"
+    package="org.mnemosyne2"
     android:versionCode="24"
     android:versionName="1.7" >
 
@@ -18,7 +18,7 @@
 
         <activity
             android:label="@string/app_name"
-            android:name="MnemosyneActivity"
+            android:name="org.mnemosyne2.MnemosyneActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             >          
             <intent-filter >
@@ -29,14 +29,14 @@
         
         <activity
             android:label="Sync"
-            android:name="SyncActivity" 
+            android:name="org.mnemosyne2.SyncActivity"
             android:configChanges="orientation"
             >          
         </activity>
 
         <activity
             android:label="(De)activate cards"
-            android:name="ActivateCardsActivity" 
+            android:name="org.mnemosyne2.ActivateCardsActivity"
             android:configChanges="orientation"
             >          
         </activity>

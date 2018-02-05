@@ -1,7 +1,10 @@
 -update bootstrap.py
+-which version of sqlite3.so?
 -revisit architecture and function order
 -document development process
 -make android more robust against missing media files.
+
+-rename back to mnemosyne: guild.gradle app application Id, pybridge.c, mnemosynethread datadir
 
 -upgrade PyQt
 
