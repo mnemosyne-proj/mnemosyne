@@ -189,33 +189,34 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne2_PyBridge_start
 
     LOG("Initializing the Python interpreter");
 
-    // Get the location of the python files
+    // Get the location of the python files.
     const char *pypath = (*env)->GetStringUTFChars(env, path, NULL);
 
-    // Build paths for the Python interpreter
+    // Build paths for the Python interpreter.
     char paths[512];
     snprintf(paths, sizeof(paths), "%s:%s/stdlib.zip:%s/mnemosyne.zip", pypath, pypath, pypath);
 
-    // Set Python paths
+    // Set Python paths.
     wchar_t *wchar_paths = Py_DecodeLocale(paths, NULL);
     Py_SetPath(wchar_paths);
 
-    // Initialize Python interpreter and other modules
+    // Initialize Python interpreter and other modules.
     PyImport_AppendInittab("androidlog", PyInit_androidlog);
     PyImport_AppendInittab("_main_widget", PyInit__main_widget);
     Py_Initialize();
     setAndroidLog();
 
-    // Bootstrap
-	PyRun_SimpleString("import sys; print(sys.path)");
-	PyRun_SimpleString("import cmath");
-	LOG("Imported cmath");
-	 PyRun_SimpleString("import mnemosyne");
-	LOG("Imported mnemosyne");
-    PyRun_SimpleString("import mnemosyne.android_python.mnemosyne_android");
-	LOG("Imported mnemosyne_android");
+    // Bootstrap.
+    PyRun_SimpleString("import bootstrap");
+	//PyRun_SimpleString("import sys; print(sys.path)");
+	//PyRun_SimpleString("import cmath");
+	//LOG("Imported cmath");
+	// PyRun_SimpleString("import mnemosyne");
+	//LOG("Imported mnemosyne");
+    //PyRun_SimpleString("import mnemosyne.android_python.mnemosyne_android");
+	//LOG("Imported mnemosyne_android");
 
-    // Cleanup
+    // Clean up.
     (*env)->ReleaseStringUTFChars(env, path, pypath);
     PyMem_RawFree(wchar_paths);
 
@@ -247,26 +248,26 @@ JNIEXPORT jstring JNICALL Java_org_mnemosyne2_PyBridge_call
 {
     LOG("Call into Python interpreter");
 
-    // Get the payload string
+    // Get the payload string.
     jboolean iscopy;
     const char *payload_utf = (*env)->GetStringUTFChars(env, payload, &iscopy);
 
-    // Import module
+    // Import module.
     PyObject* myModuleString = PyUnicode_FromString((char*)"bootstrap");
     PyObject* myModule = PyImport_Import(myModuleString);
 
-    // Get reference to the router function
+    // Get reference to the router function.
     PyObject* myFunction = PyObject_GetAttrString(myModule, (char*)"router");
     PyObject* args = PyTuple_Pack(1, PyUnicode_FromString(payload_utf));
 
-    // Call function and get the resulting string
+    // Call function and get the resulting string.
     PyObject* myResult = PyObject_CallObject(myFunction, args);
     char *myResultChar = PyUnicode_AsUTF8(myResult);
 
-    // Store the result on a java.lang.String object
+    // Store the result on a java.lang.String object.
     jstring result = (*env)->NewStringUTF(env, myResultChar);
 
-    // Cleanup
+    // Cleanup.
     (*env)->ReleaseStringUTFChars(env, payload, payload_utf);
     Py_DECREF(myModuleString);
     Py_DECREF(myModule);

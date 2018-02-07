@@ -7,6 +7,7 @@ import os
 #    https://github.com/pyinstaller/pyinstaller/issues/1113
 import encodings.idna
 
+
 # Initialise Mnemosyne.
 from mnemosyne.libmnemosyne import Mnemosyne
 mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
@@ -117,11 +118,12 @@ mnemosyne.gui_for_component["CramRecent"] = [\
     ("mnemosyne.cle.review_widget",
      "ReviewWdgt")]
 
-def start_mnemosyne(data_dir, filename):
+def start_mnemosyne(args):
     try:
-        mnemosyne.initialise(data_dir=data_dir, filename=filename)
+        mnemosyne.initialise(data_dir=args["data_dir"],
+                             filename=args["filename"])
         mnemosyne.start_review()
-    except Exception as e:
+    except Exception as e: # TODO: still needed?
         print(e)
         import traceback
         traceback.print_exc()
@@ -135,11 +137,11 @@ def pause_mnemosyne():
 def stop_mnemosyne():
     mnemosyne.finalise()
 
-def controller_heartbeat(db_maintenance):
-    mnemosyne.controller().heartbeat(db_maintenance)
+def controller_heartbeat(args):
+    mnemosyne.controller().heartbeat(args["db_maintenance"])
 
-def config_get(key):
-    return mnemosyne.config()[key]
+def config_get(args):
+    return mnemosyne.config()[args["key"]]
 
 def config_set(key, value):
     mnemosyne.config()[key] = value
@@ -177,3 +179,4 @@ def controller_set_study_mode_with_id(id):
 
 def controller_do_db_maintenance():
     mnemosyne.controller().do_db_maintenance()
+
