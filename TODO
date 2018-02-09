@@ -1,5 +1,4 @@
 -update bootstrap.py
--which version of sqlite3.so?
 -revisit architecture and function order
 -document development process
 -make android more robust against missing media files.
@@ -14,9 +13,6 @@ Android:
 - reenable db_maintenance
 - precompile Mnemosyne code, make sure to use Python 3.5
 - compile stdlib? remove unneeded libraries?
-- check if try/catch captures crashes even deep in python libraries. Use decorators
-  for try/except, display stack track to user
-
 
 -integrated error reporting:
 https://developers.google.com/analytics/devguides/collection/android/v4/exceptions

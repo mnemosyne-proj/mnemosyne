@@ -2,15 +2,12 @@
 # bootstrap.py
 #
 
+import json
 try:
-    import json
     from mnemosyne.android_python.mnemosyne_android import *
 except Exception as e:
-    print(e)
     import traceback
     traceback.print_exc()
-    traceback.print_stack()
-    print(traceback.format_stack())
 
 
 def router(args):
@@ -22,16 +19,16 @@ def router(args):
         values = json.loads(args)
         print("router called with", values)
         function = routes[values.get('function')]
-        print("about to call ", function)
         res = function(values)
         status = "ok"
     except Exception as e:
-        print(e)
+        import io
         import traceback
-        traceback.print_exc()
-        traceback.print_stack()
-        print(traceback.format_stack())
-        res = None
+        a = io.StringIO()
+        traceback.print_exc(file=a)
+        stack_trace = a.getvalue()
+        print(stack_trace)
+        res = stack_trace
         status = "fail"
     return json.dumps({
         'status': status,

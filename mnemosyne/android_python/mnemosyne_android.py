@@ -18,7 +18,7 @@ mnemosyne.components = [\
           "NoTranslator"),
          ("mnemosyne.libmnemosyne.databases.SQLite",
           "SQLite"),
-         ("mnemosyne.cle.database_maintenance",
+         ("mnemosyne.android_python.database_maintenance",
           "AndroidDatabaseMaintenance"),
          ("mnemosyne.libmnemosyne.configuration",
           "Configuration"),
@@ -94,47 +94,40 @@ mnemosyne.components = [\
           "Easiness"),
          ("mnemosyne.libmnemosyne.statistics_pages.current_card",
           "CurrentCard"),
-         ("mnemosyne.cle.main_widget",
+         ("mnemosyne.android_python.main_widget",
           "MainWdgt"),
-         ("mnemosyne.cle.configuration",
+         ("mnemosyne.android_python.configuration",
           "AndroidConfiguration"),
-         ("mnemosyne.cle.android_render_chain",
+         ("mnemosyne.android_python.android_render_chain",
           "AndroidRenderChain"),
-         ("mnemosyne.cle.sync_dlg",
+         ("mnemosyne.android_python.sync_dlg",
           "SyncDlg"),
-         ("mnemosyne.cle.activate_cards_dlg",
+         ("mnemosyne.android_python.activate_cards_dlg",
           "ActivateCardsDlg")]
 
 mnemosyne.gui_for_component["ScheduledForgottenNew"] = [\
-    ("mnemosyne.cle.review_widget",
+    ("mnemosyne.android_python.review_widget",
      "ReviewWdgt")]
 mnemosyne.gui_for_component["NewOnly"] = [\
-    ("mnemosyne.cle.review_widget",
+    ("mnemosyne.android_python.review_widget",
      "ReviewWdgt")]
 mnemosyne.gui_for_component["CramAll"] = [\
-    ("mnemosyne.cle.review_widget",
+    ("mnemosyne.android_python.review_widget",
      "ReviewWdgt")]
 mnemosyne.gui_for_component["CramRecent"] = [\
-    ("mnemosyne.cle.review_widget",
+    ("mnemosyne.android_python.review_widget",
      "ReviewWdgt")]
 
 def start_mnemosyne(args):
-    try:
-        mnemosyne.initialise(data_dir=args["data_dir"],
-                             filename=args["filename"])
-        mnemosyne.start_review()
-    except Exception as e: # TODO: still needed?
-        print(e)
-        import traceback
-        traceback.print_exc()
-        traceback.print_stack()
-        print(traceback.format_stack())
+    mnemosyne.initialise(data_dir=args["data_dir"],
+                         filename=args["filename"])
+    mnemosyne.start_review()
 
-def pause_mnemosyne():
+def pause_mnemosyne(args):
     mnemosyne.database().save()
     mnemosyne.config().save()
 
-def stop_mnemosyne():
+def stop_mnemosyne(args):
     mnemosyne.finalise()
 
 def controller_heartbeat(args):
@@ -143,40 +136,41 @@ def controller_heartbeat(args):
 def config_get(args):
     return mnemosyne.config()[args["key"]]
 
-def config_set(key, value):
-    mnemosyne.config()[key] = value
+def config_set(args):
+    mnemosyne.config()[args["key"]] = args["value"]
 
-def config_save():
+def config_save(args):
     mnemosyne.config().save()
 
-def review_controller_show_answer():
+def review_controller_show_answer(args):
     mnemosyne.review_controller().show_answer()
 
-def review_controller_grade_answer(grade):
-    mnemosyne.review_controller().grade_answer(grade)
+def review_controller_grade_answer(args):
+    mnemosyne.review_controller().grade_answer(args["grade"])
 
-def controller_show_sync_dialog_pre():
+def controller_show_sync_dialog_pre(args):
     mnemosyne.controller().show_sync_dialog_pre()
 
-def controller_sync(server, port, username, password):
-    mnemosyne.controller().sync(server, port, username, password)
+def controller_sync(args):
+    mnemosyne.controller().sync(args["server"], args["port"],
+                                args["username"], args["password"])
 
-def controller_show_sync_dialog_post():
+def controller_show_sync_dialog_post(args):
     mnemosyne.controller().show_sync_dialog_post()
 
-def controller_star_current_card():
+def controller_star_current_card(args):
     mnemosyne.controller().star_current_card()
 
-def controller_show_activate_cards_dialog_pre():
+def controller_show_activate_cards_dialog_pre(args):
     mnemosyne.controller().show_activate_cards_dialog_pre()
 
-def controller_show_activate_cards_dialog_post():
+def controller_show_activate_cards_dialog_post(args):
     mnemosyne.controller().show_activate_cards_dialog_post()
 
-def controller_set_study_mode_with_id(id):
-    study_mode =  mnemosyne.controller().study_mode_with_id(id)
+def controller_set_study_mode_with_id(args):
+    study_mode =  mnemosyne.controller().study_mode_with_id(args["id"])
     mnemosyne.controller().set_study_mode(study_mode)
 
-def controller_do_db_maintenance():
+def controller_do_db_maintenance(args):
     mnemosyne.controller().do_db_maintenance()
 
