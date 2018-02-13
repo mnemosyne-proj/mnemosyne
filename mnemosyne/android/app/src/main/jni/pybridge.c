@@ -84,8 +84,10 @@ void setAndroidLog()
 
 JavaVM* javaVM = NULL;
 jclass activityClass;
+jclass threadClass;
 jobject activityObj;
-jmethodID answer_to_life_method;
+jobject threadObj;
+jmethodID set_question_box_visible_method;
 
 
 static PyObject* _main_wdgt_show_question(PyObject* self, PyObject* args)
@@ -137,24 +139,46 @@ PyInit__main_widget(void)
 
 
 
-// TMP test function
 
-int call_java(void) {
-    // It is dangerous to store JNI env globally, so we do the following.
-    // https://developer.vuforia.com/forum/faq/android-how-can-i-call-java-methods-c
-    // Note that doing DetachCurrentThread later does not seem to be needed and in
-    // fact complains about the VM still being running.
-    JNIEnv *env;
-    (*javaVM)->AttachCurrentThread(javaVM, &env, NULL);
-    int result = 42; //(*env)->CallIntMethod(env, activityObj, answer_to_life_method);
 
-    char str[250];
-    sprintf(str, "Received %d in C from Java, no Python", result);
-    LOG(str);
+static PyObject* _review_wdgt_set_question_box_visible(PyObject* self, 
+                                                       PyObject* args)
+{
+  int is_visible = 0;
+  if (!PyArg_ParseTuple(args, "i", &is_visible))
+    return NULL;
 
-    LOG("End of call_java");
-    return result;
+  JNIEnv *env;
+  (*javaVM)->AttachCurrentThread(javaVM, &env, NULL);
+  (*env)->CallVoidMethod(env, threadObj, set_question_box_visible_method, is_visible);
+
+  Py_INCREF(Py_None);
+  return Py_None;
 }
+
+
+static PyMethodDef _review_wdgt_methods[] = {
+  {"set_question_box_visible", _review_wdgt_set_question_box_visible, METH_VARARGS, ""},
+  {NULL, NULL, 0, NULL}
+};
+
+
+static struct PyModuleDef _review_widget_module = {
+    PyModuleDef_HEAD_INIT,
+    "_review_widget",    /* m_name */
+    NULL,                /* m_doc */
+    -1,                  /* m_size */
+    _review_wdgt_methods /* m_methods */
+};
+
+
+PyMODINIT_FUNC
+PyInit__review_widget(void)
+{
+    return PyModule_Create(&_review_widget_module);
+};
+
+
 
 
 /* ------------------------------------------- */
@@ -167,25 +191,33 @@ int call_java(void) {
     It runs a file called bootstrap.py before returning, so make sure
     that you configure all your python code on that file.
 
-    Note: the function must receives a string with the location of the
+    Note: the function must receive a string with the location of the
     python files extracted from the assets folder.
 
 */
 
 
 JNIEXPORT jint JNICALL Java_org_mnemosyne2_PyBridge_start
-        (JNIEnv *env, jclass jc, jstring path, jobject activity)
+        (JNIEnv *env, jclass jc, jstring path, jobject activity, jobject thread)
 {
     // Cache function pointers and objects.
     // https://developer.android.com/training/articles/perf-jni.html
     (*env)->GetJavaVM(env, &javaVM);
+	
     activityObj = (*env)->NewGlobalRef(env, activity);
     jclass cls = (*env)->GetObjectClass(env, activity);
-    activityClass = (jclass) (*env)->NewGlobalRef(env, cls);
-    //answer_to_life_method = (*env)->GetMethodID(env, activityClass, "answer_to_life", "()I");
+	activityClass = (jclass) (*env)->NewGlobalRef(env, cls);
+	
+	threadObj = (*env)->NewGlobalRef(env, thread);
+    jclass cls2 = (*env)->GetObjectClass(env, thread);
+	threadClass = (jclass) (*env)->NewGlobalRef(env, cls2);
+	
+	set_question_box_visible_method = (*env)->GetMethodID(env, threadClass, 
+		"setQuestionBoxVisible", "(Z)V");
 
-    // TMP TEST: Test call back.
-    //call_java();
+    //char str[250]; 
+    //sprintf(str, "Method ID: %p ", set_question_box_visible_method);
+    //LOG(str);
 
     LOG("Initializing the Python interpreter");
 
@@ -203,18 +235,12 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne2_PyBridge_start
     // Initialize Python interpreter and other modules.
     PyImport_AppendInittab("androidlog", PyInit_androidlog);
     PyImport_AppendInittab("_main_widget", PyInit__main_widget);
+	PyImport_AppendInittab("_review_widget", PyInit__review_widget);
     Py_Initialize();
     setAndroidLog();
 
     // Bootstrap.
     PyRun_SimpleString("import bootstrap");
-	//PyRun_SimpleString("import sys; print(sys.path)");
-	//PyRun_SimpleString("import cmath");
-	//LOG("Imported cmath");
-	// PyRun_SimpleString("import mnemosyne");
-	//LOG("Imported mnemosyne");
-    //PyRun_SimpleString("import mnemosyne.android_python.mnemosyne_android");
-	//LOG("Imported mnemosyne_android");
 
     // Clean up.
     (*env)->ReleaseStringUTFChars(env, path, pypath);

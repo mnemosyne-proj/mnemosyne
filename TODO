@@ -1,5 +1,7 @@
 -update bootstrap.py
 -revisit architecture and function order
+-need to cache activity in C?
+
 -document development process
 -make android more robust against missing media files.
 

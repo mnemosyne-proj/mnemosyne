@@ -2,6 +2,8 @@
 # review_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
+import _review_widget
+
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
 
@@ -36,7 +38,7 @@ class ReviewWdgt(ReviewWidget):
         self.review_controller().grade_answer(grade)
 
     def set_question_box_visible(self, is_visible):
-        self.component_manager.android.setQuestionBoxVisible(is_visible)
+        _review_widget.set_question_box_visible(is_visible)
 
     def set_answer_box_visible(self, is_visible):
         self.component_manager.android.setAnswerBoxVisible(is_visible)
