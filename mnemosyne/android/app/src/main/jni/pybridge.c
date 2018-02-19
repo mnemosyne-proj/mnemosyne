@@ -175,7 +175,9 @@ static PyObject* _main_wdgt_get_filename_to_open(PyObject* self,
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
   char filename[STR_SIZE+1];
-  main_wdgt_get_filename_to_open(path, filter, caption, filename, STR_SIZE);
+  jobject result = (*env)->CallObjectMethod(env, threadObj,
+    _main_wdgt_get_filename_to_open_method, path, filter, caption);
+  const char* filename = env->GetStringUTFChars((jstring) result, NULL);
   return PyUnicode_FromString(filename);
 }
 
@@ -191,7 +193,9 @@ static PyObject* _main_wdgt_get_filename_to_save(PyObject* self,
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
   char filename[STR_SIZE+1];
-  main_wdgt_get_filename_to_save(path, filter, caption, filename, STR_SIZE);
+  jobject result = (*env)->CallObjectMethod(env, threadObj,
+    _main_wdgt_get_filename_to_save_method, path, filter, caption);
+  const char* filename = env->GetStringUTFChars((jstring) result, NULL);
   return PyUnicode_FromString(filename);
 }
 
@@ -204,7 +208,8 @@ static PyObject* _main_wdgt_set_status_bar_message(PyObject* self,
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  main_wdgt_set_status_bar_message(text);
+  (*env)->CallVoidMethod(env, threadObj,
+    _main_wdgt_set_status_bar_message_method, text);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -217,7 +222,8 @@ static PyObject* _main_wdgt_set_progress_text(PyObject* self, PyObject* args)
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  main_wdgt_set_progress_text(text);
+  (*env)->CallVoidMethod(env, threadObj,
+    _main_wdgt_set_progress_text_method, text);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -231,7 +237,8 @@ static PyObject* _main_wdgt_set_progress_range(PyObject* self, PyObject* args)
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  main_wdgt_set_progress_range(min, max);
+  (*env)->CallVoidMethod(env, threadObj,
+    _main_wdgt_set_progress_range_method, min, max);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -245,7 +252,8 @@ static PyObject* _main_wdgt_set_progress_update_interval(PyObject* self,
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  main_wdgt_set_progress_update_interval(interval);
+  (*env)->CallVoidMethod(env, threadObj,
+    _main_wdgt_set_progress_update_interval_method, interval);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -258,7 +266,8 @@ static PyObject* _main_wdgt_set_progress_value(PyObject* self, PyObject* args)
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  main_wdgt_set_progress_value(value);
+  (*env)->CallVoidMethod(env, threadObj,
+    _main_wdgt_set_progress_value_method, value);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -268,7 +277,8 @@ static PyObject* _main_wdgt_close_progress(PyObject* self, PyObject* args)
 {
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  main_wdgt_close_progress();
+  (*env)->CallVoidMethod(env, threadObj,
+    _main_wdgt_close_progress_method, value);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -282,7 +292,8 @@ static PyObject* _main_wdgt_enable_edit_current_card(PyObject* self,
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  main_wdgt_enable_edit_current_card(is_enabled);
+  (*env)->CallVoidMethod(env, threadObj,
+    _main_wdgt_enable_edit_current_card_method, is_enabled);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -296,7 +307,8 @@ static PyObject* _main_wdgt_enable_delete_current_card(PyObject* self,
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  main_wdgt_enable_delete_current_card(is_enabled);
+  (*env)->CallVoidMethod(env, threadObj,
+    _main_wdgt_enable_delete_current_card_method, is_enabled);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -310,7 +322,8 @@ static PyObject* _main_wdgt_enable_browse_cards(PyObject* self,
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  main_wdgt_enable_browse_cards(is_enabled);
+  (*env)->CallVoidMethod(env, threadObj,
+    _main_wdgt_enable_browse_cards_method, is_enabled);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -410,7 +423,8 @@ static PyObject* _review_wdgt_set_answer_box_visible(PyObject* self,
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  review_wdgt_set_answer_box_visible(is_visible);
+  (*env)->CallVoidMethod(env, threadObj,
+    _review_wdgt_set_answer_box_visible_method, is_visible);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -424,7 +438,8 @@ static PyObject* _review_wdgt_set_question_label(PyObject* self,
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  review_wdgt_set_question_label(text);
+  (*env)->CallVoidMethod(env, threadObj,
+    _review_wdgt_set_question_label_method, text);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -437,7 +452,8 @@ static PyObject* _review_wdgt_set_question(PyObject* self, PyObject* args)
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  review_wdgt_set_question(text);
+  (*env)->CallVoidMethod(env, threadObj,
+    _review_wdgt_set_question_method, text);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -446,11 +462,13 @@ static PyObject* _review_wdgt_set_question(PyObject* self, PyObject* args)
 static PyObject* _review_wdgt_set_answer(PyObject* self, PyObject* args)
 {
   char* text = NULL;
-  if (!PyArg_ParseTuple(args, "s", &text))
+  int process_audio = 0;
+  if (!PyArg_ParseTuple(args, "si", &text, &process_audio))
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  review_wdgt_set_answer(text);
+  (*env)->CallVoidMethod(env, threadObj,
+    _review_wdgt_set_answer_method, text, process_audio);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -460,7 +478,8 @@ static PyObject* _review_wdgt_clear_question(PyObject* self, PyObject* args)
 {
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  review_wdgt_clear_question();
+  (*env)->CallVoidMethod(env, threadObj,
+    _review_wdgt_clear_question_method);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -470,7 +489,8 @@ static PyObject* _review_wdgt_clear_answer(PyObject* self, PyObject* args)
 {
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  review_wdgt_clear_answer();
+  (*env)->CallVoidMethod(env, threadObj,
+    _review_wdgt_clear_answer_method);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -486,7 +506,8 @@ static PyObject* _review_wdgt_update_show_button(PyObject* self,
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  review_wdgt_update_show_button(text, is_enabled, is_default);
+    (*env)->CallVoidMethod(env, threadObj,
+    _review_wdgt_update_show_button_method, text. is_enabled, is_default);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -500,7 +521,8 @@ static PyObject* _review_wdgt_set_grades_enabled(PyObject* self,
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  review_wdgt_set_grades_enabled(is_enabled);
+  (*env)->CallVoidMethod(env, threadObj,
+    _review_wdgt_set_grades_enabled_method, is_enabled);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -514,7 +536,8 @@ static PyObject* _review_wdgt_set_grade_enabled(PyObject* self, PyObject* args)
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  review_wdgt_set_grade_enabled(grade, is_enabled);
+  (*env)->CallVoidMethod(env, threadObj,
+    _review_wdgt_set_grade_enabled_method, grade, is_enabled);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -527,7 +550,8 @@ static PyObject* _review_wdgt_set_default_grade(PyObject* self, PyObject* args)
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  review_wdgt_set_default_grade(grade);
+  (*env)->CallVoidMethod(env, threadObj,
+    _review_wdgt_set_default_grade_method, grade);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -540,7 +564,8 @@ static PyObject* _review_wdgt_set_grades_title(PyObject* self, PyObject* args)
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  review_wdgt_set_grades_title(text);
+  (*env)->CallVoidMethod(env, threadObj,
+    _review_wdgt_set_grades_title_method, text);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -554,7 +579,8 @@ static PyObject* _review_wdgt_set_grade_text(PyObject* self, PyObject* args)
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  review_wdgt_set_grade_text(grade, text);
+  (*env)->CallVoidMethod(env, threadObj,
+    _review_wdgt_set_grade_text_method, grade, text);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -567,7 +593,8 @@ static PyObject* _review_wdgt_set_grade_tooltip(PyObject* self, PyObject* args)
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  review_wdgt_set_grade_tooltip(grade, text);
+  (*env)->CallVoidMethod(env, threadObj,
+    _review_wdgt_set_grade_tooltip_method, grade, text);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -578,7 +605,8 @@ static PyObject* _review_wdgt_update_status_bar_counters(PyObject* self,
 {
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  review_wdgt_update_status_bar_counters();
+  (*env)->CallVoidMethod(env, threadObj,
+    _review_wdgt_update_status_bar_counters_method);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -588,7 +616,8 @@ static PyObject* _review_wdgt_redraw_now(PyObject* self, PyObject* args)
 {
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  review_wdgt_redraw_now();
+  (*env)->CallVoidMethod(env, threadObj,
+    _review_wdgt_redraw_now_method);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -665,7 +694,8 @@ PyObject* _add_cards_dlg_activate(PyObject* self, PyObject* args)
 {
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  add_cards_dlg_activate();
+  (*env)->CallVoidMethod(env, threadObj,
+    _add_cards_dlg_activate_method);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -679,7 +709,8 @@ PyObject* _edit_card_dlg_activate(PyObject* self, PyObject* args)
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  edit_card_dlg_activate(card_id, allow_cancel);
+  (*env)->CallVoidMethod(env, threadObj,
+    _edit_card_dlg_activate_method, card_id, allow_cancel);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -689,7 +720,8 @@ PyObject* _activate_cards_dlg_activate(PyObject* self, PyObject* args)
 {
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  activate_cards_dlg_activate();
+  (*env)->CallVoidMethod(env, threadObj,
+    _activate_cards_dlg_activate_method);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -700,6 +732,8 @@ PyObject* _browse_cards_dlg_activate(PyObject* self, PyObject* args)
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
   browse_cards_dlg_activate();
+  (*env)->CallVoidMethod(env, threadObj,
+    _browse_cards_dlg_activate_method);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -709,7 +743,8 @@ PyObject* _card_appearance_dlg_activate(PyObject* self, PyObject* args)
 {
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  card_appearance_dlg_activate();
+  (*env)->CallVoidMethod(env, threadObj,
+    _card_appearance_dlg_activate_method);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -719,7 +754,8 @@ PyObject* _activate_plugins_dlg_activate(PyObject* self, PyObject* args)
 {
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  activate_plugins_dlg_activate();
+  (*env)->CallVoidMethod(env, threadObj,
+    _activate_plugins_dlg_activate_method);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -729,7 +765,8 @@ PyObject* _manage_card_types_dlg_activate(PyObject* self, PyObject* args)
 {
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  manage_card_types_dlg_activate();
+  (*env)->CallVoidMethod(env, threadObj,
+    _manage_card_types_dlg_activate_method);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -739,7 +776,8 @@ PyObject* _statistics_dlg_activate(PyObject* self, PyObject* args)
 {
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  statistics_dlg_activate();
+  (*env)->CallVoidMethod(env, threadObj,
+    _statistics_dlg_activate_method);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -749,7 +787,8 @@ PyObject* _configuration_dlg_activate(PyObject* self, PyObject* args)
 {
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  configuration_dlg_activate();
+  (*env)->CallVoidMethod(env, threadObj,
+    _configuration_dlg_activate_method);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -759,7 +798,8 @@ PyObject* _sync_dlg_activate(PyObject* self, PyObject* args)
 {
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  sync_dlg_activate();
+  (*env)->CallVoidMethod(env, threadObj,
+    _sync_dlg_activate_method);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -794,7 +834,6 @@ PyInit__dialogs(void)
 
 */
 
-
 JNIEXPORT jint JNICALL Java_org_mnemosyne2_PyBridge_start
         (JNIEnv *env, jclass jc, jstring path, jobject thread)
 {
@@ -805,8 +844,54 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne2_PyBridge_start
     jclass cls = (*env)->GetObjectClass(env, thread);
 	threadClass = (jclass) (*env)->NewGlobalRef(env, cls);
 
-    set_question_box_visible_method = (*env)->GetMethodID(env, threadClass,
-		"setQuestionBoxVisible", "(Z)V");
+    _main_wdgt_set_window_title_method;
+    _main_wdgt_show_information_method;
+    _main_wdgt_show_question_method;
+    _main_wdgt_show_error_method;
+    _main_wdgt_get_filename_to_open_method;
+    _main_wdgt_get_filename_to_save_method;
+    _main_wdgt_set_status_bar_message_method;
+    _main_wdgt_set_progress_text_method;
+    _main_wdgt_set_progress_range_method;
+    _main_wdgt_set_progress_update_interval_method;
+    _main_wdgt_set_progress_value_method;
+    _main_wdgt_close_progress_method;
+    _main_wdgt_enable_edit_current_card_method;
+    _main_wdgt_enable_delete_current_card_method;
+    _main_wdgt_enable_browse_cards_method;
+
+    _review_wdgt_set_question_box_visible_method = (*env)->GetMethodID(env,
+      threadClass, "setQuestionBoxVisible", "(Z)V");
+    _review_wdgt_set_answer_box_visible_method = (*env)->GetMethodID(env,
+      threadClass, "setAnswerBoxVisible", "(Z)V");
+    _review_wdgt_set_question_label_method = (*env)->GetMethodID(env,
+      threadClass, "setQuestionLabel", "(Ljava/lang/String;)V");
+    _review_wdgt_set_question_method = (*env)->GetMethodID(env,
+      threadClass, "setQuestion", "(Ljava/lang/String;)V");
+    _review_wdgt_set_answer_method = (*env)->GetMethodID(env,
+      threadClass, "setAnswer", "(Ljava/lang/String;Ljava/lang/Boolean;)V");
+    _review_wdgt_clear_question_method;
+    _review_wdgt_clear_answer_method;
+    _review_wdgt_update_show_button_method;
+    _review_wdgt_set_grades_enabled_method;
+    _review_wdgt_set_grade_enabled_method;
+    _review_wdgt_set_default_grade_method;
+    _review_wdgt_set_grades_title_method;
+    _review_wdgt_set_grade_text_method;
+    _review_wdgt_set_grade_tooltip_method;
+    _review_wdgt_update_status_bar_counters_method;
+    _review_wdgt_redraw_now_method;
+
+    _add_cards_dlg_activate_method;
+    _edit_card_dlg_activate_method;
+    _activate_cards_dlg_activate_method;
+    _browse_cards_dlg_activate_method;
+    _card_appearance_dlg_activate_method;
+    _activate_plugins_dlg_activate_method;
+    _manage_card_types_dlg_activate_method;
+    _statistics_dlg_activate_method;
+    _configuration_dlg_activate_method;
+    _sync_dlg_activate_method;
 
     //char str[250];
     //sprintf(str, "Method ID: %p ", set_question_box_visible_method);

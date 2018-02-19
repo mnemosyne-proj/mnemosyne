@@ -1,4 +1,6 @@
-- detatch thread needed?
+- need to wrap string?
+https://stackoverflow.com/questions/992836/how-to-access-the-java-method-in-a-c-application?noredirect=1&lq=1
+
 
 -document development process
 -make android more robust against missing media files.
