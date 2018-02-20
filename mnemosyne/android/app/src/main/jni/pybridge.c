@@ -10,7 +10,6 @@
 
 #define STR_SIZE 128
 
-#include <string.h>
 #include <Python.h>
 #include <jni.h>
 #include <android/log.h>
@@ -145,8 +144,8 @@ static PyObject* _main_wdgt_show_question(PyObject* self, PyObject* args)
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
   int answer;
   answer = (*env)->CallIntMethod(env, threadObj,
-    _main_widget_show_question_method, text, option_0, option_1, option_2);
-  return Py_BuildValue("i", result);
+    _main_wdgt_show_question_method, text, option_0, option_1, option_2);
+  return Py_BuildValue("i", answer);
 }
 
 
@@ -177,8 +176,9 @@ static PyObject* _main_wdgt_get_filename_to_open(PyObject* self,
   char filename[STR_SIZE+1];
   jobject result = (*env)->CallObjectMethod(env, threadObj,
     _main_wdgt_get_filename_to_open_method, path, filter, caption);
-  const char* filename = env->GetStringUTFChars((jstring) result, NULL);
-  return PyUnicode_FromString(filename);
+  const char* fname;
+  fname = (*env)->GetStringUTFChars(env, (jstring) result, NULL);
+  return PyUnicode_FromString(fname);
 }
 
 
@@ -195,8 +195,9 @@ static PyObject* _main_wdgt_get_filename_to_save(PyObject* self,
   char filename[STR_SIZE+1];
   jobject result = (*env)->CallObjectMethod(env, threadObj,
     _main_wdgt_get_filename_to_save_method, path, filter, caption);
-  const char* filename = env->GetStringUTFChars((jstring) result, NULL);
-  return PyUnicode_FromString(filename);
+  const char* fname;
+  fname = (*env)->GetStringUTFChars(env, (jstring) result, NULL);
+  return PyUnicode_FromString(fname);
 }
 
 
@@ -278,7 +279,7 @@ static PyObject* _main_wdgt_close_progress(PyObject* self, PyObject* args)
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
   (*env)->CallVoidMethod(env, threadObj,
-    _main_wdgt_close_progress_method, value);
+    _main_wdgt_close_progress_method);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -507,7 +508,7 @@ static PyObject* _review_wdgt_update_show_button(PyObject* self,
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
     (*env)->CallVoidMethod(env, threadObj,
-    _review_wdgt_update_show_button_method, text. is_enabled, is_default);
+    _review_wdgt_update_show_button_method, text, is_enabled, is_default);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -731,7 +732,6 @@ PyObject* _browse_cards_dlg_activate(PyObject* self, PyObject* args)
 {
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-  browse_cards_dlg_activate();
   (*env)->CallVoidMethod(env, threadObj,
     _browse_cards_dlg_activate_method);
   Py_INCREF(Py_None);
@@ -845,17 +845,25 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne2_PyBridge_start
 	threadClass = (jclass) (*env)->NewGlobalRef(env, cls);
 
     _main_wdgt_set_window_title_method;
-    _main_wdgt_show_information_method;
-    _main_wdgt_show_question_method;
+    _main_wdgt_show_information_method = (*env)->GetMethodID(env,
+      threadClass, "showInformation", "(Ljava/lang/String;)V");
+    _main_wdgt_show_question_method = (*env)->GetMethodID(env,
+      threadClass, "showQuestion",
+      "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I");
     _main_wdgt_show_error_method;
     _main_wdgt_get_filename_to_open_method;
     _main_wdgt_get_filename_to_save_method;
-    _main_wdgt_set_status_bar_message_method;
-    _main_wdgt_set_progress_text_method;
-    _main_wdgt_set_progress_range_method;
+    _main_wdgt_set_status_bar_message_method = (*env)->GetMethodID(env,
+      threadClass, "setStatusbarMessage", "(Ljava/lang/String;)V");
+    _main_wdgt_set_progress_text_method = (*env)->GetMethodID(env,
+      threadClass, "setProgressText", "(Ljava/lang/String;)V");
+    _main_wdgt_set_progress_range_method = (*env)->GetMethodID(env,
+      threadClass, "setProgressRange", "(I)V");
     _main_wdgt_set_progress_update_interval_method;
-    _main_wdgt_set_progress_value_method;
-    _main_wdgt_close_progress_method;
+    _main_wdgt_set_progress_value_method = (*env)->GetMethodID(env,
+      threadClass, "setProgressValue", "(I)V");
+    _main_wdgt_close_progress_method = (*env)->GetMethodID(env,
+      threadClass, "closeProgress", "()V");
     _main_wdgt_enable_edit_current_card_method;
     _main_wdgt_enable_delete_current_card_method;
     _main_wdgt_enable_browse_cards_method;
@@ -872,8 +880,10 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne2_PyBridge_start
       threadClass, "setAnswer", "(Ljava/lang/String;Ljava/lang/Boolean;)V");
     _review_wdgt_clear_question_method;
     _review_wdgt_clear_answer_method;
-    _review_wdgt_update_show_button_method;
-    _review_wdgt_set_grades_enabled_method;
+    _review_wdgt_update_show_button_method = (*env)->GetMethodID(env,
+      threadClass, "updateShowButton", "(Ljava/lang/String;ZZ)V");
+    _review_wdgt_set_grades_enabled_method = (*env)->GetMethodID(env,
+      threadClass, "setGradesEnabled", "(Z)V");
     _review_wdgt_set_grade_enabled_method;
     _review_wdgt_set_default_grade_method;
     _review_wdgt_set_grades_title_method;
@@ -884,14 +894,17 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne2_PyBridge_start
 
     _add_cards_dlg_activate_method;
     _edit_card_dlg_activate_method;
-    _activate_cards_dlg_activate_method;
+    _activate_cards_dlg_activate_method = (*env)->GetMethodID(env,
+      threadClass, "activateCardsDlgActivate",
+      "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
     _browse_cards_dlg_activate_method;
     _card_appearance_dlg_activate_method;
     _activate_plugins_dlg_activate_method;
     _manage_card_types_dlg_activate_method;
     _statistics_dlg_activate_method;
     _configuration_dlg_activate_method;
-    _sync_dlg_activate_method;
+    _sync_dlg_activate_method = (*env)->GetMethodID(env,
+      threadClass, "syncDlgActivate", "(Ljava/lang/String;Ljava/lang/String;)V");
 
     //char str[250];
     //sprintf(str, "Method ID: %p ", set_question_box_visible_method);

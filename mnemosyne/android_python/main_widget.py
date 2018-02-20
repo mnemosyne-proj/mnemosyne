@@ -2,6 +2,8 @@
 # main_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
+import _main_widget
+
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 class MainWdgt(MainWidget):
@@ -16,13 +18,13 @@ class MainWdgt(MainWidget):
     def show_information(self, text):
         if self.is_progress_bar_showing:
             self.close_progress()
-        self.component_manager.android.Log("Mnemosyne", text.encode("utf-8"))
-        self.component_manager.android.showInformation(text.encode("utf-8"))
+        print(text)
+        _main_widget.show_information(text.encode("utf-8"))
 
     def show_question(self, text, option0, option1, option2):
         if self.is_progress_bar_showing:
             self.close_progress()
-        return self.component_manager.android.showQuestion(\
+        return _main_widget.show_question(\
             text.encode("utf-8"), option0.encode("utf-8"),
             option1.encode("utf-8"), option2.encode("utf-8"))
 
@@ -32,14 +34,14 @@ class MainWdgt(MainWidget):
     def set_progress_text(self, text):
         if self.is_progress_bar_showing:
             self.close_progress()
-        self.component_manager.android.setProgressText(text.encode("utf-8"))
+        _main_widget.set_progress_text(text.encode("utf-8"))
         self.progress_bar_update_interval = 1
         self.progress_bar_current_value = 0
         self.progress_bar_last_shown_value = 0
         self.is_progress_bar_showing = True
 
     def set_progress_range(self, maximum):
-        self.component_manager.android.setProgressRange(maximum)
+        _main_widget.set_progress_range(maximum)
 
     def set_progress_update_interval(self, update_interval):
         update_interval = int(update_interval)
@@ -57,10 +59,10 @@ class MainWdgt(MainWidget):
         self.progress_bar_current_value = value
         if value - self.progress_bar_last_shown_value >= \
                self.progress_bar_update_interval:
-            self.component_manager.android.setProgressValue(value)
+            _main_widget.set_progress_value(value)
             self.progress_bar_last_shown_value = value
 
     def close_progress(self):
         self.is_progress_bar_showing = False
-        self.component_manager.android.closeProgress()
+        _main_widget.close_progress()
 

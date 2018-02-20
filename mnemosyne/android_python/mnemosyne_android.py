@@ -174,3 +174,8 @@ def controller_set_study_mode_with_id(args):
 def controller_do_db_maintenance(args):
     mnemosyne.controller().do_db_maintenance()
 
+def activate_cards_dlg_set_criterion_with_name(saved_set):
+    from activate_cards_dlg import ActivateCardsDlg
+    dlg = ActivateCardsDlg(mnemosyne.component_manager)
+    dlg.set_criterion_with_name(saved_set)
+
