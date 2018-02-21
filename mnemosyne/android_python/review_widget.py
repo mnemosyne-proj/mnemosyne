@@ -45,7 +45,7 @@ class ReviewWdgt(ReviewWidget):
         _review_widget.set_answer_box_visible(is_visible)
 
     def set_question_label(self, text):
-        _review_widget.set_question_label(text.encode("utf-8"))
+        _review_widget.set_question_label(text)
 
     def set_question(self, text):
         self.question = text
@@ -54,10 +54,10 @@ class ReviewWdgt(ReviewWidget):
         self.answer = text
 
     def reveal_question(self):
-        _review_widget.set_question(self.question.encode("utf-8"))
+        _review_widget.set_question(self.question)
 
     def reveal_answer(self, process_audio=True):
-        _review_widget.set_answer(self.answer.encode("utf-8"), process_audio)
+        _review_widget.set_answer(self.answer, process_audio)
 
     def clear_question(self):
         self.question = self.empty()
@@ -71,7 +71,7 @@ class ReviewWdgt(ReviewWidget):
 
     def update_show_button(self, text, is_default, is_enabled):
         _review_widget.update_show_button(
-            text.encode("utf-8"), is_default, is_enabled)
+            text, is_default, is_enabled)
 
     def set_grades_enabled(self, is_enabled):
         _review_widget.set_grades_enabled(is_enabled)

@@ -19,14 +19,13 @@ class MainWdgt(MainWidget):
         if self.is_progress_bar_showing:
             self.close_progress()
         print(text)
-        _main_widget.show_information(text.encode("utf-8"))
+        _main_widget.show_information(text)
 
     def show_question(self, text, option0, option1, option2):
         if self.is_progress_bar_showing:
             self.close_progress()
-        return _main_widget.show_question(\
-            text.encode("utf-8"), option0.encode("utf-8"),
-            option1.encode("utf-8"), option2.encode("utf-8"))
+        return _main_widget.show_question(text, option0,
+            option1, option2)
 
     def show_error(self, text):
         self.show_information(text)
@@ -34,7 +33,7 @@ class MainWdgt(MainWidget):
     def set_progress_text(self, text):
         if self.is_progress_bar_showing:
             self.close_progress()
-        _main_widget.set_progress_text(text.encode("utf-8"))
+        _main_widget.set_progress_text(text)
         self.progress_bar_update_interval = 1
         self.progress_bar_current_value = 0
         self.progress_bar_last_shown_value = 0

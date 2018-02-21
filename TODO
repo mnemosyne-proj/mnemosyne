@@ -1,5 +1,5 @@
-- need to wrap string?
-https://stackoverflow.com/questions/992836/how-to-access-the-java-method-in-a-c-application?noredirect=1&lq=1
+java.lang.NullPointerException: Attempt to invoke virtual method 'boolean java.lang.Boolean.booleanValue()' on a null object reference
+at org.mnemosyne2.MnemosyneActivity.setAnswer(MnemosyneActivity.java:479)
 
 
 -document development process

@@ -110,8 +110,9 @@ static PyObject* _main_wdgt_set_window_title(PyObject* self, PyObject* args)
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
+  jstring jtext = (*env)->NewStringUTF(env, text);
   (*env)->CallVoidMethod(env, threadObj,
-    _main_wdgt_set_window_title_method, text);
+    _main_wdgt_set_window_title_method, jtext);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -124,8 +125,9 @@ static PyObject* _main_wdgt_show_information(PyObject* self, PyObject* args)
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
+  jstring jtext = (*env)->NewStringUTF(env, text);
   (*env)->CallVoidMethod(env, threadObj,
-    _main_wdgt_show_information_method, text);
+    _main_wdgt_show_information_method, jtext);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -142,9 +144,13 @@ static PyObject* _main_wdgt_show_question(PyObject* self, PyObject* args)
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
+  jstring jtext = (*env)->NewStringUTF(env, text);
+  jstring joption_0 = (*env)->NewStringUTF(env, option_0);
+  jstring joption_1 = (*env)->NewStringUTF(env, option_1);
+  jstring joption_2 = (*env)->NewStringUTF(env, option_2);
   int answer;
   answer = (*env)->CallIntMethod(env, threadObj,
-    _main_wdgt_show_question_method, text, option_0, option_1, option_2);
+    _main_wdgt_show_question_method, jtext, joption_0, joption_1, joption_2);
   return Py_BuildValue("i", answer);
 }
 
@@ -156,8 +162,9 @@ static PyObject* _main_wdgt_show_error(PyObject* self, PyObject* args)
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
+  jstring jtext = (*env)->NewStringUTF(env, text);
   (*env)->CallVoidMethod(env, threadObj,
-    _main_wdgt_show_error_method, text);
+    _main_wdgt_show_error_method, jtext);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -173,9 +180,12 @@ static PyObject* _main_wdgt_get_filename_to_open(PyObject* self,
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
+  jstring jpath = (*env)->NewStringUTF(env, path);
+  jstring jfilter = (*env)->NewStringUTF(env, filter);
+  jstring jcaption = (*env)->NewStringUTF(env, caption);
   char filename[STR_SIZE+1];
   jobject result = (*env)->CallObjectMethod(env, threadObj,
-    _main_wdgt_get_filename_to_open_method, path, filter, caption);
+    _main_wdgt_get_filename_to_open_method, jpath, jfilter, jcaption);
   const char* fname;
   fname = (*env)->GetStringUTFChars(env, (jstring) result, NULL);
   return PyUnicode_FromString(fname);
@@ -192,9 +202,12 @@ static PyObject* _main_wdgt_get_filename_to_save(PyObject* self,
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
+  jstring jpath = (*env)->NewStringUTF(env, path);
+  jstring jfilter = (*env)->NewStringUTF(env, filter);
+  jstring jcaption = (*env)->NewStringUTF(env, caption);
   char filename[STR_SIZE+1];
   jobject result = (*env)->CallObjectMethod(env, threadObj,
-    _main_wdgt_get_filename_to_save_method, path, filter, caption);
+    _main_wdgt_get_filename_to_save_method, jpath, jfilter, jcaption);
   const char* fname;
   fname = (*env)->GetStringUTFChars(env, (jstring) result, NULL);
   return PyUnicode_FromString(fname);
@@ -209,8 +222,9 @@ static PyObject* _main_wdgt_set_status_bar_message(PyObject* self,
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
+  jstring jtext = (*env)->NewStringUTF(env, text);
   (*env)->CallVoidMethod(env, threadObj,
-    _main_wdgt_set_status_bar_message_method, text);
+    _main_wdgt_set_status_bar_message_method, jtext);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -223,8 +237,9 @@ static PyObject* _main_wdgt_set_progress_text(PyObject* self, PyObject* args)
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
+  jstring jtext = (*env)->NewStringUTF(env, text);
   (*env)->CallVoidMethod(env, threadObj,
-    _main_wdgt_set_progress_text_method, text);
+    _main_wdgt_set_progress_text_method, jtext);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -439,8 +454,9 @@ static PyObject* _review_wdgt_set_question_label(PyObject* self,
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
+  jstring jtext = (*env)->NewStringUTF(env, text);
   (*env)->CallVoidMethod(env, threadObj,
-    _review_wdgt_set_question_label_method, text);
+    _review_wdgt_set_question_label_method, jtext);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -453,8 +469,9 @@ static PyObject* _review_wdgt_set_question(PyObject* self, PyObject* args)
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
+  jstring jtext = (*env)->NewStringUTF(env, text);
   (*env)->CallVoidMethod(env, threadObj,
-    _review_wdgt_set_question_method, text);
+    _review_wdgt_set_question_method, jtext);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -468,8 +485,9 @@ static PyObject* _review_wdgt_set_answer(PyObject* self, PyObject* args)
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
+  jstring jtext = (*env)->NewStringUTF(env, text);
   (*env)->CallVoidMethod(env, threadObj,
-    _review_wdgt_set_answer_method, text, process_audio);
+    _review_wdgt_set_answer_method, jtext, process_audio);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -506,9 +524,10 @@ static PyObject* _review_wdgt_update_show_button(PyObject* self,
   if (!PyArg_ParseTuple(args, "sii", &text, &is_enabled, &is_default))
     return NULL;
   JNIEnv *env;
+  jstring jtext = (*env)->NewStringUTF(env, text);
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
-    (*env)->CallVoidMethod(env, threadObj,
-    _review_wdgt_update_show_button_method, text, is_enabled, is_default);
+  (*env)->CallVoidMethod(env, threadObj,
+    _review_wdgt_update_show_button_method, jtext, is_enabled, is_default);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -564,9 +583,10 @@ static PyObject* _review_wdgt_set_grades_title(PyObject* self, PyObject* args)
   if (!PyArg_ParseTuple(args, "s", &text))
     return NULL;
   JNIEnv *env;
+  jstring jtext = (*env)->NewStringUTF(env, text);
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
   (*env)->CallVoidMethod(env, threadObj,
-    _review_wdgt_set_grades_title_method, text);
+    _review_wdgt_set_grades_title_method, jtext);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -580,8 +600,9 @@ static PyObject* _review_wdgt_set_grade_text(PyObject* self, PyObject* args)
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
+  jstring jtext = (*env)->NewStringUTF(env, text);
   (*env)->CallVoidMethod(env, threadObj,
-    _review_wdgt_set_grade_text_method, grade, text);
+    _review_wdgt_set_grade_text_method, grade, jtext);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -594,8 +615,9 @@ static PyObject* _review_wdgt_set_grade_tooltip(PyObject* self, PyObject* args)
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
+  jstring jtext = (*env)->NewStringUTF(env, text);
   (*env)->CallVoidMethod(env, threadObj,
-    _review_wdgt_set_grade_tooltip_method, grade, text);
+    _review_wdgt_set_grade_tooltip_method, grade, jtext);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -710,8 +732,9 @@ PyObject* _edit_card_dlg_activate(PyObject* self, PyObject* args)
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
+  jstring jcard_id = (*env)->NewStringUTF(env, card_id);
   (*env)->CallVoidMethod(env, threadObj,
-    _edit_card_dlg_activate_method, card_id, allow_cancel);
+    _edit_card_dlg_activate_method, jcard_id, allow_cancel);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -877,7 +900,7 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne2_PyBridge_start
     _review_wdgt_set_question_method = (*env)->GetMethodID(env,
       threadClass, "setQuestion", "(Ljava/lang/String;)V");
     _review_wdgt_set_answer_method = (*env)->GetMethodID(env,
-      threadClass, "setAnswer", "(Ljava/lang/String;Ljava/lang/Boolean;)V");
+      threadClass, "setAnswer", "(Ljava/lang/String;Z)V");
     _review_wdgt_clear_question_method;
     _review_wdgt_clear_answer_method;
     _review_wdgt_update_show_button_method = (*env)->GetMethodID(env,
@@ -896,7 +919,7 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne2_PyBridge_start
     _edit_card_dlg_activate_method;
     _activate_cards_dlg_activate_method = (*env)->GetMethodID(env,
       threadClass, "activateCardsDlgActivate",
-      "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+      "(Ljava/lang/String;Ljava/lang/String;)V");
     _browse_cards_dlg_activate_method;
     _card_appearance_dlg_activate_method;
     _activate_plugins_dlg_activate_method;
@@ -904,10 +927,10 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne2_PyBridge_start
     _statistics_dlg_activate_method;
     _configuration_dlg_activate_method;
     _sync_dlg_activate_method = (*env)->GetMethodID(env,
-      threadClass, "syncDlgActivate", "(Ljava/lang/String;Ljava/lang/String;)V");
+      threadClass, "syncDlgActivate", "()V");
 
     //char str[250];
-    //sprintf(str, "Method ID: %p ", set_question_box_visible_method);
+    //sprintf(str, "Method ID: %p ", _review_wdgt_update_show_button_method);
     //LOG(str);
 
     LOG("Initializing the Python interpreter");

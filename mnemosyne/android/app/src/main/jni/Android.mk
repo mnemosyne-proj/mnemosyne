@@ -6,6 +6,7 @@ CRYSTAX_PATH := C:/crystax-ndk-10.3.2
 include $(CLEAR_VARS)
 LOCAL_MODULE    := pybridge
 LOCAL_SRC_FILES := pybridge.c
+#LOCAL_CFLAGS += -g
 LOCAL_LDLIBS := -llog
 LOCAL_SHARED_LIBRARIES := python3.5m
 include $(BUILD_SHARED_LIBRARY)
