@@ -70,8 +70,7 @@ class ReviewWdgt(ReviewWidget):
         self.reveal_answer(process_audio=False)
 
     def update_show_button(self, text, is_default, is_enabled):
-        _review_widget.update_show_button(
-            text, is_default, is_enabled)
+        _review_widget.update_show_button(text, is_default, is_enabled)
 
     def set_grades_enabled(self, is_enabled):
         _review_widget.set_grades_enabled(is_enabled)
@@ -84,5 +83,5 @@ class ReviewWdgt(ReviewWidget):
             self.review_controller().counters()
         counters = "Sch.: %d Not mem.: %d Act.: %d" % \
                     (scheduled_count, non_memorised_count, active_count)
-        _main_widget.set_statusbar_message(counters)
+        _main_widget.set_status_bar_message(counters)
 

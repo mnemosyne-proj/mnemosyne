@@ -521,11 +521,11 @@ static PyObject* _review_wdgt_update_show_button(PyObject* self,
   char* text = NULL;
   int is_default = 0;
   int is_enabled = 0;
-  if (!PyArg_ParseTuple(args, "sii", &text, &is_enabled, &is_default))
-    return NULL;
+  if (!PyArg_ParseTuple(args, "sii", &text, &is_enabled, &is_default)) {
+    return NULL;}
   JNIEnv *env;
-  jstring jtext = (*env)->NewStringUTF(env, text);
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
+  jstring jtext = (*env)->NewStringUTF(env, text);
   (*env)->CallVoidMethod(env, threadObj,
     _review_wdgt_update_show_button_method, jtext, is_enabled, is_default);
   Py_INCREF(Py_None);
@@ -877,7 +877,7 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne2_PyBridge_start
     _main_wdgt_get_filename_to_open_method;
     _main_wdgt_get_filename_to_save_method;
     _main_wdgt_set_status_bar_message_method = (*env)->GetMethodID(env,
-      threadClass, "setStatusbarMessage", "(Ljava/lang/String;)V");
+      threadClass, "setStatusBarMessage", "(Ljava/lang/String;)V");
     _main_wdgt_set_progress_text_method = (*env)->GetMethodID(env,
       threadClass, "setProgressText", "(Ljava/lang/String;)V");
     _main_wdgt_set_progress_range_method = (*env)->GetMethodID(env,
