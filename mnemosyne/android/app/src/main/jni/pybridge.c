@@ -247,14 +247,13 @@ static PyObject* _main_wdgt_set_progress_text(PyObject* self, PyObject* args)
 
 static PyObject* _main_wdgt_set_progress_range(PyObject* self, PyObject* args)
 {
-  int min = 0;
   int max = 0;
-  if (!PyArg_ParseTuple(args, "ii", &min, &max))
+  if (!PyArg_ParseTuple(args, "i", &max))
     return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
   (*env)->CallVoidMethod(env, threadObj,
-    _main_wdgt_set_progress_range_method, min, max);
+    _main_wdgt_set_progress_range_method, max);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -742,10 +741,16 @@ PyObject* _edit_card_dlg_activate(PyObject* self, PyObject* args)
 
 PyObject* _activate_cards_dlg_activate(PyObject* self, PyObject* args)
 {
+  char* savedSets = NULL;
+  char* activeSet = NULL;
+  if (!PyArg_ParseTuple(args, "ss", &savedSets, &activeSet))
+    return NULL;
   JNIEnv *env;
   (*javaVM)->GetEnv(javaVM, (void **) &env, JNI_VERSION_1_6);
+  jstring jsavedSets = (*env)->NewStringUTF(env, savedSets);
+  jstring jactiveSet = (*env)->NewStringUTF(env, activeSet);
   (*env)->CallVoidMethod(env, threadObj,
-    _activate_cards_dlg_activate_method);
+    _activate_cards_dlg_activate_method, jsavedSets, jactiveSet);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -827,12 +832,36 @@ PyObject* _sync_dlg_activate(PyObject* self, PyObject* args)
   return Py_None;
 }
 
+static PyMethodDef _dialogs_methods[] = {
+  {"add_cards_dlg_activate",         _add_cards_dlg_activate,
+   METH_VARARGS, ""},
+  {"edit_card_dlg_activate",         _edit_card_dlg_activate,
+   METH_VARARGS, ""},
+  {"activate_cards_dlg_activate",    _activate_cards_dlg_activate,
+   METH_VARARGS, ""},
+  {"browse_cards_dlg_activate",      _browse_cards_dlg_activate,
+   METH_VARARGS, ""},
+  {"card_appearance_dlg_activate",   _card_appearance_dlg_activate,
+   METH_VARARGS, ""},
+  {"activate_plugins_dlg_activate",  _activate_plugins_dlg_activate,
+   METH_VARARGS, ""},
+  {"manage_card_types_dlg_activate", _manage_card_types_dlg_activate,
+   METH_VARARGS, ""},
+  {"statistics_dlg_activate",        _statistics_dlg_activate,
+   METH_VARARGS, ""},
+  {"configuration_dlg_activate",     _configuration_dlg_activate,
+   METH_VARARGS, ""},
+  {"sync_dlg_activate",              _sync_dlg_activate,
+   METH_VARARGS, ""},
+  {NULL, NULL, 0, NULL}
+};
+
 static struct PyModuleDef _dialogs_module = {
     PyModuleDef_HEAD_INIT,
-    "_dialogs",          /* m_name */
-    NULL,                /* m_doc */
-    -1,                  /* m_size */
-    _review_wdgt_methods /* m_methods */
+    "_dialogs",       /* m_name */
+    NULL,             /* m_doc */
+    -1,               /* m_size */
+    _dialogs_methods  /* m_methods */
 };
 
 
@@ -988,8 +1017,6 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne2_PyBridge_stop
 JNIEXPORT jstring JNICALL Java_org_mnemosyne2_PyBridge_call
         (JNIEnv *env, jclass jc, jstring payload)
 {
-    LOG("Call into Python interpreter");
-
     // Get the payload string.
     jboolean iscopy;
     const char *payload_utf = (*env)->GetStringUTFChars(env, payload, &iscopy);

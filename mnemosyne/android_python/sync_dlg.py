@@ -2,6 +2,8 @@
 # sync_dlg.py <Peter.Bienstman@UGent.be>
 #
 
+import _dialogs
+
 from mnemosyne.libmnemosyne.ui_components.dialogs import SyncDialog
 
 
@@ -12,4 +14,4 @@ class SyncDlg(SyncDialog):
 
     def activate(self):
         SyncDialog.activate(self)
-        self.component_manager.android.showSyncDialog()
+        _dialogs.sync_dlg_activate()

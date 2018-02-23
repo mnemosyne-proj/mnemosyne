@@ -2,6 +2,8 @@
 # activate_cards_dlg.py <Peter.Bienstman@UGent.be>
 #
 
+import _dialogs
+
 from mnemosyne.libmnemosyne.ui_components.dialogs import ActivateCardsDialog
 
 
@@ -17,9 +19,5 @@ class ActivateCardsDlg(ActivateCardsDialog):
                 self.criteria_by_name[criterion.name] = criterion
                 if criterion == active_criterion:
                     active_set_name = criterion.name
-        # TODO
-        self.component_manager.android.showActivateCardsDialog(\
+        _dialogs.activate_cards_dlg_activate(\
             "____".join(sorted(self.criteria_by_name.keys())), active_set_name)
-
-    def set_criterion_with_name(self, criterion_name):
-        self.database().set_current_criterion(self.criteria_by_name[criterion_name])
