@@ -49,12 +49,12 @@ def rand_uuid():
 
 
 def normalise_path(path):
-    
-    """Make sure the correct types of slashes are used. 
-    'pathlib' itself turns out to be not sufficient for that. 
-    
+
+    """Make sure the correct types of slashes are used.
+    'pathlib' itself turns out to be not sufficient for that.
+
     """
-    
+
     if os.name == "posix":
         return path.replace("\\", "/")
     else:

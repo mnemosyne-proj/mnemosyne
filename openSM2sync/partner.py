@@ -3,6 +3,8 @@
 #
 
 import os
+if "ANDROID" in os.environ:
+    from mnemosyne.android_python.utf8_filenames import *
 from openSM2sync.utils import normalise_path
 
 

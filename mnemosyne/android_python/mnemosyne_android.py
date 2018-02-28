@@ -7,6 +7,7 @@ import os
 #    https://github.com/pyinstaller/pyinstaller/issues/1113
 import encodings.idna
 
+os.environ["ANDROID"] = "true"
 
 # Initialise Mnemosyne.
 from mnemosyne.libmnemosyne import Mnemosyne
