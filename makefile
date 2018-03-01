@@ -10,6 +10,7 @@ endif
 # If we are on cygwin:
 ifeq (1,$(shell /cygdrive/c/Program\ Files\ \(x86\)/Python36-32/python.exe -c "print(1)" 2>&- ))
 PYTHON      := /cygdrive/c/Program\ Files\ \(x86\)/Python36-32/python.exe
+PYTHON35    := /cygdrive/c/Program\ Files\ \(x86\)/Python\ 3.5/python.exe
 endif
 # If `sphinx-build2` exists:
 ifneq (,$(shell command -v sphinx-build2 2>&- ))
@@ -119,11 +120,12 @@ osx: macos
 
 android: # Creates the assets file with the Python code.
 	rm -f mnemosyne/android/app/src/main/assets/python/mnemosyne.zip
-	#python -m compileall mnemosyne
 	zip	-r mnemosyne/android/app/src/main/assets/python/mnemosyne.zip openSM2sync -i \*.py
 	zip -r mnemosyne/android/app/src/main/assets/python/mnemosyne.zip mnemosyne/libmnemosyne -i \*.py
 	zip	-r mnemosyne/android/app/src/main/assets/python/mnemosyne.zip mnemosyne/android_python -i \*.py
 	zip	mnemosyne/android/app/src/main/assets/python/mnemosyne.zip mnemosyne/version.py mnemosyne/__init__.py
+	$(PYTHON35) compile_zip.py mnemosyne/android/app/src/main/assets/python/mnemosyne.zip
+	#$(PYTHON35) compile_zip.py mnemosyne/android/app/src/main/assets/python/stdlib.zip
 
 clean:
 	rm -f *~ *.pyc *.tgz process_profile.py outside.db outside.db-journal

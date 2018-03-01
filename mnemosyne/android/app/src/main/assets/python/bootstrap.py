@@ -38,7 +38,7 @@ def router(args):
 routes = {
     "start_mnemosyne": start_mnemosyne,
     "pause_mnemosyne": pause_mnemosyne,
-    "stop_mnemosyne": start_mnemosyne,
+    "stop_mnemosyne": stop_mnemosyne,
     "controller_heartbeat": controller_heartbeat,
     "config_get": config_get,
     "config_set": config_set,

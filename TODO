@@ -1,4 +1,3 @@
-
 -document development process
 
 -rename back to mnemosyne: guild.gradle app application Id, pybridge.c, mnemosynethread datadir
@@ -8,10 +7,6 @@
 
 
 Android:
-
-- reenable db_maintenance
-- precompile Mnemosyne code, make sure to use Python 3.5
-- compile stdlib? remove unneeded libraries?
 
 -integrated error reporting:
 https://developers.google.com/analytics/devguides/collection/android/v4/exceptions
