@@ -886,7 +886,7 @@ PyInit__dialogs(void)
 
 */
 
-JNIEXPORT jint JNICALL Java_org_mnemosyne2_PyBridge_start
+JNIEXPORT jint JNICALL Java_org_mnemosyne_PyBridge_start
         (JNIEnv *env, jclass jc, jstring path, jobject thread)
 {
     // Cache function pointers and objects.
@@ -995,7 +995,7 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne2_PyBridge_start
 }
 
 
-JNIEXPORT jint JNICALL Java_org_mnemosyne2_PyBridge_stop
+JNIEXPORT jint JNICALL Java_org_mnemosyne_PyBridge_stop
         (JNIEnv *env, jclass jc)
 {
     LOG("Trying to free global references");
@@ -1014,7 +1014,7 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne2_PyBridge_stop
     file.
 
 */
-JNIEXPORT jstring JNICALL Java_org_mnemosyne2_PyBridge_call
+JNIEXPORT jstring JNICALL Java_org_mnemosyne_PyBridge_call
         (JNIEnv *env, jclass jc, jstring payload)
 {
     // Get the payload string.

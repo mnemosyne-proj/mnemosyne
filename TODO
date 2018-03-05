@@ -1,8 +1,5 @@
 -document development process
 
--rename back to mnemosyne: guild.gradle app application Id, pybridge.c, mnemosynethread datadir
--remove hard coded data dir
-
 -upgrade PyQt
 
 

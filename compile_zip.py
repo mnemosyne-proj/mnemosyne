@@ -12,7 +12,7 @@ import compileall
 
 def compile_zip(zip_file):
     # Extract to tmp dir.
-    tmp_dirname = "__TMP__"
+    tmp_dirname = "MNEMOSYNE_ANDROID"
     if os.path.exists(tmp_dirname):
         shutil.rmtree(tmp_dirname)
     with zipfile.ZipFile(zip_file) as my_zip:
