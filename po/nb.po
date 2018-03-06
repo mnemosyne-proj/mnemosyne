@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: mnemosyne-proj\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-12-12 13:25+0100\n"
-"PO-Revision-Date: 2017-12-02 02:00+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2018-03-04 12:57+0000\n"
+"Last-Translator: Taral <taral.seierstad@gmail.com>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2018-01-19 05:42+0000\n"
-"X-Generator: Launchpad (build 18532)\n"
+"X-Launchpad-Export-Date: 2018-03-05 05:56+0000\n"
+"X-Generator: Launchpad (build 18566)\n"
 
 #: ../mnemosyne/cle/database_maintenance.py:14
 msgid ""
@@ -23,6 +23,9 @@ msgid ""
 "your database and the speed of your device, this can take 10 minutes or "
 "more. Please leave Mnemosyne running in the foreground."
 msgstr ""
+"Skal til å arkivere gamle logger for å forbedre kjøretiden. Avhengig av "
+"databasestørrelsen og hastigheten til enheten din kan dette ta ti minutter "
+"eller mer. La Mnemosyne kjøre i forgrunnen."
 
 #: ../mnemosyne/cle/database_maintenance.py:15
 msgid "OK, proceed"
@@ -786,7 +789,7 @@ msgstr "Dekomprimerer..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/anki2.py:66
 msgid "Processing media files..."
-msgstr ""
+msgstr "Prosesserer mediefiler..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/anki2.py:85
 msgid ""
@@ -799,19 +802,19 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/file_formats/anki2.py:100
 msgid "Copying media files..."
-msgstr ""
+msgstr "Kopierer mediefiler..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/anki2.py:110
 msgid "Importing card types..."
-msgstr ""
+msgstr "Importerer korttyper..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/anki2.py:213
 msgid "Importing notes..."
-msgstr ""
+msgstr "Importerer notater..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/anki2.py:265
 msgid "Importing logs..."
-msgstr ""
+msgstr "Importerer logger..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/anki2.py:291
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:42
@@ -912,7 +915,7 @@ msgstr "Mnemosyne 2.x-kort for deling (*.cards)"
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:50
 msgid "Extracting cards..."
-msgstr ""
+msgstr "Ekstraherer kort..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:52
 #: ../mnemosyne/libmnemosyne/file_formats/tsv.py:96
@@ -921,7 +924,7 @@ msgstr "Eksporterer kort..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:170
 msgid "Extracting media files..."
-msgstr ""
+msgstr "Ekstraherer mediefiler..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:172
 msgid "Bundling media files..."
@@ -1030,7 +1033,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/renderers/anki/template/hint.py:17
 msgid "Show %s"
-msgstr ""
+msgstr "Vis %s"
 
 #: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:50
 msgid "%sy"
