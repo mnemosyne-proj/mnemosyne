@@ -12,6 +12,8 @@ Additionally, if you see a black screen, start Mnemosyne with the
 Mnemosyne 2.6.1
 
 - Fix crash in the review server (reported by Dorian Hawkmoon).
+- Fix interaction between Unicode and Latex (reported by vycska).
+
 
 Mnemosyne 2.6 : 2017-12-11
 

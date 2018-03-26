@@ -90,7 +90,7 @@ windows-installer: FORCE
 	make build-all-deps
 	$(PYTHON) setup.py build_windows_installer
 	read -p "Press any key when InnoSetup has finished..."
-	V=`$(PYTHON) mnemosyne/version.py` && cp dist/Mnemosyne/Output/setup.exe mnemosyne-$${V}-setup.exe
+	V=`$(PYTHON) mnemosyne/version.py` && cp dist/Mnemosyne/Output/mysetup.exe mnemosyne-$${V}-setup.exe
 
 distrib: FORCE
 	# Erase previous directories to make sure we're clean.
