@@ -332,7 +332,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Cram all cards</string>
+    <string>Cram active cards</string>
    </property>
   </action>
  </widget>
