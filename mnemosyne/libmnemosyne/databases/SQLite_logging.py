@@ -339,14 +339,14 @@ class SQLiteLogging(object):
           "select distinct object_id from log where event_type=?",
           (EventTypes.ADDED_CARD, ))):
             self.log_added_card(int(time.time()), id)
-            
+
     def merge_logs_from_other_database(self, filename, insertion_log_index):
-        
-        """This function will delete all logs in the database after 
+
+        """This function will delete all logs in the database after
         'insertion_log_index' and merge all logs from 'filename'.
-        
+
         """
-        
+
         w = self.main_widget()
         w.set_progress_text(_("Merging logs..."))
         script = string.Template("""
@@ -355,32 +355,32 @@ class SQLiteLogging(object):
             end;
             vacuum;
             attach "$filename" as to_merge;
-            begin; 
+            begin;
             insert into log(event_type, timestamp, object_id, grade,
                 easiness, acq_reps, ret_reps, lapses, acq_reps_since_lapse,
                 ret_reps_since_lapse, scheduled_interval, actual_interval,
                 thinking_time, next_rep, scheduler_data)
-                select event_type, timestamp, object_id, grade, easiness, 
+                select event_type, timestamp, object_id, grade, easiness,
                 acq_reps, ret_reps, lapses, acq_reps_since_lapse,
                 ret_reps_since_lapse, scheduled_interval, actual_interval,
-                thinking_time, next_rep, scheduler_data from to_merge.log; 
-            commit; 
+                thinking_time, next_rep, scheduler_data from to_merge.log;
+            commit;
         """).substitute(_id=insertion_log_index, filename=filename)
-        self.con.executescript(script) 
+        self.con.executescript(script)
         w.close_progress()
-        
+
     def archive_old_logs(self):
-        
+
         """This puts all the data of old reviews in a separate file, which
         is no longer backed up. All clients do this independently, and when
         doing an initial sync, all these archive files are sent across so as
         not to lose and information. This could cause duplication, however,
-        so later on a algorithm needs to be written to a create a single 
+        so later on a algorithm needs to be written to a create a single
         archive from these multiple files, by making sure that there are
         no log lines with duplicate (timestamps, id).
-        
+
         """
-        
+
         self.main_widget().set_progress_text(_("Archiving old logs..."))
         self.backup()
         one_year_ago = int(time.time()) - 356 * DAY
@@ -394,36 +394,35 @@ class SQLiteLogging(object):
             datetime.datetime.today().strftime("%Y%m%d-%H%M%S.db")
         archive_path = os.path.join(archive_dir, archive_name)
         from mnemosyne.libmnemosyne.databases._sqlite3 import _Sqlite3
-        arch_con = _Sqlite3(self.component_manager, archive_path)        
+        arch_con = _Sqlite3(self.component_manager, archive_path)
         from mnemosyne.libmnemosyne.databases.SQLite import SCHEMA
-        arch_con.executescript(SCHEMA.substitute(pregenerated_data="")) 
+        arch_con.executescript(SCHEMA.substitute(pregenerated_data=""))
         arch_con.executescript("""drop index i_log_timestamp;
-                                  drop index i_log_object_id;""")        
+                                  drop index i_log_object_id;""")
         arch_con.commit()
         arch_con.close()
         # Needed for Android.
         self.con.execute("PRAGMA temp_store_directory='%s';" % \
                          (archive_dir, ))
-        # Transfer old logs. 
-        script = string.Template("""   
+        # Transfer old logs.
+        script = string.Template("""
             attach "$archive_path" as archive;
-            begin; 
+            begin;
             insert into archive.log(event_type, timestamp, object_id, grade,
                 easiness, acq_reps, ret_reps, lapses, acq_reps_since_lapse,
                 ret_reps_since_lapse, scheduled_interval, actual_interval,
                 thinking_time, next_rep, scheduler_data)
-                select event_type, timestamp, object_id, grade, easiness, 
+                select event_type, timestamp, object_id, grade, easiness,
                 acq_reps, ret_reps, lapses, acq_reps_since_lapse,
                 ret_reps_since_lapse, scheduled_interval, actual_interval,
-                thinking_time, next_rep, scheduler_data from log 
-                    where timestamp<$one_year_ago; 
-            commit; 
+                thinking_time, next_rep, scheduler_data from log
+                    where timestamp<$one_year_ago;
+            commit;
             begin;
             delete from log where timestamp<$one_year_ago;
             end;
             vacuum;
         """).substitute(archive_path=archive_path, one_year_ago=one_year_ago)
-        self.con.executescript(script) 
+        self.con.executescript(script)
         self.main_widget().close_progress()
 
-            

@@ -3,6 +3,8 @@
 #
 
 import os
+if "ANDROID" in os.environ:
+    from mnemosyne.android_python.utf8_filenames import *
 from openSM2sync.utils import normalise_path
 
 
@@ -36,7 +38,7 @@ class Partner(object):
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)
-        downloaded_file = open(filename, "wb")         
+        downloaded_file = open(filename, "wb")
         if progress_bar:
             self.ui.set_progress_range(file_size)
             self.ui.set_progress_update_interval(file_size/50)

@@ -79,7 +79,10 @@ def langDir():
     dir = os.path.join(os.path.dirname(
         os.path.abspath(__file__)), "locale")
     if not os.path.isdir(dir):
-        dir = os.path.join(os.path.dirname(sys.argv[0]), "locale")
+        try:
+            dir = os.path.join(os.path.dirname(sys.argv[0]), "locale")
+        except: # MNEMOSYNE: android does not have sys.argv
+            dir = ""
     if not os.path.isdir(dir):
         dir = "/usr/share/anki/locale"
     return dir
