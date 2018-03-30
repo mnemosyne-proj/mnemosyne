@@ -97,9 +97,9 @@ git rebase master
 ```
 
 Follow the instructions (`git status` gives additional information).
-Once you've successfully rebased your branch, push it to your Github account:
+Once you've successfully rebased your branch, push it to your Github account (we use `--force`, because we want to overwrite the existing branch on our private Github account):
 ```
-git push origin <branch name>
+git push origin --force <branch name>
 ```
 
 To create a pull request for your changes, go to the Mnemosyne project page on Github and click on the pull request tab.
