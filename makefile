@@ -115,6 +115,9 @@ macos:
 	cp -R mo dist/Mnemosyne.app/Contents/Resources/share/locale
 	ln -s ../Resources/share dist/Mnemosyne.app/Contents/MacOS/share
 
+  # Custom Info.plist - may need to be updated periodically
+	cp darwin/Info.plist dist/Mnemosyne.app/Contents
+
 osx: macos
 
 android: # Creates the assets file with the Python code.
