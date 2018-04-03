@@ -13,6 +13,8 @@ Mnemosyne 2.6.1
 
 - Fix crash in the review server (reported by Dorian Hawkmoon).
 - Fix interaction between Unicode and Latex (reported by vycska).
+- Work around progress bars which don't close under Linux (fix by
+  Emilian Mihalache).
 
 
 Mnemosyne 2.6 : 2017-12-11
