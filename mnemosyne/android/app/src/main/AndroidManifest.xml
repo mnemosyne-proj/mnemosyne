@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.mnemosyne"
     android:versionCode="25"
-    android:versionName="1.6" >
+    android:versionName="2.0" >
 
     <uses-sdk android:minSdkVersion="9" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -18,7 +18,7 @@
 
         <activity
             android:label="@string/app_name"
-            android:name="MnemosyneActivity"
+            android:name="org.mnemosyne.MnemosyneActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             >          
             <intent-filter >
@@ -29,14 +29,14 @@
         
         <activity
             android:label="Sync"
-            android:name="SyncActivity" 
+            android:name="org.mnemosyne.SyncActivity"
             android:configChanges="orientation"
             >          
         </activity>
 
         <activity
             android:label="(De)activate cards"
-            android:name="ActivateCardsActivity" 
+            android:name="org.mnemosyne.ActivateCardsActivity"
             android:configChanges="orientation"
             >          
         </activity>

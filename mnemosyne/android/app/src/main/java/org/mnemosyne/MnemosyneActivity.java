@@ -35,8 +35,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.srplab.www.starcore.StarObjectClass;
-
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -108,11 +107,6 @@ public class MnemosyneActivity extends AppCompatActivity {
         button5 = (Button) this.findViewById(R.id.button5);
         statusbar = (TextView) this.findViewById(R.id.statusbar);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            question.setWebContentsDebuggingEnabled(false);
-            answer.setWebContentsDebuggingEnabled(false);
-        }
-
         question.getSettings().setJavaScriptEnabled(true);
         answer.getSettings().setJavaScriptEnabled(true);
 
@@ -147,8 +141,6 @@ public class MnemosyneActivity extends AppCompatActivity {
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public void continueOnCreate() {
-        WebView.setWebContentsDebuggingEnabled(false);
-
         mnemosyneThread = new MnemosyneThread(this, activityHandler, getPackageName());
         mnemosyneThread.start();
 
@@ -156,7 +148,7 @@ public class MnemosyneActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
-                        mnemosyneThread.reviewController._Call("show_answer");
+                        mnemosyneThread.bridge.review_controller_show_answer();
                     }
                 });
             }
@@ -166,7 +158,7 @@ public class MnemosyneActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
-                        mnemosyneThread.reviewController._Call("grade_answer", 0);
+                        mnemosyneThread.bridge.review_controller_grade_answer(0);
                     }
                 });
             }
@@ -176,7 +168,7 @@ public class MnemosyneActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
-                        mnemosyneThread.reviewController._Call("grade_answer", 1);
+                        mnemosyneThread.bridge.review_controller_grade_answer(1);
                     }
                 });
             }
@@ -186,7 +178,7 @@ public class MnemosyneActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
-                        mnemosyneThread.reviewController._Call("grade_answer", 2);
+                        mnemosyneThread.bridge.review_controller_grade_answer(2);
                     }
                 });
             }
@@ -196,7 +188,7 @@ public class MnemosyneActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
-                        mnemosyneThread.reviewController._Call("grade_answer", 3);
+                        mnemosyneThread.bridge.review_controller_grade_answer(3);
                     }
                 });
             }
@@ -206,7 +198,7 @@ public class MnemosyneActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
-                        mnemosyneThread.reviewController._Call("grade_answer", 4);
+                        mnemosyneThread.bridge.review_controller_grade_answer(4);
                     }
                 });
             }
@@ -216,11 +208,12 @@ public class MnemosyneActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
-                        mnemosyneThread.reviewController._Call("grade_answer", 5);
+                        mnemosyneThread.bridge.review_controller_grade_answer(5);
                     }
                 });
             }
         });
+
 
         // Does not work yet as expected, since the webview has its own handling of
         // gestures to deal with scrolling
@@ -237,7 +230,7 @@ public class MnemosyneActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     mnemosyneThread.getHandler().post(new Runnable() {
                         public void run() {
-                            mnemosyneThread.controller._Call("show_sync_dialog_pre");
+                            mnemosyneThread.bridge.controller_show_sync_dialog_pre();
                         }
                     });
                 }
@@ -300,7 +293,7 @@ public class MnemosyneActivity extends AppCompatActivity {
             case R.id.menu_sync:
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
-                        mnemosyneThread.controller._Call("show_sync_dialog_pre");
+                        mnemosyneThread.bridge.controller_show_sync_dialog_pre();
                     }
                 });
                 return true;
@@ -312,7 +305,7 @@ public class MnemosyneActivity extends AppCompatActivity {
             case R.id.menu_star:
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
-                        mnemosyneThread.controller._Call("star_current_card");
+                        mnemosyneThread.bridge.controller_star_current_card();
                     }
                 });
                 return true;
@@ -320,7 +313,7 @@ public class MnemosyneActivity extends AppCompatActivity {
             case R.id.menu_activate:
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
-                        mnemosyneThread.controller._Call("show_activate_cards_dialog_pre");
+                        mnemosyneThread.bridge.controller_show_activate_cards_dialog_pre();
                     }
                 });
                 return true;
@@ -339,9 +332,7 @@ public class MnemosyneActivity extends AppCompatActivity {
                         builder.setItems(items, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                mnemosyneThread.controller._Call("set_study_mode",
-                                        mnemosyneThread.controller._Call("study_mode_with_id", ids[which]));
-                                mnemosyneThread.reviewController = (StarObjectClass) mnemosyneThread.mnemosyne._Call("review_controller");
+                                mnemosyneThread.bridge.controller_set_study_mode_with_id(ids[which]);
                             }
                         });
                         builder.setCancelable(false);
@@ -358,7 +349,7 @@ public class MnemosyneActivity extends AppCompatActivity {
                         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "My Tag");
                         wl.acquire();
                         try {
-                            mnemosyneThread.controller._Call("do_db_maintenance");
+                            mnemosyneThread.bridge.controller_do_db_maintenance();
                         } finally {
                             wl.release();
                         }
@@ -377,6 +368,18 @@ public class MnemosyneActivity extends AppCompatActivity {
         }
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+        File f = new File(soundFiles.get(soundIndex).getPath());
+        if (! f.exists()) {
+            soundIndex++;
+            if (soundIndex < soundFiles.size()) {
+                playNextSound();
+            } else {
+                mediaPlayer.release();
+                mediaPlayer = null;
+            }
+            return;
+        }
 
         try {
             mediaPlayer.setDataSource(getApplicationContext(), soundFiles.get(soundIndex));
@@ -509,28 +512,33 @@ public class MnemosyneActivity extends AppCompatActivity {
 
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
-                        mnemosyneThread.config._Call("__setitem__", "server_for_sync_as_client", server);
-                        mnemosyneThread.config._Call("__setitem__", "port_for_sync_as_client", port);
-                        mnemosyneThread.config._Call("__setitem__", "username_for_sync_as_client", username);
-                        mnemosyneThread.config._Call("__setitem__", "password_for_sync_as_client", password);
-                        mnemosyneThread.config._Call("save");
+                        mnemosyneThread.bridge.config_set_string("server_for_sync_as_client", server);
+                        mnemosyneThread.bridge.config_set_integer("port_for_sync_as_client", port);
+                        mnemosyneThread.bridge.config_set_string("username_for_sync_as_client", username);
+                        mnemosyneThread.bridge.config_set_string("password_for_sync_as_client", password);
+                        mnemosyneThread.bridge.config_save();
                         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "My Tag");
                         wl.acquire();
                         try {
-                            mnemosyneThread.controller._Call("sync", server, port, username, password);
+                            mnemosyneThread.bridge.controller_sync(server, port, username, password);
                         } finally {
                             wl.release();
                         }
-                        mnemosyneThread.controller._Call("show_sync_dialog_post");
+                        mnemosyneThread.bridge.controller_show_sync_dialog_post();
                     }
                 });
             }
             else {
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
-                        mnemosyneThread.controller._Call("show_sync_dialog_post");
-                        mnemosyneThread.UIActivity.setFullscreen();
+                        mnemosyneThread.bridge.controller_show_sync_dialog_post();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mnemosyneThread.UIActivity.setFullscreen();
+                            }
+                        });
                     }
                 });
             }
@@ -542,8 +550,8 @@ public class MnemosyneActivity extends AppCompatActivity {
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
                         mnemosyneThread.setProgressText("(De)activating cards...");
-                        mnemosyneThread.activateCardsDialog._Call("set_criterion_with_name", savedSet);
-                        mnemosyneThread.controller._Call("show_activate_cards_dialog_post");
+                        mnemosyneThread.bridge.database_set_criterion_with_name(savedSet);
+                        mnemosyneThread.bridge.controller_show_activate_cards_dialog_post();
                         mnemosyneThread.closeProgress();
                     }
                 });
@@ -551,8 +559,13 @@ public class MnemosyneActivity extends AppCompatActivity {
             else {
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
-                        mnemosyneThread.controller._Call("show_activate_cards_dialog_post");
-                        mnemosyneThread.UIActivity.setFullscreen();
+                        mnemosyneThread.bridge.controller_show_activate_cards_dialog_post();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mnemosyneThread.UIActivity.setFullscreen();
+                            }
+                        });
                     }
                 });
             }

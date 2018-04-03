@@ -11,9 +11,9 @@ from mnemosyne.libmnemosyne.ui_components.dialogs import ActivateCardsDialog
 from mnemosyne.pyqt_ui.tip_after_starting_n_times import \
      TipAfterStartingNTimes
 
-class ActivateCardsDlg(QtWidgets.QDialog, ActivateCardsDialog, 
+class ActivateCardsDlg(QtWidgets.QDialog, ActivateCardsDialog,
                        TipAfterStartingNTimes, Ui_ActivateCardsDlg):
-    
+
     started_n_times_counter = "started_activate_cards_n_times"
     tip_after_n_times = \
         {3 : _("If you find yourself selecting the same tags and card types many types, you can press the button 'Save this set for later use' to give it a name to select it more quickly later."),
@@ -107,13 +107,13 @@ class ActivateCardsDlg(QtWidgets.QDialog, ActivateCardsDialog,
         menu.addAction(_("Rename"), self.rename_set)
         menu.exec_(self.saved_sets.mapToGlobal(pos))
 
-    def save_set(self):        
+    def save_set(self):
         criterion = self.tab_widget.currentWidget().criterion()
         if criterion.is_empty():
             self.main_widget().show_error(\
                 _("This set can never contain any cards!"))
             return
-        CardSetNameDlg(criterion, self.criteria_by_name.keys(), 
+        CardSetNameDlg(criterion, self.criteria_by_name.keys(),
                        component_manager=self.component_manager, parent=self).exec_()
         if not criterion.name:  # User cancelled.
             return
@@ -157,8 +157,8 @@ class ActivateCardsDlg(QtWidgets.QDialog, ActivateCardsDialog,
         criterion.name = name
         other_names = list(self.criteria_by_name.keys())
         other_names.remove(name)
-        CardSetNameDlg(criterion, other_names, 
-                       component_manager=self.component_manager, 
+        CardSetNameDlg(criterion, other_names,
+                       component_manager=self.component_manager,
                        parent=self).exec_()
         if criterion.name == name:  # User cancelled.
             return
@@ -201,11 +201,11 @@ class ActivateCardsDlg(QtWidgets.QDialog, ActivateCardsDialog,
         if previous_item is not None:
             self.load_set(item)
 
-    def select_set_and_close(self, item): 
+    def select_set_and_close(self, item):
         self.load_set(item)
-        # Work around a Qt bug where these calls would still fire when clicking 
-        # in the same area where e.g. the tag browser used to be, even after 
-        # closing the 'Activate cards' window.        
+        # Work around a Qt bug where these calls would still fire when clicking
+        # in the same area where e.g. the tag browser used to be, even after
+        # closing the 'Activate cards' window.
         self.is_shutting_down = True
         self.accept()
 

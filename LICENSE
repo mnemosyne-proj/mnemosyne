@@ -1,4 +1,5 @@
 Different parts of the software use different licenses:
 
--mnemosyne itself uses AGPL v3 (see mnemosyne/LICENSE)
 -openSM2sync uses LGPL v3 (see openSM2sync/LICENSE)
+-the rest of mnemosyne uses mnemosyne/LICENSE
+

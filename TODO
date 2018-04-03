@@ -1,3 +1,5 @@
+-document development process
+
 -upgrade PyQt
 
 
@@ -8,10 +10,7 @@ https://developers.google.com/analytics/devguides/collection/android/v4/exceptio
 http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-button
 -check 'redraw now'
 -Cramming widget for Android
--decrease size of python library
--precompile python files
--pybridge: don't extract individual assets but extract zip file? Faster?
--setting to allow choosing the database location?\
+-setting to allow choosing the database location?
 -revisit multiple database option?
 -'sync' button should sync directly without going through the sync settings
  dialog. Put the settings in a settings window instead.

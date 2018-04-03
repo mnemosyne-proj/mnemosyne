@@ -97,9 +97,9 @@ git rebase master
 ```
 
 Follow the instructions (`git status` gives additional information).
-Once you've successfully rebased your branch, push it to your Github account:
+Once you've successfully rebased your branch, push it to your Github account (we use `--force`, because we want to overwrite the existing branch on our private Github account):
 ```
-git push origin <branch name>
+git push origin --force <branch name>
 ```
 
 To create a pull request for your changes, go to the Mnemosyne project page on Github and click on the pull request tab.
@@ -179,7 +179,7 @@ Then, run the following command from within the top-level directory of the repos
 sudo python setup.py install
 ```
 
-To test the installation, change to any other directory and run `mnemosyne`.
+Depending on your setup, you might need to replace `python` with `python3`. To test the installation, change to any other directory and run `mnemosyne`.
 For example:
 ```
 cd ~
