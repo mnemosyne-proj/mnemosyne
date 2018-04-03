@@ -134,6 +134,7 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
             self.progress_bar = None
         if not self.progress_bar:
             self.progress_bar = QtWidgets.QProgressDialog(self.top_window())
+            self.progress_bar.setAttribute(QtCore.Qt.WA_DeleteOnClose, True)
             self.progress_bar.setWindowFlags(QtCore.Qt.Dialog \
                 | QtCore.Qt.CustomizeWindowHint \
                 | QtCore.Qt.WindowTitleHint \
