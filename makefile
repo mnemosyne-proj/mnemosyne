@@ -7,6 +7,8 @@ SPHINXBUILD := sphinx-build
 ifeq (1,$(shell python3 -c "print(1)" 2>&- ))
 PYTHON      := python3
 endif
+
+PYTHON35    := python3
 # If we are on cygwin:
 ifeq (1,$(shell /cygdrive/c/Program\ Files\ \(x86\)/Python36-32/python.exe -c "print(1)" 2>&- ))
 PYTHON      := /cygdrive/c/Program\ Files\ \(x86\)/Python36-32/python.exe
