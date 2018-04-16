@@ -1,6 +1,11 @@
--document development process
+-schedule yesterday
+-missing media file
+-past statistics window cannot be resized?
+-upgrade PyQt: old button style
 
--upgrade PyQt
+Android dashboard fixes:
+- on activity result
+- badtoken exception
 
 
 Android:
@@ -26,7 +31,7 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 
 Minor bugs / issues:
 
--For Latex on OSX: try and have OSX search sysem paths, or otherwise edit config.py
+-For Latex on OSX: try and have OSX search system paths, or otherwise edit config.py
  latex = "/Library/TeX/texbin/latex -output-format=dvi -interaction=nonstopmode"
  dvipng = "/Library/TeX/texbin/dvipng -D 200 -T tight tmp.dvi"
 -Anki: Q and A align top, no boundaries around content: document how to add CSS

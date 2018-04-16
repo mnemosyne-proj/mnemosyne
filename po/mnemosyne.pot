@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-03-26 13:38+0200\n"
+"POT-Creation-Date: 2018-04-16 13:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,11 +15,11 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: ../mnemosyne/cle/database_maintenance.py:14
+#: ../mnemosyne/android_python/database_maintenance.py:14
 msgid "About to archive old logs to improve running speed. Depending on the size of your database and the speed of your device, this can take 10 minutes or more. Please leave Mnemosyne running in the foreground."
 msgstr ""
 
-#: ../mnemosyne/cle/database_maintenance.py:15
+#: ../mnemosyne/android_python/database_maintenance.py:15
 msgid "OK, proceed"
 msgstr ""
 
@@ -93,30 +93,30 @@ msgstr ""
 msgid "Production"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:218
+#: ../mnemosyne/libmnemosyne/__init__.py:211
 msgid "Command line argument is not a *.db file."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:230
+#: ../mnemosyne/libmnemosyne/__init__.py:223
 msgid "Another copy of Mnemosyne is still running."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:231
+#: ../mnemosyne/libmnemosyne/__init__.py:224
 msgid "Continuing is impossible and will lead to data loss!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:314
-#: ../mnemosyne/libmnemosyne/__init__.py:327
+#: ../mnemosyne/libmnemosyne/__init__.py:305
+#: ../mnemosyne/libmnemosyne/__init__.py:318
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:903
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1117
 msgid "Error when running plugin:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:342
+#: ../mnemosyne/libmnemosyne/__init__.py:333
 msgid "Previous drive letter no longer available."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:351
+#: ../mnemosyne/libmnemosyne/__init__.py:341
 msgid "If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."
 msgstr ""
 
@@ -238,7 +238,7 @@ msgstr ""
 msgid "Foreign word or phrase"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/configuration.py:422
+#: ../mnemosyne/libmnemosyne/configuration.py:433
 msgid "Error in config.py:"
 msgstr ""
 
@@ -252,7 +252,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:60
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:71
 #: ../mnemosyne/pyqt_ui/main_wdgt.py:91 ../mnemosyne/pyqt_ui/main_wdgt.py:97
-#: ../mnemosyne/pyqt_ui/main_wdgt.py:113 ../mnemosyne/pyqt_ui/main_wdgt.py:142
+#: ../mnemosyne/pyqt_ui/main_wdgt.py:113 ../mnemosyne/pyqt_ui/main_wdgt.py:143
 #: ../mnemosyne/pyqt_ui/tip_after_starting_n_times.py:31
 msgid "Mnemosyne"
 msgstr ""
@@ -314,8 +314,8 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:69
 #: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:50
 #: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_type_dlg.py:49
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:89
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:95
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:86
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:92
 #: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:51
 #: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:50
 #: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:50
@@ -330,7 +330,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:88
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:102
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:177
-#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:85
+#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:82
 #: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:78
 #: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:60
 #: ../mnemosyne/pyqt_ui/ui_card_set_name_dlg.py:42
@@ -342,9 +342,9 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:49
 #: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_type_dlg.py:48
 #: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:76
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:87
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:84
 #: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:98
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:93
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:90
 #: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:67
 #: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:96
 #: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:50
@@ -631,23 +631,23 @@ msgstr ""
 msgid "Archiving old logs..."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:43
+#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:46
 msgid "Could not create"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:44
+#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:47
 msgid "Check your file permissions and make sure the directory is not open in a file browser."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:143
+#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:146
 msgid "Media filename rather long. This could cause problems using this file on a different OS."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:146
+#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:149
 msgid "Filename contains '#', which could cause problems on some operating systems."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:150
+#: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:153
 msgid "Missing media file!"
 msgstr ""
 
@@ -1052,86 +1052,86 @@ msgstr ""
 msgid "Grade your answer:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:228
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:231
 msgid "You appear to have missed some reviews. Don't worry too much about this backlog, and do as many cards as you feel comfortable with to catch up each day. Mnemosyne will automatically reschedule your cards such that the most urgent ones are shown first."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:561
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:564
 msgid "You've memorised 15 new or failed cards."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:562
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:565
 msgid "If you do this for many days, you could get a big workload later."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:608
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:612
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:617
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:611
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:615
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:620
 msgid "in"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:609
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:612
 msgid "years"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:613
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:616
 msgid "months"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:615
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:618
 msgid "in 1 month"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:618
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:621
 msgid "days"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:620
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:623
 msgid "tomorrow"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:622
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:652
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:625
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:655
 msgid "today"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:624
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:627
 msgid "1 day overdue"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:626
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:629
 msgid "days overdue"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:628
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:631
 msgid "1 month overdue"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:631
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:634
 msgid "months overdue"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:634
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:637
 msgid "years overdue"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:654
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:657
 msgid "yesterday"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:656
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:659
 msgid "days ago"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:658
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:661
 msgid "1 month ago"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:661
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:664
 msgid "months ago"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:664
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:667
 msgid "years ago"
 msgstr ""
 
@@ -1273,7 +1273,6 @@ msgid "Last year (all cards)"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/study_modes/cram_all.py:15
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:245
 msgid "Cram all cards"
 msgstr ""
 
@@ -2000,12 +1999,12 @@ msgstr ""
 msgid "You can request new features and vote for exisiting requests at <a href=\"https://mnemosyne.uservoice.com/\">uservoice</a>. This helps the developers decide what to work on next."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:84
+#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:81
 msgid "About Mnemosyne"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:86
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:111
+#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:83
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:108
 msgid "Alt+C"
 msgstr ""
 
@@ -2421,30 +2420,30 @@ msgstr ""
 msgid "Edit card"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:82
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:79
 msgid "Export to file"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:83
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:89
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:80
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:86
 msgid "File format:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:84
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:81
 msgid "File to export to:"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:82
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:88
+msgid "&Browse"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:83
+msgid "(Only active cards will be exported, without learning data.)"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_export_dlg.py:85
 #: ../mnemosyne/pyqt_ui/ui_import_dlg.py:91
-msgid "&Browse"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:86
-msgid "(Only active cards will be exported, without learning data.)"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:88
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:94
 msgid "Alt+O"
 msgstr ""
 
@@ -2560,15 +2559,15 @@ msgid ""
 "Happy learning!"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:88
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:85
 msgid "Import from file"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:90
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:87
 msgid "File to import from:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:92
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:89
 msgid "Add additional tag(s) to cards:"
 msgstr ""
 
@@ -2723,6 +2722,10 @@ msgstr ""
 msgid "Study new cards only"
 msgstr ""
 
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:245
+msgid "Cram active cards"
+msgstr ""
+
 #: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:90
 msgid "Card type manager"
 msgstr ""
@@ -2842,39 +2845,39 @@ msgstr ""
 msgid "Check for changed media files on client"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:102
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:99
 msgid "Tip of the day"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:103
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:100
 msgid "<b>Did you know...?</b>"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:104
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:101
 msgid "&Show tips on startup"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:105
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:102
 msgid "Alt+S"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:106
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:103
 msgid "&Previous"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:107
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:104
 msgid "Alt+P"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:108
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:105
 msgid "&Next"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:109
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:106
 msgid "Alt+N"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:110
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:107
 msgid "&Close"
 msgstr ""
 
