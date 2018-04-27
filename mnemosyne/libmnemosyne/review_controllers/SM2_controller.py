@@ -184,6 +184,9 @@ _("You have finished your scheduled reviews. Now, learn as many failed or new ca
         if self.scheduled_count is None:
             self.reload_counters()
         if previous_grade >= 2 and not self.learning_ahead:
+            # TMP: to find cause of lingering bug
+            if self.scheduled_count == 0:
+                self.main_widget().show_information(self.card.id)
             self.scheduled_count -= 1
         if previous_grade >= 2 and new_grade <= 1:
             self.non_memorised_count += 1

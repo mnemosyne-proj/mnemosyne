@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-04-18 13:31+0200\n"
+"POT-Creation-Date: 2018-04-27 13:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1028,110 +1028,110 @@ msgstr ""
 msgid "Next repetition in "
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:216
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:219
 #: ../mnemosyne/pyqt_ui/preview_cards_dlg.py:67
 msgid "Question: "
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:252
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:255
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:258
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:261
 msgid "Show answer"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:262
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:265
 msgid "Learn ahead of schedule"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:281
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:284
 msgid "Pick days until next repetition:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:283
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:286
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:107
 msgid "Grade your answer:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:231
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:228
 msgid "You appear to have missed some reviews. Don't worry too much about this backlog, and do as many cards as you feel comfortable with to catch up each day. Mnemosyne will automatically reschedule your cards such that the most urgent ones are shown first."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:564
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:561
 msgid "You've memorised 15 new or failed cards."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:565
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:562
 msgid "If you do this for many days, you could get a big workload later."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:611
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:615
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:620
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:608
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:612
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:617
 msgid "in"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:612
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:609
 msgid "years"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:616
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:613
 msgid "months"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:618
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:615
 msgid "in 1 month"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:621
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:618
 msgid "days"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:623
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:620
 msgid "tomorrow"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:625
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:655
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:622
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:652
 msgid "today"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:627
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:624
 msgid "1 day overdue"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:629
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:626
 msgid "days overdue"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:631
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:628
 msgid "1 month overdue"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:634
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:631
 msgid "months overdue"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:637
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:634
 msgid "years overdue"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:657
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:654
 msgid "yesterday"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:659
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:656
 msgid "days ago"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:661
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:658
 msgid "1 month ago"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:664
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:661
 msgid "months ago"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:667
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:664
 msgid "years ago"
 msgstr ""
 
