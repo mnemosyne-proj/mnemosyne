@@ -1,5 +1,9 @@
+-tags A and A::B result in untagged cards. Fix this, and also make sure that
+ these double tags are no longer possible.
+-Android logs don't get dumped to log.txt after sync?
+-double check upload of logs
+- scheduled -1, see e.g. card 5e46b27c, 17.28 30 april
 -past statistics window cannot be resized?
--upgrade PyQt: old button style
 
 Android dashboard fixes:
 - on activity result
