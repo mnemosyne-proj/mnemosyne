@@ -123,6 +123,21 @@ class DefaultController(Controller):
             review_controller.update_status_bar_counters()
         self.stopwatch().unpause()
 
+    def _retain_only_child_tags(self, tag_names):
+
+        """In case e.g. tag_names is ["a", "a::b"], return only ["a::b"]."""
+
+        parent_tag_names = []
+        for tag_name in tag_names:
+            partial_tag = ""
+            for node in tag_name.split("::")[:-1]:
+                if partial_tag:
+                    partial_tag += "::"
+                partial_tag += node
+                if  partial_tag in tag_names:
+                    parent_tag_names.append(partial_tag)
+        return list(set(tag_names) - set(parent_tag_names))
+
     def create_new_cards(self, fact_data, card_type, grade, tag_names,
                          check_for_duplicates=True, save=True):
 
@@ -139,6 +154,7 @@ class DefaultController(Controller):
         assert grade in [-1, 2, 3, 4, 5] # Use -1 for yet to learn cards.
         assert card_type.is_fact_data_valid(fact_data)
         db = self.database()
+        tag_names = self._retain_only_child_tags(tag_names)
         tags = db.get_or_create_tags_with_names(tag_names)
         fact = Fact(fact_data)
         if check_for_duplicates:
@@ -399,6 +415,7 @@ class DefaultController(Controller):
 _("This card has different tags than its sister cards. Update tags for current card only or for all sister cards?"),
             _("Current card only"), _("All sister cards"), "") == 0)
         old_tags = set()
+        new_tag_names = self._retain_only_child_tags(new_tag_names)
         tags = db.get_or_create_tags_with_names(new_tag_names)
         modification_time = int(time.time())
         for sister_card in self.database().cards_from_fact(fact):
