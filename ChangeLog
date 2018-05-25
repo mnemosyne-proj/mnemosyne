@@ -18,6 +18,8 @@ Mnemosyne 2.6.1
 - Fix interaction between Unicode and Latex (reported by vycska).
 - Work around progress bars which don't close under Linux (fix by
   Emilian Mihalache).
+- When creating or editing a card, superfluous tags like having both A
+  and A::B will be consolidated in a single tag A::B.
 - Upgraded to PyQt 5.10.1 and matplotlib 2.2.2 under Windows.
 
 

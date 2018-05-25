@@ -1,10 +1,12 @@
--tags A and A::B result in untagged cards. Fix this in browser. Extend 'clean up database'
- to get rid of this. Add changelog.
 -Android logs don't get dumped to log.txt after sync?
--double check upload of logs
-- scheduled -1, see e.g. card 5e46b27c, 17.28 30 april
--past statistics window cannot be resized?
--activate: having all of these tags
+-scheduled -1, see e.g. card 5e46b27c, 17.28 30 april
+-past statistics window cannot be resized
+
+-statistics: both title and name of variant: make it more clear if it's active
+ or all cards. Grades and easiness: add variant for active cards only and for
+ intermediate levels in the tag.
+
+-add option for 'and' in tag selection in card browser and activate cards.
 
 Android dashboard fixes:
 - on activity result
