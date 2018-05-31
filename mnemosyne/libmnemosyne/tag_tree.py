@@ -17,7 +17,7 @@ class TagTree(Component, dict):
     The internal tree datastructure for e.g. the two tags A::B::C and A::B::D
     looks as follows:
 
-    self[_("__ALL__")] = ["A"]
+    self["__ALL__"] = ["A"]
     self["A"] = ["A::B"]
     self["A::B"] = ["A::B::C", "A::B::D"]
 
@@ -30,9 +30,11 @@ class TagTree(Component, dict):
 
     """
 
-    def __init__(self, component_manager):
+    def __init__(self, component_manager, count_cards=True):
         Component.__init__(self, component_manager)
         self._rebuild()
+        if count_cards:
+            self._recount()
 
     def _rebuild(self):
         for key in dict(self):
@@ -73,6 +75,8 @@ class TagTree(Component, dict):
                 parent = partial_tag
         if "__UNTAGGED__" in self.display_name_for_node:
             self.display_name_for_node["__UNTAGGED__"] = _("Untagged")
+
+    def _recount(self):
         for node in dict(self):
             if node == "__ALL__":
                 self.card_count_for_node[node] = \
@@ -80,9 +84,9 @@ class TagTree(Component, dict):
             else:
                 self.card_count_for_node[node] = \
                     self.database().card_count_for_tags(\
-                    self._tags_in_subtree(node), active_only=False)
+                    self.tags_in_subtree(node), active_only=False)
 
-    def _tags_in_subtree(self, node):
+    def tags_in_subtree(self, node):
         tags = []
         # If an internal node is a full tag too (e.g. when you have both tags
         # 'A' and 'A::B', be sure to include the upper level too.
@@ -90,8 +94,21 @@ class TagTree(Component, dict):
             tags.append(self.tag_for_node[node])
         # Do sublevels.
         for subnode in self[node]:
-            tags.extend(self._tags_in_subtree(subnode))
+            tags.extend(self.tags_in_subtree(subnode))
         return tags
+
+    def nodes(self):
+        """Also returns internal nodes, even if they have no explicit tag
+        associated with them."""
+        return self.nodes_in_subtree(self["__ALL__"])
+
+    def nodes_in_subtree(self, tree):
+        nodes = []
+        for node in tree:
+            if node and _("Untagged") not in self.display_name_for_node[node]:
+                nodes.extend([node])
+                nodes.extend(self.nodes_in_subtree(self[node]))
+        return nodes
 
     def rename_node(self, node, new_name):
         if "," in new_name:
@@ -100,7 +117,7 @@ class TagTree(Component, dict):
             return
         if new_name == "__UNTAGGED__": # Forbidden.
             new_name = "Untagged"
-        for tag in self._tags_in_subtree(node):
+        for tag in self.tags_in_subtree(node):
             tag.name = tag.name.replace(node, new_name, 1)
             # Corner cases when new_name is empty.
             if tag.name == "":
@@ -110,9 +127,11 @@ class TagTree(Component, dict):
             self.database().update_tag(tag)
         self.database().save()
         self._rebuild()
+        self._recount()
 
     def delete_subtree(self, node):
-        for tag in self._tags_in_subtree(node):
+        for tag in self.tags_in_subtree(node):
             self.database().delete_tag(tag)
         self.database().save()
         self._rebuild()
+        self._recount()

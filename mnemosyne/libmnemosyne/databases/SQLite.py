@@ -757,7 +757,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             self.con.execute("select _id from tags")]
         result.sort(key=lambda x: numeric_string_cmp_key(x.name))
         index = 0
-        # __UNTAGGED__ is typically at the head of the list, apart when tags
+        # __UNTAGGED__ is typically at the head of the list, except when tags
         # start with numbers.
         for tag in result:
             if tag.name == "__UNTAGGED__":
