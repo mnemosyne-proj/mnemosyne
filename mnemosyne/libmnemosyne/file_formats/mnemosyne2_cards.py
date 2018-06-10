@@ -111,8 +111,7 @@ class Mnemosyne2Cards(FileFormat):
             log_entry = LogEntry()
             log_entry["type"] = EventTypes.ADDED_MEDIA_FILE
             log_entry["fname"] = media_filename
-            xml_file.write(str(xml_format.\
-                repr_log_entry(log_entry).encode("utf-8"))[2:-2])
+            xml_file.write(str(xml_format.repr_log_entry(log_entry)))
             w.increase_progress(1)
         for _fact_id in active_objects["_fact_ids"]:
             fact = db.fact(_fact_id, is_id_internal=True)
