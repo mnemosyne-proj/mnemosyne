@@ -15,6 +15,8 @@ Mnemosyne 2.6.1
   are cards with at most X retention repetitions" (reported by Lenore
   Raven).
 - Fix crash in the review server (reported by Dorian Hawkmoon).
+- Fix crash in card browser when having set the card background colour
+  for all cards at once (reported by Adam Papai, Jan Simunek).
 - Fix interaction between Unicode and Latex (reported by vycska).
 - Work around progress bars which don't close under Linux (fix by
   Emilian Mihalache).

@@ -70,6 +70,8 @@ class CardModel(QtSql.QSqlTableModel, Component):
         for card_type_id in self.config()["font_colour"]:
             if not card_type_id in self.component_manager.card_type_with_id:
                 continue
+            if not self.card_type_with_id(card_type_id).fact_keys_and_names:
+                continue # M-sided card type.
             first_key = \
                 self.card_type_with_id(card_type_id).fact_keys_and_names[0][0]
             self.font_colour_for_card_type_id[card_type_id] = QtGui.QColor(\

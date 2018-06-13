@@ -1,8 +1,3 @@
-user database error: config.db
-https://github.com/mnemosyne-proj/mnemosyne/issues/59#issuecomment-395702427
-(Adam Papai, Jan Simunek)
-
-
 Need to sort node list?
 add function to get full name also for interior nodes
 add new sqlite statistics
