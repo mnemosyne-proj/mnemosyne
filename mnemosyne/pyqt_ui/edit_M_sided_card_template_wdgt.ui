@@ -243,53 +243,5 @@
  </customwidgets>
  <resources/>
  <connections>
-  <connection>
-   <sender>front_template</sender>
-   <signal>textChanged()</signal>
-   <receiver>EditMSidedCardTemplateWdgt</receiver>
-   <slot>front_template_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>144</x>
-     <y>95</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>306</x>
-     <y>241</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>css</sender>
-   <signal>textChanged()</signal>
-   <receiver>EditMSidedCardTemplateWdgt</receiver>
-   <slot>css_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>144</x>
-     <y>251</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>306</x>
-     <y>241</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>back_template</sender>
-   <signal>textChanged()</signal>
-   <receiver>EditMSidedCardTemplateWdgt</receiver>
-   <slot>back_template_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>144</x>
-     <y>406</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>306</x>
-     <y>241</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
 </ui>

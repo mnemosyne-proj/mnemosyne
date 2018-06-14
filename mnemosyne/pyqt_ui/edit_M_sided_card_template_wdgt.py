@@ -39,6 +39,11 @@ class EditMSidedCardTemplateWdgt(QtWidgets.QDialog,
         self.back_template.setPlainText(self.fact_view.extra_data["afmt"])
         self.css.setPlainText(self.card_type.extra_data["css"])
         self.update_preview()
+        # We only connect the signals now, because otherwise the multiple
+        # updates in the lines above seem to cause html updates to go missing.
+        self.front_template.textChanged.connect(self.front_template_changed)
+        self.back_template.textChanged.connect(self.back_template_changed)
+        self.css.textChanged.connect(self.css_changed)
 
     def front_template_changed(self):
         return self.update_preview(self.front_template)
