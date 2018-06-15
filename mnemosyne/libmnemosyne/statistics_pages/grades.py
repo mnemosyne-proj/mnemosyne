@@ -21,8 +21,7 @@ class Grades(PlotStatisticsPage):
         self.variants = [(self.ALL_CARDS, _("All cards")),
                          (self.ACTIVE_CARDS, _("Active cards only"))]
         for index, node in enumerate(self.nodes):
-            self.variants.append((index, \
-                self.tag_tree.display_name_for_node[node]))
+            self.variants.append((index, node))
 
     def prepare_statistics(self, variant):
         self.x = list(range(-1, 6))
@@ -36,7 +35,8 @@ class Grades(PlotStatisticsPage):
             self.y = []
             for grade in self.x:
                 self.y.append(0)
-                for node in self.tag_tree.nodes_in_subtree(self.nodes[variant]):
+                for node in self.tag_tree.nodes_in_subtree(\
+                    [self.nodes[variant]]):
                     tag = self.tag_tree.tag_for_node[node]
-                    self.y += self.database().card_count_for_grade_and_tag \
+                    self.y[-1] += self.database().card_count_for_grade_and_tag \
                         (grade, tag, active_only=False)

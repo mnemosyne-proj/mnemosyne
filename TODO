@@ -1,7 +1,3 @@
-Need to sort node list?
-add function to get full name also for interior nodes
-add new sqlite statistics
-
 -statistics: both title and name of variant: make it more clear if it's active
  or all cards.
 -Grades and easiness: add variant for active cards only
