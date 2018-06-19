@@ -1,14 +1,8 @@
--statistics: both title and name of variant: make it more clear if it's active
- or all cards.
--Grades and easiness: add variant for active cards only
--and for intermediate levels in the tag.
-
-
 -Android logs don't get dumped to log.txt after sync?
+
 -scheduled -1, see e.g. card 5e46b27c, 17.28 30 april
+
 -past statistics window cannot be resized
-
-
 
 -add option for 'and' in tag selection in card browser and activate cards.
 

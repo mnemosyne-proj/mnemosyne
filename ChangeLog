@@ -6,11 +6,13 @@ https://www.microsoft.com/en-us/download/details.aspx?id=48145
 
 This might also help with other hard crashes.
 
-Additionally, if you see a black screen, start Mnemosyne with the
---qt-opengl=desktop command line argument.)
+If this does not help, or if you see a black screen, try starting Mnemosyne
+with the --qt-opengl=desktop command line argument.)
 
 Mnemosyne 2.6.1
 
+- In the grade and easiness statistics, added option to only show
+  active cards, as well as options to group multiple subtags.
 - Fix bug with Mnemosyne not remembering the setting of "Recent cards
   are cards with at most X retention repetitions" (reported by Lenore
   Raven).

@@ -105,9 +105,8 @@ class TagTree(Component, dict):
     def nodes_in_subtree(self, tree):
         nodes = []
         for node in tree:
-            if node and _("Untagged") not in self.display_name_for_node[node]:
-                nodes.extend([node])
-                nodes.extend(self.nodes_in_subtree(self[node]))
+            nodes.extend([node])
+            nodes.extend(self.nodes_in_subtree(self[node]))
         return nodes
 
     def rename_node(self, node, new_name):

@@ -60,7 +60,8 @@ class TestTagTree(MnemosyneTest):
         assert self.tree.card_count_for_node["b::c"] == 1
         assert self.tree.card_count_for_node["b::c::d"] == 1
         assert self.tree.nodes() == \
-               ["a", "a::b", "a::c", "b", "b::c", "b::c::d", "Z"]
+               ["a", "a::Untagged", "a::b", "a::c", "b", "b::c", "b::c::d",
+                "Z", "__UNTAGGED__"]
 
     def test_4(self):
         card_type = self.card_type_with_id("1")
