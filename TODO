@@ -1,10 +1,10 @@
--Android logs don't get dumped to log.txt after sync?
-
--scheduled -1, see e.g. card 5e46b27c, 17.28 30 april
-
--past statistics window cannot be resized
-
 -add option for 'and' in tag selection in card browser and activate cards.
+
+-scheduled -1, see e.g. card 5e46b27c, 17.28 30 april, event id 1346698
+ scheduled interval and actual interval are logged as negative
+ all similar cases have short (i.e. old) card ids, but this could simply be
+ because the issues occur at the end of the queue
+
 
 Android dashboard fixes:
 - on activity result

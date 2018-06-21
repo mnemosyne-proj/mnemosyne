@@ -41,6 +41,7 @@ class PlotStatisticsWdgt(QtWidgets.QWidget, StatisticsWidget):
         fig = Figure(facecolor=colour, edgecolor=colour)
         self.canvas = FigureCanvas(fig)
         self.vbox_layout.addWidget(self.canvas)
+        self.canvas.setMinimumSize(640, 480)
         self.canvas.setSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding,
                                   QtWidgets.QSizePolicy.MinimumExpanding)
         self.canvas.setParent(self)
