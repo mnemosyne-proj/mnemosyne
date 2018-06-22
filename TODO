@@ -1,4 +1,4 @@
--add option for 'and' in tag selection in card browser and activate cards.
+-add option for 'and' in tag selection in card browser.
 
 -scheduled -1, see e.g. card 5e46b27c, 17.28 30 april, event id 1346698
  scheduled interval and actual interval are logged as negative

@@ -818,10 +818,18 @@ _("You chose to sort this table. Operations in the card browser could now be slo
             while query.next():
                 all__card_ids.add(str(query.value(0)))
             # Determine _card_ids of card with an active tag.
-            query = "select _card_id from tags_for_card where _tag_id in ("
-            for _tag_id in criterion._tag_ids_active:
-                query += "'%s', " % (_tag_id, )
-            query = query[:-2] + ")"
+            if 0:
+                query = "select _card_id from tags_for_card where _tag_id in ("
+                for _tag_id in criterion._tag_ids_active:
+                    query += "'%s', " % (_tag_id, )
+                query = query[:-2] + ")"
+            # Determine _card_ids of cards which have all active tags.
+            else:
+                query = ""
+                for _tag_id in criterion._tag_ids_active:
+                    query += "select _card_id from tags_for_card where " + \
+                        "_tag_id='%s' intersect " % (_tag_id, )
+                query = query[:-(len(" intersect "))]
             query = QtSql.QSqlQuery(query)
             active__card_ids = set()
             while query.next():
