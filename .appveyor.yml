@@ -29,7 +29,7 @@ cache:
 install:
     - ps: "If (!(Test-Path C:\\cache)){mkdir C:\\cache}"
     - ps: "If (!(Test-Path C:\\cache\\pip)){mkdir C:\\cache\\pip}"
-    - ps: "If (!(Test-Path C:\\cache\\miktex-portable.exe)){wget http://mirrors.ctan.org/systems/win32/miktex/setup/miktex-portable.exe -OutFile C:\\cache\\miktex-portable.exe}"
+    - ps: "If (!(Test-Path C:\\cache\\miktex-portable.exe)){wget http://mirrors.ctan.org/systems/win32/miktex/setup/windows-x86/miktex-portable.exe -OutFile C:\\cache\\miktex-portable.exe}"
     - cmd: "7z x C:\\cache\\miktex-portable.exe * -aot -omiktex"
     - cmd: "dir C:\\cache"
       # Not sure why we need it, but dvipng triggers the miktex package manager
