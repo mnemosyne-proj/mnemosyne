@@ -4,5 +4,6 @@ Comment=A flash card program to make your review process more efficient
 Exec=mnemosyne %f
 Icon=mnemosyne
 Categories=Education
+Keywords=education;learning;flash cards;
 Terminal=false
 Type=Application

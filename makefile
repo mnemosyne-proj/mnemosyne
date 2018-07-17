@@ -53,18 +53,18 @@ test-prep:
 	cd po && make ../mo/de/LC_MESSAGES/mnemosyne.mo
 
 test: test-prep
-	python -m nose tests
+	$(PYTHON) -m nose tests
 
 coverage: test-prep
 	rm -rf .coverage cover htmlcov
-	python -m nose tests --with-coverage --cover-erase \
+	$(PYTHON) -m nose tests --with-coverage --cover-erase \
 	--cover-package=mnemosyne.libmnemosyne,openSM2sync || (echo "testsuite failed")
 	coverage html
 	@echo "Open file://$(PWD)/htmlcov/index.html in a browser for a nicer visualization."
 
 coverage-windows: FORCE
 	rm -rf .coverage cover htmlcov
-	python -m nose tests --with-coverage --cover-erase \
+	$(PYTHON) -m nose tests --with-coverage --cover-erase \
 	--cover-package=mnemosyne.libmnemosyne,openSM2sync || (echo "testsuite failed")
 	coverage html
 	firefox htmlcov/index.html || chromium htmlcov/index.html || google-chrome htmlcov/index.html
@@ -73,7 +73,7 @@ profile: FORCE
 	echo "from hotshot import stats" > process_profile.py
 	echo "s = stats.load(\"stats.dat\")" >> process_profile.py
 	echo "s.sort_stats(\"time\").print_stats()" >> process_profile.py
-	python -m nose --with-profile --profile-stats-file=stats.dat
+	$(PYTHON) -m nose --with-profile --profile-stats-file=stats.dat
 	$(PYTHON) process_profile.py
 
 gui-profile: FORCE
