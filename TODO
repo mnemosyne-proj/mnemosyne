@@ -1,14 +1,16 @@
--add option for 'and' in tag selection in card browser.
-
 -scheduled -1, see e.g. card 5e46b27c, 17.28 30 april, event id 1346698
  scheduled interval and actual interval are logged as negative
  all similar cases have short (i.e. old) card ids, but this could simply be
  because the issues occur at the end of the queue
+  Sm2 mnemosyne 55 midnight utc timestamp out of range
 
+androidutf8-filenames.py, line 24, get size, UnicodeEncodeError, can't encode, surrogates not allowed
 
 Android dashboard fixes:
 - on activity result
 - badtoken exception
+
+merge fixes from main branch
 
 
 Android:
@@ -57,6 +59,8 @@ Minor bugs / issues:
 -"A <audio> B" displays only "A"
 -test if initial sync on Android download archive files download, using a custom
  dot_test directory
+-merge and edit dialog: if the cards contain too much info, the window is so
+ large that the buttons are not visible.
 -edit card to update a media file, sync with 'check for updated media files on
  client fails'
 -server.py imports from libmnemosyne.utils
