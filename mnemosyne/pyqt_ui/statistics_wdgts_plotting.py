@@ -36,10 +36,13 @@ class PlotStatisticsWdgt(QtWidgets.QWidget, StatisticsWidget):
         from matplotlib.figure import Figure
         from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
-        self.vbox_layout = QtWidgets.QVBoxLayout(self)
+        self.setMinimumSize(640, 480)
+        self.setSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding,
+                           QtWidgets.QSizePolicy.MinimumExpanding)
         colour = self._background_colour(self.parent)
         fig = Figure(facecolor=colour, edgecolor=colour)
         self.canvas = FigureCanvas(fig)
+        self.vbox_layout = QtWidgets.QVBoxLayout(self)
         self.vbox_layout.addWidget(self.canvas)
         self.canvas.setMinimumSize(640, 480)
         self.canvas.setSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding,

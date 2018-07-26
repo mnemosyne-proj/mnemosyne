@@ -1,16 +1,17 @@
+merge fixes from main branch
+upgrade pyqt
+
+
 -scheduled -1, see e.g. card 5e46b27c, 17.28 30 april, event id 1346698
  scheduled interval and actual interval are logged as negative
  all similar cases have short (i.e. old) card ids, but this could simply be
  because the issues occur at the end of the queue
   Sm2 mnemosyne 55 midnight utc timestamp out of range
-
-androidutf8-filenames.py, line 24, get size, UnicodeEncodeError, can't encode, surrogates not allowed
+  Feadb45b
 
 Android dashboard fixes:
 - on activity result
 - badtoken exception
-
-merge fixes from main branch
 
 
 Android:

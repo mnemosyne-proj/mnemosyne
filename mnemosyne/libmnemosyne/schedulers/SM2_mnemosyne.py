@@ -550,7 +550,11 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
         card.grade = new_grade
         card.last_rep = int(time.time())
         if new_grade >= 2:
-            card.next_rep = self.midnight_UTC(card.last_rep + new_interval)
+            try:
+                card.next_rep = self.midnight_UTC(card.last_rep + new_interval)
+            except:
+                self.main_widget().show_information("last rep, new interval",
+                                                    card.last_rep, new_interval)
             self.avoid_sister_cards(card)
         else:
             card.next_rep = card.last_rep

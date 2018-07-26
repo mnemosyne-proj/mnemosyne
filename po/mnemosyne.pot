@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-07-19 13:37+0200\n"
+"POT-Creation-Date: 2018-07-23 13:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,14 +64,14 @@ msgstr ""
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:68
 #: ../mnemosyne/example_plugins/pie_chart_statistics.py:31
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:119
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:258
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:281
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:122
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:261
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:284
 msgid "No stats available."
 msgstr ""
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:98
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:190
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:193
 msgid "Days"
 msgstr ""
 
@@ -1174,7 +1174,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:32
 #: ../mnemosyne/libmnemosyne/statistics_pages/easiness.py:12
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:725
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:286
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:289
 msgid "Easiness"
 msgstr ""
 
@@ -1229,7 +1229,7 @@ msgid "Untagged"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/grades.py:12
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:263
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:266
 msgid "Grades"
 msgstr ""
 
@@ -1834,28 +1834,28 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:209
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:212
 msgid "Number of cards scheduled"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:221
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:224
 msgid "Retention score (%)"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:233
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:236
 msgid "Number of cards added"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:244
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:247
 msgid "Number of new cards learned"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:262
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:285
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:265
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:288
 msgid "Number of cards"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:265
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:268
 msgid "Not seen"
 msgstr ""
 
