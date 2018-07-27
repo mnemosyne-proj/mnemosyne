@@ -1,21 +1,10 @@
 merge fixes from main branch
 upgrade pyqt
-
-
--scheduled -1, see e.g. card 5e46b27c, 17.28 30 april, event id 1346698
- scheduled interval and actual interval are logged as negative
- all similar cases have short (i.e. old) card ids, but this could simply be
- because the issues occur at the end of the queue
-  Sm2 mnemosyne 55 midnight utc timestamp out of range
-  Feadb45b
-
-Android dashboard fixes:
-- on activity result
-- badtoken exception
-
+close bug reports
 
 Android:
 
+-look into fixes reported by dashboard
 -integrated error reporting:
 https://developers.google.com/analytics/devguides/collection/android/v4/exceptions
 http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-button

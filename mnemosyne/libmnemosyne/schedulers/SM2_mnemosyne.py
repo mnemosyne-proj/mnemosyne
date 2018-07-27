@@ -52,7 +52,11 @@ class SM2Mnemosyne(Scheduler):
 
         # Create a time tuple containing the local date only, i.e. throwing
         # away hours, minutes, etc.
-        date_only = datetime.date.fromtimestamp(timestamp).timetuple()
+        # Android/Crystax 10.3.2 actually has a 2038 overflow problem...
+        try:
+            date_only = datetime.date.fromtimestamp(timestamp).timetuple()
+        except OverflowError:
+            date_only = datetime.date.fromtimestamp(2**31-2).timetuple()
         # Now we reinterpret this same time tuple as being UTC and convert it
         # to a POSIX timestamp. (Note that timetuples are 'naive', i.e. they
         # themselves do not contain timezone information.)
@@ -550,11 +554,7 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
         card.grade = new_grade
         card.last_rep = int(time.time())
         if new_grade >= 2:
-            try:
-                card.next_rep = self.midnight_UTC(card.last_rep + new_interval)
-            except:
-                self.main_widget().show_information("last rep, new interval",
-                                                    card.last_rep, new_interval)
+            card.next_rep = self.midnight_UTC(card.last_rep + new_interval)
             self.avoid_sister_cards(card)
         else:
             card.next_rep = card.last_rep
