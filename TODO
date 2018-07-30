@@ -1,5 +1,4 @@
-merge fixes from main branch
-upgrade pyqt
+Mac version
 close bug reports
 
 Android:
@@ -23,6 +22,8 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 -option to globally increase / decrease font size with respect to desktop
 -custom fonts?
 
+
+if pyinstaller has been updated: upgrade PyQt5
 
 Minor bugs / issues:
 

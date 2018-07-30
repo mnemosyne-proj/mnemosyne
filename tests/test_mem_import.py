@@ -686,8 +686,13 @@ class TestMemImport(MnemosyneTest):
         assert self.database().card_count_for_grade_and_tag(0, tag, active_only=True) == 0
         from mnemosyne.libmnemosyne.statistics_pages.grades import Grades
         page = Grades(component_manager=self.mnemosyne.component_manager)
-        page.prepare_statistics(tag._id)
-        assert page.y == [0, 0, 0, 0, 0, 0, 0]
+        from mnemosyne.libmnemosyne.tag_tree import TagTree
+        self.tag_tree = TagTree(self.mnemosyne.component_manager, count_cards=False)
+        self.nodes = self.tag_tree.nodes()
+        for index, node in enumerate(self.nodes):
+            if node == "666":
+                page.prepare_statistics(index)
+                assert page.y == [0, 0, 0, 0, 0, 0, 0]
         page.prepare_statistics(-1)
         assert page.y == [0, 2, 0, 0, 0, 0, 0]
 
