@@ -41,7 +41,7 @@ class TestScheduler(MnemosyneTest):
 
     def test_adjusted_now(self):
         if sys.platform == "win32":
-            return  # no time.tzset        
+            return  # no time.tzset
         sch = self.scheduler()
         os.environ["TZ"] = "UTC"
         time.tzset()
@@ -389,7 +389,7 @@ class TestScheduler(MnemosyneTest):
     def test_next_rep_to_interval_string(self):
         if sys.platform == "win32":
             return  # no time.tzset
-        
+
         os.environ["TZ"] = "Europe/Brussels"
         time.tzset()
 
@@ -467,7 +467,7 @@ class TestScheduler(MnemosyneTest):
 
     def test_next_rep_to_interval_string_2(self):
         if sys.platform == "win32":
-            return  # no time.tzset        
+            return  # no time.tzset
         os.environ["TZ"] = "Europe/Brussels"
         time.tzset()
 
@@ -510,7 +510,7 @@ class TestScheduler(MnemosyneTest):
 
     def test_last_rep_to_interval_string(self):
         if sys.platform == "win32":
-            return  # no time.tzset        
+            return  # no time.tzset
         os.environ["TZ"] = "Europe/Brussels"
         time.tzset()
 
@@ -559,7 +559,7 @@ class TestScheduler(MnemosyneTest):
 
     def test_last_rep_to_interval_string_2(self):
         if sys.platform == "win32":
-            return  # no time.tzset        
+            return  # no time.tzset
         sch = self.scheduler()
         os.environ["TZ"] = "Australia/Sydney"
         time.tzset()
@@ -582,7 +582,7 @@ class TestScheduler(MnemosyneTest):
 
     def test_last_rep_to_interval_string_3(self):
         if sys.platform == "win32":
-            return  # no time.tzset        
+            return  # no time.tzset
         sch = self.scheduler()
         os.environ["TZ"] = "America/Los_Angeles"
         time.tzset()
@@ -639,6 +639,25 @@ class TestScheduler(MnemosyneTest):
         self.review_controller().grade_answer(0)
         self.review_controller().show_answer()
         self.review_controller().grade_answer(0)
+
+    def test_prefetch_3(self):
+        from mnemosyne.libmnemosyne.card_types.sentence import SentencePlugin
+        for plugin in self.plugins():
+            if isinstance(plugin, SentencePlugin):
+                plugin.activate()
+                break
+
+        card_type = self.card_type_with_id("6")
+        fact_data = {"f": "La [casa:house] es [grande:big] [a:b]"}
+        cards = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=2, tag_names=["default"])
+        self.review_controller().reset()
+        self.review_controller().learning_ahead = True
+        for i in range(4):
+            self.review_controller().show_new_question()
+            self.review_controller().show_answer()
+            self.review_controller().grade_answer(2)
+            assert self.review_controller().scheduled_count != -1
 
     def test_relearn(self):
         fact_data = {"f": "question1",

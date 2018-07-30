@@ -121,5 +121,4 @@ class ImportDlg(QtWidgets.QDialog, QtGuiThread, ImportDialog, Ui_ImportDlg):
 
     def work_ended(self):
         self.main_widget().close_progress()
-        self.main_widget().show_information(_("Done!"))
         QtWidgets.QDialog.accept(self)

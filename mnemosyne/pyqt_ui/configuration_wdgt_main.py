@@ -60,13 +60,13 @@ class ConfigurationWdgtMain(QtWidgets.QWidget, ConfigurationWidget,
         if self.upload_science_logs.checkState() == QtCore.Qt.Checked:
             self.config()["upload_science_logs"] = True
         else:
-            self.config()["upload_science_logs"] = False         
+            self.config()["upload_science_logs"] = False
         if self.card_presentation.currentIndex() == 0:
             self.config()["QA_split"] = "fixed"
         elif self.card_presentation.currentIndex() == 1:
-            self.config()["QA_split"] = "adaptive"  
+            self.config()["QA_split"] = "adaptive"
         elif self.card_presentation.currentIndex() == 2:
-            self.config()["QA_split"] = "single_window"    
+            self.config()["QA_split"] = "single_window"
         self.config()["ui_language"] = iso6931_code_for_language_name(\
                 self.languages.currentText())
         self.translator().set_language(self.config()["ui_language"])

@@ -70,6 +70,8 @@ class CardModel(QtSql.QSqlTableModel, Component):
         for card_type_id in self.config()["font_colour"]:
             if not card_type_id in self.component_manager.card_type_with_id:
                 continue
+            if not self.card_type_with_id(card_type_id).fact_keys_and_names:
+                continue # M-sided card type.
             first_key = \
                 self.card_type_with_id(card_type_id).fact_keys_and_names[0][0]
             self.font_colour_for_card_type_id[card_type_id] = QtGui.QColor(\
@@ -366,9 +368,10 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         # Set up tag tree plus search box.
         self.container_2 = QtWidgets.QWidget(self.splitter_1)
         self.layout_2 = QtWidgets.QVBoxLayout(self.container_2)
-        self.label_2 = QtWidgets.QLabel(_("having any of these tags:"),
-            self.container_2)
-        self.layout_2.addWidget(self.label_2)
+        self.any_all_tags = QtWidgets.QComboBox(self.container_2)
+        self.any_all_tags.addItem(_("having any of these tags:"))
+        self.any_all_tags.addItem(_("having all of these tags:"))
+        self.layout_2.addWidget(self.any_all_tags)
         self.tag_tree_wdgt = \
             TagsTreeWdgt(acquire_database=self.unload_qt_database,
                 component_manager=kwds["component_manager"], parent=self.container_2)
@@ -402,6 +405,8 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
             itemClicked.connect(self.update_filter)
         self.tag_tree_wdgt.tree_wdgt.\
             itemClicked.connect(self.update_filter)
+        self.any_all_tags.\
+            currentIndexChanged.connect(self.update_filter)
         # Context menu.
         self.table.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.table.customContextMenuRequested.connect(self.context_menu)
@@ -792,7 +797,7 @@ _("You chose to sort this table. Operations in the card browser could now be slo
         # keypress was 300 ms ago.
         self.timer.start(300)
 
-    def update_filter(self):
+    def update_filter(self, dummy=None):
         # Card types and fact views.
         criterion = DefaultCriterion(self.component_manager)
         self.card_type_tree_wdgt.checked_to_criterion(criterion)
@@ -816,10 +821,18 @@ _("You chose to sort this table. Operations in the card browser could now be slo
             while query.next():
                 all__card_ids.add(str(query.value(0)))
             # Determine _card_ids of card with an active tag.
-            query = "select _card_id from tags_for_card where _tag_id in ("
-            for _tag_id in criterion._tag_ids_active:
-                query += "'%s', " % (_tag_id, )
-            query = query[:-2] + ")"
+            if self.any_all_tags.currentIndex() == 0:
+                query = "select _card_id from tags_for_card where _tag_id in ("
+                for _tag_id in criterion._tag_ids_active:
+                    query += "'%s', " % (_tag_id, )
+                query = query[:-2] + ")"
+            # Determine _card_ids of cards which have all active tags.
+            else:
+                query = ""
+                for _tag_id in criterion._tag_ids_active:
+                    query += "select _card_id from tags_for_card where " + \
+                        "_tag_id='%s' intersect " % (_tag_id, )
+                query = query[:-(len(" intersect "))]
             query = QtSql.QSqlQuery(query)
             active__card_ids = set()
             while query.next():

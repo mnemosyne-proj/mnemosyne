@@ -56,12 +56,22 @@ class Tsv(FileFormat, MediaPreprocessor):
             fields = line.split("\t")
             if len(fields) >= 3:  # Vocabulary card.
                 if len(fields) >= 4:
+                    if not fields[0] or not fields[2]:
+                        self.main_widget().show_error(\
+                            _("Required field missing on line") \
+                            + " " + str(line_number) + ":\n" + line)
+                        return
                     facts_data.append({"f": fields[0], "p_1": fields[1],
                         "m_1": fields[2], "n": fields[3]})
                 else:
                     facts_data.append({"f": fields[0], "p_1": fields[1],
                         "m_1": fields[2]})
             elif len(fields) == 2:  # Front-to-back only.
+                if not fields[0] :
+                    self.main_widget().show_error(\
+                        _("Required field missing on line") \
+                        + " " + str(line_number) + ":\n" + line)
+                    return
                 facts_data.append({"f": fields[0], "b": fields[1]})
             else:  # Malformed line.
                 self.main_widget().show_error(_("Badly formed input on line") \
@@ -76,6 +86,7 @@ class Tsv(FileFormat, MediaPreprocessor):
             else:
                 card_type = self.card_type_with_id("3")
             self.preprocess_media(fact_data, tag_names)
+            print(fact_data)
             self.controller().create_new_cards(fact_data, card_type, grade=-1,
                 tag_names=tag_names, check_for_duplicates=False, save=False)
             if _("MISSING_MEDIA") in tag_names:

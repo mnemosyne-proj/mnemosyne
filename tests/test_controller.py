@@ -199,3 +199,13 @@ class TestController(MnemosyneTest):
         global answer
         answer = 0
         self.controller().delete_current_card()
+
+    def test_retain_only_child_tags(self):
+        c = self.controller()
+        assert c._retain_only_child_tags(["a"]) == ["a"]
+        assert c._retain_only_child_tags(["a", "b"]) == ["a", "b"]
+        assert c._retain_only_child_tags(["a", "a::b"]) == ["a::b"]
+        assert c._retain_only_child_tags(["a", "a::b", "a::b::c"]) == ["a::b::c"]
+        assert c._retain_only_child_tags(["a", "a::b::c"]) == ["a::b::c"]
+        assert c._retain_only_child_tags(["a::b", "a::b::c"]) == ["a::b::c"]
+        assert c._retain_only_child_tags(["a::b::c"]) == ["a::b::c"]

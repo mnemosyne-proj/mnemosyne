@@ -36,7 +36,7 @@ class DefaultCriterionWdgt(QtWidgets.QWidget, CriterionWidget,
         self.tag_tree_wdgt = TagsTreeWdgt(\
             component_manager=component_manager, parent=self)
         self.gridLayout.addWidget(self.tag_tree_wdgt, 1, 1)
-        
+
         criterion = DefaultCriterion(component_manager=self.component_manager)
         for tag in self.database().tags():
             criterion._tag_ids_active.add(tag._id)
@@ -77,7 +77,7 @@ class DefaultCriterionWdgt(QtWidgets.QWidget, CriterionWidget,
             for tag in self.database().tags():
                 criterion._tag_ids_active.add(tag._id)
         return criterion
-    
+
     def criterion_clicked(self):
         if self.parent.was_showing_a_saved_set and not self.parent.is_shutting_down:
             self.main_widget().show_information(\
@@ -85,7 +85,7 @@ _("Cards you (de)activate now will not be stored in the previously selected set 
             self.parent.was_showing_a_saved_set = False
 
     def criterion_changed(self):
-        self.parent.saved_sets.clearSelection()       
+        self.parent.saved_sets.clearSelection()
 
     def closeEvent(self, event):
         # This allows the state of the tag tree to be saved.
