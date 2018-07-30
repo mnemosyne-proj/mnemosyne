@@ -59,6 +59,9 @@ class TestTagTree(MnemosyneTest):
         assert self.tree.card_count_for_node["b"] == 1
         assert self.tree.card_count_for_node["b::c"] == 1
         assert self.tree.card_count_for_node["b::c::d"] == 1
+        assert self.tree.nodes() == \
+               ["a", "a::Untagged", "a::b", "a::c", "b", "b::c", "b::c::d",
+                "Z", "__UNTAGGED__"]
 
     def test_4(self):
         card_type = self.card_type_with_id("1")
@@ -298,7 +301,7 @@ class TestTagTree(MnemosyneTest):
 
         self.tree.delete_subtree("b::c")
         card = self.database().card(card._id, is_id_internal=True)
-        assert card.tag_string() == "b"
+        assert card.tag_string() == ""
         self.database().con.execute("select tags from cards where _id=?",
             (card._id, )).fetchone()[0] == "b"
 
@@ -307,7 +310,7 @@ class TestTagTree(MnemosyneTest):
         assert self.tree.card_count_for_node["Z"] == 1
         assert self.tree.card_count_for_node["a::b"] == 1
         assert self.tree.card_count_for_node["a::c"] == 1
-        assert self.tree.card_count_for_node["b"] == 1
+        assert "b" not in self.tree.card_count_for_node
         assert "__UNTAGGED__" in self.tree.card_count_for_node
         assert "b::c" not in self.tree.card_count_for_node
         assert "b::c::d" not in self.tree.card_count_for_node

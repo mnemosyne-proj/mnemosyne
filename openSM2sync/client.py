@@ -164,8 +164,10 @@ class Client(Partner):
                 # Upload local changes and check for conflicts.
                 result = self.put_client_log_entries()
                 if result == "OK":
-                    if self.check_for_edited_local_media_files:
-                        self.put_client_media_files()
+                    # We always need to put the client media files, regardless
+                    # of self.check_for_edited_local_media_files, as there could
+                    # be entirely new media files.
+                    self.put_client_media_files()
                     self.get_server_media_files()
                     self.get_server_log_entries()
                     self.get_sync_finish()

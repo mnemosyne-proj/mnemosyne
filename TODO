@@ -1,10 +1,9 @@
--document development process
-
--upgrade PyQt
-
+Mac version
+close bug reports
 
 Android:
 
+-look into fixes reported by dashboard
 -integrated error reporting:
 https://developers.google.com/analytics/devguides/collection/android/v4/exceptions
 http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-button
@@ -24,9 +23,11 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 -custom fonts?
 
 
+if pyinstaller has been updated: upgrade PyQt5
+
 Minor bugs / issues:
 
--For Latex on OSX: try and have OSX search sysem paths, or otherwise edit config.py
+-For Latex on OSX: try and have OSX search system paths, or otherwise edit config.py
  latex = "/Library/TeX/texbin/latex -output-format=dvi -interaction=nonstopmode"
  dvipng = "/Library/TeX/texbin/dvipng -D 200 -T tight tmp.dvi"
 -Anki: Q and A align top, no boundaries around content: document how to add CSS
@@ -49,6 +50,8 @@ Minor bugs / issues:
 -"A <audio> B" displays only "A"
 -test if initial sync on Android download archive files download, using a custom
  dot_test directory
+-merge and edit dialog: if the cards contain too much info, the window is so
+ large that the buttons are not visible.
 -edit card to update a media file, sync with 'check for updated media files on
  client fails'
 -server.py imports from libmnemosyne.utils
@@ -205,6 +208,8 @@ always relevant)
 -memrise importer
 
 -type answer
+
+-option to search in tag tree?
 
 -new learning modes for initial learning of tag? multiple choice? Select audio?
 

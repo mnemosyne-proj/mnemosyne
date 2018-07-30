@@ -6,15 +6,30 @@ https://www.microsoft.com/en-us/download/details.aspx?id=48145
 
 This might also help with other hard crashes.
 
-Additionally, if you see a black screen, start Mnemosyne with the
---qt-opengl=desktop command line argument.)
+If this does not help, or if you see a black screen, try starting Mnemosyne
+with the --qt-opengl=desktop command line argument.)
 
 Mnemosyne 2.6.1
 
+- In the grade and easiness statistics, added option to only show active cards,
+  as well as options to group multiple subtags.
+- In the card browser, added option to filter on cards having all of a certain
+  number of tags.
+- Fix bug with Mnemosyne not remembering the setting of "Recent cards are cards
+  with at most X retention repetitions" (reported by Lenore Raven).
 - Fix crash in the review server (reported by Dorian Hawkmoon).
+- Fix crash in card browser when having set the card background colour for all
+  cards at once (reported by Adam Papai, Jan Simunek).
 - Fix interaction between Unicode and Latex (reported by vycska).
-- Work around progress bars which don't close under Linux (fix by
-  Emilian Mihalache).
+- Work around progress bars which don't close under Linux (fix by Emilian
+  Mihalache).
+- Work around 2038 bug, especially on Android, when grading extremely easy
+  cards.
+- Fix bug with special characters like apostrophes in export to *.cards format.
+- Warn when fields are missing during tsv import (requested by Pavel B.).
+- When creating or editing a card, superfluous tags like having both A and A::B
+  will be consolidated in a single tag A::B.
+- Upgraded to PyQt 5.10.1 and matplotlib 2.2.2 under Windows.
 
 
 Mnemosyne 2.6 : 2017-12-11
