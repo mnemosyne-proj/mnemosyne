@@ -209,19 +209,28 @@ brew install python3
 brew pin python3
 ```
 
- - Install the dependencies for Mnemosyne. You may need to install qt5 or python3 manually to get the correct version.
+- Patch the qt formula so you'll get qt 5.10.0 (matching PyQt5) and not a later version:
+
 ```
-brew install qt@5.7 mplayer
+brew uninstall qt
+brew edit qt
+# replace the file with the contents of https://raw.githubusercontent.com/Homebrew/homebrew-core/08d3f73bf31b705ce1afbd0fe1f2925baa878394/Formula/qt.rb and save it
+brew install qt
+brew pin qt
+```
+
+ - Install the remaining dependencies for Mnemosyne, using a python virtual environment to isolate python dependencies.
+```
+brew install mplayer
 pip3 install virtualenv
 virtualenv --python=python3 venv
 source venv/bin/activate
-pip3 install webob tornado matplotlib numpy sip pillow cheroot pyqt5==5.7.1 pyinstaller
+pip install webob tornado matplotlib numpy sip pillow cheroot pyinstaller pyqt5==5.10
 ```
 
- - Build it:
+ - Build it (while still using the python virtual environment):
 ```
-export PYTHON=python3
-export QT5DIR=/usr/local/opt/qt@5.7 # help pyinstaller find the qt5 path
+export QT5DIR=/usr/local/opt/qt # help pyinstaller find the qt5 path
 make clean
 make macos
 ```

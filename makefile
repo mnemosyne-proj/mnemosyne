@@ -121,6 +121,10 @@ macos:
   # Custom Info.plist - may need to be updated periodically
 	cp darwin/Info.plist dist/Mnemosyne.app/Contents
 
+  # tkinter bug - data directories not present
+	mkdir -p dist/Mnemosyne.app/Contents/MacOS/tk
+	mkdir -p dist/Mnemosyne.app/Contents/MacOS/tcl
+
 osx: macos
 
 android: # Creates the assets file with the Python code.
