@@ -1,5 +1,8 @@
 Mac version
 close bug reports
+branch 2.6.1 fixes
+tag release
+document new features on website, also for last year
 
 Android:
 
@@ -537,8 +540,18 @@ http://stackoverflow.com/questions/611459/how-to-sort-text-in-sqlite3-with-speci
 
 Multiuser statistics analysis:
 
--break out card id stringss to a different table and use interger _id in the
+-break out card id strings to a different table and use interger _id in the
  rest of the database to save space
 -move times from a later start date to save space?
 -investigate origin of ._ logs
 -don't do card checks for post 2.0
+
+
+Design warts:
+
+- config storage, is now scattered over 3 places (config.db, config.py,
+  database.db). At least config.py should go and be replaced by an
+  advanced settings menu. Document a standard way for plugins to
+  save settings. Rework everything better in the sync protocol.
+  Other issue related to storage is that built-in CardTypes like Sentence cannot store extra_data, so we resorted to e.g.
+  storing the language info in config.db
