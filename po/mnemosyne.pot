@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-07-30 16:17+0200\n"
+"POT-Creation-Date: 2018-08-03 14:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,6 +14,41 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
 
+
+#: ../dist/Mnemosyne/anki/template/hint.py:17
+#: ../mnemosyne/libmnemosyne/renderers/anki/template/hint.py:17
+msgid "Show %s"
+msgstr ""
+
+#: ../dist/Mnemosyne/anki/utils.py:50
+#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:50
+msgid "%sy"
+msgstr ""
+
+#: ../dist/Mnemosyne/anki/utils.py:51
+#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:51
+msgid "%smo"
+msgstr ""
+
+#: ../dist/Mnemosyne/anki/utils.py:52
+#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:52
+msgid "%sd"
+msgstr ""
+
+#: ../dist/Mnemosyne/anki/utils.py:53
+#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:53
+msgid "%sh"
+msgstr ""
+
+#: ../dist/Mnemosyne/anki/utils.py:54
+#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:54
+msgid "%sm"
+msgstr ""
+
+#: ../dist/Mnemosyne/anki/utils.py:55
+#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:55
+msgid "%ss"
+msgstr ""
 
 #: ../mnemosyne/android_python/database_maintenance.py:14
 msgid "About to archive old logs to improve running speed. Depending on the size of your database and the speed of your device, this can take 10 minutes or more. Please leave Mnemosyne running in the foreground."
@@ -916,34 +951,6 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/plugin.py:105
 msgid "There are cards with this card type (or a clone of it) in the database."
-msgstr ""
-
-#: ../mnemosyne/libmnemosyne/renderers/anki/template/hint.py:17
-msgid "Show %s"
-msgstr ""
-
-#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:50
-msgid "%sy"
-msgstr ""
-
-#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:51
-msgid "%smo"
-msgstr ""
-
-#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:52
-msgid "%sd"
-msgstr ""
-
-#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:53
-msgid "%sh"
-msgstr ""
-
-#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:54
-msgid "%sm"
-msgstr ""
-
-#: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:55
-msgid "%ss"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:18

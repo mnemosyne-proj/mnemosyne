@@ -118,12 +118,12 @@ The following instructions are valid for Linux and Mac (if you use homebrew or s
 ### Runtime requirements
 To start working on Mnemosyne, you need at least the following software.
 - [Python](http://www.python.org) 3.5 or later
-- [PyQt](http://www.riverbankcomputing.co.uk/software/pyqt/download) 5.6 or later
+- [PyQt](https://www.riverbankcomputing.com/software/pyqt/download5) 5.6 or later, including QtWebEngineWidgets.
 - [Matplotlib](http://matplotlib.org)
 - [Easyinstall](http://peak.telecommunity.com/DevCenter/EasyInstall)
 - [cheroot](https://pypi.python.org/pypi/Cheroot/) 5 or later
 - [Webob](http://webob.org) 1.4 or later
-- [pillow](http://python-pillow.org)
+- [Pillow](http://python-pillow.org)
 - For Latex support: the `latex` and `dvipng` commands must be available (e.g., `TeXLive` on Linux, `MacTeX` on Mac, and `MikTeX` on Windows).
 - For building the docs: [sphinx](http://sphinx-doc.org)
 - For running the tests: [nose](https://nose.readthedocs.io/en/latest/)
@@ -133,7 +133,7 @@ If your distribution provides and packages all necessary libraries in a recent e
 
 ### Using the system-wide python installation
 First, install all dependencies with your distribution's package manager.
-Then, run `make` from the top-level mnemosyne directory.
+Then, run `make build-all-deps`, followed by `make` from the top-level mnemosyne directory.
 This will generate all the needed auxiliary files and start Mnemosyne with a separate datadir under dot_mnemosyne2.
 If you want to use mnemosyne interactively from within a python shell, run python from the top-level mnemosyne directory.
 You can check if the correct local version was imported by running `import mnemosyne; print(mnemosyne.__file__)`.
