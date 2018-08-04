@@ -6,6 +6,7 @@ image:
 environment:
     matrix:
         - PYTHON: "C:\\Python36-x64"
+        - PYTHON: "C:\\Python37-x64"
     PATH: "%PATH%;C:\\projects\\mnemosyne\\miktex\\texmfs\\install\\miktex\\bin"
     APPVEYOR_SAVE_CACHE_ON_ERROR: "true"
 
