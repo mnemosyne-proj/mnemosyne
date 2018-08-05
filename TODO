@@ -126,13 +126,13 @@ Milesteiner
  defined in the ui file.
 -Qt bug? cannot define sq escape character to search for literal _
 -Qt bug? Kanji does not scale, but latin does
-  厳�?�?�警戒<span style="font-size:24pt;">test 厳�?�?�警戒</span>
+  åŽ³é‡?ã?ªè­¦æˆ’<span style="font-size:24pt;">test åŽ³é‡?ã?ªè­¦æˆ’</span>
 -Qt bug
 1. Add new card
 2. Enter "test" on front
-3. Enter "� test �" (alt+174, alt+175) on back
+3. Enter "« test »" (alt+174, alt+175) on back
 The card gets closed the moment one has hit the alt+..5 key and a new card is
-created with just the "�" symbol.
+created with just the "»" symbol.
 -Qt bug: enabling word wrap on tag label breaks setting of stretch factors in
  q and a
 -Qt issue: toggling a tag in the card browser using 'space' does not update the
@@ -540,7 +540,7 @@ http://stackoverflow.com/questions/611459/how-to-sort-text-in-sqlite3-with-speci
 
 Multiuser statistics analysis:
 
--break out card id strings to a different table and use interger _id in the
+-break out card id strings to a different table and use integer _id in the
  rest of the database to save space
 -move times from a later start date to save space?
 -investigate origin of ._ logs
