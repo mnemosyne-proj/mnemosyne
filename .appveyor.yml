@@ -29,7 +29,6 @@ cache:
 
 install:
     - ps: "If (!(Test-Path C:\\cache)){mkdir C:\\cache}"
-    - ps: "If (!(Test-Path C:\\cache\\pip)){mkdir C:\\cache\\pip}"
     - ps: "If (!(Test-Path C:\\cache\\miktex-portable.exe)){wget http://mirrors.ctan.org/systems/win32/miktex/setup/windows-x86/miktex-portable.exe -OutFile C:\\cache\\miktex-portable.exe}"
     - cmd: "7z x C:\\cache\\miktex-portable.exe * -aot -omiktex"
     - cmd: "dir C:\\cache"
@@ -38,7 +37,7 @@ install:
       # If we ever need a local miktex repository: # https://bruceyf.wordpress.com/2008/05/07/miktexs-secret-local-package-repository/
     - cmd: "mpm --install=zhmetrics"
     - cmd: "latex -interaction=nonstopmode -version"
-    - cmd: "%PYTHON%\\python.exe -m pip install --cache-dir C:\\cache\\pip -r requirements.txt"
+    - cmd: "%PYTHON%\\python.exe -m pip install -r requirements.txt"
     - ps: "mkdir -p mo\\de\\LC_MESSAGES"
     - cmd: "%PYTHON%\\python.exe po\\msgfmt.py -o mo\\de\\LC_MESSAGES\\mnemosyne.mo po\\de.po"
 
