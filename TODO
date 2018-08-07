@@ -1,9 +1,3 @@
-Mac version
-close bug reports
-branch 2.6.1 fixes
-tag release
-document new features on website, also for last year
-
 Android:
 
 -look into fixes reported by dashboard
@@ -25,6 +19,7 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 -option to globally increase / decrease font size with respect to desktop
 -custom fonts?
 
+check into automated import of translations
 
 if pyinstaller has been updated: upgrade PyQt5
 
