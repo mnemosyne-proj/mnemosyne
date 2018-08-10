@@ -22,6 +22,7 @@ class ComponentManager(object):
         self.card_type_with_id = {}
         self.render_chain_with_id = {}
         self.study_mode_with_id = {}
+        self.language_with_id = {}
         self.debug_file = None
 
     def register(self, component):
@@ -42,6 +43,8 @@ class ComponentManager(object):
             self.render_chain_with_id[component.id] = component
         elif comp_type == "study_mode":
             self.study_mode_with_id[component.id] = component
+        elif comp_type == "language":
+            self.language_with_id[component.used_for] = component
 
     def unregister(self, component):
         comp_type = component.component_type

@@ -6,6 +6,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.card_type import CardType
+from mnemosyne.pyqt_ui.card_type_language_list_wdgt import \
+     CardTypeLanguageListWdgt
 from mnemosyne.pyqt_ui.clone_card_type_dlg import CloneCardTypeDlg
 from mnemosyne.pyqt_ui.ui_manage_card_types_dlg import Ui_ManageCardTypesDlg
 from mnemosyne.pyqt_ui.edit_M_sided_card_type_dlg import EditMSidedCardTypeDlg
@@ -18,6 +20,15 @@ class ManageCardTypesDlg(QtWidgets.QDialog, ManageCardTypesDialog,
     def __init__(self, **kwds):
         super().__init__(**kwds)
         self.setupUi(self)
+        self.cloned_card_types = CardTypeLanguageListWdgt(\
+            parent=self.cloned_card_types_box,
+            component_manager=self.component_manager)
+        self.verticalLayout_clones.insertWidget(0, self.cloned_card_types)
+        # TODO: connect signals to activate card type.
+        self.M_sided_card_types = CardTypeLanguageListWdgt(\
+            parent=self.M_sided_card_types_box,
+            component_manager=self.component_manager)
+        self.verticalLayout_M_sided.insertWidget(0, self.M_sided_card_types)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
@@ -32,34 +43,24 @@ class ManageCardTypesDlg(QtWidgets.QDialog, ManageCardTypesDialog,
         self.exec_()
 
     def update(self):
-        self.cloned_card_types.clear()
-        self.M_sided_card_types.clear()
-        self.items_used = []
-        self.card_types_used = []
         # Fill up cloned card types panel.
+        card_types = []
         for card_type in self.database().sorted_card_types():
             if self.database().is_user_card_type(card_type) and \
                not card_type.hidden_from_UI and \
                not card_type.id.startswith("7"):
-                name = "%s (%s)" % (_(card_type.name),
-                                    _(card_type.__class__.__bases__[0].name))
-                item = QtWidgets.QListWidgetItem(name)
-                self.cloned_card_types.addItem(item)
-                # Since node_item seems mutable, we cannot use a dict.
-                self.items_used.append(item)
-                self.card_types_used.append(card_type)
+                card_types.append(card_type)
+        self.cloned_card_types.set_card_types(card_types)
         self.rename_clone_button.setEnabled(False)
         self.delete_clone_button.setEnabled(False)
         # Fill up M-sided card types panel.
+        card_types = []
         for card_type in self.database().sorted_card_types():
             if self.database().is_user_card_type(card_type) and \
                not card_type.hidden_from_UI and \
                card_type.id.startswith("7"):
-                item = QtWidgets.QListWidgetItem(card_type.name)
-                self.M_sided_card_types.addItem(item)
-                # Since node_item seems mutable, we cannot use a dict.
-                self.items_used.append(item)
-                self.card_types_used.append(card_type)
+                card_types.append(card_type)
+        self.M_sided_card_types.set_card_types(card_types)
         self.edit_M_sided_button.setEnabled(False)
         self.rename_M_sided_button.setEnabled(False)
         self.delete_M_sided_button.setEnabled(False)

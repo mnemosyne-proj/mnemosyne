@@ -27,10 +27,8 @@
        <property name="title">
         <string>Cloned card types</string>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <widget class="QListWidget" name="cloned_card_types"/>
-        </item>
+       <layout class="QVBoxLayout" name="vertical_layout_clones">
+
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
@@ -77,9 +75,9 @@
        <property name="title">
         <string>M-sided card types</string>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout">
+       <layout class="QVBoxLayout" name="vertical_layout_M_sided">
         <item>
-         <widget class="QListWidget" name="M_sided_card_types"/>
+        <widget class="QListWidget" name="M_sided_card_types"/>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
@@ -260,38 +258,6 @@
     <hint type="sourcelabel">
      <x>58</x>
      <y>325</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>194</x>
-     <y>194</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>cloned_card_types</sender>
-   <signal>itemClicked()</signal>
-   <receiver>ManageCardTypesDlg</receiver>
-   <slot>activate_cloned_card_type</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>194</x>
-     <y>83</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>194</x>
-     <y>194</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>M_sided_card_types</sender>
-   <signal>itemClicked()</signal>
-   <receiver>ManageCardTypesDlg</receiver>
-   <slot>activate_M_sided_card_type</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>194</x>
-     <y>255</y>
     </hint>
     <hint type="destinationlabel">
      <x>194</x>

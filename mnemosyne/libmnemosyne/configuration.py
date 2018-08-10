@@ -185,7 +185,9 @@ class Configuration(Component, dict):
              "export_format": None,
              "last_db_maintenance": time.time() - 1 * DAY,
              "QA_split": "fixed", # "fixed", "adaptive", "single_window",
-             "study_mode": "ScheduledForgottenNew"
+             "study_mode": "ScheduledForgottenNew",
+             "language_for_card_type_id": {}, # ISO code
+             "foreign_fact_key_for_card_type_id": {}
             }.items()):
             self.setdefault(key, value)
         # These keys will be shared in the sync protocol. Front-ends can

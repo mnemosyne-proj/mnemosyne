@@ -133,6 +133,12 @@ class Component(object):
     def plugins(self):
         return self.component_manager.all("plugin")
 
+    def languages(self):
+        return self.component_manager.all("language")
+
+    def language_with_id(self, id):
+        return self.component_manager.language_with_id[id]
+
     def flush_sync_server(self):
 
         """If there are still dangling sessions (i.e. those waiting in vain

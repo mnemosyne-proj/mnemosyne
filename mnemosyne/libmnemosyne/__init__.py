@@ -151,7 +151,13 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.file_formats.smconv_XML",
           "Smconv_XML"),
          ("mnemosyne.libmnemosyne.file_formats.cuecard_wcu",
-          "CuecardWcu")]
+          "CuecardWcu"),
+         ("mnemosyne.libmnemosyne.languages.arabic",
+          "Arabic"),
+         ("mnemosyne.libmnemosyne.languages.english",
+          "English"),
+         ("mnemosyne.libmnemosyne.languages.french",
+          "French") ]
         self.gui_for_component = {}
 
     def handle_exception(self, type, value, tb):
