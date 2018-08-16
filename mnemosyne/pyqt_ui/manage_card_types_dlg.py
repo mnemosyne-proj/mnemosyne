@@ -23,12 +23,11 @@ class ManageCardTypesDlg(QtWidgets.QDialog, ManageCardTypesDialog,
         self.cloned_card_types = CardTypeLanguageListWdgt(\
             parent=self.cloned_card_types_box,
             component_manager=self.component_manager)
-        self.verticalLayout_clones.insertWidget(0, self.cloned_card_types)
-        # TODO: connect signals to activate card type.
+        self.vertical_layout_clones.insertWidget(0, self.cloned_card_types)
         self.M_sided_card_types = CardTypeLanguageListWdgt(\
             parent=self.M_sided_card_types_box,
             component_manager=self.component_manager)
-        self.verticalLayout_M_sided.insertWidget(0, self.M_sided_card_types)
+        self.vertical_layout_M_sided.insertWidget(0, self.M_sided_card_types)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
@@ -46,8 +45,7 @@ class ManageCardTypesDlg(QtWidgets.QDialog, ManageCardTypesDialog,
         # Fill up cloned card types panel.
         card_types = []
         for card_type in self.database().sorted_card_types():
-            if self.database().is_user_card_type(card_type) and \
-               not card_type.hidden_from_UI and \
+            if not card_type.hidden_from_UI and \
                not card_type.id.startswith("7"):
                 card_types.append(card_type)
         self.cloned_card_types.set_card_types(card_types)
@@ -64,7 +62,7 @@ class ManageCardTypesDlg(QtWidgets.QDialog, ManageCardTypesDialog,
         self.edit_M_sided_button.setEnabled(False)
         self.rename_M_sided_button.setEnabled(False)
         self.delete_M_sided_button.setEnabled(False)
-        if self.M_sided_card_types.count() == 0:
+        if len(card_types) == 0:
             self.M_sided_card_types_box.hide()
 
     def clone_card_type(self):

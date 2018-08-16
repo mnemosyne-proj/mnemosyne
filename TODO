@@ -1,3 +1,7 @@
+rename box title 'cloned card types'? Also rename internal variables?
+connect slot to enable buttons upon selecting a card type
+fix alignment in table
+
 
 first cloze RTL fix? Check single line vs multiline
 

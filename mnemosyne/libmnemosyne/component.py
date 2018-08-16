@@ -134,7 +134,7 @@ class Component(object):
         return self.component_manager.all("plugin")
 
     def languages(self):
-        return self.component_manager.all("language")
+        return self.component_manager.language_with_id.values()
 
     def language_with_id(self, id):
         return self.component_manager.language_with_id[id]

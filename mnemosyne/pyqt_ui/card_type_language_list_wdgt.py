@@ -12,7 +12,6 @@ class ComboDelegate(QtWidgets.QItemDelegate, Component):
 
     def __init__(self, **kwds):
         super().__init__(**kwds)
-        self.language_with_name = {} # TODO: needed?
         self.language_combobox_for_row = {}
         self.foreign_key_combobox_for_row = {}
 
@@ -23,7 +22,6 @@ class ComboDelegate(QtWidgets.QItemDelegate, Component):
             self.language_combobox_for_row[row] = editor
             for language in self.languages():
                 editor.addItem(language.name)
-                self.language_with_name[language.name] = language
             editor.currentIndexChanged.connect(\
                 lambda: self.update_foreign_keys(row))
         if column == 2:
@@ -41,16 +39,16 @@ class ComboDelegate(QtWidgets.QItemDelegate, Component):
         if language_name == "":
             combobox.addItem("")
         else:
-            language = self.language_with_name[language_name]
-            # TODO: if card type is sentence or vocabulary, only have
-            # one option.
-            #if self.card_types[row] == "TODO":
-            #    pass
-            combobox.addItems(self.card_types[row].keys)
-            key = self.card_types[row].current_key
-            # TODO: key should be fixed, but description
-            # should be translatable
-            combobox.setCurrentIndex(combobox.findText(key))
+            card_type = self.card_types[row]
+            # If card type is Sentence or Vocabulary, there is only one option.
+            if card_type.id.startswidth(3) or card_type.id.startswith(6):
+                combobox.addItem(card_type.fact_key_names()[0])
+            else:
+                combobox.addItems(card_type.fact_key_names())
+                key = self.config()[\
+                    "foreign_fact_key_for_card_type_id"][card_type.id]
+                key_name = card_type.name_for_fact_key(key)
+                combobox.setCurrentIndex(combobox.findText(key_name))
 
     def paint(self, painter, option, index):
         value = index.data(QtCore.Qt.DisplayRole)
@@ -62,17 +60,7 @@ class ComboDelegate(QtWidgets.QItemDelegate, Component):
         QtWidgets.QItemDelegate.paint(self, painter, option, index)
 
     def setEditorData(self, editor, index):
-        row, column = index.row(), index.column()
-        if column == 1:
-            language = self.card_types[row].current_lang
-            # TODO: key should be ISO code, but description
-            # should be translatable
-            editor.setCurrentIndex(editor.findText(language))
-        if column == 2:
-            key = self.card_types[row].current_key
-            # TODO: key should be fixed, but description
-            # should be translatable
-            editor.setCurrentIndex(editor.findText(key))
+        editor.setCurrentIndex(editor.findText(index.data()))
 
     def setModelData(self, editor, model, index):
         value = editor.currentText()
@@ -87,6 +75,9 @@ class Model(QtCore.QAbstractTableModel, Component):
     def __init__(self, card_types, **kwds):
         super().__init__(**kwds)
         self.card_types = card_types
+        self.language_id_with_name = {}
+        for language in self.languages():
+            self.language_id_with_name[language.name] = language.used_for
 
     def rowCount(self, parent):
         return len(self.card_types)
@@ -125,16 +116,23 @@ class Model(QtCore.QAbstractTableModel, Component):
                    ["foreign_fact_key_for_card_type_id"]:
                     foreign_fact_key = self.config()\
                    ["foreign_fact_key_for_card_type_id"]
-                    return card_type.fact
-                return card_type.current_key
+                    return card_type.name_for_fact_key[foreign_fact_key]
+                else:
+                    return ""
 
     def setData(self, index, value, role):
-        # TODO
         if role == QtCore.Qt.EditRole:
-            #self.table[index.row()][index.column()] = value
-            pass
-            #self.dataChanged.emit()
-        return True
+            row, column = index.row(), index.column()
+            card_type = self.card_types[row]
+            if column == 1:
+                self.config()["language_for_card_type_id"]\
+                    [card_type.id] = self.language_with_id_name[value]
+            elif column == 2:
+                self.config()["foreign_fact_key_for_card_type_id"]\
+                    [card_type.id] = card_type.fact_key_with_name[value]
+            self.dataChanged.emit()
+            return True
+        return False
 
     def headerData(self, column, orientation, role=QtCore.Qt.DisplayRole):
         if orientation == QtCore.Qt.Horizontal and \
@@ -153,20 +151,19 @@ class Model(QtCore.QAbstractTableModel, Component):
 
 class CardTypeLanguageListWdgt(QtWidgets.QTableView, Component):
 
-    def __init__(self, card_types, **kwds):
+    def __init__(self, **kwds):
         super().__init__(**kwds)
-        self.set_card_types(card_types)
         delegate = ComboDelegate(component_manager=kwds["component_manager"],
                                  parent=self)
         self.setItemDelegateForColumn(1, delegate)
         self.setItemDelegateForColumn(2, delegate)
-        # Make combo boxes editable with a single-click.
-        for row in range(len(card_types)):
-            self.openPersistentEditor(self.model.index(row, 1))
-            self.openPersistentEditor(self.model.index(row, 2))
 
     def set_card_types(self, card_types):
         self.model = Model(component_manager=self.component_manager,
                            card_types=card_types)
         self.setModel(self.model)
+        # Make combo boxes editable with a single-click.
+        for row in range(len(card_types)):
+            self.openPersistentEditor(self.model.index(row, 1))
+            self.openPersistentEditor(self.model.index(row, 2))
 
