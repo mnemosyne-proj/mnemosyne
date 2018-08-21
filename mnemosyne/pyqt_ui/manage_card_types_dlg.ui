@@ -6,13 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>389</width>
+    <width>600</width>
     <height>389</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>300</width>
+    <width>600</width>
     <height>240</height>
    </size>
   </property>
@@ -23,12 +23,11 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
-      <widget class="QGroupBox" name="cloned_card_types_box">
+      <widget class="QGroupBox" name="native_card_types_box">
        <property name="title">
-        <string>Cloned card types</string>
+        <string>Card types</string>
        </property>
-       <layout class="QVBoxLayout" name="vertical_layout_clones">
-
+       <layout class="QVBoxLayout" name="vertical_layout_native_card_types">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
@@ -39,14 +38,14 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="rename_clone_button">
+           <widget class="QPushButton" name="rename_native_card_type_button">
             <property name="text">
              <string>&amp;Rename</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="delete_clone_button">
+           <widget class="QPushButton" name="delete_native_card_type_button">
             <property name="text">
              <string>&amp;Delete</string>
             </property>
@@ -71,32 +70,29 @@
       </widget>
      </item>
      <item>
-      <widget class="QGroupBox" name="M_sided_card_types_box">
+      <widget class="QGroupBox" name="Anki_card_types_box">
        <property name="title">
-        <string>M-sided card types</string>
+        <string>Anki card types</string>
        </property>
-       <layout class="QVBoxLayout" name="vertical_layout_M_sided">
-        <item>
-        <widget class="QListWidget" name="M_sided_card_types"/>
-        </item>
+       <layout class="QVBoxLayout" name="vertical_layout_Anki_card_types">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <widget class="QPushButton" name="edit_M_sided_button">
+           <widget class="QPushButton" name="edit_Anki_card_type_button">
             <property name="text">
              <string>&amp;Edit</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="rename_M_sided_button">
+           <widget class="QPushButton" name="rename_Anki_card_type_button">
             <property name="text">
              <string>&amp;Rename</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="delete_M_sided_button">
+           <widget class="QPushButton" name="delete_Anki_card_type_button">
             <property name="text">
              <string>&amp;Delete</string>
             </property>
@@ -186,10 +182,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>rename_clone_button</sender>
+   <sender>rename_native_card_type_button</sender>
    <signal>clicked()</signal>
    <receiver>ManageCardTypesDlg</receiver>
-   <slot>rename_cloned_card_type()</slot>
+   <slot>rename_native_card_type()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>140</x>
@@ -202,10 +198,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>delete_clone_button</sender>
+   <sender>delete_native_card_type_button</sender>
    <signal>clicked()</signal>
    <receiver>ManageCardTypesDlg</receiver>
-   <slot>delete_cloned_card_type()</slot>
+   <slot>delete_native_card_type()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>223</x>
@@ -218,10 +214,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>delete_M_sided_button</sender>
+   <sender>delete_Anki_card_type_button</sender>
    <signal>clicked()</signal>
    <receiver>ManageCardTypesDlg</receiver>
-   <slot>delete_M_sided_card_type()</slot>
+   <slot>delete_Anki_card_type()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>220</x>
@@ -234,10 +230,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>rename_M_sided_button</sender>
+   <sender>rename_Anki_card_type_button</sender>
    <signal>clicked()</signal>
    <receiver>ManageCardTypesDlg</receiver>
-   <slot>rename_M_sided_card_type()</slot>
+   <slot>rename_Anki_card_type()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>139</x>
@@ -250,10 +246,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>edit_M_sided_button</sender>
+   <sender>edit_Anki_card_type_button</sender>
    <signal>clicked()</signal>
    <receiver>ManageCardTypesDlg</receiver>
-   <slot>edit_M_sided_card_type()</slot>
+   <slot>edit_Anki_card_type()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>58</x>

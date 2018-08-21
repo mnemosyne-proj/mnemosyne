@@ -20,14 +20,16 @@ class ManageCardTypesDlg(QtWidgets.QDialog, ManageCardTypesDialog,
     def __init__(self, **kwds):
         super().__init__(**kwds)
         self.setupUi(self)
-        self.cloned_card_types = CardTypeLanguageListWdgt(\
-            parent=self.cloned_card_types_box,
+        self.native_card_types = CardTypeLanguageListWdgt(\
+            parent=self.native_card_types_box,
             component_manager=self.component_manager)
-        self.vertical_layout_clones.insertWidget(0, self.cloned_card_types)
-        self.M_sided_card_types = CardTypeLanguageListWdgt(\
-            parent=self.M_sided_card_types_box,
+        self.vertical_layout_native_card_types.insertWidget(\
+            0, self.native_card_types)
+        self.Anki_card_types = CardTypeLanguageListWdgt(\
+            parent=self.Anki_card_types_box,
             component_manager=self.component_manager)
-        self.vertical_layout_M_sided.insertWidget(0, self.M_sided_card_types)
+        self.vertical_layout_Anki_card_types.insertWidget(\
+            0, self.Anki_card_types)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
@@ -42,28 +44,34 @@ class ManageCardTypesDlg(QtWidgets.QDialog, ManageCardTypesDialog,
         self.exec_()
 
     def update(self):
-        # Fill up cloned card types panel.
+        # Fill up native types panel.
         card_types = []
         for card_type in self.database().sorted_card_types():
             if not card_type.hidden_from_UI and \
                not card_type.id.startswith("7"):
                 card_types.append(card_type)
-        self.cloned_card_types.set_card_types(card_types)
-        self.rename_clone_button.setEnabled(False)
-        self.delete_clone_button.setEnabled(False)
-        # Fill up M-sided card types panel.
+        self.native_card_types.set_card_types(card_types)
+        self.rename_native_card_type_button.setEnabled(False)
+        self.delete_native_card_type_button.setEnabled(False)
+        self.native_card_types.selectionModel().currentRowChanged.connect(\
+            self.activate_native_card_type)
+        # Fill up Anki card types panel.
         card_types = []
         for card_type in self.database().sorted_card_types():
             if self.database().is_user_card_type(card_type) and \
                not card_type.hidden_from_UI and \
                card_type.id.startswith("7"):
                 card_types.append(card_type)
-        self.M_sided_card_types.set_card_types(card_types)
-        self.edit_M_sided_button.setEnabled(False)
-        self.rename_M_sided_button.setEnabled(False)
-        self.delete_M_sided_button.setEnabled(False)
+        self.Anki_card_types.set_card_types(card_types)
+        self.edit_Anki_card_type_button.setEnabled(False)
+        self.rename_Anki_card_type_button.setEnabled(False)
+        self.delete_Anki_card_type_button.setEnabled(False)
+        self.Anki_card_types.selectionModel().currentRowChanged.connect(\
+            self.activate_Anki_card_type)
         if len(card_types) == 0:
-            self.M_sided_card_types_box.hide()
+            self.Anki_card_types_box.hide()
+        else:
+            self.native_card_types_box.setTitle(_("Mnemosyne card types"))
 
     def clone_card_type(self):
         if not self.config()["clone_help_shown"]:
@@ -74,49 +82,48 @@ _("Here, you can make clones of existing card types. This allows you to format c
         dlg.exec_()
         self.update()
 
-    def activate_cloned_card_type(self):
-        self.rename_clone_button.setEnabled(True)
-        self.delete_clone_button.setEnabled(True)
-        self.edit_M_sided_button.setEnabled(False)
-        self.rename_M_sided_button.setEnabled(False)
-        self.delete_M_sided_button.setEnabled(False)
+    def activate_native_card_type(self):
+        self.rename_native_card_type_button.setEnabled(True)
+        self.delete_native_card_type_button.setEnabled(True)
+        self.edit_Anki_card_type_button.setEnabled(False)
+        self.rename_Anki_card_type_button.setEnabled(False)
+        self.delete_Anki_card_type_button.setEnabled(False)
 
-    def activate_M_sided_card_type(self):
-        self.rename_clone_button.setEnabled(False)
-        self.delete_clone_button.setEnabled(False)
-        self.edit_M_sided_button.setEnabled(True)
-        self.rename_M_sided_button.setEnabled(True)
-        self.delete_M_sided_button.setEnabled(True)
+    def activate_Anki_card_type(self):
+        self.rename_native_card_type_button.setEnabled(False)
+        self.delete_native_card_type_button.setEnabled(False)
+        self.edit_Anki_card_type_button.setEnabled(True)
+        self.rename_Anki_card_type_button.setEnabled(True)
+        self.delete_Anki_card_type_button.setEnabled(True)
 
-    def delete_cloned_card_type(self):
-        self.delete_selected_card_type(self.cloned_card_types.selectedItems())
+    def delete_native_card_type(self):
+        self.delete_selected_card_type(\
+            self.native_card_types.selected_card_type())
 
-    def delete_M_sided_card_type(self):
-        self.delete_selected_card_type(self.M_sided_card_types.selectedItems())
+    def delete_Anki_card_type(self):
+        self.delete_selected_card_type(\
+            self.Anki_card_types.selected_card_type())
 
-    def delete_selected_card_type(self, selected_items):
-        if len(selected_items) == 0:
+    def delete_selected_card_type(self, card_type):
+        if not card_type:
             return
         answer = self.main_widget().show_question\
             (_("Delete this card type?"), _("&OK"), _("&Cancel"), "")
         if answer == 1: # Cancel.
             return
-        selected_item = selected_items[0]
-        for i in range(len(self.items_used)):
-            if selected_item == self.items_used[i]:
-                card_type = self.card_types_used[i]
-                self.controller().delete_card_type(card_type)
-                self.update()
-                return
+        self.controller().delete_card_type(card_type)
+        self.update()
 
-    def rename_cloned_card_type(self):
-        self.rename_selected_card_type(self.cloned_card_types.selectedItems())
+    def rename_native_card_type(self):
+        self.rename_selected_card_type(\
+            self.native_card_types.selected_card_type())
 
-    def rename_M_sided_card_type(self):
-        self.rename_selected_card_type(self.M_sided_card_types.selectedItems())
+    def rename_Anki_card_type(self):
+        self.rename_selected_card_type(\
+            self.Anki_card_types.selected_card_type())
 
-    def rename_selected_card_type(self, selected_items):
-        if len(selected_items) == 0:
+    def rename_selected_card_type(self, card_type):
+        if not card_type:
             return
 
         from mnemosyne.pyqt_ui.ui_rename_card_type_dlg \
@@ -128,31 +135,21 @@ _("Here, you can make clones of existing card types. This allows you to format c
                 self.setupUi(self)
                 self.card_type_name.setText(old_card_type_name)
 
-        selected_item = selected_items[0]
-        for i in range(len(self.items_used)):
-            if selected_item == self.items_used[i]:
-                card_type = self.card_types_used[i]
-                dlg = RenameDlg(card_type.name)
-                if dlg.exec_() == QtWidgets.QDialog.Accepted:
-                    new_name = dlg.card_type_name.text()
-                    self.controller().rename_card_type(card_type, new_name)
-                self.update()
-                return
+        dlg = RenameDlg(card_type.name)
+        if dlg.exec_() == QtWidgets.QDialog.Accepted:
+            new_name = dlg.card_type_name.text()
+            self.controller().rename_card_type(card_type, new_name)
+            self.update()
 
-    def edit_M_sided_card_type(self):
-        selected_items = self.M_sided_card_types.selectedItems()
-        if len(selected_items) == 0:
+    def edit_Anki_card_type(self):
+        card_type = self.Anki_card_types.selected_card_type()
+        if not card_type:
             return
-        selected_item = selected_items[0]
-        for i in range(len(self.items_used)):
-            if selected_item == self.items_used[i]:
-                card_type = self.card_types_used[i]
-                dlg = EditMSidedCardTypeDlg(card_type,
-                    component_manager=self.component_manager)
-                if dlg.exec_() == QtWidgets.QDialog.Accepted:
-                    self.database().update_card_type(card_type)
-                self.update()
-                return
+        dlg = EditMSidedCardTypeDlg(card_type,
+            component_manager=self.component_manager)
+        if dlg.exec_() == QtWidgets.QDialog.Accepted:
+            self.database().update_card_type(card_type)
+            self.update()
 
     def _store_state(self):
         self.config()["manage_card_types_dlg_state"] = self.saveGeometry()

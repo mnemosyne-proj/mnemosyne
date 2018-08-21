@@ -20,16 +20,18 @@ class ComboDelegate(QtWidgets.QItemDelegate, Component):
         editor = QtWidgets.QComboBox(parent)
         if column == 1:
             self.language_combobox_for_row[row] = editor
+            editor.addItem("")
             for language in self.languages():
                 editor.addItem(language.name)
             editor.currentIndexChanged.connect(\
-                lambda: self.update_foreign_keys(row))
+                lambda: self.update_foreign_keys(index, editor))
         if column == 2:
             self.foreign_key_combobox_for_row[row] = editor
-            self.update_foreign_keys(row)
+            self.update_foreign_keys(index, editor)
         return editor
 
-    def update_foreign_keys(self, row):
+    def update_foreign_keys(self, index, editor):
+        row, column = index.row(), index.column()
         language_name = self.language_combobox_for_row[row].currentText()
         # While we are still building the widget, return.
         if row not in self.foreign_key_combobox_for_row:
@@ -39,16 +41,20 @@ class ComboDelegate(QtWidgets.QItemDelegate, Component):
         if language_name == "":
             combobox.addItem("")
         else:
-            card_type = self.card_types[row]
+            card_type = index.model().card_types[row]
             # If card type is Sentence or Vocabulary, there is only one option.
-            if card_type.id.startswidth(3) or card_type.id.startswith(6):
+            if card_type.id.startswith("3") or card_type.id.startswith("6"):
                 combobox.addItem(card_type.fact_key_names()[0])
             else:
                 combobox.addItems(card_type.fact_key_names())
-                key = self.config()[\
-                    "foreign_fact_key_for_card_type_id"][card_type.id]
-                key_name = card_type.name_for_fact_key(key)
-                combobox.setCurrentIndex(combobox.findText(key_name))
+                if card_type.id in self.config()\
+                   ["foreign_fact_key_for_card_type_id"]:
+                    key = self.config()[\
+                        "foreign_fact_key_for_card_type_id"][card_type.id]
+                    key_name = card_type.name_for_fact_key(key)
+                    combobox.setCurrentIndex(combobox.findText(key_name))
+        self.commitData.emit(editor)
+        self.closeEditor.emit(editor)
 
     def paint(self, painter, option, index):
         value = index.data(QtCore.Qt.DisplayRole)
@@ -64,7 +70,7 @@ class ComboDelegate(QtWidgets.QItemDelegate, Component):
 
     def setModelData(self, editor, model, index):
         value = editor.currentText()
-        model.setData(index, QtCore.Qt.DisplayRole, value)
+        model.setData(index, value)
 
     def updateEditorGeometry(self, editor, option, index):
         editor.setGeometry(option.rect)
@@ -100,39 +106,43 @@ class Model(QtCore.QAbstractTableModel, Component):
             row, column = index.row(), index.column()
             card_type = self.card_types[row]
             if column == 0:
-                if not card_type.id.startswith("7"):
+                if not card_type.id.startswith("7") and ":" in card_type.id:
                     return "%s (%s)" % (_(card_type.name),
-                        _(card_type.__class__.__bases__[0].name))
+                            _(card_type.__class__.__bases__[0].name))
                 else:
                     return card_type.name
             elif column == 1:
-                if card_type.id in self.config()["language_for_card_type_id"]:
-                    language_id = self.config()["language_for_card_type_id"]
-                    return self.language_with_id[language_id].name
+                storage = self.config()["language_for_card_type_id"]
+                if card_type.id in storage :
+                    language_id = storage[card_type.id]
+                    return self.language_with_id(language_id).name
                 else:
                     return ""
             elif column == 2:
-                if card_type.id in self.config()\
-                   ["foreign_fact_key_for_card_type_id"]:
-                    foreign_fact_key = self.config()\
-                   ["foreign_fact_key_for_card_type_id"]
-                    return card_type.name_for_fact_key[foreign_fact_key]
+                storage = self.config()["foreign_fact_key_for_card_type_id"]
+                if card_type.id in storage:
+                    foreign_fact_key = storage[card_type.id]
+                    return card_type.name_for_fact_key(foreign_fact_key)
                 else:
                     return ""
 
-    def setData(self, index, value, role):
-        if role == QtCore.Qt.EditRole:
-            row, column = index.row(), index.column()
-            card_type = self.card_types[row]
-            if column == 1:
-                self.config()["language_for_card_type_id"]\
-                    [card_type.id] = self.language_with_id_name[value]
-            elif column == 2:
-                self.config()["foreign_fact_key_for_card_type_id"]\
-                    [card_type.id] = card_type.fact_key_with_name[value]
-            self.dataChanged.emit()
-            return True
-        return False
+    def setData(self, index, value):
+        row, column = index.row(), index.column()
+        card_type = self.card_types[row]
+        if column == 1:
+            storage = self.config()["language_for_card_type_id"]
+            if not value:
+                storage.pop(card_type.id, None)
+            else:
+                storage[card_type.id] = self.language_id_with_name[value]
+        elif column == 2:
+            storage = self.config()["foreign_fact_key_for_card_type_id"]
+            if not value:
+                storage.pop(card_type.id, None)
+            else:
+                storage[card_type.id] = card_type.fact_key_with_name(value)
+        self.dataChanged.emit(index, index)
+        return True
 
     def headerData(self, column, orientation, role=QtCore.Qt.DisplayRole):
         if orientation == QtCore.Qt.Horizontal and \
@@ -157,6 +167,11 @@ class CardTypeLanguageListWdgt(QtWidgets.QTableView, Component):
                                  parent=self)
         self.setItemDelegateForColumn(1, delegate)
         self.setItemDelegateForColumn(2, delegate)
+        self.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
+        self.setSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding,
+                           QtWidgets.QSizePolicy.MinimumExpanding)
+        self.horizontalHeader().setSectionResizeMode(\
+            QtWidgets.QHeaderView.Stretch)
 
     def set_card_types(self, card_types):
         self.model = Model(component_manager=self.component_manager,
@@ -166,4 +181,12 @@ class CardTypeLanguageListWdgt(QtWidgets.QTableView, Component):
         for row in range(len(card_types)):
             self.openPersistentEditor(self.model.index(row, 1))
             self.openPersistentEditor(self.model.index(row, 2))
+
+    def selected_card_type(self):
+        index = self.selectionModel().currentIndex()
+        if not index:
+            return None
+        else:
+            return self.model.card_types[index.row()]
+
 
