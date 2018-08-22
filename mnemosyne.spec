@@ -187,6 +187,9 @@ hiddenimports = [
 
 if sys.platform == "win32":
              datas.append(("C:\\Program Files (x86)\\mplayer.exe", "."))
+             datas.append(("C:\\Program Files (x86)\\Python36-32\\Lib\\site-packages\\PyQt5\\Qt\\bin\\Qt5OpenGL.dll", "."))
+             datas.append(("C:\\Program Files (x86)\\Python36-32\\Lib\\site-packages\\PyQt5\\Qt\\bin\\libEGL.dll", "."))
+             datas.append(("C:\\Program Files (x86)\\Python36-32\\Lib\\site-packages\\PyQt5\\Qt\\bin\\libGLESv2.dll", "."))
              excludes = ['IPython', 'lib2to3']
 
 if sys.platform == "darwin":
