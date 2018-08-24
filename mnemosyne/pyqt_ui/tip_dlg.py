@@ -4,7 +4,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.ui_tip_dlg import Ui_TipDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import TipDialog
 
@@ -12,7 +12,7 @@ from mnemosyne.libmnemosyne.ui_components.dialogs import TipDialog
 class TipDlg(QtWidgets.QDialog, TipDialog, Ui_TipDlg):
 
     def __init__(self, **kwds):
-        super().__init__(**kwds)    
+        super().__init__(**kwds)
         self.tips = []
         self.tips.append(_("""For optimal results, it's best to do your repetitions every day."""))
         self.tips.append(_("""You don't need to finish all your daily scheduled repetitions in a single session."""))
@@ -33,7 +33,7 @@ class TipDlg(QtWidgets.QDialog, TipDialog, Ui_TipDlg):
         self.tips.append(_("""You can use basic HTML tags in your cards to control their appearance. However, if you want all the fields in a certain card type to look the same, it's easier to use the 'Set card appearance' menu option."""))
         self.tips.append(_("""Using 'File - Sync', you can sync this machine with a remote server. Of course, that remote computer needs to have a server running, which can be started from the configuration screen on that remote machine."""))
         self.tips.append(_(""" If you want to sync a mobile device with this computer, don't use 'File - Sync', but first enable a sync server in the configuration dialog, and then start the sync from the mobile device."""))
-        self.tips.append(_("""In the 'Activate cards' dialog, you can right-click on a saved set to rename or delete it."""))    
+        self.tips.append(_("""In the 'Activate cards' dialog, you can right-click on a saved set to rename or delete it."""))
         self.tips.append(_("""In the 'Activate cards' dialog, you can double-click on a saved set to activate it and close the dialog."""))
         self.tips.append(_("""Right-click on a tag name in the card browser to edit or delete it."""))
         self.tips.append(_("""Double-click on a card or tag name in the card browser to edit them."""))

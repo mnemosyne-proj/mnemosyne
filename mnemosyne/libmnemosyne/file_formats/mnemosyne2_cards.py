@@ -13,7 +13,7 @@ from openSM2sync.log_entry import LogEntry
 from openSM2sync.log_entry import EventTypes
 from openSM2sync.text_formats.xml_format import XMLFormat
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.utils import MnemosyneError
 from mnemosyne.libmnemosyne.file_format import FileFormat
 

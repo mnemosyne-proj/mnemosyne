@@ -6,7 +6,7 @@ import re
 import time
 from xml.sax import saxutils
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.file_format import FileFormat
 from mnemosyne.libmnemosyne.file_formats.media_preprocessor \
     import MediaPreprocessor

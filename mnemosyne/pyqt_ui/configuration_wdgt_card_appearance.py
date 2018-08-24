@@ -7,7 +7,7 @@ from copy import deepcopy
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.fact import Fact
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
 from mnemosyne.libmnemosyne.ui_components.configuration_widget import \

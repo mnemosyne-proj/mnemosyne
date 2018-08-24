@@ -6,7 +6,7 @@ import socket
 import http.client
 from PyQt5 import QtGui, QtWidgets
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.utils import localhost_IP
 from mnemosyne.libmnemosyne.ui_components.configuration_widget import \
      ConfigurationWidget
@@ -20,7 +20,7 @@ class ConfigurationWdgtServers(QtWidgets.QWidget, ConfigurationWidget,
     name = _("Servers")
 
     def __init__(self, **kwds):
-        super().__init__(**kwds)    
+        super().__init__(**kwds)
         self.setupUi(self)
         sync_port = self.config()["sync_server_port"]
         web_port = self.config()["web_server_port"]

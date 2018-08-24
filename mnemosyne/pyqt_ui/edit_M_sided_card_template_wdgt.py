@@ -9,7 +9,7 @@ from PyQt5 import QtCore, QtWidgets
 
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.fact import Fact
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.ui_edit_M_sided_card_template_wdgt import \
      Ui_EditMSidedCardTemplateWdgt
 from mnemosyne.libmnemosyne.ui_components.dialogs import \

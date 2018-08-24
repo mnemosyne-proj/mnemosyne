@@ -5,7 +5,7 @@
 import re
 import copy
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.card_type import CardType

@@ -5,7 +5,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.version import version
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.ui_about_dlg import Ui_AboutDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import AboutDialog
 

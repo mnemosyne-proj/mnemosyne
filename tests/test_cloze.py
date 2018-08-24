@@ -29,7 +29,7 @@ class TestCloze(MnemosyneTest):
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
                     asynchronous_database=True)
         self.mnemosyne.components.insert(0,
-           ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
+           ("mnemosyne.libmnemosyne.gui_translators.gettext_gui_translator", "GetTextGuiTranslator"))
         self.mnemosyne.components.append(\
             ("test_cloze", "Widget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \

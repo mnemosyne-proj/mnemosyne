@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtSql, QtWidgets
 from mnemosyne.libmnemosyne.tag import Tag
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.card import Card
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.qwebengineview2 import QWebEngineView2
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.pyqt_ui.tag_tree_wdgt import TagsTreeWdgt

@@ -17,7 +17,7 @@ class OutputCatcher:
 
     def write(self, data):
         self.socket.sendall(data)
-        
+
 
 class MyHandler(socketserver.BaseRequestHandler):
 
@@ -45,13 +45,13 @@ class Server(socketserver.UDPServer):
                  interested_in_old_reps=False):
         self.mnemosyne = Mnemosyne(upload_science_logs, interested_in_old_reps)
         self.mnemosyne.components.insert(0,
-            ("mnemosyne.libmnemosyne.translator", "GetTextTranslator"))
+            ("mnemosyne.libmnemosyne.gui_translator", "GetTextGuiTranslator"))
         self.mnemosyne.components.append(\
             ("mnemosyne.UDP_server.main_wdgt",
              "MainWidget"))
         self.mnemosyne.components.append(\
             ("mnemosyne.UDP_server.review_wdgt",
-             "ReviewWdgt"))    
+             "ReviewWdgt"))
         socketserver.UDPServer.__init__(self, ("localhost", port), MyHandler)
         print(("Server listening on port", port))
         self.stopped = False

@@ -8,7 +8,7 @@ import copy
 import time
 
 from mnemosyne.libmnemosyne.fact import Fact
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.controller import Controller
 from mnemosyne.libmnemosyne.utils import remove_empty_dirs_in
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path

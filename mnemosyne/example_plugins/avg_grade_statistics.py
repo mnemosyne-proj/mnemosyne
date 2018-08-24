@@ -3,7 +3,7 @@
 #
 
 from openSM2sync.log_entry import EventTypes
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.statistics_page import PlotStatisticsPage
 from mnemosyne.pyqt_ui.statistics_wdgts_plotting import BarChartDaysWdgt

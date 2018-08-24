@@ -4,7 +4,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.ui_edit_M_sided_card_type_dlg import \
      Ui_EditMSidedCardTypeDlg
 from mnemosyne.pyqt_ui.edit_M_sided_card_template_wdgt import \

@@ -5,7 +5,7 @@
 import os
 from string import Template
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
 

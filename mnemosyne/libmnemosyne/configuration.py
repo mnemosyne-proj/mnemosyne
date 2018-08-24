@@ -13,7 +13,7 @@ import textwrap
 from locale import getdefaultlocale
 
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.schedulers.cramming import RANDOM
 from mnemosyne.libmnemosyne.utils import rand_uuid, traceback_string

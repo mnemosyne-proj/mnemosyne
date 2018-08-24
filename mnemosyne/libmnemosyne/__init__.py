@@ -212,7 +212,7 @@ class Mnemosyne(Component):
         # loaded, since these could be needed e.g. for a card type in the
         # database.
         if filename and not filename.endswith(".db"):
-            from mnemosyne.libmnemosyne.translator import _
+            from mnemosyne.libmnemosyne.gui_translator import _
             self.main_widget().show_error(\
                 _("Command line argument is not a *.db file."))
             sys.exit()
@@ -224,7 +224,7 @@ class Mnemosyne(Component):
             self.log().started_program()
         except Exception as e:
             if "lock" in str(e):
-                from mnemosyne.libmnemosyne.translator import _
+                from mnemosyne.libmnemosyne.gui_translator import _
                 self.main_widget().show_error(\
                  _("Another copy of Mnemosyne is still running.") + "\n" + \
                  _("Continuing is impossible and will lead to data loss!"))
@@ -283,7 +283,7 @@ class Mnemosyne(Component):
         self.config()["interested_in_old_reps"] = self.interested_in_old_reps
         self.config()["asynchronous_database"] = self.asynchronous_database
         # Activate other components.
-        for component in ["log", "translator", "database", "controller"]:
+        for component in ["log", "gui_translator", "database", "controller"]:
             try:
                 self.component_manager.current(component).activate()
             except RuntimeError as e:
@@ -307,7 +307,7 @@ class Mnemosyne(Component):
                 try:
                     __import__(component[:-3])
                 except:
-                    from mnemosyne.libmnemosyne.translator import _
+                    from mnemosyne.libmnemosyne.gui_translator import _
                     msg = _("Error when running plugin:") \
                           + "\n" + traceback_string()
                     self.main_widget().show_error(msg)
@@ -320,7 +320,7 @@ class Mnemosyne(Component):
                         p.activate()
                         break
             except:
-                from mnemosyne.libmnemosyne.translator import _
+                from mnemosyne.libmnemosyne.gui_translator import _
                 msg = _("Error when running plugin:") \
                       + "\n" + traceback_string()
                 self.main_widget().show_error(msg)
@@ -334,7 +334,7 @@ class Mnemosyne(Component):
                 try:
                     self.database().new(path)
                 except Exception as e:
-                    from mnemosyne.libmnemosyne.translator import _
+                    from mnemosyne.libmnemosyne.gui_translator import _
                     raise RuntimeError(\
                         _("Previous drive letter no longer available."))
             else:
@@ -342,7 +342,7 @@ class Mnemosyne(Component):
             self.controller().update_title()
         except RuntimeError as e:
             self.main_widget().show_error(str(e))
-            from mnemosyne.libmnemosyne.translator import _
+            from mnemosyne.libmnemosyne.gui_translator import _
             self.main_widget().show_information(\
 _("If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."))
             # Try to open a new database, but not indefinitely, otherwise this

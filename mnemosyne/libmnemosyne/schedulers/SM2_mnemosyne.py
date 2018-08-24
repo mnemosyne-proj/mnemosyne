@@ -7,7 +7,7 @@ import random
 import calendar
 import datetime
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.scheduler import Scheduler
 
 

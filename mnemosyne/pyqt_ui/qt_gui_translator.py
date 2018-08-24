@@ -7,11 +7,11 @@ import sys
 
 from PyQt5.QtCore import QTranslator, QCoreApplication, QLocale
 
-from mnemosyne.libmnemosyne.translators.gettext_translator \
-     import GetTextTranslator
+from mnemosyne.libmnemosyne.gui_translators.gettext_gui_translator \
+     import GetTextGuiTranslator
 
 
-class QtTranslator(GetTextTranslator):
+class QtGuiTranslator(GetTextGuiTranslator):
 
     """This deals with translating Qt itself. The rest of the strings are
     still translated using the gettext mechanism, as we've modified pyuic4

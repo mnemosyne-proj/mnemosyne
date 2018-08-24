@@ -4,7 +4,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.ui_component import UiComponent
 from mnemosyne.pyqt_ui.ui_card_set_name_dlg import Ui_CardSetNameDlg
 

@@ -1,13 +1,13 @@
 #
-# translator.py <Peter.Bienstman@UGent.be>
-#               <Johannes.Baiter@gmail.com>
+# gui_translator.py <Peter.Bienstman@UGent.be>
+#                   <Johannes.Baiter@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.component import Component
 
 _ = None
 
-class Translator(Component):
+class GuiTranslator(Component):
 
     """Note: static text will be marked as translatable by
     `static_variable = _("...")`, e.g. in CardType. However, if want to have
@@ -20,7 +20,7 @@ class Translator(Component):
 
     """
 
-    component_type = "translator"
+    component_type = "gui_translator"
 
     def __init__(self, component_manager):
         Component.__init__(self, component_manager)

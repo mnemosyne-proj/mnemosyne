@@ -3,7 +3,7 @@
 #
 
 from mnemosyne.pyqt_ui.tip_dlg import TipDlg
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.component import Component
 
 

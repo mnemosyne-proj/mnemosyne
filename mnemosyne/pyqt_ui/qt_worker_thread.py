@@ -5,7 +5,7 @@
 from PyQt5 import QtCore
 
 from mnemosyne.libmnemosyne import Mnemosyne
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.utils import traceback_string
 

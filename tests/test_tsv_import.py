@@ -39,9 +39,9 @@ class TestTsvImport(MnemosyneTest):
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
                     asynchronous_database=True)
         self.mnemosyne.components.insert(0,
-           ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
+           ("mnemosyne.libmnemosyne.gui_translators.gettext_gui_translator", "GetTextGuiTranslator"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
-            [("mnemosyne_test", "TestReviewWidget")]        
+            [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.components.append(\
             ("test_tsv_import", "Widget"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
@@ -94,7 +94,7 @@ class TestTsvImport(MnemosyneTest):
         self.tsv_importer().do_import(filename, 'extra_tag_name')
         assert self.database().card_count() == 5
         assert last_error == ""
-        
+
     # We no longer support non-utf-8 encoded files.
 
     #def test_6(self):

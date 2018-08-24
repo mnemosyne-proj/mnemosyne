@@ -4,7 +4,7 @@
 
 import os
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.file_format import FileFormat
 from mnemosyne.libmnemosyne.file_formats.mnemosyne2_cards import Mnemosyne2Cards

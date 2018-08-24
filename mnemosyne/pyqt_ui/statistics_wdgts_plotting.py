@@ -4,7 +4,7 @@
 
 from PyQt5 import QtGui, QtWidgets
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.statistics_pages.grades import Grades
 from mnemosyne.libmnemosyne.statistics_pages.schedule import Schedule
 from mnemosyne.libmnemosyne.statistics_pages.easiness import Easiness

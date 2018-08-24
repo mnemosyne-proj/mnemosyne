@@ -8,7 +8,7 @@ import random
 import urllib.request, urllib.error, urllib.parse
 from threading import Thread
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.utils import traceback_string
 

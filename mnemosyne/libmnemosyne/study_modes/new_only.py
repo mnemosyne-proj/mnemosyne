@@ -2,7 +2,7 @@
 # new_only.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.study_mode import StudyMode
 from mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne \
      import SM2Mnemosyne
@@ -11,7 +11,7 @@ from mnemosyne.libmnemosyne.review_controllers.SM2_controller \
 
 
 class NewOnly(StudyMode):
-    
+
     id = "NewOnly"
     name = _("Study new unlearned cards only")
     menu_weight = 2

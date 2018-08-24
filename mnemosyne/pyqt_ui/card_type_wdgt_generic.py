@@ -4,7 +4,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.qtextedit2 import QTextEdit2
 from mnemosyne.libmnemosyne.ui_components.card_type_widget \
      import GenericCardTypeWidget

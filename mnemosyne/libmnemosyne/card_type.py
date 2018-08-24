@@ -3,7 +3,7 @@
 #
 
 from mnemosyne.libmnemosyne.card import Card
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.utils import CompareOnId
 from mnemosyne.libmnemosyne.component import Component
 

@@ -5,7 +5,7 @@
 import os
 import re
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.utils import MnemosyneError, expand_path, copy
 

@@ -7,7 +7,7 @@ class Component(object):
 
     """Base class of components that are registered with the component
     manager. This is a list of component types: config, log, database,
-    scheduler, stopwatch, translator, card_type, card_type_converter,
+    scheduler, stopwatch, gui_translator, card_type, card_type_converter,
     render_chain, renderer, filter, card_type_widget,
     generic_card_type_widget, ui_component, controller, main_widget,
     review_controller, review_widget, file format, plugin, hook,
@@ -86,10 +86,10 @@ class Component(object):
     # libmnemosyne from within a component.
 
     def _(self):
-        return self.component_manager.current("translator")
+        return self.component_manager.current("gui_translator")
 
-    def translator(self):
-        return self.component_manager.current("translator")
+    def gui_translator(self):
+        return self.component_manager.current("gui_translator")
 
     def config(self):
         return self.component_manager.current("config")

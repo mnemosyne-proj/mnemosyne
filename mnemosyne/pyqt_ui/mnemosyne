@@ -99,8 +99,8 @@ mnemosyne = Mnemosyne(upload_science_logs=None, interested_in_old_reps=True)
 if options.web_server == True or options.sync_server == True:
     # Initialise Mnemosyne.
     mnemosyne.components.insert(0,
-        ("mnemosyne.libmnemosyne.translators.no_translator",
-         "NoTranslator"))
+        ("mnemosyne.libmnemosyne.gui_translators.no_gui_translator",
+         "NoGuiTranslator"))
     mnemosyne.components.append(\
         ("mnemosyne.libmnemosyne.ui_components.main_widget",
          "MainWidget"))
@@ -169,8 +169,8 @@ a.setApplicationName("Mnemosyne")
 # The UI components should come in the order they should be instantiated,
 # but apart from that, the order does not matter.
 mnemosyne.components.insert(0,
-                            ("mnemosyne.pyqt_ui.qt_translator",
-                             "QtTranslator"))
+                            ("mnemosyne.pyqt_ui.qt_gui_translator",
+                             "QtGuiTranslator"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.main_wdgt",
                              "MainWdgt"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration",

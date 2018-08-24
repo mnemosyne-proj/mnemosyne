@@ -4,7 +4,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets, QtWebEngineWidgets
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 
 
 class QWebEngineView2(QtWebEngineWidgets.QWebEngineView):

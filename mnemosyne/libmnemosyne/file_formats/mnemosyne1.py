@@ -7,7 +7,7 @@ import re
 import datetime
 import calendar
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.utils import MnemosyneError
 from mnemosyne.libmnemosyne.file_formats.media_preprocessor \
     import MediaPreprocessor, re_src
