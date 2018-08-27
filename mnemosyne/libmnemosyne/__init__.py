@@ -157,7 +157,9 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.languages.english",
           "English"),
          ("mnemosyne.libmnemosyne.languages.french",
-          "French") ]
+          "French"),
+         ("mnemosyne.libmnemosyne.translators.google_translator",
+          "GoogleTranslator")]
         self.gui_for_component = {}
 
     def handle_exception(self, type, value, tb):
