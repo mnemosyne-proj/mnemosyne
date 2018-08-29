@@ -134,7 +134,7 @@
        <item>
         <widget class="QPushButton" name="exit_button">
          <property name="text">
-          <string>E&amp;xit</string>
+          <string>&amp;OK</string>
          </property>
          <property name="default">
           <bool>true</bool>

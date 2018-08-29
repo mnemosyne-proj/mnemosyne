@@ -47,10 +47,9 @@ class ComboDelegate(QtWidgets.QItemDelegate, Component):
                 combobox.addItem(card_type.fact_key_names()[0])
             else:
                 combobox.addItems(card_type.fact_key_names())
-                if card_type.id in self.config()\
-                   ["foreign_fact_key_for_card_type_id"]:
-                    key = self.config()[\
-                        "foreign_fact_key_for_card_type_id"][card_type.id]
+                key = self.config().card_type_property(\
+                    "foreign_fact_key", card_type)
+                if key:
                     key_name = card_type.name_for_fact_key(key)
                     combobox.setCurrentIndex(combobox.findText(key_name))
         self.commitData.emit(editor)
@@ -84,6 +83,7 @@ class Model(QtCore.QAbstractTableModel, Component):
         self.language_id_with_name = {}
         for language in self.languages():
             self.language_id_with_name[language.name] = language.used_for
+        self.language_id_with_name[""] = ""
 
     def rowCount(self, parent):
         return len(self.card_types)
@@ -112,35 +112,25 @@ class Model(QtCore.QAbstractTableModel, Component):
                 else:
                     return card_type.name
             elif column == 1:
-                storage = self.config()["language_for_card_type_id"]
-                if card_type.id in storage :
-                    language_id = storage[card_type.id]
-                    return self.language_with_id(language_id).name
-                else:
-                    return ""
+                language_id = self.config().card_type_property(\
+                    "language_id", card_type, default="")
+                return "" if not language_id else \
+                       self.language_with_id(language_id).name
             elif column == 2:
-                storage = self.config()["foreign_fact_key_for_card_type_id"]
-                if card_type.id in storage:
-                    foreign_fact_key = storage[card_type.id]
-                    return card_type.name_for_fact_key(foreign_fact_key)
-                else:
-                    return ""
+                key = self.config().card_type_property(\
+                    "foreign_fact_key", card_type, default="")
+                return "" if not key else \
+                       card_type.name_for_fact_key(key)
 
     def setData(self, index, value):
         row, column = index.row(), index.column()
         card_type = self.card_types[row]
         if column == 1:
-            storage = self.config()["language_for_card_type_id"]
-            if not value:
-                storage.pop(card_type.id, None)
-            else:
-                storage[card_type.id] = self.language_id_with_name[value]
+            self.config().set_card_type_property("language_id",
+                self.language_id_with_name[value], card_type)
         elif column == 2:
-            storage = self.config()["foreign_fact_key_for_card_type_id"]
-            if not value:
-                storage.pop(card_type.id, None)
-            else:
-                storage[card_type.id] = card_type.fact_key_with_name(value)
+            self.config().set_card_type_property("foreign_fact_key",
+                card_type.fact_key_with_name(value), card_type)
         self.dataChanged.emit(index, index)
         return True
 

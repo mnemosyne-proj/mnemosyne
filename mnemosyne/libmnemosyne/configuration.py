@@ -135,6 +135,8 @@ class Configuration(Component, dict):
              "background_colour": {}, # [card_type.id]
              "alignment": {}, # [card_type.id]
              "hide_pronunciation_field": {}, # [card_type.id]
+             "language_id": {}, # [card_type.id], ISO code
+             "foreign_fact_key": {}, # [card_type.id]
              "non_latin_font_size_increase": 0,
              "non_memorised_cards_in_hand": 10,
              "randomise_new_cards": False,
@@ -185,9 +187,7 @@ class Configuration(Component, dict):
              "export_format": None,
              "last_db_maintenance": time.time() - 1 * DAY,
              "QA_split": "fixed", # "fixed", "adaptive", "single_window",
-             "study_mode": "ScheduledForgottenNew",
-             "language_for_card_type_id": {}, # ISO code
-             "foreign_fact_key_for_card_type_id": {}
+             "study_mode": "ScheduledForgottenNew"
             }.items()):
             self.setdefault(key, value)
         # These keys will be shared in the sync protocol. Front-ends can
@@ -197,7 +197,8 @@ class Configuration(Component, dict):
              "hide_pronunciation_field", "non_memorised_cards_in_hand",
              "randomise_new_cards", "randomise_scheduled_cards",
              "ui_language", "day_starts_at", "latex_preamble",
-             "latex_postamble", "latex", "dvipng", "max_backups"]
+             "latex_postamble", "latex", "dvipng", "max_backups",
+             "language_id", "foreign_fact_key"]
         # If the user id is not set, it's either because this is the first run
         # of the program, or because the user deleted the config file. In the
         # latter case, we try to recuperate the id from the history files.
@@ -360,15 +361,20 @@ class Configuration(Component, dict):
         """
 
         if property_name not in ["background_colour", "font", "font_colour",
-            "alignment", "hide_pronunciation_field"]:
+            "alignment", "hide_pronunciation_field", "language_id",
+            "foreign_fact_key"]:
             raise KeyError
         # With the nested directories, we don't fall back on self.__setitem__,
         # so we have to log a event here ourselves.
         if property_name in self.keys_to_sync:
             self.log().edited_setting(property_name)
         if property_name in ["background_colour", "alignment",
-                             "hide_pronunciation_field"]:
-            self[property_name][card_type.id] = property_value
+                             "hide_pronunciation_field", "language_id",
+                             "foreign_fact_key"]:
+            if property_value is None:
+                self[property_name].pop(card_type.id, None)
+            else:
+                self[property_name][card_type.id] = property_value
             return
         self[property_name].setdefault(card_type.id, {})
         for _fact_key in card_type.fact_keys():
@@ -383,7 +389,8 @@ class Configuration(Component, dict):
     def card_type_property(self, property_name, card_type, fact_key=None,
                             default=None):
         if property_name in ["background_colour", "alignment",
-                             "hide_pronunciation_field"]:
+                             "hide_pronunciation_field", "language_id",
+                             "foreign_fact_key"]:
             try:
                 return self[property_name][card_type.id]
             except KeyError:
@@ -403,7 +410,8 @@ class Configuration(Component, dict):
                     self.set_card_type_property(property_name, old_value, \
                         new_card_type, fact_key)
         for property_name in ["background_colour", "alignment",
-                             "hide_pronunciation_field"]:
+                             "hide_pronunciation_field", "language_id",
+                             "foreign_fact_key"]:
             old_value = self.card_type_property(property_name, old_card_type)
             if old_value:
                 self.set_card_type_property(\
@@ -411,7 +419,8 @@ class Configuration(Component, dict):
 
     def delete_card_type_properties(self, card_type):
         for property_name in ["background_colour", "font", "font_colour",
-            "alignment", "hide_pronunciation_field"]:
+            "alignment", "hide_pronunciation_field", "language_id",
+            "foreign_fact_key"]:
             if card_type.id in self[property_name]:
                 del self[property_name][card_type.id]
 
