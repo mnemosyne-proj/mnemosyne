@@ -11,7 +11,7 @@ class QTextEdit2(QtWidgets.QTextEdit):
 
     """QTextEdit with extra options in popup menu."""
 
-    def __init__(self, parent, pronunciation_hiding=None):
+    def __init__(self, parent, pronunciation_hiding, translators):
 
         """'pronunciation_hiding' is set to None when there is no
         pronunciation key to hide, and to True or False when there is one to
@@ -21,6 +21,7 @@ class QTextEdit2(QtWidgets.QTextEdit):
 
         super().__init__(parent)
         self.pronunciation_hiding = pronunciation_hiding
+        self.translators = translators
         self.setAcceptRichText(False)
 
     def contextMenuEvent(self, e):
@@ -34,6 +35,7 @@ class QTextEdit2(QtWidgets.QTextEdit):
                         QtGui.QKeySequence(_("Ctrl+D")))
         popup.addAction(_("Insert &Flash"), self.insert_flash,
                         QtGui.QKeySequence(_("Ctrl+F")))
+        # Pronunciation hiding.
         if self.pronunciation_hiding in [True, False]:
             popup.addSeparator()
             self.hide_action = QtWidgets.QAction(\
@@ -44,6 +46,21 @@ class QTextEdit2(QtWidgets.QTextEdit):
                 self.parent().pronunciation_hiding_toggled)
             popup.addAction(self.hide_action)
         popup.exec_(e.globalPos())
+        # Translators.
+        if len(translators):
+            popup.addSeparator()
+            for translator in translators:
+                translator_action = QtWidgets.QAction(\
+                    translator.popup_menu_text, popup)
+                translator_action.triggered.connect(\
+                    lambda: self.translate(translator))
+
+    def translate(self, translator):
+        to_translate = self.parent().foreign_text()
+        #translated_text = translator.show_dialog(to_translate)
+        translated_text = translator.translate(to_translate)
+        if translated_text:
+            self.insertPlainText(translated_text)
 
     def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key_I and event.modifiers() == \

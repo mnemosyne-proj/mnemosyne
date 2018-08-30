@@ -28,6 +28,11 @@ class GenericCardTypeWdgt(QtWidgets.QWidget, GenericCardTypeWidget):
         else:
             pronunciation_hiding = self.config().card_type_property(\
                 "hide_pronunciation_field", self.card_type, default=False)
+        # Make list of translators for this card type.
+        language_id = self.config().card_type_property(\
+            "language_id", self.card_type, default=None)
+        translators = [] if not language_id else \
+            self.config().get_all("translator", language_id)
         # Construct the rest of the dialog.
         parent = kwds["parent"] # Also used by other parent classes inits.
         parent.setTabOrder(parent.card_types_widget, parent.tags)
@@ -37,7 +42,7 @@ class GenericCardTypeWdgt(QtWidgets.QWidget, GenericCardTypeWidget):
             if fact_key == "p_1":
                 self.pronunciation_label = l
                 self.pronunciation_label.setVisible(not pronunciation_hiding)
-            t = QTextEdit2(self, pronunciation_hiding)
+            t = QTextEdit2(self, pronunciation_hiding, translators)
             self.edit_boxes.append(t)
             t.setTabChangesFocus(True)
             t.setUndoRedoEnabled(True)
@@ -133,6 +138,12 @@ class GenericCardTypeWdgt(QtWidgets.QWidget, GenericCardTypeWidget):
         for edit_box, fact_key in self.fact_key_for_edit_box.items():
             _fact_data[fact_key] = edit_box.document().toPlainText()
         return _fact_data
+
+    def foreign_text(self):
+        foreign_fact_key = self.config().card_type_property(\
+            "foreign_fact_key", self.card_type, default=None)
+        if foreign_fact_key:
+            return self.fact_data[foreign_fact_key]
 
     def set_fact_data(self, fact_data):
         self.fact_data_before_edit = fact_data

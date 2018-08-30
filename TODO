@@ -552,3 +552,5 @@ Design warts:
   save settings. Rework everything better in the sync protocol.
   Other issue related to storage is that built-in CardTypes like Sentence cannot store extra_data, so we resorted to e.g.
   storing the language info in config.db
+- related: config().card_type_property(): refactor to be members of card_type as
+  opposed to of config.py
