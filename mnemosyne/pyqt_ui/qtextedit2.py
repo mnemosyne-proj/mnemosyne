@@ -45,15 +45,17 @@ class QTextEdit2(QtWidgets.QTextEdit):
             self.hide_action.toggled.connect(\
                 self.parent().pronunciation_hiding_toggled)
             popup.addAction(self.hide_action)
-        popup.exec_(e.globalPos())
         # Translators.
-        if len(translators):
+        if len(self.translators):
             popup.addSeparator()
-            for translator in translators:
+            for translator in self.translators:
                 translator_action = QtWidgets.QAction(\
                     translator.popup_menu_text, popup)
                 translator_action.triggered.connect(\
                     lambda: self.translate(translator))
+                popup.addAction(translator_action)
+        # Show popup.
+        popup.exec_(e.globalPos())
 
     def translate(self, translator):
         to_translate = self.parent().foreign_text()

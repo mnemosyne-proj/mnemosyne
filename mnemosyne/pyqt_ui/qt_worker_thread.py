@@ -2,6 +2,8 @@
 # qt_worker_thread.py <Peter.Bienstman@UGent.be>
 #
 
+import sys
+
 from PyQt5 import QtCore
 
 from mnemosyne.libmnemosyne import Mnemosyne
@@ -38,6 +40,8 @@ class QtWorkerThread(QtCore.QThread):
     def __init__(self, mnemosyne):
         super().__init__()
         self.mnemosyne = mnemosyne
+        # A fast moving progress bar seems to cause crashes on Windows.
+        self.show_numeric_progress_bar = (sys.platform != "win32")
 
     def do_work(self):
         pass  # Override this with the actual task.
@@ -90,16 +94,20 @@ class QtWorkerThread(QtCore.QThread):
         self.set_progress_text_signal.emit(text)
 
     def set_progress_range(self, maximum):
-        self.set_progress_range_signal.emit(maximum)
+        if self.show_numeric_progress_bar:
+            self.set_progress_range_signal.emit(maximum)
 
     def set_progress_update_interval(self, value):
-        self.set_progress_update_interval_signal.emit(value)
+        if self.show_numeric_progress_bar:
+            self.set_progress_update_interval_signal.emit(value)
 
     def increase_progress(self, value):
-        self.increase_progress_signal.emit(value)
+        if self.show_numeric_progress_bar:
+            self.increase_progress_signal.emit(value)
 
     def set_progress_value(self, value):
-        self.set_progress_value_signal.emit(value)
+        if self.show_numeric_progress_bar:
+            self.set_progress_value_signal.emit(value)
 
     def close_progress(self):
         self.close_progress_signal.emit()

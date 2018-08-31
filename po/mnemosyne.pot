@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-08-10 16:37+0200\n"
+"POT-Creation-Date: 2018-08-31 15:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,30 +93,30 @@ msgstr ""
 msgid "Production"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:217
+#: ../mnemosyne/libmnemosyne/__init__.py:219
 msgid "Command line argument is not a *.db file."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:229
+#: ../mnemosyne/libmnemosyne/__init__.py:231
 msgid "Another copy of Mnemosyne is still running."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:230
+#: ../mnemosyne/libmnemosyne/__init__.py:232
 msgid "Continuing is impossible and will lead to data loss!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:311
-#: ../mnemosyne/libmnemosyne/__init__.py:324
+#: ../mnemosyne/libmnemosyne/__init__.py:313
+#: ../mnemosyne/libmnemosyne/__init__.py:326
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:920
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1117
 msgid "Error when running plugin:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:339
+#: ../mnemosyne/libmnemosyne/__init__.py:341
 msgid "Previous drive letter no longer available."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:347
+#: ../mnemosyne/libmnemosyne/__init__.py:349
 msgid "If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."
 msgstr ""
 
@@ -238,7 +238,7 @@ msgstr ""
 msgid "Foreign word or phrase"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/configuration.py:435
+#: ../mnemosyne/libmnemosyne/configuration.py:444
 msgid "Error in config.py:"
 msgstr ""
 
@@ -303,7 +303,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:144
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:586
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:88
-#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:103
+#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:111
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:177
 #: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:80
 #: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:61
@@ -328,7 +328,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:144
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:586
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:88
-#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:103
+#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:111
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:177
 #: ../mnemosyne/pyqt_ui/ui_about_dlg.py:82
 #: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:78
@@ -345,6 +345,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/ui_export_dlg.py:84
 #: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:98
 #: ../mnemosyne/pyqt_ui/ui_import_dlg.py:90
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:91
 #: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:67
 #: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:96
 #: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:50
@@ -418,8 +419,8 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:502
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:442
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:129
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:89
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:93
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:86
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:90
 msgid "&Delete"
 msgstr ""
 
@@ -1500,7 +1501,7 @@ msgid "containing this text in the cards:"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:434
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:91
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:88
 msgid "&Edit"
 msgstr ""
 
@@ -1588,7 +1589,7 @@ msgid "Delete these card types?"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:86
-#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:103
+#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:111
 msgid "Delete this card type?"
 msgstr ""
 
@@ -1718,7 +1719,11 @@ msgstr ""
 msgid "File does not exist."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:73
+#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:74
+msgid "Mnemosyne card types"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:79
 msgid "Here, you can make clones of existing card types. This allows you to format cards in this type independently from cards in the original type. E.g. you can make a clone of 'Vocabulary', call it 'Thai' and set a Thai font specifically for this card type without disturbing your other cards."
 msgstr ""
 
@@ -1776,41 +1781,41 @@ msgstr ""
 msgid "Remote review in progress..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qtextedit2.py:29
+#: ../mnemosyne/pyqt_ui/qtextedit2.py:30
 msgid "Insert &image"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qtextedit2.py:30
+#: ../mnemosyne/pyqt_ui/qtextedit2.py:31
 msgid "Ctrl+I"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qtextedit2.py:31
+#: ../mnemosyne/pyqt_ui/qtextedit2.py:32
 msgid "Insert &sound"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qtextedit2.py:32
+#: ../mnemosyne/pyqt_ui/qtextedit2.py:33
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:227
 msgid "Ctrl+S"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qtextedit2.py:33
+#: ../mnemosyne/pyqt_ui/qtextedit2.py:34
 msgid "Insert vi&deo"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qtextedit2.py:34
+#: ../mnemosyne/pyqt_ui/qtextedit2.py:35
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:210
 msgid "Ctrl+D"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qtextedit2.py:35
+#: ../mnemosyne/pyqt_ui/qtextedit2.py:36
 msgid "Insert &Flash"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qtextedit2.py:36
+#: ../mnemosyne/pyqt_ui/qtextedit2.py:37
 msgid "Ctrl+F"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qtextedit2.py:40
+#: ../mnemosyne/pyqt_ui/qtextedit2.py:42
 msgid "&Hide pronunciation field for this card type"
 msgstr ""
 
@@ -1877,7 +1882,7 @@ msgstr ""
 msgid "Not seen"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/sync_dlg.py:125
+#: ../mnemosyne/pyqt_ui/sync_dlg.py:131
 msgid ""
 "Here, you can sync this machine with a remote server. Of course, that remote computer needs to have a server running, which can be started from the configuration screen on that remote machine.\n"
 "\n"
@@ -1885,8 +1890,8 @@ msgid ""
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:121
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:88
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:92
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:85
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:89
 msgid "&Rename"
 msgstr ""
 
@@ -2667,7 +2672,6 @@ msgid "&Export..."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:221
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:94
 #: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:70
 msgid "E&xit"
 msgstr ""
@@ -2757,20 +2761,20 @@ msgstr ""
 msgid "Cram active cards"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:85
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:82
 msgid "Card type manager"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:86
-msgid "Cloned card types"
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:83
+msgid "Card types"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:87
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:84
 msgid "&New clone"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:90
-msgid "M-sided card types"
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:87
+msgid "Anki card types"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:65
@@ -3117,11 +3121,11 @@ msgstr ""
 msgid "data directory"
 msgstr ""
 
-#: ../tests/test_translator.py:25
+#: ../tests/test_gui_translator.py:25
 msgid "foo"
 msgstr ""
 
-#: ../tests/test_translator.py:32
+#: ../tests/test_gui_translator.py:32
 msgid "This is a test."
 msgstr ""
 

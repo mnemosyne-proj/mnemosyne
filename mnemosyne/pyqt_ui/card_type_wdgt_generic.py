@@ -32,7 +32,7 @@ class GenericCardTypeWdgt(QtWidgets.QWidget, GenericCardTypeWidget):
         language_id = self.config().card_type_property(\
             "language_id", self.card_type, default=None)
         translators = [] if not language_id else \
-            self.config().get_all("translator", language_id)
+            self.component_manager.all("translator", language_id)
         # Construct the rest of the dialog.
         parent = kwds["parent"] # Also used by other parent classes inits.
         parent.setTabOrder(parent.card_types_widget, parent.tags)
@@ -143,7 +143,7 @@ class GenericCardTypeWdgt(QtWidgets.QWidget, GenericCardTypeWidget):
         foreign_fact_key = self.config().card_type_property(\
             "foreign_fact_key", self.card_type, default=None)
         if foreign_fact_key:
-            return self.fact_data[foreign_fact_key]
+            return self.fact_data()[foreign_fact_key]
 
     def set_fact_data(self, fact_data):
         self.fact_data_before_edit = fact_data
