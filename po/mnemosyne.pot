@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-08-31 15:44+0200\n"
+"POT-Creation-Date: 2018-09-03 13:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1687,12 +1687,12 @@ msgstr ""
 msgid "A required field is missing."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/criterion_wdgt_default.py:33
+#: ../mnemosyne/pyqt_ui/criterion_wdgt_default.py:34
 #: ../mnemosyne/pyqt_ui/ui_criterion_wdgt_default.py:36
 msgid "Activate cards from these card types:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/criterion_wdgt_default.py:83
+#: ../mnemosyne/pyqt_ui/criterion_wdgt_default.py:84
 msgid "Cards you (de)activate now will not be stored in the previously selected set unless you click 'Save this set for later use' again. This allows you to make some quick-and-dirty modifications."
 msgstr ""
 

@@ -25,6 +25,7 @@ class DefaultCriterionWdgt(QtWidgets.QWidget, CriterionWidget,
 
     def __init__(self, **kwds):
         super().__init__(**kwds)
+        self.parent = kwds["parent"]
         component_manager = kwds["component_manager"]
         self.setupUi(self)
         self.card_type_tree_wdgt = CardTypesTreeWdgt(\
