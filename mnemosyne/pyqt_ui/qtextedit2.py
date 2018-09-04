@@ -11,7 +11,7 @@ class QTextEdit2(QtWidgets.QTextEdit):
 
     """QTextEdit with extra options in popup menu."""
 
-    def __init__(self, parent, pronunciation_hiding, translators):
+    def __init__(self, parent, pronunciation_hiding, translators, pronouncers):
 
         """'pronunciation_hiding' is set to None when there is no
         pronunciation key to hide, and to True or False when there is one to
@@ -22,6 +22,7 @@ class QTextEdit2(QtWidgets.QTextEdit):
         super().__init__(parent)
         self.pronunciation_hiding = pronunciation_hiding
         self.translators = translators
+        self.pronouncers = pronouncers
         self.setAcceptRichText(False)
 
     def contextMenuEvent(self, e):
@@ -54,6 +55,15 @@ class QTextEdit2(QtWidgets.QTextEdit):
                 translator_action.triggered.connect(\
                     lambda: self.translate(translator))
                 popup.addAction(translator_action)
+        # Pronouncers.
+        if len(self.pronouncers):
+            popup.addSeparator()
+            for pronouncer in self.pronouncers:
+                pronouncer_action = QtWidgets.QAction(\
+                    pronouncer.popup_menu_text, popup)
+                pronouncer_action.triggered.connect(\
+                    lambda: self.pronounce(pronouncer))
+                popup.addAction(pronouncer_action)
         # Show popup.
         popup.exec_(e.globalPos())
 
@@ -63,6 +73,13 @@ class QTextEdit2(QtWidgets.QTextEdit):
         translated_text = translator.translate(to_translate)
         if translated_text:
             self.insertPlainText(translated_text)
+
+    def pronounce(self, pronouncer):
+        to_pronounce = self.parent().foreign_text()
+        #pronounced_text = pronouncer.show_dialog(to_pronounce)
+        pronounced_text = pronouncer.pronounce(to_pronounce)
+        if pronounced_text:
+            self.insertPlainText(pronounced_text)
 
     def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key_I and event.modifiers() == \

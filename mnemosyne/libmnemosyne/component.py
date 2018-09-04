@@ -12,7 +12,7 @@ class Component(object):
     generic_card_type_widget, ui_component, controller, main_widget,
     review_controller, review_widget, file format, plugin, hook,
     criterion, criterion_applier, statistics_page, sync_server,
-    study_mode, all the abstract dialogs, ...
+    study_mode, translator, pronouncer, all the abstract dialogs, ...
 
     'used_for' can store certain relationships between components, e.g.
     a card type widget is used for a certain card type.

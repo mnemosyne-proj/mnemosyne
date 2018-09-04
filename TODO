@@ -1,3 +1,20 @@
+-distribute work between pronounce and show_pronounce_dialog
+
+-preview dialog for sound, allowing to edit the text before sending it to
+ Google, allowing to choose where to save the sound, save subdirectory used in
+ config.db. for Cloze/Sentence: make sure to filter out hints and brackets.
+
+-make sure inheritance works when discovering the preview dialog for this
+
+-preview dialog for translations
+allow config to set the target language, save it config.db, per card type
+handle cloze/sentence
+
+-popup messages to help make these features discoverable
+
+-Add Language, Translator, Speaker to documentation.
+
+
 first cloze RTL fix? Check single line vs multiline
 
 Android:
