@@ -16,7 +16,11 @@ class Pronouncer(Component):
     used_for = None  # ISO 639-1 code
     popup_menu_text = None # "Insert translation..."
 
-    def pronounce(self, text):
+    def activate_dialog(self, foreign_text):
+        return self.component_manager.current("pronouncer_dialog",
+            used_for=self.__class__).activate(self, foreign_text)
+
+    def pronounce(self, foreign_text):
 
         """Should return html text with the correct sound tags and download
         the required the sound files.
@@ -24,3 +28,4 @@ class Pronouncer(Component):
         """
 
         raise NotImplementedError
+

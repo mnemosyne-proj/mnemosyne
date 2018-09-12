@@ -11,6 +11,6 @@ class GooglePronouncer(Pronouncer):
     used_for = "ar"  # TMP
     popup_menu_text = "Insert Google text-to-speech..."
 
-    def pronounce(self, text):
+    def pronounce(self, foreign_text):
         # TMP
-        return text.upper()
+        return foreign_text.upper()

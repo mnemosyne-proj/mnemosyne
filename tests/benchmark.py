@@ -27,7 +27,7 @@ def startup():
     mnemosyne.components.append(
         ("mnemosyne.libmnemosyne.ui_components.main_widget",
          "MainWidget"))
-    smnemosyne.gui_for_component["ScheduledForgottenNew"] = \
+    mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
         [("mnemosyne_test", "TestReviewWidget")]
 
     mnemosyne.initialise(data_dir=os.path.abspath("dot_benchmark"),

@@ -116,3 +116,8 @@ class PronouncerDialog(Dialog):
 
     component_type = "pronouncer_dialog"
 
+
+class TranslatorDialog(Dialog):
+
+    component_type = "translator_dialog"
+

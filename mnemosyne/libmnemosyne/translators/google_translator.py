@@ -11,6 +11,6 @@ class GoogleTranslator(Translator):
     used_for = "ar"  # TMP
     popup_menu_text = "Insert Google translation..."
 
-    def translate(self, text):
+    def translate(self, foreign_text):
         # TMP
-        return text.upper()
+        return foreign_text.upper()

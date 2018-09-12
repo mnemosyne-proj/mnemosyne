@@ -1,4 +1,9 @@
 -distribute work between pronounce and show_pronounce_dialog
+-document return type of show_dialog and side actions
+
+-gui_for_component: gui activatation hidden in component.activate, cannot
+ return result, cannot control activation time. Remove it from study more
+ and rely on used_for=ComponentClass?
 
 -preview dialog for sound, allowing to edit the text before sending it to
  Google, allowing to choose where to save the sound, save subdirectory used in

@@ -68,16 +68,14 @@ class QTextEdit2(QtWidgets.QTextEdit):
         popup.exec_(e.globalPos())
 
     def translate(self, translator):
-        to_translate = self.parent().foreign_text()
-        #translated_text = translator.show_dialog(to_translate)
-        translated_text = translator.translate(to_translate)
+        foreign_text = self.parent().foreign_text()
+        translated_text = translator.show_dialog(foreign_text)
         if translated_text:
             self.insertPlainText(translated_text)
 
     def pronounce(self, pronouncer):
-        to_pronounce = self.parent().foreign_text()
-        #pronounced_text = pronouncer.show_dialog(to_pronounce)
-        pronounced_text = pronouncer.pronounce(to_pronounce)
+        foreign_text = self.parent().foreign_text()
+        pronounced_text = pronouncer.activate(foreign_text)
         if pronounced_text:
             self.insertPlainText(pronounced_text)
 
