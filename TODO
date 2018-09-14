@@ -1,3 +1,7 @@
+- respect font and size, strip html
+
+- make sure dialog discovery and inheritance works with multiple languages
+
 -distribute work between pronounce and show_pronounce_dialog
 -document return type of show_dialog and side actions
 
@@ -9,15 +13,13 @@
  Google, allowing to choose where to save the sound, save subdirectory used in
  config.db. for Cloze/Sentence: make sure to filter out hints and brackets.
 
--make sure inheritance works when discovering the preview dialog for this
-
 -preview dialog for translations
 allow config to set the target language, save it config.db, per card type
 handle cloze/sentence
 
 -popup messages to help make these features discoverable
 
--Add Language, Translator, Speaker to documentation.
+-Add Language, Translator, Pronouncer to documentation.
 
 
 first cloze RTL fix? Check single line vs multiline

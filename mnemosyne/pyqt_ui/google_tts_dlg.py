@@ -10,15 +10,18 @@ from mnemosyne.libmnemosyne.ui_components.dialogs import PronouncerDialog
 from mnemosyne.pyqt_ui.ui_google_tts_dlg import Ui_GoogleTTSDlg
 
 
-class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialogDialog, Ui_GoogleTTSDlg):
+class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
 
-    def __init__(self, foreign_text, **kwds):
+    used_for = "ar"  # TMP
+
+    def __init__(self, **kwds):
         super().__init__(**kwds)
         self.setupUi(self)
-        self.foreign_text.setText(foreign_text)
 
-    def activate(self):
+    def activate(self, foreign_text):
         PronouncerDialog.activate(self)
+        print("foreign", foreign_text)
+        self.foreign_text.setPlainText(foreign_text)
         self.exec_()
 
     def browse(self):

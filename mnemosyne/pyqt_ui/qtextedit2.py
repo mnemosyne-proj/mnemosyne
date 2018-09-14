@@ -75,7 +75,7 @@ class QTextEdit2(QtWidgets.QTextEdit):
 
     def pronounce(self, pronouncer):
         foreign_text = self.parent().foreign_text()
-        pronounced_text = pronouncer.activate(foreign_text)
+        pronounced_text = pronouncer.show_dialog(foreign_text)
         if pronounced_text:
             self.insertPlainText(pronounced_text)
 

@@ -14,3 +14,9 @@ class GooglePronouncer(Pronouncer):
     def pronounce(self, foreign_text):
         # TMP
         return foreign_text.upper()
+
+    def show_dialog(self, foreign_text):
+        dialog = self.component_manager.current\
+            ("pronouncer_dialog", used_for=self.used_for)\
+            (component_manager=self.component_manager)
+        return dialog.activate(foreign_text)

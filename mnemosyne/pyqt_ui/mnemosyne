@@ -243,6 +243,8 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.export_metadata_dlg",
                              "ExportMetadataDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.prefill_tag_behaviour_plugin",
                              "PrefillTagBehaviourPlugin"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.google_tts_dlg",
+                             "GoogleTTSDlg"))
 mnemosyne.gui_for_component["ScheduledForgottenNew"] = [\
                             ("mnemosyne.pyqt_ui.review_wdgt",
                              "ReviewWdgt")]
@@ -255,9 +257,7 @@ mnemosyne.gui_for_component["CramAll"] = [\
 mnemosyne.gui_for_component["CramRecent"] = [\
                            ("mnemosyne.pyqt_ui.review_wdgt_cramming",
                             "ReviewWdgtCramming")]
-mnemosyne.gui_for_component["GooglePronouncer"] = [\
-                           ("mnemosyne.pyqt_ui.google_tts_dlg",
-                            "GoogleTTSDlg")]
+
 
 # Run Mnemosyne.
 mnemosyne.initialise(data_dir=data_dir, filename=filename,

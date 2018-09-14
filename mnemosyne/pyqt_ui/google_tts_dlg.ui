@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>GoogleTTSDialog</class>
- <widget class="QDialog" name="GoogleTTSDialog">
+ <class>GoogleTTSDlg</class>
+ <widget class="QDialog" name="GoogleTTSDlg">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -24,7 +24,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QTextEdit" name="foreign_text"/>
+      <widget class="QTextEdit" name="foreign_text">
+       <property name="acceptRichText">
+        <bool>false</bool>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QLabel" name="label_2">
@@ -110,7 +114,7 @@
   <connection>
    <sender>insert_button</sender>
    <signal>clicked()</signal>
-   <receiver>GoogleTTSDialog</receiver>
+   <receiver>GoogleTTSDlg</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -126,7 +130,7 @@
   <connection>
    <sender>cancel_button</sender>
    <signal>clicked()</signal>
-   <receiver>GoogleTTSDialog</receiver>
+   <receiver>GoogleTTSDlg</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -142,7 +146,7 @@
   <connection>
    <sender>preview_button</sender>
    <signal>clicked()</signal>
-   <receiver>GoogleTTSDialog</receiver>
+   <receiver>GoogleTTSDlg</receiver>
    <slot>lower()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -158,7 +162,7 @@
   <connection>
    <sender>foreign_text</sender>
    <signal>textChanged()</signal>
-   <receiver>GoogleTTSDialog</receiver>
+   <receiver>GoogleTTSDlg</receiver>
    <slot>lower()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -174,7 +178,7 @@
   <connection>
    <sender>browse_button</sender>
    <signal>clicked()</signal>
-   <receiver>GoogleTTSDialog</receiver>
+   <receiver>GoogleTTSDlg</receiver>
    <slot>lower()</slot>
    <hints>
     <hint type="sourcelabel">
