@@ -18,9 +18,16 @@ class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
         super().__init__(**kwds)
         self.setupUi(self)
 
-    def activate(self, foreign_text):
+    def activate(self, card_type, foreign_text):
         PronouncerDialog.activate(self)
-        print("foreign", foreign_text)
+        fact_key = self.config().card_type_property(\
+            "foreign_fact_key", card_type, default="")
+        font_string = self.config().card_type_property(\
+            "font", card_type, fact_key)
+        if font_string:
+            font = QtGui.QFont()
+            font.fromString(font_string)
+            self.foreign_text.setCurrentFont(font)
         self.foreign_text.setPlainText(foreign_text)
         self.exec_()
 

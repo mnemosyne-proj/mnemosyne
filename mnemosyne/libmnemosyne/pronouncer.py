@@ -20,7 +20,7 @@ class Pronouncer(Component):
         return self.component_manager.current("pronouncer_dialog",
             used_for=self.__class__).activate(self, foreign_text)
 
-    def pronounce(self, foreign_text):
+    def pronounce(self, card_type, foreign_text):
 
         """Should return html text with the correct sound tags and download
         the required the sound files.

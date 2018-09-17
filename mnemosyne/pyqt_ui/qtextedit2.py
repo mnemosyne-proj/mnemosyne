@@ -11,7 +11,7 @@ class QTextEdit2(QtWidgets.QTextEdit):
 
     """QTextEdit with extra options in popup menu."""
 
-    def __init__(self, parent, pronunciation_hiding, translators, pronouncers):
+    def __init__(self, parent, card_type, pronunciation_hiding):
 
         """'pronunciation_hiding' is set to None when there is no
         pronunciation key to hide, and to True or False when there is one to
@@ -21,9 +21,14 @@ class QTextEdit2(QtWidgets.QTextEdit):
 
         super().__init__(parent)
         self.pronunciation_hiding = pronunciation_hiding
-        self.translators = translators
-        self.pronouncers = pronouncers
-        self.setAcceptRichText(False)
+        self.card_type = card_type
+        # Make list of translators and pronouncers for this card type.
+        language_id = self.card_type.config().card_type_property(\
+            "language_id", self.card_type, default=None)
+        self.translators = [] if not language_id else \
+            self.card_type.component_manager.all("translator", language_id)
+        self.pronouncers = [] if not language_id else \
+            self.card_type.component_manager.all("pronouncer", language_id)
 
     def contextMenuEvent(self, e):
         popup = self.createStandardContextMenu()
@@ -69,13 +74,13 @@ class QTextEdit2(QtWidgets.QTextEdit):
 
     def translate(self, translator):
         foreign_text = self.parent().foreign_text()
-        translated_text = translator.show_dialog(foreign_text)
+        translated_text = translator.show_dialog(self.card_type, foreign_text)
         if translated_text:
             self.insertPlainText(translated_text)
 
     def pronounce(self, pronouncer):
         foreign_text = self.parent().foreign_text()
-        pronounced_text = pronouncer.show_dialog(foreign_text)
+        pronounced_text = pronouncer.show_dialog(self.card_type, foreign_text)
         if pronounced_text:
             self.insertPlainText(pronounced_text)
 

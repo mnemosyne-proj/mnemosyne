@@ -1,9 +1,12 @@
-- respect font and size, strip html
+- strip html from foreign text, handle cloze/sentence formatting
 
 - make sure dialog discovery and inheritance works with multiple languages
 
 -distribute work between pronounce and show_pronounce_dialog
 -document return type of show_dialog and side actions
+
+-make sure right click options only show for card types which have set
+ a language
 
 -gui_for_component: gui activatation hidden in component.activate, cannot
  return result, cannot control activation time. Remove it from study more
@@ -15,7 +18,6 @@
 
 -preview dialog for translations
 allow config to set the target language, save it config.db, per card type
-handle cloze/sentence
 
 -popup messages to help make these features discoverable
 
