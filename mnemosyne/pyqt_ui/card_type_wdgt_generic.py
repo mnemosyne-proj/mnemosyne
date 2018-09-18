@@ -2,6 +2,8 @@
 # card_type_wdgt_generic.py <Peter.Bienstman@UGent.be>
 #
 
+import re
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
@@ -137,8 +139,15 @@ class GenericCardTypeWdgt(QtWidgets.QWidget, GenericCardTypeWidget):
     def foreign_text(self):
         foreign_fact_key = self.config().card_type_property(\
             "foreign_fact_key", self.card_type, default=None)
-        if foreign_fact_key:
-            return self.fact_data()[foreign_fact_key]
+        if not foreign_fact_key:
+            return
+        foreign_text = self.fact_data()[foreign_fact_key]
+        # Strip Cloze brackets and hints.
+        if getattr(self.card_type, "q_a_from_cloze", None):
+            foreign_text = self.card_type.q_a_from_cloze(foreign_text, -1)[0]
+        # Strip html tags.
+        tag_re = re.compile(r"<[^>]+>")
+        return tag_re.sub("", foreign_text)
 
     def set_fact_data(self, fact_data):
         self.fact_data_before_edit = fact_data

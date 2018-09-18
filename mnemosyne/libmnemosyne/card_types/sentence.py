@@ -61,11 +61,11 @@ class Sentence(Cloze):
         data = copy.copy(card.fact.data)
         # Recognition card.
         if card.fact_view == self.fact_views[0]:
-            question, answer = self._q_a_from_cloze\
+            question, answer = self.q_a_from_cloze\
                 (card.fact["f"], -1)
         # Production card.
         else:
-            question, answer = self._q_a_from_cloze\
+            question, answer = self.q_a_from_cloze\
                 (card.fact["f"], card.extra_data["index"])
             # Entire sentence clozed.
             if question.strip() == "[...]" and "m_1" in data:

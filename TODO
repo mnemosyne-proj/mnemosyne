@@ -1,5 +1,3 @@
-- strip html from foreign text, handle cloze/sentence formatting
-
 - make sure dialog discovery and inheritance works with multiple languages
 
 -distribute work between pronounce and show_pronounce_dialog
