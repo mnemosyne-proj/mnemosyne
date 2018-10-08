@@ -147,7 +147,7 @@ class GenericCardTypeWdgt(QtWidgets.QWidget, GenericCardTypeWidget):
             foreign_text = self.card_type.q_a_from_cloze(foreign_text, -1)[0]
         # Strip html tags.
         tag_re = re.compile(r"<[^>]+>")
-        return tag_re.sub("", foreign_text)
+        return tag_re.sub("", foreign_text).strip()
 
     def set_fact_data(self, fact_data):
         self.fact_data_before_edit = fact_data

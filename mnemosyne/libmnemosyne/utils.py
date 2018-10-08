@@ -151,6 +151,16 @@ def normalise_path(path):
     else:
         return path.replace("/", "\\")
 
+def make_filename_unique(filename):
+    if os.path.exists(filename):
+        prefix, suffix = filename.rsplit(".", 1)
+        count = 0
+        while True:
+            count += 1
+            filename = "%s_%d_.%s" % (prefix, count, suffix)
+            if not os.path.exists(filename):
+                break
+    return filename
 
 def copy_file_to_dir(filename, dirname):
 
@@ -163,15 +173,9 @@ def copy_file_to_dir(filename, dirname):
     dirname = os.path.abspath(dirname)
     if filename.startswith(dirname):
         return contract_path(filename, dirname)
-    dest_path = os.path.join(dirname, os.path.basename(filename.replace(':', '-')))
-    if os.path.exists(dest_path):  # Rename it to something unique.
-        prefix, suffix = dest_path.rsplit(".", 1)
-        count = 0
-        while True:
-            count += 1
-            dest_path = "%s_%d_.%s" % (prefix, count, suffix)
-            if not os.path.exists(dest_path):
-                break
+    dest_path = os.path.join(dirname, os.path.basename(\
+        filename.replace(':', '-')))
+    dest_path = make_filename_unique(dest_path)
     copy(filename, dest_path)
     return contract_path(dest_path, dirname)
 

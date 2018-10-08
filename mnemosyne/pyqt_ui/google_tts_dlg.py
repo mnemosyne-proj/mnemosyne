@@ -3,9 +3,12 @@
 #
 
 import os
+import datetime
 from PyQt5 import QtGui, QtCore, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
+from mnemosyne.libmnemosyne.utils import make_filename_unique
+from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.ui_components.dialogs import PronouncerDialog
 from mnemosyne.pyqt_ui.ui_google_tts_dlg import Ui_GoogleTTSDlg
 
@@ -20,6 +23,7 @@ class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
 
     def activate(self, card_type, foreign_text):
         PronouncerDialog.activate(self)
+        # Set text and font for the foreign text.
         fact_key = self.config().card_type_property(\
             "foreign_fact_key", card_type, default="")
         font_string = self.config().card_type_property(\
@@ -29,12 +33,22 @@ class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
             font.fromString(font_string)
             self.foreign_text.setCurrentFont(font)
         self.foreign_text.setPlainText(foreign_text)
+        # Default filename.
+        if len(foreign_text) < 10:
+            filename = foreign_text + ".mp3"
+        else:
+            filename = datetime.datetime.today().strftime("%Y%m%d.mp3")
+        full_path = expand_path(filename, self.database().media_dir())
+        full_path = make_filename_unique(full_path)
+        filename = contract_path(filename, self.database().media_dir())
+        self.filename.setText(filename)
         self.exec_()
 
     def browse(self):
         export_dir = self.config()["export_dir"]
         filename = self.main_widget().get_filename_to_save(export_dir,
             _(self.format().filename_filter))
+        # TODO: warn when overwriting a file
         self.filename_box.setText(filename)
         if filename:
             self.config()["export_dir"] = os.path.dirname(filename)

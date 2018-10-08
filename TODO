@@ -1,4 +1,8 @@
-- make sure dialog discovery and inheritance works with multiple languages
+-add saved subdir per card type
+-browse: give warning if selecting a file outside of the media dir
+-test making unique of filename
+
+-make sure dialog discovery and inheritance works with multiple languages
 
 -distribute work between pronounce and show_pronounce_dialog
 -document return type of show_dialog and side actions
@@ -22,9 +26,20 @@ allow config to set the target language, save it config.db, per card type
 -Add Language, Translator, Pronouncer to documentation.
 
 
+
+
+https://forum.qt.io/topic/81328/ubuntu-qopenglshaderprogram-shader-program-is-not-linked/2
+The workaround there was to add these lines during program initialisation:
+if sys.platform.startswith('linux'):
+  from OpenGL import GL
+
+
 first cloze RTL fix? Check single line vs multiline
 
 Android:
+
+crash on sync?
+
 
 -look into fixes reported by dashboard
 -integrated error reporting:
