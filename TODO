@@ -1,8 +1,14 @@
+- media file gets downloaded, but not played.
+-clean up interface of Pronouncer, where do we need card type?
+
 -add saved subdir per card type
 -browse: give warning if selecting a file outside of the media dir
 -test making unique of filename
 
+-make sure to bundle gTTS, googleTrans, add to requirement documentation
+
 -make sure dialog discovery and inheritance works with multiple languages
+ get info through passed card type?
 
 -distribute work between pronounce and show_pronounce_dialog
 -document return type of show_dialog and side actions
@@ -37,6 +43,10 @@ if sys.platform.startswith('linux'):
 first cloze RTL fix? Check single line vs multiline
 
 Android:
+
+CRYSTAX_NDX := C:/crystax-ndk-10.3.2
+buildDir = "C:/tmp/${rootProject.name}/${project.name}" in local.properties
+update build docs
 
 crash on sync?
 

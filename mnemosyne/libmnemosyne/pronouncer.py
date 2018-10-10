@@ -20,6 +20,13 @@ class Pronouncer(Component):
         return self.component_manager.current("pronouncer_dialog",
             used_for=self.__class__).activate(self, foreign_text)
 
+    def download_tmp_audio_file(self, card_type, foreign_text):
+
+        """Returns a temporary filename with the audio."""
+
+        raise NotImplementedError
+
+
     def pronounce(self, card_type, foreign_text):
 
         """Should return html text with the correct sound tags and download

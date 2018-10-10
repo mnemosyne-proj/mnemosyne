@@ -17,7 +17,8 @@ class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
 
     used_for = "ar"  # TMP
 
-    def __init__(self, **kwds):
+    def __init__(self, pronouncer, **kwds):
+        self.pronouncer = pronouncer
         super().__init__(**kwds)
         self.setupUi(self)
 
@@ -41,8 +42,19 @@ class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
         full_path = expand_path(filename, self.database().media_dir())
         full_path = make_filename_unique(full_path)
         filename = contract_path(filename, self.database().media_dir())
-        self.filename.setText(filename)
+        self.filename_box.setText(filename)
         self.exec_()
+        # Download audio and play.
+        filename = self.pronouncer.download_tmp_audio_file(foreign_text)
+        print(filename)
+        self.review_widget().play_media(filename)
+
+    def preview(self):
+        # Only redownload if changed.
+        pass # TODO
+
+    def text_changed(self):
+        pass # TODO
 
     def browse(self):
         export_dir = self.config()["export_dir"]
