@@ -1770,7 +1770,7 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:19
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:207
-msgid "Study"
+msgid "S&tudy"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:41

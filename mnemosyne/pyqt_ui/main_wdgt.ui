@@ -78,7 +78,7 @@
    </widget>
    <widget class="QMenu" name="menu_Study">
     <property name="title">
-     <string>Study</string>
+     <string>S&amp;tudy</string>
     </property>
     <addaction name="actionActivateCards"/>
     <addaction name="separator"/>
