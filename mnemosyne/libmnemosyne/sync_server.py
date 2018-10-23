@@ -32,8 +32,16 @@ class SyncServer(Component, Server):
         self.check_for_edited_local_media_files = \
             self.config()["check_for_edited_local_media_files"]
 
+    def authorization_set_up(self) -> bool:
+        auth_username = self.config()["remote_access_username"]
+        auth_password = self.config()["remote_access_password"]
+        return auth_password != "" and auth_username != ""
+
     def authorise(self, username, password):
-        return username == self.config()["remote_access_username"] and \
+        # we should not be running if authorization is not set up,
+        # but check just in case
+        return self.authorization_set_up() and \
+               username == self.config()["remote_access_username"] and \
                password == self.config()["remote_access_password"]
 
     def load_database(self, database_name):
@@ -95,13 +103,21 @@ class SyncServerThread(threading.Thread, SyncServer):
 
     def __init__(self, component_manager):
         threading.Thread.__init__(self)
-        SyncServer.__init__(self, component_manager=component_manager, 
+        SyncServer.__init__(self, component_manager=component_manager,
                             ui=UI(), server_only=True)
 
     def run(self):
+        if not self.authorization_set_up():
+            print("Error: Authorization not set up.")
+            print("If on a headless server, you may use the following SQL commands in config.db to configure authorization")
+            print('    update config set value="<username>" where key = "remote_access_username"')
+            print('    update config set value="<password>" where key = "remote_access_password"')
+            return
+
         # Start server
         print(("Sync server listening on " + localhost_IP() + ":" + \
             str(self.config()["sync_server_port"])))
+
         self.serve_until_stopped()
         server_hanging = (len(self.sessions) != 0)
         if server_hanging:
