@@ -9,6 +9,12 @@ This might also help with other hard crashes.
 If this does not help, or if you see a black screen, try starting Mnemosyne
 with the --qt-opengl=desktop command line argument.)
 
+Mnemosyne 2.7:
+
+- Fix for headless sync server losing user id (report by Marcin Mielniczuk).
+- Fix for Anki learning data import (reported by syonax).
+
+
 Mnemosyne 2.6.1: 2018-08-07
 
 - In the grade and easiness statistics, added option to only show active cards,

@@ -461,6 +461,7 @@ class Configuration(Component, dict):
         from mnemosyne.libmnemosyne.component_manager import \
              migrate_component_manager
         migrate_component_manager(old_user_id, new_user_id)
+        self.save()
 
     def default_language(self):
         """use the OS language settings and if possible return with the
