@@ -9,21 +9,20 @@ class FileUploadAcquisition:
     
     def __init__(self):
         
-        print("Content-type: text/html")
-        print("Expires: Monday, 1-Jan-96 00:00:00 GMT")
-        print("Pragma: no-cache")
-        print()
+        print "Content-type: text/html"
+        print "Expires: Monday, 1-Jan-96 00:00:00 GMT"
+        print "Pragma: no-cache"
+        print
         sys.stderr = sys.stdout
 
         try:
             self.process()
         except:
-            print("<pre>")
+            print "<pre>"
             traceback.print_exc()			
 	
     def process(self):
-        
-        fs = cgi.fact_keys_and_namestorage()
+        fs = cgi.FieldStorage()
         uf = fs["file"]
 
         filename = os.path.join("/home/mnemosyne", uf.filename)
