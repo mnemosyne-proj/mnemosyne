@@ -11,6 +11,8 @@ with the --qt-opengl=desktop command line argument.)
 
 Mnemosyne 2.7:
 
+- More error checking when uploading science logs. To avoid missing files from
+  the past, Mnemosyne will reupload all of your old logs as well.
 - Fix for headless sync server losing user id (report by Marcin Mielniczuk).
 - Fix for Anki learning data import (reported by syonax).
 

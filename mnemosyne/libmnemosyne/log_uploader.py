@@ -10,7 +10,7 @@ from threading import Thread
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.component import Component
-from mnemosyne.libmnemosyne.utils import traceback_string
+from mnemosyne.libmnemosyne.utils import traceback_string, MnemosyneError
 
 
 class LogUploader(Thread, Component):
@@ -43,7 +43,8 @@ class LogUploader(Thread, Component):
                    ' name="file"; filename="%s"' % (upload_name))
         hdr.append('Content-Type: application/octet-stream')
         hdr.append('Content-Length: %d' % len(data))
-        header = (('--%s\n' % boundary) + "\n".join(hdr) + "\n\n").encode("utf-8")
+        header = (('--%s\n' % boundary) + "\n".join(hdr) + "\n\n")\
+            .encode("utf-8")
         footer = ('\n--%s--\n' % boundary).encode("utf-8")
         query = header + data + footer
         contentType = 'multipart/form-data; boundary=%s' % boundary
@@ -52,9 +53,12 @@ class LogUploader(Thread, Component):
                    'Proxy-Connection' : 'Keep-Alive',
                    'Content-Type' : contentType,
                    'Content-Length' : contentLength}
-        req = urllib.request.Request('http://' + host + ':' + port+uri, query , headers)
+        req = urllib.request.Request('http://' + host + ':' + port+uri,
+                                     query, headers)
         response = urllib.request.urlopen(req)
-        html = response.read()
+        html = str(response.read())
+        if "<pre>" in html:
+            raise MnemosyneError(html)
 
     def run(self):
         data_dir = self.config().data_dir
@@ -62,7 +66,7 @@ class LogUploader(Thread, Component):
         # Find out which files haven't been uploaded yet.
         dir = os.listdir(join(data_dir, "history"))
         history_files = [x for x in dir if x.endswith(".bz2")]
-        uploaded_filename = join(data_dir, "history", "uploaded")
+        uploaded_filename = join(data_dir, "history", "uploaded2")
         if os.path.exists(uploaded_filename):
             upload_log = open(uploaded_filename)
             uploaded = [x.strip() for x in upload_log]
@@ -73,7 +77,7 @@ class LogUploader(Thread, Component):
         if len(to_upload) == 0:
             return
         # Upload them to our server.
-        upload_log = open(join(data_dir, "history", "uploaded"), 'a')
+        upload_log = open(uploaded_filename, 'a')
         try:
             for f in to_upload:
                 print(_("Uploading"), f, "...", end=' ')
@@ -81,8 +85,9 @@ class LogUploader(Thread, Component):
                 self.upload(filename)
                 print(f, file=upload_log)
                 print(_("done!"))
-        except:
+        except Exception as e:
             print(_("Upload failed"))
+            print(str(e))
             print(traceback_string())
         upload_log.close()
 

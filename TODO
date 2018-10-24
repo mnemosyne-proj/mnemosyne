@@ -1,4 +1,7 @@
 - media file gets downloaded, but not played.
+update changelog with main merges
+
+-media file gets downloaded, but not played.
 -clean up interface of Pronouncer, where do we need card type?
 
 -add saved subdir per card type
@@ -32,7 +35,7 @@ allow config to set the target language, save it config.db, per card type
 -Add Language, Translator, Pronouncer to documentation.
 
 
-
+- test switch from 'uploaded' log file to 'uploaded2', check that overwriting works.
 
 https://forum.qt.io/topic/81328/ubuntu-qopenglshaderprogram-shader-program-is-not-linked/2
 The workaround there was to add these lines during program initialisation:
