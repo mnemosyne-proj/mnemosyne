@@ -13,8 +13,11 @@ Mnemosyne 2.7:
 
 - More error checking when uploading science logs. To avoid missing files from
   the past, Mnemosyne will reupload all of your old logs as well.
+- Disallow starting a headless sync server in case no password is set up (patch
+  by Marcin Mielniczuk).
 - Fix for headless sync server losing user id (report by Marcin Mielniczuk).
 - Fix for Anki learning data import (reported by syonax).
+- Various minor cleanups and fixes (Marcin Mielniczuk).
 
 
 Mnemosyne 2.6.1: 2018-08-07

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-09-03 13:50+0200\n"
+"POT-Creation-Date: 2018-10-26 13:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,30 +93,30 @@ msgstr ""
 msgid "Production"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:219
+#: ../mnemosyne/libmnemosyne/__init__.py:221
 msgid "Command line argument is not a *.db file."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:231
+#: ../mnemosyne/libmnemosyne/__init__.py:233
 msgid "Another copy of Mnemosyne is still running."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:232
+#: ../mnemosyne/libmnemosyne/__init__.py:234
 msgid "Continuing is impossible and will lead to data loss!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:313
-#: ../mnemosyne/libmnemosyne/__init__.py:326
+#: ../mnemosyne/libmnemosyne/__init__.py:315
+#: ../mnemosyne/libmnemosyne/__init__.py:328
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:920
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1117
 msgid "Error when running plugin:"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:341
+#: ../mnemosyne/libmnemosyne/__init__.py:343
 msgid "Previous drive letter no longer available."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:349
+#: ../mnemosyne/libmnemosyne/__init__.py:351
 msgid "If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."
 msgstr ""
 
@@ -907,15 +907,15 @@ msgstr ""
 msgid "French"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/log_uploader.py:79
+#: ../mnemosyne/libmnemosyne/log_uploader.py:83
 msgid "Uploading"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/log_uploader.py:83
+#: ../mnemosyne/libmnemosyne/log_uploader.py:87
 msgid "done!"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/log_uploader.py:85
+#: ../mnemosyne/libmnemosyne/log_uploader.py:89
 msgid "Upload failed"
 msgstr ""
 
@@ -1736,6 +1736,7 @@ msgid "and not just deactivate it?"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:100
+#: ../mnemosyne/pyqt_ui/ui_google_tts_dlg.py:74
 msgid "Cancel"
 msgstr ""
 
@@ -1781,41 +1782,41 @@ msgstr ""
 msgid "Remote review in progress..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qtextedit2.py:30
+#: ../mnemosyne/pyqt_ui/qtextedit2.py:36
 msgid "Insert &image"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qtextedit2.py:31
+#: ../mnemosyne/pyqt_ui/qtextedit2.py:37
 msgid "Ctrl+I"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qtextedit2.py:32
+#: ../mnemosyne/pyqt_ui/qtextedit2.py:38
 msgid "Insert &sound"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qtextedit2.py:33
+#: ../mnemosyne/pyqt_ui/qtextedit2.py:39
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:227
 msgid "Ctrl+S"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qtextedit2.py:34
+#: ../mnemosyne/pyqt_ui/qtextedit2.py:40
 msgid "Insert vi&deo"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qtextedit2.py:35
+#: ../mnemosyne/pyqt_ui/qtextedit2.py:41
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:210
 msgid "Ctrl+D"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qtextedit2.py:36
+#: ../mnemosyne/pyqt_ui/qtextedit2.py:42
 msgid "Insert &Flash"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qtextedit2.py:37
+#: ../mnemosyne/pyqt_ui/qtextedit2.py:43
 msgid "Ctrl+F"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qtextedit2.py:42
+#: ../mnemosyne/pyqt_ui/qtextedit2.py:48
 msgid "&Hide pronunciation field for this card type"
 msgstr ""
 
@@ -2593,6 +2594,30 @@ msgid ""
 "For more documentation, see http://www.mnemosyne-proj.org.\n"
 "\n"
 "Happy learning!"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_google_tts_dlg.py:68
+msgid "Google text-to-speech"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_google_tts_dlg.py:69
+msgid "Foreign text to pronounce:"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_google_tts_dlg.py:70
+msgid "Filename to save to:"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_google_tts_dlg.py:71
+msgid "Browse"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_google_tts_dlg.py:72
+msgid "Preview"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_google_tts_dlg.py:73
+msgid "Insert"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_import_dlg.py:85

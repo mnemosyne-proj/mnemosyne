@@ -13,6 +13,20 @@ from mnemosyne.libmnemosyne.ui_components.dialogs import PronouncerDialog
 from mnemosyne.pyqt_ui.ui_google_tts_dlg import Ui_GoogleTTSDlg
 
 
+class DownloadThread(QtCore.QThread):
+
+    finished_signal = QtCore.pyqtSignal(str)
+
+    def __init__(self, pronouncer, foreign_text):
+        super().__init__()
+        self.pronouncer = pronouncer
+        self.foreign_text = foreign_text
+
+    def run(self):
+        filename = self.pronouncer.download_tmp_audio_file(self.foreign_text)
+        self.finished_signal.emit(filename)
+
+
 class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
 
     used_for = "ar"  # TMP
@@ -43,15 +57,15 @@ class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
         full_path = make_filename_unique(full_path)
         filename = contract_path(filename, self.database().media_dir())
         self.filename_box.setText(filename)
-        self.exec_()
         # Download audio and play.
-        filename = self.pronouncer.download_tmp_audio_file(foreign_text)
-        print(filename)
-        self.review_widget().play_media(filename)
+        download_thread = DownloadThread(self.pronouncer, foreign_text)
+        download_thread.finished_signal.connect(self.preview)
+        download_thread.start()
+        self.exec_()
 
-    def preview(self):
-        # Only redownload if changed.
-        pass # TODO
+    def preview(self, filename): # TODO: revisit signature
+        # TODO: Only redownload if changed.
+        self.review_widget().play_media(filename)
 
     def text_changed(self):
         pass # TODO
