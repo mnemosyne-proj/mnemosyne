@@ -35,6 +35,8 @@ class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
         self.pronouncer = pronouncer
         super().__init__(**kwds)
         self.setupUi(self)
+        self.last_foreign_text = ""
+        self.tmp_filename = ""
 
     def activate(self, card_type, foreign_text):
         PronouncerDialog.activate(self)
@@ -57,24 +59,34 @@ class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
         full_path = make_filename_unique(full_path)
         filename = contract_path(filename, self.database().media_dir())
         self.filename_box.setText(filename)
-        # Download audio and play.
-        download_thread = DownloadThread(self.pronouncer, foreign_text)
-        download_thread.finished_signal.connect(self.preview)
-        download_thread.start()
+        # Execute.
+        self.download_audio_and_play()
         self.exec_()
 
-    def preview(self, filename): # TODO: revisit signature
-        # TODO: Only redownload if changed.
-        self.review_widget().play_media(filename)
+    def download_audio_and_play(self):
+        self.last_foreign_text = self.foreign_text.toPlainText()
+        download_thread = DownloadThread(\
+            self.pronouncer, self.last_foreign_text)
+        download_thread.finished_signal.connect(self.play_audio)
+        self.main_widget().set_progress_text(_("Downloading..."))
+        download_thread.start()
 
-    def text_changed(self):
-        pass # TODO
+    def play_audio(self, filename):
+        self.main_widget().close_progress()
+        self.review_widget().play_media(filename)
+        self.tmp_filename = filename
+
+    def preview(self):
+        if self.foreign_text.toPlainText() == self.last_foreign_text:
+            self.play_audio(self.tmp_filename)
+        else:
+            self.download_audio_and_play()
 
     def browse(self):
         export_dir = self.config()["export_dir"]
-        filename = self.main_widget().get_filename_to_save(export_dir,
-            _(self.format().filename_filter))
-        # TODO: warn when overwriting a file
+        filename = self.main_widget().get_filename_to_save(\
+            self.database().media_dir(),
+            _("Mp3 files ()*.mp3"))
         self.filename_box.setText(filename)
         if filename:
             self.config()["export_dir"] = os.path.dirname(filename)

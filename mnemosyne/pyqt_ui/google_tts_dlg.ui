@@ -160,22 +160,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>foreign_text</sender>
-   <signal>textChanged()</signal>
-   <receiver>GoogleTTSDlg</receiver>
-   <slot>text_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>200</x>
-     <y>60</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>199</x>
-     <y>149</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>browse_button</sender>
    <signal>clicked()</signal>
    <receiver>GoogleTTSDlg</receiver>
