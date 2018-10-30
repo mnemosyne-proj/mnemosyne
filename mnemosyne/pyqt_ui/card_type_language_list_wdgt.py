@@ -51,7 +51,13 @@ class ComboDelegate(QtWidgets.QItemDelegate, Component):
                     "foreign_fact_key", card_type)
                 if key:
                     key_name = card_type.name_for_fact_key(key)
-                    combobox.setCurrentIndex(combobox.findText(key_name))
+            # If this is the first time we set a language, make sure to also
+            # save the foreign fact key.
+            key = self.config().card_type_property(\
+                "foreign_fact_key", card_type, default="")
+            if not key:
+                foreign_key_index = index.model().index(row, column+1)
+                index.model().setData(foreign_key_index, combobox.currentText())
         self.commitData.emit(editor)
         self.closeEditor.emit(editor)
 
