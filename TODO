@@ -5,7 +5,7 @@
 
 -test making unique of filename
 
--clean up interface of Pronouncer, where do we need card type?
+-clean up interface of Pronouncer/google pronouncer, where do we need card type?
 
 -make sure to bundle gTTS, googleTrans, add to requirement documentation
 

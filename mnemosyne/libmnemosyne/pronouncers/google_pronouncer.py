@@ -15,10 +15,12 @@ class GooglePronouncer(Pronouncer):
     popup_menu_text = "Insert Google text-to-speech..."
 
     def show_dialog(self, card_type, foreign_text):
+        # TODO: move up one level?
         dialog = self.component_manager.current\
             ("pronouncer_dialog", used_for=self.used_for)\
             (pronouncer=self, component_manager=self.component_manager)
-        return dialog.activate(card_type, foreign_text)
+        dialog.activate(card_type, foreign_text)
+        return dialog.text_to_insert
 
     def download_tmp_audio_file(self, foreign_text):
 
@@ -30,7 +32,7 @@ class GooglePronouncer(Pronouncer):
         return filename
 
     def pronounce(self, foreign_text):
-        # TMP
+        # TMP, remove
         return foreign_text.upper()
 
 

@@ -3,6 +3,7 @@
 #
 
 import os
+import shutil
 import datetime
 from PyQt5 import QtGui, QtCore, QtWidgets
 
@@ -83,17 +84,20 @@ class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
             self.download_audio_and_play()
 
     def browse(self):
-        export_dir = self.config()["export_dir"]
         filename = self.main_widget().get_filename_to_save(\
             self.database().media_dir(),
             _("Mp3 files ()*.mp3"))
         self.filename_box.setText(filename)
-        if filename:
-            self.config()["export_dir"] = os.path.dirname(filename)
 
     def accept(self):
+        # TODO: wait until file has been downloaded
         filename = self.filename_box.text()
-        if not filename:
+        # TODO: make sure the filename is local to the media dir.
+        if not filename:# TODO: error
+            self.text_to_insert = ""
             return QtWidgets.QDialog.accept(self)
-        # TODO: process information
+        # fix cancelling dialog.
+        shutil.copyfile(self.tmp_filename,
+            os.path.join(self.database().media_dir(), filename))
+        self.text_to_insert = "<audio src=\"" + filename + "\">"
         QtWidgets.QDialog.accept(self)
