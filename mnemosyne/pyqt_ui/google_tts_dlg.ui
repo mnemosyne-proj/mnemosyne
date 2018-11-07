@@ -175,5 +175,21 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>foreign_text</sender>
+   <signal>textChanged()</signal>
+   <receiver>GoogleTTSDlg</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>223</x>
+     <y>68</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>223</x>
+     <y>99</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>

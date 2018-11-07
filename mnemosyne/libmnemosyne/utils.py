@@ -157,7 +157,7 @@ def make_filename_unique(filename):
         count = 0
         while True:
             count += 1
-            filename = "%s_%d_.%s" % (prefix, count, suffix)
+            filename = "%s_%d.%s" % (prefix, count, suffix)
             if not os.path.exists(filename):
                 break
     return filename

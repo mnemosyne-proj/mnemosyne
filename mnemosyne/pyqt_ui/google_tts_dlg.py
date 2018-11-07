@@ -38,6 +38,7 @@ class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
         self.setupUi(self)
         self.last_foreign_text = ""
         self.tmp_filename = ""
+        self.text_to_insert = ""
 
     def activate(self, card_type, foreign_text):
         PronouncerDialog.activate(self)
@@ -58,11 +59,19 @@ class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
             filename = datetime.datetime.today().strftime("%Y%m%d.mp3")
         full_path = expand_path(filename, self.database().media_dir())
         full_path = make_filename_unique(full_path)
-        filename = contract_path(filename, self.database().media_dir())
+        print(full_path)
+        filename = contract_path(full_path, self.database().media_dir())
+        print(filename)
         self.filename_box.setText(filename)
         # Execute.
+        self.insert_button.setEnabled(False)
         self.download_audio_and_play()
         self.exec_()
+
+    def foreign_text_changed(self):
+        # Force the user to preview.
+        self.insert_button.setEnabled(False)
+        self.preview_button.setDefault(True)
 
     def download_audio_and_play(self):
         self.last_foreign_text = self.foreign_text.toPlainText()
@@ -76,6 +85,8 @@ class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
         self.main_widget().close_progress()
         self.review_widget().play_media(filename)
         self.tmp_filename = filename
+        self.insert_button.setEnabled(True)
+        self.insert_button.setDefault(True)
 
     def preview(self):
         if self.foreign_text.toPlainText() == self.last_foreign_text:
@@ -90,13 +101,9 @@ class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
         self.filename_box.setText(filename)
 
     def accept(self):
-        # TODO: wait until file has been downloaded
         filename = self.filename_box.text()
-        # TODO: make sure the filename is local to the media dir.
-        if not filename:# TODO: error
-            self.text_to_insert = ""
+        if not filename:
             return QtWidgets.QDialog.accept(self)
-        # fix cancelling dialog.
         shutil.copyfile(self.tmp_filename,
             os.path.join(self.database().media_dir(), filename))
         self.text_to_insert = "<audio src=\"" + filename + "\">"
