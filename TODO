@@ -1,3 +1,15 @@
+Android unicode issues
+Android crash on close
+
+backup rollover issues
+
+github 99 keyboard shortcut on finished review
+
+-http://doc.qt.io/qt-5/qdate.html#toString
+http://doc.qt.io/qt-5/qdatetimeedit.html#displayFormat-prop
+
+-github 98 DST
+
 -browse: give warning if selecting a file outside of the media dir
 -make sure the filename is always local to the media dir
 -add saved subdir per card type

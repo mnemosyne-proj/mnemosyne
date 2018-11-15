@@ -179,7 +179,6 @@ def copy_file_to_dir(filename, dirname):
     copy(filename, dest_path)
     return contract_path(dest_path, dirname)
 
-
 def remove_empty_dirs_in(path, level=0):
     # Remove empty subfolders.
     for f in os.listdir(path):
