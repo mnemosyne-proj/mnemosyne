@@ -18,7 +18,8 @@ Mnemosyne 2.7:
 - Fix for headless sync server losing user id (report by Marcin Mielniczuk).
 - Fix for Anki learning data import (reported by syonax).
 - Various minor cleanups and fixes (Marcin Mielniczuk).
-
+- Fix for continuous reset of scheduler when DST changes (reported by
+  ADFairbanks).
 
 Mnemosyne 2.6.1: 2018-08-07
 

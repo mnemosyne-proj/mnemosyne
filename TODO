@@ -1,14 +1,8 @@
 Android unicode issues
 Android crash on close
 
-backup rollover issues
-
-github 99 keyboard shortcut on finished review
-
 -http://doc.qt.io/qt-5/qdate.html#toString
 http://doc.qt.io/qt-5/qdatetimeedit.html#displayFormat-prop
-
--github 98 DST
 
 -browse: give warning if selecting a file outside of the media dir
 -make sure the filename is always local to the media dir
@@ -31,12 +25,6 @@ http://doc.qt.io/qt-5/qdatetimeedit.html#displayFormat-prop
 -Add Language, Translator, Pronouncer to documentation and website.
 
 -implement and test switch from 'uploaded' log file to 'uploaded2'
-
-
-https://forum.qt.io/topic/81328/ubuntu-qopenglshaderprogram-shader-program-is-not-linked/2
-The workaround there was to add these lines during program initialisation:
-if sys.platform.startswith('linux'):
-  from OpenGL import GL
 
 
 first cloze RTL fix? Check single line vs multiline

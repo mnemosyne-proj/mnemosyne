@@ -66,7 +66,12 @@ class DefaultController(Controller):
                 self.log().activate()
                 self.config().save()
                 self.reset_study_mode()
-            self.next_rollover = self.database().start_of_day_n_days_ago(n=-1)
+            previous_rollover = self.next_rollover
+            next_rollover = self.database().start_of_day_n_days_ago(n=-1)
+            # Avoid rare issue with DST.
+            if abs(next_rollover - previous_rollover) < HOUR:
+                next_rollover += DAY
+            self.next_rollover = next_rollover
         if db_maintenance and \
            (time.time() > self.config()["last_db_maintenance"] + 90 * DAY):
             self.component_manager.current("database_maintenance").run()
@@ -706,7 +711,8 @@ _("Your database will be autosaved before exiting. Also, it is saved every coupl
             self.config()["single_database_help_shown"] = True
         self.flush_sync_server()
         suffix = self.database().suffix
-        old_path = expand_path(self.config()["last_database"], self.config().data_dir)
+        old_path = expand_path(self.config()["last_database"],
+                               self.config().data_dir)
         old_media_dir = self.database().media_dir()
         filename = self.main_widget().get_filename_to_save(path=old_path,
             filter=_("Mnemosyne databases") + " (*%s)" % suffix)
