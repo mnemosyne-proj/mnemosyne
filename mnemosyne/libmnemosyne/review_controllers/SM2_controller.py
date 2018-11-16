@@ -321,7 +321,9 @@ _("You have finished your scheduled reviews. Now, learn as many failed or new ca
         self.review_widget().update_status_bar_counters()
 
     def is_question_showing(self):
-        return self.review_controller()._state == "SELECT SHOW"
+        return self.review_controller()._state == "SELECT SHOW" \
+               and self.card is not None
 
     def is_answer_showing(self):
-        return self.review_controller()._state == "SELECT GRADE"
+        return self.review_controller()._state == "SELECT GRADE" \
+               and self.card is not None
