@@ -43,6 +43,7 @@ class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
     def activate(self, card_type, foreign_text):
         PronouncerDialog.activate(self)
         # Set text and font for the foreign text.
+        self.card_type = card_type
         fact_key = self.config().card_type_property(\
             "foreign_fact_key", card_type, default="")
         font_string = self.config().card_type_property(\
@@ -52,21 +53,24 @@ class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
             font.fromString(font_string)
             self.foreign_text.setCurrentFont(font)
         self.foreign_text.setPlainText(foreign_text)
-        # Default filename.
+        self.set_default_filename()
+        self.insert_button.setEnabled(False)
+        self.download_audio_and_play()
+        self.exec_()
+
+    def set_default_filename(self):
+        foreign_text = self.foreign_text.toPlainText()
         if len(foreign_text) < 10:
             filename = foreign_text + ".mp3"
         else:
             filename = datetime.datetime.today().strftime("%Y%m%d.mp3")
+        local_dir = self.config()[google_tts_dir_for_card_type]\
+            .get(self.card_type, None)
+        filename = os.path.join(local_dir, filename)
         full_path = expand_path(filename, self.database().media_dir())
         full_path = make_filename_unique(full_path)
-        print(full_path)
         filename = contract_path(full_path, self.database().media_dir())
-        print(filename)
         self.filename_box.setText(filename)
-        # Execute.
-        self.insert_button.setEnabled(False)
-        self.download_audio_and_play()
-        self.exec_()
 
     def foreign_text_changed(self):
         # Force the user to preview.
@@ -97,13 +101,29 @@ class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
     def browse(self):
         filename = self.main_widget().get_filename_to_save(\
             self.database().media_dir(),
-            _("Mp3 files ()*.mp3"))
-        self.filename_box.setText(filename)
+            _("Mp3 files (*.mp3)"))
+        if not filename.startswith(self.database().media_dir()):
+            self.main_widget().show_error(\
+                _("Please select a filename inside the media directory."))
+            self.set_default_filename()
+        else:
+            self.filename_box.setText(filename)
 
     def accept(self):
         filename = self.filename_box.text()
+        if not filename.startswith(self.database().media_dir()):
+            self.main_widget().show_error(\
+                _("Please select a filename inside the media directory."))
+            self.set_default_filename()
+            return
         if not filename:
             return QtWidgets.QDialog.accept(self)
+        # Save subdirectory for this card type.
+        local_dir = os.path.dirname(\
+            contract_path(filename, self.database().media_dir()))
+        if local_dir:
+            self.config()["google_tts_dir_for_card_type"][self.card_type] \
+                = local_dir
         shutil.copyfile(self.tmp_filename,
             os.path.join(self.database().media_dir(), filename))
         self.text_to_insert = "<audio src=\"" + filename + "\">"

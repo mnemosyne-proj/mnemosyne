@@ -52,6 +52,7 @@ class PyQtConfiguration(Hook):
              "started_activate_cards_n_times": 0,
              "showed_help_on_renaming_sets": False,
              "showed_help_on_double_clicking_sets": False,
-             "showed_help_on_adding_tags": False
+             "showed_help_on_adding_tags": False,
+             "google_tts_dir_for_card_type": {}, # card_type, dir
             }.items()):
             self.config().setdefault(key, value)

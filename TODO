@@ -1,11 +1,3 @@
-Android unicode issues
-Android crash on close
-
--http://doc.qt.io/qt-5/qdate.html#toString
-http://doc.qt.io/qt-5/qdatetimeedit.html#displayFormat-prop
-
--browse: give warning if selecting a file outside of the media dir
--make sure the filename is always local to the media dir
 -add saved subdir per card type
 
 -make sure dialog discovery and inheritance works with multiple languages
@@ -34,8 +26,6 @@ Android:
 CRYSTAX_NDX := C:/crystax-ndk-10.3.2
 buildDir = "C:/tmp/${rootProject.name}/${project.name}" in local.properties
 update build docs
-
-crash on sync?
 
 
 -look into fixes reported by dashboard
