@@ -64,8 +64,8 @@ class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
             filename = foreign_text + ".mp3"
         else:
             filename = datetime.datetime.today().strftime("%Y%m%d.mp3")
-        local_dir = self.config()[google_tts_dir_for_card_type]\
-            .get(self.card_type, None)
+        local_dir = self.config()["google_tts_dir_for_card_type"]\
+            .get(self.card_type, "")
         filename = os.path.join(local_dir, filename)
         full_path = expand_path(filename, self.database().media_dir())
         full_path = make_filename_unique(full_path)
@@ -102,28 +102,36 @@ class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
         filename = self.main_widget().get_filename_to_save(\
             self.database().media_dir(),
             _("Mp3 files (*.mp3)"))
-        if not filename.startswith(self.database().media_dir()):
+        if os.path.isabs(filename) and not filename.startswith(\
+            self.database().media_dir()):
             self.main_widget().show_error(\
                 _("Please select a filename inside the media directory."))
             self.set_default_filename()
         else:
-            self.filename_box.setText(filename)
+            if filename:
+                self.filename_box.setText(filename)
 
     def accept(self):
         filename = self.filename_box.text()
-        if not filename.startswith(self.database().media_dir()):
-            self.main_widget().show_error(\
-                _("Please select a filename inside the media directory."))
-            self.set_default_filename()
-            return
         if not filename:
             return QtWidgets.QDialog.accept(self)
+        if os.path.isabs(filename):
+            if not filename.startswith(self.database().media_dir()):
+                self.main_widget().show_error(\
+                    _("Please select a filename inside the media directory."))
+                self.set_default_filename()
+                return
+            else:
+                filename = contract_path(filename, self.database().media_dir())
+        # By now, filename is relative to the media dir.
         # Save subdirectory for this card type.
-        local_dir = os.path.dirname(\
-            contract_path(filename, self.database().media_dir()))
+        local_dir = os.path.dirname(filename)
         if local_dir:
             self.config()["google_tts_dir_for_card_type"][self.card_type] \
                 = local_dir
+        full_local_dir = expand_path(local_dir, self.database().media_dir())
+        if not os.path.exists(full_local_dir):
+            os.makedirs(full_local_dir)
         shutil.copyfile(self.tmp_filename,
             os.path.join(self.database().media_dir(), filename))
         self.text_to_insert = "<audio src=\"" + filename + "\">"

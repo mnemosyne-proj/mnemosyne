@@ -325,7 +325,7 @@ class Client(Partner):
                 raise SyncError("Wrong username or password.")
             if "cycle" in message:
                 raise SyncError(\
-                    "Sync cycle detected. Please always sync with the same server. Delete the database and resync from scratch if necessary.")
+"Sync cycle detected. Please always sync with the same server. Backup and delete the database and resync from scratch if necessary.")
             if "same machine ids" in message:
                 raise SyncError(\
 "You have manually copied the data directory before sync. Sync needs to start from an empty database.")
