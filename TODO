@@ -1,6 +1,3 @@
--add saved subdir per card type: // vs \ yen symbol
--string syntax error: try from empty database?
-
 -make sure dialog discovery and inheritance works with multiple languages
  get info through passed card type?
 -gui_for_component: gui activatation hidden in component.activate, cannot
