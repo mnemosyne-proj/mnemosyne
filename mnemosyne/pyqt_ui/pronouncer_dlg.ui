@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>GoogleTTSDlg</class>
- <widget class="QDialog" name="GoogleTTSDlg">
+ <class>PronouncerDlg</class>
+ <widget class="QDialog" name="PronouncerDlg">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Google text-to-speech</string>
+   <string>Text-to-speech</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -114,7 +114,7 @@
   <connection>
    <sender>insert_button</sender>
    <signal>clicked()</signal>
-   <receiver>GoogleTTSDlg</receiver>
+   <receiver>PronouncerDlg</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -130,7 +130,7 @@
   <connection>
    <sender>cancel_button</sender>
    <signal>clicked()</signal>
-   <receiver>GoogleTTSDlg</receiver>
+   <receiver>PronouncerDlg</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -146,7 +146,7 @@
   <connection>
    <sender>preview_button</sender>
    <signal>clicked()</signal>
-   <receiver>GoogleTTSDlg</receiver>
+   <receiver>PronouncerDlg</receiver>
    <slot>preview()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -162,7 +162,7 @@
   <connection>
    <sender>browse_button</sender>
    <signal>clicked()</signal>
-   <receiver>GoogleTTSDlg</receiver>
+   <receiver>PronouncerDlg</receiver>
    <slot>browse()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -178,7 +178,7 @@
   <connection>
    <sender>foreign_text</sender>
    <signal>textChanged()</signal>
-   <receiver>GoogleTTSDlg</receiver>
+   <receiver>PronouncerDlg</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

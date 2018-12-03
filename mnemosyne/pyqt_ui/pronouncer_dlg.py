@@ -1,5 +1,5 @@
 #
-# google_tts_dlg.py <Peter.Bienstman@UGent.be>
+# pronouncer_dlg.py <Peter.Bienstman@UGent.be>
 #
 
 import os
@@ -11,7 +11,7 @@ from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.utils import make_filename_unique
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.ui_components.dialogs import PronouncerDialog
-from mnemosyne.pyqt_ui.ui_google_tts_dlg import Ui_GoogleTTSDlg
+from mnemosyne.pyqt_ui.ui_pronouncer_dlg import Ui_PronouncerDlg
 
 
 class DownloadThread(QtCore.QThread):
@@ -28,9 +28,7 @@ class DownloadThread(QtCore.QThread):
         self.finished_signal.emit(filename)
 
 
-class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
-
-    used_for = "ar"  # TMP
+class PronouncerDlg(QtWidgets.QDialog, PronouncerDialog, Ui_PronouncerDlg):
 
     def __init__(self, pronouncer, **kwds):
         self.pronouncer = pronouncer
@@ -64,7 +62,7 @@ class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
             filename = foreign_text + ".mp3"
         else:
             filename = datetime.datetime.today().strftime("%Y%m%d.mp3")
-        local_dir = self.config()["google_tts_dir_for_card_type_id"]\
+        local_dir = self.config()["tts_dir_for_card_type_id"]\
             .get(self.card_type.id, "")
         filename = os.path.join(local_dir, filename)
         full_path = expand_path(filename, self.database().media_dir())
@@ -128,7 +126,7 @@ class GoogleTTSDlg(QtWidgets.QDialog, PronouncerDialog, Ui_GoogleTTSDlg):
         # Save subdirectory for this card type.
         local_dir = os.path.dirname(filename)
         if local_dir:
-            self.config()["google_tts_dir_for_card_type_id"]\
+            self.config()["tts_dir_for_card_type_id"]\
                 [self.card_type.id] = local_dir
         full_local_dir = expand_path(local_dir, self.database().media_dir())
         if not os.path.exists(full_local_dir):

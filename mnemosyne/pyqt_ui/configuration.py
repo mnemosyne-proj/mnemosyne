@@ -53,6 +53,6 @@ class PyQtConfiguration(Hook):
              "showed_help_on_renaming_sets": False,
              "showed_help_on_double_clicking_sets": False,
              "showed_help_on_adding_tags": False,
-             "google_tts_dir_for_card_type_id": {}, # card_type_id, dir
+             "tts_dir_for_card_type_id": {}, # card_type_id, dir
             }.items()):
             self.config().setdefault(key, value)

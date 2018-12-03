@@ -14,14 +14,6 @@ class GooglePronouncer(Pronouncer):
     used_for = "ar"  # TMP. Or get in from card_type language?
     popup_menu_text = "Insert Google text-to-speech..."
 
-    def show_dialog(self, card_type, foreign_text):
-        # TODO: move up one level?
-        dialog = self.component_manager.current\
-            ("pronouncer_dialog", used_for=self.used_for)\
-            (pronouncer=self, component_manager=self.component_manager)
-        dialog.activate(card_type, foreign_text)
-        return dialog.text_to_insert
-
     def download_tmp_audio_file(self, foreign_text):
 
         """Returns a temporary filename with the audio."""
@@ -30,9 +22,3 @@ class GooglePronouncer(Pronouncer):
         filename = expand_path("__GTTS__TMP__.mp3", self.database().media_dir())
         tts.save(filename)
         return filename
-
-    def pronounce(self, foreign_text):
-        # TMP, remove
-        return foreign_text.upper()
-
-

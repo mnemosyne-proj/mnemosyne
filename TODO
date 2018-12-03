@@ -1,14 +1,14 @@
 -make sure dialog discovery and inheritance works with multiple languages
  get info through passed card type?
 -gui_for_component: gui activatation hidden in component.activate, cannot
- return result, cannot control activation time. Remove it from study more
+ return result, cannot control activation time. Remove it from study mode
  and rely on used_for=ComponentClass?
--make sure right click options only show for card types which have set
- a language
-
 -clean up interface of Pronouncer/google pronouncer, where do we need card type?
 -distribute work between pronounce and show_pronounce_dialog
 -document return type of show_dialog and side actions
+
+-make sure right click options only show for card types which have set
+ a language
 
 -popup messages to help make these features discoverable
 -make sure to bundle gTTS, googleTrans, add to requirements documentation
