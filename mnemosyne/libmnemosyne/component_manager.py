@@ -63,9 +63,11 @@ class ComponentManager(object):
 
         """
 
+        print(component_name)
         for used_for in self.components:
             for component_type in self.components[used_for]:
                 for component in self.components[used_for][component_type]:
+                    print(used_for, component_type, component.__class__)
                     if component.__class__.__name__ == component_name:
                         component.gui_components.append(gui_component)
 

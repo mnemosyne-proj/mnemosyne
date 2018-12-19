@@ -32,7 +32,7 @@ class StudyMode(Component):
         self.component_manager.register(\
             self.ReviewController(self.component_manager))
         self.review_controller().activate()
-        Component.activate(self)  # Also activates GUI components.
+        Component.activate_gui_components(self)
 
     def activate(self):
         self.activate_components()

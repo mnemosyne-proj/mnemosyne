@@ -18,3 +18,14 @@ class Translator(Component):
 
     def translate(self, text):
         raise NotImplementedError
+
+    def show_dialog(self, card_type, foreign_text):
+
+        """Returns translated text to insert."""
+
+        dialog = self.gui_components[0](\
+            translator=self, component_manager=self.component_manager)
+        self.component_manager.register(dialog)
+        dialog.activate(card_type, foreign_text)
+        self.instantiated_gui_components.append(component)
+        return dialog.text_to_insert

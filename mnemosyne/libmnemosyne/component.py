@@ -65,8 +65,17 @@ class Component(object):
         work, and which can't happen in the constructor, e.g. because
         components on which it relies have not yet been registered.
 
-        GUI classes are only instantiated when activated, since that can take
+        """
+
+        pass
+
+    def activate_gui_components(self):
+
+        """GUI classes are only instantiated when activated, since that can take
         a lot of time on mobile clients.
+
+        Classes that require more control over this, e.g. when needing to return
+        values from the UI, can subclass this.
 
         """
 
