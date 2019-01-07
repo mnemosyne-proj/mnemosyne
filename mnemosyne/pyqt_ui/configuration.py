@@ -52,7 +52,6 @@ class PyQtConfiguration(Hook):
              "started_activate_cards_n_times": 0,
              "showed_help_on_renaming_sets": False,
              "showed_help_on_double_clicking_sets": False,
-             "showed_help_on_adding_tags": False,
-             "tts_dir_for_card_type_id": {}, # card_type_id, dir
+             "showed_help_on_adding_tags": False
             }.items()):
             self.config().setdefault(key, value)

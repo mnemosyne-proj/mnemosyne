@@ -2,7 +2,12 @@
 # pronouncer.py <Peter.Bienstman@UGent.be>
 #
 
+import os
+import datetime
+
 from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.libmnemosyne.utils import make_filename_unique
+from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 
 
 class Pronouncer(Component):
@@ -12,6 +17,19 @@ class Pronouncer(Component):
     component_type = "pronouncer"
     used_for = None  # ISO 639-1 code
     popup_menu_text = None # "Insert translation..."
+
+    def default_filename(self, card_type, foreign_text):
+        if len(foreign_text) < 10:
+            filename = foreign_text + ".mp3"
+        else:
+            filename = datetime.datetime.today().strftime("%Y%m%d.mp3")
+        local_dir = self.config()["tts_dir_for_card_type_id"]\
+            .get(card_type.id, "")
+        filename = os.path.join(local_dir, filename)
+        full_path = expand_path(filename, self.database().media_dir())
+        full_path = make_filename_unique(full_path)
+        filename = contract_path(full_path, self.database().media_dir())
+        return filename
 
     def download_tmp_audio_file(self, card_type, foreign_text):
 
@@ -27,6 +45,6 @@ class Pronouncer(Component):
             pronouncer=self, component_manager=self.component_manager)
         self.component_manager.register(dialog)
         dialog.activate(card_type, foreign_text)
-        self.instantiated_gui_components.append(component)
+        self.instantiated_gui_components.append(dialog)
         return dialog.text_to_insert
 

@@ -4,11 +4,10 @@
 
 import os
 import shutil
-import datetime
+
 from PyQt5 import QtGui, QtCore, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
-from mnemosyne.libmnemosyne.utils import make_filename_unique
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.ui_components.dialogs import PronouncerDialog
 from mnemosyne.pyqt_ui.ui_pronouncer_dlg import Ui_PronouncerDlg
@@ -58,16 +57,8 @@ class PronouncerDlg(QtWidgets.QDialog, PronouncerDialog, Ui_PronouncerDlg):
 
     def set_default_filename(self):
         foreign_text = self.foreign_text.toPlainText()
-        if len(foreign_text) < 10:
-            filename = foreign_text + ".mp3"
-        else:
-            filename = datetime.datetime.today().strftime("%Y%m%d.mp3")
-        local_dir = self.config()["tts_dir_for_card_type_id"]\
-            .get(self.card_type.id, "")
-        filename = os.path.join(local_dir, filename)
-        full_path = expand_path(filename, self.database().media_dir())
-        full_path = make_filename_unique(full_path)
-        filename = contract_path(full_path, self.database().media_dir())
+        filename = self.pronouncer.default_filename(\
+            self.card_type, foreign_text)
         self.filename_box.setText(filename)
 
     def foreign_text_changed(self):

@@ -1,5 +1,5 @@
--gui_for_component to couple pronouncer dialog to pronouncer
--default filename to pronouncer, tts_subdir to main config
+
+
 -make sure dialog discovery and inheritance works with multiple languages
 -clean up interface of Pronouncer/google pronouncer, where do we need card type?
 
@@ -13,6 +13,11 @@
 -implement and test switch from 'uploaded' log file to 'uploaded2'
 
 -https://github.com/mnemosyne-proj/mnemosyne/issues/103
+
+-https://github.com/mnemosyne-proj/mnemosyne/issues/104:
+show directory instead of card
+
+-Android swipedown?
 
 Android:
 
@@ -46,6 +51,8 @@ if pyinstaller has been updated: upgrade PyQt5
 
 Minor bugs / issues:
 
+-Add cloze from card browser, preview does not update correctly
+ to show new number of cards
 -For Latex on OSX: try and have OSX search system paths, or otherwise edit config.py
  latex = "/Library/TeX/texbin/latex -output-format=dvi -interaction=nonstopmode"
  dvipng = "/Library/TeX/texbin/dvipng -D 200 -T tight tmp.dvi"

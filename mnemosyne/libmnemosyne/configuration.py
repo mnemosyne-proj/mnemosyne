@@ -187,7 +187,8 @@ class Configuration(Component, dict):
              "export_format": None,
              "last_db_maintenance": time.time() - 1 * DAY,
              "QA_split": "fixed", # "fixed", "adaptive", "single_window",
-             "study_mode": "ScheduledForgottenNew"
+             "study_mode": "ScheduledForgottenNew",
+             "tts_dir_for_card_type_id": {} # card_type_id, dir
             }.items()):
             self.setdefault(key, value)
         # These keys will be shared in the sync protocol. Front-ends can

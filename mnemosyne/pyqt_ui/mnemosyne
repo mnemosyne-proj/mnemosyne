@@ -257,7 +257,7 @@ mnemosyne.gui_for_component["CramAll"] = [\
 mnemosyne.gui_for_component["CramRecent"] = [\
                            ("mnemosyne.pyqt_ui.review_wdgt_cramming",
                             "ReviewWdgtCramming")]
-mnemosyne.gui_for_component["Pronouncer"] = [\
+mnemosyne.gui_for_component["GooglePronouncer"] = [\
                            ("mnemosyne.pyqt_ui.pronouncer_dlg",
                             "PronouncerDlg")]
 
