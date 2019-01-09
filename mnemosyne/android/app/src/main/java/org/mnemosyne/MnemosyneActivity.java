@@ -248,6 +248,13 @@ public class MnemosyneActivity extends AppCompatActivity {
                     new View.OnSystemUiVisibilityChangeListener() {
                         @Override
                         public void onSystemUiVisibilityChange(int visibility) {
+
+                            final String s = Integer.toString(visibility);
+                            Toast toast = Toast.makeText(getApplicationContext(),
+                                    s,
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+
                             Log.d("Mnemosyne", "visibility: " + Integer.toString(visibility) + " " +Integer.toString(View.SYSTEM_UI_FLAG_FULLSCREEN) );
                             if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
                                 // Exiting full screen, so show the action bar and hide
@@ -262,10 +269,10 @@ public class MnemosyneActivity extends AppCompatActivity {
                                     }
                                 }, 5000);
                             }
-                            //if (visibility == 0) {
-                            //    getSupportActionBar().show();
-                            //    Log.d("Mnemosyne", "show bar");
-                            //}
+                            if (visibility == 0) {
+                                getSupportActionBar().show();
+                                Log.d("Mnemosyne", "show bar");
+                            }
                         }
                     });
         }

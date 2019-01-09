@@ -17,13 +17,15 @@ class DownloadThread(QtCore.QThread):
 
     finished_signal = QtCore.pyqtSignal(str)
 
-    def __init__(self, pronouncer, foreign_text):
+    def __init__(self, pronouncer, card_type, foreign_text):
         super().__init__()
         self.pronouncer = pronouncer
+        self.card_type = card_type
         self.foreign_text = foreign_text
 
     def run(self):
-        filename = self.pronouncer.download_tmp_audio_file(self.foreign_text)
+        filename = self.pronouncer.download_tmp_audio_file(\
+            self.card_type, self.foreign_text)
         self.finished_signal.emit(filename)
 
 
@@ -69,7 +71,7 @@ class PronouncerDlg(QtWidgets.QDialog, PronouncerDialog, Ui_PronouncerDlg):
     def download_audio_and_play(self):
         self.last_foreign_text = self.foreign_text.toPlainText()
         download_thread = DownloadThread(\
-            self.pronouncer, self.last_foreign_text)
+            self.pronouncer, self.card_type, self.last_foreign_text)
         download_thread.finished_signal.connect(self.play_audio)
         self.main_widget().set_progress_text(_("Downloading..."))
         download_thread.start()

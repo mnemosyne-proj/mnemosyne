@@ -11,14 +11,22 @@ from mnemosyne.libmnemosyne.pronouncer import Pronouncer
 
 class GooglePronouncer(Pronouncer):
 
-    used_for = "ar"  # TMP. Or get in from card_type language?
     popup_menu_text = "Insert Google text-to-speech..."
 
-    def download_tmp_audio_file(self, foreign_text):
+    used_for = "ar", "en"
+
+    def __init__(self, component_manager, **kwds):
+        super.__init__(parent)
+        # https://cloud.google.com/speech-to-text/docs/languages
+        print("init")
+        component_manager.register()
+
+
+    def download_tmp_audio_file(self, card_type, foreign_text):
 
         """Returns a temporary filename with the audio."""
 
-        tts = gTTS(foreign_text, lang=self.used_for)
+        tts = gTTS(foreign_text, lang=card_type.language_id)
         filename = expand_path("__GTTS__TMP__.mp3", self.database().media_dir())
         tts.save(filename)
         return filename

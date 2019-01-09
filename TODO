@@ -1,10 +1,11 @@
-
-
+-used_for with a tuple as argument
 -make sure dialog discovery and inheritance works with multiple languages
--clean up interface of Pronouncer/google pronouncer, where do we need card type?
-
 -make sure right click options only show for card types which have set
  a language
+
+-clean up interface of Pronouncer/google pronouncer, where do we need card type?
+
+-add all google TTS supported languages
 
 -popup messages to help make these features discoverable
 -make sure to bundle gTTS, googleTrans, add to requirements documentation

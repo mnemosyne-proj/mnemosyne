@@ -12,10 +12,18 @@ from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 
 class Pronouncer(Component):
 
-    """Generic text-to-speech service for words and sentences. """
+    """Generic text-to-speech service for words and sentences.
+
+    A single component can handle multiple languages (e.g. Google TTS)
+    and the language to be used can be determined through the language_id
+    property of the card_type argument.
+
+    A Pronouncer should register the languages it can handle in its __init__
+    function.
+
+    """
 
     component_type = "pronouncer"
-    used_for = None  # ISO 639-1 code
     popup_menu_text = None # "Insert translation..."
 
     def default_filename(self, card_type, foreign_text):
