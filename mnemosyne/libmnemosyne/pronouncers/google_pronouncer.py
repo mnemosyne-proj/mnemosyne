@@ -13,14 +13,9 @@ class GooglePronouncer(Pronouncer):
 
     popup_menu_text = "Insert Google text-to-speech..."
 
-    used_for = "ar", "en"
+    used_for = "ar", "en", "fr"
 
-    def __init__(self, component_manager, **kwds):
-        super.__init__(parent)
-        # https://cloud.google.com/speech-to-text/docs/languages
-        print("init")
-        component_manager.register()
-
+    # https://cloud.google.com/speech-to-text/docs/languages
 
     def download_tmp_audio_file(self, card_type, foreign_text):
 
