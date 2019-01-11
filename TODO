@@ -1,18 +1,11 @@
--creating a new clone and setting language immediately does not save language
+-make sure to bundle gTTS, googleTrans, add to requirements documentation
 
-
--make sure dialog discovery and inheritance works with multiple languages
--make sure right click options only show for card types which have set
- a language
-
--clean up interface of Pronouncer/google pronouncer, where do we need card type?
+-implement translator dialog
 
 -add all google TTS supported languages
 
-
-
 -popup messages to help make these features discoverable
--make sure to bundle gTTS, googleTrans, add to requirements documentation
+
 -Add Language, Translator, Pronouncer to documentation and website.
 
 -implement and test switch from 'uploaded' log file to 'uploaded2'

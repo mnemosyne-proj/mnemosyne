@@ -14,17 +14,15 @@ class Pronouncer(Component):
 
     """Generic text-to-speech service for words and sentences.
 
-    A single component can handle multiple languages (e.g. Google TTS)
-    and the language to be used can be determined through the language_id
+    Note that a single component can handle multiple languages (e.g. Google TTS)
+    and the language to be used will be determined through the language_id
     property of the card_type argument.
-
-    A Pronouncer should register the languages it can handle in its __init__
-    function.
 
     """
 
     component_type = "pronouncer"
-    popup_menu_text = None # "Insert translation..."
+    used_for = None  # Single ISO 639-1 code, or multiple as tuple of strings.
+    popup_menu_text = None # "Insert text-to-speech..."
 
     def default_filename(self, card_type, foreign_text):
         if len(foreign_text) < 10:

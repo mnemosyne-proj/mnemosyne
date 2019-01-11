@@ -131,6 +131,7 @@ class Model(QtCore.QAbstractTableModel, Component):
     def setData(self, index, value):
         row, column = index.row(), index.column()
         card_type = self.card_types[row]
+        print("set data", row, column, card_type, value)
         if column == 1:
             self.config().set_card_type_property("language_id",
                 self.language_id_with_name[value], card_type)
