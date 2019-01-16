@@ -79,8 +79,8 @@ if sys.platform == "darwin": # For py2app.
 else:
     base_path = os.path.join(sys.exec_prefix, "lib", "python" + sys.version[:3],
                              "site-packages","mnemosyne")
-    data_files = [("share/applications", ["mnemosyne.desktop"]),
-                  ("share/icons", ["pixmaps/mnemosyne.png"])]
+    data_files = [(os.path.join(sys.exec_prefix, "share", "applications"), ["mnemosyne.desktop"]),
+                  (os.path.join(sys.exec_prefix, "share", "icons"), ["pixmaps/mnemosyne.png"])]
 
 # Translations.
 if sys.platform != "win32":
