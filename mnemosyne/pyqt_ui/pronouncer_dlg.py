@@ -8,6 +8,7 @@ import shutil
 from PyQt5 import QtGui, QtCore, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
+from mnemosyne.libmnemosyne.utils import traceback_string
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.ui_components.dialogs import PronouncerDialog
 from mnemosyne.pyqt_ui.ui_pronouncer_dlg import Ui_PronouncerDlg
@@ -16,6 +17,7 @@ from mnemosyne.pyqt_ui.ui_pronouncer_dlg import Ui_PronouncerDlg
 class DownloadThread(QtCore.QThread):
 
     finished_signal = QtCore.pyqtSignal(str)
+    error_signal = QtCore.pyqtSignal(str)
 
     def __init__(self, pronouncer, card_type, foreign_text):
         super().__init__()
@@ -24,9 +26,12 @@ class DownloadThread(QtCore.QThread):
         self.foreign_text = foreign_text
 
     def run(self):
-        filename = self.pronouncer.download_tmp_audio_file(\
-            self.card_type, self.foreign_text)
-        self.finished_signal.emit(filename)
+        try:
+            filename = self.pronouncer.download_tmp_audio_file(\
+                self.card_type, self.foreign_text)
+            self.finished_signal.emit(filename)
+        except Exception as e:
+            self.error_signal.emit(str(e) + "\n" + traceback_string())
 
 
 class PronouncerDlg(QtWidgets.QDialog, PronouncerDialog, Ui_PronouncerDlg):
@@ -70,9 +75,12 @@ class PronouncerDlg(QtWidgets.QDialog, PronouncerDialog, Ui_PronouncerDlg):
 
     def download_audio_and_play(self):
         self.last_foreign_text = self.foreign_text.toPlainText()
+        if not self.last_foreign_text:
+            return
         download_thread = DownloadThread(\
             self.pronouncer, self.card_type, self.last_foreign_text)
         download_thread.finished_signal.connect(self.play_audio)
+        download_thread.error_signal.connect(self.main_widget().show_error)
         self.main_widget().set_progress_text(_("Downloading..."))
         download_thread.start()
 

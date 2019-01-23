@@ -544,6 +544,7 @@ class Client(Partner):
         self.ui.set_progress_update_interval(total_size/50)
         for filename in filenames:
             self.request_connection()
+            #print(filename.encode("utf-8", "surrogateescape"))
             self.con.putrequest("PUT",
                 self.url("/client_binary_file?session_token=%s&filename=%s" \
                 % (self.server_info["session_token"],

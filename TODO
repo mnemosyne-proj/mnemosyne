@@ -10,12 +10,16 @@
 
 -implement and test switch from 'uploaded' log file to 'uploaded2'
 
--https://github.com/mnemosyne-proj/mnemosyne/issues/103
 
+Waiting for feedback:
 -https://github.com/mnemosyne-proj/mnemosyne/issues/104:
 show directory instead of card
-
 -Android swipedown?
+-Paul latex cloze, size issues?
+
+-unicode sync issue: upload utf filename from Android, client.py line 548
+
+upgrade to PyQt5.11, but this also requires migrating to 64 bit
 
 Android:
 
@@ -45,7 +49,6 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 
 check into automated import of translations
 
-if pyinstaller has been updated: upgrade PyQt5
 
 Minor bugs / issues:
 

@@ -248,30 +248,27 @@ public class MnemosyneActivity extends AppCompatActivity {
                     new View.OnSystemUiVisibilityChangeListener() {
                         @Override
                         public void onSystemUiVisibilityChange(int visibility) {
-
-                            final String s = Integer.toString(visibility);
-                            Toast toast = Toast.makeText(getApplicationContext(),
-                                    s,
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
-
-                            Log.d("Mnemosyne", "visibility: " + Integer.toString(visibility) + " " +Integer.toString(View.SYSTEM_UI_FLAG_FULLSCREEN) );
+                            //final String s = Integer.toString(visibility);
+                            //Toast toast = Toast.makeText(getApplicationContext(),
+                            //        s, Toast.LENGTH_SHORT);
+                            //toast.show();
+                            //Log.d("Mnemosyne", "visibility: " + Integer.toString(visibility) + " " +Integer.toString(View.SYSTEM_UI_FLAG_FULLSCREEN) );
                             if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
                                 // Exiting full screen, so show the action bar and hide
                                 // it 5 seconds later.
                                 getSupportActionBar().show();
-                                Log.d("Mnemosyne", "show bar");
+                                //Log.d("Mnemosyne", "show bar");
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         setFullscreen();
-                                        Log.d("Mnemosyne", "move to fullscreen");
+                                        //Log.d("Mnemosyne", "move to fullscreen");
                                     }
                                 }, 5000);
                             }
                             if (visibility == 0) {
                                 getSupportActionBar().show();
-                                Log.d("Mnemosyne", "show bar");
+                                //Log.d("Mnemosyne", "show bar");
                             }
                         }
                     });

@@ -9,6 +9,7 @@ excludes = []
 binaries = []
 
 hiddenimports = [
+             'PyQt5.sip'
              'mnemosyne.version',
              'mnemosyne.libmnemosyne.card',
              'mnemosyne.libmnemosyne.card_type',
@@ -87,7 +88,8 @@ hiddenimports = [
              'mnemosyne.libmnemosyne.languages.english',
              'mnemosyne.libmnemosyne.languages.french',
              'mnemosyne.libmnemosyne.loggers.database_logger',
-             'mnemosyne.libmnemosyne.pronouncers.google_pronouncer'
+             'mnemosyne.libmnemosyne.pronouncer',
+             'mnemosyne.libmnemosyne.pronouncers.google_pronouncer',
              'mnemosyne.libmnemosyne.renderers.html_css',
              'mnemosyne.libmnemosyne.renderers.html_css_card_browser',
              'mnemosyne.libmnemosyne.renderers.plain_text',
@@ -120,6 +122,7 @@ hiddenimports = [
              'mnemosyne.libmnemosyne.study_modes.cram_recent',
              'mnemosyne.libmnemosyne.study_modes.new_only',
              'mnemosyne.libmnemosyne.study_modes.scheduled_forgotten_new',
+             'mnemosyne.libmnemosyne.translator',
              'mnemosyne.libmnemosyne.translators.google_translator',
              'mnemosyne.libmnemosyne.ui_components.card_type_widget',
              'mnemosyne.libmnemosyne.ui_components.configuration_widget',
@@ -167,7 +170,7 @@ hiddenimports = [
              'mnemosyne.pyqt_ui.mplayer_video',
              'mnemosyne.pyqt_ui.prefill_tag_behaviour_plugin',
              'mnemosyne.pyqt_ui.preview_cards_dlg',
-             'mnemosyne.pyqt_ui.pronouncer_dlg'
+             'mnemosyne.pyqt_ui.pronouncer_dlg',
              'mnemosyne.pyqt_ui.pyqt_render_chain',
              'mnemosyne.pyqt_ui.qpushbutton2',
              'mnemosyne.pyqt_ui.qtextedit2',

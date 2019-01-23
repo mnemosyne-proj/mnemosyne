@@ -70,7 +70,7 @@ parser.add_option("--version", dest="version",
 
 if options.version == True:
     from mnemosyne.version import version
-    print("Mnemosyne " + version)
+    print(("Mnemosyne " + version).rstrip())
     sys.exit(0)
 
 # Check if we have to override the data_dir determined in libmnemosyne,
@@ -260,7 +260,6 @@ mnemosyne.gui_for_component["CramRecent"] = [\
 mnemosyne.gui_for_component["GooglePronouncer"] = [\
                            ("mnemosyne.pyqt_ui.pronouncer_dlg",
                             "PronouncerDlg")]
-
 
 # Run Mnemosyne.
 mnemosyne.initialise(data_dir=data_dir, filename=filename,

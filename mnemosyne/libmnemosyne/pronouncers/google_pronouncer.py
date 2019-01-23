@@ -22,7 +22,10 @@ class GooglePronouncer(Pronouncer):
 
         language_id = self.config().card_type_property(\
             "language_id", card_type)
-        tts = gTTS(foreign_text, language_id)
+        try:
+            tts = gTTS(foreign_text, language_id)
+        except Exception as e:
+            1/0
         filename = expand_path("__GTTS__TMP__.mp3", self.database().media_dir())
         tts.save(filename)
         return filename
