@@ -1,5 +1,7 @@
 -make sure to bundle gTTS, googleTrans, add to requirements documentation
 
+-cancel, then reopen: _1 filename?
+
 -implement translator dialog
 
 -add all google TTS supported languages
@@ -52,6 +54,7 @@ check into automated import of translations
 
 Minor bugs / issues:
 
+-Incoming sync when card browser is open does not work.
 -Add cloze from card browser, preview does not update correctly
  to show new number of cards
 -For Latex on OSX: try and have OSX search system paths, or otherwise edit config.py

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-01-23 15:38+0100\n"
+"POT-Creation-Date: 2019-01-29 14:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1752,16 +1752,16 @@ msgid ""
 "With this plugin, Mnemosyne will for each card type remember the last tag you used, such that e.g. Chinese cards get a prefilled tag like \"My Chinese textbook::Chapter 10\", whereas Front-to-Back cards get \"European Capitals\"."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/pronouncer_dlg.py:84
+#: ../mnemosyne/pyqt_ui/pronouncer_dlg.py:86
 msgid "Downloading..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/pronouncer_dlg.py:103
+#: ../mnemosyne/pyqt_ui/pronouncer_dlg.py:105
 msgid "Mp3 files (*.mp3)"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/pronouncer_dlg.py:107
-#: ../mnemosyne/pyqt_ui/pronouncer_dlg.py:121
+#: ../mnemosyne/pyqt_ui/pronouncer_dlg.py:109
+#: ../mnemosyne/pyqt_ui/pronouncer_dlg.py:123
 msgid "Please select a filename inside the media directory."
 msgstr ""
 

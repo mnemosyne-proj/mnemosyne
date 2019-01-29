@@ -77,12 +77,14 @@ class PronouncerDlg(QtWidgets.QDialog, PronouncerDialog, Ui_PronouncerDlg):
         self.last_foreign_text = self.foreign_text.toPlainText()
         if not self.last_foreign_text:
             return
-        download_thread = DownloadThread(\
+        # Note that we need to save the QtThread as a class variable,
+        # otherwise it will get garbage collected.
+        self.download_thread = DownloadThread(\
             self.pronouncer, self.card_type, self.last_foreign_text)
-        download_thread.finished_signal.connect(self.play_audio)
-        download_thread.error_signal.connect(self.main_widget().show_error)
+        self.download_thread.finished_signal.connect(self.play_audio)
+        self.download_thread.error_signal.connect(self.main_widget().show_error)
         self.main_widget().set_progress_text(_("Downloading..."))
-        download_thread.start()
+        self.download_thread.start()
 
     def play_audio(self, filename):
         self.main_widget().close_progress()
