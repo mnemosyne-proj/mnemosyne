@@ -668,6 +668,8 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
             return "%.1f " % interval_years +  _("years ago")
 
     def today_learned_fact_ids(self):
+        if not self.database().is_loaded():
+            return []
         timestamp = time.time() - 0 - self.config()["day_starts_at"] * HOUR
         date_only = datetime.date.fromtimestamp(timestamp)  # Local date.
         start_of_day = int(time.mktime(date_only.timetuple()))
