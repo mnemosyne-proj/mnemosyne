@@ -9,6 +9,8 @@ import datetime
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.scheduler import Scheduler
+from openSM2sync.log_entry import EventTypes
+
 
 HOUR = 60 * 60 # Seconds in an hour.
 DAY = 24 * HOUR # Seconds in a day.
@@ -142,7 +144,7 @@ class SM2Mnemosyne(Scheduler):
 
         self._card_ids_in_queue = []
         self._fact_ids_in_queue = []
-        self._fact_ids_memorised = []
+        self._fact_ids_memorised = self.today_learned_fact_ids()
         self._card_id_last = None
         self.new_only = new_only
         if self.new_only == False:
@@ -150,6 +152,8 @@ class SM2Mnemosyne(Scheduler):
         else:
             self.stage = 3
         self.warned_about_too_many_cards = False
+        # warn even on startup if they've reached 15
+        self.warn_too_many_cards()
 
     def set_initial_grade(self, cards, grade):
 
@@ -559,12 +563,8 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
         else:
             card.next_rep = card.last_rep
         # Warn if we learned a lot of new cards.
-        if len(self._fact_ids_memorised) == 15 and \
-            self.warned_about_too_many_cards == False:
-            self.main_widget().show_information(\
-        _("You've memorised 15 new or failed cards.") + " " +\
-        _("If you do this for many days, you could get a big workload later."))
-            self.warned_about_too_many_cards = True
+
+        self.warn_too_many_cards()
         # Run hooks.
         self.database().current_criterion().apply_to_card(card)
         for f in self.component_manager.all("hook", "after_repetition"):
@@ -667,3 +667,49 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
             interval_years = -interval_days/365.
             return "%.1f " % interval_years +  _("years ago")
 
+    def today_learned_fact_ids(self):
+        timestamp = time.time() - 0 - self.config()["day_starts_at"] * HOUR
+        date_only = datetime.date.fromtimestamp(timestamp)  # Local date.
+        start_of_day = int(time.mktime(date_only.timetuple()))
+        start_of_day += self.config()["day_starts_at"] * HOUR
+
+        # fetch all cards that were forgotten but also learned today
+        result = self.database().con.execute(
+            """
+            select cards._fact_id from log inner join cards where
+            log.object_id = cards.id and log.timestamp >= :start_of_day and
+            log.timestamp < :end_of_day and log.event_type = :event_type and
+            log.grade >= 2 and log.object_id in (
+              select object_id from log where timestamp >= :start_of_day and
+              timestamp < :end_of_day and event_type = :event_type and
+              grade < 2 and ret_reps > 0 group by object_id)
+            group by log.object_id
+            """,
+            {"start_of_day": start_of_day,
+             "end_of_day": start_of_day + DAY,
+             "event_type": EventTypes.REPETITION}).fetchall()
+
+        forgotten_ids = []
+        for id in result:
+            forgotten_ids.append(id[0])
+
+        # fetch all the cards that were newly learned today
+        result = self.database().con.execute(
+            """select cards._fact_id from log inner join cards where
+            log.object_id = cards.id and ?<=log.timestamp and log.timestamp<?
+            and log.event_type=? and log.grade>=2 and log.ret_reps==0""",
+            (start_of_day, start_of_day + DAY, EventTypes.REPETITION)).fetchall()
+
+        new_ids = []
+        for id in result:
+            new_ids.append(id[0])
+
+        return new_ids + forgotten_ids
+
+    def warn_too_many_cards(self):
+        if (len(self._fact_ids_memorised) >= 15 and
+                not self.warned_about_too_many_cards):
+            self.main_widget().show_information(
+                ("You've memorised 15 new or failed cards.") + " " +
+                ("If you do this for many days, you could get a big workload later."))
+            self.warned_about_too_many_cards = True
