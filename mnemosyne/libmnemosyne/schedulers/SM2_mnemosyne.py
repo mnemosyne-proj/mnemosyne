@@ -219,8 +219,6 @@ class SM2Mnemosyne(Scheduler):
         self._card_ids_in_queue = []
         self._fact_ids_in_queue = []
         self.warned_about_too_many_cards = self.already_warned_today()
-        # warn even on startup if they've reached 15
-        self.warn_too_many_cards()
 
         # Stage 1
         #
