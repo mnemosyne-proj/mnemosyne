@@ -35,8 +35,7 @@ class SM2Mnemosyne(Scheduler):
     """
 
     name = "SM2 Mnemosyne"
-    warned_about_too_many_cards = False  # by default initialize as True
-
+    warned_about_too_many_cards = False  # default false
 
     def midnight_UTC(self, timestamp):
 
@@ -153,8 +152,6 @@ class SM2Mnemosyne(Scheduler):
             self.stage = 1
         else:
             self.stage = 3
-        # warn even on startup if they've reached 15
-        self.warn_too_many_cards()
 
     def set_initial_grade(self, cards, grade):
 
@@ -221,6 +218,9 @@ class SM2Mnemosyne(Scheduler):
             return
         self._card_ids_in_queue = []
         self._fact_ids_in_queue = []
+        self.warned_about_too_many_cards = self.already_warned_today()
+        # warn even on startup if they've reached 15
+        self.warn_too_many_cards()
 
         # Stage 1
         #
@@ -671,10 +671,8 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
     def today_learned_fact_ids(self):
         if not self.database().is_loaded():
             return []
-        timestamp = time.time() - 0 - self.config()["day_starts_at"] * HOUR
-        date_only = datetime.date.fromtimestamp(timestamp)  # Local date.
-        start_of_day = int(time.mktime(date_only.timetuple()))
-        start_of_day += self.config()["day_starts_at"] * HOUR
+
+        start_of_day, end_of_day = self.today_start_and_end_timestamp()
 
         # fetch all cards that were forgotten but also learned today
         result = self.database().con.execute(
@@ -689,7 +687,7 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
             group by log.object_id
             """,
             {"start_of_day": start_of_day,
-             "end_of_day": start_of_day + DAY,
+             "end_of_day": end_of_day,
              "event_type": EventTypes.REPETITION}).fetchall()
 
         forgotten_ids = []
@@ -701,7 +699,7 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
             """select cards._fact_id from log inner join cards where
             log.object_id = cards.id and ?<=log.timestamp and log.timestamp<?
             and log.event_type=? and log.grade>=2 and log.ret_reps==0""",
-            (start_of_day, start_of_day + DAY, EventTypes.REPETITION)).fetchall()
+            (start_of_day, end_of_day, EventTypes.REPETITION)).fetchall()
 
         new_ids = []
         for id in result:
@@ -710,6 +708,9 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
         return new_ids + forgotten_ids
 
     def warn_too_many_cards(self):
+        """Shows a warning if there are already 15 new or failed cards memorized.
+
+        """
         # only alert if it is exactly 15, do be obtrusive
         if (len(self._fact_ids_memorised) == 15 and
                 not self.warned_about_too_many_cards):
@@ -717,3 +718,35 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
                 ("You've memorised 15 new or failed cards.") + " " +
                 ("If you do this for many days, you could get a big workload later."))
             self.warned_about_too_many_cards = True
+            # log the event, so we won't show an alert more than once a day
+            self.log().warn_too_many_cards()
+
+    def today_start_and_end_timestamp(self):
+        timestamp = time.time() - 0 - self.config()["day_starts_at"] * HOUR
+        date_only = datetime.date.fromtimestamp(timestamp)  # Local date.
+        start_of_day = int(time.mktime(date_only.timetuple()))
+        start_of_day += self.config()["day_starts_at"] * HOUR
+        return start_of_day, start_of_day + DAY
+
+    def already_warned_today(self):
+        """From the current session or from the database it checks if
+        there was a warning about learning too many cards or not.
+
+        If it is already set in the current session, return with that,
+        otherwise query the database (log table) for the warn event for
+        today.
+
+        """
+
+        if self.warned_about_too_many_cards:
+            return True
+
+        start_of_day, end_of_day = self.today_start_and_end_timestamp()
+
+        result = self.database().con.execute(
+            """select timestamp from log where ? <= log.timestamp and
+            log.timestamp <? and log.event_type=?""",
+            (start_of_day, end_of_day,
+             EventTypes.WARNED_TOO_MANY_CARDS)).fetchall()
+
+        return True if len(result) > 0 else False
