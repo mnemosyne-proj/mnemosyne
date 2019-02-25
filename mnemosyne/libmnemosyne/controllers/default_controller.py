@@ -134,7 +134,7 @@ class DefaultController(Controller):
                 if partial_tag:
                     partial_tag += "::"
                 partial_tag += node
-                if  partial_tag in tag_names:
+                if partial_tag in tag_names:
                     parent_tag_names.append(partial_tag)
         return list(set(tag_names) - set(parent_tag_names))
 
