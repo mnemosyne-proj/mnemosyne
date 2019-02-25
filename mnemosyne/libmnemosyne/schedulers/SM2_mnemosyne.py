@@ -35,6 +35,8 @@ class SM2Mnemosyne(Scheduler):
     """
 
     name = "SM2 Mnemosyne"
+    warned_about_too_many_cards = False  # by default initialize as True
+
 
     def midnight_UTC(self, timestamp):
 
@@ -151,7 +153,6 @@ class SM2Mnemosyne(Scheduler):
             self.stage = 1
         else:
             self.stage = 3
-        self.warned_about_too_many_cards = False
         # warn even on startup if they've reached 15
         self.warn_too_many_cards()
 
@@ -709,7 +710,8 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
         return new_ids + forgotten_ids
 
     def warn_too_many_cards(self):
-        if (len(self._fact_ids_memorised) >= 15 and
+        # only alert if it is exactly 15, do be obtrusive
+        if (len(self._fact_ids_memorised) == 15 and
                 not self.warned_about_too_many_cards):
             self.main_widget().show_information(
                 ("You've memorised 15 new or failed cards.") + " " +
