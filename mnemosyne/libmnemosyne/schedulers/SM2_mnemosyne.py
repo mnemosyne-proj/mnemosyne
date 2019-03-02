@@ -9,11 +9,10 @@ import datetime
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.scheduler import Scheduler
-from openSM2sync.log_entry import EventTypes
 
 
-HOUR = 60 * 60 # Seconds in an hour.
-DAY = 24 * HOUR # Seconds in a day.
+HOUR = 60 * 60  # Seconds in an hour.
+DAY = 24 * HOUR  # Seconds in a day.
 
 
 class SM2Mnemosyne(Scheduler):
@@ -145,7 +144,7 @@ class SM2Mnemosyne(Scheduler):
 
         self._card_ids_in_queue = []
         self._fact_ids_in_queue = []
-        self._fact_ids_memorised = self.today_learned_fact_ids()
+        self._fact_ids_memorised = self._fact_ids_learned_today()
         self._card_id_last = None
         self.new_only = new_only
         if self.new_only == False:
@@ -666,44 +665,21 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
             interval_years = -interval_days/365.
             return "%.1f " % interval_years +  _("years ago")
 
-    def today_learned_fact_ids(self):
-        if not self.database().is_loaded():
+    def _fact_ids_learned_today(self):
+        """It loads the learned _fact_ids back from the logs in order not
+        to forget the learned cards when the app is closed and re-opened.
+
+        """
+        db = self.database()
+        if not db.is_loaded():
             return []
 
         start_of_day, end_of_day = self.today_start_and_end_timestamp()
 
-        # fetch all cards that were forgotten but also learned today
-        result = self.database().con.execute(
-            """
-            select cards._fact_id from log inner join cards where
-            log.object_id = cards.id and log.timestamp >= :start_of_day and
-            log.timestamp < :end_of_day and log.event_type = :event_type and
-            log.grade >= 2 and log.object_id in (
-              select object_id from log where timestamp >= :start_of_day and
-              timestamp < :end_of_day and event_type = :event_type and
-              grade < 2 and ret_reps > 0 group by object_id)
-            group by log.object_id
-            """,
-            {"start_of_day": start_of_day,
-             "end_of_day": end_of_day,
-             "event_type": EventTypes.REPETITION}).fetchall()
+        forgotten_fact_ids = [_fact_id for _fact_id in db.fact_ids_forgotten_and_learned_today(start_of_day, end_of_day)]
+        new_fact_ids = [_fact_id for _fact_id in db.fact_ids_newly_learned_today(start_of_day, end_of_day)]
 
-        forgotten_ids = []
-        for id in result:
-            forgotten_ids.append(id[0])
-
-        # fetch all the cards that were newly learned today
-        result = self.database().con.execute(
-            """select cards._fact_id from log inner join cards where
-            log.object_id = cards.id and ?<=log.timestamp and log.timestamp<?
-            and log.event_type=? and log.grade>=2 and log.ret_reps==0""",
-            (start_of_day, end_of_day, EventTypes.REPETITION)).fetchall()
-
-        new_ids = []
-        for id in result:
-            new_ids.append(id[0])
-
-        return new_ids + forgotten_ids
+        return new_fact_ids + forgotten_fact_ids
 
     def warn_too_many_cards(self):
         """Shows a warning if there are already 15 new or failed cards memorized.
@@ -741,10 +717,4 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
 
         start_of_day, end_of_day = self.today_start_and_end_timestamp()
 
-        result = self.database().con.execute(
-            """select timestamp from log where ? <= log.timestamp and
-            log.timestamp <? and log.event_type=?""",
-            (start_of_day, end_of_day,
-             EventTypes.WARNED_TOO_MANY_CARDS)).fetchall()
-
-        return True if len(result) > 0 else False
+        return self.database().has_already_warned_today(start_of_day, end_of_day)
