@@ -225,6 +225,9 @@ class TestScheduler(MnemosyneTest):
             self.scheduler().grade_answer(card, 5)
             self.database().update_card(card)
 
+        facts = self.scheduler()._fact_ids_learned_today()
+        assert(len(facts)) == 5
+
     def test_learn_ahead_2(self):
         card_type = self.card_type_with_id("1")
         fact_data = {"f": "1", "b": "b"}
@@ -240,6 +243,8 @@ class TestScheduler(MnemosyneTest):
                      grade=-1, tag_names=["default"])[0]
         assert self.scheduler().next_card() == new_card
 
+        facts = self.scheduler()._fact_ids_learned_today()
+        assert(len(facts)) == 1
 
     def test_4(self):
         card_type = self.card_type_with_id("1")
@@ -258,6 +263,9 @@ class TestScheduler(MnemosyneTest):
         self.database().update_card(card)
 
         assert self.scheduler().next_card() != None
+
+        facts = self.scheduler()._fact_ids_learned_today()
+        assert(len(facts)) == 0
 
     def test_5(self):
         card_type = self.card_type_with_id("1")
@@ -320,7 +328,6 @@ class TestScheduler(MnemosyneTest):
         self.review_controller().show_new_question()
         self.review_controller().grade_answer(0)
         assert self.review_controller().scheduled_count == 0
-
 
     def test_sister_together(self):
         card_type = self.card_type_with_id("2")

@@ -199,3 +199,6 @@ class Logger(Component):
             print((_("Waiting for uploader thread to stop...").encode("utf-8")))
             self.upload_thread.join()
             print((_("Done!").encode("utf-8")))
+
+    def warn_too_many_cards(self):
+        pass

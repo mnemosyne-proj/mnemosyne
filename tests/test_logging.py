@@ -4,6 +4,7 @@
 
 import os
 import shutil
+import time
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
@@ -385,3 +386,8 @@ class TestLogging(MnemosyneTest):
         arch_con = sqlite3.connect(archive_path)
         assert arch_con.execute("select count() from log").fetchone()[0] == 11
 
+    def test_log_warn_about_too_many_cards(self):
+        timestamp = int(time.time())
+        self.database().log_warn_about_too_many_cards(timestamp)
+        results = self.database().con.execute("""select timestamp from log WHERE event_type=? and timestamp = ?""", (EventTypes.WARNED_TOO_MANY_CARDS, timestamp)).fetchall()
+        assert 1 == len(results)

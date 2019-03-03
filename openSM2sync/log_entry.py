@@ -48,7 +48,7 @@ class EventTypes(object):
     # Optional.
 
     EDITED_SETTING = 28
-
+    WARNED_TOO_MANY_CARDS = 29
 
 class LogEntry(dict):
 
