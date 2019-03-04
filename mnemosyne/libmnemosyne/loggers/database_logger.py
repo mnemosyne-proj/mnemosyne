@@ -135,3 +135,5 @@ class DatabaseLogger(Logger):
     def dump_to_science_log(self):
         self.database().dump_to_science_log()
 
+    def warn_too_many_cards(self):
+        self.database().log_warn_about_too_many_cards(self.timestamp)

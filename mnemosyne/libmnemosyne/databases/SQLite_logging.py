@@ -426,3 +426,7 @@ class SQLiteLogging(object):
         self.con.executescript(script)
         self.main_widget().close_progress()
 
+    def log_warn_about_too_many_cards(self, timestamp):
+        self.con.execute(
+            "insert into log(event_type, timestamp) values(?,?)",
+            (EventTypes.WARNED_TOO_MANY_CARDS, int(timestamp)))

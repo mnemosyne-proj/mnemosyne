@@ -203,7 +203,7 @@ class TestController(MnemosyneTest):
     def test_retain_only_child_tags(self):
         c = self.controller()
         assert c._retain_only_child_tags(["a"]) == ["a"]
-        assert c._retain_only_child_tags(["a", "b"]) == ["a", "b"]
+        assert sorted(c._retain_only_child_tags(["a", "b"])) == sorted(["a", "b"])
         assert c._retain_only_child_tags(["a", "a::b"]) == ["a::b"]
         assert c._retain_only_child_tags(["a", "a::b", "a::b::c"]) == ["a::b::c"]
         assert c._retain_only_child_tags(["a", "a::b::c"]) == ["a::b::c"]

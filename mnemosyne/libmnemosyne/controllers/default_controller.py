@@ -134,9 +134,9 @@ class DefaultController(Controller):
                 if partial_tag:
                     partial_tag += "::"
                 partial_tag += node
-                if  partial_tag in tag_names:
+                if partial_tag in tag_names:
                     parent_tag_names.append(partial_tag)
-        return list(set(tag_names) - set(parent_tag_names))
+        return sorted(list(set(tag_names) - set(parent_tag_names)))
 
     def create_new_cards(self, fact_data, card_type, grade, tag_names,
                          check_for_duplicates=True, save=True):

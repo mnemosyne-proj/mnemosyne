@@ -10,8 +10,9 @@ import datetime
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.scheduler import Scheduler
 
-HOUR = 60 * 60 # Seconds in an hour.
-DAY = 24 * HOUR # Seconds in a day.
+
+HOUR = 60 * 60  # Seconds in an hour.
+DAY = 24 * HOUR  # Seconds in a day.
 
 
 class SM2Mnemosyne(Scheduler):
@@ -33,6 +34,7 @@ class SM2Mnemosyne(Scheduler):
     """
 
     name = "SM2 Mnemosyne"
+    warned_about_too_many_cards = False  # default false
 
     def midnight_UTC(self, timestamp):
 
@@ -142,14 +144,13 @@ class SM2Mnemosyne(Scheduler):
 
         self._card_ids_in_queue = []
         self._fact_ids_in_queue = []
-        self._fact_ids_memorised = []
+        self._fact_ids_memorised = self._fact_ids_learned_today()
         self._card_id_last = None
         self.new_only = new_only
         if self.new_only == False:
             self.stage = 1
         else:
             self.stage = 3
-        self.warned_about_too_many_cards = False
 
     def set_initial_grade(self, cards, grade):
 
@@ -216,6 +217,7 @@ class SM2Mnemosyne(Scheduler):
             return
         self._card_ids_in_queue = []
         self._fact_ids_in_queue = []
+        self.warned_about_too_many_cards = self.already_warned_today()
 
         # Stage 1
         #
@@ -559,12 +561,8 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
         else:
             card.next_rep = card.last_rep
         # Warn if we learned a lot of new cards.
-        if len(self._fact_ids_memorised) == 15 and \
-            self.warned_about_too_many_cards == False:
-            self.main_widget().show_information(\
-        _("You've memorised 15 new or failed cards.") + " " +\
-        _("If you do this for many days, you could get a big workload later."))
-            self.warned_about_too_many_cards = True
+
+        self.warn_too_many_cards()
         # Run hooks.
         self.database().current_criterion().apply_to_card(card)
         for f in self.component_manager.all("hook", "after_repetition"):
@@ -667,3 +665,56 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
             interval_years = -interval_days/365.
             return "%.1f " % interval_years +  _("years ago")
 
+    def _fact_ids_learned_today(self):
+        """It loads the learned _fact_ids back from the logs in order not
+        to forget the learned cards when the app is closed and re-opened.
+
+        """
+        db = self.database()
+        if not db.is_loaded():
+            return []
+
+        start_of_day, end_of_day = self.today_start_and_end_timestamp()
+
+        forgotten_fact_ids = [_fact_id for _fact_id in db.fact_ids_forgotten_and_learned_today(start_of_day, end_of_day)]
+        new_fact_ids = [_fact_id for _fact_id in db.fact_ids_newly_learned_today(start_of_day, end_of_day)]
+
+        return new_fact_ids + forgotten_fact_ids
+
+    def warn_too_many_cards(self):
+        """Shows a warning if there are already 15 new or failed cards memorized.
+
+        """
+        # only alert if it is exactly 15, do be obtrusive
+        if (len(self._fact_ids_memorised) == 15 and
+                not self.warned_about_too_many_cards):
+            self.main_widget().show_information(
+                ("You've memorised 15 new or failed cards.") + " " +
+                ("If you do this for many days, you could get a big workload later."))
+            self.warned_about_too_many_cards = True
+            # log the event, so we won't show an alert more than once a day
+            self.log().warn_too_many_cards()
+
+    def today_start_and_end_timestamp(self):
+        timestamp = time.time() - 0 - self.config()["day_starts_at"] * HOUR
+        date_only = datetime.date.fromtimestamp(timestamp)  # Local date.
+        start_of_day = int(time.mktime(date_only.timetuple()))
+        start_of_day += self.config()["day_starts_at"] * HOUR
+        return start_of_day, start_of_day + DAY
+
+    def already_warned_today(self):
+        """From the current session or from the database it checks if
+        there was a warning about learning too many cards or not.
+
+        If it is already set in the current session, return with that,
+        otherwise query the database (log table) for the warn event for
+        today.
+
+        """
+
+        if self.warned_about_too_many_cards:
+            return True
+
+        start_of_day, end_of_day = self.today_start_and_end_timestamp()
+
+        return self.database().has_already_warned_today(start_of_day, end_of_day)

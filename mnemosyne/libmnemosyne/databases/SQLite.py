@@ -826,6 +826,29 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         return self.con.execute("select 1 from facts where id=? limit 1",
             (id, )).fetchone() is not None
 
+    def fact_ids_forgotten_and_learned_today(self, start_of_day, end_of_day):
+        return (cursor[0] for cursor in self.con.execute(
+            """
+            select cards._fact_id from log inner join cards where
+            log.object_id = cards.id and log.timestamp >= :start_of_day and
+            log.timestamp < :end_of_day and log.event_type = :event_type and
+            log.grade >= 2 and log.object_id in (
+              select object_id from log where timestamp >= :start_of_day and
+              timestamp < :end_of_day and event_type = :event_type and
+              grade < 2 and ret_reps > 0 group by object_id)
+            group by log.object_id
+            """,
+            {"start_of_day": start_of_day,
+             "end_of_day": end_of_day,
+             "event_type": EventTypes.REPETITION}).fetchall())
+
+    def fact_ids_newly_learned_today(self, start_of_day, end_of_day):
+        return (cursor[0] for cursor in self.con.execute(
+            """select cards._fact_id from log inner join cards where
+            log.object_id = cards.id and ?<=log.timestamp and log.timestamp<?
+            and log.event_type=? and log.grade>=2 and log.ret_reps==0""",
+            (start_of_day, end_of_day, EventTypes.REPETITION)).fetchall())
+
     #
     # Cards.
     #
@@ -1578,6 +1601,14 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             where active=1 and scheduler_data=? %s """ % extra_cond,
             (scheduler_data, )).fetchone()[0]
 
+    def has_already_warned_today(self, start_of_day, end_of_day):
+        result = self.database().con.execute(
+            """select timestamp from log where ? <= log.timestamp and
+            log.timestamp <? and log.event_type=?""",
+            (start_of_day, end_of_day,
+             EventTypes.WARNED_TOO_MANY_CARDS)).fetchall()
+        return True if len(result) > 0 else False
+
     #
     # Extra queries for language analysis.
     #
@@ -1603,4 +1634,3 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             self._where_clause_known_recognition_questions(card_type_ids)
         return (cursor[0] for cursor in \
                 self.con.execute("select question from cards " + clause, args))
-
