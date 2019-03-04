@@ -10,6 +10,8 @@ import sqlite3
 import threading
 import importlib
 import textwrap
+from locale import getdefaultlocale
+
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
@@ -143,7 +145,7 @@ class Configuration(Component, dict):
              "show_intervals": "never",
              "only_editable_when_answer_shown": False,
              "show_tags_during_review": True,
-             "ui_language": "en",
+             "ui_language": self.default_language(),
              "max_backups": 10,
              "backup_before_sync": True,
              "check_for_edited_local_media_files": False,
@@ -448,3 +450,32 @@ class Configuration(Component, dict):
         from mnemosyne.libmnemosyne.component_manager import \
              migrate_component_manager
         migrate_component_manager(old_user_id, new_user_id)
+
+    def default_language(self):
+        """use the OS language settings and if possible return with the
+        language code like 'en', 'de', 'it', etc.  If we don't have a
+        translation for the default OS language return with the default 'en'
+
+        """
+        # use the default OS language settings is possible
+        # getdefaultlocale is OS independent and works on all platforms
+        system_language, _ = getdefaultlocale()
+        lang_code = system_language.split("_")[0]
+
+        # special case ca@valencia, we only support this specific one
+        if "valencia" in system_language:
+            return "ca@valencia"
+
+        # languages with multiple dialect like zh_CN, zh_TW, zh_HK, pt_BR
+        # comes first
+        if system_language in self.translator().supported_languages():
+            return system_language
+        # languages with only 1 dialect
+        elif lang_code in self.translator().supported_languages():
+            default_lang = lang_code
+        # default should be english always if no better match based on the
+        # default OS language
+        else:
+            default_lang = "en"
+
+        return default_lang
