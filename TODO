@@ -12,18 +12,22 @@
 
 -implement and test switch from 'uploaded' log file to 'uploaded2'
 
+-editing a tag by clicking in the tree does not get saved
+
 
 Waiting for feedback:
+
 -https://github.com/mnemosyne-proj/mnemosyne/issues/104:
 show directory instead of card
--Android swipedown?
--Paul latex cloze, size issues?
 
--unicode sync issue: upload utf filename from Android, client.py line 548
 
 upgrade to PyQt5.11, but this also requires migrating to 64 bit
 
 Android:
+
+switch to Chaquopy. Or standard NDK with Chaquopy python binary?
+-unicode sync issue: upload utf filename from Android, client.py line 548
+
 
 CRYSTAX_NDX := C:/crystax-ndk-10.3.2
 buildDir = "C:/tmp/${rootProject.name}/${project.name}" in local.properties
@@ -54,6 +58,9 @@ check into automated import of translations
 
 Minor bugs / issues:
 
+-Adding the "enabled" tag does not automatically get rid of the cross-out in the
+ card browser.
+-Prevent commas in tag names also when using 'create_new_cards' in script.
 -Incoming sync when card browser is open does not work.
 -Add cloze from card browser, preview does not update correctly
  to show new number of cards

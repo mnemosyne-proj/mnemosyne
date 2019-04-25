@@ -11,10 +11,14 @@ with the --qt-opengl=desktop command line argument.)
 
 Mnemosyne 2.7:
 
+- Use system language as default language (code by Adam Papai).
+- Only warn once per day about the number of cards you learned, even if you open
+  and close Mnemosyne inbetween (code by Adam Papai).
 - More error checking when uploading science logs. To avoid missing files from
   the past, Mnemosyne will reupload all of your old logs as well.
 - Disallow starting a headless sync server in case no password is set up (patch
   by Marcin Mielniczuk).
+- Fix for escaped hex unicode in text file import (reported by JDelage).
 - Fix for headless sync server losing user id (report by Marcin Mielniczuk).
 - Fix for Anki learning data import (reported by syonax).
 - Various minor cleanups and fixes (Marcin Mielniczuk).
