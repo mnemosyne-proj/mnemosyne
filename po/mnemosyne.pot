@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-01-29 14:00+0100\n"
+"POT-Creation-Date: 2019-04-30 14:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -747,8 +747,8 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/file_formats/smconv_XML.py:114
 #: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:180
 #: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:181
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:92
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:93
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:97
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:98
 msgid "MISSING_MEDIA"
 msgstr ""
 
@@ -810,7 +810,7 @@ msgid "Extracting cards..."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:52
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:107
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:112
 msgid "Exporting cards..."
 msgstr ""
 
@@ -875,12 +875,12 @@ msgstr ""
 msgid "Tab-separated text files (*.txt *.tsv *.tab)"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:61
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:72
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:67
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:78
 msgid "Required field missing on line"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:77
+#: ../mnemosyne/libmnemosyne/file_formats/tsv.py:83
 msgid "Badly formed input on line"
 msgstr ""
 

@@ -34,7 +34,7 @@ class Cramming(SM2Mnemosyne):
             return
         max_ret_reps = 1 if self.new_only else -1 # TODO: make configurable
         if self.new_only and db.recently_memorised_count(max_ret_reps) == 0:
-            return        
+            return
         self._card_ids_in_queue = []
         self._fact_ids_in_queue = []
         self.criterion = db.current_criterion()

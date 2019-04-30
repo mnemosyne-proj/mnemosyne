@@ -1573,7 +1573,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
 
     def recently_memorised_count(self, max_ret_reps):
         return self.con.execute("""select count() from cards where active=1
-            and ret_reps between 1 and ?""",
+            and acq_reps>0 and ret_reps between 1 and ?""",
             (max_ret_reps, )).fetchone()[0]
 
     #
@@ -1588,7 +1588,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
                                   limit=-1, max_ret_reps=-1):
         sort_key = self._process_sort_key(sort_key)
         extra_cond = "" if max_ret_reps == -1 else str(
-            "and acq_reps>1 and ret_reps between 1 and " + str(max_ret_reps))
+            "and acq_reps>0 and ret_reps between 1 and " + str(max_ret_reps))
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where active=1 and scheduler_data=?
             %s order by %s limit ?"""
@@ -1596,7 +1596,7 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
 
     def scheduler_data_count(self, scheduler_data, max_ret_reps=-1):
         extra_cond = "" if max_ret_reps == -1 else str(
-            "and acq_reps>1 and ret_reps between 1 and " + str(max_ret_reps))
+            "and acq_reps>0 and ret_reps between 1 and " + str(max_ret_reps))
         return self.con.execute("""select count() from cards
             where active=1 and scheduler_data=? %s """ % extra_cond,
             (scheduler_data, )).fetchone()[0]

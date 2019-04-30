@@ -58,6 +58,8 @@ check into automated import of translations
 
 Minor bugs / issues:
 
+-Delete current card which is sentence card with only a sentence field does not
+ seem to work.
 -Adding the "enabled" tag does not automatically get rid of the cross-out in the
  card browser.
 -Prevent commas in tag names also when using 'create_new_cards' in script.
