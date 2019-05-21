@@ -1,0 +1,15 @@
+#
+# chinese.py <Peter.Bienstman@UGent.be>
+#
+
+from mnemosyne.libmnemosyne.gui_translator import _
+from mnemosyne.libmnemosyne.language import Language
+
+
+class Chinese (Simplified)(Language):
+
+    name = _("Chinese")
+    used_for = "zh"
+    sub_languages = {"zh-CN": _("Chinese (Simplified)"),
+                     "zh-TW": _("Chinese (Traditional)")}
+    feature_description = _("Google translation.")

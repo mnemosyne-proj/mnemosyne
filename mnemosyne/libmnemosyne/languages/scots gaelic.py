@@ -1,13 +1,13 @@
 #
-# arabic.py <Peter.Bienstman@UGent.be>
+# scots gaelic.py <Peter.Bienstman@UGent.be>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.language import Language
 
 
-class Arabic(Language):
+class Scots Gaelic(Language):
 
-    name = _("Arabic")
-    used_for = "ar"
+    name = _("Scots Gaelic")
+    used_for = "gd"
     feature_description = _("Google translation.")

@@ -1,13 +1,13 @@
 #
-# arabic.py <Peter.Bienstman@UGent.be>
+# tagalog.py <Peter.Bienstman@UGent.be>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.language import Language
 
 
-class Arabic(Language):
+class Tagalog(Language):
 
-    name = _("Arabic")
-    used_for = "ar"
+    name = _("Tagalog (Filipino)")
+    used_for = "tl"
     feature_description = _("Google translation.")

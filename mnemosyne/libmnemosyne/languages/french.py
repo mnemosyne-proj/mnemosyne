@@ -1,5 +1,5 @@
 #
-# __init__.py <Peter.Bienstman@UGent.be>
+# french.py <Peter.Bienstman@UGent.be>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _
@@ -10,4 +10,6 @@ class French(Language):
 
     name = _("French")
     used_for = "fr"
-    feature_description = _("Google TTS and translation.")
+    sub_languages = {"fr_FR": _("French (France)"),
+                     "fr_CA": _("French (Canada)")}
+    feature_description = _("Google translation.")

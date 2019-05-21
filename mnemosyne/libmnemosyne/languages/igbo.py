@@ -1,13 +1,13 @@
 #
-# arabic.py <Peter.Bienstman@UGent.be>
+# igbo.py <Peter.Bienstman@UGent.be>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.language import Language
 
 
-class Arabic(Language):
+class Igbo(Language):
 
-    name = _("Arabic")
-    used_for = "ar"
+    name = _("Igbo")
+    used_for = "ig"
     feature_description = _("Google translation.")

@@ -10,6 +10,8 @@ from mnemosyne.libmnemosyne.translator import Translator
 
 class GoogleTranslator(Translator):
 
+    # https://cloud.google.com/translate/docs/languages
+
     used_for = "ar", "en", "fr"  # TMP
     popup_menu_text = "Insert Google translation..."
 

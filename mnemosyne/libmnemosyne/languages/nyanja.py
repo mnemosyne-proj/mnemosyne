@@ -1,13 +1,13 @@
 #
-# arabic.py <Peter.Bienstman@UGent.be>
+# nyanja.py <Peter.Bienstman@UGent.be>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.language import Language
 
 
-class Arabic(Language):
+class Nyanja(Language):
 
-    name = _("Arabic")
-    used_for = "ar"
+    name = _("Nyanja (Chichewa)")
+    used_for = "ny"
     feature_description = _("Google translation.")

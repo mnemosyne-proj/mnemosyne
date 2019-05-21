@@ -22,4 +22,5 @@ class Language(Component):
     component_type = "language"
     name = None
     used_for = None  # ISO 639-1 code
+    sub_languages = {} # {"en_GB": "English (UK)", "en_US": "English (US")}.
     feature_description = None

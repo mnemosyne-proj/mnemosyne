@@ -1,13 +1,13 @@
 #
-# arabic.py <Peter.Bienstman@UGent.be>
+# khmer.py <Peter.Bienstman@UGent.be>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.language import Language
 
 
-class Arabic(Language):
+class Khmer(Language):
 
-    name = _("Arabic")
-    used_for = "ar"
+    name = _("Khmer")
+    used_for = "km"
     feature_description = _("Google translation.")

@@ -1,3 +1,9 @@
+- add "and TTS" to relevant languagues
+- load language plugins
+- add lang codes to google services
+
+- add sublanguages dialog to TTS
+
 -make sure to bundle gTTS, googleTrans, add to requirements documentation
 
 -cancel, then reopen: _1 filename?

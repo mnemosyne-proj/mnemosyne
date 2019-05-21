@@ -1,13 +1,13 @@
 #
-# arabic.py <Peter.Bienstman@UGent.be>
+# punjabi.py <Peter.Bienstman@UGent.be>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.language import Language
 
 
-class Arabic(Language):
+class Punjabi(Language):
 
-    name = _("Arabic")
-    used_for = "ar"
+    name = _("Punjabi")
+    used_for = "pa"
     feature_description = _("Google translation.")
