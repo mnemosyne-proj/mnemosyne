@@ -10,4 +10,4 @@ class Sundanese(Language):
 
     name = _("Sundanese")
     used_for = "su"
-    feature_description = _("Google translation.")
+    feature_description = _("Google translation and text-to-speech.")

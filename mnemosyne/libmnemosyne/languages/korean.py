@@ -10,4 +10,4 @@ class Korean(Language):
 
     name = _("Korean")
     used_for = "ko"
-    feature_description = _("Google translation.")
+    feature_description = _("Google translation and text-to-speech.")

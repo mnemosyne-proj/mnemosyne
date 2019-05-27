@@ -10,8 +10,8 @@ class English(Language):
 
     name = _("English")
     used_for = "en"
-    sub_languages = {"en_GB": _("English (UK)"),
-                     "en_US": _("English (US)"),
-                     "en_IN": _("English (India)"),
-                     "en_AU", _("English (Australian)")}
-    feature_description = _("Google translation.")
+    sub_languages = {"en-GB": _("English (UK)"),
+                     "en-US": _("English (US)"),
+                     "en-IN": _("English (India)"),
+                     "en-AU", _("English (Australian)")}
+    feature_description = _("Google translation and text-to-speech.")

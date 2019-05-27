@@ -1,6 +1,4 @@
-- add "and TTS" to relevant languagues
-- load language plugins
-- add lang codes to google services
+- load language plugins: time startup cost
 
 - add sublanguages dialog to TTS
 
@@ -10,7 +8,6 @@
 
 -implement translator dialog
 
--add all google TTS supported languages
 
 -popup messages to help make these features discoverable
 
@@ -19,6 +16,9 @@
 -implement and test switch from 'uploaded' log file to 'uploaded2'
 
 -editing a tag by clicking in the tree does not get saved
+
+-copy and paste from review window, update Qt
+
 
 
 Waiting for feedback:

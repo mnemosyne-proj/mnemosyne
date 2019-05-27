@@ -10,4 +10,4 @@ class Javanese(Language):
 
     name = _("Javanese")
     used_for = "jw"
-    feature_description = _("Google translation.")
+    feature_description = _("Google translation and text-to-speech.")

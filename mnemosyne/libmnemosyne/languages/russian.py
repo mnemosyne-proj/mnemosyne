@@ -10,4 +10,4 @@ class Russian(Language):
 
     name = _("Russian")
     used_for = "ru"
-    feature_description = _("Google translation.")
+    feature_description = _("Google translation and text-to-speech.")

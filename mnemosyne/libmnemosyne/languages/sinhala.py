@@ -10,4 +10,4 @@ class Sinhala(Language):
 
     name = _("Sinhala (Sinhalese)")
     used_for = "si"
-    feature_description = _("Google translation.")
+    feature_description = _("Google translation and text-to-speech.")

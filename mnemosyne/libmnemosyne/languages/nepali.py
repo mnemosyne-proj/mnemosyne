@@ -10,4 +10,4 @@ class Nepali(Language):
 
     name = _("Nepali")
     used_for = "ne"
-    feature_description = _("Google translation.")
+    feature_description = _("Google translation and text-to-speech.")

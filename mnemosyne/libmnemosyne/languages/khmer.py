@@ -10,4 +10,4 @@ class Khmer(Language):
 
     name = _("Khmer")
     used_for = "km"
-    feature_description = _("Google translation.")
+    feature_description = _("Google translation and text-to-speech.")

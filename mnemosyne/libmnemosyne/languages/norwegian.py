@@ -10,4 +10,4 @@ class Norwegian(Language):
 
     name = _("Norwegian")
     used_for = "no"
-    feature_description = _("Google translation.")
+    feature_description = _("Google translation and text-to-speech.")

@@ -10,6 +10,6 @@ class Portuguese(Language):
 
     name = _("Portuguese")
     used_for = "pt"
-    sub_languages = {"pt_PT": _("Portugese (Portugal)"),
-                     "pt_BR": _("Portugese (Brazilian)")}
-    feature_description = _("Google translation.")
+    sub_languages = {"pt-PT": _("Portugese (Portugal)"),
+                     "pt-BR": _("Portugese (Brazilian)")}
+    feature_description = _("Google translation and text-to-speech.")

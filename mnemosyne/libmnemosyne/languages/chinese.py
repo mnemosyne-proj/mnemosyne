@@ -12,4 +12,4 @@ class Chinese (Simplified)(Language):
     used_for = "zh"
     sub_languages = {"zh-CN": _("Chinese (Simplified)"),
                      "zh-TW": _("Chinese (Traditional)")}
-    feature_description = _("Google translation.")
+    feature_description = _("Google translation and text-to-speech.")
