@@ -11,11 +11,11 @@ from mnemosyne.libmnemosyne.pronouncer import Pronouncer
 
 class GooglePronouncer(Pronouncer):
 
-    used_for = "bn", "bn-BD", "bn-ID", "zh", "zh-CN", "zh-TW", "cs", "da",
-        "nl", "en", "en-GB", "en-US", "en-IN", "en-AU", "et", "fi", "fr",
-        "fr-FR", "fr-CA", "de", "el", "hi", "hu", "id", "it", "ja", "jw",
-        "km", "ko", "ne", "no", "pl", "pt", "pt-PT", "pt-BR", "ro", "ru",
-        "si", "sk", "es", "es-ES", "es-US", "su", "sv", "th", "tr", "uk",
+    used_for = "bn", "bn-BD", "bn-ID", "zh", "zh-CN", "zh-TW", "cs", "da", \
+        "nl", "en", "en-GB", "en-US", "en-IN", "en-AU", "et", "fi", "fr", \
+        "fr-FR", "fr-CA", "de", "el", "hi", "hu", "id", "it", "ja", "jw", \
+        "km", "ko", "ne", "no", "pl", "pt", "pt-PT", "pt-BR", "ro", "ru", \
+        "si", "sk", "es", "es-ES", "es-US", "su", "sv", "th", "tr", "uk", \
         "vi"
 
     popup_menu_text = "Insert Google text-to-speech..."

@@ -13,5 +13,5 @@ class English(Language):
     sub_languages = {"en-GB": _("English (UK)"),
                      "en-US": _("English (US)"),
                      "en-IN": _("English (India)"),
-                     "en-AU", _("English (Australian)")}
+                     "en-AU": _("English (Australian)")}
     feature_description = _("Google translation and text-to-speech.")

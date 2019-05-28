@@ -1,5 +1,3 @@
-- load language plugins: time startup cost
-
 - add sublanguages dialog to TTS
 
 -make sure to bundle gTTS, googleTrans, add to requirements documentation

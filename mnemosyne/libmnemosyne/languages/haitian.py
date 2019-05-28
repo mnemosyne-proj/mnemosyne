@@ -1,13 +1,13 @@
 #
-# scots gaelic.py <Peter.Bienstman@UGent.be>
+# haitian.py <Peter.Bienstman@UGent.be>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.language import Language
 
 
-class Scots Gaelic(Language):
+class Haitian(Language):
 
-    name = _("Scots Gaelic")
-    used_for = "gd"
+    name = _("Haitian Creole")
+    used_for = "ht"
     feature_description = _("Google translation.")

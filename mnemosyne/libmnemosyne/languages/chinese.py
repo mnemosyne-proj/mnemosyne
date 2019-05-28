@@ -6,7 +6,7 @@ from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.language import Language
 
 
-class Chinese (Simplified)(Language):
+class Chinese(Language):
 
     name = _("Chinese")
     used_for = "zh"
