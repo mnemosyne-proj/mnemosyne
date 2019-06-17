@@ -57,6 +57,14 @@ class PronouncerDlg(QtWidgets.QDialog, PronouncerDialog, Ui_PronouncerDlg):
             font.fromString(font_string)
             self.foreign_text.setCurrentFont(font)
         self.foreign_text.setPlainText(foreign_text)
+        # Set sublanguages.
+        language = self.language_with_id(self.config().card_type_property(\
+            "language_id", card_type))
+        self.sub_language_id_with_name = {}
+        for sub_language_id, sub_language_name in language.sub_languages.items():
+            self.sub_language_id_with_name[sub_language_name] = sub_language_id
+            self.sublanguages.addItem(sub_language_name)
+        # Auto download.
         self.set_default_filename()
         self.insert_button.setEnabled(False)
         self.download_audio_and_play()

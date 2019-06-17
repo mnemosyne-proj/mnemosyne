@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>447</width>
-    <height>200</height>
+    <width>455</width>
+    <height>255</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,6 +29,16 @@
         <bool>false</bool>
        </property>
       </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="sublanguages_label">
+       <property name="text">
+        <string>Language variant:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="sublanguages"/>
      </item>
      <item>
       <widget class="QLabel" name="label_2">

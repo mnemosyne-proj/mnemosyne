@@ -1,4 +1,8 @@
 - add sublanguages dialog to TTS
+need default one
+sub_language --> sublanguages
+remember last choice
+hide if empty
 
 -make sure to bundle gTTS, googleTrans, add to requirements documentation
 
@@ -18,11 +22,6 @@
 -copy and paste from review window, update Qt
 
 
-
-Waiting for feedback:
-
--https://github.com/mnemosyne-proj/mnemosyne/issues/104:
-show directory instead of card
 
 
 upgrade to PyQt5.11, but this also requires migrating to 64 bit
