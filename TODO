@@ -2,11 +2,12 @@
 need default one
 sub_language --> sublanguages
 remember last choice
-hide if empty
+redownload if sublanguage id changes
 
 -make sure to bundle gTTS, googleTrans, add to requirements documentation
 
 -cancel, then reopen: _1 filename?
+-creating a new clone autosets "English?"
 
 -implement translator dialog
 

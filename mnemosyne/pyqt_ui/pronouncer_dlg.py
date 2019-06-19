@@ -60,10 +60,25 @@ class PronouncerDlg(QtWidgets.QDialog, PronouncerDialog, Ui_PronouncerDlg):
         # Set sublanguages.
         language = self.language_with_id(self.config().card_type_property(\
             "language_id", card_type))
-        self.sub_language_id_with_name = {}
-        for sub_language_id, sub_language_name in language.sub_languages.items():
-            self.sub_language_id_with_name[sub_language_name] = sub_language_id
-            self.sublanguages.addItem(sub_language_name)
+        if len(language.sub_languages) == 0:
+            self.sublanguages.hide()
+            self.sublanguages_label.hide()
+        else:
+            previous_sublanguage_id = self.config().card_type_property(\
+                "sublanguage_id", card_type)
+            items = language.sub_languages.items()
+            if not previous_sublanguage_id:
+                items = [(None, _("<default>"))] + list(items)
+            self.sublanguage_id_with_name = {}
+            saved_index = 0
+            for sublanguage_id, sublanguage_name in items:
+                self.sublanguage_id_with_name[sublanguage_name] = sublanguage_id
+                self.sublanguages.addItem(sublanguage_name)
+                if previous_sublanguage_id:
+                    if sublanguage_id == previous_sublanguage_id:
+                        saved_index = self.sublanguages.currentIndex()
+            if saved_index:
+                self.sublanguages.setCurrentIndex(saved_index)
         # Auto download.
         self.set_default_filename()
         self.insert_button.setEnabled(False)
@@ -80,6 +95,12 @@ class PronouncerDlg(QtWidgets.QDialog, PronouncerDialog, Ui_PronouncerDlg):
         # Force the user to preview.
         self.insert_button.setEnabled(False)
         self.preview_button.setDefault(True)
+
+    def sublanguage_changed(self):
+        sublanguage_id = self.sublanguage_id_with_name[\
+            self.sublanguages.currentText()]
+        self.config().set_card_type_property("sublanguage_id",
+            sublanguage_id, self.card_type)
 
     def download_audio_and_play(self):
         self.last_foreign_text = self.foreign_text.toPlainText()
@@ -124,6 +145,8 @@ class PronouncerDlg(QtWidgets.QDialog, PronouncerDialog, Ui_PronouncerDlg):
         filename = self.filename_box.text().replace("\\", "/")
         if not filename:
             return QtWidgets.QDialog.accept(self)
+        sublanguage_id = self.sublanguage_id_with_name[\
+            self.sublanguages.currentText()]
         if os.path.isabs(filename):
             if not filename.startswith(\
                 self.database().media_dir().replace("\\", "/")):
