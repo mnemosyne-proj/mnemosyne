@@ -201,21 +201,5 @@
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>sublanguages</sender>
-   <signal>currentIndexChanged(int)</signal>
-   <receiver>PronouncerDlg</receiver>
-   <slot>sublanguage_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>227</x>
-     <y>153</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>227</x>
-     <y>127</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
 </ui>

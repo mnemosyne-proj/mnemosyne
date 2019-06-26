@@ -10,7 +10,7 @@ class English(Language):
 
     name = _("English")
     used_for = "en"
-    sub_languages = {"en-GB": _("English (UK)"),
+    sublanguages = {"en-GB": _("English (UK)"),
                      "en-US": _("English (US)"),
                      "en-IN": _("English (India)"),
                      "en-AU": _("English (Australian)")}

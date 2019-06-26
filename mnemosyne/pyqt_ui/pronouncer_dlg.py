@@ -60,13 +60,13 @@ class PronouncerDlg(QtWidgets.QDialog, PronouncerDialog, Ui_PronouncerDlg):
         # Set sublanguages.
         language = self.language_with_id(self.config().card_type_property(\
             "language_id", card_type))
-        if len(language.sub_languages) == 0:
+        if len(language.sublanguages) == 0:
             self.sublanguages.hide()
             self.sublanguages_label.hide()
         else:
             previous_sublanguage_id = self.config().card_type_property(\
                 "sublanguage_id", card_type)
-            items = language.sub_languages.items()
+            items = language.sublanguages.items()
             if not previous_sublanguage_id:
                 items = [(None, _("<default>"))] + list(items)
             self.sublanguage_id_with_name = {}
@@ -76,9 +76,12 @@ class PronouncerDlg(QtWidgets.QDialog, PronouncerDialog, Ui_PronouncerDlg):
                 self.sublanguages.addItem(sublanguage_name)
                 if previous_sublanguage_id:
                     if sublanguage_id == previous_sublanguage_id:
-                        saved_index = self.sublanguages.currentIndex()
+                        saved_index = self.sublanguages.count()-1
             if saved_index:
                 self.sublanguages.setCurrentIndex(saved_index)
+            # Only now it's safe to connect to the slot.
+            self.sublanguages.currentIndexChanged.connect(\
+                self.sublanguage_changed)
         # Auto download.
         self.set_default_filename()
         self.insert_button.setEnabled(False)
@@ -101,6 +104,7 @@ class PronouncerDlg(QtWidgets.QDialog, PronouncerDialog, Ui_PronouncerDlg):
             self.sublanguages.currentText()]
         self.config().set_card_type_property("sublanguage_id",
             sublanguage_id, self.card_type)
+        self.download_audio_and_play()
 
     def download_audio_and_play(self):
         self.last_foreign_text = self.foreign_text.toPlainText()
@@ -145,8 +149,6 @@ class PronouncerDlg(QtWidgets.QDialog, PronouncerDialog, Ui_PronouncerDlg):
         filename = self.filename_box.text().replace("\\", "/")
         if not filename:
             return QtWidgets.QDialog.accept(self)
-        sublanguage_id = self.sublanguage_id_with_name[\
-            self.sublanguages.currentText()]
         if os.path.isabs(filename):
             if not filename.startswith(\
                 self.database().media_dir().replace("\\", "/")):

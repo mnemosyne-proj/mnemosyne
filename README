@@ -8,6 +8,9 @@ Install the following dependencies if needed:
 - cheroot (https://pypi.python.org/pypi/Cheroot/) 5 or later
 - Webob (http://webob.org) 1.4 or later
 - Pillow (http://python-pillow.org)
+- gTTS for Google text-to-speech (https://pypi.org/project/gTTS/)
+- googletrans for Google translate support
+  (https://pypi.org/project/googletrans/)
 - For Latex support: the latex and dvipng commands must be available
   (e.g. TeXLive)
 

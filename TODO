@@ -1,31 +1,19 @@
-- add sublanguages dialog to TTS
-need default one
-sub_language --> sublanguages
-remember last choice
-redownload if sublanguage id changes
-
--make sure to bundle gTTS, googleTrans, add to requirements documentation
-
--cancel, then reopen: _1 filename?
--creating a new clone autosets "English?"
+-test packaging
 
 -implement translator dialog
-
 
 -popup messages to help make these features discoverable
 
 -Add Language, Translator, Pronouncer to documentation and website.
 
+
 -implement and test switch from 'uploaded' log file to 'uploaded2'
 
 -editing a tag by clicking in the tree does not get saved
 
--copy and paste from review window, update Qt
+-upgrade to PyQt5.11, but this also requires migrating to 64 bit
+copy and paste from review window?
 
-
-
-
-upgrade to PyQt5.11, but this also requires migrating to 64 bit
 
 Android:
 

@@ -27,7 +27,10 @@ class GooglePronouncer(Pronouncer):
         """Returns a temporary filename with the audio."""
 
         language_id = self.config().card_type_property(\
-            "language_id", card_type)
+            "sublanguage_id", card_type)
+        if not language_id:
+            language_id = self.config().card_type_property(\
+                "language_id", card_type)
         tts = gTTS(foreign_text, language_id)
         filename = expand_path("__GTTS__TMP__.mp3", self.database().media_dir())
         tts.save(filename)
