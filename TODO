@@ -1,4 +1,8 @@
--test packaging
+-filter slash, question marks from filename
+-crash when editing foreign word?
+-use full name in filename if only one space
+-enter does not insert
+
 
 -implement translator dialog
 
@@ -13,6 +17,7 @@
 
 -upgrade to PyQt5.11, but this also requires migrating to 64 bit
 copy and paste from review window?
+-switch to PyOxidizer
 
 
 Android:
