@@ -25,8 +25,9 @@ class Pronouncer(Component):
     popup_menu_text = None # "Insert text-to-speech..."
 
     def default_filename(self, card_type, foreign_text):
-        if len(foreign_text) < 10:
-            filename = foreign_text + ".mp3"
+        if foreign_text.count(" ") <= 1:
+            filename = foreign_text.replace("?", "").replace("/", "")\
+                .replace("\\", "") + ".mp3"
         else:
             filename = datetime.datetime.today().strftime("%Y%m%d.mp3")
         local_dir = self.config()["tts_dir_for_card_type_id"]\

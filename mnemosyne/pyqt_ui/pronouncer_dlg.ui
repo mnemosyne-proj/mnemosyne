@@ -189,7 +189,7 @@
    <sender>foreign_text</sender>
    <signal>textChanged()</signal>
    <receiver>PronouncerDlg</receiver>
-   <slot>reject()</slot>
+   <slot>foreign_text_changed()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>223</x>

@@ -10,12 +10,12 @@ out. This is handled by the ComponentManager. Examples of components are the
 scheduler, the storage layer, card types, plugins, ...
 
 The basic unit of information from which Cards are derived is called a Fact,
-containing a set of fields and their associated values. E.g., for a three-sided 
+containing a set of fields and their associated values. E.g., for a three-sided
 CardType, these fields are foreign word, pronunciation and translation.
 
 A FactView collects a number of the fields of a Fact into question and answers.
 E.g., the three-sided CardType has a recognition FactView, where the question
-contains the foreign word, and the answer contains the pronunciation and the 
+contains the foreign word, and the answer contains the pronunciation and the
 translation.
 
 As mentioned before, a Fact is linked to a CardType, and each CardType lists
@@ -28,11 +28,11 @@ the Fact data each time a Card is shown, related Cards (i.e. Cards with
 different FactViews of the same Fact) are always consistent.
 
 The actual displaying of the data in a Card is handled by a RenderChain, which
-details the operations needed to get from the raw data in a Card to a 
-representation of its question and answer, in a form either suitable for 
+details the operations needed to get from the raw data in a Card to a
+representation of its question and answer, in a form either suitable for
 displaying in a browser, or exporting to a text file, ... . First the raw data
 is sent through Filters, which perform operations which can be useful for many
-card types, like expanding relative paths. Then this data is assembled in the 
+card types, like expanding relative paths. Then this data is assembled in the
 right order in a Renderer, which can be card type specific.
 
 At several points in the program, plugin writers can hook in their code using
@@ -47,9 +47,9 @@ a mechanism of ActivityCriterion and CriterionApplier is used.
 
 In order to make it easier for other GUI frontends to be written, all the logic
 typically needed for GUIs, but that is independent of the actual GUI toolkit
-used, is abstracted in controllers. In order to get more flexibility, there 
-are two of them: one related to the review process (which is different for 
-different schedulers), and one related to the rest of the program (which 
+used, is abstracted in controllers. In order to get more flexibility, there
+are two of them: one related to the review process (which is different for
+different schedulers), and one related to the rest of the program (which
 normally won't change).
 
 There is also mechanism for plugins to add new statistical data to the standard
@@ -62,7 +62,7 @@ Contents
 .. toctree::
     :maxdepth: 2
 
-    modules/component    
+    modules/component
     modules/component_manager
     modules/fact
     modules/fact_view
@@ -70,7 +70,7 @@ Contents
     modules/tag_tree
     modules/card_type
     modules/card
-    modules/card_type_converter    
+    modules/card_type_converter
     modules/render_chain
     modules/filter
     modules/renderer
@@ -88,10 +88,13 @@ Contents
     modules/stopwatch
     modules/statistics_page
     modules/criterion
+    modules/language
+    moddules/translator
+    modules/pronouncer
 
     modules/how_to_write_a_new_frontend
-    
-     
+
+
 Indices and tables
 ==================
 

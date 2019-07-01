@@ -1,14 +1,8 @@
--filter slash, question marks from filename
--crash when editing foreign word?
--use full name in filename if only one space
--enter does not insert
-
-
 -implement translator dialog
 
 -popup messages to help make these features discoverable
 
--Add Language, Translator, Pronouncer to documentation and website.
+-Add Language, Translator, Pronouncer to website.
 
 
 -implement and test switch from 'uploaded' log file to 'uploaded2'
