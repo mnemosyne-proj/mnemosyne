@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-06-26 14:28+0200\n"
+"POT-Creation-Date: 2019-07-03 08:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2319,12 +2319,12 @@ msgstr ""
 msgid "Downloading..."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/pronouncer_dlg.py:138
+#: ../mnemosyne/pyqt_ui/pronouncer_dlg.py:139
 msgid "Mp3 files (*.mp3)"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/pronouncer_dlg.py:142
-#: ../mnemosyne/pyqt_ui/pronouncer_dlg.py:156
+#: ../mnemosyne/pyqt_ui/pronouncer_dlg.py:143
+#: ../mnemosyne/pyqt_ui/pronouncer_dlg.py:157
 msgid "Please select a filename inside the media directory."
 msgstr ""
 

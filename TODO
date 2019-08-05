@@ -13,6 +13,13 @@
 copy and paste from review window?
 -switch to PyOxidizer
 
+- wheelock anki deck:
+  - where does div on import appear? e.g. numerus
+  - searching for div turns up wrong results?
+  - empty ()
+
+- checking for unused tags scales badly when deleting 1500 cards
+- can result in deleting same tag twice?
 
 Android:
 
