@@ -31,14 +31,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="sublanguages_label">
+      <widget class="QLabel" name="target_label">
        <property name="text">
         <string>Target language:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="target_language"/>
+      <widget class="QComboBox" name="target_languages"/>
      </item>
      <item>
       <widget class="QLabel" name="label_2">

@@ -1,3 +1,7 @@
+48398 card id studium, tag 514, wheelock latin chapter 9
+select * from cards where _id=48398
+
+
 -implement translator dialog
 
 -popup messages to help make these features discoverable
@@ -8,6 +12,8 @@
 -implement and test switch from 'uploaded' log file to 'uploaded2'
 
 -editing a tag by clicking in the tree does not get saved
+
+-tree expansion status does not get saved
 
 -upgrade to PyQt5.11, but this also requires migrating to 64 bit
 copy and paste from review window?

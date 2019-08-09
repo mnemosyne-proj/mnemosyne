@@ -350,6 +350,10 @@ class Configuration(Component, dict):
             print(rand_uuid(), file=f)
             f.close()
 
+    card_type_properties = ["background_colour", "font", "font_colour",
+            "alignment", "hide_pronunciation_field", "language_id",
+            "sublanguage_id", "foreign_fact_key", "translation_language_id"]
+
     def set_card_type_property(self, property_name, property_value, card_type,
             fact_key=None):
 
@@ -362,21 +366,18 @@ class Configuration(Component, dict):
 
         """
 
-        if property_name not in ["background_colour", "font", "font_colour",
-            "alignment", "hide_pronunciation_field", "language_id",
-            "sublanguage_id", "foreign_fact_key"]:
+        if property_name not in self.card_type_properties:
             raise KeyError
         # With the nested directories, we don't fall back on self.__setitem__,
         # so we have to log a event here ourselves.
         if property_name in self.keys_to_sync:
             self.log().edited_setting(property_name)
         if property_name in ["background_colour", "alignment",
-                             "hide_pronunciation_field", "language_id",
-                             "sublanguage_id", "foreign_fact_key"]:
+                             "hide_pronunciation_field"]:
             if property_value is None:
                 self[property_name].pop(card_type.id, None)
             else:
-                self[property_name][card_type.id] = property_value
+                self[property_name][card_type.id] = None
             return
         self[property_name].setdefault(card_type.id, {})
         for _fact_key in card_type.fact_keys():
@@ -391,8 +392,7 @@ class Configuration(Component, dict):
     def card_type_property(self, property_name, card_type, fact_key=None,
                             default=None):
         if property_name in ["background_colour", "alignment",
-                             "hide_pronunciation_field", "language_id",
-                             "sublanguage_id", "foreign_fact_key"]:
+                             "hide_pronunciation_field"]:
             try:
                 return self[property_name][card_type.id]
             except KeyError:
@@ -404,25 +404,22 @@ class Configuration(Component, dict):
                 return default
 
     def clone_card_type_properties(self, old_card_type, new_card_type):
-        for property_name in ["font", "font_colour"]:
-            for fact_key in new_card_type.fact_keys():
-                old_value = self.card_type_property(property_name,
-                    old_card_type, fact_key)
-                if old_value:
-                    self.set_card_type_property(property_name, old_value, \
-                        new_card_type, fact_key)
-        for property_name in ["background_colour", "alignment",
-                             "hide_pronunciation_field", "language_id",
-                             "sublanguage_id", "foreign_fact_key"]:
-            old_value = self.card_type_property(property_name, old_card_type)
-            if old_value:
-                self.set_card_type_property(\
-                    property_name, old_value, new_card_type)
+        for property_name in self.card_type_properties:
+          if property_name in ["font", "font_colour"]:
+              for fact_key in new_card_type.fact_keys():
+                  old_value = self.card_type_property(property_name,
+                      old_card_type, fact_key)
+                  if old_value:
+                      self.set_card_type_property(property_name, old_value, \
+                          new_card_type, fact_key)
+          else:
+              old_value = self.card_type_property(property_name, old_card_type)
+              if old_value:
+                  self.set_card_type_property(\
+                      property_name, old_value, new_card_type)
 
     def delete_card_type_properties(self, card_type):
-        for property_name in ["background_colour", "font", "font_colour",
-            "alignment", "hide_pronunciation_field", "language_id",
-            "sublanguage_id", "foreign_fact_key"]:
+        for property_name in self.card_type_properties:
             if card_type.id in self[property_name]:
                 del self[property_name][card_type.id]
 
