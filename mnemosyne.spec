@@ -264,4 +264,7 @@ if sys.platform == "darwin":
   app = BUNDLE(coll,
                name='Mnemosyne.app',
                icon=os.path.join('pixmaps', 'mnemosyne.icns'),
+info_plist={
+            'NSHighResolutionCapable': 'True'
+            },
                bundle_identifier='org.qt-project.Qt.QtWebEngineCore')
