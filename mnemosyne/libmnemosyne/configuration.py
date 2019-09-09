@@ -350,9 +350,12 @@ class Configuration(Component, dict):
             print(rand_uuid(), file=f)
             f.close()
 
-    card_type_properties = ["background_colour", "font", "font_colour",
-            "alignment", "hide_pronunciation_field", "language_id",
-            "sublanguage_id", "foreign_fact_key", "translation_language_id"]
+    card_type_properties_generic = ["background_colour", "alignment",
+        "hide_pronunciation_field", "language_id",
+        "sublanguage_id", "foreign_fact_key", "translation_language_id"]
+    card_type_properties_for_fact_key = ["font", "font_colour"]
+    card_type_properties = card_type_properties_generic + \
+        card_type_properties_for_fact_key
 
     def set_card_type_property(self, property_name, property_value, card_type,
             fact_key=None):
@@ -371,28 +374,26 @@ class Configuration(Component, dict):
         # With the nested directories, we don't fall back on self.__setitem__,
         # so we have to log a event here ourselves.
         if property_name in self.keys_to_sync:
-            self.log().edited_setting(property_name)
-        if property_name in ["background_colour", "alignment",
-                             "hide_pronunciation_field"]:
+          self.log().edited_setting(property_name)
+        if property_name in self.card_type_properties_generic:
             if property_value is None:
                 self[property_name].pop(card_type.id, None)
             else:
-                self[property_name][card_type.id] = None
-            return
-        self[property_name].setdefault(card_type.id, {})
-        for _fact_key in card_type.fact_keys():
-            self[property_name][card_type.id].setdefault(_fact_key, None)
-        if not fact_key:
-            fact_keys = card_type.fact_keys()
+                self[property_name][card_type.id] = property_value
         else:
-            fact_keys = [fact_key]
-        for _fact_key in fact_keys:
-            self[property_name][card_type.id][_fact_key] = property_value
+            self[property_name].setdefault(card_type.id, {})
+            for _fact_key in card_type.fact_keys():
+                self[property_name][card_type.id].setdefault(_fact_key, None)
+            if not fact_key:
+                fact_keys = card_type.fact_keys()
+            else:
+                fact_keys = [fact_key]
+            for _fact_key in fact_keys:
+                self[property_name][card_type.id][_fact_key] = property_value
 
     def card_type_property(self, property_name, card_type, fact_key=None,
                             default=None):
-        if property_name in ["background_colour", "alignment",
-                             "hide_pronunciation_field"]:
+        if property_name in self.card_type_properties_generic:
             try:
                 return self[property_name][card_type.id]
             except KeyError:
@@ -404,19 +405,18 @@ class Configuration(Component, dict):
                 return default
 
     def clone_card_type_properties(self, old_card_type, new_card_type):
-        for property_name in self.card_type_properties:
-          if property_name in ["font", "font_colour"]:
-              for fact_key in new_card_type.fact_keys():
-                  old_value = self.card_type_property(property_name,
-                      old_card_type, fact_key)
-                  if old_value:
-                      self.set_card_type_property(property_name, old_value, \
-                          new_card_type, fact_key)
-          else:
-              old_value = self.card_type_property(property_name, old_card_type)
+      for property_name in self.card_type_properties_generic:
+          old_value = self.card_type_property(property_name, old_card_type)
+          if old_value:
+              self.set_card_type_property(\
+                  property_name, old_value, new_card_type)
+      for property_name in self.card_type_properties_for_fact_key:
+          for fact_key in new_card_type.fact_keys():
+              old_value = self.card_type_property(property_name,
+                  old_card_type, fact_key)
               if old_value:
-                  self.set_card_type_property(\
-                      property_name, old_value, new_card_type)
+                  self.set_card_type_property(property_name, old_value, \
+                      new_card_type, fact_key)
 
     def delete_card_type_properties(self, card_type):
         for property_name in self.card_type_properties:

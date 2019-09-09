@@ -20,20 +20,20 @@ class DownloadThread(QtCore.QThread):
     finished_signal = QtCore.pyqtSignal(str)
     error_signal = QtCore.pyqtSignal(str)
 
-    def __init__(self, Translator, card_type, foreign_text, target_language_id):
+    def __init__(self, translator, card_type, foreign_text, target_language_id):
 
         # TODO: rename target to translation everywhere
         1/0
 
         super().__init__()
-        self.Translator = Translator
+        self.translator = translator
         self.card_type = card_type
         self.foreign_text = foreign_text
         self.target_language_id = target_language_id
 
     def run(self):
         try:
-            translation = self.Translator.translate(\
+            translation = self.translator.translate(\
                 self.card_type, self.foreign_text, self.target_language_id)
             self.finished_signal.emit(translation)
         except Exception as e:
@@ -99,7 +99,7 @@ class TranslatorDlg(QtWidgets.QDialog, TranslatorDialog, Ui_TranslatorDlg):
         # Note that we need to save the QtThread as a class variable,
         # otherwise it will get garbage collected.
         self.download_thread = DownloadThread(\
-            self.Translator, self.card_type, self.last_foreign_text)
+            self.translator, self.card_type, self.last_foreign_text)
         self.download_thread.finished_signal.connect(self.show_translation)
         self.download_thread.error_signal.connect(self.main_widget().show_error)
         self.main_widget().set_progress_text(_("Downloading..."))

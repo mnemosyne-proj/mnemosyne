@@ -1,8 +1,5 @@
-48398 card id studium, tag 514, wheelock latin chapter 9
-select * from cards where _id=48398
-
-
 -implement translator dialog
+- refactor names target language, translation_language
 
 -popup messages to help make these features discoverable
 
@@ -195,6 +192,8 @@ created with just the "»" symbol.
 
 
 Other features:
+
+- plugin to deactivate cards in a certain cardtype after X retention reps.
 
 -check for required fields when using the Anki card type.
 
