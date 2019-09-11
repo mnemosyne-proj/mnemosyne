@@ -21,10 +21,6 @@ class DownloadThread(QtCore.QThread):
     error_signal = QtCore.pyqtSignal(str)
 
     def __init__(self, translator, card_type, foreign_text, target_language_id):
-
-        # TODO: rename target to translation everywhere
-        1/0
-
         super().__init__()
         self.translator = translator
         self.card_type = card_type
@@ -63,13 +59,13 @@ class TranslatorDlg(QtWidgets.QDialog, TranslatorDialog, Ui_TranslatorDlg):
             self.foreign_text.setCurrentFont(font)
         self.foreign_text.setPlainText(foreign_text)
         # Set target language.
-        previous_translation_language_id = self.config().card_type_property(\
+        self.target_language_id = self.config().card_type_property(\
             "translation_language_id", card_type, default="en")
         self.language_id_with_name = {}
         for language in self.languages():
             self.language_id_with_name[language.name] = language.used_for
             self.target_languages.addItem(language.name)
-            if language.used_for == previous_translation_language_id:
+            if language.used_for == self.target_language_id:
                 saved_index = self.target_languages.count()-1
         self.target_languages.setCurrentIndex(saved_index)
         # Only now it's safe to connect to the slot.
@@ -86,10 +82,10 @@ class TranslatorDlg(QtWidgets.QDialog, TranslatorDialog, Ui_TranslatorDlg):
         self.preview_button.setDefault(True)
 
     def target_language_changed(self):
-        target_language_id = self.language_id_with_name[\
+        self.target_language_id = self.language_id_with_name[\
             self.target_languages.currentText()]
         self.config().set_card_type_property("translation_language_id",
-            targe_language_id, self.card_type)
+            self.target_language_id, self.card_type)
         self.download_translation()
 
     def download_translation(self):
@@ -98,8 +94,8 @@ class TranslatorDlg(QtWidgets.QDialog, TranslatorDialog, Ui_TranslatorDlg):
             return
         # Note that we need to save the QtThread as a class variable,
         # otherwise it will get garbage collected.
-        self.download_thread = DownloadThread(\
-            self.translator, self.card_type, self.last_foreign_text)
+        self.download_thread = DownloadThread(self.translator, self.card_type,
+            self.last_foreign_text, self.target_language_id)
         self.download_thread.finished_signal.connect(self.show_translation)
         self.download_thread.error_signal.connect(self.main_widget().show_error)
         self.main_widget().set_progress_text(_("Downloading..."))

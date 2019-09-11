@@ -26,7 +26,7 @@ class GoogleTranslator(Translator):
     popup_menu_text = "Insert Google translation..."
 
     def translate(self, card_type, foreign_text, target_language_id):
-        src_language_id = self.config().card_type_property(\
+        source_language_id = self.config().card_type_property(\
             "language_id", card_type)
-        return gTranslator().translate(foreign_text, src_language_id,
-                target_language_id).text
+        return gTranslator().translate(foreign_text, target_language_id,
+                source_language_id).text

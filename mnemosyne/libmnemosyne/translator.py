@@ -35,5 +35,5 @@ class Translator(Component):
             translator=self, component_manager=self.component_manager)
         self.component_manager.register(dialog)
         dialog.activate(card_type, foreign_text)
-        self.instantiated_gui_components.append(component)
+        self.instantiated_gui_components.append(dialog)
         return dialog.text_to_insert

@@ -138,6 +138,7 @@ class Configuration(Component, dict):
              "language_id": {}, # [card_type.id], ISO code
              "sublanguage_id": {}, # [card_type.id], ISO code
              "foreign_fact_key": {}, # [card_type.id]
+             "translation_language_id": {}, # [card_type.id], ISO code
              "non_latin_font_size_increase": 0,
              "non_memorised_cards_in_hand": 10,
              "randomise_new_cards": False,

@@ -1,6 +1,3 @@
--implement translator dialog
-- refactor names target language, translation_language
-
 -popup messages to help make these features discoverable
 
 -Add Language, Translator, Pronouncer to website.
@@ -13,7 +10,7 @@
 -tree expansion status does not get saved
 
 -upgrade to PyQt5.11, but this also requires migrating to 64 bit
-copy and paste from review window?
+-copy and paste from review window?
 -switch to PyOxidizer
 
 - wheelock anki deck:
