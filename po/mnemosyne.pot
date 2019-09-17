@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-09-11 13:31+0200\n"
+"POT-Creation-Date: 2019-09-17 13:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1979,11 +1979,15 @@ msgstr ""
 msgid "If you use 'Edit cards', changes are made to all the sister cards simultaneously."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:289
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:34
+msgid "If your card type has a language associated to it, you can right click to insert text-to-speech or translations."
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:290
 msgid "Abandon current card?"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:289
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:290
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:245
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
@@ -1992,7 +1996,7 @@ msgstr ""
 msgid "&No"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:289
+#: ../mnemosyne/pyqt_ui/add_cards_dlg.py:290
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:245
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
@@ -2608,11 +2612,15 @@ msgid "Advanced users can customise more of Mnemosyne by editing the config.py f
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:57
-msgid "You can follow the development of Mnemosyne at <a href=\"https://plus.google.com/b/112456861177827156549/112456861177827156549/posts\">Google+</a>."
+msgid "You can follow the development of Mnemosyne on Twitter or Facebook."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:58
 msgid "You can request new features and vote for exisiting requests at <a href=\"https://mnemosyne.uservoice.com/\">uservoice</a>. This helps the developers decide what to work on next."
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/tip_dlg.py:59
+msgid "Using the 'Manage card types' dialog, you can associate a language with a card type. This enables functionality like text-to-speech or dictionary lookup."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_about_dlg.py:81

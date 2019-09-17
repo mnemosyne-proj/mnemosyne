@@ -54,8 +54,9 @@ class TipDlg(QtWidgets.QDialog, TipDialog, Ui_TipDlg):
         self.tips.append(_("""For optimal performance, do not put your database on a network drive."""))
         self.tips.append(_("""For optimal performance, run 'File - Compact' from time to time, especially after deleting many cards."""))
         self.tips.append(_("""Advanced users can customise more of Mnemosyne by editing the config.py file in their mnemosyne directory. They can also install additional plugins to customise Mnemosyne even further."""))
-        self.tips.append(_("""You can follow the development of Mnemosyne at <a href="https://plus.google.com/b/112456861177827156549/112456861177827156549/posts">Google+</a>."""))
+        self.tips.append(_("""You can follow the development of Mnemosyne on Twitter or Facebook."""))
         self.tips.append(_("""You can request new features and vote for exisiting requests at <a href="https://mnemosyne.uservoice.com/">uservoice</a>. This helps the developers decide what to work on next."""))
+        self.tips.append(_("""Using the 'Manage card types' dialog, you can associate a language with a card type. This enables functionality like text-to-speech or dictionary lookup."""))
 
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \

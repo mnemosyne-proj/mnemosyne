@@ -428,7 +428,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
             ACQ_REPS_SINCE_LAPSE, RET_REPS_SINCE_LAPSE,
             EXTRA_DATA, ACTIVE, SCHEDULER_DATA):
             self.table.setColumnHidden(column, True)
-        self.table.setColumnHidden(_ID, False)
+        #self.table.setColumnHidden(_ID, False)
 
     def context_menu(self, point):
         menu = QtWidgets.QMenu(self)

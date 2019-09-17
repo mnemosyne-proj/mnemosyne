@@ -1,36 +1,28 @@
--popup messages to help make these features discoverable
+-merge other branches
 
 -Add Language, Translator, Pronouncer to website.
 
+-switch from 'uploaded' log file to 'uploaded2'
 
--implement and test switch from 'uploaded' log file to 'uploaded2'
-
--editing a tag by clicking in the tree does not get saved
-
--tree expansion status does not get saved
-
+Infrastucture:
 -upgrade to PyQt5.11, but this also requires migrating to 64 bit
 -copy and paste from review window?
 -switch to PyOxidizer
+-check into automated import of translations
 
-- wheelock anki deck:
-  - where does div on import appear? e.g. numerus
-  - searching for div turns up wrong results?
-  - empty ()
-
-- checking for unused tags scales badly when deleting 1500 cards
-- can result in deleting same tag twice?
 
 Android:
 
-switch to Chaquopy. Or standard NDK with Chaquopy python binary?
--unicode sync issue: upload utf filename from Android, client.py line 548
+-switch to Chaquopy.
+-Or standard NDK with Chaquopy python binary? Chaquopy seems to be built on top
+ of Crystax as well: https://chaquo.com/maven/com/chaquo/python/target/
+-https://github.com/inclement/crystax_python_builds
 
+-unicode sync issue: upload utf filename from Android, client.py line 548
 
 CRYSTAX_NDX := C:/crystax-ndk-10.3.2
 buildDir = "C:/tmp/${rootProject.name}/${project.name}" in local.properties
 update build docs
-
 
 -look into fixes reported by dashboard
 -integrated error reporting:
@@ -51,11 +43,19 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 -option to globally increase / decrease font size with respect to desktop
 -custom fonts?
 
-check into automated import of translations
 
 
 Minor bugs / issues:
 
+-editing a tag by clicking in the tree does not get saved
+-tree expansion status does not get saved
+- wheelock anki deck:
+  - where does div on import appear? e.g. numerus
+  - searching for div turns up wrong results?
+  - empty ()
+- checking for unused tags scales badly when deleting 1500 cards
+- can result in deleting same tag twice?
+-Are the configuration settings properly synced?
 -Delete current card which is sentence card with only a sentence field does not
  seem to work.
 -Adding the "enabled" tag does not automatically get rid of the cross-out in the
