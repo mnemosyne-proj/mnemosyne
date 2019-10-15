@@ -74,7 +74,7 @@ git checkout master
 git merge upstream/master
 ```
 
-If there are new changes, your repository now looks like this (each number symbolyses a commit):
+If there are new changes, your repository now looks like this (each number symbolises a commit):
 
 ```
 your local master branch:  ---1-2-3-4'-5'-6'-7'-8' (new changes from upstream)

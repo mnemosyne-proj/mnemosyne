@@ -12,6 +12,7 @@ from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.controller import Controller
 from mnemosyne.libmnemosyne.utils import remove_empty_dirs_in
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
+from mnemosyne.libmnemosyne.card_type_converter import CardTypeConverter
 
 HOUR = 60 * 60 # Seconds in an hour.
 DAY = 24 * HOUR # Seconds in a day.
@@ -293,8 +294,8 @@ class DefaultController(Controller):
                 "|".join(list(fact.data.values())) + ".\n")
             return -2
         converter = self.component_manager.current\
-              ("card_type_converter", used_for=(old_card_type.__class__,
-                                                new_card_type.__class__))
+              ("card_type_converter", CardTypeConverter.card_type_converter_key\
+               (old_card_type, new_card_type))
         if not converter:
             # Perhaps they have a common ancestor.
             parents_old = old_card_type.id.split("::")

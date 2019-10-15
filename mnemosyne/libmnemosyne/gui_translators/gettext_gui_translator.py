@@ -33,3 +33,4 @@ class GetTextGuiTranslator(GuiTranslator):
         self._translator = gettext.translation("mnemosyne",
             localedir=self.lang_path, languages=[language],
             fallback=True).gettext
+

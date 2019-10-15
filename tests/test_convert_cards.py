@@ -84,6 +84,7 @@ class TestConvertCards(MnemosyneTest):
         assert new_card_2.card_type.id == "2"
 
         if new_card_1.fact_view.id == "2.1":
+            print(new_card_1.id, new_card_2.id, old_card.id)
             assert new_card_1 == old_card
             assert new_card_2 != old_card
             assert new_card_2.grade == -1

@@ -1,14 +1,19 @@
+-testsuite: why does Mnemosyne try to set an English translator?
+
 -merge other branches
 
--Add Language, Translator, Pronouncer to website.
+-check into automated import of translations
+
+-Add Language, Translator, Pronouncer to website. Add gtts and googletrans to requirements
 
 -switch from 'uploaded' log file to 'uploaded2'
 
 Infrastucture:
 -upgrade to PyQt5.11, but this also requires migrating to 64 bit
+-Python 3.7? Android is still 3.6, though
 -copy and paste from review window?
 -switch to PyOxidizer
--check into automated import of translations
+
 
 
 Android:
@@ -17,6 +22,7 @@ Android:
 -Or standard NDK with Chaquopy python binary? Chaquopy seems to be built on top
  of Crystax as well: https://chaquo.com/maven/com/chaquo/python/target/
 -https://github.com/inclement/crystax_python_builds
+-https://github.com/codelv/enaml-native
 
 -unicode sync issue: upload utf filename from Android, client.py line 548
 

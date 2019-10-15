@@ -2,7 +2,6 @@
 # component_manager.py <Peter.Bienstman@UGent.be>
 #
 
-
 class ComponentManager(object):
 
     """Manages the different components. Typically, instances of the different
@@ -87,7 +86,7 @@ class ComponentManager(object):
         # if there is a component registered for the exact type.
         try:
             return self.components[used_for][comp_type]
-        except:
+        except Exception as e:
             # See if there is a component registered for the parent class.
             # We need to do this both for the case where 'used_for' is a
             # tuple and a single class.
