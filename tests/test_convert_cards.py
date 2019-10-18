@@ -783,7 +783,6 @@ class TestConvertCards(MnemosyneTest):
                         clone_card_type(self.card_type_with_id("3"), "my_language")
         correspondence = {"f": "m_1", "b": "f"}
 
-
         new_fact_data = {"m_1": "translation", "f": "foreign"}
 
         self.controller().edit_card_and_sisters(card, new_fact_data,
@@ -808,13 +807,15 @@ class TestConvertCards(MnemosyneTest):
         assert card_1.active == True
         assert card_2.active == True
 
-        if card_1.fact_view.id == "3.1": # Recognition
-            assert "foreign" in  card_1.question()
+        print(card_1.grade, card_2.grade)
+
+        if card_1.fact_view.id == "3::my_language.1": # Recognition
+            assert "foreign" in card_1.question()
             assert "translation" in card_2.question()
             assert card_1.grade == -1
             assert card_2.grade == 2
         else:
-            assert "foreign" in  card_2.question()
+            assert "foreign" in card_2.question()
             assert "translation" in card_1.question()
             assert card_2.grade == -1
             assert card_1.grade == 2

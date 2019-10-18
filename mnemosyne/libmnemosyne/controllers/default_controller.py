@@ -293,14 +293,17 @@ class DefaultController(Controller):
         _("Card data not correctly formatted for conversion.\n\nSkipping ") +\
                 "|".join(list(fact.data.values())) + ".\n")
             return -2
-        converter = self.component_manager.current\
+        # For conversion, we need to look at the top ancestor.
+        ancestor_id_old = old_card_type.id.split("::", maxsplit=1)[0]
+        ancestor_id_new = new_card_type.id.split("::", maxsplit=1)[0]
+        converter = None
+        if ancestor_id_old != ancestor_id_new:
+            converter = self.component_manager.current\
               ("card_type_converter", CardTypeConverter.card_type_converter_key\
-               (old_card_type, new_card_type))
+               (self.card_type_with_id(ancestor_id_old),
+                self.card_type_with_id(ancestor_id_new)))
         if not converter:
-            # Perhaps they have a common ancestor.
-            parents_old = old_card_type.id.split("::")
-            parents_new = new_card_type.id.split("::")
-            if parents_old[0] == parents_new[0]:
+            if ancestor_id_old == ancestor_id_new:
                 edited_cards = cards_from_fact
                 new_fact_view_for = {}
                 for index, old_fact_view in enumerate(old_card_type.fact_views):
