@@ -151,6 +151,7 @@ def normalise_path(path):
     else:
         return path.replace("/", "\\")
 
+
 def make_filename_unique(filename):
     if os.path.exists(filename):
         prefix, suffix = filename.rsplit(".", 1)
@@ -161,6 +162,7 @@ def make_filename_unique(filename):
             if not os.path.exists(filename):
                 break
     return filename
+
 
 def copy_file_to_dir(filename, dirname):
 

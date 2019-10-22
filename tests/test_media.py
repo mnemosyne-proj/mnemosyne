@@ -83,10 +83,10 @@ class TestMedia(MnemosyneTest):
         assert os.path.exists(os.path.join(self.database().media_dir(), "a.ogg"))
 
         self.controller().show_insert_sound_dialog("")
-        assert os.path.exists(os.path.join(self.database().media_dir(), "a_1_.ogg"))
+        assert os.path.exists(os.path.join(self.database().media_dir(), "a_1.ogg"))
 
         self.controller().show_insert_sound_dialog("")
-        assert os.path.exists(os.path.join(self.database().media_dir(), "a_2_.ogg"))
+        assert os.path.exists(os.path.join(self.database().media_dir(), "a_2.ogg"))
 
     def test_img_1(self):
         global filename
@@ -418,4 +418,3 @@ class TestMedia(MnemosyneTest):
         if os.path.exists("_keep"):
             shutil.rmtree("_keep")
         MnemosyneTest.teardown(self)
-
