@@ -1,19 +1,16 @@
--testsuite: why does Mnemosyne try to set an English translator?
-
--merge other branches
-
 -check into automated import of translations
+-remove test status from webpage
 
 -Add Language, Translator, Pronouncer to website. Add gtts and googletrans to requirements
 
 -switch from 'uploaded' log file to 'uploaded2'
+-boost version number
 
 Infrastucture:
 -upgrade to PyQt5.11, but this also requires migrating to 64 bit
 -Python 3.7? Android is still 3.6, though
 -copy and paste from review window?
 -switch to PyOxidizer
-
 
 
 Android:
