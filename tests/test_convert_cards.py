@@ -45,7 +45,7 @@ class TestConvertCards(MnemosyneTest):
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
             asynchronous_database=True)
         self.mnemosyne.components.insert(0,
-           ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
+           ("mnemosyne.libmnemosyne.gui_translators.gettext_gui_translator", "GetTextGuiTranslator"))
         self.mnemosyne.components.append(\
             ("test_convert_cards", "Widget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
@@ -84,6 +84,7 @@ class TestConvertCards(MnemosyneTest):
         assert new_card_2.card_type.id == "2"
 
         if new_card_1.fact_view.id == "2.1":
+            print(new_card_1.id, new_card_2.id, old_card.id)
             assert new_card_1 == old_card
             assert new_card_2 != old_card
             assert new_card_2.grade == -1
@@ -782,7 +783,6 @@ class TestConvertCards(MnemosyneTest):
                         clone_card_type(self.card_type_with_id("3"), "my_language")
         correspondence = {"f": "m_1", "b": "f"}
 
-
         new_fact_data = {"m_1": "translation", "f": "foreign"}
 
         self.controller().edit_card_and_sisters(card, new_fact_data,
@@ -807,13 +807,15 @@ class TestConvertCards(MnemosyneTest):
         assert card_1.active == True
         assert card_2.active == True
 
-        if card_1.fact_view.id == "3.1": # Recognition
-            assert "foreign" in  card_1.question()
+        print(card_1.grade, card_2.grade)
+
+        if card_1.fact_view.id == "3::my_language.1": # Recognition
+            assert "foreign" in card_1.question()
             assert "translation" in card_2.question()
             assert card_1.grade == -1
             assert card_2.grade == 2
         else:
-            assert "foreign" in  card_2.question()
+            assert "foreign" in card_2.question()
             assert "translation" in card_1.question()
             assert card_2.grade == -1
             assert card_1.grade == 2

@@ -74,7 +74,7 @@ git checkout master
 git merge upstream/master
 ```
 
-If there are new changes, your repository now looks like this (each number symbolyses a commit):
+If there are new changes, your repository now looks like this (each number symbolises a commit):
 
 ```
 your local master branch:  ---1-2-3-4'-5'-6'-7'-8' (new changes from upstream)
@@ -124,7 +124,9 @@ To start working on Mnemosyne, you need at least the following software.
 - [cheroot](https://pypi.python.org/pypi/Cheroot/) 5 or later
 - [Webob](http://webob.org) 1.4 or later
 - [Pillow](http://python-pillow.org)
-- For Latex support: the `latex` and `dvipng` commands must be available (e.g., `TeXLive` on Linux, `MacTeX` on Mac, and `MikTeX` on Windows). On Arch based distributions, you'll need `texlive-core` package too. 
+- [gTTS](https://pypi.org/project/gTTS/) for Google text-to-speech
+- [googletrans](https://pypi.org/project/googletrans/) for Google translate support
+- For Latex support: the `latex` and `dvipng` commands must be available (e.g., `TeXLive` on Linux, `MacTeX` on Mac, and `MikTeX` on Windows).  On Arch based distributions, you'll need `texlive-core` package too.
 - For building the docs: [sphinx](http://sphinx-doc.org)
 - For running the tests: [nose](https://nose.readthedocs.io/en/latest/)
 

@@ -22,13 +22,13 @@ def startup():
     mnemosyne = Mnemosyne(upload_science_logs=False,
         interested_in_old_reps=True)
     mnemosyne.components.insert(0,
-        ("mnemosyne.libmnemosyne.translators.no_translator",
-         "NoTranslator"))
+        ("mnemosyne.libmnemosyne.gui_translators.no_gui_translator",
+         "NoGuiTranslator"))
     mnemosyne.components.append(
         ("mnemosyne.libmnemosyne.ui_components.main_widget",
          "MainWidget"))
-    smnemosyne.gui_for_component["ScheduledForgottenNew"] = \
-        [("mnemosyne_test", "TestReviewWidget")]    
+    mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
+        [("mnemosyne_test", "TestReviewWidget")]
 
     mnemosyne.initialise(data_dir=os.path.abspath("dot_benchmark"),
         automatic_upgrades=False)
@@ -109,12 +109,13 @@ def test_setup():
     shutil.rmtree("dot_test", ignore_errors=True)
     global mnemosyne
     mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
-    mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translators.gettext_translator",
-        "GetTextTranslator"))
+    mnemosyne.components.insert(0,
+        ("mnemosyne.libmnemosyne.gui_translators.gettext_gui_translator",
+        "GetTextGuiTranslator"))
     mnemosyne.components.append(\
         ("test_add_cards", "Widget"))
     mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
-        [("mnemosyne_test", "TestReviewWidget")]    
+        [("mnemosyne_test", "TestReviewWidget")]
     mnemosyne.components.append(\
         ("mnemosyne.libmnemosyne.ui_components.dialogs", "EditCardDialog"))
     mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)

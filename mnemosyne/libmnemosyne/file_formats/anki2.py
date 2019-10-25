@@ -12,7 +12,7 @@ import zipfile
 
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.card import Card
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.fact_view import FactView
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.file_format import FileFormat
@@ -342,10 +342,10 @@ class Anki2(FileFormat, MediaPreprocessor):
             card.last_rep = card.next_rep - ivl*86400
             card.easiness = factor/1000 if factor else 2.5
             card.acq_reps = 1   # No information.
-            card.ret_reps = 0 if reps == 0 else reps - 1
+            card.ret_reps = reps
             card.lapses = lapses
-            card.acq_reps_since_lapse = 0  # No information.
-            card.ret_reps_since_lapse = 0  # No information.
+            card.acq_reps_since_lapse = card.acq_reps  # No information.
+            card.ret_reps_since_lapse = card.ret_reps  # No information.
             card.modification_time = modification_time_for_nid[nid]
             self.active = (queue >= 0)
             if type_ == 0:  # 'new', unseen.
@@ -356,6 +356,8 @@ class Anki2(FileFormat, MediaPreprocessor):
                 card.next_rep = mod
             else:  # 'due', retention phase.
                 card.grade = 4  # No information.
+            if card.grade >= 2:
+                assert card.ret_reps_since_lapse != 0 # Issue #93 on github.
             if already_imported:
                 db.update_card(card)
             else:
@@ -379,4 +381,3 @@ class Anki2(FileFormat, MediaPreprocessor):
             shutil.rmtree(tmp_dir)
         w.close_progress()
         self.warned_about_missing_media = False
-

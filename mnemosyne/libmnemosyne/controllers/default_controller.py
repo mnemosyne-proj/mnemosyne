@@ -8,10 +8,11 @@ import copy
 import time
 
 from mnemosyne.libmnemosyne.fact import Fact
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.controller import Controller
 from mnemosyne.libmnemosyne.utils import remove_empty_dirs_in
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
+from mnemosyne.libmnemosyne.card_type_converter import CardTypeConverter
 
 HOUR = 60 * 60 # Seconds in an hour.
 DAY = 24 * HOUR # Seconds in a day.
@@ -66,7 +67,12 @@ class DefaultController(Controller):
                 self.log().activate()
                 self.config().save()
                 self.reset_study_mode()
-            self.next_rollover = self.database().start_of_day_n_days_ago(n=-1)
+            previous_rollover = self.next_rollover
+            next_rollover = self.database().start_of_day_n_days_ago(n=-1)
+            # Avoid rare issue with DST.
+            if abs(next_rollover - previous_rollover) < HOUR:
+                next_rollover += DAY
+            self.next_rollover = next_rollover
         if db_maintenance and \
            (time.time() > self.config()["last_db_maintenance"] + 90 * DAY):
             self.component_manager.current("database_maintenance").run()
@@ -287,14 +293,17 @@ class DefaultController(Controller):
         _("Card data not correctly formatted for conversion.\n\nSkipping ") +\
                 "|".join(list(fact.data.values())) + ".\n")
             return -2
-        converter = self.component_manager.current\
-              ("card_type_converter", used_for=(old_card_type.__class__,
-                                                new_card_type.__class__))
+        # For conversion, we need to look at the top ancestor.
+        ancestor_id_old = old_card_type.id.split("::", maxsplit=1)[0]
+        ancestor_id_new = new_card_type.id.split("::", maxsplit=1)[0]
+        converter = None
+        if ancestor_id_old != ancestor_id_new:
+            converter = self.component_manager.current\
+              ("card_type_converter", CardTypeConverter.card_type_converter_key\
+               (self.card_type_with_id(ancestor_id_old),
+                self.card_type_with_id(ancestor_id_new)))
         if not converter:
-            # Perhaps they have a common ancestor.
-            parents_old = old_card_type.id.split("::")
-            parents_new = new_card_type.id.split("::")
-            if parents_old[0] == parents_new[0]:
+            if ancestor_id_old == ancestor_id_new:
                 edited_cards = cards_from_fact
                 new_fact_view_for = {}
                 for index, old_fact_view in enumerate(old_card_type.fact_views):
@@ -706,7 +715,8 @@ _("Your database will be autosaved before exiting. Also, it is saved every coupl
             self.config()["single_database_help_shown"] = True
         self.flush_sync_server()
         suffix = self.database().suffix
-        old_path = expand_path(self.config()["last_database"], self.config().data_dir)
+        old_path = expand_path(self.config()["last_database"],
+                               self.config().data_dir)
         old_media_dir = self.database().media_dir()
         filename = self.main_widget().get_filename_to_save(path=old_path,
             filter=_("Mnemosyne databases") + " (*%s)" % suffix)

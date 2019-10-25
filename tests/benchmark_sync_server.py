@@ -21,15 +21,15 @@ from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 class Widget(MainWidget):
-    
+
     def set_progress_text(self, message):
         print(message)
-        #sys.stderr.write(message+'\n')        
-        
+        #sys.stderr.write(message+'\n')
+
     def show_information(self, info):
         print(info)
         #sys.stderr.write(info+'\n')
-        
+
     def show_error(self, error):
         global last_error
         last_error = error
@@ -46,11 +46,11 @@ class MyServer(Server):
     def __init__(self):
         shutil.rmtree(os.path.abspath("dot_sync_server"), ignore_errors=True)
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
-        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
-            "GetTextTranslator"))
+        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.gui_translator",
+            "GetTextGuiTranslator"))
         self.mnemosyne.components.append(("test_sync", "Widget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
-            [("mnemosyne_test", "TestReviewWidget")]        
+            [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.initialise(os.path.abspath("dot_sync_server"), automatic_upgrades=False)
         self.mnemosyne.config().change_user_id("user_id")
         self.mnemosyne.review_controller().reset()
@@ -64,10 +64,10 @@ class MyServer(Server):
                 grade=-1, tag_names=["default"])[0]
         self.mnemosyne.database().save()
         self.mnemosyne.database().release_connection()
-     
+
     def authorise(self, login, password):
         return login == "user" and password == "pass"
-    
+
     def load_database(self, database_name):
         self.mnemosyne.database().load(database_name)
         return self.mnemosyne.database()
@@ -77,7 +77,7 @@ class MyServer(Server):
         # Dirty way to make sure we restart the server and create a new database
         # (as opposed to keep sending old history back and forth)'
         self.wsgi_server.stop()
-        
+
     def run(self):
         Server.__init__(self, "client_machine_id", 8186,
                         self.mnemosyne.main_widget())
@@ -85,16 +85,16 @@ class MyServer(Server):
 
 server = MyServer()
 
-def run():  
+def run():
     server.run()
 
 tests = ["run()"]
 
-for test in tests:  
+for test in tests:
     cProfile.run(test, "mnemosyne_profile." + test.replace("()", ""))
     print()
     print(("*** ", test, " ***"))
     print()
     p = pstats.Stats('mnemosyne_profile.' + test.replace("()", ""))
     p.strip_dirs().sort_stats('cumulative').print_stats(number_of_calls)
-    
+

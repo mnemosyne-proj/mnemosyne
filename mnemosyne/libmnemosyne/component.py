@@ -7,12 +7,12 @@ class Component(object):
 
     """Base class of components that are registered with the component
     manager. This is a list of component types: config, log, database,
-    scheduler, stopwatch, translator, card_type, card_type_converter,
+    scheduler, stopwatch, gui_translator, card_type, card_type_converter,
     render_chain, renderer, filter, card_type_widget,
     generic_card_type_widget, ui_component, controller, main_widget,
     review_controller, review_widget, file format, plugin, hook,
     criterion, criterion_applier, statistics_page, sync_server,
-    study_mode, all the abstract dialogs, ...
+    study_mode, translator, pronouncer, all the abstract dialogs, ...
 
     'used_for' can store certain relationships between components, e.g.
     a card type widget is used for a certain card type.
@@ -65,8 +65,17 @@ class Component(object):
         work, and which can't happen in the constructor, e.g. because
         components on which it relies have not yet been registered.
 
-        GUI classes are only instantiated when activated, since that can take
+        """
+
+        pass
+
+    def activate_gui_components(self):
+
+        """GUI classes are only instantiated when activated, since that can take
         a lot of time on mobile clients.
+
+        Classes that require more control over this, e.g. when needing to return
+        values from the UI, can subclass this.
 
         """
 
@@ -86,10 +95,10 @@ class Component(object):
     # libmnemosyne from within a component.
 
     def _(self):
-        return self.component_manager.current("translator")
+        return self.component_manager.current("gui_translator")
 
-    def translator(self):
-        return self.component_manager.current("translator")
+    def gui_translator(self):
+        return self.component_manager.current("gui_translator")
 
     def config(self):
         return self.component_manager.current("config")
@@ -132,6 +141,12 @@ class Component(object):
 
     def plugins(self):
         return self.component_manager.all("plugin")
+
+    def languages(self):
+        return self.component_manager.language_with_id.values()
+
+    def language_with_id(self, id):
+        return self.component_manager.language_with_id[id]
 
     def flush_sync_server(self):
 

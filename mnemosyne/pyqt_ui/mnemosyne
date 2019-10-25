@@ -70,7 +70,7 @@ parser.add_option("--version", dest="version",
 
 if options.version == True:
     from mnemosyne.version import version
-    print("Mnemosyne " + version)
+    print(("Mnemosyne " + version).rstrip())
     sys.exit(0)
 
 # Check if we have to override the data_dir determined in libmnemosyne,
@@ -99,8 +99,8 @@ mnemosyne = Mnemosyne(upload_science_logs=None, interested_in_old_reps=True)
 if options.web_server == True or options.sync_server == True:
     # Initialise Mnemosyne.
     mnemosyne.components.insert(0,
-        ("mnemosyne.libmnemosyne.translators.no_translator",
-         "NoTranslator"))
+        ("mnemosyne.libmnemosyne.gui_translators.no_gui_translator",
+         "NoGuiTranslator"))
     mnemosyne.components.append(\
         ("mnemosyne.libmnemosyne.ui_components.main_widget",
          "MainWidget"))
@@ -169,8 +169,8 @@ a.setApplicationName("Mnemosyne")
 # The UI components should come in the order they should be instantiated,
 # but apart from that, the order does not matter.
 mnemosyne.components.insert(0,
-                            ("mnemosyne.pyqt_ui.qt_translator",
-                             "QtTranslator"))
+                            ("mnemosyne.pyqt_ui.qt_gui_translator",
+                             "QtGuiTranslator"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.main_wdgt",
                              "MainWdgt"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration",
@@ -243,6 +243,8 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.export_metadata_dlg",
                              "ExportMetadataDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.prefill_tag_behaviour_plugin",
                              "PrefillTagBehaviourPlugin"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.pronouncer_dlg",
+                             "PronouncerDlg"))
 mnemosyne.gui_for_component["ScheduledForgottenNew"] = [\
                             ("mnemosyne.pyqt_ui.review_wdgt",
                              "ReviewWdgt")]
@@ -255,6 +257,12 @@ mnemosyne.gui_for_component["CramAll"] = [\
 mnemosyne.gui_for_component["CramRecent"] = [\
                            ("mnemosyne.pyqt_ui.review_wdgt_cramming",
                             "ReviewWdgtCramming")]
+mnemosyne.gui_for_component["GooglePronouncer"] = [\
+                           ("mnemosyne.pyqt_ui.pronouncer_dlg",
+                            "PronouncerDlg")]
+mnemosyne.gui_for_component["GoogleTranslator"] = [\
+                           ("mnemosyne.pyqt_ui.translator_dlg",
+                            "TranslatorDlg")]
 
 # Run Mnemosyne.
 mnemosyne.initialise(data_dir=data_dir, filename=filename,

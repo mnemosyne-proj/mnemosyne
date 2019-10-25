@@ -4,7 +4,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.ui_convert_card_type_keys_dlg import \
      Ui_ConvertCardTypeKeysDlg
 
@@ -13,7 +13,7 @@ class ConvertCardTypeKeysDlg(QtWidgets.QDialog, Ui_ConvertCardTypeKeysDlg):
 
     def __init__(self, old_card_type, new_card_type, correspondence,
                  check_required_fact_keys=True, **kwds):
-        super().__init__(**kwds)    
+        super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
             | QtCore.Qt.WindowMinMaxButtonsHint)

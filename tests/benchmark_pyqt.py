@@ -65,11 +65,11 @@ def startup():
     #translator.load("qt_" + loc + ".qm", os.path.join(prefix, 'locale'))
     #a.installTranslator(translator)
 
-    # Add other components we need. The translator should obviously come first,
+    # Add other components we need. The GUI translator should obviously come first,
     # and the UI components should come in the order they should be instantiated,
     # but apart from that, the order does not matter.
-    mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
-                                 "GetTextTranslator"))
+    mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.gui_translator",
+                                 "GetTextGuiTranslator"))
     mnemosyne.components.append(("mnemosyne.pyqt_ui.main_wdgt",
                                  "MainWdgt"))
     mnemosyne.components.append(("mnemosyne.pyqt_ui.review_wdgt",
@@ -135,7 +135,7 @@ def startup():
     a.exec_()
     mnemosyne.finalise()
 
- 
+
 tests = ["startup()"]
 
 for test in tests:

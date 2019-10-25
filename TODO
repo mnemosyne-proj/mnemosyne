@@ -1,11 +1,41 @@
+-testsuite: why does Mnemosyne try to set an English translator?
+
+-merge other branches
+
+-check into automated import of translations
+
+-Add Language, Translator, Pronouncer to website. Add gtts and googletrans to requirements
+
+-switch from 'uploaded' log file to 'uploaded2'
+
+Infrastucture:
+-upgrade to PyQt5.11, but this also requires migrating to 64 bit
+-Python 3.7? Android is still 3.6, though
+-copy and paste from review window?
+-switch to PyOxidizer
+
+
+
 Android:
+
+-switch to Chaquopy.
+-Or standard NDK with Chaquopy python binary? Chaquopy seems to be built on top
+ of Crystax as well: https://chaquo.com/maven/com/chaquo/python/target/
+-https://github.com/inclement/crystax_python_builds
+-https://github.com/codelv/enaml-native
+
+-unicode sync issue: upload utf filename from Android, client.py line 548
+
+CRYSTAX_NDX := C:/crystax-ndk-10.3.2
+buildDir = "C:/tmp/${rootProject.name}/${project.name}" in local.properties
+update build docs
 
 -look into fixes reported by dashboard
 -integrated error reporting:
 https://developers.google.com/analytics/devguides/collection/android/v4/exceptions
 http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-button
 -check 'redraw now'
--Cramming widget for Android
+-cramming widget for Android
 -setting to allow choosing the database location?
 -revisit multiple database option?
 -'sync' button should sync directly without going through the sync settings
@@ -19,12 +49,27 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 -option to globally increase / decrease font size with respect to desktop
 -custom fonts?
 
-check into automated import of translations
 
-if pyinstaller has been updated: upgrade PyQt5
 
 Minor bugs / issues:
 
+-editing a tag by clicking in the tree does not get saved
+-tree expansion status does not get saved
+- wheelock anki deck:
+  - where does div on import appear? e.g. numerus
+  - searching for div turns up wrong results?
+  - empty ()
+- checking for unused tags scales badly when deleting 1500 cards
+- can result in deleting same tag twice?
+-Are the configuration settings properly synced?
+-Delete current card which is sentence card with only a sentence field does not
+ seem to work.
+-Adding the "enabled" tag does not automatically get rid of the cross-out in the
+ card browser.
+-Prevent commas in tag names also when using 'create_new_cards' in script.
+-Incoming sync when card browser is open does not work.
+-Add cloze from card browser, preview does not update correctly
+ to show new number of cards
 -For Latex on OSX: try and have OSX search system paths, or otherwise edit config.py
  latex = "/Library/TeX/texbin/latex -output-format=dvi -interaction=nonstopmode"
  dvipng = "/Library/TeX/texbin/dvipng -D 200 -T tight tmp.dvi"
@@ -150,6 +195,8 @@ created with just the "»" symbol.
 
 
 Other features:
+
+- plugin to deactivate cards in a certain cardtype after X retention reps.
 
 -check for required fields when using the Anki card type.
 
@@ -550,3 +597,5 @@ Design warts:
   save settings. Rework everything better in the sync protocol.
   Other issue related to storage is that built-in CardTypes like Sentence cannot store extra_data, so we resorted to e.g.
   storing the language info in config.db
+- related: config().card_type_property(): refactor to be members of card_type as
+  opposed to of config.py

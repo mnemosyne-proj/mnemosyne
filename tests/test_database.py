@@ -44,7 +44,7 @@ class TestDatabase(MnemosyneTest):
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
             asynchronous_database=True)
         self.mnemosyne.components.insert(0,
-            ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
+            ("mnemosyne.libmnemosyne.gui_translators.gettext_gui_translator", "GetTextGuiTranslator"))
         self.mnemosyne.components.append(\
             ("test_database", "Widget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
@@ -676,23 +676,26 @@ class TestDatabase(MnemosyneTest):
         card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                  grade=-1, tag_names=["a", "b"])[0]
+        card__id_1 = card._id
         fact_data = {"f": "question2",
                      "b": "answer"}
         card = self.controller().create_new_cards(fact_data, card_type,
                                  grade=-1, tag_names=["a"])[0]
+        card__id_2 = card._id
         fact_data = {"f": "question3",
                      "b": "answer"}
         card = self.controller().create_new_cards(fact_data, card_type,
                                  grade=-1, tag_names=["c"])[0]
+        card__id_3 = card._id
 
-        for tag in self.database().tags_from_cards_with_internal_ids([1, 2]):
-            assert tag._id in [2, 3]
+        for tag in self.database().tags_from_cards_with_internal_ids([card__id_1, card__id_2]):
+            assert tag.name in ["a", "b"]
 
-        for tag in self.database().tags_from_cards_with_internal_ids([2]):
-            assert tag._id in [2]
+        for tag in self.database().tags_from_cards_with_internal_ids([card__id_2]):
+            assert tag.name in ["a"]
 
-        for tag in self.database().tags_from_cards_with_internal_ids([2, 3]):
-            assert tag._id in [2, 4]
+        for tag in self.database().tags_from_cards_with_internal_ids([card__id_2, card__id_3]):
+            assert tag.name in ["a", "c"]
 
     def test_tag_all_duplicates(self):
         fact_data = {"f": "question",

@@ -7,7 +7,7 @@ import random
 import calendar
 import datetime
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.scheduler import Scheduler
 
 
@@ -108,7 +108,7 @@ class SM2Mnemosyne(Scheduler):
 
         interval = card.next_rep - card.last_rep
         if card.grade < 2:
-            if interval != 0:
+            if abs(interval) > 1e-10:
                 self.main_widget().show_error(\
                     "Internal error: interval not zero.")
             return interval

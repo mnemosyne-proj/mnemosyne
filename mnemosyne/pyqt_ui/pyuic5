@@ -74,16 +74,16 @@ class CompileUi(object):
             def createToplevelWidget(self, classname, widgetname):
                 o = indenter.getIndenter()
                 o.level = 0
-                o.write('from mnemosyne.libmnemosyne.translator import _')
+                o.write('from mnemosyne.libmnemosyne.gui_translator import _')
                 return super(_UICompiler, self).createToplevelWidget(
                                    classname, widgetname)
 
         compiler.UICompiler = _UICompiler
 
         class _i18n_string(qtproxies.i18n_string):
-            
+
             """Provide a translated text."""
-            
+
             def __str__(self):
                 return "_('%s')" % self.string.replace("\'", "\\'").replace("\n", "\\n")
 

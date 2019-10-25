@@ -2,7 +2,7 @@
 # vocabulary.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
@@ -39,7 +39,8 @@ from mnemosyne.libmnemosyne.card_types.both_ways import BothWays
 
 class FrontToBackToVocabulary(CardTypeConverter):
 
-    used_for = (FrontToBack, Vocabulary)
+    used_for = CardTypeConverter.card_type_converter_key\
+        (FrontToBack, Vocabulary)
 
     def convert(self, cards, old_card_type, new_card_type, correspondence):
         # Update front-to-back view to corresponding view in new type.
@@ -60,7 +61,8 @@ class FrontToBackToVocabulary(CardTypeConverter):
 
 class BothWaysToVocabulary(CardTypeConverter):
 
-    used_for = (BothWays, Vocabulary)
+    used_for = CardTypeConverter.card_type_converter_key\
+        (BothWays, Vocabulary)
 
     def convert(self, cards, old_card_type, new_card_type, correspondence):
         for card in cards:
@@ -80,7 +82,8 @@ class BothWaysToVocabulary(CardTypeConverter):
 
 class VocabularyToFrontToBack(CardTypeConverter):
 
-    used_for = (Vocabulary, FrontToBack)
+    used_for = CardTypeConverter.card_type_converter_key\
+        (Vocabulary, FrontToBack)
 
     def convert(self, cards, old_card_type, new_card_type, correspondence):
         new_cards, edited_cards, deleted_cards = [], [], []
@@ -104,7 +107,8 @@ class VocabularyToFrontToBack(CardTypeConverter):
 
 class VocabularyToBothWays(CardTypeConverter):
 
-    used_for = (Vocabulary, BothWays)
+    used_for = CardTypeConverter.card_type_converter_key\
+        (Vocabulary, BothWays)
 
     def convert(self, cards, old_card_type, new_card_type, correspondence):
         for card in cards:

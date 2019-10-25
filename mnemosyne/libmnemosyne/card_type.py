@@ -3,7 +3,7 @@
 #
 
 from mnemosyne.libmnemosyne.card import Card
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.utils import CompareOnId
 from mnemosyne.libmnemosyne.component import Component
 
@@ -59,13 +59,18 @@ class CardType(Component, CompareOnId):
             in self.fact_keys_and_names)
 
     def fact_key_names(self):
-        return [fact_key_name for (fact_key, fact_key_name) \
+        return [_(fact_key_name) for (fact_key, fact_key_name) \
             in self.fact_keys_and_names]
 
     def fact_key_with_name(self, name):
         for fact_key, fact_key_name in self.fact_keys_and_names:
             if fact_key_name == name or _(fact_key_name) == name:
                 return fact_key
+
+    def name_for_fact_key(self, key):
+        for fact_key, fact_key_name in self.fact_keys_and_names:
+            if key == fact_key:
+                return _(fact_key_name)
 
     def render_question(self, card, render_chain="default", **render_args):
         return self.render_chain(render_chain).\

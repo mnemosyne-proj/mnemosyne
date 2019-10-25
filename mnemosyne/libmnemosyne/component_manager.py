@@ -2,7 +2,6 @@
 # component_manager.py <Peter.Bienstman@UGent.be>
 #
 
-
 class ComponentManager(object):
 
     """Manages the different components. Typically, instances of the different
@@ -22,18 +21,21 @@ class ComponentManager(object):
         self.card_type_with_id = {}
         self.render_chain_with_id = {}
         self.study_mode_with_id = {}
+        self.language_with_id = {}
         self.debug_file = None
 
     def register(self, component):
         comp_type = component.component_type
-        used_for = component.used_for
-        if used_for not in self.components:
-            self.components[used_for] = {}
-        if comp_type not in self.components[used_for]:
-            self.components[used_for][comp_type] = [component]
-        else:
-            if component not in self.components[used_for][comp_type]:
-                self.components[used_for][comp_type].append(component)
+        used_for = component.used_for if type(component.used_for) in \
+            (tuple, list) else [component.used_for]
+        for used_for_i in used_for:
+            if used_for_i not in self.components:
+                self.components[used_for_i] = {}
+            if comp_type not in self.components[used_for_i]:
+                self.components[used_for_i][comp_type] = [component]
+            else:
+                if component not in self.components[used_for_i][comp_type]:
+                    self.components[used_for_i][comp_type].append(component)
         # (We could abuse the component's used_for as the id here, but that
         # would hamper readability.)
         if comp_type == "card_type":
@@ -42,11 +44,15 @@ class ComponentManager(object):
             self.render_chain_with_id[component.id] = component
         elif comp_type == "study_mode":
             self.study_mode_with_id[component.id] = component
+        elif comp_type == "language":
+            self.language_with_id[component.used_for] = component
 
     def unregister(self, component):
         comp_type = component.component_type
-        used_for = component.used_for
-        self.components[used_for][comp_type].remove(component)
+        used_for = component.used_for if type(component.used_for) in \
+            (tuple, list) else [component.used_for]
+        for used_for_i in used_for:
+            self.components[used_for_i][comp_type].remove(component)
         if component.component_type == "card_type":
             del self.card_type_with_id[component.id]
         elif component.component_type == "render_chain":
@@ -80,7 +86,7 @@ class ComponentManager(object):
         # if there is a component registered for the exact type.
         try:
             return self.components[used_for][comp_type]
-        except:
+        except Exception as e:
             # See if there is a component registered for the parent class.
             # We need to do this both for the case where 'used_for' is a
             # tuple and a single class.

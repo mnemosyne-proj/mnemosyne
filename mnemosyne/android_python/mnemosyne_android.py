@@ -15,8 +15,8 @@ mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
 
 
 mnemosyne.components = [\
-         ("mnemosyne.libmnemosyne.translators.no_translator",
-          "NoTranslator"),
+         ("mnemosyne.libmnemosyne.gui_translators.no_gui_translator",
+          "NoGuiTranslator"),
          ("mnemosyne.libmnemosyne.databases.SQLite",
           "SQLite"),
          ("mnemosyne.android_python.database_maintenance",

@@ -151,7 +151,221 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.file_formats.smconv_XML",
           "Smconv_XML"),
          ("mnemosyne.libmnemosyne.file_formats.cuecard_wcu",
-          "CuecardWcu")]
+          "CuecardWcu"),
+         ("mnemosyne.libmnemosyne.translator",
+          "Translator"),
+         ("mnemosyne.libmnemosyne.pronouncer",
+          "Pronouncer"),
+         ("mnemosyne.libmnemosyne.translators.google_translator",
+          "GoogleTranslator"),
+         ("mnemosyne.libmnemosyne.pronouncers.google_pronouncer",
+          "GooglePronouncer"),
+         ("mnemosyne.libmnemosyne.languages.afrikaans",
+          "Afrikaans"),
+         ("mnemosyne.libmnemosyne.languages.albanian",
+          "Albanian"),
+         ("mnemosyne.libmnemosyne.languages.amharic",
+          "Amharic"),
+         ("mnemosyne.libmnemosyne.languages.arabic",
+          "Arabic"),
+         ("mnemosyne.libmnemosyne.languages.armenian",
+          "Armenian"),
+         ("mnemosyne.libmnemosyne.languages.azerbaijani",
+          "Azerbaijani"),
+         ("mnemosyne.libmnemosyne.languages.basque",
+          "Basque"),
+         ("mnemosyne.libmnemosyne.languages.belarusian",
+          "Belarusian"),
+         ("mnemosyne.libmnemosyne.languages.bengali",
+          "Bengali"),
+         ("mnemosyne.libmnemosyne.languages.bosnian",
+          "Bosnian"),
+         ("mnemosyne.libmnemosyne.languages.bulgarian",
+          "Bulgarian"),
+         ("mnemosyne.libmnemosyne.languages.catalan",
+          "Catalan"),
+         ("mnemosyne.libmnemosyne.languages.cebuano",
+          "Cebuano"),
+         ("mnemosyne.libmnemosyne.languages.chinese",
+          "Chinese"),
+         ("mnemosyne.libmnemosyne.languages.corsican",
+          "Corsican"),
+         ("mnemosyne.libmnemosyne.languages.croatian",
+          "Croatian"),
+         ("mnemosyne.libmnemosyne.languages.czech",
+          "Czech"),
+         ("mnemosyne.libmnemosyne.languages.danish",
+          "Danish"),
+         ("mnemosyne.libmnemosyne.languages.dutch",
+          "Dutch"),
+         ("mnemosyne.libmnemosyne.languages.english",
+          "English"),
+         ("mnemosyne.libmnemosyne.languages.esperanto",
+          "Esperanto"),
+         ("mnemosyne.libmnemosyne.languages.estonian",
+          "Estonian"),
+         ("mnemosyne.libmnemosyne.languages.finnish",
+          "Finnish"),
+         ("mnemosyne.libmnemosyne.languages.french",
+          "French"),
+         ("mnemosyne.libmnemosyne.languages.frisian",
+          "Frisian"),
+         ("mnemosyne.libmnemosyne.languages.gaelic",
+          "Gaelic"),
+         ("mnemosyne.libmnemosyne.languages.galician",
+          "Galician"),
+         ("mnemosyne.libmnemosyne.languages.georgian",
+          "Georgian"),
+         ("mnemosyne.libmnemosyne.languages.german",
+          "German"),
+         ("mnemosyne.libmnemosyne.languages.greek",
+          "Greek"),
+         ("mnemosyne.libmnemosyne.languages.gujarati",
+          "Gujarati"),
+         ("mnemosyne.libmnemosyne.languages.haitian",
+          "Haitian"),
+         ("mnemosyne.libmnemosyne.languages.hausa",
+          "Hausa"),
+         ("mnemosyne.libmnemosyne.languages.hawaiian",
+          "Hawaiian"),
+         ("mnemosyne.libmnemosyne.languages.hebrew",
+          "Hebrew"),
+         ("mnemosyne.libmnemosyne.languages.hindi",
+          "Hindi"),
+         ("mnemosyne.libmnemosyne.languages.hmong",
+          "Hmong"),
+         ("mnemosyne.libmnemosyne.languages.hungarian",
+          "Hungarian"),
+         ("mnemosyne.libmnemosyne.languages.icelandic",
+          "Icelandic"),
+         ("mnemosyne.libmnemosyne.languages.igbo",
+          "Igbo"),
+         ("mnemosyne.libmnemosyne.languages.indonesian",
+          "Indonesian"),
+         ("mnemosyne.libmnemosyne.languages.irish",
+          "Irish"),
+         ("mnemosyne.libmnemosyne.languages.italian",
+          "Italian"),
+         ("mnemosyne.libmnemosyne.languages.japanese",
+          "Japanese"),
+         ("mnemosyne.libmnemosyne.languages.javanese",
+          "Javanese"),
+         ("mnemosyne.libmnemosyne.languages.kannada",
+          "Kannada"),
+         ("mnemosyne.libmnemosyne.languages.kazakh",
+          "Kazakh"),
+         ("mnemosyne.libmnemosyne.languages.khmer",
+          "Khmer"),
+         ("mnemosyne.libmnemosyne.languages.korean",
+          "Korean"),
+         ("mnemosyne.libmnemosyne.languages.kurdish",
+          "Kurdish"),
+         ("mnemosyne.libmnemosyne.languages.kyrgyz",
+          "Kyrgyz"),
+         ("mnemosyne.libmnemosyne.languages.lao",
+          "Lao"),
+         ("mnemosyne.libmnemosyne.languages.latin",
+          "Latin"),
+         ("mnemosyne.libmnemosyne.languages.latvian",
+          "Latvian"),
+         ("mnemosyne.libmnemosyne.languages.lithuanian",
+          "Lithuanian"),
+         ("mnemosyne.libmnemosyne.languages.luxembourgish",
+          "Luxembourgish"),
+         ("mnemosyne.libmnemosyne.languages.macedonian",
+          "Macedonian"),
+         ("mnemosyne.libmnemosyne.languages.malagasy",
+          "Malagasy"),
+         ("mnemosyne.libmnemosyne.languages.malay",
+          "Malay"),
+         ("mnemosyne.libmnemosyne.languages.malayalam",
+          "Malayalam"),
+         ("mnemosyne.libmnemosyne.languages.maltese",
+          "Maltese"),
+         ("mnemosyne.libmnemosyne.languages.maori",
+          "Maori"),
+         ("mnemosyne.libmnemosyne.languages.marathi",
+          "Marathi"),
+         ("mnemosyne.libmnemosyne.languages.mongolian",
+          "Mongolian"),
+         ("mnemosyne.libmnemosyne.languages.myanmar",
+          "Myanmar"),
+         ("mnemosyne.libmnemosyne.languages.nepali",
+          "Nepali"),
+         ("mnemosyne.libmnemosyne.languages.norwegian",
+          "Norwegian"),
+         ("mnemosyne.libmnemosyne.languages.nyanja",
+          "Nyanja"),
+         ("mnemosyne.libmnemosyne.languages.pashto",
+          "Pashto"),
+         ("mnemosyne.libmnemosyne.languages.persian",
+          "Persian"),
+         ("mnemosyne.libmnemosyne.languages.polish",
+          "Polish"),
+         ("mnemosyne.libmnemosyne.languages.portuguese",
+          "Portuguese"),
+         ("mnemosyne.libmnemosyne.languages.punjabi",
+          "Punjabi"),
+         ("mnemosyne.libmnemosyne.languages.romanian",
+          "Romanian"),
+         ("mnemosyne.libmnemosyne.languages.russian",
+          "Russian"),
+         ("mnemosyne.libmnemosyne.languages.samoan",
+          "Samoan"),
+         ("mnemosyne.libmnemosyne.languages.serbian",
+          "Serbian"),
+         ("mnemosyne.libmnemosyne.languages.sesotho",
+          "Sesotho"),
+         ("mnemosyne.libmnemosyne.languages.shona",
+          "Shona"),
+         ("mnemosyne.libmnemosyne.languages.sindhi",
+          "Sindhi"),
+         ("mnemosyne.libmnemosyne.languages.sinhala",
+          "Sinhala"),
+         ("mnemosyne.libmnemosyne.languages.slovak",
+          "Slovak"),
+         ("mnemosyne.libmnemosyne.languages.slovenian",
+          "Slovenian"),
+         ("mnemosyne.libmnemosyne.languages.somali",
+          "Somali"),
+         ("mnemosyne.libmnemosyne.languages.spanish",
+          "Spanish"),
+         ("mnemosyne.libmnemosyne.languages.sundanese",
+          "Sundanese"),
+         ("mnemosyne.libmnemosyne.languages.swahili",
+          "Swahili"),
+         ("mnemosyne.libmnemosyne.languages.swedish",
+          "Swedish"),
+         ("mnemosyne.libmnemosyne.languages.tagalog",
+          "Tagalog"),
+         ("mnemosyne.libmnemosyne.languages.tajik",
+          "Tajik"),
+         ("mnemosyne.libmnemosyne.languages.tamil",
+          "Tamil"),
+         ("mnemosyne.libmnemosyne.languages.telugu",
+          "Telugu"),
+         ("mnemosyne.libmnemosyne.languages.thai",
+          "Thai"),
+         ("mnemosyne.libmnemosyne.languages.turkish",
+          "Turkish"),
+         ("mnemosyne.libmnemosyne.languages.ukrainian",
+          "Ukrainian"),
+         ("mnemosyne.libmnemosyne.languages.urdu",
+          "Urdu"),
+         ("mnemosyne.libmnemosyne.languages.uzbek",
+          "Uzbek"),
+         ("mnemosyne.libmnemosyne.languages.vietnamese",
+          "Vietnamese"),
+         ("mnemosyne.libmnemosyne.languages.welsh",
+          "Welsh"),
+         ("mnemosyne.libmnemosyne.languages.xhosa",
+          "Xhosa"),
+         ("mnemosyne.libmnemosyne.languages.yiddish",
+          "Yiddish"),
+         ("mnemosyne.libmnemosyne.languages.yoruba",
+          "Yoruba"),
+         ("mnemosyne.libmnemosyne.languages.zulu",
+          "Zulu")]
         self.gui_for_component = {}
 
     def handle_exception(self, type, value, tb):
@@ -206,7 +420,7 @@ class Mnemosyne(Component):
         # loaded, since these could be needed e.g. for a card type in the
         # database.
         if filename and not filename.endswith(".db"):
-            from mnemosyne.libmnemosyne.translator import _
+            from mnemosyne.libmnemosyne.gui_translator import _
             self.main_widget().show_error(\
                 _("Command line argument is not a *.db file."))
             sys.exit()
@@ -218,7 +432,7 @@ class Mnemosyne(Component):
             self.log().started_program()
         except Exception as e:
             if "lock" in str(e):
-                from mnemosyne.libmnemosyne.translator import _
+                from mnemosyne.libmnemosyne.gui_translator import _
                 self.main_widget().show_error(\
                  _("Another copy of Mnemosyne is still running.") + "\n" + \
                  _("Continuing is impossible and will lead to data loss!"))
@@ -277,7 +491,7 @@ class Mnemosyne(Component):
         self.config()["interested_in_old_reps"] = self.interested_in_old_reps
         self.config()["asynchronous_database"] = self.asynchronous_database
         # Activate other components.
-        for component in ["log", "translator", "database", "controller"]:
+        for component in ["log", "gui_translator", "database", "controller"]:
             try:
                 self.component_manager.current(component).activate()
             except RuntimeError as e:
@@ -301,7 +515,7 @@ class Mnemosyne(Component):
                 try:
                     __import__(component[:-3])
                 except:
-                    from mnemosyne.libmnemosyne.translator import _
+                    from mnemosyne.libmnemosyne.gui_translator import _
                     msg = _("Error when running plugin:") \
                           + "\n" + traceback_string()
                     self.main_widget().show_error(msg)
@@ -314,7 +528,7 @@ class Mnemosyne(Component):
                         p.activate()
                         break
             except:
-                from mnemosyne.libmnemosyne.translator import _
+                from mnemosyne.libmnemosyne.gui_translator import _
                 msg = _("Error when running plugin:") \
                       + "\n" + traceback_string()
                 self.main_widget().show_error(msg)
@@ -328,7 +542,7 @@ class Mnemosyne(Component):
                 try:
                     self.database().new(path)
                 except Exception as e:
-                    from mnemosyne.libmnemosyne.translator import _
+                    from mnemosyne.libmnemosyne.gui_translator import _
                     raise RuntimeError(\
                         _("Previous drive letter no longer available."))
             else:
@@ -336,7 +550,7 @@ class Mnemosyne(Component):
             self.controller().update_title()
         except RuntimeError as e:
             self.main_widget().show_error(str(e))
-            from mnemosyne.libmnemosyne.translator import _
+            from mnemosyne.libmnemosyne.gui_translator import _
             self.main_widget().show_information(\
 _("If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."))
             # Try to open a new database, but not indefinitely, otherwise this

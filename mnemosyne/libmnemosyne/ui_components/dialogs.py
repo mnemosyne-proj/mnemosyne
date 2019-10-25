@@ -110,3 +110,14 @@ class EditMSidedCardTypeDialog(Dialog):
 class EditMSidedCardTemplateWidget(Dialog):
 
     component_type = "edit_M_sided_card_template_widget"
+
+
+class PronouncerDialog(Dialog):
+
+    component_type = "pronouncer_dialog"
+
+
+class TranslatorDialog(Dialog):
+
+    component_type = "translator_dialog"
+

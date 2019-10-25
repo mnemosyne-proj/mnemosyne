@@ -2,7 +2,7 @@
 # statistics_page.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.component import Component
 
 
@@ -21,8 +21,8 @@ class StatisticsPage(Component):
     (or a parent class of a StatisticsPage).
 
     """
-    
-    component_type = "statistics_page"    
+
+    component_type = "statistics_page"
     instantiate = Component.LATER
 
     name = ""
@@ -38,7 +38,7 @@ class StatisticsPage(Component):
         the approriate hints to be picked up by the corresponding widget.
 
         """
-        
+
         raise NotImplementedError
 
 
@@ -47,7 +47,7 @@ class PlotStatisticsPage(StatisticsPage):
     """A statistics page where the data is represented on a graphical plot.
 
     """
-        
+
     def __init__(self, component_manager):
         StatisticsPage.__init__(self, component_manager)
         self.x = []
@@ -60,7 +60,7 @@ class HtmlStatisticsPage(StatisticsPage):
     widget.
 
     """
-        
+
     def __init__(self, component_manager):
         StatisticsPage.__init__(self, component_manager)
         self.html = None

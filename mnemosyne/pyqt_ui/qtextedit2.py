@@ -4,14 +4,14 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 
 
 class QTextEdit2(QtWidgets.QTextEdit):
 
     """QTextEdit with extra options in popup menu."""
 
-    def __init__(self, parent, pronunciation_hiding=None):
+    def __init__(self, parent, card_type, pronunciation_hiding):
 
         """'pronunciation_hiding' is set to None when there is no
         pronunciation key to hide, and to True or False when there is one to
@@ -21,7 +21,14 @@ class QTextEdit2(QtWidgets.QTextEdit):
 
         super().__init__(parent)
         self.pronunciation_hiding = pronunciation_hiding
-        self.setAcceptRichText(False)
+        self.card_type = card_type
+        # Make list of translators and pronouncers for this card type.
+        language_id = self.card_type.config().card_type_property(\
+            "language_id", self.card_type, default=None)
+        self.translators = [] if not language_id else \
+            self.card_type.component_manager.all("translator", language_id)
+        self.pronouncers = [] if not language_id else \
+            self.card_type.component_manager.all("pronouncer", language_id)
 
     def contextMenuEvent(self, e):
         popup = self.createStandardContextMenu()
@@ -34,6 +41,7 @@ class QTextEdit2(QtWidgets.QTextEdit):
                         QtGui.QKeySequence(_("Ctrl+D")))
         popup.addAction(_("Insert &Flash"), self.insert_flash,
                         QtGui.QKeySequence(_("Ctrl+F")))
+        # Pronunciation hiding.
         if self.pronunciation_hiding in [True, False]:
             popup.addSeparator()
             self.hide_action = QtWidgets.QAction(\
@@ -43,7 +51,38 @@ class QTextEdit2(QtWidgets.QTextEdit):
             self.hide_action.toggled.connect(\
                 self.parent().pronunciation_hiding_toggled)
             popup.addAction(self.hide_action)
+        # Translators.
+        if len(self.translators):
+            popup.addSeparator()
+            for translator in self.translators:
+                translator_action = QtWidgets.QAction(\
+                    translator.popup_menu_text, popup)
+                translator_action.triggered.connect(\
+                    lambda: self.translate(translator))
+                popup.addAction(translator_action)
+        # Pronouncers.
+        if len(self.pronouncers):
+            popup.addSeparator()
+            for pronouncer in self.pronouncers:
+                pronouncer_action = QtWidgets.QAction(\
+                    pronouncer.popup_menu_text, popup)
+                pronouncer_action.triggered.connect(\
+                    lambda: self.pronounce(pronouncer))
+                popup.addAction(pronouncer_action)
+        # Show popup.
         popup.exec_(e.globalPos())
+
+    def translate(self, translator):
+        foreign_text = self.parent().foreign_text()
+        translated_text = translator.show_dialog(self.card_type, foreign_text)
+        if translated_text:
+            self.insertPlainText(translated_text)
+
+    def pronounce(self, pronouncer):
+        foreign_text = self.parent().foreign_text()
+        pronounced_text = pronouncer.show_dialog(self.card_type, foreign_text)
+        if pronounced_text:
+            self.insertPlainText(pronounced_text)
 
     def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key_I and event.modifiers() == \

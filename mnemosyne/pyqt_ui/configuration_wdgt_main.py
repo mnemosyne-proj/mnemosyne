@@ -6,7 +6,7 @@ import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from mnemosyne.libmnemosyne.translator import _, \
+from mnemosyne.libmnemosyne.gui_translator import _, \
     iso6931_code_for_language_name, language_name_for_iso6931_code
 from mnemosyne.libmnemosyne.ui_components.configuration_widget import \
     ConfigurationWidget
@@ -35,7 +35,7 @@ class ConfigurationWdgtMain(QtWidgets.QWidget, ConfigurationWidget,
         elif self.config()["QA_split"] == "single_window":
             self.card_presentation.setCurrentIndex(2)
         language_names = ["English"]
-        for language in self.translator().supported_languages():
+        for language in self.gui_translator().supported_languages():
             language_names.append(language_name_for_iso6931_code[language])
         language_names.sort()
         for language_name in language_names:
@@ -69,4 +69,4 @@ class ConfigurationWdgtMain(QtWidgets.QWidget, ConfigurationWidget,
             self.config()["QA_split"] = "single_window"
         self.config()["ui_language"] = iso6931_code_for_language_name(\
                 self.languages.currentText())
-        self.translator().set_language(self.config()["ui_language"])
+        self.gui_translator().set_language(self.config()["ui_language"])

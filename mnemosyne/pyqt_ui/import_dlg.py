@@ -5,7 +5,7 @@
 import os
 from PyQt5 import QtGui, QtCore, QtWidgets
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.qt_worker_thread import \
     QtWorkerThread, QtGuiThread
 from mnemosyne.pyqt_ui.ui_import_dlg import Ui_ImportDlg

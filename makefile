@@ -10,9 +10,9 @@ endif
 
 PYTHON35    := python3
 # If we are on cygwin:
-ifeq (1,$(shell /cygdrive/c/Program\ Files\ \(x86\)/Python36-32/python.exe -c "print(1)" 2>&- ))
-PYTHON      := /cygdrive/c/Program\ Files\ \(x86\)/Python36-32/python.exe
-PYTHON35    := /cygdrive/c/Program\ Files\ \(x86\)/Python\ 3.5/python.exe
+ifeq (1,$(shell /cygdrive/c/Program\ Files/Python37/python.exe -c "print(1)" 2>&- ))
+PYTHON      := /cygdrive/c/Program\ Files/Python37/python.exe
+PYTHON36    := /cygdrive/c/Program\ Files\ \(x86\)/Python\ 3.6/python.exe
 endif
 # If `sphinx-build2` exists:
 ifneq (,$(shell command -v sphinx-build2 2>&- ))
@@ -53,7 +53,7 @@ test-prep:
 	cd po && make ../mo/de/LC_MESSAGES/mnemosyne.mo
 
 test: test-prep
-	$(PYTHON) -m nose tests
+	$(PYTHON) -m nose -v tests
 
 coverage: test-prep
 	rm -rf .coverage cover htmlcov

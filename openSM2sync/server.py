@@ -235,6 +235,7 @@ class Server(Partner):
             self.terminate_session_with_token(session_token)
 
     def handle_error(self, session=None, traceback_string=None):
+        print(traceback_string)
         self.ui.close_progress()
         if session:
             self.terminate_session_with_token(session.token)
@@ -507,6 +508,7 @@ class Server(Partner):
             if session.client_info["upload_science_logs"]:
                 session.database.skip_science_log()
         except:
+            print(traceback_string())
             session.apply_error = traceback_string()
 
     def get_server_entire_database(self, environ, session_token):

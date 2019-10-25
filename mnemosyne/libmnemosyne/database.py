@@ -2,7 +2,7 @@
 # database.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.component import Component
 
 
@@ -19,7 +19,7 @@ class Database(Component):
 
     version = ""
     default_name = "default"  # Without suffix, should not be translated.
-    default_criterion_name = "__DEFAULT__" 
+    default_criterion_name = "__DEFAULT__"
     suffix = ""
     component_type = "database"
 
@@ -32,12 +32,12 @@ class Database(Component):
         """Returns full path of the database."""
 
         raise NotImplementedError
-    
+
     def data_dir(self):
 
         """Returns directory of the database."""
 
-        raise NotImplementedError    
+        raise NotImplementedError
 
     def name(self):
 
@@ -128,7 +128,7 @@ class Database(Component):
 
     def tags(self):
         raise NotImplementedError
-    
+
     def has_tag_with_id(self, id):
         return NotImplementedError
 
@@ -145,9 +145,9 @@ class Database(Component):
 
     def delete_fact(self, fact):
         raise NotImplementedError
-    
+
     def has_fact_with_id(self, id):
-        return NotImplementedError    
+        return NotImplementedError
 
     # Cards.
 
@@ -171,9 +171,9 @@ class Database(Component):
 
     def remove_tag_from_cards_with_internal_ids(self, tag, _card_ids):
         raise NotImplementedError
-    
+
     def has_card_with_id(self, id):
-        return NotImplementedError    
+        return NotImplementedError
 
     # Fact views.
 
@@ -188,9 +188,9 @@ class Database(Component):
 
     def delete_fact_view(self, fact_view):
         raise NotImplementedError
-    
+
     def has_fact_view_with_id(self, id):
-        return NotImplementedError    
+        return NotImplementedError
 
     # Card types.
 
@@ -214,9 +214,9 @@ class Database(Component):
 
     def delete_card_type(self, card_type):
         raise NotImplementedError
-    
+
     def has_card_type_with_id(self, id):
-        return NotImplementedError    
+        return NotImplementedError
 
     # Criteria.
 
@@ -240,9 +240,9 @@ class Database(Component):
 
     def criteria(self):
         raise NotImplementedError
-    
+
     def has_criterion_with_id(self, id):
-        return NotImplementedError    
+        return NotImplementedError
 
     # Queries.
 
@@ -286,7 +286,7 @@ class Database(Component):
 
     def cards_learn_ahead(self, now, sort_key="", limit=-1):
         raise NotImplementedError
-    
+
     def recently_memorised_count(self, max_ret_reps):
         raise NotImplementedError
 
@@ -295,24 +295,24 @@ class Database(Component):
     def set_scheduler_data(self, scheduler_data):
         raise NotImplementedError
 
-    def cards_with_scheduler_data(self, scheduler_data, sort_key="", limit=-1, 
+    def cards_with_scheduler_data(self, scheduler_data, sort_key="", limit=-1,
                                   max_ret_reps=-1):
         raise NotImplementedError
 
     def scheduler_data_count(self, scheduler_data, max_ret_reps=-1):
         raise NotImplementedError
-    
-    # 
+
+    #
     # Extra queries for language analysis.
     #
-    
+
     def known_recognition_questions_count_from_card_types_ids(\
         self, card_type_ids):
-        raise NotImplementedError  
-    
+        raise NotImplementedError
+
     def known_recognition_questions_from_card_types_ids(self, card_type_ids):
         raise NotImplementedError
-    
+
     def sorted_card_types(self):
 
         """Sorts card types so that all the built-in card types appear first,
@@ -340,22 +340,22 @@ class Database(Component):
 
 
 class DatabaseMaintenance(Component):
-    
-    """This component performs automatic database maintenance (like 
+
+    """This component performs automatic database maintenance (like
     archiving of old logs) and can be run from the UI or automatically from
     the controller.
-    
+
     This version is unthreaded, and is OK for running on a headless server
     (which has no UI to interrupt) and for Android (since the entire backend
     runs in thread there anyhow).
-    
+
     """
-    
+
     component_type = "database_maintenance"
-    
+
     def run(self):
         self.main_widget().set_progress_text(_("Compacting database..."))
         self.database().archive_old_logs()
         self.database().defragment()
         self.main_widget().close_progress()
-  
+

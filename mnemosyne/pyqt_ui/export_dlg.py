@@ -5,7 +5,7 @@
 import os
 from PyQt5 import QtGui, QtCore, QtWidgets
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.ui_export_dlg import Ui_ExportDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import ExportDialog
 

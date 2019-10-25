@@ -2,7 +2,7 @@
 # cards_added.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.statistics_page import PlotStatisticsPage
 
 

@@ -325,7 +325,7 @@ class Client(Partner):
                 raise SyncError("Wrong username or password.")
             if "cycle" in message:
                 raise SyncError(\
-                    "Sync cycle detected. Sync through intermediate partner.")
+"Sync cycle detected. Please always sync with the same server. Backup and delete the database and resync from scratch if necessary.")
             if "same machine ids" in message:
                 raise SyncError(\
 "You have manually copied the data directory before sync. Sync needs to start from an empty database.")
@@ -544,6 +544,7 @@ class Client(Partner):
         self.ui.set_progress_update_interval(total_size/50)
         for filename in filenames:
             self.request_connection()
+            #print(filename.encode("utf-8", "surrogateescape"))
             self.con.putrequest("PUT",
                 self.url("/client_binary_file?session_token=%s&filename=%s" \
                 % (self.server_info["session_token"],

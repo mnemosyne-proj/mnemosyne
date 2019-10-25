@@ -12,7 +12,7 @@ except ImportError:
 
 from mnemosyne.libmnemosyne.hook import Hook
 from mnemosyne.libmnemosyne.utils import copy
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.filter import Filter
 
 

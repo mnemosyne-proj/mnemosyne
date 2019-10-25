@@ -73,7 +73,7 @@ class MyServer(Server, Thread):
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
             asynchronous_database=True)
         self.mnemosyne.components.insert(0,
-           ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
+           ("mnemosyne.libmnemosyne.gui_translators.gettext_gui_translator", "GetTextGuiTranslator"))
         self.mnemosyne.components.append(("test_sync", "Widget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
             [("mnemosyne_test", "TestReviewWidget")]
@@ -168,7 +168,7 @@ class MyClient(Client):
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=False,
             asynchronous_database=True)
         self.mnemosyne.components.insert(0,
-           ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
+           ("mnemosyne.libmnemosyne.gui_translators.gettext_gui_translator", "GetTextGuiTranslator"))
         self.mnemosyne.components.append(("test_sync", "Widget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
             [("mnemosyne_test", "TestReviewWidget")]
@@ -3850,7 +3850,7 @@ class TestSync(object):
         assert "1" not in self.client.mnemosyne.config()["font"]
         db = self.client.database
         assert db.con.execute("select count() from log where event_type=?",
-               (EventTypes.EDITED_SETTING, )).fetchone()[0] == 17
+               (EventTypes.EDITED_SETTING, )).fetchone()[0] == 20
 
     def test_setting_5(self):
 

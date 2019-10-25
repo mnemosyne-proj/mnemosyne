@@ -7,7 +7,7 @@ import copy
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.fact import Fact
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.pyqt_ui.ui_add_cards_dlg import Ui_AddCardsDlg
 from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
@@ -30,7 +30,8 @@ class AddEditCards(TipAfterStartingNTimes):
          9: _("You can add images and sounds to your cards. Right-click on an input field when editing a card to bring up a pop-up menu to do so."),
          12: _("If for a certain card type cloned from Vocabulary you don't need a pronunciation field, you can hide it by right-clicking on it and using the pop-up menu."),
          15: _("You can use Tab to move between the fields. For 'Add cards', use Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades. For 'Edit card', use Ctrl-Enter to close."),
-         18: _("If you use 'Edit cards', changes are made to all the sister cards simultaneously.")}
+         18: _("If you use 'Edit cards', changes are made to all the sister cards simultaneously."),
+         21: _("If your card type has a language associated to it, you can right click to insert text-to-speech or translations.")}
 
     def activate(self):
         AddCardsDialog.activate(self)

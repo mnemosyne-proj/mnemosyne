@@ -5,7 +5,7 @@
 import os
 import re
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.file_format import FileFormat
 from mnemosyne.libmnemosyne.file_formats.media_preprocessor \
     import MediaPreprocessor
@@ -46,7 +46,13 @@ class Tsv(FileFormat, MediaPreprocessor):
             # Parse html style escaped unicode (e.g. &#33267;).
             for match in re0.finditer(line):
                 # Integer part.
-                u = chr(int(match.group(1)))
+                escaped = match.group(1)
+                if escaped[0] == "x":
+                    escaped = "0" + escaped
+                if "x" in escaped:
+                    u = chr(int(escaped, 16))
+                else:
+                    u = chr(int(escaped))
                 # Integer part with &# and ;.
                 line = line.replace(match.group(), u)
             if len(line) == 0:

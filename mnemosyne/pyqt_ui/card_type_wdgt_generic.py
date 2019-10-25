@@ -2,9 +2,11 @@
 # card_type_wdgt_generic.py <Peter.Bienstman@UGent.be>
 #
 
+import re
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.qtextedit2 import QTextEdit2
 from mnemosyne.libmnemosyne.ui_components.card_type_widget \
      import GenericCardTypeWidget
@@ -37,7 +39,7 @@ class GenericCardTypeWdgt(QtWidgets.QWidget, GenericCardTypeWidget):
             if fact_key == "p_1":
                 self.pronunciation_label = l
                 self.pronunciation_label.setVisible(not pronunciation_hiding)
-            t = QTextEdit2(self, pronunciation_hiding)
+            t = QTextEdit2(self, self.card_type, pronunciation_hiding)
             self.edit_boxes.append(t)
             t.setTabChangesFocus(True)
             t.setUndoRedoEnabled(True)
@@ -133,6 +135,19 @@ class GenericCardTypeWdgt(QtWidgets.QWidget, GenericCardTypeWidget):
         for edit_box, fact_key in self.fact_key_for_edit_box.items():
             _fact_data[fact_key] = edit_box.document().toPlainText()
         return _fact_data
+
+    def foreign_text(self):
+        foreign_fact_key = self.config().card_type_property(\
+            "foreign_fact_key", self.card_type, default=None)
+        if not foreign_fact_key:
+            return
+        foreign_text = self.fact_data()[foreign_fact_key]
+        # Strip Cloze brackets and hints.
+        if getattr(self.card_type, "q_a_from_cloze", None):
+            foreign_text = self.card_type.q_a_from_cloze(foreign_text, -1)[0]
+        # Strip html tags.
+        tag_re = re.compile(r"<[^>]+>")
+        return tag_re.sub("", foreign_text).strip()
 
     def set_fact_data(self, fact_data):
         self.fact_data_before_edit = fact_data

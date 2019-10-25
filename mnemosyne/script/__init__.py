@@ -36,8 +36,8 @@ class Mnemosyne(MnemosyneParent):
         MnemosyneParent.__init__(self, upload_science_logs=False,
             interested_in_old_reps=True)
         self.components.insert(0,
-            ("mnemosyne.libmnemosyne.translators.gettext_translator",
-             "GetTextTranslator"))
+            ("mnemosyne.libmnemosyne.gui_translators.gettext_gui_translator",
+             "GetTextGuiTranslator"))
         self.components.append(\
             ("mnemosyne.script", "ScriptMainWidget"))
         self.components.append(\

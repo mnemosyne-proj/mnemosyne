@@ -6,7 +6,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets, QtWebEngineWidgets
 import os
 import sys
 
-from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.ui_review_wdgt import Ui_ReviewWdgt
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
