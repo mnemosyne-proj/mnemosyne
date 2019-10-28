@@ -11,9 +11,15 @@ with the --qt-opengl=desktop command line argument.)
 
 Mnemosyne 2.7:
 
+- Added Google text-to-speech and translate. To enable, first associate a
+  language to a card type using "Cards - Manage card types...". You can then
+  right-click on a text field when adding or editing cards to insert a
+  translation or a sound file.
+- Mnemosyne is now a 64-bit application only, and the Windows version is
+  bundled with Python 3.7, PyQt 5.13.1, matplotlib 3.1.1.
 - Use system language as default language (code by Adam Papai).
-- Only warn once per day about the number of cards you learned, even if you open
-  and close Mnemosyne inbetween (code by Adam Papai).
+- Only warn once per day about the number of cards you learned, even if you
+  open and close Mnemosyne inbetween (code by Adam Papai).
 - More error checking when uploading science logs. To avoid missing files from
   the past, Mnemosyne will reupload all of your old logs as well.
 - Disallow starting a headless sync server in case no password is set up (patch
@@ -23,10 +29,11 @@ Mnemosyne 2.7:
 - Fix for headless sync server losing user id (report by Marcin Mielniczuk).
 - Fix for Anki learning data import (reported by syonax).
 - Various minor cleanups and fixes (Marcin Mielniczuk).
-- Fix txt import under Mac (reported by Henrik and JDelage, fixed by Devin \
+- Fix txt import under Mac (reported by Henrik and JDelage, fixed by Devin
   Howard).
 - Fix for continuous reset of scheduler when DST changes (reported by
   ADFairbanks).
+
 
 Mnemosyne 2.6.1: 2018-08-07
 
