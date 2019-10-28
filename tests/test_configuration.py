@@ -17,7 +17,7 @@ class TestConfiguration(MnemosyneTest):
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
             asynchronous_database=True)
         self.mnemosyne.components.insert(0,
-           ("mnemosyne.libmnemosyne.translators.gettext_translator", "GetTextTranslator"))
+           ("mnemosyne.libmnemosyne.gui_translators.gettext_gui_translator", "GetTextGuiTranslator"))
         self.mnemosyne.components.append(\
             ("test_add_cards", "Widget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
@@ -47,7 +47,7 @@ class TestConfiguration(MnemosyneTest):
                               "zh_TW.UTF-8": "zh_TW",
                               }
 
-        with patch('mnemosyne.libmnemosyne.translators.gettext_translator.GetTextTranslator.supported_languages') as mock_supported:
+        with patch('mnemosyne.libmnemosyne.gui_translators.gettext_gui_translator.GetTextGuiTranslator.supported_languages') as mock_supported:
             # in development mode, we need to mock the supported_languages
             mock_supported.return_value = ['ca', 'gl', 'ja', 'pt', 'pl',
                                            'nb', 'tr', 'id', 'ca@valencia',

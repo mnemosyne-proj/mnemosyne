@@ -469,24 +469,24 @@ class Configuration(Component, dict):
         translation for the default OS language return with the default 'en'
 
         """
-        # use the default OS language settings is possible
-        # getdefaultlocale is OS independent and works on all platforms
+        # Use the default OS language settings is possible.
+        # getdefaultlocale is OS independent and works on all platforms.
         system_language, _ = getdefaultlocale()
         lang_code = system_language.split("_")[0]
 
-        # special case ca@valencia, we only support this specific one
+        # Special case ca@valencia, we only support this specific one.
         if "valencia" in system_language:
             return "ca@valencia"
 
-        # languages with multiple dialect like zh_CN, zh_TW, zh_HK, pt_BR
-        # comes first
-        if system_language in self.translator().supported_languages():
+        # Languages with multiple dialect like zh_CN, zh_TW, zh_HK, pt_BR
+        # comes first.
+        if system_language in self.gui_translator().supported_languages():
             return system_language
-        # languages with only 1 dialect
-        elif lang_code in self.translator().supported_languages():
+        # Languages with only 1 dialect.
+        elif lang_code in self.gui_translator().supported_languages():
             default_lang = lang_code
-        # default should be english always if no better match based on the
-        # default OS language
+        # Default should be english always if no better match based on the
+        # default OS language.
         else:
             default_lang = "en"
 
