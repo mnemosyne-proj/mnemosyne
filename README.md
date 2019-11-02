@@ -199,33 +199,40 @@ matplotlib.
 brew update
 ```
 
-- Patch the python3 formula so you'll get python 3.6 and not a later version (pyinstaller still requires python 3.6):
+- Install dependencies for Mnemosyne. 
 
 ```
-brew uninstall python3
-brew edit python3
-# replace the file with the contents of https://raw.githubusercontent.com/Homebrew/homebrew-core/e76ed3606c8008d2b8d9636a7e4e6f62cfeb6120/Formula/python3.rb and save it
-brew install python3
-brew pin python3
+brew install python qt mplayer
 ```
 
-- Patch the qt formula so you'll get qt 5.10.0 (matching PyQt5) and not a later version:
+- NOTE: For Mnemosyne 2.7, we used Python 3.7.5 and Qt 5.13. If you need to edit a Homebrew dependency, you can use these commends:
 
 ```
-brew uninstall qt
-brew edit qt
-# replace the file with the contents of https://raw.githubusercontent.com/Homebrew/homebrew-core/08d3f73bf31b705ce1afbd0fe1f2925baa878394/Formula/qt.rb and save it
-brew install qt
-brew pin qt
+brew uninstall <package-name>
+brew edit <package-name>
+# Example: replace the file with the contents of https://raw.githubusercontent.com/Homebrew/homebrew-core/e76ed3606c8008d2b8d9636a7e4e6f62cfeb6120/Formula/python3.rb and save it
+brew install <package-name>
+brew pin <package-name>
 ```
 
- - Install the remaining dependencies for Mnemosyne, using a python virtual environment to isolate python dependencies.
+- Confirm you're using the correct version of pip/python.
+
 ```
-brew install mplayer
-pip3 install virtualenv
-virtualenv --python=python3 venv
+python --version
+pip --version
+```
+
+- Install the python dependencies for Mnemosyne, using a python virtual environment to isolate python dependencies. 
+- Note for Mnemosyne 2.7, we used PyQt5 5.13 and PyInstaller 3.5
+
+```
+pip install virtualenv
+virtualenv venv
 source venv/bin/activate
-pip install webob tornado matplotlib numpy sip pillow cheroot pyinstaller pyqt5==5.10
+pip install webob tornado matplotlib numpy sip pillow cheroot googletrans gtts pyopengl pyinstaller
+
+# run this command and inspect the output to confirm you're using the correct version
+pip install pyqt5 pyqtwebengine
 ```
 
  - Build it (while still using the python virtual environment):
