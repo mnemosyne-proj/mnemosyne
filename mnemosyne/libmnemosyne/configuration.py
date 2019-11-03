@@ -82,10 +82,10 @@ def config_py():
     # We could use format strings, but the LaTeX has too many { } characters
     config_py = config_py.replace(
         'latex = "latex -interaction=nonstopmode"',
-        'latex = "/Library/TeX/texbin/latex -output-format=dvi -interactiononstopmode"')
+        'latex = "/usr/local/bin/latex -output-format=dvi -interaction=nonstopmode"')
     config_py = config_py.replace(
         'dvipng = "dvipng -D 200 -T tight tmp.dvi"',
-        'dvipng = "/Library/TeX/texbin/dvipng -D 200 -T tight tmp.dvi"')
+        'dvipng = "/usr/local/bin/dvipng -D 200 -T tight tmp.dvi"')
   return config_py
 
 class Configuration(Component, dict):
