@@ -125,6 +125,9 @@ macos:
 	mkdir -p dist/Mnemosyne.app/Contents/MacOS/tk
 	mkdir -p dist/Mnemosyne.app/Contents/MacOS/tcl
 
+  # mplayer bug - override default packaged libpng
+	cp $(shell brew info libpng | grep /usr/local/Cellar/libpng | awk '{print $$1}')/lib/libpng16.16.dylib dist/Mnemosyne.app/Contents/MacOS/libpng16.16.dylib
+
 osx: macos
 
 android: # Creates the assets file with the Python code.

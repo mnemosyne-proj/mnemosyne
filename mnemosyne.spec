@@ -9,7 +9,7 @@ excludes = []
 binaries = []
 
 hiddenimports = [
-             'PyQt5.sip'
+             'PyQt5.sip',
              'mnemosyne.version',
              'mnemosyne.libmnemosyne.card',
              'mnemosyne.libmnemosyne.card_type',
@@ -307,8 +307,6 @@ if sys.platform == 'win32':
              excludes = ['IPython', 'lib2to3']
 
 if sys.platform == 'darwin':
-             hiddenimports.append('PyQt5.QtWebEngineCore')
-             hiddenimports.append('PyQt5.QtWebEngineWidgets')
              binaries.append(('/usr/local/bin/mplayer', '.'))
 
 datas.append((os.path.join('mnemosyne', 'libmnemosyne', 'renderers', 'anki', 'hooks.py'), 'anki'))
