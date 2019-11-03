@@ -472,6 +472,9 @@ class Configuration(Component, dict):
         # Use the default OS language settings is possible.
         # getdefaultlocale is OS independent and works on all platforms.
         system_language, _ = getdefaultlocale()
+        # if no default locale can be found, default to English
+        if system_language is None:
+            system_language = 'en_us'
         lang_code = system_language.split("_")[0]
 
         # Special case ca@valencia, we only support this specific one.
