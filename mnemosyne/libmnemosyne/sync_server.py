@@ -38,8 +38,8 @@ class SyncServer(Component, Server):
         return auth_password != "" and auth_username != ""
 
     def authorise(self, username, password):
-        # we should not be running if authorization is not set up,
-        # but check just in case
+        # We should not be running if authorization is not set up,
+        # but check just in case.
         return self.authorization_set_up() and \
                username == self.config()["remote_access_username"] and \
                password == self.config()["remote_access_password"]
