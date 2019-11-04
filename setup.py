@@ -68,7 +68,7 @@ class build_windows_installer(Command):
         # Then, create installer with InnoSetup.
         InnoScript().create()
         subprocess.call([\
-            "C:\Program Files (x86)\Inno Setup 5\Compil32.exe", "/cc",
+            "C:\Program Files (x86)\Inno Setup 6\Compil32.exe", "/cc",
             "dist\Mnemosyne\Mnemosyne.iss"])
         # Note: the final setup.exe will be in an Output subdirectory.
 

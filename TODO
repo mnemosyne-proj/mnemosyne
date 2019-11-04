@@ -1,10 +1,8 @@
--check into automated import of translations
+-check code for sync server password
 
 -Add Language, Translator, Pronouncer to website.
 
 -copy and paste from review window?
-
--switch to PyOxidizer
 
 
 Android:
@@ -187,6 +185,8 @@ created with just the "»" symbol.
 
 Other features:
 
+- switch to PyOxidizer when it supports PyQt?
+
 - plugin to deactivate cards in a certain cardtype after X retention reps.
 
 -check for required fields when using the Anki card type.
@@ -202,7 +202,6 @@ time 'number_of_log_entries_to_sync_for' vs 'number_of_log_entries'
   # factview
   # Important: fact,
 media, tag (check all 'already_imported' statements)
-
 
 
 -status bar: scheduled: x / not memorised: x / goal new cards: x/y
