@@ -110,8 +110,8 @@ class SyncServerThread(threading.Thread, SyncServer):
         if not self.authorization_set_up():
             print("Error: Authorization not set up.")
             print("If on a headless server, you may use the following SQL commands in config.db to configure authorization")
-            print('    update config set value="<username>" where key = "remote_access_username"')
-            print('    update config set value="<password>" where key = "remote_access_password"')
+            print('    update config set value="<username>" where key = "remote_access_username";')
+            print('    update config set value="<password>" where key = "remote_access_password";')
             return
 
         # Start server

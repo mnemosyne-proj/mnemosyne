@@ -89,7 +89,7 @@ Contents
     modules/statistics_page
     modules/criterion
     modules/language
-    moddules/translator
+    modules/translator
     modules/pronouncer
 
     modules/how_to_write_a_new_frontend
@@ -101,5 +101,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
-

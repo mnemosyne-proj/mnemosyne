@@ -10,7 +10,7 @@ Important features include:
 - Bi-directional syncing between several devices
 - Clients for Windows/Mac/Linux and Android
 - Flashcards with rich content (images, video, audio)
-* Support for Google text-to-speech and Google translate
+- Support for Google text-to-speech and Google translate
 - Powerful card types
 - Flexible card browser and card selection
 - Visualization to illustrate your learning process
