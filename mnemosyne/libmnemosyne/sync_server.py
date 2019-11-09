@@ -108,16 +108,15 @@ class SyncServerThread(threading.Thread, SyncServer):
 
     def run(self):
         if not self.authorization_set_up():
-            print("Error: Authorization not set up.")
-            print("If on a headless server, you may use the following SQL commands in config.db to configure authorization")
-            print('    update config set value="<username>" where key = "remote_access_username";')
-            print('    update config set value="<password>" where key = "remote_access_password";')
+            print("""Error: Authorization not set up.
+If on a headless server, you may use the following commands in the sqlite3 console on config.db to configure authorization:
+   update config set value="'<username>'" where key = "remote_access_username";
+   update config set value="'<password>'" where key = "remote_access_password";""")
             return
 
-        # Start server
+        # Start server.
         print(("Sync server listening on " + localhost_IP() + ":" + \
             str(self.config()["sync_server_port"])))
-
         self.serve_until_stopped()
         server_hanging = (len(self.sessions) != 0)
         if server_hanging:
