@@ -24,6 +24,7 @@ Mnemosyne 2.7:
   the past, Mnemosyne will reupload all of your old logs as well.
 - Disallow starting a headless sync server in case no password is set up (patch
   by Marcin Mielniczuk).
+- Reenable right-click menu on review widget to allow for copying text.
 - Fix for "Cram recently learned new cards" (reported by Manfred Ernst).
 - Fix for escaped hex unicode in text file import (reported by JDelage).
 - Fix for headless sync server losing user id (report by Marcin Mielniczuk).

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-10-30 13:23+0100\n"
+"POT-Creation-Date: 2019-11-09 21:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1630,7 +1630,7 @@ msgid "Pick days until next repetition:"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:283
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:109
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:107
 msgid "Grade your answer:"
 msgstr ""
 
@@ -3380,12 +3380,12 @@ msgid "Preview cards"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:94
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:106
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:104
 msgid "Question:"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:95
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:107
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:105
 #: ../mnemosyne/web_server/review_wdgt.py:32
 msgid "Answer:"
 msgstr ""
@@ -3452,31 +3452,31 @@ msgstr ""
 msgid "Enter new tag name:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:108
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:106
 msgid "Show &answer"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:110
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:108
 msgid "0"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:111
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:109
 msgid "1"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:112
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:110
 msgid "2"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:113
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:111
 msgid "3"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:114
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:112
 msgid "4"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:115
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:113
 msgid "5"
 msgstr ""
 

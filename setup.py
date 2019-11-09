@@ -109,6 +109,8 @@ py2app_options = {
     mnemosyne.libmnemosyne.databases, mnemosyne.libmnemosyne.file_formats, \
     mnemosyne.libmnemosyne.filters, mnemosyne.libmnemosyne.loggers, \
     mnemosyne.libmnemosyne.plugins, mnemosyne.libmnemosyne.renderers, \
+    mnemosyne.libmnemosyne.gui_translators, mnemosyne.libmnemosyne.languagues, \
+    mnemosyne.libmnemosyne.translators, mnemosyne.libmnemosyne.pronouncers, \
     mnemosyne.libmnemosyne.renderers.anki, \
     mnemosyne.libmnemosyne.renderers.anki.template \
     mnemosyne.libmnemosyne.render_chains, mnemosyne.libmnemosyne.schedulers, \
@@ -137,7 +139,10 @@ package_name = "mnemosyne"
 packages = ["mnemosyne",
             "mnemosyne.pyqt_ui",
             "mnemosyne.libmnemosyne",
+            "mnemosyne.libmnemosyne.gui_translators",
             "mnemosyne.libmnemosyne.translators",
+            "mnemosyne.libmnemosyne.pronouncers",
+            "mnemosyne.libmnemosyne.languages",
             "mnemosyne.libmnemosyne.card_types",
             "mnemosyne.libmnemosyne.databases",
             "mnemosyne.libmnemosyne.file_formats",
