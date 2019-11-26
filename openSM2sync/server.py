@@ -5,11 +5,11 @@
 
 import os
 import sys
-import cgi
 import time
 import types
 import select
 import socket
+import urllib
 import tarfile
 import http.client
 import tempfile
@@ -152,7 +152,7 @@ class Server(Partner):
         # Convert e.g. GET /foo_bar into get_foo_bar.
         method = (environ["REQUEST_METHOD"] + \
                   environ["PATH_INFO"].replace("/", "_")).lower()
-        args = cgi.parse_qs(environ["QUERY_STRING"])
+        args = urllib.parse.parse_qs(environ["QUERY_STRING"])
         args = dict([(key, val[0]) for key, val in list(args.items())])
         # Login method.
         if method == "put_login" or method == "get_status":

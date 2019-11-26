@@ -1,9 +1,7 @@
 -Add Language, Translator, Pronouncer to website.
 
--MATPLOTLIBDATA environment variable deprecated 
--Angle windows packaging 
--https://github.com/mnemosyne-proj/mnemosyne/issues131
-
+-MATPLOTLIBDATA environment variable deprecated
+-Angle windows packaging
 
 Android:
 
