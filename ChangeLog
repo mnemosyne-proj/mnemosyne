@@ -9,7 +9,7 @@ This might also help with other hard crashes.
 If this does not help, or if you see a black screen, try starting Mnemosyne
 with the --qt-opengl=desktop command line argument.)
 
-Mnemosyne 2.7:
+Mnemosyne 2.7: 2019-11-19
 
 - Added Google text-to-speech and translate. To enable, first associate a
   language to a card type using "Cards - Manage card types...". You can then

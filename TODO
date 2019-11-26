@@ -1,13 +1,18 @@
 -Add Language, Translator, Pronouncer to website.
 
+-MATPLOTLIBDATA environment variable deprecated 
+-Angle windows packaging 
+-https://github.com/mnemosyne-proj/mnemosyne/issues131
+
 
 Android:
 
 -switch to Chaquopy.
 -Or standard NDK with Chaquopy python binary? Chaquopy seems to be built on top
- of Crystax as well: https://chaquo.com/maven/com/chaquo/python/target/
+ of Crystax as well however: https://chaquo.com/maven/com/chaquo/python/target/
 -https://github.com/inclement/crystax_python_builds
 -https://github.com/codelv/enaml-native
+-https://github.com/codelv/conda-mobile : has 3.7
 
 -unicode sync issue: upload utf filename from Android, client.py line 548
 
