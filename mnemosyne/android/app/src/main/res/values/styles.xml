@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="MyTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:actionBarStyle">@style/MyTheme.MyActionBar</item>

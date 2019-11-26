@@ -5,7 +5,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.0'
+        classpath 'com.android.tools.build:gradle:3.5.2'
     }
 }
 
@@ -16,12 +16,13 @@ allprojects {
     }
 }
 
-task fullClean(type: Delete) {
-    group 'Build'
-    description 'Do a full clean, including the binaries committed to the repo.'
 
-    dependsOn clean
+//task fullClean(type: Delete) {
+//    group 'Build'
+//    description 'Do a full clean, including the binaries committed to the repo.'
 
-    delete 'app/src/main/libs'
-    followSymlinks = true
-}
+//    dependsOn clean
+
+//    delete 'app/src/main/libs'
+//    followSymlinks = true
+//}
