@@ -17,12 +17,3 @@ allprojects {
 }
 
 
-task fullClean(type: Delete) {
-    group 'Build'
-    description 'Do a full clean, including the binaries committed to the repo.'
-
-    dependsOn clean
-
-    delete 'app/src/main/libs'
-    followSymlinks = true
-}

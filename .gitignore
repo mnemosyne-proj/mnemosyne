@@ -71,7 +71,7 @@ captures/
 # Intellij
 *.iml
 .idea/workspace.xml
-.idea/libraries
+mnemosyne/android/.idea/libraries/
 
 
 # Keystore files

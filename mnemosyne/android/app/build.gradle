@@ -12,8 +12,10 @@ android {
             targetCompatibility JavaVersion.VERSION_1_7
         }
         ndk {
-            moduleName "MyLib"
+            moduleName "pybridge"
         }
+        // TODO: investigate
+        //ndk.abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86' ,'x86_64'
     }
 
     buildTypes {
@@ -30,5 +32,19 @@ android {
 
     dependencies {
         implementation 'androidx.appcompat:appcompat:1.1.0'
+    }
+
+    sourceSets {
+        main {
+            // let gradle pack the shared library into apk
+            jniLibs.srcDirs = ['jniLibs']
+        }
+    }
+
+    //https://stackoverflow.com/questions/44954122/more-than-one-file-was-found-with-os-independent-path-lib-x86-libusb-so
+    //https://stackoverflow.com/questions/55083734/java-lang-unsatisfiedlinkerror-dlopen-failed-library-users-not-found
+    //TODO: investigate
+    packagingOptions {
+        pickFirst '**/*.so'
     }
 }

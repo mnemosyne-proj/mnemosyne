@@ -12,12 +12,12 @@ public class MnemosyneBridge {
     public MnemosyneBridge(String basedir, MnemosyneActivity UIActivity, MnemosyneThread thread) {
         // Older Android versions (e.g. 4.4) cannot dynamically load libraries, so we
         // preload them all here.
-        System.load(UIActivity.getApplicationInfo().nativeLibraryDir + "/libpython3.5m.so");
-        System.load(basedir + "/assets/python/select.so");
-        System.load(basedir + "/assets/python/unicodedata.so");
-        System.load(basedir + "/assets/python/_socket.so");
-        System.load(basedir + "/assets/python/_sqlite3.so");
-        System.load(basedir + "/assets/python/pyexpat.so");
+        //System.load(UIActivity.getApplicationInfo().nativeLibraryDir + "/libpython3.7m.so");
+        //System.load(basedir + "/assets/python/select.so");
+        //System.load(basedir + "/assets/python/unicodedata.so");
+        //System.load(basedir + "/assets/python/_socket.so");
+        //System.load(basedir + "/assets/python/_sqlite3.so");
+        //System.load(basedir + "/assets/python/pyexpat.so");
 
         PyBridge.initialise(basedir + "/assets/python", UIActivity, thread);
         Log.d("Mnemosyne", "Started pybridge");

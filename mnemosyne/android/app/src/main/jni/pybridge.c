@@ -1031,7 +1031,7 @@ JNIEXPORT jstring JNICALL Java_org_mnemosyne_PyBridge_call
 
     // Call function and get the resulting string.
     PyObject* myResult = PyObject_CallObject(myFunction, args);
-    char *myResultChar = PyUnicode_AsUTF8(myResult);
+    const char *myResultChar = PyUnicode_AsUTF8(myResult);
 
     // Store the result on a java.lang.String object.
     jstring result = (*env)->NewStringUTF(env, myResultChar);
