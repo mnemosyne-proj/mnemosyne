@@ -9,12 +9,5 @@ for Android, using Windows/cygwin:
 
 - the precompiled python libraries were downloaded from
     https://github.com/codelv/conda-mobile
-
-- The C code requires installing crystax-ndk (10.3.2 or later) in
-  C:\crystax-ndk-10.3.2.
-  Since JNI cannot cope with paths with spaces, you might need to create a junction
-  of the Android project dir to the C drive, e.g.
-     mklink /J ""C:\Users\First Last\Documents\files\source\mnemosyne-proj\mnemosyne\mnemosyne\android" C:\mnemosyne_android
-  Then, execute make_jni.bat in C:\mnemosyne_android to compile the C code.
-
-- finally, build the app itself using Android Studio as usual.
+  Put them in a directory android/app/src/main/conda-android-python , but renaming the arm subdirectories to
+  armeabi-v7a and arm64-v8a.
