@@ -958,34 +958,38 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne_PyBridge_start
     _sync_dlg_activate_method = (*env)->GetMethodID(env,
       threadClass, "syncDlgActivate", "()V");
 
-    //char str[250];
-    //sprintf(str, "Method ID: %p ", _review_wdgt_update_show_button_method);
-    //LOG(str);
-
     LOG("Initializing the Python interpreter");
 
-    // Get the location of the python files.
+    // Get the location of the Python files.
     const char *pypath = (*env)->GetStringUTFChars(env, path, NULL);
 
     // Build paths for the Python interpreter.
     char paths[512];
     snprintf(paths, sizeof(paths), "%s:%s/stdlib.zip:%s/mnemosyne.zip",
 	pypath, pypath, pypath);
+    LOG(paths);
 
     // Set Python paths.
     wchar_t *wchar_paths = Py_DecodeLocale(paths, NULL);
+    LOG(wchar_paths); // gives '/'
     Py_SetPath(wchar_paths);
 
     // Initialize Python interpreter and other modules.
     PyImport_AppendInittab("androidlog", PyInit_androidlog);
     PyImport_AppendInittab("_main_widget", PyInit__main_widget);
     PyImport_AppendInittab("_review_widget", PyInit__review_widget);
-      PyImport_AppendInittab("_dialogs", PyInit__dialogs);
+    PyImport_AppendInittab("_dialogs", PyInit__dialogs);
+    LOG("Initializing the Python interpreter 2.4");
     Py_Initialize();
+    LOG("Initializing the Python interpreter 2.6");
     setAndroidLog();
+
+    LOG("Initializing the Python interpreter 3");
 
     // Bootstrap.
     PyRun_SimpleString("import bootstrap");
+
+    LOG("Initializing the Python interpreter 4");
 
     // Clean up.
     (*env)->ReleaseStringUTFChars(env, path, pypath);
