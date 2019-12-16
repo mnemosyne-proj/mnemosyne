@@ -971,7 +971,6 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne_PyBridge_start
 
     // Set Python paths.
     wchar_t *wchar_paths = Py_DecodeLocale(paths, NULL);
-    LOG(wchar_paths); // gives '/'
     Py_SetPath(wchar_paths);
 
     // Initialize Python interpreter and other modules.
@@ -979,17 +978,13 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne_PyBridge_start
     PyImport_AppendInittab("_main_widget", PyInit__main_widget);
     PyImport_AppendInittab("_review_widget", PyInit__review_widget);
     PyImport_AppendInittab("_dialogs", PyInit__dialogs);
-    LOG("Initializing the Python interpreter 2.4");
+    LOG("About to start Py_Initialize");
     Py_Initialize();
-    LOG("Initializing the Python interpreter 2.6");
+    LOG("Done Py_Initialise");
     setAndroidLog();
-
-    LOG("Initializing the Python interpreter 3");
 
     // Bootstrap.
     PyRun_SimpleString("import bootstrap");
-
-    LOG("Initializing the Python interpreter 4");
 
     // Clean up.
     (*env)->ReleaseStringUTFChars(env, path, pypath);

@@ -8,9 +8,6 @@ set(distribution_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../../dependencies)
 # ${ANDROID_ABI} is handy for our purpose here. Probably this ${ANDROID_ABI} is
 # the most valuable thing of this sample, the rest are pretty much normal cmake
 
-# build application's shared lib
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
-
 # add libpython
 add_library(lib_python3.7m SHARED IMPORTED)
 set_target_properties(lib_python3.7m PROPERTIES IMPORTED_LOCATION
