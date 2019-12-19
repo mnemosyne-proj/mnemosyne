@@ -5,7 +5,7 @@ android {
 
     defaultConfig {
         applicationId "org.mnemosyne"
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 28
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_7

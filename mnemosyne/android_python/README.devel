@@ -19,4 +19,6 @@ for Android, using Windows/cygwin:
 - use single quotes for arguments of sdk manager
 - export ANDROIDSDK="$HOME/android/", i.e. the directory where 'tools' is located
 - p4a build
-- p4a create --arch=armeabi-v7a,arm64-v8a,x86,x86_64
+- p4a create --arch=armeabi-v7a,arm64-v8a,x86,x86_64 (Note: only create one arch at the time, and clean ~/.local/share/android_for_python inbetween)
+header files are in ./build/other_builds/python3-libffi-openssl-sqlite3/x86__ndk_target_21/python3/Include/Python.h 
+
