@@ -12,7 +12,7 @@ PYTHON35    := python3
 # If we are on cygwin:
 ifeq (1,$(shell /cygdrive/c/Program\ Files/Python37/python.exe -c "print(1)" 2>&- ))
 PYTHON      := /cygdrive/c/Program\ Files/Python37/python.exe
-PYTHON36    := /cygdrive/c/Program\ Files\ \(x86\)/Python\ 3.6/python.exe
+PYTHON37    := /cygdrive/c/Program\ Files/Python37/python.exe
 endif
 # If `sphinx-build2` exists:
 ifneq (,$(shell command -v sphinx-build2 2>&- ))
@@ -133,7 +133,7 @@ android: # Creates the assets file with the Python code.
 	zip -r mnemosyne/android/app/src/main/assets/python/mnemosyne.zip mnemosyne/libmnemosyne -i \*.py
 	zip	-r mnemosyne/android/app/src/main/assets/python/mnemosyne.zip mnemosyne/android_python -i \*.py
 	zip	mnemosyne/android/app/src/main/assets/python/mnemosyne.zip mnemosyne/version.py mnemosyne/__init__.py
-	$(PYTHON35) compile_zip.py mnemosyne/android/app/src/main/assets/python/mnemosyne.zip
+	$(PYTHON37) compile_zip.py mnemosyne/android/app/src/main/assets/python/mnemosyne.zip
 	#$(PYTHON35) compile_zip.py mnemosyne/android/app/src/main/assets/python/stdlib.zip
 
 clean:

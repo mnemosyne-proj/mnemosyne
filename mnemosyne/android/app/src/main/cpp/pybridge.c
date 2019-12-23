@@ -965,8 +965,8 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne_PyBridge_start
 
     // Build paths for the Python interpreter.
     char paths[512];
-    snprintf(paths, sizeof(paths), "%s:%s/stdlib.zip:%s/mnemosyne.zip",
-	pypath, pypath, pypath);
+    snprintf(paths, sizeof(paths), "%s:%s/stdlib.zip:%s/mnemosyne.zip:%s/modules",
+	pypath, pypath, pypath, pypath);
     LOG(paths);
 
     // Set Python paths.
@@ -1045,4 +1045,33 @@ JNIEXPORT jstring JNICALL Java_org_mnemosyne_PyBridge_call
 
     return result;
 }
+
+/* TODO
+ *
+ *  prune libraries
+ *
+ *  2019-12-23 09:46:53.100 7262-7262/org.mnemosyne W/org.mnemosyne: type=1400 audit(0.0:44): avc: granted { execute } for path="/data/data/org.mnemosyne/assets/python/modules/zlib.cpython-37m.so" dev="vdc" ino=131958 scontext=u:r:untrusted_app_27:s0:c134,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c134,c256,c512,c768 tclass=file
+2019-12-23 09:46:53.180 7262-7262/org.mnemosyne W/org.mnemosyne: type=1400 audit(0.0:45): avc: granted { execute } for path="/data/data/org.mnemosyne/assets/python/modules/_heapq.cpython-37m.so" dev="vdc" ino=131721 scontext=u:r:untrusted_app_27:s0:c134,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c134,c256,c512,c768 tclass=file
+2019-12-23 09:46:53.210 7262-7262/org.mnemosyne W/org.mnemosyne: type=1400 audit(0.0:46): avc: granted { execute } for path="/data/data/org.mnemosyne/assets/python/modules/_json.cpython-37m.so" dev="vdc" ino=131751 scontext=u:r:untrusted_app_27:s0:c134,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c134,c256,c512,c768 tclass=file
+2019-12-23 09:46:53.220 7262-7262/org.mnemosyne W/org.mnemosyne: type=1400 audit(0.0:47): avc: granted { execute } for path="/data/data/org.mnemosyne/assets/python/modules/unicodedata.cpython-37m.so" dev="vdc" ino=131956 scontext=u:r:untrusted_app_27:s0:c134,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c134,c256,c512,c768 tclass=file
+2019-12-23 09:46:53.250 7262-7262/org.mnemosyne W/org.mnemosyne: type=1400 audit(0.0:48): avc: granted { execute } for path="/data/data/org.mnemosyne/assets/python/modules/math.cpython-37m.so" dev="vdc" ino=131938 scontext=u:r:untrusted_app_27:s0:c134,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c134,c256,c512,c768 tclass=file
+2019-12-23 09:48:06.540 7262-7262/org.mnemosyne W/Thread-4: type=1400 audit(0.0:63): avc: granted { execute } for path="/data/data/org.mnemosyne/assets/python/modules/_socket.cpython-37m.so" dev="vdc" ino=131908 scontext=u:r:untrusted_app_27:s0:c134,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c134,c256,c512,c768 tclass=file
+2019-12-23 09:48:06.600 7262-7262/org.mnemosyne W/Thread-4: type=1400 audit(0.0:64): avc: granted { execute } for path="/data/data/org.mnemosyne/assets/python/modules/_struct.cpython-37m.so" dev="vdc" ino=131914 scontext=u:r:untrusted_app_27:s0:c134,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c134,c256,c512,c768 tclass=file
+2019-12-23 09:48:06.620 7262-7262/org.mnemosyne W/Thread-4: type=1400 audit(0.0:65): avc: granted { execute } for path="/data/data/org.mnemosyne/assets/python/modules/binascii.cpython-37m.so" dev="vdc" ino=131932 scontext=u:r:untrusted_app_27:s0:c134,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c134,c256,c512,c768 tclass=file
+2019-12-23 09:48:06.960 7262-7262/org.mnemosyne W/Thread-4: type=1400 audit(0.0:66): avc: granted { execute } for path="/data/data/org.mnemosyne/assets/python/modules/_elementtree.cpython-37m.so" dev="vdc" ino=131717 scontext=u:r:untrusted_app_27:s0:c134,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c134,c256,c512,c768 tclass=file
+
+ _sqlite3
+
+ Or: get rid based on size: decimal, pyexpat (do we use it?), pickle, testcapi
+
+  *  document on how to get the python libraries
+ *
+ *  try to put module libraries in jnilibs instead of in assets
+ *
+ *  https://stackoverflow.com/questions/51983380/split-assets-by-abi-on-android
+ *
+
+ *
+ *
+ * */
 
