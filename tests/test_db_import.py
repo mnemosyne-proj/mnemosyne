@@ -36,6 +36,8 @@ class TestDBImport(MnemosyneTest):
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.review_controller().reset()
         self.merge_db_path = os.path.join(os.getcwd(), "tests", "files", "basedir_to_merge", "to_merge.db")
+        self.merge_db_tmppath = os.path.join(os.path.dirname(self.merge_db_path), "to_merge_tmp.db")
+        shutil.copy2(self.merge_db_path, self.merge_db_tmppath)
 
     def db_importer(self):
         for format in self.mnemosyne.component_manager.all("file_format"):
@@ -58,7 +60,7 @@ class TestDBImport(MnemosyneTest):
 
         global last_error
         last_error = ""
-        self.db_importer().do_import(self.merge_db_path)
+        self.db_importer().do_import(self.merge_db_tmppath)
         assert last_error == ""
         db = self.database()
         assert db.con.execute("select count() from log where event_type != 26").fetchone()[0] == 258
@@ -73,4 +75,8 @@ class TestDBImport(MnemosyneTest):
     def teardown(self):
         if os.path.exists(self.merge_db_path + "-journal"):
             os.remove(self.merge_db_path + "-journal")
+        if os.path.exists(self.merge_db_tmppath):
+            os.remove(self.merge_db_tmppath)
+        if os.path.exists(self.merge_db_tmppath + "-journal"):
+            os.remove(self.merge_db_tmppath + "-journal")
         MnemosyneTest.teardown(self)
