@@ -1,5 +1,5 @@
 Short instructions to compile the multilanguage Python/C/Java Mnemosyne client
-for Android, using Windows/cygwin:
+for Android, using Windows/Cygwin:
 
 - precompile and package the Python code (libmnemosyne, ...) by typing
   'make android' in the main development directory.
@@ -7,18 +7,28 @@ for Android, using Windows/cygwin:
 
 - if you want to recompile pybridge, install the standard Android NDK. Otherwise, use the precompiled library.
 
-- the precompiled python libraries were downloaded from
-    https://github.com/codelv/conda-mobile
-  Put them in a directory android/app/src/main/conda-android-python , but renaming the arm subdirectories to
-  armeabi-v7a and arm64-v8a.
 
-- try with Python for Android
-- follow instructions here on a Ubuntu machine: https://python-for-android.readthedocs.io/en/latest/quickstart/#installation
+This is how we got the Python library files:
+
+- follow instructions here, on a Ubuntu machine: 
+   https://python-for-android.readthedocs.io/en/latest/quickstart/#installation
 - NDK r17c, API level 28
-- NDK api should be 21? was 17
-- use single quotes for arguments of sdk manager
+- use single quotes for arguments of sdkmanager
 - export ANDROIDSDK="$HOME/android/", i.e. the directory where 'tools' is located
 - p4a build
-- p4a create --arch=armeabi-v7a,arm64-v8a,x86,x86_64 (Note: only create one arch at the time, and clean ~/.local/share/android_for_python inbetween)
-header files are in ./build/other_builds/python3-libffi-openssl-sqlite3/x86__ndk_target_21/python3/Include/Python.h 
+- p4a create --arch=armeabi-v7a,arm64-v8a,x86,x86_64 --blacklist-requirements=android,libffi,openssl
+ (Note: creating all archs at the same time does not seem to work, so only create one arch at the time, and clean ~/.local/share/android_for_python inbetween)
+- header files are in ./build/other_builds/python3-libffi-openssl-sqlite3/x86__ndk_target_21/python3/Include/Python.h
+- stdlib.zip and module dir are in ./dists/unnamed_dist_1\_python_bundle\_python_bundle 
+- libraries are in ./dists/unnamed_dist_1\libs\<arch>\
+- pruning some libraries to reduce the space somewhat: from stdlib.zip, delete 
+todo:
+_pydecimal.pyc, pydoc.pyc, turtle.pyc, pickletools.pyc, mailbox.pyc, unittest, turtledemo, pydoc_data, distutils
+
+recompile new architectures without openssl etc
+
+TODO:
+- try to put module libraries in jnilibs instead of in assets
+- https://stackoverflow.com/questions/51983380/split-assets-by-abi-on-android
+- https://stackoverflow.com/questions/38529938/gradle-adding-assets-folder-dynamically
 
