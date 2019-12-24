@@ -138,7 +138,6 @@ android: # Creates the assets file with the Python code.
 
 clean:
 	rm -f *~ *.pyc *.tgz process_profile.py
-	rm -f tests/files/basedir_to_merge/to_merge.db-journal
 	rm -rf dist .coverage
 	rm -f -R Mnemosyne.egg-info
 	rm -f -R distrib build bin lib Lib Scripts include dot_mnemosyne2 dot_test dot_sync_*

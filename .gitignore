@@ -26,7 +26,6 @@ mnemosyne/pyqt_ui/ui_*
 mo/
 openSM2sync/**/*.pyc
 tests/**/*.pyc
-tests/files/basedir_to_merge/to_merge.db-journal
 
 
 # Created by https://www.gitignore.io/api/android,emacs,intellij,vim
