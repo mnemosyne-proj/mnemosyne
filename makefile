@@ -53,11 +53,11 @@ test-prep:
 	cd po && make ../mo/de/LC_MESSAGES/mnemosyne.mo
 
 test: test-prep
-	$(PYTHON) -m nose -v tests
+	$(PYTHON) -m nose -v --exe tests
 
 coverage: test-prep
 	rm -rf .coverage cover htmlcov
-	$(PYTHON) -m nose tests --with-coverage --cover-erase \
+	$(PYTHON) -m nose tests --exe --with-coverage --cover-erase \
 	--cover-package=mnemosyne.libmnemosyne,openSM2sync || (echo "testsuite failed")
 	coverage html
 	@echo "Open file://$(PWD)/htmlcov/index.html in a browser for a nicer visualization."
