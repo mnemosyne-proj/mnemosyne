@@ -92,6 +92,7 @@ class TestMemImport(MnemosyneTest):
         assert last_error.strip().endswith("IndexError: Mocked Error")
 
 
+    @MnemosyneTest.set_timezone_utc
     def test_card_type_1(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "1sided.mem")
         self.mem_importer().do_import(filename)
