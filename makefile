@@ -137,7 +137,7 @@ android: # Creates the assets file with the Python code.
 	#$(PYTHON35) compile_zip.py mnemosyne/android/app/src/main/assets/python/stdlib.zip
 
 clean:
-	rm -f *~ *.pyc *.tgz process_profile.py outside.db outside.db-journal
+	rm -f *~ *.pyc *.tgz process_profile.py
 	rm -f tests/files/basedir_to_merge/to_merge.db-journal
 	rm -rf dist .coverage
 	rm -f -R Mnemosyne.egg-info
