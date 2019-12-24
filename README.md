@@ -149,12 +149,12 @@ make test
 ```
 or:
 ```
-python3 -m nose tests
+python3 -m nose --exe tests
 ```
 
 Single tests can be run like this:
 ```
-python3 -m nose tests/<file_name>.py:<class_name>:<method_name>
+python3 -m nose --exe tests/<file_name>.py:<class_name>:<method_name>
 ```
 
 Nose captures `stdout` by default.
