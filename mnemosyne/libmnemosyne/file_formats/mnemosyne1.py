@@ -4,8 +4,6 @@
 #
 
 import re
-import datetime
-import calendar
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.utils import MnemosyneError
@@ -155,13 +153,6 @@ class Mnemosyne1(MediaPreprocessor):
             self.set_card_attributes\
                 (card_2, self.items_by_id[item.id + ".tr.1"])
 
-    def midnight_UTC(self, timestamp):
-        try:
-            date_only = datetime.date.fromtimestamp(timestamp)
-        except ValueError:
-            date_only = datetime.date.max
-        return int(calendar.timegm(date_only.timetuple()))
-
     def set_card_attributes(self, card, item):
         # Note that we cannot give cards a new id, otherwise the log server
         # would not know it was the same card.
@@ -171,9 +162,9 @@ class Mnemosyne1(MediaPreprocessor):
             setattr(card, attr, getattr(item, attr))
         DAY = 24 * 60 * 60 # Seconds in a day.
         card.last_rep = \
-            self.midnight_UTC(self.starttime + item.last_rep * DAY)
+            self.scheduler().midnight_UTC(self.starttime + item.last_rep * DAY)
         card.next_rep = \
-            self.midnight_UTC(self.starttime + item.next_rep * DAY)
+            self.scheduler().midnight_UTC(self.starttime + item.next_rep * DAY)
         if not hasattr(item, "unseen"):
             item.unseen = True
         if item.unseen and item.grade in [0, 1]:
