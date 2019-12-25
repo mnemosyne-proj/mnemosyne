@@ -5,6 +5,7 @@
 import os
 import sys
 import shutil
+import time
 
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.utils import expand_path
@@ -17,6 +18,27 @@ class TestReviewWidget(ReviewWidget):
 
 
 class MnemosyneTest():
+    @staticmethod
+    def set_timezone_utc(fn):
+        """
+        Test decorator to set the timezone to UTC, and reset it on completion
+        """
+        if sys.platform == "win32":
+            return fn
+
+        def newfn(*args, **kwargs):
+            oldtz = os.environ.get("TZ", None)
+            os.environ["TZ"] = "UTC"
+            time.tzset()
+            try:
+                fn(*args, **kwargs)
+            finally:
+                if oldtz is None:
+                    os.environ.pop("TZ")
+                else:
+                    os.environ["TZ"] = oldtz
+                time.tzset()
+        return newfn
 
     def initialise_data_dir(self, data_dir="dot_test"):
         # Creating a new database seems a very time-consuming operation,

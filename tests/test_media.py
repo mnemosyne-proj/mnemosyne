@@ -417,4 +417,8 @@ class TestMedia(MnemosyneTest):
             shutil.rmtree("sub")
         if os.path.exists("_keep"):
             shutil.rmtree("_keep")
+        if os.path.exists("outside.db"):
+            os.remove("outside.db")
+        if os.path.exists("outside.db-journal"):
+            os.remove("outside.db-journal")
         MnemosyneTest.teardown(self)

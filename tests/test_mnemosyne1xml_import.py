@@ -85,6 +85,7 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
         self.xml_importer().do_import(filename)
         assert last_error.startswith("XML file does not seem")
 
+    @MnemosyneTest.set_timezone_utc
     def test_card_type_1(self):
         global answer
         answer = 0

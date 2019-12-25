@@ -33,9 +33,10 @@ class ExpandPaths(Filter):
                 if sys.platform == "win32":
                     new_path = "/" + new_path.replace("\\", "/")
                 new_path = new_path.replace("#", "%23")
-                text = text[:start+1] + "file://" + new_path + text[end:]
-                if sys.platform == "win32" and tag == "data":
-                    text = text.replace("file:///", "")
+                if sys.platform != "win32" or tag != "data":
+                    new_path = "file://" + new_path
+                text = text[:start+1] + new_path + text[end:]
+                end = start + len(new_path)
             # Since text is always longer now, we can start searching
             # from the previous end tag.
             i = text.lower().find(tag, end + 1)
