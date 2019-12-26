@@ -4,7 +4,6 @@
 
 import time
 import random
-import calendar
 import datetime
 
 from mnemosyne.libmnemosyne.gui_translator import _
@@ -35,34 +34,6 @@ class SM2Mnemosyne(Scheduler):
 
     name = "SM2 Mnemosyne"
     warned_about_too_many_cards = False  # default false
-
-    def midnight_UTC(self, timestamp):
-
-        """Round a timestamp to a value with resolution of a day, storing it
-        in a timezone independent way, as a POSIX timestamp corresponding to
-        midnight UTC on that date.
-
-        E.g. if the scheduler sets 'next_rep' to 2012/1/1 12:14 local time,
-        this function will return the timestamp corresponding to
-        2012/1/1 00;00 UTC.
-
-        Important: the timestamp needs to have the meaning of local time,
-        not e.g. UTC, so calling midnight_UTC twice will give unexpected
-        results.
-
-        """
-
-        # Create a time tuple containing the local date only, i.e. throwing
-        # away hours, minutes, etc.
-        # Android/Crystax 10.3.2 actually has a 2038 overflow problem...
-        try:
-            date_only = datetime.date.fromtimestamp(timestamp).timetuple()
-        except OverflowError:
-            date_only = datetime.date.fromtimestamp(2**31-2).timetuple()
-        # Now we reinterpret this same time tuple as being UTC and convert it
-        # to a POSIX timestamp. (Note that timetuples are 'naive', i.e. they
-        # themselves do not contain timezone information.)
-        return int(calendar.timegm(date_only))
 
     def adjusted_now(self, now=None):
 
