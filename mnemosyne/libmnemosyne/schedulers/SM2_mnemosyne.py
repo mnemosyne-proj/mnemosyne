@@ -537,36 +537,6 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
         else:
             return self.database().card_count_scheduled_n_days_ago(-n)
 
-    def last_rep_to_interval_string(self, last_rep, now=None):
-
-        """Converts next_rep to a string like 'yesterday', '2 weeks ago', ...
-
-        """
-
-        if now is None:
-            now = time.time()
-        # To perform the calculation, we need to 'snap' the two timestamps
-        # to midnight UTC before calculating the interval.
-        now = self.midnight_UTC(\
-            now - self.config()["day_starts_at"] * HOUR)
-        last_rep = self.midnight_UTC(\
-            last_rep - self.config()["day_starts_at"] * HOUR)
-        interval_days = (last_rep - now) / DAY
-        if interval_days > -1:
-            return _("today")
-        elif interval_days > -2:
-            return _("yesterday")
-        elif interval_days > -31:
-            return str(int(-interval_days)) + " " + _("days ago")
-        elif interval_days > -62:
-            return _("1 month ago")
-        elif interval_days > -365:
-            interval_months = int(-interval_days/31.)
-            return str(interval_months) + " " + _("months ago")
-        else:
-            interval_years = -interval_days/365.
-            return "%.1f " % interval_years +  _("years ago")
-
     def _fact_ids_learned_today(self):
         """It loads the learned _fact_ids back from the logs in order not
         to forget the learned cards when the app is closed and re-opened.
