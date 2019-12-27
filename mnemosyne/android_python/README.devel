@@ -5,7 +5,8 @@ for Android, using Windows/Cygwin:
   'make android' in the main development directory.
   Make sure to have a separate install of Python 3.7 if needed.
 
-- if you want to recompile pybridge, install the standard Android NDK. Otherwise, use the precompiled library.
+- if you want to recompile pybridge, install the standard Android NDK. 
+  Otherwise, use the precompiled library.
 
 
 This is how we got the Python library files:
@@ -17,15 +18,16 @@ This is how we got the Python library files:
 - export ANDROIDSDK="$HOME/android/", i.e. the directory where 'tools' is located
 - p4a build
 - p4a create --arch=armeabi-v7a,arm64-v8a,x86,x86_64 --blacklist-requirements=android,libffi,openssl
- (Note: creating all archs at the same time does not seem to work, so only create one arch at the time, and clean ~/.local/share/android_for_python inbetween)
-- header files are in ./build/other_builds/python3-libffi-openssl-sqlite3/x86__ndk_target_21/python3/Include/Python.h
+ (Note: creating all archs at the same time does not seem to work, so only 
+  create one arch at the time, and do 'p4a clean_all' inbetween)
+- header files are in 
+  ./build/other_builds/python3-libffi-openssl-sqlite3/x86__ndk_target_21/python3/Include/Python.h
 - stdlib.zip and module dir are in ./dists/unnamed_dist_1\_python_bundle\_python_bundle 
-- libraries are in ./dists/unnamed_dist_1\libs\<arch>\
-- pruning some libraries to reduce the space somewhat: from stdlib.zip, delete 
-todo:
-_pydecimal.pyc, pydoc.pyc, turtle.pyc, pickletools.pyc, mailbox.pyc, unittest, turtledemo, pydoc_data, distutils
-
-recompile new architectures without openssl etc
+- libraries libpython3.7m.so and libsqlite3 are in ./dists/unnamed_dist_1\libs\<arch>\
+- pruning some libraries to reduce the space somewhat: from stdlib.zip, 
+  delete _pydecimal.pyc, pydoc.pyc, turtle.pyc, pickletools.pyc, picle.pyc, 
+  unittest, turtledemo, pydoc_data, distutils (saves 500 kb)
+- from modules, delete _decimal, _pickle, _testcapi, audioop, cmath (saves 500 kb)
 
 TODO:
 - try to put module libraries in jnilibs instead of in assets

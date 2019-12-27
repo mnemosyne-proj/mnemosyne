@@ -28,7 +28,7 @@ android {
     sourceSets {
         main {
             // Let gradle pack the shared library into the apk.
-            jniLibs.srcDirs = ['../dependencies/conda-android-python/lib']
+            jniLibs.srcDirs = ['../dependencies/python/lib']
         }
     }
 
@@ -38,8 +38,6 @@ android {
             path 'src/main/cpp/CMakeLists.txt'
         }
     }
-
-
 
     dependencies {
         implementation 'androidx.appcompat:appcompat:1.1.0'
