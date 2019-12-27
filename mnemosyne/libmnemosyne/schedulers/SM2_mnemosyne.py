@@ -33,7 +33,7 @@ class SM2Mnemosyne(Scheduler):
     """
 
     name = "SM2 Mnemosyne"
-    warned_about_too_many_cards = False  # default false
+    _warned_about_too_many_cards = False  # default false
 
     def true_scheduled_interval(self, card):
 
@@ -158,7 +158,7 @@ class SM2Mnemosyne(Scheduler):
             return
         self._card_ids_in_queue = []
         self._fact_ids_in_queue = []
-        self.warned_about_too_many_cards = self.already_warned_today()
+        self._warned_about_too_many_cards = self._already_warned_today()
 
         # Stage 1
         #
@@ -503,7 +503,7 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
             card.next_rep = card.last_rep
         # Warn if we learned a lot of new cards.
 
-        self.warn_too_many_cards()
+        self._warn_too_many_cards()
         # Run hooks.
         self.database().current_criterion().apply_to_card(card)
         for f in self.component_manager.all("hook", "after_repetition"):
@@ -546,35 +546,35 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
         if not db.is_loaded():
             return []
 
-        start_of_day, end_of_day = self.today_start_and_end_timestamp()
+        start_of_day, end_of_day = self._today_start_and_end_timestamp()
 
         forgotten_fact_ids = [_fact_id for _fact_id in db.fact_ids_forgotten_and_learned_today(start_of_day, end_of_day)]
         new_fact_ids = [_fact_id for _fact_id in db.fact_ids_newly_learned_today(start_of_day, end_of_day)]
 
         return new_fact_ids + forgotten_fact_ids
 
-    def warn_too_many_cards(self):
+    def _warn_too_many_cards(self):
         """Shows a warning if there are already 15 new or failed cards memorized.
 
         """
         # only alert if it is exactly 15, do be obtrusive
         if (len(self._fact_ids_memorised) == 15 and
-                not self.warned_about_too_many_cards):
+                not self._warned_about_too_many_cards):
             self.main_widget().show_information(
                 ("You've memorised 15 new or failed cards.") + " " +
                 ("If you do this for many days, you could get a big workload later."))
-            self.warned_about_too_many_cards = True
+            self._warned_about_too_many_cards = True
             # log the event, so we won't show an alert more than once a day
             self.log().warn_too_many_cards()
 
-    def today_start_and_end_timestamp(self):
+    def _today_start_and_end_timestamp(self):
         timestamp = time.time() - 0 - self.config()["day_starts_at"] * HOUR
         date_only = datetime.date.fromtimestamp(timestamp)  # Local date.
         start_of_day = int(time.mktime(date_only.timetuple()))
         start_of_day += self.config()["day_starts_at"] * HOUR
         return start_of_day, start_of_day + DAY
 
-    def already_warned_today(self):
+    def _already_warned_today(self):
         """From the current session or from the database it checks if
         there was a warning about learning too many cards or not.
 
@@ -584,9 +584,9 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
 
         """
 
-        if self.warned_about_too_many_cards:
+        if self._warned_about_too_many_cards:
             return True
 
-        start_of_day, end_of_day = self.today_start_and_end_timestamp()
+        start_of_day, end_of_day = self._today_start_and_end_timestamp()
 
         return self.database().has_already_warned_today(start_of_day, end_of_day)
