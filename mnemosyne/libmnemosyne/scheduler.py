@@ -4,8 +4,14 @@
 
 import calendar
 import datetime
+import time
 
 from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.libmnemosyne.gui_translator import _
+
+
+HOUR = 60 * 60  # Seconds in an hour.
+DAY = 24 * HOUR  # Seconds in a day.
 
 
 class Scheduler(Component):
@@ -155,3 +161,33 @@ class Scheduler(Component):
         # to a POSIX timestamp. (Note that timetuples are 'naive', i.e. they
         # themselves do not contain timezone information.)
         return int(calendar.timegm(date_only))
+
+    def adjusted_now(self, now=None):
+
+        """Timezone information and 'day_starts_at' will only become relevant
+        when the queue is built, not at schedule time, to allow for
+        moving to a different timezone after a card has been scheduled.
+        Cards are due when 'adjusted_now >= next_rep', and this function
+        makes sure that happens at h:00 local time (with h being
+        'day_starts_at').
+
+        """
+
+        if now == None:
+            now = time.time()
+        # The larger 'day_starts_at', the later the card should become due,
+        # i.e. larger than 'next_card', so the more 'now' should be decreased.
+        now -= self.config()["day_starts_at"] * HOUR
+        # 'altzone' or 'timezone' contains the offset in seconds west of UTC.
+        # This number is positive for the US, where a card should become
+        # due later than in Europe, so 'now' should be decreased by this
+        # offset.
+        # As for when to use 'altzone' instead of 'timezone' if daylight
+        # savings time is active, this is a matter of big confusion
+        # among the Python developers themselves:
+        # http://bugs.python.org/issue7229
+        if time.localtime(now).tm_isdst and time.daylight:
+            now -= time.altzone
+        else:
+            now -= time.timezone
+        return int(now)
