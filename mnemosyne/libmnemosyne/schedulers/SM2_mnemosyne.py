@@ -537,45 +537,6 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
         else:
             return self.database().card_count_scheduled_n_days_ago(-n)
 
-    def next_rep_to_interval_string(self, next_rep, now=None):
-
-        """Converts next_rep to a string like 'tomorrow', 'in 2 weeks', ...
-
-        """
-
-        if now is None:
-            now = self.adjusted_now()
-        interval_days = (next_rep - now) / DAY
-        if interval_days >= 365:
-            interval_years = interval_days/365.
-            return _("in") + " " + "%.1f" % interval_years + " " + \
-                   _("years")
-        elif interval_days >= 62:
-            interval_months = int(interval_days/31)
-            return _("in") + " " + str(interval_months) + " " + \
-                   _("months")
-        elif interval_days >= 31:
-            return _("in 1 month")
-        elif interval_days >= 1:
-            return _("in") + " " + str(int(interval_days) + 1) + " " + \
-                   _("days")
-        elif interval_days >= 0:
-            return _("tomorrow")
-        elif interval_days >= -1:
-            return _("today")
-        elif interval_days >= -2:
-            return _("1 day overdue")
-        elif interval_days >= -31:
-            return str(int(-interval_days)) + " " + _("days overdue")
-        elif interval_days >= -62:
-            return _("1 month overdue")
-        elif interval_days >= -365:
-            interval_months = int(-interval_days/31)
-            return str(interval_months) + " " + _("months overdue")
-        else:
-            interval_years = -interval_days/365.
-            return "%.1f " % interval_years +  _("years overdue")
-
     def last_rep_to_interval_string(self, last_rep, now=None):
 
         """Converts next_rep to a string like 'yesterday', '2 weeks ago', ...
