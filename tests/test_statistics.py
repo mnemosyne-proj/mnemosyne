@@ -56,6 +56,7 @@ class TestStatistics(MnemosyneTest):
         page.prepare_statistics(page.variants[1][0])
         assert page.data == [2.5]
 
+    @MnemosyneTest.set_timezone_utc
     def test_past_schedule(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_1x_log_import()
@@ -100,6 +101,7 @@ class TestStatistics(MnemosyneTest):
         page = Schedule(self.mnemosyne.component_manager)
         page.prepare_statistics(0)
 
+    @MnemosyneTest.set_timezone_utc
     def test_added_cards(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_1x_log_import()
@@ -128,6 +130,7 @@ class TestStatistics(MnemosyneTest):
         page = CardsAdded(self.mnemosyne.component_manager)
         page.prepare_statistics(0)
 
+    @MnemosyneTest.set_timezone_utc
     def test_score(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_1x_log_import()
