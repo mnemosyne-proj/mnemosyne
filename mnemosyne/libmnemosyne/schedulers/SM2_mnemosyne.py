@@ -33,37 +33,7 @@ class SM2Mnemosyne(Scheduler):
     """
 
     name = "SM2 Mnemosyne"
-    warned_about_too_many_cards = False  # default false
-
-    def adjusted_now(self, now=None):
-
-        """Timezone information and 'day_starts_at' will only become relevant
-        when the queue is built, not at schedule time, to allow for
-        moving to a different timezone after a card has been scheduled.
-        Cards are due when 'adjusted_now >= next_rep', and this function
-        makes sure that happens at h:00 local time (with h being
-        'day_starts_at').
-
-        """
-
-        if now == None:
-            now = time.time()
-        # The larger 'day_starts_at', the later the card should become due,
-        # i.e. larger than 'next_card', so the more 'now' should be decreased.
-        now -= self.config()["day_starts_at"] * HOUR
-        # 'altzone' or 'timezone' contains the offset in seconds west of UTC.
-        # This number is positive for the US, where a card should become
-        # due later than in Europe, so 'now' should be decreased by this
-        # offset.
-        # As for when to use 'altzone' instead of 'timezone' if daylight
-        # savings time is active, this is a matter of big confusion
-        # among the Python developers themselves:
-        # http://bugs.python.org/issue7229
-        if time.localtime(now).tm_isdst and time.daylight:
-            now -= time.altzone
-        else:
-            now -= time.timezone
-        return int(now)
+    _warned_about_too_many_cards = False  # default false
 
     def true_scheduled_interval(self, card):
 
@@ -188,7 +158,7 @@ class SM2Mnemosyne(Scheduler):
             return
         self._card_ids_in_queue = []
         self._fact_ids_in_queue = []
-        self.warned_about_too_many_cards = self.already_warned_today()
+        self._warned_about_too_many_cards = self._already_warned_today()
 
         # Stage 1
         #
@@ -533,7 +503,7 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
             card.next_rep = card.last_rep
         # Warn if we learned a lot of new cards.
 
-        self.warn_too_many_cards()
+        self._warn_too_many_cards()
         # Run hooks.
         self.database().current_criterion().apply_to_card(card)
         for f in self.component_manager.all("hook", "after_repetition"):
@@ -567,75 +537,6 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
         else:
             return self.database().card_count_scheduled_n_days_ago(-n)
 
-    def next_rep_to_interval_string(self, next_rep, now=None):
-
-        """Converts next_rep to a string like 'tomorrow', 'in 2 weeks', ...
-
-        """
-
-        if now is None:
-            now = self.adjusted_now()
-        interval_days = (next_rep - now) / DAY
-        if interval_days >= 365:
-            interval_years = interval_days/365.
-            return _("in") + " " + "%.1f" % interval_years + " " + \
-                   _("years")
-        elif interval_days >= 62:
-            interval_months = int(interval_days/31)
-            return _("in") + " " + str(interval_months) + " " + \
-                   _("months")
-        elif interval_days >= 31:
-            return _("in 1 month")
-        elif interval_days >= 1:
-            return _("in") + " " + str(int(interval_days) + 1) + " " + \
-                   _("days")
-        elif interval_days >= 0:
-            return _("tomorrow")
-        elif interval_days >= -1:
-            return _("today")
-        elif interval_days >= -2:
-            return _("1 day overdue")
-        elif interval_days >= -31:
-            return str(int(-interval_days)) + " " + _("days overdue")
-        elif interval_days >= -62:
-            return _("1 month overdue")
-        elif interval_days >= -365:
-            interval_months = int(-interval_days/31)
-            return str(interval_months) + " " + _("months overdue")
-        else:
-            interval_years = -interval_days/365.
-            return "%.1f " % interval_years +  _("years overdue")
-
-    def last_rep_to_interval_string(self, last_rep, now=None):
-
-        """Converts next_rep to a string like 'yesterday', '2 weeks ago', ...
-
-        """
-
-        if now is None:
-            now = time.time()
-        # To perform the calculation, we need to 'snap' the two timestamps
-        # to midnight UTC before calculating the interval.
-        now = self.midnight_UTC(\
-            now - self.config()["day_starts_at"] * HOUR)
-        last_rep = self.midnight_UTC(\
-            last_rep - self.config()["day_starts_at"] * HOUR)
-        interval_days = (last_rep - now) / DAY
-        if interval_days > -1:
-            return _("today")
-        elif interval_days > -2:
-            return _("yesterday")
-        elif interval_days > -31:
-            return str(int(-interval_days)) + " " + _("days ago")
-        elif interval_days > -62:
-            return _("1 month ago")
-        elif interval_days > -365:
-            interval_months = int(-interval_days/31.)
-            return str(interval_months) + " " + _("months ago")
-        else:
-            interval_years = -interval_days/365.
-            return "%.1f " % interval_years +  _("years ago")
-
     def _fact_ids_learned_today(self):
         """It loads the learned _fact_ids back from the logs in order not
         to forget the learned cards when the app is closed and re-opened.
@@ -645,35 +546,35 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
         if not db.is_loaded():
             return []
 
-        start_of_day, end_of_day = self.today_start_and_end_timestamp()
+        start_of_day, end_of_day = self._today_start_and_end_timestamp()
 
         forgotten_fact_ids = [_fact_id for _fact_id in db.fact_ids_forgotten_and_learned_today(start_of_day, end_of_day)]
         new_fact_ids = [_fact_id for _fact_id in db.fact_ids_newly_learned_today(start_of_day, end_of_day)]
 
         return new_fact_ids + forgotten_fact_ids
 
-    def warn_too_many_cards(self):
+    def _warn_too_many_cards(self):
         """Shows a warning if there are already 15 new or failed cards memorized.
 
         """
         # only alert if it is exactly 15, do be obtrusive
         if (len(self._fact_ids_memorised) == 15 and
-                not self.warned_about_too_many_cards):
+                not self._warned_about_too_many_cards):
             self.main_widget().show_information(
                 ("You've memorised 15 new or failed cards.") + " " +
                 ("If you do this for many days, you could get a big workload later."))
-            self.warned_about_too_many_cards = True
+            self._warned_about_too_many_cards = True
             # log the event, so we won't show an alert more than once a day
             self.log().warn_too_many_cards()
 
-    def today_start_and_end_timestamp(self):
+    def _today_start_and_end_timestamp(self):
         timestamp = time.time() - 0 - self.config()["day_starts_at"] * HOUR
         date_only = datetime.date.fromtimestamp(timestamp)  # Local date.
         start_of_day = int(time.mktime(date_only.timetuple()))
         start_of_day += self.config()["day_starts_at"] * HOUR
         return start_of_day, start_of_day + DAY
 
-    def already_warned_today(self):
+    def _already_warned_today(self):
         """From the current session or from the database it checks if
         there was a warning about learning too many cards or not.
 
@@ -683,9 +584,9 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
 
         """
 
-        if self.warned_about_too_many_cards:
+        if self._warned_about_too_many_cards:
             return True
 
-        start_of_day, end_of_day = self.today_start_and_end_timestamp()
+        start_of_day, end_of_day = self._today_start_and_end_timestamp()
 
         return self.database().has_already_warned_today(start_of_day, end_of_day)

@@ -4,8 +4,14 @@
 
 import calendar
 import datetime
+import time
 
 from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.libmnemosyne.gui_translator import _
+
+
+HOUR = 60 * 60  # Seconds in an hour.
+DAY = 24 * HOUR  # Seconds in a day.
 
 
 class Scheduler(Component):
@@ -155,3 +161,102 @@ class Scheduler(Component):
         # to a POSIX timestamp. (Note that timetuples are 'naive', i.e. they
         # themselves do not contain timezone information.)
         return int(calendar.timegm(date_only))
+
+    def adjusted_now(self, now=None):
+
+        """Timezone information and 'day_starts_at' will only become relevant
+        when the queue is built, not at schedule time, to allow for
+        moving to a different timezone after a card has been scheduled.
+        Cards are due when 'adjusted_now >= next_rep', and this function
+        makes sure that happens at h:00 local time (with h being
+        'day_starts_at').
+
+        """
+
+        if now == None:
+            now = time.time()
+        # The larger 'day_starts_at', the later the card should become due,
+        # i.e. larger than 'next_card', so the more 'now' should be decreased.
+        now -= self.config()["day_starts_at"] * HOUR
+        # 'altzone' or 'timezone' contains the offset in seconds west of UTC.
+        # This number is positive for the US, where a card should become
+        # due later than in Europe, so 'now' should be decreased by this
+        # offset.
+        # As for when to use 'altzone' instead of 'timezone' if daylight
+        # savings time is active, this is a matter of big confusion
+        # among the Python developers themselves:
+        # http://bugs.python.org/issue7229
+        if time.localtime(now).tm_isdst and time.daylight:
+            now -= time.altzone
+        else:
+            now -= time.timezone
+        return int(now)
+
+    def next_rep_to_interval_string(self, next_rep, now=None):
+
+        """Converts next_rep to a string like 'tomorrow', 'in 2 weeks', ...
+
+        """
+
+        if now is None:
+            now = self.adjusted_now()
+        interval_days = (next_rep - now) / DAY
+        if interval_days >= 365:
+            interval_years = interval_days/365.
+            return _("in") + " " + "%.1f" % interval_years + " " + \
+                   _("years")
+        elif interval_days >= 62:
+            interval_months = int(interval_days/31)
+            return _("in") + " " + str(interval_months) + " " + \
+                   _("months")
+        elif interval_days >= 31:
+            return _("in 1 month")
+        elif interval_days >= 1:
+            return _("in") + " " + str(int(interval_days) + 1) + " " + \
+                   _("days")
+        elif interval_days >= 0:
+            return _("tomorrow")
+        elif interval_days >= -1:
+            return _("today")
+        elif interval_days >= -2:
+            return _("1 day overdue")
+        elif interval_days >= -31:
+            return str(int(-interval_days)) + " " + _("days overdue")
+        elif interval_days >= -62:
+            return _("1 month overdue")
+        elif interval_days >= -365:
+            interval_months = int(-interval_days/31)
+            return str(interval_months) + " " + _("months overdue")
+        else:
+            interval_years = -interval_days/365.
+            return "%.1f " % interval_years +  _("years overdue")
+
+    def last_rep_to_interval_string(self, last_rep, now=None):
+
+        """Converts next_rep to a string like 'yesterday', '2 weeks ago', ...
+
+        """
+
+        if now is None:
+            now = time.time()
+        # To perform the calculation, we need to 'snap' the two timestamps
+        # to midnight UTC before calculating the interval.
+        now = self.midnight_UTC(\
+            now - self.config()["day_starts_at"] * HOUR)
+        last_rep = self.midnight_UTC(\
+            last_rep - self.config()["day_starts_at"] * HOUR)
+        interval_days = (last_rep - now) / DAY
+        if interval_days > -1:
+            return _("today")
+        elif interval_days > -2:
+            return _("yesterday")
+        elif interval_days > -31:
+            return str(int(-interval_days)) + " " + _("days ago")
+        elif interval_days > -62:
+            return _("1 month ago")
+        elif interval_days > -365:
+            interval_months = int(-interval_days/31.)
+            return str(interval_months) + " " + _("months ago")
+        else:
+            interval_years = -interval_days/365.
+            return "%.1f " % interval_years +  _("years ago")
