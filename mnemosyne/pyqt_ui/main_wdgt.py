@@ -112,6 +112,10 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
     def show_error(self, text):
         QtWidgets.QMessageBox.critical(self.top_window(), _("Mnemosyne"), text)
 
+    def handle_keyboard_interrupt(self, text):
+        self._store_state()
+        QtWidgets.QApplication.exit()
+
     def default_font_size(self):
         return QtWidgets.qApp.font().pointSize()
 
