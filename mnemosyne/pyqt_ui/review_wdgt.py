@@ -528,7 +528,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
             self.play_next_file()
 
     def stop_media(self):
-        if self.mplayer is not None:
+        if self.mplayer and self.mplayer.state() == QtCore.QProcess.Running:
             self.mplayer.write(b"quit\n");
         self.media_queue = []
 
