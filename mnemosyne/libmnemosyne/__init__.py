@@ -379,7 +379,10 @@ class Mnemosyne(Component):
         try:
             if sys.platform != "win32":
                 sys.stderr.write(body)
-            self.main_widget().show_error(body)
+            if type is KeyboardInterrupt:
+                self.main_widget().handle_keyboard_interrupt(body)
+            else:
+                self.main_widget().show_error(body)
         except:
             sys.stderr.write(body)
 

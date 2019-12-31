@@ -34,6 +34,9 @@ class MainWidget(UiComponent):
     def show_error(self, text):
         print(text)
 
+    def handle_keyboard_interrupt(self, text):
+        self.show_error(text)
+
     def default_font_size(self):
         return 12
 
