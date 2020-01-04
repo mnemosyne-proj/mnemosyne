@@ -3,6 +3,11 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
 
+    // Doesn't seem to work, still ignores _bla.cpython-37m.so
+    aaptOptions {
+        ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~'
+    }
+
     defaultConfig {
         applicationId "org.mnemosyne"
         minSdkVersion 21
@@ -16,6 +21,21 @@ android {
                 arguments '-DANDROID_STL=c++_static'
             }
         }
+        /*
+        splits {
+            abi {
+                enable true
+                reset()
+                include "x86", "x86_64", "armeabi-v7a", "arm64-v8a"
+                universalApk false
+            }
+        }
+*/
+
+        // Doesn't seem to work, still ignores _bla.cpython-37m.so
+        aaptOptions {
+            ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~'
+        }
     }
 
     buildTypes {
@@ -25,10 +45,57 @@ android {
         }
     }
 
+    flavorDimensions "abi"
+
+    productFlavors {
+        armeabi_v7a {
+            dimension "abi"
+            ndk.abiFilters 'armeabi-v7a'
+        }
+
+        arm64_v8a {
+            dimension "abi"
+            ndk.abiFilters 'arm64-v8a'
+        }
+
+        x86 {
+            dimension "abi"
+            ndk.abiFilters 'x86'
+        }
+
+        x86_64 {
+            dimension "abi"
+            ndk.abiFilters 'x86_64'
+        }
+    }
+
     sourceSets {
-        main {
+        //main {
             // Let gradle pack the shared library into the apk.
-            jniLibs.srcDirs = ['../dependencies/python/lib']
+            //jniLibs.srcDirs = ['../dependencies/python/lib']
+        //}
+        armeabi_v7a  {
+            jniLibs.srcDirs = ['../dependencies/python/lib/armeabi-v7a']
+            assets.srcDirs = ['../dependencies/python/lib/armeabi-v7a/',
+                              '../dependencies/python/lib/armeabi-v7a/modules/']
+        }
+
+        arm64_v8a {
+            jniLibs.srcDirs = ['../dependencies/python/lib/arm64-v8a']
+            assets.srcDirs = ['../dependencies/python/lib/arm64-v8a/',
+                              '../dependencies/python/lib/arm64-v8a/modules/']
+        }
+
+        x86 {
+            jniLibs.srcDirs = ['../dependencies/python/lib/x86']
+            assets.srcDirs = ['../dependencies/python/lib/x86/',
+                              '../dependencies/python/lib/x86/modules/']
+        }
+
+        x86_64 {
+            jniLibs.srcDirs = ['../dependencies/python/lib/x86_64']
+            assets.srcDirs = ['../dependencies/python/lib/x86_64',
+                              '../dependencies/python/lib/x86_64/modules/']
         }
     }
 
@@ -41,5 +108,35 @@ android {
 
     dependencies {
         implementation 'androidx.appcompat:appcompat:1.1.0'
+    }
+}
+
+// Map for the version code that gives each ABI a value.
+ext.abiCodes = ['armeabi-v7a':1, 'arm64-v8a':2, 'x86':3, 'x86_64':4]
+import com.android.build.OutputFile
+
+// For each APK output variant, override versionCode with a combination of
+// ext.abiCodes * 1000 + variant.versionCode. In this example, variant.versionCode
+// is equal to defaultConfig.versionCode. If you configure product flavors that
+// define their own versionCode, variant.versionCode uses that value instead.
+android.applicationVariants.all { variant ->
+    // Assigns a different version code for each output APK
+    // other than the universal APK.
+    variant.outputs.each { output ->
+        // Stores the value of ext.abiCodes that is associated with the ABI for this variant.
+        def baseAbiVersionCode =
+                // Determines the ABI for this variant and returns the mapped value.
+                project.ext.abiCodes.get(output.getFilter(OutputFile.ABI))
+        // Because abiCodes.get() returns null for ABIs that are not mapped by ext.abiCodes,
+        // the following code does not override the version code for universal APKs.
+        // However, because we want universal APKs to have the lowest version code,
+        // this outcome is desirable.
+        if (baseAbiVersionCode != null) {
+            // Assigns the new version code to versionCodeOverride, which changes the version code
+            // for only the output APK, not for the variant itself. Skipping this step simply
+            // causes Gradle to use the value of variant.versionCode for the APK.
+            output.versionCodeOverride =
+                    baseAbiVersionCode * 1000 + variant.versionCode
+        }
     }
 }

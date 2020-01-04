@@ -34,3 +34,16 @@ TODO:
 - https://stackoverflow.com/questions/51983380/split-assets-by-abi-on-android
 - https://stackoverflow.com/questions/38529938/gradle-adding-assets-folder-dynamically
 
+x86
+---
+Compile configuration: x86Compile
+build.gradle name: android.sourceSets.x86
+Java sources: [app\src\x86\java]
+Manifest file: app\src\x86\AndroidManifest.xml
+Android resources: [app\src\x86\res]
+Assets: [dependencies\python\lib\x86\modules]
+AIDL sources: [app\src\x86\aidl]
+RenderScript sources: [app\src\x86\rs]
+JNI sources: [app\src\x86\jni]
+JNI libraries: [dependencies\python\lib\x86]
+Java-style resources: [app\src\x86\resources]

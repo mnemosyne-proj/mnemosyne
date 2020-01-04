@@ -887,7 +887,7 @@ PyInit__dialogs(void)
 */
 
 JNIEXPORT jint JNICALL Java_org_mnemosyne_PyBridge_start
-        (JNIEnv *env, jclass jc, jstring path, jobject thread)
+        (JNIEnv *env, jclass jc, jstring asset_path, jstring library_path, jobject thread)
 {
     // Cache function pointers and objects.
     // https://developer.android.com/training/articles/perf-jni.html
@@ -961,12 +961,13 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne_PyBridge_start
     LOG("Initializing the Python interpreter");
 
     // Get the location of the Python files.
-    const char *pypath = (*env)->GetStringUTFChars(env, path, NULL);
+    const char *py_asset_path = (*env)->GetStringUTFChars(env, asset_path, NULL);
+    const char *py_library_path = (*env)->GetStringUTFChars(env, library_path, NULL);
 
     // Build paths for the Python interpreter.
     char paths[512];
-    snprintf(paths, sizeof(paths), "%s:%s/stdlib.zip:%s/mnemosyne.zip:%s/modules",
-	pypath, pypath, pypath, pypath);
+    snprintf(paths, sizeof(paths), "%s:%s/stdlib.zip:%s/mnemosyne.zip:%s/modules:%s",
+	py_asset_path, py_asset_path, py_asset_path, py_library_path, py_library_path);
     LOG(paths);
 
     // Set Python paths.
@@ -987,7 +988,8 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne_PyBridge_start
     PyRun_SimpleString("import bootstrap");
 
     // Clean up.
-    (*env)->ReleaseStringUTFChars(env, path, pypath);
+    (*env)->ReleaseStringUTFChars(env, asset_path, py_asset_path);
+    (*env)->ReleaseStringUTFChars(env, library_path, py_library_path);
     PyMem_RawFree(wchar_paths);
 
     return 0;

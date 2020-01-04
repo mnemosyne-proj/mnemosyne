@@ -5,6 +5,8 @@ import org.json.JSONException;
 
 import android.util.Log;
 
+import java.io.File;
+
 public class MnemosyneBridge {
 
     private MnemosyneActivity UIActivity;
@@ -13,7 +15,25 @@ public class MnemosyneBridge {
         // Older Android versions (e.g. 4.4) cannot dynamically load libraries, so we
         // preload them all here.
 
-        //System.load(UIActivity.getApplicationInfo().nativeLibraryDir + "/libsqlite3.so");
+
+        File from = new File(UIActivity.getApplicationInfo().nativeLibraryDir, "md5.cpython-37m.so");
+        File to = new File(UIActivity.getApplicationInfo().nativeLibraryDir,"_md5.cpython-37m.so");
+        from.renameTo(to);
+        Log.d("Mnemosyne", "Renamed");
+
+        Log.d("Mnemosyne", "nativelibrarydir" + UIActivity.getApplicationInfo().nativeLibraryDir );
+
+        String path = UIActivity.getApplicationInfo().nativeLibraryDir;
+        Log.d("Files", "Path: " + path);
+        File directory = new File(path);
+        File[] files = directory.listFiles();
+        Log.d("Files", "Size: "+ files.length);
+        for (int i = 0; i < files.length; i++)
+        {
+            Log.d("Files", "FileName:" + files[i].getName());
+        }
+
+        //System.load(UIActivity.getApplicationInfo().nativeLibraryDir + "/modules/binascii.cpython-37m.so");
         //System.load(UIActivity.getApplicationInfo().nativeLibraryDir + "/libpython3.7m.so");
 
         // Does not seem to work in trying to preload the libraries, so that we can use an app bundle.
@@ -25,7 +45,8 @@ public class MnemosyneBridge {
         //System.load(basedir + "/assets/python/pyexpat.so");
         //Log.d("Mnemosyne", "Preloaded libraries");
 
-        PyBridge.initialise(basedir + "/assets/python", UIActivity, thread);
+        PyBridge.initialise(basedir + "/assets/python",
+                UIActivity.getApplicationInfo().nativeLibraryDir, UIActivity, thread);
         Log.d("Mnemosyne", "Started pybridge");
     }
 
