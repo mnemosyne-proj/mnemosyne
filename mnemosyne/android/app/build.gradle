@@ -21,7 +21,7 @@ android {
                 arguments '-DANDROID_STL=c++_static'
             }
         }
-        /*
+
         splits {
             abi {
                 enable true
@@ -30,7 +30,6 @@ android {
                 universalApk false
             }
         }
-*/
 
         // Doesn't seem to work, still ignores _bla.cpython-37m.so
         aaptOptions {
@@ -45,6 +44,7 @@ android {
         }
     }
 
+    /*
     flavorDimensions "abi"
 
     productFlavors {
@@ -69,11 +69,15 @@ android {
         }
     }
 
+*/
+
     sourceSets {
-        //main {
+        main {
             // Let gradle pack the shared library into the apk.
-            //jniLibs.srcDirs = ['../dependencies/python/lib']
-        //}
+            jniLibs.srcDirs = ['../dependencies/python/lib']
+        }
+
+        /*
         armeabi_v7a  {
             jniLibs.srcDirs = ['../dependencies/python/lib/armeabi-v7a']
             assets.srcDirs = ['../dependencies/python/lib/armeabi-v7a/',
@@ -97,6 +101,7 @@ android {
             assets.srcDirs = ['../dependencies/python/lib/x86_64',
                               '../dependencies/python/lib/x86_64/modules/']
         }
+        */
     }
 
     externalNativeBuild {
@@ -139,4 +144,19 @@ android.applicationVariants.all { variant ->
                     baseAbiVersionCode * 1000 + variant.versionCode
         }
     }
+}
+
+
+task renameLibraries (type: Copy) {
+    from ('build/intermediates/merged_jni_libs/debug/out/x86_64/')
+    into ('build/intermediates/merged_jni_libs/debug/out/x86_64/')
+    include '*.cpython-37m.so'
+    rename { String filename -> "_" + filename }
+
+    // TODO: leaves original behind
+    // TODO: try if we can copy the _ directly from the dependency folder?
+    // TODO: use variables instead of debug and x86_64
+    // TODO: link up to other tasks
+    // https://android.jlelse.eu/automation-with-gradle-tasks-9d47e2433147
+
 }
