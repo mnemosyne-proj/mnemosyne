@@ -42,6 +42,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
+
+        debug {
+            debuggable true
+        }
     }
 
     /*
@@ -146,17 +150,32 @@ android.applicationVariants.all { variant ->
     }
 }
 
+//:app:mergeReleaseNativeLibs
+// buildDependents
+// afterEvaluate: mergeDebugNativeLibs
+
+//task renameLibraries (type: Copy, dependsOn: "mergeDebugNativeLibs") {
 
 task renameLibraries (type: Copy) {
-    from ('build/intermediates/merged_jni_libs/debug/out/x86_64/')
-    into ('build/intermediates/merged_jni_libs/debug/out/x86_64/')
+    from ('build/intermediates/merged_native_libs/debug/out/x86_64/')
+    into ('build/intermediates/merged_native_libs/debug/out/x86_64/')
     include '*.cpython-37m.so'
     rename { String filename -> "_" + filename }
 
+    // TODO; check why it does not work in the native dir vs jni dir. Too soon in the graph?
     // TODO: leaves original behind
     // TODO: try if we can copy the _ directly from the dependency folder?
     // TODO: use variables instead of debug and x86_64
-    // TODO: link up to other tasks
+
     // https://android.jlelse.eu/automation-with-gradle-tasks-9d47e2433147
 
+    //https://www.oreilly.com/library/view/gradle-recipes-for/9781491947272/ch04.html
+
 }
+
+// https://stackoverflow.com/questions/39642141/assembledebug-dependson-not-working
+afterEvaluate {
+    generateDebugResources.dependsOn renameLibraries
+    generateReleaseResources.dependsOn renameLibraries
+}
+

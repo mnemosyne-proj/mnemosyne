@@ -355,7 +355,7 @@ public class MnemosyneActivity extends AppCompatActivity {
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
                         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "My Tag");
+                        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Mnemosyne:wakelocktag");
                         wl.acquire();
                         try {
                             mnemosyneThread.bridge.controller_do_db_maintenance();
@@ -527,7 +527,7 @@ public class MnemosyneActivity extends AppCompatActivity {
                         mnemosyneThread.bridge.config_set_string("password_for_sync_as_client", password);
                         mnemosyneThread.bridge.config_save();
                         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "My Tag");
+                        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Mnemosyne:wakelocktag");
                         wl.acquire();
                         try {
                             mnemosyneThread.bridge.controller_sync(server, port, username, password);
