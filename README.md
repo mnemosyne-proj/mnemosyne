@@ -31,81 +31,7 @@ If you are interested in running and changing the latest code, please read on.
 We use the git version control system and [Github](https://www.github.com) to coordinate the development.
 Please use a search engine to find out how to install git on your operating system.
 If you are new to git and github, there are many tutorials available on the web.
-For example, [this](https://try.github.io/) interactive tutorial.
-
-## Working locally with the code
-If you want to hack on Mnemosyne and propose your changes for merging later ('pull request'), first create an account on, or log into, Github.
-Then, [fork](https://github.com/mnemosyne-proj/mnemosyne#fork-destination-box) the project on Github.
-You now have your own copy of the Mnemosyne repository on Github.
-
-To work with the code, you need to clone your personal Mnemosyne fork on Github fork to your local machine.
-It's best to setup [ssh for Github](https://help.github.com/articles/connecting-to-github-with-ssh/), but you don't have to.
-Change to your working directory on the terminal and then clone your repository of Mnemosyne (in this example without ssh):
-```
-git clone https://github.com/<your-username>/mnemosyne.git
-```
-
-Let's also make it easy to track the official Mnemosyne repository:
-```
-git remote add upstream https://github.com/mnemosyne-proj/mnemosyne.git
-```
-
-It is best to create your own branches for your work:
-```
-git checkout -b <branch name>
-```
-
-Whenever you want, you can commit your changes:
-```
-git status
-git add <files to add>
-git commit -v
-```
-
-## Sharing your changes
-At some point you may want to share your changes with everyone.
-Before you do so, you should check make sure that you didn't introduce new test failures.
-Then, you should check if changes were made to the original Mnemosyne repository on Github.
-Your private fork on Github is not automatically updated with these changes.
-You can get the most recent changes like this:
-```
-git fetch upstream
-git checkout master
-git merge upstream/master
-```
-
-If there are new changes, your repository now looks like this (each number symbolises a commit):
-
-```
-your local master branch:  ---1-2-3-4'-5'-6'-7'-8' (new changes from upstream)
-                                  |
-your local feature branch:        |-4-5-6 (your changes)
-```
-
-Before you push your branch, you should rebase it on master.
-Rebasing takes all the changes in your branch (in the figure: 4-5-6) and tries to apply them on top of the master branch, so that we end up with a linear history:
-```
-your local master branch:  ---1-2-3-4'-5'-6'-7'-8' (new changes from upstream)
-                                                |
-your local feature branch:                      |-4-5-6 (your changes)
-```
-
-Rebase like this:
-```
-git checkout <branch name>
-git rebase master
-```
-
-Follow the instructions (`git status` gives additional information).
-Once you've successfully rebased your branch, push it to your Github account (we use `--force`, because we want to overwrite the existing branch on our private Github account):
-```
-git push origin --force <branch name>
-```
-
-To create a pull request for your changes, go to the Mnemosyne project page on Github and click on the pull request tab.
-Click on 'New pull request' and follow the instructions.
-
-Finally, some more background on the whole workflow can be found [here](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow).
+For example, [this](https://try.github.io/) interactive tutorial. See also section [working locally with the code](#Working locally with the code) and [sharing your changes](#Sharing your changes) for some info about git and Github.
 
 ## About the code base
 To get an overview of how all the different bits of the library fit together, see the documentation in the code at `mnemosyne/libmnemosyne/docs/build/html/index.html`.
@@ -251,3 +177,78 @@ open dist/Mnemosyne.app
 ```
 
  - Optionally drag and drop this new app to /Applications.
+
+# Git and Github info
+## Working locally with the code
+If you want to hack on Mnemosyne and propose your changes for merging later ('pull request'), first create an account on, or log into, Github.
+Then, [fork](https://github.com/mnemosyne-proj/mnemosyne#fork-destination-box) the project on Github.
+You now have your own copy of the Mnemosyne repository on Github.
+
+To work with the code, you need to clone your personal Mnemosyne fork on Github fork to your local machine.
+It's best to setup [ssh for Github](https://help.github.com/articles/connecting-to-github-with-ssh/), but you don't have to.
+Change to your working directory on the terminal and then clone your repository of Mnemosyne (in this example without ssh):
+```
+git clone https://github.com/<your-username>/mnemosyne.git
+```
+
+Let's also make it easy to track the official Mnemosyne repository:
+```
+git remote add upstream https://github.com/mnemosyne-proj/mnemosyne.git
+```
+
+It is best to create your own branches for your work:
+```
+git checkout -b <branch name>
+```
+
+Whenever you want, you can commit your changes:
+```
+git status
+git add <files to add>
+git commit -v
+```
+
+## Sharing your changes
+At some point you may want to share your changes with everyone.
+Before you do so, you should check make sure that you didn't introduce new test failures.
+Then, you should check if changes were made to the original Mnemosyne repository on Github.
+Your private fork on Github is not automatically updated with these changes.
+You can get the most recent changes like this:
+```
+git fetch upstream
+git checkout master
+git merge upstream/master
+```
+
+If there are new changes, your repository now looks like this (each number symbolises a commit):
+
+```
+your local master branch:  ---1-2-3-4'-5'-6'-7'-8' (new changes from upstream)
+                                  |
+your local feature branch:        |-4-5-6 (your changes)
+```
+
+Before you push your branch, you should rebase it on master.
+Rebasing takes all the changes in your branch (in the figure: 4-5-6) and tries to apply them on top of the master branch, so that we end up with a linear history:
+```
+your local master branch:  ---1-2-3-4'-5'-6'-7'-8' (new changes from upstream)
+                                                |
+your local feature branch:                      |-4-5-6 (your changes)
+```
+
+Rebase like this:
+```
+git checkout <branch name>
+git rebase master
+```
+
+Follow the instructions (`git status` gives additional information).
+Once you've successfully rebased your branch, push it to your Github account (we use `--force`, because we want to overwrite the existing branch on our private Github account):
+```
+git push origin --force <branch name>
+```
+
+To create a pull request for your changes, go to the Mnemosyne project page on Github and click on the pull request tab.
+Click on 'New pull request' and follow the instructions.
+
+Finally, some more background on the whole workflow can be found [here](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow).
