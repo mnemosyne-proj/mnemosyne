@@ -15,3 +15,5 @@ Install the following dependencies if needed:
   (e.g. TeXLive)
 
 Install Mnemosyne itself with 'sudo python setup.py install'.
+
+See README.md file for more info.
