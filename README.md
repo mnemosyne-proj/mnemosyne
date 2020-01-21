@@ -23,9 +23,10 @@ Important features include:
 
 You can find a more detailed explanation of the features on the [webpage](https://mnemosyne-proj.org/features), as well as the general [documentation](https://mnemosyne-proj.org/help/index.php).
 
-# Installation of the development version and hacking
 If you just want to download the latest Mnemosyne release as a regular user, please see the [Download section](https://mnemosyne-proj.org/download-mnemosyne.php).
 If you are interested in running and changing the latest code, please read on.
+
+# Installation of the development version and hacking
 
 We use the git version control system and [Github](https://www.github.com) to coordinate the development.
 Please use a search engine to find out how to install git on your operating system.
