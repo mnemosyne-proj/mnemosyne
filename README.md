@@ -7,6 +7,7 @@ Mnemosyne is:
 If you like, you can help out and upload anomynous data about your learning process (this feature is off by default).
 
 Important features include:
+
 - Bi-directional syncing between several devices
 - Clients for Windows/Mac/Linux and Android
 - Flashcards with rich content (images, video, audio)
