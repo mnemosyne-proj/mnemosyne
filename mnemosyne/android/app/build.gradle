@@ -150,32 +150,31 @@ android.applicationVariants.all { variant ->
     }
 }
 
-//:app:mergeReleaseNativeLibs
-// buildDependents
-// afterEvaluate: mergeDebugNativeLibs
+task addPythonLibraries (type: Copy) {
+    from ('../dependencies/python/lib/x86_64/modules/')
+    into ('build/intermediates/merged_native_libs/debug/out/lib/x86_64/')
 
-//task renameLibraries (type: Copy, dependsOn: "mergeDebugNativeLibs") {
+    ["x86_64", "x86", "armeabi-v7a", "arm64-v8a"].each { arch ->
+        println "${arch}"
+        copy {
+            from("../dependencies/python/lib/${arch}/modules/")
+            into("build/intermediates/merged_native_libs/debug/out/lib/${arch}/")
+        }
+        copy {
+            from("../dependencies/python/lib/${arch}/modules/")
+            into("build/intermediates/merged_native_libs/release/out/lib/${arch}/")
+        }
+    }
 
-task renameLibraries (type: Copy) {
-    from ('build/intermediates/merged_native_libs/debug/out/x86_64/')
-    into ('build/intermediates/merged_native_libs/debug/out/x86_64/')
-    include '*.cpython-37m.so'
-    rename { String filename -> "_" + filename }
-
-    // TODO; check why it does not work in the native dir vs jni dir. Too soon in the graph?
-    // TODO: leaves original behind
-    // TODO: try if we can copy the _ directly from the dependency folder?
     // TODO: use variables instead of debug and x86_64
 
     // https://android.jlelse.eu/automation-with-gradle-tasks-9d47e2433147
-
     //https://www.oreilly.com/library/view/gradle-recipes-for/9781491947272/ch04.html
-
 }
 
 // https://stackoverflow.com/questions/39642141/assembledebug-dependson-not-working
 afterEvaluate {
-    generateDebugResources.dependsOn renameLibraries
-    generateReleaseResources.dependsOn renameLibraries
+    processDebugManifest.dependsOn addPythonLibraries
+    processReleaseManifest.dependsOn addPythonLibraries
 }
 
