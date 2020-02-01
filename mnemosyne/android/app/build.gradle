@@ -3,7 +3,8 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
 
-    // Doesn't seem to work, still ignores _bla.cpython-37m.so
+    // Doesn't seem to work, still ignores _bla.cpython-37m.so, so we use the
+    // addPythonLibraries task below.
     aaptOptions {
         ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~'
     }
@@ -31,7 +32,8 @@ android {
             }
         }
 
-        // Doesn't seem to work, still ignores _bla.cpython-37m.so
+        // Doesn't seem to work, still ignores _bla.cpython-37m.so, so we use the
+        // addPythonLibraries task below.
         aaptOptions {
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
@@ -42,70 +44,13 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
-
-        debug {
-            debuggable true
-        }
     }
-
-    /*
-    flavorDimensions "abi"
-
-    productFlavors {
-        armeabi_v7a {
-            dimension "abi"
-            ndk.abiFilters 'armeabi-v7a'
-        }
-
-        arm64_v8a {
-            dimension "abi"
-            ndk.abiFilters 'arm64-v8a'
-        }
-
-        x86 {
-            dimension "abi"
-            ndk.abiFilters 'x86'
-        }
-
-        x86_64 {
-            dimension "abi"
-            ndk.abiFilters 'x86_64'
-        }
-    }
-
-*/
 
     sourceSets {
         main {
             // Let gradle pack the shared library into the apk.
             jniLibs.srcDirs = ['../dependencies/python/lib']
         }
-
-        /*
-        armeabi_v7a  {
-            jniLibs.srcDirs = ['../dependencies/python/lib/armeabi-v7a']
-            assets.srcDirs = ['../dependencies/python/lib/armeabi-v7a/',
-                              '../dependencies/python/lib/armeabi-v7a/modules/']
-        }
-
-        arm64_v8a {
-            jniLibs.srcDirs = ['../dependencies/python/lib/arm64-v8a']
-            assets.srcDirs = ['../dependencies/python/lib/arm64-v8a/',
-                              '../dependencies/python/lib/arm64-v8a/modules/']
-        }
-
-        x86 {
-            jniLibs.srcDirs = ['../dependencies/python/lib/x86']
-            assets.srcDirs = ['../dependencies/python/lib/x86/',
-                              '../dependencies/python/lib/x86/modules/']
-        }
-
-        x86_64 {
-            jniLibs.srcDirs = ['../dependencies/python/lib/x86_64']
-            assets.srcDirs = ['../dependencies/python/lib/x86_64',
-                              '../dependencies/python/lib/x86_64/modules/']
-        }
-        */
     }
 
     externalNativeBuild {
@@ -151,11 +96,9 @@ android.applicationVariants.all { variant ->
 }
 
 task addPythonLibraries (type: Copy) {
-    from ('../dependencies/python/lib/x86_64/modules/')
-    into ('build/intermediates/merged_native_libs/debug/out/lib/x86_64/')
-
+    // It is not so easy to detect the build variant and architecture, so we just do everything.
+    // Note that these get copied at configuration time.
     ["x86_64", "x86", "armeabi-v7a", "arm64-v8a"].each { arch ->
-        println "${arch}"
         copy {
             from("../dependencies/python/lib/${arch}/modules/")
             into("build/intermediates/merged_native_libs/debug/out/lib/${arch}/")
@@ -165,16 +108,6 @@ task addPythonLibraries (type: Copy) {
             into("build/intermediates/merged_native_libs/release/out/lib/${arch}/")
         }
     }
-
-    // TODO: use variables instead of debug and x86_64
-
-    // https://android.jlelse.eu/automation-with-gradle-tasks-9d47e2433147
-    //https://www.oreilly.com/library/view/gradle-recipes-for/9781491947272/ch04.html
 }
 
-// https://stackoverflow.com/questions/39642141/assembledebug-dependson-not-working
-afterEvaluate {
-    processDebugManifest.dependsOn addPythonLibraries
-    processReleaseManifest.dependsOn addPythonLibraries
-}
-
+preBuild.dependsOn addPythonLibraries

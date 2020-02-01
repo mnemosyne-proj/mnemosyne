@@ -966,8 +966,8 @@ JNIEXPORT jint JNICALL Java_org_mnemosyne_PyBridge_start
 
     // Build paths for the Python interpreter.
     char paths[512];
-    snprintf(paths, sizeof(paths), "%s:%s/stdlib.zip:%s/mnemosyne.zip:%s/modules:%s",
-	py_asset_path, py_asset_path, py_asset_path, py_library_path, py_library_path);
+    snprintf(paths, sizeof(paths), "%s:%s/stdlib.zip:%s/mnemosyne.zip:%s/modules/:%s/modules/:%s",
+	py_asset_path, py_asset_path, py_asset_path, py_asset_path, py_library_path, py_library_path);
     LOG(paths);
 
     // Set Python paths.

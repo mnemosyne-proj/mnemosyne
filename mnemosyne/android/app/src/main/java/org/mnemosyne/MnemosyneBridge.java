@@ -15,11 +15,10 @@ public class MnemosyneBridge {
         // Older Android versions (e.g. 4.4) cannot dynamically load libraries, so we
         // preload them all here.
 
-
-        File from = new File(UIActivity.getApplicationInfo().nativeLibraryDir, "md5.cpython-37m.so");
-        File to = new File(UIActivity.getApplicationInfo().nativeLibraryDir,"_md5.cpython-37m.so");
-        from.renameTo(to);
-        Log.d("Mnemosyne", "Renamed");
+        // File from = new File(UIActivity.getApplicationInfo().nativeLibraryDir, "md5.cpython-37m.so");
+        // File to = new File(UIActivity.getApplicationInfo().nativeLibraryDir,"_md5.cpython-37m.so");
+        // from.renameTo(to);
+        // Log.d("Mnemosyne", "Renamed");
 
         Log.d("Mnemosyne", "nativelibrarydir" + UIActivity.getApplicationInfo().nativeLibraryDir );
 
