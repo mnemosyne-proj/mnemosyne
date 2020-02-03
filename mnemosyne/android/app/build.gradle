@@ -98,6 +98,9 @@ android.applicationVariants.all { variant ->
 task addPythonLibraries (type: Copy) {
     // It is not so easy to detect the build variant and architecture, so we just do everything.
     // Note that these get copied at configuration time.
+    // Important: before clicking the run button, make sure to run "Build - Build Bundles/APKs",
+    // otherwise these libraries are not bundled. TODO: fixme.
+
     ["x86_64", "x86", "armeabi-v7a", "arm64-v8a"].each { arch ->
         copy {
             from("../dependencies/python/lib/${arch}/modules/")

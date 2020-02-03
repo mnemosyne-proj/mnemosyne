@@ -12,37 +12,16 @@ public class MnemosyneBridge {
     private MnemosyneActivity UIActivity;
 
     public MnemosyneBridge(String basedir, MnemosyneActivity UIActivity, MnemosyneThread thread) {
-        // Older Android versions (e.g. 4.4) cannot dynamically load libraries, so we
-        // preload them all here.
-
-        // File from = new File(UIActivity.getApplicationInfo().nativeLibraryDir, "md5.cpython-37m.so");
-        // File to = new File(UIActivity.getApplicationInfo().nativeLibraryDir,"_md5.cpython-37m.so");
-        // from.renameTo(to);
-        // Log.d("Mnemosyne", "Renamed");
 
         Log.d("Mnemosyne", "nativelibrarydir" + UIActivity.getApplicationInfo().nativeLibraryDir );
-
         String path = UIActivity.getApplicationInfo().nativeLibraryDir;
         Log.d("Files", "Path: " + path);
         File directory = new File(path);
         File[] files = directory.listFiles();
         Log.d("Files", "Size: "+ files.length);
-        for (int i = 0; i < files.length; i++)
-        {
+        for (int i = 0; i < files.length; i++)  {
             Log.d("Files", "FileName:" + files[i].getName());
         }
-
-        //System.load(UIActivity.getApplicationInfo().nativeLibraryDir + "/modules/binascii.cpython-37m.so");
-        //System.load(UIActivity.getApplicationInfo().nativeLibraryDir + "/libpython3.7m.so");
-
-        // Does not seem to work in trying to preload the libraries, so that we can use an app bundle.
-        //System.load(UIActivity.getApplicationInfo().nativeLibraryDir + "/zlib.cpython-37m.so");
-        //System.load(basedir + "/assets/python/select.so");
-        //System.load(basedir + "/assets/python/unicodedata.so");
-        //System.load(basedir + "/assets/python/_socket.so");
-        //System.load(basedir + "/assets/python/_sqlite3.so");
-        //System.load(basedir + "/assets/python/pyexpat.so");
-        //Log.d("Mnemosyne", "Preloaded libraries");
 
         PyBridge.initialise(basedir + "/assets/python",
                 UIActivity.getApplicationInfo().nativeLibraryDir, UIActivity, thread);

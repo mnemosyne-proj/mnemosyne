@@ -8,19 +8,8 @@
 
 Android:
 
--switch to Chaquopy.
--Or standard NDK with Chaquopy python binary? Chaquopy seems to be built on top
- of Crystax as well however: https://chaquo.com/maven/com/chaquo/python/target/
--https://github.com/inclement/crystax_python_builds
--https://github.com/codelv/enaml-native
--https://github.com/codelv/conda-mobile : has 3.7
-
+-no dark mode on dialogs if system is set to dark?
 -unicode sync issue: upload utf filename from Android, client.py line 548
-
-CRYSTAX_NDX := C:/crystax-ndk-10.3.2
-buildDir = "C:/tmp/${rootProject.name}/${project.name}" in local.properties
-update build docs
-
 -look into fixes reported by dashboard
 -integrated error reporting:
 https://developers.google.com/analytics/devguides/collection/android/v4/exceptions
@@ -39,7 +28,6 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 -gestures?
 -option to globally increase / decrease font size with respect to desktop
 -custom fonts?
-
 
 
 Minor bugs / issues:
