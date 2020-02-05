@@ -4,6 +4,8 @@ for Android, using Windows/Cygwin:
 - precompile and package the Python code (libmnemosyne, ...) by typing
   'make android' in the main development directory.
   Make sure to have a separate install of Python 3.7 if needed.
+  
+- important: make sure to run "Build - Build Bundles/APKs" before pressing the run button. 
 
 - if you want to recompile pybridge, install the standard Android NDK. 
   Otherwise, use the precompiled library.
@@ -28,22 +30,3 @@ This is how we got the Python library files:
   delete _pydecimal.pyc, pydoc.pyc, turtle.pyc, pickletools.pyc, picle.pyc, 
   unittest, turtledemo, pydoc_data, distutils (saves 500 kb)
 - from modules, delete _decimal, _pickle, _testcapi, audioop, cmath (saves 500 kb)
-
-TODO:
-- try to put module libraries in jnilibs instead of in assets
-- https://stackoverflow.com/questions/51983380/split-assets-by-abi-on-android
-- https://stackoverflow.com/questions/38529938/gradle-adding-assets-folder-dynamically
-
-x86
----
-Compile configuration: x86Compile
-build.gradle name: android.sourceSets.x86
-Java sources: [app\src\x86\java]
-Manifest file: app\src\x86\AndroidManifest.xml
-Android resources: [app\src\x86\res]
-Assets: [dependencies\python\lib\x86\modules]
-AIDL sources: [app\src\x86\aidl]
-RenderScript sources: [app\src\x86\rs]
-JNI sources: [app\src\x86\jni]
-JNI libraries: [dependencies\python\lib\x86]
-Java-style resources: [app\src\x86\resources]
