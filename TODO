@@ -8,6 +8,8 @@
 
 Android:
 
+libbridge as a completely separate library? Add to github.
+
 -look into fixes reported by dashboard
 -integrated error reporting:
 https://developers.google.com/analytics/devguides/collection/android/v4/exceptions
@@ -190,6 +192,8 @@ time 'number_of_log_entries_to_sync_for' vs 'number_of_log_entries'
   # factview
   # Important: fact,
 media, tag (check all 'already_imported' statements)
+
+- broccoli integration? https://github.com/epfl-dlab/broccoli-plugin
 
 
 -status bar: scheduled: x / not memorised: x / goal new cards: x/y

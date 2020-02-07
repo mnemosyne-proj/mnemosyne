@@ -3,12 +3,6 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
 
-    // Doesn't seem to work, still ignores _bla.cpython-37m.so, so we use the
-    // addPythonLibraries task below.
-    aaptOptions {
-        ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~'
-    }
-
     defaultConfig {
         applicationId "org.mnemosyne"
         minSdkVersion 21
@@ -23,27 +17,44 @@ android {
             }
         }
 
-        splits {
-            abi {
-                enable true
-                reset()
-                include "x86", "x86_64", "armeabi-v7a", "arm64-v8a"
-                universalApk false
-            }
-        }
+        // We don't use splits because we want to use a different assets per abi.
 
-        // Doesn't seem to work, still ignores _bla.cpython-37m.so, so we use the
-        // addPythonLibraries task below.
-        aaptOptions {
-            ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~'
+        flavorDimensions 'abi'
+        productFlavors {
+            armeabi_v7a {
+                dimension 'abi'
+                ndk {
+                    abiFilter 'armeabi-v7a'
+                }
+            }
+            arm64_v8a {
+                dimension 'abi'
+                ndk {
+                    abiFilters 'arm64-v8a'
+                }
+            }
+            x86 {
+                dimension 'abi'
+                ndk {
+                    abiFilter 'x86'
+                }
+            }
+            x86_64 {
+                dimension 'abi'
+                ndk {
+                    abiFilter 'x86_64'
+                }
+            }
         }
     }
 
     buildTypes {
         release {
-            minifyEnabled false
-            shrinkResources false
-            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile(
+                    'proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
         }
     }
 
@@ -95,23 +106,3 @@ android.applicationVariants.all { variant ->
         }
     }
 }
-
-task addPythonLibraries (type: Copy) {
-    // It is not so easy to detect the build variant and architecture, so we just do everything.
-    // Note that these get copied at configuration time.
-    // Important: before clicking the run button, make sure to run "Build - Build Bundles/APKs",
-    // otherwise these libraries are not bundled. TODO: fixme.
-
-    ["x86_64", "x86", "armeabi-v7a", "arm64-v8a"].each { arch ->
-        copy {
-            from("../dependencies/python/lib/${arch}/modules/")
-            into("build/intermediates/merged_native_libs/debug/out/lib/${arch}/")
-        }
-        copy {
-            from("../dependencies/python/lib/${arch}/modules/")
-            into("build/intermediates/merged_native_libs/release/out/lib/${arch}/")
-        }
-    }
-}
-
-preBuild.dependsOn addPythonLibraries

@@ -5,9 +5,13 @@ for Android, using Windows/Cygwin:
   'make android' in the main development directory.
   Make sure to have a separate install of Python 3.7 if needed.
   
-- important: make sure to run "Build - Build Bundles/APKs" before pressing the run button. 
+There are a few strange things to be aware off:
+  
+- Make sure to run "Build - Build Bundles/APKs" before pressing the run 
+  button or before creating a signed apk. (Otherwise the libraries starting
+  with an underscore are not copied). 
 
-- if you want to recompile pybridge, install the standard Android NDK. 
+If you want to recompile pybridge, install the standard Android NDK. 
   Otherwise, use the precompiled library.
 
 

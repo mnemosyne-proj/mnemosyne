@@ -12,18 +12,20 @@ public class MnemosyneBridge {
     private MnemosyneActivity UIActivity;
 
     public MnemosyneBridge(String basedir, MnemosyneActivity UIActivity, MnemosyneThread thread) {
+
         // Some debug info to help identify if remote users have all the libraries installed.
-        Log.i("Mnemosyne", "nativelibrarydir" +
+        Log.i("Mnemosyne", "nativeLibraryDir " +
                 UIActivity.getApplicationInfo().nativeLibraryDir );
         String path = UIActivity.getApplicationInfo().nativeLibraryDir;
-        Log.i("Files", "Path: " + path);
+        Log.i("Mnemosyne", "Path: " + path);
         File directory = new File(path);
         File[] files = directory.listFiles();
-        Log.i("Files", "Size: "+ files.length);
+        Log.i("Mnemosyne", "Size: "+ files.length);
         for (int i = 0; i < files.length; i++)  {
-            Log.i("Files", "FileName:" + files[i].getName());
+            Log.i("Mnemosyne", "FileName:" + files[i].getName());
         }
 
+        Log.i("Mnemosyne", "About to started pybridge");
         PyBridge.initialise(basedir + "/assets/python",
                 UIActivity.getApplicationInfo().nativeLibraryDir, UIActivity, thread);
         Log.i("Mnemosyne", "Started pybridge");
