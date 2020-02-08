@@ -34,3 +34,5 @@ Copy the result to the following folders:
 - android/app/src/<arch with _ instead of - >/assets/python/modules for the extension modules
   (these have to go in the assets, and they don't start with lib_... , and android refuses
   to package them in a release build)  
+  
+Note: if you get unexpect results, remove app/build, app/<archs>, clean project and rebuild project.

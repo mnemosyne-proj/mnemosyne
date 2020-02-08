@@ -5,12 +5,12 @@ android {
 
     def versionMajor = 2
     def versionMinor = 2
-    def versionPatch = 0
+    def versionPatch = 1
 
     defaultConfig {
         applicationId "org.mnemosyne"
-        versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
-        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+        versionCode versionMajor*10000 + versionMinor*100 + versionPatch
+        versionName "${versionMajor}.${versionMinor}"
 
         minSdkVersion 21
         targetSdkVersion 28
@@ -25,6 +25,8 @@ android {
         }
 
         // We don't use splits because we want to use different assets per abi.
+        // 64 bit version should have a higher version code than 32 bit, as the
+        // app store automatically serves the highest eligible version number.
         flavorDimensions 'abi'
         productFlavors {
             armeabi_v7a {
@@ -52,11 +54,9 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources false // Otherwise it will strip our dynamic Python routines.
-            proguardFiles getDefaultProguardFile(
-                    'proguard-android-optimize.txt'),
-                    'proguard-rules.pro'
+            // Make sure Gradle does not strip our dynamic Python routines.
+            minifyEnabled false
+            shrinkResources false
         }
     }
 
