@@ -12,19 +12,20 @@ public class PyBridge {
 
     private static MnemosyneActivity _activity;
 
-    public static int initialise(String datapath, MnemosyneActivity activity,
+    public static int initialise(String asset_path, String library_path, MnemosyneActivity activity,
                                  MnemosyneThread thread) {
         _activity = activity;
-        return start(datapath, thread);
+        return start(asset_path, library_path, thread);
     }
 
     /**
      * Initializes the Python interpreter.
      *
-     * @param datapath the location of the extracted python files
+     * @param asset_path the location of the Python files
+     * @param library_path the location of the native compiled libraries
      * @return error code
      */
-    public static native int start(String datapath, MnemosyneThread thread);
+    public static native int start(String asset_path, String library_path, MnemosyneThread thread);
 
     /**
      * Stops the Python interpreter.

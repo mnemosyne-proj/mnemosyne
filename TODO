@@ -2,21 +2,13 @@
 
 -MATPLOTLIBDATA environment variable deprecated
 -Angle windows packaging
+-saving of folded tree state
+-upgrade googletrans from github
+-test speed of new cheroot
 
 Android:
 
--switch to Chaquopy.
--Or standard NDK with Chaquopy python binary? Chaquopy seems to be built on top
- of Crystax as well however: https://chaquo.com/maven/com/chaquo/python/target/
--https://github.com/inclement/crystax_python_builds
--https://github.com/codelv/enaml-native
--https://github.com/codelv/conda-mobile : has 3.7
-
--unicode sync issue: upload utf filename from Android, client.py line 548
-
-CRYSTAX_NDX := C:/crystax-ndk-10.3.2
-buildDir = "C:/tmp/${rootProject.name}/${project.name}" in local.properties
-update build docs
+libbridge as a completely separate library? Add to github.
 
 -look into fixes reported by dashboard
 -integrated error reporting:
@@ -36,7 +28,6 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 -gestures?
 -option to globally increase / decrease font size with respect to desktop
 -custom fonts?
-
 
 
 Minor bugs / issues:
@@ -201,6 +192,8 @@ time 'number_of_log_entries_to_sync_for' vs 'number_of_log_entries'
   # factview
   # Important: fact,
 media, tag (check all 'already_imported' statements)
+
+- broccoli integration? https://github.com/epfl-dlab/broccoli-plugin
 
 
 -status bar: scheduled: x / not memorised: x / goal new cards: x/y

@@ -1,32 +1,93 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
+
+    def versionMajor = 2
+    def versionMinor = 2
+    def versionPatch = 2
 
     defaultConfig {
         applicationId "org.mnemosyne"
-        minSdkVersion 9
-        targetSdkVersion 26
+        versionCode versionMajor*10000 + versionMinor*100 + versionPatch
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+
+        minSdkVersion 21
+        targetSdkVersion 28
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_7
             targetCompatibility JavaVersion.VERSION_1_7
+        }
+        externalNativeBuild {
+            cmake {
+                arguments '-DANDROID_STL=c++_static'
+            }
+        }
+
+        // We don't use splits because we want to use different assets per abi.
+        // 64 bit version should have a higher version code than 32 bit, as the
+        // app store automatically serves the highest eligible version number.
+        flavorDimensions 'abi'
+        productFlavors {
+            armeabi_v7a {
+                dimension 'abi'
+                ndk.abiFilter 'armeabi-v7a'
+                versionCode = 1
+                versionNameSuffix "-arm32"
+            }
+            arm64_v8a {
+                dimension 'abi'
+                ndk.abiFilter 'arm64-v8a'
+                versionCode = 2
+                versionNameSuffix "-arm64"
+            }
+            x86 {
+                dimension 'abi'
+                ndk.abiFilter 'x86'
+                versionCode = 3
+                versionNameSuffix "-x86"
+            }
+            x86_64 {
+                dimension 'abi'
+                ndk.abiFilter 'x86_64'
+                versionCode = 4
+                versionNameSuffix "-x86-64"
+            }
         }
     }
 
     buildTypes {
         release {
+            // Make sure Gradle does not strip our dynamic Python routines.
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            shrinkResources false
         }
     }
-	
-	sourceSets.main {
-        jni.srcDirs = []
-        jniLibs.srcDir 'src/main/libs'
+
+    sourceSets {
+        main {
+            // Let gradle pack the shared library into the apk.
+            jniLibs.srcDirs = ['../dependencies/python/lib']
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            version '3.10.2'
+            path 'src/main/cpp/CMakeLists.txt'
+        }
+    }
+
+    dependencies {
+        //implementation 'androidx.appcompat:appcompat:1.1.0'
+        implementation 'androidx.appcompat:appcompat:1.2.0-alpha02'
     }
 }
 
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile "com.android.support:appcompat-v7:25.+"
+// Make sure each abi has a different version code
+android.applicationVariants.all { variant ->
+    variant.outputs.each { output ->
+        def abiVersion = variant.productFlavors.get(0).versionCode
+        output.versionCodeOverride = abiVersion * 1000000 + android.defaultConfig.versionCode
+    }
 }

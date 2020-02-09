@@ -5,23 +5,30 @@ import org.json.JSONException;
 
 import android.util.Log;
 
+import java.io.File;
+
 public class MnemosyneBridge {
 
     private MnemosyneActivity UIActivity;
 
     public MnemosyneBridge(String basedir, MnemosyneActivity UIActivity, MnemosyneThread thread) {
-        // Older Android versions (e.g. 4.4) cannot dynamically load libraries, so we
-        // preload them all here.
-        System.load(UIActivity.getApplicationInfo().nativeLibraryDir + "/libcrystax.so");
-        System.load(UIActivity.getApplicationInfo().nativeLibraryDir + "/libpython3.5m.so");
-        System.load(basedir + "/assets/python/select.so");
-        System.load(basedir + "/assets/python/unicodedata.so");
-        System.load(basedir + "/assets/python/_socket.so");
-        System.load(basedir + "/assets/python/_sqlite3.so");
-        System.load(basedir + "/assets/python/pyexpat.so");
 
-        PyBridge.initialise(basedir + "/assets/python", UIActivity, thread);
-        Log.d("Mnemosyne", "Started pybridge");
+        // Some debug info to help identify if remote users have all the libraries installed.
+        Log.i("Mnemosyne", "nativeLibraryDir " +
+                UIActivity.getApplicationInfo().nativeLibraryDir );
+        String path = UIActivity.getApplicationInfo().nativeLibraryDir;
+        Log.i("Mnemosyne", "Path: " + path);
+        File directory = new File(path);
+        File[] files = directory.listFiles();
+        Log.i("Mnemosyne", "Size: "+ files.length);
+        for (int i = 0; i < files.length; i++)  {
+            Log.i("Mnemosyne", "FileName:" + files[i].getName());
+        }
+
+        Log.i("Mnemosyne", "About to started pybridge");
+        PyBridge.initialise(basedir + "/assets/python",
+                UIActivity.getApplicationInfo().nativeLibraryDir, UIActivity, thread);
+        Log.i("Mnemosyne", "Started pybridge");
     }
 
     public void startMnemosyne(String data_dir, String filename) {

@@ -68,6 +68,8 @@ captures/
 # Intellij
 *.iml
 .idea/workspace.xml
+mnemosyne/android/.idea/libraries/
+
 
 # Keystore files
 *.jks
