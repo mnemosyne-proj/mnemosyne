@@ -5,12 +5,12 @@ android {
 
     def versionMajor = 2
     def versionMinor = 2
-    def versionPatch = 1
+    def versionPatch = 2
 
     defaultConfig {
         applicationId "org.mnemosyne"
         versionCode versionMajor*10000 + versionMinor*100 + versionPatch
-        versionName "${versionMajor}.${versionMinor}"
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
 
         minSdkVersion 21
         targetSdkVersion 28
@@ -33,21 +33,25 @@ android {
                 dimension 'abi'
                 ndk.abiFilter 'armeabi-v7a'
                 versionCode = 1
+                versionNameSuffix "-arm32"
             }
             arm64_v8a {
                 dimension 'abi'
                 ndk.abiFilter 'arm64-v8a'
                 versionCode = 2
+                versionNameSuffix "-arm64"
             }
             x86 {
                 dimension 'abi'
                 ndk.abiFilter 'x86'
                 versionCode = 3
+                versionNameSuffix "-x86"
             }
             x86_64 {
                 dimension 'abi'
                 ndk.abiFilter 'x86_64'
                 versionCode = 4
+                versionNameSuffix "-x86-64"
             }
         }
     }
@@ -75,7 +79,8 @@ android {
     }
 
     dependencies {
-        implementation 'androidx.appcompat:appcompat:1.1.0'
+        //implementation 'androidx.appcompat:appcompat:1.1.0'
+        implementation 'androidx.appcompat:appcompat:1.2.0-alpha02'
     }
 }
 
