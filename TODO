@@ -1,14 +1,12 @@
 -Add Language, Translator, Pronouncer to website.
 
--MATPLOTLIBDATA environment variable deprecated
 -Angle windows packaging
 -saving of folded tree state
--upgrade googletrans from github
--test speed of new cheroot
+
+
+- for OSX: warn about matplotlib change and googletrans update.
 
 Android:
-
-libbridge as a completely separate library? Add to github.
 
 -look into fixes reported by dashboard
 -integrated error reporting:
@@ -32,6 +30,9 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 
 Minor bugs / issues:
 
+-upgrade pyinstaller if this issues is fixed:
+https://stackoverflow.com/questions/57517371/matplotlibdeprecationwarning-with-pyinstaller-exe (used option 2 as a workaround)
+-test speed of new cheroot
 -editing a tag by clicking in the tree does not get saved
 -tree expansion status does not get saved
 - wheelock anki deck:
