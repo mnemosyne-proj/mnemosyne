@@ -9,7 +9,14 @@ This might also help with other hard crashes.
 If this does not help, or if you see a black screen, try starting Mnemosyne
 with the --qt-opengl=desktop command line argument.)
 
+Mnemosyne 2.7.1
 
+- Improved Google Translate results.
+- Fixed a regression in the sync protocol when Mnemosyne had warned about
+  learning too many new cards.
+- Improved support for OpenGL emulation libraries on older hardware.
+- No longer give a Matplotlib warning when plotting statistics.
+- Many cleanups in the code by Cole Robinson.
 - Improve Python 3.8 compatibility (patch by hal50000).
 
 

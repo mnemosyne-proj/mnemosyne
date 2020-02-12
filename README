@@ -10,7 +10,8 @@ Install the following dependencies if needed:
 - Pillow (http://python-pillow.org)
 - gTTS for Google text-to-speech (https://pypi.org/project/gTTS/)
 - googletrans for Google translate support
-  (https://pypi.org/project/googletrans/)
+  (https://pypi.org/project/googletrans/) Make sure to use the latest
+  development version, not the 2.4.0 release!
 - For Latex support: the latex and dvipng commands must be available
   (e.g. TeXLive)
 
