@@ -89,7 +89,7 @@ class Server(Partner):
     dont_cause_conflict = set([EventTypes.STARTED_PROGRAM,
         EventTypes.STOPPED_PROGRAM, EventTypes.STARTED_SCHEDULER,
         EventTypes.LOADED_DATABASE, EventTypes.SAVED_DATABASE,
-        EventTypes.EDITED_CRITERION])
+        EventTypes.EDITED_CRITERION, EventTypes.WARNED_TOO_MANY_CARDS])
 
     def __init__(self, machine_id, port, ui):
         self.machine_id = machine_id
