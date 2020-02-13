@@ -14,7 +14,7 @@ from mnemosyne.libmnemosyne.pronouncer import Pronouncer
 
 class ResponsiveVoicePronouncer(Pronouncer):
 
-    used_for = "en-GB", "en-US", "fr-FR", "ar"
+    used_for = "en", "en-GB", "en-US", "fr", "fr-FR", "ar"
 
     popup_menu_text = "Insert ResponsiveVoice text-to-speech..."
 
@@ -28,15 +28,18 @@ class ResponsiveVoicePronouncer(Pronouncer):
             language_id = self.config().card_type_property(\
                 "language_id", card_type)
 
-        mp3 = urllib2.urlopen(\
-            "https://code.responsivevoice.org/getvoice.php?t=%s&tl=%s" \
-            % (html.escape(foreign_text), language_id)).read()
+        headers = {'User-Agent':'Mozilla/5.0'}
+        url = "https://code.responsivevoice.org/getvoice.php?t=%s&tl=%s" \
+            % (html.escape(foreign_text), language_id)
+        req = urllib.request.Request(url=url, headers=headers)
+        with urllib.request.urlopen(req) as response:
+            data = response.read()
 
         filename = expand_path("__GTTS__TMP__.mp3", self.database().media_dir())
-        with open(filename) as file:
-            file.write(mp3)
+        with open(filename, 'wb') as mp3_file:
+            mp3_file.write(data)
         return filename
-	
+
 
 class ResponsiveVoiceTTSPlugin(Plugin):
 
@@ -49,7 +52,6 @@ class ResponsiveVoiceTTSPlugin(Plugin):
         self.component = ResponsiveVoicePronouncer(\
             component_manager=self.component_manager)
         self.component_manager.register(self.component)
-        print(self.component_manager.all("pronouncer", "fr_FR"))
         # TODO: refactor this to plugin.py
         gui_module_name = "mnemosyne.pyqt_ui.pronouncer_dlg"
         gui_class_name = "PronouncerDlg"
@@ -61,12 +63,10 @@ class ResponsiveVoiceTTSPlugin(Plugin):
     def deactivate(self):
         Plugin.deactivate(self)
         self.component_manager.unregister(self.component)
-        
-       
-        
+
+
 
 # Register plugin.
 
 from mnemosyne.libmnemosyne.plugin import register_user_plugin
 register_user_plugin(ResponsiveVoiceTTSPlugin)
-

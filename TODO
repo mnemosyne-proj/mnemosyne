@@ -1,5 +1,9 @@
 -Add Language, Translator, Pronouncer to website.
 
+- deactivate plugin gives error
+- two pronouncers: both use latest
+- refactor activation mechanism, update API level
+- install mplayer in path
 
 Android:
 
