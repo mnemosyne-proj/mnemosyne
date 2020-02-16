@@ -2,7 +2,6 @@
 # responsive_voice_tts.py <Peter.Bienstman@UGent.be>
 #
 
-import html
 import urllib
 import importlib
 
@@ -28,9 +27,10 @@ class ResponsiveVoicePronouncer(Pronouncer):
             language_id = self.config().card_type_property(\
                 "language_id", card_type)
 
+        foreign_text = urllib.parse.quote(foreign_text.encode("utf-8"))
         headers = {'User-Agent':'Mozilla/5.0'}
         url = "https://code.responsivevoice.org/getvoice.php?t=%s&tl=%s" \
-            % (html.escape(foreign_text), language_id)
+            % (foreign_text, language_id)
         req = urllib.request.Request(url=url, headers=headers)
         with urllib.request.urlopen(req) as response:
             data = response.read()
