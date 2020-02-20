@@ -9,7 +9,7 @@ This might also help with other hard crashes.
 If this does not help, or if you see a black screen, try starting Mnemosyne
 with the --qt-opengl=desktop command line argument.)
 
-Mnemosyne 2.7.1
+Mnemosyne 2.7.1 : 2020-02-20
 
 - Improved Google Translate results.
 - Fixed a regression in the sync protocol when Mnemosyne had warned about
