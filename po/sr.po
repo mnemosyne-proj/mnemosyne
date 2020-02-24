@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mnemosyne-proj\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2019-09-17 13:53+0200\n"
+"POT-Creation-Date: 2020-02-12 14:29+0100\n"
 "PO-Revision-Date: 2017-12-02 02:00+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Serbian <sr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2019-11-04 06:17+0000\n"
-"X-Generator: Launchpad (build 469f241f4e73cc0bdffa4e30654052a2af068e06)\n"
+"X-Launchpad-Export-Date: 2020-02-17 06:04+0000\n"
+"X-Generator: Launchpad (build 19413b719a8df7423ab1390528edadce9e0e4aca)\n"
 
 #: ../mnemosyne/android_python/database_maintenance.py:14
 msgid ""
@@ -98,30 +98,30 @@ msgstr "Речник (украшен)"
 msgid "Production"
 msgstr "Производња"
 
-#: ../mnemosyne/libmnemosyne/__init__.py:425
+#: ../mnemosyne/libmnemosyne/__init__.py:428
 msgid "Command line argument is not a *.db file."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:437
+#: ../mnemosyne/libmnemosyne/__init__.py:440
 msgid "Another copy of Mnemosyne is still running."
 msgstr "Још један примерак Мнемосине још увек ради."
 
-#: ../mnemosyne/libmnemosyne/__init__.py:438
+#: ../mnemosyne/libmnemosyne/__init__.py:441
 msgid "Continuing is impossible and will lead to data loss!"
 msgstr "Наставак је немогућ и довешће до губитка података!"
 
-#: ../mnemosyne/libmnemosyne/__init__.py:519
-#: ../mnemosyne/libmnemosyne/__init__.py:532
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:926
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1117
+#: ../mnemosyne/libmnemosyne/__init__.py:522
+#: ../mnemosyne/libmnemosyne/__init__.py:535
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:930
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1140
 msgid "Error when running plugin:"
 msgstr "Грешка при покретању прикључка (Plug-in)"
 
-#: ../mnemosyne/libmnemosyne/__init__.py:547
+#: ../mnemosyne/libmnemosyne/__init__.py:550
 msgid "Previous drive letter no longer available."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/__init__.py:555
+#: ../mnemosyne/libmnemosyne/__init__.py:558
 msgid ""
 "If you are using a USB key, refer to the instructions on the website so as "
 "not to be affected by drive letter changes."
@@ -269,40 +269,40 @@ msgstr "Речник"
 msgid "Foreign word or phrase"
 msgstr "Страна реч или фраза"
 
-#: ../mnemosyne/libmnemosyne/configuration.py:444
+#: ../mnemosyne/libmnemosyne/configuration.py:446
 msgid "Error in config.py:"
 msgstr "Грешка у config.py:"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:84
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:85
 msgid "No need to do database maintenance more than once per month."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:92
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:93
 #: ../mnemosyne/pyqt_ui/about_dlg.py:27
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:703
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:60
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:71
 #: ../mnemosyne/pyqt_ui/main_wdgt.py:91 ../mnemosyne/pyqt_ui/main_wdgt.py:97
-#: ../mnemosyne/pyqt_ui/main_wdgt.py:113 ../mnemosyne/pyqt_ui/main_wdgt.py:143
+#: ../mnemosyne/pyqt_ui/main_wdgt.py:113 ../mnemosyne/pyqt_ui/main_wdgt.py:147
 #: ../mnemosyne/pyqt_ui/tip_after_starting_n_times.py:31
 msgid "Mnemosyne"
 msgstr "Mnemosyne"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:173
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:174
 msgid "Identical card is already in database."
 msgstr "идентична картица је веч у бази података."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:174
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:198
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:175
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:199
 msgid "&Add anyway"
 msgstr "&Додај у аваком случају"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:174
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:198
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:175
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:199
 msgid "&Do not add"
 msgstr "&Немој додати"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:178
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:179
 msgid ""
 "There is already data present for this card:\n"
 "\n"
@@ -310,189 +310,189 @@ msgstr ""
 "За ову картицу већ постоје подаци:\n"
 "\n"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:198
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:199
 msgid "&Merge and edit"
 msgstr "&Обједињавање и уређивање"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:292
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:293
 msgid ""
 "Card data not correctly formatted for conversion.\n"
 "\n"
 "Skipping "
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:322
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:326
 msgid "Can't preserve history when converting between these card types."
 msgstr ""
 "Када се конвертује између ових типова картица не може се сачувати историја."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:323
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:327
 msgid "The learning history of the cards will be reset."
 msgstr "Историја учења картица ће бити ресетована."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:324
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:358
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:506
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:328
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:362
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:510
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:122
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:144
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:587
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:88
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:111
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:177
-#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:80
-#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:61
-#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:58
-#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:63
-#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:62
-#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:57
-#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:69
-#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:50
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_type_dlg.py:49
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:86
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:92
-#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:51
-#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:50
-#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:50
-#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:88
+#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:82
+#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:63
+#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:60
+#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:65
+#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:64
+#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:59
+#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:71
+#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:52
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_type_dlg.py:51
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:88
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:94
+#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:53
+#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:52
+#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:52
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:90
 msgid "&Cancel"
 msgstr "&Одустани"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:324
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:328
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:122
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:144
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:587
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:88
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:111
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:177
-#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:82
-#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:78
-#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:60
-#: ../mnemosyne/pyqt_ui/ui_card_set_name_dlg.py:42
-#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:57
-#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:62
-#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:61
-#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:55
-#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:68
-#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:49
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_type_dlg.py:48
-#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:76
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:84
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:98
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:90
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:91
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:67
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:96
-#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:50
-#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:49
-#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:49
-#: ../mnemosyne/pyqt_ui/ui_statistics_dlg.py:43
-#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:87
+#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:84
+#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:80
+#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:62
+#: ../mnemosyne/pyqt_ui/ui_card_set_name_dlg.py:44
+#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:59
+#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:64
+#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:63
+#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:57
+#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:70
+#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:51
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_type_dlg.py:50
+#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:78
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:86
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:100
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:92
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:93
+#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:69
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:98
+#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:52
+#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:51
+#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:51
+#: ../mnemosyne/pyqt_ui/ui_statistics_dlg.py:45
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:89
 msgid "&OK"
 msgstr "&У реду"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:355
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:359
 msgid "This will delete cards and their history."
 msgstr "Ово ће избрисати картице и њихову историју."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:356
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:499
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:504
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:360
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:503
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:508
 msgid "Are you sure you want to do this,"
 msgstr "Да ли сте сигурни да желите да урадите ово,"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:357
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:500
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:505
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:361
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:504
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:509
 msgid "and not just deactivate cards in the 'Activate cards' dialog?"
 msgstr "и не само деактивира картице у \"Активирај картице\" дијалогу?"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:358
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:362
 msgid "&Proceed and delete"
 msgstr "&Настави и избриши"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:420
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:424
 msgid ""
 "This card has different tags than its sister cards. Update tags for current "
 "card only or for all sister cards?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:421
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:425
 msgid "All sister cards"
 msgstr "Све равноправне картице"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:421
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:425
 msgid "Current card only"
 msgstr "Само тренутне картице"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:445
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:449
 msgid "Converting cards..."
 msgstr "Кнвертовање картица..."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:475
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:479
 msgid ""
 "This will add a tag 'Starred' to the current card, so that you can find it "
 "back easily, e.g. to edit it on a desktop."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:479
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:483
 msgid "Starred"
 msgstr "Са звездицом"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:496
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:500
 msgid "Delete this card?"
 msgstr "Избриши ову картицу?"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:498
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:502
 msgid "Delete this card and 1 sister card?"
 msgstr "Избриши ову картицу и 1 сестру картицу?"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:502
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:506
 msgid "Delete this card and"
 msgstr "Избриши ову картицу и"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:503
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:507
 msgid "sister cards?"
 msgstr "сестру картицу?"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:507
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:511
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:443
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:129
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:86
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:90
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:88
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:92
 msgid "&Delete"
 msgstr "&Brisanje"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:521
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:525
 msgid "Deleting cards..."
 msgstr "Брисање картица..."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:533
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:537
 msgid "Checking for unused tags..."
 msgstr "Провера некоришћених ознака..."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:548
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:552
 msgid "Card type name already exists."
 msgstr "Назив типа картице већ постоји."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:568
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:572
 msgid "Card type %s is in use or is a system card type, cannot delete it."
 msgstr ""
 "Картица типа %s је у употреби или је системски тип картице, и не може се "
 "обртисати."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:573
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:577
 msgid "Card type %s has clones, cannot delete it."
 msgstr "Картица типа %S има клонове, и не може се обрисати."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:588
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:592
 msgid "Cannot rename a system card type."
 msgstr "Системски тип картице се не може преименовати."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:593
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:597
 msgid "This card type name is already in use."
 msgstr "Овај назив типа картице је већ у употреби."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:600
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:604
 msgid ""
 "It is recommended to put all your cards in a single database. Using tags to "
 "determine which cards to study is much more convenient than having to load "
@@ -502,21 +502,21 @@ msgstr ""
 "Коришћење ознака за одређивање које картице учити је много једноставније "
 "него да се отвара и затвара више база података."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:611
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:641
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:718
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:615
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:645
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:722
 msgid "Mnemosyne databases"
 msgstr "Mnemosyne базе података"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:612
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:616
 msgid "New"
 msgstr "Ново"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:618
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:622
 msgid "Creating new database..."
 msgstr "Креирање нове базе података..."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:648
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:652
 msgid ""
 "'*.cards' files are not separate databases, but need to be imported in your "
 "current database through 'File - Import'."
@@ -524,12 +524,12 @@ msgstr ""
 "Датотекама'*картице'  нису одвојене базе података, али је морало да се увезе "
 "у тренутну базу података путем 'Датотека-увоз'."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:653
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:657
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_db.py:25
 msgid "The configuration database is not used to store cards."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:658
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:662
 msgid ""
 "Do you want to replace your current database with one restored from this "
 "backup?\n"
@@ -541,21 +541,21 @@ msgstr ""
 "Имајте на уму да ће ово за последицу имати сукоб приликом следеће "
 "синхронизације, што треб бити решено пуном синхронизацијом."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:659
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:663
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:609
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1158
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1181
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 msgid "No"
 msgstr "Не"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:659
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:663
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:609
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1158
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1181
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 msgid "Yes"
 msgstr "Да"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:697
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:701
 msgid ""
 "Your database will be autosaved before exiting. Also, it is saved every "
 "couple of repetitions, as set in the configuration options."
@@ -564,47 +564,47 @@ msgstr ""
 "чува сваких неколико понављања, као што је наведено у конфигурационим "
 "опцијама."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:702
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:706
 msgid "Database saved."
 msgstr "База података је сачувана."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:724
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:728
 msgid "The configuration database cannot be used to store cards."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:771
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:775
 msgid "Image files"
 msgstr "Датотеке слика"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:773
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:777
 msgid "Insert image"
 msgstr "Убаци слику"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:786
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:790
 msgid "Sound files"
 msgstr "Звучне датотеке"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:788
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:792
 msgid "Insert sound"
 msgstr "Убаци звук"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:801
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:805
 msgid "Video files"
 msgstr "Видео датотеке"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:803
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:807
 msgid "Insert video"
 msgstr "Убаци видео"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:816
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:820
 msgid "Flash files"
 msgstr "Флеш датотеке"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:818
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:822
 msgid "Insert Flash"
 msgstr "Убаци флеш"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:859
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:863
 msgid ""
 "This will tag all the cards in a given card type which have the same "
 "question. That way you can reformulate them to make the answer unambiguous. "
@@ -612,23 +612,23 @@ msgid ""
 "types for 'French' and 'Spanish'."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:878
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:882
 msgid "Install plugin"
 msgstr "Инсталирај додатак"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:878
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:882
 msgid "Plugins"
 msgstr "Додаци"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:903
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:907
 msgid "No plugin found!"
 msgstr "Додатак није пронађен!"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:1058
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:1062
 msgid "For instructions on how to download Mnemosyne's source,"
 msgstr "За упутство о преузимању Mnemosyne извора,"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:1059
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:1063
 msgid "go to http://www.mnemosyne-proj.org"
 msgstr "идите на http://www.mnemosyne-proj.org"
 
@@ -671,24 +671,24 @@ msgstr "Упозорење: креирање резервне копије ни�
 msgid "Make tag '%s' active in saved set '%s'?"
 msgstr "Активирај ознаку '%s'  у сачуваном скупу '%s'?"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1120
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1143
 msgid "Missing plugin for card type with id:"
 msgstr "Недостаје додатак за ип картице са идентификатором:"
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1157
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1180
 msgid "Make new card type '%s' active in saved set '%s'?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1400
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1423
 msgid "No duplicates found."
 msgstr "Нису пронађени дупликати."
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1403
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1426
 msgid "Found %d duplicate cards. They have been given the tag 'DUPLICATE'."
 msgstr ""
 "Пронађено је %d дупликата картица. Њима је додељена ознака 'ДУПЛИКАТ'."
 
-#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1409
+#: ../mnemosyne/libmnemosyne/databases/SQLite.py:1432
 msgid "DUPLICATE"
 msgstr "ДУПЛИКАТ"
 
@@ -802,7 +802,7 @@ msgid "Importing logs..."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/file_formats/anki2.py:291
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:42
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:40
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:31
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:37
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:218
@@ -845,7 +845,7 @@ msgstr ""
 "НЕДОСТАЈУЋИ_МЕДИЈИ. Такође морате променити src_missing' у 'src' у тексту "
 "ових картица."
 
-#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:40
+#: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:38
 msgid "These cards seem to have been imported before. Aborting..."
 msgstr "Изгледа да су ове картице претходно увезене. Прекид..."
 
@@ -980,8 +980,8 @@ msgstr ""
 msgid "Badly formed input on line"
 msgstr "Лоше формиран унос на линију"
 
-#: ../mnemosyne/libmnemosyne/filters/latex.py:117
-#: ../mnemosyne/libmnemosyne/filters/latex.py:198
+#: ../mnemosyne/libmnemosyne/filters/latex.py:119
+#: ../mnemosyne/libmnemosyne/filters/latex.py:200
 msgid "Problem with latex. Are latex and dvipng installed?"
 msgstr "Пробле са latex-ом. Да ли су latex и dvipng инсталирани?"
 
@@ -1747,7 +1747,78 @@ msgstr "Изабери дане до следећег понављања:"
 msgid "Grade your answer:"
 msgstr "Оцени свој одговор:"
 
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:232
+#: ../mnemosyne/libmnemosyne/scheduler.py:206
+#: ../mnemosyne/libmnemosyne/scheduler.py:210
+#: ../mnemosyne/libmnemosyne/scheduler.py:215
+msgid "in"
+msgstr "за"
+
+#: ../mnemosyne/libmnemosyne/scheduler.py:207
+msgid "years"
+msgstr "година"
+
+#: ../mnemosyne/libmnemosyne/scheduler.py:211
+msgid "months"
+msgstr "месеци"
+
+#: ../mnemosyne/libmnemosyne/scheduler.py:213
+msgid "in 1 month"
+msgstr "за 1 месец"
+
+#: ../mnemosyne/libmnemosyne/scheduler.py:216
+msgid "days"
+msgstr "дана"
+
+#: ../mnemosyne/libmnemosyne/scheduler.py:218
+msgid "tomorrow"
+msgstr "сутра"
+
+#: ../mnemosyne/libmnemosyne/scheduler.py:220
+#: ../mnemosyne/libmnemosyne/scheduler.py:250
+msgid "today"
+msgstr "данас"
+
+#: ../mnemosyne/libmnemosyne/scheduler.py:222
+msgid "1 day overdue"
+msgstr "Касни 1 дан"
+
+#: ../mnemosyne/libmnemosyne/scheduler.py:224
+msgid "days overdue"
+msgstr "дана касни"
+
+#: ../mnemosyne/libmnemosyne/scheduler.py:226
+msgid "1 month overdue"
+msgstr "Кани 1 месец"
+
+#: ../mnemosyne/libmnemosyne/scheduler.py:229
+msgid "months overdue"
+msgstr "месеци касни"
+
+#: ../mnemosyne/libmnemosyne/scheduler.py:232
+msgid "years overdue"
+msgstr "година касни"
+
+#: ../mnemosyne/libmnemosyne/scheduler.py:252
+msgid "yesterday"
+msgstr "јуче"
+
+#: ../mnemosyne/libmnemosyne/scheduler.py:254
+msgid "days ago"
+msgstr "дана раније"
+
+#: ../mnemosyne/libmnemosyne/scheduler.py:256
+msgid "1 month ago"
+msgstr "прошлог месеца"
+
+#: ../mnemosyne/libmnemosyne/scheduler.py:259
+msgid "months ago"
+msgstr "месеци пре"
+
+#: ../mnemosyne/libmnemosyne/scheduler.py:262
+msgid "years ago"
+msgstr "година пре"
+
+#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:175
 msgid ""
 "You appear to have missed some reviews. Don't worry too much about this "
 "backlog, and do as many cards as you feel comfortable with to catch up each "
@@ -1758,85 +1829,6 @@ msgstr ""
 "заостатку, и одрадите онолико картица дневно колико вам прија како би сте "
 "надокнадили заостатак. Mnemosyne ће аутоматски репрограмирати план понављања "
 "ваших картице тако да се оне најхитније прикажу прве."
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:565
-msgid "You've memorised 15 new or failed cards."
-msgstr "Запамтили сте 15 нових или неуспешних картица."
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:566
-msgid "If you do this for many days, you could get a big workload later."
-msgstr "Ако ово радите много дана, касније можете бити врло оптерећени."
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:612
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:616
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:621
-msgid "in"
-msgstr "за"
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:613
-msgid "years"
-msgstr "година"
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:617
-msgid "months"
-msgstr "месеци"
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:619
-msgid "in 1 month"
-msgstr "за 1 месец"
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:622
-msgid "days"
-msgstr "дана"
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:624
-msgid "tomorrow"
-msgstr "сутра"
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:626
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:656
-msgid "today"
-msgstr "данас"
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:628
-msgid "1 day overdue"
-msgstr "Касни 1 дан"
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:630
-msgid "days overdue"
-msgstr "дана касни"
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:632
-msgid "1 month overdue"
-msgstr "Кани 1 месец"
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:635
-msgid "months overdue"
-msgstr "месеци касни"
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:638
-msgid "years overdue"
-msgstr "година касни"
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:658
-msgid "yesterday"
-msgstr "јуче"
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:660
-msgid "days ago"
-msgstr "дана раније"
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:662
-msgid "1 month ago"
-msgstr "прошлог месеца"
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:665
-msgid "months ago"
-msgstr "месеци пре"
-
-#: ../mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:668
-msgid "years ago"
-msgstr "година пре"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:11
 msgid "Cards added"
@@ -1993,7 +1985,7 @@ msgid "Study new unlearned cards only"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/study_modes/scheduled_forgotten_new.py:16
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:243
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:245
 msgid "Scheduled -> forgotten -> new"
 msgstr ""
 
@@ -2248,7 +2240,7 @@ msgid "Show cards from these card types:"
 msgstr "Прикажи картице из ових врста картица :"
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:372
-#: ../mnemosyne/pyqt_ui/ui_criterion_wdgt_default.py:37
+#: ../mnemosyne/pyqt_ui/ui_criterion_wdgt_default.py:39
 msgid "having any of these tags:"
 msgstr "имају било коју од ових ознака:"
 
@@ -2261,14 +2253,14 @@ msgid "containing this text in the cards:"
 msgstr "садрже овај текст у картицама:"
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:435
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:88
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:90
 msgid "&Edit"
 msgstr "&Уреди"
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:439
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:114
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:134
-#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:77
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:116
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:136
+#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:79
 msgid "&Preview"
 msgstr "&Преглед"
 
@@ -2439,8 +2431,7 @@ msgid "Web server stopped."
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:19
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:207
-msgid "S&tudy"
+msgid "Study"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:41
@@ -2458,7 +2449,7 @@ msgid "A required field is missing."
 msgstr "Недостаје потребно поље."
 
 #: ../mnemosyne/pyqt_ui/criterion_wdgt_default.py:34
-#: ../mnemosyne/pyqt_ui/ui_criterion_wdgt_default.py:36
+#: ../mnemosyne/pyqt_ui/ui_criterion_wdgt_default.py:38
 msgid "Activate cards from these card types:"
 msgstr "Активирање картице из ових врста картица:"
 
@@ -2519,9 +2510,8 @@ msgid "and not just deactivate it?"
 msgstr "а не само деактивирати?"
 
 #: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:100
-#: ../mnemosyne/pyqt_ui/ui_google_tts_dlg.py:74
-#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:81
-#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:73
+#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:83
+#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:75
 msgid "Cancel"
 msgstr "Откажи"
 
@@ -2610,7 +2600,7 @@ msgid "Insert &sound"
 msgstr "Убаци &звук"
 
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:39
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:227
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:229
 msgid "Ctrl+S"
 msgstr "Ctrl+S"
 
@@ -2619,7 +2609,7 @@ msgid "Insert vi&deo"
 msgstr "Убаци в&идео"
 
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:41
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:210
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:212
 msgid "Ctrl+D"
 msgstr "Ctrl+D"
 
@@ -2719,8 +2709,8 @@ msgstr ""
 "послужитеља, а затим покрените усклађивање са мобилним уређајем."
 
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:121
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:85
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:89
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:87
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:91
 msgid "&Rename"
 msgstr "&Преименуј"
 
@@ -3006,490 +2996,490 @@ msgid ""
 "lookup."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:81
+#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:83
 msgid "About Mnemosyne"
 msgstr "О Mnemosyne"
 
-#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:83
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:108
+#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:85
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:110
 msgid "Alt+C"
 msgstr "Alt+C"
 
-#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:76
+#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:78
 msgid "(De)activate cards"
 msgstr "(Де) активираj картицe"
 
-#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:77
+#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:79
 msgid "Saved sets:"
 msgstr "Сачувани скупови:"
 
-#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:79
+#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:81
 msgid "&Save this set for later use"
 msgstr "&Сачувај овај скуп за каснију употребу"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:100
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:102
 msgid "Add cards"
 msgstr "Додај картице"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:101
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:124
-#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:74
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:103
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:126
+#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:76
 msgid "Card type:"
 msgstr "Врста картице:"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:102
-#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:59
-#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:75
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:96
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:104
+#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:61
+#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:77
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:98
 msgid "Tags:"
 msgstr "Ознаке:"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:103
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:105
 msgid "Select initial grade:"
 msgstr "Изаберите почетни степен:"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:104
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:106
 msgid "You have yet to learn this."
 msgstr "Ви тек треба да научите ово."
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:105
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:107
 msgid "&Yet to learn"
 msgstr "&Још да се  научи"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:106
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:108
 msgid "You know this, but just barely."
 msgstr "Знаш то, али једва."
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:107
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:109
 msgid "&2"
 msgstr "&2"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:108
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:110
 msgid "You know this, but not very well."
 msgstr "Знаш то, али није добро."
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:109
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:111
 msgid "&3"
 msgstr "&3"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:110
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:112
 msgid "You know this."
 msgstr "Знаш то."
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:111
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:113
 msgid "&4"
 msgstr "&4"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:112
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:114
 msgid "You know this very well."
 msgstr "Знате то врло добро."
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:113
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:115
 msgid "&5"
 msgstr "&5"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:115
-#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:78
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:117
+#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:80
 msgid "&Exit"
 msgstr "&Излаз"
 
-#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:58
+#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:60
 msgid "Add tags"
 msgstr "Додај ознаке"
 
-#: ../mnemosyne/pyqt_ui/ui_browse_cards_dlg.py:49
+#: ../mnemosyne/pyqt_ui/ui_browse_cards_dlg.py:51
 msgid "Browse cards"
 msgstr "Прегледај картице"
 
-#: ../mnemosyne/pyqt_ui/ui_browse_cards_dlg.py:50
+#: ../mnemosyne/pyqt_ui/ui_browse_cards_dlg.py:52
 msgid "Select one or more cards and right-click for more actions."
 msgstr "Изаберите једну или више картица и  десним  кликом - за више акција."
 
-#: ../mnemosyne/pyqt_ui/ui_browse_cards_dlg.py:51
+#: ../mnemosyne/pyqt_ui/ui_browse_cards_dlg.py:53
 msgid "XXX cards selected, of which XXX active"
 msgstr "XXX картице су изабране, од којих XXX су активне"
 
-#: ../mnemosyne/pyqt_ui/ui_card_set_name_dlg.py:40
+#: ../mnemosyne/pyqt_ui/ui_card_set_name_dlg.py:42
 msgid "Card set name"
 msgstr "Постави назив картице"
 
-#: ../mnemosyne/pyqt_ui/ui_card_set_name_dlg.py:41
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:91
+#: ../mnemosyne/pyqt_ui/ui_card_set_name_dlg.py:43
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:93
 msgid "Card set name:"
 msgstr "Постави назив картице:"
 
-#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:55
+#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:57
 msgid "Change card type"
 msgstr "Промените тип картице"
 
-#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:56
+#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:58
 msgid "New card type:"
 msgstr "Нови тип картице:"
 
-#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:59
+#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:61
 msgid "Clone card type"
 msgstr "Дуплирај врсту картице"
 
-#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:60
+#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:62
 msgid "Cloned from:"
 msgstr "Дуплирано из:"
 
-#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:61
+#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:63
 msgid "Clone name:"
 msgstr "Назив дуплираног:"
 
-#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:56
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:241
+#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:58
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:243
 msgid "Compact database"
 msgstr "Збијена база података"
 
-#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:57
+#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:59
 msgid "Delete unused media files"
 msgstr "Избриши некоришћене медијске датотеке"
 
-#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:58
+#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:60
 msgid "Archive statistics older than 1 year"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:59
+#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:61
 msgid "Defragment database (only needed after deleting many cards)"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:60
+#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:62
 msgid ""
 "(Note: archiving and defragmenting happens automatically every few months.)"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:54
+#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:56
 msgid "Configuration"
 msgstr "Поставке"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:56
+#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:58
 msgid "&Defaults"
 msgstr "&Подразумевано"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:123
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:111
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:89
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:144
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:119
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:125
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:113
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:91
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:146
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:121
 msgid "Form"
 msgstr "Образац"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:125
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:127
 msgid "Background:"
 msgstr "Позадина:"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:126
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:128
 msgid "Set colour"
 msgstr "Постави боју"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:127
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:129
 msgid "Alignment:"
 msgstr "Поравнање:"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:128
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:130
 msgid "Left"
 msgstr "Лево"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:129
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:131
 msgid "Center"
 msgstr "Средиште"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:130
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:132
 msgid "Right"
 msgstr "Десно"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:131
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:133
 msgid "Increase size of non-latin characters by"
 msgstr "Повећајте величину не-латиничних знакова"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:132
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:134
 msgid "points."
 msgstr "бодова."
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:133
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:135
 msgid ""
 "(This setting will be overridden in card types cloned from 'Vocabulary'.)"
 msgstr ""
 "(Ова поставка ће бити поништене у дупираним врстама картица 'Речника'.)"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:112
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:114
 msgid "Storage and data"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:113
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:115
 msgid "Autosave after"
 msgstr "Самочување после"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:114
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:116
 msgid "repetitions."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:115
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:117
 msgid "Keep at most"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:116
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:118
 msgid "backups."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:117
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:119
 msgid "Upload anonymous science logs."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:118
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:120
 msgid "GUI"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:119
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:121
 msgid "Show question and answer"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:120
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:122
 msgid "in two boxes with fixed size"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:121
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:123
 msgid "in two boxes with adaptive size"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:122
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:124
 msgid "in a single box, top-aligned"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:123
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:125
 msgid "GUI language:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:90
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:92
 msgid "Allow other devices to sync with this computer"
 msgstr "Дозволи другим уређајима усклађење са овим рачунаром"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:91
-#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:84
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:93
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:86
 msgid "Password:"
 msgstr "Лозинка:"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:92
-#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:83
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:94
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:85
 msgid "Username:"
 msgstr "Корисничко име:"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:93
-#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:85
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:95
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:87
 msgid "Port:"
 msgstr "Прикључак:"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:94
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:96
 msgid "Check for changed media files on server"
 msgstr "Проверите измењенe медијскe датотекe на послужитељу"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:95
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:97
 msgid "Sync server status"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:96
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:98
 msgid "Allow remote review through a web browser"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:97
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:99
 msgid "Port:         "
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:98
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:100
 msgid "Web server status"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:145
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:147
 msgid "Regular study"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:146
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:148
 msgid "Review memorised cards"
 msgstr "Прегледајте меморисане картице"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:147
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:149
 msgid "most urgent first"
 msgstr "прво најхитније"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:148
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:153
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:156
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:150
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:155
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:158
 msgid "in random order"
 msgstr "случајним редоследом"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:149
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:151
 msgid "Work on at most"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:150
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:152
 msgid "non-memorised cards at the same time."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:151
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:153
 msgid "Show new cards for the first time"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:152
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:154
 msgid "in the order they were added"
 msgstr "у редоследу којим су додата"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:154
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:156
 msgid "Cramming"
 msgstr "Бубање"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:155
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:157
 msgid "Cram cards"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:157
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:159
 msgid "earliest scheduled first"
 msgstr "Најраније је заказано прво"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:158
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:160
 msgid "lastest scheduled first"
 msgstr "Најзадње је заказано прво"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:159
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:161
 msgid "most lapses first"
 msgstr "прво највеће грешке"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:160
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:162
 msgid "'Recent cards' are cards with at most"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:161
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:163
 msgid "retention repetition(s)."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:162
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:164
 msgid "Remember which cards you've crammed when restarting Mnemosyne."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:64
+#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:66
 msgid "Convert card type data"
 msgstr "Претварање врсте података  картице"
 
-#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:65
+#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:67
 msgid "Set the correspondence between data in the old and the new card type:"
 msgstr "Постави преписку између података у старом и новом типу картица:"
 
-#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:66
+#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:68
 msgid "Old:"
 msgstr "Стари:"
 
-#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:67
+#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:69
 msgid "New:"
 msgstr "Нова:"
 
-#: ../mnemosyne/pyqt_ui/ui_criterion_wdgt_default.py:38
+#: ../mnemosyne/pyqt_ui/ui_criterion_wdgt_default.py:40
 msgid "not having any of these tags:"
 msgstr "не са било којом од ове ознаке:"
 
-#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:47
+#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:49
 msgid "Delete media"
 msgstr "Избриши медиј"
 
-#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:48
+#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:50
 msgid "Delete these unused media files?"
 msgstr "Брисање неискориштене медијске датотеке?"
 
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:120
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:122
 msgid "Front template:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:121
 #: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:123
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:124
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:125
 #: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:126
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:128
 msgid "a"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:122
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:124
 msgid "Styling (shared between sister cards):"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:125
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:127
 msgid "Back template:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:127
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:129
 msgid "Front preview:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:128
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:130
 msgid "Back preview:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_type_dlg.py:47
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_type_dlg.py:49
 msgid "Edit M-sided card type"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:73
+#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:75
 msgid "Edit card"
 msgstr "Уреди картицу"
 
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:79
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:81
 msgid "Export to file"
 msgstr "Извоз у датотеку"
 
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:80
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:86
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:82
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:88
 msgid "File format:"
 msgstr "Врста датотеке:"
 
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:81
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:83
 msgid "File to export to:"
 msgstr "Датотека за извоз у:"
 
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:82
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:88
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:84
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:90
 msgid "&Browse"
 msgstr "&Прегледај"
 
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:83
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:85
 msgid "(Only active cards will be exported, without learning data.)"
 msgstr "(Само активне картице ће се извозити, без учења података.)"
 
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:85
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:91
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:87
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:93
 msgid "Alt+O"
 msgstr "Alt+O"
 
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:90
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:92
 msgid "Export cards"
 msgstr "Извоз картице"
 
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:92
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:94
 msgid "Author name:"
 msgstr "Име аутора:"
 
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:93
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:95
 msgid "Author email:"
 msgstr "Е-адреса аутора:"
 
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:94
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:96
 msgid "Date:"
 msgstr "Датум:"
 
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:95
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:97
 msgid "Revision:"
 msgstr "Ревизија:"
 
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:97
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:99
 msgid "Notes:"
 msgstr "Белешке:"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:81
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:83
 msgid "Wizard"
 msgstr "Чаробњак"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:82
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:84
 msgid "Introduction"
 msgstr "Увод"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:83
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:85
 msgid ""
 "Welcome to Mnemosyne, a flash card program named both after the Greek "
 "goddess of Memory and a type of butterfly.\n"
@@ -3513,11 +3503,11 @@ msgstr ""
 "\n"
 "Погледајмо смисао ових оцене сада."
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:84
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:86
 msgid "Memorising new cards"
 msgstr "Memorising нова картица"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:85
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:87
 msgid ""
 "Grades range from 0 to 5.\n"
 "\n"
@@ -3535,11 +3525,11 @@ msgid ""
 "completely. This is most efficient for the learning process.\n"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:86
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:88
 msgid "Reviewing previously memorised cards"
 msgstr "Разматрање претходно меморисане картице"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:87
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:89
 msgid ""
 "If you study these cards again tomorrow, the 'Scheduled' counter will tell "
 "you how many previously memorised cards you need to review. These are grade "
@@ -3576,12 +3566,12 @@ msgstr ""
 "прегледавање свих планираних картица, то ће се више пута појавити док не "
 "мислите да ћете моћи да се сетите поново за неколико дана."
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:88
-#: ../mnemosyne/pyqt_ui/ui_statistics_dlg.py:42
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:90
+#: ../mnemosyne/pyqt_ui/ui_statistics_dlg.py:44
 msgid "Statistics"
 msgstr "Статистика"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:89
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:91
 msgid ""
 "If you're into statistics, Mnemosyne keeps detailed logs of your revisions.\n"
 "\n"
@@ -3601,15 +3591,15 @@ msgstr ""
 "\n"
 "Одзначи избор ако не желите да то урадите ."
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:90
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:92
 msgid "Upload anonymous logs (can be changed later)"
 msgstr "Отпреми анонимне записе (може се касније мењати)"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:91
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:93
 msgid "Ready to start"
 msgstr "Спремни за почетак"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:92
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:94
 msgid ""
 "Now you're ready to start!\n"
 "\n"
@@ -3641,287 +3631,282 @@ msgstr ""
 "\n"
 "Срећно учење!"
 
-#: ../mnemosyne/pyqt_ui/ui_google_tts_dlg.py:68
-msgid "Google text-to-speech"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_google_tts_dlg.py:69
-#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:75
-msgid "Foreign text to pronounce:"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_google_tts_dlg.py:70
-#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:77
-msgid "Filename to save to:"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_google_tts_dlg.py:71
-#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:78
-msgid "Browse"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_google_tts_dlg.py:72
-#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:79
-#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:71
-msgid "Preview"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_google_tts_dlg.py:73
-#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:80
-#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:72
-msgid "Insert"
-msgstr ""
-
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:85
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:87
 msgid "Import from file"
 msgstr "Увези из датотеке"
 
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:87
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:89
 msgid "File to import from:"
 msgstr "Датотека за увоз из:"
 
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:89
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:91
 msgid "Add additional tag(s) to cards:"
 msgstr "Додајте још ознака  у  картице:"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:203
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:205
 msgid "&Settings"
 msgstr "&Подешавање"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:204
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:206
 msgid "&Help"
 msgstr "&Помоћ"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:205
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:207
 msgid "&File"
 msgstr "&Датотека"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:206
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:208
 msgid "&Cards"
 msgstr "&Картице"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:208
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:209
+msgid "S&tudy"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:210
 msgid "toolBar"
 msgstr "Алатна трака"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:209
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:211
 msgid "(De)a&ctivate cards..."
 msgstr "(Де)а&ктивирај картице..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:211
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:213
 msgid "&Add cards..."
 msgstr "&Додај картице..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:212
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:214
 msgid "Ctrl+A"
 msgstr "Ctrl+A"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:213
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:215
 msgid "&Configure Mnemosyne..."
 msgstr "&Подеси Mnemosyne..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:214
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:216
 msgid "&Delete current card"
 msgstr "&Избриши тренутну картицу"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:215
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:217
 msgid "Del"
 msgstr "Избриши"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:216
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:218
 msgid "&Edit current card..."
 msgstr "&Уреди тренутну картицу..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:217
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:219
 msgid "Ctrl+E"
 msgstr "Ctrl+E"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:218
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:220
 msgid "&Browse cards..."
 msgstr "&Прегледај картице..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:219
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:221
 msgid "Ctrl+B"
 msgstr "Ctrl+B"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:220
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:222
 msgid "&Export..."
 msgstr "&Извези..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:221
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:70
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:223
+#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:72
 msgid "E&xit"
 msgstr "И&злаз"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:222
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:224
 msgid "&New..."
 msgstr "&Нова..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:223
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:225
 msgid "Ctrl+N"
 msgstr "Ctrl+N"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:224
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:226
 msgid "&Open..."
 msgstr "&Отвори..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:225
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:227
 msgid "Ctrl+O"
 msgstr "Ctrl+O"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:226
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:228
 msgid "&Save"
 msgstr "&Сачувај"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:228
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:230
 msgid "Save &as..."
 msgstr "Сачувај &као..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:229
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:231
 msgid "&About"
 msgstr "&О програму"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:230
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:232
 msgid "&Import..."
 msgstr "&Увези..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:231
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:233
 msgid "&Getting started"
 msgstr "&Почетак"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:232
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:234
 msgid "Show s&tatistics..."
 msgstr "Прикажи с&татистику..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:233
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:235
 msgid "Ctrl+T"
 msgstr "Ctrl+T"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:234
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:236
 msgid "&Tip of the day"
 msgstr "&Савет дана"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:235
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:237
 msgid "Manage &plugins..."
 msgstr "Управљање &додацима..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:236
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:64
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:238
+#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:66
 msgid "Manage plugins"
 msgstr "Управљање додацима"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:237
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:239
 msgid "&Manage card types..."
 msgstr "&Управљање врстама картица..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:238
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:240
 msgid "S&ync..."
 msgstr "У&склади..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:239
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:241
 msgid "Ctrl+Y"
 msgstr "Ctrl+Y"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:240
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:242
 msgid "Compact..."
 msgstr "Збијен..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:242
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:244
 msgid "Find duplicate questions"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:244
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:246
 msgid "Study new cards only"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:245
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:247
 msgid "Cram active cards"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:82
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:84
 msgid "Card type manager"
 msgstr "Управвљач врстом картице"
 
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:83
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:85
 msgid "Card types"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:84
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:86
 msgid "&New clone"
 msgstr "&Нова дуплирана"
 
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:87
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:89
 msgid "Anki card types"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:65
+#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:67
 msgid "Installed plugins (active and inactive):"
 msgstr "Инсталирани додаци  (активна и неактивна):"
 
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:66
+#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:68
 msgid "Plugin description:"
 msgstr "Опис додатка:"
 
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:68
+#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:70
 msgid "&Install new plugin"
 msgstr "&Инсталирајте нови додатак"
 
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:69
+#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:71
 msgid "&Delete plugin"
 msgstr "&Избриши додатак"
 
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:91
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:93
 msgid "Preview cards"
 msgstr "Преглед картице"
 
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:92
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:94
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:104
 msgid "Question:"
 msgstr "Питање:"
 
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:93
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:95
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:105
 #: ../mnemosyne/web_server/review_wdgt.py:32
 msgid "Answer:"
 msgstr "Одговор:"
 
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:94
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:96
 msgid "&Previous sister card"
 msgstr "&Претходна равноправна картица"
 
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:95
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:97
 msgid "&Next sister card"
 msgstr "&Следећа равноправна картица"
 
-#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:74
+#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:76
 msgid "Text-to-speech"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:76
+#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:77
+msgid "Foreign text to pronounce:"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:78
 msgid "Language variant:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:48
+#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:79
+msgid "Filename to save to:"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:80
+msgid "Browse"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:81
+#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:73
+msgid "Preview"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:82
+#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:74
+msgid "Insert"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:50
 msgid "Remove tags"
 msgstr "Уклони ознаке"
 
-#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:49
+#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:51
 msgid "Tags to remove:"
 msgstr "Ознаке за уклањање:"
 
-#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:47
+#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:49
 msgid "Rename card type"
 msgstr "Преименуј врсту картице"
 
-#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:48
+#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:50
 msgid "Enter new card type name:"
 msgstr "Унесите ново име врсте картице:"
 
-#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:47
+#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:49
 msgid "Rename tag"
 msgstr "Преименуј ознаку"
 
-#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:48
+#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:50
 msgid "Enter new tag name:"
 msgstr "Унесите нови назив ознаке:"
 
@@ -3953,67 +3938,67 @@ msgstr "4"
 msgid "5"
 msgstr "5"
 
-#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:81
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:83
 msgid "Sync with server"
 msgstr "Усклади са послужитељем"
 
-#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:82
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:84
 msgid "Server:"
 msgstr "Послужитељ:"
 
-#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:86
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:88
 msgid "Check for changed media files on client"
 msgstr "Проверите измењене медијске датотеке за корисника"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:99
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:101
 msgid "Tip of the day"
 msgstr "Савет дана"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:100
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:102
 msgid "<b>Did you know...?</b>"
 msgstr "<b>Да ли сте знали...?</b>"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:101
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:103
 msgid "&Show tips on startup"
 msgstr "Прикажи савете при покретању"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:102
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:104
 msgid "Alt+S"
 msgstr "Alt+S"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:103
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:105
 msgid "&Previous"
 msgstr "&Претходно"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:104
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:106
 msgid "Alt+P"
 msgstr "Alt+P"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:105
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:107
 msgid "&Next"
 msgstr "&Следеће"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:106
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:108
 msgid "Alt+N"
 msgstr "Alt+N"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:107
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:109
 msgid "&Close"
 msgstr "&Затвори"
 
-#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:67
+#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:69
 msgid "Translate"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:68
+#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:70
 msgid "Foreign text to translate:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:69
+#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:71
 msgid "Target language:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:70
+#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:72
 msgid "Translation:"
 msgstr ""
 
@@ -4229,6 +4214,12 @@ msgstr "foo"
 #: ../tests/test_gui_translator.py:32
 msgid "This is a test."
 msgstr "Ово је провера."
+
+#~ msgid "You've memorised 15 new or failed cards."
+#~ msgstr "Запамтили сте 15 нових или неуспешних картица."
+
+#~ msgid "If you do this for many days, you could get a big workload later."
+#~ msgstr "Ако ово радите много дана, касније можете бити врло оптерећени."
 
 #~ msgid ""
 #~ "You can follow the development of Mnemosyne at <a "
