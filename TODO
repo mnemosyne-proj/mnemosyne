@@ -3,9 +3,23 @@
 - deactivate plugin gives error
 - two pronouncers: both use latest
 - refactor activation mechanism, update API level
-- install mplayer in path
+- install mplayer in developper path
+
+- check rollover and DST
 
 Android:
+
+java.lang.IndexOutOfBoundsException:
+  at java.util.ArrayList.get (ArrayList.java:437)
+  at org.mnemosyne.MnemosyneActivity$15.onPrepared (MnemosyneActivity.java:407)
+  at android.media.MediaPlayer$EventHandler.handleMessage (MediaPlayer.java:4238)
+  at android.os.Handler.dispatchMessage (Handler.java:106)
+  at android.os.Looper.loop (Looper.java:214)
+  at android.app.ActivityThread.main (ActivityThread.java:7063)
+  at java.lang.reflect.Method.invoke (Native Method)
+  at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run (RuntimeInit.java:494)
+  at com.android.internal.os.ZygoteInit.main (ZygoteInit.java:965)
+
 
 -look into fixes reported by dashboard
 -integrated error reporting:

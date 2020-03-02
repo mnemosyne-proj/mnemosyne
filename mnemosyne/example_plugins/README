@@ -37,6 +37,11 @@ illustrating to plugin writers on how to achieve certain functionality.
  * custom_tag.py: intercepts custom tags like <my_tag src=\"filename\"> and
    runs them in an external program.
 
+ * responsive_voice_tts.py, google_cloud_tts.py: adding extra TTS engines.
+
+ * activate_card_on_rollover.py: each night, add an active tag to a number
+   of cards.
+
 In order to package a plugin for easy installation by the user, just compress
 your .py file and all the other files it requires in a zip file, and change
 the extension from .zip to .plugin.

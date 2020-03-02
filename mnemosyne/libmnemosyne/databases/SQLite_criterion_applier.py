@@ -21,7 +21,6 @@ class DefaultCriterionApplier(CriterionApplier):
         else:
             # Turn off everything.
             db.con.execute("update cards set active=0")
-            print("turned off everyting")
             # Turn on active tags.
             command = """update cards set active=1 where _id in
                 (select _card_id from tags_for_card where _tag_id in ("""
@@ -30,8 +29,6 @@ class DefaultCriterionApplier(CriterionApplier):
                 command += "?,"
                 args.append(_tag_id)
             command = command.rsplit(",", 1)[0] + "))"
-            print(command)
-            print(args)
             if criterion._tag_ids_active:
                 db.con.execute(command, args)
         # Turn off inactive card types and views.

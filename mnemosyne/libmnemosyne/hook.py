@@ -25,6 +25,7 @@ class Hook(Component):
        'delete_unused_media_files'             in SQLite_sync
        'preprocess_cloze'                      in cloze.py
        'postprocess_q_a_cloze'                 in cloze.py
+       'at_rollover'                           in default_controller.py
        =====================================   ===============================
 
     It is the 'run' method that will get called at the corresponding point
