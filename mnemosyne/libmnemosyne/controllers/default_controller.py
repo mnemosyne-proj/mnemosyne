@@ -48,6 +48,8 @@ class DefaultController(Controller):
         """
 
         if time.time() > self.next_rollover:
+            for f in self.component_manager.all("hook", "at_rollover"):
+                f.run()
             if self.config().server_only:
                 self.database().backup()
                 self.log().dump_to_science_log()
