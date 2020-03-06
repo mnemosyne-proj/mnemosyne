@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-02-28 14:27+0100\n"
+"POT-Creation-Date: 2020-03-06 10:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,120 +39,6 @@ msgstr ""
 msgid "If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:43
-msgid "Anki2 collections"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:45
-msgid "Anki2 collections (*.anki2 *.apkg)"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:56
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:205
-msgid "Decompressing..."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:66
-msgid "Processing media files..."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:85
-msgid ""
-"Note that while you can edit imported cards, adding new cards to Anki's card types is currently not supported.\n"
-"\n"
-"Also, in case you run into problems, don't hesitate to contact the developers."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:100
-msgid "Copying media files..."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:110
-msgid "Importing card types..."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:213
-msgid "Importing notes..."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:265
-msgid "Importing logs..."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:291
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:42
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:31
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:37
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:219
-msgid "Importing cards..."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:15
-msgid "Cuecard .wcu"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:17
-msgid "Cuecard files (*.wcu *.WCU)"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:31
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:61
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/smconv_XML.py:57
-msgid "Unable to parse file:"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:43
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:44
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/media_preprocessor.py:63
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/smconv_XML.py:113
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/smconv_XML.py:114
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:180
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:181
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/tsv.py:81
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/tsv.py:82
-msgid "MISSING_MEDIA"
-msgstr ""
-
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/media_preprocessor.py:66
-msgid "Warning: media files were missing. These cards have been tagged as MISSING_MEDIA. You must also change 'src_missing' to 'src' in the text of these cards."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:40
-msgid "These cards seem to have been imported before. Aborting..."
-msgstr ""
-
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:22
-msgid "Mnemosyne 1.x *.mem files"
-msgstr ""
-
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:24
-msgid "Mnemosyne 1.x *.mem databases (*.mem)"
-msgstr ""
-
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:116
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:64
-msgid "Unable to open file."
-msgstr ""
-
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:126
-msgid "Importing history..."
-msgstr ""
-
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:130
-msgid "No history found to import."
-msgstr ""
-
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:160
-msgid "Ignoring unparsable files:<br/>"
-msgstr ""
-
 #:
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:17
 msgid "Mnemosyne 1.x *.XML files"
@@ -161,6 +47,23 @@ msgstr ""
 #:
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:19
 msgid "Mnemosyne 1.x XML files"
+msgstr ""
+
+#:
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:37
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:219
+msgid "Importing cards..."
+msgstr ""
+
+#:
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:61
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/smconv_XML.py:57
+msgid "Unable to parse file:"
+msgstr ""
+
+#:
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:64
+msgid "Unable to open file."
 msgstr ""
 
 #:
@@ -210,6 +113,11 @@ msgid "Bundling media files..."
 msgstr ""
 
 #:
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:205
+msgid "Decompressing..."
+msgstr ""
+
+#:
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:234
 msgid "Missing plugins for card types."
 msgstr ""
@@ -250,6 +158,15 @@ msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/smconv_XML.py:43
 msgid "Supermemo for Palm XML files (*.xml *.XML)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/smconv_XML.py:113
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/smconv_XML.py:114
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:180
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:181
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/tsv.py:81
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/tsv.py:82
+msgid "MISSING_MEDIA"
 msgstr ""
 
 #:
