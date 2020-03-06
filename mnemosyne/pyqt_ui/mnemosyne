@@ -128,7 +128,7 @@ if options.web_server == True or options.sync_server == True:
         mnemosyne.database().load(mnemosyne.config()["last_database"])
         mnemosyne.controller().heartbeat()
         mnemosyne.database().unload()
-        heartbeat_thread = Timer(60 * 60 * 24, heartbeat)
+        heartbeat_thread = Timer(60 * 60, heartbeat)
         heartbeat_thread.daemon = True
         heartbeat_thread.start()
     Timer(1, heartbeat).start()

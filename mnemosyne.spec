@@ -10,6 +10,8 @@ binaries = []
 
 hiddenimports = [
              'PyQt5.sip',
+             'google',
+             'google.cloud',
              'mnemosyne.version',
              'mnemosyne.libmnemosyne.card',
              'mnemosyne.libmnemosyne.card_type',
