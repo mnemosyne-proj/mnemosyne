@@ -24,13 +24,13 @@ hiddenimports = [
              'mnemosyne.libmnemosyne.fact_view',
              'mnemosyne.libmnemosyne.file_format',
              'mnemosyne.libmnemosyne.filter',
-             'mnemosyne.libmnemosyne.gui_translator'
+             'mnemosyne.libmnemosyne.gui_translator',
              'mnemosyne.libmnemosyne.hook',
              'mnemosyne.libmnemosyne.language',
              'mnemosyne.libmnemosyne.logger',
              'mnemosyne.libmnemosyne.log_uploader',
              'mnemosyne.libmnemosyne.plugin',
-             'mnemosyne.libmnemosyne.pronouncer'
+             'mnemosyne.libmnemosyne.pronouncer',
              'mnemosyne.libmnemosyne.renderer',
              'mnemosyne.libmnemosyne.render_chain',
              'mnemosyne.libmnemosyne.review_controller',
