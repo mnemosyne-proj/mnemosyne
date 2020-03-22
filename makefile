@@ -108,7 +108,7 @@ macos:
 	cd po && make
 
 	# Build the bundled app based on the specification file.
-	pyinstaller mnemosyne.spec
+	pyinstaller --log-level WARN mnemosyne.spec
 
 	# Blank qt.conf to ensure that bundled qt is used over system qt.
 	touch dist/Mnemosyne.app/Contents/Resources/qt.conf

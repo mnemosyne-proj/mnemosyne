@@ -159,6 +159,9 @@ virtualenv venv
 source venv/bin/activate
 pip install webob tornado matplotlib numpy sip pillow cheroot googletrans gtts pyopengl pyinstaller
 
+# run this command to fix a bug with setuptools https://github.com/pypa/setuptools/issues/1963
+pip uninstall setuptools; pip install setuptools===44.1.0
+
 # run this command and inspect the output to confirm you're using the correct version
 pip install pyqt5 pyqtwebengine
 ```
