@@ -9,7 +9,7 @@ import os
 import importlib
 from google.cloud import texttospeech
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] \
-        = 'D:\cygwin64\home\Peter\My Project-d2fe488ee997.json'
+        = 'C:\cygwin64\home\Peter\My Project-d2fe488ee997.json'
 
 from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.gui_translator import _

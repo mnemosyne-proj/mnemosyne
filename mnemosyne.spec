@@ -12,6 +12,9 @@ hiddenimports = [
              'PyQt5.sip',
              'google',
              'google.cloud',
+             'google.api'
+             #'google-api-core',
+             'google.api.core',
              'mnemosyne.version',
              'mnemosyne.libmnemosyne.card',
              'mnemosyne.libmnemosyne.card_type',
