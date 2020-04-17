@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-03-06 10:52+0100\n"
+"POT-Creation-Date: 2020-04-07 11:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,6 +41,44 @@ msgid "If you are using a USB key, refer to the instructions on the website so a
 msgstr ""
 
 #:
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:22
+msgid "Mnemosyne 1.x *.mem files"
+msgstr ""
+
+#:
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:24
+msgid "Mnemosyne 1.x *.mem databases (*.mem)"
+msgstr ""
+
+#:
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:31
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:37
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:219
+msgid "Importing cards..."
+msgstr ""
+
+#:
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:116
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:64
+msgid "Unable to open file."
+msgstr ""
+
+#:
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:126
+msgid "Importing history..."
+msgstr ""
+
+#:
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:130
+msgid "No history found to import."
+msgstr ""
+
+#:
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:160
+msgid "Ignoring unparsable files:<br/>"
+msgstr ""
+
+#:
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:17
 msgid "Mnemosyne 1.x *.XML files"
 msgstr ""
@@ -51,20 +89,9 @@ msgid "Mnemosyne 1.x XML files"
 msgstr ""
 
 #:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:37
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:219
-msgid "Importing cards..."
-msgstr ""
-
-#:
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:61
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/smconv_XML.py:57
 msgid "Unable to parse file:"
-msgstr ""
-
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:64
-msgid "Unable to open file."
 msgstr ""
 
 #:
