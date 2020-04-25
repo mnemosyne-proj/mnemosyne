@@ -12,7 +12,6 @@ import importlib
 import textwrap
 from locale import getdefaultlocale
 
-
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.schedulers.cramming import RANDOM
@@ -24,7 +23,7 @@ DAY = 24 * HOUR # Seconds in a day.
 re_long_int = re.compile(r"\d+L")
 
 def config_py():
-  config_py = textwrap.dedent(
+  return textwrap.dedent(
   """  # Mnemosyne configuration file.
 
   # This file contains settings which we deem to be too specialised to be
@@ -77,16 +76,6 @@ def config_py():
   # Latex dvipng command.
   dvipng = "dvipng -D 200 -T tight tmp.dvi"
   """)
-
-  if sys.platform == "darwin":
-    # We could use format strings, but the LaTeX has too many { } characters
-    config_py = config_py.replace(
-        'latex = "latex -interaction=nonstopmode"',
-        'latex = "/usr/local/bin/latex -output-format=dvi -interaction=nonstopmode"')
-    config_py = config_py.replace(
-        'dvipng = "dvipng -D 200 -T tight tmp.dvi"',
-        'dvipng = "/usr/local/bin/dvipng -D 200 -T tight tmp.dvi"')
-  return config_py
 
 class Configuration(Component, dict):
 
