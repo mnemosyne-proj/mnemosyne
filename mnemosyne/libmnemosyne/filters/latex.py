@@ -5,6 +5,7 @@
 import os
 import re
 import subprocess as sp
+import sys
 try:
     from hashlib import md5
 except ImportError:
@@ -15,6 +16,9 @@ from mnemosyne.libmnemosyne.utils import copy
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.filter import Filter
 
+if sys.platform == "darwin":
+  sys.path.append("/usr/local/bin")
+  sys.path.append("/Library/TeX/texbin")
 
 # The regular expressions to find the latex tags are global so they don't
 # get recompiled all the time. match.group(1) identifies the text between
@@ -24,7 +28,6 @@ from mnemosyne.libmnemosyne.filter import Filter
 re1 = re.compile(r"<latex>(.+?)</latex>", re.DOTALL | re.IGNORECASE)
 re2 = re.compile(r"<\$>(.+?)</\$>",       re.DOTALL | re.IGNORECASE)
 re3 = re.compile(r"<\$\$>(.+?)</\$\$>",   re.DOTALL | re.IGNORECASE)
-
 
 class Latex(Filter):
 
