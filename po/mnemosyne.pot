@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-04-07 11:16+0200\n"
+"POT-Creation-Date: 2020-04-20 16:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,29 +15,112 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:218
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:428
 msgid "Command line argument is not a *.db file."
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:230
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:440
 msgid "Another copy of Mnemosyne is still running."
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:231
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:441
 msgid "Continuing is impossible and will lead to data loss!"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:314
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:327
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:522
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:535
 msgid "Error when running plugin:"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:342
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:550
 msgid "Previous drive letter no longer available."
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:351
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:558
 msgid "If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:43
+msgid "Anki2 collections"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:45
+msgid "Anki2 collections (*.anki2 *.apkg)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:56
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:204
+msgid "Decompressing..."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:66
+msgid "Processing media files..."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:85
+msgid ""
+"Note that while you can edit imported cards, adding new cards to Anki's card types is currently not supported.\n"
+"\n"
+"Also, in case you run into problems, don't hesitate to contact the developers."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:100
+msgid "Copying media files..."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:110
+msgid "Importing card types..."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:213
+msgid "Importing notes..."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:265
+msgid "Importing logs..."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:291
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:40
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:31
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:37
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:218
+msgid "Importing cards..."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:15
+msgid "Cuecard .wcu"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:17
+msgid "Cuecard files (*.wcu *.WCU)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:31
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:61
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/smconv_XML.py:57
+msgid "Unable to parse file:"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:43
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:44
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/media_preprocessor.py:63
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/smconv_XML.py:113
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/smconv_XML.py:114
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:180
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:181
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/tsv.py:97
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/tsv.py:98
+msgid "MISSING_MEDIA"
+msgstr ""
+
+#:
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/media_preprocessor.py:66
+msgid "Warning: media files were missing. These cards have been tagged as MISSING_MEDIA. You must also change 'src_missing' to 'src' in the text of these cards."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:38
+msgid "These cards seem to have been imported before. Aborting..."
 msgstr ""
 
 #:
@@ -48,13 +131,6 @@ msgstr ""
 #:
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:24
 msgid "Mnemosyne 1.x *.mem databases (*.mem)"
-msgstr ""
-
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:31
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:37
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:219
-msgid "Importing cards..."
 msgstr ""
 
 #:
@@ -89,12 +165,6 @@ msgid "Mnemosyne 1.x XML files"
 msgstr ""
 
 #:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:61
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/smconv_XML.py:57
-msgid "Unable to parse file:"
-msgstr ""
-
-#:
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 msgid "No"
 msgstr ""
@@ -126,27 +196,22 @@ msgstr ""
 
 #:
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:52
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/tsv.py:96
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/tsv.py:112
 msgid "Exporting cards..."
 msgstr ""
 
 #:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:170
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:169
 msgid "Extracting media files..."
 msgstr ""
 
 #:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:172
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:171
 msgid "Bundling media files..."
 msgstr ""
 
 #:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:205
-msgid "Decompressing..."
-msgstr ""
-
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:234
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:233
 msgid "Missing plugins for card types."
 msgstr ""
 
@@ -188,15 +253,6 @@ msgstr ""
 msgid "Supermemo for Palm XML files (*.xml *.XML)"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/smconv_XML.py:113
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/smconv_XML.py:114
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:180
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:181
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/tsv.py:81
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/tsv.py:82
-msgid "MISSING_MEDIA"
-msgstr ""
-
 #:
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:32
 msgid "SuperMemo7 text in Q:/A: format"
@@ -227,23 +283,605 @@ msgid "Tab-separated text files (*.txt *.tsv *.tab)"
 msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/tsv.py:67
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/tsv.py:78
+msgid "Required field missing on line"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/tsv.py:83
 msgid "Badly formed input on line"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/filters/latex.py:117
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/filters/latex.py:198
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/filters/latex.py:119
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/filters/latex.py:200
 msgid "Problem with latex. Are latex and dvipng installed?"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/log_uploader.py:79
-msgid "Uploading"
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/afrikaans.py:11
+msgid "Afrikaans"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/afrikaans.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/albanian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/amharic.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/arabic.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/armenian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/azerbaijani.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/basque.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/belarusian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/bosnian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/bulgarian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/catalan.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/cebuano.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/corsican.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/croatian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/esperanto.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/frisian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/gaelic.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/galician.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/georgian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/gujarati.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/haitian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/hausa.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/hawaiian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/hebrew.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/hmong.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/icelandic.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/igbo.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/irish.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/kannada.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/kazakh.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/kurdish.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/kyrgyz.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/lao.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/latin.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/latvian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/lithuanian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/luxembourgish.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/macedonian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/malagasy.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/malay.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/malayalam.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/maltese.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/maori.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/marathi.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/mongolian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/myanmar.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/nyanja.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/pashto.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/persian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/punjabi.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/samoan.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/serbian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/sesotho.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/shona.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/sindhi.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/slovenian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/somali.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/swahili.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/tagalog.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/tajik.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/tamil.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/telugu.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/urdu.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/uzbek.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/welsh.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/xhosa.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/yiddish.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/yoruba.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/zulu.py:13
+msgid "Google translation."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/albanian.py:11
+msgid "Albanian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/amharic.py:11
+msgid "Amharic"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/arabic.py:11
+msgid "Arabic"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/armenian.py:11
+msgid "Armenian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/azerbaijani.py:11
+msgid "Azerbaijani"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/basque.py:11
+msgid "Basque"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/belarusian.py:11
+msgid "Belarusian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/bengali.py:11
+msgid "Bengali"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/bengali.py:13
+msgid "Bengali (Bangladesh"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/bengali.py:14
+msgid "Bengali (India)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/bengali.py:15
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/chinese.py:15
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/czech.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/danish.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/dutch.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/english.py:17
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/estonian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/finnish.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/french.py:15
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/german.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/greek.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/hindi.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/hungarian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/indonesian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/italian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/japanese.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/javanese.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/khmer.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/korean.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/nepali.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/norwegian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/polish.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/portuguese.py:15
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/romanian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/russian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/sinhala.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/slovak.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/spanish.py:15
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/sundanese.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/swedish.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/thai.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/turkish.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/ukrainian.py:13
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/vietnamese.py:13
+msgid "Google translation and text-to-speech."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/bosnian.py:11
+msgid "Bosnian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/bulgarian.py:11
+msgid "Bulgarian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/catalan.py:11
+msgid "Catalan"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/cebuano.py:11
+msgid "Cebuano"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/chinese.py:11
+msgid "Chinese"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/chinese.py:13
+msgid "Chinese (Simplified)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/chinese.py:14
+msgid "Chinese (Traditional)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/corsican.py:11
+msgid "Corsican"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/croatian.py:11
+msgid "Croatian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/czech.py:11
+msgid "Czech"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/danish.py:11
+msgid "Danish"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/dutch.py:11
+msgid "Dutch"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/english.py:11
+msgid "English"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/english.py:13
+msgid "English (UK)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/english.py:14
+msgid "English (US)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/english.py:15
+msgid "English (India)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/english.py:16
+msgid "English (Australian)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/esperanto.py:11
+msgid "Esperanto"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/estonian.py:11
+msgid "Estonian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/finnish.py:11
+msgid "Finnish"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/french.py:11
+msgid "French"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/french.py:13
+msgid "French (France)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/french.py:14
+msgid "French (Canada)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/frisian.py:11
+msgid "Frisian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/gaelic.py:11
+msgid "Scots Gaelic"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/galician.py:11
+msgid "Galician"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/georgian.py:11
+msgid "Georgian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/german.py:11
+msgid "German"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/greek.py:11
+msgid "Greek"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/gujarati.py:11
+msgid "Gujarati"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/haitian.py:11
+msgid "Haitian Creole"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/hausa.py:11
+msgid "Hausa"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/hawaiian.py:11
+msgid "Hawaiian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/hebrew.py:11
+msgid "Hebrew"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/hindi.py:11
+msgid "Hindi"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/hmong.py:11
+msgid "Hmong"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/hungarian.py:11
+msgid "Hungarian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/icelandic.py:11
+msgid "Icelandic"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/igbo.py:11
+msgid "Igbo"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/indonesian.py:11
+msgid "Indonesian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/irish.py:11
+msgid "Irish"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/italian.py:11
+msgid "Italian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/japanese.py:11
+msgid "Japanese"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/javanese.py:11
+msgid "Javanese"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/kannada.py:11
+msgid "Kannada"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/kazakh.py:11
+msgid "Kazakh"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/khmer.py:11
+msgid "Khmer"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/korean.py:11
+msgid "Korean"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/kurdish.py:11
+msgid "Kurdish"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/kyrgyz.py:11
+msgid "Kyrgyz"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/lao.py:11
+msgid "Lao"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/latin.py:11
+msgid "Latin"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/latvian.py:11
+msgid "Latvian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/lithuanian.py:11
+msgid "Lithuanian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/luxembourgish.py:11
+msgid "Luxembourgish"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/macedonian.py:11
+msgid "Macedonian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/malagasy.py:11
+msgid "Malagasy"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/malay.py:11
+msgid "Malay"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/malayalam.py:11
+msgid "Malayalam"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/maltese.py:11
+msgid "Maltese"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/maori.py:11
+msgid "Maori"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/marathi.py:11
+msgid "Marathi"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/mongolian.py:11
+msgid "Mongolian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/myanmar.py:11
+msgid "Myanmar (Burmese)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/nepali.py:11
+msgid "Nepali"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/norwegian.py:11
+msgid "Norwegian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/nyanja.py:11
+msgid "Nyanja (Chichewa)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/pashto.py:11
+msgid "Pashto"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/persian.py:11
+msgid "Persian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/polish.py:11
+msgid "Polish"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/portuguese.py:11
+msgid "Portuguese"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/portuguese.py:13
+msgid "Portugese (Portugal)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/portuguese.py:14
+msgid "Portugese (Brazilian)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/punjabi.py:11
+msgid "Punjabi"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/romanian.py:11
+msgid "Romanian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/russian.py:11
+msgid "Russian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/samoan.py:11
+msgid "Samoan"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/serbian.py:11
+msgid "Serbian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/sesotho.py:11
+msgid "Sesotho"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/shona.py:11
+msgid "Shona"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/sindhi.py:11
+msgid "Sindhi"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/sinhala.py:11
+msgid "Sinhala (Sinhalese)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/slovak.py:11
+msgid "Slovak"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/slovenian.py:11
+msgid "Slovenian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/somali.py:11
+msgid "Somali"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/spanish.py:11
+msgid "Spanish"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/spanish.py:13
+msgid "Spanish (Spain)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/spanish.py:14
+msgid "Spanish (US)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/sundanese.py:11
+msgid "Sundanese"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/swahili.py:11
+msgid "Swahili"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/swedish.py:11
+msgid "Swedish"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/tagalog.py:11
+msgid "Tagalog (Filipino)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/tajik.py:11
+msgid "Tajik"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/tamil.py:11
+msgid "Tamil"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/telugu.py:11
+msgid "Telugu"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/thai.py:11
+msgid "Thai"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/turkish.py:11
+msgid "Turkish"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/ukrainian.py:11
+msgid "Ukrainian"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/urdu.py:11
+msgid "Urdu"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/uzbek.py:11
+msgid "Uzbek"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/vietnamese.py:11
+msgid "Vietnamese"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/welsh.py:11
+msgid "Welsh"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/xhosa.py:11
+msgid "Xhosa"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/yiddish.py:11
+msgid "Yiddish"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/yoruba.py:11
+msgid "Yoruba"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/languages/zulu.py:11
+msgid "Zulu"
 msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/log_uploader.py:83
+msgid "Uploading"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/log_uploader.py:87
 msgid "done!"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/log_uploader.py:85
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/log_uploader.py:89
 msgid "Upload failed"
 msgstr ""
 
@@ -254,7 +892,6 @@ msgstr ""
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/logger.py:201
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/compact_database_dlg.py:79
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/export_dlg.py:63
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/import_dlg.py:124
 msgid "Done!"
 msgstr ""
 
@@ -430,107 +1067,80 @@ msgstr ""
 msgid "Grade your answer:"
 msgstr ""
 
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:228
-msgid "You appear to have missed some reviews. Don't worry too much about this backlog, and do as many cards as you feel comfortable with to catch up each day. Mnemosyne will automatically reschedule your cards such that the most urgent ones are shown first."
-msgstr ""
-
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:561
-msgid "You've memorised 15 new or failed cards."
-msgstr ""
-
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:562
-msgid "If you do this for many days, you could get a big workload later."
-msgstr ""
-
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:608
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:612
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:617
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/scheduler.py:206
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/scheduler.py:210
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/scheduler.py:215
 msgid "in"
 msgstr ""
 
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:609
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/scheduler.py:207
 msgid "years"
 msgstr ""
 
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:613
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/scheduler.py:211
 msgid "months"
 msgstr ""
 
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:615
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/scheduler.py:213
 msgid "in 1 month"
 msgstr ""
 
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:618
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/scheduler.py:216
 msgid "days"
 msgstr ""
 
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:620
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/scheduler.py:218
 msgid "tomorrow"
 msgstr ""
 
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:622
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:652
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/scheduler.py:220
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/scheduler.py:250
 msgid "today"
 msgstr ""
 
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:624
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/scheduler.py:222
 msgid "1 day overdue"
 msgstr ""
 
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:626
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/scheduler.py:224
 msgid "days overdue"
 msgstr ""
 
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:628
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/scheduler.py:226
 msgid "1 month overdue"
 msgstr ""
 
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:631
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/scheduler.py:229
 msgid "months overdue"
 msgstr ""
 
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:634
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/scheduler.py:232
 msgid "years overdue"
 msgstr ""
 
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:654
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/scheduler.py:252
 msgid "yesterday"
 msgstr ""
 
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:656
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/scheduler.py:254
 msgid "days ago"
 msgstr ""
 
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:658
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/scheduler.py:256
 msgid "1 month ago"
 msgstr ""
 
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:661
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/scheduler.py:259
 msgid "months ago"
 msgstr ""
 
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:664
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/scheduler.py:262
 msgid "years ago"
+msgstr ""
+
+#:
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/schedulers/SM2_mnemosyne.py:175
+msgid "You appear to have missed some reviews. Don't worry too much about this backlog, and do as many cards as you feel comfortable with to catch up each day. Mnemosyne will automatically reschedule your cards such that the most urgent ones are shown first."
 msgstr ""
 
 #:
@@ -603,15 +1213,15 @@ msgstr ""
 
 #:
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/current_card.py:31
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:719
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:725
 msgid "Grade"
 msgstr ""
 
 #:
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/current_card.py:32
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/easiness.py:11
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:720
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:285
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/easiness.py:12
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:726
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:289
 msgid "Easiness"
 msgstr ""
 
@@ -627,7 +1237,7 @@ msgstr ""
 
 #:
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/current_card.py:37
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:722
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:728
 msgid "Lapses"
 msgstr ""
 
@@ -652,25 +1262,31 @@ msgid "Total thinking time (secs)"
 msgstr ""
 
 #:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/easiness.py:17
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/grades.py:17
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/easiness.py:21
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/grades.py:21
 msgid "All cards"
 msgstr ""
 
 #:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/easiness.py:21
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/grades.py:21
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/tag_tree.py:56
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/tag_tree.py:72
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/tag_tree.py:75
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/easiness.py:22
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/grades.py:22
+msgid "Active cards only"
+msgstr ""
+
+#:
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/easiness.py:25
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/grades.py:25
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/tag_tree.py:58
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/tag_tree.py:74
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/tag_tree.py:77
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/tag_tree_wdgt.py:58
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/tag_tree_wdgt.py:161
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/tag_tree_wdgt.py:191
 msgid "Untagged"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/grades.py:11
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:262
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/grades.py:12
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:266
 msgid "Grades"
 msgstr ""
 
@@ -751,11 +1367,11 @@ msgstr ""
 msgid "Scheduled -> forgotten -> new"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/tag_tree.py:41
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/tag_tree.py:43
 msgid "All tags"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/tag_tree.py:99
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/tag_tree.py:115
 msgid "Cannot rename a single tag to multiple tags."
 msgstr ""
 
@@ -776,13 +1392,13 @@ msgid "Mnemosyne 2.x now stores its data here:"
 msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/about_dlg.py:27
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:697
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:703
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:60
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:71
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/main_wdgt.py:91
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/main_wdgt.py:97
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/main_wdgt.py:113
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/main_wdgt.py:142
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/main_wdgt.py:147
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/tip_after_starting_n_times.py:31
 msgid "Mnemosyne"
 msgstr ""
@@ -836,18 +1452,18 @@ msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/activate_cards_dlg.py:122
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/activate_cards_dlg.py:144
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:581
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:587
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/card_type_tree_wdgt.py:88
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/manage_card_types_dlg.py:102
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/manage_card_types_dlg.py:111
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/tag_tree_wdgt.py:177
 msgid "&Cancel"
 msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/activate_cards_dlg.py:122
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/activate_cards_dlg.py:144
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:581
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:587
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/card_type_tree_wdgt.py:88
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/manage_card_types_dlg.py:102
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/manage_card_types_dlg.py:111
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/tag_tree_wdgt.py:177
 msgid "&OK"
 msgstr ""
@@ -888,12 +1504,16 @@ msgstr ""
 msgid "If you use 'Edit cards', changes are made to all the sister cards simultaneously."
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/add_cards_dlg.py:289
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/add_cards_dlg.py:34
+msgid "If your card type has a language associated to it, you can right click to insert text-to-speech or translations."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/add_cards_dlg.py:290
 msgid "Abandon current card?"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/add_cards_dlg.py:289
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:243
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/add_cards_dlg.py:290
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:245
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
@@ -901,8 +1521,8 @@ msgstr ""
 msgid "&No"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/add_cards_dlg.py:289
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:243
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/add_cards_dlg.py:290
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:245
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/configuration_wdgt_main.py:48
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/configuration_wdgt_servers.py:63
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
@@ -910,141 +1530,145 @@ msgstr ""
 msgid "&Yes"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:117
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:119
 msgid "Yet to learn"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:333
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:335
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/tip_dlg.py:38
 msgid "Right-click on a tag name in the card browser to edit or delete it."
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:334
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:336
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/tip_dlg.py:39
 msgid "Double-click on a card or tag name in the card browser to edit them."
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:335
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:337
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/tip_dlg.py:40
 msgid "You can reorder columns in the card browser by dragging the header label."
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:336
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:338
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/tip_dlg.py:41
 msgid "You can resize columns in the card browser by dragging between the header labels."
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:337
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:339
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/tip_dlg.py:43
 msgid "When editing or previewing cards from the card browser, PageUp/PageDown can be used to move to the previous/next card."
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:338
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:340
 msgid "You change the relative size of the card list, card type tree and tag tree by dragging the dividers between them."
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:339
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:341
 msgid "In the search box, you can use SQL wildcards like _ (matching a single character) and % (matching one or more characters)."
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:340
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:342
 msgid "Cards with strike-through text are inactive in the current set."
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:355
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:357
 msgid "Show cards from these card types:"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:369
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:372
 msgid "having any of these tags:"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:378
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:373
+msgid "having all of these tags:"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:381
 msgid "containing this text in the cards:"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:429
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:435
 msgid "&Edit"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:433
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:439
 msgid "&Preview"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:437
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:443
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/tag_tree_wdgt.py:129
 msgid "&Delete"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:442
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:448
 msgid "Change card &type"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:446
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:452
 msgid "&Add tags"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:449
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:455
 msgid "&Remove tags"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:580
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:586
 msgid "Go ahead with delete? Sister cards will be deleted as well."
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:611
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:617
 msgid "The selected cards should have the same card type."
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:698
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:704
 msgid "Database error: "
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:718
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:724
 msgid "Answer"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:718
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:724
 msgid "Question"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:719
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:725
 msgid "Next rep"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:719
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:725
 msgid "Tags"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:720
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:726
 msgid "Last rep"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:721
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:727
 msgid ""
 "Learning\n"
 "reps"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:722
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:728
 msgid ""
 "Review\n"
 "reps"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:723
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:729
 msgid "Created"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:723
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:729
 msgid "Modified"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:783
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:789
 msgid "You chose to sort this table. Operations in the card browser could now be slower. Next time you start the card browser, the table will be unsorted again."
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:863
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/browse_cards_dlg.py:877
 msgid "%d cards shown, of which %d active."
 msgstr ""
 
@@ -1053,7 +1677,7 @@ msgid "Delete these card types?"
 msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/card_type_tree_wdgt.py:86
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/manage_card_types_dlg.py:102
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/manage_card_types_dlg.py:111
 msgid "Delete this card type?"
 msgstr ""
 
@@ -1092,12 +1716,12 @@ msgid "Select colour"
 msgstr ""
 
 #:
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:238
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:240
 msgid "Reset all card types to default system font?"
 msgstr ""
 
 #:
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:240
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:242
 msgid "Reset '%s' to default system font?"
 msgstr ""
 
@@ -1174,7 +1798,7 @@ msgid "Cards you (de)activate now will not be stored in the previously selected 
 msgstr ""
 
 #:
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/edit_M_sided_card_template_wdgt.py:83
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/edit_M_sided_card_template_wdgt.py:88
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/edit_card_dlg.py:193
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/edit_card_dlg.py:211
 msgid "Changing the number of clozes in Anki cards is currently not supported."
@@ -1197,7 +1821,11 @@ msgstr ""
 msgid "File does not exist."
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/manage_card_types_dlg.py:72
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/manage_card_types_dlg.py:74
+msgid "Mnemosyne card types"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/manage_card_types_dlg.py:79
 msgid "Here, you can make clones of existing card types. This allows you to format cards in this type independently from cards in the original type. E.g. you can make a clone of 'Vocabulary', call it 'Thai' and set a Thai font specifically for this card type without disturbing your other cards."
 msgstr ""
 
@@ -1222,6 +1850,24 @@ msgid ""
 "When creating new cards, Mnemosyne normally prefills the 'Tag(s)' field with the last value you used, regardless of card type.\n"
 "\n"
 "With this plugin, Mnemosyne will for each card type remember the last tag you used, such that e.g. Chinese cards get a prefilled tag like \"My Chinese textbook::Chapter 10\", whereas Front-to-Back cards get \"European Capitals\"."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/pronouncer_dlg.py:71
+msgid "<default>"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/pronouncer_dlg.py:119
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/translator_dlg.py:101
+msgid "Downloading..."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/pronouncer_dlg.py:139
+msgid "Mp3 files (*.mp3)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/pronouncer_dlg.py:143
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/pronouncer_dlg.py:157
+msgid "Please select a filename inside the media directory."
 msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/qt_sync_server.py:74
@@ -1255,39 +1901,39 @@ msgstr ""
 msgid "Remote review in progress..."
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/qtextedit2.py:29
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/qtextedit2.py:36
 msgid "Insert &image"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/qtextedit2.py:30
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/qtextedit2.py:37
 msgid "Ctrl+I"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/qtextedit2.py:31
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/qtextedit2.py:38
 msgid "Insert &sound"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/qtextedit2.py:32
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/qtextedit2.py:39
 msgid "Ctrl+S"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/qtextedit2.py:33
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/qtextedit2.py:40
 msgid "Insert vi&deo"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/qtextedit2.py:34
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/qtextedit2.py:41
 msgid "Ctrl+D"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/qtextedit2.py:35
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/qtextedit2.py:42
 msgid "Insert &Flash"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/qtextedit2.py:36
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/qtextedit2.py:43
 msgid "Ctrl+F"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/qtextedit2.py:40
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/qtextedit2.py:48
 msgid "&Hide pronunciation field for this card type"
 msgstr ""
 
@@ -1325,46 +1971,46 @@ msgstr ""
 msgid "Active:"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_dlg.py:100
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_dlg.py:99
 msgid "Default"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:118
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:257
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:280
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:122
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:261
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:284
 msgid "No stats available."
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:189
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:193
 msgid "Days"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:208
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:212
 msgid "Number of cards scheduled"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:220
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:224
 msgid "Retention score (%)"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:232
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:236
 msgid "Number of cards added"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:243
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:247
 msgid "Number of new cards learned"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:261
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:284
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:265
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:288
 msgid "Number of cards"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:264
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:268
 msgid "Not seen"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/sync_dlg.py:125
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/sync_dlg.py:131
 msgid ""
 "Here, you can sync this machine with a remote server. Of course, that remote computer needs to have a server running, which can be started from the configuration screen on that remote machine.\n"
 "\n"
@@ -1508,11 +2154,15 @@ msgid "Advanced users can customise more of Mnemosyne by editing the config.py f
 msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/tip_dlg.py:57
-msgid "You can follow the development of Mnemosyne at <a href=\"https://plus.google.com/b/112456861177827156549/112456861177827156549/posts\">Google+</a>."
+msgid "You can follow the development of Mnemosyne on Twitter or Facebook."
 msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/tip_dlg.py:58
 msgid "You can request new features and vote for exisiting requests at <a href=\"https://mnemosyne.uservoice.com/\">uservoice</a>. This helps the developers decide what to work on next."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/tip_dlg.py:59
+msgid "Using the 'Manage card types' dialog, you can associate a language with a card type. This enables functionality like text-to-speech or dictionary lookup."
 msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/web_server/review_wdgt.py:32
@@ -1724,11 +2374,11 @@ msgstr ""
 msgid "data directory"
 msgstr ""
 
-#: ../tools/mnemosynebot/tests/test_translator.py:25
+#: ../tools/mnemosynebot/tests/test_gui_translator.py:25
 msgid "foo"
 msgstr ""
 
-#: ../tools/mnemosynebot/tests/test_translator.py:32
+#: ../tools/mnemosynebot/tests/test_gui_translator.py:32
 msgid "This is a test."
 msgstr ""
 
