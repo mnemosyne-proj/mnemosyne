@@ -16,7 +16,7 @@ class GooglePronouncer(Pronouncer):
         "fr-FR", "fr-CA", "de", "el", "hi", "hu", "id", "it", "ja", "jw", \
         "km", "ko", "ne", "no", "pl", "pt", "pt-PT", "pt-BR", "ro", "ru", \
         "si", "sk", "es", "es-ES", "es-US", "su", "sv", "th", "tr", "uk", \
-        "vi", "ar"
+        "vi", "ar", "is"
 
     popup_menu_text = "Insert Google text-to-speech..."
 
