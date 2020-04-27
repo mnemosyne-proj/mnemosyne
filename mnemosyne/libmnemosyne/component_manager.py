@@ -52,7 +52,10 @@ class ComponentManager(object):
         used_for = component.used_for if type(component.used_for) in \
             (tuple, list) else [component.used_for]
         for used_for_i in used_for:
-            self.components[used_for_i][comp_type].remove(component)
+            # Different components (e.g. Pronouncers) could be 'used_for' the
+            # same Component (e.g. a Language).
+            if component in self.components[used_for_i][comp_type]:
+                self.components[used_for_i][comp_type].remove(component)
         if component.component_type == "card_type":
             del self.card_type_with_id[component.id]
         elif component.component_type == "render_chain":
