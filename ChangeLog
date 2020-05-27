@@ -15,6 +15,8 @@ Mnemosyne 2.7.2:
 - Enabled Icelandic text-to-speech.
 - Exposed more functionality of libmnemosyne to scripting programs.
 - More robust detection of Latex on OSX (patch by Devin Howard).
+- Update example plugin to change keyboard shortcuts (requested by Garrison
+  Taylor)
 
 
 Mnemosyne 2.7.1: 2020-02-20

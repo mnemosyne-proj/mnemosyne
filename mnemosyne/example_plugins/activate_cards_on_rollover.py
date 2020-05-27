@@ -45,4 +45,8 @@ plugin = register_user_plugin(ActivateHookPlugin)
 
 # Since this is typically run on a server with GUI, we automatically
 # activate it here.
+
+# TODO: after the first activation, this will actually result in this
+# plugin to be activated twice, but this has no effect in this case.
+
 plugin.activate()

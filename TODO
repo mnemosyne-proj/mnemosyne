@@ -1,5 +1,19 @@
+
+- error when exiting:
+
+File "mnemosyne/pyqt_ui/mnemosyne", line 279, in <module>
+    mnemosyne.finalise()
+  File "C:\Users\peter\Documents\files\source\mnemosyne-proj\mnemosyne\mnemosyne\libmnemosyne\__init__.py", line 606, in finalise
+    self.component_manager.deactivate_all()
+  File "C:\Users\peter\Documents\files\source\mnemosyne-proj\mnemosyne\mnemosyne\libmnemosyne\component_manager.py", line 141, in deactivate_all
+    component.deactivate()
+  File "C:\Users\peter\Documents\files\source\mnemosyne-proj\mnemosyne\dot_mnemosyne2\plugins\responsive_voice_tts.py", line 65, in deactivate
+    self.component_manager.unregister(self.component)
+ AttributeError: 'ResponsiveVoiceTTSPlugin' object has no attribute 'component'
+
+
 - refactor activation mechanism
-- update API level. also for rollover
+- update API level. also for rollover and shortcuts.py
 
 - check rollover and DST
 
