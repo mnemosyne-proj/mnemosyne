@@ -2,9 +2,10 @@
 # review_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets, QtWebEngineWidgets
 import os
 import sys
+
+from PyQt5 import QtCore, QtGui, QtWidgets, QtWebEngineWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.ui_review_wdgt import Ui_ReviewWdgt
@@ -267,6 +268,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
     def __init__(self, **kwds):
         super().__init__(**kwds)
         parent = self.main_widget()
+
         parent.setCentralWidget(self)
         self.setupUi(self)
         QAOptimalSplit.setup(self)

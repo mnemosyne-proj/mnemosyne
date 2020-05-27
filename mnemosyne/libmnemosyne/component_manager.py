@@ -61,7 +61,7 @@ class ComponentManager(object):
         elif component.component_type == "render_chain":
             del self.render_chain_with_id[component.id]
 
-    def add_gui_to_component(self, component_name, gui_component):
+    def add_gui_to_component(self, component_name, gui_component, in_front=False):
 
         """Typical use case for this is when a plugin has a GUI component
         which obviously does not live inside libmnemosyne, and which needs to
@@ -73,7 +73,11 @@ class ComponentManager(object):
             for component_type in self.components[used_for]:
                 for component in self.components[used_for][component_type]:
                     if component.__class__.__name__ == component_name:
-                        component.gui_components.append(gui_component)
+                        if in_front:
+                            component.gui_components.insert(0, gui_component)
+                        else:
+                            component.gui_components.append(gui_component)
+
 
     def all(self, comp_type, used_for=None):
 
