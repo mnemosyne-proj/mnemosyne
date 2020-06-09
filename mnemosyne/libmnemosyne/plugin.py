@@ -2,6 +2,8 @@
 # plugin.py <Peter.Bienstman@UGent.be>
 #
 
+import importlib
+
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.component import Component
 
@@ -17,6 +19,10 @@ class Plugin(Component):
     'components' is a list of component classes (not instances) that will
     be registered and/or instantiated when the Plugin becomes active.
 
+    'gui_for_component' is a dictionaly with as key a component class to which
+    a GUI component needs to be added. The value is a list of tuples
+    [("python_source_file_name", "class_name")]
+
     Activating and deactivating certain components needs to give rise to
     certain side effects. It's cumbersone to implement those in the
     'activate' and 'deactivate' methods of the components, as these also
@@ -29,7 +35,8 @@ class Plugin(Component):
     description = ""
     component_type = "plugin"
     components = []
-    current_API_level = 2
+    gui_for_component = {}
+    current_API_level = 3
 
     def __init__(self, component_manager):
         Component.__init__(self, component_manager)
@@ -54,7 +61,7 @@ class Plugin(Component):
             if component.component_type in \
                 ["scheduler", "review_controller", "review_widget"]:
                 self.review_reset_needed = True
-        # Register all our components. Instantiate them if needed.
+        # Register all our regular components. Instantiate them if needed.
         for component in self.components:
             if component.instantiate == Component.IMMEDIATELY:
                 component = component(component_manager=self.component_manager)
@@ -64,6 +71,15 @@ class Plugin(Component):
             else:
                 self.component_manager.register(component)
                 self.registered_components.append(component)
+        # Register gui components for certain classes.
+        for key, value in self.gui_for_component:
+            component = key
+            for gui_module_name, gui_class_name in value:
+                gui_class = getattr(\
+                    importlib.import_module(gui_module_name), gui_class_name)
+                self.component_manager.add_gui_to_component(\
+                    "ResponsiveVoicePronouncer", gui_class)
+
         # Make necessary side effects happen.
         for component in self.components:
             if component.used_for == "configuration_defaults":
