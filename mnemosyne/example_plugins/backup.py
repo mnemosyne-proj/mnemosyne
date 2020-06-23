@@ -27,7 +27,7 @@ class BackupPlugin(Plugin):
     name = "Extra backup"
     description = "Move your backups to a safe place."   
     components = [BackupHook]
-    supported_API_level = 2
+    supported_API_level = 3
       
 
 # Register plugin.

@@ -1,7 +1,3 @@
-
-- refactor activation mechanism: class instances or just names?
-- update API level. also for rollover and shortcuts.py
-
 - check rollover and DST
 
 Android:
@@ -40,7 +36,6 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 
 Minor bugs / issues:
 
--star card when no card is showing
 -saving of folded tree state also from 'activate cards' dialog
 -upgrade pyinstaller if this issues is fixed:
 https://stackoverflow.com/questions/57517371/matplotlibdeprecationwarning-with-pyinstaller-exe (used option 2 as a workaround)

@@ -41,7 +41,9 @@ class Component(object):
     Component.__init__ if they provide their own constructor.
 
     In case the GUI needs to add functionality to a certain component, that
-    can be done through component_manager.add_gui_to_component().
+    can be done through component_manager.add_gui_to_component() function
+    (lower level) or through the gui_for_component class variable (higher
+    level).
 
     """
 

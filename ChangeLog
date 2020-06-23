@@ -12,9 +12,11 @@ with the --qt-opengl=desktop command line argument.)
 
 Mnemosyne 2.7.2:
 
+- Android: don't crash when trying to star a card when no card is showing.
+- Improve robustness of Windows sync server.
 - Enabled Icelandic text-to-speech.
-- Exposed more functionality of libmnemosyne to scripting programs.
 - More robust detection of Latex on OSX (patch by Devin Howard).
+- Exposed more functionality of libmnemosyne to scripting programs.
 - Update example plugin to change keyboard shortcuts (requested by Garrison
   Taylor)
 

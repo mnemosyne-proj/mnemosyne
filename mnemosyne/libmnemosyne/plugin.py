@@ -19,9 +19,9 @@ class Plugin(Component):
     'components' is a list of component classes (not instances) that will
     be registered and/or instantiated when the Plugin becomes active.
 
-    'gui_for_component' is a dictionaly with as key a component class to which
+    'gui_for_component' is a dictionary with as key a component class to which
     a GUI component needs to be added. The value is a list of tuples
-    [("python_source_file_name", "class_name")]
+    [("module_name", "class_name")]
 
     Activating and deactivating certain components needs to give rise to
     certain side effects. It's cumbersone to implement those in the
@@ -72,14 +72,14 @@ class Plugin(Component):
                 self.component_manager.register(component)
                 self.registered_components.append(component)
         # Register gui components for certain classes.
-        for key, value in self.gui_for_component:
-            component = key
+        for key, value in self.gui_for_component.items():
+            component_name = key
+            assert type(component_name) == str
             for gui_module_name, gui_class_name in value:
                 gui_class = getattr(\
                     importlib.import_module(gui_module_name), gui_class_name)
                 self.component_manager.add_gui_to_component(\
-                    "ResponsiveVoicePronouncer", gui_class)
-
+                    component_name, gui_class)
         # Make necessary side effects happen.
         for component in self.components:
             if component.used_for == "configuration_defaults":

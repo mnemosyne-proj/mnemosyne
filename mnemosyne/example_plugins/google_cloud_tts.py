@@ -52,25 +52,10 @@ class GoogleCloudTTSPlugin(Plugin):
 
     name = "Google Cloud TTS"
     description = "Add Google Cloud text-to-speech."
-    supported_API_level = 2
-
-    def activate(self):
-        Plugin.activate(self)
-        self.component = GoogleCloudPronouncer(\
-            component_manager=self.component_manager)
-        self.component_manager.register(self.component)
-        # TODO: refactor this to plugin.py
-        gui_module_name = "mnemosyne.pyqt_ui.pronouncer_dlg"
-        gui_class_name = "PronouncerDlg"
-        gui_class = getattr(\
-            importlib.import_module(gui_module_name), gui_class_name)
-        self.component_manager.add_gui_to_component(\
-            "GoogleCloudPronouncer", gui_class)
-
-    def deactivate(self):
-        Plugin.deactivate(self)
-        self.component_manager.unregister(self.component)
-
+    components = [GoogleCloudPronouncer]
+    gui_for_component = {"GoogleCloudPronouncer" :
+        [("mnemosyne.pyqt_ui.pronouncer_dlg", "PronouncerDlg")]}
+    supported_API_level = 3
 
 
 # Register plugin.

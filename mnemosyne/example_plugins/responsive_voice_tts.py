@@ -48,23 +48,9 @@ class ResponsiveVoiceTTSPlugin(Plugin):
     name = "Responsive Voice TTS"
     description = "Add ResponsiveVoice text-to-speech."
     components = [ResponsiveVoicePronouncer]
-    gui_for_component[ResponsiveVoicePronouncer] = \
-        [("mnemosyne.pyqt_ui.pronouncer_dlg", "PronouncerDlg")]
+    gui_for_component = {"ResponsiveVoicePronouncer" :
+        [("mnemosyne.pyqt_ui.pronouncer_dlg", "PronouncerDlg")]}
     supported_API_level = 3
-
-    def activate(self):
-        Plugin.activate(self)
-        self.component = ResponsiveVoicePronouncer(\
-            component_manager=self.component_manager)
-        self.component_manager.register(self.component)
-        # TODO: refactor this to plugin.py
-        gui_module_name = "mnemosyne.pyqt_ui.pronouncer_dlg"
-        gui_class_name = "PronouncerDlg"
-        gui_class = getattr(\
-            importlib.import_module(gui_module_name), gui_class_name)
-        self.component_manager.add_gui_to_component(\
-            "ResponsiveVoicePronouncer", gui_class)
-
 
 
 # Register plugin.

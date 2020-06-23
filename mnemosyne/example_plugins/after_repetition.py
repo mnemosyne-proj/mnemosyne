@@ -20,7 +20,7 @@ class AfterRepetitionPlugin(Plugin):
     name = "Grade 5 detection"
     description = "Notice when a card is given grade 5."   
     components = [Grade5DetectionHook]
-    supported_API_level = 2
+    supported_API_level = 3
     
 
 # Register plugin.

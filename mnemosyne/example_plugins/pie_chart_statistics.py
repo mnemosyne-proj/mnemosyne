@@ -49,7 +49,7 @@ class PieChartPlugin(Plugin):
     name = "Pie chart grades"
     description = "Show the grade statistics in a pie chart"
     components = [MyGrades, PieChartWdgt]
-    supported_API_level = 2
+    supported_API_level = 3
 
 from mnemosyne.libmnemosyne.plugin import register_user_plugin
 register_user_plugin(PieChartPlugin)
