@@ -35,7 +35,7 @@ class ActivateHookPlugin(Plugin):
     name = "Activate cards on rollover"
     description = "Trickles in a number of cards on rollover. Parameters are set in the Python script."
     components = [ActivateHook]
-    supported_API_level = 2
+    supported_API_level = 3
 
 
 # Register plugin.

@@ -22,7 +22,7 @@ class ReverseArabicPlugin(Plugin):
     name = "Reverse Arabic"
     description = "Reverse the Arabic in the web server, to compensate for the fact that the Android browser renders Arabic from left to right."
     components = [ReverseArabic]
-    supported_API_level = 2
+    supported_API_level = 3
 
     def activate(self):
         Plugin.activate(self)

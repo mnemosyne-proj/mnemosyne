@@ -58,7 +58,7 @@ class TestPlugin(MnemosyneTest):
             name = "myplugin"
             description = "MyPlugin"
             components = [MyCardType]
-            supported_API_level = 2
+            supported_API_level = 3
 
         p = MyPlugin(self.mnemosyne.component_manager)
 
@@ -92,7 +92,7 @@ class TestPlugin(MnemosyneTest):
             name = "myplugin"
             description = "MyPlugin"
             components = [MyCardType]
-            supported_API_level = 2
+            supported_API_level = 3
 
         p = MyPlugin(self.mnemosyne.component_manager)
 
@@ -126,7 +126,7 @@ class TestPlugin(MnemosyneTest):
             name = "myplugin"
             description = "MyPlugin"
             components = [MyCardType]
-            supported_API_level = 2
+            supported_API_level = 3
 
         p = MyPlugin(self.mnemosyne.component_manager)
 
@@ -166,7 +166,7 @@ class TestPlugin(MnemosyneTest):
             name = "Red"
             description = "Red widget for front-to-back cards"
             components = [RedGenericCardTypeWdgt]
-            supported_API_level = 2
+            supported_API_level = 3
 
         p = RedPlugin(self.mnemosyne.component_manager)
         p.activate()

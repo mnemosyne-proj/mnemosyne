@@ -11,7 +11,7 @@ class HideToolbarPlugin(Plugin):
 
     name = "Hide toolbar"
     description = "Hide the main toolbar"
-    supported_API_level = 2
+    supported_API_level = 3
 
     def __init__(self, component_manager):
         Plugin.__init__(self, component_manager)

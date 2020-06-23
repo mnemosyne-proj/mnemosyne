@@ -20,20 +20,16 @@ class ShortcutsPlugin(Plugin):
 
     name = "Custom shortcuts"
     description = "Customise review widget shortcuts."
-    supported_API_level = 2
+    gui_for_component = {"ScheduledForgottenNew" :
+        [("shortcuts", "MyReviewWdgt")]}
+    gui_for_component = {"NewOnly" :
+        [("shortcuts", "MyReviewWdgt")]}
+    gui_for_component = {"CramAll" :
+        [("shortcuts", "MyReviewWdgt")]}
+    gui_for_component = {"CramRecent" :
+        [("shortcuts", "MyReviewWdgt")]}
+    supported_API_level = 3
 
-    def activate(self, **kwds):
-        super().activate(**kwds)
-        # These add our widget to the end of the list, which is the correct
-        # position, as it should be initialised last.
-        self.component_manager.add_gui_to_component(\
-            "ScheduledForgottenNew", MyReviewWdgt)
-        self.component_manager.add_gui_to_component(\
-            "NewOnly", MyReviewWdgt)
-        self.component_manager.add_gui_to_component(\
-            "CramAll", MyReviewWdgt)
-        self.component_manager.add_gui_to_component(\
-            "CramRecent", MyReviewWdgt)
 
 # Register plugin.
 

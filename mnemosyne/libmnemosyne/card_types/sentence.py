@@ -95,4 +95,4 @@ class SentencePlugin(Plugin):
     description = _("""A card type using sentences to study foreign languages.\n
 Apart from simple recognition of the sentence, you can also add production cards using close deletion.\nE.g. if in the sentence field you write "La [casa:house] es [grande:big]", you'll get cards with questions like "La [house] es grande".""")
     components = [Sentence]
-    supported_API_level = 2
+    supported_API_level = 3

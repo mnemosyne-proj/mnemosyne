@@ -52,4 +52,4 @@ class MapPlugin(Plugin):
     description = _("""A card type for learning locations on a map.\n
 Displays the answer map on top of the question map, rather than below it as a second map.""")
     components = [Map]
-    supported_API_level = 2
+    supported_API_level = 3

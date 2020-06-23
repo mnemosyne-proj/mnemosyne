@@ -170,4 +170,4 @@ E.g., the text \"The capital of [France] is [Paris]\", will give cards with ques
 Editing the text will automatically update all sister cards.\n\nYou can also specify hints, e.g. [cloze:hint] will show
  [hint] in the question as opposed to [...].""")
     components = [Cloze]
-    supported_API_level = 2
+    supported_API_level = 3

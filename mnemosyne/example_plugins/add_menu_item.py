@@ -11,7 +11,7 @@ class HelloWorldPlugin(Plugin):
     
     name = "Hello world"
     description = "Add a menu item to the help menu"
-    supported_API_level = 2
+    supported_API_level = 3
 
     def __init__(self, **kwds):
         super().__init__(**kwds)
