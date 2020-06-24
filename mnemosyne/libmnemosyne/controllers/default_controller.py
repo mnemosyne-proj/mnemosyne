@@ -47,6 +47,9 @@ class DefaultController(Controller):
 
         """
 
+        # FIXME: For some reason, datetime.datetime.now() does not respect
+        # DST here, although it does work in a standalone Python program...
+
         if time.time() > self.next_rollover:
             for f in self.component_manager.all("hook", "at_rollover"):
                 f.run()

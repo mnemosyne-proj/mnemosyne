@@ -1,3 +1,4 @@
+
 package org.mnemosyne;
 
 import android.Manifest;
@@ -404,6 +405,9 @@ public class MnemosyneActivity extends AppCompatActivity {
 
         mediaPlayer.setOnPreparedListener(new OnPreparedListener() {
             public void onPrepared(MediaPlayer mp) {
+                if (soundIndex >= starts.size()) {
+                    return;
+                }
                 mp.seekTo(starts.get(soundIndex));
                 mp.start();
                 if (stops.get(soundIndex) != 0)
