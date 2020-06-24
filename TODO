@@ -1,18 +1,8 @@
-- check rollover and DST
+- testsuite
+- merge
+
 
 Android:
-
-java.lang.IndexOutOfBoundsException:
-  at java.util.ArrayList.get (ArrayList.java:437)
-  at org.mnemosyne.MnemosyneActivity$15.onPrepared (MnemosyneActivity.java:407)
-  at android.media.MediaPlayer$EventHandler.handleMessage (MediaPlayer.java:4238)
-  at android.os.Handler.dispatchMessage (Handler.java:106)
-  at android.os.Looper.loop (Looper.java:214)
-  at android.app.ActivityThread.main (ActivityThread.java:7063)
-  at java.lang.reflect.Method.invoke (Native Method)
-  at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run (RuntimeInit.java:494)
-  at com.android.internal.os.ZygoteInit.main (ZygoteInit.java:965)
-
 
 -look into fixes reported by dashboard
 -integrated error reporting:
@@ -36,6 +26,7 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 
 Minor bugs / issues:
 
+- datetime.datetime.now() does not seem to respect DST inside Mnemosyne, but it does work in a standalone Python programme.
 -saving of folded tree state also from 'activate cards' dialog
 -upgrade pyinstaller if this issues is fixed:
 https://stackoverflow.com/questions/57517371/matplotlibdeprecationwarning-with-pyinstaller-exe (used option 2 as a workaround)

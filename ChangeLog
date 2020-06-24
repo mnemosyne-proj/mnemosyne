@@ -11,13 +11,16 @@ with the --qt-opengl=desktop command line argument.)
 
 Mnemosyne 2.7.2:
 
+- Wrap tag string so that it no longer stretches the application window.
+- Don't crash when using saved sets containing over 1000 tags (reported
+  by abacus).
 - Android: don't crash when trying to star a card when no card is showing.
 - Improve robustness of Windows sync server.
 - Enabled Icelandic text-to-speech.
 - More robust detection of Latex on OSX (patch by Devin Howard).
 - Exposed more functionality of libmnemosyne to scripting programs.
 - Update example plugin to change keyboard shortcuts (requested by Garrison
-  Taylor)
+  Taylor).
 
 
 Mnemosyne 2.7.1: 2020-02-20

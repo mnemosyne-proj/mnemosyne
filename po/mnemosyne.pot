@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-04-20 16:03+0200\n"
+"POT-Creation-Date: 2020-06-24 16:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,6 +38,62 @@ msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:558
 msgid "If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."
+msgstr ""
+
+#:
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite_logging.py:351
+msgid "Merging logs..."
+msgstr ""
+
+#:
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite_logging.py:384
+msgid "Archiving old logs..."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite_media.py:46
+msgid "Could not create"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite_media.py:47
+msgid "Check your file permissions and make sure the directory is not open in a file browser."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite_media.py:146
+msgid "Media filename rather long. This could cause problems using this file on a different OS."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite_media.py:149
+msgid "Filename contains '#', which could cause problems on some operating systems."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite_media.py:153
+msgid "Missing media file!"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite_sync.py:123
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:233
+msgid "Missing plugins for card types."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite_sync.py:446
+msgid "Deleting same tag twice during sync. Inform the developpers."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite_sync.py:480
+msgid "Deleting same fact twice during sync. Inform the developpers."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite_sync.py:712
+msgid "Creating same fact view twice during sync. Inform the developpers."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite_sync.py:763
+msgid "Creating same card type twice during sync. Inform the developpers."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/_apsw.py:54
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/_sqlite3.py:51
+msgid "Putting a database on a network drive is forbidden under Windows to avoid data corruption. Mnemosyne will now close."
 msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/anki2.py:43
@@ -211,11 +267,6 @@ msgid "Bundling media files..."
 msgstr ""
 
 #:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:233
-msgid "Missing plugins for card types."
-msgstr ""
-
-#:
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne2_db.py:15
 msgid "Mnemosyne 2.x *.db files"
 msgstr ""
@@ -291,8 +342,8 @@ msgstr ""
 msgid "Badly formed input on line"
 msgstr ""
 
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/filters/latex.py:119
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/filters/latex.py:200
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/filters/latex.py:122
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/filters/latex.py:203
 msgid "Problem with latex. Are latex and dvipng installed?"
 msgstr ""
 
