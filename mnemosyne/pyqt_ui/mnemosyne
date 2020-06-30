@@ -148,6 +148,10 @@ from PyQt5 import QtGui, QtCore
 
 if options.high_dpi_scaling:
     QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
+    # Fractional scaling still results in blurry fonts in the webview at the
+    # moment, so we disable it:
+    #QtGui.QGuiApplication.setHighDpiScaleFactorRoundingPolicy(\
+    #   QtCore.Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
 else:
     QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_DisableHighDpiScaling)
 if options.qt_opengl:

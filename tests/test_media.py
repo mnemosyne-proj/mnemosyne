@@ -405,6 +405,7 @@ class TestMedia(MnemosyneTest):
         assert "dot_test" not in self.database().media_dir()
 
     def teardown(self):
+        MnemosyneTest.teardown(self)
         if os.path.exists("a.ogg"):
             os.remove("a.ogg")
         if os.path.exists("b.ogg"):
@@ -421,4 +422,3 @@ class TestMedia(MnemosyneTest):
             os.remove("outside.db")
         if os.path.exists("outside.db-journal"):
             os.remove("outside.db-journal")
-        MnemosyneTest.teardown(self)

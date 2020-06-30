@@ -21,6 +21,7 @@ Mnemosyne 2.7.2:
 - Exposed more functionality of libmnemosyne to scripting programs.
 - Update example plugin to change keyboard shortcuts (requested by Garrison
   Taylor).
+- Upgraded to PyQt 5.15.0, matplotlib 3.2.2.
 
 
 Mnemosyne 2.7.1: 2020-02-20
