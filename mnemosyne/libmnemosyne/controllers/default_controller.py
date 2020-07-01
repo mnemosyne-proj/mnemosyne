@@ -47,7 +47,12 @@ class DefaultController(Controller):
 
         """
 
+        # FIXME: For some reason, datetime.datetime.now() does not respect
+        # DST here, although it does work in a standalone Python program...
+
         if time.time() > self.next_rollover:
+            for f in self.component_manager.all("hook", "at_rollover"):
+                f.run()
             if self.config().server_only:
                 self.database().backup()
                 self.log().dump_to_science_log()
@@ -472,6 +477,9 @@ _("This card has different tags than its sister cards. Update tags for current c
         w.close_progress()
 
     def star_current_card(self):
+        review_controller = self.review_controller()
+        if not review_controller.card:
+            return
         self.stopwatch().pause()
         self.flush_sync_server()
         if self.config()["star_help_shown"] == False:
@@ -479,7 +487,6 @@ _("This card has different tags than its sister cards. Update tags for current c
 _("This will add a tag 'Starred' to the current card, so that you can find it back easily, e.g. to edit it on a desktop."))
             self.config()["star_help_shown"] = True
         db = self.database()
-        review_controller = self.review_controller()
         tag = db.get_or_create_tag_with_name(_("Starred"))
         _sister_card_ids = [card._id for card in \
             self.database().cards_from_fact(review_controller.card.fact)]
@@ -490,10 +497,12 @@ _("This will add a tag 'Starred' to the current card, so that you can find it ba
         self.stopwatch().unpause()
 
     def delete_current_card(self):
+        review_controller = self.review_controller()
+        if not review_controller.card:
+            return
         self.stopwatch().pause()
         self.flush_sync_server()
         db = self.database()
-        review_controller = self.review_controller()
         fact = review_controller.card.fact
         no_of_cards = len(db.cards_from_fact(fact))
         if no_of_cards == 1:

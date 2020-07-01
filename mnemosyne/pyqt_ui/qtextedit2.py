@@ -58,7 +58,7 @@ class QTextEdit2(QtWidgets.QTextEdit):
                 translator_action = QtWidgets.QAction(\
                     translator.popup_menu_text, popup)
                 translator_action.triggered.connect(\
-                    lambda: self.translate(translator))
+                    lambda checked, t=translator: self.translate(t))
                 popup.addAction(translator_action)
         # Pronouncers.
         if len(self.pronouncers):
@@ -67,7 +67,7 @@ class QTextEdit2(QtWidgets.QTextEdit):
                 pronouncer_action = QtWidgets.QAction(\
                     pronouncer.popup_menu_text, popup)
                 pronouncer_action.triggered.connect(\
-                    lambda: self.pronounce(pronouncer))
+                    lambda checked, p=pronouncer: self.pronounce(p))
                 popup.addAction(pronouncer_action)
         # Show popup.
         popup.exec_(e.globalPos())

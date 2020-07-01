@@ -36,8 +36,8 @@ class TestDBImport(MnemosyneTest):
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.review_controller().reset()
         self.merge_db_path = os.path.join(os.getcwd(), "tests", "files", "basedir_to_merge", "to_merge.db")
-        self.merge_db_tmppath = os.path.join(os.path.dirname(self.merge_db_path), "to_merge_tmp.db")
-        shutil.copy2(self.merge_db_path, self.merge_db_tmppath)
+        self.merge_db_tmppath = os.path.join(os.path.dirname(self.merge_db_path), "to_merge_tmp.db")
+        shutil.copy2(self.merge_db_path, self.merge_db_tmppath)
 
     def db_importer(self):
         for format in self.mnemosyne.component_manager.all("file_format"):
@@ -71,12 +71,11 @@ class TestDBImport(MnemosyneTest):
         card_type = self.database().card_type("2::new clone", is_id_internal=False)
         assert self.config().card_type_property("background_colour", card_type) == 4278233600
 
-
-    def teardown(self):
-        if os.path.exists(self.merge_db_path + "-journal"):
-            os.remove(self.merge_db_path + "-journal")
-        if os.path.exists(self.merge_db_tmppath):
-            os.remove(self.merge_db_tmppath)
-        if os.path.exists(self.merge_db_tmppath + "-journal"):
-            os.remove(self.merge_db_tmppath + "-journal")
-        MnemosyneTest.teardown(self)
+    def teardown(self):
+        MnemosyneTest.teardown(self)
+        if os.path.exists(self.merge_db_path + "-journal"):
+            os.remove(self.merge_db_path + "-journal")
+        if os.path.exists(self.merge_db_tmppath):
+            os.remove(self.merge_db_tmppath)
+        if os.path.exists(self.merge_db_tmppath + "-journal"):
+            os.remove(self.merge_db_tmppath + "-journal")

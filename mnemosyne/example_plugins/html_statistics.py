@@ -34,7 +34,7 @@ class MyHtmlStatisticsPlugin(Plugin):
     name = "Html statistics example"
     description = "Example plugin for html statistics"
     components = [MyHtmlStatistics]
-    supported_API_level = 2
+    supported_API_level = 3
 
 from mnemosyne.libmnemosyne.plugin import register_user_plugin
 register_user_plugin(MyHtmlStatisticsPlugin)

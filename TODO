@@ -1,9 +1,6 @@
--Add Language, Translator, Pronouncer to website.
+- merge
+- android
 
-- deactivate plugin gives error
-- two pronouncers: both use latest
-- refactor activation mechanism, update API level
-- install mplayer in path
 
 Android:
 
@@ -29,6 +26,7 @@ http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-
 
 Minor bugs / issues:
 
+- datetime.datetime.now() does not seem to respect DST inside Mnemosyne, but it does work in a standalone Python programme.
 -saving of folded tree state also from 'activate cards' dialog
 -upgrade pyinstaller if this issues is fixed:
 https://stackoverflow.com/questions/57517371/matplotlibdeprecationwarning-with-pyinstaller-exe (used option 2 as a workaround)
@@ -175,6 +173,8 @@ created with just the "»" symbol.
 
 Other features:
 
+- 'not' operator in searches
+
 - switch to PyOxidizer when it supports PyQt?
 
 - plugin to deactivate cards in a certain cardtype after X retention reps.
@@ -215,6 +215,8 @@ Other learning modes:
 
 -generate end message for new learning modes. (learn ahead of schedule is not
 always relevant)
+
+-new scheduler Bayesian: https://github.com/fasiha/ebisu
 
 
 -drawing canvas Gnome

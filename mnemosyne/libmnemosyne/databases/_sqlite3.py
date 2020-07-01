@@ -14,6 +14,7 @@ import sqlite3
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.libmnemosyne.utils import traceback_string, MnemosyneError
 
 
 class _Sqlite3Cursor(object):
@@ -69,7 +70,11 @@ class _Sqlite3(Component):
         if self.DEBUG:
             print((sql, args))
             t = time.time()
-        self._cursor = self.connection.execute(sql, *args)
+        try:
+            self._cursor = self.connection.execute(sql, *args)
+        except:
+            raise MnemosyneError("SQL error: " + sql + " " + str(*args)
+                + "\n" + traceback_string())
         if self.DEBUG:
             print(("took %.3f secs" % (time.time() - t)))
         return _Sqlite3Cursor(self._cursor)
