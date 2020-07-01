@@ -1,13 +1,7 @@
-- merge
-- android
-
-
 Android:
 
 -look into fixes reported by dashboard
--integrated error reporting:
-https://developers.google.com/analytics/devguides/collection/android/v4/exceptions
-http://stackoverflow.com/questions/11552963/how-to-get-crash-dialog-with-report-button
+-check that port is not empty in OnActivityResult
 -check 'redraw now'
 -cramming widget for Android
 -setting to allow choosing the database location?

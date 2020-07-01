@@ -6,33 +6,35 @@ for Android, using Windows/Cygwin:
   Make sure to have a separate install of Python 3.7 if needed.
 - Install NDK r17c, API level 28 for compatibility with python-for-android libraries.
 
-These libraries are in the github repository, but if you want to install them yourself,
-do the following:
+These libraries are in the github repository, but if you want to install them yourself, do the following:
 
-- follow instructions here, on a Ubuntu machine: 
+- follow instructions here, on a Ubuntu machine:
    https://python-for-android.readthedocs.io/en/latest/quickstart/#installation
 - NDK r17c, API level 28
 - use single quotes for arguments of sdkmanager
 - export ANDROIDSDK="$HOME/android/", i.e. the directory where 'tools' is located
 - p4a build
 - p4a create --arch=armeabi-v7a,arm64-v8a,x86,x86_64 --blacklist-requirements=android,libffi,openssl
- (Note: creating all archs at the same time does not seem to work, so only 
+ (Note: creating all archs at the same time does not seem to work, so only
   create one arch at the time, and do 'p4a clean_all' inbetween)
-- header files are in 
+- header files are in
   ./build/other_builds/python3-libffi-openssl-sqlite3/x86__ndk_target_21/python3/Include/Python.h
-- stdlib.zip and module dir are in ./dists/unnamed_dist_1\_python_bundle\_python_bundle 
+- stdlib.zip and module dir are in ./dists/unnamed_dist_1\_python_bundle\_python_bundle
 - libraries libpython3.7m.so and libsqlite3 are in ./dists/unnamed_dist_1\libs\<arch>\
-- pruning some libraries to reduce the space somewhat: from stdlib.zip, 
-  delete _pydecimal.pyc, pydoc.pyc, turtle.pyc, pickletools.pyc, picle.pyc, 
+- pruning some libraries to reduce the space somewhat: from stdlib.zip,
+  delete _pydecimal.pyc, pydoc.pyc, turtle.pyc, pickletools.pyc, picle.pyc,
   unittest, turtledemo, pydoc_data, distutils (saves 500 kb)
 - from modules, delete _decimal, _pickle, _testcapi, audioop, cmath (saves 500 kb)
 
 Copy the result to the following folders:
 
-- android/dependencie/python/include/<arch> for the headers
-- android/dependencie/python/lib/<arch> for libpython and libsqlite 
+- android/dependencies/python/include/<arch> for the headers
+- android/dependencies/python/lib/<arch> for libpython and libsqlite
 - android/app/src/<arch with _ instead of - >/assets/python/modules for the extension modules
   (these have to go in the assets, and they don't start with lib_... , and android refuses
-  to package them in a release build)  
-  
+  to package them in a release build)
+
 Note: if you get unexpect results, remove app/build, app/<archs>, clean project and rebuild project.
+
+During development, set the build variant to whatever architecture you use. Then, for release, do 
+'Build - Generate Signed Bundle / APK'

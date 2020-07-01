@@ -25,10 +25,6 @@ Mnemosyne 2.7.2:
 
 
 Mnemosyne 2.7.1: 2020-02-20
-<<<<<<< HEAD
-
-=======
->>>>>>> 4734060b5f8060c8ae6d631d78139c1e7b0791b0
 
 - Improved Google Translate results.
 - Fixed a regression in the sync protocol when Mnemosyne had warned about
