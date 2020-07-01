@@ -9,7 +9,6 @@ This might also help with other hard crashes.
 If this does not help, or if you see a black screen, try starting Mnemosyne
 with the --qt-opengl=desktop command line argument.)
 
-
 Mnemosyne 2.7.2:
 
 - Wrap tag string so that it no longer stretches the application window.
@@ -26,7 +25,10 @@ Mnemosyne 2.7.2:
 
 
 Mnemosyne 2.7.1: 2020-02-20
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4734060b5f8060c8ae6d631d78139c1e7b0791b0
 
 - Improved Google Translate results.
 - Fixed a regression in the sync protocol when Mnemosyne had warned about
