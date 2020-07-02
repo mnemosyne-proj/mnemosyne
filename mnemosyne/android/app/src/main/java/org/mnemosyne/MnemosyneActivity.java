@@ -519,7 +519,8 @@ public class MnemosyneActivity extends AppCompatActivity {
         if (requestCode == SYNC_ACTIVITY_RESULT) {
             if (resultCode == RESULT_OK) {
                 final String server = data.getStringExtra("server");
-                final Integer port = new Integer(data.getStringExtra("port"));
+                final String port_data = data.getStringExtra("port");
+                final Integer port = port_data.isEmpty() ? new Integer(8512) : new Integer(port_data);
                 final String username = data.getStringExtra("username");
                 final String password = data.getStringExtra("password");
 

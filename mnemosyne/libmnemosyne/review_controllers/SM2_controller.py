@@ -133,6 +133,8 @@ _("Use 'Learn ahead of schedule' sparingly. For cramming before an exam, it's mu
         """Note that this also pulls in a new question."""
 
         self.flush_sync_server()
+        if self.card is None:
+            return
         # Guide the learning process.
         if self.config()["shown_learn_new_cards_help"] == False:
             if self.scheduled_count == 1:

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-07-02 10:03+0200\n"
+"POT-Creation-Date: 2020-07-02 16:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,6 @@ msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:522
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:535
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite.py:1140
 msgid "Error when running plugin:"
 msgstr ""
 
@@ -39,85 +38,6 @@ msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:558
 msgid "If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/database.py:357
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/compact_database_dlg.py:71
-msgid "Compacting database..."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite.py:289
-msgid "Defragmenting database..."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite.py:353
-msgid "Unable to load file at"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite.py:355
-msgid "Unable to load file, query failed."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite.py:367
-msgid "Database upgrade failed."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite.py:379
-msgid "Unable to load file."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite.py:415
-msgid "Putting a database on a network drive is forbidden under Windows to avoid data corruption."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite.py:444
-msgid "Warning: backup creation failed for"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite.py:608
-msgid "Make tag '%s' active in saved set '%s'?"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite.py:609
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite.py:1181
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
-msgid "No"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite.py:609
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite.py:1181
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
-msgid "Yes"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite.py:1143
-msgid "Missing plugin for card type with id:"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite.py:1180
-msgid "Make new card type '%s' active in saved set '%s'?"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite.py:1423
-msgid "No duplicates found."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite.py:1426
-msgid "Found %d duplicate cards. They have been given the tag 'DUPLICATE'."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite.py:1432
-msgid "DUPLICATE"
-msgstr ""
-
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite_logging.py:351
-msgid "Merging logs..."
-msgstr ""
-
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite_logging.py:384
-msgid "Archiving old logs..."
 msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/databases/SQLite_media.py:46
@@ -292,7 +212,17 @@ msgstr ""
 
 #:
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
+msgid "No"
+msgstr ""
+
+#:
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 msgid "This XML file contains learning data. It's best to import this from a mem file, in order to preserve historical statistics. Continue?"
+msgstr ""
+
+#:
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
+msgid "Yes"
 msgstr ""
 
 #:
@@ -1794,6 +1724,10 @@ msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/card_type_tree_wdgt.py:117
 msgid "All card types (%d)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/compact_database_dlg.py:71
+msgid "Compacting database..."
 msgstr ""
 
 #:
