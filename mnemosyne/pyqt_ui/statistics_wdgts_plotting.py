@@ -28,13 +28,17 @@ class PlotStatisticsWdgt(QtWidgets.QWidget, StatisticsWidget):
 
     def activate(self):
         StatisticsWidget.activate(self)
+
         # Late import to speed up app startup.
+        import warnings
+        warnings.filterwarnings("ignore", "(?s).*MATPLOTLIBDATA.*",
+                                category=UserWarning)
         from matplotlib import use
         use("Qt5Agg")
-
         from matplotlib import rcParams
         from matplotlib.figure import Figure
-        from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+        from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg \
+            as FigureCanvas
 
         self.setMinimumSize(640, 480)
         self.setSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding,

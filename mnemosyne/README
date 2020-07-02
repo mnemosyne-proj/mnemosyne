@@ -8,15 +8,11 @@ Some information about the contents of the directories:
  in scripts.
 -pyqt_ui: the Qt frontend, written in Python, for use on desktop machines
  under Windows, Linux and OSX.
--ppygui_ui: the PocketPyGui frontend, for use on Windows Mobile.
 -webserver: the webserver frontend, to do reviews in your browser.
 -UDP_server: talk libmnemosyne over the UDP protocol. Useful if you want to
  write a frontend in a language other than Python, and if you have the option
  to run a separate process.
 -embedded_in_C: embeds libmnemosyne in a C application. Useful if you don't
  have the option of running separate processes on your client machine.
--sl4a: python Android app using a locally running webserver.
--cle: python code for interfacing with a frontend written in different language
- using the CLE library (e.g. interfacing with Java for the native Android 
- client).
 -android: Java UI frontend
+-android_python: Python glue between android frontend and libmnemosyne.
