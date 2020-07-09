@@ -1,14 +1,6 @@
 Android:
 
-07-01 07:26:53.933: I/pybridge(10998): Traceback (most recent call last):
-07-01 07:26:53.933: I/pybridge(10998):   File "/data/user/0/org.mnemosyne/assets/python/bootstrap.py", line 22, in router
-07-01 07:26:53.933: I/pybridge(10998):     res = function(values)
-07-01 07:26:53.933: I/pybridge(10998):   File "MNEMOSYNE_ANDROID\mnemosyne\android_python\mnemosyne_android.py", line 150, in review_controller_grade_answer
-07-01 07:26:53.933: I/pybridge(10998):   File "MNEMOSYNE_ANDROID\mnemosyne\libmnemosyne\review_controllers\SM2_controller.py", line 143, in grade_answer
-07-01 07:26:53.933: I/pybridge(10998): AttributeError: 'NoneType' object has no attribute 'grade'
-
 -look into fixes reported by dashboard
--check that port is not empty in OnActivityResult
 -check 'redraw now'
 -cramming widget for Android
 -setting to allow choosing the database location?

@@ -9,7 +9,7 @@ This might also help with other hard crashes.
 If this does not help, or if you see a black screen, try starting Mnemosyne
 with the --qt-opengl=desktop command line argument.)
 
-Mnemosyne 2.7.2:
+Mnemosyne 2.7.2: 2020-07-09
 
 - Wrap tag string so that it no longer stretches the application window.
 - Don't crash when using saved sets containing over 1000 tags (reported
