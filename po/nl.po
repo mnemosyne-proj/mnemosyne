@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: mnemosyne-proj\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2020-02-12 14:29+0100\n"
-"PO-Revision-Date: 2017-12-02 02:00+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2020-04-19 09:43+0000\n"
+"Last-Translator: Tom Feys <Unknown>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2020-02-17 06:04+0000\n"
-"X-Generator: Launchpad (build 19413b719a8df7423ab1390528edadce9e0e4aca)\n"
+"X-Launchpad-Export-Date: 2020-04-20 06:54+0000\n"
+"X-Generator: Launchpad (build 2e26c9bbd21cdca248baaea29aeffb920afcc32a)\n"
 
 #: ../mnemosyne/android_python/database_maintenance.py:14
 msgid ""
@@ -108,7 +108,7 @@ msgstr "Een andere kopie van Mnemosyne is nog actief."
 
 #: ../mnemosyne/libmnemosyne/__init__.py:441
 msgid "Continuing is impossible and will lead to data loss!"
-msgstr ""
+msgstr "Doorgaan is niet mogelijk en zou leiden tot gegevensverlies!"
 
 #: ../mnemosyne/libmnemosyne/__init__.py:522
 #: ../mnemosyne/libmnemosyne/__init__.py:535
@@ -126,14 +126,16 @@ msgid ""
 "If you are using a USB key, refer to the instructions on the website so as "
 "not to be affected by drive letter changes."
 msgstr ""
+"Als u een USB-stick gebruikt, bekijk de instructies op de website om niet te "
+"worden beïnvloed door verandering van de stationsletter."
 
 #: ../mnemosyne/libmnemosyne/card_types/M_sided.py:20
 msgid "M-sided"
-msgstr ""
+msgstr "M-zijde"
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:15
 msgid "Front-to-back and back-to-front"
-msgstr ""
+msgstr "Van voor naar achter en van achter naar voor."
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:18
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:16
@@ -148,16 +150,16 @@ msgstr "Achterzijde"
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:22
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:20
 msgid "Front-to-back"
-msgstr ""
+msgstr "Voor-naar-achter"
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:27
 msgid "Back-to-front"
-msgstr ""
+msgstr "Achter-naar-voor"
 
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:39
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:167
 msgid "Cloze deletion"
-msgstr ""
+msgstr "Sluit verwijdering"
 
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:41
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:56
@@ -166,7 +168,7 @@ msgstr "Tekst"
 
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:45
 msgid "Cloze"
-msgstr ""
+msgstr "Sluiten"
 
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:168
 msgid ""
@@ -181,15 +183,26 @@ msgid ""
 "You can also specify hints, e.g. [cloze:hint] will show\n"
 " [hint] in the question as opposed to [...]."
 msgstr ""
+"Een soort fiche met mogelijkheid om bepaalde fragmenten uit een tekst niet "
+"te vermelden.\n"
+"\n"
+"Bijvoorbeeld in de tekst \"De hoofdstak van [Frankrijk] is [Parijs]\", "
+"bezorgt je fiches met vragen \"De hoofdstad van Frankrijk is [...].\" en "
+"\"De hoofdstad van [...] is Parijs\".\n"
+"\n"
+"Het wijzigen van de tekst zal automatisch alle 'zusterfiches' aanpassen.\n"
+"\n"
+"Je kan ook hints aangeven, bv. [cloze:hint] zal weergeven [hint] in de vraag "
+"in tegenstelling tot [...]."
 
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:13
 msgid "Front-to-back only"
-msgstr ""
+msgstr "Enkel van begin-tot-eind."
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:16
 #: ../mnemosyne/libmnemosyne/card_types/map.py:51
 msgid "Map"
-msgstr ""
+msgstr "Kaart"
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:19
 msgid "Location"
@@ -197,11 +210,11 @@ msgstr "Locatie"
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:20
 msgid "Blank map"
-msgstr ""
+msgstr "Blinde kaart (lege kaart)"
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:21
 msgid "Marked map"
-msgstr ""
+msgstr "Kaart met aanduidingen/markeringen"
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:52
 msgid ""
@@ -210,12 +223,16 @@ msgid ""
 "Displays the answer map on top of the question map, rather than below it as "
 "a second map."
 msgstr ""
+"Een kaarttype om plaatsen te leren op een kaart.\n"
+"\n"
+"Toont de antwoordenkaart bovenop de kaart met vragen, in plaats van eronder "
+"als een tweede kaart."
 
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:30
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:33
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:94
 msgid "Sentence"
-msgstr ""
+msgstr "Zin"
 
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:34
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:19
@@ -230,7 +247,7 @@ msgstr "Betekenis"
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:36
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:21
 msgid "Notes"
-msgstr ""
+msgstr "Opmerkingen"
 
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:95
 msgid ""
