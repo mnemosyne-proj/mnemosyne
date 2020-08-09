@@ -10,7 +10,8 @@ If this does not help, or if you see a black screen, try starting Mnemosyne
 with the --qt-opengl=desktop command line argument.)
 
 
-- Add support for gTTS 2.x.
+- Add support for gTTS 2.1.x.
+- Upgraded to gTTS 2.1.1 and googletrans 3.0.0.
 - Added command line option --qt-scale-factor, to tweak the size on HDPI
   displays.
 
