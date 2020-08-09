@@ -1,4 +1,4 @@
-# Persian translation for mnemosyne-proj
+# Silesian translation for mnemosyne-proj
 # Copyright (c) 2017 Rosetta Contributors and Canonical Ltd 2017
 # This file is distributed under the same license as the mnemosyne-proj package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
@@ -10,11 +10,11 @@ msgstr ""
 "POT-Creation-Date: 2020-02-12 14:29+0100\n"
 "PO-Revision-Date: 2017-12-02 02:00+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Persian <fa@li.org>\n"
+"Language-Team: Silesian <szl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2020-02-17 06:04+0000\n"
+"X-Launchpad-Export-Date: 2020-02-17 06:05+0000\n"
 "X-Generator: Launchpad (build 19413b719a8df7423ab1390528edadce9e0e4aca)\n"
 
 #: ../mnemosyne/android_python/database_maintenance.py:14
@@ -33,39 +33,39 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:19
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:19
 msgid "Last week"
-msgstr "هفته‌ی قبل"
+msgstr ""
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:28
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:20
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:20
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:20
 msgid "Last month"
-msgstr "طی ماه قبل"
+msgstr ""
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:29
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:21
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:21
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:21
 msgid "Last 3 months"
-msgstr "طی ۳ ماه گذشته"
+msgstr ""
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:30
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:22
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:22
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:22
 msgid "Last 6 months"
-msgstr "طی ۶ ماه گذشته"
+msgstr ""
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:31
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:23
 #: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:23
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:23
 msgid "Last year"
-msgstr "طی سال گذشته"
+msgstr ""
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:61
 msgid "Average grades of scheduled cards"
-msgstr "نمره‌ی میانگین کارت‌های زمان‌بندی‌شده"
+msgstr ""
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:68
 #: ../mnemosyne/example_plugins/pie_chart_statistics.py:31
@@ -73,30 +73,30 @@ msgstr "نمره‌ی میانگین کارت‌های زمان‌بندی‌ش�
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:261
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:284
 msgid "No stats available."
-msgstr "آماری موجود نیست"
+msgstr ""
 
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:98
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:193
 msgid "Days"
-msgstr "روز"
+msgstr ""
 
 #: ../mnemosyne/example_plugins/new_card_type.py:13
 msgid "Vocabulary (decorated)"
-msgstr "لغت (با آرایش مخصوص)"
+msgstr ""
 
 #: ../mnemosyne/example_plugins/new_card_type.py:18
 #: ../mnemosyne/libmnemosyne/card_types/map.py:24
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:39
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:24
 msgid "Recognition"
-msgstr "تشخیص"
+msgstr ""
 
 #: ../mnemosyne/example_plugins/new_card_type.py:24
 #: ../mnemosyne/libmnemosyne/card_types/map.py:30
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:44
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:29
 msgid "Production"
-msgstr "تولید"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/__init__.py:428
 msgid "Command line argument is not a *.db file."
@@ -104,18 +104,18 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/__init__.py:440
 msgid "Another copy of Mnemosyne is still running."
-msgstr "نسخه دیگری از نموساین در حال اجرا می باشد."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/__init__.py:441
 msgid "Continuing is impossible and will lead to data loss!"
-msgstr "ادامه دادن غیرممکن بوده و منجر به از دست دادن داده ها می گردد."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/__init__.py:522
 #: ../mnemosyne/libmnemosyne/__init__.py:535
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:930
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1140
 msgid "Error when running plugin:"
-msgstr "خطا در زمان اجرای افزونه"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/__init__.py:550
 msgid "Previous drive letter no longer available."
@@ -133,40 +133,40 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:15
 msgid "Front-to-back and back-to-front"
-msgstr "رو-به-پشت و پشت-به-رو"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:18
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:16
 msgid "Front"
-msgstr "رو"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:19
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:17
 msgid "Back"
-msgstr "پشت"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:22
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:20
 msgid "Front-to-back"
-msgstr "رو-به-پشت"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:27
 msgid "Back-to-front"
-msgstr "پشت-به-رو"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:39
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:167
 msgid "Cloze deletion"
-msgstr "جاخالی"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:41
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:56
 msgid "Text"
-msgstr "متن‌"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:45
 msgid "Cloze"
-msgstr "جاخالی"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/cloze.py:168
 msgid ""
@@ -184,24 +184,24 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/front_to_back.py:13
 msgid "Front-to-back only"
-msgstr "فقط رو-به-پشت"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:16
 #: ../mnemosyne/libmnemosyne/card_types/map.py:51
 msgid "Map"
-msgstr "نقشه"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:19
 msgid "Location"
-msgstr "موقعیت"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:20
 msgid "Blank map"
-msgstr "نقشه خالی"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:21
 msgid "Marked map"
-msgstr "نقشه علامت‌خورده"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/map.py:52
 msgid ""
@@ -210,31 +210,27 @@ msgid ""
 "Displays the answer map on top of the question map, rather than below it as "
 "a second map."
 msgstr ""
-"نوعی کارت برای یادگیری مکان‌ها روی نقشه\n"
-"\n"
-"نقشه‌ی جواب، در بالای نقشه‌ی سوال نمایش داده می‌شود تا اینکه در زیر آن به "
-"عنوان نقشه‌ی دوم قرار گیرد."
 
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:30
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:33
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:94
 msgid "Sentence"
-msgstr "جمله"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:34
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:19
 msgid "Pronunciation"
-msgstr "تلفظ"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:35
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:20
 msgid "Meaning"
-msgstr "معنی"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:36
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:21
 msgid "Notes"
-msgstr "توضیحات"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/sentence.py:95
 msgid ""
@@ -248,7 +244,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:15
 msgid "Vocabulary"
-msgstr "لغت"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:18
 msgid "Foreign word or phrase"
@@ -256,7 +252,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/configuration.py:446
 msgid "Error in config.py:"
-msgstr "در فایل «config.py» اشکال وجود دارد"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:85
 msgid "No need to do database maintenance more than once per month."
@@ -271,33 +267,31 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/main_wdgt.py:113 ../mnemosyne/pyqt_ui/main_wdgt.py:147
 #: ../mnemosyne/pyqt_ui/tip_after_starting_n_times.py:31
 msgid "Mnemosyne"
-msgstr "(Mnemosyne) نموساین"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:174
 msgid "Identical card is already in database."
-msgstr "درحال حاضر کارت مشابهی در پایگاه داده وجود دارد."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:175
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:199
 msgid "&Add anyway"
-msgstr "در هر حال اضافه کن"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:175
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:199
 msgid "&Do not add"
-msgstr "اضافه نکن"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:179
 msgid ""
 "There is already data present for this card:\n"
 "\n"
 msgstr ""
-"قبلا برای این کارت اطلاعات وارد شده است:\n"
-"\n"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:199
 msgid "&Merge and edit"
-msgstr "ادغام و ویرایش"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:293
 msgid ""
@@ -308,11 +302,11 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:326
 msgid "Can't preserve history when converting between these card types."
-msgstr "هنگام تبدیل این مدل کارت‌ها تاریخچه را نمی‌توان نگه داشت."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:327
 msgid "The learning history of the cards will be reset."
-msgstr "تاریخچه یادگیری کارت ها به حالت اولیه برگردانده خواهد شد."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:328
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:362
@@ -339,7 +333,7 @@ msgstr "تاریخچه یادگیری کارت ها به حالت اولیه ب�
 #: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:52
 #: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:90
 msgid "&Cancel"
-msgstr "انصراف"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:328
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:122
@@ -372,17 +366,17 @@ msgstr "انصراف"
 #: ../mnemosyne/pyqt_ui/ui_statistics_dlg.py:45
 #: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:89
 msgid "&OK"
-msgstr "خوب"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:359
 msgid "This will delete cards and their history."
-msgstr "این امر، کارت ها و تاریخچه آنها را پاک می کند."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:360
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:503
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:508
 msgid "Are you sure you want to do this,"
-msgstr "آیا از انجام این کار مطمئن هستید،"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:361
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:504
@@ -392,7 +386,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:362
 msgid "&Proceed and delete"
-msgstr "ادامه بده و پاک کن"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:424
 msgid ""
@@ -410,7 +404,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:449
 msgid "Converting cards..."
-msgstr "درحال تبدیل کارت ها ..."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:479
 msgid ""
@@ -424,19 +418,19 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:500
 msgid "Delete this card?"
-msgstr "این کارت را پاک کن؟"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:502
 msgid "Delete this card and 1 sister card?"
-msgstr "این کارت و خواهر این کارت پاک شود؟"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:506
 msgid "Delete this card and"
-msgstr "این کارت را حدف کن و"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:507
 msgid "sister cards?"
-msgstr "کارت‌های خواهر؟"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:511
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:443
@@ -444,35 +438,35 @@ msgstr "کارت‌های خواهر؟"
 #: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:88
 #: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:92
 msgid "&Delete"
-msgstr "حذف کن"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:525
 msgid "Deleting cards..."
-msgstr "درحال حذف کارت ها ..."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:537
 msgid "Checking for unused tags..."
-msgstr "درحال بررسی برچسب های بلا استفاده ..."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:552
 msgid "Card type name already exists."
-msgstr "این مدل کارت از قبل وجود داشت."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:572
 msgid "Card type %s is in use or is a system card type, cannot delete it."
-msgstr "مدل کارت %s در حال استفاده است یا کارت سیستم است، نمی‌تواند پاک شود."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:577
 msgid "Card type %s has clones, cannot delete it."
-msgstr "مدل کارت %s دو قلو است، نمی‌تواند پاک شود."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:592
 msgid "Cannot rename a system card type."
-msgstr "نمی‌توان کارت سیستم را تغییر نام داد."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:597
 msgid "This card type name is already in use."
-msgstr "در حال حاضر این اسم برای نوع کارت، در حال استفاده می باشد."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:604
 msgid ""
@@ -485,15 +479,15 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:645
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:722
 msgid "Mnemosyne databases"
-msgstr "پایگاه های داده نموساین"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:616
 msgid "New"
-msgstr "جدید"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:622
 msgid "Creating new database..."
-msgstr "درحال ایجاد پایگاه داده جدید..."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:652
 msgid ""
@@ -519,14 +513,14 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1181
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 msgid "No"
-msgstr "خیر"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:663
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:609
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1181
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 msgid "Yes"
-msgstr "بلی"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:701
 msgid ""
@@ -544,35 +538,35 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:775
 msgid "Image files"
-msgstr "فایل های تصویری"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:777
 msgid "Insert image"
-msgstr "درج تصویر"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:790
 msgid "Sound files"
-msgstr "فایل های صوتی"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:792
 msgid "Insert sound"
-msgstr "درج صوت"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:805
 msgid "Video files"
-msgstr "فایل های ویدیویی"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:807
 msgid "Insert video"
-msgstr "درج ویدیو"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:820
 msgid "Flash files"
-msgstr "فایل های فلش"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:822
 msgid "Insert Flash"
-msgstr "درج فایل فلش"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:863
 msgid ""
@@ -584,23 +578,23 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:882
 msgid "Install plugin"
-msgstr "نصب افزونه"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:882
 msgid "Plugins"
-msgstr "افزونه ها"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:907
 msgid "No plugin found!"
-msgstr "افزونه ای یافت نشد!"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:1062
 msgid "For instructions on how to download Mnemosyne's source,"
-msgstr "به منظور راهنمایی برای چگونگی دانلود منبع نموساین،"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:1063
 msgid "go to http://www.mnemosyne-proj.org"
-msgstr "به آدرس http://www.mnemosyne-proj.org مراجعه کنید."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/database.py:357
 #: ../mnemosyne/pyqt_ui/compact_database_dlg.py:71
@@ -625,7 +619,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:379
 msgid "Unable to load file."
-msgstr "قادر به قراخوانی فایل نیست."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:415
 msgid ""
@@ -635,7 +629,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:444
 msgid "Warning: backup creation failed for"
-msgstr "هشدار: ایجاد پشتیبان ناموفق بود"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:608
 msgid "Make tag '%s' active in saved set '%s'?"
@@ -651,7 +645,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1423
 msgid "No duplicates found."
-msgstr "هیچ کارت تکراری یافت نشد."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1426
 msgid "Found %d duplicate cards. They have been given the tag 'DUPLICATE'."
@@ -659,7 +653,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1432
 msgid "DUPLICATE"
-msgstr "تکراری"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite_logging.py:351
 msgid "Merging logs..."
@@ -684,8 +678,6 @@ msgid ""
 "Media filename rather long. This could cause problems using this file on a "
 "different OS."
 msgstr ""
-"نام فایل مدیا نسبتاً طولانی می باشد. این موضوع می تواند منجر به ایجاد مشکل "
-"در استفاده از این فایل بر روی سیستم عامل های مختلف گردد."
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:149
 msgid ""
@@ -694,7 +686,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:153
 msgid "Missing media file!"
-msgstr "مفقود شدن فایل مدیا!"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite_sync.py:123
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:233
@@ -723,8 +715,6 @@ msgid ""
 "Putting a database on a network drive is forbidden under Windows to avoid "
 "data corruption. Mnemosyne will now close."
 msgstr ""
-"به دلیل اجتناب از تخریب داده، قرار دادن پایگاه داده بر روی درایو شبکه در "
-"ویندوز  ممنوع می باشد. نموساین بسته خواهد شد."
 
 #: ../mnemosyne/libmnemosyne/file_formats/anki2.py:43
 msgid "Anki2 collections"
@@ -1627,13 +1617,13 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
 msgid ""
 "Correct answer, with some effort. The interval was probably just right."
-msgstr "پاسخ صحیح٬ با سعی اندک. وقفه احتمالا عادی بود."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:41
 msgid ""
 "Correct answer, but without any difficulties. The interval was probably too "
 "short."
-msgstr "پاسخ صحیح٬ اما بدون هیچ گونه مشکلی. وقفه احتمالا خیلی کوتاه بود."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:112
 msgid ""
@@ -1660,23 +1650,23 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:162
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:34
 msgid " day(s)."
-msgstr " .روز"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:166
 msgid "Next repetition: today."
-msgstr ".مرور بعدی: امروز"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:168
 msgid "Next repetition: tomorrow."
-msgstr ".مرور بعدی: فردا"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:170
 msgid " days."
-msgstr " روز بعد."
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:170
 msgid "Next repetition in "
-msgstr "مرور بعدی در "
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:216
 #: ../mnemosyne/pyqt_ui/preview_cards_dlg.py:67
@@ -1687,20 +1677,20 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:255
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:258
 msgid "Show answer"
-msgstr "پاسخ را نشان بده"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:262
 msgid "Learn ahead of schedule"
-msgstr "یادگیری جلوتر از برنامه‌ریزی"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:281
 msgid "Pick days until next repetition:"
-msgstr "روزهای قبل از مرور بعدی را انتخاب کنید:"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:283
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:107
 msgid "Grade your answer:"
-msgstr "مرتبه پاسخ خود را مشخص کنید:"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/scheduler.py:206
 #: ../mnemosyne/libmnemosyne/scheduler.py:210
@@ -1873,7 +1863,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/statistics_pages/grades.py:12
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:266
 msgid "Grades"
-msgstr "رتبه‌ها"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:11
 msgid "Retention score"
@@ -1881,7 +1871,7 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:11
 msgid "Schedule"
-msgstr "زمان‌بندی"
+msgstr ""
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/schedule.py:24
 msgid "Next week (active cards only)"
@@ -2082,7 +2072,7 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:290
 msgid "Abandon current card?"
-msgstr "کارت فعلی را رها کن؟"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:290
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:245
@@ -2091,7 +2081,7 @@ msgstr "کارت فعلی را رها کن؟"
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:224
 msgid "&No"
-msgstr "خیر"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:290
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:245
@@ -2100,7 +2090,7 @@ msgstr "خیر"
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:51
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:224
 msgid "&Yes"
-msgstr "بله"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:119
 msgid "Yet to learn"
@@ -2172,14 +2162,14 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:435
 #: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:90
 msgid "&Edit"
-msgstr "ویرایش"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:439
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:116
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:136
 #: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:79
 msgid "&Preview"
-msgstr "پیش نمایش"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:448
 msgid "Change card &type"
@@ -2207,11 +2197,11 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:724
 msgid "Answer"
-msgstr "پاسخ"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:724
 msgid "Question"
-msgstr "پرسش"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:725
 msgid "Next rep"
@@ -2499,7 +2489,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:39
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:229
 msgid "Ctrl+S"
-msgstr "Ctrl+S"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:40
 msgid "Insert vi&deo"
@@ -2508,7 +2498,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:41
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:212
 msgid "Ctrl+D"
-msgstr "Ctrl+D"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:42
 msgid "Insert &Flash"
@@ -2833,7 +2823,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/ui_about_dlg.py:85
 #: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:110
 msgid "Alt+C"
-msgstr "Alt+C"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:78
 msgid "(De)activate cards"
@@ -2866,7 +2856,7 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:105
 msgid "Select initial grade:"
-msgstr "رتبه اولیه را انتخاب کنید:"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:106
 msgid "You have yet to learn this."
@@ -2882,7 +2872,7 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:109
 msgid "&2"
-msgstr "۲"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:110
 msgid "You know this, but not very well."
@@ -2890,7 +2880,7 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:111
 msgid "&3"
-msgstr "۳"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:112
 msgid "You know this."
@@ -2898,7 +2888,7 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:113
 msgid "&4"
-msgstr "۴"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:114
 msgid "You know this very well."
@@ -2906,7 +2896,7 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:115
 msgid "&5"
-msgstr "۵"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:117
 #: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:80
@@ -3022,7 +3012,7 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:133
 msgid "Increase size of non-latin characters by"
-msgstr "سایز فونت‌های غیر لاتین را به این میزان افزایش بده"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:134
 msgid "points."
@@ -3256,7 +3246,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/ui_export_dlg.py:82
 #: ../mnemosyne/pyqt_ui/ui_import_dlg.py:88
 msgid "File format:"
-msgstr "فرمت فایل:"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_export_dlg.py:83
 msgid "File to export to:"
@@ -3265,7 +3255,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/ui_export_dlg.py:84
 #: ../mnemosyne/pyqt_ui/ui_import_dlg.py:90
 msgid "&Browse"
-msgstr "جستجو"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_export_dlg.py:85
 msgid "(Only active cards will be exported, without learning data.)"
@@ -3274,7 +3264,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/ui_export_dlg.py:87
 #: ../mnemosyne/pyqt_ui/ui_import_dlg.py:93
 msgid "Alt+O"
-msgstr "Alt+O"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:92
 msgid "Export cards"
@@ -3306,7 +3296,7 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:84
 msgid "Introduction"
-msgstr "مقدمه"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:85
 msgid ""
@@ -3372,7 +3362,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:90
 #: ../mnemosyne/pyqt_ui/ui_statistics_dlg.py:44
 msgid "Statistics"
-msgstr "آمار"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:91
 msgid ""
@@ -3392,7 +3382,7 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:93
 msgid "Ready to start"
-msgstr "آماده برای شروع"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:94
 msgid ""
@@ -3417,7 +3407,7 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_import_dlg.py:89
 msgid "File to import from:"
-msgstr "فایلی که از آن اطلاعات را وارد می‌کنید:"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_import_dlg.py:91
 msgid "Add additional tag(s) to cards:"
@@ -3425,15 +3415,15 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:205
 msgid "&Settings"
-msgstr "تنظیمات"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:206
 msgid "&Help"
-msgstr "کمک"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:207
 msgid "&File"
-msgstr "فایل"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:208
 msgid "&Cards"
@@ -3457,7 +3447,7 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:214
 msgid "Ctrl+A"
-msgstr "Ctrl+A"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:215
 msgid "&Configure Mnemosyne..."
@@ -3465,7 +3455,7 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:216
 msgid "&Delete current card"
-msgstr "حذف همین کارت"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:217
 msgid "Del"
@@ -3477,7 +3467,7 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:219
 msgid "Ctrl+E"
-msgstr "Ctrl+E"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:220
 msgid "&Browse cards..."
@@ -3494,7 +3484,7 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:223
 #: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:72
 msgid "E&xit"
-msgstr "خروج"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:224
 msgid "&New..."
@@ -3502,19 +3492,19 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:225
 msgid "Ctrl+N"
-msgstr "Ctrl+N"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:226
 msgid "&Open..."
-msgstr "...باز کردن"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:227
 msgid "Ctrl+O"
-msgstr "Ctrl+O"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:228
 msgid "&Save"
-msgstr "ذخیره"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:230
 msgid "Save &as..."
@@ -3522,7 +3512,7 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:231
 msgid "&About"
-msgstr "درباره"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:232
 msgid "&Import..."
@@ -3530,7 +3520,7 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:233
 msgid "&Getting started"
-msgstr "آشنا شدن با برنامه"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:234
 msgid "Show s&tatistics..."
@@ -3538,11 +3528,11 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:235
 msgid "Ctrl+T"
-msgstr "Ctrl+T"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:236
 msgid "&Tip of the day"
-msgstr "نکته روز"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:237
 msgid "Manage &plugins..."
@@ -3620,13 +3610,13 @@ msgstr ""
 #: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:94
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:104
 msgid "Question:"
-msgstr "پرسش:"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:95
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:105
 #: ../mnemosyne/web_server/review_wdgt.py:32
 msgid "Answer:"
-msgstr "پاسخ:"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:96
 msgid "&Previous sister card"
@@ -3692,31 +3682,31 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:106
 msgid "Show &answer"
-msgstr "پاسخ را نشان بده"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:108
 msgid "0"
-msgstr "۰"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:109
 msgid "1"
-msgstr "۱"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:110
 msgid "2"
-msgstr "۲"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:111
 msgid "3"
-msgstr "۳"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:112
 msgid "4"
-msgstr "۴"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:113
 msgid "5"
-msgstr "۵"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:83
 msgid "Sync with server"
@@ -3736,35 +3726,35 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:102
 msgid "<b>Did you know...?</b>"
-msgstr "آیا می‌دانستید...؟"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:103
 msgid "&Show tips on startup"
-msgstr "نکته‌ها را هنگام شروع برنامه نشان بده"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:104
 msgid "Alt+S"
-msgstr "Alt+S"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:105
 msgid "&Previous"
-msgstr "قبلی"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:106
 msgid "Alt+P"
-msgstr "Alt+P"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:107
 msgid "&Next"
-msgstr "بعدی"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:108
 msgid "Alt+N"
-msgstr "Alt+N"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:109
 msgid "&Close"
-msgstr "بستن"
+msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:69
 msgid "Translate"
@@ -3985,12 +3975,12 @@ msgstr ""
 
 #: ../tests/benchmark_pyqt.py:30
 msgid "data directory"
-msgstr "دایرکتوری داده‌ها"
+msgstr ""
 
 #: ../tests/test_gui_translator.py:25
 msgid "foo"
-msgstr "فوو"
+msgstr ""
 
 #: ../tests/test_gui_translator.py:32
 msgid "This is a test."
-msgstr "این یک تست است"
+msgstr ""
