@@ -31,7 +31,7 @@ class GooglePronouncer(Pronouncer):
         if not language_id:
             language_id = self.config().card_type_property(\
                 "language_id", card_type)
-        tts = gTTS(foreign_text, language_id)
+        tts = gTTS(foreign_text, lang=language_id)
         filename = expand_path("__GTTS__TMP__.mp3", self.database().media_dir())
         tts.save(filename)
         return filename
