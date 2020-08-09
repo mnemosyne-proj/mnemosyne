@@ -61,6 +61,8 @@ parser.add_option("--sync-server", dest="sync_server",
 parser.add_option("--disable-high-dpi-scaling", dest="high_dpi_scaling",
     action="store_false", help="disable scaling for high-resolution displays",
     default=True)
+parser.add_option("--qt-scale-factor", dest="qt_scale_factor", type="string",
+    action="store", default=None)
 parser.add_option("--qt-opengl", dest="qt_opengl", type="string", action="store",
     help="OpenGL implementation to be used by Qt ('desktop', 'angle', 'software')",
     default=None)
@@ -141,6 +143,9 @@ if options.web_server == True or options.sync_server == True:
     sys.exit(0)
 
 # Initialise GUI toolkit.
+
+if options.qt_scale_factor:
+    os.environ["QT_SCALE_FACTOR"] = options.qt_scale_factor
 
 from PyQt5 import QtWebEngineWidgets  # Needs to happen first for some reason.
 from PyQt5.QtWidgets import QApplication
