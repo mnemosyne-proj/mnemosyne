@@ -34,7 +34,7 @@ class GoogleCloudPronouncer(Pronouncer):
                 "language_id", card_type)
 
         client = texttospeech.TextToSpeechClient()
-        synthesis_input = texttospeech.types.SynthesisInput(text=foreign_text)
+        synthesis_input = texttospeech.types.SynthesisInput(ssml=foreign_text)
         voice = texttospeech.types.VoiceSelectionParams(
             language_code=language_id,
             ssml_gender=texttospeech.enums.SsmlVoiceGender.FEMALE)
