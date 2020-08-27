@@ -27,7 +27,7 @@ class Pronouncer(Component):
     def default_filename(self, card_type, foreign_text):
         if foreign_text.count(" ") <= 1:
             filename = foreign_text.replace("?", "").replace("/", "")\
-                .replace("\\", "") + ".mp3"
+                .replace("\\", "").replace("\n", "") + ".mp3"
         else:
             filename = datetime.datetime.today().strftime("%Y%m%d.mp3")
         local_dir = self.config()["tts_dir_for_card_type_id"]\

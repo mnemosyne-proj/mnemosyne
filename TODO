@@ -1,5 +1,9 @@
+- pg down in browser when showing only production cards
+
 Android:
 
+- targetSdkVersion  29
+- better way to use sdcard
 -look into fixes reported by dashboard
 -check 'redraw now'
 -cramming widget for Android
