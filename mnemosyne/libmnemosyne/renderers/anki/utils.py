@@ -18,7 +18,7 @@ import platform
 import traceback
 import json
 
-from anki.lang import _, ngettext
+from .lang import _, ngettext
 
 # Time handling
 ##############################################################################

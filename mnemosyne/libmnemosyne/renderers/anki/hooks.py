@@ -13,7 +13,7 @@ If you call wrap() with pos='around', the original function will not be called
 automatically but can be called with _old().
 """
 
-import anki.decorator
+from .decorator import decorator
 
 # Hooks
 ##############################################################################

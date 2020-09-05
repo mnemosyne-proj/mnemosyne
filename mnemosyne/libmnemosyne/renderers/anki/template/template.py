@@ -1,8 +1,8 @@
 import re
-from anki.utils import stripHTML, stripHTMLMedia
-from anki.hooks import runFilter
-from anki.template import furigana; furigana.install()
-from anki.template import hint; hint.install()
+from ..utils import stripHTML, stripHTMLMedia
+from ..hooks import runFilter
+from .furigana import install as furigana_install; furigana_install()
+from .hint import install as hint_install; hint_install()
 
 clozeReg = r"(?s)\{\{c%s::(.*?)(::(.*?))?\}\}"
 
