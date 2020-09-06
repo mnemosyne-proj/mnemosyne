@@ -537,23 +537,27 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         self.edit_dlg.page_up_down_signal.disconnect(self.page_up_down_edit)
 
     def page_up_down_edit(self, up_down):
+        current_index = self.table.selectionModel().selectedRows()[0]
         current_row = self.table.selectionModel().selectedRows()[0].row()
+        model = current_index.model()
         if up_down == self.edit_dlg.UP:
             shift = -1
         elif up_down == self.edit_dlg.DOWN:
             shift = 1
-        new_row = current_row + shift
-        self.table.selectRow(new_row)
-        _card_ids = self._card_ids_from_selection()
+        if current_row + shift < 0 or current_row + shift >= model.rowCount():
+            return
+        next__card_id_index = model.index(\
+            current_row+shift, _ID, current_index.parent())
+        next__card_id = model.data(next__card_id_index)
+        self.table.selectRow(current_row + shift)
         self.edit_dlg.before_apply_hook = self.unload_qt_database
         def after_apply():
             self.load_qt_database()
             self.display_card_table()
-            self.table.selectRow(new_row)
         self.edit_dlg.after_apply_hook = after_apply
         self.edit_dlg.apply_changes()
         # Reload card to make sure the changes are picked up.
-        card = self.database().card(_card_ids.pop(), is_id_internal=True)
+        card = self.database().card(next__card_id, is_id_internal=True)
         self.edit_dlg.set_new_card(card)
 
     def menu_preview(self):
