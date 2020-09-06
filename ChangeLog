@@ -12,6 +12,7 @@ with the --qt-opengl=desktop command line argument.)
 
 - Don't crash when saving text-to-speech containing linebreaks.
 - Updated translations.
+- More robust importing under Linux.
 - Add support for gTTS 2.1.x.
 - Upgraded to gTTS 2.1.1 and googletrans 3.0.0.
 - Added command line option --qt-scale-factor, to tweak the size on HDPI

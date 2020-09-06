@@ -542,12 +542,14 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
             shift = -1
         elif up_down == self.edit_dlg.DOWN:
             shift = 1
-        self.table.selectRow(current_row + shift)
+        new_row = current_row + shift
+        self.table.selectRow(new_row)
         _card_ids = self._card_ids_from_selection()
         self.edit_dlg.before_apply_hook = self.unload_qt_database
         def after_apply():
             self.load_qt_database()
             self.display_card_table()
+            self.table.selectRow(new_row)
         self.edit_dlg.after_apply_hook = after_apply
         self.edit_dlg.apply_changes()
         # Reload card to make sure the changes are picked up.

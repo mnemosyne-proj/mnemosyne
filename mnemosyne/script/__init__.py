@@ -32,7 +32,7 @@ class ScriptMainWidget(MainWidget):
 
 class Mnemosyne(MnemosyneParent):
 
-    def __init__(self, data_dir=None):
+    def __init__(self, data_dir=None, filename=None):
         MnemosyneParent.__init__(self, upload_science_logs=False,
             interested_in_old_reps=True)
         self.components.insert(0,
@@ -46,4 +46,5 @@ class Mnemosyne(MnemosyneParent):
             [("mnemosyne.script", "ScriptReviewWidget")]
         if data_dir is not None:
             data_dir = os.path.abspath(data_dir)
-        self.initialise(data_dir)
+        self.initialise(data_dir, filename=filename)
+
