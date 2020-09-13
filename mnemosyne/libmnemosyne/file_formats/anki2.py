@@ -143,10 +143,10 @@ class Anki2(FileFormat, MediaPreprocessor):
                 card_type.id = card_type_id
                 card_type.hidden_from_UI = False
                 card_type_for_mid[int(mid)] = card_type
-                vers = models[mid]["vers"] # Version, ignore.
-                tags = models[mid]["tags"] # Seems empty, ignore.
-                did = models[mid]["did"] # Deck id, ignore.
-                usn = models[mid]["usn"] # Syncing related, ignore.
+                #vers = models[mid]["vers"] # Optional version, ignore.
+                #tags = models[mid]["tags"] # Seems empty, ignore.
+                #did = models[mid]["did"] # Deck id, ignore.
+                #usn = models[mid]["usn"] # Syncing related, ignore.
                 if "req" in models[mid]:
                     required = models[mid]["req"]
                     # Cache for a calculation to determine which fields are
@@ -160,14 +160,14 @@ class Anki2(FileFormat, MediaPreprocessor):
                 for field in flds:
                     card_type.fact_keys_and_names.append(\
                         (str(field["ord"]), field["name"]))
-                    media = field["media"] # Reserved for future use, ignore.
-                    sticky = field["sticky"] # Sticky field, ignore.
-                    rtl = field["rtl"] # Text direction, ignore.
+                    #media = field["media"] # Reserved for future use, ignore.
+                    #sticky = field["sticky"] # Sticky field, ignore.
+                    #rtl = field["rtl"] # Text direction, ignore.
                     font_string = field["font"] + "," + str(field["size"]) + \
                         ",-1,5,50,0,0,0,0,0,Regular"
                     self.config().set_card_type_property("font", font_string,
                         card_type, str(field["ord"]))
-                sortf = models[mid]["sortf"] # Sorting field, ignore.
+                #sortf = models[mid]["sortf"] # Sorting field, ignore.
                 tmpls = models[mid]["tmpls"]
                 tmpls.sort(key=lambda x : x["ord"])
                 # Fact views.
@@ -187,18 +187,18 @@ class Anki2(FileFormat, MediaPreprocessor):
                     fact_view.extra_data["bqfmt"] = template["bqfmt"]
                     fact_view.extra_data["bafmt"] = template["bafmt"]
                     fact_view.extra_data["ord"] = template["ord"]
-                    did = template["did"] # Deck id, ignore.
+                    #did = template["did"] # Deck id, ignore.
                     card_type.fact_views.append(fact_view)
                     if fact_view_already_imported:
                         db.update_fact_view(fact_view)
                     else:
                         db.add_fact_view(fact_view)
-                mod = models[mid]["mod"] # Modification time, ignore.
+                #mod = models[mid]["mod"] # Modification time, ignore.
                 type_ = models[mid]["type"] # 0: standard, 1 cloze
                 id = models[mid]["id"]
                 css = models[mid]["css"]
-                latex_preamble = models[mid]["latexPre"] # Ignore.
-                latex_postamble = models[mid]["latexPost"] # Ignore.
+                #latex_preamble = models[mid]["latexPre"] # Ignore.
+                #latex_postamble = models[mid]["latexPost"] # Ignore.
                 # Save to database.
                 card_type.extra_data = {"css":css, "id":id, "type":type_}
                 if card_type_already_imported:
