@@ -184,7 +184,7 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
         # Create dictionary with fact.data.
         fact_data = {}
         query = QtSql.QSqlQuery(\
-           "select key, value from data_for_fact where _fact_id=%d" % (_id, ))
+            "select key, value from data_for_fact where _fact_id=%d" % (_id, ))
         query.next()
         while query.isValid():
             fact_data[query.value(0)] = query.value(1)
@@ -341,7 +341,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         21 : _("In the search box, you can use SQL wildcards like _ (matching a single character) and % (matching one or more characters)."),
         24 : _("Cards with strike-through text are inactive in the current set.")}
 
-    def __init__(self, **kwds):
+    def __init__(self, **kwds):        
         super().__init__(**kwds)
         self.show_tip_after_starting_n_times()
         self.setupUi(self)
@@ -349,7 +349,8 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
             | QtCore.Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowContextHelpButtonHint)
-        self.saved_index = None
+        self.saved_row = None
+        self.selected_rows = []
         self.card_model = None
         # Set up card type tree.
         self.container_1 = QtWidgets.QWidget(self.splitter_1)
@@ -513,7 +514,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
             _card_ids.add(_card_id)
         return _card_ids
 
-    def menu_edit(self, index=None):
+    def menu_edit(self, index=None):            
         # 'index' gets passed if this function gets called through the
         # table.doubleClicked event.
         _card_ids = self._card_ids_from_selection()
@@ -547,9 +548,10 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         if current_row + shift < 0 or current_row + shift >= model.rowCount():
             return
         next__card_id_index = model.index(\
-            current_row+shift, _ID, current_index.parent())
+            current_row + shift, _ID, current_index.parent())
         next__card_id = model.data(next__card_id_index)
         self.table.selectRow(current_row + shift)
+        del model; del current_index # Otherwise we cannot release the database.
         self.edit_dlg.before_apply_hook = self.unload_qt_database
         def after_apply():
             self.load_qt_database()
@@ -559,7 +561,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         # Reload card to make sure the changes are picked up.
         card = self.database().card(next__card_id, is_id_internal=True)
         self.edit_dlg.set_new_card(card)
-
+            
     def menu_preview(self):
         from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
         cards = self.sister_cards_from_single_selection()
@@ -576,11 +578,15 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
 
     def page_up_down_preview(self, up_down):
         from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
+        current_index = self.table.selectionModel().selectedRows()[0]
         current_row = self.table.selectionModel().selectedRows()[0].row()
+        model = current_index.model()
         if up_down == PreviewCardsDlg.UP:
             shift = -1
         elif up_down == PreviewCardsDlg.DOWN:
             shift = 1
+        if current_row + shift < 0 or current_row + shift >= model.rowCount():
+            return        
         self.table.selectRow(current_row + shift)
         self.preview_dlg.index = 0
         self.preview_dlg.cards = self.sister_cards_from_single_selection()
@@ -603,13 +609,13 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         for _fact_id in _fact_ids:
             facts.append(self.database().fact(_fact_id, is_id_internal=True))
         self.unload_qt_database()
-        self.saved_selection = []
+        self.selected_rows = []
         self.controller().delete_facts_and_their_cards(facts)
         self.card_type_tree_wdgt.rebuild()
         self.tag_tree_wdgt.rebuild()
         self.load_qt_database()
         self.display_card_table()
-
+        
     def menu_change_card_type(self):
         # Test if all selected cards have the same card type.
         current_card_type_ids = set()
@@ -701,7 +707,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         self.load_qt_database()
         self.display_card_table()
 
-    def load_qt_database(self):
+    def load_qt_database(self):        
         self.database().release_connection()
         qt_db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
         qt_db.setDatabaseName(self.database().path())
@@ -714,13 +720,15 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         # Don't save state twice when closing dialog.
         if self.card_model is None:
             return
-        self.saved_index = self.table.indexAt(QtCore.QPoint(0,0))
-        self.saved_selection = self.table.selectionModel().selectedRows()
+        self.saved_row = self.table.indexAt(QtCore.QPoint(0,0)).row()
+        self.selected_rows = [index.row() for index in \
+                self.table.selectionModel().selectedRows()]
         self.config()["browse_cards_dlg_table_settings"] \
             = self.table.horizontalHeader().saveState()
         self.table.setModel(QtGui.QStandardItemModel())
         del self.card_model
         self.card_model = None
+        import gc; gc.collect()
         QtSql.QSqlDatabase.removeDatabase(\
             QtSql.QSqlDatabase.database().connectionName())
 
@@ -766,24 +774,23 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         self.tag_count = query.value(0)
         if run_filter:
             self.update_filter() # Needed after tag rename.
-        if self.saved_index:
+        if self.saved_row:
             # All of the statements below are needed.
-            # Qt does not (yet) seem to allow to restore the previous column
-            # correctly.
-            self.saved_index = self.card_model.index(self.saved_index.row(),
-                self.saved_index.column())
-            self.table.scrollTo(self.saved_index)
-            self.table.scrollTo(self.saved_index,
+            saved_index = self.card_model.index(self.saved_row, QUESTION)
+            self.table.scrollTo(saved_index)
+            self.table.scrollTo(saved_index,
                 QtWidgets.QAbstractItemView.PositionAtTop)
+        if self.selected_rows:
             # Restore selection.
             old_selection_mode = self.table.selectionMode()
             self.table.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)
             # Note that there seem to be serious Qt preformance problems with
             # selectRow, so we only do this for a small number of rows.
-            if len(self.saved_selection) < 10:
-                for index in self.saved_selection:
-                    self.table.selectRow(index.row())
-            self.table.setSelectionMode(old_selection_mode)
+            if len(self.selected_rows) < 10:
+                for row in self.selected_rows:
+                    self.table.selectRow(row)
+            self.table.setSelectionMode(\
+                QtWidgets.QAbstractItemView.ExtendedSelection)
 
     def reload_database_and_redraw(self):
         self.load_qt_database()
