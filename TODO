@@ -1,4 +1,4 @@
-- pg down in browser when showing only production cards
+add/remove_tag_from_cards_with_internal_ids: call update card to update the criteria
 
 Android:
 
@@ -23,10 +23,14 @@ Android:
 
 Minor bugs / issues:
 
+- no sync conflicts between edit and review
+- renaming saved sets only changing case does not work.
 - datetime.datetime.now() does not seem to respect DST inside Mnemosyne, but it does work in a standalone Python programme.
 -saving of folded tree state also from 'activate cards' dialog
 -upgrade pyinstaller if this issues is fixed:
 https://stackoverflow.com/questions/57517371/matplotlibdeprecationwarning-with-pyinstaller-exe (used option 2 as a workaround)
+-upgrade to Python 3.8 if this is fixed:
+https://github.com/pyinstaller/pyinstaller/milestone/22
 -test speed of new cheroot
 -editing a tag by clicking in the tree does not get saved
 - wheelock anki deck:
@@ -38,6 +42,10 @@ https://stackoverflow.com/questions/57517371/matplotlibdeprecationwarning-with-p
 -Are the configuration settings properly synced?
 -Delete current card which is sentence card with only a sentence field does not
  seem to work.
+-when saving the position and the selection in the card browser, would it be
+ better to store ids rather than row numbers? This affects the case where
+ there are filters active, whose state changes due to the edit. But what
+ then if the edit removes the current selection from the filter?
 -Adding the "enabled" tag does not automatically get rid of the cross-out in the
  card browser.
 -Prevent commas in tag names also when using 'create_new_cards' in script.
@@ -57,7 +65,6 @@ https://stackoverflow.com/questions/57517371/matplotlibdeprecationwarning-with-p
 -example plugin for new learning modes
 -update dev instructions linux, windows
 -run tests in different threads
--make sure initial settings are synced using binary sync.
 -keeping a key pressed after 'grade answer' proceeds to show the question
 -RTL still does not work for first cloze, in the case the sentence is more than
  1 line
@@ -83,8 +90,6 @@ https://stackoverflow.com/questions/57517371/matplotlibdeprecationwarning-with-p
  seem to sync across?
 -if the sync changed the appearance settings, the current card's question still
  shows the old appearance
--sync failed because of version mismatch seems to result in requirement for
- full sync?
 -note: sync from a to b and then to c adds latex files to the media table. Is
  this aproblem? Can the table become corrupt?
 -heartbeat in headless server: if a sync request comes in while this is running,

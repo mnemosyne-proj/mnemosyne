@@ -1,8 +1,9 @@
-from PyQt5 import QtWidgets, QtGui
+from PyQt5 import QtCore, QtWidgets, QtGui
 
 class TagCompleter(QtWidgets.QCompleter):
     def __init__(self, parent = None):
         super(TagCompleter, self).__init__(parent)
+        self.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
 
     def handle_prefix_change(self, new_prefix):
         if new_prefix:

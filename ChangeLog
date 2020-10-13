@@ -10,6 +10,8 @@ If this does not help, or if you see a black screen, try starting Mnemosyne
 with the --qt-opengl=desktop command line argument.)
 
 
+- Make tag completion case insensitive (requested by Daniel Schmidt).
+- Make Anki import more robust (bug reported by Максим).
 - Don't crash when saving text-to-speech containing linebreaks.
 - Updated translations.
 - More robust importing under Linux.
