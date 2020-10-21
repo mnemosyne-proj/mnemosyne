@@ -13,6 +13,8 @@ with the --qt-opengl=desktop command line argument.)
 - Make tag completion case insensitive (requested by Daniel Schmidt).
 - Make Anki import more robust (bug reported by Максим).
 - Don't crash when saving text-to-speech containing linebreaks.
+- Fix corner cases of scheduled counter not updating when learning ahead of
+  schedule and switching between saved sets (bug reported by girlsim).
 - Updated translations.
 - More robust importing under Linux.
 - Add support for gTTS 2.1.x.

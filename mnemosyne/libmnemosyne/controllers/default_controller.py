@@ -860,6 +860,7 @@ _("The configuration database cannot be used to store cards."))
     def show_activate_cards_dialog_post(self):
         review_controller = self.review_controller()
         review_controller.reset_but_try_to_keep_current_card()
+        review_controller.reload_counters()
         review_controller.update_status_bar_counters()
         self.update_title()
         self.stopwatch().unpause()
@@ -874,6 +875,7 @@ _("This will tag all the cards in a given card type which have the same question
         self.database().tag_all_duplicates()
         review_controller = self.review_controller()
         review_controller.reset_but_try_to_keep_current_card()
+        review_controller.reload_counters()
         review_controller.update_status_bar_counters()
         self.stopwatch().unpause()
 
