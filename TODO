@@ -1,4 +1,5 @@
-add/remove_tag_from_cards_with_internal_ids: call update card to update the criteria
+- add/remove_tag_from_cards_with_internal_ids: add extra call to criterion to implement what happens if you add or remove a certain tag from a group of cards.
+
 
 Android:
 

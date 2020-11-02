@@ -254,6 +254,45 @@ class TestActivateCards(MnemosyneTest):
         assert len(c._tag_ids_forbidden) == 0
         assert len(c._tag_ids_active) == 1
 
+    def test_activate_cards_bulk_edit(self):
+        fact_data = {"f": "question3",
+                     "b": "answer3"}
+        card_type_1 = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type_1,
+           grade=-1, tag_names=["forbidden"])[0]
+        assert self.database().active_count() == 1
+
+        c = DefaultCriterion(self.mnemosyne.component_manager)
+        c.deactivated_card_type_fact_view_ids = set()
+        c._tag_ids_active = set([self.database().get_or_create_tag_with_name("forbidden")._id])
+        c._tag_ids_forbidden = set([self.database().get_or_create_tag_with_name("forbidden")._id])
+        self.database().set_current_criterion(c)
+        assert self.database().active_count() == 0
+
+        self.database().add_tag_to_cards_with_internal_ids(\
+                                                           self.database().get_or_create_tag_with_name("allowed"), [card._id])
+        
+        assert self.database().active_count() == 1
+
+    def test_activate_cards_bulk_edit_2(self):
+        fact_data = {"f": "question3",
+                     "b": "answer3"}
+        card_type_1 = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type_1,
+           grade=-1, tag_names=["forbidden"])[0]
+        assert self.database().active_count() == 1
+
+        c = DefaultCriterion(self.mnemosyne.component_manager)
+        c.deactivated_card_type_fact_view_ids = set()
+        c._tag_ids_forbidden = set([self.database().get_or_create_tag_with_name("forbidden")._id])
+        self.database().set_current_criterion(c)
+        assert self.database().active_count() == 0
+
+        self.database().remove_tag_from_cards_with_internal_ids(\
+                                                                self.database().get_or_create_tag_with_name("forbidden"), [card._id])
+        
+        assert self.database().active_count() == 1
+        
     def test_card_type(self):
         from mnemosyne.libmnemosyne.card_types.cloze import ClozePlugin
         for plugin in self.plugins():
