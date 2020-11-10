@@ -66,7 +66,7 @@ class Criterion(Component):
 
     def is_tag_active(self, tag):
         pass
-
+    
     def tag_deleted(self, tag):
         pass
 
@@ -120,3 +120,4 @@ class CriterionApplier(Component):
 
     def apply_to_database(self, criterion):
         raise NotImplementedError
+

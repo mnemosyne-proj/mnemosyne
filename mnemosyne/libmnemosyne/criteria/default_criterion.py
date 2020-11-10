@@ -69,7 +69,7 @@ class DefaultCriterion(Criterion):
 
     def is_tag_active(self, tag):
         return (tag._id in self._tag_ids_active)
-
+    
     def tag_deleted(self, tag):
         self._tag_ids_active.discard(tag._id)
         self._tag_ids_forbidden.discard(tag._id)

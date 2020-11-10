@@ -1016,6 +1016,13 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
             values(?,?)""", arguments)
         if self.store_pregenerated_data:
             self._update_tag_strings(_card_ids)
+        # Apply criterion. (There does not seem to be any watertight shortcut
+        # we can take for a special case, especially when a card can have many
+        # tags, so we apply the criterion in full.)
+        criterion = self.current_criterion()
+        applier = self.component_manager.current("criterion_applier",
+            used_for=criterion.__class__)
+        applier.apply_to_database(criterion)
         # We don't call 'self.log.edited_card(card)', which would require us to
         # construct the entire card object, but take a short cut.
         for _card_id in _card_ids:
@@ -1043,6 +1050,13 @@ _("Putting a database on a network drive is forbidden under Windows to avoid dat
         self.delete_tag_if_unused(tag)
         if self.store_pregenerated_data:
             self._update_tag_strings(_card_ids)
+        # Apply criterion. (There does not seem to be any watertight shortcut
+        # we can take for a special case, especially when a card can have many
+        # tags, so we apply the criterion in full.)
+        criterion = self.current_criterion()
+        applier = self.component_manager.current("criterion_applier",
+            used_for=criterion.__class__)
+        applier.apply_to_database(criterion)
         # We don't call 'self.log.edited_card(card)', which would require us
         # to construct the entire card object, but take a short cut.
         for _card_id in _card_ids:
