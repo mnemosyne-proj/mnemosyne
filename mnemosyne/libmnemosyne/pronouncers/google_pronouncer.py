@@ -8,7 +8,6 @@ from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.pronouncer import Pronouncer
 
-
 class GooglePronouncer(Pronouncer):
 
     used_for = "bn", "bn-BD", "bn-ID", "zh", "zh-CN", "zh-TW", "cs", "da", \

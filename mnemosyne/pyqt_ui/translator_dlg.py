@@ -31,7 +31,10 @@ class DownloadThread(QtCore.QThread):
         try:
             translation = self.translator.translate(\
                 self.card_type, self.foreign_text, self.target_language_id)
-            self.finished_signal.emit(translation)
+            if translation:
+                self.finished_signal.emit(translation)
+            else:
+                self.error_signal.emit(_("Could not contact Google servers..."))
         except Exception as e:
             self.error_signal.emit(str(e) + "\n" + traceback_string())
 
@@ -97,10 +100,14 @@ class TranslatorDlg(QtWidgets.QDialog, TranslatorDialog, Ui_TranslatorDlg):
         self.download_thread = DownloadThread(self.translator, self.card_type,
             self.last_foreign_text, self.target_language_id)
         self.download_thread.finished_signal.connect(self.show_translation)
-        self.download_thread.error_signal.connect(self.main_widget().show_error)
+        self.download_thread.error_signal.connect(self.show_error)
         self.main_widget().set_progress_text(_("Downloading..."))
         self.download_thread.start()
 
+    def show_error(self, error_message):
+        self.main_widget().close_progress()
+        self.main_widget().show_error(error_message)
+        
     def show_translation(self, translation):
         self.main_widget().close_progress()
         self.translated_text.setPlainText(translation)

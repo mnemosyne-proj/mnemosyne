@@ -9,6 +9,7 @@ This might also help with other hard crashes.
 If this does not help, or if you see a black screen, try starting Mnemosyne
 with the --qt-opengl=desktop command line argument.)
 
+Mnemosyne 2.7.3
 
 - Make tag completion case insensitive (requested by Daniel Schmidt).
 - Don't forget to update whether or not a card is active when bulk adding/
