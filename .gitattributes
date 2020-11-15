@@ -1,3 +1,4 @@
 *.mem binary
 tests/files/basedir_bz2/config binary
 tests/files/basedir_sch/config binary
+mnemosyne/pyqt_ui/mnemosyne text eol=lf
