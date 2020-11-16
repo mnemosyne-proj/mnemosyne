@@ -59,6 +59,7 @@ class QTextEdit2(QtWidgets.QTextEdit):
                     translator.popup_menu_text, popup)
                 translator_action.triggered.connect(\
                     lambda checked, t=translator: self.translate(t))
+                translator_action.setShortcuts([QtGui.QKeySequence("Ctrl+T")])
                 popup.addAction(translator_action)
         # Pronouncers.
         if len(self.pronouncers):
@@ -68,6 +69,7 @@ class QTextEdit2(QtWidgets.QTextEdit):
                     pronouncer.popup_menu_text, popup)
                 pronouncer_action.triggered.connect(\
                     lambda checked, p=pronouncer: self.pronounce(p))
+                pronouncer_action.setShortcuts([QtGui.QKeySequence("Ctrl+P")])
                 popup.addAction(pronouncer_action)
         # Show popup.
         popup.exec_(e.globalPos())
@@ -97,6 +99,12 @@ class QTextEdit2(QtWidgets.QTextEdit):
         elif event.key() == QtCore.Qt.Key_F and event.modifiers() == \
             QtCore.Qt.ControlModifier:
             self.insert_flash()
+        elif event.key() == QtCore.Qt.Key_T and event.modifiers() == \
+            QtCore.Qt.ControlModifier and self.translators:
+            self.translate(self.translators[-1])
+        elif event.key() == QtCore.Qt.Key_P and event.modifiers() == \
+            QtCore.Qt.ControlModifier and self.pronouncers:
+            self.translate(self.pronouncers[-1])
         else:
             QtWidgets.QTextEdit.keyPressEvent(self, event)
 

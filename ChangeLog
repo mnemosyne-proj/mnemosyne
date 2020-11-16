@@ -12,6 +12,7 @@ with the --qt-opengl=desktop command line argument.)
 Mnemosyne 2.7.3
 
 - Make tag completion case insensitive (requested by Daniel Schmidt).
+- Add keyboard shortcuts for Google translate and text-to-speech.
 - Don't forget to update whether or not a card is active when bulk adding/
   removing tags in the card browser.
 - Make Anki import more robust (bug reported by Максим).
@@ -20,7 +21,7 @@ Mnemosyne 2.7.3
   schedule and switching between saved sets (bug reported by girlsim).
 - Updated translations.
 - More robust importing under Linux.
-- Upgraded to gTTS 2.1.2 and googletrans 3.0.0.
+- Upgraded to gTTS 2.2.1 and googletrans 3.0.0.
 - Added command line option --qt-scale-factor, to tweak the size on HDPI
   displays.
 
