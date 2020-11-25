@@ -517,7 +517,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
             # e.g. /path/to/Mnemosyne.app/Contents/MacOS/mplayer
             MPLAYER_PATH = CONTENTS_FOLDER + "/MacOS/mplayer"
 
-            command = "{} -slave -ao coreaudio -quiet \"{}\" -ss {} -endpos {}".format(
+            command = "{} -slave -vo null -ao coreaudio -quiet \"{}\" -ss {} -endpos {}".format(
                 MPLAYER_PATH, filename, str(start), str(duration)
             )
         else:

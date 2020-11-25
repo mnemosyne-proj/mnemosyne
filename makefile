@@ -108,7 +108,7 @@ macos:
 	cd po && make
 
 	# Build the bundled app based on the specification file.
-	pyinstaller --log-level WARN mnemosyne.spec
+	QT5DIR=/usr/local/opt/qt pyinstaller --log-level WARN mnemosyne.spec
 
 	# Blank qt.conf to ensure that bundled qt is used over system qt.
 	touch dist/Mnemosyne.app/Contents/Resources/qt.conf
@@ -121,9 +121,6 @@ macos:
   # tkinter bug - data directories not present
 	mkdir -p dist/Mnemosyne.app/Contents/MacOS/tk
 	mkdir -p dist/Mnemosyne.app/Contents/MacOS/tcl
-
-  # mplayer bug - override default packaged libpng
-	cp $(shell brew info libpng | grep /usr/local/Cellar/libpng | awk '{print $$1}')/lib/libpng16.16.dylib dist/Mnemosyne.app/Contents/MacOS/libpng16.16.dylib
 
 osx: macos
 

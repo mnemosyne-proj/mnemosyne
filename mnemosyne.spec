@@ -313,6 +313,16 @@ if sys.platform == 'win32':
 
 if sys.platform == 'darwin':
              binaries.append(('/usr/local/bin/mplayer', '.'))
+             binaries.append(('/usr/local/lib/libcaca.0.dylib', '.'))
+             binaries.append(('/opt/X11/lib/libGL.1.dylib', '.'))
+             binaries.append(('/opt/X11/lib/libglut.3.dylib', '.'))
+             binaries.append(('/opt/X11/lib/libglapi.0.dylib', '.'))
+             binaries.append(('/opt/X11/lib/libXdamage.1.dylib', '.'))
+             binaries.append(('/opt/X11/lib/libXfixes.3.dylib', '.'))
+             binaries.append(('/opt/X11/lib/libXxf86vm.1.dylib', '.'))
+             binaries.append(('/opt/X11/lib/libXi.6.dylib', '.'))
+             binaries.append(('/opt/X11/lib/libXrandr.2.dylib', '.'))
+             binaries.append(('/opt/X11/lib/libXrender.1.dylib', '.'))
 
 datas.append((os.path.join('mnemosyne', 'libmnemosyne', 'renderers', 'anki', 'hooks.py'), 'anki'))
 datas.append((os.path.join('mnemosyne', 'libmnemosyne', 'renderers', 'anki', 'lang.py'), 'anki'))
