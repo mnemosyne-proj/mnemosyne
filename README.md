@@ -131,9 +131,17 @@ brew update
 
 ```
 brew install python qt mplayer
+brew cask install xquartz # needed for mplayer dylibs
 ```
 
-- NOTE: For Mnemosyne 2.7, we used Python 3.7.5 and Qt 5.13. If you need to edit a Homebrew dependency, you can use these commends:
+- For Mnemosyne 2.7.3, we used Python 3.7.9 and Qt 5.15. To confirm you're using the correct versions:
+
+```
+python --version
+pip --version
+```
+
+- If the versions are not correct, andy ou need to edit a Homebrew dependency, you can use these commands:
 
 ```
 brew uninstall <package-name>
@@ -143,32 +151,24 @@ brew install <package-name>
 brew pin <package-name>
 ```
 
-- Confirm you're using the correct version of pip/python.
-
-```
-python --version
-pip --version
-```
-
 - Install the python dependencies for Mnemosyne, using a python virtual environment to isolate python dependencies. 
-- Note for Mnemosyne 2.7, we used PyQt5 5.13 and PyInstaller 3.5
+- Note for Mnemosyne 2.7.3, we used PyQt5 5.15 and PyInstaller 4.0
 
 ```
 pip install virtualenv
 virtualenv venv
 source venv/bin/activate
-pip install webob tornado matplotlib numpy sip pillow cheroot googletrans gtts pyopengl pyinstaller
+pip install webob tornado matplotlib numpy sip pillow cheroot googletrans gtts pyopengl
 
-# run this command to fix a bug with setuptools https://github.com/pypa/setuptools/issues/1963
-pip uninstall setuptools; pip install setuptools===44.1.0
+# install development version of pyinstaller to ensure we get https://github.com/pyinstaller/pyinstaller/issues/5004
+pip install -U https://github.com/pyinstaller/pyinstaller/archive/develop.zip
 
-# run this command and inspect the output to confirm you're using the correct version
+# run this command and inspect the output to confirm you're using the correct versions
 pip install pyqt5 pyqtwebengine
 ```
 
  - Build it (while still using the python virtual environment):
 ```
-export QT5DIR=/usr/local/opt/qt # help pyinstaller find the qt5 path
 make clean
 make macos
 ```
