@@ -181,7 +181,7 @@ class LogDatabase(object):
         pass
 
     def dump_reps_to_txt_file(self, filename):
-        f = file(filename, "w")
+        f = open(filename, "w")
         for cursor in self.con.execute("select * from log"):
             print(cursor["user_id"], \
                 time.strftime("%Y-%m-%d %H:%M:%S", \
