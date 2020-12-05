@@ -35,8 +35,8 @@ class ReviewWdgtCramming(ReviewWdgt):
         # Upon start, there will be a change event before the grade
         # buttons have been created.
         if hasattr(self, "grade_0_button"):
-            self.grade_0_button.setText(_("&Wrong"))
-            self.grade_5_button.setText(_("&Right"))
+            self.grade_0_button.setText(_("Wrong"))
+            self.grade_5_button.setText(_("Right"))
         QtWidgets.QWidget.changeEvent(self, event)
 
     def keyPressEvent(self, event):
