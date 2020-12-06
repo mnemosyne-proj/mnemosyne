@@ -41,11 +41,10 @@ class ReviewWdgtCramming(ReviewWdgt):
 
     def keyPressEvent(self, event):
         if self.review_controller().is_answer_showing():
-            if event.key() in [QtCore.Qt.Key_0, QtCore.Qt.Key_1,
-                QtCore.Qt.Key_W]:
+            if event.key() in [QtCore.Qt.Key_0, QtCore.Qt.Key_1]:
                 return self.grade_answer(0)
             elif event.key() in [QtCore.Qt.Key_2, QtCore.Qt.Key_3,
-                QtCore.Qt.Key_4, QtCore.Qt.Key_5, QtCore.Qt.Key_R]:
+                QtCore.Qt.Key_4, QtCore.Qt.Key_5]:
                 return self.grade_answer(5)
         super().keyPressEvent(event)
 
