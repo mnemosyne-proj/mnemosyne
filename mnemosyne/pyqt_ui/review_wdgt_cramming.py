@@ -12,13 +12,13 @@ class ReviewWdgtCramming(ReviewWdgt):
 
     def __init__(self, **kwds):
         super().__init__(**kwds)
-        self.grade_0_button.setText(_("&Wrong"))
+        self.grade_0_button.setText(_("Wrong"))
         self.grade_1_button.hide()
         self.line.hide()
         self.grade_2_button.hide()
         self.grade_3_button.hide()
         self.grade_4_button.hide()
-        self.grade_5_button.setText(_("&Right"))
+        self.grade_5_button.setText(_("Right"))
         self.grade_5_button.setFocus()
         parent = self.parent()
         self.wrong = QtWidgets.QLabel("", parent.status_bar)
