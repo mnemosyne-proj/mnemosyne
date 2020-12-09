@@ -2,7 +2,10 @@ https://github.com/lushan88a/google_trans_new
 
 Android:
 
-- targetSdkVersion  29
+- targetSdkVersion 30
+
+- Move to App Bundle
+
 - better way to use sdcard
 -look into fixes reported by dashboard
 -check 'redraw now'
@@ -20,6 +23,9 @@ Android:
 -option to globally increase / decrease font size with respect to desktop
 -custom fonts?
 
+
+- retire old cards? Interaction with criterion? Because then criterion would need to be applied every day.
+ Or simply have the scheduler no longer pick up cards with intervals longer than X years? Or just limit the number of reps per day? That's probably the best solution, as cards will then organically fall by the wayside.
 
 Minor bugs / issues:
 

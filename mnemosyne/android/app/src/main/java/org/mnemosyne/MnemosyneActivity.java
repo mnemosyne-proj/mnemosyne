@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -115,9 +116,11 @@ public class MnemosyneActivity extends AppCompatActivity {
         boolean hasPermission = (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
         if (!hasPermission) {
-            ActivityCompat.requestPermissions(this,
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_WRITE_STORAGE);
+            }
         }
         else {
             MnemosyneInstaller installer = new MnemosyneInstaller(this, activityHandler);
@@ -222,27 +225,41 @@ public class MnemosyneActivity extends AppCompatActivity {
         //http://stackoverflow.com/questions/7774642/scroll-webview-horizontally-inside-a-viewpager
         //gestureDetector = new GestureDetector(this, new MyGestureListener());
 
-        // First run wizard.
+        // First run wizard, warn about scoped storage.
         SharedPreferences settings = getSharedPreferences("UserInfo", 0);
-        if (!settings.contains("shown_first_run_wizard")) {
+        if (!settings.contains("shown_first_run_wizard") ||
+                !settings.contains("shown_scoped_storage_warning")) {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setMessage("This application is meant to be used in conjunction with the Mnemosyne desktop app (http://www.mnemosyne-proj.org). Input your cards there, start the sync server in 'Configure Mnemosyne' and then you can sync and review the cards in this Android app. IMPORTANT: note that only the database 'default.db' is synced.");
+            if (settings.contains("shown_first_run_wizard")) {
+                String oldDataDir = Environment.getExternalStorageDirectory().getPath() + "/Mnemosyne/";
+                alert.setMessage("IMPORTANT: changes imposed by Google mean we can no longer access your old database, " +
+                        "so you need to redownload it from your server.\n\nAfterwards, delete your old " +
+                        "data (probably at " + oldDataDir + ") to save space.");
+            }
+            else {
+                alert.setMessage("This application is meant to be used in conjunction with the " +
+                        "Mnemosyne desktop app (http://www.mnemosyne-proj.org). Input your cards " +
+                        "there, start the desktop sync server in 'Configure Mnemosyne' and then you can " +
+                        "sync and review the cards in this Android app.\n\nIMPORTANT: note that " +
+                        "only the database 'default.db' is synced.");
+            }
             alert.setCancelable(false);
             alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    mnemosyneThread.getHandler().post(new Runnable() {
-                        public void run() {
-                            mnemosyneThread.bridge.controller_show_sync_dialog_pre();
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            mnemosyneThread.getHandler().post(new Runnable() {
+                                public void run() {
+                                    mnemosyneThread.bridge.controller_show_sync_dialog_pre();
+                                }
+                            });
                         }
                     });
-                }
-            });
             alert.show();
-
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putBoolean("shown_first_run_wizard", true);
-            editor.commit();
         }
+
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("shown_scoped_storage_warning", true);
+        editor.putBoolean("shown_first_run_wizard", true);
+        editor.commit();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setFullscreen();

@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
+    ndkVersion '21.3.6528147'
 
     def versionMajor = 2
     def versionMinor = 3
@@ -13,7 +14,7 @@ android {
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
 
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_7
             targetCompatibility JavaVersion.VERSION_1_7

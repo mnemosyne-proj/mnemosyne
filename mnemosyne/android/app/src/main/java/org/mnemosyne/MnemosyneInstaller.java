@@ -1,4 +1,4 @@
-package org.mnemosyne;
+package org.mnemosyne;gi
 
 import android.app.AlertDialog;
 import android.content.pm.PackageInfo;

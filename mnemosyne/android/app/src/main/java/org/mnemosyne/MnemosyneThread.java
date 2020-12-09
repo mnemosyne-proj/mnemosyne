@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -60,62 +62,63 @@ public class MnemosyneThread extends Thread {
         });
 
         // Determine datadir.
-        //
-        // A user can set a datadir directory by putting a file 'datadir.txt' with
-        // the directory in the default datadir.
-        // This file contains e.g. "/storage/3738-3234/Android/data/org.mnemosyne/files"
-        // in order to use a true external SD card. Note that /Android/... part is
-        // important, otherwise we don't get access.
-
-        String dataDir = Environment.getExternalStorageDirectory().getPath() + "/Mnemosyne/";
-
-        // Strangely enough we need this call first in order to be able to write
-        // to the external directories.
-        String dirList = "";
-        for (File f : ContextCompat.getExternalFilesDirs(UIActivity, null)) {
-            if (f != null) {  // Permission failure on some devices.
-                dirList += f.getPath() + "\n\n";
-            }
-        }
-
-        try {
-            InputStream is = new FileInputStream(dataDir + "/datadir.txt");
-            BufferedReader buf = new BufferedReader(new InputStreamReader(is));
-            String line = buf.readLine();
-            if (! line.isEmpty()) {
-                dataDir = line;
-            }
-        }
-        catch (FileNotFoundException e) {
-            Log.i("Mnemosyne", "Redirection file not found:" + e.toString());
-        }
-        catch (IOException e) {
-            Log.i("Mnemosyne", "Redirection file could not be read:" + e.toString());
-        }
-
-        File file = new File(dataDir);
-        if (! file.exists()) {
-            Boolean result = file.mkdirs();
-            if (result == false) {
-                showInformation("Could not create data dir at " + dataDir + "\n" +
-                        "Use a directory like:\n\n" + dirList);
-            }
+        String dataDir;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            dataDir = UIActivity.getFilesDir().getAbsolutePath();
         }
         else {
-            try {
-                File tmp = new File(dataDir + "/test.txt");
-                if (tmp.exists()) {
-                    tmp.delete();
+            // A user can set a datadir directory by putting a file 'datadir.txt' with
+            // the directory in the default datadir.
+            // This file contains e.g. "/storage/3738-3234/Android/data/org.mnemosyne/files"
+            // in order to use a true external SD card. Note that /Android/... part is
+            // important, otherwise we don't get access.
+
+            dataDir = Environment.getExternalStorageDirectory().getPath() + "/Mnemosyne/";
+
+            // Strangely enough we need this call first in order to be able to write
+            // to the external directories.
+            String dirList = "";
+            for (File f : ContextCompat.getExternalFilesDirs(UIActivity, null)) {
+                if (f != null) {  // Permission failure on some devices.
+                    dirList += f.getPath() + "\n\n";
                 }
-                BufferedWriter bwriter = new BufferedWriter(new FileWriter(new File(dataDir + "/test.txt")));
-                bwriter.write("123");
-                bwriter.close();
+            }
+
+            try {
+                InputStream is = new FileInputStream(dataDir + "/datadir.txt");
+                BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+                String line = buf.readLine();
+                if (!line.isEmpty()) {
+                    dataDir = line;
+                }
+            } catch (FileNotFoundException e) {
+                Log.i("Mnemosyne", "Redirection file not found:" + e.toString());
             } catch (IOException e) {
-                e.printStackTrace();
-                showInformation("Could not create file in " + dataDir + "\nMake sure to give Mnemosyne write permission.");
+                Log.i("Mnemosyne", "Redirection file could not be read:" + e.toString());
+            }
+
+            File file = new File(dataDir);
+            if (!file.exists()) {
+                Boolean result = file.mkdirs();
+                if (result == false) {
+                    showInformation("Could not create data dir at " + dataDir + "\n" +
+                            "Use a directory like:\n\n" + dirList);
+                }
+            } else {
+                try {
+                    File tmp = new File(dataDir + "/test.txt");
+                    if (tmp.exists()) {
+                        tmp.delete();
+                    }
+                    BufferedWriter bwriter = new BufferedWriter(new FileWriter(new File(dataDir + "/test.txt")));
+                    bwriter.write("123");
+                    bwriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    showInformation("Could not create file in " + dataDir + "\nMake sure to give Mnemosyne write permission.");
+                }
             }
         }
-
         Log.i("Mnemosyne", "datadir " + dataDir);
 
         File file2 = new File(dataDir + "/.nomedia");
