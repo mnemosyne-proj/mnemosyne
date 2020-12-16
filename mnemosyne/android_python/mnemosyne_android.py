@@ -113,11 +113,11 @@ mnemosyne.gui_for_component["NewOnly"] = [\
     ("mnemosyne.android_python.review_widget",
      "ReviewWdgt")]
 mnemosyne.gui_for_component["CramAll"] = [\
-    ("mnemosyne.android_python.review_widget",
-     "ReviewWdgt")]
+    ("mnemosyne.android_python.review_widget_cramming",
+     "ReviewWdgtCramming")]
 mnemosyne.gui_for_component["CramRecent"] = [\
-    ("mnemosyne.android_python.review_widget",
-     "ReviewWdgt")]
+    ("mnemosyne.android_python.review_widget_cramming",
+     "ReviewWdgtCramming")]
 
 def start_mnemosyne(args):
     mnemosyne.initialise(data_dir=args["data_dir"],

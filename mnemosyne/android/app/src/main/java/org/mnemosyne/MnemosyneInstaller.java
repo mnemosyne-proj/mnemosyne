@@ -1,4 +1,4 @@
-package org.mnemosyne;gi
+package org.mnemosyne;
 
 import android.app.AlertDialog;
 import android.content.pm.PackageInfo;
@@ -151,14 +151,8 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
         if (appLastUpdate <= assetLastModified) {
             Log.i("Mnemosyne", "Assets are up to date");
         } else {
-            // Make sure to delete old starcore files.
-            File destDir = new File(basedir + "/files");
-            if (destDir.exists()) {
-                recursiveDelete(destDir);
-                Log.i("Mnemosyne", "Removed previous assets from " + destDir);
-            }
             // Delete previous assets.
-            destDir = new File(basedir + "/assets");
+            File destDir = new File(basedir + "/assets");
             if (destDir.exists()) {
                 recursiveDelete(destDir);
                 Log.i("Mnemosyne", "Removed previous assets from " + destDir);
@@ -177,7 +171,7 @@ public class MnemosyneInstaller extends AsyncTask<Void, Void, Void>  {
             Log.i("Mnemosyne", "Done extracting assets");
         }
 
-        //String path = basedir + "/assets/";
+        //String path = basedir + "/files/";
         //Log.d("Mnemosyne", "Listing files in path: " + path);
         //File f = new File(path);
         //File file[] = f.listFiles();

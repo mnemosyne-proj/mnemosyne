@@ -120,7 +120,11 @@ public class MnemosyneBridge {
         try {
             JSONObject json = new JSONObject();
             json.put("function", "controller_heartbeat");
-            json.put("db_maintenance", true);
+
+            // TMP, until we provide external access to the archive.
+            json.put("db_maintenance", false);
+
+
             JSONObject result = PyBridge.call(json);
         } catch (JSONException e) {
             e.printStackTrace();

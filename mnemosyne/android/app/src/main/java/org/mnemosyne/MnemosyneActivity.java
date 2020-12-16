@@ -112,15 +112,15 @@ public class MnemosyneActivity extends AppCompatActivity {
 
         question.getSettings().setJavaScriptEnabled(true);
         answer.getSettings().setJavaScriptEnabled(true);
+        question.getSettings().setAllowFileAccess(true);
+        answer.getSettings().setAllowFileAccess(true);
 
         boolean hasPermission = (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
-        if (!hasPermission) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+        if (!hasPermission && (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q)) {
                 ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_WRITE_STORAGE);
-            }
         }
         else {
             MnemosyneInstaller installer = new MnemosyneInstaller(this, activityHandler);
@@ -350,15 +350,20 @@ public class MnemosyneActivity extends AppCompatActivity {
                     public void run() {
                         final String[] items = {
                                 "Scheduled -> forgotten -> new",
-                                "Study new unlearned cards only"};
+                                "Study new unlearned cards only",
+                                "Cram all cards",
+                                "Cram recently learned new cards"};
                         final String[] ids = {
                                 "ScheduledForgottenNew",
-                                "NewOnly"};
+                                "NewOnly",
+                                "CramAll",
+                                "CramRecent"};
                         AlertDialog.Builder builder = new AlertDialog.Builder(MnemosyneActivity.this);
                         builder.setTitle("Select study mode");
                         builder.setItems(items, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                mnemosyneThread.setGradeNames(ids[which]);
                                 mnemosyneThread.bridge.controller_set_study_mode_with_id(ids[which]);
                             }
                         });
@@ -376,7 +381,8 @@ public class MnemosyneActivity extends AppCompatActivity {
                         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Mnemosyne:wakelocktag");
                         wl.acquire();
                         try {
-                            mnemosyneThread.bridge.controller_do_db_maintenance();
+                            // TMP, until we provide external access to the archive.
+                            //mnemosyneThread.bridge.controller_do_db_maintenance();
                         } finally {
                             wl.release();
                         }

@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Looper;
 import androidx.core.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -132,6 +133,11 @@ public class MnemosyneThread extends Thread {
 
         bridge.startMnemosyne(dataDir, "default.db");
 
+        // Set buttons correctly with respect to previous study mode.
+        String studyModeId = bridge.config_get("study_mode");
+        setGradeNames(studyModeId);
+        setGradesEnabled(false);
+
         UIHandler.post(new Runnable() {
             public void run() {
                 progressDialog.dismiss();
@@ -179,6 +185,7 @@ public class MnemosyneThread extends Thread {
 
     public void setQuestion(String html) {
         final String _html = html;
+        Log.i("Mnemosyne", "Question" + html);
         UIHandler.post(new Runnable() {
             public void run() {
                 UIActivity.setQuestion(_html);
@@ -244,14 +251,17 @@ public class MnemosyneThread extends Thread {
 
     public void setGradesEnabled(boolean isEnabled) {
         final boolean _isEnabled = isEnabled;
+        final String studyModeId = bridge.config_get("study_mode");
         UIHandler.post(new Runnable() {
             public void run() {
                 if (_isEnabled) {
                     UIActivity.button0.setVisibility(android.view.View.VISIBLE);
-                    UIActivity.button1.setVisibility(android.view.View.VISIBLE);
-                    UIActivity.button2.setVisibility(android.view.View.VISIBLE);
-                    UIActivity.button3.setVisibility(android.view.View.VISIBLE);
-                    UIActivity.button4.setVisibility(android.view.View.VISIBLE);
+                    if (studyModeId.equals("ScheduledForgottenNew") || studyModeId.equals("NewOnly")) {
+                            UIActivity.button1.setVisibility(android.view.View.VISIBLE);
+                            UIActivity.button2.setVisibility(android.view.View.VISIBLE);
+                            UIActivity.button3.setVisibility(android.view.View.VISIBLE);
+                            UIActivity.button4.setVisibility(android.view.View.VISIBLE);
+                        }
                     UIActivity.button5.setVisibility(android.view.View.VISIBLE);
                     UIActivity.showAnswerButton.setVisibility(android.view.View.GONE);
                 }
@@ -263,6 +273,30 @@ public class MnemosyneThread extends Thread {
                     UIActivity.button4.setVisibility(android.view.View.GONE);
                     UIActivity.button5.setVisibility(android.view.View.GONE);
                     UIActivity.showAnswerButton.setVisibility(android.view.View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    public void setGradeNames(String studyModeId)  {
+        final String _studyModeId = studyModeId;
+        UIHandler.post(new Runnable() {
+            public void run() {
+                if (_studyModeId.equals("CramAll") || _studyModeId.equals("CramRecent")) {
+                    UIActivity.button0.setText("Wrong");
+                    UIActivity.button1.setVisibility(android.view.View.GONE);
+                    UIActivity.button2.setVisibility(android.view.View.GONE);
+                    UIActivity.button3.setVisibility(android.view.View.GONE);
+                    UIActivity.button4.setVisibility(android.view.View.GONE);
+                    UIActivity.button5.setText("Right");
+                }
+                else {
+                    UIActivity.button0.setText("0");
+                    UIActivity.button1.setVisibility(android.view.View.VISIBLE);
+                    UIActivity.button2.setVisibility(android.view.View.VISIBLE);
+                    UIActivity.button3.setVisibility(android.view.View.VISIBLE);
+                    UIActivity.button4.setVisibility(android.view.View.VISIBLE);
+                    UIActivity.button5.setText("5");
                 }
             }
         });

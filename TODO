@@ -1,18 +1,25 @@
-https://github.com/lushan88a/google_trans_new
+- improved warning on upgrade
+- speed up cramming counter
+- limit number of daily cards
 
 Android:
 
-- targetSdkVersion 30
+- export db/archive//history/backups
+https://stackoverflow.com/questions/36546606/how-to-create-new-folder-in-sd-card-by-using-storage-access-framework/36547137#36547137
+https://en.proft.me/2018/05/24/using-android-storage-access-framework/
+https://commonsware.com/blog/2019/10/19/scoped-storage-stories-saf-basics.html
+https://stackoverflow.com/questions/31094071/copy-file-from-the-internal-to-the-external-storage-in-android
+- reenable archive old logs (bridge.java, activity.java)
+- import config.py
 
 - Move to App Bundle
 
 - better way to use sdcard
--look into fixes reported by dashboard
--check 'redraw now'
--cramming widget for Android
--setting to allow choosing the database location?
--revisit multiple database option?
--'sync' button should sync directly without going through the sync settings
+- look into fixes reported by dashboard
+- check 'redraw now'
+- setting to allow choosing the database location?
+- revisit multiple database option?
+- 'sync' button should sync directly without going through the sync settings
  dialog. Put the settings in a settings window instead.
  http://alvinalexander.com/android/android-tutorial-preferencescreen-preferenceactivity-preferencefragment
 -make sure Android uploads logs as well
@@ -23,9 +30,6 @@ Android:
 -option to globally increase / decrease font size with respect to desktop
 -custom fonts?
 
-
-- retire old cards? Interaction with criterion? Because then criterion would need to be applied every day.
- Or simply have the scheduler no longer pick up cards with intervals longer than X years? Or just limit the number of reps per day? That's probably the best solution, as cards will then organically fall by the wayside.
 
 Minor bugs / issues:
 
