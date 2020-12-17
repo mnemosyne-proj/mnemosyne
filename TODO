@@ -49,7 +49,7 @@ https://github.com/pyinstaller/pyinstaller/milestone/22
   - empty ()
 - checking for unused tags scales badly when deleting 1500 cards
 - can result in deleting same tag twice?
--Are the configuration settings properly synced?
+-Are the configuration settings properly synced? Especially when creating a new clone.
 -Delete current card which is sentence card with only a sentence field does not
  seem to work.
 -when saving the position and the selection in the card browser, would it be

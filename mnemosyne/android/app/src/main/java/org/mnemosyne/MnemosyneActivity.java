@@ -25,6 +25,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -227,24 +230,11 @@ public class MnemosyneActivity extends AppCompatActivity {
 
         // First run wizard, warn about scoped storage.
         SharedPreferences settings = getSharedPreferences("UserInfo", 0);
-        if (!settings.contains("shown_first_run_wizard") ||
-                !settings.contains("shown_scoped_storage_warning")) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            if (settings.contains("shown_first_run_wizard")) {
-                String oldDataDir = Environment.getExternalStorageDirectory().getPath() + "/Mnemosyne/";
-                alert.setMessage("IMPORTANT: changes imposed by Google mean we can no longer access your old database, " +
-                        "so you need to redownload it from your server.\n\nAfterwards, delete your old " +
-                        "data (probably at " + oldDataDir + ") to save space.");
-            }
-            else {
-                alert.setMessage("This application is meant to be used in conjunction with the " +
-                        "Mnemosyne desktop app (http://www.mnemosyne-proj.org). Input your cards " +
-                        "there, start the desktop sync server in 'Configure Mnemosyne' and then you can " +
-                        "sync and review the cards in this Android app.\n\nIMPORTANT: note that " +
-                        "only the database 'default.db' is synced.");
-            }
-            alert.setCancelable(false);
-            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        if (!settings.contains("shown_first_run_wizard")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(Html.fromHtml("This application is meant to be used in conjunction with the <a href='http://www.mnemosyne-proj.org'>Mnemosyne desktop app</a>. Input your cards there, start the desktop sync server in 'Configure Mnemosyne' and then you can sync and review the cards in this Android app.<br><br>IMPORTANT: note that only the database 'default.db' is synced. <br><br>IMPORTANT: If you used Mnemosyne before on this device, <a href='https://mnemosyne-proj.org/help/android-and-storage'>click here</a>."));
+            builder.setCancelable(false);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             mnemosyneThread.getHandler().post(new Runnable() {
                                 public void run() {
@@ -253,11 +243,13 @@ public class MnemosyneActivity extends AppCompatActivity {
                             });
                         }
                     });
+
+            AlertDialog alert = builder.create();
             alert.show();
+            ((TextView) alert.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
         }
 
         SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean("shown_scoped_storage_warning", true);
         editor.putBoolean("shown_first_run_wizard", true);
         editor.commit();
 
