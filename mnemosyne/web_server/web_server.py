@@ -152,7 +152,8 @@ class WebServer(Component):
         # Load database if needed.
         if not self.is_mnemosyne_loaded and filename != "/release_database":
             self.load_mnemosyne()
-        self.release_database_after_timeout.ping()
+        if self.is_mnemosyne_loaded:
+            self.release_database_after_timeout.ping()
         # All our request return to the root page, so if the path is '/',
         # return the html of the review widget.
         if filename == "/":
