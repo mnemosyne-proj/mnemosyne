@@ -9,7 +9,8 @@ This might also help with other hard crashes.
 If this does not help, or if you see a black screen, try starting Mnemosyne
 with the --qt-opengl=desktop command line argument.)
 
-
+- Fix error when using the sync server and the web server at the same time
+  (patch by Grégoire Jadi).
 - Improve Python 3.9 compatibility (patch by Julien Puydt).
 
 Mnemosyne 2.7.3 : 2020-11-23
