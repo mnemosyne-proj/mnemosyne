@@ -7,15 +7,97 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mnemosyne-proj\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2020-02-12 14:29+0100\n"
+"POT-Creation-Date: 2020-09-06 11:40+0200\n"
 "PO-Revision-Date: 2017-12-02 02:00+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2020-02-17 06:04+0000\n"
-"X-Generator: Launchpad (build 19413b719a8df7423ab1390528edadce9e0e4aca)\n"
+"X-Launchpad-Export-Date: 2020-10-27 06:11+0000\n"
+"X-Generator: Launchpad (build bc5a16cfdc4ba776ecdf84a052201ef8fb1f3321)\n"
+
+#: ../dot_mnemosyne2/plugins.off/avg_grade_statistics.py:27
+#: ../mnemosyne/example_plugins/avg_grade_statistics.py:27
+#: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:19
+#: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:19
+#: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:19
+msgid "Last week"
+msgstr "Múlt hét"
+
+#: ../dot_mnemosyne2/plugins.off/avg_grade_statistics.py:28
+#: ../mnemosyne/example_plugins/avg_grade_statistics.py:28
+#: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:20
+#: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:20
+#: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:20
+msgid "Last month"
+msgstr "Múlt hónap"
+
+#: ../dot_mnemosyne2/plugins.off/avg_grade_statistics.py:29
+#: ../mnemosyne/example_plugins/avg_grade_statistics.py:29
+#: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:21
+#: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:21
+#: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:21
+msgid "Last 3 months"
+msgstr "Utolsó 3 hónap"
+
+#: ../dot_mnemosyne2/plugins.off/avg_grade_statistics.py:30
+#: ../mnemosyne/example_plugins/avg_grade_statistics.py:30
+#: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:22
+#: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:22
+#: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:22
+msgid "Last 6 months"
+msgstr "Utolsó 6 hónap"
+
+#: ../dot_mnemosyne2/plugins.off/avg_grade_statistics.py:31
+#: ../mnemosyne/example_plugins/avg_grade_statistics.py:31
+#: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:23
+#: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:23
+#: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:23
+msgid "Last year"
+msgstr "Tavaly"
+
+#: ../dot_mnemosyne2/plugins.off/avg_grade_statistics.py:61
+#: ../mnemosyne/example_plugins/avg_grade_statistics.py:61
+msgid "Average grades of scheduled cards"
+msgstr "Ütemezett kártyák átlagos pontszáma"
+
+#: ../dot_mnemosyne2/plugins.off/avg_grade_statistics.py:68
+#: ../dot_mnemosyne2/plugins.off/pie_chart_statistics.py:31
+#: ../mnemosyne/example_plugins/avg_grade_statistics.py:68
+#: ../mnemosyne/example_plugins/pie_chart_statistics.py:31
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:126
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:265
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:288
+msgid "No stats available."
+msgstr "Nem érhető el statisztika."
+
+#: ../dot_mnemosyne2/plugins.off/avg_grade_statistics.py:98
+#: ../mnemosyne/example_plugins/avg_grade_statistics.py:98
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:197
+msgid "Days"
+msgstr "nap"
+
+#: ../dot_mnemosyne2/plugins.off/new_card_type.py:13
+#: ../mnemosyne/example_plugins/new_card_type.py:13
+msgid "Vocabulary (decorated)"
+msgstr "Szókincs (díszített)"
+
+#: ../dot_mnemosyne2/plugins.off/new_card_type.py:18
+#: ../mnemosyne/example_plugins/new_card_type.py:18
+#: ../mnemosyne/libmnemosyne/card_types/map.py:24
+#: ../mnemosyne/libmnemosyne/card_types/sentence.py:39
+#: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:24
+msgid "Recognition"
+msgstr "Felismerés"
+
+#: ../dot_mnemosyne2/plugins.off/new_card_type.py:24
+#: ../mnemosyne/example_plugins/new_card_type.py:24
+#: ../mnemosyne/libmnemosyne/card_types/map.py:30
+#: ../mnemosyne/libmnemosyne/card_types/sentence.py:44
+#: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:29
+msgid "Production"
+msgstr "Szóalkotás"
 
 #: ../mnemosyne/android_python/database_maintenance.py:14
 msgid ""
@@ -27,76 +109,6 @@ msgstr ""
 #: ../mnemosyne/android_python/database_maintenance.py:15
 msgid "OK, proceed"
 msgstr ""
-
-#: ../mnemosyne/example_plugins/avg_grade_statistics.py:27
-#: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:19
-#: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:19
-#: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:19
-msgid "Last week"
-msgstr "Múlt hét"
-
-#: ../mnemosyne/example_plugins/avg_grade_statistics.py:28
-#: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:20
-#: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:20
-#: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:20
-msgid "Last month"
-msgstr "Múlt hónap"
-
-#: ../mnemosyne/example_plugins/avg_grade_statistics.py:29
-#: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:21
-#: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:21
-#: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:21
-msgid "Last 3 months"
-msgstr "Utolsó 3 hónap"
-
-#: ../mnemosyne/example_plugins/avg_grade_statistics.py:30
-#: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:22
-#: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:22
-#: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:22
-msgid "Last 6 months"
-msgstr "Utolsó 6 hónap"
-
-#: ../mnemosyne/example_plugins/avg_grade_statistics.py:31
-#: ../mnemosyne/libmnemosyne/statistics_pages/cards_added.py:23
-#: ../mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:23
-#: ../mnemosyne/libmnemosyne/statistics_pages/retention_score.py:23
-msgid "Last year"
-msgstr "Tavaly"
-
-#: ../mnemosyne/example_plugins/avg_grade_statistics.py:61
-msgid "Average grades of scheduled cards"
-msgstr "Ütemezett kártyák átlagos pontszáma"
-
-#: ../mnemosyne/example_plugins/avg_grade_statistics.py:68
-#: ../mnemosyne/example_plugins/pie_chart_statistics.py:31
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:122
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:261
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:284
-msgid "No stats available."
-msgstr "Nem érhető el statisztika."
-
-#: ../mnemosyne/example_plugins/avg_grade_statistics.py:98
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:193
-msgid "Days"
-msgstr "nap"
-
-#: ../mnemosyne/example_plugins/new_card_type.py:13
-msgid "Vocabulary (decorated)"
-msgstr "Szókincs (díszített)"
-
-#: ../mnemosyne/example_plugins/new_card_type.py:18
-#: ../mnemosyne/libmnemosyne/card_types/map.py:24
-#: ../mnemosyne/libmnemosyne/card_types/sentence.py:39
-#: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:24
-msgid "Recognition"
-msgstr "Felismerés"
-
-#: ../mnemosyne/example_plugins/new_card_type.py:24
-#: ../mnemosyne/libmnemosyne/card_types/map.py:30
-#: ../mnemosyne/libmnemosyne/card_types/sentence.py:44
-#: ../mnemosyne/libmnemosyne/card_types/vocabulary.py:29
-msgid "Production"
-msgstr "Szóalkotás"
 
 #: ../mnemosyne/libmnemosyne/__init__.py:428
 msgid "Command line argument is not a *.db file."
@@ -112,7 +124,7 @@ msgstr "A folytatás nem lehetséget, és adatvesztéshez vezethet!"
 
 #: ../mnemosyne/libmnemosyne/__init__.py:522
 #: ../mnemosyne/libmnemosyne/__init__.py:535
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:930
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:939
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1140
 msgid "Error when running plugin:"
 msgstr "Hiba a bővítmény futtatása közben:"
@@ -274,17 +286,17 @@ msgstr "Szókincs"
 msgid "Foreign word or phrase"
 msgstr "Idegennyelvű szó vagy kifejezés"
 
-#: ../mnemosyne/libmnemosyne/configuration.py:446
+#: ../mnemosyne/libmnemosyne/configuration.py:435
 msgid "Error in config.py:"
 msgstr "Hiba a config.py fájlban:"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:85
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:90
 msgid "No need to do database maintenance more than once per month."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:93
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:98
 #: ../mnemosyne/pyqt_ui/about_dlg.py:27
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:703
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:704
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:60
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:71
 #: ../mnemosyne/pyqt_ui/main_wdgt.py:91 ../mnemosyne/pyqt_ui/main_wdgt.py:97
@@ -293,21 +305,21 @@ msgstr ""
 msgid "Mnemosyne"
 msgstr "Mnemosyne"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:174
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:179
 msgid "Identical card is already in database."
 msgstr "Az adatbázisban már található egy ugyanilyen kártya."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:175
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:199
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:180
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:204
 msgid "&Add anyway"
 msgstr "&Hozzáadás így is"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:175
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:199
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:180
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:204
 msgid "&Do not add"
 msgstr "&Ne legyen felvéve"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:179
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:184
 msgid ""
 "There is already data present for this card:\n"
 "\n"
@@ -315,11 +327,11 @@ msgstr ""
 "Ehhez a kártyához már létezik adat:\n"
 "\n"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:199
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:204
 msgid "&Merge and edit"
 msgstr "&Egyesít és szerkeszt"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:293
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:298
 msgid ""
 "Card data not correctly formatted for conversion.\n"
 "\n"
@@ -329,180 +341,180 @@ msgstr ""
 "\n"
 "Kihagyva "
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:326
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:331
 msgid "Can't preserve history when converting between these card types."
 msgstr ""
 "Ezen típusú kártyák közti konverzió esetén a naplót nem lehet megtartani."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:327
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:332
 msgid "The learning history of the cards will be reset."
 msgstr "A kártyákhoz tartozó eseménynapló törölve lesz."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:328
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:362
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:510
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:333
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:367
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:519
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:122
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:144
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:587
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:588
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:88
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:111
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:177
-#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:82
-#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:63
-#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:60
-#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:65
-#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:64
-#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:59
-#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:71
-#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:52
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_type_dlg.py:51
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:88
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:94
-#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:53
-#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:52
-#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:52
-#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:90
+#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:83
+#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:64
+#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:61
+#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:66
+#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:65
+#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:60
+#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:72
+#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:53
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_type_dlg.py:52
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:89
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:95
+#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:54
+#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:53
+#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:53
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:91
 msgid "&Cancel"
 msgstr "&Mégsem"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:328
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:333
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:122
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:144
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:587
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:588
 #: ../mnemosyne/pyqt_ui/card_type_tree_wdgt.py:88
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:111
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:177
-#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:84
-#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:80
-#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:62
-#: ../mnemosyne/pyqt_ui/ui_card_set_name_dlg.py:44
-#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:59
-#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:64
-#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:63
-#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:57
-#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:70
-#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:51
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_type_dlg.py:50
-#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:78
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:86
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:100
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:92
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:93
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:69
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:98
-#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:52
-#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:51
-#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:51
-#: ../mnemosyne/pyqt_ui/ui_statistics_dlg.py:45
-#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:89
+#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:85
+#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:81
+#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:63
+#: ../mnemosyne/pyqt_ui/ui_card_set_name_dlg.py:45
+#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:60
+#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:65
+#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:64
+#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:58
+#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:71
+#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:52
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_type_dlg.py:51
+#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:79
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:87
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:101
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:93
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:94
+#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:70
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:99
+#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:53
+#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:52
+#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:52
+#: ../mnemosyne/pyqt_ui/ui_statistics_dlg.py:46
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:90
 msgid "&OK"
 msgstr "&Rendben"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:359
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:364
 msgid "This will delete cards and their history."
 msgstr ""
 "Ennek hatására törlődnek a kártyák és a hozzájuk tartozó összes esemény is."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:360
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:503
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:508
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:365
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:512
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:517
 msgid "Are you sure you want to do this,"
 msgstr "Biztos benne, hogy ezt szeretné"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:361
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:504
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:509
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:366
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:513
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:518
 msgid "and not just deactivate cards in the 'Activate cards' dialog?"
 msgstr ""
 "és nem csak deaktíválni a kártyákat a 'Kártyák aktiválása' menüpontban?"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:362
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:367
 msgid "&Proceed and delete"
 msgstr "&Folytatás és törlés"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:424
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:429
 msgid ""
 "This card has different tags than its sister cards. Update tags for current "
 "card only or for all sister cards?"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:425
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:430
 msgid "All sister cards"
 msgstr "Összes testvérkártya"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:425
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:430
 msgid "Current card only"
 msgstr "Csak a jelenlegi kártya"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:449
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:454
 msgid "Converting cards..."
 msgstr "Kártyák konvertálása..."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:479
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:487
 msgid ""
 "This will add a tag 'Starred' to the current card, so that you can find it "
 "back easily, e.g. to edit it on a desktop."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:483
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:490
 msgid "Starred"
 msgstr "Csillagozva"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:500
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:509
 msgid "Delete this card?"
 msgstr "Törli ezt a kártyát?"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:502
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:511
 msgid "Delete this card and 1 sister card?"
 msgstr "Törli ezt a kártyát és a hozzá tartozó testvérkártyát?"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:506
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:515
 msgid "Delete this card and"
 msgstr "Törli ezt és a hozzá tartozó"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:507
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:516
 msgid "sister cards?"
 msgstr "testvérkártyát?"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:511
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:520
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:443
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:129
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:88
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:92
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:89
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:93
 msgid "&Delete"
 msgstr "Tö&rlés"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:525
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:534
 msgid "Deleting cards..."
 msgstr "Kártyák törlése..."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:537
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:546
 msgid "Checking for unused tags..."
 msgstr "Használaton kívüli tagek keresése..."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:552
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:561
 msgid "Card type name already exists."
 msgstr "Ilyen nevű kártyatípus már létezik."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:572
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:581
 msgid "Card type %s is in use or is a system card type, cannot delete it."
 msgstr ""
 "%s névvel már használatban van kártyatípus, esetleg egy beépített típus, "
 "emiatt nem lehet törölni."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:577
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:586
 msgid "Card type %s has clones, cannot delete it."
 msgstr "A %s kártyatípus már klónozva lett, ezért nem lehet törölni."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:592
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:601
 msgid "Cannot rename a system card type."
 msgstr "A beépített kártyatípusokat nem lehet átnevezni."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:597
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:606
 msgid "This card type name is already in use."
 msgstr "Ez a kártyatípus-név már használatban van."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:604
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:613
 msgid ""
 "It is recommended to put all your cards in a single database. Using tags to "
 "determine which cards to study is much more convenient than having to load "
@@ -512,21 +524,21 @@ msgstr ""
 "használatával sokkal egyszerűbb kiválasztani a tanulásra szánt kártyákat, "
 "mint mindig betölteni a szükséges adatbázisokat."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:615
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:645
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:722
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:624
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:654
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:731
 msgid "Mnemosyne databases"
 msgstr "Mnemosyne adatbázisok"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:616
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:625
 msgid "New"
 msgstr "Új"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:622
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:631
 msgid "Creating new database..."
 msgstr "Új adatbázis létrehozása..."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:652
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:661
 msgid ""
 "'*.cards' files are not separate databases, but need to be imported in your "
 "current database through 'File - Import'."
@@ -534,12 +546,12 @@ msgstr ""
 "A '*.cards' fájlok nem önálló adatbázisok, hanem a 'Fájl - Importálás' "
 "menüpont segítségével importálhatóak az aktuális adatbázisba."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:657
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:666
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_db.py:25
 msgid "The configuration database is not used to store cards."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:662
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:671
 msgid ""
 "Do you want to replace your current database with one restored from this "
 "backup?\n"
@@ -551,21 +563,21 @@ msgstr ""
 "Vegye figyelembe, hogy ez a következő szinkronizálás során ütközést okozhat, "
 "amit csak teljes szinkronizálással lehet megoldani."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:663
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:672
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:609
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1181
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 msgid "No"
 msgstr "Nem"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:663
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:672
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:609
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1181
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:98
 msgid "Yes"
 msgstr "Igen"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:701
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:710
 msgid ""
 "Your database will be autosaved before exiting. Also, it is saved every "
 "couple of repetitions, as set in the configuration options."
@@ -574,47 +586,47 @@ msgstr ""
 "ismétlésenként szintén mentés történik, aminek sűrüségét a beállításokban "
 "lehet finomhangolni."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:706
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:715
 msgid "Database saved."
 msgstr "Adatbázis elmentve."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:728
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:737
 msgid "The configuration database cannot be used to store cards."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:775
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:784
 msgid "Image files"
 msgstr "Képfájlok"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:777
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:786
 msgid "Insert image"
 msgstr "Kép beszúrása"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:790
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:799
 msgid "Sound files"
 msgstr "Hangfájlok"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:792
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:801
 msgid "Insert sound"
 msgstr "Hang beszúrása"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:805
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:814
 msgid "Video files"
 msgstr "Videó fájlok"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:807
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:816
 msgid "Insert video"
 msgstr "Videó beillesztése"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:820
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:829
 msgid "Flash files"
 msgstr "Flash fájlok"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:822
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:831
 msgid "Insert Flash"
 msgstr "Flash beillesztése"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:863
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:872
 msgid ""
 "This will tag all the cards in a given card type which have the same "
 "question. That way you can reformulate them to make the answer unambiguous. "
@@ -627,24 +639,24 @@ msgstr ""
 "a különböző típusú kártyákra, pl. ha az egyik 'Francia', a másik pedig "
 "'Spanyol'."
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:882
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:891
 msgid "Install plugin"
 msgstr "Plugin telepítése"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:882
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:891
 msgid "Plugins"
 msgstr "Pluginek"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:907
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:916
 msgid "No plugin found!"
 msgstr "Nem található plugin!"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:1062
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:1071
 msgid "For instructions on how to download Mnemosyne's source,"
 msgstr ""
 "A Mnemosyne forráskódjának letöltéséről szóló dokumentáció eléréséhez"
 
-#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:1063
+#: ../mnemosyne/libmnemosyne/controllers/default_controller.py:1072
 msgid "go to http://www.mnemosyne-proj.org"
 msgstr "látogassa meg a http://www.mnemosyne-proj.org honlapot"
 
@@ -769,7 +781,7 @@ msgid "Creating same card type twice during sync. Inform the developpers."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/databases/_apsw.py:54
-#: ../mnemosyne/libmnemosyne/databases/_sqlite3.py:51
+#: ../mnemosyne/libmnemosyne/databases/_sqlite3.py:52
 msgid ""
 "Putting a database on a network drive is forbidden under Windows to avoid "
 "data corruption. Mnemosyne will now close."
@@ -1001,8 +1013,8 @@ msgstr ""
 msgid "Badly formed input on line"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/filters/latex.py:119
-#: ../mnemosyne/libmnemosyne/filters/latex.py:200
+#: ../mnemosyne/libmnemosyne/filters/latex.py:122
+#: ../mnemosyne/libmnemosyne/filters/latex.py:203
 msgid "Problem with latex. Are latex and dvipng installed?"
 msgstr "Probléma van a latex-szel. Telepítve van a latex és a dvipng?"
 
@@ -1013,7 +1025,6 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/languages/afrikaans.py:13
 #: ../mnemosyne/libmnemosyne/languages/albanian.py:13
 #: ../mnemosyne/libmnemosyne/languages/amharic.py:13
-#: ../mnemosyne/libmnemosyne/languages/arabic.py:13
 #: ../mnemosyne/libmnemosyne/languages/armenian.py:13
 #: ../mnemosyne/libmnemosyne/languages/azerbaijani.py:13
 #: ../mnemosyne/libmnemosyne/languages/basque.py:13
@@ -1035,7 +1046,6 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/languages/hawaiian.py:13
 #: ../mnemosyne/libmnemosyne/languages/hebrew.py:13
 #: ../mnemosyne/libmnemosyne/languages/hmong.py:13
-#: ../mnemosyne/libmnemosyne/languages/icelandic.py:13
 #: ../mnemosyne/libmnemosyne/languages/igbo.py:13
 #: ../mnemosyne/libmnemosyne/languages/irish.py:13
 #: ../mnemosyne/libmnemosyne/languages/kannada.py:13
@@ -1094,6 +1104,45 @@ msgstr ""
 msgid "Arabic"
 msgstr ""
 
+#: ../mnemosyne/libmnemosyne/languages/arabic.py:13
+#: ../mnemosyne/libmnemosyne/languages/bengali.py:15
+#: ../mnemosyne/libmnemosyne/languages/chinese.py:15
+#: ../mnemosyne/libmnemosyne/languages/czech.py:13
+#: ../mnemosyne/libmnemosyne/languages/danish.py:13
+#: ../mnemosyne/libmnemosyne/languages/dutch.py:13
+#: ../mnemosyne/libmnemosyne/languages/english.py:17
+#: ../mnemosyne/libmnemosyne/languages/estonian.py:13
+#: ../mnemosyne/libmnemosyne/languages/finnish.py:13
+#: ../mnemosyne/libmnemosyne/languages/french.py:15
+#: ../mnemosyne/libmnemosyne/languages/german.py:13
+#: ../mnemosyne/libmnemosyne/languages/greek.py:13
+#: ../mnemosyne/libmnemosyne/languages/hindi.py:13
+#: ../mnemosyne/libmnemosyne/languages/hungarian.py:13
+#: ../mnemosyne/libmnemosyne/languages/icelandic.py:13
+#: ../mnemosyne/libmnemosyne/languages/indonesian.py:13
+#: ../mnemosyne/libmnemosyne/languages/italian.py:13
+#: ../mnemosyne/libmnemosyne/languages/japanese.py:13
+#: ../mnemosyne/libmnemosyne/languages/javanese.py:13
+#: ../mnemosyne/libmnemosyne/languages/khmer.py:13
+#: ../mnemosyne/libmnemosyne/languages/korean.py:13
+#: ../mnemosyne/libmnemosyne/languages/nepali.py:13
+#: ../mnemosyne/libmnemosyne/languages/norwegian.py:13
+#: ../mnemosyne/libmnemosyne/languages/polish.py:13
+#: ../mnemosyne/libmnemosyne/languages/portuguese.py:15
+#: ../mnemosyne/libmnemosyne/languages/romanian.py:13
+#: ../mnemosyne/libmnemosyne/languages/russian.py:13
+#: ../mnemosyne/libmnemosyne/languages/sinhala.py:13
+#: ../mnemosyne/libmnemosyne/languages/slovak.py:13
+#: ../mnemosyne/libmnemosyne/languages/spanish.py:15
+#: ../mnemosyne/libmnemosyne/languages/sundanese.py:13
+#: ../mnemosyne/libmnemosyne/languages/swedish.py:13
+#: ../mnemosyne/libmnemosyne/languages/thai.py:13
+#: ../mnemosyne/libmnemosyne/languages/turkish.py:13
+#: ../mnemosyne/libmnemosyne/languages/ukrainian.py:13
+#: ../mnemosyne/libmnemosyne/languages/vietnamese.py:13
+msgid "Google translation and text-to-speech."
+msgstr ""
+
 #: ../mnemosyne/libmnemosyne/languages/armenian.py:11
 msgid "Armenian"
 msgstr ""
@@ -1120,43 +1169,6 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/languages/bengali.py:14
 msgid "Bengali (India)"
-msgstr ""
-
-#: ../mnemosyne/libmnemosyne/languages/bengali.py:15
-#: ../mnemosyne/libmnemosyne/languages/chinese.py:15
-#: ../mnemosyne/libmnemosyne/languages/czech.py:13
-#: ../mnemosyne/libmnemosyne/languages/danish.py:13
-#: ../mnemosyne/libmnemosyne/languages/dutch.py:13
-#: ../mnemosyne/libmnemosyne/languages/english.py:17
-#: ../mnemosyne/libmnemosyne/languages/estonian.py:13
-#: ../mnemosyne/libmnemosyne/languages/finnish.py:13
-#: ../mnemosyne/libmnemosyne/languages/french.py:15
-#: ../mnemosyne/libmnemosyne/languages/german.py:13
-#: ../mnemosyne/libmnemosyne/languages/greek.py:13
-#: ../mnemosyne/libmnemosyne/languages/hindi.py:13
-#: ../mnemosyne/libmnemosyne/languages/hungarian.py:13
-#: ../mnemosyne/libmnemosyne/languages/indonesian.py:13
-#: ../mnemosyne/libmnemosyne/languages/italian.py:13
-#: ../mnemosyne/libmnemosyne/languages/japanese.py:13
-#: ../mnemosyne/libmnemosyne/languages/javanese.py:13
-#: ../mnemosyne/libmnemosyne/languages/khmer.py:13
-#: ../mnemosyne/libmnemosyne/languages/korean.py:13
-#: ../mnemosyne/libmnemosyne/languages/nepali.py:13
-#: ../mnemosyne/libmnemosyne/languages/norwegian.py:13
-#: ../mnemosyne/libmnemosyne/languages/polish.py:13
-#: ../mnemosyne/libmnemosyne/languages/portuguese.py:15
-#: ../mnemosyne/libmnemosyne/languages/romanian.py:13
-#: ../mnemosyne/libmnemosyne/languages/russian.py:13
-#: ../mnemosyne/libmnemosyne/languages/sinhala.py:13
-#: ../mnemosyne/libmnemosyne/languages/slovak.py:13
-#: ../mnemosyne/libmnemosyne/languages/spanish.py:15
-#: ../mnemosyne/libmnemosyne/languages/sundanese.py:13
-#: ../mnemosyne/libmnemosyne/languages/swedish.py:13
-#: ../mnemosyne/libmnemosyne/languages/thai.py:13
-#: ../mnemosyne/libmnemosyne/languages/turkish.py:13
-#: ../mnemosyne/libmnemosyne/languages/ukrainian.py:13
-#: ../mnemosyne/libmnemosyne/languages/vietnamese.py:13
-msgid "Google translation and text-to-speech."
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/languages/bosnian.py:11
@@ -1605,11 +1617,11 @@ msgstr "A feltöltő szál befejezésére vár..."
 msgid "Done!"
 msgstr "Kész!"
 
-#: ../mnemosyne/libmnemosyne/plugin.py:103
+#: ../mnemosyne/libmnemosyne/plugin.py:119
 msgid "Cannot deactivate"
 msgstr "Nem lehet deaktiválni"
 
-#: ../mnemosyne/libmnemosyne/plugin.py:105
+#: ../mnemosyne/libmnemosyne/plugin.py:121
 msgid ""
 "There are cards with this card type (or a clone of it) in the database."
 msgstr ""
@@ -1719,59 +1731,59 @@ msgstr ""
 "Az 'Előre tanulás' funkciót módjával használja. Vizsga előtti magoláshoz "
 "inkább használja az ütemező magoláshoz plugint."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:140
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:142
 msgid ""
 "You have finished your scheduled reviews. Now, learn as many failed or new "
 "cards as you feel like."
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:161
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:163
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:33
 msgid "Returns in"
 msgstr ""
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:162
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:164
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:34
 msgid " day(s)."
 msgstr " nap múlva."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:166
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:168
 msgid "Next repetition: today."
 msgstr "Következő feleltetés: ma."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:168
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:170
 msgid "Next repetition: tomorrow."
 msgstr "Következő feleltetés: holnap."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:170
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:172
 msgid " days."
 msgstr " nap múlva."
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:170
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:172
 msgid "Next repetition in "
 msgstr "Következő feleltetés "
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:216
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:218
 #: ../mnemosyne/pyqt_ui/preview_cards_dlg.py:67
 msgid "Question: "
 msgstr "Kérdés: "
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:252
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:255
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:258
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:254
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:257
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:260
 msgid "Show answer"
 msgstr "Válasz megjelenítése"
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:262
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:264
 msgid "Learn ahead of schedule"
 msgstr "Előre tanulás"
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:281
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:283
 msgid "Pick days until next repetition:"
 msgstr "Válassza ki a következő feleltetésig hátralevő napokat:"
 
-#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:283
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:107
+#: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:285
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:109
 msgid "Grade your answer:"
 msgstr "Pontozza válaszát:"
 
@@ -1886,14 +1898,14 @@ msgid "Unseen card, no statistics available yet."
 msgstr "Új kártya, még nem érhető el statisztika."
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:31
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:725
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:726
 msgid "Grade"
 msgstr "Jegy"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:32
 #: ../mnemosyne/libmnemosyne/statistics_pages/easiness.py:12
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:726
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:289
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:727
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:293
 msgid "Easiness"
 msgstr "Nehézség"
 
@@ -1906,7 +1918,7 @@ msgid "Review repetitions"
 msgstr "Áttekintő ismétlések"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:37
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:728
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:729
 msgid "Lapses"
 msgstr "Körök"
 
@@ -1948,7 +1960,7 @@ msgid "Untagged"
 msgstr "Nincs taggelve"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/grades.py:12
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:266
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:270
 msgid "Grades"
 msgstr "Pontszám"
 
@@ -2013,7 +2025,7 @@ msgid "Study new unlearned cards only"
 msgstr ""
 
 #: ../mnemosyne/libmnemosyne/study_modes/scheduled_forgotten_new.py:16
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:245
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:246
 msgid "Scheduled -> forgotten -> new"
 msgstr ""
 
@@ -2273,7 +2285,7 @@ msgid "Show cards from these card types:"
 msgstr "Csak a következő típusú kártyák megjelenítése:"
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:372
-#: ../mnemosyne/pyqt_ui/ui_criterion_wdgt_default.py:39
+#: ../mnemosyne/pyqt_ui/ui_criterion_wdgt_default.py:40
 msgid "having any of these tags:"
 msgstr "amelyek a lentiek közül bármelyik taggel meg vannak jelölve:"
 
@@ -2286,14 +2298,14 @@ msgid "containing this text in the cards:"
 msgstr "melyek tartalmazzák a következő szöveget:"
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:435
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:90
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:91
 msgid "&Edit"
 msgstr "&Szerkeszt"
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:439
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:116
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:136
-#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:79
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:117
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:137
+#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:80
 msgid "&Preview"
 msgstr "&Előnézet"
 
@@ -2309,39 +2321,39 @@ msgstr "Tag &hozzáadása"
 msgid "&Remove tags"
 msgstr "Tag &törlése"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:586
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:587
 msgid "Go ahead with delete? Sister cards will be deleted as well."
 msgstr "Mehet a törlés? A testvérkártyák is törlődni fognak."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:617
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:618
 msgid "The selected cards should have the same card type."
 msgstr "A kijelölt kártyáknak ugyanolyan típusúaknak kell lenniük."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:704
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:705
 msgid "Database error: "
 msgstr "Adatbázis hiba: "
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:724
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:725
 msgid "Answer"
 msgstr "Válasz"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:724
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:725
 msgid "Question"
 msgstr "Kérdés"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:725
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:726
 msgid "Next rep"
 msgstr "Következő ism."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:725
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:726
 msgid "Tags"
 msgstr "Tagek"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:726
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:727
 msgid "Last rep"
 msgstr "Utolsó ism."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:727
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:728
 msgid ""
 "Learning\n"
 "reps"
@@ -2349,7 +2361,7 @@ msgstr ""
 "Tanulás\n"
 "ism."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:728
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:729
 msgid ""
 "Review\n"
 "reps"
@@ -2357,15 +2369,15 @@ msgstr ""
 "Áttekintés\n"
 "ism."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:729
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:730
 msgid "Created"
 msgstr "Létrehozva"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:729
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:730
 msgid "Modified"
 msgstr "Módosítva"
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:789
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:790
 msgid ""
 "You chose to sort this table. Operations in the card browser could now be "
 "slower. Next time you start the card browser, the table will be unsorted "
@@ -2375,7 +2387,7 @@ msgstr ""
 "lassabbak lehetnek. A böngésző következő megnyitásakor visszaáll az eredeti "
 "sorrend."
 
-#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:877
+#: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:878
 msgid "%d cards shown, of which %d active."
 msgstr "%d kártya megjelenítve, amelyből %d aktív."
 
@@ -2485,7 +2497,7 @@ msgid "A required field is missing."
 msgstr "Kötelező érték hiányzik."
 
 #: ../mnemosyne/pyqt_ui/criterion_wdgt_default.py:34
-#: ../mnemosyne/pyqt_ui/ui_criterion_wdgt_default.py:38
+#: ../mnemosyne/pyqt_ui/ui_criterion_wdgt_default.py:39
 msgid "Activate cards from these card types:"
 msgstr "A következő típusú kártyák aktiválása:"
 
@@ -2546,8 +2558,8 @@ msgid "and not just deactivate it?"
 msgstr "deaktiválni szeretni a plugint?"
 
 #: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:100
-#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:83
-#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:75
+#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:84
+#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:76
 msgid "Cancel"
 msgstr "Mégsem"
 
@@ -2592,23 +2604,23 @@ msgstr ""
 msgid "Please select a filename inside the media directory."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:74
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:201
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:208
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:76
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:207
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:214
 msgid "Unable to start sync server."
 msgstr "Nem lehet elindítani a szinkronizáló szervert."
 
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:202
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:208
 #: ../mnemosyne/pyqt_ui/qt_web_server.py:188
 msgid "There still seems to be an old server running on the requested port."
 msgstr "Úgy tűnik, hogy a kért porton egy régebbi kiszolgáló fut."
 
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:203
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:209
 #: ../mnemosyne/pyqt_ui/qt_web_server.py:189
 msgid "Terminate that process and try again."
 msgstr "Állítsa le a folyamatot, és próbálja újra."
 
-#: ../mnemosyne/pyqt_ui/qt_sync_server.py:209
+#: ../mnemosyne/pyqt_ui/qt_sync_server.py:215
 #: ../mnemosyne/pyqt_ui/qt_web_server.py:195
 msgid "You don't have the permission to use the requested port."
 msgstr "Nincs jogosultsága a kért port használatához."
@@ -2636,7 +2648,7 @@ msgid "Insert &sound"
 msgstr "&Hang beszúrása"
 
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:39
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:229
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:230
 msgid "Ctrl+S"
 msgstr "Ctrl+S"
 
@@ -2645,7 +2657,7 @@ msgid "Insert vi&deo"
 msgstr "&Video beillesztése"
 
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:41
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:212
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:213
 msgid "Ctrl+D"
 msgstr "Ctrl+P"
 
@@ -2661,15 +2673,15 @@ msgstr "Ctrl+F"
 msgid "&Hide pronunciation field for this card type"
 msgstr "&Kiejtés mező elrejtése ennél a kártyatípusnál"
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:487
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:489
 msgid "Scheduled: %d "
 msgstr "Ütemezve: %d "
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:488
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:490
 msgid "Not memorised: %d "
 msgstr "Nem memorizált: %d "
 
-#: ../mnemosyne/pyqt_ui/review_wdgt.py:489
+#: ../mnemosyne/pyqt_ui/review_wdgt.py:491
 msgid "Active: %d "
 msgstr "Aktív: %d "
 
@@ -2699,28 +2711,28 @@ msgstr "Aktív:"
 msgid "Default"
 msgstr "Alapértelmezett"
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:212
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:216
 msgid "Number of cards scheduled"
 msgstr "Ütemezett kártyák száma"
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:224
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:228
 msgid "Retention score (%)"
 msgstr "Megragadási pontszám (%)"
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:236
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:240
 msgid "Number of cards added"
 msgstr "Új kártyák száma"
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:247
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:251
 msgid "Number of new cards learned"
 msgstr "Újonnan megtanult kártyák száma"
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:265
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:288
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:269
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:292
 msgid "Number of cards"
 msgstr "Kártyák száma"
 
-#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:268
+#: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:272
 msgid "Not seen"
 msgstr "Új"
 
@@ -2745,8 +2757,8 @@ msgstr ""
 "kezdeményezze a szinkronizálást a mobil eszközön."
 
 #: ../mnemosyne/pyqt_ui/tag_tree_wdgt.py:121
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:87
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:91
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:88
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:92
 msgid "&Rename"
 msgstr "&Átnevezés"
 
@@ -3044,494 +3056,494 @@ msgid ""
 "lookup."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:83
+#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:84
 msgid "About Mnemosyne"
 msgstr "A Mnemosyne-ről"
 
-#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:85
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:110
+#: ../mnemosyne/pyqt_ui/ui_about_dlg.py:86
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:111
 msgid "Alt+C"
 msgstr "Alt+C"
 
-#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:78
+#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:79
 msgid "(De)activate cards"
 msgstr "Kártyák (de)aktiválása"
 
-#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:79
+#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:80
 msgid "Saved sets:"
 msgstr "Elmentett halmazok:"
 
-#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:81
+#: ../mnemosyne/pyqt_ui/ui_activate_cards_dlg.py:82
 msgid "&Save this set for later use"
 msgstr "Halmaz &mentése későbbre"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:102
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:103
 msgid "Add cards"
 msgstr "Kártyák hozzáadása"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:103
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:126
-#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:76
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:104
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:127
+#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:77
 msgid "Card type:"
 msgstr "Kártyatípus:"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:104
-#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:61
-#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:77
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:98
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:105
+#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:62
+#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:78
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:99
 msgid "Tags:"
 msgstr "Tagek:"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:105
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:106
 msgid "Select initial grade:"
 msgstr "Válassza ki a kezdeti pontszámot:"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:106
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:107
 msgid "You have yet to learn this."
 msgstr "Még meg kell tanulnia ezt a kártyát."
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:107
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:108
 msgid "&Yet to learn"
 msgstr "&Megtanulandó"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:108
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:109
 msgid "You know this, but just barely."
 msgstr "Tudja, de csak éppen hogy"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:109
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:110
 msgid "&2"
 msgstr "&2"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:110
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:111
 msgid "You know this, but not very well."
 msgstr "Tudja, de nem igazán jól."
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:111
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:112
 msgid "&3"
 msgstr "&3"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:112
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:113
 msgid "You know this."
 msgstr "Elég jól tudja."
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:113
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:114
 msgid "&4"
 msgstr "&4"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:114
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:115
 msgid "You know this very well."
 msgstr "Nagyon jól tudja."
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:115
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:116
 msgid "&5"
 msgstr "&5"
 
-#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:117
-#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:80
+#: ../mnemosyne/pyqt_ui/ui_add_cards_dlg.py:118
+#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:81
 msgid "&Exit"
 msgstr "&Kilépés"
 
-#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:60
+#: ../mnemosyne/pyqt_ui/ui_add_tags_dlg.py:61
 msgid "Add tags"
 msgstr "Tagek hozzáadása"
 
-#: ../mnemosyne/pyqt_ui/ui_browse_cards_dlg.py:51
+#: ../mnemosyne/pyqt_ui/ui_browse_cards_dlg.py:52
 msgid "Browse cards"
 msgstr "Kártyák böngészése"
 
-#: ../mnemosyne/pyqt_ui/ui_browse_cards_dlg.py:52
+#: ../mnemosyne/pyqt_ui/ui_browse_cards_dlg.py:53
 msgid "Select one or more cards and right-click for more actions."
 msgstr ""
 "További funkciókért jelöljön ki egy vagy több kártyát, és kattintson a jobb "
 "egérgombbal!"
 
-#: ../mnemosyne/pyqt_ui/ui_browse_cards_dlg.py:53
+#: ../mnemosyne/pyqt_ui/ui_browse_cards_dlg.py:54
 msgid "XXX cards selected, of which XXX active"
 msgstr "XXX kártya kiválasztva, melyből XXX aktív"
 
-#: ../mnemosyne/pyqt_ui/ui_card_set_name_dlg.py:42
+#: ../mnemosyne/pyqt_ui/ui_card_set_name_dlg.py:43
 msgid "Card set name"
 msgstr "Kártyahalmaz neve"
 
-#: ../mnemosyne/pyqt_ui/ui_card_set_name_dlg.py:43
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:93
+#: ../mnemosyne/pyqt_ui/ui_card_set_name_dlg.py:44
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:94
 msgid "Card set name:"
 msgstr "Kártyahalmaz neve:"
 
-#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:57
+#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:58
 msgid "Change card type"
 msgstr "Kártyatípus megváltoztatása"
 
-#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:58
+#: ../mnemosyne/pyqt_ui/ui_change_card_type_dlg.py:59
 msgid "New card type:"
 msgstr "Új kártyatípus:"
 
-#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:61
+#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:62
 msgid "Clone card type"
 msgstr "Kártyatípus klónozása"
 
-#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:62
+#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:63
 msgid "Cloned from:"
 msgstr "Eredeti:"
 
-#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:63
+#: ../mnemosyne/pyqt_ui/ui_clone_card_type_dlg.py:64
 msgid "Clone name:"
 msgstr "Klón neve:"
 
-#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:58
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:243
+#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:59
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:244
 msgid "Compact database"
 msgstr "Adatbázis tömörítése"
 
-#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:59
+#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:60
 msgid "Delete unused media files"
 msgstr "Használaton kívüli médiafájlok törlése"
 
-#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:60
+#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:61
 msgid "Archive statistics older than 1 year"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:61
+#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:62
 msgid "Defragment database (only needed after deleting many cards)"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:62
+#: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:63
 msgid ""
 "(Note: archiving and defragmenting happens automatically every few months.)"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:56
+#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:57
 msgid "Configuration"
 msgstr "Beállítások"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:58
+#: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:59
 msgid "&Defaults"
 msgstr "&Alapértékek"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:125
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:113
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:91
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:146
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:121
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:126
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:114
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:92
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:147
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:122
 msgid "Form"
 msgstr "Űrlap"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:127
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:128
 msgid "Background:"
 msgstr "Háttér:"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:128
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:129
 msgid "Set colour"
 msgstr "Szín beállítása"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:129
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:130
 msgid "Alignment:"
 msgstr "Elrendezés:"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:130
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:131
 msgid "Left"
 msgstr "Balra zárt"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:131
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:132
 msgid "Center"
 msgstr "Középre zárt"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:132
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:133
 msgid "Right"
 msgstr "Jobbra zárt"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:133
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:134
 msgid "Increase size of non-latin characters by"
 msgstr "Nem-latin betűk nagyobbítása"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:134
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:135
 msgid "points."
 msgstr "pont."
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:135
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:136
 msgid ""
 "(This setting will be overridden in card types cloned from 'Vocabulary'.)"
 msgstr ""
 "(Ezek a beállítások felülíródnak a 'Szókincs'-ről klónozott kártyatípusok "
 "esetében.)"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:114
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:115
 msgid "Storage and data"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:115
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:116
 msgid "Autosave after"
 msgstr "Automatikus mentés"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:116
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:117
 msgid "repetitions."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:117
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:118
 msgid "Keep at most"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:118
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:119
 msgid "backups."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:119
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:120
 msgid "Upload anonymous science logs."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:120
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:121
 msgid "GUI"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:121
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:122
 msgid "Show question and answer"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:122
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:123
 msgid "in two boxes with fixed size"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:123
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:124
 msgid "in two boxes with adaptive size"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:124
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:125
 msgid "in a single box, top-aligned"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:125
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:126
 msgid "GUI language:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:92
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:93
 msgid "Allow other devices to sync with this computer"
 msgstr "Más eszközök szinkronizálhatnak ezzel a számítógéppel"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:93
-#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:86
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:94
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:87
 msgid "Password:"
 msgstr "Jelszó:"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:94
-#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:85
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:95
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:86
 msgid "Username:"
 msgstr "Felhasználónév:"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:95
-#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:87
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:96
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:88
 msgid "Port:"
 msgstr "Port:"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:96
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:97
 msgid "Check for changed media files on server"
 msgstr "Megváltozott médiafájlok keresése a szerveren"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:97
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:98
 msgid "Sync server status"
 msgstr "Szinkronizáló szerver státusza"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:98
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:99
 msgid "Allow remote review through a web browser"
 msgstr "Távoli tanulás engedélyezése böngészőn keresztül"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:99
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:100
 msgid "Port:         "
 msgstr "Port:         "
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:100
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:101
 msgid "Web server status"
 msgstr "Web szerver státusza"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:147
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:148
 msgid "Regular study"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:148
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:149
 msgid "Review memorised cards"
 msgstr "Memorizált kártyák ismétlése"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:149
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:150
 msgid "most urgent first"
 msgstr "legsürgősebb előre"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:150
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:155
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:158
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:151
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:156
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:159
 msgid "in random order"
 msgstr "véletlenszerű sorrendben"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:151
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:152
 msgid "Work on at most"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:152
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:153
 msgid "non-memorised cards at the same time."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:153
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:154
 msgid "Show new cards for the first time"
 msgstr "Új kártyák debütálása"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:154
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:155
 msgid "in the order they were added"
 msgstr "olyan sorrendben, ahogy rögzítve lettek"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:156
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:157
 msgid "Cramming"
 msgstr "Magolás"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:157
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:158
 msgid "Cram cards"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:159
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:160
 msgid "earliest scheduled first"
 msgstr "legkorábban beütemezett előre"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:160
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:161
 msgid "lastest scheduled first"
 msgstr "legkésőbb beütemezett előre"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:161
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:162
 msgid "most lapses first"
 msgstr "legtöbbször ismételt előre"
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:162
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:163
 msgid "'Recent cards' are cards with at most"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:163
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:164
 msgid "retention repetition(s)."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:164
+#: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:165
 msgid "Remember which cards you've crammed when restarting Mnemosyne."
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:66
+#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:67
 msgid "Convert card type data"
 msgstr "Kártyatípus adat konvertálása"
 
-#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:67
+#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:68
 msgid "Set the correspondence between data in the old and the new card type:"
 msgstr "Párosítsa az új és a régi kártyatípus közti mezőket:"
 
-#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:68
+#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:69
 msgid "Old:"
 msgstr "Régi:"
 
-#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:69
+#: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:70
 msgid "New:"
 msgstr "Új:"
 
-#: ../mnemosyne/pyqt_ui/ui_criterion_wdgt_default.py:40
+#: ../mnemosyne/pyqt_ui/ui_criterion_wdgt_default.py:41
 msgid "not having any of these tags:"
 msgstr "nincs megjelölve ezen tagek egyikével sem:"
 
-#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:49
+#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:50
 msgid "Delete media"
 msgstr "Médiafájl törlése"
 
-#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:50
+#: ../mnemosyne/pyqt_ui/ui_delete_unused_media_files_dlg.py:51
 msgid "Delete these unused media files?"
 msgstr "Törli ezeket a használaton kívüli médiafájlokat?"
 
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:122
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:123
 msgid "Front template:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:123
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:125
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:124
 #: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:126
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:128
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:127
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:129
 msgid "a"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:124
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:125
 msgid "Styling (shared between sister cards):"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:127
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:128
 msgid "Back template:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:129
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:130
 msgid "Front preview:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:130
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:131
 msgid "Back preview:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_type_dlg.py:49
+#: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_type_dlg.py:50
 msgid "Edit M-sided card type"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:75
+#: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:76
 msgid "Edit card"
 msgstr "Kártya szerkesztése"
 
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:81
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:82
 msgid "Export to file"
 msgstr "Exportálás fájlba"
 
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:82
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:88
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:83
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:89
 msgid "File format:"
 msgstr "Fájlformátum:"
 
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:83
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:84
 msgid "File to export to:"
 msgstr "Exportálás ebbe a fájlba:"
 
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:84
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:90
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:85
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:91
 msgid "&Browse"
 msgstr "&Tallózás"
 
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:85
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:86
 msgid "(Only active cards will be exported, without learning data.)"
 msgstr ""
 "(Kizárólag aktív kártyák lesznek exportálva, tanulási adatok nélkül.)"
 
-#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:87
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:93
+#: ../mnemosyne/pyqt_ui/ui_export_dlg.py:88
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:94
 msgid "Alt+O"
 msgstr "Alt+O"
 
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:92
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:93
 msgid "Export cards"
 msgstr "Kártyák exportálása"
 
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:94
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:95
 msgid "Author name:"
 msgstr "Készítő neve:"
 
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:95
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:96
 msgid "Author email:"
 msgstr "Készítő e-mail címe:"
 
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:96
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:97
 msgid "Date:"
 msgstr "Dátum:"
 
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:97
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:98
 msgid "Revision:"
 msgstr "Verzió:"
 
-#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:99
+#: ../mnemosyne/pyqt_ui/ui_export_metadata_dlg.py:100
 msgid "Notes:"
 msgstr "Megjegyzések:"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:83
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:84
 msgid "Wizard"
 msgstr "Varázsló"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:84
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:85
 msgid "Introduction"
 msgstr "Bevezető"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:85
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:86
 msgid ""
 "Welcome to Mnemosyne, a flash card program named both after the Greek "
 "goddess of Memory and a type of butterfly.\n"
@@ -3557,11 +3569,11 @@ msgstr ""
 "\n"
 "Lássuk, hogy mit jelentenek az egyes pontszámok!"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:86
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:87
 msgid "Memorising new cards"
 msgstr "Új kártyák memorizálása"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:87
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:88
 msgid ""
 "Grades range from 0 to 5.\n"
 "\n"
@@ -3579,11 +3591,11 @@ msgid ""
 "completely. This is most efficient for the learning process.\n"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:88
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:89
 msgid "Reviewing previously memorised cards"
 msgstr "Korábban memorizált kártyák áttekintése"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:89
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:90
 msgid ""
 "If you study these cards again tomorrow, the 'Scheduled' counter will tell "
 "you how many previously memorised cards you need to review. These are grade "
@@ -3622,12 +3634,12 @@ msgstr ""
 "fognak újra megjelenni, míg úgy nem gondolja, hogy pár napig még képes lenne "
 "emlékezni rájuk."
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:90
-#: ../mnemosyne/pyqt_ui/ui_statistics_dlg.py:44
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:91
+#: ../mnemosyne/pyqt_ui/ui_statistics_dlg.py:45
 msgid "Statistics"
 msgstr "Statisztika"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:91
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:92
 msgid ""
 "If you're into statistics, Mnemosyne keeps detailed logs of your revisions.\n"
 "\n"
@@ -3649,15 +3661,15 @@ msgstr ""
 "\n"
 "Vegye ki a pipát az alábbi dobozból, ha nem szeretne hozzájárulni ehhez!"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:92
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:93
 msgid "Upload anonymous logs (can be changed later)"
 msgstr "Anonim naplók feltöltése (később meg lehet változtatni)"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:93
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:94
 msgid "Ready to start"
 msgstr "Készen áll"
 
-#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:94
+#: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:95
 msgid ""
 "Now you're ready to start!\n"
 "\n"
@@ -3688,374 +3700,374 @@ msgstr ""
 "\n"
 "Sikeres tanulást!"
 
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:87
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:88
 msgid "Import from file"
 msgstr "Importálás fájlból"
 
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:89
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:90
 msgid "File to import from:"
 msgstr "Forrásfájl:"
 
-#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:91
+#: ../mnemosyne/pyqt_ui/ui_import_dlg.py:92
 msgid "Add additional tag(s) to cards:"
 msgstr "További tag(ek) hozzárendelése a kártyákhoz:"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:205
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:206
 msgid "&Settings"
 msgstr "&Beállítások"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:206
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:207
 msgid "&Help"
 msgstr "&Súgó"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:207
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:208
 msgid "&File"
 msgstr "&Fájl"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:208
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:209
 msgid "&Cards"
 msgstr "&Kártyák"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:209
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:210
 msgid "S&tudy"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:210
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:211
 msgid "toolBar"
 msgstr "eszköztár"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:211
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:212
 msgid "(De)a&ctivate cards..."
 msgstr "Kártyák (de)&aktiválása..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:213
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:214
 msgid "&Add cards..."
 msgstr "Kártyák &hozzáadása"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:214
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:215
 msgid "Ctrl+A"
 msgstr "Ctrl+F"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:215
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:216
 msgid "&Configure Mnemosyne..."
 msgstr "Mnemosyne &beállítása..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:216
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:217
 msgid "&Delete current card"
 msgstr "Aktuális kártya tö&rlése"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:217
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:218
 msgid "Del"
 msgstr "Törl"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:218
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:219
 msgid "&Edit current card..."
 msgstr "Aktuális kártya &szerkesztése..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:219
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:220
 msgid "Ctrl+E"
 msgstr "Ctrl+S"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:220
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:221
 msgid "&Browse cards..."
 msgstr "Kártyák &böngészése"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:221
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:222
 msgid "Ctrl+B"
 msgstr "Ctrl+B"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:222
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:223
 msgid "&Export..."
 msgstr "&Exportálás..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:223
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:72
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:224
+#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:73
 msgid "E&xit"
 msgstr "&Kilépés"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:224
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:225
 msgid "&New..."
 msgstr "&Új"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:225
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:226
 msgid "Ctrl+N"
 msgstr "Ctrl+J"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:226
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:227
 msgid "&Open..."
 msgstr "&Megnyitás"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:227
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:228
 msgid "Ctrl+O"
 msgstr "Ctrl+M"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:228
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:229
 msgid "&Save"
 msgstr "Menté&s"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:230
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:231
 msgid "Save &as..."
 msgstr "Mentés m&ásként"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:231
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:232
 msgid "&About"
 msgstr "&Névjegy"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:232
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:233
 msgid "&Import..."
 msgstr "&Importálás..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:233
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:234
 msgid "&Getting started"
 msgstr "&Bevezető"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:234
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:235
 msgid "Show s&tatistics..."
 msgstr "&Statisztikák megjelenítése..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:235
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:236
 msgid "Ctrl+T"
 msgstr "Ctrl+T"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:236
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:237
 msgid "&Tip of the day"
 msgstr "A nap &tippje"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:237
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:238
 msgid "Manage &plugins..."
 msgstr "&Pluginek kezelése..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:238
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:66
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:239
+#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:67
 msgid "Manage plugins"
 msgstr "Pluginek kezelése..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:239
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:240
 msgid "&Manage card types..."
 msgstr "Kártya&típusok kezelése..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:240
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:241
 msgid "S&ync..."
 msgstr "S&zinkronizálás"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:241
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:242
 msgid "Ctrl+Y"
 msgstr "Ctrl+Y"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:242
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:243
 msgid "Compact..."
 msgstr "Adatbázis tömörítése..."
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:244
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:245
 msgid "Find duplicate questions"
 msgstr "Duplikált kártyák keresése"
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:246
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:247
 msgid "Study new cards only"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:247
+#: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:248
 msgid "Cram active cards"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:84
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:85
 msgid "Card type manager"
 msgstr "Kártyatípus-kezelő"
 
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:85
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:86
 msgid "Card types"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:86
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:87
 msgid "&New clone"
 msgstr "&Új klón"
 
-#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:89
+#: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:90
 msgid "Anki card types"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:67
+#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:68
 msgid "Installed plugins (active and inactive):"
 msgstr "Telepített pluginek (aktívak és inaktívak):"
 
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:68
+#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:69
 msgid "Plugin description:"
 msgstr "Plugin leírása:"
 
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:70
+#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:71
 msgid "&Install new plugin"
 msgstr "Plugin &telepítése"
 
-#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:71
+#: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:72
 msgid "&Delete plugin"
 msgstr "Plugin tö&rlése"
 
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:93
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:94
 msgid "Preview cards"
 msgstr "Kártyák előnézete"
 
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:94
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:104
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:95
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:106
 msgid "Question:"
 msgstr "Kérdés:"
 
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:95
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:105
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:96
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:107
 #: ../mnemosyne/web_server/review_wdgt.py:32
 msgid "Answer:"
 msgstr "Válasz:"
 
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:96
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:97
 msgid "&Previous sister card"
 msgstr "&Előző testvérkártya"
 
-#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:97
+#: ../mnemosyne/pyqt_ui/ui_preview_cards_dlg.py:98
 msgid "&Next sister card"
 msgstr "&Következő testvérkártya"
 
-#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:76
+#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:77
 msgid "Text-to-speech"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:77
+#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:78
 msgid "Foreign text to pronounce:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:78
+#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:79
 msgid "Language variant:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:79
+#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:80
 msgid "Filename to save to:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:80
-msgid "Browse"
-msgstr ""
-
 #: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:81
-#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:73
-msgid "Preview"
+msgid "Browse"
 msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:82
 #: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:74
+msgid "Preview"
+msgstr ""
+
+#: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:83
+#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:75
 msgid "Insert"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:50
+#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:51
 msgid "Remove tags"
 msgstr "Tagek törlése"
 
-#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:51
+#: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:52
 msgid "Tags to remove:"
 msgstr "Törlendő tagek:"
 
-#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:49
+#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:50
 msgid "Rename card type"
 msgstr "Kártyatípus átnevezése"
 
-#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:50
+#: ../mnemosyne/pyqt_ui/ui_rename_card_type_dlg.py:51
 msgid "Enter new card type name:"
 msgstr "Új kártyatípus neve:"
 
-#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:49
+#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:50
 msgid "Rename tag"
 msgstr "Tag átnevezése"
 
-#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:50
+#: ../mnemosyne/pyqt_ui/ui_rename_tag_dlg.py:51
 msgid "Enter new tag name:"
 msgstr "Új tag neve:"
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:106
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:108
 msgid "Show &answer"
 msgstr "&Válasz mutatása"
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:108
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:110
 msgid "0"
 msgstr "0"
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:109
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:111
 msgid "1"
 msgstr "1"
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:110
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:112
 msgid "2"
 msgstr "2"
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:111
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:113
 msgid "3"
 msgstr "3"
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:112
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:114
 msgid "4"
 msgstr "4"
 
-#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:113
+#: ../mnemosyne/pyqt_ui/ui_review_wdgt.py:115
 msgid "5"
 msgstr "5"
 
-#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:83
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:84
 msgid "Sync with server"
 msgstr "Szinkronizálás a kiszolgálóval"
 
-#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:84
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:85
 msgid "Server:"
 msgstr "Kiszolgáló:"
 
-#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:88
+#: ../mnemosyne/pyqt_ui/ui_sync_dlg.py:89
 msgid "Check for changed media files on client"
 msgstr "Megváltozott médiafájlok ellenőrzése a kliensen"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:101
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:102
 msgid "Tip of the day"
 msgstr "A nap tippje"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:102
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:103
 msgid "<b>Did you know...?</b>"
 msgstr "<b>Tudta-e, hogy...?</b>"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:103
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:104
 msgid "&Show tips on startup"
 msgstr "Tippek megjelenítése indítá&skor"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:104
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:105
 msgid "Alt+S"
 msgstr "Alt+S"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:105
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:106
 msgid "&Previous"
 msgstr "&Előző"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:106
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:107
 msgid "Alt+P"
 msgstr "Alt+E"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:107
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:108
 msgid "&Next"
 msgstr "&Következő"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:108
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:109
 msgid "Alt+N"
 msgstr "Alt+K"
 
-#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:109
+#: ../mnemosyne/pyqt_ui/ui_tip_dlg.py:110
 msgid "&Close"
 msgstr "&Bezár"
 
-#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:69
+#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:70
 msgid "Translate"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:70
+#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:71
 msgid "Foreign text to translate:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:71
+#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:72
 msgid "Target language:"
 msgstr ""
 
-#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:72
+#: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:73
 msgid "Translation:"
 msgstr ""
 
