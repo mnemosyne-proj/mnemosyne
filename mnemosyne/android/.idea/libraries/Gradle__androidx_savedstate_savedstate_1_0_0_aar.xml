@@ -7,6 +7,9 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ec63ade83f996053c779020992b8aabd/jetified-savedstate-1.0.0/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ec63ade83f996053c779020992b8aabd/jetified-savedstate-1.0.0/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ec63ade83f996053c779020992b8aabd/jetified-savedstate-1.0.0/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4aaf75a55764b24339629ed2112cf41e/jetified-savedstate-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4aaf75a55764b24339629ed2112cf41e/jetified-savedstate-1.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4aaf75a55764b24339629ed2112cf41e/jetified-savedstate-1.0.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

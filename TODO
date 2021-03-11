@@ -1,6 +1,6 @@
-- improved warning on upgrade
 - speed up cramming counter
 - limit number of daily cards
+- Kamil Jońca: https://mnemosyne-proj.org/cards/latin. Export 1::foo before 1::foo::bar
 
 Android:
 

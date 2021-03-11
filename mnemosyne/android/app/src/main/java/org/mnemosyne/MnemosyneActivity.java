@@ -3,6 +3,7 @@ package org.mnemosyne;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,7 +18,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.documentfile.provider.DocumentFile;
 
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -42,8 +43,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,6 +58,8 @@ public class MnemosyneActivity extends AppCompatActivity {
 
     public static final int SYNC_ACTIVITY_RESULT = 0;
     public static final int ACTIVATE_CARDS_ACTIVITY_RESULT = 1;
+    public static final int EXPORT_DIRECTORY_RESULT = 2;
+    public static final int IMPORT_DIRECTORY_RESULT = 3;
 
     private static final int REQUEST_WRITE_STORAGE = 112;
 
@@ -373,8 +382,7 @@ public class MnemosyneActivity extends AppCompatActivity {
                         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Mnemosyne:wakelocktag");
                         wl.acquire();
                         try {
-                            // TMP, until we provide external access to the archive.
-                            //mnemosyneThread.bridge.controller_do_db_maintenance();
+                            mnemosyneThread.bridge.controller_do_db_maintenance();
                         } finally {
                             wl.release();
                         }
@@ -382,11 +390,30 @@ public class MnemosyneActivity extends AppCompatActivity {
                 });
                 return true;
 
+            case R.id.menu_export_data:
+                export_data();
+                return true;
+
+            case R.id.menu_import_data:
+                import_data();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    public void export_data() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        startActivityForResult(intent, EXPORT_DIRECTORY_RESULT);
+    }
+
+    public void import_data() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivityForResult(intent, IMPORT_DIRECTORY_RESULT);
+    }
     public void playNextSound() {
         if (mediaPlayer != null) {
             mediaPlayer.release();
@@ -595,6 +622,34 @@ public class MnemosyneActivity extends AppCompatActivity {
                                 mnemosyneThread.UIActivity.setFullscreen();
                             }
                         });
+                    }
+                });
+            }
+        }
+
+        if (requestCode == EXPORT_DIRECTORY_RESULT && resultCode == Activity.RESULT_OK) {
+            Uri uri = null;
+            if (data != null) {
+                uri = data.getData();
+                final DocumentFile userDir = DocumentFile.fromTreeUri(this, uri);
+                mnemosyneThread.getHandler().post(new Runnable() {
+                    final DocumentFile userDir_ = userDir;
+                    public void run() {
+                        mnemosyneThread.doExport(userDir_);
+                    }
+                });
+            }
+        }
+
+        if (requestCode == IMPORT_DIRECTORY_RESULT && resultCode == Activity.RESULT_OK) {
+            Uri uri = null;
+            if (data != null) {
+                uri = data.getData();
+                final DocumentFile userDir = DocumentFile.fromTreeUri(this, uri);
+                mnemosyneThread.getHandler().post(new Runnable() {
+                    final DocumentFile userDir_ = userDir;
+                    public void run() {
+                        mnemosyneThread.doImport(userDir_);
                     }
                 });
             }

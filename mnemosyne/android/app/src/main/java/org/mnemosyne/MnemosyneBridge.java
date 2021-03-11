@@ -12,7 +12,6 @@ public class MnemosyneBridge {
     private MnemosyneActivity UIActivity;
 
     public MnemosyneBridge(String basedir, MnemosyneActivity UIActivity, MnemosyneThread thread) {
-
         // Some debug info to help identify if remote users have all the libraries installed.
         Log.i("Mnemosyne", "nativeLibraryDir " +
                 UIActivity.getApplicationInfo().nativeLibraryDir );
@@ -120,11 +119,7 @@ public class MnemosyneBridge {
         try {
             JSONObject json = new JSONObject();
             json.put("function", "controller_heartbeat");
-
-            // TMP, until we provide external access to the archive.
-            json.put("db_maintenance", false);
-
-
+            json.put("db_maintenance", true);
             JSONObject result = PyBridge.call(json);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -207,6 +202,15 @@ public class MnemosyneBridge {
         }
     }
 
+    public void controller_reset_study_mode() {
+        try {
+            JSONObject json = new JSONObject();
+            json.put("function", "controller_reset_study_mode");
+            JSONObject result = PyBridge.call(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
     public void controller_do_db_maintenance() {
         try {
             JSONObject json = new JSONObject();
@@ -243,6 +247,16 @@ public class MnemosyneBridge {
             JSONObject json = new JSONObject();
             json.put("function", "database_set_criterion_with_name");
             json.put("saved_set", savedSet);
+            JSONObject result = PyBridge.call(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void database_release_connection() {
+        try {
+            JSONObject json = new JSONObject();
+            json.put("function", "database_release_connection");
             JSONObject result = PyBridge.call(json);
         } catch (JSONException e) {
             e.printStackTrace();

@@ -52,6 +52,8 @@ routes = {
     "controller_show_activate_cards_dialog_pre": controller_show_activate_cards_dialog_pre,
     "controller_show_activate_cards_dialog_post": controller_show_activate_cards_dialog_post,
     "controller_set_study_mode_with_id": controller_set_study_mode_with_id,
+    "controller_reset_study_mode": controller_reset_study_mode,
     "controller_do_db_maintenance": controller_do_db_maintenance,
-    "database_set_criterion_with_name": database_set_criterion_with_name
+    "database_set_criterion_with_name": database_set_criterion_with_name,
+    "database_release_connection": database_release_connection
 }

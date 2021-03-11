@@ -172,6 +172,9 @@ def controller_set_study_mode_with_id(args):
     study_mode =  mnemosyne.controller().study_mode_with_id(args["id"])
     mnemosyne.controller().set_study_mode(study_mode)
 
+def controller_reset_study_mode(args):
+    mnemosyne.controller().reset_study_mode()
+    
 def controller_do_db_maintenance(args):
     mnemosyne.controller().do_db_maintenance()
 
@@ -181,4 +184,8 @@ def database_set_criterion_with_name(args):
         if criterion.name == saved_set:
             mnemosyne.database().set_current_criterion(criterion)
             return
+
+def database_release_connection(args):
+    mnemosyne.database().release_connection()
+    
 

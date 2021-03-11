@@ -12,4 +12,8 @@
           android:title="(De)activate cards" />
     <item android:id="@+id/menu_archive_logs"
           android:title="Archive old logs" />
+    <item android:id="@+id/menu_export_data"
+        android:title="Export data" />
+    <item android:id="@+id/menu_import_data"
+        android:title="Import data" />
 </menu>

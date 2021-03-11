@@ -4,25 +4,33 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import androidx.core.content.ContextCompat;
+import androidx.documentfile.provider.DocumentFile;
+
 import android.util.Log;
-import android.view.View;
+
+import org.w3c.dom.Document;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.Semaphore;
@@ -35,6 +43,7 @@ public class MnemosyneThread extends Thread {
     Handler mnemosyneHandler;
     Handler UIHandler;
     String basedir;
+    String datadir;
     ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     MnemosyneBridge bridge;
 
@@ -63,9 +72,8 @@ public class MnemosyneThread extends Thread {
         });
 
         // Determine datadir.
-        String dataDir;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            dataDir = UIActivity.getFilesDir().getAbsolutePath();
+            datadir = UIActivity.getFilesDir().getAbsolutePath();
         }
         else {
             // A user can set a datadir directory by putting a file 'datadir.txt' with
@@ -74,7 +82,7 @@ public class MnemosyneThread extends Thread {
             // in order to use a true external SD card. Note that /Android/... part is
             // important, otherwise we don't get access.
 
-            dataDir = Environment.getExternalStorageDirectory().getPath() + "/Mnemosyne/";
+            datadir = Environment.getExternalStorageDirectory().getPath() + "/Mnemosyne/";
 
             // Strangely enough we need this call first in order to be able to write
             // to the external directories.
@@ -86,11 +94,11 @@ public class MnemosyneThread extends Thread {
             }
 
             try {
-                InputStream is = new FileInputStream(dataDir + "/datadir.txt");
+                InputStream is = new FileInputStream(datadir + "/datadir.txt");
                 BufferedReader buf = new BufferedReader(new InputStreamReader(is));
                 String line = buf.readLine();
                 if (!line.isEmpty()) {
-                    dataDir = line;
+                    datadir = line;
                 }
             } catch (FileNotFoundException e) {
                 Log.i("Mnemosyne", "Redirection file not found:" + e.toString());
@@ -98,31 +106,31 @@ public class MnemosyneThread extends Thread {
                 Log.i("Mnemosyne", "Redirection file could not be read:" + e.toString());
             }
 
-            File file = new File(dataDir);
+            File file = new File(datadir);
             if (!file.exists()) {
                 Boolean result = file.mkdirs();
                 if (result == false) {
-                    showInformation("Could not create data dir at " + dataDir + "\n" +
+                    showInformation("Could not create data dir at " + datadir + "\n" +
                             "Use a directory like:\n\n" + dirList);
                 }
             } else {
                 try {
-                    File tmp = new File(dataDir + "/test.txt");
+                    File tmp = new File(datadir + "/test.txt");
                     if (tmp.exists()) {
                         tmp.delete();
                     }
-                    BufferedWriter bwriter = new BufferedWriter(new FileWriter(new File(dataDir + "/test.txt")));
+                    BufferedWriter bwriter = new BufferedWriter(new FileWriter(new File(datadir + "/test.txt")));
                     bwriter.write("123");
                     bwriter.close();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    showInformation("Could not create file in " + dataDir + "\nMake sure to give Mnemosyne write permission.");
+                    showInformation("Could not create file in " + datadir + "\nMake sure to give Mnemosyne write permission.");
                 }
             }
         }
-        Log.i("Mnemosyne", "datadir " + dataDir);
+        Log.i("Mnemosyne", "datadir " + this.datadir);
 
-        File file2 = new File(dataDir + "/.nomedia");
+        File file2 = new File(datadir + "/.nomedia");
         if (!file2.exists()){
             try {
                 file2.createNewFile();
@@ -131,7 +139,7 @@ public class MnemosyneThread extends Thread {
             }
         }
 
-        bridge.startMnemosyne(dataDir, "default.db");
+        bridge.startMnemosyne(datadir, "default.db");
 
         // Set buttons correctly with respect to previous study mode.
         String studyModeId = bridge.config_get("study_mode");
@@ -185,7 +193,6 @@ public class MnemosyneThread extends Thread {
 
     public void setQuestion(String html) {
         final String _html = html;
-        Log.i("Mnemosyne", "Question" + html);
         UIHandler.post(new Runnable() {
             public void run() {
                 UIActivity.setQuestion(_html);
@@ -360,9 +367,6 @@ public class MnemosyneThread extends Thread {
                         semaphore.release();
                     }
                 });
-
-                //(AlertDialog)alert.getButton(DialogInterface.BUTTON_NEUTRAL).setMaxLines(2);
-
                 alert.show();
             }
         });
@@ -479,6 +483,116 @@ public class MnemosyneThread extends Thread {
                 }
             }
         });
+    }
+
+    // Import/export, to deal with scoped storage.
+    //https://commonsware.com/blog/2019/11/09/scoped-storage-stories-trees.html
+
+    public void doExport(DocumentFile userDir) {
+        setProgressText("Exporting data...");
+        bridge.database_release_connection();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
+        String currentDateAndTime = sdf.format(new Date());
+        DocumentFile backupDir = userDir.createDirectory("Mnemosyne backup " + currentDateAndTime);
+        String[] files = {"config.py", "config.db", "default.db", "default.db-journal", "machine.id"};
+        String[] dirs = {"backups", "archive", "plugins", "history", "default.db_media"};
+        for (int i=0; i<files.length; i++)
+            exportFile(datadir + "/" + files[i], backupDir);
+        for (int i=0; i<dirs.length; i++)
+            exportDir(datadir + "/" + dirs[i], backupDir);
+        closeProgress();
+    }
+
+    public void exportFile(String fullPath, DocumentFile backupDir) {
+        try {
+            File f = new File(fullPath);
+            String relativePath = f.getName();
+            DocumentFile outFile = backupDir.createFile("application/octet-stream", relativePath);
+            OutputStream outStream = UIActivity.getContentResolver().openOutputStream(outFile.getUri());
+            FileInputStream inStream = new FileInputStream(f);
+            byte[] buf = new byte[1024];
+            inStream.read(buf);
+            do {
+                outStream.write(buf);
+            } while (inStream.read(buf) != -1);
+            outStream.close();
+            inStream.close();
+        }
+        catch (IOException e) {
+            Log.e("Mnemosyne", "File write failed: " + e.toString());
+        }
+    }
+
+    public void exportDir(String fullPath, DocumentFile backupDir) {
+        File inputDir = new File(fullPath);
+        String relativePath = inputDir.getName();
+        DocumentFile backupSubDir = backupDir.createDirectory(relativePath);
+        File[] files = inputDir.listFiles();
+        if (files != null && files.length > 0) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    exportDir(file.getPath(), backupSubDir);
+                } else {
+                    exportFile(file.getPath(), backupSubDir);
+                }
+            }
+        }
+    }
+
+    public void doImport(DocumentFile userDir) {
+        setProgressText("Importing data...");
+        bridge.database_release_connection();
+        String[] files = {"config.py", "config.db", "default.db", "default.db-journal", "machine.id"};
+        String[] dirs = {"backups", "archive", "plugins", "history", "default.db_media"};
+        DocumentFile[] documentFiles = userDir.listFiles();
+        if (documentFiles != null && documentFiles.length > 0) {
+            for (DocumentFile documentFile : documentFiles) {
+                if (documentFile.isDirectory()
+                        && Arrays.asList(dirs).contains(documentFile.getName())) {
+                    importDir(documentFile, "");
+                }
+                if (documentFile.isFile()
+                        && Arrays.asList(files).contains(documentFile.getName())) {
+                    importFile(documentFile, "");
+                }
+            }
+        }
+        closeProgress();
+        bridge.controller_reset_study_mode();
+    }
+
+    public void importFile(DocumentFile documentFile, String parent) {
+        try {
+            InputStream inStream = UIActivity.getContentResolver().openInputStream(documentFile.getUri());
+            File f = new File(datadir + "/" + parent + documentFile.getName());
+            FileOutputStream outStream = new FileOutputStream(f);
+            byte[] buf = new byte[1024];
+            inStream.read(buf);
+            do {
+                outStream.write(buf);
+            } while (inStream.read(buf) != -1);
+            outStream.close();
+            inStream.close();
+        }
+        catch (IOException e) {
+            Log.e("Mnemosyne", "File write failed: " + e.toString());
+        }
+    }
+
+    public void importDir(DocumentFile documentDir, String parent) {
+        File d = new File(datadir + "/" + parent + documentDir.getName());
+        d.mkdirs();
+        DocumentFile[] documentFiles = documentDir.listFiles();
+        if (documentFiles != null && documentFiles.length > 0) {
+            for (DocumentFile documentFile : documentFiles) {
+                if (documentFile.isDirectory()) {
+                    importDir(documentFile, parent + "/" + documentDir.getName() + "/" );
+                }
+                if (documentFile.isFile()) {
+                    importFile(documentFile, parent + "/" + documentDir.getName() + "/" );
+                }
+            }
+        }
     }
 
 }
