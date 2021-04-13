@@ -26,6 +26,8 @@ class FileUploadAcquisition:
         uf = fs["file"]
 
         filename = os.path.join("/home/mnemosyne", uf.filename)
+        if os.path.exists(filename):
+            return
         f = file(filename, "wb")
         while 1:
             line = uf.file.readline()
