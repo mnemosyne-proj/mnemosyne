@@ -34,7 +34,7 @@ If you are new to git and github, there are many tutorials available on the web.
 For example, [this](https://try.github.io/) interactive tutorial. See also section [working locally with the code](#Working-locally-with-the-code) and [sharing your changes](#Sharing-your-changes) for some info about git and Github.
 
 ## About the code base
-To get an overview of how all the different bits of the library fit together, see the documentation in the code at `mnemosyne/libmnemosyne/docs/build/html/index.html`.
+To get an overview of how all the different bits of the library fit together, see the documentation in the code at `mnemosyne/libmnemosyne/docs/source/index.rst`.
 In order to keep the code looking uniform, please following the standard Python style guides [PEP8](http://www.python.org/dev/peps/pep-0008/) and [PEP257](http://www.python.org/dev/peps/pep-0257/).
 
 ## Running the development code
