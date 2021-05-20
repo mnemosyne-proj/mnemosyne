@@ -495,7 +495,7 @@ public class MnemosyneThread extends Thread {
         String currentDateAndTime = sdf.format(new Date());
         DocumentFile backupDir = userDir.createDirectory("Mnemosyne backup " + currentDateAndTime);
         String[] files = {"config.py", "config.db", "default.db", "default.db-journal", "machine.id"};
-        String[] dirs = {"backups", "archive", "plugins", "history", "default.db_media"};
+        String[] dirs = {"backups", "archive", "plugins", "history"};
         for (int i=0; i<files.length; i++)
             exportFile(datadir + "/" + files[i], backupDir);
         for (int i=0; i<dirs.length; i++)
@@ -543,7 +543,7 @@ public class MnemosyneThread extends Thread {
         setProgressText("Importing data...");
         bridge.database_release_connection();
         String[] files = {"config.py", "config.db", "default.db", "default.db-journal", "machine.id"};
-        String[] dirs = {"backups", "archive", "plugins", "history", "default.db_media"};
+        String[] dirs = {"backups", "archive", "plugins", "history"};
         DocumentFile[] documentFiles = userDir.listFiles();
         if (documentFiles != null && documentFiles.length > 0) {
             for (DocumentFile documentFile : documentFiles) {
