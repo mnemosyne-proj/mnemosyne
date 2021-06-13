@@ -173,6 +173,7 @@ if options.qt_opengl:
 
 a = QApplication(sys.argv)
 a.setApplicationName("Mnemosyne")
+a.setDesktopFileName("mnemosyne.desktop")
 
 # Add other components we need. The translator should come first.
 # The UI components should come in the order they should be instantiated,
