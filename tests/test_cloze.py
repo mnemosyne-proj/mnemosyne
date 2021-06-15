@@ -405,7 +405,7 @@ third in 2008"""}
                                           grade=-1, tag_names=["default"])[0]
         assert "<img src" in card.answer()
 
-        fact_data = {"text": """<latex>[\mathbf{F}]=[q]([\mathbf{E}]+[\mathbf{v}\times\mathbf{B}]</latex>"""}
+        fact_data = {"text": """<latex>[F]=[q]([E]+[v\times B]</latex>"""}
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
         assert "<img src" in card.answer()
