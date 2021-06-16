@@ -82,6 +82,13 @@
       </layout>
      </item>
      <item>
+      <widget class="QCheckBox" name="remember_password">
+       <property name="text">
+        <string>Remember password in plaintext on this device</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QCheckBox" name="check_for_edited_local_media_files">
        <property name="text">
         <string>Check for changed media files on client</string>

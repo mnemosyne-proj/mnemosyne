@@ -47,6 +47,7 @@ class PyQtConfiguration(Hook):
              "port_for_sync_as_client": 8512,
              "username_for_sync_as_client": "",
              "password_for_sync_as_client": "",
+             "remember_password_for_sync_as_client": True,
              "started_add_edit_cards_n_times": 0,
              "started_browse_cards_n_times": 0,
              "started_activate_cards_n_times": 0,

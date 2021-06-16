@@ -17,5 +17,6 @@ class AndroidConfiguration(Hook):
              "port_for_sync_as_client": 8512,
              "username_for_sync_as_client": "",
              "password_for_sync_as_client": "",
+             "remember_password_for_sync_as_client": True,
             }.items()):
             self.config().setdefault(key, value)

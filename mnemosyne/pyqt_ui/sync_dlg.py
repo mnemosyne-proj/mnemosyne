@@ -134,6 +134,8 @@ class SyncDlg(QtWidgets.QDialog, SyncDialog, Ui_SyncDlg):
         self.port.setValue(self.config()["port_for_sync_as_client"])
         self.username.setText(self.config()["username_for_sync_as_client"])
         self.password.setText(self.config()["password_for_sync_as_client"])
+        self.remember_password.setChecked(
+            self.config()["remember_password_for_sync_as_client"])
         self.check_for_edited_local_media_files.setChecked(\
             self.config()["check_for_edited_local_media_files"])
         if self.config()["server_for_sync_as_client"]:
@@ -162,7 +164,12 @@ class SyncDlg(QtWidgets.QDialog, SyncDialog, Ui_SyncDlg):
         self.config()["server_for_sync_as_client"] = server
         self.config()["port_for_sync_as_client"] = port
         self.config()["username_for_sync_as_client"] = username
-        self.config()["password_for_sync_as_client"] = password
+        if self.remember_password.isChecked():
+            self.config()["password_for_sync_as_client"] = password
+            self.config()["remember_password_for_sync_as_client"] = True
+        else:
+            self.config()["password_for_sync_as_client"] = ""
+            self.config()["remember_password_for_sync_as_client"] = False
         self.config()["check_for_edited_local_media_files"] = \
             self.check_for_edited_local_media_files.isChecked()
         self._store_state()
