@@ -45,10 +45,53 @@
            </widget>
           </item>
           <item row="1" column="1" colspan="2">
-           <widget class="QLineEdit" name="password">
-            <property name="echoMode">
-             <enum>QLineEdit::Password</enum>
-            </property>
+           <widget class="QStackedWidget" name="password_stacked_widget">
+            <widget class="QWidget" name="edit_password_page">
+             <layout class="QGridLayout" name="gridLayout_2">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item row="0" column="0">
+               <widget class="QLineEdit" name="password">
+                <property name="echoMode">
+                 <enum>QLineEdit::Password</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="reset_password_page">
+             <layout class="QGridLayout" name="gridLayout_3">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item row="0" column="0">
+               <widget class="QPushButton" name="reset_password_button">
+                <property name="text">
+                 <string>Reset password</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
            </widget>
           </item>
           <item row="2" column="0">
@@ -171,5 +214,25 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>reset_password_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ConfigurationWdgtServers</receiver>
+   <slot>reset_password()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>324</x>
+     <y>101</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>288</x>
+     <y>180</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>reset_password()</slot>
+ </slots>
 </ui>

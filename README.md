@@ -52,6 +52,7 @@ To start working on Mnemosyne, you need at least the following software.
 - [Pillow](http://python-pillow.org)
 - [gTTS](https://pypi.org/project/gTTS/) for Google text-to-speech
 - [googletrans](https://pypi.org/project/googletrans/) for Google translate support
+- [argon2-cffi](https://pypi.org/project/argon2-cffi/)
 - For Latex support: the `latex` and `dvipng` commands must be available (e.g., `TeXLive` on Linux, `MacTeX` on Mac, and `MikTeX` on Windows).  On Arch based distributions, you'll need `texlive-core` package too.
 - For building the docs: [sphinx](http://sphinx-doc.org) (If you get sphinx-related errors, try installing sphinx as root)
 - For running the tests: [nose](https://nose.readthedocs.io/en/latest/)

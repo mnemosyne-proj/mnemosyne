@@ -6,6 +6,8 @@ import os
 import http.client
 import threading
 import mnemosyne.version
+from argon2 import PasswordHasher
+from argon2.exceptions import HashingError, VerificationError
 
 from openSM2sync.ui import UI
 from openSM2sync.server import Server
@@ -40,9 +42,41 @@ class SyncServer(Component, Server):
     def authorise(self, username, password):
         # We should not be running if authorization is not set up,
         # but check just in case.
-        return self.authorization_set_up() and \
-               username == self.config()["remote_access_username"] and \
-               password == self.config()["remote_access_password"]
+        if not self.authorization_set_up() or \
+                username != self.config()["remote_access_username"]:
+            return False
+
+        ph = PasswordHasher()
+        hashed_password = self.config()["remote_access_password"]
+        if self.config()["remote_access_password_algo"] == "argon2":
+            try:
+                ph.verify(hashed_password, password)
+                if ph.check_needs_rehash(hashed_password):
+                    self.config()["remote_access_password"] = ph.hash(password)
+                    self.config().save()
+                return True
+            except HashingError:
+                # Rehashing failed but password was valid
+                return True
+            except VerificationError:
+                return False
+
+        if self.config()["remote_access_password_algo"] == "":
+            # Fallback for legacy plaintext password
+            try:
+                if password != hashed_password:
+                    return False
+                # Hash the password, plaintext is bad
+                self.config()["remote_access_password"] = ph.hash(password)
+                self.config()["remote_access_password_algo"] = "argon2"
+                self.config().save()
+            except HashingError:
+                # Automatic hashing failed, but password was valid
+                pass
+            return True
+
+        # Unsupported hash algorithm
+        return False
 
     def load_database(self, database_name):
         if self.server_only:
