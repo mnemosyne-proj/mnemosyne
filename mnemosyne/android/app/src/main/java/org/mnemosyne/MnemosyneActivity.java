@@ -565,13 +565,20 @@ public class MnemosyneActivity extends AppCompatActivity {
                 final Integer port = port_data.isEmpty() ? new Integer(8512) : new Integer(port_data);
                 final String username = data.getStringExtra("username");
                 final String password = data.getStringExtra("password");
+                final Boolean rememberPassword = data.getBooleanExtra("rememberPassword", true);
 
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
                         mnemosyneThread.bridge.config_set_string("server_for_sync_as_client", server);
                         mnemosyneThread.bridge.config_set_integer("port_for_sync_as_client", port);
                         mnemosyneThread.bridge.config_set_string("username_for_sync_as_client", username);
-                        mnemosyneThread.bridge.config_set_string("password_for_sync_as_client", password);
+                        if (rememberPassword) {
+                            mnemosyneThread.bridge.config_set_string("password_for_sync_as_client", password);
+                            mnemosyneThread.bridge.config_set_boolean("remember_password_for_sync_as_client", true);
+                        } else {
+                            mnemosyneThread.bridge.config_set_string("password_for_sync_as_client", "");
+                            mnemosyneThread.bridge.config_set_boolean("remember_password_for_sync_as_client", false);
+                        }
                         mnemosyneThread.bridge.config_save();
                         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Mnemosyne:wakelocktag");

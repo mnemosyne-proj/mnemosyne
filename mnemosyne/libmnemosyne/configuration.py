@@ -164,6 +164,7 @@ class Configuration(Component, dict):
              "web_server_port": 8513,
              "remote_access_username": "",
              "remote_access_password": "",
+             "remote_access_password_algo": "",
              "warned_about_learning_ahead": False,
              "shown_backlog_help": False,
              "shown_learn_new_cards_help": False,
@@ -201,6 +202,19 @@ class Configuration(Component, dict):
                 self["user_id"] = rand_uuid()
             else:
                 self["user_id"] = history_files[0].split("_", 1)[0]
+        # Hash the remote access passwords if it was previously stored in plain
+        # text by an older version of mnemosyne.
+        if self["remote_access_password"] != "" and \
+                self["remote_access_password_algo"] == "":
+            from argon2 import PasswordHasher
+            from argon2.exceptions import HashingError
+            try:
+                ph = PasswordHasher()
+                self["remote_access_password"] = \
+                    ph.hash(self["remote_access_password"])
+                self["remote_access_password_algo"] = "argon2"
+            except HashingError:
+                pass
         self["latex"] = self["latex"].strip().split()
         self["dvipng"] = self["dvipng"].strip().split()
         # Allow other plugins or frontend to set their configuration data.

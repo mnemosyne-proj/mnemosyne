@@ -105,6 +105,18 @@ public class MnemosyneBridge {
         }
     }
 
+    public void config_set_boolean(String key, Boolean value) {
+        try {
+            JSONObject json = new JSONObject();
+            json.put("function", "config_set");
+            json.put("key", key);
+            json.put("value", value);
+            JSONObject result = PyBridge.call(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void config_save() {
         try {
             JSONObject json = new JSONObject();

@@ -59,11 +59,17 @@
          android:ems="10"
          android:inputType="textPassword" />
 
+     <CheckBox
+         android:id="@+id/checkRememberPassword"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="Remember password in plaintext on this device" />
+
      <Button
          android:id="@+id/syncButton"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:text="Sync" />
-    
- </LinearLayout>    
+
+ </LinearLayout>
 
