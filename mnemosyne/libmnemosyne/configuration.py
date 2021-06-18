@@ -134,6 +134,7 @@ class Configuration(Component, dict):
              "randomise_scheduled_cards": False,
              "cramming_store_state": True,
              "max_ret_reps_for_recent_cards": 1,
+             "max_ret_reps_since_lapse": 999999, 
              "cramming_order": RANDOM,
              "show_intervals": "never",
              "only_editable_when_answer_shown": False,
@@ -189,6 +190,7 @@ class Configuration(Component, dict):
              "alignment", "non_latin_font_size_increase",
              "hide_pronunciation_field", "non_memorised_cards_in_hand",
              "randomise_new_cards", "randomise_scheduled_cards",
+             "max_ret_reps_since_lapse",
              "ui_language", "day_starts_at", "latex_preamble",
              "latex_postamble", "latex", "dvipng", "max_backups",
              "language_id", "sublanguage_id", "foreign_fact_key"]
@@ -203,7 +205,7 @@ class Configuration(Component, dict):
             else:
                 self["user_id"] = history_files[0].split("_", 1)[0]
         # Hash the remote access passwords if it was previously stored in plain
-        # text by an older version of mnemosyne.
+        # text by an older version of Mnemosyne.
         if self["remote_access_password"] != "" and \
                 self["remote_access_password_algo"] == "":
             from argon2 import PasswordHasher

@@ -1,19 +1,15 @@
-- speed up cramming counter
-- limit number of daily cards
-- Kamil Jońca: https://mnemosyne-proj.org/cards/latin. Export 1::foo before 1::foo::bar
+max ret reps since lapse: add to testsuite, add tooltips, windows installer
+
+
+-add flashcard advice to Mnemosyne (atomic card, context, sentence card type, limit workload, focus on other language learning aspects, hightly artificial activity that does not directly translate to language fluency)
+
+- postpone indefinitely/stop scheduling/postpone 100 years/remove from learning process
+- reset card
+
 
 Android:
 
-- export db/archive//history/backups
-https://stackoverflow.com/questions/36546606/how-to-create-new-folder-in-sd-card-by-using-storage-access-framework/36547137#36547137
-https://en.proft.me/2018/05/24/using-android-storage-access-framework/
-https://commonsware.com/blog/2019/10/19/scoped-storage-stories-saf-basics.html
-https://stackoverflow.com/questions/31094071/copy-file-from-the-internal-to-the-external-storage-in-android
-- reenable archive old logs (bridge.java, activity.java)
-- import config.py
-
 - Move to App Bundle
-
 - better way to use sdcard
 - look into fixes reported by dashboard
 - check 'redraw now'
@@ -31,8 +27,11 @@ https://stackoverflow.com/questions/31094071/copy-file-from-the-internal-to-the-
 -custom fonts?
 
 
+Move to PyQt6?
+
 Minor bugs / issues:
 
+- Kamil Jońca: https://mnemosyne-proj.org/cards/latin. Make sure to Export 1::foo before 1::foo::bar
 - no sync conflicts between edit and review
 - renaming saved sets only changing case does not work.
 - datetime.datetime.now() does not seem to respect DST inside Mnemosyne, but it does work in a standalone Python programme.
@@ -73,7 +72,6 @@ https://github.com/pyinstaller/pyinstaller/milestone/22
 -strip HTML when doing rlt check?
 -decrease size of installer by seeing if more libraries can be removed.
 -example plugin for new learning modes
--update dev instructions linux, windows
 -run tests in different threads
 -keeping a key pressed after 'grade answer' proceeds to show the question
 -RTL still does not work for first cloze, in the case the sentence is more than
@@ -230,8 +228,13 @@ always relevant)
 
 -new scheduler Bayesian: https://github.com/fasiha/ebisu
 
+- Mandarin / Chinese
+- merge http://abananablog.com/2016/12/31/anki-trace/
+- pretty HSK charts, html here  https://hanzicraft.com/lists/frequency
+- convert end numbers to tones? Or rely on OS level tool.
+- colour for tones?
 
--drawing canvas Gnome
+- drawing canvas Gnome
 
 -disable vocalisation, but only when not showing answer
  jonas.vonderhagen@gmail.com

@@ -9,6 +9,7 @@ excludes = []
 binaries = []
 
 hiddenimports = [
+             'argon2-cffi',
              'PyQt5.sip',
              'google',
              'google.cloud',

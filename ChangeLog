@@ -9,9 +9,23 @@ This might also help with other hard crashes.
 If this does not help, or if you see a black screen, try starting Mnemosyne
 with the --qt-opengl=desktop command line argument.)
 
+
+Mnemosyne 2.8 :
+
+- Added an option to stop showing cards as soon as they reach a certain
+  number of successful retention reps. This makes sure that your review load
+  does not keep increasing over the years.
+- The card browser now also shows the number of learning and review reps
+  since the last lapse.
+- Making storing of client sync password optional. Warn that the client stores
+  the password in plain text. The server now stores a password hash (patch
+  by J5lx).
+- Make sure that Mnemosyne is associated with its icon under Wayland (patch
+  by J5lx).
 - Fix error when using the sync server and the web server at the same time
   (patch by Grégoire Jadi).
 - Improve Python 3.9 compatibility (patch by Julien Puydt).
+
 
 Mnemosyne 2.7.3 : 2020-11-23
 

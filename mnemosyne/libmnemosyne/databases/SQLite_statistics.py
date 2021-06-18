@@ -33,8 +33,9 @@ class SQLiteStatistics(object):
 
     def scheduled_count(self, timestamp):
         count = self.con.execute("""select count() from cards
-            where active=1 and grade>=2 and ?>=next_rep""",
-            (timestamp, )).fetchone()[0]
+            where active=1 and grade>=2 and ?>=next_rep
+            and ret_reps_since_lapse<=?""", (timestamp,
+            self.config()["max_ret_reps_since_lapse"])).fetchone()[0]
         return count
 
     def active_count(self):
@@ -143,9 +144,10 @@ class SQLiteStatistics(object):
 
     def card_count_scheduled_between(self, start, stop):
         return self.con.execute(\
-            """select count() from cards where grade>=2
-            and ?<=next_rep and next_rep<? and active='1'""",
-            (start, stop)).fetchone()[0]
+            """select count() from cards where grade>=2 and ?<=next_rep and
+            next_rep<? and ret_reps_since_lapse<=? and active='1'""",
+            (start, stop,
+             self.config()["max_ret_reps_since_lapse"])).fetchone()[0]
 
     def start_of_day_n_days_ago(self, n):
         timestamp = time.time() - n * DAY \

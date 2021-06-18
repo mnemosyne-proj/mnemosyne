@@ -426,9 +426,13 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         else:
             self.splitter_2.restoreState(splitter_2_state)
         for column in (_ID, ID, CARD_TYPE_ID, _FACT_ID, FACT_VIEW_ID,
-            ACQ_REPS_SINCE_LAPSE, RET_REPS_SINCE_LAPSE,
+            #ACQ_REPS_SINCE_LAPSE, RET_REPS_SINCE_LAPSE,
             EXTRA_DATA, ACTIVE, SCHEDULER_DATA):
             self.table.setColumnHidden(column, True)
+        for column in (QUESTION, ANSWER, TAGS, GRADE, NEXT_REP, LAST_REP,
+            EASINESS, ACQ_REPS, RET_REPS, LAPSES, ACQ_REPS_SINCE_LAPSE,
+            RET_REPS_SINCE_LAPSE, CREATION_TIME, MODIFICATION_TIME):
+            self.table.setColumnHidden(column, False)
         #self.table.setColumnHidden(_ID, False)
 
     def context_menu(self, point):
@@ -740,6 +744,8 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
             LAST_REP: _("Last rep"), EASINESS: _("Easiness"),
             ACQ_REPS: _("Learning\nreps"),
             RET_REPS: _("Review\nreps"), LAPSES: _("Lapses"),
+            ACQ_REPS_SINCE_LAPSE: _("Learning\nreps\n since lapse"),
+            RET_REPS_SINCE_LAPSE: _("Review\nreps\n since lapse"),
             CREATION_TIME: _("Created"), MODIFICATION_TIME: _("Modified")}
         for key, value in headers.items():
               self.card_model.setHeaderData(key, QtCore.Qt.Horizontal,

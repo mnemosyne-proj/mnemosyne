@@ -179,7 +179,7 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
             else:
                 sort_key = "interval"
             for _card_id, _fact_id in db.cards_due_for_ret_rep(\
-                    self.adjusted_now(), sort_key=sort_key, limit=50):
+                self.adjusted_now(), sort_key=sort_key, limit=50):
                 self._card_ids_in_queue.append(_card_id)
                 self._fact_ids_in_queue.append(_fact_id)
             if len(self._card_ids_in_queue):
@@ -313,7 +313,7 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
                 self.stage = 3
             return
         for _card_id, _fact_id in db.cards_learn_ahead(self.adjusted_now(),
-                sort_key="next_rep", limit=50):
+            sort_key="next_rep", limit=50):
             self._card_ids_in_queue.append(_card_id)
         # Relearn cards which we got wrong during learn ahead.
         self.stage = 2
