@@ -769,3 +769,22 @@ class TestScheduler(MnemosyneTest):
             self.review_controller().grade_answer(0)
 
         assert len(showed_cards) == 4
+
+    def test_max_ret_reps_since_lapse(self):
+        fact_data = {"f": "question1",
+                     "b": "answer1"}
+        card_type = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+              grade=2, tag_names=["default"])[0]
+        card.ret_reps_since_lapse = 10
+        card.next_rep = time.time()-10
+        self.database().update_card(card)
+        self.review_controller().reset()
+        assert self.database().scheduled_count(time.time()) == 1
+
+        self.config()["max_ret_reps_since_lapse"] = 5
+        self.review_controller().reset()
+        assert self.database().scheduled_count(time.time()) == 0
+
+
+        

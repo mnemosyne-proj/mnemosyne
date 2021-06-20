@@ -144,6 +144,7 @@ class SyncServerThread(threading.Thread, SyncServer):
         if not self.authorization_set_up():
             print("""Error: Authorization not set up.
 If on a headless server, you may use the following commands in the sqlite3 console on config.db to configure authorization:
+   update config set value="" where key = "remote_access_password_algo"
    update config set value="'<username>'" where key = "remote_access_username";
    update config set value="'<password>'" where key = "remote_access_password";""")
             return

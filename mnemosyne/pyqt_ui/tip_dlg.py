@@ -57,6 +57,7 @@ class TipDlg(QtWidgets.QDialog, TipDialog, Ui_TipDlg):
         self.tips.append(_("""You can follow the development of Mnemosyne on Twitter or Facebook."""))
         self.tips.append(_("""You can request new features and vote for exisiting requests at <a href="https://mnemosyne.uservoice.com/">uservoice</a>. This helps the developers decide what to work on next."""))
         self.tips.append(_("""Using the 'Manage card types' dialog, you can associate a language with a card type. This enables functionality like text-to-speech or dictionary lookup."""))
+        self.tips.append(_("""If you've been using Mnemosyne for a long time, and your daily workload becomes too much, consider using the option to stop showing cards after they reach a number of successful repetitions."""))
 
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
