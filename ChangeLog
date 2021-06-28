@@ -10,7 +10,7 @@ If this does not help, or if you see a black screen, try starting Mnemosyne
 with the --qt-opengl=desktop command line argument.)
 
 
-Mnemosyne 2.8 :
+Mnemosyne 2.8 : 2021-06-28
 
 - Added an option to stop showing cards as soon as they reach a certain
   number of successful retention reps. This makes sure that your review load
