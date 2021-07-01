@@ -7,7 +7,8 @@ from googletrans import Translator as gTranslator
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.translator import Translator
 
-from google_trans_new import google_translator
+#from google_trans_new import google_translator
+from googletrans import Translator as google_translator
 translator = None
 
 class GoogleTranslator(Translator):
@@ -35,9 +36,10 @@ class GoogleTranslator(Translator):
         source_language_id = self.config().card_type_property(\
             "language_id", card_type)
         try:
-
+            #result = translator.translate(foreign_text,
+            #    lang_tgt=target_language_id, lang_src=source_language_id).strip()
             result = translator.translate(foreign_text,
-                lang_tgt=target_language_id, lang_src=source_language_id).strip()
+                dest=target_language_id, src=source_language_id).text.strip()
         except:
             if retries < 5:
                 import time; time.sleep(2)

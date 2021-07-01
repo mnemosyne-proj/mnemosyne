@@ -1,9 +1,10 @@
+- max interval for cards (lowering this increases your workload) (requested by Lawson Robinson)
 - postpone indefinitely/stop scheduling/postpone 100 years/remove from learning process
 - reset card
+- Move to Android App Bundle
 
 Android:
 
-- Move to App Bundle
 - better way to use sdcard
 - look into fixes reported by dashboard
 - check 'redraw now'
@@ -22,6 +23,8 @@ Android:
 
 
 Move to PyQt6? Check for QtWebEngine support.
+
+https://github.com/Saravananslb/py-googletranslation ?
 
 Minor bugs / issues:
 
