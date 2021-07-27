@@ -3,7 +3,7 @@
     <ANNOTATIONS>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0362ff4d8672321347a402c32368f192/fragment-1.1.0/annotations.zip!/" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3e3c1eccc6074aa141a19c354f0492b0/fragment-1.1.0/annotations.zip!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1a1bc8a67c267b982c39b4ec4582b93f/fragment-1.1.0/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/743d2645c3f1bb02b7a57f08f911970e/fragment-1.1.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0362ff4d8672321347a402c32368f192/fragment-1.1.0/AndroidManifest.xml" />
@@ -12,9 +12,10 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3e3c1eccc6074aa141a19c354f0492b0/fragment-1.1.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3e3c1eccc6074aa141a19c354f0492b0/fragment-1.1.0/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3e3c1eccc6074aa141a19c354f0492b0/fragment-1.1.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1a1bc8a67c267b982c39b4ec4582b93f/fragment-1.1.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1a1bc8a67c267b982c39b4ec4582b93f/fragment-1.1.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1a1bc8a67c267b982c39b4ec4582b93f/fragment-1.1.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/743d2645c3f1bb02b7a57f08f911970e/fragment-1.1.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/743d2645c3f1bb02b7a57f08f911970e/fragment-1.1.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/743d2645c3f1bb02b7a57f08f911970e/fragment-1.1.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

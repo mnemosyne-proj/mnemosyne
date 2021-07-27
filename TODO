@@ -227,26 +227,7 @@ always relevant)
 
 - Mandarin / Chinese
 - merge http://abananablog.com/2016/12/31/anki-trace/
-- pretty HSK charts, html here  https://hanzicraft.com/lists/frequency
-- convert end numbers to tones? Or rely on OS level tool.
-- colour for tones?
-
-- drawing canvas Gnome
-
--disable vocalisation, but only when not showing answer
- jonas.vonderhagen@gmail.com
-
--Qt's own translation
-
--Qt SDK: back to webkit? https://github.com/annulen/webkit
- https://github.com/annulen/webkit/releases
- Make use of 'print to pdf' for resizing?
- custom context menu
- open links in external browser, QWebEnginePage::acceptNavigationRequest()
-
--speed up non-latin font size increase
-
--memrise importer
+- pretty HSK charts, html here  https://hanzicraft.com/lists/freque
 
 -type answer
 
