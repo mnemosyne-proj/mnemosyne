@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: mnemosyne-proj\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2020-09-06 11:40+0200\n"
-"PO-Revision-Date: 2017-12-02 02:00+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2021-07-29 11:07+0200\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2020-10-27 06:10+0000\n"
-"X-Generator: Launchpad (build bc5a16cfdc4ba776ecdf84a052201ef8fb1f3321)\n"
+"X-Generator: Poedit 3.0\n"
+"Last-Translator: \n"
+"Language: cs\n"
 
 #: ../dot_mnemosyne2/plugins.off/avg_grade_statistics.py:27
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:27
@@ -70,7 +71,7 @@ msgstr "Průměrné známky naplánovaných karet"
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:265
 #: ../mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:288
 msgid "No stats available."
-msgstr "Nejsou dostupné žádné statistiky"
+msgstr "Nejsou dostupné žádné statistiky."
 
 #: ../dot_mnemosyne2/plugins.off/avg_grade_statistics.py:98
 #: ../mnemosyne/example_plugins/avg_grade_statistics.py:98
@@ -105,18 +106,21 @@ msgid ""
 "your database and the speed of your device, this can take 10 minutes or "
 "more. Please leave Mnemosyne running in the foreground."
 msgstr ""
+"Nyní budou archivovány logy, aby se zrychlila rychlost aplikace. V "
+"záležitosti na velikosti databáze a rychlosti vašeho zařízení to může trvat "
+"i více než 10 minut. Prosím nechte Mnemosyne běžet na popředí."
 
 #: ../mnemosyne/android_python/database_maintenance.py:15
 msgid "OK, proceed"
-msgstr ""
+msgstr "OK, pokračovat"
 
 #: ../mnemosyne/libmnemosyne/__init__.py:428
 msgid "Command line argument is not a *.db file."
-msgstr ""
+msgstr "Argument příkazové řádky není soubor *.db."
 
 #: ../mnemosyne/libmnemosyne/__init__.py:440
 msgid "Another copy of Mnemosyne is still running."
-msgstr "Další kopie Mnemosyne stále běží"
+msgstr "Další kopie Mnemosyne stále běží."
 
 #: ../mnemosyne/libmnemosyne/__init__.py:441
 msgid "Continuing is impossible and will lead to data loss!"
@@ -131,17 +135,19 @@ msgstr "Chyba při spouštění zásuvného modulu:"
 
 #: ../mnemosyne/libmnemosyne/__init__.py:550
 msgid "Previous drive letter no longer available."
-msgstr ""
+msgstr "Předchozí písmeno disku již není k dispozici."
 
 #: ../mnemosyne/libmnemosyne/__init__.py:558
 msgid ""
 "If you are using a USB key, refer to the instructions on the website so as "
 "not to be affected by drive letter changes."
 msgstr ""
+"Pokud používáte USB klíčenku, řiďte se instrukcemi na webových stránkách, "
+"aby nedošlo k problémům se změnou písmene disku."
 
 #: ../mnemosyne/libmnemosyne/card_types/M_sided.py:20
 msgid "M-sided"
-msgstr ""
+msgstr "M-strany"
 
 #: ../mnemosyne/libmnemosyne/card_types/both_ways.py:15
 msgid "Front-to-back and back-to-front"
@@ -287,7 +293,7 @@ msgstr "Chyba v config.py:"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:90
 msgid "No need to do database maintenance more than once per month."
-msgstr ""
+msgstr "Není nutno dělat udržbu databáze častěji než jednou za měsíc."
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:98
 #: ../mnemosyne/pyqt_ui/about_dlg.py:27
@@ -332,6 +338,9 @@ msgid ""
 "\n"
 "Skipping "
 msgstr ""
+"Data karty nejsou správně naformátována pro převod.\n"
+"\n"
+"Přeskakuji "
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:331
 msgid "Can't preserve history when converting between these card types."
@@ -427,6 +436,8 @@ msgid ""
 "This card has different tags than its sister cards. Update tags for current "
 "card only or for all sister cards?"
 msgstr ""
+"Tato karta má jiné tagy, než její sesterské karty. Aktualizovat tagy jen pro "
+"současnou kartu nebo i pro všechny sesterské karty?"
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:430
 msgid "All sister cards"
@@ -445,6 +456,8 @@ msgid ""
 "This will add a tag 'Starred' to the current card, so that you can find it "
 "back easily, e.g. to edit it on a desktop."
 msgstr ""
+"Toto přidá tag \"S hvězdičkou\" k současné karte, tak aby jste ji rychle "
+"znovu našli, například při úpravách na počítači."
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:490
 msgid "Starred"
@@ -496,7 +509,7 @@ msgstr "Typ karty %s má kopie, nelze ho smazat."
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:601
 msgid "Cannot rename a system card type."
-msgstr "Nelze přejmenovat systémový typ karty"
+msgstr "Nelze přejmenovat systémový typ karty."
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:606
 msgid "This card type name is already in use."
@@ -537,7 +550,7 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:666
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_db.py:25
 msgid "The configuration database is not used to store cards."
-msgstr ""
+msgstr "Konfigurační databáze není použita k uložení karet."
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:671
 msgid ""
@@ -578,7 +591,7 @@ msgstr "Databáze uložena."
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:737
 msgid "The configuration database cannot be used to store cards."
-msgstr ""
+msgstr "Konfigurační databáze nemůže být použita k uložení karet."
 
 #: ../mnemosyne/libmnemosyne/controllers/default_controller.py:784
 msgid "Image files"
@@ -651,11 +664,11 @@ msgstr "Komprimování databáze..."
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:289
 msgid "Defragmenting database..."
-msgstr ""
+msgstr "Defragmentuji databázi..."
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:353
 msgid "Unable to load file at"
-msgstr ""
+msgstr "Není možno načíst soubor umístěný v"
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:355
 msgid "Unable to load file, query failed."
@@ -663,7 +676,7 @@ msgstr "Nelze načíst soubor, dotaz selhal."
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:367
 msgid "Database upgrade failed."
-msgstr ""
+msgstr "Upgrade databáze selhal."
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:379
 msgid "Unable to load file."
@@ -674,6 +687,8 @@ msgid ""
 "Putting a database on a network drive is forbidden under Windows to avoid "
 "data corruption."
 msgstr ""
+"Na Windows je zakázáno umístit databázi do síťové složky, kvůli možné ztrátě "
+"dat."
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:444
 msgid "Warning: backup creation failed for"
@@ -689,7 +704,7 @@ msgstr "Chybějící zás. modul pro typ karty s id:"
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1180
 msgid "Make new card type '%s' active in saved set '%s'?"
-msgstr ""
+msgstr "Vytvořit nový typ karty '%s' aktivní v uložené sadě '%s'?"
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite.py:1423
 msgid "No duplicates found."
@@ -705,21 +720,23 @@ msgstr "KOPIE"
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite_logging.py:351
 msgid "Merging logs..."
-msgstr ""
+msgstr "Slučování logů..."
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite_logging.py:384
 msgid "Archiving old logs..."
-msgstr ""
+msgstr "Arhivování starých logů..."
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:46
 msgid "Could not create"
-msgstr ""
+msgstr "Nebylo možno vytvořit"
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:47
 msgid ""
 "Check your file permissions and make sure the directory is not open in a "
 "file browser."
 msgstr ""
+"Zkontrolujte práva k zápisu do souboru a ujistěte se že složka není otevřena "
+"v průzkumníku souborů."
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite_media.py:146
 msgid ""
@@ -747,19 +764,20 @@ msgstr "Chybí zásuvný modul pro typy karet."
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite_sync.py:446
 msgid "Deleting same tag twice during sync. Inform the developpers."
-msgstr ""
+msgstr "Tag byl během synchronizace smazán dvakrát. Informujte vývojáře."
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite_sync.py:480
 msgid "Deleting same fact twice during sync. Inform the developpers."
-msgstr ""
+msgstr "Fakt byl během synchronizace smazán dvakrát. Informujte vývojáře."
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite_sync.py:712
 msgid "Creating same fact view twice during sync. Inform the developpers."
-msgstr ""
+msgstr "Tag byl během synchronizace vytvořen dvakrát. Informujte vývojáře."
 
 #: ../mnemosyne/libmnemosyne/databases/SQLite_sync.py:763
 msgid "Creating same card type twice during sync. Inform the developpers."
 msgstr ""
+"Typ karty byl během synchronizace vytvořen dvakrát. Informujte vývojáře."
 
 #: ../mnemosyne/libmnemosyne/databases/_apsw.py:54
 #: ../mnemosyne/libmnemosyne/databases/_sqlite3.py:52
@@ -772,20 +790,20 @@ msgstr ""
 
 #: ../mnemosyne/libmnemosyne/file_formats/anki2.py:43
 msgid "Anki2 collections"
-msgstr ""
+msgstr "Kolekce Anki2"
 
 #: ../mnemosyne/libmnemosyne/file_formats/anki2.py:45
 msgid "Anki2 collections (*.anki2 *.apkg)"
-msgstr ""
+msgstr "Kolekce Anki2 (*.anki2 *.apkg)"
 
 #: ../mnemosyne/libmnemosyne/file_formats/anki2.py:56
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:204
 msgid "Decompressing..."
-msgstr ""
+msgstr "Rozbaluji..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/anki2.py:66
 msgid "Processing media files..."
-msgstr ""
+msgstr "Zpracování multimediálních souborů..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/anki2.py:85
 msgid ""
@@ -795,22 +813,26 @@ msgid ""
 "Also, in case you run into problems, don't hesitate to contact the "
 "developers."
 msgstr ""
+"Upozornění: Editovat naimportované karty je povoleno, ale přídávat nové kary "
+"do karet Anki typu není v současné době podporováno.\n"
+"\n"
+"V případě problémů kontaktujte vývojáře."
 
 #: ../mnemosyne/libmnemosyne/file_formats/anki2.py:100
 msgid "Copying media files..."
-msgstr ""
+msgstr "Kopíruji multimediální soubory..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/anki2.py:110
 msgid "Importing card types..."
-msgstr ""
+msgstr "Importuji typy karet..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/anki2.py:213
 msgid "Importing notes..."
-msgstr ""
+msgstr "Importuji poznámky..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/anki2.py:265
 msgid "Importing logs..."
-msgstr ""
+msgstr "Importuji logy..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/anki2.py:291
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1.py:40
@@ -832,7 +854,7 @@ msgstr "Soubory Cuecard (*.wcu *.WCU)"
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_xml.py:61
 #: ../mnemosyne/libmnemosyne/file_formats/smconv_XML.py:57
 msgid "Unable to parse file:"
-msgstr "Nelze zpracovat soubor"
+msgstr "Nelze zpracovat soubor:"
 
 #: ../mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:43
 #: ../mnemosyne/libmnemosyne/file_formats/cuecard_wcu.py:44
@@ -878,7 +900,7 @@ msgstr "Importování historie..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:130
 msgid "No history found to import."
-msgstr "Nenalezena žádná historie k importu"
+msgstr "Nenalezena žádná historie k importu."
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne1_mem.py:160
 msgid "Ignoring unparsable files:<br/>"
@@ -910,7 +932,7 @@ msgstr "Karty Mnemosyne 2.x pro sdílení (*.cards)"
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:50
 msgid "Extracting cards..."
-msgstr ""
+msgstr "Rozbaluji karty..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:52
 #: ../mnemosyne/libmnemosyne/file_formats/tsv.py:112
@@ -919,7 +941,7 @@ msgstr "Exportování karet..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:169
 msgid "Extracting media files..."
-msgstr ""
+msgstr "Rozbaluji multimediální soubory..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_cards.py:171
 msgid "Bundling media files..."
@@ -927,11 +949,11 @@ msgstr "Svazování mediálních souborů..."
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_db.py:15
 msgid "Mnemosyne 2.x *.db files"
-msgstr ""
+msgstr "Mnemosyne 2.x soubory *.db"
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_db.py:17
 msgid "Mnemosyne 2.x database for merging (*.db)"
-msgstr ""
+msgstr "Mnemosyne 2.x databáze ke sloučení (*.db)"
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_db.py:39
 msgid ""
@@ -939,14 +961,16 @@ msgid ""
 "generate duplicate log entries, which will skew your statistics. Do you want "
 "to continue?"
 msgstr ""
+"Vypadá to, že jste již tuto databázi importovali dříve. Dvojitý importy "
+"vygeneruje dvojité zápisy do logu, což rozhodí statistiky. Chcete pokračovat?"
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_db.py:40
 msgid "Abort"
-msgstr ""
+msgstr "Zrušit"
 
 #: ../mnemosyne/libmnemosyne/file_formats/mnemosyne2_db.py:40
 msgid "Continue"
-msgstr ""
+msgstr "Pokračovat"
 
 #: ../mnemosyne/libmnemosyne/file_formats/smconv_XML.py:41
 msgid "Supermemo for Palm through smconv.pl"
@@ -958,7 +982,7 @@ msgstr "XML soubory Supermemo pro Palm (*.xml *.XML)"
 
 #: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:32
 msgid "SuperMemo7 text in Q:/A: format"
-msgstr "Text SuperMemo7 ve formátu Otázka:/Odpověď:"
+msgstr "Text SuperMemo7 ve formátu Otázka:/Odpověď"
 
 #: ../mnemosyne/libmnemosyne/file_formats/supermemo_7_txt.py:34
 msgid "SuperMemo7 text files (*.txt *.TXT)"
@@ -979,12 +1003,12 @@ msgstr "Textové soubory oddělené tabulátorem"
 
 #: ../mnemosyne/libmnemosyne/file_formats/tsv.py:26
 msgid "Tab-separated text files (*.txt *.tsv *.tab)"
-msgstr ""
+msgstr "Textové soubory oddělené tabulátorem (*.txt *.tsv *.tab)"
 
 #: ../mnemosyne/libmnemosyne/file_formats/tsv.py:67
 #: ../mnemosyne/libmnemosyne/file_formats/tsv.py:78
 msgid "Required field missing on line"
-msgstr ""
+msgstr "Požadované pole chybí na řádku"
 
 #: ../mnemosyne/libmnemosyne/file_formats/tsv.py:83
 msgid "Badly formed input on line"
@@ -997,7 +1021,7 @@ msgstr "Problém s latex. Jsou latex a dvipng nainstalovány?"
 
 #: ../mnemosyne/libmnemosyne/languages/afrikaans.py:11
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikaans"
 
 #: ../mnemosyne/libmnemosyne/languages/afrikaans.py:13
 #: ../mnemosyne/libmnemosyne/languages/albanian.py:13
@@ -1067,19 +1091,19 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/languages/yoruba.py:13
 #: ../mnemosyne/libmnemosyne/languages/zulu.py:13
 msgid "Google translation."
-msgstr ""
+msgstr "Google překlady."
 
 #: ../mnemosyne/libmnemosyne/languages/albanian.py:11
 msgid "Albanian"
-msgstr ""
+msgstr "Albánština"
 
 #: ../mnemosyne/libmnemosyne/languages/amharic.py:11
 msgid "Amharic"
-msgstr ""
+msgstr "Amharština"
 
 #: ../mnemosyne/libmnemosyne/languages/arabic.py:11
 msgid "Arabic"
-msgstr ""
+msgstr "Arabština"
 
 #: ../mnemosyne/libmnemosyne/languages/arabic.py:13
 #: ../mnemosyne/libmnemosyne/languages/bengali.py:15
@@ -1118,459 +1142,459 @@ msgstr ""
 #: ../mnemosyne/libmnemosyne/languages/ukrainian.py:13
 #: ../mnemosyne/libmnemosyne/languages/vietnamese.py:13
 msgid "Google translation and text-to-speech."
-msgstr ""
+msgstr "Google překlad a převod textu na řeč."
 
 #: ../mnemosyne/libmnemosyne/languages/armenian.py:11
 msgid "Armenian"
-msgstr ""
+msgstr "Arménština"
 
 #: ../mnemosyne/libmnemosyne/languages/azerbaijani.py:11
 msgid "Azerbaijani"
-msgstr ""
+msgstr "Aragonese"
 
 #: ../mnemosyne/libmnemosyne/languages/basque.py:11
 msgid "Basque"
-msgstr ""
+msgstr "Baskitština"
 
 #: ../mnemosyne/libmnemosyne/languages/belarusian.py:11
 msgid "Belarusian"
-msgstr ""
+msgstr "Belarusian"
 
 #: ../mnemosyne/libmnemosyne/languages/bengali.py:11
 msgid "Bengali"
-msgstr ""
+msgstr "Bengálština"
 
 #: ../mnemosyne/libmnemosyne/languages/bengali.py:13
 msgid "Bengali (Bangladesh"
-msgstr ""
+msgstr "Bengálština (Bangladéš)"
 
 #: ../mnemosyne/libmnemosyne/languages/bengali.py:14
 msgid "Bengali (India)"
-msgstr ""
+msgstr "Bengálština (Indie)"
 
 #: ../mnemosyne/libmnemosyne/languages/bosnian.py:11
 msgid "Bosnian"
-msgstr ""
+msgstr "Bosenština"
 
 #: ../mnemosyne/libmnemosyne/languages/bulgarian.py:11
 msgid "Bulgarian"
-msgstr ""
+msgstr "Bulharština"
 
 #: ../mnemosyne/libmnemosyne/languages/catalan.py:11
 msgid "Catalan"
-msgstr ""
+msgstr "Katalánština"
 
 #: ../mnemosyne/libmnemosyne/languages/cebuano.py:11
 msgid "Cebuano"
-msgstr ""
+msgstr "Cebuano"
 
 #: ../mnemosyne/libmnemosyne/languages/chinese.py:11
 msgid "Chinese"
-msgstr ""
+msgstr "Čínština"
 
 #: ../mnemosyne/libmnemosyne/languages/chinese.py:13
 msgid "Chinese (Simplified)"
-msgstr ""
+msgstr "Čínština (zjednodušená)"
 
 #: ../mnemosyne/libmnemosyne/languages/chinese.py:14
 msgid "Chinese (Traditional)"
-msgstr ""
+msgstr "Čínština (tradiční)"
 
 #: ../mnemosyne/libmnemosyne/languages/corsican.py:11
 msgid "Corsican"
-msgstr ""
+msgstr "Korsičtina"
 
 #: ../mnemosyne/libmnemosyne/languages/croatian.py:11
 msgid "Croatian"
-msgstr ""
+msgstr "Chorvaština"
 
 #: ../mnemosyne/libmnemosyne/languages/czech.py:11
 msgid "Czech"
-msgstr ""
+msgstr "Čeština"
 
 #: ../mnemosyne/libmnemosyne/languages/danish.py:11
 msgid "Danish"
-msgstr ""
+msgstr "Dánština"
 
 #: ../mnemosyne/libmnemosyne/languages/dutch.py:11
 msgid "Dutch"
-msgstr ""
+msgstr "Holandština"
 
 #: ../mnemosyne/libmnemosyne/languages/english.py:11
 msgid "English"
-msgstr ""
+msgstr "Angličtina"
 
 #: ../mnemosyne/libmnemosyne/languages/english.py:13
 msgid "English (UK)"
-msgstr ""
+msgstr "Angličtina (britská)"
 
 #: ../mnemosyne/libmnemosyne/languages/english.py:14
 msgid "English (US)"
-msgstr ""
+msgstr "Angličtina (americká)"
 
 #: ../mnemosyne/libmnemosyne/languages/english.py:15
 msgid "English (India)"
-msgstr ""
+msgstr "Angličtina (Indie)"
 
 #: ../mnemosyne/libmnemosyne/languages/english.py:16
 msgid "English (Australian)"
-msgstr ""
+msgstr "angličtina (Austrálie)"
 
 #: ../mnemosyne/libmnemosyne/languages/esperanto.py:11
 msgid "Esperanto"
-msgstr ""
+msgstr "Esperanto"
 
 #: ../mnemosyne/libmnemosyne/languages/estonian.py:11
 msgid "Estonian"
-msgstr ""
+msgstr "Estonština"
 
 #: ../mnemosyne/libmnemosyne/languages/finnish.py:11
 msgid "Finnish"
-msgstr ""
+msgstr "Finština"
 
 #: ../mnemosyne/libmnemosyne/languages/french.py:11
 msgid "French"
-msgstr ""
+msgstr "Francouzština"
 
 #: ../mnemosyne/libmnemosyne/languages/french.py:13
 msgid "French (France)"
-msgstr ""
+msgstr "Francouzština (Francie)"
 
 #: ../mnemosyne/libmnemosyne/languages/french.py:14
 msgid "French (Canada)"
-msgstr ""
+msgstr "Francouzština (Kanada)"
 
 #: ../mnemosyne/libmnemosyne/languages/frisian.py:11
 msgid "Frisian"
-msgstr ""
+msgstr "Fríština"
 
 #: ../mnemosyne/libmnemosyne/languages/gaelic.py:11
 msgid "Scots Gaelic"
-msgstr ""
+msgstr "Skotská Gálština"
 
 #: ../mnemosyne/libmnemosyne/languages/galician.py:11
 msgid "Galician"
-msgstr ""
+msgstr "galicijský"
 
 #: ../mnemosyne/libmnemosyne/languages/georgian.py:11
 msgid "Georgian"
-msgstr ""
+msgstr "gruzínština"
 
 #: ../mnemosyne/libmnemosyne/languages/german.py:11
 msgid "German"
-msgstr ""
+msgstr "Němčina"
 
 #: ../mnemosyne/libmnemosyne/languages/greek.py:11
 msgid "Greek"
-msgstr ""
+msgstr "Řečtina"
 
 #: ../mnemosyne/libmnemosyne/languages/gujarati.py:11
 msgid "Gujarati"
-msgstr ""
+msgstr "Gudžarátština"
 
 #: ../mnemosyne/libmnemosyne/languages/haitian.py:11
 msgid "Haitian Creole"
-msgstr ""
+msgstr "Haitský kreol"
 
 #: ../mnemosyne/libmnemosyne/languages/hausa.py:11
 msgid "Hausa"
-msgstr ""
+msgstr "Hauština"
 
 #: ../mnemosyne/libmnemosyne/languages/hawaiian.py:11
 msgid "Hawaiian"
-msgstr ""
+msgstr "Havajština"
 
 #: ../mnemosyne/libmnemosyne/languages/hebrew.py:11
 msgid "Hebrew"
-msgstr ""
+msgstr "Hebrejština"
 
 #: ../mnemosyne/libmnemosyne/languages/hindi.py:11
 msgid "Hindi"
-msgstr ""
+msgstr "Hindština"
 
 #: ../mnemosyne/libmnemosyne/languages/hmong.py:11
 msgid "Hmong"
-msgstr ""
+msgstr "Hmong"
 
 #: ../mnemosyne/libmnemosyne/languages/hungarian.py:11
 msgid "Hungarian"
-msgstr ""
+msgstr "Madarština"
 
 #: ../mnemosyne/libmnemosyne/languages/icelandic.py:11
 msgid "Icelandic"
-msgstr ""
+msgstr "Islandština"
 
 #: ../mnemosyne/libmnemosyne/languages/igbo.py:11
 msgid "Igbo"
-msgstr ""
+msgstr "Igboština"
 
 #: ../mnemosyne/libmnemosyne/languages/indonesian.py:11
 msgid "Indonesian"
-msgstr ""
+msgstr "Indonéština"
 
 #: ../mnemosyne/libmnemosyne/languages/irish.py:11
 msgid "Irish"
-msgstr ""
+msgstr "Irština"
 
 #: ../mnemosyne/libmnemosyne/languages/italian.py:11
 msgid "Italian"
-msgstr ""
+msgstr "Italština"
 
 #: ../mnemosyne/libmnemosyne/languages/japanese.py:11
 msgid "Japanese"
-msgstr ""
+msgstr "Japonština"
 
 #: ../mnemosyne/libmnemosyne/languages/javanese.py:11
 msgid "Javanese"
-msgstr ""
+msgstr "Jávský"
 
 #: ../mnemosyne/libmnemosyne/languages/kannada.py:11
 msgid "Kannada"
-msgstr ""
+msgstr "Kannadština"
 
 #: ../mnemosyne/libmnemosyne/languages/kazakh.py:11
 msgid "Kazakh"
-msgstr ""
+msgstr "Kazaština"
 
 #: ../mnemosyne/libmnemosyne/languages/khmer.py:11
 msgid "Khmer"
-msgstr ""
+msgstr "Khmer"
 
 #: ../mnemosyne/libmnemosyne/languages/korean.py:11
 msgid "Korean"
-msgstr ""
+msgstr "Korejština"
 
 #: ../mnemosyne/libmnemosyne/languages/kurdish.py:11
 msgid "Kurdish"
-msgstr ""
+msgstr "Kurdský"
 
 #: ../mnemosyne/libmnemosyne/languages/kyrgyz.py:11
 msgid "Kyrgyz"
-msgstr ""
+msgstr "Kyrgyz"
 
 #: ../mnemosyne/libmnemosyne/languages/lao.py:11
 msgid "Lao"
-msgstr ""
+msgstr "Lao"
 
 #: ../mnemosyne/libmnemosyne/languages/latin.py:11
 msgid "Latin"
-msgstr ""
+msgstr "Latinka"
 
 #: ../mnemosyne/libmnemosyne/languages/latvian.py:11
 msgid "Latvian"
-msgstr ""
+msgstr "Lotyština"
 
 #: ../mnemosyne/libmnemosyne/languages/lithuanian.py:11
 msgid "Lithuanian"
-msgstr ""
+msgstr "Litevština"
 
 #: ../mnemosyne/libmnemosyne/languages/luxembourgish.py:11
 msgid "Luxembourgish"
-msgstr ""
+msgstr "Lucemburština"
 
 #: ../mnemosyne/libmnemosyne/languages/macedonian.py:11
 msgid "Macedonian"
-msgstr ""
+msgstr "Makedonština"
 
 #: ../mnemosyne/libmnemosyne/languages/malagasy.py:11
 msgid "Malagasy"
-msgstr ""
+msgstr "Malgaština"
 
 #: ../mnemosyne/libmnemosyne/languages/malay.py:11
 msgid "Malay"
-msgstr ""
+msgstr "Malajština"
 
 #: ../mnemosyne/libmnemosyne/languages/malayalam.py:11
 msgid "Malayalam"
-msgstr ""
+msgstr "Malajálamština"
 
 #: ../mnemosyne/libmnemosyne/languages/maltese.py:11
 msgid "Maltese"
-msgstr ""
+msgstr "Maltština"
 
 #: ../mnemosyne/libmnemosyne/languages/maori.py:11
 msgid "Maori"
-msgstr ""
+msgstr "Maorský"
 
 #: ../mnemosyne/libmnemosyne/languages/marathi.py:11
 msgid "Marathi"
-msgstr ""
+msgstr "Maráthština"
 
 #: ../mnemosyne/libmnemosyne/languages/mongolian.py:11
 msgid "Mongolian"
-msgstr ""
+msgstr "Mongolština"
 
 #: ../mnemosyne/libmnemosyne/languages/myanmar.py:11
 msgid "Myanmar (Burmese)"
-msgstr ""
+msgstr "Barmština (barmský)"
 
 #: ../mnemosyne/libmnemosyne/languages/nepali.py:11
 msgid "Nepali"
-msgstr ""
+msgstr "Nepálština"
 
 #: ../mnemosyne/libmnemosyne/languages/norwegian.py:11
 msgid "Norwegian"
-msgstr ""
+msgstr "Norština"
 
 #: ../mnemosyne/libmnemosyne/languages/nyanja.py:11
 msgid "Nyanja (Chichewa)"
-msgstr ""
+msgstr "Nyanja (Chichewa)"
 
 #: ../mnemosyne/libmnemosyne/languages/pashto.py:11
 msgid "Pashto"
-msgstr ""
+msgstr "Paštština"
 
 #: ../mnemosyne/libmnemosyne/languages/persian.py:11
 msgid "Persian"
-msgstr ""
+msgstr "Perština"
 
 #: ../mnemosyne/libmnemosyne/languages/polish.py:11
 msgid "Polish"
-msgstr ""
+msgstr "Polština"
 
 #: ../mnemosyne/libmnemosyne/languages/portuguese.py:11
 msgid "Portuguese"
-msgstr ""
+msgstr "Portugalština"
 
 #: ../mnemosyne/libmnemosyne/languages/portuguese.py:13
 msgid "Portugese (Portugal)"
-msgstr ""
+msgstr "Portugalština (Portugalsko)"
 
 #: ../mnemosyne/libmnemosyne/languages/portuguese.py:14
 msgid "Portugese (Brazilian)"
-msgstr ""
+msgstr "Portugalština (brazilština)"
 
 #: ../mnemosyne/libmnemosyne/languages/punjabi.py:11
 msgid "Punjabi"
-msgstr ""
+msgstr "Paňdžábština"
 
 #: ../mnemosyne/libmnemosyne/languages/romanian.py:11
 msgid "Romanian"
-msgstr ""
+msgstr "Rumunština"
 
 #: ../mnemosyne/libmnemosyne/languages/russian.py:11
 msgid "Russian"
-msgstr ""
+msgstr "Ruština"
 
 #: ../mnemosyne/libmnemosyne/languages/samoan.py:11
 msgid "Samoan"
-msgstr ""
+msgstr "Samojština"
 
 #: ../mnemosyne/libmnemosyne/languages/serbian.py:11
 msgid "Serbian"
-msgstr ""
+msgstr "Srbština"
 
 #: ../mnemosyne/libmnemosyne/languages/sesotho.py:11
 msgid "Sesotho"
-msgstr ""
+msgstr "Sesotho"
 
 #: ../mnemosyne/libmnemosyne/languages/shona.py:11
 msgid "Shona"
-msgstr ""
+msgstr "Šonština"
 
 #: ../mnemosyne/libmnemosyne/languages/sindhi.py:11
 msgid "Sindhi"
-msgstr ""
+msgstr "Sindhi"
 
 #: ../mnemosyne/libmnemosyne/languages/sinhala.py:11
 msgid "Sinhala (Sinhalese)"
-msgstr ""
+msgstr "Sinhálština (sinhálština)"
 
 #: ../mnemosyne/libmnemosyne/languages/slovak.py:11
 msgid "Slovak"
-msgstr ""
+msgstr "Slovenština"
 
 #: ../mnemosyne/libmnemosyne/languages/slovenian.py:11
 msgid "Slovenian"
-msgstr ""
+msgstr "Slovinština"
 
 #: ../mnemosyne/libmnemosyne/languages/somali.py:11
 msgid "Somali"
-msgstr ""
+msgstr "Somálština"
 
 #: ../mnemosyne/libmnemosyne/languages/spanish.py:11
 msgid "Spanish"
-msgstr ""
+msgstr "Španělština"
 
 #: ../mnemosyne/libmnemosyne/languages/spanish.py:13
 msgid "Spanish (Spain)"
-msgstr ""
+msgstr "španělština (Španělsko)"
 
 #: ../mnemosyne/libmnemosyne/languages/spanish.py:14
 msgid "Spanish (US)"
-msgstr ""
+msgstr "Španělština (USA)"
 
 #: ../mnemosyne/libmnemosyne/languages/sundanese.py:11
 msgid "Sundanese"
-msgstr ""
+msgstr "Sudánština"
 
 #: ../mnemosyne/libmnemosyne/languages/swahili.py:11
 msgid "Swahili"
-msgstr ""
+msgstr "Svahilština"
 
 #: ../mnemosyne/libmnemosyne/languages/swedish.py:11
 msgid "Swedish"
-msgstr ""
+msgstr "Švédština"
 
 #: ../mnemosyne/libmnemosyne/languages/tagalog.py:11
 msgid "Tagalog (Filipino)"
-msgstr ""
+msgstr "Tagalog (filipínština)"
 
 #: ../mnemosyne/libmnemosyne/languages/tajik.py:11
 msgid "Tajik"
-msgstr ""
+msgstr "tádžičtina"
 
 #: ../mnemosyne/libmnemosyne/languages/tamil.py:11
 msgid "Tamil"
-msgstr ""
+msgstr "Tamilština"
 
 #: ../mnemosyne/libmnemosyne/languages/telugu.py:11
 msgid "Telugu"
-msgstr ""
+msgstr "Telugština"
 
 #: ../mnemosyne/libmnemosyne/languages/thai.py:11
 msgid "Thai"
-msgstr ""
+msgstr "Thajština"
 
 #: ../mnemosyne/libmnemosyne/languages/turkish.py:11
 msgid "Turkish"
-msgstr ""
+msgstr "Turečtina"
 
 #: ../mnemosyne/libmnemosyne/languages/ukrainian.py:11
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ukrajinština"
 
 #: ../mnemosyne/libmnemosyne/languages/urdu.py:11
 msgid "Urdu"
-msgstr ""
+msgstr "Urdština"
 
 #: ../mnemosyne/libmnemosyne/languages/uzbek.py:11
 msgid "Uzbek"
-msgstr ""
+msgstr "uzbekština"
 
 #: ../mnemosyne/libmnemosyne/languages/vietnamese.py:11
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamština"
 
 #: ../mnemosyne/libmnemosyne/languages/welsh.py:11
 msgid "Welsh"
-msgstr ""
+msgstr "Velština"
 
 #: ../mnemosyne/libmnemosyne/languages/xhosa.py:11
 msgid "Xhosa"
-msgstr ""
+msgstr "Xhoština"
 
 #: ../mnemosyne/libmnemosyne/languages/yiddish.py:11
 msgid "Yiddish"
-msgstr ""
+msgstr "Jidiš"
 
 #: ../mnemosyne/libmnemosyne/languages/yoruba.py:11
 msgid "Yoruba"
-msgstr ""
+msgstr "Jorubština"
 
 #: ../mnemosyne/libmnemosyne/languages/zulu.py:11
 msgid "Zulu"
-msgstr ""
+msgstr "zuluština"
 
 #: ../mnemosyne/libmnemosyne/log_uploader.py:83
 msgid "Uploading"
@@ -1599,37 +1623,36 @@ msgid "Cannot deactivate"
 msgstr "Nelze zakázat používání"
 
 #: ../mnemosyne/libmnemosyne/plugin.py:121
-msgid ""
-"There are cards with this card type (or a clone of it) in the database."
+msgid "There are cards with this card type (or a clone of it) in the database."
 msgstr "V databázi existují karty s tímto typem (nebo jeho kopií)."
 
 #: ../mnemosyne/libmnemosyne/renderers/anki/template/hint.py:17
 msgid "Show %s"
-msgstr ""
+msgstr "Zobrazit %s"
 
 #: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:50
 msgid "%sy"
-msgstr ""
+msgstr "%sy"
 
 #: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:51
 msgid "%smo"
-msgstr ""
+msgstr "%smo"
 
 #: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:52
 msgid "%sd"
-msgstr ""
+msgstr "%sd"
 
 #: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:53
 msgid "%sh"
-msgstr ""
+msgstr "%sh"
 
 #: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:54
 msgid "%sm"
-msgstr ""
+msgstr "%sm"
 
 #: ../mnemosyne/libmnemosyne/renderers/anki/utils.py:55
 msgid "%ss"
-msgstr ""
+msgstr "%ss"
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:18
 msgid "You don't remember this card yet."
@@ -1674,8 +1697,7 @@ msgstr ""
 "Správná odpověď s větším úsilím. Interval byl pravděpodobně příliš dlouhý."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:39
-msgid ""
-"Correct answer, with some effort. The interval was probably just right."
+msgid "Correct answer, with some effort. The interval was probably just right."
 msgstr ""
 "Správná odpověď, i když s určitým úsilím. Interval byl pravděpodobně akorát."
 
@@ -1699,13 +1721,15 @@ msgid ""
 "much better to use the cramming scheduler plugin"
 msgstr ""
 "Používejte 'Učit se s předstihem' vzácně. Pro učení se před zkouškou je "
-"mnohem lepší použít modul pro šprtání."
+"mnohem lepší použít modul pro šprtání"
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:142
 msgid ""
 "You have finished your scheduled reviews. Now, learn as many failed or new "
 "cards as you feel like."
 msgstr ""
+"Dokončili jste naplánované kontroly. Nyní se naučte tolik nenaučených nebo "
+"nových karet, kolik chcete."
 
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller.py:163
 #: ../mnemosyne/libmnemosyne/review_controllers/SM2_controller_cramming.py:33
@@ -1861,7 +1885,7 @@ msgstr "Současná karta"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:27
 msgid "No current card."
-msgstr "Žádná současná karta"
+msgstr "Žádná současná karta."
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/current_card.py:29
 msgid "Unseen card, no statistics available yet."
@@ -1916,7 +1940,7 @@ msgstr "Všechny karty"
 #: ../mnemosyne/libmnemosyne/statistics_pages/easiness.py:22
 #: ../mnemosyne/libmnemosyne/statistics_pages/grades.py:22
 msgid "Active cards only"
-msgstr ""
+msgstr "Pouze aktivní karty"
 
 #: ../mnemosyne/libmnemosyne/statistics_pages/easiness.py:25
 #: ../mnemosyne/libmnemosyne/statistics_pages/grades.py:25
@@ -1984,20 +2008,20 @@ msgstr "Minulý rok (všechny karty)"
 
 #: ../mnemosyne/libmnemosyne/study_modes/cram_all.py:15
 msgid "Cram all cards"
-msgstr ""
+msgstr "Šprtat všechny karty"
 
 #: ../mnemosyne/libmnemosyne/study_modes/cram_recent.py:15
 msgid "Cram recently learned new cards"
-msgstr ""
+msgstr "Šprtat nově naučené karty"
 
 #: ../mnemosyne/libmnemosyne/study_modes/new_only.py:16
 msgid "Study new unlearned cards only"
-msgstr ""
+msgstr "Studovat pouze nové nenaučené karty"
 
 #: ../mnemosyne/libmnemosyne/study_modes/scheduled_forgotten_new.py:16
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:246
 msgid "Scheduled -> forgotten -> new"
-msgstr ""
+msgstr "Naplánované -> zapomenuté -> nové"
 
 #: ../mnemosyne/libmnemosyne/tag_tree.py:43
 msgid "All tags"
@@ -2005,7 +2029,7 @@ msgstr "Všechny značky"
 
 #: ../mnemosyne/libmnemosyne/tag_tree.py:115
 msgid "Cannot rename a single tag to multiple tags."
-msgstr ""
+msgstr "Není možno přejměnovat jeden tag na několik tagů."
 
 #: ../mnemosyne/libmnemosyne/upgrades/upgrade1.py:64
 msgid ""
@@ -2032,16 +2056,16 @@ msgstr "Hlavní autor: Peter Bienstman"
 
 #: ../mnemosyne/pyqt_ui/about_dlg.py:29
 msgid ""
-"Invaluable contributions from many people are acknowledged <a "
-"href=\"http://www.mnemosyne-proj.org/contributing.php\">here</a>."
+"Invaluable contributions from many people are acknowledged <a href=\"http://"
+"www.mnemosyne-proj.org/contributing.php\">here</a>."
 msgstr ""
-"Neocenitelní lidé, kteří přispěli jsou zmíněni <a "
-"href=\"http://www.mnemosyne-proj.org/contributing.php\">zde</a>."
+"Neocenitelní lidé, kteří přispěli jsou zmíněni <a href=\"http://www."
+"mnemosyne-proj.org/contributing.php\">zde</a>."
 
 #: ../mnemosyne/pyqt_ui/about_dlg.py:30
 msgid ""
-"Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-"
-"proj.org</a> for more information and source code."
+"Go to <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-proj."
+"org</a> for more information and source code."
 msgstr ""
 "Navštivte <a href=\"http://www.mnemosyne-proj.org\">http://www.mnemosyne-"
 "proj.org</a>, kde najdete další informace a zdrojový kód."
@@ -2052,17 +2076,20 @@ msgid ""
 "can press the button 'Save this set for later use' to give it a name to "
 "select it more quickly later."
 msgstr ""
+"Pokud často používáte stejné tagy a typy karet, můžete stisknout 'Uložit "
+"tuto sadu pro pozdější použití' a pojmenovat ji pro rychlé příští použití."
 
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:20
 msgid ""
 "Double-click on the name of a saved set to quickly activate it and close the "
 "dialog."
 msgstr ""
+"Dvakrát kliknětě na název uložené sady pro její rychle aktivování a uzavření "
+"okna."
 
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:21
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:137
-msgid ""
-"You can right-click on the name of a saved set to rename or delete it."
+msgid "You can right-click on the name of a saved set to rename or delete it."
 msgstr ""
 "Pro uložení nebo smazání sady stačí kliknout pravým tlačítkem myši na její "
 "jméno."
@@ -2074,6 +2101,9 @@ msgid ""
 "set for later use' again. This allows you to make some quick-and-dirty "
 "temporary modifications."
 msgstr ""
+"Pokud pouze jednou kliknete na název uložené sady, úpravy zvolených tagů a "
+"typů karet nebudou uloženy do té doby, než stisknete \"Uložit pro pozdější "
+"použití\" znovu. Toto vám umožňuje dělat rychlé a dočasné úpravy."
 
 #: ../mnemosyne/pyqt_ui/activate_cards_dlg.py:106
 #: ../mnemosyne/pyqt_ui/manage_plugins_dlg.py:100
@@ -2115,8 +2145,8 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:29 ../mnemosyne/pyqt_ui/tip_dlg.py:29
 msgid ""
-"You can organise tags in a hierarchy by using :: as separator, e.g. My "
-"book::Lesson 1."
+"You can organise tags in a hierarchy by using :: as separator, e.g. My book::"
+"Lesson 1."
 msgstr ""
 "Značky můžete uspořádat do hierarchie použitím :: jako oddělovače, např. Má "
 "kniha::Lekce 1."
@@ -2162,6 +2192,8 @@ msgid ""
 "If your card type has a language associated to it, you can right click to "
 "insert text-to-speech or translations."
 msgstr ""
+"Pokud má vaše karta přiřazena jazyk, pravým kliknutím můžete vložit překlad, "
+"nebo převod textu na řeč."
 
 #: ../mnemosyne/pyqt_ui/add_cards_dlg.py:290
 msgid "Abandon current card?"
@@ -2237,10 +2269,12 @@ msgid ""
 "In the search box, you can use SQL wildcards like _ (matching a single "
 "character) and % (matching one or more characters)."
 msgstr ""
+"Ve vyhledávacím poli můžete využít SQL výrazy jako _ (reprezentuje jeden "
+"znak) a % (reprezentuje jeden a více znaků)"
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:342
 msgid "Cards with strike-through text are inactive in the current set."
-msgstr ""
+msgstr "Karty s přeškrtnutým textem jsou v současné sadě neaktivní."
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:357
 msgid "Show cards from these card types:"
@@ -2253,7 +2287,7 @@ msgstr "mající jakoukoli z těchto značek:"
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:373
 msgid "having all of these tags:"
-msgstr ""
+msgstr "mající všechny tyto značky:"
 
 #: ../mnemosyne/pyqt_ui/browse_cards_dlg.py:381
 msgid "containing this text in the cards:"
@@ -2411,7 +2445,7 @@ msgstr "Synchronizační server běží na "
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:41
 msgid "Sync server NOT running."
-msgstr "Synchronizační server neběží"
+msgstr "Synchronizační server neběží."
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:43
 msgid "Web server running on "
@@ -2419,7 +2453,7 @@ msgstr "Web server běží na "
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:46
 msgid "Web server NOT running."
-msgstr "Web server neběží"
+msgstr "Web server neběží."
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:88
 msgid "Sync server now running on "
@@ -2431,7 +2465,7 @@ msgstr "Synchronizační server je zastaven."
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:100
 msgid "Web server now running on"
-msgstr ""
+msgstr "Web server nyní běží na"
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_servers.py:108
 msgid "Web server stopped."
@@ -2439,7 +2473,7 @@ msgstr "Web server je zastaven."
 
 #: ../mnemosyne/pyqt_ui/configuration_wdgt_study.py:19
 msgid "Study"
-msgstr ""
+msgstr "Studovat"
 
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:41
 #: ../mnemosyne/pyqt_ui/convert_card_type_keys_dlg.py:55
@@ -2466,13 +2500,15 @@ msgid ""
 "unless you click 'Save this set for later use' again. This allows you to "
 "make some quick-and-dirty modifications."
 msgstr ""
+"Karty které (de)aktivujete nebudou uloženy do předchozí vybrané sady dokud "
+"znovu nekliknete na \"Uložit pro pozdější použití\". Toto vám umožní rychlé "
+"a dočasné úpravy."
 
 #: ../mnemosyne/pyqt_ui/edit_M_sided_card_template_wdgt.py:88
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:193
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:211
-msgid ""
-"Changing the number of clozes in Anki cards is currently not supported."
-msgstr ""
+msgid "Changing the number of clozes in Anki cards is currently not supported."
+msgstr "Změna počtu klozetů na kartách Anki není v současné době podporována."
 
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:102
 #: ../mnemosyne/pyqt_ui/edit_card_dlg.py:115
@@ -2493,7 +2529,7 @@ msgstr "Soubor neexistuje."
 
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:74
 msgid "Mnemosyne card types"
-msgstr ""
+msgstr "Typy karet Mnemosyne"
 
 #: ../mnemosyne/pyqt_ui/manage_card_types_dlg.py:79
 msgid ""
@@ -2532,8 +2568,8 @@ msgid ""
 "\n"
 "With this plugin, Mnemosyne will for each card type remember the last tag "
 "you used, such that e.g. Chinese cards get a prefilled tag like \"My Chinese "
-"textbook::Chapter 10\", whereas Front-to-Back cards get \"European "
-"Capitals\"."
+"textbook::Chapter 10\", whereas Front-to-Back cards get \"European Capitals"
+"\"."
 msgstr ""
 "Při vytváření nových karet Mnemosyne standardně předvyplní pole 'Značky' "
 "poslední použitou hodnotou, bez ohledu na typ karty.\n"
@@ -2545,21 +2581,21 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/pronouncer_dlg.py:71
 msgid "<default>"
-msgstr ""
+msgstr "<default>"
 
 #: ../mnemosyne/pyqt_ui/pronouncer_dlg.py:119
 #: ../mnemosyne/pyqt_ui/translator_dlg.py:101
 msgid "Downloading..."
-msgstr ""
+msgstr "Stahuji..."
 
 #: ../mnemosyne/pyqt_ui/pronouncer_dlg.py:139
 msgid "Mp3 files (*.mp3)"
-msgstr ""
+msgstr "Mp3 soubory (*.mp3)"
 
 #: ../mnemosyne/pyqt_ui/pronouncer_dlg.py:143
 #: ../mnemosyne/pyqt_ui/pronouncer_dlg.py:157
 msgid "Please select a filename inside the media directory."
-msgstr ""
+msgstr "Prosím vyberte název souboru ve složce s médii."
 
 #: ../mnemosyne/pyqt_ui/qt_sync_server.py:76
 #: ../mnemosyne/pyqt_ui/qt_sync_server.py:207
@@ -2590,7 +2626,7 @@ msgstr "Nejde spustit web server."
 
 #: ../mnemosyne/pyqt_ui/qt_web_server.py:77
 msgid "Remote review in progress..."
-msgstr ""
+msgstr "Probíhá vzdálená revize..."
 
 #: ../mnemosyne/pyqt_ui/qtextedit2.py:36
 msgid "Insert &image"
@@ -2766,6 +2802,10 @@ msgid ""
 "are the judge of that: you can learn more cards or less cards, depending on "
 "how you feel."
 msgstr ""
+"Nastavení \"Pracovat na maximálně X nezapamatovaných kartách současně\" "
+"určuje, kolik karet se snažíte (znovu)naučit současně. <b>Neurčuje,</b> "
+"kolik nových karet se musíte naučit za den. To posoudíte vy sami: můžete se "
+"naučit více nebo méně karet, podle toho, jak se cítíte."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:22
 msgid ""
@@ -2882,6 +2922,8 @@ msgid ""
 "In the card browser, cards with strike-through text are inactive in the "
 "current set."
 msgstr ""
+"V prohlížeči karet, karty s přeškrtnutým textem jsou neaktivní ve vybrané "
+"sadě."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:44
 msgid ""
@@ -2893,23 +2935,27 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:45
 msgid ""
-"In the 'Add cards' dialog, use Tab to move between different fields, "
-"Ctrl+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
+"In the 'Add cards' dialog, use Tab to move between different fields, Ctrl"
+"+Enter for 'Yet to learn', and Ctrl+2, etc. for the grades."
 msgstr ""
 "V dialogovém okně 'Přidat karty' použijte tabulátor k přesunu mezi různými "
 "poli, Ctrl+Enter pro 'Ještě nenaučeno', a Ctrl+2, atd. pro hodnocení."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:46
 msgid ""
-"In the 'Edit card' dialog, use Tab to move between different fields and "
-"Ctrl+Enter to close the dialog and accept the changes."
+"In the 'Edit card' dialog, use Tab to move between different fields and Ctrl"
+"+Enter to close the dialog and accept the changes."
 msgstr ""
+"V dialogu \"Upravit kartu\" použijte tabulátor pro přesun mezi jednotlivými "
+"polemi a Ctrl+Enter pro zavření dialogu a uložení změn."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:47
 msgid ""
 "Double-click on the name of a saved set in '(De)activate cards' to quickly "
 "activate it and close the dialog."
 msgstr ""
+"Dvojklikem na název uložené sady v části \"(De)aktivace karet\" ji rychle "
+"aktivujete a zavřete dialogové okno."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:48
 msgid ""
@@ -2918,15 +2964,18 @@ msgid ""
 "unless you press 'Save this set for later use' again. This allows you to "
 "make some quick-and-dirty temporary modifications."
 msgstr ""
+"Pokud v části \"(De)aktivace karet\" kliknete na název uložené sady, změny "
+"vybraných značek a typů karet se do této sady neuloží, pokud znovu "
+"nestisknete tlačítko \"Uložit tuto sadu pro pozdější použití\". To vám "
+"umožní provést několik rychlých a dočasných úprav."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:49
 msgid ""
-"Mnemosyne can use LaTeX to render mathematical formulas, e.g. "
-"<$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
+"Mnemosyne can use LaTeX to render mathematical formulas, e.g. <"
+"$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"
 msgstr ""
-"Mnemosyne umí používat LaTeX k vykreslení matematických vzorců, např. "
-"<$>x^2+y^2=z^2</$>. (K tomu ale ještě musíte mít nainstalován LaTeX a "
-"dvipng.)"
+"Mnemosyne umí používat LaTeX k vykreslení matematických vzorců, např. <"
+"$>x^2+y^2=z^2</$>. (K tomu ale ještě musíte mít nainstalován LaTeX a dvipng.)"
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:50
 msgid ""
@@ -2953,7 +3002,7 @@ msgid ""
 "website."
 msgstr ""
 "Pokud chcete podrobnější kontrolu nad chováním LaTeX, prohlédněte si "
-"vysvětlení značek <$$>...</$$> a <latex>...</latex> na stránce Mnemosyne"
+"vysvětlení značek <$$>...</$$> a <latex>...</latex> na stránce Mnemosyne."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:53
 msgid "For optimal performance, keep your drives defragmented."
@@ -2983,12 +3032,12 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:57
 msgid "You can follow the development of Mnemosyne on Twitter or Facebook."
-msgstr ""
+msgstr "Vývoj Mnemosyne můžete sledovat na Twitteru nebo Facebooku."
 
 #: ../mnemosyne/pyqt_ui/tip_dlg.py:58
 msgid ""
-"You can request new features and vote for exisiting requests at <a "
-"href=\"https://mnemosyne.uservoice.com/\">uservoice</a>. This helps the "
+"You can request new features and vote for exisiting requests at <a href="
+"\"https://mnemosyne.uservoice.com/\">uservoice</a>. This helps the "
 "developers decide what to work on next."
 msgstr ""
 "Na <a href=\"https://mnemosyne.uservoice.com/\">uservoice</a> můžete žádat a "
@@ -3000,6 +3049,9 @@ msgid ""
 "card type. This enables functionality like text-to-speech or dictionary "
 "lookup."
 msgstr ""
+"Pomocí dialogového okna \"Správa typů karet\" můžete přiřadit jazyk k typu "
+"karty. To umožňuje funkce, jako je převod textu na řeč nebo vyhledávání ve "
+"slovníku."
 
 #: ../mnemosyne/pyqt_ui/ui_about_dlg.py:84
 msgid "About Mnemosyne"
@@ -3146,16 +3198,18 @@ msgstr "Smazat nepoužívané mediální soubory"
 
 #: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:61
 msgid "Archive statistics older than 1 year"
-msgstr ""
+msgstr "Archivovat statistiky starší než 1 rok"
 
 #: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:62
 msgid "Defragment database (only needed after deleting many cards)"
-msgstr ""
+msgstr "Defragmentovat databázi (nutné pouze po smazání velkého počtu karet)"
 
 #: ../mnemosyne/pyqt_ui/ui_compact_database_dlg.py:63
 msgid ""
 "(Note: archiving and defragmenting happens automatically every few months.)"
 msgstr ""
+"(Poznámka: archivování a deragmentování probíhá každých pár měsíců "
+"automaticky)"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_dlg.py:57
 msgid "Configuration"
@@ -3195,7 +3249,7 @@ msgstr "Na střed"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:133
 msgid "Right"
-msgstr "Vpravo"
+msgstr "Správně"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_card_appearance.py:134
 msgid "Increase size of non-latin characters by"
@@ -3213,7 +3267,7 @@ msgstr ""
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:115
 msgid "Storage and data"
-msgstr ""
+msgstr "Uložiště a data"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:116
 msgid "Autosave after"
@@ -3221,43 +3275,43 @@ msgstr "Automaticky ukládat po"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:117
 msgid "repetitions."
-msgstr ""
+msgstr "opakování."
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:118
 msgid "Keep at most"
-msgstr ""
+msgstr "Ukládat maximálně"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:119
 msgid "backups."
-msgstr ""
+msgstr "záloh."
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:120
 msgid "Upload anonymous science logs."
-msgstr ""
+msgstr "Uploadovat anonymní vědecké logy."
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:121
 msgid "GUI"
-msgstr ""
+msgstr "Prostředí"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:122
 msgid "Show question and answer"
-msgstr ""
+msgstr "Zobrazit otázku a odpověď"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:123
 msgid "in two boxes with fixed size"
-msgstr ""
+msgstr "ve dvou boxech s fixní velikostí"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:124
 msgid "in two boxes with adaptive size"
-msgstr ""
+msgstr "ve dvou boxech s adaptivní velikostí"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:125
 msgid "in a single box, top-aligned"
-msgstr ""
+msgstr "v jednom boxu, zarovnaném nahoru"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_main.py:126
 msgid "GUI language:"
-msgstr ""
+msgstr "Jazyk prostředí:"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:93
 msgid "Allow other devices to sync with this computer"
@@ -3286,7 +3340,7 @@ msgstr "Zkontrolovat změněné mediální soubory na serveru"
 msgid "Sync server status"
 msgstr "Stav synchronizačního serveru"
 
-#; fuzzy
+# ; fuzzy
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_servers.py:99
 msgid "Allow remote review through a web browser"
 msgstr "Umožnit vzdálenou kontrolu přes webový prohlížeč"
@@ -3301,7 +3355,7 @@ msgstr "Stav webového serveru"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:148
 msgid "Regular study"
-msgstr ""
+msgstr "Běžné studování"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:149
 msgid "Review memorised cards"
@@ -3319,11 +3373,11 @@ msgstr "v náhodném pořadí"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:152
 msgid "Work on at most"
-msgstr ""
+msgstr "Pracovat na nejvíce"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:153
 msgid "non-memorised cards at the same time."
-msgstr ""
+msgstr "nezapamatovaných kartách v jednu chvíli."
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:154
 msgid "Show new cards for the first time"
@@ -3339,7 +3393,7 @@ msgstr "Šprtání"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:158
 msgid "Cram cards"
-msgstr ""
+msgstr "Šprtat karty"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:160
 msgid "earliest scheduled first"
@@ -3355,15 +3409,15 @@ msgstr "nejchybovější první"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:163
 msgid "'Recent cards' are cards with at most"
-msgstr ""
+msgstr "'Nové karty' jsou karty s nejvíce"
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:164
 msgid "retention repetition(s)."
-msgstr ""
+msgstr "opakování zadržení."
 
 #: ../mnemosyne/pyqt_ui/ui_configuration_wdgt_study.py:165
 msgid "Remember which cards you've crammed when restarting Mnemosyne."
-msgstr ""
+msgstr "Zapamatovat si, které karty jste šprtali při restartu Mnemosyne."
 
 #: ../mnemosyne/pyqt_ui/ui_convert_card_type_keys_dlg.py:67
 msgid "Convert card type data"
@@ -3395,34 +3449,34 @@ msgstr "Smazat tyto nepoužité mediální soubory?"
 
 #: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:123
 msgid "Front template:"
-msgstr ""
+msgstr "Přední šablona:"
 
 #: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:124
 #: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:126
 #: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:127
 #: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:129
 msgid "a"
-msgstr ""
+msgstr "jakýkoli"
 
 #: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:125
 msgid "Styling (shared between sister cards):"
-msgstr ""
+msgstr "Stylování (sdíleno mezi sesterskými kartami)"
 
 #: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:128
 msgid "Back template:"
-msgstr ""
+msgstr "Zadní šablona:"
 
 #: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:130
 msgid "Front preview:"
-msgstr ""
+msgstr "Přední náhled:"
 
 #: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_template_wdgt.py:131
 msgid "Back preview:"
-msgstr ""
+msgstr "Zadní náhled:"
 
 #: ../mnemosyne/pyqt_ui/ui_edit_M_sided_card_type_dlg.py:50
 msgid "Edit M-sided card type"
-msgstr ""
+msgstr "Úprava typu karty M-stran"
 
 #: ../mnemosyne/pyqt_ui/ui_edit_card_dlg.py:76
 msgid "Edit card"
@@ -3532,6 +3586,19 @@ msgid ""
 "able to remember it with some effort, without having forgotten it "
 "completely. This is most efficient for the learning process.\n"
 msgstr ""
+"Známky se pohybují od 0 do 5.\n"
+"\n"
+"Když se učíte nové karty, používejte stupně 0 a 1, abyste dali najevo, že "
+"jste si je ještě nezapamatovali. Karty stupně 1 se stávají známějšími než "
+"karty stupně 0 a budou se opakovat méně často.\n"
+"\n"
+"Tyto karty se budou opakovaně zobrazovat, dokud jim neudělíte stupeň 2 nebo "
+"vyšší. To znamená, že jste si kartu zapamatovali a že si ji budete pamatovat "
+"jeden nebo dva dny. Počítadlo \"Nezapamatováno\" se sníží o jedničku.\n"
+"\n"
+"Tato karta bude naplánována na některý budoucí den, kdy si ji pravděpodobně "
+"ještě budete schopni s určitým úsilím zapamatovat, aniž byste ji zcela "
+"zapomněli. To je pro proces učení nejefektivnější.\n"
 
 #: ../mnemosyne/pyqt_ui/ui_getting_started_dlg.py:89
 msgid "Reviewing previously memorised cards"
@@ -3669,15 +3736,15 @@ msgstr "&Karty"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:210
 msgid "S&tudy"
-msgstr ""
+msgstr "S&tudovat"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:211
 msgid "toolBar"
-msgstr "Nástrojová lišta"
+msgstr "toolBar"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:212
 msgid "(De)a&ctivate cards..."
-msgstr "(De)a&ktivovat karty"
+msgstr "(De)a&ktivovat karty..."
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:214
 msgid "&Add cards..."
@@ -3734,7 +3801,7 @@ msgstr "Ctrl+N"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:227
 msgid "&Open..."
-msgstr "&Otevřít"
+msgstr "&Otevřít..."
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:228
 msgid "Ctrl+O"
@@ -3803,11 +3870,11 @@ msgstr "Najít duplicitní otázky"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:247
 msgid "Study new cards only"
-msgstr ""
+msgstr "Studovat jen nové karty"
 
 #: ../mnemosyne/pyqt_ui/ui_main_wdgt.py:248
 msgid "Cram active cards"
-msgstr ""
+msgstr "Šprtat aktivní karty"
 
 #: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:85
 msgid "Card type manager"
@@ -3815,7 +3882,7 @@ msgstr "Správce typů karty"
 
 #: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:86
 msgid "Card types"
-msgstr ""
+msgstr "Typy karet"
 
 #: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:87
 msgid "&New clone"
@@ -3823,7 +3890,7 @@ msgstr "&Nová kopie"
 
 #: ../mnemosyne/pyqt_ui/ui_manage_card_types_dlg.py:90
 msgid "Anki card types"
-msgstr ""
+msgstr "Typy Anki karet"
 
 #: ../mnemosyne/pyqt_ui/ui_manage_plugins_dlg.py:68
 msgid "Installed plugins (active and inactive):"
@@ -3866,33 +3933,33 @@ msgstr "&Další sesterská karta"
 
 #: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:77
 msgid "Text-to-speech"
-msgstr ""
+msgstr "Text-na-řeč"
 
 #: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:78
 msgid "Foreign text to pronounce:"
-msgstr ""
+msgstr "Cizí text k výslovnosti:"
 
 #: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:79
 msgid "Language variant:"
-msgstr ""
+msgstr "Jazyková varianta:"
 
 #: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:80
 msgid "Filename to save to:"
-msgstr ""
+msgstr "Uložit do souboru:"
 
 #: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:81
 msgid "Browse"
-msgstr ""
+msgstr "Prohlížet"
 
 #: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:82
 #: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:74
 msgid "Preview"
-msgstr ""
+msgstr "Náhled"
 
 #: ../mnemosyne/pyqt_ui/ui_pronouncer_dlg.py:83
 #: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:75
 msgid "Insert"
-msgstr ""
+msgstr "Vložit"
 
 #: ../mnemosyne/pyqt_ui/ui_remove_tags_dlg.py:51
 msgid "Remove tags"
@@ -3996,19 +4063,19 @@ msgstr "&Zavřít"
 
 #: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:70
 msgid "Translate"
-msgstr ""
+msgstr "Přeložit"
 
 #: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:71
 msgid "Foreign text to translate:"
-msgstr ""
+msgstr "Cizí jazyk k překladu:"
 
 #: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:72
 msgid "Target language:"
-msgstr ""
+msgstr "Cílový jazyk:"
 
 #: ../mnemosyne/pyqt_ui/ui_translator_dlg.py:73
 msgid "Translation:"
-msgstr ""
+msgstr "Překlad:"
 
 #: ../po/pygettext.py:23
 msgid ""
@@ -4146,6 +4213,158 @@ msgid ""
 "\n"
 "If `inputfile' is -, standard input is read.\n"
 msgstr ""
+"pygettext -- Pythonovský ekvivalent xgettext(1)\n"
+"\n"
+"Mnoho systémů (Solaris, Linux, Gnu) poskytuje rozsáhlé nástroje, které "
+"usnadňují práci s\n"
+"internacionalizaci programů v jazyce C. Většina těchto nástrojů je nezávislá "
+"na\n"
+"programovacího jazyka a lze je používat v programech v jazyce Python.\n"
+"V tomto ohledu výrazně pomáhá práce Martina von Loewisa[1].\n"
+"\n"
+"Je tu však jeden problém; xgettext je program, který skenuje zdrojový kód\n"
+"hledá řetězce zpráv, ale umí pracovat pouze v jazyce C (nebo C++). Python\n"
+"zavádí několik vrásek, například dvojí uvozovky, trojité uvozovky a další\n"
+"řetězce a nezpracované řetězce. xgettext nic z toho nechápe.\n"
+"\n"
+"Vstupte do pygettextu, který ke skenování používá standardní modul Tokenize "
+"jazyka Python\n"
+"Zdrojový kód jazyka Python a generuje soubory .pot, které jsou identické se "
+"soubory GNU xgettext[2]\n"
+"generuje pro kód C a C++. Odtud lze použít standardní nástroje GNU\n"
+"použít.\n"
+"\n"
+"Něco o označování řetězců jazyka Python jako kandidátů na překlad. GNU\n"
+"xgettext rozeznává následující klíčová slova: gettext, dgettext, dcgettext,\n"
+"a gettext_noop. To však může být spousta textu, který je třeba zahrnout do "
+"celého textu\n"
+"kódu. C a C++ mají trik: používají preprocesor jazyka C. Většina\n"
+"internacionalizovaných zdrojových kódů jazyka C obsahuje #define pro "
+"gettext() na _(), takže\n"
+"toho, co je třeba ve zdrojovém kódu napsat, je mnohem méně. Tím pádem jsou "
+"obě tyto\n"
+"přeložitelné řetězce:\n"
+"\n"
+"    gettext(\"Přeložitelný řetězec\")\n"
+"    _(\"Přeložitelný řetězec\")\n"
+"\n"
+"Python samozřejmě nemá preprocesor, takže to nefunguje tak dobře.  Tedy,\n"
+"pygettext ve výchozím nastavení hledá pouze _(), ale viz příznak -k/--"
+"klíčové slovo\n"
+"níže, kde je uvedeno, jak tuto funkci rozšířit.\n"
+"\n"
+" [1] http://www.python.org/workshops/1997-10/proceedings/loewis.html\n"
+" [2] http://www.gnu.org/software/gettext/gettext.html\n"
+"\n"
+"POZNÁMKA: pygettext se snaží být volitelně a funkčně kompatibilní s GNU\n"
+"xgettext, pokud je to možné. Některé volby však stále chybí nebo jsou\n"
+"nejsou plně implementovány. Také použití přepínačů příkazového řádku v "
+"xgettextu s\n"
+"argumentů volby je nefunkční a v těchto případech pygettext pouze definuje\n"
+"další přepínače.\n"
+"\n"
+"Použití: pygettext [options] vstupní soubor ...\n"
+"\n"
+"Volby:\n"
+"\n"
+"    -a\n"
+"    --extract-all\n"
+"        Extrahuje všechny řetězce.\n"
+"\n"
+"    -d name\n"
+"    --default-domain=name\n"
+"        Přejmenuje výchozí výstupní soubor ze messages.pot na name.pot.\n"
+"\n"
+"    -E\n"
+"    --escape\n"
+"        Nahradí neASCII znaky osmičkovými escape sekvencemi.\n"
+"\n"
+"    -D\n"
+"    --docstrings\n"
+"        Extrahuje docstringy modulů, tříd, metod a funkcí.  Tyto\n"
+"        nemusí být zabaleny do značek _() a ve skutečnosti ani nemohou být\n"
+"        Python považuje za docstringy. (Viz také volbu -X).\n"
+"\n"
+"    -h\n"
+"    --help\n"
+"        Vypíše tuto nápovědu a ukončí příkaz.\n"
+"\n"
+"    -k word\n"
+"    --keyword=word\n"
+"        Klíčová slova, která se mají hledat kromě výchozí sady, což jsou:\n"
+"        %(DEFAULTKEYWORDS)s\n"
+"\n"
+"        Na příkazovém řádku můžete mít více příznaků -k.\n"
+"\n"
+"    -K\n"
+"    --no-default-keywords\n"
+"        Zakáže výchozí sadu klíčových slov (viz výše).  Jakákoli klíčová "
+"slova\n"
+"        explicitně přidaná pomocí volby -k/--keyword jsou stále "
+"rozpoznávána.\n"
+"\n"
+"    --no-location\n"
+"        Nezapisovat komentáře k umístění názvu souboru/linky.\n"
+"\n"
+"    -n\n"
+"    --add-location\n"
+"        Vypíše komentáře k umístění názvu souboru/linky s uvedením místa, "
+"kde se jednotlivé\n"
+"        extrahovaný řetězec nachází ve zdrojovém kódu.  Tyto řádky se "
+"zobrazí před\n"
+"        každým msgid.  Styl komentářů se řídí příkazem -S/--style\n"
+"        volbou.  Toto je výchozí nastavení.\n"
+"\n"
+"    -o název souboru\n"
+"    --output=jméno souboru\n"
+"        Přejmenuje výchozí výstupní soubor z messages.pot na filename.  "
+"Pokud\n"
+"        filename je `-', pak se výstup odešle na standardní výstup.\n"
+"\n"
+"    -p dir\n"
+"    --output-dir=dir\n"
+"        Výstupní soubory budou umístěny do adresáře dir.\n"
+"\n"
+"    -S stylename\n"
+"    --style stylename\n"
+"        Určuje, jaký styl se má použít pro komentáře k umístění.  K "
+"dispozici jsou dva styly\n"
+"        jsou podporovány dva:\n"
+"\n"
+"        Soubor: jméno souboru, řádek: číslo řádku\n"
+"        GNU #: jméno souboru:řádek\n"
+"\n"
+"        U názvu stylu se nerozlišují velká a malá písmena.  GNU styl je "
+"výchozí.\n"
+"\n"
+"    -v\n"
+"    --verbose\n"
+"        Vypíše názvy zpracovávaných souborů.\n"
+"\n"
+"    -V\n"
+"    --version\n"
+"        Vypíše verzi programu pygettext a ukončí jej.\n"
+"\n"
+"    -w sloupce\n"
+"    --width=sloupce\n"
+"        Nastaví šířku výstupu na sloupce.\n"
+"\n"
+"    -x název souboru\n"
+"    --exclude-file=jméno souboru\n"
+"        Zadejte soubor, který obsahuje seznam řetězců, které nemají být\n"
+"        extrahovány ze vstupních souborů.  Každý řetězec, který má být "
+"vyloučen, musí\n"
+"        v souboru vyskytovat na samostatném řádku.\n"
+"\n"
+"    -X název souboru\n"
+"    --no-docstrings=filename\n"
+"        Zadejte soubor, který obsahuje seznam souborů (jeden na řádek), "
+"které\n"
+"        nemají být extrahovány jejich docstrings.  To je užitečné pouze v "
+"případě\n"
+"        ve spojení s výše uvedenou volbou -D.\n"
+"\n"
+"Pokud je `vstupní soubor' -, načte se standardní vstup.\n"
 
 #: ../po/pygettext.py:178
 msgid ""
@@ -4166,50 +4385,66 @@ msgid ""
 "\"Generated-By: pygettext.py %(version)s\\n\"\n"
 "\n"
 msgstr ""
+"# NĚJAKÝ POPISNÝ NÁZEV.\n"
+"# Copyright (C) YEAR ORGANIZATION\n"
+"# PRVNÍ AUTOR <EMAIL@ADRESA>, ROK.\n"
+"#\n"
+"msgid \"\"\n"
+"msgstr \"\"\n"
+"\"Project-Id-Version: PACKAGE VERSION\\n\"\n"
+"\"POT-Creation-Date: %(time)s\\n\"\n"
+"\"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\\n\"\n"
+"\"Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n\"\n"
+"\"Language-Team: LANGUAGE <LL@li.org>\\n\"\n"
+"\"MIME-Version: 1.0\\n\"\n"
+"\"Content-Type: text/plain; charset=%(charset)s\\n\"\n"
+"\"Content-Transfer-Encoding: %(encoding)s\\n\"\n"
+"\"Generated-By: pygettext.py %(version)s\\n\"\n"
+"\n"
 
 #: ../po/pygettext.py:422
 msgid "*** %(file)s:%(lineno)s: Seen unexpected token \"%(token)s\""
-msgstr ""
+msgstr "*** %(file)s:%(lineno)s: Objeven neočekávaný token \"%(token)s\""
 
 #: ../po/pygettext.py:474
 msgid "# File: %(filename)s, line: %(lineno)d"
-msgstr ""
+msgstr "# Soubor: %(filename)s, řádek: %(lineno)d"
 
 #: ../po/pygettext.py:482
 msgid " %(filename)s:%(lineno)d"
-msgstr ""
+msgstr " %(filename)s:%(lineno)d"
 
 #: ../po/pygettext.py:559
 msgid "Invalid value for --style: %s"
-msgstr ""
+msgstr "Neplatná hodnota pro --style: %s"
 
 #: ../po/pygettext.py:567
 msgid "pygettext.py (xgettext for Python) %s"
-msgstr ""
+msgstr "pygettext.py (xgettext pro Python) %s"
 
 #: ../po/pygettext.py:573
 msgid "--width argument must be an integer: %s"
-msgstr ""
+msgstr "Argument --width musí být celé číslo: %s"
 
 #: ../po/pygettext.py:600
 msgid "Can't read --exclude-file: %s"
-msgstr ""
+msgstr "Nemůžu přečíst --exclude-file: %s"
 
 #: ../po/pygettext.py:620
 msgid "Reading standard input"
-msgstr ""
+msgstr "Čtu standartní vstup"
 
 #: ../po/pygettext.py:625
 msgid "Working on %s"
-msgstr ""
+msgstr "Pracuji na %s"
 
 #: ../po/pygettext.py:662
 msgid "*** Seen unexpected token \"%(token)s\""
-msgstr ""
+msgstr "*** Objeven neočekávaný token \"%(token)s\""
 
 #: ../po/pygettext.py:663
 msgid "morethanonestring"
-msgstr ""
+msgstr "morethanonestring"
 
 #: ../tests/benchmark_pyqt.py:30
 msgid "data directory"
@@ -4231,10 +4466,9 @@ msgstr "Toto je test."
 #~ "Budete-li toto dělat po mnoho dní, mohl byste být později velmi vytížen."
 
 #~ msgid ""
-#~ "You can follow the development of Mnemosyne at <a "
-#~ "href=\"https://plus.google.com/b/112456861177827156549/112456861177827156549/"
-#~ "posts\">Google+</a>."
+#~ "You can follow the development of Mnemosyne at <a href=\"https://plus."
+#~ "google.com/b/112456861177827156549/112456861177827156549/posts\">Google+</"
+#~ "a>."
 #~ msgstr ""
-#~ "Vývoj Mnemosyne můžete sledovat na <a "
-#~ "href=\"https://plus.google.com/b/112456861177827156549/112456861177827156549/"
-#~ "posts\">Google+</a>."
+#~ "Vývoj Mnemosyne můžete sledovat na <a href=\"https://plus.google.com/"
+#~ "b/112456861177827156549/112456861177827156549/posts\">Google+</a>."
