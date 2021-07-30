@@ -75,6 +75,11 @@ def config_py():
 
   # Latex dvipng command.
   dvipng = "dvipng -D 200 -T tight tmp.dvi"
+
+  # Put an upper limit on the scheduled interval. Does not work retroactively, only for new reviews.
+  # Should be set on each device, including mobile clients. Be careful with this setting: if you
+  # accidentally set it e.g. to 1 day, you will mess up your schedule completely.
+  max_scheduled_interval_days = None
   """)
 
 class Configuration(Component, dict):
@@ -181,7 +186,8 @@ class Configuration(Component, dict):
              "last_db_maintenance": time.time() - 1 * DAY,
              "QA_split": "fixed", # "fixed", "adaptive", "single_window",
              "study_mode": "ScheduledForgottenNew",
-             "tts_dir_for_card_type_id": {} # card_type_id, dir
+             "tts_dir_for_card_type_id": {}, # card_type_id, dir
+             "max_scheduled_interval_days": None
             }.items()):
             self.setdefault(key, value)
         # These keys will be shared in the sync protocol. Front-ends can

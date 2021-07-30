@@ -487,6 +487,10 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
         # Allow plugins to modify new_interval by multiplying it.
         new_interval *= self.interval_multiplication_factor(card, new_interval)
         new_interval = int(new_interval)
+        # Optional: limit interval:
+        if self.config()["max_scheduled_interval_days"]:
+            if new_interval > self.config()["max_scheduled_interval_days"] * DAY:
+                new_interval = self.config()["max_scheduled_interval_days"] * DAY    
         # When doing a dry run, stop here and return the scheduled interval.
         if dry_run:
             return new_interval
