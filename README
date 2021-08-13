@@ -17,7 +17,7 @@ Install the following dependencies if needed:
 
 These can be installed/upgraded using pip:
 
-pip install --upgrade PyQt5 matplotlib cheroot webob pillow googletrans gTTS
+pip install --upgrade PyQt5 PyQtWebEngine matplotlib cheroot webob pillow googletrans gTTS
 
 Install Mnemosyne itself with 'sudo python setup.py install'.
 
