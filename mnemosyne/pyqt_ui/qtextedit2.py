@@ -109,7 +109,7 @@ class QTextEdit2(QtWidgets.QTextEdit):
             QtWidgets.QTextEdit.keyPressEvent(self, event)
 
     def insert_img(self):
-        filter = "(*.png *.gif *.jpg *.bmp *.jpeg *.svg *.tiff" *.webp + \
+        filter = "(*.png *.gif *.jpg *.bmp *.jpeg *.svg *.tiff *.webp" + \
                  " *.PNG *.GIF *.jpg *.BMP *.JPEG *.SVG *.TIFF *.WEBP)"
         filename = self.parent().controller().show_insert_img_dialog(filter)
         if filename:

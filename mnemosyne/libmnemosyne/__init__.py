@@ -156,10 +156,6 @@ class Mnemosyne(Component):
           "Translator"),
          ("mnemosyne.libmnemosyne.pronouncer",
           "Pronouncer"),
-         ("mnemosyne.libmnemosyne.translators.google_translator",
-          "GoogleTranslator"),
-         ("mnemosyne.libmnemosyne.pronouncers.google_pronouncer",
-          "GooglePronouncer"),
          ("mnemosyne.libmnemosyne.languages.afrikaans",
           "Afrikaans"),
          ("mnemosyne.libmnemosyne.languages.albanian",
@@ -366,6 +362,12 @@ class Mnemosyne(Component):
           "Yoruba"),
          ("mnemosyne.libmnemosyne.languages.zulu",
           "Zulu")]
+        if (importlib.util.find_spec("gtts")) is not None:
+            self.components.append(("mnemosyne.libmnemosyne.pronouncers.google_pronouncer",
+                                   "GooglePronouncer")),
+        if ((importlib.util.find_spec("google_trans_new")) is not None) and ((importlib.util.find_spec("googletrans")) is not None):
+            self.components.append(("mnemosyne.libmnemosyne.translators.google_translator",
+                                    "GoogleTranslator")),
         self.gui_for_component = {}
 
     def handle_exception(self, type, value, tb):
