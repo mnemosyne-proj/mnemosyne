@@ -110,7 +110,7 @@ class QTextEdit2(QtWidgets.QTextEdit):
 
     def insert_img(self):
         filter = "(*.png *.gif *.jpg *.bmp *.jpeg *.svg *.tiff *.webp" + \
-                 " *.PNG *.GIF *.jpg *.BMP *.JPEG *.SVG *.TIFF *.WEBP)"
+                 " *.PNG *.GIF *.JPG *.BMP *.JPEG *.SVG *.TIFF *.WEBP)"
         filename = self.parent().controller().show_insert_img_dialog(filter)
         if filename:
             self.insertPlainText("<img src=\"" + filename + "\">")
