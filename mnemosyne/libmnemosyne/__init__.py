@@ -6,6 +6,7 @@ import os
 import sys
 import importlib
 import traceback
+import warnings
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path, \
     traceback_string
@@ -156,10 +157,6 @@ class Mnemosyne(Component):
           "Translator"),
          ("mnemosyne.libmnemosyne.pronouncer",
           "Pronouncer"),
-         ("mnemosyne.libmnemosyne.translators.google_translator",
-          "GoogleTranslator"),
-         ("mnemosyne.libmnemosyne.pronouncers.google_pronouncer",
-          "GooglePronouncer"),
          ("mnemosyne.libmnemosyne.languages.afrikaans",
           "Afrikaans"),
          ("mnemosyne.libmnemosyne.languages.albanian",
@@ -366,6 +363,16 @@ class Mnemosyne(Component):
           "Yoruba"),
          ("mnemosyne.libmnemosyne.languages.zulu",
           "Zulu")]
+        if (importlib.util.find_spec("gtts")) is not None:
+            self.components.append(("mnemosyne.libmnemosyne.pronouncers.google_pronouncer",
+                                    "GooglePronouncer"))
+        else:
+            warnings.warn("gTTS package is not installed. Text to speak feature will not be available ")
+        if ((importlib.util.find_spec("google_trans_new")) is not None) and ((importlib.util.find_spec("googletrans")) is not None):
+            self.components.append(("mnemosyne.libmnemosyne.translators.google_translator",
+                                    "GoogleTranslator"))
+        else:
+            warnings.warn("google_trans and google_trans_new packages are not installed. Google translate feature will not be available ")
         self.gui_for_component = {}
 
     def handle_exception(self, type, value, tb):
