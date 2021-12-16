@@ -1,3 +1,5 @@
+Document max interval
+
 - postpone indefinitely/stop scheduling/postpone 100 years/remove from learning process
 - reset card
 
@@ -88,6 +90,7 @@ https://github.com/pyinstaller/pyinstaller/milestone/22
 -layout of "add clone" is not optimal under Windows
 -select saved set, delete that set: set name is still visible in windows header
 -sync of changed saved set does not update title on target machine
+-colon in filename https://github.com/mnemosyne-proj/mnemosyne/issues/195
 -creating a new clone does not generate appearance setting events for sync
 -Related: create a new cardtype through *.cards import, setting font, does not
  seem to sync across?

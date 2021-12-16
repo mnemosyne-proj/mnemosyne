@@ -9,6 +9,11 @@ This might also help with other hard crashes.
 If this does not help, or if you see a black screen, try starting Mnemosyne
 with the --qt-opengl=desktop command line argument.)
 
+- Allow users to add webm images (patch by gojun077).
+- Added a config.py option to put an upper limit to the scheduled interval.
+  Dangerous, use this with caution.
+- Improve Python 3.10 compatibility (bug report by Martin Brodbeck).  
+  
 
 Mnemosyne 2.8 : 2021-06-28
 

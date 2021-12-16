@@ -165,7 +165,7 @@ class Server(Partner):
             not in self.sessions:
             return "403 Forbidden", None, None
         # See if the method exists.
-        if hasattr(self, method) and isinstance(getattr(self, method), collections.Callable):
+        if hasattr(self, method) and callable(getattr(self, method)):
             return "200 OK", method, args
         else:
             return "404 Not Found", None, None
