@@ -19,7 +19,7 @@ class AnkiRenderer(Renderer):
     def render(self, card, filtered_fact_data, render_chain, **render_args):
         card_type = card.card_type
         extra_data = card.fact_view.extra_data
-        extra_data["ord"] = card.extra_data["ord"]
+        extra_data["ord"] = card.extra_data.get("ord", 0)
         fields = {}
         for fact_key, fact_key_name in card_type.fact_keys_and_names:
             fields[fact_key_name] = filtered_fact_data.get(fact_key, "")
