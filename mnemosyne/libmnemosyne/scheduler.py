@@ -172,7 +172,7 @@ class Scheduler(Component):
         'day_starts_at').
 
         """
-
+        
         if now == None:
             now = time.time()
         # The larger 'day_starts_at', the later the card should become due,
@@ -189,7 +189,7 @@ class Scheduler(Component):
         if time.localtime(now).tm_isdst and time.daylight:
             now -= time.altzone
         else:
-            now -= time.timezone
+            now -= time.timezone 
         return int(now)
 
     def next_rep_to_interval_string(self, next_rep, now=None):

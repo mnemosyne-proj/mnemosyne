@@ -280,8 +280,8 @@ _("You appear to have missed some reviews. Don't worry too much about this backl
                         else:
                             self.stage = 3
                         return
-            # If the queue is close to empty, start pulling in sister cards.
-            if len(self._fact_ids_in_queue) <= 2:
+            # If our hand is not full enough, start pulling in sister cards.
+            if non_memorised_in_queue < limit:
                 for _card_id, _fact_id in db.cards_unseen(\
                         sort_key=sort_key, limit=min(limit, 50)):
                     if _fact_id not in self._fact_ids_in_queue:
