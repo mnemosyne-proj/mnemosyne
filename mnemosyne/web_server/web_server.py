@@ -185,6 +185,30 @@ class WebServer(Component):
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)
             return [page]
+        elif filename == "/api/scheduled":
+            scheduled_count, _, _ = \
+                self.mnemosyne.review_widget().review_controller().counters()
+
+            response_headers = [("Content-type", "text/plain")]
+            start_response("200 OK", response_headers)
+
+            return [str(scheduled_count).encode(encoding='UTF-8')]
+        elif filename == "/api/non_memorized":
+            _, non_memorised_count, _ = \
+                self.mnemosyne.review_widget().review_controller().counters()
+
+            response_headers = [("Content-type", "text/plain")]
+            start_response("200 OK", response_headers)
+
+            return [str(non_memorised_count).encode(encoding='UTF-8')]
+        elif filename == "/api/active":
+            _, _, active_count = \
+                self.mnemosyne.review_widget().review_controller().counters()
+
+            response_headers = [("Content-type", "text/plain")]
+            start_response("200 OK", response_headers)
+
+            return [str(active_count).encode(encoding='UTF-8')]
         elif filename == "/release_database":
             self.unload_mnemosyne()
             response_headers = [("Content-type", "text/html")]
