@@ -17,7 +17,6 @@ Mnemosyne.egg-info/
 bin/
 dot_mnemosyne2/
 include/
-lib/
 local/
 mnemosyne/**/*.pyc
 mnemosyne/pyqt_ui/mnemosyne_rc.py
