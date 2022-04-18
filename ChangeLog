@@ -11,6 +11,8 @@ with the --qt-opengl=desktop command line argument.)
 
 - Try harder to reach the maximum number of cards the user wants to memorise
   at once.
+- Add webserver API call to retrieve number of scheduled cards 
+  (patch by gbear605).  
 - Allow users to add webm images (patch by gojun077).
 - Added a config.py option to put an upper limit to the scheduled interval.
   Dangerous, use this with caution.
