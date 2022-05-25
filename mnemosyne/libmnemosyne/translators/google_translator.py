@@ -41,7 +41,7 @@ class GoogleTranslator(Translator):
         except:
             if retries < 5:
                 import time; time.sleep(2)
-                translator = gTranslator()
+                translator = google_translator()
                 return self.translate(card_type, foreign_text,
                     target_language_id, retries=retries+1)
             else:

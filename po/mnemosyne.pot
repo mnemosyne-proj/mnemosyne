@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-05-25 08:42+0200\n"
+"POT-Creation-Date: 2022-05-25 10:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,34 +40,6 @@ msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:351
 msgid "If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:15
-msgid "Vocabulary"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:18
-msgid "Foreign word or phrase"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:19
-msgid "Pronunciation"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:20
-msgid "Meaning"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:21
-msgid "Notes"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:24
-msgid "Recognition"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:29
-msgid "Production"
 msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/configuration.py:422
