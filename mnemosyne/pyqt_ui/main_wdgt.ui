@@ -174,7 +174,7 @@
   </action>
     <action name="actionResetCurrentCard">
    <property name="text">
-    <string>Reset current card...</string>
+    <string>Reset current card</string>
    </property>
   </action>
   <action name="actionBrowseCards">

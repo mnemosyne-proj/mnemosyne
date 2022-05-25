@@ -365,15 +365,16 @@ class Mnemosyne(Component):
           "Zulu")]
         try: # On Android, importlib.util doesn't get found, even though it's present...
             if (importlib.util.find_spec("gtts")) is not None:
-                self.components.append(("mnemosyne.libmnemosyne.pronouncers.google_pronouncer",
-                                        "GooglePronouncer"))
+                self.components.append(\
+                    ("mnemosyne.libmnemosyne.pronouncers.google_pronouncer",
+                    "GooglePronouncer"))
             else:
-                warnings.warn("gTTS package is not installed. Text to speak feature will not be available ")
-            if ((importlib.util.find_spec("google_trans_new")) is not None) and ((importlib.util.find_spec("googletrans")) is not None):
-                self.components.append(("mnemosyne.libmnemosyne.translators.google_translator",
-                                        "GoogleTranslator"))
+                warnings.warn("gTTS package is not installed. Text to speak feature will not be available.")
+            if ((importlib.util.find_spec("googletrans")) is not None):
+                self.components.append(\
+                    ("mnemosyne.libmnemosyne.translators.google_translator", "GoogleTranslator"))
             else:
-                warnings.warn("google_trans and google_trans_new packages are not installed. Google translate feature will not be available ")
+                warnings.warn("google_trans package is not installed. Google translate feature will not be available.")
         except:
             pass
         self.gui_for_component = {}

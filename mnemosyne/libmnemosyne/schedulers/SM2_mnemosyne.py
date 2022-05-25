@@ -33,7 +33,7 @@ class SM2Mnemosyne(Scheduler):
     """
 
     name = "SM2 Mnemosyne"
-    _warned_about_too_many_cards = False  # default false
+    _warned_about_too_many_cards = False
 
     def true_scheduled_interval(self, card):
 

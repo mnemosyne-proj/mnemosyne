@@ -596,7 +596,7 @@ _("This will add a tag 'Starred' to the current card, so that you can find it ba
                 card.reset_learning_data()
                 self.log().repetition(card, scheduled_interval=0,
                 actual_interval=0, thinking_time=0)
-                db.update_card(card, repetition_only=True)
+                db.update_card(card)
             if progress_bar:
                 w.increase_progress(1)
         db.save()
