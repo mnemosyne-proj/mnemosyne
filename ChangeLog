@@ -9,10 +9,16 @@ This might also help with other hard crashes.
 If this does not help, or if you see a black screen, try starting Mnemosyne
 with the --qt-opengl=desktop command line argument.)
 
+Mnemosyne 2.9 : 
+
+- Added an option to reset the learning history of either the current card
+  or of a number of selected cards in the card browser.
+- The config.py option 'start_card_browser_sorted' now defaults to 'True' for
+  new users. Existing users can still edit config.py manually. 
 - Try harder to reach the maximum number of cards the user wants to memorise
   at once.
 - Add webserver API call to retrieve number of scheduled cards 
-  (patch by gbear605).  
+  (patch by gbear605).
 - Allow users to add webm images (patch by gojun077).
 - Make sure script access to libmnemosyne also works for study modes
   other than "Scheduled - Forgotten - New" (bug report by Eloi Torrents).

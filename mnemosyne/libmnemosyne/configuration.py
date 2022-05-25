@@ -45,9 +45,9 @@ def config_py():
   # The number of daily backups to keep. Set to -1 for no limit.
   max_backups = 10
 
-  # Start the card browser with the last used colum sort. Can have a serious
+  # Start the card browser with the last used colum sort. Could have a
   # performance penalty for large databases.
-  start_card_browser_sorted = False
+  start_card_browser_sorted = True
 
   # The moment the new day starts. Defaults to 3 am. Could be useful to change
   # if you are a night bird. You can only set the hours, not minutes, and

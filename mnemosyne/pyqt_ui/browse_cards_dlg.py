@@ -780,8 +780,6 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         # Slow, and doesn't work very well.
         #self.table.verticalHeader().setSectionResizeMode(\
         #    QtWidgets.QHeaderView.ResizeToContents)
-        self.table.horizontalHeader().sectionClicked.connect(\
-            self.horizontal_header_section_clicked)
         table_settings = self.config()["browse_cards_dlg_table_settings"]
         if table_settings:
             self.table.horizontalHeader().restoreState(table_settings)
@@ -827,12 +825,6 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
     def reload_database_and_redraw(self):
         self.load_qt_database()
         self.display_card_table()
-
-    def horizontal_header_section_clicked(self, index):
-        if not self.config()["browse_cards_dlg_sorting_warning_shown"]:
-            self.main_widget().show_information(\
-_("You chose to sort this table. Operations in the card browser could now be slower. Next time you start the card browser, the table will be unsorted again."))
-            self.config()["browse_cards_dlg_sorting_warning_shown"] = True
 
     def activate(self):
         BrowseCardsDialog.activate(self)
