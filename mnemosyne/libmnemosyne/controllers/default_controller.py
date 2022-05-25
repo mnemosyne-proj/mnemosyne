@@ -554,6 +554,55 @@ _("This will add a tag 'Starred' to the current card, so that you can find it ba
         if progress_bar:
             w.close_progress()
 
+    def reset_current_card(self):
+        review_controller = self.review_controller()
+        if not review_controller.card:
+            return
+        self.stopwatch().pause()
+        self.flush_sync_server()
+        db = self.database()
+        fact = review_controller.card.fact
+        no_of_cards = len(db.cards_from_fact(fact))
+        if no_of_cards == 1:
+            question = _("Reset learning history of this card?")
+        elif no_of_cards == 2:
+            question = _("Reset learning history of this card and 1 sister card?")
+        else:
+            question = _("Reset learning history of this card and") + \
+                " " + str(no_of_cards - 1) + " " + _("sister cards?")
+        answer = self.main_widget().show_question(question, _("&Cancel"),
+                                          _("&Reset"), "")
+        if answer == 0:  # Cancel.
+            self.stopwatch().unpause()
+            return
+        self.reset_facts_and_their_cards([fact])
+        review_controller.reload_counters()
+        review_controller.show_new_question()
+        self.stopwatch().unpause()
+
+    def reset_facts_and_their_cards(self, facts, progress_bar=True):
+        assert len(facts) == len([fact.id for fact in facts])
+        db = self.database()
+        w = self.main_widget()
+        if progress_bar:
+            w.set_progress_text(_("Resetting cards..."))
+            w.set_progress_range(len(facts))
+            w.set_progress_update_interval(50)
+        for fact in facts:
+            for card in db.cards_from_fact(fact):
+                card.grade = -2 # Marker for reset event.
+                self.log().repetition(card, scheduled_interval=0,
+                actual_interval=0, thinking_time=0)
+                card.reset_learning_data()
+                self.log().repetition(card, scheduled_interval=0,
+                actual_interval=0, thinking_time=0)
+                db.update_card(card, repetition_only=True)
+            if progress_bar:
+                w.increase_progress(1)
+        db.save()
+        if progress_bar:
+            w.close_progress()
+
     def clone_card_type(self, card_type, clone_name):
         from mnemosyne.libmnemosyne.utils import mangle
         clone_id = card_type.id + "::" + clone_name

@@ -64,6 +64,12 @@ class Controller(Component):
     def delete_facts_and_their_cards(self, facts):
         raise NotImplementedError
 
+    def reset_current_card(self):
+        raise NotImplementedError
+
+    def reset_facts_and_their_cards(self, facts):
+        raise NotImplementedError
+
     def clone_card_type(self, card_type, clone_name):
         raise NotImplementedError
 

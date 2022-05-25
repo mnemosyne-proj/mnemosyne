@@ -329,25 +329,7 @@ class TestScheduler(MnemosyneTest):
         self.review_controller().grade_answer(0)
         assert self.review_controller().scheduled_count == 0
 
-    def test_sister_together(self):
-        card_type = self.card_type_with_id("2")
-        fact_data = {"f": "f", "b": "b"}
-        card_1, card_2 = self.controller().create_new_cards(fact_data,
-          card_type, grade=-1, tag_names=["default"])
-        for i in range(7):
-            fact_data = {"f": str(i), "b": "b"}
-            self.controller().create_new_cards(fact_data, card_type,
-                     grade=-1, tag_names=["default"])[0]
-        self.review_controller().show_new_question()
-        assert self.review_controller().card == card_1
-        self.review_controller().grade_answer(5)
-        cards = set()
-        for i in range(30):
-            self.review_controller().grade_answer(1)
-            cards.add(self.review_controller().card._id)
-        assert card_2._id not in cards
-
-    def test_learn_sister_together_3(self):
+    def test_learn_sister_together(self):
         # Relax requirements if there are not enough cards.
         self.config()["memorise_sister_cards_on_same_day"] = False
         card_type = self.card_type_with_id("2")

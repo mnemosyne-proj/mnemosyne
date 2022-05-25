@@ -14,8 +14,12 @@ with the --qt-opengl=desktop command line argument.)
 - Add webserver API call to retrieve number of scheduled cards 
   (patch by gbear605).  
 - Allow users to add webm images (patch by gojun077).
-- Added a config.py option to put an upper limit to the scheduled interval.
-  Dangerous, use this with caution.
+- Make sure script access to libmnemosyne also works for study modes
+  other than "Scheduled - Forgotten - New" (bug report by Eloi Torrents).
+- Added a config.py option 'max_scheduled_interval_days' to put an upper 
+  limit to the scheduled interval. Dangerous, use this with caution and
+  at your own risk! Accidentally putting this value too low will mess up
+  your schedules without an option to undo this.
 - Improve Python 3.10 compatibility (bug report by Martin Brodbeck).  
 - Avoid infinite error loop when converting a card to cloze type 
   (patch by OisÃ­n).
@@ -208,7 +212,7 @@ Mnemosyne 2.4.1 : 2017-01-30
 -Fix error related to upgrading from very old databases (reported by
  David Schuler)
 -Fix for latest version of cherrypy unbundling its WSGIserver
- (reported by Aramís Concepción Durán).
+ (reported by Aramï¿½s Concepciï¿½n Durï¿½n).
 -New command line option "--qt-opengl" which can be set to either
  'desktop', 'angle' or 'software', which you can play around with if
  you have display issues.

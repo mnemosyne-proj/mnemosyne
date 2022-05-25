@@ -2,8 +2,6 @@
 # google_translator.py <Peter.Bienstman@UGent.be>
 #
 
-from googletrans import Translator as gTranslator
-
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.translator import Translator
 

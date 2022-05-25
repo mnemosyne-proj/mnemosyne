@@ -191,6 +191,9 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
     def enable_delete_current_card(self, is_enabled):
         self.actionDeleteCurrentCard.setEnabled(is_enabled)
 
+    def enable_reset_current_card(self, is_enabled):
+        self.actionResetCurrentCard.setEnabled(is_enabled)
+
     def enable_browse_cards(self, is_enabled):
         self.actionBrowseCards.setEnabled(is_enabled)
 
@@ -238,6 +241,9 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
 
     def delete_current_card(self):
         self.controller().delete_current_card()
+
+    def reset_current_card(self):
+        self.controller().reset_current_card()
 
     def browse_cards(self):
         self.controller().show_browse_cards_dialog()

@@ -180,6 +180,16 @@ class TestAddCards(MnemosyneTest):
             assert self.review_controller().card != card_1
             self.review_controller().grade_answer(0)
 
+    def test_reset(self):
+        fact_data = {"f": "question1",
+                     "b": "answer1"}
+        card_type = self.card_type_with_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                              grade=2, tag_names=["default"])[0]
+        self.controller().reset_facts_and_their_cards([card.fact])
+        reset_card = self.database().card(card._id, is_id_internal=True)
+        assert reset_card.grade == -1
+
     def test_change_tag(self):
         fact_data = {"f": "question",
                      "b": "answer"}

@@ -449,6 +449,9 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         delete_action.setShortcut(QtGui.QKeySequence.Delete)
         delete_action.triggered.connect(self.menu_delete)
         menu.addAction(delete_action)
+        reset_action = QtWidgets.QAction(_("Reset"), menu)
+        reset_action.triggered.connect(self.menu_reset)
+        menu.addAction(reset_action)
         menu.addSeparator()
         change_card_type_action = QtWidgets.QAction(_("Change card &type"), menu)
         change_card_type_action.triggered.connect(self.menu_change_card_type)
@@ -707,6 +710,29 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
             tag = self.database().get_or_create_tag_with_name(tag_name)
             self.database().remove_tag_from_cards_with_internal_ids(\
                 tag, _card_ids)
+        self.tag_tree_wdgt.rebuild()
+        self.load_qt_database()
+        self.display_card_table()
+
+    def menu_reset(self):
+        answer = self.main_widget().show_question\
+            (_("Reset history of selected cards? Sister cards will be reset as well."),
+            _("&OK"), _("&Cancel"), "")
+        if answer == 1: # Cancel.
+            return
+        _fact_ids = set()
+        for index in self.table.selectionModel().selectedRows():
+            _fact_id_index = index.model().index(\
+                index.row(), _FACT_ID, index.parent())
+            _fact_id = index.model().data(_fact_id_index)
+            _fact_ids.add(_fact_id)
+        facts = []
+        for _fact_id in _fact_ids:
+            facts.append(self.database().fact(_fact_id, is_id_internal=True))
+        self.unload_qt_database()
+        self.selected_rows = []
+        self.controller().reset_facts_and_their_cards(facts)
+        self.card_type_tree_wdgt.rebuild()
         self.tag_tree_wdgt.rebuild()
         self.load_qt_database()
         self.display_card_table()

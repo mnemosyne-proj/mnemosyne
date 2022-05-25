@@ -317,6 +317,7 @@ _("You have finished your scheduled reviews. Now, learn as many failed or new ca
             else:
                 w.enable_edit_current_card(False)
         w.enable_delete_current_card(self.card != None)
+        w.enable_reset_current_card(self.card != None)
         w.enable_browse_cards(self.database().is_loaded())
 
     def update_status_bar_counters(self):
