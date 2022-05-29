@@ -13,6 +13,10 @@ Mnemosyne 2.9 :
 
 - Added an option to reset the learning history of either the current card
   or of a number of selected cards in the card browser.
+- Changed the behaviour of "Cram recently learned new cards" to also include
+  cards that were learned but had not yet come up for regular review. 
+- Fixed a regression where the cramming scheduler would no longer save
+  data. 
 - The config.py option 'start_card_browser_sorted' now defaults to 'True' for
   new users. Existing users can still edit config.py manually. 
 - Try harder to reach the maximum number of cards the user wants to memorise

@@ -27,12 +27,14 @@ class Cramming(SM2Mnemosyne):
             self.database().set_scheduler_data(self.UNSEEN)
         self.first_run = False
         SM2Mnemosyne.reset(self, new_only)
+        self.stage = 1
 
     def rebuild_queue(self, learn_ahead=False):
         db = self.database()
         if not db.is_loaded() or not db.active_count():
             return
-        max_ret_reps = 1 if self.new_only else -1 # TODO: make configurable
+        max_ret_reps = self.config()["max_ret_reps_for_recent_cards"] \
+            if self.new_only else -1
         if self.new_only and db.recently_memorised_count(max_ret_reps) == 0:
             return
         self._card_ids_in_queue = []
