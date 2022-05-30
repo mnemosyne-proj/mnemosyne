@@ -14,7 +14,6 @@ hiddenimports = [
              'google',
              'google.cloud',
              'google.api'
-             #'google-api-core',
              'google.api.core',
              'mnemosyne.version',
              'mnemosyne.libmnemosyne.card',
@@ -378,6 +377,7 @@ exe = EXE(pyz,
           strip=False,
           upx=True,
           console=False,
+          codesign_identity=os.environ['CODESIGN_IDENTITY'], # macos codesigning
           icon=os.path.join('pixmaps', 'mnemosyne.ico'))
 
 coll = COLLECT(exe,
@@ -396,4 +396,4 @@ if sys.platform == 'darwin':
                  'LSBackgroundOnly': '0',
                  'NSHighResolutionCapable': 'True'
                },
-               bundle_identifier='org.qt-project.Qt.QtWebEngineCore')
+               bundle_identifier='org.mnemosyne-proj.Mnemosyne')

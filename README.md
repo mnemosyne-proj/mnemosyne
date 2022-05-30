@@ -120,7 +120,22 @@ plots, install ttf-mscorefonts-installer and regenerate the font cache of
 matplotlib.
 
 ## Mac
+
 - Download and install Homebrew (see http://brew.sh)
+- Create a CODESIGN_IDENTITY certificate as described at https://github.com/pyinstaller/pyinstaller/wiki/Recipe-OSX-Code-Signing
+  - Open Applications > Utilities > Keychain Access
+  - From the Keychain Access menu, choose Certificate Assistant > Create a Certificate
+  - Name: something unique, I used "Devin Howard - Mnemosyne".
+  - Identity Type: Self Signed Root
+  - Certificate Type: Code signing
+  - when you run "make macos" below, ensure you have set the CODESIGN_IDENTITY environment variable to the Name you chose above. For example, I run it like
+      export CODESIGN_IDENTITY="Devin Howard - Mnemosyne"
+      make clean
+      make macos
+  - But you might instead run
+      export CODESIGN_IDENTITY="My Cool Certificate"
+      make clean
+      make macos
 - Open the Terminal.
 - Make sure you are using the latest version of Homebrew:
 
@@ -131,18 +146,18 @@ brew update
 - Install dependencies for Mnemosyne. 
 
 ```
-brew install python qt mplayer
-brew cask install xquartz # needed for mplayer dylibs
+brew install python@3.9 qt@5 mplayer openjpeg libffi
+brew install --cask xquartz # needed for mplayer dylibs
 ```
 
-- For Mnemosyne 2.7.3, we used Python 3.7.9 and Qt 5.15. To confirm you're using the correct versions:
+- For Mnemosyne 2.8, we used Python 3.9.13 and Qt 5.15.3. To confirm you're using the correct versions:
 
 ```
-python --version
-pip --version
+python3 --version
+brew list --versions qt@5
 ```
 
-- If the versions are not correct, andy ou need to edit a Homebrew dependency, you can use these commands:
+- If the versions are not correct, and you need to edit a Homebrew dependency, you can use these commands:
 
 ```
 brew uninstall <package-name>
@@ -152,24 +167,40 @@ brew install <package-name>
 brew pin <package-name>
 ```
 
-- Install the python dependencies for Mnemosyne, using a python virtual environment to isolate python dependencies. 
-- Note for Mnemosyne 2.7.3, we used PyQt5 5.15 and PyInstaller 4.0
+- Create a python virtual environment to isolate python dependencies from the rest of your system:
 
 ```
-pip install virtualenv
-virtualenv venv
+pip3 install virtualenv
+virtualenv --python=python3 venv
 source venv/bin/activate
-pip install webob tornado matplotlib numpy sip pillow cheroot googletrans gtts pyopengl
+```
 
-# install development version of pyinstaller to ensure we get https://github.com/pyinstaller/pyinstaller/issues/5004
-pip install -U https://github.com/pyinstaller/pyinstaller/archive/develop.zip
+From now on, your shell should have a `(venv)` at the beginning indicating you're inside the virtual environment. Ensure the copy of pip in the virtual environment is at least version 21.1.1 or later:
+
+```
+pip --version
+```
+
+If not, upgrade pip with
+
+```
+pip install --upgrade pip
+```
+
+- Install the python dependencies for Mnemosyne
+- Note for Mnemosyne 2.8, we used PyQt5 5.15 and PyInstaller 5.1
+
+```
+pip install argon2-cffi cheroot googletrans gtts matplotlib numpy pillow pyopengl sip tornado webob 
 
 # run this command and inspect the output to confirm you're using the correct versions
-pip install pyqt5 pyqtwebengine
+pip install pyqt5 pyqtwebengine pyinstaller
 ```
 
  - Build it (while still using the python virtual environment):
+
 ```
+export CODESIGN_IDENTITY="Devin Howard - Mnemosyne" # see note above about CODESIGN_IDENTITY
 make clean
 make macos
 ```
@@ -183,6 +214,11 @@ open dist/Mnemosyne.app
  - Optionally drag and drop this new app to /Applications.
 
 # Git and Github info
+
+## Github CLI Tool
+
+If you're planning on contributing more than one pull request using Git and Github, you might find https://hub.github.com to be a useful tool for managing your repositories, forks, pull requests, and branches.
+
 ## Working locally with the code
 If you want to hack on Mnemosyne and propose your changes for merging later ('pull request'), first create an account on, or log into, Github.
 Then, [fork](https://github.com/mnemosyne-proj/mnemosyne#fork-destination-box) the project on Github.
