@@ -108,7 +108,7 @@ macos:
 	cd po && make
 
 	# Build the bundled app based on the specification file.
-	QT5DIR=/usr/local/opt/qt pyinstaller --log-level WARN mnemosyne.spec
+	QT5DIR=/usr/local/opt/qt5 pyinstaller --log-level WARN mnemosyne.spec
 
 	# Blank qt.conf to ensure that bundled qt is used over system qt.
 	touch dist/Mnemosyne.app/Contents/Resources/qt.conf

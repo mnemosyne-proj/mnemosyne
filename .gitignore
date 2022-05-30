@@ -186,5 +186,6 @@ Session.vim
 # auto-generated tag files
 tags
 
-# osx build
+# macos
+.DS_Store
 venv/
