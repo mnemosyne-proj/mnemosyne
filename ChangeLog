@@ -9,7 +9,7 @@ This might also help with other hard crashes.
 If this does not help, or if you see a black screen, try starting Mnemosyne
 with the --qt-opengl=desktop command line argument.)
 
-Mnemosyne 2.9 : 
+Mnemosyne 2.9 : 2022-06-20
 
 - Added an option to reset the learning history of either the current card
   or of a number of selected cards in the card browser.
