@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-05-29 10:54+0200\n"
+"POT-Creation-Date: 2022-06-26 09:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,6 +44,22 @@ msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/M_sided.py:20
 msgid "M-sided"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/front_to_back.py:13
+msgid "Front-to-back only"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/front_to_back.py:16
+msgid "Front"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/front_to_back.py:17
+msgid "Back"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/front_to_back.py:20
+msgid "Front-to-back"
 msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/map.py:16

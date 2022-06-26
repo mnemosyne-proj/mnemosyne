@@ -369,6 +369,9 @@ a.binaries = a.binaries - TOC([
 
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
+codesign_identity = os.environ['CODESIGN_IDENTITY'] \
+      if sys.platform == 'darwin' else None
+
 exe = EXE(pyz,
           a.scripts,
           exclude_binaries=True,
@@ -377,7 +380,7 @@ exe = EXE(pyz,
           strip=False,
           upx=True,
           console=False,
-          codesign_identity=os.environ['CODESIGN_IDENTITY'], # macos codesigning
+          codesign_identity=codesign_identity,
           icon=os.path.join('pixmaps', 'mnemosyne.ico'))
 
 coll = COLLECT(exe,

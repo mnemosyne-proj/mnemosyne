@@ -1,4 +1,7 @@
 - postpone indefinitely/stop scheduling/postpone 100 years/remove from learning process?
+- Better error message for: File "/usr/local/lib/python3.10/dist-packages/Mnemosyne-2.9-py3.10.egg/mnemosyne/libmnemosyne/databases/_sqlite3.py", line 95, in commit
+    return self.connection.commit()
+ sqlite3.OperationalError: database is locked
 
 Android:
 
