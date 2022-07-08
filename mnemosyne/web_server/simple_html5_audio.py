@@ -29,6 +29,10 @@ class SimpleHtml5Audio(Filter):
             return text
         for match in re_audio.finditer(text):
             filename = urllib.parse.quote(match.group(1).encode("utf-8"), safe="/:")
+            filename = urllib.parse.quote(match.group(1), safe="/:")
+            # Prevent wsgi from decoding this as as non-unicode behind
+            # our back ( https://bugs.python.org/issue16679).
+            filename = filename.replace("%", "___-___")
             text = text.replace(match.group(0), "")
             text += "<audio src=\"" + filename + "\" controls>"
         return text

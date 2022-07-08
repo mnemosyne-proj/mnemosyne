@@ -4,9 +4,8 @@
 
 import os
 import cgi
-import sys
 import time
-import locale
+import urllib
 import http.client
 import threading
 
@@ -188,26 +187,20 @@ class WebServer(Component):
         elif filename == "/api/scheduled":
             scheduled_count, _, _ = \
                 self.mnemosyne.review_widget().review_controller().counters()
-
             response_headers = [("Content-type", "text/plain")]
             start_response("200 OK", response_headers)
-
             return [str(scheduled_count).encode(encoding='UTF-8')]
         elif filename == "/api/non_memorized":
             _, non_memorised_count, _ = \
                 self.mnemosyne.review_widget().review_controller().counters()
-
             response_headers = [("Content-type", "text/plain")]
             start_response("200 OK", response_headers)
-
             return [str(non_memorised_count).encode(encoding='UTF-8')]
         elif filename == "/api/active":
             _, _, active_count = \
                 self.mnemosyne.review_widget().review_controller().counters()
-
             response_headers = [("Content-type", "text/plain")]
             start_response("200 OK", response_headers)
-
             return [str(active_count).encode(encoding='UTF-8')]
         elif filename == "/release_database":
             self.unload_mnemosyne()
@@ -219,6 +212,10 @@ class WebServer(Component):
             # Late import to speed up application startup.
             from webob import Request
             from webob.static import FileApp
+            # Prevent wsgi from decoding this as as non-unicode behind
+            # our back ( https://bugs.python.org/issue16679).
+            filename = filename.replace("___-___", "%")
+            filename = urllib.parse.unquote(filename)
             full_path = self.mnemosyne.database().media_dir()
             for word in filename.split("/"):
                 full_path = os.path.join(full_path, word)
