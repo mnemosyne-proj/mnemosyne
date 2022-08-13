@@ -61,6 +61,7 @@ img {
 }
 
 $card_css
+$hide_answer_css
 </style>
 </head>
 <body>
@@ -71,17 +72,17 @@ $card_css
   </tr>
 </table>
 
-<p>$question_label</p>
+<p class="question">$question_label</p>
 
-<table id="mnem1" class="mnem">
+<table id="mnem1" class="mnem question">
   <tr>
     <td>$question</td>
   </tr>
 </table>
 
-<p>$answer_label</p>
+<p class="answer">$answer_label</p>
 
-<table id="mnem1" class="mnem">
+<table id="mnem1" class="mnem answer">
   <tr>
     <td>$answer</td>
   </tr>
@@ -179,10 +180,21 @@ $card_css
                   <input type="submit" name="show_answer" value="%s">
                 </form>
               </td>""" % (self.show_button)
+
+        hide_answer_css = ""
         if not self.question:
-            self.question = "&nbsp;"  # For esthetic reasons.
+            hide_answer_css += """
+              .question {
+                display: none;
+              }
+            """
         if not self.answer:
-            self.answer = "&nbsp;"
+            hide_answer_css += """
+              .answer {
+                display: none;
+              }
+            """
+
         extended_status_bar = self.status_bar
         if self.client_on_same_machine_as_server:
             extended_status_bar = extended_status_bar.replace(\
@@ -196,5 +208,5 @@ $card_css
         return self.template.substitute(card_css=card_css, buttons=buttons,
             question_label=self.question_label, question=self.question,
             answer_label=self.answer_label, answer=self.answer,
-            status_bar=extended_status_bar).encode("utf-8")
+            status_bar=extended_status_bar, hide_answer_css=hide_answer_css).encode("utf-8")
 
