@@ -180,15 +180,13 @@ $hide_answer_css
                   <input type="submit" name="show_answer" value="%s">
                 </form>
               </td>""" % (self.show_button)
+        if not self.question:
+            self.question = "&nbsp;"  # For esthetic reasons.
+        if not self.answer:
+            self.answer = "&nbsp;"
 
         hide_answer_css = ""
-        if not self.question:
-            hide_answer_css += """
-              .question {
-                display: none;
-              }
-            """
-        if not self.answer:
+        if card.fact_view.a_on_top_of_q:
             hide_answer_css += """
               .answer {
                 display: none;
