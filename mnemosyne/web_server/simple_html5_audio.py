@@ -6,6 +6,7 @@ import re
 import urllib.request, urllib.parse, urllib.error
 
 from mnemosyne.libmnemosyne.filter import Filter
+from mnemosyne.web_server.multiple_audiofile_support import InsertAudioplayerTags
 
 re_audio = re.compile(r"""<audio src=\"(.+?)\"(.*?)>""",
     re.DOTALL | re.IGNORECASE)
@@ -34,5 +35,7 @@ class SimpleHtml5Audio(Filter):
             # our back ( https://bugs.python.org/issue16679).
             filename = filename.replace("%", "___-___")
             text = text.replace(match.group(0), "")
-            text += "<audio src=\"" + filename + "\" controls>"
+            text += "<source src=\"" + filename + "\">"
+        inserter = InsertAudioplayerTags()
+        text = inserter.insert_audioplayer_tags(text, fact_key)
         return text
