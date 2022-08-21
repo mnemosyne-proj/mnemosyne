@@ -35,7 +35,7 @@ class SimpleHtml5Audio(Filter):
             # our back ( https://bugs.python.org/issue16679).
             filename = filename.replace("%", "___-___")
             text = text.replace(match.group(0), "")
-            text += "<source src=\"" + filename + "\">"
+            text += "<source src=\"" + filename + "\">" #test OK
         inserter = InsertAudioplayerTags()
         text = inserter.insert_audioplayer_tags(text, fact_key)
         return text

@@ -182,7 +182,7 @@ class WebServer(Component):
             if self.is_just_started:
                 self.is_just_started = False
             inserter = InsertJavascript()
-            page = inserter.insert_javascript(page)
+            page = inserter.insert_javascript(page) #test OK
             # Serve the web page.
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)
