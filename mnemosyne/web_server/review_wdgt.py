@@ -186,7 +186,7 @@ $hide_answer_css
             self.answer = "&nbsp;"
 
         hide_answer_css = ""
-        if card.fact_view.a_on_top_of_q:
+        if None != card and card.fact_view.a_on_top_of_q:
             hide_answer_css += """
               .answer {
                 display: none;
