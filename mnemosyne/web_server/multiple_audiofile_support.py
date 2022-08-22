@@ -70,11 +70,11 @@ class InsertJavascript:
                 self. __player_has_multiple_files(audio_player_tag, html_page):
                 #current player has more than 1 sound file to play
                 self.__audio_player_has_multiple_files = True
-                text1 = "var audio_player_{id} = null;\n".format(id = 'b')
+                text1 = "var audio_player_{id} = null;\n".format(id = key)
                 text2 = "let index_{id} = {val};\n". \
-                            format(id = 'b', val =  "{val : 0}" )
+                            format(id = key, val =  "{val : 0}" )
                 # All attempts to create a line break resulted in ugly JavaScript results.
-                text3 = "init_player(audio_player_{id}, 'player_{id}' , index_{id});\n".format(id = 'b') 
+                text3 = "init_player(audio_player_{id}, 'player_{id}' , index_{id});\n".format(id = key) 
                 self.__audio_player_with_index += text1
                 self.__audio_player_with_index += text2
                 self.__call_init_player += text3
