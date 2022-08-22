@@ -1,12 +1,51 @@
+#
+# multiple_audiofile_support.py
+#
+
+
+# Inserts html audio tags.
+# For example <source src='soundfile.mp3'> becomes  
+# <audio id='player_b' controls><source src='soundfile.mp3'></audio>.
+
+class InsertAudioplayerTags:
+    def insert_audioplayer_tags(self, text, fact_key):
+        str1 = '<audio id="player_{id}" controls>\n' \
+                    .format(id = fact_key)
+        str2 = '</audio>' 
+        index = text.find('<source src=')
+        text_audioplayer_inserted = text[:index] + str1 + text[index:]
+        text_audioplayer_inserted += str2    
+        return text_audioplayer_inserted
+
+
+# Inserts JavaScript into the HTML page when an audio player needs to play more 
+# than one sound file. For example the audio player with the id "b" has to play
+# two sound files. 
+# <audio id="b" controls><source src="one.mp3"><source src="two.mp3"></audio>
+# So, JavaScript will be added to the page,
+# to enable the ability playing both files.
+
 class InsertJavascript:
     def __init__(self):
+        # Becomes True when an audio player needs to play more than one 
+        # sound file.        
         self.__audio_player_has_multiple_files = False
-        #var audio_player_f = null;
-        #let index_f = { val : 0 }; each song has it's own index
+        
+        # Contains two lines of JavaScript for each audio player.
+        # For example
+        # var audio_player_b = null;
+        # let index_b = { val : 0 }; 
         self.__audio_player_with_index = ""
-        #init_player(audio_player_f, 'player_f', index_f);
+        
+        # Contains a JavaScript funtion call to initialize 
+        # and to start the audio player.
+        # For example
+        # init_player(audio_player_b, 'player_b', index_b); 
         self.__call_init_player = ""
 
+    # Helper method for method __prepare_javascript
+    # Returns true if a player has to play more than one file, else
+    # false.
     def  __player_has_multiple_files(self, audio_player_tag, html_page):
         start_index = html_page.find(audio_player_tag)
         end_index = -1
@@ -18,10 +57,12 @@ class InsertJavascript:
             audio_files_count = substr.count(b'<source src=')
         return audio_files_count > 1
 
+    # Helper method for method insert_javascript
+    # Assembles JavaScript code and stores it in the member variables
+    # self.__audio_player_with_index and self.__call_init_player
     def __prepare_javascript(self, html_page):
-        fact_keys = ["f", "p_1", "m_1", "n"]
+        fact_keys = ["f", "p_1", "m_1", "n", "b"]
         for key in fact_keys:
-            #eg audio_player_tag_in_html_page = <audio id="player_f" controls>
             audio_player_tag = '<audio id="player_{fact_id}" controls>' \
                                     .format(fact_id = key)
             audio_player_tag = bytes(audio_player_tag, encoding='utf-8')
@@ -29,43 +70,20 @@ class InsertJavascript:
                 self. __player_has_multiple_files(audio_player_tag, html_page):
                 #current player has more than 1 sound file to play
                 self.__audio_player_has_multiple_files = True
-                if key == "f":
-                    self.__audio_player_with_index \
-                        += "var audio_player_f = null;\n"    
-                    self.__audio_player_with_index \
-                        += "let index_f = { val : 0 };\n"
-                    self.__call_init_player += ("init_player(audio_player_f,"
-                    "'player_f', index_f);\n")
-                elif key == "p_1":
-                    self.__audio_player_with_index += \
-                        "var audio_player_p_1 = null;\n"
-                    self.__audio_player_with_index += \
-                        "let index_p_1 = { val : 0 };\n"
-                    self.__call_init_player += \
-                        ("init_player(audio_player_p_1,"
-                        "'player_p_1', index_p_1);\n")
-                elif key == "m_1":
-                    self.__audio_player_with_index \
-                        += "var audio_player_m_1 = null;\n"
-                    self.__audio_player_with_index \
-                        += "let index_m_1 = { val : 0 };\n"
-                    self.__call_init_player \
-                        += ("init_player(audio_player_m_1,"
-                            "'player_m_1', index_m_1);\n")
-                else: #key == "n"
-                    self.__audio_player_with_index \
-                        += "var audio_player_n = null;\n"
-                    self.__audio_player_with_index \
-                        += "let index_n = { val : 0 };\n"
-                    self.__call_init_player \
-                        += ("init_player(audio_player_n,"
-                            "'player_n', index_n);\n")
+                text1 = "var audio_player_{id} = null;\n".format(id = 'b')
+                text2 = "let index_{id} = {val};\n". \
+                            format(id = 'b', val =  "{val : 0}" )
+                # All attempts to create a line break resulted in ugly JavaScript results.
+                text3 = "init_player(audio_player_{id}, 'player_{id}' , index_{id});\n".format(id = 'b') 
+                self.__audio_player_with_index += text1
+                self.__audio_player_with_index += text2
+                self.__call_init_player += text3
 
+    # Inserts JavaScript into the html page :-O            
     def insert_javascript(self, html_page):
         self.__prepare_javascript(html_page)
         if False == self.__audio_player_has_multiple_files:
-        #html_page comes with audio tags <audio id="player_{fact_id}" controls>
-        #audio tags are inerted by method insert_audioplayer_tag
+            # Return unchanged page, no need to insert JavaScript
             return html_page 
         javascript = """
             <script>
@@ -100,18 +118,9 @@ class InsertJavascript:
           </script> 		 
           """ % (self.__audio_player_with_index, self.__call_init_player)
         index = html_page.find(b'</body>')
+        if -1 == index:
+            return html_page
         html_page_javascript_inserted = (html_page[:index] 
                                             + javascript.encode('utf-8')
                                             + html_page[index:])
         return html_page_javascript_inserted
-
-
-class InsertAudioplayerTags:
-    def insert_audioplayer_tags(self, text, fact_key):
-        str1 = '<audio id="player_{fact_id}" controls>' \
-                    .format(fact_id = fact_key)
-        str2 = '</audio>' 
-        index = text.find('<source src=')
-        text_audioplayer_inserted = text[:index] + str1 + text[index:]
-        text_audioplayer_inserted += str2    
-        return text_audioplayer_inserted
