@@ -28,6 +28,7 @@ class SimpleHtml5Audio(Filter):
     def run(self, text, card, fact_key, **render_args):
         if not re_audio.search(text):
             return text
+        audio_files_counter = 0
         for match in re_audio.finditer(text):
             filename = urllib.parse.quote(match.group(1).encode("utf-8"), safe="/:")
             filename = urllib.parse.quote(match.group(1), safe="/:")
@@ -36,6 +37,7 @@ class SimpleHtml5Audio(Filter):
             filename = filename.replace("%", "___-___")
             text = text.replace(match.group(0), "")
             text += "<source src=\"" + filename + "\">" + '\n'
-        inserter = InsertAudioplayerTags()
+            audio_files_counter += 1
+        inserter = InsertAudioplayerTags(audio_files_counter)
         text = inserter.insert_audioplayer_tags(text, fact_key)
         return text
