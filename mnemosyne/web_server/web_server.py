@@ -12,7 +12,6 @@ import threading
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.utils import localhost_IP
 from mnemosyne.libmnemosyne.component import Component
-from mnemosyne.web_server.multiple_audiofile_support import InsertJavascript
 
 
 class ReleaseDatabaseAfterTimeout(threading.Thread):
@@ -181,8 +180,6 @@ class WebServer(Component):
                 page = self.mnemosyne.review_widget().to_html()
             if self.is_just_started:
                 self.is_just_started = False
-            inserter = InsertJavascript()
-            page = inserter.insert_javascript(page)
             # Serve the web page.
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)

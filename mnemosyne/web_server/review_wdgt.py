@@ -1,3 +1,4 @@
+
 #
 # review_wdgt.py <Peter.Bienstman@UGent.be>
 #
@@ -7,6 +8,7 @@ from string import Template
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
+import re
 
 
 class ReviewWdgt(ReviewWidget):
@@ -18,7 +20,6 @@ class ReviewWdgt(ReviewWidget):
     to fill the entire screen.
     Therefore, we place the grades at the top, where they are also always at
     the same location for easy ergonomic access.
-
     """
 
     def __init__(self, component_manager):
@@ -65,31 +66,25 @@ $hide_answer_css
 </style>
 </head>
 <body>
-
 <table class="buttonarea">
   <tr>
   $buttons
   </tr>
 </table>
-
 <p class="question">$question_label</p>
-
 <table id="mnem1" class="mnem question">
   <tr>
     <td>$question</td>
   </tr>
 </table>
-
 <p class="answer">$answer_label</p>
-
 <table id="mnem1" class="mnem answer">
   <tr>
     <td>$answer</td>
   </tr>
 </table>
-
 <p>$status_bar</p>
-
+$js
 </body>
 </html>
 """)
@@ -192,7 +187,6 @@ $hide_answer_css
                 display: none;
               }
             """
-
         extended_status_bar = self.status_bar
         if self.client_on_same_machine_as_server:
             extended_status_bar = extended_status_bar.replace(\
@@ -203,8 +197,63 @@ $hide_answer_css
                   </form>
                 </td>
             </tr></table>""")
+
+        player_and_index = ""
+        call_player = ""
+        ids = re.findall(r'player_(\d+)', self.question)
+        for i in ids:
+            player_and_index += \
+                'var audio_player_{id} = null;\n'.format(id = i)
+            player_and_index += "let index_{id} = {val};\n". \
+                            format(id = i, val =  "{val : 0}" )
+            call_player += \
+                "init_player(audio_player_{id}, 'player_{id}' , index_{id});\n".format(id = i) 
+        ids = re.findall(r'player_(\d+)', self.answer)
+        for i in ids:
+            player_and_index += \
+                'var audio_player_{id} = null;\n'.format(id = i)
+            player_and_index += "let index_{id} = {val};\n". \
+                            format(id = i, val =  "{val : 0}" )
+            call_player += \
+                "init_player(audio_player_{id}, 'player_{id}' , index_{id});\n".format(id = i) 
+        if player_and_index == "":
+            javascript = ""
+        else:
+            javascript = """
+                <script>
+                    %s
+                    function init_player(audio_player, fact_id, index)
+                    {
+                        var audio_player = document.getElementById(fact_id, index);
+                        if (null === audio_player) return;
+                            
+                        if(audio_player.children.length > 1)  
+                        {
+                            audio_player.addEventListener('ended', function(event)
+                            {
+                                play.call(this, event, audio_player, index);
+                            }, false);
+                        }
+                        audio_player.src = audio_player.children[index.val].src
+                    }
+                    
+                    var play = function play_playlist(event, audio_player, index)
+                    {
+                        index.val += 1; 
+                        audio_player.autoplay = true;
+                        if(index.val == audio_player.children.length)
+                        {
+                            audio_player.autoplay = false;
+                            index.val = 0;
+                        }
+                        audio_player.src = audio_player.children[index.val].src
+                    }
+                    %s   
+              </script> 		 
+              """ % (player_and_index, call_player)
+        
         return self.template.substitute(card_css=card_css, buttons=buttons,
             question_label=self.question_label, question=self.question,
             answer_label=self.answer_label, answer=self.answer,
-            status_bar=extended_status_bar, hide_answer_css=hide_answer_css).encode("utf-8")
-
+            status_bar=extended_status_bar, 
+            hide_answer_css=hide_answer_css, js = javascript).encode("utf-8")
