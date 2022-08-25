@@ -1,4 +1,3 @@
-
 #
 # review_wdgt.py <Peter.Bienstman@UGent.be>
 #
