@@ -199,22 +199,34 @@ $js
 
         player_and_index = ""
         call_player = ""
-        ids = re.findall(r'player_(\d+)', self.question)
-        for i in ids:
-            player_and_index += \
+        for match in re.finditer(r'player_(\d+)', self.question, re.DOTALL):
+              end_index = self.question.find("</audio>", match.start())
+              substr = self.question[match.start():end_index]
+              ids_count = substr.count('<source src=')
+              if ids_count > 1:
+                  str1 = self.question[match.start():match.end()]
+                  idstr = re.findall(r'player_(\d+)', str1)
+                  i = idstr.pop()
+                  player_and_index += \
+                  'var audio_player_{id} = null;\n'.format(id = i)
+                  player_and_index += "let index_{id} = {val};\n". \
+                                  format(id = i, val =  "{val : 0}" )
+                  call_player += \
+                      "init_player(audio_player_{id}, 'player_{id}' , index_{id});\n".format(id = i) 
+        for match in re.finditer(r'player_(\d+)', self.answer, re.DOTALL):
+            end_index = self.answer.find("</audio>", match.start())
+            substr = self.answer[match.start():end_index]
+            ids_count = substr.count('<source src=')
+            if ids_count > 1:
+                str1 = self.answer[match.start():match.end()]
+                idstr = re.findall(r'player_(\d+)', str1)
+                i = idstr.pop()
+                player_and_index += \
                 'var audio_player_{id} = null;\n'.format(id = i)
-            player_and_index += "let index_{id} = {val};\n". \
-                            format(id = i, val =  "{val : 0}" )
-            call_player += \
-                "init_player(audio_player_{id}, 'player_{id}' , index_{id});\n".format(id = i) 
-        ids = re.findall(r'player_(\d+)', self.answer)
-        for i in ids:
-            player_and_index += \
-                'var audio_player_{id} = null;\n'.format(id = i)
-            player_and_index += "let index_{id} = {val};\n". \
-                            format(id = i, val =  "{val : 0}" )
-            call_player += \
-                "init_player(audio_player_{id}, 'player_{id}' , index_{id});\n".format(id = i) 
+                player_and_index += "let index_{id} = {val};\n". \
+                                format(id = i, val =  "{val : 0}" )
+                call_player += \
+                    "init_player(audio_player_{id}, 'player_{id}' , index_{id});\n".format(id = i) 
         if player_and_index == "":
             javascript = ""
         else:
