@@ -7,23 +7,13 @@ import urllib.request, urllib.parse, urllib.error
 
 from mnemosyne.libmnemosyne.filter import Filter
 
+player_id = 1
+
 re_audio = re.compile(r"""<audio src=\"(.+?)\"(.*?)>""",
     re.DOTALL | re.IGNORECASE)
 
 
 class SimpleHtml5Audio(Filter):
-
-    """Most simple html5 audio player to ensure maximum compatibility across
-    a wide range of browsers and mobile devices.
-
-    Issues:
-
-     - no autoplay to prevent synchronisation bugs.
-     - not very well suited for multiple audio files.
-     - no support for start and stop tags.
-
-    """
-
     def run(self, text, card, fact_key, **render_args):
         if not re_audio.search(text):
             return text
@@ -34,5 +24,10 @@ class SimpleHtml5Audio(Filter):
             # our back ( https://bugs.python.org/issue16679).
             filename = filename.replace("%", "___-___")
             text = text.replace(match.group(0), "")
-            text += "<audio src=\"" + filename + "\" controls>"
+            text += "<source src=\"" + filename + "\">" + '\n'
+        global player_id
+        str1 = '\n<audio id="player_{id}" autoplay controls>\n<source src='.format(id = player_id)
+        text = text.replace('<source src=', str1, 1)
+        text += '</audio>\n'
+        player_id += 1
         return text
