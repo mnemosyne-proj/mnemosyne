@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-06-26 09:14+0200\n"
+"POT-Creation-Date: 2022-07-08 20:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,103 +40,6 @@ msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:351
 msgid "If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/M_sided.py:20
-msgid "M-sided"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/front_to_back.py:13
-msgid "Front-to-back only"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/front_to_back.py:16
-msgid "Front"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/front_to_back.py:17
-msgid "Back"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/front_to_back.py:20
-msgid "Front-to-back"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/map.py:16
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/map.py:51
-msgid "Map"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/map.py:19
-msgid "Location"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/map.py:20
-msgid "Blank map"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/map.py:21
-msgid "Marked map"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/map.py:24
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/sentence.py:39
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:24
-msgid "Recognition"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/map.py:30
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/sentence.py:44
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:29
-msgid "Production"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/map.py:52
-msgid ""
-"A card type for learning locations on a map.\n"
-"\n"
-"Displays the answer map on top of the question map, rather than below it as a second map."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/sentence.py:30
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/sentence.py:33
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/sentence.py:94
-msgid "Sentence"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/sentence.py:34
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:19
-msgid "Pronunciation"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/sentence.py:35
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:20
-msgid "Meaning"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/sentence.py:36
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:21
-msgid "Notes"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/sentence.py:95
-msgid ""
-"A card type using sentences to study foreign languages.\n"
-"\n"
-"Apart from simple recognition of the sentence, you can also add production cards using close deletion.\n"
-"E.g. if in the sentence field you write \"La [casa:house] es [grande:big]\", you'll get cards with questions like \"La [house] es grande\"."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:15
-msgid "Vocabulary"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:18
-msgid "Foreign word or phrase"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/configuration.py:422
-msgid "Error in config.py:"
 msgstr ""
 
 #:

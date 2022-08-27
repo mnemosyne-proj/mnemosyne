@@ -9,6 +9,10 @@ This might also help with other hard crashes.
 If this does not help, or if you see a black screen, try starting Mnemosyne
 with the --qt-opengl=desktop command line argument.)
 
+- Support for multiple audiofiles in the webserver (patch by jooseef).
+- Scale images and add support for Map card type in web client (patch by 
+  gbear605).
+- Fix TypeError when activating cards (patch by Adam Smalhofer). 
 - Make sure the review server also works for non-latin audio files
   (reported by jooseef).
 
