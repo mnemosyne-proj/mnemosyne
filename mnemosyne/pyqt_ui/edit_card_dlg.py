@@ -6,6 +6,7 @@ import re
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.add_cards_dlg import AddEditCards
 from mnemosyne.pyqt_ui.ui_edit_card_dlg import Ui_EditCardDlg
@@ -193,14 +194,21 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
             self.main_widget().show_error(_(\
     "Changing the number of clozes in Anki cards is currently not supported."))
             return
-        # For previewing exisiting cards we need to pull them from the database,
+        new_fact_data = self.card_type_widget.fact_data()
+        new_card_type_name = self.card_types_widget.currentText()
+        new_card_type = self.card_type_by_name[new_card_type_name]
+        # For previewing existing cards we try to pull them from the database,
         # rather than creating dummy cards from scratch, as we do in
         # 'Add cards". That way, we are sure we create cards with all the
         # required extra_data.
-        cards = self.database().cards_from_fact(self.card.fact)
-        fact_data = self.card_type_widget.fact_data()
-        for card in cards:
-            card.fact.update(fact_data)
+        # When we change the card type, we can't do that, however.
+        if self.card.card_type == new_card_type:
+            cards = self.database().cards_from_fact(self.card.fact)
+            for card in cards:
+                card.fact.update(new_fact_data)
+        else:
+            fact = Fact(new_fact_data)
+            cards = new_card_type.create_sister_cards(fact)
         tag_text = self.tags.currentText()
         dlg = PreviewCardsDlg(cards, tag_text,
             component_manager=self.component_manager, parent=self)
