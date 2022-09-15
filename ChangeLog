@@ -9,6 +9,7 @@ This might also help with other hard crashes.
 If this does not help, or if you see a black screen, try starting Mnemosyne
 with the --qt-opengl=desktop command line argument.)
 
+- Fix Google text-to-speech for Spanish (reported by Language Lover).
 - Support for multiple audiofiles in the webserver (patch by jooseef).
 - Scale images and add support for Map card type in web client (patch by 
   gbear605).
