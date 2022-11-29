@@ -1,5 +1,5 @@
 #
-# responsive_voice_tts.py <Peter.Bienstman@UGent.be>
+# google_cloud_tts.py <Peter.Bienstman@UGent.be>
 #
 
 # Set up your account according to
