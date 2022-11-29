@@ -60,13 +60,15 @@ class AzurePronouncer(Pronouncer):
                     print("Did you set the speech resource key and region values?")
             return
         
-        filename = expand_path("__AZURE_TTS__TMP__.mp3", 
+        filename_wav = expand_path("__AZURE_TTS__TMP__.wav", 
+            self.database().media_dir())
+        filename_mp3 = expand_path("__AZURE_TTS__TMP__.mp3", 
             self.database().media_dir())
         stream = speechsdk.AudioDataStream(result)
-        stream.save_to_wav_file("tmp.wav")
-        audio = AudioSegment.from_wav("tmp.wav")
-        audio.export(filename, format="mp3")    
-        return filename
+        stream.save_to_wav_file(filename_wav)
+        audio = AudioSegment.from_wav(filename_wav)
+        audio.export(filename_mp3, format="mp3")    
+        return filename_mp3
 
 
 class AzureTTSPlugin(Plugin):
