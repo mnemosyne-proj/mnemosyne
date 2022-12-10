@@ -2,7 +2,7 @@
 # Widget to preview set of sister cards <Peter.Bienstman@UGent.be>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.component import Component
@@ -32,9 +32,9 @@ class PreviewCardsDlg(QtWidgets.QDialog, Component, QAOptimalSplit,
         QAOptimalSplit.setup(self)
         self.used_for_reviewing = False
         self.setWindowFlags(self.windowFlags() \
-            | QtCore.Qt.WindowMinMaxButtonsHint)
+            | QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+            & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         self.tag_text = tag_text
         self.cards = cards
         self.index = 0
@@ -50,15 +50,15 @@ class PreviewCardsDlg(QtWidgets.QDialog, Component, QAOptimalSplit,
 
         """
 
-        if event.key() == QtCore.Qt.Key_PageUp:
+        if event.key() == QtCore.Qt.Key.Key_PageUp:
             self.page_up_down_signal.emit(self.UP)
-        elif event.key() == QtCore.Qt.Key_PageDown:
+        elif event.key() == QtCore.Qt.Key.Key_PageDown:
             self.page_up_down_signal.emit(self.DOWN)
         # Note QtWidgets.QWidget.keyPressEvent(self, event) does not seem to work,
         # so we handle the most common keypresses here too.
-        if event.key() == QtCore.Qt.Key_Escape:
+        if event.key() == QtCore.Qt.Key.Key_Escape:
             self.reject()
-        if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return]:
+        if event.key() in [QtCore.Qt.Key.Key_Enter, QtCore.Qt.Key.Key_Return]:
             self.accept()
         else:
             QtWidgets.QWidget.keyPressEvent(self, event)

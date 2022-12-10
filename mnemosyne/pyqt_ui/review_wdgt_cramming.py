@@ -2,7 +2,7 @@
 # review_wdgt_cramming.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.review_wdgt import ReviewWdgt
@@ -30,7 +30,7 @@ class ReviewWdgtCramming(ReviewWdgt):
         parent.add_to_status_bar(self.active)
 
     def changeEvent(self, event):
-        if event.type() == QtCore.QEvent.LanguageChange:
+        if event.type() == QtCore.QEvent.Type.LanguageChange:
             self.retranslateUi(self)
         # Upon start, there will be a change event before the grade
         # buttons have been created.
@@ -41,10 +41,10 @@ class ReviewWdgtCramming(ReviewWdgt):
 
     def keyPressEvent(self, event):
         if self.review_controller().is_answer_showing():
-            if event.key() in [QtCore.Qt.Key_0, QtCore.Qt.Key_1]:
+            if event.key() in [QtCore.Qt.Key.Key_0, QtCore.Qt.Key.Key_1]:
                 return self.grade_answer(0)
-            elif event.key() in [QtCore.Qt.Key_2, QtCore.Qt.Key_3,
-                QtCore.Qt.Key_4, QtCore.Qt.Key_5]:
+            elif event.key() in [QtCore.Qt.Key.Key_2, QtCore.Qt.Key.Key_3,
+                QtCore.Qt.Key.Key_4, QtCore.Qt.Key.Key_5]:
                 return self.grade_answer(5)
         super().keyPressEvent(event)
 

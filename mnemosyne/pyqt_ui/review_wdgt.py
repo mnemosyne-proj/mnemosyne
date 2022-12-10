@@ -5,7 +5,7 @@
 import os
 import sys
 
-from PyQt5 import QtCore, QtGui, QtWidgets, QtWebEngineWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets, QtWebEngineWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.ui_review_wdgt import Ui_ReviewWdgt
@@ -28,10 +28,10 @@ class QAOptimalSplit(object):
         super().__init__(**kwds)
 
     def setup(self):
-        self.question.settings().setAttribute(\
-            QtWebEngineWidgets.QWebEngineSettings.PluginsEnabled, True)
-        self.answer.settings().setAttribute(\
-            QtWebEngineWidgets.QWebEngineSettings.PluginsEnabled, True)
+        #self.question.settings().setAttribute(\
+        #    QtWebEngineWidgets.QWebEngineSettings.PluginsEnabled, True)
+        #self.answer.settings().setAttribute(\
+        #    QtWebEngineWidgets.QWebEngineSettings.PluginsEnabled, True)
         # Add some dummy QWebEngineEngineViews that will be used to determine the actual
         # size of the rendered html. This information will then be used to
         # determine the optimal split between the question and the answer
@@ -57,7 +57,7 @@ class QAOptimalSplit(object):
 
     #
     # Code to determine optimal QA split based on prerendering the html
-    # in a headless server. Does not work yet in PyQt5, because WebEngine
+    # in a headless server. Does not work yet in PyQt6, because WebEngine
     # does not yet support headless mode.
     # See: https://bugreports.qt.io/browse/QTBUG-50523
     #
@@ -261,9 +261,9 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
     auto_focus_grades = True
     number_keys_show_answer = True
 
-    key_to_grade_map = {QtCore.Qt.Key_QuoteLeft: 0, QtCore.Qt.Key_0: 0,
-            QtCore.Qt.Key_1: 1, QtCore.Qt.Key_2: 2, QtCore.Qt.Key_3: 3,
-            QtCore.Qt.Key_4: 4, QtCore.Qt.Key_5: 5}
+    key_to_grade_map = {QtCore.Qt.Key.Key_QuoteLeft: 0, QtCore.Qt.Key.Key_0: 0,
+            QtCore.Qt.Key.Key_1: 1, QtCore.Qt.Key.Key_2: 2, QtCore.Qt.Key.Key_3: 3,
+            QtCore.Qt.Key.Key_4: 4, QtCore.Qt.Key.Key_5: 5}
 
     def __init__(self, **kwds):
         super().__init__(**kwds)
@@ -282,7 +282,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         self.grade_buttons.addButton(self.grade_3_button, 3)
         self.grade_buttons.addButton(self.grade_4_button, 4)
         self.grade_buttons.addButton(self.grade_5_button, 5)
-        self.grade_buttons.buttonClicked[int].connect(self.grade_answer)
+        self.grade_buttons.idClicked[int].connect(self.grade_answer)
         # TODO: remove this once Qt bug is fixed.
         self.setTabOrder(self.grade_1_button, self.grade_2_button)
         self.setTabOrder(self.grade_2_button, self.grade_3_button)
@@ -304,7 +304,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         self.answer.selectionChanged.connect(self.selection_changed_in_a)
         self.mplayer = QtCore.QProcess()
         self.media_queue = []
-        self.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.setFocusPolicy(QtCore.Qt.FocusPolicy.StrongFocus)
 
         # When clicking out of the app, and clicking back on the web widgets,
         # the focus does not get properly restored, and for QWebEngineView, the
@@ -325,7 +325,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
     def changeEvent(self, event):
         if hasattr(self, "show_button"):
             show_button_text = self.show_button.text()
-        if event.type() == QtCore.QEvent.LanguageChange:
+        if event.type() == QtCore.QEvent.Type.LanguageChange:
             self.retranslateUi(self)
         # retranslateUI resets the show button text to 'Show answer',
         # so we need to work around this.
@@ -342,25 +342,25 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
                     self.show_answer()
             else:
                 self.grade_answer(self.key_to_grade_map[event.key()])
-        elif event.key() == QtCore.Qt.Key_PageDown:
+        elif event.key() == QtCore.Qt.Key.Key_PageDown:
             self.scroll_down()
-        elif event.key() == QtCore.Qt.Key_PageUp:
+        elif event.key() == QtCore.Qt.Key.Key_PageUp:
             self.scroll_up()
-        elif event.key() == QtCore.Qt.Key_R and \
-            event.modifiers() == QtCore.Qt.ControlModifier:
+        elif event.key() == QtCore.Qt.Key.Key_R and \
+            event.modifiers() == QtCore.Qt.KeyboardModifier.ControlModifier:
             self.review_controller().update_dialog(redraw_all=True) #Replay media.
         # QtWebengine issue.
-        #elif event.key() == QtCore.Qt.Key_C and \
-        #    event.modifiers() == QtCore.Qt.ControlModifier:
+        #elif event.key() == QtCore.Qt.Key.Key_C and \
+        #    event.modifiers() == QtCore.Qt.KeyboardModifier.ControlModifier:
         #    self.copy()
         # Work around Qt issue.
-        elif event.key() in [QtCore.Qt.Key_Backspace, QtCore.Qt.Key_Delete]:
+        elif event.key() in [QtCore.Qt.Key.Key_Backspace, QtCore.Qt.Key.Key_Delete]:
             self.controller().delete_current_card()
         else:
             QtWidgets.QWidget.keyPressEvent(self, event)
 
     def empty(self):
-        background = self.palette().color(QtGui.QPalette.Base).name()
+        background = self.palette().color(QtGui.QPalette.ColorRole.Base).name()
         if self.review_controller().card:
             colour = self.config().card_type_property(\
             "background_colour", self.review_controller().card.card_type)
@@ -496,7 +496,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         if stop is None:
             stop = 999999
         self.media_queue.append((filename, start, stop))
-        if self.mplayer.state() != QtCore.QProcess.Running:
+        if self.mplayer.state() != QtCore.QProcess.ProcessState.Running:
             self.play_next_file()
 
     def play_next_file(self):
@@ -530,7 +530,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
             self.play_next_file()
 
     def stop_media(self):
-        if self.mplayer and self.mplayer.state() == QtCore.QProcess.Running:
+        if self.mplayer and self.mplayer.state() == QtCore.QProcess.ProcessState.Running:
             self.mplayer.write(b"quit\n");
         self.media_queue = []
 

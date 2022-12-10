@@ -3,7 +3,7 @@
 #
 
 import os
-from PyQt5 import QtGui, QtCore, QtWidgets
+from PyQt6 import QtGui, QtCore, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.qt_worker_thread import \
@@ -81,7 +81,7 @@ class ImportDlg(QtWidgets.QDialog, QtGuiThread, ImportDialog, Ui_ImportDlg):
 
     def activate(self):
         ImportDialog.activate(self)
-        self.exec_()
+        self.exec()
 
     def format(self):
         for _format in self.component_manager.all("file_format"):

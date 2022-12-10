@@ -34,6 +34,6 @@ class TipAfterStartingNTimes(Component):
             tip_dlg.next_button.hide()
             tip_dlg.tip_label.setText(_(self.tip_after_n_times[counter]))
             tip_dlg.closeEvent = lambda event : event.accept()
-            tip_dlg.exec_()
+            tip_dlg.exec()
         if counter <= max(self.tip_after_n_times.keys()):
             self.config()[self.started_n_times_counter] = counter + 1

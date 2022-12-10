@@ -2,7 +2,7 @@
 # configuration_wdgt_study.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.ui_components.configuration_widget import \
@@ -44,9 +44,9 @@ class ConfigurationWdgtStudy(QtWidgets.QWidget, ConfigurationWidget,
         self.max_ret_reps_since_lapse.setValue(self.config()\
             ["max_ret_reps_since_lapse"])
         if self.config()["cramming_store_state"] == True:
-            self.store_state.setCheckState(QtCore.Qt.Checked)
+            self.store_state.setCheckState(QtCore.Qt.CheckState.Checked)
         else:
-            self.store_state.setCheckState(QtCore.Qt.Unchecked)
+            self.store_state.setCheckState(QtCore.Qt.CheckState.Unchecked)
 
     def reset_to_defaults(self):
         answer = self.main_widget().show_question(\
@@ -59,7 +59,7 @@ class ConfigurationWdgtStudy(QtWidgets.QWidget, ConfigurationWidget,
         self.order.setCurrentIndex(0)
         self.max_ret_reps_for_recent_cards.setValue(1)
         self.max_ret_reps_since_lapse.setValue(999999)
-        self.store_state.setCheckState(QtCore.Qt.Checked)
+        self.store_state.setCheckState(QtCore.Qt.CheckState.Checked)
 
     def apply(self):
         if self.scheduled_cards.currentIndex() == 1:
@@ -84,7 +84,7 @@ class ConfigurationWdgtStudy(QtWidgets.QWidget, ConfigurationWidget,
             self.max_ret_reps_for_recent_cards.value()
         self.config()["max_ret_reps_since_lapse"] = \
             self.max_ret_reps_since_lapse.value()
-        if self.store_state.checkState() == QtCore.Qt.Checked:
+        if self.store_state.checkState() == QtCore.Qt.CheckState.Checked:
             self.config()["cramming_store_state"] = True
         else:
             self.config()["cramming_store_state"] = False

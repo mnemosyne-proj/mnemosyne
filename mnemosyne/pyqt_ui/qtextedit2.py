@@ -2,7 +2,7 @@
 # qtextedit2.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 
@@ -44,7 +44,7 @@ class QTextEdit2(QtWidgets.QTextEdit):
         # Pronunciation hiding.
         if self.pronunciation_hiding in [True, False]:
             popup.addSeparator()
-            self.hide_action = QtWidgets.QAction(\
+            self.hide_action = QtGui.QAction(\
                 _("&Hide pronunciation field for this card type"), popup)
             self.hide_action.setCheckable(True)
             self.hide_action.setChecked(self.pronunciation_hiding)
@@ -55,7 +55,7 @@ class QTextEdit2(QtWidgets.QTextEdit):
         if len(self.translators):
             popup.addSeparator()
             for translator in self.translators:
-                translator_action = QtWidgets.QAction(\
+                translator_action = QtGui.QAction(\
                     translator.popup_menu_text, popup)
                 translator_action.triggered.connect(\
                     lambda checked, t=translator: self.translate(t))
@@ -65,14 +65,14 @@ class QTextEdit2(QtWidgets.QTextEdit):
         if len(self.pronouncers):
             popup.addSeparator()
             for pronouncer in self.pronouncers:
-                pronouncer_action = QtWidgets.QAction(\
+                pronouncer_action = QtGui.QAction(\
                     pronouncer.popup_menu_text, popup)
                 pronouncer_action.triggered.connect(\
                     lambda checked, p=pronouncer: self.pronounce(p))
                 pronouncer_action.setShortcuts([QtGui.QKeySequence("Ctrl+P")])
                 popup.addAction(pronouncer_action)
         # Show popup.
-        popup.exec_(e.globalPos())
+        popup.exec(e.globalPos())
 
     def translate(self, translator):
         foreign_text = self.parent().foreign_text()
@@ -87,23 +87,23 @@ class QTextEdit2(QtWidgets.QTextEdit):
             self.insertPlainText(pronounced_text)
 
     def keyPressEvent(self, event):
-        if event.key() == QtCore.Qt.Key_I and event.modifiers() == \
-            QtCore.Qt.ControlModifier:
+        if event.key() == QtCore.Qt.Key.Key_I and event.modifiers() == \
+            QtCore.Qt.KeyboardModifier.ControlModifier:
             self.insert_img()
-        elif event.key() == QtCore.Qt.Key_S and event.modifiers() == \
-            QtCore.Qt.ControlModifier:
+        elif event.key() == QtCore.Qt.Key.Key_S and event.modifiers() == \
+            QtCore.Qt.KeyboardModifier.ControlModifier:
             self.insert_sound()
-        elif event.key() == QtCore.Qt.Key_D and event.modifiers() == \
-            QtCore.Qt.ControlModifier:
+        elif event.key() == QtCore.Qt.Key.Key_D and event.modifiers() == \
+            QtCore.Qt.KeyboardModifier.ControlModifier:
             self.insert_video()
-        elif event.key() == QtCore.Qt.Key_F and event.modifiers() == \
-            QtCore.Qt.ControlModifier:
+        elif event.key() == QtCore.Qt.Key.Key_F and event.modifiers() == \
+            QtCore.Qt.KeyboardModifier.ControlModifier:
             self.insert_flash()
-        elif event.key() == QtCore.Qt.Key_T and event.modifiers() == \
-            QtCore.Qt.ControlModifier and self.translators:
+        elif event.key() == QtCore.Qt.Key.Key_T and event.modifiers() == \
+            QtCore.Qt.KeyboardModifier.ControlModifier and self.translators:
             self.translate(self.translators[-1])
-        elif event.key() == QtCore.Qt.Key_P and event.modifiers() == \
-            QtCore.Qt.ControlModifier and self.pronouncers:
+        elif event.key() == QtCore.Qt.Key.Key_P and event.modifiers() == \
+            QtCore.Qt.KeyboardModifier.ControlModifier and self.pronouncers:
             self.translate(self.pronouncers[-1])
         else:
             QtWidgets.QTextEdit.keyPressEvent(self, event)

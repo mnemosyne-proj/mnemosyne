@@ -2,7 +2,7 @@
 # tag_line_edit.py Emilian Mihalache <emihalac@gmail.com>
 #
 
-from PyQt5 import QtCore, QtWidgets
+from PyQt6 import QtCore, QtWidgets
 from mnemosyne.pyqt_ui.tag_completer import TagCompleter
 
 class TagLineEdit(QtWidgets.QLineEdit):

@@ -5,7 +5,7 @@
 
 import copy
 
-from PyQt5 import QtCore, QtWidgets
+from PyQt6 import QtCore, QtWidgets
 
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.fact import Fact
@@ -26,9 +26,9 @@ class EditMSidedCardTemplateWdgt(QtWidgets.QDialog,
         self.card_type = card_type
         self.fact_view = fact_view
         self.setWindowFlags(self.windowFlags() \
-            | QtCore.Qt.WindowMinMaxButtonsHint)
+            | QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+            & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         # Qt designer does not accept these special symbols.
         self.label1_2.setText("→")
         self.label1_3.setText("→")

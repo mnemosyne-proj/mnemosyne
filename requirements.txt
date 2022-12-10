@@ -4,7 +4,7 @@ cherrypy
 matplotlib
 webob
 sphinx
-pyqt5
-pyqtwebengine
+pyqt6
+PyQt6-WebEngine
 nose
 decorator

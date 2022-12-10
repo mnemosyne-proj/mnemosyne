@@ -2,7 +2,7 @@
 # clone_card_type_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.component import Component
@@ -15,9 +15,9 @@ class CloneCardTypeDlg(QtWidgets.QDialog, Component, Ui_CloneCardTypeDlg):
         super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
-            | QtCore.Qt.WindowMinMaxButtonsHint)
+            | QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+            & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         self.sorted_card_types = []
         for card_type in self.database().sorted_card_types():
             if card_type.hidden_from_UI:

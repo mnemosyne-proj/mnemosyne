@@ -257,11 +257,11 @@ class Configuration(Component, dict):
         # from the config db. The alternatives (e.g. having the frontend pass
         # along modules to import) seem to be much more verbose and quirky.
         try:
-            import PyQt5
+            import PyQt6
         except:
             pass
         try:
-            import PyQt5.QtCore
+            import PyQt6.QtCore
         except:
             pass
         # Set config settings.

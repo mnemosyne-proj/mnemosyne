@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-09-15 13:57+0200\n"
+"POT-Creation-Date: 2022-12-02 11:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,6 +14,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
 
+
+#: ../tools/mnemosynebot/mnemosyne/example_plugins/pie_chart_statistics.py:31
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:118
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:257
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:280
+msgid "No stats available."
+msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:218
 msgid "Command line argument is not a *.db file."
@@ -46,6 +53,29 @@ msgstr ""
 msgid "M-sided"
 msgstr ""
 
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/both_ways.py:15
+msgid "Front-to-back and back-to-front"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/both_ways.py:18
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/front_to_back.py:16
+msgid "Front"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/both_ways.py:19
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/front_to_back.py:17
+msgid "Back"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/both_ways.py:22
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/front_to_back.py:20
+msgid "Front-to-back"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/both_ways.py:27
+msgid "Back-to-front"
+msgstr ""
+
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/cloze.py:39
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/cloze.py:167
 msgid "Cloze deletion"
@@ -74,18 +104,6 @@ msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/front_to_back.py:13
 msgid "Front-to-back only"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/front_to_back.py:16
-msgid "Front"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/front_to_back.py:17
-msgid "Back"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/front_to_back.py:20
-msgid "Front-to-back"
 msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/map.py:16
@@ -1904,12 +1922,6 @@ msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_dlg.py:100
 msgid "Default"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:118
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:257
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:280
-msgid "No stats available."
 msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:189

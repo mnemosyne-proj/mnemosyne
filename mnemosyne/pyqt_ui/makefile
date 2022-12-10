@@ -1,7 +1,7 @@
 # Make sure we use our own custom pyuic5 in order to be able to translate
 # Qt strings:
 
-PYUIC5      := $(PYTHON) ./pyuic5
+PYUIC6      := $(PYTHON) ./pyuic6
 
 WIDGETS = ui_main_wdgt.py ui_add_cards_dlg.py \
 	ui_edit_card_dlg.py ui_review_wdgt.py \
@@ -22,10 +22,9 @@ WIDGETS = ui_main_wdgt.py ui_add_cards_dlg.py \
 	ui_pronouncer_dlg.py ui_translator_dlg.py
 
 default: $(WIDGETS)
-	pyrcc5 mnemosyne.qrc -o mnemosyne_rc.py
 
 $(WIDGETS): ui_%.py: %.ui
-	$(PYUIC5) $< > $@
+	$(PYUIC6) $< > $@
 
 clean:
 	rm -f *~ *.pyc

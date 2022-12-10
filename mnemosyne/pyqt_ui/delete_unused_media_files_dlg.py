@@ -2,7 +2,7 @@
 # delete_unused_media_files_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.pyqt_ui.ui_delete_unused_media_files_dlg import \
@@ -16,15 +16,15 @@ class DeleteUnusedMediaFilesDlg(QtWidgets.QDialog, Component,
         super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
-            | QtCore.Qt.WindowMinMaxButtonsHint)
+            | QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+            & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         self.unused_media_files = unused_media_files
         self.file_list.setText("\n".join(self.unused_media_files))
 
     def activate(self):
         Component.activate(self)
-        self.exec_()
+        self.exec()
 
     def accept(self):
         self.database().delete_unused_media_files(self.unused_media_files)

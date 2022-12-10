@@ -2,7 +2,7 @@
 # card_set_name_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.ui_component import UiComponent
@@ -14,9 +14,9 @@ class CardSetNameDlg(QtWidgets.QDialog, UiComponent, Ui_CardSetNameDlg):
     def __init__(self, criterion, existing_names, **kwds):
         super().__init__(**kwds)
         self.setWindowFlags(self.windowFlags() \
-            | QtCore.Qt.WindowMinMaxButtonsHint)
+            | QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+            & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         self.setupUi(self)
         self.criterion = criterion
         self.set_name.addItem(criterion.name)

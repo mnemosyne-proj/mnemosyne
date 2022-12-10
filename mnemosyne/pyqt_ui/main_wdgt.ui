@@ -129,8 +129,8 @@
   </action>
   <action name="actionAddCards">
    <property name="icon">
-    <iconset resource="mnemosyne.qrc">
-     <normaloff>:/mnemosyne/pixmaps/add.png</normaloff>:/mnemosyne/pixmaps/add.png</iconset>
+    <iconset>
+     <normaloff>pixmaps/add.png</normaloff>pixmaps/add.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Add cards...</string>

@@ -4,7 +4,7 @@
 
 import re
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.gui_translator import _
@@ -22,11 +22,11 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
     DOWN = 1
 
     def eventFilter(self, object, event):
-        if event.type() == QtCore.QEvent.KeyPress:
-            if event.key() == QtCore.Qt.Key_PageUp:
+        if event.type() == QtCore.QEvent.Type.KeyPress:
+            if event.key() == QtCore.Qt.Key.Key_PageUp:
                 self.page_up_down_signal.emit(self.UP)
                 return True
-            elif event.key() == QtCore.Qt.Key_PageDown:
+            elif event.key() == QtCore.Qt.Key.Key_PageDown:
                 self.page_up_down_signal.emit(self.DOWN)
                 return True
             else:
@@ -43,9 +43,9 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
             parent = self.main_widget()
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
-            | QtCore.Qt.WindowMinMaxButtonsHint)
+            | QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+            & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         self.started_from_card_browser = started_from_card_browser
         self.before_apply_hook = None
         self.after_apply_hook = None
@@ -77,14 +77,14 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
     def set_new_card(self, card):
         # Called from card browser.
         self.card = card
-        self.card_types_widget.currentIndexChanged[str].\
+        self.card_types_widget.currentTextChanged[str].\
             disconnect(self.card_type_changed)
         for i in range(self.card_types_widget.count()):
             if self.card_types_widget.itemText(i) \
                 == _(card.card_type.name):
                 self.card_types_widget.setCurrentIndex(i)
                 break
-        self.card_types_widget.currentIndexChanged[str].\
+        self.card_types_widget.currentTextChanged[str].\
             connect(self.card_type_changed)
         self.update_card_widget(keep_data_from_previous_widget=False)
         self.update_tags_combobox(self.card.tag_string())
@@ -106,9 +106,9 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
     def keyPressEvent(self, event):
         # Note: for the following to work reliably, there should be no
         # shortcuts defined in the ui file.
-        if event.key() == QtCore.Qt.Key_Escape or (event.modifiers() in \
-            [QtCore.Qt.ControlModifier, QtCore.Qt.AltModifier] and \
-            event.key() == QtCore.Qt.Key_E):
+        if event.key() == QtCore.Qt.Key.Key_Escape or (event.modifiers() in \
+            [QtCore.Qt.KeyboardModifier.ControlModifier, QtCore.Qt.KeyboardModifier.AltModifier] and \
+            event.key() == QtCore.Qt.Key.Key_E):
             if self.allow_cancel:
                 self.reject()
             else:
@@ -116,11 +116,11 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
                     _("You are not allowed to cancel the merging."))
                 event.ignore()
         elif self.OK_button.isEnabled() and event.modifiers() in \
-            [QtCore.Qt.ControlModifier, QtCore.Qt.AltModifier]:
-            if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return,
-                QtCore.Qt.Key_O]:
+            [QtCore.Qt.KeyboardModifier.ControlModifier, QtCore.Qt.KeyboardModifier.AltModifier]:
+            if event.key() in [QtCore.Qt.Key.Key_Enter, QtCore.Qt.Key.Key_Return,
+                QtCore.Qt.Key.Key_O]:
                 self.accept()
-            elif event.key() == QtCore.Qt.Key_P:
+            elif event.key() == QtCore.Qt.Key.Key_P:
                 self.preview()
         else:
             QtWidgets.QDialog.keyPressEvent(self, event)
@@ -212,7 +212,7 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
         tag_text = self.tags.currentText()
         dlg = PreviewCardsDlg(cards, tag_text,
             component_manager=self.component_manager, parent=self)
-        dlg.exec_()
+        dlg.exec()
 
     def accept(self):
         if self.number_of_anki_clozes_changed():

@@ -6,7 +6,7 @@ import sys
 import time
 import locale
 
-from PyQt5 import QtCore, QtGui, QtSql, QtWidgets
+from PyQt6 import QtCore, QtGui, QtSql, QtWidgets
 
 from mnemosyne.libmnemosyne.tag import Tag
 from mnemosyne.libmnemosyne.fact import Fact
@@ -77,16 +77,16 @@ class CardModel(QtSql.QSqlTableModel, Component):
             self.font_colour_for_card_type_id[card_type_id] = QtGui.QColor(\
                 self.config()["font_colour"][card_type_id][first_key])
 
-    def data(self, index, role=QtCore.Qt.DisplayRole):
-        if role == QtCore.Qt.TextColorRole:
+    def data(self, index, role=QtCore.Qt.ItemDataRole.DisplayRole):
+        if role == QtCore.Qt.ItemDataRole.ForegroundRole:
             card_type_id_index = self.index(index.row(), CARD_TYPE_ID)
             card_type_id = QtSql.QSqlTableModel.data(\
                 self, card_type_id_index)
-            colour = QtGui.QColor(QtCore.Qt.black)
+            colour = QtGui.QColor(QtCore.Qt.GlobalColor.black)
             if card_type_id in self.font_colour_for_card_type_id:
                 colour = self.font_colour_for_card_type_id[card_type_id]
             return QtCore.QVariant(colour)
-        if role == QtCore.Qt.BackgroundColorRole:
+        if role == QtCore.Qt.ItemDataRole.BackgroundRole:
             card_type_id_index = self.index(index.row(), CARD_TYPE_ID)
             card_type_id = QtSql.QSqlTableModel.data(\
                 self, card_type_id_index)
@@ -95,12 +95,13 @@ class CardModel(QtSql.QSqlTableModel, Component):
                     self.background_colour_for_card_type_id[card_type_id])
             else:
                 return QtCore.QVariant(\
-                    QtWidgets.qApp.palette().color(QtGui.QPalette.Base))
+                    QtWidgets.QApplication.instance().palette().color(\
+                        QtGui.QPalette.ColorRole.Base))
         column = index.column()
-        if role == QtCore.Qt.TextAlignmentRole and column not in \
+        if role == QtCore.Qt.ItemDataRole.TextAlignmentRole and column not in \
             (QUESTION, ANSWER, TAGS):
-            return QtCore.QVariant(QtCore.Qt.AlignCenter)
-        if role == QtCore.Qt.FontRole and column not in \
+            return QtCore.QVariant(QtCore.Qt.AlignmentFlag.AlignCenter)
+        if role == QtCore.Qt.ItemDataRole.FontRole and column not in \
             (QUESTION, ANSWER, TAGS):
             active_index = self.index(index.row(), ACTIVE)
             active = super().data(active_index)
@@ -108,7 +109,7 @@ class CardModel(QtSql.QSqlTableModel, Component):
             if not active:
                 font.setStrikeOut(True)
             return QtCore.QVariant(font)
-        if role != QtCore.Qt.DisplayRole:
+        if role != QtCore.Qt.ItemDataRole.DisplayRole:
             return super().data(index, role)
         # Display roles to format some columns in a more pretty way. Note that
         # sorting still uses the orginal database keys, which is good
@@ -240,7 +241,7 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
         # Get the data.
         _id_index = index.model().index(index.row(), _ID)
         _id = index.model().data(_id_index)
-        ignore_text_colour = bool(option.state & QtWidgets.QStyle.State_Selected)
+        ignore_text_colour = bool(option.state & QtWidgets.QStyle.StateFlag.State_Selected)
         search_string = index.model().search_string
         card = self.card(_id)
         if self.Q_or_A == QUESTION:
@@ -253,15 +254,15 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
                 search_string=search_string))
         # Paint the item without the text.
         option.text = ""
-        style.drawControl(QtWidgets.QStyle.CE_ItemViewItem, option, painter)
+        style.drawControl(QtWidgets.QStyle.ControlElement.CE_ItemViewItem, option, painter)
         context = QtGui.QAbstractTextDocumentLayout.PaintContext()
         # Highlight text if item is selected.
-        if option.state & QtWidgets.QStyle.State_Selected:
+        if option.state & QtWidgets.QStyle.StateFlag.State_Selected:
             painter.fillRect(option.rect, option.palette.highlight())
-            context.palette.setColor(QtGui.QPalette.Text,
-                option.palette.color(QtGui.QPalette.Active,
-                                     QtGui.QPalette.HighlightedText))
-        rect = style.subElementRect(QtWidgets.QStyle.SE_ItemViewItemText,
+            context.palette.setColor(QtGui.QPalette.ColorRole.Text,
+                option.palette.color(QtGui.QPalette.ColorGroup.Active,
+                                     QtGui.QPalette.ColorRole.HighlightedText))
+        rect = style.subElementRect(QtWidgets.QStyle.SubElement.SE_ItemViewItemText,
                                     option, None)
         # Render.
         painter.save()
@@ -282,9 +283,9 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
         # Get the data.
         _id_index = index.model().index(index.row(), _ID)
         _id = index.model().data(_id_index)
-        if option.state & QtWidgets.QStyle.State_Selected:
+        if option.state & QtWidgets.QStyle.StateFlag.State_Selected:
             force_text_colour = option.palette.color(\
-                QtWidgets.QPalette.Active, QtWidgets.QPalette.HighlightedText).rgb()
+                QtWidgets.QPalette.ColorGroup.Active, QtWidgets.QPalette.ColorRole.HighlightedText).rgb()
         else:
             force_text_colour = None
         search_string = index.model().search_string
@@ -300,19 +301,19 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
                 force_text_colour=force_text_colour,
                 search_string=search_string))
         self.doc.setStyleSheet("background:transparent")
-        self.doc.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.doc.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
         self.doc.show()
         while not self.load_finished:
             QtWidgets.QApplication.instance().processEvents(\
-                QtCore.QEventLoop.ExcludeUserInputEvents | \
-                QtCore.QEventLoop.ExcludeSocketNotifiers | \
-                QtCore.QEventLoop.WaitForMoreEvents)
+                QtCore.QEventLoop.ProcessEventsFlag.ExcludeUserInputEvents | \
+                QtCore.QEventLoop.ProcessEventsFlag.ExcludeSocketNotifiers | \
+                QtCore.QEventLoop.ProcessEventsFlag.WaitForMoreEvents)
         # Background colour.
         rect = \
-             style.subElementRect(QtWidgets.QStyle.SE_ItemViewItemText, option)
-        if option.state & QtWidgets.QStyle.State_Selected:
-            background_colour = option.palette.color(QtWidgets.QPalette.Active,
-                                       QtWidgets.QPalette.Highlight)
+             style.subElementRect(QtWidgets.QStyle.SubElement.SE_ItemViewItemText, option)
+        if option.state & QtWidgets.QStyle.StateFlag.State_Selected:
+            background_colour = option.palette.color(QtWidgets.QPalette.ColorGroup.Active,
+                                       QtWidgets.QPalette.ColorRole.Highlight)
         else:
             background_colour = index.model().background_colour_for_card_type_id.\
                 get(card.card_type.id, None)
@@ -322,7 +323,7 @@ class QA_Delegate(QtWidgets.QStyledItemDelegate, Component):
         painter.translate(rect.topLeft())
         painter.setClipRect(rect.translated(-rect.topLeft()))
         self.doc.setStyleSheet("background:transparent")
-        self.doc.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.doc.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
         self.doc.render(painter)
         painter.restore()
 
@@ -346,9 +347,9 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         self.show_tip_after_starting_n_times()
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
-            | QtCore.Qt.WindowMinMaxButtonsHint)
+            | QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+            & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         self.saved_row = None
         self.selected_rows = []
         self.card_model = None
@@ -407,9 +408,9 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         self.tag_tree_wdgt.tree_wdgt.\
             itemClicked.connect(self.update_filter)
         self.any_all_tags.\
-            currentIndexChanged.connect(self.update_filter)
+            currentTextChanged.connect(self.update_filter)
         # Context menu.
-        self.table.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        self.table.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.table.customContextMenuRequested.connect(self.context_menu)
         # Restore state.
         state = self.config()["browse_cards_dlg_state"]
@@ -437,30 +438,30 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
 
     def context_menu(self, point):
         menu = QtWidgets.QMenu(self)
-        edit_action = QtWidgets.QAction(_("&Edit"), menu)
-        edit_action.setShortcut(QtCore.Qt.CTRL + QtCore.Qt.Key_E)
+        edit_action = QtGui.QAction(_("&Edit"), menu)
+        edit_action.setShortcut(QtCore.Qt.Modifier.CTRL + QtCore.Qt.Key.Key_E)
         edit_action.triggered.connect(self.menu_edit)
         menu.addAction(edit_action)
-        preview_action = QtWidgets.QAction(_("&Preview"), menu)
-        preview_action.setShortcut(QtCore.Qt.CTRL + QtCore.Qt.Key_P)
+        preview_action = QtGui.QAction(_("&Preview"), menu)
+        preview_action.setShortcut(QtCore.Qt.Modifier.CTRL + QtCore.Qt.Key.Key_P)
         preview_action.triggered.connect(self.menu_preview)
         menu.addAction(preview_action)
-        delete_action = QtWidgets.QAction(_("&Delete"), menu)
-        delete_action.setShortcut(QtGui.QKeySequence.Delete)
+        delete_action = QtGui.QAction(_("&Delete"), menu)
+        delete_action.setShortcut(QtGui.QKeySequence.StandardKey.Delete)
         delete_action.triggered.connect(self.menu_delete)
         menu.addAction(delete_action)
-        reset_action = QtWidgets.QAction(_("Reset"), menu)
+        reset_action = QtGui.QAction(_("Reset"), menu)
         reset_action.triggered.connect(self.menu_reset)
         menu.addAction(reset_action)
         menu.addSeparator()
-        change_card_type_action = QtWidgets.QAction(_("Change card &type"), menu)
+        change_card_type_action = QtGui.QAction(_("Change card &type"), menu)
         change_card_type_action.triggered.connect(self.menu_change_card_type)
         menu.addAction(change_card_type_action)
         menu.addSeparator()
-        add_tags_action = QtWidgets.QAction(_("&Add tags"), menu)
+        add_tags_action = QtGui.QAction(_("&Add tags"), menu)
         add_tags_action.triggered.connect(self.menu_add_tags)
         menu.addAction(add_tags_action)
-        remove_tags_action = QtWidgets.QAction(_("&Remove tags"), menu)
+        remove_tags_action = QtGui.QAction(_("&Remove tags"), menu)
         remove_tags_action.triggered.connect(self.menu_remove_tags)
         menu.addAction(remove_tags_action)
         indexes = self.table.selectionModel().selectedRows()
@@ -468,23 +469,23 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
             edit_action.setEnabled(False)
             preview_action.setEnabled(False)
         if len(indexes) >= 1:
-            menu.exec_(self.table.mapToGlobal(point))
+            menu.exec(self.table.mapToGlobal(point))
 
     def keyPressEvent(self, event):
         if len(self.table.selectionModel().selectedRows()) == 0:
             QtWidgets.QDialog.keyPressEvent(self, event)
-        if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return]:
+        if event.key() in [QtCore.Qt.Key.Key_Enter, QtCore.Qt.Key.Key_Return]:
             self.menu_edit()
-        elif event.key() == QtCore.Qt.Key_E and \
-            event.modifiers() == QtCore.Qt.ControlModifier:
+        elif event.key() == QtCore.Qt.Key.Key_E and \
+            event.modifiers() == QtCore.Qt.KeyboardModifier.ControlModifier:
             self.menu_edit()
-        elif event.key() == QtCore.Qt.Key_P and \
-            event.modifiers() == QtCore.Qt.ControlModifier:
+        elif event.key() == QtCore.Qt.Key.Key_P and \
+            event.modifiers() == QtCore.Qt.KeyboardModifier.ControlModifier:
             self.menu_preview()
-        elif event.key() == QtCore.Qt.Key_F and \
-            event.modifiers() == QtCore.Qt.ControlModifier:
+        elif event.key() == QtCore.Qt.Key.Key_F and \
+            event.modifiers() == QtCore.Qt.KeyboardModifier.ControlModifier:
             self.search_box.setFocus()
-        elif event.key() in [QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace]:
+        elif event.key() in [QtCore.Qt.Key.Key_Delete, QtCore.Qt.Key.Key_Backspace]:
             self.menu_delete()
         else:
             QtWidgets.QDialog.keyPressEvent(self, event)
@@ -536,7 +537,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         self.edit_dlg.before_apply_hook = self.unload_qt_database
         self.edit_dlg.after_apply_hook = None
         self.edit_dlg.page_up_down_signal.connect(self.page_up_down_edit)
-        if self.edit_dlg.exec_() == QtWidgets.QDialog.Accepted:
+        if self.edit_dlg.exec() == QtWidgets.QDialog.DialogCode.Accepted:
             self.card_type_tree_wdgt.rebuild()
             self.tag_tree_wdgt.rebuild()
             self.load_qt_database()
@@ -578,7 +579,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
                 component_manager=self.component_manager, parent=self)
         self.preview_dlg.page_up_down_signal.connect(\
             self.page_up_down_preview)
-        self.preview_dlg.exec_()
+        self.preview_dlg.exec()
         # Avoid multiple connections.
         self.preview_dlg.page_up_down_signal.disconnect(\
             self.page_up_down_preview)
@@ -642,7 +643,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         from mnemosyne.pyqt_ui.change_card_type_dlg import ChangeCardTypeDlg
         dlg = ChangeCardTypeDlg(current_card_type, return_values,
                                 component_manager=self.component_manager, parent=self)
-        if dlg.exec_() != QtWidgets.QDialog.Accepted:
+        if dlg.exec() != QtWidgets.QDialog.DialogCode.Accepted:
             return
         new_card_type = return_values["new_card_type"]
         # Get correspondence.
@@ -650,7 +651,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         if not current_card_type.fact_keys().issubset(new_card_type.fact_keys()):
             dlg = ConvertCardTypeKeysDlg(current_card_type, new_card_type,
                 self.correspondence, check_required_fact_keys=True, parent=self)
-            if dlg.exec_() != QtWidgets.QDialog.Accepted:
+            if dlg.exec() != QtWidgets.QDialog.DialogCode.Accepted:
                 return
         # Start the actual conversion.
         facts = self.facts_from_selection()
@@ -673,7 +674,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         from mnemosyne.pyqt_ui.add_tags_dlg import AddTagsDlg
         dlg = AddTagsDlg(return_values, component_manager=self.component_manager,
                          parent=self)
-        if dlg.exec_() != QtWidgets.QDialog.Accepted:
+        if dlg.exec() != QtWidgets.QDialog.DialogCode.Accepted:
             return
         # Add the tags.
         _card_ids = self._card_ids_from_selection()
@@ -700,7 +701,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         return_values = {}
         from mnemosyne.pyqt_ui.remove_tags_dlg import RemoveTagsDlg
         dlg = RemoveTagsDlg(tags, return_values, parent=self)
-        if dlg.exec_() != QtWidgets.QDialog.Accepted:
+        if dlg.exec() != QtWidgets.QDialog.DialogCode.Accepted:
             return
         # Remove the tags.
         self.unload_qt_database()
@@ -774,12 +775,12 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
             RET_REPS_SINCE_LAPSE: _("Review\nreps\n since lapse"),
             CREATION_TIME: _("Created"), MODIFICATION_TIME: _("Modified")}
         for key, value in headers.items():
-              self.card_model.setHeaderData(key, QtCore.Qt.Horizontal,
+              self.card_model.setHeaderData(key, QtCore.Qt.Orientation.Horizontal,
                   QtCore.QVariant(value))
         self.table.setModel(self.card_model)
         # Slow, and doesn't work very well.
         #self.table.verticalHeader().setSectionResizeMode(\
-        #    QtWidgets.QHeaderView.ResizeToContents)
+        #    QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
         table_settings = self.config()["browse_cards_dlg_table_settings"]
         if table_settings:
             self.table.horizontalHeader().restoreState(table_settings)
@@ -790,7 +791,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         self.table.setItemDelegateForColumn(\
             ANSWER, QA_Delegate(ANSWER,
                 component_manager=self.component_manager, parent=self))
-        self.table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.table.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers)
         # Since this function can get called multiple times, we need to make
         # sure there is only a single connection for the double-click event.
         try:
@@ -809,18 +810,18 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
             saved_index = self.card_model.index(self.saved_row, QUESTION)
             self.table.scrollTo(saved_index)
             self.table.scrollTo(saved_index,
-                QtWidgets.QAbstractItemView.PositionAtTop)
+                QtWidgets.QAbstractItemView.ScrollHint.PositionAtTop)
         if self.selected_rows:
             # Restore selection.
             old_selection_mode = self.table.selectionMode()
-            self.table.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)
+            self.table.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.MultiSelection)
             # Note that there seem to be serious Qt preformance problems with
             # selectRow, so we only do this for a small number of rows.
             if len(self.selected_rows) < 10:
                 for row in self.selected_rows:
                     self.table.selectRow(row)
             self.table.setSelectionMode(\
-                QtWidgets.QAbstractItemView.ExtendedSelection)
+                QtWidgets.QAbstractItemView.SelectionMode.ExtendedSelection)
 
     def reload_database_and_redraw(self):
         self.load_qt_database()
@@ -828,7 +829,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
 
     def activate(self):
         BrowseCardsDialog.activate(self)
-        self.exec_()
+        self.exec()
 
     def search_text_changed(self):
         # Don't immediately start updating the filter, but wait until the last
@@ -922,7 +923,7 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
         # Make sure we start unsorted again next time.
         if not self.config()["start_card_browser_sorted"]:
             self.table.horizontalHeader().setSortIndicator\
-                (-1, QtCore.Qt.AscendingOrder)
+                (-1, QtCore.Qt.SortOrder.AscendingOrder)
 
     def closeEvent(self, event):
         # Generated when clicking the window's close button.

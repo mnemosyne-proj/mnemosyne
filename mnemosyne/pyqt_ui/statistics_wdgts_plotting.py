@@ -2,7 +2,7 @@
 # statistics_wdgts_plotting.py <mike@peacecorps.org.cv>, <Peter.Bienstman@UGent.be>
 #
 
-from PyQt5 import QtGui, QtWidgets
+from PyQt6 import QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.statistics_pages.grades import Grades
@@ -33,24 +33,21 @@ class PlotStatisticsWdgt(QtWidgets.QWidget, StatisticsWidget):
         import warnings
         warnings.filterwarnings("ignore", "(?s).*MATPLOTLIBDATA.*",
                                 category=UserWarning)
-        from matplotlib import use
-        use("Qt5Agg")
         from matplotlib import rcParams
         from matplotlib.figure import Figure
-        from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg \
-            as FigureCanvas
+        from matplotlib.backends.backend_qtagg import FigureCanvas
 
         self.setMinimumSize(640, 480)
-        self.setSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding,
-                           QtWidgets.QSizePolicy.MinimumExpanding)
+        self.setSizePolicy(QtWidgets.QSizePolicy.Policy.MinimumExpanding,
+                           QtWidgets.QSizePolicy.Policy.MinimumExpanding)
         colour = self._background_colour(self.parent)
         fig = Figure(facecolor=colour, edgecolor=colour)
         self.canvas = FigureCanvas(fig)
         self.vbox_layout = QtWidgets.QVBoxLayout(self)
         self.vbox_layout.addWidget(self.canvas)
         self.canvas.setMinimumSize(640, 480)
-        self.canvas.setSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding,
-                                  QtWidgets.QSizePolicy.MinimumExpanding)
+        self.canvas.setSizePolicy(QtWidgets.QSizePolicy.Policy.MinimumExpanding,
+                                  QtWidgets.QSizePolicy.Policy.MinimumExpanding)
         self.canvas.setParent(self)
         self.axes = fig.add_subplot(111)
         self.canvas.updateGeometry()

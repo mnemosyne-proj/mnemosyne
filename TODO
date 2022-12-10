@@ -1,12 +1,21 @@
-- update to PyQt6
+update to PyQt6: 
+- stats: add outline to box in grades/number of cards
+- font size menu, lower bar, https://stackoverflow.com/questions/49277657/qt-creator-too-big-on-3840x2160-and-150-scaling-on-windows-10
+- icons
+- compile widgets + translator infrastructure
+- pyinstaller
+- profile startup and review
+- sphinx docs
+
+
 - play sound through Qt
 - new translation infrastructure https://towardsdatascience.com/language-translation-using-python-bd8020772ccc
-
-
-- postpone indefinitely/stop scheduling/postpone 100 years/remove from learning process?
 - Better error message for: File "/usr/local/lib/python3.10/dist-packages/Mnemosyne-2.9-py3.10.egg/mnemosyne/libmnemosyne/databases/_sqlite3.py", line 95, in commit
     return self.connection.commit()
  sqlite3.OperationalError: database is locked
+- document qt_scale?
+
+- postpone indefinitely/stop scheduling/postpone 100 years/remove from learning process?
 
 Android:
 

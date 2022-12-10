@@ -2,7 +2,7 @@
 # shortcuts.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt5 import QtCore
+from PyQt6 import QtCore
 
 from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.pyqt_ui.review_wdgt import ReviewWdgt
@@ -13,7 +13,7 @@ class MyReviewWdgt(ReviewWdgt):
     def __init__(self, **kwds):
         super().__init__(**kwds)
         # Map Q to grade 0
-        self.key_to_grade_map[QtCore.Qt.Key_Q] = 0
+        self.key_to_grade_map[QtCore.Qt.Key.Key_Q] = 0
 
 
 class ShortcutsPlugin(Plugin):

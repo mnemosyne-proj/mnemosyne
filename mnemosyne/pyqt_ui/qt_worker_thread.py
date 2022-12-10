@@ -4,7 +4,7 @@
 
 import sys
 
-from PyQt5 import QtCore
+from PyQt6 import QtCore
 
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.gui_translator import _

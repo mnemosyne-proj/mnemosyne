@@ -2,7 +2,7 @@
 # change_card_type_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.component import Component
@@ -15,9 +15,9 @@ class ChangeCardTypeDlg(QtWidgets.QDialog, Component, Ui_ChangeCardTypeDlg):
         super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
-            | QtCore.Qt.WindowMinMaxButtonsHint)
+            | QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+            & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         self.card_type_by_name = {}
         self.return_values = return_values
         for card_type in self.database().sorted_card_types():

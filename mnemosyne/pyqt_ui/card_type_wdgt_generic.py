@@ -4,7 +4,7 @@
 
 import re
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.qtextedit2 import QTextEdit2
@@ -100,7 +100,7 @@ class GenericCardTypeWdgt(QtWidgets.QWidget, GenericCardTypeWidget):
             "background_colour", self.card_type)
         if colour:
             p = QtGui.QPalette()
-            p.setColor(QtGui.QPalette.Active, QtGui.QPalette.Base,
+            p.setColor(QtGui.QPalette.ColorGroup.Active, QtGui.QPalette.ColorRole.Base,
                        QtGui.QColor(colour))
             edit_box.setPalette(p)
         # Font.

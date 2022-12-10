@@ -10,7 +10,7 @@ binaries = []
 
 hiddenimports = [
              'argon2-cffi',
-             'PyQt5.sip',
+             'PyQt6.sip',
              'google',
              'google.cloud',
              'google.api'
@@ -308,7 +308,6 @@ hiddenimports = [
 ]
 
 if sys.platform == 'win32':
-             datas.append(('C:\\Program Files (x86)\\mplayer.exe', '.'))
              excludes = ['IPython', 'lib2to3']
 
 if sys.platform == 'darwin':

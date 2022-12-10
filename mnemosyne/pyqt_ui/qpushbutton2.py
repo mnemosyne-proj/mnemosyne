@@ -2,7 +2,7 @@
 # qpushbutton2.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt5 import QtGui, QtWidgets
+from PyQt6 import QtGui, QtWidgets
 
 
 class QPushButton2(QtWidgets.QPushButton):

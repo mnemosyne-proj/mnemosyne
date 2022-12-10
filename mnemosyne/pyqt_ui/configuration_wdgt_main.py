@@ -4,7 +4,7 @@
 
 import sys
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _, \
     iso6931_code_for_language_name, language_name_for_iso6931_code
@@ -25,9 +25,9 @@ class ConfigurationWdgtMain(QtWidgets.QWidget, ConfigurationWidget,
         self.save_after_n_reps.setValue(self.config()["save_after_n_reps"])
         self.max_backups.setValue(self.config()["max_backups"])
         if self.config()["upload_science_logs"] == True:
-            self.upload_science_logs.setCheckState(QtCore.Qt.Checked)
+            self.upload_science_logs.setCheckState(QtCore.Qt.CheckState.Checked)
         else:
-            self.upload_science_logs.setCheckState(QtCore.Qt.Unchecked)
+            self.upload_science_logs.setCheckState(QtCore.Qt.CheckState.Unchecked)
         if self.config()["QA_split"] == "fixed":
             self.card_presentation.setCurrentIndex(0)
         elif self.config()["QA_split"] == "adaptive":
@@ -51,13 +51,13 @@ class ConfigurationWdgtMain(QtWidgets.QWidget, ConfigurationWidget,
         self.save_after_n_reps.setValue(10)
         self.max_backups.setValue(10)
         self.card_presentation.setCurrentIndex(0)
-        self.upload_science_logs.setCheckState(QtCore.Qt.Checked)
+        self.upload_science_logs.setCheckState(QtCore.Qt.CheckState.Checked)
         self.languages.setCurrentIndex(self.languages.findText("English"))
 
     def apply(self):
         self.config()["save_after_n_reps"] = self.save_after_n_reps.value()
         self.config()["max_backups"] = self.max_backups.value()
-        if self.upload_science_logs.checkState() == QtCore.Qt.Checked:
+        if self.upload_science_logs.checkState() == QtCore.Qt.CheckState.Checked:
             self.config()["upload_science_logs"] = True
         else:
             self.config()["upload_science_logs"] = False

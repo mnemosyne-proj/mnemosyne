@@ -4,7 +4,7 @@
 
 # Colour the widget for the front to back card type red.
 
-from PyQt5 import QtGui
+from PyQt6 import QtGui
 
 from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
@@ -29,7 +29,7 @@ class RedCardTypeWdgt(GenericCardTypeWdgt):
         super().__init__(**kwds)
         for edit_box in self.edit_boxes:
             p = QtGui.QPalette()
-            p.setColor(QtGui.QPalette.Active, QtGui.QPalette.Base, \
+            p.setColor(QtGui.QPalette.ColorGroup.Active, QtGui.QPalette.ColorRole.Base, \
                        QtGui.QColor("red"))
             edit_box.setPalette(p)
 

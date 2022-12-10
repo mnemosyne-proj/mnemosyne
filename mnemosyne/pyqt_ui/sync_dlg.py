@@ -4,7 +4,7 @@
 
 import sys
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.ui_sync_dlg import Ui_SyncDlg
@@ -123,9 +123,9 @@ class SyncDlg(QtWidgets.QDialog, SyncDialog, Ui_SyncDlg):
         super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
-            | QtCore.Qt.WindowMinMaxButtonsHint)
+            | QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+            & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         if not self.config()["sync_help_shown"]:
             self.main_widget().show_information(\
                _("Here, you can sync this machine with a remote server. Of course, that remote computer needs to have a server running, which can be started from the configuration screen on that remote machine.\n\nHowever, if you want to sync a mobile device with this machine here, you shouldn't use the menu option you just selected. In that case, this computer needs to be the server. So, first enable a sync server here, and then start the sync from the mobile device."))
@@ -146,7 +146,7 @@ class SyncDlg(QtWidgets.QDialog, SyncDialog, Ui_SyncDlg):
         self.true_main_widget = self.main_widget()
 
     def activate(self):
-        self.exec_()
+        self.exec()
 
     def _store_state(self):
         self.config()["sync_dlg_state"] = self.saveGeometry()

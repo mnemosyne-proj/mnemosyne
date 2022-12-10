@@ -12,14 +12,6 @@ import time
 #    https://github.com/pyinstaller/pyinstaller/issues/1113
 import encodings.idna
 
-# Workaround/warning on some Debian systems.
-#    https://github.com/Ultimaker/Cura/issues/88
-try:
-    from OpenGL import GL
-except:
-    print("Warning: Could not import OpenGL. Might cause a black screen on " +\
-        "some Linux distributions. Try installing python3-opengl in that case.")
-
 # Custom error handling on Windows.
 
 if sys.platform == "win32":
@@ -58,9 +50,6 @@ parser.add_option("--web-server", dest="web_server",
     action="store_true", help="run web server without GUI", default=False)
 parser.add_option("--sync-server", dest="sync_server",
     action="store_true", help="run sync server without GUI", default=False)
-parser.add_option("--disable-high-dpi-scaling", dest="high_dpi_scaling",
-    action="store_false", help="disable scaling for high-resolution displays",
-    default=True)
 parser.add_option("--qt-scale-factor", dest="qt_scale_factor", type="string",
     action="store", default=None)
 parser.add_option("--qt-opengl", dest="qt_opengl", type="string", action="store",
@@ -147,18 +136,10 @@ if options.web_server == True or options.sync_server == True:
 if options.qt_scale_factor:
     os.environ["QT_SCALE_FACTOR"] = options.qt_scale_factor
 
-from PyQt5 import QtWebEngineWidgets  # Needs to happen first for some reason.
-from PyQt5.QtWidgets import QApplication
-from PyQt5 import QtGui, QtCore
+from PyQt6 import QtWebEngineWidgets # Needs to happen first.
+from PyQt6 import QtCore
+from PyQt6.QtWidgets import QApplication
 
-if options.high_dpi_scaling:
-    QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
-    # Fractional scaling still results in blurry fonts in the webview at the
-    # moment, so we disable it:
-    #QtGui.QGuiApplication.setHighDpiScaleFactorRoundingPolicy(\
-    #   QtCore.Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
-else:
-    QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_DisableHighDpiScaling)
 if options.qt_opengl:
     if options.qt_opengl not in ["desktop", "angle", "software"]:
         print(\
@@ -285,5 +266,5 @@ if mnemosyne.config()["first_run"] == True:
     mnemosyne.config()["first_run"] = False
 elif mnemosyne.config()["show_daily_tips"] == True:
     mnemosyne.controller().show_tip_dialog()
-a.exec_()
+a.exec()
 mnemosyne.finalise()

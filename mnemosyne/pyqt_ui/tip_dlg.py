@@ -2,7 +2,7 @@
 # tip_dlg.py <Johannes.Baiter@gmail.com>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.ui_tip_dlg import Ui_TipDlg
@@ -61,23 +61,23 @@ class TipDlg(QtWidgets.QDialog, TipDialog, Ui_TipDlg):
 
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
-            | QtCore.Qt.WindowMinMaxButtonsHint)
+            | QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+            & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         if self.config()["show_daily_tips"] == True:
-            self.show_tips.setCheckState(QtCore.Qt.Checked)
+            self.show_tips.setCheckState(QtCore.Qt.CheckState.Checked)
         else:
-            self.show_tips.setCheckState(QtCore.Qt.Unchecked)
+            self.show_tips.setCheckState(QtCore.Qt.CheckState.Unchecked)
         # Note: the svg file does not seem to work under windows.
         #watermark = QtGui.QPixmap(":/mnemosyne/pixmaps/mnemosyne.svg").\
-        #    scaledToHeight(200, QtCore.Qt.SmoothTransformation)
+        #    scaledToHeight(200, QtCore.Qt.TransformationMode.SmoothTransformation)
         watermark = QtGui.QPixmap(":/mnemosyne/pixmaps/mnemosyne.png")
         self.watermark.setPixmap(watermark)
         self.update_dialog()
 
     def activate(self):
         TipDialog.activate(self)
-        self.exec_()
+        self.exec()
 
     def update_dialog(self):
         # We need an extra modulo operation here to deal with the possibility

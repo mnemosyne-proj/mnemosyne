@@ -5,7 +5,7 @@
 import os
 import shutil
 
-from PyQt5 import QtGui, QtCore, QtWidgets
+from PyQt6 import QtGui, QtCore, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.utils import traceback_string
@@ -80,13 +80,13 @@ class PronouncerDlg(QtWidgets.QDialog, PronouncerDialog, Ui_PronouncerDlg):
             if saved_index:
                 self.sublanguages.setCurrentIndex(saved_index)
             # Only now it's safe to connect to the slot.
-            self.sublanguages.currentIndexChanged.connect(\
+            self.sublanguages.currentTextChanged.connect(\
                 self.sublanguage_changed)
         # Auto download.
         self.set_default_filename()
         self.insert_button.setEnabled(False)
         self.download_audio_and_play()
-        self.exec_()
+        self.exec()
 
     def set_default_filename(self):
         foreign_text = self.foreign_text.toPlainText()
