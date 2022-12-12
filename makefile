@@ -74,7 +74,7 @@ profile: FORCE
 	$(PYTHON) process_profile.py
 
 gui-profile: FORCE
-	$(PYTHON) -m cProfile -s cumulative bin/mnemosyne -d ./dot_mnemosyne2/ | more
+	$(PYTHON) -m cProfile -s cumulative mnemosyne/pyqt_ui/mnemosyne -d ./dot_mnemosyne2/ | more
 
 gui-profile-windows: FORCE
 	cp mnemosyne/pyqt_ui/mnemosyne tmp.py

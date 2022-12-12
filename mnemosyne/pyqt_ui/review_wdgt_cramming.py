@@ -2,7 +2,7 @@
 # review_wdgt_cramming.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt6 import QtCore, QtWidgets
+from PyQt6 import QtCore, QtWidgets, QtGui
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.review_wdgt import ReviewWdgt
@@ -24,6 +24,11 @@ class ReviewWdgtCramming(ReviewWdgt):
         self.wrong = QtWidgets.QLabel("", parent.status_bar)
         self.unseen = QtWidgets.QLabel("", parent.status_bar)
         self.active = QtWidgets.QLabel("", parent.status_bar)
+        self.font = QtGui.QFont()
+        self.font.setPointSize(10)
+        self.wrong.setFont(self.font)
+        self.unseen.setFont(self.font)
+        self.active.setFont(self.font)
         parent.clear_status_bar()
         parent.add_to_status_bar(self.wrong)
         parent.add_to_status_bar(self.unseen)
@@ -54,4 +59,3 @@ class ReviewWdgtCramming(ReviewWdgt):
         self.wrong.setText(_("Wrong:") + " %d " % wrong_count)
         self.unseen.setText(_("Unseen:") + " %d " % unseen_count)
         self.active.setText(_("Active:") + " %d " % active_count)
-

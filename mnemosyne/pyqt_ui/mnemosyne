@@ -133,12 +133,13 @@ if options.web_server == True or options.sync_server == True:
 
 # Initialise GUI toolkit.
 
+os.environ["QT_SCALE_FACTOR_ROUNDING_POLICY"] = "PassThrough"
 if options.qt_scale_factor:
     os.environ["QT_SCALE_FACTOR"] = options.qt_scale_factor
 
 from PyQt6 import QtWebEngineWidgets # Needs to happen first.
 from PyQt6 import QtCore
-from PyQt6.QtWidgets import QApplication
+from PyQt6.QtWidgets import QApplication, QStyleFactory
 
 if options.qt_opengl:
     if options.qt_opengl not in ["desktop", "angle", "software"]:
@@ -155,6 +156,7 @@ if options.qt_opengl:
 a = QApplication(sys.argv)
 a.setApplicationName("Mnemosyne")
 a.setDesktopFileName("mnemosyne.desktop")
+#a.setStyle(QStyleFactory.create("fusion"))
 
 # Add other components we need. The translator should come first.
 # The UI components should come in the order they should be instantiated,

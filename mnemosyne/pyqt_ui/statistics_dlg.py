@@ -105,7 +105,7 @@ class StatisticsPageWdgt(QtWidgets.QWidget, Component):
            self.statistics_page.show_variants_in_combobox == False:
             self.combobox.hide()
         self.vbox_layout.addWidget(self.combobox)
-        self.combobox.currentTextChanged.connect(self.display_variant)
+        self.combobox.currentIndexChanged.connect(self.display_variant)
 
     def display_variant(self, variant_index):
 

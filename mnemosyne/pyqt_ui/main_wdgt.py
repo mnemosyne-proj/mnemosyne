@@ -17,6 +17,25 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
     def __init__(self, **kwds):
         super().__init__(**kwds)
         self.setupUi(self)
+        # Get rid of the white menubar on Windows.
+        color = QtGui.QPalette().window().color().name()
+        self.menu_bar.setStyleSheet(\
+            f"""background-color:{color}; 
+            border-bottom-color:#CCCCCC; 
+            border-style: solid; 
+            border-width: 1px; 
+            padding: 0px;
+            """)
+        # Manually style the menu separator.
+        self.setStyleSheet("""QMenu::separator { 
+            height: 1px;
+            background: #CCCCCC;
+            margin-top: 5px;
+            margin-bottom: 5px;}
+            
+            QMenu::item::selected {
+            background: black;
+            """)
         # Qt designer does not allow setting multiple shortcuts per action.
         self.actionDeleteCurrentCard.setShortcuts\
             ([QtCore.Qt.Key.Key_Delete, QtCore.Qt.Key.Key_Backspace])
@@ -52,8 +71,11 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
         study_modes.sort(key=lambda x:x.menu_weight)
         study_mode_group = QtGui.QActionGroup(self)
         self.study_mode_for_action = {}
+        self.font = QtGui.QFont()
+        self.font.setPointSize(10)
         for study_mode in study_modes:
             action = QtGui.QAction(study_mode.name, self)
+            action.setFont(self.font)
             action.setCheckable(True)
             if self.config()["study_mode"] == study_mode.id:
                 action.setChecked(True)

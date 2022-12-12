@@ -1,15 +1,12 @@
-update to PyQt6: 
-- stats: add outline to box in grades/number of cards
-- font size menu, lower bar, https://stackoverflow.com/questions/49277657/qt-creator-too-big-on-3840x2160-and-150-scaling-on-windows-10
-- icons
-- compile widgets + translator infrastructure
-- pyinstaller
-- profile startup and review
+Update to PyQt6: 
+- selection colors in menubar
+- GUI translation infrastructure
+- pyinstaller, icons
+- profile startup and review (3x scheduled count on startup, log future schedule?)
 - sphinx docs
-
-
 - play sound through Qt
-- new translation infrastructure https://towardsdatascience.com/language-translation-using-python-bd8020772ccc
+- new translator infrastructure https://towardsdatascience.com/language-translation-using-python-bd8020772ccc
+https://github.com/Saravananslb/py-googletranslation ?
 - Better error message for: File "/usr/local/lib/python3.10/dist-packages/Mnemosyne-2.9-py3.10.egg/mnemosyne/libmnemosyne/databases/_sqlite3.py", line 95, in commit
     return self.connection.commit()
  sqlite3.OperationalError: database is locked
@@ -35,9 +32,6 @@ Android:
 -option to globally increase / decrease font size with respect to desktop
 -custom fonts?
 
-Move to PyQt6? Check for QtWebEngine support.
-
-https://github.com/Saravananslb/py-googletranslation ?
 
 Minor bugs / issues:
 
@@ -46,10 +40,6 @@ Minor bugs / issues:
 - renaming saved sets only changing case does not work.
 - datetime.datetime.now() does not seem to respect DST inside Mnemosyne, but it does work in a standalone Python programme.
 -saving of folded tree state also from 'activate cards' dialog
--upgrade pyinstaller if this issues is fixed:
-https://stackoverflow.com/questions/57517371/matplotlibdeprecationwarning-with-pyinstaller-exe (used option 2 as a workaround)
--upgrade to Python 3.8 if this is fixed:
-https://github.com/pyinstaller/pyinstaller/milestone/22
 -test speed of new cheroot
 -editing a tag by clicking in the tree does not get saved
 - wheelock anki deck:

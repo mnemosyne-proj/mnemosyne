@@ -18,9 +18,9 @@ class GettingStartedDlg(QtWidgets.QWizard, GettingStartedDialog,
         self.setWindowFlags(self.windowFlags() \
             & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         # Note: the svg file does not seem to work under windows.
-        #watermark = QtGui.QPixmap(":/mnemosyne/pixmaps/mnemosyne.svg")\
+        #watermark = QtGui.QPixmap("pixmaps/mnemosyne.svg")\
         #    .scaledToHeight(200, QtCore.Qt.TransformationMode.SmoothTransformation)
-        watermark = QtGui.QPixmap(":/mnemosyne/pixmaps/mnemosyne.png")
+        watermark = QtGui.QPixmap("pixmaps/mnemosyne.png")
         self.setPixmap(QtWidgets.QWizard.WizardPixmap.WatermarkPixmap, watermark)
 
     def activate(self):

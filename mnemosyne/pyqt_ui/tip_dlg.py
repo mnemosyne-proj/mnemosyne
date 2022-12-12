@@ -69,9 +69,9 @@ class TipDlg(QtWidgets.QDialog, TipDialog, Ui_TipDlg):
         else:
             self.show_tips.setCheckState(QtCore.Qt.CheckState.Unchecked)
         # Note: the svg file does not seem to work under windows.
-        #watermark = QtGui.QPixmap(":/mnemosyne/pixmaps/mnemosyne.svg").\
+        #watermark = QtGui.QPixmap("pixmaps/mnemosyne.svg").\
         #    scaledToHeight(200, QtCore.Qt.TransformationMode.SmoothTransformation)
-        watermark = QtGui.QPixmap(":/mnemosyne/pixmaps/mnemosyne.png")
+        watermark = QtGui.QPixmap("pixmaps/mnemosyne.png")
         self.watermark.setPixmap(watermark)
         self.update_dialog()
 
