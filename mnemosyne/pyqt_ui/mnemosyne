@@ -138,7 +138,7 @@ if options.qt_scale_factor:
     os.environ["QT_SCALE_FACTOR"] = options.qt_scale_factor
 
 from PyQt6 import QtWebEngineWidgets # Needs to happen first.
-from PyQt6 import QtCore
+from PyQt6 import QtCore, QtGui
 from PyQt6.QtWidgets import QApplication, QStyleFactory
 
 if options.qt_opengl:
@@ -157,6 +157,52 @@ a = QApplication(sys.argv)
 a.setApplicationName("Mnemosyne")
 a.setDesktopFileName("mnemosyne.desktop")
 #a.setStyle(QStyleFactory.create("fusion"))
+
+# Get rid of the white menubar on Windows and do some further tweaks.
+color = QtGui.QPalette().window().color().name()
+stylesheet = """
+
+* {
+font-size: 12px;
+}
+
+    QMenuBar {
+        background-color: {color}; 
+        border-bottom-color: #CCCCCC; 
+        border-style: solid; 
+        border-width: 1px; 
+        padding: 0px;
+    }
+
+    QFrame[frameShape="5"] {
+        border: none;
+        background: #CCCCCC;
+        max-width: 1px;
+    }
+
+    QMenu {
+        background-color: {color}; 
+        border-color: {color}; 
+        border-style: solid; 
+        border-width: 1px; 
+        margin: 5px;
+    }
+
+    QMainWindow::separator, QMenu::separator { 
+        height: 1px;
+        background: #CCCCCC;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    QMenu::item {
+        background-color: transparent;
+    }
+        
+    QMenu::item:selected {
+        background: #CCCCCC;
+    }"""
+a.setStyleSheet(stylesheet)
 
 # Add other components we need. The translator should come first.
 # The UI components should come in the order they should be instantiated,

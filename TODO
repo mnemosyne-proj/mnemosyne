@@ -1,7 +1,9 @@
 Update to PyQt6: 
-- selection colors in menubar
+- stylesheet: consolidate font size in stylesheet
+  background colour in pronunciation, checkbox icon in menu
+  
 - GUI translation infrastructure
-- pyinstaller, icons
+- pyinstaller, icons, translation
 - profile startup and review (3x scheduled count on startup, log future schedule?)
 - sphinx docs
 - play sound through Qt

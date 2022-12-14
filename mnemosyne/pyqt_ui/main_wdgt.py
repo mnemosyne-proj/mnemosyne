@@ -17,25 +17,6 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
     def __init__(self, **kwds):
         super().__init__(**kwds)
         self.setupUi(self)
-        # Get rid of the white menubar on Windows.
-        color = QtGui.QPalette().window().color().name()
-        self.menu_bar.setStyleSheet(\
-            f"""background-color:{color}; 
-            border-bottom-color:#CCCCCC; 
-            border-style: solid; 
-            border-width: 1px; 
-            padding: 0px;
-            """)
-        # Manually style the menu separator.
-        self.setStyleSheet("""QMenu::separator { 
-            height: 1px;
-            background: #CCCCCC;
-            margin-top: 5px;
-            margin-bottom: 5px;}
-            
-            QMenu::item::selected {
-            background: black;
-            """)
         # Qt designer does not allow setting multiple shortcuts per action.
         self.actionDeleteCurrentCard.setShortcuts\
             ([QtCore.Qt.Key.Key_Delete, QtCore.Qt.Key.Key_Backspace])
