@@ -56,10 +56,12 @@ class GenericCardTypeWdgt(QtWidgets.QWidget, GenericCardTypeWidget):
             else:
                 parent.setTabOrder(previous_box, t)
             previous_box = t
+            # Bug: update_formatting needs to happen before setting
+            # visible.
+            self.update_formatting(t)
             if fact_key == "p_1":
                 self.pronunciation_box = t
                 self.pronunciation_box.setVisible(not pronunciation_hiding)
-            self.update_formatting(t)
             t.textChanged.connect(self.text_changed)
             t.currentCharFormatChanged.connect(self.reset_formatting)
         self.hboxlayout.addLayout(self.vboxlayout)
@@ -100,8 +102,9 @@ class GenericCardTypeWdgt(QtWidgets.QWidget, GenericCardTypeWidget):
             "background_colour", self.card_type)
         if colour:
             p = QtGui.QPalette()
-            p.setColor(QtGui.QPalette.ColorGroup.Active, QtGui.QPalette.ColorRole.Base,
-                       QtGui.QColor(colour))
+            p.setColor(QtGui.QPalette.ColorGroup.Active, 
+                        QtGui.QPalette.ColorRole.Base,
+                        QtGui.QColor(colour))
             edit_box.setPalette(p)
         # Font.
         font_string = self.config().card_type_property(\

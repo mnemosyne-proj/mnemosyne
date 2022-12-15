@@ -30,11 +30,6 @@
      <height>18</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
    <widget class="QMenu" name="menu_Settings">
     <property name="title">
      <string>&amp;Settings</string>
@@ -131,11 +126,6 @@
    <property name="shortcut">
     <string>Ctrl+D</string>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
   </action>
   <action name="actionAddCards">
    <property name="icon">
@@ -148,11 +138,6 @@
    <property name="shortcut">
     <string>Ctrl+A</string>
    </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
   </action>
   <action name="actionConfigure">
    <property name="icon">
@@ -161,11 +146,6 @@
    </property>
    <property name="text">
     <string>&amp;Configure Mnemosyne...</string>
-   </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
    </property>
   </action>
   <action name="actionDeleteCurrentCard">
@@ -179,11 +159,6 @@
    <property name="shortcut">
     <string>Del</string>
    </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
   </action>
   <action name="actionEditCurrentCard">
    <property name="icon">
@@ -195,11 +170,6 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+E</string>
-   </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
    </property>
   </action>
   <action name="actionResetCurrentCard">
@@ -223,20 +193,10 @@
    <property name="shortcut">
     <string>Ctrl+B</string>
    </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
   </action>
   <action name="actionExport">
    <property name="text">
     <string>&amp;Export...</string>
-   </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
    </property>
   </action>
   <action name="actionFileExit">
@@ -247,11 +207,6 @@
    <property name="text">
     <string>E&amp;xit</string>
    </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
   </action>
   <action name="actionFileNew">
    <property name="icon">
@@ -260,11 +215,6 @@
    </property>
    <property name="text">
     <string>&amp;New...</string>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
@@ -281,11 +231,6 @@
    <property name="shortcut">
     <string>Ctrl+O</string>
    </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
   </action>
   <action name="actionFileSave">
    <property name="icon">
@@ -298,11 +243,6 @@
    <property name="shortcut">
     <string>Ctrl+S</string>
    </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
   </action>
   <action name="actionFileSaveAs">
    <property name="icon">
@@ -312,51 +252,26 @@
    <property name="text">
     <string>Save &amp;as...</string>
    </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
   </action>
   <action name="actionAbout">
    <property name="text">
     <string>&amp;About</string>
-   </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
    </property>
   </action>
   <action name="actionImport">
    <property name="text">
     <string>&amp;Import...</string>
    </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
   </action>
   <action name="actionGettingStarted">
    <property name="text">
     <string>&amp;Getting started</string>
-   </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
    </property>
   </action>
   <action name="actionShowStatistics">
    <property name="icon">
     <iconset>
      <normaloff>pixmaps/statistics.png</normaloff>pixmaps/statistics.png</iconset>
-   </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
    </property>
    <property name="text">
     <string>Show s&amp;tatistics...</string>
@@ -369,11 +284,6 @@
    <property name="text">
     <string>&amp;Tip of the day</string>
    </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
   </action>
   <action name="actionManagePlugins">
    <property name="text">
@@ -382,20 +292,10 @@
    <property name="toolTip">
     <string>Manage plugins</string>
    </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
   </action>
   <action name="actionManageTypes">
    <property name="text">
     <string>&amp;Manage card types...</string>
-   </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
    </property>
   </action>
   <action name="actionSync">
@@ -405,11 +305,6 @@
    <property name="shortcut">
     <string>Ctrl+Y</string>
    </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
   </action>
   <action name="actionCompact">
    <property name="text">
@@ -418,20 +313,10 @@
    <property name="toolTip">
     <string>Compact database</string>
    </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
   </action>
   <action name="actionFindDuplicates">
    <property name="text">
     <string>Find duplicate questions</string>
-   </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
    </property>
   </action>
   <action name="actionStudyDefault">
@@ -444,11 +329,6 @@
    <property name="text">
     <string>Scheduled -&gt; forgotten -&gt; new</string>
    </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
   </action>
   <action name="actionStudyNew">
    <property name="checkable">
@@ -457,11 +337,6 @@
    <property name="text">
     <string>Study new cards only</string>
    </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
   </action>
   <action name="actionCramAll">
    <property name="checkable">
@@ -469,11 +344,6 @@
    </property>
    <property name="text">
     <string>Cram active cards</string>
-   </property>
-      <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
    </property>
   </action>
  </widget>

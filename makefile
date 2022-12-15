@@ -78,7 +78,7 @@ gui-profile: FORCE
 
 gui-profile-windows: FORCE
 	cp mnemosyne/pyqt_ui/mnemosyne tmp.py
-	$(PYTHON) -m cProfile -s cumulative tmp.py -d C:\dot_test_2 | more
+	$(PYTHON) -m cProfile -s cumulative tmp.py -d C:\dot_mnemosyne2 | more
 
 benchmark: FORCE
 	$(PYTHON) tests/benchmark.py

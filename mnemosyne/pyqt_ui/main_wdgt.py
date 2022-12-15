@@ -52,11 +52,8 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
         study_modes.sort(key=lambda x:x.menu_weight)
         study_mode_group = QtGui.QActionGroup(self)
         self.study_mode_for_action = {}
-        self.font = QtGui.QFont()
-        self.font.setPointSize(10)
         for study_mode in study_modes:
             action = QtGui.QAction(study_mode.name, self)
-            action.setFont(self.font)
             action.setCheckable(True)
             if self.config()["study_mode"] == study_mode.id:
                 action.setChecked(True)

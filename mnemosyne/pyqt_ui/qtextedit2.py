@@ -33,14 +33,22 @@ class QTextEdit2(QtWidgets.QTextEdit):
     def contextMenuEvent(self, e):
         popup = self.createStandardContextMenu()
         popup.addSeparator()
-        popup.addAction(_("Insert &image"), self.insert_img,
-                        QtGui.QKeySequence(_("Ctrl+I")))
-        popup.addAction(_("Insert &sound"), self.insert_sound,
-                        QtGui.QKeySequence(_("Ctrl+S")))
-        popup.addAction(_("Insert vi&deo"), self.insert_video,
-                        QtGui.QKeySequence(_("Ctrl+D")))
-        popup.addAction(_("Insert &Flash"), self.insert_flash,
-                        QtGui.QKeySequence(_("Ctrl+F")))
+
+        self.insert_image_action = QtGui.QAction(_("Insert &image"), self)
+        self.insert_image_action.triggered.connect(self.insert_img)
+        self.insert_image_action.setShortcut(QtGui.QKeySequence(_("Ctrl+I")))
+        popup.addAction(self.insert_image_action)
+
+        self.insert_sound_action = QtGui.QAction(_("Insert &sound"), self)
+        self.insert_sound_action.triggered.connect(self.insert_sound)
+        self.insert_sound_action.setShortcut(QtGui.QKeySequence(_("Ctrl+S")))
+        popup.addAction(self.insert_sound_action)   
+
+        self.insert_video_action = QtGui.QAction(_("Insert &video"), self)
+        self.insert_video_action.triggered.connect(self.insert_video)
+        self.insert_video_action.setShortcut(QtGui.QKeySequence(_("Ctrl+V")))
+        popup.addAction(self.insert_video_action)   
+
         # Pronunciation hiding.
         if self.pronunciation_hiding in [True, False]:
             popup.addSeparator()
