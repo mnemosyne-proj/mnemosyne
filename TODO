@@ -1,11 +1,10 @@
 Update to PyQt6: 
-- pyinstaller, icons, translation
-- profile startup and review: 3x scheduled count on startup, google imports
-- sphinx docs
+- PyQt5 stuff still being picked up
 - play sound through Qt
-- play video through Qt
+- play video through Qt?
 - new translator infrastructure https://towardsdatascience.com/language-translation-using-python-bd8020772ccc
 https://github.com/Saravananslb/py-googletranslation ?
+- text to speech
 - Better error message for: File "/usr/local/lib/python3.10/dist-packages/Mnemosyne-2.9-py3.10.egg/mnemosyne/libmnemosyne/databases/_sqlite3.py", line 95, in commit
     return self.connection.commit()
  sqlite3.OperationalError: database is locked

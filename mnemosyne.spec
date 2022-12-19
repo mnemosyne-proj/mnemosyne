@@ -4,8 +4,8 @@ import os, sys, shutil
 
 block_cipher = None
 
-datas = [('mo', 'mo')]
-excludes = []
+datas = [('mo', 'mo'), ('pixmaps', 'pixmaps')]
+excludes = ['PyQt5', 'tcl', 'tk']
 binaries = []
 
 hiddenimports = [
@@ -349,23 +349,26 @@ a = Analysis([os.path.join('mnemosyne', 'pyqt_ui', 'mnemosyne')],
              excludes=excludes,
              win_no_prefer_redirects=False,
              win_private_assemblies=False,
-             cipher=block_cipher)
+             cipher=block_cipher,
+             hooksconfig={
+              "matplotlib": {
+                "backends": "QtAgg",},
+              },
+             )
 
-# http://stackoverflow.com/questions/4890159/python-excluding-modules-pyinstaller
-a.binaries = a.binaries - TOC([
-             ('tcl86t.dll', None, None),
-             ('tk86t.dll', None, None),
-             ('tcl86t.lib', None, None),
-             ('tk86t.lib', None, None),
-             ('tcl86tg.lib', None, None),
-             ('tk86tg.lib', None, None),
-             ('tclstub86.lib', None, None),
-             ('tkstub86.lib', None, None)])
+# Still seems to pick up PyQt5 somehow, so we remove it manually.
 
-# Remove Tcl and Tk stuff (seems to cause troubles on some systems.)
-# a.datas = [x for x in a.datas if not x[0].startswith'tcl')]
-# a.datas = [x for x in a.datas if not x[0].startswith'tk')]
+a.datas = [x for x in a.datas if not "qt5" in x[0].lower()]
+a.pure = [x for x in a.pure if not "qt5" in x[0].lower()]
+a.zipped_data = [x for x in a.zipped_data if not "qt5" in x[0].lower()]
 
+for x in a.datas:
+  print("Datas", x[0], "qt5" in x[0].lower())
+for x in a.pure:
+  print("Pure", x[0], "qt5" in x[0].lower())
+for x in a.zipped_data:
+  print("Zipped", x[0], "qt5" in x[0].lower())
+  
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
 codesign_identity = os.environ['CODESIGN_IDENTITY'] \

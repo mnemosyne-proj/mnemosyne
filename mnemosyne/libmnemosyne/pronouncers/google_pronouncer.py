@@ -2,8 +2,6 @@
 # google_pronouncer.py <Peter.Bienstman@UGent.be>
 #
 
-from gtts import gTTS
-
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.pronouncer import Pronouncer
@@ -24,6 +22,9 @@ class GooglePronouncer(Pronouncer):
     def download_tmp_audio_file(self, card_type, foreign_text):
 
         """Returns a temporary filename with the audio."""
+
+        # Lazy import to speed things up.
+        from gtts import gTTS
 
         language_id = self.config().card_type_property(\
             "sublanguage_id", card_type)

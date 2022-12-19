@@ -5,8 +5,6 @@
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.translator import Translator
 
-#from google_trans_new import google_translator
-from googletrans import Translator as google_translator
 translator = None
 
 class GoogleTranslator(Translator):
@@ -28,6 +26,11 @@ class GoogleTranslator(Translator):
 
     def translate(self, card_type, foreign_text, target_language_id,
                   retries=0):
+        # Lazy import to speed things up.
+        #           
+        #from google_trans_new import google_translator
+        from googletrans import Translator as google_translator
+
         global translator
         if not translator:
             translator = google_translator()

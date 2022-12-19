@@ -125,7 +125,7 @@ class PronouncerDlg(QtWidgets.QDialog, PronouncerDialog, Ui_PronouncerDlg):
         self.tmp_filename = filename
         self.insert_button.setEnabled(True)
         self.insert_button.setDefault(True)
-        self.insert_button.setFocus(True)
+        self.insert_button.setFocus()
 
     def preview(self):
         if self.foreign_text.toPlainText() == self.last_foreign_text:

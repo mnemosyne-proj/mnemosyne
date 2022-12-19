@@ -417,9 +417,9 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
     def selection_changed_in_a(self):
         self.widget_with_last_selection = self.answer
 
-    def copy(self):
-        self.widget_with_last_selection.pageAction(\
-            QtWebEngineKit.QWebEnginePage.Copy).trigger()
+    #def copy(self):
+    #    self.widget_with_last_selection.pageAction(\
+    #        QtWebEngineKit.QWebEnginePage.Copy).trigger()
 
     def show_answer(self):
         self.review_controller().show_answer()
