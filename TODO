@@ -1,7 +1,3 @@
-Update to PyQt6: 
-- play sound through Qt
-- play video through Qt?
-- text to speech
 - new translator infrastructure https://towardsdatascience.com/language-translation-using-python-bd8020772ccc
 https://github.com/Saravananslb/py-googletranslation ?
 

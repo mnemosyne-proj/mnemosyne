@@ -307,8 +307,8 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         self.widget_with_last_selection = self.question
         self.question.selectionChanged.connect(self.selection_changed_in_q)
         self.answer.selectionChanged.connect(self.selection_changed_in_a)
-        self.mplayer = QtCore.QProcess()
         self.media_queue = []
+        self.player = None
         self.setFocusPolicy(QtCore.Qt.FocusPolicy.StrongFocus)
 
         # When clicking out of the app, and clicking back on the web widgets,
@@ -319,7 +319,6 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         self.timer.timeout.connect(self.restore_focus)
         self.timer.start(200)
 
-        self.player = None
 
     def deactivate(self):
         self.stop_media()
@@ -526,6 +525,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
     def stop_playing_if_end_reached(self, current_position):
         if current_position >= 1000*self.current_media_stop:
             self.player.stop()
+            self.play_next_file()
 
     def player_status_changed(self, result):
         if result == QMediaPlayer.MediaStatus.BufferedMedia:

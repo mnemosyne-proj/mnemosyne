@@ -75,7 +75,7 @@ class build_windows_installer(Command):
 
 if sys.platform == "darwin": # For py2app.
     base_path = ""
-    data_files = [("", ["/usr/local/bin/mplayer"])]
+    data_files = []
 else:
     base_path = os.path.join(sys.exec_prefix, "lib", "python" + sys.version[:3],
                              "site-packages","mnemosyne")
