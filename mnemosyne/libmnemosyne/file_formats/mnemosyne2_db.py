@@ -1,5 +1,5 @@
 #
-# mnemosyne2_db.py <Peter.Bienstman@UGent.be>
+# mnemosyne2_db.py <Peter.Bienstman@gmail.com>
 #
 
 import os

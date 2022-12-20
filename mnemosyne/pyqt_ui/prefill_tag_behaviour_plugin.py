@@ -1,5 +1,5 @@
 #
-# prefill_tag_behaviour_plugin.py <Peter.Bienstman@UGent.be>
+# prefill_tag_behaviour_plugin.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtCore, QtGui, QtWidgets

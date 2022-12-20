@@ -1,11 +1,11 @@
 #
-# review_wdgt.py <Peter.Bienstman@UGent.be>
+# review_wdgt.py <Peter.Bienstman@gmail.com>
 #
 
 import os
-import sys
 
 from PyQt6 import QtCore, QtGui, QtWidgets, QtWebEngineWidgets
+from PyQt6.QtMultimedia import QAudioOutput, QMediaPlayer
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.ui_review_wdgt import Ui_ReviewWdgt
@@ -319,6 +319,8 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         self.timer.timeout.connect(self.restore_focus)
         self.timer.start(200)
 
+        self.player = None
+
     def deactivate(self):
         self.stop_media()
         ReviewWidget.deactivate(self)
@@ -495,50 +497,45 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         self.notmem.setText(_("Not memorised: %d ") % non_memorised_count)
         self.act.setText(_("Active: %d ") % active_count)
 
+    def redraw_now(self):
+        self.repaint()
+        self.parent().repaint()
+
     def play_media(self, filename, start=None, stop=None):
+        if self.player == None:
+            self.player = QMediaPlayer()
+            self.audio_output = QAudioOutput()
+            self.player.setAudioOutput(self.audio_output)
+            self.player.mediaStatusChanged.connect(self.player_status_changed)
         if start is None:
             start = 0
         if stop is None:
             stop = 999999
         self.media_queue.append((filename, start, stop))
-        if self.mplayer.state() != QtCore.QProcess.ProcessState.Running:
+        if not self.player.playbackState() == \
+            QMediaPlayer.PlaybackState.PlayingState:
             self.play_next_file()
 
     def play_next_file(self):
-        filename, start, stop = self.media_queue.pop(0)
-        duration = stop - start
-        if duration > 400:
-            duration -= 300 # Compensate for mplayer overshoot.
-        self.mplayer = QtCore.QProcess()
-        self.mplayer.finished.connect(self.done_playing)
-        if sys.platform == "win32":
-            command = "mplayer.exe -slave -ao win32 -quiet \"" + filename + \
-                "\" -ss " + str(start) + " -endpos " + str(duration)
-        elif sys.platform == "darwin":
-            # e.g. /path/to/Mnemosyne.app/Contents/MacOS/mnemosyne/pyqt_ui/review_wdgt.py
-            SCRIPT_PATH = os.path.dirname(os.path.realpath(__file__))
-            # e.g. /path/to/Mnemosyne.app/Contents
-            CONTENTS_FOLDER = SCRIPT_PATH[:SCRIPT_PATH.index("/MacOS")]
-            # e.g. /path/to/Mnemosyne.app/Contents/MacOS/mplayer
-            MPLAYER_PATH = CONTENTS_FOLDER + "/MacOS/mplayer"
+        filename, self.current_media_start, self.current_media_stop = \
+            self.media_queue.pop(0)
+        self.player.setSource(QtCore.QUrl.fromLocalFile(filename))
+        self.player.positionChanged.connect(self.stop_playing_if_end_reached)
+        self.player.play()
 
-            command = "{} -slave -vo null -ao coreaudio -quiet \"{}\" -ss {} -endpos {}".format(
-                MPLAYER_PATH, filename, str(start), str(duration)
-            )
-        else:
-            command = "mplayer -slave -quiet \"" + filename + \
-                "\" -ss " + str(start) + " -endpos " + str(duration)
-        self.mplayer.start(command)
+    def stop_playing_if_end_reached(self, current_position):
+        if current_position >= 1000*self.current_media_stop:
+            self.player.stop()
 
-    def done_playing(self, result):
-        if len(self.media_queue) >= 1:
+    def player_status_changed(self, result):
+        if result == QMediaPlayer.MediaStatus.BufferedMedia:
+            self.player.setPosition(int(self.current_media_start*1000))
+        if len(self.media_queue) >= 1 and \
+            result == QMediaPlayer.MediaStatus.EndOfMedia:
+            self.player.positionChanged.disconnect()
             self.play_next_file()
 
     def stop_media(self):
-        if self.mplayer and self.mplayer.state() == QtCore.QProcess.ProcessState.Running:
-            self.mplayer.write(b"quit\n");
+        if self.player:
+            self.player.stop()
         self.media_queue = []
-
-    def redraw_now(self):
-        self.repaint()
-        self.parent().repaint()

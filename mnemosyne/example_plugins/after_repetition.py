@@ -1,5 +1,5 @@
 #
-# after_repetition.py <Peter.Bienstman@UGent.be>
+# after_repetition.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.hook import Hook

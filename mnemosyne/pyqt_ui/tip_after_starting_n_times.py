@@ -1,5 +1,5 @@
 #
-# tip_after_starting_n_times.py <Peter.Bienstman@UGent.be>
+# tip_after_starting_n_times.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.pyqt_ui.tip_dlg import TipDlg

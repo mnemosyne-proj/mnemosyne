@@ -1,5 +1,5 @@
 #
-# utils.py <Peter.Bienstman@UGent.be>
+# utils.py <Peter.Bienstman@gmail.com>
 #          <Johannes.Baiter@gmail.com>
 #
 

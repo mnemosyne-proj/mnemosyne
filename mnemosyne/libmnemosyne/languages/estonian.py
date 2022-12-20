@@ -1,5 +1,5 @@
 #
-# estonian.py <Peter.Bienstman@UGent.be>
+# estonian.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

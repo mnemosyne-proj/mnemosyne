@@ -1,5 +1,5 @@
 //
-// python_stdout_stderr.c <Peter.Bienstman@UGent.be>
+// python_stdout_stderr.c <Peter.Bienstman@gmail.com>
 //
 
 #include <stdio.h>

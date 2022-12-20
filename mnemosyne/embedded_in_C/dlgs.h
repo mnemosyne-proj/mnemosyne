@@ -1,5 +1,5 @@
 //
-// dlgs.h <Peter.Bienstman@UGent.be>
+// dlgs.h <Peter.Bienstman@gmail.com>
 //
 
 void add_cards_dlg_activate();

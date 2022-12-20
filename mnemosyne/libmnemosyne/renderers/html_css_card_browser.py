@@ -1,5 +1,5 @@
 #
-# html_css_card_browser.py <Peter.Bienstman@UGent.be>
+# html_css_card_browser.py <Peter.Bienstman@gmail.com>
 #
 
 import re

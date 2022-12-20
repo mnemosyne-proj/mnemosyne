@@ -1,5 +1,5 @@
 #
-# file_format.py <Peter.Bienstman@UGent.be>
+# file_format.py <Peter.Bienstman@gmail.com>
 #
 
 import os

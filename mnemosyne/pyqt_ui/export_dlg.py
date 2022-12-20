@@ -1,5 +1,5 @@
 #
-# export_dlg.py <Peter.Bienstman@UGent.be>
+# export_dlg.py <Peter.Bienstman@gmail.com>
 #
 
 import os

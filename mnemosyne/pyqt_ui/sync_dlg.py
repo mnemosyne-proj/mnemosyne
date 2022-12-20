@@ -1,5 +1,5 @@
 #
-# sync_dlg.py <Peter.Bienstman@UGent.be>
+# sync_dlg.py <Peter.Bienstman@gmail.com>
 #
 
 import sys

@@ -1,5 +1,5 @@
 #
-# science_log_parser.py <Peter.Bienstman@UGent.be> starting from code of
+# science_log_parser.py <Peter.Bienstman@gmail.com> starting from code of
 # Ryan Michael <kerinin@gmail.com> and Joonatan Kaartinen <jkaartinen@iki.fi>
 #
 

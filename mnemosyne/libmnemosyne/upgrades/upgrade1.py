@@ -1,5 +1,5 @@
 #
-# upgrade1.py <Peter.Bienstman@UGent.be>
+# upgrade1.py <Peter.Bienstman@gmail.com>
 #
 
 import os

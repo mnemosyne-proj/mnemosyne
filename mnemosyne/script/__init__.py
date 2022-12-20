@@ -1,5 +1,5 @@
 #
-# script <Peter.Bienstman@UGent.be>
+# script <Peter.Bienstman@gmail.com>
 #
 
 import os.path

@@ -1,5 +1,5 @@
 #
-# remove_tags_dlg.py <Peter.Bienstman@UGent.be>
+# remove_tags_dlg.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtGui, QtCore, QtWidgets

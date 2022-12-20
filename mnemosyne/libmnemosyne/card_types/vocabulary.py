@@ -1,5 +1,5 @@
 #
-# vocabulary.py <Peter.Bienstman@UGent.be>
+# vocabulary.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

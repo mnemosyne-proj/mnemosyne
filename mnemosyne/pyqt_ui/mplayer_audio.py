@@ -1,11 +1,9 @@
 #
-# mplayer_audio.py <Peter.Bienstman@UGent.be>
+# mplayer_audio.py <Peter.Bienstman@gmail.com>
 #
 
-import os
 import re
 
-from mnemosyne.libmnemosyne.utils import copy
 from mnemosyne.libmnemosyne.filter import Filter
 
 re_audio = re.compile(r"""<audio src=\"(.+?)\"(.*?)>""",

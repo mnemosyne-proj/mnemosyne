@@ -1,5 +1,5 @@
 #
-# pronouncer_dlg.py <Peter.Bienstman@UGent.be>
+# pronouncer_dlg.py <Peter.Bienstman@gmail.com>
 #
 
 import os

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# edit_M_sided_card_template_wdgt.py <Peter.Bienstman@UGent.be>
+# edit_M_sided_card_template_wdgt.py <Peter.Bienstman@gmail.com>
 #
 
 import copy

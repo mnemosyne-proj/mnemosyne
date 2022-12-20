@@ -1,5 +1,5 @@
 #
-# text_format.py <Peter.Bienstman@UGent.be>
+# text_format.py <Peter.Bienstman@gmail.com>
 #
 
               

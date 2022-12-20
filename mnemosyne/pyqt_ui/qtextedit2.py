@@ -1,5 +1,5 @@
 #
-# qtextedit2.py <Peter.Bienstman@UGent.be>
+# qtextedit2.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtCore, QtGui, QtWidgets

@@ -1,5 +1,5 @@
 #
-# browse_cards_dlg.py <Peter.Bienstman@UGent.be>
+# browse_cards_dlg.py <Peter.Bienstman@gmail.com>
 #
 
 import sys

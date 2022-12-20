@@ -1,5 +1,5 @@
 #
-# add_cards_dlg.py <Peter.Bienstman@UGent.be>
+# add_cards_dlg.py <Peter.Bienstman@gmail.com>
 #
 
 import copy

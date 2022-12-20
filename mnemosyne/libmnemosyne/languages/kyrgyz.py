@@ -1,5 +1,5 @@
 #
-# kyrgyz.py <Peter.Bienstman@UGent.be>
+# kyrgyz.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

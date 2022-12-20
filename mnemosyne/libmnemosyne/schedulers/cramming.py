@@ -1,5 +1,5 @@
 #
-# cramming.py <Peter.Bienstman@UGent.be>
+# cramming.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne import SM2Mnemosyne

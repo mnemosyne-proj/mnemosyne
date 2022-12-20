@@ -1,7 +1,7 @@
 #
 # server.py - Max Usachev <maxusachev@gmail.com>
 #             Ed Bartosh <bartosh@gmail.com>
-#             Peter Bienstman <Peter.Bienstman@UGent.be>
+#             Peter Bienstman <Peter.Bienstman@gmail.com>
 
 import os
 import sys

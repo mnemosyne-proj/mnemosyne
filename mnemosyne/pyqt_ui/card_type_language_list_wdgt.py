@@ -1,5 +1,5 @@
 #
-# card_type_language_list_wdgt.py <Peter.Bienstman@UGent.be>
+# card_type_language_list_wdgt.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtCore, QtGui, QtWidgets

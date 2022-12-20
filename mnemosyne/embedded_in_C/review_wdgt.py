@@ -1,5 +1,5 @@
 #
-# review_wdgt.py <Peter.Bienstman@UGent.be>
+# review_wdgt.py <Peter.Bienstman@gmail.com>
 #
 
 import _review_wdgt as _

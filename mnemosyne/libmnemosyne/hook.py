@@ -1,5 +1,5 @@
 #
-# hook.py <Peter.Bienstman@UGent.be>
+# hook.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.component import Component

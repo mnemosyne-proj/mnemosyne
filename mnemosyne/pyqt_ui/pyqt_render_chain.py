@@ -1,5 +1,5 @@
 #
-# pyqt_render_chain.py <Peter.Bienstman@UGent.be>
+# pyqt_render_chain.py <Peter.Bienstman@gmail.com>
 #
 
 import sys

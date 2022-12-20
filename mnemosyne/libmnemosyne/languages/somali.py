@@ -1,5 +1,5 @@
 #
-# somali.py <Peter.Bienstman@UGent.be>
+# somali.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

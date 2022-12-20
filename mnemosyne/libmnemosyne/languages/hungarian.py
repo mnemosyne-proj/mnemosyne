@@ -1,5 +1,5 @@
 #
-# hungarian.py <Peter.Bienstman@UGent.be>
+# hungarian.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

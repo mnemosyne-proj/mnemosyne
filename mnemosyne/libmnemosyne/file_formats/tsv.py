@@ -1,5 +1,5 @@
 #
-# tsv.py <Peter.Bienstman@UGent.be>
+# tsv.py <Peter.Bienstman@gmail.com>
 #
 
 import os

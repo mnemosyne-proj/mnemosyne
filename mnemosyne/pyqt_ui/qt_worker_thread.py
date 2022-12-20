@@ -1,5 +1,5 @@
 #
-# qt_worker_thread.py <Peter.Bienstman@UGent.be>
+# qt_worker_thread.py <Peter.Bienstman@gmail.com>
 #
 
 import sys

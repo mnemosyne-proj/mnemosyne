@@ -1,5 +1,5 @@
 #
-# edit_card_dlg.py <Peter.Bienstman@UGent.be>
+# edit_card_dlg.py <Peter.Bienstman@gmail.com>
 #
 
 import re

@@ -1,5 +1,5 @@
 #
-# find_and_replace.py <Peter.Bienstman@UGent.be>
+# find_and_replace.py <Peter.Bienstman@gmail.com>
 #
 
 import copy

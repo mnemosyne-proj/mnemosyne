@@ -1,5 +1,5 @@
 #
-# both_ways.py <Peter.Bienstman@UGent.be>
+# both_ways.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

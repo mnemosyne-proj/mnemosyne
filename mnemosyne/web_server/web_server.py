@@ -1,5 +1,5 @@
 #
-# web_server.py <Peter.Bienstman@UGent.be>
+# web_server.py <Peter.Bienstman@gmail.com>
 #
 
 import os

@@ -1,5 +1,5 @@
 #
-# translator_dlg.py <Peter.Bienstman@UGent.be>
+# translator_dlg.py <Peter.Bienstman@gmail.com>
 #
 
 import os
@@ -113,7 +113,7 @@ class TranslatorDlg(QtWidgets.QDialog, TranslatorDialog, Ui_TranslatorDlg):
         self.translated_text.setPlainText(translation)
         self.insert_button.setEnabled(True)
         self.insert_button.setDefault(True)
-        self.insert_button.setFocus(True)
+        self.insert_button.setFocus()
 
     def preview(self):
         if self.foreign_text.toPlainText() != self.last_foreign_text:

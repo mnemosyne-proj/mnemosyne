@@ -1,5 +1,5 @@
 #
-# cuecard_wcu.py  Chris Aakre <caaakre@gmail.com>, <Peter.Bienstman@UGent.be>
+# cuecard_wcu.py  Chris Aakre <caaakre@gmail.com>, <Peter.Bienstman@gmail.com>
 #
 
 from xml.etree import cElementTree

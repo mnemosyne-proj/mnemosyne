@@ -1,5 +1,5 @@
 #
-# utf8_filenames.py <Peter.Bienstman@UGent.be>
+# utf8_filenames.py <Peter.Bienstman@gmail.com>
 #
 
 # In some cases, Python 3.5 in Crystax seems to set sys.setdefaultencoding() to

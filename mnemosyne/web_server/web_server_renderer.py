@@ -1,5 +1,5 @@
 #
-# web_server_renderer.py <Peter.Bienstman@UGent.be>
+# web_server_renderer.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.renderers.html_css import HtmlCss

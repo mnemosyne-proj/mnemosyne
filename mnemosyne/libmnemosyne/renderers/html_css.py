@@ -1,5 +1,5 @@
 #
-# html_css.py <Peter.Bienstman@UGent.be>
+# html_css.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.renderer import Renderer

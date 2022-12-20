@@ -1,5 +1,5 @@
 #
-# map.py <Peter.Bienstman@UGent.be>
+# map.py <Peter.Bienstman@gmail.com>
 #
 
 import copy

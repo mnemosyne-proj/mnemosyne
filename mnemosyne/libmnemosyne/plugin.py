@@ -1,5 +1,5 @@
 #
-# plugin.py <Peter.Bienstman@UGent.be>
+# plugin.py <Peter.Bienstman@gmail.com>
 #
 
 import importlib

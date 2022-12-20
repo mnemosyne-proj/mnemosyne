@@ -1,5 +1,5 @@
 #
-# malagasy.py <Peter.Bienstman@UGent.be>
+# malagasy.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

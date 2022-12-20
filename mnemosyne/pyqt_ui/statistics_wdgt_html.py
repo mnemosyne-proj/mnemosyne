@@ -1,5 +1,5 @@
 #
-# statistics_wdgt_html.py <Peter.Bienstman@UGent.be>
+# statistics_wdgt_html.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtCore, QtWebEngineWidgets

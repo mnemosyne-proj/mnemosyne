@@ -1,5 +1,5 @@
 #
-# card_set_name_dlg.py <Peter.Bienstman@UGent.be>
+# card_set_name_dlg.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtCore, QtGui, QtWidgets

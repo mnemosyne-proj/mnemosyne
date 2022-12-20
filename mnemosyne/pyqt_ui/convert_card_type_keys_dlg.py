@@ -1,5 +1,5 @@
 #
-# convert_card_type_keys_dlg.py <Peter.Bienstman@UGent.be>
+# convert_card_type_keys_dlg.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtCore, QtGui, QtWidgets

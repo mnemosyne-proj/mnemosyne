@@ -1,5 +1,5 @@
 #
-# romanian.py <Peter.Bienstman@UGent.be>
+# romanian.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

@@ -1,5 +1,5 @@
 #
-# configuration_wdgt_servers.py <Peter.Bienstman@UGent.be>
+# configuration_wdgt_servers.py <Peter.Bienstman@gmail.com>
 #
 
 import socket

@@ -1,5 +1,5 @@
 #
-# default_controller.py <Peter.Bienstman@UGent.be>
+# default_controller.py <Peter.Bienstman@gmail.com>
 #
 
 import os

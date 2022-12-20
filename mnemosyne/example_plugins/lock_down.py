@@ -1,5 +1,5 @@
 #
-# lock_down.py <Peter.Bienstman@UGent.be>
+# lock_down.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtCore, QtGui, QtWidgets

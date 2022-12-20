@@ -1,5 +1,5 @@
 #
-# nyanja.py <Peter.Bienstman@UGent.be>
+# nyanja.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

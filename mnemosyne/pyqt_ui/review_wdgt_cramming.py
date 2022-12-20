@@ -1,5 +1,5 @@
 #
-# review_wdgt_cramming.py <Peter.Bienstman@UGent.be>
+# review_wdgt_cramming.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtCore, QtWidgets, QtGui

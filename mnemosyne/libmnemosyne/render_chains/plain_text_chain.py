@@ -1,5 +1,5 @@
 #
-# plain_text_chain.py <Peter.Bienstman@UGent.be>
+# plain_text_chain.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.render_chain import RenderChain

@@ -1,5 +1,5 @@
 #
-# dialogs.py <Peter.Bienstman@UGent.be>
+# dialogs.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.ui_component import UiComponent

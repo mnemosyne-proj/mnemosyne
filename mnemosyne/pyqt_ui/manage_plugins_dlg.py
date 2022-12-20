@@ -1,5 +1,5 @@
 #
-# manage_plugins_dlg.py <Peter.Bienstman@UGent.be>
+# manage_plugins_dlg.py <Peter.Bienstman@gmail.com>
 #
 
 import os

@@ -1,5 +1,5 @@
 #
-# norwegian.py <Peter.Bienstman@UGent.be>
+# norwegian.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

@@ -1,5 +1,5 @@
 #
-# macedonian.py <Peter.Bienstman@UGent.be>
+# macedonian.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

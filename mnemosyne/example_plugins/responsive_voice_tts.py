@@ -1,5 +1,5 @@
 #
-# responsive_voice_tts.py <Peter.Bienstman@UGent.be>
+# responsive_voice_tts.py <Peter.Bienstman@gmail.com>
 #
 
 # (no longer works)

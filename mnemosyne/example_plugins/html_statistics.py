@@ -1,5 +1,5 @@
 #
-# html_statistics.py <Peter.Bienstman@UGent.be>
+# html_statistics.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.plugin import Plugin

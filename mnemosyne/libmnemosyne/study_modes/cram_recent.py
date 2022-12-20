@@ -1,5 +1,5 @@
 #
-# cram_recent.py <Peter.Bienstman@UGent.be>
+# cram_recent.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

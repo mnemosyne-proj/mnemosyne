@@ -1,5 +1,5 @@
 #
-# media_preprocessor.py <Peter.Bienstman@UGent.be>
+# media_preprocessor.py <Peter.Bienstman@gmail.com>
 #
 
 import os

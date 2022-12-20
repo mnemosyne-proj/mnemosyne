@@ -1,5 +1,5 @@
 #
-# thai.py <Peter.Bienstman@UGent.be>
+# thai.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

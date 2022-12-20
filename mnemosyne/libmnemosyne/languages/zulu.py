@@ -1,5 +1,5 @@
 #
-# zulu.py <Peter.Bienstman@UGent.be>
+# zulu.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

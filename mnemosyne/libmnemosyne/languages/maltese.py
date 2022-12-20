@@ -1,5 +1,5 @@
 #
-# maltese.py <Peter.Bienstman@UGent.be>
+# maltese.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

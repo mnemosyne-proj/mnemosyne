@@ -1,5 +1,5 @@
 #
-# server.py <Peter.Bienstman@UGent.be>
+# server.py <Peter.Bienstman@gmail.com>
 #
 
 import sys

@@ -1,5 +1,5 @@
 #
-# web_server_render_chain.py <Peter.Bienstman@UGent.be>
+# web_server_render_chain.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.filters.latex import Latex

@@ -1,5 +1,5 @@
 #
-# SM2_mnemosyne.py <Peter.Bienstman@UGent.be>
+# SM2_mnemosyne.py <Peter.Bienstman@gmail.com>
 #
 
 import time

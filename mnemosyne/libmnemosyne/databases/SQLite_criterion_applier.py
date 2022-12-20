@@ -1,5 +1,5 @@
 #
-# SQLite_criterion_applier.py <Peter.Bienstman@UGent.be>
+# SQLite_criterion_applier.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.criterion import CriterionApplier

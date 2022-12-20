@@ -1,5 +1,5 @@
 #
-# configuration_wdgt_card_appearance.py <Peter.Bienstman@UGent.be>
+# configuration_wdgt_card_appearance.py <Peter.Bienstman@gmail.com>
 #
 
 from copy import deepcopy

@@ -1,5 +1,5 @@
 #
-# activate_cards_on_rollover.py <Peter.Bienstman@UGent.be>
+# activate_cards_on_rollover.py <Peter.Bienstman@gmail.com>
 #
 
 # Assumes you have a set of cards belonging to inactive tags, which you

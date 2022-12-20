@@ -1,5 +1,5 @@
 #
-# add_tags_dlg.py <Peter.Bienstman@UGent.be>
+# add_tags_dlg.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtCore, QtGui, QtWidgets

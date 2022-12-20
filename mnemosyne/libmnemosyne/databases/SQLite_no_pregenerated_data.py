@@ -1,5 +1,5 @@
 #
-# SQLite_no_pregenerated_data.py <Peter.Bienstman@UGent.be>
+# SQLite_no_pregenerated_data.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.databases.SQLite import SQLite

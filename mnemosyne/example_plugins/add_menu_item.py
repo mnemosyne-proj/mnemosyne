@@ -1,5 +1,5 @@
 #
-# add_menu_item.py <Peter.Bienstman@UGent.be>
+# add_menu_item.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtCore, QtGui, QtWidgets

@@ -1,5 +1,5 @@
 #
-# component.py <Peter.Bienstman@UGent.be>
+# component.py <Peter.Bienstman@gmail.com>
 #
 
 

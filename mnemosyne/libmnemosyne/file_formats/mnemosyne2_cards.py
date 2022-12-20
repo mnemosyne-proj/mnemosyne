@@ -1,5 +1,5 @@
 #
-# mnemosyne2_cards.py <Peter.Bienstman@UGent.be>
+# mnemosyne2_cards.py <Peter.Bienstman@gmail.com>
 #
 
 import os

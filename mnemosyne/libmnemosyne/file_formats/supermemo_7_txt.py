@@ -1,5 +1,5 @@
 #
-# supermemo_7_text.py Dirk Herrmann, <Peter.Bienstman@UGent.be>
+# supermemo_7_text.py Dirk Herrmann, <Peter.Bienstman@gmail.com>
 #
 
 import re

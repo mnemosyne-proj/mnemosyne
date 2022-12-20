@@ -1,5 +1,5 @@
 #
-# export_metadata_dlg.py <Peter.Bienstman@UGent.be>
+# export_metadata_dlg.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtGui, QtCore, QtWidgets

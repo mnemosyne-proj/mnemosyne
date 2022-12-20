@@ -1,5 +1,5 @@
 #
-# dlgs.py <Peter.Bienstman@UGent.be>
+# dlgs.py <Peter.Bienstman@gmail.com>
 #
 
 import _dlgs as _

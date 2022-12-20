@@ -1,5 +1,5 @@
 #
-# log_uploader.py <Peter.Bienstman@UGent.be>
+# log_uploader.py <Peter.Bienstman@gmail.com>
 #
 
 import os

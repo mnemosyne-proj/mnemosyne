@@ -5,7 +5,7 @@ import os, sys, shutil
 block_cipher = None
 
 datas = [('mo', 'mo'), ('pixmaps', 'pixmaps')]
-excludes = ['PyQt5', 'tcl', 'tk']
+excludes = ['PyQt5', 'Qt5', 'tcl', 'tk', 'IPython', 'lib2to3']
 binaries = []
 
 hiddenimports = [
@@ -307,11 +307,7 @@ hiddenimports = [
              'mnemosyne.web_server.web_server_render_chain'
 ]
 
-if sys.platform == 'win32':
-             excludes = ['IPython', 'lib2to3']
-
 if sys.platform == 'darwin':
-             binaries.append(('/usr/local/bin/mplayer', '.'))
              binaries.append(('/usr/local/lib/libcaca.0.dylib', '.'))
              binaries.append(('/opt/X11/lib/libGL.1.dylib', '.'))
              binaries.append(('/opt/X11/lib/libglut.3.dylib', '.'))
@@ -356,19 +352,6 @@ a = Analysis([os.path.join('mnemosyne', 'pyqt_ui', 'mnemosyne')],
               },
              )
 
-# Still seems to pick up PyQt5 somehow, so we remove it manually.
-
-a.datas = [x for x in a.datas if not "qt5" in x[0].lower()]
-a.pure = [x for x in a.pure if not "qt5" in x[0].lower()]
-a.zipped_data = [x for x in a.zipped_data if not "qt5" in x[0].lower()]
-
-for x in a.datas:
-  print("Datas", x[0], "qt5" in x[0].lower())
-for x in a.pure:
-  print("Pure", x[0], "qt5" in x[0].lower())
-for x in a.zipped_data:
-  print("Zipped", x[0], "qt5" in x[0].lower())
-  
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
 codesign_identity = os.environ['CODESIGN_IDENTITY'] \
@@ -384,6 +367,11 @@ exe = EXE(pyz,
           console=False,
           codesign_identity=codesign_identity,
           icon=os.path.join('pixmaps', 'mnemosyne.ico'))
+
+# Not needed, but in case we ever need to remove something manually,
+# this is how to do it:
+#a.binaries = [x for x in a.binaries if not "qt5" in x[0].lower()]
+#a.datas = [x for x in a.datas if not "qt5" in x[0].lower()]
 
 coll = COLLECT(exe,
                a.binaries,

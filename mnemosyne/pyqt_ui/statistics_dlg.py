@@ -1,5 +1,5 @@
 #
-# statistics_dlg.py <Peter.Bienstman@UGent.be>
+# statistics_dlg.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtCore, QtGui, QtWidgets

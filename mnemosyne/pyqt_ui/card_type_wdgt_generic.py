@@ -1,5 +1,5 @@
 #
-# card_type_wdgt_generic.py <Peter.Bienstman@UGent.be>
+# card_type_wdgt_generic.py <Peter.Bienstman@gmail.com>
 #
 
 import re

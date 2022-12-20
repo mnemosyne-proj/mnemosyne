@@ -1,5 +1,5 @@
 #
-# qwebengineview2.py <Peter.Bienstman@UGent.be>
+# qwebengineview2.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtWebEngineWidgets

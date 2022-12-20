@@ -1,5 +1,5 @@
 #
-# RTL_handler.py <Peter.Bienstman@UGent.be>
+# RTL_handler.py <Peter.Bienstman@gmail.com>
 #
 
 import string

@@ -1,5 +1,5 @@
 #
-# example_client.py <Peter.Bienstman@UGent.be>
+# example_client.py <Peter.Bienstman@gmail.com>
 #
 
 PORT = 6666

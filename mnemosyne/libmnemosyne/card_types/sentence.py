@@ -1,5 +1,5 @@
 #
-# sentence.py <Peter.Bienstman@UGent.be>
+# sentence.py <Peter.Bienstman@gmail.com>
 #
 
 import re

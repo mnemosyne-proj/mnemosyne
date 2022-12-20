@@ -1,5 +1,5 @@
 #
-# sundanese.py <Peter.Bienstman@UGent.be>
+# sundanese.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

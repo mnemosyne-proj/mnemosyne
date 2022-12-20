@@ -1,5 +1,5 @@
 #
-# catalan.py <Peter.Bienstman@UGent.be>
+# catalan.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

@@ -1,5 +1,5 @@
 #
-# export_stats.py <Peter.Bienstman@UGent.be>
+# export_stats.py <Peter.Bienstman@gmail.com>
 #
 
 HOUR = 60 * 60 # Seconds in an hour.

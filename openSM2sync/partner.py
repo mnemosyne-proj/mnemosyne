@@ -1,5 +1,5 @@
 #
-# partner.py <Peter.Bienstman@UGent.be>
+# partner.py <Peter.Bienstman@gmail.com>
 #
 
 import os

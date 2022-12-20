@@ -1,5 +1,5 @@
 #
-# clone_card_type_dlg.py <Peter.Bienstman@UGent.be>
+# clone_card_type_dlg.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtCore, QtGui, QtWidgets

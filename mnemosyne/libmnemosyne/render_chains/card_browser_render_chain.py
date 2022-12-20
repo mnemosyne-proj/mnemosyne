@@ -1,5 +1,5 @@
 #
-# card_browser_render_chain.py <Peter.Bienstman@UGent.be>
+# card_browser_render_chain.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.render_chain import RenderChain

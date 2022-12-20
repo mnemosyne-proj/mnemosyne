@@ -1,6 +1,6 @@
 
 #
-# mnemosyne1_mem.py <Peter.Bienstman@UGent.be>
+# mnemosyne1_mem.py <Peter.Bienstman@gmail.com>
 #
 
 import os

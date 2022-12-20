@@ -1,5 +1,5 @@
 #
-# qt_web_server.py <Peter.Bienstman@UGent.be>
+# qt_web_server.py <Peter.Bienstman@gmail.com>
 #
 
 import os

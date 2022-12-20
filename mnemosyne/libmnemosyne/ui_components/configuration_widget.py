@@ -1,5 +1,5 @@
 #
-# configuration_widget.py <Peter.Bienstman@UGent.be>
+# configuration_widget.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.ui_component import UiComponent

@@ -1,5 +1,5 @@
 #
-# controller.py <Peter.Bienstman@UGent.be>
+# controller.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.component import Component

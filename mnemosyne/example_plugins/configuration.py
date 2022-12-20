@@ -1,5 +1,5 @@
  
-# configuration.py <Peter.Bienstman@UGent.be>
+# configuration.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtCore, QtGui, QtWidgets

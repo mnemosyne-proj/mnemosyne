@@ -1,5 +1,5 @@
 #
-# SQLite_media.py <Peter.Bienstman@UGent.be>
+# SQLite_media.py <Peter.Bienstman@gmail.com>
 #
 
 import os

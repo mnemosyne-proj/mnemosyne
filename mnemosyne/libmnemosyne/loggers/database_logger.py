@@ -1,5 +1,5 @@
 #
-# database_logger.py <Peter.Bienstman@UGent.be>
+# database_logger.py <Peter.Bienstman@gmail.com>
 #
 
 import os

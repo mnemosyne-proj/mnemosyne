@@ -1,5 +1,5 @@
 #
-# latex.py <Peter.Bienstman@UGent.be>
+# latex.py <Peter.Bienstman@gmail.com>
 #
 
 import os

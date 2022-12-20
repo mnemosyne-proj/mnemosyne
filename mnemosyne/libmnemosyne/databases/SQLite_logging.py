@@ -1,5 +1,5 @@
 #
-# SQLite_logging.py <Peter.Bienstman@UGent.be>
+# SQLite_logging.py <Peter.Bienstman@gmail.com>
 #
 
 import os

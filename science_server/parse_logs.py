@@ -1,5 +1,5 @@
 #
-# parse_logs.py <Peter.Bienstman@UGent.be>
+# parse_logs.py <Peter.Bienstman@gmail.com>
 #
 
 import os

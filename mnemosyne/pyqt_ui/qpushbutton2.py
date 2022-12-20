@@ -1,5 +1,5 @@
 #
-# qpushbutton2.py <Peter.Bienstman@UGent.be>
+# qpushbutton2.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtGui, QtWidgets

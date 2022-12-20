@@ -1,5 +1,5 @@
 #
-# fact.py <Peter.Bienstman@UGent.be>
+# fact.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.utils import rand_uuid, CompareOnId

@@ -1,5 +1,5 @@
 #
-# expand_paths.py <Peter.Bienstman@UGent.be>
+# expand_paths.py <Peter.Bienstman@gmail.com>
 #
 
 import sys

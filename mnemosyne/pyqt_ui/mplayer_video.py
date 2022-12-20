@@ -1,5 +1,5 @@
 #
-# mplayer_video.py <Peter.Bienstman@UGent.be>
+# mplayer_video.py <Peter.Bienstman@gmail.com>
 #
 
 import os

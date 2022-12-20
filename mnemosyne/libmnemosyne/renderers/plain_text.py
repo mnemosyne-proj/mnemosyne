@@ -1,5 +1,5 @@
 #
-# plain_text.py <Peter.Bienstman@UGent.be>
+# plain_text.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.renderer import Renderer

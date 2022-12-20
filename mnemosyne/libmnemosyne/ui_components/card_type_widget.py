@@ -1,5 +1,5 @@
 #
-# card_type_widget.py <Peter.Bienstman@UGent.be>
+# card_type_widget.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.component import Component

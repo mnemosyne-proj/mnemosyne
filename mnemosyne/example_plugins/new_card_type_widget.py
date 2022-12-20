@@ -1,5 +1,5 @@
 #
-# new_card_type_widget.py <Peter.Bienstman@UGent.be>
+# new_card_type_widget.py <Peter.Bienstman@gmail.com>
 #
 
 # Colour the widget for the front to back card type red.

@@ -1,5 +1,5 @@
 #
-# no_gui_translator.py <Peter.Bienstman@UGent.be>
+# no_gui_translator.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import GuiTranslator

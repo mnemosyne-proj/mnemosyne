@@ -1,5 +1,5 @@
 #
-# malayalam.py <Peter.Bienstman@UGent.be>
+# malayalam.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

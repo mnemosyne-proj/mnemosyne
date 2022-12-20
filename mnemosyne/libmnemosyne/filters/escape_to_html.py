@@ -1,5 +1,5 @@
 #
-# escape_to_html.py <Peter.Bienstman@UGent.be>
+# escape_to_html.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.filter import Filter

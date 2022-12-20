@@ -1,5 +1,5 @@
 #
-# configuration_wdgt_study.py <Peter.Bienstman@UGent.be>
+# configuration_wdgt_study.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtCore, QtGui, QtWidgets

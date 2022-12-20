@@ -1,5 +1,5 @@
 #
-# grades_criterion.py <Peter.Bienstman@UGent.be>
+# grades_criterion.py <Peter.Bienstman@gmail.com>
 #
 
 # The criterion itself.

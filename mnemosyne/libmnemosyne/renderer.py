@@ -1,5 +1,5 @@
 #
-# renderer.py <Peter.Bienstman@UGent.be>
+# renderer.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.component import Component

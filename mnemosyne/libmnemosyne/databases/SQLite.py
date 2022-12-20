@@ -1,5 +1,5 @@
 #
-# SQLite.py - Ed Bartosh <bartosh@gmail.com>, <Peter.Bienstman@UGent.be>
+# SQLite.py - Ed Bartosh <bartosh@gmail.com>, <Peter.Bienstman@gmail.com>
 #
 
 import os

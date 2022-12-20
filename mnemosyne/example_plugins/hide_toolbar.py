@@ -1,5 +1,5 @@
 #
-# hide_toolbar.py <Peter.Bienstman@UGent.be>
+# hide_toolbar.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtCore, QtGui

@@ -1,5 +1,5 @@
 #
-# qt_sync_server.py <Peter.Bienstman@UGent.be>
+# qt_sync_server.py <Peter.Bienstman@gmail.com>
 #
 
 import os

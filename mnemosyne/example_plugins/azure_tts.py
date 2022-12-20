@@ -1,5 +1,5 @@
 #
-# azure_tts.py <Peter.Bienstman@UGent.be>
+# azure_tts.py <Peter.Bienstman@gmail.com>
 #
 
 # Set up your account according to

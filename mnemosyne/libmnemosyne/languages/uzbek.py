@@ -1,5 +1,5 @@
 #
-# uzbek.py <Peter.Bienstman@UGent.be>
+# uzbek.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

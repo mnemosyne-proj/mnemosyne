@@ -1,5 +1,5 @@
 #
-# criterion_wdgt_default.py <Peter.Bienstman@UGent.be>
+# criterion_wdgt_default.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtCore, QtGui, QtWidgets

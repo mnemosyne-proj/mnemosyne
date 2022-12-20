@@ -1,5 +1,5 @@
 #
-# sindhi.py <Peter.Bienstman@UGent.be>
+# sindhi.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

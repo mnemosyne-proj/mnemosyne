@@ -1,5 +1,5 @@
 #
-# Widget to preview set of sister cards <Peter.Bienstman@UGent.be>
+# Widget to preview set of sister cards <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtCore, QtGui, QtWidgets

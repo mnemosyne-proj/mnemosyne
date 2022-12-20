@@ -1,5 +1,5 @@
 #
-# shortcuts.py <Peter.Bienstman@UGent.be>
+# shortcuts.py <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtCore

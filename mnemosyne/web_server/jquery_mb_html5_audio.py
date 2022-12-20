@@ -1,5 +1,5 @@
 #
-# jquery_mb_html5_audio.py <Peter.Bienstman@UGent.be>
+# jquery_mb_html5_audio.py <Peter.Bienstman@gmail.com>
 #
 
 import re

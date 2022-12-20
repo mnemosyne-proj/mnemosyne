@@ -1,5 +1,5 @@
 #
-# sinhala.py <Peter.Bienstman@UGent.be>
+# sinhala.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

@@ -1,5 +1,5 @@
 #
-# binary_format.py <Peter.Bienstman@UGent.be>
+# binary_format.py <Peter.Bienstman@gmail.com>
 #
 
 class BinaryFormat(object):

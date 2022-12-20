@@ -1,5 +1,5 @@
 #
-# statistics_page.py <Peter.Bienstman@UGent.be>
+# statistics_page.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

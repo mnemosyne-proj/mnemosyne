@@ -1,5 +1,5 @@
 #
-# card.py <Peter.Bienstman@UGent.be>
+# card.py <Peter.Bienstman@gmail.com>
 #
 
 import time

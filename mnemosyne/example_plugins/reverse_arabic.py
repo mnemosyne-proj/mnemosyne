@@ -1,5 +1,5 @@
 #
-# reverse_arabic.py <Peter.Bienstman@UGent.be>
+# reverse_arabic.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.filter import Filter

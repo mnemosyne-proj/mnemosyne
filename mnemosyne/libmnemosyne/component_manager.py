@@ -1,5 +1,5 @@
 #
-# component_manager.py <Peter.Bienstman@UGent.be>
+# component_manager.py <Peter.Bienstman@gmail.com>
 #
 
 class ComponentManager(object):

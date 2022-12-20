@@ -1,5 +1,5 @@
 #
-# statistics_wdgts_plotting.py <mike@peacecorps.org.cv>, <Peter.Bienstman@UGent.be>
+# statistics_wdgts_plotting.py <mike@peacecorps.org.cv>, <Peter.Bienstman@gmail.com>
 #
 
 from PyQt6 import QtGui, QtWidgets

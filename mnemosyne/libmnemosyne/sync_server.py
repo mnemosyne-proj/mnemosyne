@@ -1,5 +1,5 @@
 #
-# sync_server.py <Peter.Bienstman@UGent.be>
+# sync_server.py <Peter.Bienstman@gmail.com>
 #
 
 import os

@@ -1,5 +1,5 @@
 #
-# _aspw.py <Peter.Bienstman@UGent.be>
+# _aspw.py <Peter.Bienstman@gmail.com>
 #
 
 #

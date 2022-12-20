@@ -1,5 +1,5 @@
 #
-#  anki2.py Peter.Bienstman@UGent.be>
+#  anki2.py Peter.Bienstman@gmail.com>
 #
 
 import os

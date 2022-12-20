@@ -1,5 +1,5 @@
 #
-# card_type.py <Peter.Bienstman@UGent.be>
+# card_type.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.card import Card

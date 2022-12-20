@@ -1,5 +1,5 @@
 #
-# scheduler.py <Peter.Bienstman@UGent.be>
+# scheduler.py <Peter.Bienstman@gmail.com>
 #
 
 import calendar

@@ -1,5 +1,5 @@
 #
-# non_latin_font_size_increase.py <Peter.Bienstman@UGent.be>
+# non_latin_font_size_increase.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.filter import Filter

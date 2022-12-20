@@ -1,5 +1,5 @@
 #
-# sync_to_card_only_client.py <Peter.Bienstman@UGent.be>
+# sync_to_card_only_client.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.filters.latex import Latex
