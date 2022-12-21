@@ -7,6 +7,7 @@ Mnemosyne 2.10:
 - Optimised startup time.
 - Switched audio and video support from mplayer to Qt.
 - Fix Google text-to-speech for Spanish (reported by Language Lover).
+- Google translator should work again.
 - Support for multiple audiofiles in the webserver (patch by jooseef).
 - Scale images and add support for Map card type in web client (patch by 
   gbear605).
