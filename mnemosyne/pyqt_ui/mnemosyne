@@ -204,6 +204,12 @@ font-size: 12px;
     }"""
 a.setStyleSheet(stylesheet)
 
+# FIXME: install in the system Python does not really work unless
+# you copy 'pixmaps' to 'C:\Program Files\Python311'
+# The statement below don't help.
+QtGui.QIcon.setFallbackSearchPaths(["C:/Program Files (x86)/Mnemosyne", 
+"C:/Program Files/Python311/Lib/site-packages/Mnemosyne-2.10-py3.11.egg"])
+
 # Add other components we need. The translator should come first.
 # The UI components should come in the order they should be instantiated,
 # but apart from that, the order does not matter.
