@@ -439,11 +439,11 @@ class BrowseCardsDlg(QtWidgets.QDialog, BrowseCardsDialog,
     def context_menu(self, point):
         menu = QtWidgets.QMenu(self)
         edit_action = QtGui.QAction(_("&Edit"), menu)
-        edit_action.setShortcut(QtCore.Qt.Modifier.CTRL + QtCore.Qt.Key.Key_E)
+        edit_action.setShortcut(QtGui.QKeySequence("Ctrl+E"))
         edit_action.triggered.connect(self.menu_edit)
         menu.addAction(edit_action)
         preview_action = QtGui.QAction(_("&Preview"), menu)
-        preview_action.setShortcut(QtCore.Qt.Modifier.CTRL + QtCore.Qt.Key.Key_P)
+        preview_action.setShortcut(QtGui.QKeySequence("Ctrl+P"))
         preview_action.triggered.connect(self.menu_preview)
         menu.addAction(preview_action)
         delete_action = QtGui.QAction(_("&Delete"), menu)
