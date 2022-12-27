@@ -117,7 +117,7 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
             [_("All card types (%d)") % root_count], 0)
         root_item.setFlags(root_item.flags() | \
            QtCore.Qt.ItemFlag.ItemIsUserCheckable | \
-           QtCore.Qt.ItemFlag.ItemIsUserTristate)
+           QtCore.Qt.ItemFlag.ItemIsAutoTristate)
         root_item.setCheckState(0, QtCore.Qt.CheckState.Checked)
         for card_type in self.database().sorted_card_types():
             if card_type.hidden_from_UI:
@@ -125,7 +125,7 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
             card_type_item = QtWidgets.QTreeWidgetItem(root_item, ["%s (%d)" % \
                 (_(card_type.name), count_for_card_type[card_type])], 0)
             card_type_item.setFlags(card_type_item.flags() | \
-                QtCore.Qt.ItemFlag.ItemIsUserCheckable | QtCore.Qt.ItemFlag.ItemIsUserTristate)
+                QtCore.Qt.ItemFlag.ItemIsUserCheckable | QtCore.Qt.ItemFlag.ItemIsAutoTristate)
             card_type_item.setCheckState(0, QtCore.Qt.CheckState.Checked)
             card_type_item.setData(NODE, QtCore.Qt.ItemDataRole.DisplayRole,
                     QtCore.QVariant(card_type.id))

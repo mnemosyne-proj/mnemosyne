@@ -186,7 +186,7 @@ class TagsTreeWdgt(Component, QtWidgets.QWidget):
                 self.tag_tree.card_count_for_node[node])
             node_item = QtWidgets.QTreeWidgetItem(qt_parent, [node_name, node], 0)
             node_item.setFlags(node_item.flags() | \
-                QtCore.Qt.ItemFlag.ItemIsUserCheckable | QtCore.Qt.ItemFlag.ItemIsUserTristate)
+                QtCore.Qt.ItemFlag.ItemIsUserCheckable | QtCore.Qt.ItemFlag.ItemIsAutoTristate)
             if node not in ["__ALL__", "__UNTAGGED__"] and \
                 not "::" + _("Untagged") in node:
                 node_item.setFlags(node_item.flags() | \
@@ -221,7 +221,7 @@ class TagsTreeWdgt(Component, QtWidgets.QWidget):
         root_item = QtWidgets.QTreeWidgetItem(\
             self.tree_wdgt, [node_name, node], 0)
         root_item.setFlags(root_item.flags() | \
-           QtCore.Qt.ItemFlag.ItemIsUserCheckable | QtCore.Qt.ItemFlag.ItemIsUserTristate)
+           QtCore.Qt.ItemFlag.ItemIsUserCheckable | QtCore.Qt.ItemFlag.ItemIsAutoTristate)
         root_item.setCheckState(0, QtCore.Qt.CheckState.Checked)
         self.create_tree(self.tag_tree[node], qt_parent=root_item)
         # Set forbidden tags.
