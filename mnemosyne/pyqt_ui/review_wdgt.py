@@ -530,12 +530,15 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
     def player_status_changed(self, result):
         if result == QMediaPlayer.MediaStatus.BufferedMedia:
             self.player.setPosition(int(self.current_media_start*1000))
-        if len(self.media_queue) >= 1 and \
-            result == QMediaPlayer.MediaStatus.EndOfMedia:
-            self.player.positionChanged.disconnect()
-            self.play_next_file()
+        elif result == QMediaPlayer.MediaStatus.EndOfMedia:
+            if len(self.media_queue) >= 1:
+                self.player.positionChanged.disconnect()
+                self.play_next_file()
+            else:
+                self.player.setSource(QtCore.QUrl(None))
 
     def stop_media(self):
         if self.player:
             self.player.stop()
+            self.player.setSource(QtCore.QUrl(None))
         self.media_queue = []
