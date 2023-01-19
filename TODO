@@ -1,3 +1,4 @@
+- more Azure plugins?
 - postpone indefinitely/stop scheduling/postpone 100 years/remove from learning process?
 - replace setup.py. Install in Windows system does not find icons.
 
@@ -88,6 +89,7 @@ Minor bugs / issues:
  seem to sync across?
 -if the sync changed the appearance settings, the current card's question still
  shows the old appearance
+-underline and overline don't work together in review window. 
 -note: sync from a to b and then to c adds latex files to the media table. Is
  this aproblem? Can the table become corrupt?
 -heartbeat in headless server: if a sync request comes in while this is running,
@@ -173,11 +175,9 @@ created with just the "»" symbol.
 
 Other features:
 
+- https://github.com/open-spaced-repetition/fsrs4anki
 - 'not' operator in searches
-
 - switch to PyOxidizer when it supports PyQt?
-
-- plugin to deactivate cards in a certain cardtype after X retention reps.
 
 -check for required fields when using the Anki card type.
 
