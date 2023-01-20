@@ -42,6 +42,7 @@ class HtmlCssCardBrowser(HtmlCss):
             font_string = self.config().card_type_property(\
                 "font", card_type, proxy_fact_key)
             if font_string:
+                style = ""
                 if font_string.count(",") == 9:
                     family,size,x,x,w,i,u,s,x,x = font_string.split(",")
                 elif font_string.count(",") == 10:
@@ -49,7 +50,7 @@ class HtmlCssCardBrowser(HtmlCss):
                 else:
                     #Segoe UI,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,Regular
                     #Segoe UI,26,-1,5,700,1,1,1,0,0,0,0,0,0,0,1,Bold Italic
-                    family,size,x,x,w,i,u,s,x,x,x,x,x,x,x,x,x \
+                    family,size,x,x,w,i,u,s,x,x,x,x,x,x,x,x,style \
                         = font_string.split(",")                    
                 css += "font-family: \"%s\"; " % family
                 if w == "25":
