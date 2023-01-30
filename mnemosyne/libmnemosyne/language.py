@@ -1,5 +1,5 @@
 #
-# language.py <Peter.Bienstman@UGent.be>
+# language.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.component import Component

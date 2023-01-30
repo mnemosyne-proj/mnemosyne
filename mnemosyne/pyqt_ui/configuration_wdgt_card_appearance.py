@@ -1,10 +1,10 @@
 #
-# configuration_wdgt_card_appearance.py <Peter.Bienstman@UGent.be>
+# configuration_wdgt_card_appearance.py <Peter.Bienstman@gmail.com>
 #
 
 from copy import deepcopy
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.gui_translator import _
@@ -31,6 +31,8 @@ class ConfigurationWdgtCardAppearance(QtWidgets.QWidget, ConfigurationWidget,
             (self.config()['non_latin_font_size_increase'])
         # We calculate card_type_by_name here because these names can change
         # if the user chooses another translation.
+        self.card_types_widget.currentTextChanged[str].\
+            connect(self.card_type_changed)
         self.card_types_widget.addItem(_("<all card types>"))
         self.card_type_by_name = {}
         for card_type in self.database().sorted_card_types():
@@ -44,7 +46,7 @@ class ConfigurationWdgtCardAppearance(QtWidgets.QWidget, ConfigurationWidget,
             deepcopy(self.config()["background_colour"])
         self.old_font_colour = deepcopy(self.config()["font_colour"])
         self.old_alignment = deepcopy(self.config()["alignment"])
-
+        
     def card_type_changed(self, new_card_type_name):
         non_latin_widgets = [self.label_non_latin_1, self.label_non_latin_2,
                 self.label_non_latin_3, self.line_non_latin,
@@ -96,8 +98,8 @@ class ConfigurationWdgtCardAppearance(QtWidgets.QWidget, ConfigurationWidget,
             row += 1
         self.gridLayout.setColumnStretch(1, 10)
         self.gridLayout.setColumnStretch(2, 10)
-        self.font_buttons.buttonClicked[int].connect(self.update_font)
-        self.colour_buttons.buttonClicked[int].\
+        self.font_buttons.idClicked[int].connect(self.update_font)
+        self.colour_buttons.idClicked[int].\
             connect(self.update_font_colour)
 
         current_alignment = self.config().card_type_property(\
@@ -129,7 +131,7 @@ class ConfigurationWdgtCardAppearance(QtWidgets.QWidget, ConfigurationWidget,
         if current_rgb:
             current_colour = QtGui.QColor(current_rgb)
         else:
-            current_colour = self.palette().color(QtGui.QPalette.Base)
+            current_colour = self.palette().color(QtGui.QPalette.ColorRole.Base)
         # Set new colour.
         colour = QtWidgets.QColorDialog.getColor(current_colour, self)
         if colour.isValid():
@@ -187,7 +189,7 @@ class ConfigurationWdgtCardAppearance(QtWidgets.QWidget, ConfigurationWidget,
         if current_rgb:
             current_colour = QtGui.QColor(current_rgb)
         else:
-            current_colour = QtGui.QColor(QtCore.Qt.black)
+            current_colour = QtGui.QColor(QtCore.Qt.GlobalColor.black)
         # Set new colour.
         colour = QtWidgets.QColorDialog.getColor(current_colour, self)
         if colour.isValid():
@@ -233,7 +235,7 @@ class ConfigurationWdgtCardAppearance(QtWidgets.QWidget, ConfigurationWidget,
         tag_text = ""
         dlg = PreviewCardsDlg(cards, tag_text,
             component_manager=self.component_manager, parent=self)
-        dlg.exec_()
+        dlg.exec()
 
     def reset_to_defaults(self):
         if len(self.affected_card_types) > 1:

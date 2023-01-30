@@ -1,8 +1,8 @@
 #
-# statistics_wdgt_html.py <Peter.Bienstman@UGent.be>
+# statistics_wdgt_html.py <Peter.Bienstman@gmail.com>
 #
 
-from PyQt5 import QtCore, QtWebEngineWidgets
+from PyQt6 import QtCore, QtWebEngineWidgets
 
 from mnemosyne.libmnemosyne.statistics_page import HtmlStatisticsPage
 from mnemosyne.libmnemosyne.ui_components.statistics_widget import \

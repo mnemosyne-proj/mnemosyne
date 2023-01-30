@@ -5,7 +5,7 @@
 import os
 import sys
 
-from PyQt5.QtCore import QTranslator, QCoreApplication, QLocale
+from PyQt6.QtCore import QTranslator, QCoreApplication, QLocale
 
 from mnemosyne.libmnemosyne.gui_translators.gettext_gui_translator \
      import GetTextGuiTranslator
@@ -26,12 +26,12 @@ class QtGuiTranslator(GetTextGuiTranslator):
             self.qt_dir = os.environ["QTDIR"]
         except:
             if sys.platform == "win32":
-                self.qt_dir = os.path.join(sys.exec_prefix, "share", "qt5")
+                self.qt_dir = os.path.join(sys.exec_prefix, "share", "qt6")
             else:
-                self.qt_dir = os.path.join("/usr", "share", "qt5")
+                self.qt_dir = os.path.join("/usr", "share", "qt6")
         # Avoid stuff like Thai numerals if the language is not explicitly
         # set to Thai.
-        QLocale.setDefault(QLocale(QLocale.English, QLocale.UnitedStates))
+        QLocale.setDefault(QLocale(QLocale.Language.English, QLocale.Country.UnitedStates))
 
     def translate_ui(self, language):
         app = QCoreApplication.instance()

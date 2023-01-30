@@ -1,5 +1,5 @@
 #
-# backup.py <Peter.Bienstman@UGent.be>
+# backup.py <Peter.Bienstman@gmail.com>
 #
 
 import os

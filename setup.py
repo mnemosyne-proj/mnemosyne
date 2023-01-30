@@ -75,7 +75,7 @@ class build_windows_installer(Command):
 
 if sys.platform == "darwin": # For py2app.
     base_path = ""
-    data_files = [("", ["/usr/local/bin/mplayer"])]
+    data_files = []
 else:
     base_path = os.path.join(sys.exec_prefix, "lib", "python" + sys.version[:3],
                              "site-packages","mnemosyne")
@@ -90,10 +90,21 @@ if sys.platform != "win32":
             os.path.split(mo)[1], "LC_MESSAGES"),
             [os.path.join(mo, "LC_MESSAGES", "mnemosyne.mo")]))
 
+for mo in [x for x in glob.glob(os.path.join("mo", "*"))
+            if os.path.isdir(x)]:
+    data_files.append((os.path.join(sys.exec_prefix, "share", "locale",
+        os.path.split(mo)[1], "LC_MESSAGES"),
+        [os.path.join(mo, "LC_MESSAGES", "mnemosyne.mo")]))
+
 pixmap_path = os.path.join(base_path, "pixmaps")
 util_path = os.path.join(base_path, "util")
 doc_path = os.path.join(base_path, "docs")
 build_path = os.path.join(base_path, "build")
+
+# Pixmaps.
+for pixmap in os.listdir("pixmaps"):
+    data_files.append(("pixmaps",
+        [os.path.join("pixmaps", pixmap)]))
 
 setup_requires = []
 
@@ -171,7 +182,7 @@ packages = ["mnemosyne",
 setup(name = "Mnemosyne",
       version = mnemosyne.version.version,
       author = "Peter Bienstman",
-      author_email = "Peter.Bienstman@UGent.be",
+      author_email = "Peter.Bienstman@gmail.com",
       packages = packages,
       package_dir = {"mnemosyne": "mnemosyne"},
       data_files = data_files,

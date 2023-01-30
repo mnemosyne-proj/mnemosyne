@@ -1,5 +1,5 @@
 //
-// mnemosyne.c <Peter.Bienstman@UGent.be>
+// mnemosyne.c <Peter.Bienstman@gmail.com>
 //
 
 // Very simple client illustrating the basic structure of a frontend which

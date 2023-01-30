@@ -1,8 +1,8 @@
 #
-# statistics_dlg.py <Peter.Bienstman@UGent.be>
+# statistics_dlg.py <Peter.Bienstman@gmail.com>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.component import Component
@@ -24,9 +24,9 @@ class StatisticsDlg(QtWidgets.QDialog, StatisticsDialog, Ui_StatisticsDlg):
         StatisticsDialog.activate(self)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
-            | QtCore.Qt.WindowMinMaxButtonsHint)
+            | QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+            & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         previous_page_index = self.config()["previous_statistics_page"]
         page_index = 0
         for page in self.component_manager.all("statistics_page"):
@@ -46,7 +46,7 @@ class StatisticsDlg(QtWidgets.QDialog, StatisticsDialog, Ui_StatisticsDlg):
         # Only now do we connect the signal in order to have lazy
         # instantiation.
         self.tab_widget.currentChanged[int].connect(self.display_page)
-        self.exec_()
+        self.exec()
 
     def _store_state(self):
         self.config()["statistics_dlg_state"] = self.saveGeometry()

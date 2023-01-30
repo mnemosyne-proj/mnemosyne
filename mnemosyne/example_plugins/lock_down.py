@@ -1,8 +1,8 @@
 #
-# lock_down.py <Peter.Bienstman@UGent.be>
+# lock_down.py <Peter.Bienstman@gmail.com>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.plugin import Plugin
 

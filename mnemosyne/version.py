@@ -1,4 +1,6 @@
-version = "2.9"
+import sys
+
+version = "2.10"
 
 if __name__ == "__main__":
-    print(version)
+    sys.stdout.write(version)

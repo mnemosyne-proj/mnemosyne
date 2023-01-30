@@ -1,5 +1,5 @@
 #
-# xml_format.py <Peter.Bienstman@UGent.be>
+# xml_format.py <Peter.Bienstman@gmail.com>
 #
 
 from xml.sax import saxutils

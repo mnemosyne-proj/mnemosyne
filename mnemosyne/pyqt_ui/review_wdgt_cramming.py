@@ -1,8 +1,8 @@
 #
-# review_wdgt_cramming.py <Peter.Bienstman@UGent.be>
+# review_wdgt_cramming.py <Peter.Bienstman@gmail.com>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtWidgets, QtGui
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.review_wdgt import ReviewWdgt
@@ -24,13 +24,18 @@ class ReviewWdgtCramming(ReviewWdgt):
         self.wrong = QtWidgets.QLabel("", parent.status_bar)
         self.unseen = QtWidgets.QLabel("", parent.status_bar)
         self.active = QtWidgets.QLabel("", parent.status_bar)
+        self.font = QtGui.QFont()
+        self.font.setPointSize(10)
+        self.wrong.setFont(self.font)
+        self.unseen.setFont(self.font)
+        self.active.setFont(self.font)
         parent.clear_status_bar()
         parent.add_to_status_bar(self.wrong)
         parent.add_to_status_bar(self.unseen)
         parent.add_to_status_bar(self.active)
 
     def changeEvent(self, event):
-        if event.type() == QtCore.QEvent.LanguageChange:
+        if event.type() == QtCore.QEvent.Type.LanguageChange:
             self.retranslateUi(self)
         # Upon start, there will be a change event before the grade
         # buttons have been created.
@@ -41,10 +46,10 @@ class ReviewWdgtCramming(ReviewWdgt):
 
     def keyPressEvent(self, event):
         if self.review_controller().is_answer_showing():
-            if event.key() in [QtCore.Qt.Key_0, QtCore.Qt.Key_1]:
+            if event.key() in [QtCore.Qt.Key.Key_0, QtCore.Qt.Key.Key_1]:
                 return self.grade_answer(0)
-            elif event.key() in [QtCore.Qt.Key_2, QtCore.Qt.Key_3,
-                QtCore.Qt.Key_4, QtCore.Qt.Key_5]:
+            elif event.key() in [QtCore.Qt.Key.Key_2, QtCore.Qt.Key.Key_3,
+                QtCore.Qt.Key.Key_4, QtCore.Qt.Key.Key_5]:
                 return self.grade_answer(5)
         super().keyPressEvent(event)
 
@@ -54,4 +59,3 @@ class ReviewWdgtCramming(ReviewWdgt):
         self.wrong.setText(_("Wrong:") + " %d " % wrong_count)
         self.unseen.setText(_("Unseen:") + " %d " % unseen_count)
         self.active.setText(_("Active:") + " %d " % active_count)
-

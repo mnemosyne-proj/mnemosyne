@@ -1,8 +1,8 @@
 #
-# about_dlg.py <Peter.Bienstman@UGent.be>
+# about_dlg.py <Peter.Bienstman@gmail.com>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.version import version
 from mnemosyne.libmnemosyne.gui_translator import _
@@ -16,13 +16,13 @@ class AboutDlg(QtWidgets.QDialog, AboutDialog, Ui_AboutDlg):
         super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
-            | QtCore.Qt.WindowMinMaxButtonsHint)
+            | QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+            & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         # Note: the svg file does not seem to work under windows.
-        #watermark = QtGui.QPixmap(":/mnemosyne/pixmaps/mnemosyne.svg").\
-        #    scaledToHeight(200, QtCore.Qt.SmoothTransformation)
-        watermark = QtGui.QPixmap(":/mnemosyne/pixmaps/mnemosyne.png")
+        #watermark = QtGui.QPixmap("pixmaps/mnemosyne.svg").\
+        #    scaledToHeight(200, QtCore.Qt.TransformationMode.SmoothTransformation)
+        watermark = QtGui.QPixmap("pixmaps/mnemosyne.png")
         self.watermark.setPixmap(watermark)
         self.about_label.setText("<b>" + _("Mnemosyne") + " " + version + "</b><br><br>" + \
            _("Main author: Peter Bienstman") + "<br><br>" + \
@@ -31,5 +31,5 @@ class AboutDlg(QtWidgets.QDialog, AboutDialog, Ui_AboutDlg):
 
     def activate(self):
         AboutDialog.activate(self)
-        self.exec_()
+        self.exec()
         #self.show()

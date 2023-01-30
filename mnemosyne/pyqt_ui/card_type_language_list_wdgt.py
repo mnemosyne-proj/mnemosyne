@@ -1,8 +1,8 @@
 #
-# card_type_language_list_wdgt.py <Peter.Bienstman@UGent.be>
+# card_type_language_list_wdgt.py <Peter.Bienstman@gmail.com>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.component import Component
@@ -23,7 +23,7 @@ class ComboDelegate(QtWidgets.QItemDelegate, Component):
             editor.addItem("")
             for language in self.languages():
                 editor.addItem(language.name)
-            editor.currentIndexChanged.connect(\
+            editor.currentTextChanged.connect(\
                 lambda: self.update_foreign_keys(index, editor))
         if column == 2:
             self.foreign_key_combobox_for_row[row] = editor
@@ -62,12 +62,12 @@ class ComboDelegate(QtWidgets.QItemDelegate, Component):
         self.closeEditor.emit(editor)
 
     def paint(self, painter, option, index):
-        value = index.data(QtCore.Qt.DisplayRole)
+        value = index.data(QtCore.Qt.ItemDataRole.DisplayRole)
         style = QtWidgets.QApplication.style()
         opt = QtWidgets.QStyleOptionComboBox()
         opt.text = str(value)
         opt.rect = option.rect
-        style.drawComplexControl(QtWidgets.QStyle.CC_ComboBox, opt, painter)
+        style.drawComplexControl(QtWidgets.QStyle.ComplexControl.CC_ComboBox, opt, painter)
         QtWidgets.QItemDelegate.paint(self, painter, option, index)
 
     def setEditorData(self, editor, index):
@@ -100,15 +100,15 @@ class Model(QtCore.QAbstractTableModel, Component):
     def flags(self, index):
         column = index.column()
         if column == 0:
-            return QtCore.Qt.ItemIsEnabled | \
-                   QtCore.Qt.ItemIsSelectable
+            return QtCore.Qt.ItemFlag.ItemIsEnabled | \
+                   QtCore.Qt.ItemFlag.ItemIsSelectable
         else:
-            return QtCore.Qt.ItemIsEditable | \
-                   QtCore.Qt.ItemIsEnabled | \
-                   QtCore.Qt.ItemIsSelectable
+            return QtCore.Qt.ItemFlag.ItemIsEditable | \
+                   QtCore.Qt.ItemFlag.ItemIsEnabled | \
+                   QtCore.Qt.ItemFlag.ItemIsSelectable
 
     def data(self, index, role):
-        if role == QtCore.Qt.DisplayRole:
+        if role == QtCore.Qt.ItemDataRole.DisplayRole:
             row, column = index.row(), index.column()
             card_type = self.card_types[row]
             if column == 0:
@@ -140,16 +140,16 @@ class Model(QtCore.QAbstractTableModel, Component):
         self.dataChanged.emit(index, index)
         return True
 
-    def headerData(self, column, orientation, role=QtCore.Qt.DisplayRole):
-        if orientation == QtCore.Qt.Horizontal and \
-           role == QtCore.Qt.DisplayRole :
+    def headerData(self, column, orientation, role=QtCore.Qt.ItemDataRole.DisplayRole):
+        if orientation == QtCore.Qt.Orientation.Horizontal and \
+           role == QtCore.Qt.ItemDataRole.DisplayRole :
             if column == 0:
                 return "Card type"
             elif column == 1:
                 return "Language"
             elif column == 2:
                 return "Foreign language field"
-        if orientation == QtCore.Qt.Vertical and role == QtCore.Qt.DisplayRole:
+        if orientation == QtCore.Qt.Orientation.Vertical and role == QtCore.Qt.ItemDataRole.DisplayRole:
             return None
         return QtCore.QAbstractTableModel.headerData(\
             self, column, orientation, role)
@@ -163,11 +163,11 @@ class CardTypeLanguageListWdgt(QtWidgets.QTableView, Component):
                                  parent=self)
         self.setItemDelegateForColumn(1, delegate)
         self.setItemDelegateForColumn(2, delegate)
-        self.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
-        self.setSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding,
-                           QtWidgets.QSizePolicy.MinimumExpanding)
+        self.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
+        self.setSizePolicy(QtWidgets.QSizePolicy.Policy.MinimumExpanding,
+                           QtWidgets.QSizePolicy.Policy.MinimumExpanding)
         self.horizontalHeader().setSectionResizeMode(\
-            QtWidgets.QHeaderView.Stretch)
+            QtWidgets.QHeaderView.ResizeMode.Stretch)
 
     def set_card_types(self, card_types):
         self.model = Model(component_manager=self.component_manager,

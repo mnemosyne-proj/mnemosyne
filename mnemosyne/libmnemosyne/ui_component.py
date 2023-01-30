@@ -1,5 +1,5 @@
 #
-# ui_component.py <Peter.Bienstman@UGent.be>
+# ui_component.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.component import Component

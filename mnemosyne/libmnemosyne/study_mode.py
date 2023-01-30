@@ -1,5 +1,5 @@
 #
-# study_mode.py <Peter.Bienstman@UGent.be>
+# study_mode.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.component import Component

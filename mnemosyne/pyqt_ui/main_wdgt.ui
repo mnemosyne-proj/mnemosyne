@@ -17,8 +17,8 @@
    </sizepolicy>
   </property>
   <property name="windowIcon">
-   <iconset resource="mnemosyne.qrc">
-    <normaloff>:/mnemosyne/pixmaps/mnemosyne.png</normaloff>:/mnemosyne/pixmaps/mnemosyne.png</iconset>
+   <iconset>
+    <normaloff>pixmaps/mnemosyne.png</normaloff>pixmaps/mnemosyne.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menu_bar">
@@ -27,7 +27,7 @@
      <x>0</x>
      <y>0</y>
      <width>315</width>
-     <height>21</height>
+     <height>18</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Settings">
@@ -69,7 +69,7 @@
     <addaction name="actionAddCards"/>
     <addaction name="actionEditCurrentCard"/>
     <addaction name="actionDeleteCurrentCard"/>
-	<addaction name="actionResetCurrentCard"/>
+    <addaction name="actionResetCurrentCard"/>
     <addaction name="separator"/>
     <addaction name="actionBrowseCards"/>
     <addaction name="actionFindDuplicates"/>
@@ -129,8 +129,8 @@
   </action>
   <action name="actionAddCards">
    <property name="icon">
-    <iconset resource="mnemosyne.qrc">
-     <normaloff>:/mnemosyne/pixmaps/add.png</normaloff>:/mnemosyne/pixmaps/add.png</iconset>
+    <iconset>
+     <normaloff>pixmaps/add.png</normaloff>pixmaps/add.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Add cards...</string>
@@ -141,8 +141,8 @@
   </action>
   <action name="actionConfigure">
    <property name="icon">
-    <iconset resource="mnemosyne.qrc">
-     <normaloff>:/mnemosyne/pixmaps/configure.png</normaloff>:/mnemosyne/pixmaps/configure.png</iconset>
+    <iconset>
+     <normaloff>pixmaps/configure.png</normaloff>pixmaps/configure.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Configure Mnemosyne...</string>
@@ -150,8 +150,8 @@
   </action>
   <action name="actionDeleteCurrentCard">
    <property name="icon">
-    <iconset resource="mnemosyne.qrc">
-     <normaloff>:/mnemosyne/pixmaps/delete.png</normaloff>:/mnemosyne/pixmaps/delete.png</iconset>
+    <iconset>
+     <normaloff>pixmaps/delete.png</normaloff>pixmaps/delete.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Delete current card</string>
@@ -162,8 +162,8 @@
   </action>
   <action name="actionEditCurrentCard">
    <property name="icon">
-    <iconset resource="mnemosyne.qrc">
-     <normaloff>:/mnemosyne/pixmaps/edit.png</normaloff>:/mnemosyne/pixmaps/edit.png</iconset>
+    <iconset>
+     <normaloff>pixmaps/edit.png</normaloff>pixmaps/edit.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Edit current card...</string>
@@ -172,15 +172,20 @@
     <string>Ctrl+E</string>
    </property>
   </action>
-    <action name="actionResetCurrentCard">
+  <action name="actionResetCurrentCard">
    <property name="text">
     <string>Reset current card</string>
+   </property>
+      <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
    </property>
   </action>
   <action name="actionBrowseCards">
    <property name="icon">
-    <iconset resource="mnemosyne.qrc">
-     <normaloff>:/mnemosyne/pixmaps/cards.png</normaloff>:/mnemosyne/pixmaps/cards.png</iconset>
+    <iconset>
+     <normaloff>pixmaps/cards.png</normaloff>pixmaps/cards.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Browse cards...</string>
@@ -196,8 +201,8 @@
   </action>
   <action name="actionFileExit">
    <property name="icon">
-    <iconset resource="mnemosyne.qrc">
-     <normaloff>:/mnemosyne/pixmaps/exit.png</normaloff>:/mnemosyne/pixmaps/exit.png</iconset>
+    <iconset>
+     <normaloff>pixmaps/exit.png</normaloff>pixmaps/exit.png</iconset>
    </property>
    <property name="text">
     <string>E&amp;xit</string>
@@ -217,8 +222,8 @@
   </action>
   <action name="actionFileOpen">
    <property name="icon">
-    <iconset resource="mnemosyne.qrc">
-     <normaloff>:/mnemosyne/pixmaps/fileopen.png</normaloff>:/mnemosyne/pixmaps/fileopen.png</iconset>
+    <iconset>
+     <normaloff>pixmaps/fileopen.png</normaloff>pixmaps/fileopen.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Open...</string>
@@ -229,8 +234,8 @@
   </action>
   <action name="actionFileSave">
    <property name="icon">
-    <iconset resource="mnemosyne.qrc">
-     <normaloff>:/mnemosyne/pixmaps/filesave.png</normaloff>:/mnemosyne/pixmaps/filesave.png</iconset>
+    <iconset>
+     <normaloff>pixmaps/filesave.png</normaloff>pixmaps/filesave.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Save</string>
@@ -241,8 +246,8 @@
   </action>
   <action name="actionFileSaveAs">
    <property name="icon">
-    <iconset resource="mnemosyne.qrc">
-     <normaloff>:/mnemosyne/pixmaps/filesaveas.png</normaloff>:/mnemosyne/pixmaps/filesaveas.png</iconset>
+    <iconset>
+     <normaloff>pixmaps/filesaveas.png</normaloff>pixmaps/filesaveas.png</iconset>
    </property>
    <property name="text">
     <string>Save &amp;as...</string>
@@ -265,8 +270,8 @@
   </action>
   <action name="actionShowStatistics">
    <property name="icon">
-    <iconset resource="mnemosyne.qrc">
-     <normaloff>:/mnemosyne/pixmaps/statistics.png</normaloff>:/mnemosyne/pixmaps/statistics.png</iconset>
+    <iconset>
+     <normaloff>pixmaps/statistics.png</normaloff>pixmaps/statistics.png</iconset>
    </property>
    <property name="text">
     <string>Show s&amp;tatistics...</string>
@@ -342,9 +347,6 @@
    </property>
   </action>
  </widget>
- <resources>
-  <include location="mnemosyne.qrc"/>
- </resources>
  <connections>
   <connection>
    <sender>actionAddCards</sender>

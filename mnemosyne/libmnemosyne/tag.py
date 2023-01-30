@@ -1,5 +1,5 @@
 #
-# tag.py <Peter.Bienstman@UGent.be>
+# tag.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.utils import rand_uuid, CompareOnId

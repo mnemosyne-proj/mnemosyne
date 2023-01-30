@@ -1,8 +1,8 @@
 #
-# qwebengineview2.py <Peter.Bienstman@UGent.be>
+# qwebengineview2.py <Peter.Bienstman@gmail.com>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets, QtWebEngineWidgets
+from PyQt6 import QtWebEngineWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 
@@ -16,8 +16,8 @@ class QWebEngineView2(QtWebEngineWidgets.QWebEngineView):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        QtWebEngineWidgets.QWebEngineProfile.defaultProfile().\
-         setHttpCacheType(QtWebEngineWidgets.QWebEngineProfile.MemoryHttpCache)
+        #QtWebEngineWidgets.QWebEngineProfile.defaultProfile().\
+        # setHttpCacheType(QtWebEngineWidgets.QWebEngineProfile.MemoryHttpCache)
         #self.page().profile().setPersistentCookiesPolicy(\
         #    QtWebEngineWidgets.QWebEngineProfile.NoPersistentCookies)
         # self.linkClicked.connect(self.link_clicked)

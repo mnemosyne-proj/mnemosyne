@@ -1,5 +1,5 @@
 #
-# cram_all.py <Peter.Bienstman@UGent.be>
+# cram_all.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

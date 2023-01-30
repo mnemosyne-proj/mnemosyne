@@ -1,5 +1,5 @@
 #
-# review_controller.py <Peter.Bienstman@UGent.be>
+# review_controller.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.component import Component

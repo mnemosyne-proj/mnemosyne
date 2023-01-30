@@ -1,5 +1,5 @@
 #
-# fact_view.py <Peter.Bienstman@UGent.be>
+# fact_view.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.utils import CompareOnId

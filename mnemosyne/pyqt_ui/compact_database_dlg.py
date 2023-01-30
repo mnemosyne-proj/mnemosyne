@@ -1,8 +1,8 @@
 #
-# compact_database_dlg.py <Peter.Bienstman@UGent.be>
+# compact_database_dlg.py <Peter.Bienstman@gmail.com>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.component import Component
@@ -37,22 +37,22 @@ class CompactDatabaseDlg(QtWidgets.QDialog, QtGuiThread, CompactDatabaseDialog,
         super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
-            | QtCore.Qt.WindowMinMaxButtonsHint)
+            | QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+            & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         self.started_automatically = started_automatically
 
     def activate(self):
         CompactDatabaseDialog.activate(self)
-        self.exec_()
+        self.exec()
 
     def accept(self):
         defragment_database = \
-            (self.defragment_database.checkState() == QtCore.Qt.Checked)
+            (self.defragment_database.checkState() == QtCore.Qt.CheckState.Checked)
         delete_unused_media_files = \
-           (self.delete_unused_media_files.checkState() == QtCore.Qt.Checked)
+           (self.delete_unused_media_files.checkState() == QtCore.Qt.CheckState.Checked)
         archive_old_logs = \
-            (self.archive_old_logs.checkState() == QtCore.Qt.Checked)
+            (self.archive_old_logs.checkState() == QtCore.Qt.CheckState.Checked)
         if not (defragment_database or delete_unused_media_files or \
                 archive_old_logs):
             QtWidgets.QDialog.accept(self)

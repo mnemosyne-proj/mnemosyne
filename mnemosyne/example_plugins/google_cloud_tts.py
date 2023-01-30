@@ -1,13 +1,11 @@
 #
-# google_cloud_tts.py <Peter.Bienstman@UGent.be>
+# google_cloud_tts.py <Peter.Bienstman@gmail.com>
 #
 
 # Set up your account according to
 # https://cloud.google.com/text-to-speech/docs/quickstart-client-libraries#client-libraries-install-python
 
 import os
-import importlib
-from google.cloud import texttospeech
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] \
         = 'C:\cygwin64\home\Peter\My Project-d2fe488ee997.json'
 
@@ -26,6 +24,9 @@ class GoogleCloudPronouncer(Pronouncer):
     def download_tmp_audio_file(self, card_type, foreign_text):
 
         """Returns a temporary filename with the audio."""
+
+        # Lazy import to speed things up.
+        from google.cloud import texttospeech
 
         language_id = self.config().card_type_property(\
             "sublanguage_id", card_type)

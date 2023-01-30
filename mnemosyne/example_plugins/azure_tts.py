@@ -1,22 +1,16 @@
 #
-# azure_tts.py <Peter.Bienstman@UGent.be>
+# azure_tts.py <Peter.Bienstman@gmail.com>
 #
 
 # Set up your account according to
 # https://learn.microsoft.com/en-us/azure/cognitive-services/speech-service/get-started-text-to-speech?tabs=windows%2Cterminal&pivots=programming-language-python
 
 import os
-from pydub import AudioSegment
 
 from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.pronouncer import Pronouncer
-
-import azure.cognitiveservices.speech as speechsdk
-speech_config = speechsdk.SpeechConfig(subscription=os.environ.get('COGNITIVE_SERVICE_KEY'), region=os.environ.get('COGNITIVE_SERVICE_REGION'))
-speech_config.set_speech_synthesis_output_format(speechsdk.SpeechSynthesisOutputFormat.Riff24Khz16BitMonoPcm)
-
 
 class AzurePronouncer(Pronouncer):
 
@@ -27,6 +21,15 @@ class AzurePronouncer(Pronouncer):
     def download_tmp_audio_file(self, card_type, foreign_text):
 
         """Returns a temporary filename with the audio."""
+
+        from pydub import AudioSegment
+
+        import azure.cognitiveservices.speech as speechsdk
+        speech_config = speechsdk.SpeechConfig(\
+            subscription=os.environ.get('COGNITIVE_SERVICE_KEY'), 
+            region=os.environ.get('COGNITIVE_SERVICE_REGION'))     
+        speech_config.set_speech_synthesis_output_format(\
+            speechsdk.SpeechSynthesisOutputFormat.Riff24Khz16BitMonoPcm)
 
         language_id = self.config().card_type_property(\
             "sublanguage_id", card_type)

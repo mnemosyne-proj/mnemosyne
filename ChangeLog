@@ -1,15 +1,13 @@
-(Note for Windows 7 users: if you run into problems related to
-missing api-ms-win-crt-runtime-l1-1-0-dll make sure your machine
-has the latest Windows patches and/or download this:
+Mnemosyne 2.10 : 2023-01-30
 
-https://www.microsoft.com/en-us/download/details.aspx?id=48145
-
-This might also help with other hard crashes.
-
-If this does not help, or if you see a black screen, try starting Mnemosyne
-with the --qt-opengl=desktop command line argument.)
-
+- Update to all the latest libraries, most importantly from Python 2.8
+  to Python 2.11, and from PyQt5 to PyQt6. You might see better 
+  performance.
+- Tweaked appearance of application.  
+- Optimised startup time.
+- Switched audio and video support from mplayer to Qt.
 - Fix Google text-to-speech for Spanish (reported by Language Lover).
+- Google translator should work again.
 - Support for multiple audiofiles in the webserver (patch by jooseef).
 - Scale images and add support for Map card type in web client (patch by 
   gbear605).
@@ -18,6 +16,8 @@ with the --qt-opengl=desktop command line argument.)
   (reported by jooseef).
 - Fix corner case when previewing cards after changing their card type 
   (reported by Gnome).
+- Removed option to insert Flash in cards.  
+
 
 Mnemosyne 2.9 : 2022-06-20
 

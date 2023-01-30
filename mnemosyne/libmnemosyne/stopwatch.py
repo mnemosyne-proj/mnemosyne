@@ -1,5 +1,5 @@
 #
-# stopwatch.py <Peter.Bienstman@UGent.be>
+# stopwatch.py <Peter.Bienstman@gmail.com>
 #
 
 import time

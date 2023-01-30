@@ -1,5 +1,5 @@
 #
-# filter.py <Peter.Bienstman@UGent.be>
+# filter.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.filter import Filter

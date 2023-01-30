@@ -1,5 +1,5 @@
 #
-# default_criterion.py <Peter.Bienstman@UGent.be>
+# default_criterion.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.criterion import Criterion

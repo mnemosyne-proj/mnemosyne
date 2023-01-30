@@ -1,8 +1,8 @@
 #
-# edit_M_sided_card_type_dlg.py <Peter.Bienstman@UGent.be>
+# edit_M_sided_card_type_dlg.py <Peter.Bienstman@gmail.com>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.ui_edit_M_sided_card_type_dlg import \
@@ -20,9 +20,9 @@ class EditMSidedCardTypeDlg(QtWidgets.QDialog, EditMSidedCardTypeDialog,
         super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
-            | QtCore.Qt.WindowMinMaxButtonsHint)
+            | QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+            & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         self.card_type = card_type
         for fact_view in self.card_type.fact_views:
             widget = EditMSidedCardTemplateWdgt(card_type, fact_view,
@@ -36,7 +36,7 @@ class EditMSidedCardTypeDlg(QtWidgets.QDialog, EditMSidedCardTypeDialog,
 
     def activate(self):
         EditMSidedCardTypeDialog.activate(self)
-        self.exec_()
+        self.exec()
 
     def _store_state(self):
         self.config()["edit_M_sided_card_type_dlg_state"] = self.saveGeometry()

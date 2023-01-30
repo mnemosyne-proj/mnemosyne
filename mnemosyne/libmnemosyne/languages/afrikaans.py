@@ -1,5 +1,5 @@
 #
-# afrikaans.py <Peter.Bienstman@UGent.be>
+# afrikaans.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

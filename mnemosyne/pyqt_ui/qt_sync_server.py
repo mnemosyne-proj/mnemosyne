@@ -1,12 +1,12 @@
 #
-# qt_sync_server.py <Peter.Bienstman@UGent.be>
+# qt_sync_server.py <Peter.Bienstman@gmail.com>
 #
 
 import os
 import sys
 import socket
 
-from PyQt5 import QtCore
+from PyQt6 import QtCore
 
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.gui_translator import _

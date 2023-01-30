@@ -1,5 +1,5 @@
 #
-# tag_tree.py <Peter.Bienstman@UGent.be>
+# tag_tree.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

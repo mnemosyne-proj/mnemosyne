@@ -1,5 +1,5 @@
 #
-# criterion.py <Peter.Bienstman@UGent.be>
+# criterion.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.utils import rand_uuid

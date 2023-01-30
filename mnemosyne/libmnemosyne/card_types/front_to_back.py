@@ -1,5 +1,5 @@
 #
-# front_to_back.py <Peter.Bienstman@UGent.be>
+# front_to_back.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

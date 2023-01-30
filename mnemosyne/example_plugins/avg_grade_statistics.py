@@ -1,5 +1,5 @@
 #
-# avg_grade_statistics.py <Peter.Bienstman@UGent.be>
+# avg_grade_statistics.py <Peter.Bienstman@gmail.com>
 #
 
 from openSM2sync.log_entry import EventTypes

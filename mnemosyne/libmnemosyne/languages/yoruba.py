@@ -1,5 +1,5 @@
 #
-# yoruba.py <Peter.Bienstman@UGent.be>
+# yoruba.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

@@ -1,5 +1,5 @@
 #
-# UDP_widget.py <Peter.Bienstman@UGent.be>
+# UDP_widget.py <Peter.Bienstman@gmail.com>
 #
 
 import socket

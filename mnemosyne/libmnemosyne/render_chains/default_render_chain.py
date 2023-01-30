@@ -1,5 +1,5 @@
 #
-# default_render_chain.py <Peter.Bienstman@UGent.be>
+# default_render_chain.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.filters.latex import Latex

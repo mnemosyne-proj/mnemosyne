@@ -1,5 +1,5 @@
 #
-# scheduled_forgotten_new.py <Peter.Bienstman@UGent.be>
+# scheduled_forgotten_new.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

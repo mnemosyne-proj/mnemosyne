@@ -1,5 +1,5 @@
 #
-# lithuanian.py <Peter.Bienstman@UGent.be>
+# lithuanian.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

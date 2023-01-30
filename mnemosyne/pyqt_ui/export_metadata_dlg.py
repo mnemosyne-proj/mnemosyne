@@ -1,8 +1,8 @@
 #
-# export_metadata_dlg.py <Peter.Bienstman@UGent.be>
+# export_metadata_dlg.py <Peter.Bienstman@gmail.com>
 #
 
-from PyQt5 import QtGui, QtCore, QtWidgets
+from PyQt6 import QtGui, QtCore, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.ui_export_metadata_dlg import Ui_ExportMetadataDlg
@@ -15,11 +15,11 @@ class ExportMetadataDlg(QtWidgets.QDialog, ExportMetadataDialog,
     def __init__(self, **kwds):
         super().__init__(**kwds)
         self.setupUi(self)
-        self.setWindowFlags(QtCore.Qt.Dialog \
-                | QtCore.Qt.CustomizeWindowHint \
-                | QtCore.Qt.WindowTitleHint \
-                & ~ QtCore.Qt.WindowCloseButtonHint \
-                & ~ QtCore.Qt.WindowContextHelpButtonHint)
+        self.setWindowFlags(QtCore.Qt.WindowType.Dialog \
+                | QtCore.Qt.WindowType.CustomizeWindowHint \
+                | QtCore.Qt.WindowType.WindowTitleHint \
+                & ~ QtCore.Qt.WindowType.WindowCloseButtonHint \
+                & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         self.author_name.setText(self.config()["author_name"])
         self.author_email.setText(self.config()["author_email"])
         self.date.setDate(QtCore.QDate.currentDate())
@@ -28,7 +28,7 @@ class ExportMetadataDlg(QtWidgets.QDialog, ExportMetadataDialog,
 
     def activate(self):
         ExportMetadataDialog.activate(self)
-        return self.exec_()
+        return self.exec()
 
     def set_values(self, metadata):
         if "card_set_name" in metadata:
@@ -70,9 +70,9 @@ class ExportMetadataDlg(QtWidgets.QDialog, ExportMetadataDialog,
     def keyPressEvent(self, event):
         # Note: for the following to work reliably, there should be no
         # shortcuts defined in the ui file.
-        if event.key() == QtCore.Qt.Key_Escape or (event.modifiers() in \
-            [QtCore.Qt.ControlModifier, QtCore.Qt.AltModifier] and \
-            event.key() == QtCore.Qt.Key_E):
+        if event.key() == QtCore.Qt.Key.Key_Escape or (event.modifiers() in \
+            [QtCore.Qt.KeyboardModifier.ControlModifier, QtCore.Qt.KeyboardModifier.AltModifier] and \
+            event.key() == QtCore.Qt.Key.Key_E):
             if self.allow_cancel:
                 self.reject()
             else:

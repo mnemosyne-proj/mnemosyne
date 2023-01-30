@@ -1,8 +1,8 @@
 #
-# configuration_dlg.py <Peter.Bienstman@UGent.be>
+# configuration_dlg.py <Peter.Bienstman@gmail.com>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.ui_configuration_dlg import Ui_ConfigurationDlg
@@ -20,9 +20,9 @@ class ConfigurationDlg(QtWidgets.QDialog, ConfigurationDialog, Ui_ConfigurationD
         super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
-            | QtCore.Qt.WindowMinMaxButtonsHint)
+            | QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+            & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         for widget in self.component_manager.all("configuration_widget"):
             widget = widget(component_manager=self.component_manager, parent=self)
             self.tab_widget.addTab(widget, _(widget.name))
@@ -39,7 +39,7 @@ class ConfigurationDlg(QtWidgets.QDialog, ConfigurationDialog, Ui_ConfigurationD
 
     def activate(self):
         ConfigurationDialog.activate(self)
-        self.exec_()
+        self.exec()
 
     def _store_state(self):
         self.config()["configuration_dlg_state"] = self.saveGeometry()

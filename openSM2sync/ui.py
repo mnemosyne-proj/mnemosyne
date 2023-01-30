@@ -1,5 +1,5 @@
 #
-# ui.py <Peter.Bienstman@UGent.be>
+# ui.py <Peter.Bienstman@gmail.com>
 #
 
 class UI(object):

@@ -1,8 +1,8 @@
 #
-# main_wdgt.py <Peter.Bienstman@UGent.be>
+# main_wdgt.py <Peter.Bienstman@gmail.com>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.ui_main_wdgt import Ui_MainWdgt
@@ -19,7 +19,7 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
         self.setupUi(self)
         # Qt designer does not allow setting multiple shortcuts per action.
         self.actionDeleteCurrentCard.setShortcuts\
-            ([QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace])
+            ([QtCore.Qt.Key.Key_Delete, QtCore.Qt.Key.Key_Backspace])
         self.status_bar_widgets = []
         self.progress_bar = None
         self.progress_bar_update_interval = 1
@@ -29,7 +29,7 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
         self.config()["main_window_state"] = self.saveGeometry()
 
     def changeEvent(self, event):
-        if event.type() == QtCore.QEvent.LanguageChange:
+        if event.type() == QtCore.QEvent.Type.LanguageChange:
             self.retranslateUi(self)
         else:
             QtWidgets.QMainWindow.changeEvent(self, event)
@@ -50,10 +50,10 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
         # Dynamically fill study mode menu.
         study_modes = [x for x in self.component_manager.all("study_mode")]
         study_modes.sort(key=lambda x:x.menu_weight)
-        study_mode_group = QtWidgets.QActionGroup(self)
+        study_mode_group = QtGui.QActionGroup(self)
         self.study_mode_for_action = {}
         for study_mode in study_modes:
-            action = QtWidgets.QAction(study_mode.name, self)
+            action = QtGui.QAction(study_mode.name, self)
             action.setCheckable(True)
             if self.config()["study_mode"] == study_mode.id:
                 action.setChecked(True)
@@ -93,14 +93,14 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
 
     def show_question(self, text, option0, option1, option2):
         dialog = QtWidgets.QMessageBox(self.top_window())
-        dialog.setIcon(QtWidgets.QMessageBox.Question)
+        dialog.setIcon(QtWidgets.QMessageBox.Icon.Question)
         dialog.setWindowTitle(_("Mnemosyne"))
         dialog.setText(text)
-        button0 = dialog.addButton(option0, QtWidgets.QMessageBox.ActionRole)
-        button1 = dialog.addButton(option1, QtWidgets.QMessageBox.ActionRole)
+        button0 = dialog.addButton(option0, QtWidgets.QMessageBox.ButtonRole.ActionRole)
+        button1 = dialog.addButton(option1, QtWidgets.QMessageBox.ButtonRole.ActionRole)
         if option2:
-            button2 = dialog.addButton(option2, QtWidgets.QMessageBox.ActionRole)
-        dialog.exec_()
+            button2 = dialog.addButton(option2, QtWidgets.QMessageBox.ButtonRole.ActionRole)
+        dialog.exec()
         if dialog.clickedButton() == button0:
             result = 0
         elif dialog.clickedButton() == button1:
@@ -138,14 +138,14 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
             self.progress_bar = None
         if not self.progress_bar:
             self.progress_bar = QtWidgets.QProgressDialog(self.top_window())
-            self.progress_bar.setAttribute(QtCore.Qt.WA_DeleteOnClose, True)
-            self.progress_bar.setWindowFlags(QtCore.Qt.Dialog \
-                | QtCore.Qt.CustomizeWindowHint \
-                | QtCore.Qt.WindowTitleHint \
-                & ~ QtCore.Qt.WindowCloseButtonHint \
-                & ~ QtCore.Qt.WindowMinMaxButtonsHint)
+            self.progress_bar.setAttribute(QtCore.Qt.WidgetAttribute.WA_DeleteOnClose, True)
+            self.progress_bar.setWindowFlags(QtCore.Qt.WindowType.Dialog \
+                | QtCore.Qt.WindowType.CustomizeWindowHint \
+                | QtCore.Qt.WindowType.WindowTitleHint \
+                & ~ QtCore.Qt.WindowType.WindowCloseButtonHint \
+                & ~ QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
             self.progress_bar.setWindowTitle(_("Mnemosyne"))
-            self.progress_bar.setWindowModality(QtCore.Qt.WindowModal)
+            self.progress_bar.setWindowModality(QtCore.Qt.WindowModality.WindowModal)
             self.progress_bar.setCancelButton(None)
             self.progress_bar.setMinimumDuration(0)
         self.progress_bar.setLabelText(text)

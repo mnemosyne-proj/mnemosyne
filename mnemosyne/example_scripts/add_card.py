@@ -1,5 +1,5 @@
 #
-# add_card.py <Peter.Bienstman@UGent.be>
+# add_card.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.script import Mnemosyne

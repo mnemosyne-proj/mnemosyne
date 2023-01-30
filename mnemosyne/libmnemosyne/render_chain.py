@@ -1,5 +1,5 @@
 #
-# render_chain.py <Peter.Bienstman@UGent.be>
+# render_chain.py <Peter.Bienstman@gmail.com>
 #
 
 import copy

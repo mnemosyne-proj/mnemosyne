@@ -1,5 +1,5 @@
 #
-# gui_translator.py <Peter.Bienstman@UGent.be>
+# gui_translator.py <Peter.Bienstman@gmail.com>
 #                   <Johannes.Baiter@gmail.com>
 #
 

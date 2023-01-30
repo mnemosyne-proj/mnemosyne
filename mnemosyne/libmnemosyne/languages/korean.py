@@ -1,5 +1,5 @@
 #
-# korean.py <Peter.Bienstman@UGent.be>
+# korean.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

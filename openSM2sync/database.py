@@ -1,5 +1,5 @@
 #
-# database.py <Peter.Bienstman@UGent.be>
+# database.py <Peter.Bienstman@gmail.com>
 #
 
 class Database(object):

@@ -1,5 +1,5 @@
 #
-# lao.py <Peter.Bienstman@UGent.be>
+# lao.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

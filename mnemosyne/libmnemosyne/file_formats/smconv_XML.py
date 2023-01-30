@@ -1,5 +1,5 @@
 #
-#  smconv_XML.py <Felix.Engel@fcenet.de>, <Peter.Bienstman@UGent.be>
+#  smconv_XML.py <Felix.Engel@fcenet.de>, <Peter.Bienstman@gmail.com>
 #
 
 import os

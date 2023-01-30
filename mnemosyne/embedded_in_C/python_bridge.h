@@ -1,5 +1,5 @@
 //
-// python_bridge.h <Peter.Bienstman@UGent.be>
+// python_bridge.h <Peter.Bienstman@gmail.com>
 //
 
 void start_python_bridge();

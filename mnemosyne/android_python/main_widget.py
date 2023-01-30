@@ -1,5 +1,5 @@
 #
-# main_wdgt.py <Peter.Bienstman@UGent.be>
+# main_wdgt.py <Peter.Bienstman@gmail.com>
 #
 
 import _main_widget

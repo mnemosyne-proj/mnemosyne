@@ -1,8 +1,8 @@
 #
-# manage_card_types_dlg.py <Peter.Bienstman@UGent.be>
+# manage_card_types_dlg.py <Peter.Bienstman@gmail.com>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.card_type import CardType
@@ -31,9 +31,9 @@ class ManageCardTypesDlg(QtWidgets.QDialog, ManageCardTypesDialog,
         self.vertical_layout_Anki_card_types.insertWidget(\
             0, self.Anki_card_types)
         self.setWindowFlags(self.windowFlags() \
-            | QtCore.Qt.WindowMinMaxButtonsHint)
+            | QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+            & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         self.update()
         state = self.config()["manage_card_types_dlg_state"]
         if state:
@@ -41,7 +41,7 @@ class ManageCardTypesDlg(QtWidgets.QDialog, ManageCardTypesDialog,
 
     def activate(self):
         ManageCardTypesDialog.activate(self)
-        self.exec_()
+        self.exec()
 
     def update(self):
         # Fill up native types panel.
@@ -79,7 +79,7 @@ class ManageCardTypesDlg(QtWidgets.QDialog, ManageCardTypesDialog,
 _("Here, you can make clones of existing card types. This allows you to format cards in this type independently from cards in the original type. E.g. you can make a clone of 'Vocabulary', call it 'Thai' and set a Thai font specifically for this card type without disturbing your other cards."))
             self.config()["clone_help_shown"] = True
         dlg = CloneCardTypeDlg(parent=self, component_manager=self.component_manager)
-        dlg.exec_()
+        dlg.exec()
         self.update()
 
     def activate_native_card_type(self):
@@ -136,7 +136,7 @@ _("Here, you can make clones of existing card types. This allows you to format c
                 self.card_type_name.setText(old_card_type_name)
 
         dlg = RenameDlg(card_type.name)
-        if dlg.exec_() == QtWidgets.QDialog.Accepted:
+        if dlg.exec() == QtWidgets.QDialog.DialogCode.Accepted:
             new_name = dlg.card_type_name.text()
             self.controller().rename_card_type(card_type, new_name)
             self.update()
@@ -147,7 +147,7 @@ _("Here, you can make clones of existing card types. This allows you to format c
             return
         dlg = EditMSidedCardTypeDlg(card_type,
             component_manager=self.component_manager)
-        if dlg.exec_() == QtWidgets.QDialog.Accepted:
+        if dlg.exec() == QtWidgets.QDialog.DialogCode.Accepted:
             self.database().update_card_type(card_type)
             self.update()
 

@@ -1,5 +1,5 @@
 #
-# mnemosyne1.py <Peter.Bienstman@UGent.be>
+# mnemosyne1.py <Peter.Bienstman@gmail.com>
 #               <Johannes.Baiter@gmail.com>
 #
 

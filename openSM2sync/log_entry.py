@@ -1,5 +1,5 @@
 #
-# log_entry.py <Peter.Bienstman@UGent.be>
+# log_entry.py <Peter.Bienstman@gmail.com>
 #
 
 class EventTypes(object):

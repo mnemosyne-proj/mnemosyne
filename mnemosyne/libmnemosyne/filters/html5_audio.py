@@ -1,5 +1,5 @@
 #
-# html5_audio.py <Peter.Bienstman@UGent.be>
+# html5_audio.py <Peter.Bienstman@gmail.com>
 #
 
 import re

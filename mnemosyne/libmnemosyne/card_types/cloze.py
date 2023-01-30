@@ -1,5 +1,5 @@
 #
-# cloze.py <Peter.Bienstman@UGent.be>
+# cloze.py <Peter.Bienstman@gmail.com>
 #
 
 import re

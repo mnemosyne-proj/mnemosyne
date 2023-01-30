@@ -1,8 +1,8 @@
 #
-# convert_card_type_keys_dlg.py <Peter.Bienstman@UGent.be>
+# convert_card_type_keys_dlg.py <Peter.Bienstman@gmail.com>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.ui_convert_card_type_keys_dlg import \
@@ -16,9 +16,9 @@ class ConvertCardTypeKeysDlg(QtWidgets.QDialog, Ui_ConvertCardTypeKeysDlg):
         super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
-            | QtCore.Qt.WindowMinMaxButtonsHint)
+            | QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+            & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         self.old_card_type = old_card_type
         self.new_card_type = new_card_type
         self.correspondence = correspondence
@@ -43,7 +43,7 @@ class ConvertCardTypeKeysDlg(QtWidgets.QDialog, Ui_ConvertCardTypeKeysDlg):
             self.gridLayout.addWidget(combobox, index, 1, 1, 1)
             self.comboboxes[old_fact_key] = combobox
             index += 1
-            combobox.currentIndexChanged.connect(self.combobox_updated)
+            combobox.currentTextChanged.connect(self.combobox_updated)
 
     def combobox_updated(self):
         self.ok_button.setEnabled(False)

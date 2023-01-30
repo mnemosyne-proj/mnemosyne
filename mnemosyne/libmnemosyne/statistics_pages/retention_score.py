@@ -1,5 +1,5 @@
 #
-# retention_score.py <Peter.Bienstman@UGent.be>
+# retention_score.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

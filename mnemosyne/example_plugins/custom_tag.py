@@ -1,6 +1,6 @@
 
 #
-# custom_tag.py <Peter.Bienstman@UGent.be>
+# custom_tag.py <Peter.Bienstman@gmail.com>
 #
 
 import subprocess

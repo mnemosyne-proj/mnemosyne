@@ -1,10 +1,10 @@
 #
-# add_cards_dlg.py <Peter.Bienstman@UGent.be>
+# add_cards_dlg.py <Peter.Bienstman@gmail.com>
 #
 
 import copy
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.gui_translator import _
@@ -36,8 +36,8 @@ class AddEditCards(TipAfterStartingNTimes):
     def activate(self):
         AddCardsDialog.activate(self)
         self.show_tip_after_starting_n_times()
-        status = self.exec_()
-        return (status == QtWidgets.QDialog.Accepted)
+        status = self.exec()
+        return (status == QtWidgets.QDialog.DialogCode.Accepted)
 
     def initialise_card_types_combobox(self, current_card_type_name):
         # We calculate card_type_by_name here because these names can change
@@ -66,7 +66,7 @@ class AddEditCards(TipAfterStartingNTimes):
             self.card_type_index = 0
         self.card_types_widget.setCurrentIndex(self.card_type_index)
         # Now that the combobox is filled, we can connect the signal.
-        self.card_types_widget.currentIndexChanged[str].\
+        self.card_types_widget.currentTextChanged[str].\
             connect(self.card_type_changed)
         self.correspondence = {}  # Used when changing card types.
         self.update_card_widget()
@@ -127,7 +127,7 @@ class AddEditCards(TipAfterStartingNTimes):
                 existing_current_tag_names.append(tag.name)
         current_tag_name = ", ".join(existing_current_tag_names)
         # For the 'special' tags, we add them at the top.
-        self.tags.setInsertPolicy(QtWidgets.QComboBox.InsertAtTop)
+        self.tags.setInsertPolicy(QtWidgets.QComboBox.InsertPolicy.InsertAtTop)
         if "," in current_tag_name:
             self.tags.addItem(current_tag_name)
         if current_tag_name == "":
@@ -148,7 +148,7 @@ class AddEditCards(TipAfterStartingNTimes):
             return
         dlg = ConvertCardTypeKeysDlg(self.card_type, new_card_type,
             self.correspondence, check_required_fact_keys=False, parent=self)
-        if dlg.exec_() != QtWidgets.QDialog.Accepted:
+        if dlg.exec() != QtWidgets.QDialog.DialogCode.Accepted:
             # Set correspondence so as not to erase previous data.
             self.correspondence = {}
             for key in self.card_type.fact_keys():
@@ -165,7 +165,7 @@ class AddEditCards(TipAfterStartingNTimes):
         tag_text = self.tags.currentText()
         dlg = PreviewCardsDlg(cards, tag_text,
             component_manager=self.component_manager, parent=self)
-        dlg.exec_()
+        dlg.exec()
 
     def __del__(self):
         # Make sure that Python knows Qt has deleted this widget.
@@ -179,9 +179,9 @@ class AddCardsDlg(QtWidgets.QDialog, AddEditCards,
         super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
-            | QtCore.Qt.WindowMinMaxButtonsHint)
+            | QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+            & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         if card_type:
             last_used_card_type = card_type
         else:
@@ -212,7 +212,7 @@ class AddCardsDlg(QtWidgets.QDialog, AddEditCards,
         self.grades.addButton(self.grade_3_button, 3)
         self.grades.addButton(self.grade_4_button, 4)
         self.grades.addButton(self.grade_5_button, 5)
-        self.grades.buttonClicked[int].connect(self.create_new_cards)
+        self.grades.idClicked[int].connect(self.create_new_cards)
         if not (card_type and fact_data):
             self.set_valid(False)
         state = self.config()["add_cards_dlg_state"]
@@ -240,22 +240,22 @@ class AddCardsDlg(QtWidgets.QDialog, AddEditCards,
 
     def keyPressEvent(self, event):
         if self.yet_to_learn_button.isEnabled() and event.modifiers() in \
-            [QtCore.Qt.ControlModifier, QtCore.Qt.AltModifier]:
-            if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return,
-                QtCore.Qt.Key_Y, QtCore.Qt.Key_0, QtCore.Qt.Key_1]:
+            [QtCore.Qt.KeyboardModifier.ControlModifier, QtCore.Qt.KeyboardModifier.AltModifier]:
+            if event.key() in [QtCore.Qt.Key.Key_Enter, QtCore.Qt.Key.Key_Return,
+                QtCore.Qt.Key.Key_Y, QtCore.Qt.Key.Key_0, QtCore.Qt.Key.Key_1]:
                 # Qt bug: works for Enter, Return, but not 0 or 1.
                 self.create_new_cards(-1)
-            elif event.key() == QtCore.Qt.Key_2:
+            elif event.key() == QtCore.Qt.Key.Key_2:
                 self.create_new_cards(2)
-            elif event.key() == QtCore.Qt.Key_3:
+            elif event.key() == QtCore.Qt.Key.Key_3:
                 self.create_new_cards(3)
-            elif event.key() == QtCore.Qt.Key_4:
+            elif event.key() == QtCore.Qt.Key.Key_4:
                 self.create_new_cards(4)
-            elif event.key() == QtCore.Qt.Key_5:
+            elif event.key() == QtCore.Qt.Key.Key_5:
                 self.create_new_cards(5)
-            elif event.key() == QtCore.Qt.Key_P:
+            elif event.key() == QtCore.Qt.Key.Key_P:
                 self.preview()
-            elif event.key() == QtCore.Qt.Key_E:
+            elif event.key() == QtCore.Qt.Key.Key_E:
                 self.reject()
         else:
             QtWidgets.QDialog.keyPressEvent(self, event)

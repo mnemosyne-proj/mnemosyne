@@ -1,5 +1,5 @@
 #
-# gujarati.py <Peter.Bienstman@UGent.be>
+# gujarati.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

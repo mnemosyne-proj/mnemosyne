@@ -8,10 +8,9 @@ ifeq (1,$(shell python3 -c "print(1)" 2>&- ))
 PYTHON      := python3
 endif
 
-PYTHON35    := python3
 # If we are on cygwin:
-ifeq (1,$(shell /cygdrive/c/Program\ Files/Python38/python.exe -c "print(1)" 2>&- ))
-PYTHON      := /cygdrive/c/Program\ Files/Python38/python.exe
+ifeq (1,$(shell /cygdrive/c/Program\ Files/Python311/python.exe -c "print(1)" 2>&- ))
+PYTHON      := /cygdrive/c/Program\ Files/Python311/python.exe
 PYTHON38    := /cygdrive/c/Program\ Files/Python38/python.exe
 endif
 # If `sphinx-build2` exists:
@@ -34,14 +33,12 @@ run: build
 build:
 	# Just the bare minimum to get things running
 	cd mnemosyne/pyqt_ui && make
-	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc
 
 build-all-deps:
 	# Also rebuilds the docs and the translations.
 	cd mnemosyne/libmnemosyne/docs && make SPHINXBUILD=$(SPHINXBUILD) html
 	cd mnemosyne/pyqt_ui && make clean
 	cd mnemosyne/pyqt_ui && make
-	cd mnemosyne/pyqt_ui && pyrcc5 -o mnemosyne_rc.py mnemosyne.qrc
 	cd po && make update
 	cd po && make
 
@@ -77,11 +74,11 @@ profile: FORCE
 	$(PYTHON) process_profile.py
 
 gui-profile: FORCE
-	$(PYTHON) -m cProfile -s cumulative bin/mnemosyne -d ./dot_mnemosyne2/ | more
+	$(PYTHON) -m cProfile -s cumulative mnemosyne/pyqt_ui/mnemosyne -d ./dot_mnemosyne2/ | more
 
 gui-profile-windows: FORCE
 	cp mnemosyne/pyqt_ui/mnemosyne tmp.py
-	$(PYTHON) -m cProfile -s cumulative tmp.py -d C:\dot_test_2 | more
+	$(PYTHON) -m cProfile -s cumulative tmp.py -d C:\dot_mnemosyne2 | more
 
 benchmark: FORCE
 	$(PYTHON) tests/benchmark.py
@@ -108,7 +105,7 @@ macos:
 	cd po && make
 
 	# Build the bundled app based on the specification file.
-	QT5DIR=/usr/local/opt/qt5 pyinstaller --log-level WARN mnemosyne.spec
+	QT6DIR=/usr/local/opt/qt6 pyinstaller --log-level WARN mnemosyne.spec
 
 	# Blank qt.conf to ensure that bundled qt is used over system qt.
 	touch dist/Mnemosyne.app/Contents/Resources/qt.conf
@@ -136,7 +133,7 @@ clean:
 	rm -f *~ *.pyc *.tgz process_profile.py
 	rm -rf dist .coverage
 	rm -f -R Mnemosyne.egg-info
-	rm -f -R distrib build bin lib Lib Scripts include dot_mnemosyne2 dot_test dot_sync_*
+	rm -f -R distrib build bin lib Lib Scripts include dot_test dot_sync_*
 	rm -f -R dot_benchmark dist
 	find . -type d -path ".*/__pycache__" -print0 | xargs -0 rm -rf
 	cd mnemosyne/pyqt_ui && make clean

@@ -1,5 +1,5 @@
 #
-# plugin.py <Peter.Bienstman@UGent.be>
+# plugin.py <Peter.Bienstman@gmail.com>
 #
 
 import importlib
@@ -49,8 +49,8 @@ class Plugin(Component):
     def activate(self):
         if not hasattr(self, "supported_API_level") or \
             self.supported_API_level < self.current_API_level:
-            self.main_widget().show_error(_("Plugin '" + self.name +\
-                "' needs to be upgraded. Please contact its author."))
+            self.main_widget().show_error(self.name +\
+                _(": This plugin needs to be upgraded. Please contact its author."))
             return
         # Don't activate a plugin twice.
         if self.instantiated_components or self.registered_components:

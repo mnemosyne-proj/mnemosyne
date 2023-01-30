@@ -1,9 +1,9 @@
 #
-# manage_plugins_dlg.py <Peter.Bienstman@UGent.be>
+# manage_plugins_dlg.py <Peter.Bienstman@gmail.com>
 #
 
 import os
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.ui_manage_plugins_dlg import Ui_ManagePluginsDlg
@@ -17,9 +17,9 @@ class ManagePluginsDlg(QtWidgets.QDialog, ManagePluginsDialog,
         super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
-            | QtCore.Qt.WindowMinMaxButtonsHint)
+            | QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+            & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         self.last_selected_row = 0
         self.build_plugin_list()
         state = self.config()["plugins_dlg_state"]
@@ -37,15 +37,15 @@ class ManagePluginsDlg(QtWidgets.QDialog, ManagePluginsDialog,
         for plugin in self.plugins():
             list_item = QtWidgets.QListWidgetItem(_(plugin.name))
             list_item.setFlags(list_item.flags() \
-                | QtCore.Qt.ItemIsUserCheckable)
+                | QtCore.Qt.ItemFlag.ItemIsUserCheckable)
             self.plugin_with_name[_(plugin.name)] = plugin
             active = \
                 plugin.__class__.__name__ in self.config()["active_plugins"]
             self.previously_active[_(plugin.name)] = active
             if active:
-                list_item.setCheckState(QtCore.Qt.Checked)
+                list_item.setCheckState(QtCore.Qt.CheckState.Checked)
             else:
-                list_item.setCheckState(QtCore.Qt.Unchecked)
+                list_item.setCheckState(QtCore.Qt.CheckState.Unchecked)
             self.plugin_list.addItem(list_item)
         self.plugin_list.setCurrentRow(self.last_selected_row)
         self.plugin_description.setText(_(self.plugins()[0].description))
@@ -64,7 +64,7 @@ class ManagePluginsDlg(QtWidgets.QDialog, ManagePluginsDialog,
             plugin.__class__.__name__ in self.can_be_deleted)
 
     def activate(self):
-        self.exec_()
+        self.exec()
 
     def _store_state(self):
         self.config()["plugins_dlg_state"] = self.saveGeometry()
@@ -79,10 +79,10 @@ class ManagePluginsDlg(QtWidgets.QDialog, ManagePluginsDialog,
         for index in range(self.plugin_list.count()):
             list_item = self.plugin_list.item(index)
             plugin_name = list_item.text()
-            if list_item.checkState() == QtCore.Qt.Checked and \
+            if list_item.checkState() == QtCore.Qt.CheckState.Checked and \
                 self.previously_active[plugin_name] == False:
                 self.plugin_with_name[plugin_name].activate()
-            elif list_item.checkState() == QtCore.Qt.Unchecked and \
+            elif list_item.checkState() == QtCore.Qt.CheckState.Unchecked and \
                 self.previously_active[plugin_name] == True:
                 self.plugin_with_name[plugin_name].deactivate()
         return QtWidgets.QDialog.accept(self)

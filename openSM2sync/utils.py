@@ -1,5 +1,5 @@
 #
-# utils.py - Peter Bienstman <Peter.Bienstman@UGent.be>
+# utils.py - Peter Bienstman <Peter.Bienstman@gmail.com>
 
 import os
 import sys

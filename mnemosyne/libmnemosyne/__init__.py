@@ -1,5 +1,5 @@
 #
-# libmnemosyne <Peter.Bienstman@UGent.be>
+# libmnemosyne <Peter.Bienstman@gmail.com>
 #
 
 import os

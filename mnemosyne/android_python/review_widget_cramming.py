@@ -1,5 +1,5 @@
 #
-# review_wdgt_cramming.py <Peter.Bienstman@UGent.be>
+# review_wdgt_cramming.py <Peter.Bienstman@gmail.com>
 #
 
 import _main_widget

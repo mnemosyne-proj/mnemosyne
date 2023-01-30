@@ -1,12 +1,12 @@
 #
-# configuration_wdgt_servers.py <Peter.Bienstman@UGent.be>
+# configuration_wdgt_servers.py <Peter.Bienstman@gmail.com>
 #
 
 import socket
 import http.client
 from argon2 import PasswordHasher
 from argon2.exceptions import HashingError
-from PyQt5 import QtGui, QtWidgets
+from PyQt6 import QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.utils import localhost_IP

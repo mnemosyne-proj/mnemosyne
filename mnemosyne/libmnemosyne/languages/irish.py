@@ -1,5 +1,5 @@
 #
-# irish.py <Peter.Bienstman@UGent.be>
+# irish.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

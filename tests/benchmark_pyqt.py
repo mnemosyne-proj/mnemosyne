@@ -18,7 +18,7 @@ def startup():
 
     from optparse import OptionParser
 
-    from PyQt5.QtGui import QApplication
+    from PyQt6.QtGui import QApplication
 
     from mnemosyne.libmnemosyne import Mnemosyne
 
@@ -132,7 +132,7 @@ def startup():
     #elif config()["show_daily_tips"] == True:
     #    w.Tip()
 
-    a.exec_()
+    a.exec()
     mnemosyne.finalise()
 
 

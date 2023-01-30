@@ -1,5 +1,5 @@
 //
-// dlgs.c <Peter.Bienstman@UGent.be>
+// dlgs.c <Peter.Bienstman@gmail.com>
 //
 //   Template, to be replaced by functions which actually do something useful
 //   in a specific client.

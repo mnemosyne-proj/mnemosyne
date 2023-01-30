@@ -1,5 +1,5 @@
 #
-# database_logger.py <Peter.Bienstman@UGent.be>
+# database_logger.py <Peter.Bienstman@gmail.com>
 #
 
 import os
@@ -38,9 +38,8 @@ class DatabaseLogger(Logger):
         if machine_id is None:
             machine_id = self.config().machine_id()
         if scheduled_count == None:
-            scheduled_count = self.scheduler().scheduled_count()
-            non_memorised_count = self.scheduler().non_memorised_count()
-            active_count = self.scheduler().active_count()
+            scheduled_count, non_memorised_count, active_count = \
+                self.review_controller().counters()
         self.database().log_loaded_database(self.timestamp, machine_id,
             scheduled_count, non_memorised_count, active_count)
 
@@ -49,9 +48,8 @@ class DatabaseLogger(Logger):
         if machine_id is None:
             machine_id = self.config().machine_id()
         if scheduled_count == None:
-            scheduled_count = self.scheduler().scheduled_count()
-            non_memorised_count = self.scheduler().non_memorised_count()
-            active_count = self.scheduler().active_count()
+            scheduled_count, non_memorised_count, active_count = \
+                self.review_controller().counters()
         self.database().log_saved_database(self.timestamp, machine_id,
             scheduled_count, non_memorised_count, active_count)
 

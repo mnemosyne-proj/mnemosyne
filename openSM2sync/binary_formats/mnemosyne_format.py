@@ -1,5 +1,5 @@
 #
-# mnemosyne_format.py <Peter.Bienstman@UGent.be>
+# mnemosyne_format.py <Peter.Bienstman@gmail.com>
 #
 
 import os

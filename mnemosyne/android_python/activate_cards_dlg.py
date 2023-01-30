@@ -1,5 +1,5 @@
 #
-# activate_cards_dlg.py <Peter.Bienstman@UGent.be>
+# activate_cards_dlg.py <Peter.Bienstman@gmail.com>
 #
 
 import _dialogs

@@ -1,5 +1,5 @@
 #
-# review_widget.py <Peter.Bienstman@UGent.be>
+# review_widget.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.ui_component import UiComponent

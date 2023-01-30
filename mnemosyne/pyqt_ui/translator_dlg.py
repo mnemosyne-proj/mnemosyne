@@ -1,11 +1,11 @@
 #
-# translator_dlg.py <Peter.Bienstman@UGent.be>
+# translator_dlg.py <Peter.Bienstman@gmail.com>
 #
 
 import os
 import shutil
 
-from PyQt5 import QtGui, QtCore, QtWidgets
+from PyQt6 import QtGui, QtCore, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.utils import traceback_string
@@ -72,12 +72,12 @@ class TranslatorDlg(QtWidgets.QDialog, TranslatorDialog, Ui_TranslatorDlg):
                 saved_index = self.target_languages.count()-1
         self.target_languages.setCurrentIndex(saved_index)
         # Only now it's safe to connect to the slot.
-        self.target_languages.currentIndexChanged.connect(\
+        self.target_languages.currentTextChanged.connect(\
             self.target_language_changed)
         # Auto download.
         self.insert_button.setEnabled(False)
         self.download_translation()
-        self.exec_()
+        self.exec()
 
     def foreign_text_changed(self):
         # Force the user to preview.
@@ -113,7 +113,7 @@ class TranslatorDlg(QtWidgets.QDialog, TranslatorDialog, Ui_TranslatorDlg):
         self.translated_text.setPlainText(translation)
         self.insert_button.setEnabled(True)
         self.insert_button.setDefault(True)
-        self.insert_button.setFocus(True)
+        self.insert_button.setFocus()
 
     def preview(self):
         if self.foreign_text.toPlainText() != self.last_foreign_text:

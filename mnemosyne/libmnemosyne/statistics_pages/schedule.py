@@ -1,5 +1,5 @@
 #
-# schedule.py <Peter.Bienstman@UGent.be>
+# schedule.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

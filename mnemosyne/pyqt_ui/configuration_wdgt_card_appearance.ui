@@ -283,22 +283,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>card_types_widget</sender>
-   <signal>currentIndexChanged(QString)</signal>
-   <receiver>ConfigurationWdgtCardAppearance</receiver>
-   <slot>card_type_changed</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>193</x>
-     <y>18</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>159</x>
-     <y>80</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>background_button</sender>
    <signal>clicked()</signal>
    <receiver>ConfigurationWdgtCardAppearance</receiver>

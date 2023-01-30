@@ -1,5 +1,5 @@
 #
-# database_maintenance.py <Peter.Bienstman@UGent.be>
+# database_maintenance.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

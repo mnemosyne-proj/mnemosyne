@@ -1,9 +1,9 @@
 #
-# export_dlg.py <Peter.Bienstman@UGent.be>
+# export_dlg.py <Peter.Bienstman@gmail.com>
 #
 
 import os
-from PyQt5 import QtGui, QtCore, QtWidgets
+from PyQt6 import QtGui, QtCore, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.ui_export_dlg import Ui_ExportDlg
@@ -31,12 +31,12 @@ class ExportDlg(QtWidgets.QDialog, ExportDialog, Ui_ExportDlg):
     def file_format_changed(self):
         filename = self.filename_box.text()
         if "." in filename:
-            filename = old_filename.rsplit(".")[0] + self.format().extension
+            filename = filename.rsplit(".")[0] + self.format().extension
             self.filename_box.setText(filename)
 
     def activate(self):
         ExportDialog.activate(self)
-        self.exec_()
+        self.exec()
 
     def format(self):
         for _format in self.component_manager.all("file_format"):

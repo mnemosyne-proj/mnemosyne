@@ -1,5 +1,5 @@
 #
-# new_card_type.py <Peter.Bienstman@UGent.be>
+# new_card_type.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

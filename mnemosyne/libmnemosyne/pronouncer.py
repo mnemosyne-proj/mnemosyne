@@ -1,5 +1,5 @@
 #
-# pronouncer.py <Peter.Bienstman@UGent.be>
+# pronouncer.py <Peter.Bienstman@gmail.com>
 #
 
 import os

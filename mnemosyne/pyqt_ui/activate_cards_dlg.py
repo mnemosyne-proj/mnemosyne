@@ -1,8 +1,8 @@
 #
-# activate_cards_dlg.py <Peter.Bienstman@UGent.be>
+# activate_cards_dlg.py <Peter.Bienstman@gmail.com>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.pyqt_ui.card_set_name_dlg import CardSetNameDlg
@@ -25,9 +25,9 @@ class ActivateCardsDlg(QtWidgets.QDialog, ActivateCardsDialog,
         super().__init__(**kwds)
         self.setupUi(self)
         self.setWindowFlags(self.windowFlags() \
-            | QtCore.Qt.WindowMinMaxButtonsHint)
+            | QtCore.Qt.WindowType.WindowMinMaxButtonsHint)
         self.setWindowFlags(self.windowFlags() \
-            & ~ QtCore.Qt.WindowContextHelpButtonHint)
+            & ~ QtCore.Qt.WindowType.WindowContextHelpButtonHint)
         # Initialise widgets.
         self.was_showing_a_saved_set = False
         self.is_shutting_down = False
@@ -61,7 +61,7 @@ class ActivateCardsDlg(QtWidgets.QDialog, ActivateCardsDialog,
         self.update_saved_sets_pane()
 
     def keyPressEvent(self, event):
-        if event.key() in [QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace]:
+        if event.key() in [QtCore.Qt.Key.Key_Delete, QtCore.Qt.Key.Key_Backspace]:
             self.delete_set()
         else:
             QtWidgets.QDialog.keyPressEvent(self, event)
@@ -71,7 +71,7 @@ class ActivateCardsDlg(QtWidgets.QDialog, ActivateCardsDialog,
 
     def activate(self):
         ActivateCardsDialog.activate(self)
-        self.exec_()
+        self.exec()
 
     def update_saved_sets_pane(self):
         self.saved_sets.clear()
@@ -87,7 +87,7 @@ class ActivateCardsDlg(QtWidgets.QDialog, ActivateCardsDialog,
         self.saved_sets.sortItems()
         if active_name:
             item = self.saved_sets.findItems(active_name,
-                QtCore.Qt.MatchExactly)[0]
+                QtCore.Qt.MatchFlag.MatchExactly)[0]
             self.saved_sets.setCurrentItem(item)
             self.was_showing_a_saved_set = True
         else:
@@ -105,7 +105,7 @@ class ActivateCardsDlg(QtWidgets.QDialog, ActivateCardsDialog,
         menu = QtWidgets.QMenu()
         menu.addAction(_("Delete"), self.delete_set)
         menu.addAction(_("Rename"), self.rename_set)
-        menu.exec_(self.saved_sets.mapToGlobal(pos))
+        menu.exec(self.saved_sets.mapToGlobal(pos))
 
     def save_set(self):
         criterion = self.tab_widget.currentWidget().criterion()
@@ -114,7 +114,7 @@ class ActivateCardsDlg(QtWidgets.QDialog, ActivateCardsDialog,
                 _("This set can never contain any cards!"))
             return
         CardSetNameDlg(criterion, self.criteria_by_name.keys(),
-                       component_manager=self.component_manager, parent=self).exec_()
+                       component_manager=self.component_manager, parent=self).exec()
         if not criterion.name:  # User cancelled.
             return
         if criterion.name in self.criteria_by_name.keys():
@@ -130,7 +130,7 @@ class ActivateCardsDlg(QtWidgets.QDialog, ActivateCardsDialog,
             self.database().add_criterion(criterion)
         self.update_saved_sets_pane()
         item = self.saved_sets.findItems(criterion.name,
-            QtCore.Qt.MatchExactly)[0]
+            QtCore.Qt.MatchFlag.MatchExactly)[0]
         self.saved_sets.setCurrentItem(item)
         if self.config()["showed_help_on_renaming_sets"] == False:
             self.main_widget().show_information(\
@@ -159,14 +159,14 @@ class ActivateCardsDlg(QtWidgets.QDialog, ActivateCardsDialog,
         other_names.remove(name)
         CardSetNameDlg(criterion, other_names,
                        component_manager=self.component_manager,
-                       parent=self).exec_()
+                       parent=self).exec()
         if criterion.name == name:  # User cancelled.
             return
         self.database().update_criterion(criterion)
         self.database().save()
         self.update_saved_sets_pane()
         item = self.saved_sets.findItems(criterion.name,
-            QtCore.Qt.MatchExactly)[0]
+            QtCore.Qt.MatchFlag.MatchExactly)[0]
         self.saved_sets.setCurrentItem(item)
 
         # load_set gets triggered by ItemActivated, but this does not happen
@@ -193,7 +193,7 @@ class ActivateCardsDlg(QtWidgets.QDialog, ActivateCardsDialog,
         self.tab_widget.currentWidget().display_criterion(criterion)
         # Restore the selection that got cleared in change_widget.
         item = self.saved_sets.findItems(criterion.name,
-            QtCore.Qt.MatchExactly)[0]
+            QtCore.Qt.MatchFlag.MatchExactly)[0]
         self.saved_sets.setCurrentItem(item)
         self.was_showing_a_saved_set = True
 

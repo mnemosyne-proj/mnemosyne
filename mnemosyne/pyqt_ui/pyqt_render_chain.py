@@ -1,5 +1,5 @@
 #
-# pyqt_render_chain.py <Peter.Bienstman@UGent.be>
+# pyqt_render_chain.py <Peter.Bienstman@gmail.com>
 #
 
 import sys
@@ -14,20 +14,14 @@ from mnemosyne.libmnemosyne.filters.expand_paths import ExpandPaths
 from mnemosyne.libmnemosyne.filters.escape_to_html import EscapeToHtml
 from mnemosyne.libmnemosyne.filters.non_latin_font_size_increase import \
      NonLatinFontSizeIncrease
-from mnemosyne.pyqt_ui.mplayer_audio import MplayerAudio
-from mnemosyne.pyqt_ui.mplayer_video import MplayerVideo
+from mnemosyne.pyqt_ui.qt_audio import QtAudio
+from mnemosyne.pyqt_ui.qt_video import QtVideo
 
 class PyQtRenderChain(RenderChain):
 
     id = "default"
     
-    filters = [Latex, EscapeToHtml, ExpandPaths, MplayerAudio,
-        MplayerVideo, RTLHandler, NonLatinFontSizeIncrease]
+    filters = [Latex, EscapeToHtml, ExpandPaths, QtAudio,
+        QtVideo, RTLHandler, NonLatinFontSizeIncrease]
     
-    # Note: the sound system under Debian seems broken now, so we
-    # resort to mplayer everywhere.
-        
-    #    filters = [Latex, EscapeToHtml, ExpandPaths, Html5Audio,
-    #            Html5Video, RTLHandler, NonLatinFontSizeIncrease]
-
     renderers = [HtmlCss]

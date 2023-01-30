@@ -1,5 +1,5 @@
 #
-# SM2_controller_cramming.py <Peter.Bienstman@UGent.be>
+# SM2_controller_cramming.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

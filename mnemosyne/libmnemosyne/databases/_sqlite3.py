@@ -1,5 +1,5 @@
 #
-# _sqlite3.py <Peter.Bienstman@UGent.be>
+# _sqlite3.py <Peter.Bienstman@gmail.com>
 #
 
 #

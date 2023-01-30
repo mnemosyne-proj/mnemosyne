@@ -1,5 +1,5 @@
 #
-# M_sided.py <Peter.Bienstman@UGent.be>
+# M_sided.py <Peter.Bienstman@gmail.com>
 #
 
 import os

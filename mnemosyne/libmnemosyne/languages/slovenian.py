@@ -1,5 +1,5 @@
 #
-# slovenian.py <Peter.Bienstman@UGent.be>
+# slovenian.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.gui_translator import _

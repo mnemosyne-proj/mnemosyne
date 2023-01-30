@@ -1,8 +1,8 @@
 #
-# card_type_tree_wdgt.py <Peter.Bienstman@UGent.be>
+# card_type_tree_wdgt.py <Peter.Bienstman@gmail.com>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.component import Component
@@ -36,7 +36,7 @@ class CardTypeDelegate(TagDelegate):
             self.redraw_node.emit(self.card_type_id)
         else:
             self.rename_node.emit(self.card_type_id, editor.text())
-        self.closeEditor.emit(editor, QtWidgets.QAbstractItemDelegate.NoHint)
+        self.closeEditor.emit(editor, QtWidgets.QAbstractItemDelegate.EndEditHint.NoHint)
 
 
 class CardTypesTreeWdgt(TagsTreeWdgt):
@@ -73,7 +73,7 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
 
         old_card_type_name = self.card_type_with_id(nodes[0]).name
         dlg = RenameDlg(old_card_type_name)
-        if dlg.exec_() == QtWidgets.QDialog.Accepted:
+        if dlg.exec() == QtWidgets.QDialog.DialogCode.Accepted:
             self.rename_node(nodes[0], dlg.card_type_name.text())
 
     def menu_delete(self):
@@ -116,17 +116,18 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
         root_item = QtWidgets.QTreeWidgetItem(self.tree_wdgt,
             [_("All card types (%d)") % root_count], 0)
         root_item.setFlags(root_item.flags() | \
-           QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
-        root_item.setCheckState(0, QtCore.Qt.Checked)
+           QtCore.Qt.ItemFlag.ItemIsUserCheckable | \
+           QtCore.Qt.ItemFlag.ItemIsAutoTristate)
+        root_item.setCheckState(0, QtCore.Qt.CheckState.Checked)
         for card_type in self.database().sorted_card_types():
             if card_type.hidden_from_UI:
                 continue
             card_type_item = QtWidgets.QTreeWidgetItem(root_item, ["%s (%d)" % \
                 (_(card_type.name), count_for_card_type[card_type])], 0)
             card_type_item.setFlags(card_type_item.flags() | \
-                QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
-            card_type_item.setCheckState(0, QtCore.Qt.Checked)
-            card_type_item.setData(NODE, QtCore.Qt.DisplayRole,
+                QtCore.Qt.ItemFlag.ItemIsUserCheckable | QtCore.Qt.ItemFlag.ItemIsAutoTristate)
+            card_type_item.setCheckState(0, QtCore.Qt.CheckState.Checked)
+            card_type_item.setData(NODE, QtCore.Qt.ItemDataRole.DisplayRole,
                     QtCore.QVariant(card_type.id))
             if count_for_card_type[card_type] == 0 and \
                 self.database().is_user_card_type(card_type):
@@ -134,18 +135,18 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
             if self.database().is_user_card_type(card_type):
                 self.nodes_which_can_be_renamed.append(card_type.id)
                 card_type_item.setFlags(card_type_item.flags() | \
-                    QtCore.Qt.ItemIsEditable)
+                    QtCore.Qt.ItemFlag.ItemIsEditable)
             for fact_view in card_type.fact_views:
                 fact_view_item = QtWidgets.QTreeWidgetItem(card_type_item,
                     ["%s (%d)" % (_(fact_view.name),
                     count_for_fact_view[fact_view])], 0)
                 fact_view_item.setFlags(fact_view_item.flags() | \
-                    QtCore.Qt.ItemIsUserCheckable)
+                    QtCore.Qt.ItemFlag.ItemIsUserCheckable)
                 if (card_type.id, fact_view.id) in \
                     criterion.deactivated_card_type_fact_view_ids:
-                    check_state = QtCore.Qt.Unchecked
+                    check_state = QtCore.Qt.CheckState.Unchecked
                 else:
-                    check_state = QtCore.Qt.Checked
+                    check_state = QtCore.Qt.CheckState.Checked
                 fact_view_item.setCheckState(0, check_state)
                 # Since fact_view_item seems mutable, we cannot use a dict.
                 self.node_items.append(fact_view_item)
@@ -159,7 +160,7 @@ class CardTypesTreeWdgt(TagsTreeWdgt):
             item = self.node_items[i]
             card_type_fact_view_ids = \
                 self.card_type_fact_view_ids_for_node_item[i]
-            if item.checkState(0) == QtCore.Qt.Unchecked:
+            if item.checkState(0) == QtCore.Qt.CheckState.Unchecked:
                 criterion.deactivated_card_type_fact_view_ids.add(\
                     card_type_fact_view_ids)
         return criterion

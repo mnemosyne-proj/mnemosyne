@@ -1,5 +1,5 @@
 #
-# SQLite_logging.py <Peter.Bienstman@UGent.be>
+# SQLite_logging.py <Peter.Bienstman@gmail.com>
 #
 
 import os
@@ -63,6 +63,10 @@ class SQLiteLogging(object):
         in case the user the user does not run Mnemosyne on that day.
 
         """
+
+        # Takes 0.5 seconds on my big database for very little potential 
+        # gain, so disabling this for faster startup.
+        return
 
         timestamp = int(time.time())
         scheduled_count = 0

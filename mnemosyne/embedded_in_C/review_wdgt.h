@@ -1,5 +1,5 @@
 //
-// review_wdgt.h <Peter.Bienstman@UGent.be>
+// review_wdgt.h <Peter.Bienstman@gmail.com>
 //
 
 void review_wdgt_set_question_box_visible(int is_visible);

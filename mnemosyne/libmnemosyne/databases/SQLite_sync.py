@@ -1,5 +1,5 @@
 #
-# SQLite_sync.py - Peter Bienstman <Peter.Bienstman@UGent.be>
+# SQLite_sync.py - Peter Bienstman <Peter.Bienstman@gmail.com>
 #                  Max Usachev <maxusachev@gmail.com>
 #                  Ed Bartosh <bartosh@gmail.com>
 #

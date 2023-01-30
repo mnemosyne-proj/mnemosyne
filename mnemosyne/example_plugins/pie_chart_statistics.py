@@ -1,5 +1,5 @@
 #
-# pie_chart_statistics.py <Peter.Bienstman@UGent.be>, <mike@peacecorps.org.cv>
+# pie_chart_statistics.py <Peter.Bienstman@gmail.com>, <mike@peacecorps.org.cv>
 #
 
 from mnemosyne.libmnemosyne.plugin import Plugin

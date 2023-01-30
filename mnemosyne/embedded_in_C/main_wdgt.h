@@ -1,5 +1,5 @@
 //
-// main_wdgt.h <Peter.Bienstman@UGent.be>
+// main_wdgt.h <Peter.Bienstman@gmail.com>
 //
 
 void main_wdgt_set_window_title(char* text);

@@ -1,5 +1,5 @@
 #
-# anki_renderer.py <Peter.Bienstman@UGent.be>
+# anki_renderer.py <Peter.Bienstman@gmail.com>
 #
 
 import re

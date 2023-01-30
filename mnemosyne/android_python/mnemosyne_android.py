@@ -1,5 +1,5 @@
 #
-# mnemosyne_android.py <Peter.Bienstman@UGent.be>
+# mnemosyne_android.py <Peter.Bienstman@gmail.com>
 #
 
 import os

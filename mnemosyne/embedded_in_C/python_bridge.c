@@ -1,5 +1,5 @@
 //
-// python_bridge.c <Peter.Bienstman@UGent.be>
+// python_bridge.c <Peter.Bienstman@gmail.com>
 //
 
 #define STR_SIZE 128

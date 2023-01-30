@@ -1,5 +1,5 @@
 #
-# export_to_pdf.py <Peter.Bienstman@UGent.be>
+# export_to_pdf.py <Peter.Bienstman@gmail.com>
 #
 
 # Quick and dirty script to export the latest 100 Arabic cards to a pdf file

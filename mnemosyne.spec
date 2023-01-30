@@ -4,13 +4,13 @@ import os, sys, shutil
 
 block_cipher = None
 
-datas = [('mo', 'mo')]
-excludes = []
+datas = [('mo', 'mo'), ('pixmaps', 'pixmaps')]
+excludes = ['PyQt5', 'Qt5', 'tcl', 'tk', 'IPython', 'lib2to3']
 binaries = []
 
 hiddenimports = [
              'argon2-cffi',
-             'PyQt5.sip',
+             'PyQt6.sip',
              'google',
              'google.cloud',
              'google.api'
@@ -274,8 +274,8 @@ hiddenimports = [
              'mnemosyne.pyqt_ui.manage_card_types_dlg',
              'mnemosyne.pyqt_ui.manage_plugins_dlg',
              'mnemosyne.pyqt_ui.mnemosyne_rc',
-             'mnemosyne.pyqt_ui.mplayer_audio',
-             'mnemosyne.pyqt_ui.mplayer_video',
+             'mnemosyne.pyqt_ui.qt_audio',
+             'mnemosyne.pyqt_ui.qt_video',
              'mnemosyne.pyqt_ui.prefill_tag_behaviour_plugin',
              'mnemosyne.pyqt_ui.preview_cards_dlg',
              'mnemosyne.pyqt_ui.pronouncer_dlg',
@@ -307,12 +307,7 @@ hiddenimports = [
              'mnemosyne.web_server.web_server_render_chain'
 ]
 
-if sys.platform == 'win32':
-             datas.append(('C:\\Program Files (x86)\\mplayer.exe', '.'))
-             excludes = ['IPython', 'lib2to3']
-
 if sys.platform == 'darwin':
-             binaries.append(('/usr/local/bin/mplayer', '.'))
              binaries.append(('/usr/local/lib/libcaca.0.dylib', '.'))
              binaries.append(('/opt/X11/lib/libGL.1.dylib', '.'))
              binaries.append(('/opt/X11/lib/libglut.3.dylib', '.'))
@@ -350,22 +345,12 @@ a = Analysis([os.path.join('mnemosyne', 'pyqt_ui', 'mnemosyne')],
              excludes=excludes,
              win_no_prefer_redirects=False,
              win_private_assemblies=False,
-             cipher=block_cipher)
-
-# http://stackoverflow.com/questions/4890159/python-excluding-modules-pyinstaller
-a.binaries = a.binaries - TOC([
-             ('tcl86t.dll', None, None),
-             ('tk86t.dll', None, None),
-             ('tcl86t.lib', None, None),
-             ('tk86t.lib', None, None),
-             ('tcl86tg.lib', None, None),
-             ('tk86tg.lib', None, None),
-             ('tclstub86.lib', None, None),
-             ('tkstub86.lib', None, None)])
-
-# Remove Tcl and Tk stuff (seems to cause troubles on some systems.)
-# a.datas = [x for x in a.datas if not x[0].startswith'tcl')]
-# a.datas = [x for x in a.datas if not x[0].startswith'tk')]
+             cipher=block_cipher,
+             hooksconfig={
+              "matplotlib": {
+                "backends": "QtAgg",},
+              },
+             )
 
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
@@ -382,6 +367,11 @@ exe = EXE(pyz,
           console=False,
           codesign_identity=codesign_identity,
           icon=os.path.join('pixmaps', 'mnemosyne.ico'))
+
+# Not needed, but in case we ever need to remove something manually,
+# this is how to do it:
+#a.binaries = [x for x in a.binaries if not "qt5" in x[0].lower()]
+#a.datas = [x for x in a.datas if not "qt5" in x[0].lower()]
 
 coll = COLLECT(exe,
                a.binaries,

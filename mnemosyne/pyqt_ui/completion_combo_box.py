@@ -2,7 +2,7 @@
 # completion_combo_box.py: Emilian Mihalache <emihalac@gmail.com>
 #
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 from mnemosyne.pyqt_ui.tag_line_edit import TagLineEdit
 
 

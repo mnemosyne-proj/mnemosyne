@@ -1,5 +1,5 @@
 #
-# upgrade2.py <Peter.Bienstman@UGent.be>
+# upgrade2.py <Peter.Bienstman@gmail.com>
 #
 
 from mnemosyne.libmnemosyne.component import Component

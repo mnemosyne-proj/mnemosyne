@@ -1,5 +1,5 @@
 #
-# SQLite_statistics.py <Peter.Bienstman@UGent.be>
+# SQLite_statistics.py <Peter.Bienstman@gmail.com>
 #
 
 import time

@@ -44,18 +44,23 @@ The following instructions are valid for Linux and Mac (if you use homebrew or s
 ### Runtime requirements
 To start working on Mnemosyne, you need at least the following software.
 - [Python](http://www.python.org) 3.5 or later
-- [PyQt](https://www.riverbankcomputing.com/software/pyqt/download5) 5.6 or later, including QtWebEngineWidgets.
+- [PyQt](https://www.riverbankcomputing.com/software/pyqt/download) 6.0 or later, including QtWebEngine.
 - [Matplotlib](http://matplotlib.org)
 - [Easyinstall](http://peak.telecommunity.com/DevCenter/EasyInstall)
 - [cheroot](https://pypi.python.org/pypi/Cheroot/) 5 or later
 - [Webob](http://webob.org) 1.4 or later
 - [Pillow](http://python-pillow.org)
 - [gTTS](https://pypi.org/project/gTTS/) for Google text-to-speech
-- [googletrans](https://pypi.org/project/googletrans/) for Google translate support
+- [googletrans-new](https://github.com/lushan88a/google_trans_new) for Google translate support (Note: version 1.1.9 does not work, you need the
+  latest version from Github.)
 - [argon2-cffi](https://pypi.org/project/argon2-cffi/)
 - For Latex support: the `latex` and `dvipng` commands must be available (e.g., `TeXLive` on Linux, `MacTeX` on Mac, and `MikTeX` on Windows).  On Arch based distributions, you'll need `texlive-core` package too.
 - For building the docs: [sphinx](http://sphinx-doc.org) (If you get sphinx-related errors, try installing sphinx as root)
 - For running the tests: [nose](https://nose.readthedocs.io/en/latest/)
+
+These can be installed/upgraded using pip:
+
+pip install --upgrade PyQt6 PyQt6-WebEngine matplotlib cheroot webob pillow googletrans gTTS argon2-cffi
 
 You can either run a development version of Mnemosyne by using your system-wide Python installation, or by using a virtual environment with virtualenv.
 If your distribution provides and packages all necessary libraries in a recent enough version, using the system-wide Python install is probably easier and the recommended way.
@@ -188,13 +193,13 @@ pip install --upgrade pip
 ```
 
 - Install the python dependencies for Mnemosyne
-- Note for Mnemosyne 2.8, we used PyQt5 5.15 and PyInstaller 5.1
+- Note for Mnemosyne 2.11, we used PyQt6
 
 ```
 pip install argon2-cffi cheroot googletrans gtts matplotlib numpy pillow pyopengl sip tornado webob 
 
 # run this command and inspect the output to confirm you're using the correct versions
-pip install pyqt5 pyqtwebengine pyinstaller
+pip install pyqt6 pyinstaller
 ```
 
  - Build it (while still using the python virtual environment):
