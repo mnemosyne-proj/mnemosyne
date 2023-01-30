@@ -161,7 +161,6 @@ a.setDesktopFileName("mnemosyne.desktop")
 # Get rid of the white menubar on Windows and do some further tweaks.
 color = QtGui.QPalette().window().color().name()
 stylesheet = """
-
 * {
 font-size: 12px;
 }

@@ -1,4 +1,4 @@
-Mnemosyne 2.10:
+Mnemosyne 2.10 : 2023-01-30
 
 - Update to all the latest libraries, most importantly from Python 2.8
   to Python 2.11, and from PyQt5 to PyQt6. You might see better 
@@ -17,6 +17,7 @@ Mnemosyne 2.10:
 - Fix corner case when previewing cards after changing their card type 
   (reported by Gnome).
 - Removed option to insert Flash in cards.  
+
 
 Mnemosyne 2.9 : 2022-06-20
 

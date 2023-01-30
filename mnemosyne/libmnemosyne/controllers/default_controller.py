@@ -245,8 +245,6 @@ class DefaultController(Controller):
                 db.update_card(card, repetition_only=True)
         if save:
             db.save()
-        if self.review_controller().learning_ahead == True:
-            self.reset_study_mode()
         return cards
 
     def show_edit_card_dialog(self):
