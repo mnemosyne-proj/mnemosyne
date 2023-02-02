@@ -30,6 +30,7 @@ class GoogleTranslator(Translator):
                   
         from google_trans_new import google_translator
         #from googletrans import Translator as google_translator
+        # Note: also update libmnemosyne/__init__.py if you change this.
 
         global translator
         if not translator:

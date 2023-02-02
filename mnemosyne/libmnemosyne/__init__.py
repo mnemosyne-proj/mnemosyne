@@ -370,11 +370,11 @@ class Mnemosyne(Component):
                     "GooglePronouncer"))
             else:
                 warnings.warn("gTTS package is not installed. Text to speak feature will not be available.")
-            if ((importlib.util.find_spec("googletrans")) is not None):
+            if ((importlib.util.find_spec("google_trans_new")) is not None):
                 self.components.append(\
                     ("mnemosyne.libmnemosyne.translators.google_translator", "GoogleTranslator"))
             else:
-                warnings.warn("google_trans package is not installed. Google translate feature will not be available.")
+                warnings.warn("google_trans_new package is not installed. Google translate feature will not be available.")
         except:
             pass
         self.gui_for_component = {}
