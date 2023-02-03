@@ -42,11 +42,18 @@ class NonLatinFontSizeIncrease(Filter):
         proxy_key = card.card_type.fact_key_format_proxies()[fact_key]
         font_string = self.config().card_type_property(\
             "font", card.card_type, proxy_key)
+        
         if font_string:
-            if font_string.count(",") == 10:
+            style = ""
+            if font_string.count(",") == 9:
+                family,size,x,x,w,i,u,s,x,x = font_string.split(",")
+            elif font_string.count(",") == 10:
                 family,size,x,x,w,i,u,s,x,x,x = font_string.split(",")
             else:
-                family,size,x,x,w,i,u,s,x,x = font_string.split(",")
+                #Segoe UI,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,Regular
+                #Segoe UI,26,-1,5,700,1,1,1,0,0,0,0,0,0,0,1,Bold Italic
+                family,size,x,x,w,i,u,s,x,x,x,x,x,x,x,x,style \
+                    = font_string.split(",")
             base_font_size = int(size)
         else:
             base_font_size = self.main_widget().default_font_size()

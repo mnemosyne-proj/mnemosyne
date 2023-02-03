@@ -1,3 +1,9 @@
+Mnemosyne 2.10.1 : 2023-02-06
+
+- Suppress spurious warnings about missing Google translate libraries
+- Fix error in 'Non-latin point size increase'.
+
+
 Mnemosyne 2.10 : 2023-01-30
 
 - Update to all the latest libraries, most importantly from Python 2.8

@@ -117,7 +117,7 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
         QtWidgets.QApplication.exit()
 
     def default_font_size(self):
-        return QtWidgets.qApp.font().pointSize()
+        return QtWidgets.QApplication.font().pointSize()
 
     def get_filename_to_open(self, path, filter, caption=""):
         filename, _ = QtWidgets.QFileDialog.\
