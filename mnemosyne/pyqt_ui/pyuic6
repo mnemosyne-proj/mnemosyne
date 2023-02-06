@@ -1,0 +1,96 @@
+#!/usr/bin/env python
+#
+# pyuic6 <Johannes.Baiter@gmail.com> <Peter.Bienstman@gmail.com>
+#
+
+# This wraps PyQt6's uic to provide support for Mnemosyne's own translation
+# infrastructure.
+# Most of the code is taken from a blogpost by mandel_macaque:
+# http://www.themacaque.com/?p=816
+
+import re
+import sys
+from io import StringIO
+
+from PyQt6 import QtCore
+
+
+class CompileUi(object):
+
+    def compile_ui(self, ui_file):
+        # Import the uic compiler from pyqt and generate the .py files.
+        self._wrapuic()
+        from PyQt6 import uic
+        output = StringIO()
+        uic.compileUi(ui_file, output) #, from_imports="mnemosyne.pyqt_ui")
+        # Beyond PyQt 4.8.3, the 'retranslateUi' method is left empty
+        # for some reason, here we fill it again.
+        if hex(QtCore.PYQT_VERSION) > "0x40803":
+            output.seek(0)
+            output = self._fill_retranslate_method(output)
+        output.seek(0)
+        sys.stdout.write(output.read())
+
+    def _fill_retranslate_method(self, source):
+
+        """ Reads a Python source file, scans for lines that contain
+        strings marked to be translated with getext, and adds those lines
+        to the "retranslateUi" method.
+        We need this helper method because newer PyQt versions (everything
+        after 4.8.3) just leave the 'retranslateUi' method empty.
+
+        """
+
+        i18n_rexp = re.compile(r"^.*_\(.*\).*$")
+        output = StringIO()
+        i18n_elements = []
+        for line in source:
+            if not "def retranslateUi" in line:
+                if i18n_rexp.match(line):
+                    i18n_elements.append(line)
+                output.write(line)
+            else:
+                if not i18n_elements and "def retranslateUi" not in line:
+                    continue
+                output.write(line)
+                output.write("".join(i18n_elements))
+        source.close()
+        return output
+
+    _wrappeduic = False
+    @classmethod
+    def _wrapuic(cls):
+
+        """Wrap uic to use gettext's _() in place of tr()"""
+
+        if cls._wrappeduic:
+            return
+        from PyQt6.uic.Compiler import compiler, qtproxies, indenter
+
+        class _UICompiler(compiler.UICompiler):
+
+            """Specialized compiler for qt .ui files."""
+
+            def createToplevelWidget(self, classname, widgetname):
+                o = indenter.getIndenter()
+                o.level = 0
+                o.write('from mnemosyne.libmnemosyne.gui_translator import _')
+                return super(_UICompiler, self).createToplevelWidget(
+                                   classname, widgetname)
+
+        compiler.UICompiler = _UICompiler
+
+        class _i18n_string(qtproxies.i18n_string):
+
+            """Provide a translated text."""
+
+            def __str__(self):
+                return "_('%s')" % self.string.replace("\'", "\\'").replace("\n", "\\n")
+
+        qtproxies.i18n_string = _i18n_string
+        cls._wrappeduic = True
+
+
+if __name__ == '__main__':
+    compiler = CompileUi()
+    compiler.compile_ui(sys.argv[1])

@@ -319,7 +319,6 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         self.timer.timeout.connect(self.restore_focus)
         self.timer.start(200)
 
-
     def deactivate(self):
         self.stop_media()
         ReviewWidget.deactivate(self)
@@ -502,8 +501,16 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
 
     def play_media(self, filename, start=None, stop=None):
         if self.player == None:
+            #print("Initialising mediaplayer")
+            #print("Available devices:")
+            from PyQt6.QtMultimedia import QMediaDevices
+            for device in QMediaDevices().audioOutputs():
+                print("  ", device.description())
             self.player = QMediaPlayer()
             self.audio_output = QAudioOutput()
+            #print("Selected audio output:", self.audio_output.device().description())
+            #print("Volume:", self.audio_output.volume())
+            #print("Muted:", self.audio_output.isMuted())
             self.player.setAudioOutput(self.audio_output)
             self.player.mediaStatusChanged.connect(self.player_status_changed)
         if start is None:
@@ -518,6 +525,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
     def play_next_file(self):
         filename, self.current_media_start, self.current_media_stop = \
             self.media_queue.pop(0)
+        #print("Starting to play", filename)
         self.player.setSource(QtCore.QUrl.fromLocalFile(filename))
         self.player.positionChanged.connect(self.stop_playing_if_end_reached)
         self.player.play()
@@ -531,6 +539,7 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
         if result == QMediaPlayer.MediaStatus.BufferedMedia:
             self.player.setPosition(int(self.current_media_start*1000))
         elif result == QMediaPlayer.MediaStatus.EndOfMedia:
+            #print("End of media reached.")
             if len(self.media_queue) >= 1:
                 self.player.positionChanged.disconnect()
                 self.play_next_file()

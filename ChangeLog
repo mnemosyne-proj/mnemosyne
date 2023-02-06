@@ -2,6 +2,7 @@ Mnemosyne 2.10.1 : 2023-02-06
 
 - Suppress spurious warnings about missing Google translate libraries
 - Fix error in 'Non-latin point size increase'.
+- Solve packaging issue to prevent crashing on cards with audio.
 
 
 Mnemosyne 2.10 : 2023-01-30
