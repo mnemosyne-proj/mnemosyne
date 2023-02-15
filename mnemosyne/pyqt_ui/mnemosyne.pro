@@ -1,10 +1,9 @@
-FORMS = main_window.ui \
+FORMS = \
 	add_cards_dlg.ui \
 	card_twosided_wdgt.ui \
 	activate_categories_dlg.ui \
 	edit_cards_dlg.ui \
 	add_cards_dlg.ui \
-	edit_cards_dlg.ui \
 	preview_cards_dlg.ui \
 	change_category_dlg.ui \
 	export_dlg.ui \
@@ -15,8 +14,8 @@ FORMS = main_window.ui \
 	about_dlg.ui \
 	tip_dlg.ui
 
-SOURCES = main_window.py \
-	add_cards_dlg.py \ 	
+SOURCES = \
+	add_cards_dlg.py \
 	card_twosided_wdgt.py \
 	activate_categories_dlg.py \
 	message_boxes.py \
@@ -32,10 +31,6 @@ SOURCES = main_window.py \
 	config_dlg.py \
 	sound.py \
 	statistics_dlg.py \
-	edit_cards_dlg.py \
-	main_window.py \
-	edit_cards_dlg.py \
-	preview_cards_dlg.py \
 	about_dlg.py \
 	tip_dlg.py
 
