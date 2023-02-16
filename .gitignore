@@ -22,6 +22,7 @@ mnemosyne/**/*.pyc
 mnemosyne/pyqt_ui/mnemosyne_rc.py
 mnemosyne/pyqt_ui/tmp
 mnemosyne/pyqt_ui/ui_*
+mnemosyne/embedded_in_C/*.o
 mo/
 openSM2sync/**/*.pyc
 tests/**/*.pyc
@@ -185,6 +186,7 @@ Session.vim
 *~
 # auto-generated tag files
 tags
+cscope.out
 
 # macos
 .DS_Store
