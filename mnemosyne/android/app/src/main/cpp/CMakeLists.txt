@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.4.1)
+project(mnemosyne_android)
 
 # configure import libs
 set(distribution_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../../dependencies)
@@ -9,9 +10,9 @@ set(distribution_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../../dependencies)
 # the most valuable thing of this sample, the rest are pretty much normal cmake
 
 # add libpython
-add_library(lib_python3.8m SHARED IMPORTED)
-set_target_properties(lib_python3.8m PROPERTIES IMPORTED_LOCATION
-        ${distribution_DIR}/python/lib/${ANDROID_ABI}/libpython3.8m.so)
+add_library(lib_python3.9 SHARED IMPORTED)
+set_target_properties(lib_python3.9 PROPERTIES IMPORTED_LOCATION
+        ${distribution_DIR}/python/lib/${ANDROID_ABI}/libpython3.9.so)
 
 # build pybridge
 add_library(pybridge SHARED pybridge.c)
@@ -20,5 +21,5 @@ target_compile_options(pybridge PRIVATE -Wno-unused-value)
 target_link_libraries(pybridge
         android
         log
-        -lpython3.8m -L${distribution_DIR}/python/lib/${ANDROID_ABI}
+        -lpython3.9 -L${distribution_DIR}/python/lib/${ANDROID_ABI}
         )

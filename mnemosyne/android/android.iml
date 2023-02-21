@@ -5,14 +5,7 @@
       <map />
     </option>
   </component>
-  <component name="FacetManager">
-    <facet type="java-gradle" name="Java-Gradle">
-      <configuration>
-        <option name="BUILDABLE" value="false" />
-      </configuration>
-    </facet>
-  </component>
-  <component name="NewModuleRootManager">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.gradle" />

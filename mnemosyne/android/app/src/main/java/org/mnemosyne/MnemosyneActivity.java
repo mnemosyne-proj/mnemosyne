@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Rect;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -25,6 +26,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.documentfile.provider.DocumentFile;
 
 import android.text.Html;
@@ -34,8 +38,11 @@ import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowInsets;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -90,12 +97,12 @@ public class MnemosyneActivity extends AppCompatActivity {
     GestureDetector gestureDetector;
 
     public int getStatusBarHeight() {
-        int result = 50;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
+        int statusBarHeightId = getApplicationContext().getResources().getIdentifier(
+                "status_bar_height", "dimen", "android");
+        int statusBarHeight = getApplicationContext().getResources().getDimensionPixelSize(statusBarHeightId);
+        //Log.i("Mnemosyne", "Statusbar height" + statusBarHeight);
+        // The calculation above still results in a gap, so we hardcode 50...
+        return 50; //statusBarHeight;
     }
 
     @Override
@@ -244,14 +251,14 @@ public class MnemosyneActivity extends AppCompatActivity {
             builder.setMessage(Html.fromHtml("This application is meant to be used in conjunction with the <a href='http://www.mnemosyne-proj.org'>Mnemosyne desktop app</a>. Input your cards there, start the desktop sync server in 'Configure Mnemosyne' and then you can sync and review the cards in this Android app.<br><br>IMPORTANT: note that only the database 'default.db' is synced. <br><br>IMPORTANT: If you used Mnemosyne before on this device, <a href='https://mnemosyne-proj.org/help/android-and-storage'>click here</a>."));
             builder.setCancelable(false);
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            mnemosyneThread.getHandler().post(new Runnable() {
-                                public void run() {
-                                    mnemosyneThread.bridge.controller_show_sync_dialog_pre();
-                                }
-                            });
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    mnemosyneThread.getHandler().post(new Runnable() {
+                        public void run() {
+                            mnemosyneThread.bridge.controller_show_sync_dialog_pre();
                         }
                     });
+                }
+            });
 
             AlertDialog alert = builder.create();
             alert.show();
@@ -262,16 +269,45 @@ public class MnemosyneActivity extends AppCompatActivity {
         editor.putBoolean("shown_first_run_wizard", true);
         editor.commit();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        if (true) { //(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             setFullscreen();
+            // Capture all touch down events on top of the screen.
+            getWindow().getDecorView().setOnTouchListener(new View.OnTouchListener() {
+                @Override
+
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()){
+                        case MotionEvent.ACTION_DOWN:
+                            //Toast toast = Toast.makeText(getApplicationContext(),
+                            //        "Swipe down", Toast.LENGTH_SHORT);
+                            //toast.show();
+                            //Log.d("Mnemosyne", "Action down");
+                            getSupportActionBar().show();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    setFullscreen();
+                                }
+                            }, 2500);
+                            break;
+                    }
+                    return false;
+                }
+            });
+        }
+
+        else if (false) {// (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setFullscreen();
+
             getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(
                     new View.OnSystemUiVisibilityChangeListener() {
                         @Override
                         public void onSystemUiVisibilityChange(int visibility) {
-                            //final String s = Integer.toString(visibility);
-                            //Toast toast = Toast.makeText(getApplicationContext(),
-                            //        s, Toast.LENGTH_SHORT);
-                            //toast.show();
+                            final String s = Integer.toString(visibility) + " "
+                                    + Integer.toString(visibility & View.SYSTEM_UI_FLAG_FULLSCREEN);
+                            Toast toast = Toast.makeText(getApplicationContext(),
+                                    s, Toast.LENGTH_SHORT);
+                            toast.show();
                             //Log.d("Mnemosyne", "visibility: " + Integer.toString(visibility));
                             if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
                                 // Exiting full screen, so show the action bar and hide
@@ -292,9 +328,18 @@ public class MnemosyneActivity extends AppCompatActivity {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     public void setFullscreen() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        if (true) { // (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            getSupportActionBar().hide();
+            // https://developer.android.com/develop/ui/views/layout/immersive#java
+            WindowInsetsControllerCompat windowInsetsController =
+                    WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+            windowInsetsController.setSystemBarsBehavior(
+                    WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            );
+            windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
+        }
+        else if (true) { // (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getSupportActionBar().hide();
             getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_STABLE

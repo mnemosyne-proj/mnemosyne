@@ -141,6 +141,12 @@ extern "C" {
 #endif
 
 
+#if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03090000
+/* Call a callable Python object without any arguments */
+PyAPI_FUNC(PyObject *) PyObject_CallNoArgs(PyObject *func);
+#endif
+
+
 /* Call a callable Python object 'callable' with arguments given by the
    tuple 'args' and keywords arguments given by the dictionary 'kwargs'.
 
@@ -312,7 +318,7 @@ PyAPI_FUNC(int) PyObject_DelItem(PyObject *o, PyObject *key);
 
 /* Takes an arbitrary object which must support the (character, single segment)
    buffer interface and returns a pointer to a read-only memory location
-   useable as character based input for subsequent processing.
+   usable as character based input for subsequent processing.
 
    Return 0 on success.  buffer and buffer_len are only set in case no error
    occurs. Otherwise, -1 is returned and an exception set. */
@@ -696,7 +702,7 @@ PyAPI_FUNC(PyObject *) PySequence_Fast(PyObject *o, const char* m);
      (PyList_Check(o) ? PyList_GET_ITEM(o, i) : PyTuple_GET_ITEM(o, i))
 
 /* Return a pointer to the underlying item array for
-   an object retured by PySequence_Fast */
+   an object returned by PySequence_Fast */
 #define PySequence_Fast_ITEMS(sf) \
     (PyList_Check(sf) ? ((PyListObject *)(sf))->ob_item \
                       : ((PyTupleObject *)(sf))->ob_item)

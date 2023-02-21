@@ -24,7 +24,7 @@ public class MnemosyneBridge {
             Log.i("Mnemosyne", "FileName:" + files[i].getName());
         }
 
-        Log.i("Mnemosyne", "About to started pybridge");
+        Log.i("Mnemosyne", "About to start pybridge");
         PyBridge.initialise(basedir + "/assets/python",
                 UIActivity.getApplicationInfo().nativeLibraryDir, UIActivity, thread);
         Log.i("Mnemosyne", "Started pybridge");

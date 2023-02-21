@@ -9,6 +9,10 @@
 /* Define if building universal (internal helper macro) */
 /* #undef AC_APPLE_UNIVERSAL_BUILD */
 
+/* BUILD_GNU_TYPE + AIX_BUILDDATE are used to construct the PEP425 tag of the
+   build system. */
+/* #undef AIX_BUILDDATE */
+
 /* Define for AIX if your compiler is a genuine IBM xlC/xlC_r and you want
    support for AIX C++ shared extension modules. */
 /* #undef AIX_GENUINE_CPLUSPLUS */
@@ -18,7 +22,7 @@
 /* #undef ALT_SOABI */
 
 /* The Android API level. */
-#define ANDROID_API_LEVEL 21
+#define ANDROID_API_LEVEL 26
 
 /* Define if C doubles are 64-bit IEEE 754 binary format, stored in ARM
    mixed-endian order (byte order 45670123) */
@@ -44,10 +48,6 @@
 
 /* Define if getpgrp() must be called as getpgrp(0). */
 /* #undef GETPGRP_HAVE_ARG */
-
-/* Define if gettimeofday() does not have second (timezone) argument This is
-   the case on Motorola V4 (R40V4.2) */
-/* #undef GETTIMEOFDAY_NO_TZ */
 
 /* Define to 1 if you have the `accept4' function. */
 #define HAVE_ACCEPT4 1
@@ -159,7 +159,7 @@
 /* #undef HAVE_CRYPT_R */
 
 /* Define to 1 if you have the `ctermid' function. */
-/* #undef HAVE_CTERMID */
+#define HAVE_CTERMID 1
 
 /* Define if you have the 'ctermid_r' function. */
 /* #undef HAVE_CTERMID_R */
@@ -282,6 +282,9 @@
 /* Define to 1 if you have the `dup3' function. */
 #define HAVE_DUP3 1
 
+/* Define if you have the '_dyld_shared_cache_contains_path' function. */
+/* #undef HAVE_DYLD_SHARED_CACHE_CONTAINS_PATH */
+
 /* Defined when any dynamic module loading is enabled. */
 #define HAVE_DYNAMIC_LOADING 1
 
@@ -358,7 +361,7 @@
 #define HAVE_FORK 1
 
 /* Define to 1 if you have the `forkpty' function. */
-/* #undef HAVE_FORKPTY */
+#define HAVE_FORKPTY 1
 
 /* Define to 1 if you have the `fpathconf' function. */
 #define HAVE_FPATHCONF 1
@@ -394,10 +397,10 @@
 #define HAVE_FUTIMENS 1
 
 /* Define to 1 if you have the `futimes' function. */
-/* #undef HAVE_FUTIMES */
+#define HAVE_FUTIMES 1
 
 /* Define to 1 if you have the `futimesat' function. */
-/* #undef HAVE_FUTIMESAT */
+#define HAVE_FUTIMESAT 1
 
 /* Define to 1 if you have the `gai_strerror' function. */
 #define HAVE_GAI_STRERROR 1
@@ -428,10 +431,10 @@
 /* #undef HAVE_GETENTROPY */
 
 /* Define to 1 if you have the `getgrgid_r' function. */
-/* #undef HAVE_GETGRGID_R */
+#define HAVE_GETGRGID_R 1
 
 /* Define to 1 if you have the `getgrnam_r' function. */
-/* #undef HAVE_GETGRNAM_R */
+#define HAVE_GETGRNAM_R 1
 
 /* Define to 1 if you have the `getgrouplist' function. */
 #define HAVE_GETGROUPLIST 1
@@ -485,7 +488,7 @@
 #define HAVE_GETPRIORITY 1
 
 /* Define to 1 if you have the `getpwent' function. */
-/* #undef HAVE_GETPWENT */
+#define HAVE_GETPWENT 1
 
 /* Define to 1 if you have the `getpwnam_r' function. */
 #define HAVE_GETPWNAM_R 1
@@ -514,9 +517,6 @@
 /* Define to 1 if you have the `getspnam' function. */
 /* #undef HAVE_GETSPNAM */
 
-/* Define to 1 if you have the `gettimeofday' function. */
-#define HAVE_GETTIMEOFDAY 1
-
 /* Define to 1 if you have the `getwd' function. */
 /* #undef HAVE_GETWD */
 
@@ -540,7 +540,7 @@
 /* #undef HAVE_IEEEFP_H */
 
 /* Define to 1 if you have the `if_nameindex' function. */
-/* #undef HAVE_IF_NAMEINDEX */
+#define HAVE_IF_NAMEINDEX 1
 
 /* Define if you have the 'inet_aton' function. */
 #define HAVE_INET_ATON 1
@@ -614,6 +614,9 @@
 /* Define to 1 if you have the <libutil.h> header file. */
 /* #undef HAVE_LIBUTIL_H */
 
+/* Define you have libuuid. */
+/* #undef HAVE_LIBUUID */
+
 /* Define if you have the 'link' function. */
 #define HAVE_LINK 1
 
@@ -626,11 +629,17 @@
 /* Define to 1 if you have the <linux/can.h> header file. */
 #define HAVE_LINUX_CAN_H 1
 
+/* Define to 1 if you have the <linux/can/j1939.h> header file. */
+#define HAVE_LINUX_CAN_J1939_H 1
+
 /* Define if compiling using Linux 3.6 or later. */
 #define HAVE_LINUX_CAN_RAW_FD_FRAMES 1
 
 /* Define to 1 if you have the <linux/can/raw.h> header file. */
 #define HAVE_LINUX_CAN_RAW_H 1
+
+/* Define if compiling using Linux 4.1 or later. */
+#define HAVE_LINUX_CAN_RAW_JOIN_FILTERS 1
 
 /* Define to 1 if you have the <linux/memfd.h> header file. */
 #define HAVE_LINUX_MEMFD_H 1
@@ -650,8 +659,11 @@
 /* Define to 1 if you have the <linux/vm_sockets.h> header file. */
 #define HAVE_LINUX_VM_SOCKETS_H 1
 
+/* Define to 1 if you have the <linux/wait.h> header file. */
+#define HAVE_LINUX_WAIT_H 1
+
 /* Define to 1 if you have the `lockf' function. */
-/* #undef HAVE_LOCKF */
+#define HAVE_LOCKF 1
 
 /* Define to 1 if you have the `log1p' function. */
 #define HAVE_LOG1P 1
@@ -666,7 +678,7 @@
 #define HAVE_LSTAT 1
 
 /* Define to 1 if you have the `lutimes' function. */
-/* #undef HAVE_LUTIMES */
+#define HAVE_LUTIMES 1
 
 /* Define to 1 if you have the `madvise' function. */
 #define HAVE_MADVISE 1
@@ -693,7 +705,7 @@
 #define HAVE_MKFIFO 1
 
 /* Define to 1 if you have the `mkfifoat' function. */
-/* #undef HAVE_MKFIFOAT */
+#define HAVE_MKFIFOAT 1
 
 /* Define to 1 if you have the `mknod' function. */
 #define HAVE_MKNOD 1
@@ -725,11 +737,15 @@
 /* Define to 1 if you have the `nice' function. */
 #define HAVE_NICE 1
 
+/* Define if the internal form of wchar_t in non-Unicode locales is not
+   Unicode. */
+/* #undef HAVE_NON_UNICODE_WCHAR_T_REPRESENTATION */
+
 /* Define to 1 if you have the `openat' function. */
 #define HAVE_OPENAT 1
 
 /* Define to 1 if you have the `openpty' function. */
-/* #undef HAVE_OPENPTY */
+#define HAVE_OPENPTY 1
 
 /* Define to 1 if you have the `pathconf' function. */
 #define HAVE_PATHCONF 1
@@ -765,7 +781,7 @@
 #define HAVE_PREAD 1
 
 /* Define to 1 if you have the `preadv' function. */
-/* #undef HAVE_PREADV */
+#define HAVE_PREADV 1
 
 /* Define to 1 if you have the `preadv2' function. */
 /* #undef HAVE_PREADV2 */
@@ -803,14 +819,11 @@
 /* Define to 1 if you have the <pty.h> header file. */
 #define HAVE_PTY_H 1
 
-/* Define to 1 if you have the `putenv' function. */
-#define HAVE_PUTENV 1
-
 /* Define to 1 if you have the `pwrite' function. */
 #define HAVE_PWRITE 1
 
 /* Define to 1 if you have the `pwritev' function. */
-/* #undef HAVE_PWRITEV */
+#define HAVE_PWRITEV 1
 
 /* Define to 1 if you have the `pwritev2' function. */
 /* #undef HAVE_PWRITEV2 */
@@ -878,6 +891,9 @@
 /* Define to 1 if you have the `sched_setscheduler' function. */
 #define HAVE_SCHED_SETSCHEDULER 1
 
+/* Define to 1 if you have the `sem_clockwait' function. */
+/* #undef HAVE_SEM_CLOCKWAIT */
+
 /* Define to 1 if you have the `sem_getvalue' function. */
 #define HAVE_SEM_GETVALUE 1
 
@@ -906,7 +922,7 @@
 #define HAVE_SETGROUPS 1
 
 /* Define to 1 if you have the `sethostname' function. */
-/* #undef HAVE_SETHOSTNAME */
+#define HAVE_SETHOSTNAME 1
 
 /* Define to 1 if you have the `setitimer' function. */
 #define HAVE_SETITIMER 1
@@ -975,16 +991,16 @@
 #define HAVE_SIGPENDING 1
 
 /* Define to 1 if you have the `sigrelse' function. */
-/* #undef HAVE_SIGRELSE */
+#define HAVE_SIGRELSE 1
 
 /* Define to 1 if you have the `sigtimedwait' function. */
-/* #undef HAVE_SIGTIMEDWAIT */
+#define HAVE_SIGTIMEDWAIT 1
 
 /* Define to 1 if you have the `sigwait' function. */
 #define HAVE_SIGWAIT 1
 
 /* Define to 1 if you have the `sigwaitinfo' function. */
-/* #undef HAVE_SIGWAITINFO */
+#define HAVE_SIGWAITINFO 1
 
 /* Define to 1 if you have the `snprintf' function. */
 #define HAVE_SNPRINTF 1
@@ -1264,9 +1280,6 @@
 /* Define to 1 if you have the `unlinkat' function. */
 #define HAVE_UNLINKAT 1
 
-/* Define to 1 if you have the `unsetenv' function. */
-#define HAVE_UNSETENV 1
-
 /* Define if you have a useable wchar_t type defined in wchar.h; useable means
    wchar_t must be an unsigned type with at least 16 bits. (see
    Include/unicodeobject.h). */
@@ -1382,6 +1395,9 @@
 
 /* Define as the preferred size in bits of long digits */
 /* #undef PYLONG_BITS_IN_DIGIT */
+
+/* enabled builtin hash modules */
+#define PY_BUILTIN_HASHLIB_HASHES "md5,sha1,sha256,sha512,sha3,blake2"
 
 /* Define if you want to coerce the C locale to a UTF-8 based locale */
 #define PY_COERCE_C_LOCALE 1
@@ -1518,6 +1534,10 @@
 
 /* Define if WINDOW in curses.h offers a field _flags. */
 /* #undef WINDOW_HAS_FLAGS */
+
+/* Define if you want build the _decimal module using a coroutine-local rather
+   than a thread-local context */
+#define WITH_DECIMAL_CONTEXTVAR 1
 
 /* Define if you want documentation strings in extension modules */
 #define WITH_DOC_STRINGS 1

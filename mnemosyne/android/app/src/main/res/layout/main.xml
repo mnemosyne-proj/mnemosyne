@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--    http://stackoverflow.com/questions/27115455/unable-to-get-appcompat-actionbar-toolbar-to-become-an-overlay -->
+    <!--    http://stackoverflow.com/questions/27115455/unable-to-get-appcompat-actionbar-toolbar-to-become-an-overlay -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -8,125 +8,125 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@android:color/black">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@android:color/black">
 
-     <TextView
-         android:id="@+id/questionLabel"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:text="Question:" />
+        <TextView
+            android:id="@+id/questionLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Question:" />
 
-     <WebView
-         android:id="@+id/question"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:layout_weight="1" />
+        <WebView
+            android:id="@+id/question"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
-     <Button
-         android:id="@+id/showAnswerButton"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:paddingTop="15dp"
-         android:paddingBottom="15dp"
-         android:background="@android:color/transparent"
-         android:textColor="@android:color/white"
-         android:text="Show answer" />
+        <Button
+            android:id="@+id/showAnswerButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/white"
+            android:text="Show answer" />
 
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-         <Button
-             android:id="@+id/button0"
-             android:paddingTop="15dp"
-             android:paddingBottom="15dp"
-             android:background="@android:color/transparent"
-             android:textColor="@android:color/white"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-             android:text="0" />
+            <Button
+                android:id="@+id/button0"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:background="@android:color/transparent"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="0" />
 
-         <Button
-             android:id="@+id/button1"
-             android:paddingTop="15dp"
-             android:paddingBottom="15dp"             
-             android:background="@android:color/transparent"
-             android:textColor="@android:color/white"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-             android:text="1" />
+            <Button
+                android:id="@+id/button1"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:background="@android:color/transparent"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="1" />
 
-         <Button
-             android:paddingTop="15dp"
-             android:paddingBottom="15dp"             
-             android:id="@+id/button2"
-             android:background="@android:color/transparent"
-             android:textColor="@android:color/white"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-             android:text="2" />
+            <Button
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:id="@+id/button2"
+                android:background="@android:color/transparent"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="2" />
 
-         <Button
-             android:id="@+id/button3"
-             android:paddingTop="15dp"
-             android:paddingBottom="15dp"
-             android:background="@android:color/transparent"
-             android:textColor="@android:color/white"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-             android:text="3" />
+            <Button
+                android:id="@+id/button3"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:background="@android:color/transparent"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="3" />
 
-         <Button
-             android:id="@+id/button4"
-             android:paddingTop="15dp"
-             android:paddingBottom="15dp"
-             android:background="@android:color/transparent"
-             android:textColor="@android:color/white"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-             android:text="4" />
+            <Button
+                android:id="@+id/button4"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:background="@android:color/transparent"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="4" />
 
-         <Button
-             android:id="@+id/button5"
-             android:paddingTop="15dp"
-             android:paddingBottom="15dp"
-             android:background="@android:color/transparent"
-             android:textColor="@android:color/white"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-             android:text="5" />
-     </LinearLayout>
+            <Button
+                android:id="@+id/button5"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:background="@android:color/transparent"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="5" />
+        </LinearLayout>
 
-     <TextView
-         android:id="@+id/answerLabel"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:text="Answer:" />
+        <TextView
+            android:id="@+id/answerLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Answer:" />
 
-     <WebView
-         android:id="@+id/answer"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:layout_weight="1" />
+        <WebView
+            android:id="@+id/answer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
-     <TextView
-         android:id="@+id/statusbar"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:text="Statusbar" />
-    
- </LinearLayout>
+        <TextView
+            android:id="@+id/statusbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Statusbar" />
+
+    </LinearLayout>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -134,7 +134,7 @@
         android:layout_width="match_parent"
         android:minHeight="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:elevation="4dp"
+        android:elevation="0dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat" />
 

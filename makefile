@@ -11,7 +11,7 @@ endif
 # If we are on cygwin:
 ifeq (1,$(shell /cygdrive/c/Program\ Files/Python311/python.exe -c "print(1)" 2>&- ))
 PYTHON      := /cygdrive/c/Program\ Files/Python311/python.exe
-PYTHON38    := /cygdrive/c/Program\ Files/Python38/python.exe
+PYTHON39    := /cygdrive/c/Program\ Files/Python39/python.exe
 endif
 # If `sphinx-build2` exists:
 ifneq (,$(shell command -v sphinx-build2 2>&- ))
@@ -74,11 +74,10 @@ profile: FORCE
 	$(PYTHON) process_profile.py
 
 gui-profile: FORCE
-	$(PYTHON) -m cProfile -s cumulative mnemosyne/pyqt_ui/mnemosyne -d ./dot_mnemosyne2/ | more
+	$(PYTHON) -m cProfile -s cumulative mnemosyne/pyqt_ui/mnemosyne | more
 
 gui-profile-windows: FORCE
-	cp mnemosyne/pyqt_ui/mnemosyne tmp.py
-	$(PYTHON) -m cProfile -s cumulative tmp.py -d C:\dot_mnemosyne2 | more
+	$(PYTHON) -m cProfile -s cumulative mnemosyne/pyqt_ui/mnemosyne -d C:\\Users\\peter\\AppData\\Roaming\\Mnemosyne | more
 
 benchmark: FORCE
 	$(PYTHON) tests/benchmark.py
@@ -127,7 +126,7 @@ android: # Creates the assets file with the Python code.
 	zip -r mnemosyne/android/app/src/main/assets/python/mnemosyne.zip mnemosyne/libmnemosyne -i \*.py
 	zip	-r mnemosyne/android/app/src/main/assets/python/mnemosyne.zip mnemosyne/android_python -i \*.py
 	zip	mnemosyne/android/app/src/main/assets/python/mnemosyne.zip mnemosyne/version.py mnemosyne/__init__.py
-	$(PYTHON38) compile_zip.py mnemosyne/android/app/src/main/assets/python/mnemosyne.zip
+	$(PYTHON39) compile_zip.py mnemosyne/android/app/src/main/assets/python/mnemosyne.zip
 
 clean:
 	rm -f *~ *.pyc *.tgz process_profile.py

@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
-    ndkVersion '21.3.6528147'
+    compileSdkVersion 33
+    ndkVersion '25.1.8937393'
 
     def versionMajor = 2
-    def versionMinor = 6
+    def versionMinor = 7
     def versionPatch = 0
 
     defaultConfig {
@@ -13,12 +13,13 @@ android {
         versionCode versionMajor*10000 + versionMinor*100 + versionPatch
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
 
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdkVersion 26
+        targetSdkVersion 33
         compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_7
-            targetCompatibility JavaVersion.VERSION_1_7
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
         }
+
         externalNativeBuild {
             cmake {
                 arguments '-DANDROID_STL=c++_static'
@@ -67,21 +68,21 @@ android {
 
     sourceSets {
         main {
-            // Let gradle pack the shared library into the apk.
+            // Let gradle pack the Python libraries into the apk.
             jniLibs.srcDirs = ['../dependencies/python/lib']
         }
     }
 
     externalNativeBuild {
         cmake {
-            version '3.10.2'
             path 'src/main/cpp/CMakeLists.txt'
         }
     }
 
     dependencies {
-        implementation 'androidx.appcompat:appcompat:1.2.0'
+        implementation 'androidx.appcompat:appcompat:1.6.1'
     }
+    namespace 'org.mnemosyne'
 }
 
 dependencies {
