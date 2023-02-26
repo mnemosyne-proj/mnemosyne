@@ -20,7 +20,7 @@ class GettingStartedDlg(QtWidgets.QWizard, GettingStartedDialog,
         # Note: the svg file does not seem to work under windows.
         #watermark = QtGui.QPixmap("pixmaps/mnemosyne.svg")\
         #    .scaledToHeight(200, QtCore.Qt.TransformationMode.SmoothTransformation)
-        watermark = QtGui.QPixmap("pixmaps/mnemosyne.png")
+        watermark = QtGui.QPixmap("icons:mnemosyne.png")
         self.setPixmap(QtWidgets.QWizard.WizardPixmap.WatermarkPixmap, watermark)
 
     def activate(self):

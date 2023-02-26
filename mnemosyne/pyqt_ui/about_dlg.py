@@ -22,7 +22,7 @@ class AboutDlg(QtWidgets.QDialog, AboutDialog, Ui_AboutDlg):
         # Note: the svg file does not seem to work under windows.
         #watermark = QtGui.QPixmap("pixmaps/mnemosyne.svg").\
         #    scaledToHeight(200, QtCore.Qt.TransformationMode.SmoothTransformation)
-        watermark = QtGui.QPixmap("pixmaps/mnemosyne.png")
+        watermark = QtGui.QPixmap("icons:mnemosyne.png")
         self.watermark.setPixmap(watermark)
         self.about_label.setText("<b>" + _("Mnemosyne") + " " + version + "</b><br><br>" + \
            _("Main author: Peter Bienstman") + "<br><br>" + \
