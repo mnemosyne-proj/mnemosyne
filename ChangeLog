@@ -1,3 +1,7 @@
+
+
+- Improve icon finding logic (patch by traveller1).
+
 Mnemosyne 2.10.1 : 2023-02-06
 
 - Suppress spurious warnings about missing Google translate libraries.

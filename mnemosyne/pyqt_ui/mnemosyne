@@ -203,8 +203,12 @@ font-size: 12px;
     }"""
 a.setStyleSheet(stylesheet)
 
-pixmaps_dir = os.path.abspath(__file__ + '/../../../pixmaps')
-QtCore.QDir.addSearchPath('icons', pixmaps_dir)
+# For system install:
+QtCore.QDir.addSearchPath("icons", 
+    os.path.abspath(__file__ + "/../../../pixmaps"))
+# For Windows installer:
+QtCore.QDir.addSearchPath("icons", 
+    "pixmaps")
 
 # Add other components we need. The translator should come first.
 # The UI components should come in the order they should be instantiated,
