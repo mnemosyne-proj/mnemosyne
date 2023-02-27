@@ -18,7 +18,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>icons:mnemosyne.png</normaloff>icons:mnemosyne.png</iconset>
+    <normaloff>pixmaps/mnemosyne.png</normaloff>pixmaps/mnemosyne.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menu_bar">
@@ -130,7 +130,7 @@
   <action name="actionAddCards">
    <property name="icon">
     <iconset>
-     <normaloff>icons:add.png</normaloff>icons:add.png</iconset>
+     <normaloff>pixmaps/add.png</normaloff>pixmaps/add.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Add cards...</string>
@@ -142,7 +142,7 @@
   <action name="actionConfigure">
    <property name="icon">
     <iconset>
-     <normaloff>icons:configure.png</normaloff>icons:configure.png</iconset>
+     <normaloff>pixmaps/configure.png</normaloff>pixmaps/configure.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Configure Mnemosyne...</string>
@@ -151,7 +151,7 @@
   <action name="actionDeleteCurrentCard">
    <property name="icon">
     <iconset>
-     <normaloff>icons:delete.png</normaloff>icons:delete.png</iconset>
+     <normaloff>pixmaps/delete.png</normaloff>pixmaps/delete.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Delete current card</string>
@@ -163,7 +163,7 @@
   <action name="actionEditCurrentCard">
    <property name="icon">
     <iconset>
-     <normaloff>icons:edit.png</normaloff>icons:edit.png</iconset>
+     <normaloff>pixmaps/edit.png</normaloff>pixmaps/edit.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Edit current card...</string>
@@ -185,7 +185,7 @@
   <action name="actionBrowseCards">
    <property name="icon">
     <iconset>
-     <normaloff>icons:cards.png</normaloff>icons:cards.png</iconset>
+     <normaloff>pixmaps/cards.png</normaloff>pixmaps/cards.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Browse cards...</string>
@@ -202,7 +202,7 @@
   <action name="actionFileExit">
    <property name="icon">
     <iconset>
-     <normaloff>icons:exit.png</normaloff>icons:exit.png</iconset>
+     <normaloff>pixmaps/exit.png</normaloff>pixmaps/exit.png</iconset>
    </property>
    <property name="text">
     <string>E&amp;xit</string>
@@ -211,7 +211,7 @@
   <action name="actionFileNew">
    <property name="icon">
     <iconset>
-     <normaloff>icons:filenew.png</normaloff>icons:filenew.png</iconset>
+     <normaloff>../../pixmaps/filenew.png</normaloff>../../pixmaps/filenew.png</iconset>
    </property>
    <property name="text">
     <string>&amp;New...</string>
@@ -223,7 +223,7 @@
   <action name="actionFileOpen">
    <property name="icon">
     <iconset>
-     <normaloff>icons:fileopen.png</normaloff>icons:fileopen.png</iconset>
+     <normaloff>pixmaps/fileopen.png</normaloff>pixmaps/fileopen.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Open...</string>
@@ -235,7 +235,7 @@
   <action name="actionFileSave">
    <property name="icon">
     <iconset>
-     <normaloff>icons:filesave.png</normaloff>icons:filesave.png</iconset>
+     <normaloff>pixmaps/filesave.png</normaloff>pixmaps/filesave.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Save</string>
@@ -247,7 +247,7 @@
   <action name="actionFileSaveAs">
    <property name="icon">
     <iconset>
-     <normaloff>icons:filesaveas.png</normaloff>icons:filesaveas.png</iconset>
+     <normaloff>pixmaps/filesaveas.png</normaloff>pixmaps/filesaveas.png</iconset>
    </property>
    <property name="text">
     <string>Save &amp;as...</string>
@@ -271,7 +271,7 @@
   <action name="actionShowStatistics">
    <property name="icon">
     <iconset>
-     <normaloff>icons:statistics.png</normaloff>icons:statistics.png</iconset>
+     <normaloff>pixmaps/statistics.png</normaloff>pixmaps/statistics.png</iconset>
    </property>
    <property name="text">
     <string>Show s&amp;tatistics...</string>
