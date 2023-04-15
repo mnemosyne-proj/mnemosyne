@@ -73,6 +73,7 @@ class StatisticsDlg(QtWidgets.QDialog, StatisticsDialog, Ui_StatisticsDlg):
             ["previous_variant_for_statistics_page"][page_index]
         if variant_index >= page.combobox.count():
             variant_index = 0
+        page.combobox.setCurrentIndex(variant_index)
         page.display_variant(variant_index)
 
 
