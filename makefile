@@ -26,28 +26,29 @@ ifdef DESTDIR
 INSTALL_OPTS += --root="$(DESTDIR)"
 endif
 
-run: build
-	# For debugging: running the code in place.
-	PYTHONPATH=. $(PYTHON) mnemosyne/pyqt_ui/mnemosyne -d dot_mnemosyne2 
+build-all-deps: build build-po build-docs
 
 build:
 	# Just the bare minimum to get things running
-	cd mnemosyne/pyqt_ui && make
+	make -C mnemosyne/pyqt_ui
 
-build-all-deps:
-	# Also rebuilds the docs and the translations.
-	cd mnemosyne/libmnemosyne/docs && make SPHINXBUILD=$(SPHINXBUILD) html
-	cd mnemosyne/pyqt_ui && make clean
-	cd mnemosyne/pyqt_ui && make
-	cd po && make update
-	cd po && make
+build-po:
+	make -C po update
+	make -C po
+
+build-docs:
+	make -C mnemosyne/libmnemosyne/docs SPHINXBUILD=$(SPHINXBUILD) html
 
 install-system: build-all-deps
 	$(PYTHON) setup.py install $(INSTALL_OPTS)
 	rm -f -R build
 
+run: build-all-deps
+	# For debugging: running the code in place.
+	PYTHONPATH=. $(PYTHON) mnemosyne/pyqt_ui/mnemosyne -d dot_mnemosyne2
+
 test-prep:
-	cd po && make ../mo/de/LC_MESSAGES/mnemosyne.mo
+	make -C po ../mo/de/LC_MESSAGES/mnemosyne.mo
 
 test: test-prep
 	$(PYTHON) -m nose -v --exe tests
@@ -55,14 +56,14 @@ test: test-prep
 coverage: test-prep
 	rm -rf .coverage cover htmlcov
 	$(PYTHON) -m nose tests --exe --with-coverage --cover-erase \
-	--cover-package=mnemosyne.libmnemosyne,openSM2sync || (echo "testsuite failed")
+	    --cover-package=mnemosyne.libmnemosyne,openSM2sync || (echo "testsuite failed")
 	coverage html
 	@echo "Open file://$(PWD)/htmlcov/index.html in a browser for a nicer visualization."
 
 coverage-windows: FORCE
 	rm -rf .coverage cover htmlcov
 	$(PYTHON) -m nose tests --with-coverage --cover-erase \
-	--cover-package=mnemosyne.libmnemosyne,openSM2sync || (echo "testsuite failed")
+	    --cover-package=mnemosyne.libmnemosyne,openSM2sync || (echo "testsuite failed")
 	coverage html
 	firefox htmlcov/index.html || chromium htmlcov/index.html || google-chrome htmlcov/index.html
 
@@ -100,8 +101,8 @@ distrib: FORCE
 
 macos:
 	# Build the UI and the translations.
-	cd mnemosyne/pyqt_ui && make
-	cd po && make
+	make -C mnemosyne/pyqt_ui
+	make -C po
 
 	# Build the bundled app based on the specification file.
 	QT6DIR=/usr/local/opt/qt6 pyinstaller --log-level WARN mnemosyne.spec
@@ -114,7 +115,7 @@ macos:
 	cp -R mo dist/Mnemosyne.app/Contents/Resources/share/locale
 	ln -s ../Resources/share dist/Mnemosyne.app/Contents/MacOS/share
 
-  # tkinter bug - data directories not present
+	# tkinter bug - data directories not present
 	mkdir -p dist/Mnemosyne.app/Contents/MacOS/tk
 	mkdir -p dist/Mnemosyne.app/Contents/MacOS/tcl
 
@@ -122,10 +123,10 @@ osx: macos
 
 android: # Creates the assets file with the Python code.
 	rm -f mnemosyne/android/app/src/main/assets/python/mnemosyne.zip
-	zip	-r mnemosyne/android/app/src/main/assets/python/mnemosyne.zip openSM2sync -i \*.py
+	zip -r mnemosyne/android/app/src/main/assets/python/mnemosyne.zip openSM2sync -i \*.py
 	zip -r mnemosyne/android/app/src/main/assets/python/mnemosyne.zip mnemosyne/libmnemosyne -i \*.py
-	zip	-r mnemosyne/android/app/src/main/assets/python/mnemosyne.zip mnemosyne/android_python -i \*.py
-	zip	mnemosyne/android/app/src/main/assets/python/mnemosyne.zip mnemosyne/version.py mnemosyne/__init__.py
+	zip -r mnemosyne/android/app/src/main/assets/python/mnemosyne.zip mnemosyne/android_python -i \*.py
+	zip mnemosyne/android/app/src/main/assets/python/mnemosyne.zip mnemosyne/version.py mnemosyne/__init__.py
 	$(PYTHON39) compile_zip.py mnemosyne/android/app/src/main/assets/python/mnemosyne.zip
 
 clean:
@@ -135,9 +136,10 @@ clean:
 	rm -f -R distrib build bin lib Lib Scripts include dot_test dot_sync_*
 	rm -f -R dot_benchmark dist
 	find . -type d -path ".*/__pycache__" -print0 | xargs -0 rm -rf
-	cd mnemosyne/pyqt_ui && make clean
-	cd po && make clean
+	make -C mnemosyne/pyqt_ui clean
+	make -C po clean
 	rm -f mnemosyne/*~ mnemosyne/*.pyc
 	rm -f mnemosyne/libmnemosyne/*~ mnemosyne/libmnemosyne/*.pyc
+	rm -f mnemosyne/android/app/src/main/assets/python/mnemosyne.zip
 
 FORCE:
