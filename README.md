@@ -60,15 +60,17 @@ To start working on Mnemosyne, you need at least the following software.
 
 These can be installed/upgraded using pip:
 
+```
 pip install --upgrade PyQt6 PyQt6-WebEngine matplotlib cheroot webob pillow googletrans gTTS argon2-cffi
+```
 
 You can either run a development version of Mnemosyne by using your system-wide Python installation, or by using a virtual environment with virtualenv.
 If your distribution provides and packages all necessary libraries in a recent enough version, using the system-wide Python install is probably easier and the recommended way.
 
 ### Using the system-wide python installation
 First, install all dependencies with your distribution's package manager.
-Then, run `make build-all-deps`, followed by `make` from the top-level mnemosyne directory.
-This will generate all the needed auxiliary files and start Mnemosyne with a separate datadir under dot_mnemosyne2.
+Then, run `make`, followed by `make run` from the top-level mnemosyne directory.
+This will generate all the needed auxiliary files and start Mnemosyne with a separate datadir under `dot_mnemosyne2`.
 If you want to use mnemosyne interactively from within a python shell, run python from the top-level mnemosyne directory.
 You can check if the correct local version was imported by running `import mnemosyne; print(mnemosyne.__file__)`.
 
@@ -83,6 +85,7 @@ make test
 ```
 or:
 ```
+make test-prep
 python3 -m nose --exe tests
 ```
 
