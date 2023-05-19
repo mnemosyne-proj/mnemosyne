@@ -24,6 +24,7 @@ Android:
 
 Minor bugs / issues:
 
+- replace size heuristic by off-screen rendering again? https://stackoverflow.com/questions/53524652/is-it-possible-to-render-qwebenginepage-qwebengineview-offscreen
 - Kamil Jońca: https://mnemosyne-proj.org/cards/latin. Make sure to Export 1::foo before 1::foo::bar
 - better checkmack icon in stylesheet for learning modes in menu
 - no sync conflicts between edit and review
@@ -52,6 +53,7 @@ Minor bugs / issues:
 -Incoming sync when card browser is open does not work.
 -Add cloze from card browser, preview does not update correctly
  to show new number of cards
+-If there are more than 200 failed words, they are always taken at random, rather than x at a time. 
 -For Latex on OSX: try and have OSX search system paths, or otherwise edit config.py
  latex = "/Library/TeX/texbin/latex -output-format=dvi -interaction=nonstopmode"
  dvipng = "/Library/TeX/texbin/dvipng -D 200 -T tight tmp.dvi"
