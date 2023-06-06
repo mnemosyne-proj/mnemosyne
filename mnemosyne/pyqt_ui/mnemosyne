@@ -36,6 +36,7 @@ if sys.platform == "win32":
 from optparse import OptionParser
 
 from mnemosyne.libmnemosyne import Mnemosyne
+from mnemosyne.libmnemosyne.utils import MnemosyneError
 
 # Parse options.
 parser = OptionParser()
@@ -112,13 +113,16 @@ if options.web_server == True or options.sync_server == True:
         web_server_thread.daemon = True
         web_server_thread.start()
     # Heartbeat.
-    # TODO: if a sync request comes in while this is running, it will
-    # fail because of threading issues.
     from threading import Timer
     def heartbeat():
-        mnemosyne.database().load(mnemosyne.config()["last_database"])
-        mnemosyne.controller().heartbeat()
-        mnemosyne.database().unload()
+        # If a sync request comes in while this is running, it will
+        # fail because of threading issues.
+        try:
+            mnemosyne.database().load(mnemosyne.config()["last_database"])
+            mnemosyne.controller().heartbeat()
+            mnemosyne.database().unload()
+        except MnemosyneError:
+            pass
         heartbeat_thread = Timer(60 * 60, heartbeat)
         heartbeat_thread.daemon = True
         heartbeat_thread.start()
