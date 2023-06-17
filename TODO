@@ -26,6 +26,9 @@ Android:
 
 Minor bugs / issues:
 
+- change colour of divider if the background is black
+- handle to change Q/A split?
+- make QA in one window default
 - replace size heuristic by off-screen rendering again? https://stackoverflow.com/questions/53524652/is-it-possible-to-render-qwebenginepage-qwebengineview-offscreen
 - Kamil Jońca: https://mnemosyne-proj.org/cards/latin. Make sure to Export 1::foo before 1::foo::bar
 - better checkmack icon in stylesheet for learning modes in menu
