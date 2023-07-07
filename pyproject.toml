@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mnemosyne-experimental"
-version = "0.1.0"
+version = "2.10.1-dev"
 description = "This is a personal experimental fork of the Mnemosyne Project for feature tests and contributions to the project repository."
 authors = ["Your Name <you@example.com>"]
 readme = "README.md"
