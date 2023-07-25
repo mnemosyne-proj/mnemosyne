@@ -43,7 +43,7 @@ install-system: build-all-deps
 	$(PYTHON) setup.py install $(INSTALL_OPTS)
 	rm -f -R build
 
-run: build-all-deps
+run: build
 	# For debugging: running the code in place.
 	PYTHONPATH=. $(PYTHON) mnemosyne/pyqt_ui/mnemosyne -d dot_mnemosyne2
 

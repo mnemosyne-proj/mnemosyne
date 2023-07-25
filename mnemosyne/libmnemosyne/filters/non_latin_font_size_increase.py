@@ -49,6 +49,9 @@ class NonLatinFontSizeIncrease(Filter):
                 family,size,x,x,w,i,u,s,x,x = font_string.split(",")
             elif font_string.count(",") == 10:
                 family,size,x,x,w,i,u,s,x,x,x = font_string.split(",")
+            elif font_string.count(",") == 15:
+                family,size,x,x,w,i,u,s,x,x,x,x,x,x,x,style \
+                    = font_string.split(",")
             else:
                 #Segoe UI,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,Regular
                 #Segoe UI,26,-1,5,700,1,1,1,0,0,0,0,0,0,0,1,Bold Italic

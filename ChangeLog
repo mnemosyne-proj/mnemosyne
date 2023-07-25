@@ -1,5 +1,6 @@
 
-
+- Fix more errors in 'Non-latin point size increase' (reported by Hugo 
+  Coolens).
 - Improve icon finding logic (patch by traveller1).
 - Improve build system (patch by kuraga).
 - Fix not remembering last statistics page in some cases (patch by 

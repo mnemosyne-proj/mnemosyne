@@ -1,10 +1,13 @@
+https://github.com/mnemosyne-proj/mnemosyne/issues/241
+
 - force reupload logs?
-- more Azure plugins?
 - pip install support
-- postpone indefinitely/stop scheduling/postpone 100 years/remove from learning process?
 - replace setup.py.
 - migrate from nose
+- put all of Mnemosyne in a separate thread?
 
+- more Azure plugins?
+- postpone indefinitely/stop scheduling/postpone 100 years/remove from learning process?
 Android:
 
 - better way to use sdcard
