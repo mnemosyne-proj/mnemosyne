@@ -15,7 +15,7 @@ from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 class TestAnkiImport(MnemosyneTest):
 
-    def setup(self):
+    def setup_method(self):
         path = os.path.join(os.getcwd(), "..", "mnemosyne", "libmnemosyne",
                             "renderers")
         if path not in sys.path:

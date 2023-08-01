@@ -23,7 +23,7 @@ class Widget(MainWidget):
 
 class TestDBImport(MnemosyneTest):
 
-    def setup(self):
+    def setup_method(self):
         self.initialise_data_dir()
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
                     asynchronous_database=True)
@@ -71,8 +71,8 @@ class TestDBImport(MnemosyneTest):
         card_type = self.database().card_type("2::new clone", is_id_internal=False)
         assert self.config().card_type_property("background_colour", card_type) == 4278233600
 
-    def teardown(self):
-        MnemosyneTest.teardown(self)
+    def teardown_method(self):
+        MnemosyneTest.teardown_method(self)
         if os.path.exists(self.merge_db_path + "-journal"):
             os.remove(self.merge_db_path + "-journal")
         if os.path.exists(self.merge_db_tmppath):

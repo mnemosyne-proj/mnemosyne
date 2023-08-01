@@ -36,7 +36,7 @@ class TestConverter:
 
 class TestConvertCards(MnemosyneTest):
 
-    def setup(self):
+    def setup_method(self):
         self.initialise_data_dir()
         path = os.path.join(os.getcwd(), "..", "mnemosyne", "libmnemosyne",
                             "renderers")
@@ -843,7 +843,7 @@ class TestConvertCards(MnemosyneTest):
         self.controller().edit_card_and_sisters(card, new_fact_data,
             card_type_map, new_tag_names=["default"], correspondence=correspondence)
 
-    def teardown(self):
+    def teardown_method(self):
         if os.path.exists("a.ogg"):
             os.remove("a.ogg")
-        MnemosyneTest.teardown(self)
+        MnemosyneTest.teardown_method(self)

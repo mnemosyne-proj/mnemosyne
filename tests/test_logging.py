@@ -204,7 +204,7 @@ class TestLogging(MnemosyneTest):
 
     def test_recover_user_id(self):
         assert self.config()["user_id"] is not None
-        MnemosyneTest.teardown(self)
+        MnemosyneTest.teardown_method(self)
 
         open(os.path.join(os.getcwd(), "dot_test", "history", "userid_001.bz2"), "w")
         os.remove(os.path.join(os.getcwd(), "dot_test", "config.db"))
@@ -224,7 +224,7 @@ class TestLogging(MnemosyneTest):
 
     def test_recover_user_id_2(self):
         assert self.config()["user_id"] is not None
-        MnemosyneTest.teardown(self)
+        MnemosyneTest.teardown_method(self)
 
         open(os.path.join(os.getcwd(), "dot_test", "history", "userid_machine_001.bz2"), "w")
         os.remove(os.path.join(os.getcwd(), "dot_test", "config.db"))
@@ -288,7 +288,7 @@ class TestLogging(MnemosyneTest):
         f.close()
         self.config().change_user_id("UPLOADTEST")
         self.config()["max_log_size_before_upload"] = 1
-        MnemosyneTest.teardown(self)
+        MnemosyneTest.teardown_method(self)
 
         self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True,
             asynchronous_database=True)
@@ -300,7 +300,7 @@ class TestLogging(MnemosyneTest):
             [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.mnemosyne.start_review()
-        MnemosyneTest.teardown(self)
+        MnemosyneTest.teardown_method(self)
 
         self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True,
             asynchronous_database=True)
@@ -312,7 +312,7 @@ class TestLogging(MnemosyneTest):
             [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.mnemosyne.start_review()
-        MnemosyneTest.teardown(self)
+        MnemosyneTest.teardown_method(self)
 
         self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True,
             asynchronous_database=True)
@@ -340,7 +340,7 @@ class TestLogging(MnemosyneTest):
         f.close()
         self.config().change_user_id("UPLOADTEST")
         self.config()["max_log_size_before_upload"] = 1
-        MnemosyneTest.teardown(self)
+        MnemosyneTest.teardown_method(self)
 
         self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True,
             asynchronous_database=True)
@@ -352,7 +352,7 @@ class TestLogging(MnemosyneTest):
             [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.mnemosyne.start_review()
-        MnemosyneTest.teardown(self)
+        MnemosyneTest.teardown_method(self)
 
         self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True,
             asynchronous_database=True)

@@ -404,8 +404,8 @@ class TestMedia(MnemosyneTest):
             os.path.dirname(os.path.abspath("outside.db")), "outside.db_media").replace("\\", "/")
         assert "dot_test" not in self.database().media_dir()
 
-    def teardown(self):
-        MnemosyneTest.teardown(self)
+    def teardown_method(self):
+        MnemosyneTest.teardown_method(self)
         if os.path.exists("a.ogg"):
             os.remove("a.ogg")
         if os.path.exists("b.ogg"):

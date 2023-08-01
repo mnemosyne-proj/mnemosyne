@@ -208,7 +208,7 @@ class TestSync(object):
             tests_done.wait()
         tests_done.release()
 
-    def teardown(self):
+    def teardown_method(self):
         if self.server is None:
             self.client.mnemosyne.finalise()
             return

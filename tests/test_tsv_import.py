@@ -34,7 +34,7 @@ class Widget(MainWidget):
 
 class TestTsvImport(MnemosyneTest):
 
-    def setup(self):
+    def setup_method(self):
         self.initialise_data_dir()
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
                     asynchronous_database=True)
@@ -141,7 +141,7 @@ class TestTsvImport(MnemosyneTest):
         self.tsv_importer().do_export(os.path.join(os.getcwd(), "dot_test", "test.txt"))
 
 
-    def teardown(self):
+    def teardown_method(self):
         filename = \
             os.path.join(os.getcwd(), "dot_test", "default.db_media", "a.png")
         if os.path.exists(filename):
@@ -150,4 +150,4 @@ class TestTsvImport(MnemosyneTest):
             os.path.join(os.getcwd(), "dot_test", "test.txt")
         if os.path.exists(filename):
             os.remove(filename)
-        MnemosyneTest.teardown(self)
+        MnemosyneTest.teardown_method(self)
