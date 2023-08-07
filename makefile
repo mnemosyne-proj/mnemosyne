@@ -51,7 +51,7 @@ test-prep:
 	make -C po ../mo/de/LC_MESSAGES/mnemosyne.mo
 
 test: test-prep
-	$(PYTHON) -m pytest -v tests --junitxml=test-results.xml 
+	$(PYTHON) -m pytest tests -ra --junitxml=test-results.xml
 
 coverage: test-prep
 	rm -rf .coverage cover htmlcov
