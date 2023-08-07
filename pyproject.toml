@@ -1,13 +1,13 @@
 [tool.poetry]
-name = "mnemosyne-experimental"
-version = "2.10.1-dev"
-description = "This is a personal experimental fork of the Mnemosyne Project for feature tests and contributions to the project repository."
-authors = ["Your Name <you@example.com>"]
+name = "mnemosyne"
+version = "2.10.1"
+description = "a free, open-source, spaced-repetition flashcard program that helps you learn as efficiently as possible."
+authors = ["Peter Bienstman <Peter.Bienstman@gmail.com>"]
 readme = "README.md"
-packages = [{include = "mnemosyne_experimental"}]
+packages = [{include = "mnemosyne"}]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 argon2-cffi = "^21.3.0"
 cheroot = "^10.0.0"
 cherrypy = "^18.8.0"
