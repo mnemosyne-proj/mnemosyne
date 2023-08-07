@@ -5,7 +5,7 @@
 import os
 import shutil
 from unittest import mock
-from nose.tools import raises
+from pytest import raises
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne

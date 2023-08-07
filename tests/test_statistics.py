@@ -6,7 +6,7 @@ import os
 import time
 import datetime
 
-from nose.tools import raises
+from pytest import raises
 
 HOUR = 60 * 60 # Seconds in an hour.
 DAY = 24 * HOUR # Seconds in a day.
@@ -95,11 +95,11 @@ class TestStatistics(MnemosyneTest):
         for i in range(1, 11):
             page.prepare_statistics(i)
 
-    @raises(AttributeError)
     def test_schedule_page_2(self):
-        from mnemosyne.libmnemosyne.statistics_pages.schedule import Schedule
-        page = Schedule(self.mnemosyne.component_manager)
-        page.prepare_statistics(0)
+        with raises(AttributeError):
+            from mnemosyne.libmnemosyne.statistics_pages.schedule import Schedule
+            page = Schedule(self.mnemosyne.component_manager)
+            page.prepare_statistics(0)
 
     @MnemosyneTest.set_timezone_utc
     def test_added_cards(self):
@@ -124,11 +124,11 @@ class TestStatistics(MnemosyneTest):
         for i in range(1, 6):
             page.prepare_statistics(i)
 
-    @raises(AttributeError)
     def test_added_cards_page_2(self):
-        from mnemosyne.libmnemosyne.statistics_pages.cards_added import CardsAdded
-        page = CardsAdded(self.mnemosyne.component_manager)
-        page.prepare_statistics(0)
+        with raises(AttributeError): 
+            from mnemosyne.libmnemosyne.statistics_pages.cards_added import CardsAdded
+            page = CardsAdded(self.mnemosyne.component_manager)
+            page.prepare_statistics(0)
 
     @MnemosyneTest.set_timezone_utc
     def test_score(self):
@@ -145,11 +145,11 @@ class TestStatistics(MnemosyneTest):
         for i in range(1, 6):
             page.prepare_statistics(i)
 
-    @raises(AttributeError)
     def test_score_page(self):
-        from mnemosyne.libmnemosyne.statistics_pages.retention_score import RetentionScore
-        page = RetentionScore(self.mnemosyne.component_manager)
-        page.prepare_statistics(0)
+        with raises(AttributeError):
+            from mnemosyne.libmnemosyne.statistics_pages.retention_score import RetentionScore
+            page = RetentionScore(self.mnemosyne.component_manager)
+            page.prepare_statistics(0)
 
     def test_card_count_for_tags(self):
         assert self.database().card_count_for_tags([], active_only=False) == 0

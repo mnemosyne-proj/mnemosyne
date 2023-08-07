@@ -2,7 +2,7 @@
 # test_activate_cards.py <Peter.Bienstman@UGent.be>
 #
 
-from nose.tools import raises
+from pytest import raises
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.criterion import Criterion
@@ -366,26 +366,26 @@ class TestActivateCards(MnemosyneTest):
         self.database().set_current_criterion(c)
         assert self.database().active_count() == 1
 
-    @raises(AssertionError)
     def test_activate_cards_6(self):
-        fact_data = {"f": "question",
-                     "b": "answer"}
-        card_type_1 = self.card_type_with_id("1")
-        self.controller().create_new_cards(fact_data, card_type_1,
-           grade=-1, tag_names=["a"])
+        with raises(AssertionError):
+            fact_data = {"f": "question",
+                         "b": "answer"}
+            card_type_1 = self.card_type_with_id("1")
+            self.controller().create_new_cards(fact_data, card_type_1,
+               grade=-1, tag_names=["a"])
 
-        fact_data = {"f": "question2",
-                     "b": "answer2"}
-        self.controller().create_new_cards(fact_data, card_type_1,
-            grade=-1, tag_names=["b"])
-        assert self.database().active_count() == 2
+            fact_data = {"f": "question2",
+                         "b": "answer2"}
+            self.controller().create_new_cards(fact_data, card_type_1,
+                grade=-1, tag_names=["b"])
+            assert self.database().active_count() == 2
 
-        c = DefaultCriterion(self.mnemosyne.component_manager)
-        c.deactivated_card_type_fact_view_ids = set()
-        c._tag_ids_active = set([])
-        c._tag_ids_forbidden = set([self.database().get_or_create_tag_with_name("b")._id])
-        self.database().set_current_criterion(c)
-        assert self.database().active_count() == 1
+            c = DefaultCriterion(self.mnemosyne.component_manager)
+            c.deactivated_card_type_fact_view_ids = set()
+            c._tag_ids_active = set([])
+            c._tag_ids_forbidden = set([self.database().get_or_create_tag_with_name("b")._id])
+            self.database().set_current_criterion(c)
+            assert self.database().active_count() == 1
 
     def test_empty_criterion(self):
         c = Criterion(self.mnemosyne.component_manager)

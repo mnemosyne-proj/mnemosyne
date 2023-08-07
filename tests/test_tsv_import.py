@@ -4,8 +4,7 @@
 
 import os
 import shutil
-from nose.tools import raises
-
+from pytest import raises
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
 from openSM2sync.log_entry import EventTypes

@@ -7,7 +7,7 @@ import sys
 import time
 import shutil
 import http.client
-from nose.tools import raises
+from pytest import raises
 from threading import Thread, Condition
 
 from openSM2sync.server import Server
