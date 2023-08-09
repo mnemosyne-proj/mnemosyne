@@ -80,7 +80,7 @@ Then, follow the steps of the previous paragraph.
 
 ### Using pyenv and poetry
 
-As of Mnemosyne-2.11, you may use [Pyenv](https://github.com/pyenv/pyenv) and Poetry to develop for this project. Pyenv allows you to easily install and switch between multiple
+As of Mnemosyne-2.11, you may use [Pyenv](https://github.com/pyenv/pyenv) and [Poetry](https://python-poetry.org/docs/) to develop for this project. Pyenv allows you to easily install and switch between multiple python interpreters, while Poetry is a modern tool for dependency management.
 
 To get started, open a terminal at the project root, and run `pyenv local`. This will tell `pyenv` to use the python version specified in the `.python-version` file.
 
