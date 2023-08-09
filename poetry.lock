@@ -1594,15 +1594,18 @@ test = ["cython", "filelock", "html5lib", "pytest (>=4.6)"]
 
 [[package]]
 name = "sphinxcontrib-applehelp"
-version = "1.0.4"
+version = "1.0.5"
 description = "sphinxcontrib-applehelp is a Sphinx extension which outputs Apple help books"
 category = "main"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 files = [
-    {file = "sphinxcontrib-applehelp-1.0.4.tar.gz", hash = "sha256:828f867945bbe39817c210a1abfd1bc4895c8b73fcaade56d45357a348a07d7e"},
-    {file = "sphinxcontrib_applehelp-1.0.4-py3-none-any.whl", hash = "sha256:29d341f67fb0f6f586b23ad80e072c8e6ad0b48417db2bde114a4c9746feb228"},
+    {file = "sphinxcontrib_applehelp-1.0.5-py3-none-any.whl", hash = "sha256:2bf6dc21596142496e3a7623adc6918014e6a9bbfeeeb37d27543727bebabd0f"},
+    {file = "sphinxcontrib_applehelp-1.0.5.tar.gz", hash = "sha256:e58ca6b828d1c9ef3f8b51ff5bfe989507399977da1bb389b393199d45066357"},
 ]
+
+[package.dependencies]
+Sphinx = ">=5"
 
 [package.extras]
 lint = ["docutils-stubs", "flake8", "mypy"]
@@ -1610,15 +1613,18 @@ test = ["pytest"]
 
 [[package]]
 name = "sphinxcontrib-devhelp"
-version = "1.0.2"
-description = "sphinxcontrib-devhelp is a sphinx extension which outputs Devhelp document."
+version = "1.0.3"
+description = "sphinxcontrib-devhelp is a sphinx extension which outputs Devhelp documents"
 category = "main"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.9"
 files = [
-    {file = "sphinxcontrib-devhelp-1.0.2.tar.gz", hash = "sha256:ff7f1afa7b9642e7060379360a67e9c41e8f3121f2ce9164266f61b9f4b338e4"},
-    {file = "sphinxcontrib_devhelp-1.0.2-py2.py3-none-any.whl", hash = "sha256:8165223f9a335cc1af7ffe1ed31d2871f325254c0423bc0c4c7cd1c1e4734a2e"},
+    {file = "sphinxcontrib_devhelp-1.0.3-py3-none-any.whl", hash = "sha256:09009e3b1dde7447c9c6973723c786253b9a9342ff0a856bc6957092ee106cd9"},
+    {file = "sphinxcontrib_devhelp-1.0.3.tar.gz", hash = "sha256:ced21e99bceed8694117b8361b67df624d8788309399f24bd948a254e64cc017"},
 ]
+
+[package.dependencies]
+Sphinx = ">=5"
 
 [package.extras]
 lint = ["docutils-stubs", "flake8", "mypy"]
@@ -1626,15 +1632,18 @@ test = ["pytest"]
 
 [[package]]
 name = "sphinxcontrib-htmlhelp"
-version = "2.0.1"
+version = "2.0.2"
 description = "sphinxcontrib-htmlhelp is a sphinx extension which renders HTML help files"
 category = "main"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 files = [
-    {file = "sphinxcontrib-htmlhelp-2.0.1.tar.gz", hash = "sha256:0cbdd302815330058422b98a113195c9249825d681e18f11e8b1f78a2f11efff"},
-    {file = "sphinxcontrib_htmlhelp-2.0.1-py3-none-any.whl", hash = "sha256:c38cb46dccf316c79de6e5515e1770414b797162b23cd3d06e67020e1d2a6903"},
+    {file = "sphinxcontrib_htmlhelp-2.0.2-py3-none-any.whl", hash = "sha256:3fc535431dced1d3f50d30e3d9135873a724f6c38eeb4ac967ebb5c06d7bff9c"},
+    {file = "sphinxcontrib_htmlhelp-2.0.2.tar.gz", hash = "sha256:f9515c1e2deac30498a8fa54b23a477943fc7432d6e7fcf23f7d90e12d3fdcd4"},
 ]
+
+[package.dependencies]
+Sphinx = ">=5"
 
 [package.extras]
 lint = ["docutils-stubs", "flake8", "mypy"]
@@ -1657,15 +1666,18 @@ test = ["flake8", "mypy", "pytest"]
 
 [[package]]
 name = "sphinxcontrib-qthelp"
-version = "1.0.3"
-description = "sphinxcontrib-qthelp is a sphinx extension which outputs QtHelp document."
+version = "1.0.4"
+description = "sphinxcontrib-qthelp is a sphinx extension which outputs QtHelp documents"
 category = "main"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.9"
 files = [
-    {file = "sphinxcontrib-qthelp-1.0.3.tar.gz", hash = "sha256:4c33767ee058b70dba89a6fc5c1892c0d57a54be67ddd3e7875a18d14cba5a72"},
-    {file = "sphinxcontrib_qthelp-1.0.3-py2.py3-none-any.whl", hash = "sha256:bd9fc24bcb748a8d51fd4ecaade681350aa63009a347a8c14e637895444dfab6"},
+    {file = "sphinxcontrib_qthelp-1.0.4-py3-none-any.whl", hash = "sha256:82f0871fb042efa309ee8c7929d228ed5c4be478d9914492b4bad5bfa469c160"},
+    {file = "sphinxcontrib_qthelp-1.0.4.tar.gz", hash = "sha256:f0a1c141420499af2f1a1ff438f9fc910a3548f7a82a1169d9efcc674fcf79c6"},
 ]
+
+[package.dependencies]
+Sphinx = ">=5"
 
 [package.extras]
 lint = ["docutils-stubs", "flake8", "mypy"]
@@ -1673,15 +1685,18 @@ test = ["pytest"]
 
 [[package]]
 name = "sphinxcontrib-serializinghtml"
-version = "1.1.5"
-description = "sphinxcontrib-serializinghtml is a sphinx extension which outputs \"serialized\" HTML files (json and pickle)."
+version = "1.1.6"
+description = "sphinxcontrib-serializinghtml is a sphinx extension which outputs \"serialized\" HTML files (json and pickle)"
 category = "main"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.9"
 files = [
-    {file = "sphinxcontrib-serializinghtml-1.1.5.tar.gz", hash = "sha256:aa5f6de5dfdf809ef505c4895e51ef5c9eac17d0f287933eb49ec495280b6952"},
-    {file = "sphinxcontrib_serializinghtml-1.1.5-py2.py3-none-any.whl", hash = "sha256:352a9a00ae864471d3a7ead8d7d79f5fc0b57e8b3f95e9867eb9eb28999b92fd"},
+    {file = "sphinxcontrib_serializinghtml-1.1.6-py3-none-any.whl", hash = "sha256:f7e8e508f5c973601fa29a9114aa60bc11164db3d6c55aa7fd51710185477237"},
+    {file = "sphinxcontrib_serializinghtml-1.1.6.tar.gz", hash = "sha256:e04d06ac23c527378d62459ec968204afce0ef266733209d628b9a1a4051a78d"},
 ]
+
+[package.dependencies]
+Sphinx = ">=5"
 
 [package.extras]
 lint = ["docutils-stubs", "flake8", "mypy"]
