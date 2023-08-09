@@ -92,6 +92,12 @@ This will make sure that `poetry` will recognize the python interpreter activate
 
 Afterwards, run `poetry shell` to activate the project virtual environment. Then run `poetry install` to install all dependencies on your virtual environment. You can now get started on coding for Mnemosyne.
 
+If there is a need to change dependencies, you may either `poetry add <package_name>` to add a dependency and `poetry remove <package_name>` to remove one. Run the following command to update the `requirements.txt` for those prefer to download project dependencies via `pip install -r requirements.txt`.:
+
+```
+poetry export -f requirements.txt --output requirements.txt --without-hashes
+```
+
 ### Running the test suite
 
 As of Mnemosyne-2.11, `nose` has been replaced by the modern `pytest` framework.
