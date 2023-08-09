@@ -46,11 +46,11 @@ def parse_junitxml(xml_file):
             for error_type in junitxml_errors:
                 if error_type in failure_message:
                     test_results.append(
-                        f"{classname} {test_name} time:{time} @failure @{error_type} message:\"{failure_message}\""
+                        f"{classname}::{test_name} time:{time} @failure @{error_type} message:\"{failure_message}\""
                     )
                     break
             else:
-                test_results.append(f"{classname} {test_name} time:{time} @failure message:\"{failure_message}\"")
+                test_results.append(f"{classname}::{test_name} time:{time} @failure message:\"{failure_message}\"")
         elif error is not None:
             errors_count += 1
             successful_tests -= 1  # Decrement successful_tests on error
@@ -59,13 +59,13 @@ def parse_junitxml(xml_file):
             for error_type in junitxml_errors:
                 if error_type in error_message:
                     test_results.append(
-                        f"{classname} {test_name} time:{time} @error @{error_type} message:\"{error_message}\""
+                        f"{classname}::{test_name} time:{time} @error @{error_type} message:\"{error_message}\""
                     )
                     break
             else:
-                test_results.append(f"{classname} {test_name} time:{time} @error message:\"{error_message}\"")
+                test_results.append(f"{classname}::{test_name} time:{time} @error message:\"{error_message}\"")
         else:
-            test_results.append(f"x {classname} {test_name} time:{time}")
+            test_results.append(f"x {classname}::{test_name} time:{time}")
 
     print("Summary:")
     print(f"Total Tests: {total_tests}")
