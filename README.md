@@ -78,31 +78,44 @@ You can check if the correct local version was imported by running `import mnemo
 If your distribution does not provide all required libraries, or if the libraries are too old, create a virtual environment in the top-level directory (`virtualenv venv`), activate it (`source venv/bin/activate`) and install all the required dependencies with `pip install`.
 Then, follow the steps of the previous paragraph.
 
+### Using pyenv and poetry
+
+As of Mnemosyne-2.11, you may use [Pyenv](https://github.com/pyenv/pyenv) and Poetry to develop for this project. Pyenv allows you to easily install and switch between multiple
+
+To get started, open a terminal at the project root, and run `pyenv local`. This will tell `pyenv` to use the python version specified in the `.python-version` file.
+
+Before activating `poetry`, make sure to run the following settings:
+
+`poetry config virtualenvs.prefer-active-python true`
+
+This will make sure that `poetry` will recognize the python interpreter activated by `pyenv`.
+
+Afterwards, run `poetry shell` to activate the project virtual environment. Then run `poetry install` to install all dependencies on your virtual environment. You can now get started on coding for Mnemosyne.
+
 ### Running the test suite
-You can always run the test suite:
+
+As of Mnemosyne-2.11, `nose` has been replaced by the modern `pytest` framework.
+
+You can run the test suite through:
+
 ```
 make test
 ```
 or:
+
 ```
 make test-prep
-python3 -m nose --exe tests
+python3 -m pytest tests -ra --junitxml=test-results.xml
 ```
+
+Both commands will display a summary of test results and a junitxml file named `test-results.xml`, which is useful if you wish to go through the results outside of the terminal, such as an xml reader. 
+
+If you want to get a more actionable version of `test-results.xml`, you may run `./tools/convert_junitxml.py` after, which converts the test result xml into a simpler todo.txt format. Because of the way the xml is parsed, the summary count of `convert_junitxml.py` and the terminal results of pytest may not always match, but the tool is sufficient for acting on the test results in a plain text editor.
 
 Single tests can be run like this:
 ```
-python3 -m nose --exe tests/<file_name>.py:<class_name>:<method_name>
-```
-
-Nose captures `stdout` by default.
-Use the `-s` switch if you want to print output during the test run.
-
-You can increase the verbosity level with the `-v` switch.
-
-Add `--pdb` to the command line to automatically drop into the debugger on errors and failures.
-If you want to drop into the debugger before a failure, edit the test and add the following code at the exact spot where you want the debugger to be started:
-```
-from nose.tools import set_trace; set_trace()
+python3 -m pytest tests/<file_name>.py:<class_name>:<method_name>
+python3 -m pytest tests/<file_name>.py::<class_name>::<method_name> 
 ```
 
 # System-wide installation from source
