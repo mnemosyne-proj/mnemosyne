@@ -89,7 +89,7 @@ windows-installer: FORCE
 	rm -rf build
 	make build-all-deps
 	$(PYTHON) setup.py build_windows_installer
-	read -p "Press any key when Inpytesttup has finished..."
+	read -p "Press any key when InnoSetup has finished..."
 	V=`$(PYTHON) mnemosyne/version.py` && cp dist/Mnemosyne/Output/mysetup.exe mnemosyne-$${V}-setup.exe
 
 distrib: FORCE
