@@ -35,7 +35,7 @@ class Widget(MainWidget):
 
 class TestDatabase(MnemosyneTest):
 
-    def setup(self):
+    def setup_method(self):
         self.initialise_data_dir()
         path = os.path.join(os.getcwd(), "..", "mnemosyne", "libmnemosyne",
                             "renderers")
@@ -565,8 +565,9 @@ class TestDatabase(MnemosyneTest):
         assert len(new_card.tags) == 2
         assert self.database().con.execute("select count() from log where event_type=?",
             (EventTypes.EDITED_CARD, )).fetchone()[0] == 1
+
         sql_res = self.database().con.execute(\
-            "select event_type, object_id from log where _id=17").fetchone()
+            "select event_type, object_id from log where _id=10").fetchone()
         assert sql_res[0] == EventTypes.EDITED_CARD
         assert sql_res[1] == card.id
 
@@ -615,8 +616,9 @@ class TestDatabase(MnemosyneTest):
         assert len(new_card.tags) == 1
         assert self.database().con.execute("select count() from log where event_type=?",
             (EventTypes.EDITED_CARD, )).fetchone()[0] == 1
+
         sql_res = self.database().con.execute(\
-            "select event_type, object_id from log where _id=19").fetchone()
+            "select event_type, object_id from log where _id=12").fetchone()
         assert sql_res[0] == EventTypes.EDITED_CARD
         assert sql_res[1] == card.id
 
@@ -641,8 +643,12 @@ class TestDatabase(MnemosyneTest):
             (card._id, )).fetchone()[0] == 1
         assert self.database().con.execute("select count() from log where event_type=?",
             (EventTypes.EDITED_CARD, )).fetchone()[0] == 1
+
+        sql_contents = self.database().con.execute(\
+            "select * from log").fetchall()
+
         sql_res = self.database().con.execute(\
-            "select event_type, object_id from log where _id=17").fetchone()
+            "select event_type, object_id from log where _id=10").fetchone()
         assert sql_res[0] == EventTypes.EDITED_CARD
         assert sql_res[1] == card.id
 
@@ -665,8 +671,12 @@ class TestDatabase(MnemosyneTest):
             (card._id, )).fetchone()[0] == 1
         assert self.database().con.execute("select count() from log where event_type=?",
             (EventTypes.EDITED_CARD, )).fetchone()[0] == 1
+
+        sql_contents = self.database().con.execute(\
+            "select * from log").fetchall()
+
         sql_res = self.database().con.execute(\
-            "select event_type, object_id from log where _id=17").fetchone()
+            "select event_type, object_id from log where _id=10").fetchone()
         assert sql_res[0] == EventTypes.EDITED_CARD
         assert sql_res[1] == card.id
 

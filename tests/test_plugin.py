@@ -5,7 +5,7 @@
 import os
 import sys
 import shutil
-from nose.tools import raises
+from pytest import raises
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
@@ -28,7 +28,7 @@ class Widget(MainWidget):
 
 class TestPlugin(MnemosyneTest):
 
-    def setup(self):
+    def setup_method(self):
         self.initialise_data_dir()
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
             asynchronous_database=True)
@@ -41,10 +41,10 @@ class TestPlugin(MnemosyneTest):
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.review_controller().reset()
 
-    @raises(AssertionError)
     def test_1(self):
-        from mnemosyne.libmnemosyne.plugin import Plugin
-        p = Plugin(self.mnemosyne.component_manager)
+        with raises(AssertionError):
+            from mnemosyne.libmnemosyne.plugin import Plugin
+            p = Plugin(self.mnemosyne.component_manager)
 
     def test_2(self):
 
@@ -183,10 +183,10 @@ class TestPlugin(MnemosyneTest):
                 plugin.activate()
                 plugin.activate()
 
-    @raises(NotImplementedError)
     def test_6(self):
-        from mnemosyne.libmnemosyne.hook import Hook
-        Hook(self.mnemosyne.component_manager).run()
+        with raises(NotImplementedError):
+            from mnemosyne.libmnemosyne.hook import Hook
+            Hook(self.mnemosyne.component_manager).run()
 
     def test_install_plugin(self):
         global filename

@@ -65,7 +65,7 @@ class MnemosyneTest():
                 if os.path.exists(full_path):
                     os.remove(full_path)
 
-    def setup(self):
+    def setup_method(self):
         self.initialise_data_dir()
         self.restart()
 
@@ -96,7 +96,7 @@ class MnemosyneTest():
                                   automatic_upgrades=False)
         self.mnemosyne.start_review()
 
-    def teardown(self):
+    def teardown_method(self):
         try:
             self.mnemosyne.finalise()
             # Avoid having multiple component_managers active.

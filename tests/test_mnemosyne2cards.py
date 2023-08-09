@@ -41,7 +41,7 @@ class Widget(ExportMetadataDialog):
 
 class TestMnemosyne2Cards(MnemosyneTest):
 
-    def setup(self):
+    def setup_method(self):
         self.initialise_data_dir()
         path = os.path.join(os.getcwd(), "..", "mnemosyne", "libmnemosyne",
                             "renderers")
@@ -366,9 +366,9 @@ class TestMnemosyne2Cards(MnemosyneTest):
         assert last_error.startswith("Missing")
         last_error = None
 
-    def teardown(self):
+    def teardown_method(self):
         if os.path.exists(os.path.abspath("test.cards")):
             os.remove(os.path.abspath("test.cards"))
         if os.path.exists("test2.cards"):
             os.remove("test2.cards")
-        MnemosyneTest.teardown(self)
+        MnemosyneTest.teardown_method(self)

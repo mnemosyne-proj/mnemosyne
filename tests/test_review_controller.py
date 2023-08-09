@@ -27,7 +27,7 @@ class MyReviewWidget(ReviewWidget):
 
 class TestReviewController(MnemosyneTest):
 
-    def setup(self):
+    def setup_method(self):
         global expected_scheduled_count
         expected_scheduled_count = None
         self.initialise_data_dir()

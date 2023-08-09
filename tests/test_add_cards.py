@@ -33,7 +33,7 @@ class Widget(MainWidget):
 
 class TestAddCards(MnemosyneTest):
 
-    def setup(self):
+    def setup_method(self):
         self.initialise_data_dir()
         path = os.path.join(os.getcwd(), "..", "mnemosyne", "libmnemosyne",
                             "renderers")
@@ -314,20 +314,25 @@ class TestAddCards(MnemosyneTest):
         answer = 0
 
     def test_log(self):
-        fact_data = {"f": "question",
-                     "b": "answer"}
+        fact_data = {"f": "test question",
+                     "b": "test answer"}
         card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
-                                              grade=3, tag_names=["default"])[0]
+                                              grade=3, tag_names=["test tag name"])[0]
         self.controller().save_file()
 
+        sql_headers = self.database().con.execute("PRAGMA table_info(log);").fetchall()
+        sql_labels = [sql_header[1] for sql_header in sql_headers]
+        sql_content = self.database().con.execute(\
+            "select * from log").fetchall()
+
         sql_res = self.database().con.execute(\
-            "select event_type, object_id from log where _id=14").fetchone()
+            "select event_type, object_id from log where _id=7").fetchone()
         assert sql_res[0] == EventTypes.ADDED_CARD
         assert sql_res[1] is not None
 
         sql_res = self.database().con.execute(\
-            "select event_type from log where _id=15").fetchone()
+            "select event_type from log where _id=8").fetchone()
         assert sql_res[0] == EventTypes.REPETITION
 
     def test_different_tags_per_sister_card(self):

@@ -5,7 +5,7 @@
 import os
 import sys
 import shutil
-from nose.tools import raises
+from pytest import raises
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
@@ -15,7 +15,7 @@ from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 class TestAnkiImport(MnemosyneTest):
 
-    def setup(self):
+    def setup_method(self):
         path = os.path.join(os.getcwd(), "..", "mnemosyne", "libmnemosyne",
                             "renderers")
         if path not in sys.path:

@@ -26,6 +26,8 @@ mnemosyne/embedded_in_C/*.o
 mo/
 openSM2sync/**/*.pyc
 tests/**/*.pyc
+test-results.xml
+test-results.todo.txt
 
 
 # Created by https://www.gitignore.io/api/android,emacs,intellij,vim

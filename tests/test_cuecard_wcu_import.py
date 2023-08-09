@@ -4,7 +4,7 @@
 
 import os
 import shutil
-from nose.tools import raises
+from pytest import raises
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
@@ -26,7 +26,7 @@ class Widget(MainWidget):
 
 class TestSmconvImport(MnemosyneTest):
 
-    def setup(self):
+    def setup_method(self):
         self.initialise_data_dir()
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
                     asynchronous_database=True)
@@ -51,7 +51,7 @@ class TestSmconvImport(MnemosyneTest):
         assert last_error is ""
         assert len([c for c in self.database().cards()]) == 4
 
-    def teardown(self):
+    def teardown_method(self):
         filename = \
             os.path.join(os.getcwd(), "dot_test", "default.db_media", "a.png")
         if os.path.exists(filename):
@@ -60,4 +60,4 @@ class TestSmconvImport(MnemosyneTest):
             os.path.join(os.getcwd(), "dot_test", "test.txt")
         if os.path.exists(filename):
             os.remove(filename)
-        MnemosyneTest.teardown(self)
+        MnemosyneTest.teardown_method(self)

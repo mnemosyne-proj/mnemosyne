@@ -48,7 +48,7 @@ class Widget(MainWidget):
 
 class TestMnemosyne1XMLImport(MnemosyneTest):
 
-    def setup(self):
+    def setup_method(self):
         self.initialise_data_dir()
         path = os.path.join(os.getcwd(), "..", "mnemosyne", "libmnemosyne",
                             "renderers")
@@ -387,7 +387,7 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
             "select distinct object_id from log where event_type='6' or event_type='7'")]
         assert ids == ['ef2e21e1']
 
-    def teardown(self):
+    def teardown_method(self):
         global answer
         answer = 0
         filename = os.path.join(os.getcwd(), "tests", "files", "basedir_bz2",
@@ -406,4 +406,4 @@ class TestMnemosyne1XMLImport(MnemosyneTest):
         dirname = os.path.join(os.getcwd(), "tests", "files", "soundfiles")
         if os.path.exists(dirname):
             shutil.rmtree(dirname)
-        MnemosyneTest.teardown(self)
+        MnemosyneTest.teardown_method(self)

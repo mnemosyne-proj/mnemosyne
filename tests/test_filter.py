@@ -4,7 +4,7 @@
 
 import subprocess as sp
 
-from nose.tools import raises
+from pytest import raises
 from unittest import mock
 
 from mnemosyne_test import MnemosyneTest
@@ -23,10 +23,10 @@ check_call_mock = mock.Mock(side_effect=side_effects)
 
 class TestFilter(MnemosyneTest):
 
-    @raises(NotImplementedError)
     def test(self):
-        f = Filter(None)
-        f.run("", None, None)
+        with raises(NotImplementedError):
+            f = Filter(None)
+            f.run("", None, None)
 
     def test_html5_audio(self):
 

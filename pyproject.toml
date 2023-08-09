@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "mnemosyne"
+version = "2.10.1"
+description = "a free, open-source, spaced-repetition flashcard program that helps you learn as efficiently as possible."
+authors = ["Peter Bienstman <Peter.Bienstman@gmail.com>"]
+readme = "README.md"
+packages = [{include = "mnemosyne"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+argon2-cffi = "^21.3.0"
+cheroot = "^10.0.0"
+cherrypy = "^18.8.0"
+matplotlib = "^3.7.2"
+webob = "^1.8.7"
+sphinx = "^7.0.1"
+pyqt6 = "^6.5.1"
+pyqt6-webengine = "^6.5.0"
+decorator = "^5.1.1"
+gtts = "^2.3.2"
+google-trans-new = "^1.1.9"
+pytest = "^7.4.0"
+pytest-timeout = "^2.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

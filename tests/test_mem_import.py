@@ -5,7 +5,7 @@
 import os
 import shutil
 from unittest import mock
-from nose.tools import raises
+from pytest import raises
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
@@ -60,7 +60,7 @@ class MyImportDialog(ImportDialog):
 
 class TestMemImport(MnemosyneTest):
 
-    def setup(self):
+    def setup_method(self):
         self.initialise_data_dir()
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
                     asynchronous_database=True)
@@ -733,7 +733,7 @@ class TestMemImport(MnemosyneTest):
         assert log.readline().strip() == \
                "2005-11-01 09:29:08 : Imported item 82f2ed0d 0 0 0 0 0"
 
-    def teardown(self):
+    def teardown_method(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "basedir_bz2",
                                     "DIRECTORY_NO_LONGER_USED_BY_MNEMOSYNE2")
         if os.path.exists(filename):
@@ -750,4 +750,4 @@ class TestMemImport(MnemosyneTest):
         dirname = os.path.join(os.getcwd(), "tests", "files", "soundfiles")
         if os.path.exists(dirname):
             shutil.rmtree(dirname)
-        MnemosyneTest.teardown(self)
+        MnemosyneTest.teardown_method(self)
