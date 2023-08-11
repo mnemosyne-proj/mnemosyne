@@ -120,7 +120,6 @@ If you want to get a more actionable version of `test-results.xml`, you may run 
 
 Single tests can be run like this:
 ```
-python3 -m pytest tests/<file_name>.py:<class_name>:<method_name>
 python3 -m pytest tests/<file_name>.py::<class_name>::<method_name> 
 ```
 
