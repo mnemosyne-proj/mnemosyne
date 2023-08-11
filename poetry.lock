@@ -953,34 +953,6 @@ description = "More routines for operating on iterables, beyond itertools"
 category = "main"
 optional = false
 python-versions = ">=3.8"
-<<<<<<< HEAD
-files = [
-    {file = "more-itertools-10.1.0.tar.gz", hash = "sha256:626c369fa0eb37bac0291bce8259b332fd59ac792fa5497b59837309cd5b114a"},
-    {file = "more_itertools-10.1.0-py3-none-any.whl", hash = "sha256:64e0735fcfdc6f3464ea133afe8ea4483b1c5fe3a3d69852e6503b43a0b222e6"},
-]
-
-[[package]]
-name = "nose"
-version = "1.3.7"
-description = "nose extends unittest to make testing easier"
-category = "main"
-optional = false
-python-versions = "*"
-files = [
-    {file = "nose-1.3.7-py2-none-any.whl", hash = "sha256:dadcddc0aefbf99eea214e0f1232b94f2fa9bd98fa8353711dacb112bfcbbb2a"},
-    {file = "nose-1.3.7-py3-none-any.whl", hash = "sha256:9ff7c6cc443f8c51994b34a667bbcf45afd6d945be7477b52e97516fd17c53ac"},
-    {file = "nose-1.3.7.tar.gz", hash = "sha256:f1bffef9cbc82628f6e7d7b40d7e255aefaa1adb6a1b1d26c69a8b79e6208a98"},
-]
-
-[[package]]
-name = "numpy"
-version = "1.25.2"
-description = "Fundamental package for array computing in Python"
-category = "main"
-optional = false
-python-versions = ">=3.9"
-files = [
-=======
 files = [
     {file = "more-itertools-10.1.0.tar.gz", hash = "sha256:626c369fa0eb37bac0291bce8259b332fd59ac792fa5497b59837309cd5b114a"},
     {file = "more_itertools-10.1.0-py3-none-any.whl", hash = "sha256:64e0735fcfdc6f3464ea133afe8ea4483b1c5fe3a3d69852e6503b43a0b222e6"},
@@ -994,7 +966,6 @@ category = "main"
 optional = false
 python-versions = ">=3.9"
 files = [
->>>>>>> 085d98ec (fixed poetry config files in branch)
     {file = "numpy-1.25.2-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:db3ccc4e37a6873045580d413fe79b68e47a681af8db2e046f1dacfa11f86eb3"},
     {file = "numpy-1.25.2-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:90319e4f002795ccfc9050110bbbaa16c944b1c37c0baeea43c5fb881693ae1f"},
     {file = "numpy-1.25.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:dfe4a913e29b418d096e696ddd422d8a5d13ffba4ea91f9f60440a3b759b0187"},
@@ -1594,14 +1565,14 @@ test = ["cython", "filelock", "html5lib", "pytest (>=4.6)"]
 
 [[package]]
 name = "sphinxcontrib-applehelp"
-version = "1.0.5"
+version = "1.0.6"
 description = "sphinxcontrib-applehelp is a Sphinx extension which outputs Apple help books"
 category = "main"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "sphinxcontrib_applehelp-1.0.5-py3-none-any.whl", hash = "sha256:2bf6dc21596142496e3a7623adc6918014e6a9bbfeeeb37d27543727bebabd0f"},
-    {file = "sphinxcontrib_applehelp-1.0.5.tar.gz", hash = "sha256:e58ca6b828d1c9ef3f8b51ff5bfe989507399977da1bb389b393199d45066357"},
+    {file = "sphinxcontrib_applehelp-1.0.6-py3-none-any.whl", hash = "sha256:c0578efa23cab5a2f3aaa8af5691b952433f4fdfaac255befd3452448e7ea4a4"},
+    {file = "sphinxcontrib_applehelp-1.0.6.tar.gz", hash = "sha256:a59274de7a952a99af36b8a5092352d9249279c0e3280b7dceaae8e15873c942"},
 ]
 
 [package.dependencies]
@@ -1613,14 +1584,14 @@ test = ["pytest"]
 
 [[package]]
 name = "sphinxcontrib-devhelp"
-version = "1.0.3"
+version = "1.0.4"
 description = "sphinxcontrib-devhelp is a sphinx extension which outputs Devhelp documents"
 category = "main"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "sphinxcontrib_devhelp-1.0.3-py3-none-any.whl", hash = "sha256:09009e3b1dde7447c9c6973723c786253b9a9342ff0a856bc6957092ee106cd9"},
-    {file = "sphinxcontrib_devhelp-1.0.3.tar.gz", hash = "sha256:ced21e99bceed8694117b8361b67df624d8788309399f24bd948a254e64cc017"},
+    {file = "sphinxcontrib_devhelp-1.0.4-py3-none-any.whl", hash = "sha256:d4e20a17f78865d4096733989b5efa0d5e7743900e98e1f6ecd6f489380febc8"},
+    {file = "sphinxcontrib_devhelp-1.0.4.tar.gz", hash = "sha256:4fd751c63dc40895ac8740948f26bf1a3c87e4e441cc008672abd1cb2bc8a3d1"},
 ]
 
 [package.dependencies]
@@ -1632,14 +1603,14 @@ test = ["pytest"]
 
 [[package]]
 name = "sphinxcontrib-htmlhelp"
-version = "2.0.2"
+version = "2.0.3"
 description = "sphinxcontrib-htmlhelp is a sphinx extension which renders HTML help files"
 category = "main"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "sphinxcontrib_htmlhelp-2.0.2-py3-none-any.whl", hash = "sha256:3fc535431dced1d3f50d30e3d9135873a724f6c38eeb4ac967ebb5c06d7bff9c"},
-    {file = "sphinxcontrib_htmlhelp-2.0.2.tar.gz", hash = "sha256:f9515c1e2deac30498a8fa54b23a477943fc7432d6e7fcf23f7d90e12d3fdcd4"},
+    {file = "sphinxcontrib_htmlhelp-2.0.3-py3-none-any.whl", hash = "sha256:abee4e6c5471203ad2fc40dc6a16ed99884a5d6b15a6f79c9269a7e82cf04149"},
+    {file = "sphinxcontrib_htmlhelp-2.0.3.tar.gz", hash = "sha256:14358d0f88ccf58447f2b54343cdcc0012f32de2f8d27cf934fdbc0b362f9597"},
 ]
 
 [package.dependencies]
@@ -1666,14 +1637,14 @@ test = ["flake8", "mypy", "pytest"]
 
 [[package]]
 name = "sphinxcontrib-qthelp"
-version = "1.0.4"
+version = "1.0.5"
 description = "sphinxcontrib-qthelp is a sphinx extension which outputs QtHelp documents"
 category = "main"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "sphinxcontrib_qthelp-1.0.4-py3-none-any.whl", hash = "sha256:82f0871fb042efa309ee8c7929d228ed5c4be478d9914492b4bad5bfa469c160"},
-    {file = "sphinxcontrib_qthelp-1.0.4.tar.gz", hash = "sha256:f0a1c141420499af2f1a1ff438f9fc910a3548f7a82a1169d9efcc674fcf79c6"},
+    {file = "sphinxcontrib_qthelp-1.0.5-py3-none-any.whl", hash = "sha256:962730a6ad15d21fd6760b14c9e95c00a097413595aa6ee871dd9dfa4b002a16"},
+    {file = "sphinxcontrib_qthelp-1.0.5.tar.gz", hash = "sha256:d31d1a1beaf3894866bb318fb712f1edc82687f1c06235a01e5b2c50c36d5c40"},
 ]
 
 [package.dependencies]
@@ -1685,14 +1656,14 @@ test = ["pytest"]
 
 [[package]]
 name = "sphinxcontrib-serializinghtml"
-version = "1.1.6"
+version = "1.1.7"
 description = "sphinxcontrib-serializinghtml is a sphinx extension which outputs \"serialized\" HTML files (json and pickle)"
 category = "main"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "sphinxcontrib_serializinghtml-1.1.6-py3-none-any.whl", hash = "sha256:f7e8e508f5c973601fa29a9114aa60bc11164db3d6c55aa7fd51710185477237"},
-    {file = "sphinxcontrib_serializinghtml-1.1.6.tar.gz", hash = "sha256:e04d06ac23c527378d62459ec968204afce0ef266733209d628b9a1a4051a78d"},
+    {file = "sphinxcontrib_serializinghtml-1.1.7-py3-none-any.whl", hash = "sha256:424164fc3a8b4355a29d5ea8b7f18199022d160c8f7b96e68bb6c50217729b87"},
+    {file = "sphinxcontrib_serializinghtml-1.1.7.tar.gz", hash = "sha256:ca31afee32e1508cff4034e258060ce2c81a3b1c49e77da60fdb61f0e7a73c22"},
 ]
 
 [package.dependencies]
@@ -1817,8 +1788,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-<<<<<<< HEAD
-content-hash = "f0fd2e52922989b37da21ac2e5e8450021bf5fcc514d34ac92ffa4b63f9793d3"
-=======
 content-hash = "db5eab4b58d82565eb586faaa3892201f8effa2f0bacfca570513dcf7a40ae18"
->>>>>>> 085d98ec (fixed poetry config files in branch)
