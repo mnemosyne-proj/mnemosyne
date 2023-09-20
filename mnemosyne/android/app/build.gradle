@@ -87,6 +87,7 @@ android {
 
 dependencies {
     implementation 'androidx.documentfile:documentfile:1.0.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 }
 
 // Make sure each abi has a different version code

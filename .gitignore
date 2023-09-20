@@ -29,6 +29,10 @@ tests/**/*.pyc
 test-results.xml
 test-results.todo.txt
 
+# Android Build Debris
+mnemosyne/android/app/.cxx/
+mnemosyne/app/build/
+
 
 # Created by https://www.gitignore.io/api/android,emacs,intellij,vim
 

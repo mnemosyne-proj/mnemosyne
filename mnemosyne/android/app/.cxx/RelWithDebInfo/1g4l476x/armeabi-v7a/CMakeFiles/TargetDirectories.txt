@@ -1,0 +1,3 @@
+/home/ghost/Documents/proj/mnemosyne-experimental/mnemosyne/android/app/.cxx/RelWithDebInfo/1g4l476x/armeabi-v7a/CMakeFiles/pybridge.dir
+/home/ghost/Documents/proj/mnemosyne-experimental/mnemosyne/android/app/.cxx/RelWithDebInfo/1g4l476x/armeabi-v7a/CMakeFiles/edit_cache.dir
+/home/ghost/Documents/proj/mnemosyne-experimental/mnemosyne/android/app/.cxx/RelWithDebInfo/1g4l476x/armeabi-v7a/CMakeFiles/rebuild_cache.dir

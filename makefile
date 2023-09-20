@@ -8,6 +8,10 @@ ifeq (1,$(shell python3 -c "print(1)" 2>&- ))
 PYTHON      := python3
 endif
 
+# Note: PYTHON39 was removed from android target, now renamed as android-assets.
+# If you are using these settings for coding the Android client,
+# using Python3.9 is recommended instead, up until compile_zip.py
+# behaves as expected in newer Python versions.
 # If we are on cygwin:
 ifeq (1,$(shell /cygdrive/c/Program\ Files/Python311/python.exe -c "print(1)" 2>&- ))
 PYTHON      := /cygdrive/c/Program\ Files/Python311/python.exe
@@ -121,13 +125,111 @@ macos:
 
 osx: macos
 
-android: # Creates the assets file with the Python code.
+# Android
+
+HOME_DIR := $(HOME)
+PROJECT_ROOT := $(PWD)
+PY_VERS := 3.9.16
+LIB_VERS := 3.9
+
+define p4a-headers
+	p4a create --arch=$1 --dist-name=$1 --blacklist-requirements=android,libffi,openssl --requirements=python3==$(PY_VERS),hostpython3==$(PY_VERS) --force-build
+endef
+
+STDLIB_DEST_DIR := $(PROJECT_ROOT)/mnemosyne/android/app/src/main/assets/python
+STDLIB_TEMP_DIR := $(STDLIB_DEST_DIR)/temp
+
+REMOVE_STDLIB_FILES = \
+	$(TEMP_DIR)/_pydecimal.pyc \
+	$(TEMP_DIR)/pydoc.pyc \
+	$(TEMP_DIR)/turtle.pyc \
+	$(TEMP_DIR)/pickletools.pyc \
+	$(TEMP_DIR)/pickle.pyc
+
+REMOVE_STDLIB_DIRS = \
+	$(TEMP_DIR)/unittest \
+	$(TEMP_DIR)/turtledemo \
+	$(TEMP_DIR)/pydoc_data \
+	$(TEMP_DIR)/distutils
+
+define trim-stdlib
+	# Unzip stdlib.zip to a temporary directory
+	unzip -q $(HOME_DIR)/.local/share/python-for-android/dists/$1/_python_bundle__$1/_python_bundle/stdlib.zip -d $(STDLIB_TEMP_DIR)
+
+	# Remove files and directories
+ 	rm -f $(REMOVE_STDLIB_FILES)
+ 	rm -rf $(REMOVE_STDLIB_DIRS)
+
+	# Rezip the contents of the temporary directory
+	cd $(STDLIB_TEMP_DIR) && zip -rq $(STDLIB_DEST_DIR)/stdlib.zip .
+
+	# Clean up the temporary directory
+	rm -rf $(STDLIB_TEMP_DIR)
+endef
+
+define copy-headers
+	mkdir -p $(PROJECT_ROOT)/mnemosyne/android/dependencies/python/include/$1
+	cp -rf $(HOME_DIR)/.local/share/python-for-android/build/other_builds/python3/$1__ndk_target_26/python3/Include/* \
+		$(PROJECT_ROOT)/mnemosyne/android/dependencies/python/include/$1
+
+	mkdir -p $(PROJECT_ROOT)/mnemosyne/android/dependencies/python/lib/$1
+	cp -rf $(HOME_DIR)/.local/share/python-for-android/dists/$1/libs/$1/libpython$(LIB_VERS).so \
+		$(PROJECT_ROOT)/mnemosyne/android/dependencies/python/lib/$1
+	cp -rf $(HOME_DIR)/.local/share/python-for-android/dists/$1/libs/$1/libsqlite3.so \
+		$(PROJECT_ROOT)/mnemosyne/android/dependencies/python/lib/$1
+endef
+
+define trim-modules
+	# Copy modules directory
+	mkdir -p $(PROJECT_ROOT)/mnemosyne/android/app/src/$(subst -,_,$1)/assets/python
+	cp -r $(HOME_DIR)/.local/share/python-for-android/dists/$1/_python_bundle__$1/_python_bundle/modules \
+		$(PROJECT_ROOT)/mnemosyne/android/app/src/$(subst -,_,$1)/assets/python
+	
+	# Remove specific files
+ 	cd $(PROJECT_ROOT)/mnemosyne/android/app/src/$(subst -,_,$1)/assets/python/modules \
+ 		&& rm -f _decimal* _pickle* _testcapi* audioop* cmath*
+endef
+
+define android-assets
 	rm -f mnemosyne/android/app/src/main/assets/python/mnemosyne.zip
 	zip -r mnemosyne/android/app/src/main/assets/python/mnemosyne.zip openSM2sync -i \*.py
 	zip -r mnemosyne/android/app/src/main/assets/python/mnemosyne.zip mnemosyne/libmnemosyne -i \*.py
 	zip -r mnemosyne/android/app/src/main/assets/python/mnemosyne.zip mnemosyne/android_python -i \*.py
 	zip mnemosyne/android/app/src/main/assets/python/mnemosyne.zip mnemosyne/version.py mnemosyne/__init__.py
-	$(PYTHON39) compile_zip.py mnemosyne/android/app/src/main/assets/python/mnemosyne.zip
+	$(PYTHON) compile_zip.py mnemosyne/android/app/src/main/assets/python/mnemosyne.zip
+endef
+
+define android-build-dist
+	$(call p4a-headers,$1)
+	$(call copy-headers,$1)
+	$(call trim-modules,$1)
+endef
+
+define android-build-all
+	$(call android-build-dist,x86_64)
+	$(call android-build-dist,arm64-v8a)
+	$(call android-build-dist,x86)
+	$(call android-build-dist,armeabi-v7a)
+	$(call trim-stdlib,arm64-v8a)
+	$(call android-assets)
+endef
+
+android-assets: # Creates the assets file with the Python code.
+	$(call android-assets)
+
+trim-stdlib:
+	# The original documentation states that stdlib can be shared by all architectures.
+	# This target is meant to be run after make android-single-dist.
+	# Locking the stdlib build to the arm64-v8a architecture is just a precautionary measure
+	# And for consistency.
+	$(call android-build-dist,arm64-v8a)
+	$(call trim-stdlib,arm64-v8a)
+
+android:
+	$(call android-build-all)
+
+android-single-dist:
+	$(call android-build-dist,$(arch))
 
 clean:
 	rm -f *~ *.pyc *.tgz process_profile.py

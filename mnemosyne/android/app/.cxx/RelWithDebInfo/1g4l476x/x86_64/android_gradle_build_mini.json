@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "/home/ghost/Documents/proj/mnemosyne-experimental/mnemosyne/android/app/src/main/cpp/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/home/ghost/Android/Sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/home/ghost/Documents/proj/mnemosyne-experimental/mnemosyne/android/app/.cxx/RelWithDebInfo/1g4l476x/x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/home/ghost/Android/Sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/home/ghost/Documents/proj/mnemosyne-experimental/mnemosyne/android/app/.cxx/RelWithDebInfo/1g4l476x/x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "pybridge::@6890427a1f51a3e7e1df": {
+      "artifactName": "pybridge",
+      "abi": "x86_64",
+      "output": "/home/ghost/Documents/proj/mnemosyne-experimental/mnemosyne/android/app/build/intermediates/cxx/RelWithDebInfo/1g4l476x/obj/x86_64/libpybridge.so",
+      "runtimeFiles": []
+    }
+  }
+}

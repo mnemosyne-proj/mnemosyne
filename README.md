@@ -42,45 +42,46 @@ You can find instructions for Windows [here](https://mnemosyne-proj.org/mnemosyn
 The following instructions are valid for Linux and Mac (if you use homebrew or some other package manager).
 
 ### Runtime requirements
-To start working on Mnemosyne, you need at least the following software.
-- [Python](http://www.python.org) 3.5 or later
-- [PyQt](https://www.riverbankcomputing.com/software/pyqt/download) 6.0 or later, including QtWebEngine.
-- [Matplotlib](http://matplotlib.org)
-- [Easyinstall](http://peak.telecommunity.com/DevCenter/EasyInstall)
-- [cheroot](https://pypi.python.org/pypi/Cheroot/) 5 or later
-- [Webob](http://webob.org) 1.4 or later
-- [Pillow](http://python-pillow.org)
-- [gTTS](https://pypi.org/project/gTTS/) for Google text-to-speech
-- [googletrans-new](https://github.com/lushan88a/google_trans_new) for Google translate support (Note: version 1.1.9 does not work, you need the
-  latest version from Github.)
-- [argon2-cffi](https://pypi.org/project/argon2-cffi/)
+To start working on Mnemosyne, you need at least the following:
+
+- [Python](http://www.python.org) 3.9
+- argon2-cffi = "^21.3.0"
+- cheroot = "^10.0.0"
+- cherrypy = "^18.8.0"
+- matplotlib = "^3.7.2"
+- webob = "^1.8.7"
+- sphinx = "^7.0.1"
+- pyqt6 = "^6.5.1"
+- pyqt6-webengine = "^6.5.0"
+- decorator = "^5.1.1"
+- gtts = "^2.3.2"
+- google-trans-new = "^1.1.9"
+- pytest = "^7.4.0"
+- pytest-timeout = "^2.1.0"
+
+The dependencies for the Android client are as follows:
+
+- python-for-android = "^2023.9.16"
+- sh = "1.13"
+- cython = "^3.0.2"
+
+All the necessary python dependencies are declared on the `pyproject.toml` and `requirements.txt`. Mnemosyne has support for Pyenv and Poetry tools, but if you prefer to work exclusively with pip, you can install the dependencies using the `requirements.txt` as follows:
+
+```
+pip install -r requirements.txt
+```
+
+There are also other external third-party tools involved with some parts of the Mnemosyne software:
+
 - For Latex support: the `latex` and `dvipng` commands must be available (e.g., `TeXLive` on Linux, `MacTeX` on Mac, and `MikTeX` on Windows).  On Arch based distributions, you'll need `texlive-core` package too.
-- For building the docs: [sphinx](http://sphinx-doc.org) (If you get sphinx-related errors, try installing sphinx as root)
-- For running the tests: [nose](https://nose.readthedocs.io/en/latest/)
-
-These can be installed/upgraded using pip:
-
-```
-pip install --upgrade PyQt6 PyQt6-WebEngine matplotlib cheroot webob pillow googletrans gTTS argon2-cffi
-```
+- For building the Android client, you need to also have the latest Android Studio, `openjdk-17-jdk` for working with the current build tools, and from the SDK Manager of Android Studio, install NDK Version 25 and SDK 33.
 
 You can either run a development version of Mnemosyne by using your system-wide Python installation, or by using a virtual environment with virtualenv.
 If your distribution provides and packages all necessary libraries in a recent enough version, using the system-wide Python install is probably easier and the recommended way.
 
-### Using the system-wide python installation
-First, install all dependencies with your distribution's package manager.
-Then, run `make`, followed by `make run` from the top-level mnemosyne directory.
-This will generate all the needed auxiliary files and start Mnemosyne with a separate datadir under `dot_mnemosyne2`.
-If you want to use mnemosyne interactively from within a python shell, run python from the top-level mnemosyne directory.
-You can check if the correct local version was imported by running `import mnemosyne; print(mnemosyne.__file__)`.
-
-### Using a local python installation
-If your distribution does not provide all required libraries, or if the libraries are too old, create a virtual environment in the top-level directory (`virtualenv venv`), activate it (`source venv/bin/activate`) and install all the required dependencies with `pip install`.
-Then, follow the steps of the previous paragraph.
-
 ### Using pyenv and poetry
 
-As of Mnemosyne-2.11, you may use [Pyenv](https://github.com/pyenv/pyenv) and [Poetry](https://python-poetry.org/docs/) to develop for this project. Pyenv allows you to easily install and switch between multiple python interpreters, while Poetry is a modern tool for dependency management.
+You may use [Pyenv](https://github.com/pyenv/pyenv) and [Poetry](https://python-poetry.org/docs/) to develop for this project. Pyenv allows you to easily install and switch between multiple python interpreters, while Poetry is a modern tool for dependency management and virtual environment configuration.
 
 To get started, open a terminal at the project root, and run `pyenv local`. This will tell `pyenv` to use the python version specified in the `.python-version` file.
 
@@ -98,9 +99,18 @@ If there is a need to change dependencies, you may either `poetry add <package_n
 poetry export -f requirements.txt --output requirements.txt --without-hashes
 ```
 
-### Running the test suite
+### Using the system-wide python installation
+First, install all dependencies with your distribution's package manager.
+Then, run `make`, followed by `make run` from the top-level mnemosyne directory.
+This will generate all the needed auxiliary files and start Mnemosyne with a separate datadir under `dot_mnemosyne2`.
+If you want to use mnemosyne interactively from within a python shell, run python from the top-level mnemosyne directory.
+You can check if the correct local version was imported by running `import mnemosyne; print(mnemosyne.__file__)`.
 
-As of Mnemosyne-2.11, `nose` has been replaced by the modern `pytest` framework.
+### Using a local python installation
+If your distribution does not provide all required libraries, or if the libraries are too old, create a virtual environment in the top-level directory (`virtualenv venv`), activate it (`source venv/bin/activate`) and install all the required dependencies with `pip install`.
+Then, follow the steps of the previous paragraph.
+
+### Running the test suite
 
 You can run the test suite through:
 
@@ -239,6 +249,42 @@ open dist/Mnemosyne.app
 
  - Optionally drag and drop this new app to /Applications.
 
+## Working with the Android app
+
+The Mnemosyne android app relies on the python-for-android (p4a) tool to generate its needed python libraries and dependencies. However, python-for-android as well as Mnemosyne's android build commands assumes that you are working on a Linux or Ubuntu-like operating system.
+
+Make sure that you also the latest Android Studio, `openjdk-17-jdk`, and from the SDK Manager of Android Studio, install NDK Version 25 and SDK 33. Also make sure that your virtual environment is active and all dependencies installed via `poetry install`, or that p4a is installed and you have Python3.9 as your active Python version.
+
+Append the following to your resource file (.bashrc or .zhrc):
+
+```sh
+# Android Studio Command Line Tools
+# For Mnemosyne Android
+export ANDROIDSDK="$HOME/Android/Sdk" # The directory where tools is located
+export ANDROIDNDK="$HOME/Android/Sdk/ndk/25.1.8937393"
+export ANDROIDAPI="33"  # Target API version of your application
+export NDKAPI="26"  # Minimum supported API version of your application
+```
+
+Then, simply run the following:
+
+```sh
+make android
+```
+
+The `make android` command automatically downloads and bundles the necessary headers and libraries for the android client for all the following architectures: x86_64, arm64-v8a, x86, armeabi-v7a. This should be all you need, but if you prefer to generate the dependencies for a single architecture instead, run the following commands:
+
+```sh
+make android-single-dist arch=arm64-v8a # substitute arm64-v8a with your preferred architecture
+make trim-stdlib
+make android-assets
+```
+
+Now, open Android Studio and click File >> Open. Navigate to your project root (where you installed your Mnemosyne project fork) then open the `mnemosyne/android` directory. Let Android Studio index your files. Upgrade your Gradle. Turn on your emulator or your physical device, then select `Build app`.
+
+If anything goes wrong, refer to `mnemosyne/android_python/README.devel` for legacy instructions.
+
+
 # Git and Github info
 
 ## Github CLI Tool
@@ -318,3 +364,5 @@ To create a pull request for your changes, go to the Mnemosyne project page on G
 Click on 'New pull request' and follow the instructions.
 
 Finally, some more background on the whole workflow can be found [here](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow).
+
+

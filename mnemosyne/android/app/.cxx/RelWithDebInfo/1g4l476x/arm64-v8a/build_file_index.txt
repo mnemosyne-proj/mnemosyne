@@ -1,0 +1,1 @@
+/home/ghost/Documents/proj/mnemosyne-experimental/mnemosyne/android/app/src/main/cpp/CMakeLists.txt

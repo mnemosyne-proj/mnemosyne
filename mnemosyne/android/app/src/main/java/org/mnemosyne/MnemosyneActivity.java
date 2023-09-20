@@ -766,61 +766,61 @@ public class MnemosyneActivity extends AppCompatActivity {
         }
     }
 
-    //@Override
-    //public boolean onTouchEvent(MotionEvent event){
-    //    Log.d("Mnemosyne", "Touchevent" + event);
-    //    this.gestureDetector.onTouchEvent(event);
-    //    return super.onTouchEvent(event);
-    //}
-
-    //class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
-
-    //    private static final int SWIPE_MIN_DISTANCE = 120;
-    //    private static final int SWIPE_MAX_OFF_PATH = 200;
-    //    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
-
-    //    @Override
-    //    public boolean onDown(MotionEvent e) {
-    //        return true;
-    //    }
-
-    //    @Override
-    //    public boolean onFling(MotionEvent e1, MotionEvent e2,
-    //            float velocityX, float velocityY) {
-    //        Log.d("Mnemosyne", "onFling: " + e1.toString()+e2.toString());
-
-    //       try {
-    //            float diffAbs = Math.abs(e1.getY() - e2.getY());
-    //            float diff = e1.getX() - e2.getX();
-
-    //            if (diffAbs > SWIPE_MAX_OFF_PATH)
-    //                return false;
-
-    //            // Left swipe.
-    //            if (diff > SWIPE_MIN_DISTANCE
-    //                    && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-    //                MnemosyneActivity.this.onLeftSwipe();
-    //                return true;
-
-    //                // Right swipe.
-    //           } else if (-diff > SWIPE_MIN_DISTANCE
-    //                    && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-    //                MnemosyneActivity.this.onRightSwipe();
-    //                return true;
-    //            }
-    //        } catch (Exception e) {
-    //            Log.e("Mnemosyne", "Error on gestures");
-    //        }
-    //        return false;
-    //    }
-    //}
-
-    //public void onLeftSwipe() {
-    //    Log.d("Mnemosyne", "left swipe");
-    //}
-
-    //public void onRightSwipe() {
-    //    Log.d("Mnemosyne", "right swipe");
-    //}
-
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event){
+//        Log.d("Mnemosyne", "Touchevent" + event);
+//        this.gestureDetector.onTouchEvent(event);
+//        return super.onTouchEvent(event);
+//    }
+//
+//    class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
+//
+//        private static final int SWIPE_MIN_DISTANCE = 120;
+//        private static final int SWIPE_MAX_OFF_PATH = 200;
+//        private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+//
+//        @Override
+//        public boolean onDown(MotionEvent e) {
+//            return true;
+//        }
+//
+//        @Override
+//        public boolean onFling(MotionEvent e1, MotionEvent e2,
+//                float velocityX, float velocityY) {
+//            Log.d("Mnemosyne", "onFling: " + e1.toString()+e2.toString());
+//
+//           try {
+//                float diffAbs = Math.abs(e1.getY() - e2.getY());
+//                float diff = e1.getX() - e2.getX();
+//
+//                if (diffAbs > SWIPE_MAX_OFF_PATH)
+//                    return false;
+//
+//                // Left swipe.
+//                if (diff > SWIPE_MIN_DISTANCE
+//                        && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+//                    MnemosyneActivity.this.onLeftSwipe();
+//                    return true;
+//
+//                    // Right swipe.
+//               } else if (-diff > SWIPE_MIN_DISTANCE
+//                        && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+//                    MnemosyneActivity.this.onRightSwipe();
+//                    return true;
+//                }
+//            } catch (Exception e) {
+//                Log.e("Mnemosyne", "Error on gestures");
+//            }
+//            return false;
+//        }
+//    }
+//
+//    public void onLeftSwipe() {
+//        Log.d("Mnemosyne", "left swipe");
+//    }
+//
+//    public void onRightSwipe() {
+//        Log.d("Mnemosyne", "right swipe");
+//    }
+//
 }

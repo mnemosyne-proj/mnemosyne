@@ -614,7 +614,7 @@
 /* Define to 1 if you have the <libutil.h> header file. */
 /* #undef HAVE_LIBUTIL_H */
 
-/* Define you have libuuid. */
+/* Define to 1 if you have the `uuid' library (-luuid). */
 /* #undef HAVE_LIBUUID */
 
 /* Define if you have the 'link' function. */
@@ -622,6 +622,9 @@
 
 /* Define to 1 if you have the `linkat' function. */
 #define HAVE_LINKAT 1
+
+/* Define to 1 if you have the <linux/auxvec.h> header file. */
+#define HAVE_LINUX_AUXVEC_H 1
 
 /* Define to 1 if you have the <linux/can/bcm.h> header file. */
 #define HAVE_LINUX_CAN_BCM_H 1
@@ -1110,6 +1113,9 @@
 
 /* Define to 1 if you have the <sys/audioio.h> header file. */
 /* #undef HAVE_SYS_AUDIOIO_H */
+
+/* Define to 1 if you have the <sys/auxv.h> header file. */
+#define HAVE_SYS_AUXV_H 1
 
 /* Define to 1 if you have the <sys/bsdtty.h> header file. */
 /* #undef HAVE_SYS_BSDTTY_H */
@@ -1632,11 +1638,6 @@
 
 /* Define on FreeBSD to activate all library features */
 #define __BSD_VISIBLE 1
-
-/* Define to 1 if type `char' is unsigned and you are not using gcc.  */
-#ifndef __CHAR_UNSIGNED__
-/* # undef __CHAR_UNSIGNED__ */
-#endif
 
 /* Define to 'long' if <time.h> doesn't define. */
 /* #undef clock_t */

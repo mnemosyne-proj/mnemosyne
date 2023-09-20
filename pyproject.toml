@@ -21,7 +21,9 @@ gtts = "^2.3.2"
 google-trans-new = "^1.1.9"
 pytest = "^7.4.0"
 pytest-timeout = "^2.1.0"
-
+python-for-android = "^2023.9.16"
+sh = "1.13"
+cython = "^3.0.2"
 
 [build-system]
 requires = ["poetry-core"]

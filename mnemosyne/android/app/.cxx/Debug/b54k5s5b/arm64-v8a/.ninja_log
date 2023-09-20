@@ -1,0 +1,9 @@
+# ninja log v5
+0	234	1696078102506327219	CMakeFiles/pybridge.dir/pybridge.c.o	9d6bbaea5de64fd5
+235	269	1696078102546327086	/home/ghost/Documents/proj/mnemosyne-experimental/mnemosyne/android/app/build/intermediates/cxx/Debug/b54k5s5b/obj/arm64-v8a/libpybridge.so	1d31d6b2a4cafad8
+2	423	1696123103624443122	CMakeFiles/pybridge.dir/pybridge.c.o	9d6bbaea5de64fd5
+423	578	1696123103788442653	/home/ghost/Documents/proj/mnemosyne-experimental/mnemosyne/android/app/build/intermediates/cxx/Debug/b54k5s5b/obj/arm64-v8a/libpybridge.so	1d31d6b2a4cafad8
+7	466	1696124124832025837	CMakeFiles/pybridge.dir/pybridge.c.o	9d6bbaea5de64fd5
+466	505	1696124124872025662	/home/ghost/Documents/proj/mnemosyne-experimental/mnemosyne/android/app/build/intermediates/cxx/Debug/b54k5s5b/obj/arm64-v8a/libpybridge.so	1d31d6b2a4cafad8
+3	468	1696128008157919398	CMakeFiles/pybridge.dir/pybridge.c.o	9d6bbaea5de64fd5
+468	504	1696128008193919251	/home/ghost/Documents/proj/mnemosyne-experimental/mnemosyne/android/app/build/intermediates/cxx/Debug/b54k5s5b/obj/arm64-v8a/libpybridge.so	1d31d6b2a4cafad8

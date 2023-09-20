@@ -1,0 +1,19 @@
+                        -H/home/ghost/Documents/proj/mnemosyne-experimental/mnemosyne/android/app/src/main/cpp
+-DCMAKE_SYSTEM_NAME=Android
+-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+-DCMAKE_SYSTEM_VERSION=26
+-DANDROID_PLATFORM=android-26
+-DANDROID_ABI=armeabi-v7a
+-DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a
+-DANDROID_NDK=/home/ghost/Android/Sdk/ndk/25.1.8937393
+-DCMAKE_ANDROID_NDK=/home/ghost/Android/Sdk/ndk/25.1.8937393
+-DCMAKE_TOOLCHAIN_FILE=/home/ghost/Android/Sdk/ndk/25.1.8937393/build/cmake/android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=/home/ghost/Android/Sdk/cmake/3.22.1/bin/ninja
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/home/ghost/Documents/proj/mnemosyne-experimental/mnemosyne/android/app/build/intermediates/cxx/RelWithDebInfo/1g4l476x/obj/armeabi-v7a
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/home/ghost/Documents/proj/mnemosyne-experimental/mnemosyne/android/app/build/intermediates/cxx/RelWithDebInfo/1g4l476x/obj/armeabi-v7a
+-DCMAKE_BUILD_TYPE=RelWithDebInfo
+-B/home/ghost/Documents/proj/mnemosyne-experimental/mnemosyne/android/app/.cxx/RelWithDebInfo/1g4l476x/armeabi-v7a
+-GNinja
+-DANDROID_STL=c++_static
+                        Build command args: []
+                        Version: 2
