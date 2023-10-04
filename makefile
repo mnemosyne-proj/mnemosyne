@@ -53,6 +53,13 @@ test-prep:
 test: test-prep
 	$(PYTHON) -m pytest tests -ra --junitxml=test-results.xml
 
+# https://pybit.es/articles/how-to-package-and-deploy-cli-apps/
+
+pypi:
+	rm -rf dist
+	$(PYTHON) -m build
+#twine upload dist/*
+
 coverage: test-prep
 	rm -rf .coverage cover htmlcov
 	$(PYTHON) -m pytest tests --with-coverage --cover-erase \

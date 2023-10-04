@@ -4,7 +4,8 @@ version = "2.10.1"
 description = "a free, open-source, spaced-repetition flashcard program that helps you learn as efficiently as possible."
 authors = ["Peter Bienstman <Peter.Bienstman@gmail.com>"]
 readme = "README.md"
-packages = [{include = "mnemosyne"}]
+packages = [{include = "mnemosyne"}, 
+            {include = "openSM2sync"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -22,7 +23,9 @@ google-trans-new = "^1.1.9"
 pytest = "^7.4.0"
 pytest-timeout = "^2.1.0"
 
-
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+mnemosyne = 'mnemosyne.pyqt_ui:run'

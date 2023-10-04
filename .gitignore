@@ -28,6 +28,7 @@ openSM2sync/**/*.pyc
 tests/**/*.pyc
 test-results.xml
 test-results.todo.txt
+.git
 
 
 # Created by https://www.gitignore.io/api/android,emacs,intellij,vim
