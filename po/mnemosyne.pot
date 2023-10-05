@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2023-08-09 16:20+0200\n"
+"POT-Creation-Date: 2023-10-05 12:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,6 +14,99 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
 
+
+#: ../tests/benchmark_pyqt.py:30
+#: ../tools/mnemosynebot/tests/benchmark_pyqt.py:30
+msgid "data directory"
+msgstr ""
+
+#: ../tests/test_gui_translator.py:25
+#: ../tools/mnemosynebot/tests/test_translator.py:25
+msgid "foo"
+msgstr ""
+
+#: ../tests/test_gui_translator.py:32
+#: ../tools/mnemosynebot/tests/test_translator.py:32
+msgid "This is a test."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/cle/database_maintenance.py:14
+msgid "About to archive old logs to improve running speed. Depending on the size of your database and the speed of your device, this can take 10 minutes or more. Please leave Mnemosyne running in the foreground."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/cle/database_maintenance.py:15
+msgid "OK, proceed"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/example_plugins/avg_grade_statistics.py:27
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_added.py:19
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:19
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/retention_score.py:19
+msgid "Last week"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/example_plugins/avg_grade_statistics.py:28
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_added.py:20
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:20
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/retention_score.py:20
+msgid "Last month"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/example_plugins/avg_grade_statistics.py:29
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_added.py:21
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:21
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/retention_score.py:21
+msgid "Last 3 months"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/example_plugins/avg_grade_statistics.py:30
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_added.py:22
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:22
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/retention_score.py:22
+msgid "Last 6 months"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/example_plugins/avg_grade_statistics.py:31
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_added.py:23
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:23
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/retention_score.py:23
+msgid "Last year"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/example_plugins/avg_grade_statistics.py:61
+msgid "Average grades of scheduled cards"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/example_plugins/avg_grade_statistics.py:68
+#: ../tools/mnemosynebot/mnemosyne/example_plugins/pie_chart_statistics.py:31
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:118
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:257
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:280
+msgid "No stats available."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/example_plugins/avg_grade_statistics.py:98
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:189
+msgid "Days"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/example_plugins/new_card_type.py:13
+msgid "Vocabulary (decorated)"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/example_plugins/new_card_type.py:18
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/map.py:24
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/sentence.py:39
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:24
+msgid "Recognition"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/example_plugins/new_card_type.py:24
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/map.py:30
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/sentence.py:44
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:29
+msgid "Production"
+msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:218
 msgid "Command line argument is not a *.db file."
@@ -40,6 +133,124 @@ msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/__init__.py:351
 msgid "If you are using a USB key, refer to the instructions on the website so as not to be affected by drive letter changes."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/M_sided.py:20
+msgid "M-sided"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/both_ways.py:15
+msgid "Front-to-back and back-to-front"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/both_ways.py:18
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/front_to_back.py:16
+msgid "Front"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/both_ways.py:19
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/front_to_back.py:17
+msgid "Back"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/both_ways.py:22
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/front_to_back.py:20
+msgid "Front-to-back"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/both_ways.py:27
+msgid "Back-to-front"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/cloze.py:39
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/cloze.py:167
+msgid "Cloze deletion"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/cloze.py:41
+#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:56
+msgid "Text"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/cloze.py:45
+msgid "Cloze"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/cloze.py:168
+msgid ""
+"A card type blanking out certain fragments in a text.\n"
+"\n"
+"E.g., the text \"The capital of [France] is [Paris]\", will give cards with questions \"The capital of France is [...].\" and \"The capital of [...] is Paris\".\n"
+"\n"
+"Editing the text will automatically update all sister cards.\n"
+"\n"
+"You can also specify hints, e.g. [cloze:hint] will show\n"
+" [hint] in the question as opposed to [...]."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/front_to_back.py:13
+msgid "Front-to-back only"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/map.py:16
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/map.py:51
+msgid "Map"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/map.py:19
+msgid "Location"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/map.py:20
+msgid "Blank map"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/map.py:21
+msgid "Marked map"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/map.py:52
+msgid ""
+"A card type for learning locations on a map.\n"
+"\n"
+"Displays the answer map on top of the question map, rather than below it as a second map."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/sentence.py:30
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/sentence.py:33
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/sentence.py:94
+msgid "Sentence"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/sentence.py:34
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:19
+msgid "Pronunciation"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/sentence.py:35
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:20
+msgid "Meaning"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/sentence.py:36
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:21
+msgid "Notes"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/sentence.py:95
+msgid ""
+"A card type using sentences to study foreign languages.\n"
+"\n"
+"Apart from simple recognition of the sentence, you can also add production cards using close deletion.\n"
+"E.g. if in the sentence field you write \"La [casa:house] es [grande:big]\", you'll get cards with questions like \"La [house] es grande\"."
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:15
+msgid "Vocabulary"
+msgstr ""
+
+#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/card_types/vocabulary.py:18
+msgid "Foreign word or phrase"
 msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/configuration.py:422
@@ -1041,41 +1252,6 @@ msgid "Cards added"
 msgstr ""
 
 #:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_added.py:19
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:19
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/retention_score.py:19
-msgid "Last week"
-msgstr ""
-
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_added.py:20
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:20
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/retention_score.py:20
-msgid "Last month"
-msgstr ""
-
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_added.py:21
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:21
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/retention_score.py:21
-msgid "Last 3 months"
-msgstr ""
-
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_added.py:22
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:22
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/retention_score.py:22
-msgid "Last 6 months"
-msgstr ""
-
-#:
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_added.py:23
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:23
-#: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/retention_score.py:23
-msgid "Last year"
-msgstr ""
-
-#:
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_added.py:38
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/cards_learned.py:38
 #: ../tools/mnemosynebot/mnemosyne/libmnemosyne/statistics_pages/retention_score.py:38
@@ -1540,11 +1716,6 @@ msgid "<all card types>"
 msgstr ""
 
 #:
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:56
-msgid "Text"
-msgstr ""
-
-#:
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/configuration_wdgt_card_appearance.py:86
 msgid "Select font"
 msgstr ""
@@ -1790,16 +1961,6 @@ msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_dlg.py:100
 msgid "Default"
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:118
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:257
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:280
-msgid "No stats available."
-msgstr ""
-
-#: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:189
-msgid "Days"
 msgstr ""
 
 #: ../tools/mnemosynebot/mnemosyne/pyqt_ui/statistics_wdgts_plotting.py:208
@@ -2181,17 +2342,5 @@ msgstr ""
 
 #: ../tools/mnemosynebot/po/pygettext.py:663
 msgid "morethanonestring"
-msgstr ""
-
-#: ../tools/mnemosynebot/tests/benchmark_pyqt.py:30
-msgid "data directory"
-msgstr ""
-
-#: ../tools/mnemosynebot/tests/test_translator.py:25
-msgid "foo"
-msgstr ""
-
-#: ../tools/mnemosynebot/tests/test_translator.py:32
-msgid "This is a test."
 msgstr ""
 

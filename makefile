@@ -55,10 +55,12 @@ test: test-prep
 
 # https://pybit.es/articles/how-to-package-and-deploy-cli-apps/
 
-pypi:
-	rm -rf dist
+wheel:
+	rm -rf dist build
 	$(PYTHON) -m build
-#twine upload dist/*
+
+pypi: wheel
+	twine upload dist/*
 
 coverage: test-prep
 	rm -rf .coverage cover htmlcov

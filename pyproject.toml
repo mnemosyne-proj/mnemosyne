@@ -1,11 +1,15 @@
 [tool.poetry]
 name = "mnemosyne"
-version = "2.10.1"
+version = "2.10.1a"
 description = "a free, open-source, spaced-repetition flashcard program that helps you learn as efficiently as possible."
 authors = ["Peter Bienstman <Peter.Bienstman@gmail.com>"]
 readme = "README.md"
-packages = [{include = "mnemosyne"}, 
+packages = [{include = "mnemosyne"},
             {include = "openSM2sync"}]
+include = ["mnemosyne/pyqt_ui/ui_*", "makefile", "pixmaps/*",
+    "mnemosyne/pyqt_ui/makefile"]
+exclude = ["mnemosyne/android", "mnemosyne/android_python", 
+    "mnemosyne/embedded_in_C", "mnemosyne/UDP_server"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -29,3 +33,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 mnemosyne = 'mnemosyne.pyqt_ui:run'
+
+[tool.poetry.build]
+generate-setup-file = false
+script = "poetry-build.py"
