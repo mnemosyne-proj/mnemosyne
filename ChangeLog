@@ -1,4 +1,5 @@
-
+- Add support for ruby/furigana, i.e '私[わたし]' will render with the 
+  furigana above the kanji. 
 - Upgrade build system to poetry and test system to Pytest (patch by Ace
   Z. Alba).
 - Fix more errors in 'Non-latin point size increase' (reported by Hugo 
