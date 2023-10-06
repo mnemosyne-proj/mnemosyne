@@ -82,6 +82,7 @@ hiddenimports = [
              'mnemosyne.libmnemosyne.filters.escape_to_html',
              'mnemosyne.libmnemosyne.filters.escape_to_html_for_card_browser',
              'mnemosyne.libmnemosyne.filters.expand_paths',
+             'mnemosyne.libmnemosyne.filters.furigana',
              'mnemosyne.libmnemosyne.filters.html5_audio',
              'mnemosyne.libmnemosyne.filters.html5_video',
              'mnemosyne.libmnemosyne.filters.latex',
