@@ -6,7 +6,7 @@ android {
 
     def versionMajor = 2
     def versionMinor = 7
-    def versionPatch = 0
+    def versionPatch = 1
 
     defaultConfig {
         applicationId "org.mnemosyne"
