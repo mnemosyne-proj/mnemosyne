@@ -1,5 +1,7 @@
 - Add support for ruby/furigana, i.e '私[わたし]' will render with the 
   furigana above the kanji. 
+- Mnemosyne can now also be installed on top of an existing Python
+  installation by doing 'pip install mnemosyne-proj'.  
 - Upgrade build system to poetry and test system to Pytest (patch by Ace
   Z. Alba).
 - Fix more errors in 'Non-latin point size increase' (reported by Hugo 

@@ -1,5 +1,5 @@
 #
-# azure_tts.py <Peter.Bienstman@gmail.com>
+# azure_tts.py <Peter.Bienstman@UGent.be>
 #
 
 # Set up your account according to
@@ -12,24 +12,24 @@ from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.pronouncer import Pronouncer
 
+
+
 class AzurePronouncer(Pronouncer):
 
-    used_for = "ar", "zh"
+    used_for = "ar", "zh", "ja"
 
     popup_menu_text = "Insert Azure text-to-speech..."
 
     def download_tmp_audio_file(self, card_type, foreign_text):
 
         """Returns a temporary filename with the audio."""
-
+        
         from pydub import AudioSegment
-
+        
         import azure.cognitiveservices.speech as speechsdk
-        speech_config = speechsdk.SpeechConfig(\
-            subscription=os.environ.get('COGNITIVE_SERVICE_KEY'), 
-            region=os.environ.get('COGNITIVE_SERVICE_REGION'))     
-        speech_config.set_speech_synthesis_output_format(\
-            speechsdk.SpeechSynthesisOutputFormat.Riff24Khz16BitMonoPcm)
+        speech_config = speechsdk.SpeechConfig(subscription=os.environ.get('COGNITIVE_SERVICE_KEY'), region=os.environ.get('COGNITIVE_SERVICE_REGION'))
+        speech_config.set_speech_synthesis_output_format(speechsdk.SpeechSynthesisOutputFormat.Riff24Khz16BitMonoPcm)
+
 
         language_id = self.config().card_type_property(\
             "sublanguage_id", card_type)
@@ -43,6 +43,8 @@ class AzurePronouncer(Pronouncer):
             speech_config.speech_synthesis_voice_name = "zh-CN-YunzeNeural"
         if 'ar' in language_id.lower():
             speech_config.speech_synthesis_voice_name = "ar-JO-TaimNeural"
+        if 'ja' in language_id.lower():
+            speech_config.speech_synthesis_voice_name = "ja-JP-KeitaNeural"
 
         speech_config.set_speech_synthesis_output_format(\
             speechsdk.SpeechSynthesisOutputFormat.Riff24Khz16BitMonoPcm)
@@ -70,7 +72,7 @@ class AzurePronouncer(Pronouncer):
         stream = speechsdk.AudioDataStream(result)
         stream.save_to_wav_file(filename_wav)
         audio = AudioSegment.from_wav(filename_wav)
-        audio.export(filename_mp3, format="mp3")    
+        audio.export(filename_mp3, format="mp3")  
         return filename_mp3
 
 

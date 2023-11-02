@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "mnemosyne"
-version = "2.10.1a"
+name = "mnemosyne-proj"
+version = "2.10.1.2"
 description = "a free, open-source, spaced-repetition flashcard program that helps you learn as efficiently as possible."
 authors = ["Peter Bienstman <Peter.Bienstman@gmail.com>"]
 readme = "README.md"
@@ -27,13 +27,13 @@ google-trans-new = "^1.1.9"
 pytest = "^7.4.0"
 pytest-timeout = "^2.1.0"
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
 [tool.poetry.scripts]
 mnemosyne = 'mnemosyne.pyqt_ui:run'
 
 [tool.poetry.build]
 generate-setup-file = false
 script = "poetry-build.py"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
