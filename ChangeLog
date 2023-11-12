@@ -1,16 +1,19 @@
+Mnemosyne 2.11 : 2023-11-12
+
 - Add support for ruby/furigana, i.e '私[わたし]' will render with the 
   furigana above the kanji. 
 - Mnemosyne can now also be installed on top of an existing Python
-  installation by doing 'pip install mnemosyne-proj'.  
+  installation by doing 'pip install mnemosyne-proj'. This also opens the
+  door to an up-to-date install on MacOS.
 - Upgrade build system to poetry and test system to Pytest (patch by Ace
-  Z. Alba).
+  Z. Alba and kuraga).
 - Fix more errors in 'Non-latin point size increase' (reported by Hugo 
   Coolens).
 - Improve icon finding logic (patch by traveller1).
-- Improve build system (patch by kuraga).
 - Fix not remembering last statistics page in some cases (patch by 
   Andreas Perstinger).
 - Fix rare threading issue in sync server.  
+
 
 Mnemosyne 2.10.1 : 2023-02-06
 
