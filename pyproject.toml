@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "mnemosyne"},
             {include = "openSM2sync"}]
 include = ["mnemosyne/pyqt_ui/ui_*", "makefile", "pixmaps/*",
-    "mnemosyne/pyqt_ui/makefile"]
+    "tests/*", "mnemosyne/pyqt_ui/makefile"]
 exclude = ["mnemosyne/android", "mnemosyne/android_python", 
     "mnemosyne/embedded_in_C", "mnemosyne/UDP_server"]
 
