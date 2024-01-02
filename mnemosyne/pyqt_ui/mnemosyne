@@ -7,6 +7,7 @@
 import os
 import sys
 import time
+from threading import Timer
 
 # Workaround for this bug:
 #    https://github.com/pyinstaller/pyinstaller/issues/1113
@@ -87,6 +88,25 @@ else:
 # Load the Mnemosyne library.
 mnemosyne = Mnemosyne(upload_science_logs=None, interested_in_old_reps=True)
 
+def heartbeat_server():
+    global mnemosyne
+    # If a sync request comes in while this is running, it will
+    # fail because of threading issues.
+    try:
+        mnemosyne.database().load(mnemosyne.config()["last_database"])
+        mnemosyne.controller().heartbeat()
+        mnemosyne.database().unload()
+    except Exception as e:
+        print(e)
+
+def start_heartbeat():
+    global start_heartbeat, heartbeat_server
+    from threading import Timer
+    heartbeat_server()
+    heartbeat_thread = Timer(60 * 60, start_heartbeat)
+    heartbeat_thread.daemon = True
+    heartbeat_thread.start()
+
 # Run as server.
 if options.web_server == True or options.sync_server == True:
     # Initialise Mnemosyne.
@@ -112,21 +132,7 @@ if options.web_server == True or options.sync_server == True:
         web_server_thread = WebServerThread(mnemosyne.component_manager)
         web_server_thread.daemon = True
         web_server_thread.start()
-    # Heartbeat.
-    from threading import Timer
-    def heartbeat():
-        # If a sync request comes in while this is running, it will
-        # fail because of threading issues.
-        try:
-            mnemosyne.database().load(mnemosyne.config()["last_database"])
-            mnemosyne.controller().heartbeat()
-            mnemosyne.database().unload()
-        except MnemosyneError:
-            pass
-        heartbeat_thread = Timer(60 * 60, heartbeat)
-        heartbeat_thread.daemon = True
-        heartbeat_thread.start()
-    Timer(1, heartbeat).start()
+    start_heartbeat()
     # Hack to allow killing the servers quickly during development.
     try:
         while True:

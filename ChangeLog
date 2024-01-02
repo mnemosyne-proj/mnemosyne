@@ -1,3 +1,6 @@
+
+- Make running of headless server more robust.
+
 Mnemosyne 2.11 : 2023-11-12
 
 - Add support for ruby/furigana, i.e '私[わたし]' will render with the 

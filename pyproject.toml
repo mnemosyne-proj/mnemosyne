@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mnemosyne-proj"
-version = "2.10.1.2"
+version = "2.11"
 description = "a free, open-source, spaced-repetition flashcard program that helps you learn as efficiently as possible."
 authors = ["Peter Bienstman <Peter.Bienstman@gmail.com>"]
 readme = "README.md"
