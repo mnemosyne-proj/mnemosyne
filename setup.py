@@ -24,8 +24,13 @@ class InnoScript:
         print(r"[Setup]", file=ofi)
         print(r"AppName=%s" % self.name, file=ofi)
         print(r"AppVerName=%s %s" % (self.name, self.version), file=ofi)
+        print(r"AppVersion=%s" % self.version, file=ofi)
         print(r"DefaultDirName={pf}\%s" % self.name, file=ofi)
         print(r"DefaultGroupName=%s" % self.name, file=ofi)
+        publisher = "Peter Bienstman"
+        print(r"AppPublisher=%s" % publisher, file=ofi)
+        path = "mnemosyne.exe"
+        print(r"UninstallDisplayIcon={app}\%s" % path, file=ofi)
         print(file=ofi)
         print(r"[Messages]", file=ofi)
         print(r"ConfirmUninstall=Are you really really sure you want to remove %1? Your cards will not be deleted.", file=ofi)
