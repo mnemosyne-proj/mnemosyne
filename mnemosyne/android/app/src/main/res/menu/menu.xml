@@ -16,4 +16,6 @@
         android:title="Export data" />
     <item android:id="@+id/menu_import_data"
         android:title="Import data" />
+    <item android:id="@+id/menu_privacy_policy"
+        android:title="Privacy policy" />
 </menu>

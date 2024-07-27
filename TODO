@@ -1,9 +1,7 @@
 https://github.com/mnemosyne-proj/mnemosyne/issues/241
 
 - force reupload logs?
-- pip install support
 - replace setup.py.
-- migrate from nose
 - put all of Mnemosyne in a separate thread?
 
 - more Azure plugins?
@@ -25,7 +23,6 @@ Android:
 -gestures?
 -option to globally increase / decrease font size with respect to desktop
 -custom fonts?
-
 
 Minor bugs / issues:
 

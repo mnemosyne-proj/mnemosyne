@@ -6,7 +6,7 @@ android {
 
     def versionMajor = 2
     def versionMinor = 7
-    def versionPatch = 1
+    def versionPatch = 3
 
     defaultConfig {
         applicationId "org.mnemosyne"
@@ -14,7 +14,7 @@ android {
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
 
         minSdkVersion 26
-        targetSdkVersion 33
+        targetSdkVersion 34
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
             targetCompatibility JavaVersion.VERSION_1_8
