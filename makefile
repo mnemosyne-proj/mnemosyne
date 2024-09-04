@@ -26,7 +26,8 @@ ifdef DESTDIR
 INSTALL_OPTS += --root="$(DESTDIR)"
 endif
 
-build-all-deps: build build-po build-docs
+# build-all-deps: build build-po build-docs
+build-all-deps: build build-docs
 
 build:
 	# Just the bare minimum to get things running
