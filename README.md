@@ -56,7 +56,7 @@ To start working on Mnemosyne, you need at least the following software.
 - [argon2-cffi](https://pypi.org/project/argon2-cffi/)
 - For Latex support: the `latex` and `dvipng` commands must be available (e.g., `TeXLive` on Linux, `MacTeX` on Mac, and `MikTeX` on Windows).  On Arch based distributions, you'll need `texlive-core` package too.
 - For building the docs: [sphinx](http://sphinx-doc.org) (If you get sphinx-related errors, try installing sphinx as root)
-- For running the tests: [nose](https://nose.readthedocs.io/en/latest/)
+- For running the tests: [pytest](https://docs.pytest.org/en/stable/)
 
 These can be installed/upgraded using pip:
 
