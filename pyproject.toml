@@ -26,6 +26,7 @@ gtts = "^2.3.2"
 google-trans-new = "^1.1.9"
 pytest = "^7.4.0"
 pytest-timeout = "^2.1.0"
+legacy-cgi = "^2.6"
 
 [tool.poetry.scripts]
 mnemosyne = 'mnemosyne.pyqt_ui:run'

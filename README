@@ -12,6 +12,7 @@ Install the following dependencies if needed:
 - googletrans for Google translate support
   (https://pypi.org/project/googletrans/) 3.0 or later
 - argon2-cffi (https://pypi.org/project/argon2-cffi/)
+- legacy-cgi (https://pypi.org/project/legacy-cgi/) when using Python 3.13 or later.
 - For Latex support: the latex and dvipng commands must be available
   (e.g. TeXLive)
 
