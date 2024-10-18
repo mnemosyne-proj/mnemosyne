@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mnemosyne-proj"
-version = "2.11"
+version = "2.11.0.2"
 description = "a free, open-source, spaced-repetition flashcard program that helps you learn as efficiently as possible."
 authors = ["Peter Bienstman <Peter.Bienstman@gmail.com>"]
 readme = "README.md"
@@ -12,7 +12,7 @@ exclude = ["mnemosyne/android", "mnemosyne/android_python",
     "mnemosyne/embedded_in_C", "mnemosyne/UDP_server"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 argon2-cffi = "^21.3.0"
 cheroot = "^10.0.0"
 cherrypy = "^18.8.0"

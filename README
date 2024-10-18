@@ -1,7 +1,7 @@
 Instructions when installing from tarball downloaded from the Mnemosyne website:
 
 Install the following dependencies if needed:
-- Python (http://www.python.org) 3.5 or later
+- Python (http://www.python.org) 3.10 or later
 - PyQt6 (https://www.riverbankcomputing.com/software/pyqt/download) 6.0 or
   later, including PyQt6-WebEngine
 - Matplotlib (http://matplotlib.org)

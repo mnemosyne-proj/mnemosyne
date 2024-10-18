@@ -43,7 +43,7 @@ The following instructions are valid for Linux and Mac (if you use homebrew or s
 
 ### Runtime requirements
 To start working on Mnemosyne, you need at least the following software.
-- [Python](http://www.python.org) 3.5 or later
+- [Python](http://www.python.org) 3.10 or later
 - [PyQt](https://www.riverbankcomputing.com/software/pyqt/download) 6.0 or later, including QtWebEngine.
 - [Matplotlib](http://matplotlib.org)
 - [Easyinstall](http://peak.telecommunity.com/DevCenter/EasyInstall)
