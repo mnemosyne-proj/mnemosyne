@@ -2,6 +2,8 @@
 # activate_cards_dlg.py <Peter.Bienstman@gmail.com>
 #
 
+import sys
+
 from PyQt6 import QtCore, QtGui, QtWidgets
 
 from mnemosyne.libmnemosyne.gui_translator import _
@@ -51,6 +53,9 @@ class ActivateCardsDlg(QtWidgets.QDialog, ActivateCardsDialog,
         state = self.config()["activate_cards_dlg_state"]
         if state:
             self.restoreGeometry(state)
+        elif sys.platform == "darwin":
+            # macOS makes the window too small if it wasn't previously resized, so initialize a default size
+            self.resize(640,480)
         splitter_state = self.config()["activate_cards_dlg_splitter_state"]
         if not splitter_state:
             self.splitter.setSizes([100, 350])
