@@ -38,13 +38,6 @@ class MainWdgt(QtWidgets.QMainWindow, MainWidget, Ui_MainWdgt):
         # Don't create a silly popup menu saying ('toolBar').
         pass
 
-    def keyPressEvent(self, event):
-        if event.key() == QtCore.Qt.Key.Key_Q and \
-            event.modifiers() == QtCore.Qt.KeyboardModifier.ControlModifier:
-            self.close()
-        else:
-            QtWidgets.QMainWindow.keyPressEvent(self, event)
-
     def closeEvent(self, event):
         # Generated when clicking the window's close button.
         self._store_state()
