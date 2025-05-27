@@ -165,7 +165,7 @@ if options.qt_opengl:
 
 a = QApplication(sys.argv)
 a.setApplicationName("Mnemosyne")
-a.setDesktopFileName("mnemosyne.desktop")
+a.setDesktopFileName("mnemosyne")
 #a.setStyle(QStyleFactory.create("fusion"))
 
 # Get rid of the white menubar on Windows and do some further tweaks.
