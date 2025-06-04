@@ -5,6 +5,7 @@
 #
 
 import os
+import re
 import socket
 import urllib.request, urllib.parse, urllib.error
 import tarfile
@@ -13,6 +14,9 @@ import http.client
 from .partner import Partner
 from .text_formats.xml_format import XMLFormat
 from .utils import SyncError, SeriousSyncError, traceback_string
+
+# Matches <scheme>://[username[:password]@]<authority>[/...]
+re_proxy_url = re.compile(r"([^:/]+)://(?:([^:]+)(?::([^@]+))?@)?([^/]+)")
 
 # Register binary formats.
 
@@ -63,6 +67,21 @@ class Client(Partner):
         self.behind_proxy = None  # Explicit variable for testability.
         self.proxy = None
 
+    def _parse_proxy(self, proxy):
+
+        """Extract the authority from a proxy URL"""
+
+        # urlparse is not suitable because it is too general,
+        # so we have to do our own thing
+        m = re_proxy_url.match(proxy)
+        if m is not None:
+            # 1=scheme, 2=username, 3=password, 4=authority
+            # We only deal with authority for now
+            return m[4]
+
+        # If proxy is not a URL, assume it's a plain authority
+        return proxy
+
     def request_connection(self):
 
         """If we are not behind a proxy, create the connection once and reuse
@@ -77,7 +96,7 @@ class Client(Partner):
             proxies = urllib.request.getproxies()
             if "http" in proxies:
                 self.behind_proxy = True
-                self.proxy = proxies["http"]
+                self.proxy = self._parse_proxy(proxies["http"])
             else:
                 self.behind_proxy = False
         # Create a new connection or reuse an existing one.
@@ -85,7 +104,7 @@ class Client(Partner):
             http.client.HTTPConnection._http_vsn = 10
             http.client.HTTPConnection._http_vsn_str = "HTTP/1.0"
             if self.proxy is not None:
-                self.con = http.client.HTTPConnection(self.proxy, self.port)
+                self.con = http.client.HTTPConnection(self.proxy)
             else:  # Testsuite has set self.behind_proxy to True to simulate
                 # being behind a proxy.
                 self.con = http.client.HTTPConnection(self.server, self.port)
@@ -97,7 +116,7 @@ class Client(Partner):
 
     def url(self, url_string):
         if self.behind_proxy and self.proxy:
-            url_string = self.server + ":/" + url_string
+            url_string = "http://" + self.server + ":" + str(self.port) + url_string
         return url_string
 
     def sync(self, server, port, username, password):
