@@ -6,8 +6,9 @@ authors = ["Peter Bienstman <Peter.Bienstman@gmail.com>"]
 readme = "README.md"
 packages = [{include = "mnemosyne"},
             {include = "openSM2sync"}]
-include = ["mnemosyne/pyqt_ui/ui_*", "makefile", "pixmaps/*",
-    "tests/*", "mnemosyne/pyqt_ui/makefile"]
+include = [{path = "mnemosyne/pyqt_ui/ui_*", format = ["sdist", "wheel"]},
+    "makefile", {path = "pixmaps/*", format = ["sdist", "wheel"]}, "tests/*",
+    "mnemosyne/pyqt_ui/makefile"]
 exclude = ["mnemosyne/android", "mnemosyne/android_python", 
     "mnemosyne/embedded_in_C", "mnemosyne/UDP_server"]
 
