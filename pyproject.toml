@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mnemosyne-proj"
-version = "2.11.0.3"
+version = "2.11.1"
 description = "a free, open-source, spaced-repetition flashcard program that helps you learn as efficiently as possible."
 authors = ["Peter Bienstman <Peter.Bienstman@gmail.com>"]
 readme = "README.md"
@@ -20,8 +20,8 @@ cherrypy = "^18.8.0"
 matplotlib = "^3.7.2"
 webob = "^1.8.7"
 sphinx = "^7.0.1"
-pyqt6 = "^6.6"
-pyqt6-webengine = "^6.6"
+pyqt6 = "^6.10.2"
+pyqt6-webengine = "^6.10.2"
 decorator = "^5.1.1"
 gtts = "^2.3.2"
 google-trans-new = "^1.1.9"

@@ -211,7 +211,7 @@ class EditCardDlg(QtWidgets.QDialog, AddEditCards,
             cards = new_card_type.create_sister_cards(fact)
         tag_text = self.tags.currentText()
         dlg = PreviewCardsDlg(cards, tag_text,
-            component_manager=self.component_manager, parent=self)
+            component_manager=self.component_manager)
         dlg.exec()
 
     def accept(self):
