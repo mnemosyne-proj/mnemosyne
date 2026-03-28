@@ -194,3 +194,15 @@ cscope.out
 # macos
 .DS_Store
 venv/
+
+# Android build artifacts
+mnemosyne/android/app/.cxx/
+mnemosyne/android/.idea/AndroidProjectSystem.xml
+mnemosyne/android/.idea/caches/
+mnemosyne/android/.idea/deploymentTargetSelector.xml
+mnemosyne/android/.idea/migrations.xml
+mnemosyne/android/.idea/runConfigurations.xml
+mnemosyne/android/gradle/gradle-daemon-jvm.properties
+
+# Backup files
+*.bak
