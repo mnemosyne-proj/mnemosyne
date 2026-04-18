@@ -66,6 +66,7 @@ class Client(Partner):
         self.con = None
         self.behind_proxy = None  # Explicit variable for testability.
         self.proxy = None
+        self.use_https = False
 
     def _parse_proxy(self, proxy):
 
@@ -90,6 +91,17 @@ class Client(Partner):
 
         """
 
+        if self.use_https:
+            import ssl
+            ssl_ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+            # Android's bundled Python lacks a CA certificate store,
+            # so we disable verification while still encrypting traffic.
+            ssl_ctx.check_hostname = False
+            ssl_ctx.verify_mode = ssl.CERT_NONE
+            connection_class = http.client.HTTPSConnection
+        else:
+            ssl_ctx = None
+            connection_class = http.client.HTTPConnection
         # If we haven't done so, determine whether we're behind a proxy.
         if self.behind_proxy is None:
             import urllib.request, urllib.parse, urllib.error
@@ -99,29 +111,42 @@ class Client(Partner):
                 self.proxy = self._parse_proxy(proxies["http"])
             else:
                 self.behind_proxy = False
+        # Helper to create the connection with optional SSL context.
+        def _make_con(*args):
+            if ssl_ctx:
+                return connection_class(*args, context=ssl_ctx)
+            return connection_class(*args)
         # Create a new connection or reuse an existing one.
         if self.behind_proxy:
             http.client.HTTPConnection._http_vsn = 10
             http.client.HTTPConnection._http_vsn_str = "HTTP/1.0"
             if self.proxy is not None:
-                self.con = http.client.HTTPConnection(self.proxy)
+                self.con = _make_con(self.proxy)
             else:  # Testsuite has set self.behind_proxy to True to simulate
                 # being behind a proxy.
-                self.con = http.client.HTTPConnection(self.server, self.port)
+                self.con = _make_con(self.server, self.port)
         else:
             http.client.HTTPConnection._http_vsn = 11
             http.client.HTTPConnection._http_vsn_str = "HTTP/1.1"
             if not self.con:
-                self.con = http.client.HTTPConnection(self.server, self.port)
+                self.con = _make_con(self.server, self.port)
 
     def url(self, url_string):
         if self.behind_proxy and self.proxy:
-            url_string = "http://" + self.server + ":" + str(self.port) + url_string
+            scheme = "https" if self.use_https else "http"
+            url_string = scheme + "://" + self.server + ":" \
+                + str(self.port) + url_string
         return url_string
 
-    def sync(self, server, port, username, password):
+    def sync(self, server, port, username, password, use_https=False):
         try:
-            self.server = socket.gethostbyname(server)
+            self.use_https = use_https
+            # Keep the hostname for HTTPS so TLS SNI and Host header
+            # work correctly (required for Cloudflare tunnels, etc.).
+            if use_https:
+                self.server = server
+            else:
+                self.server = socket.gethostbyname(server)
             self.port = port
             backup_file = None
             if self.do_backup:

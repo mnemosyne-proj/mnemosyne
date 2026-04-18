@@ -96,6 +96,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QCheckBox" name="use_https">
+       <property name="text">
+        <string>Use HTTPS</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QPushButton" name="ok_button">

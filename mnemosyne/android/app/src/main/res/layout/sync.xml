@@ -65,6 +65,12 @@
          android:layout_height="wrap_content"
          android:text="Remember password in plaintext on this device" />
 
+     <CheckBox
+         android:id="@+id/checkUseHttps"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="Use HTTPS" />
+
      <Button
          android:id="@+id/syncButton"
          android:layout_width="match_parent"

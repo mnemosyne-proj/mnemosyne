@@ -18,5 +18,6 @@ class AndroidConfiguration(Hook):
              "username_for_sync_as_client": "",
              "password_for_sync_as_client": "",
              "remember_password_for_sync_as_client": True,
+             "use_https_for_sync_as_client": False,
             }.items()):
             self.config().setdefault(key, value)

@@ -617,6 +617,7 @@ public class MnemosyneActivity extends AppCompatActivity {
                 final String username = data.getStringExtra("username");
                 final String password = data.getStringExtra("password");
                 final Boolean rememberPassword = data.getBooleanExtra("rememberPassword", true);
+                final Boolean useHttps = data.getBooleanExtra("useHttps", false);
 
                 mnemosyneThread.getHandler().post(new Runnable() {
                     public void run() {
@@ -630,12 +631,13 @@ public class MnemosyneActivity extends AppCompatActivity {
                             mnemosyneThread.bridge.config_set_string("password_for_sync_as_client", "");
                             mnemosyneThread.bridge.config_set_boolean("remember_password_for_sync_as_client", false);
                         }
+                        mnemosyneThread.bridge.config_set_boolean("use_https_for_sync_as_client", useHttps);
                         mnemosyneThread.bridge.config_save();
                         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Mnemosyne:wakelocktag");
                         wl.acquire();
                         try {
-                            mnemosyneThread.bridge.controller_sync(server, port, username, password);
+                            mnemosyneThread.bridge.controller_sync(server, port, username, password, useHttps);
                         } finally {
                             wl.release();
                         }

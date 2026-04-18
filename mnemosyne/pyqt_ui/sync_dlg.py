@@ -42,13 +42,15 @@ class SyncThread(QtCore.QThread):
     set_progress_value_signal = QtCore.pyqtSignal(int)
     close_progress_signal = QtCore.pyqtSignal()
 
-    def __init__(self, mnemosyne, server, port, username, password, **kwds):
+    def __init__(self, mnemosyne, server, port, username, password,
+                 use_https=False, **kwds):
         super().__init__(**kwds)
         self.mnemosyne = mnemosyne
         self.server = server
         self.port = port
         self.username = username
         self.password = password
+        self.use_https = use_https
         # A fast moving progress bar seems to cause crashes on Windows.
         self.show_numeric_progress_bar = (sys.platform != "win32")
 
@@ -60,7 +62,8 @@ class SyncThread(QtCore.QThread):
             self.mnemosyne.component_manager.components\
                 [None]["main_widget"].append(self)
             self.mnemosyne.controller().sync(self.server, self.port,
-                self.username, self.password, ui=self)
+                self.username, self.password,
+                use_https=self.use_https, ui=self)
         finally:
             self.mnemosyne.database().release_connection()
             self.mnemosyne.component_manager.components\
@@ -138,6 +141,8 @@ class SyncDlg(QtWidgets.QDialog, SyncDialog, Ui_SyncDlg):
             self.config()["remember_password_for_sync_as_client"])
         self.check_for_edited_local_media_files.setChecked(\
             self.config()["check_for_edited_local_media_files"])
+        self.use_https.setChecked(
+            self.config()["use_https_for_sync_as_client"])
         if self.config()["server_for_sync_as_client"]:
             self.ok_button.setFocus()
         self.can_reject = True
@@ -172,6 +177,8 @@ class SyncDlg(QtWidgets.QDialog, SyncDialog, Ui_SyncDlg):
             self.config()["remember_password_for_sync_as_client"] = False
         self.config()["check_for_edited_local_media_files"] = \
             self.check_for_edited_local_media_files.isChecked()
+        use_https = self.use_https.isChecked()
+        self.config()["use_https_for_sync_as_client"] = use_https
         self._store_state()
         # Prevent user from interrupting a sync.
         self.can_reject = False
@@ -179,7 +186,8 @@ class SyncDlg(QtWidgets.QDialog, SyncDialog, Ui_SyncDlg):
         self.cancel_button.setEnabled(False)
         # Do the actual sync in a separate thread.
         self.database().release_connection()
-        self.thread = SyncThread(self, server, port, username, password)
+        self.thread = SyncThread(self, server, port, username, password,
+                                 use_https=use_https)
         self.thread.information_signal.connect(\
             self.threaded_show_information)
         self.thread.error_signal.connect(\

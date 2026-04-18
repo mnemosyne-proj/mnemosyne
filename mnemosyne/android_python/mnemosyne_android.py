@@ -153,8 +153,10 @@ def controller_show_sync_dialog_pre(args):
     mnemosyne.controller().show_sync_dialog_pre()
 
 def controller_sync(args):
+    use_https = args.get("use_https", False)
     mnemosyne.controller().sync(args["server"], args["port"],
-                                args["username"], args["password"])
+                                args["username"], args["password"],
+                                use_https=use_https)
 
 def controller_show_sync_dialog_post(args):
     mnemosyne.controller().show_sync_dialog_post()

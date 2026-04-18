@@ -1073,7 +1073,7 @@ _("This will tag all the cards in a given card type which have the same question
         self.review_controller().update_dialog(redraw_all=True)
         self.stopwatch().unpause()
 
-    def sync(self, server, port, username, password, ui=None):
+    def sync(self, server, port, username, password, use_https=False, ui=None):
         if ui is None:
             ui = self.main_widget()
         from openSM2sync.client import Client
@@ -1091,7 +1091,8 @@ _("This will tag all the cards in a given card type which have the same question
         client.do_backup = self.config()["backup_before_sync"]
         client.upload_science_logs = self.config()["upload_science_logs"]
         try:
-            client.sync(server, port, username, password)
+            client.sync(server, port, username, password,
+                        use_https=use_https)
         finally:
             client.database.release_connection()
 

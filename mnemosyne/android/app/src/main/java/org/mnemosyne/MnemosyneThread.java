@@ -383,6 +383,7 @@ public class MnemosyneThread extends Thread {
         final String username = bridge.config_get("username_for_sync_as_client");
         final String password = bridge.config_get("password_for_sync_as_client");
         final Boolean rememberPassword = Boolean.valueOf(bridge.config_get("remember_password_for_sync_as_client"));
+        final Boolean useHttps = Boolean.valueOf(bridge.config_get("use_https_for_sync_as_client"));
 
         UIHandler.post(new Runnable() {
             public void run() {
@@ -392,6 +393,7 @@ public class MnemosyneThread extends Thread {
                 startSyncActivity.putExtra("username", username);
                 startSyncActivity.putExtra("password", password);
                 startSyncActivity.putExtra("rememberPassword", rememberPassword);
+                startSyncActivity.putExtra("useHttps", useHttps);
                 UIActivity.startActivityForResult(startSyncActivity, UIActivity.SYNC_ACTIVITY_RESULT);
             }
         });

@@ -149,7 +149,8 @@ public class MnemosyneBridge {
     }
 
     public void controller_sync(String server, Integer port,
-                                String username, String password) {
+                                String username, String password,
+                                Boolean useHttps) {
         try {
             JSONObject json = new JSONObject();
             json.put("function", "controller_sync");
@@ -157,6 +158,7 @@ public class MnemosyneBridge {
             json.put("port", port);
             json.put("username", username);
             json.put("password", password);
+            json.put("use_https", useHttps);
             JSONObject result = PyBridge.call(json);
         } catch (JSONException e) {
             e.printStackTrace();

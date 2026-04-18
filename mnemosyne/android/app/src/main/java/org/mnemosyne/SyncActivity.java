@@ -22,18 +22,21 @@ public class SyncActivity extends Activity {
         String username = getIntent().getStringExtra("username");
         String password = getIntent().getStringExtra("password");
         boolean rememberPassword = getIntent().getBooleanExtra("rememberPassword", true);
+        boolean useHttps = getIntent().getBooleanExtra("useHttps", false);
 
         final EditText editServer = (EditText) findViewById(R.id.editServer);
         final EditText editPort = (EditText) findViewById(R.id.editPort);
         final EditText editUsername = (EditText) findViewById(R.id.editUsername);
         final EditText editPassword = (EditText) findViewById(R.id.editPassword);
         final CheckBox checkRememberPassword = (CheckBox) findViewById(R.id.checkRememberPassword);
+        final CheckBox checkUseHttps = (CheckBox) findViewById(R.id.checkUseHttps);
 
         editServer.setText(server);
         editPort.setText(port);
         editUsername.setText(username);
         editPassword.setText(password);
         checkRememberPassword.setChecked(rememberPassword);
+        checkUseHttps.setChecked(useHttps);
 
         Button button = (Button) findViewById(R.id.syncButton);
 
@@ -46,6 +49,7 @@ public class SyncActivity extends Activity {
                 intent.putExtra("username", editUsername.getText().toString().trim());
                 intent.putExtra("password", editPassword.getText().toString().trim());
                 intent.putExtra("rememberPassword", checkRememberPassword.isChecked());
+                intent.putExtra("useHttps", checkUseHttps.isChecked());
                 setResult(RESULT_OK, intent);
                 finish();
             }
