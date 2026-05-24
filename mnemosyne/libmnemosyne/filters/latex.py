@@ -104,11 +104,11 @@ class Latex(Filter):
         except sp.CalledProcessError as err:
             print("Command `%s` failed with rc=%i" % (" ".join(cmd),
                                                       err.returncode))
-            with open(out_file, "r") as f:
+            with open(out_file, "r", errors="replace") as f:
                 print("Command output:")
                 print(f.read())
             if in_file:
-                with open(in_file, "r") as f:
+                with open(in_file, "r", errors="replace") as f:
                     print("Command input:")
                     print(f.read())
 
