@@ -1,41 +1,72 @@
-[tool.poetry]
+[project]
 name = "mnemosyne-proj"
-version = "2.11.1"
 description = "a free, open-source, spaced-repetition flashcard program that helps you learn as efficiently as possible."
-authors = ["Peter Bienstman <Peter.Bienstman@gmail.com>"]
+authors = [{name = "Peter Bienstman", email = "Peter.Bienstman@gmail.com"}]
 readme = "README.md"
-packages = [{include = "mnemosyne"},
-            {include = "openSM2sync"}]
-include = [{path = "mnemosyne/pyqt_ui/ui_*", format = ["sdist", "wheel"]},
-    "makefile", {path = "pixmaps/*", format = ["sdist", "wheel"]}, "tests/*",
-    "mnemosyne/pyqt_ui/makefile"]
-exclude = ["mnemosyne/android", "mnemosyne/android_python", 
-    "mnemosyne/embedded_in_C", "mnemosyne/UDP_server"]
+license = "GPL-3.0-or-later"
+requires-python = ">=3.13"
+dynamic = ["version"]
+dependencies = [
+    "argon2-cffi>=21.3.0",
+    "cheroot>=10.0.0",
+    "cherrypy>=18.8.0",
+    "matplotlib>=3.7.2",
+    "webob>=1.8.7",
+    "pyqt6>=6.10.2",
+    "pyqt6-webengine>=6.10.0",
+    "decorator>=5.1.1",
+    "gtts>=2.3.2",
+    "google-trans-new>=1.1.9",
+    "legacy-cgi>=2.6",
+]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-argon2-cffi = "^21.3.0"
-cheroot = "^10.0.0"
-cherrypy = "^18.8.0"
-matplotlib = "^3.7.2"
-webob = "^1.8.7"
-sphinx = "^7.0.1"
-pyqt6 = "^6.10.2"
-pyqt6-webengine = "^6.10.0"
-decorator = "^5.1.1"
-gtts = "^2.3.2"
-google-trans-new = "^1.1.9"
-pytest = "^7.4.0"
-pytest-timeout = "^2.1.0"
-legacy-cgi = "^2.6"
+[project.scripts]
+mnemosyne = "mnemosyne.pyqt_ui:run"
 
-[tool.poetry.scripts]
-mnemosyne = 'mnemosyne.pyqt_ui:run'
-
-[tool.poetry.build]
-generate-setup-file = false
-script = "poetry-build.py"
+[dependency-groups]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-timeout>=2.1.0",
+    "sphinx>=7.0.1",
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling", "pyqt6>=6.10.2"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "mnemosyne/version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["mnemosyne", "openSM2sync"]
+artifacts = ["mnemosyne/pyqt_ui/ui_*.py"]
+exclude = [
+    "mnemosyne/android",
+    "mnemosyne/android_python",
+    "mnemosyne/embedded_in_C",
+    "mnemosyne/UDP_server",
+]
+
+[tool.hatch.build.targets.wheel.force-include]
+"pixmaps" = "pixmaps"
+
+# Compile the Qt .ui files into ui_*.py before building (see hatch_build.py).
+[tool.hatch.build.targets.wheel.hooks.custom]
+path = "hatch_build.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "mnemosyne",
+    "openSM2sync",
+    "pixmaps",
+    "tests",
+    "makefile",
+    "README.md",
+    "hatch_build.py",
+]
+exclude = [
+    "mnemosyne/android",
+    "mnemosyne/android_python",
+    "mnemosyne/embedded_in_C",
+    "mnemosyne/UDP_server",
+]

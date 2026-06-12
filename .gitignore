@@ -29,6 +29,9 @@ tests/**/*.pyc
 test-results.xml
 test-results.todo.txt
 .git
+ __pycache__/
+ .devenv/
+
 
 
 # Created by https://www.gitignore.io/api/android,emacs,intellij,vim
@@ -194,6 +197,7 @@ cscope.out
 # macos
 .DS_Store
 venv/
+.venv/
 
 # Android build artifacts
 mnemosyne/android/app/.cxx/
