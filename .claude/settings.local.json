@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(grep -E 'config\\\\.db$|default\\\\.db$|default\\\\.db-journal$|/log\\\\.txt$|backups/.*\\\\.db$')",
-      "Bash(git rm *)"
-    ]
-  }
-}
