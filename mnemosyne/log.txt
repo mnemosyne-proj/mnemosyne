@@ -1,5 +1,0 @@
-2026-06-12 18:20:30 : Program started : Mnemosyne 2.11.1 posix linux TZ 2
-2026-06-12 18:20:30 : Scheduler : SM2 Mnemosyne
-2026-06-12 18:20:30 : Loaded database 0 0 0
-2026-06-12 18:20:35 : Saved database 0 0 0
-2026-06-12 18:20:35 : Program stopped
