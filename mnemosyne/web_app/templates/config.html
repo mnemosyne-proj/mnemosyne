@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Settings — Mnemosyne{% endblock %}
+{% block content %}
+<section class="config">
+  <h1>Settings</h1>
+  <form method="post" action="/config">
+    {% for key, label, value in d.bools %}
+    <label class="field checkbox">
+      <input type="checkbox" name="{{ key }}" {% if value %}checked{% endif %}>
+      <span>{{ label }}</span>
+    </label>
+    {% endfor %}
+
+    {% for key, label, opts, value in d.choices %}
+    <label class="field">
+      <span>{{ label }}</span>
+      <select name="{{ key }}">
+        {% for opt in opts %}
+          <option value="{{ opt }}" {% if opt == value %}selected{% endif %}>
+            {{ opt }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    {% endfor %}
+
+    {% for key, label, value in d.ints %}
+    <label class="field">
+      <span>{{ label }}</span>
+      <input type="number" name="{{ key }}" value="{{ value }}" min="1">
+    </label>
+    {% endfor %}
+
+    <button type="submit" class="button primary">Save settings</button>
+  </form>
+</section>
+{% endblock %}

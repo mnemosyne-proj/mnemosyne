@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Mnemosyne — {{ info.database }}{% endblock %}
+{% block content %}
+<section class="dashboard">
+  <h1>{{ info.database }}</h1>
+  <div class="counters">
+    <div class="counter">
+      <span class="value">{{ info.scheduled }}</span>
+      <span class="label">Scheduled</span>
+    </div>
+    <div class="counter">
+      <span class="value">{{ info.not_memorised }}</span>
+      <span class="label">Not memorised</span>
+    </div>
+    <div class="counter">
+      <span class="value">{{ info.active }}</span>
+      <span class="label">Active</span>
+    </div>
+  </div>
+  <a class="button primary" href="/review">Start reviewing →</a>
+</section>
+{% endblock %}

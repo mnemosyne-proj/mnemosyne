@@ -1,0 +1,47 @@
+<div id="review-panel">
+  {% if r.card_css %}<style>{{ r.card_css|safe }}</style>{% endif %}
+
+  {% if not r.has_card %}
+    <div class="card-area empty">
+      <p>No more cards to review right now. 🎉</p>
+      <a class="button" href="/">Back to dashboard</a>
+    </div>
+  {% else %}
+    <div class="card-area">
+      <div class="question">{{ r.question|safe }}</div>
+      {% if r.grades_enabled %}
+        <div class="answer">{{ r.answer|safe }}</div>
+      {% endif %}
+    </div>
+
+    <div class="grades">
+      {% if r.show_button_enabled %}
+        <button id="show-answer" class="button primary"
+                hx-post="/review/show-answer"
+                hx-target="#review-panel" hx-swap="outerHTML"
+                _="on keydown[key==' ' or key=='Enter'] from window
+                   halt the event then trigger click on me">
+          {{ r.show_button_text }}
+        </button>
+      {% endif %}
+      {% if r.grades_enabled %}
+        {% for g in range(6) %}
+          <button id="grade-{{ g }}"
+                  class="grade {% if g == r.default_grade %}default{% endif %}"
+                  hx-post="/review/grade/{{ g }}"
+                  hx-target="#review-panel" hx-swap="outerHTML"
+                  _="on keydown[key=='{{ g }}'] from window
+                     halt the event then trigger click on me">
+            {{ r.grade_text[g] }}
+          </button>
+        {% endfor %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <p class="status-bar">
+    Scheduled: {{ r.scheduled }} &nbsp;·&nbsp;
+    Not memorised: {{ r.not_memorised }} &nbsp;·&nbsp;
+    Active: {{ r.active }}
+  </p>
+</div>

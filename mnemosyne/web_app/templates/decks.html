@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Decks — Mnemosyne{% endblock %}
+{% block content %}
+<section class="decks">
+  <h1>Decks</h1>
+  <p class="muted">Data directory: <code>{{ d.data_dir }}</code></p>
+
+  <table class="cards">
+    <tbody>
+    {% for f in d.files %}
+      <tr>
+        <td>
+          {{ f }}
+          {% if f == d.current %}<span class="badge">open</span>{% endif %}
+        </td>
+        <td class="row-actions">
+          {% if f != d.current %}
+          <form method="post" action="/decks/switch" class="inline">
+            <input type="hidden" name="filename" value="{{ f }}">
+            <button type="submit" class="button small">Open</button>
+          </form>
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  <h2>Create deck</h2>
+  <form method="post" action="/decks/create" class="inline">
+    <input type="text" name="name" placeholder="new-deck.db">
+    <button type="submit" class="button primary">Create &amp; open</button>
+  </form>
+
+  <h2>Saved sets in this deck</h2>
+  <ul class="criteria">
+    {% for c in d.criteria %}<li>{{ c }}</li>{% else %}
+    <li class="muted">None.</li>{% endfor %}
+  </ul>
+</section>
+{% endblock %}

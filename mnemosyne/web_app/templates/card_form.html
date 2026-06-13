@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ "Edit" if f.mode == "edit" else "Add" }} card — Mnemosyne
+{% endblock %}
+{% block content %}
+<section class="card-form">
+  <h1>{{ "Edit card" if f.mode == "edit" else "Add card" }}</h1>
+  <form method="post" action="{{ f.action }}">
+    <label class="field">
+      <span>Card type</span>
+      <select name="card_type" {% if f.card_type_locked %}disabled{% endif %}
+              hx-get="/cards/fields" hx-target="#fact-fields"
+              hx-swap="outerHTML" hx-trigger="change">
+        {% for id, name in f.card_types %}
+          <option value="{{ id }}" {% if id == f.selected %}selected{% endif %}>
+            {{ name }}</option>
+        {% endfor %}
+      </select>
+      {% if f.card_type_locked %}
+        <input type="hidden" name="card_type" value="{{ f.selected }}">
+      {% endif %}
+    </label>
+
+    {# Use subscript access: f.values would resolve to the dict.values method. #}
+    {% with fields=f['fields'], values=f['values'] %}
+      {% include "_fact_fields.html" %}
+    {% endwith %}
+
+    <label class="field">
+      <span>Tags (comma-separated)</span>
+      <input type="text" name="tags" value="{{ f.tags }}">
+    </label>
+
+    <div class="form-actions">
+      <button type="submit" class="button primary">Save</button>
+      <a class="button" href="/browse">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

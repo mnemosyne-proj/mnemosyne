@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Browse — Mnemosyne{% endblock %}
+{% block content %}
+<section class="browse">
+  <div class="browse-toolbar">
+    <input type="search" name="q" value="{{ d.query }}"
+           placeholder="Search cards…"
+           hx-get="/browse" hx-target="#results" hx-select="#results"
+           hx-swap="outerHTML"
+           hx-trigger="keyup changed delay:300ms, search">
+    <a class="button primary" href="/cards/new">+ Add card</a>
+  </div>
+
+  <div id="results">
+    <p class="muted">{{ d.total }} card(s){% if d.query %} matching
+      “{{ d.query }}”{% endif %}.</p>
+    <table class="cards">
+      <thead>
+        <tr><th>Question</th><th>Answer</th><th>Tags</th><th>Type</th>
+            <th></th></tr>
+      </thead>
+      <tbody>
+      {% for c in d.rows %}
+        <tr>
+          <td>{{ c.question|safe }}</td>
+          <td>{{ c.answer|safe }}</td>
+          <td class="muted">{{ c.tags }}</td>
+          <td class="muted">{{ c.card_type }}</td>
+          <td class="row-actions">
+            <a class="button small" href="/cards/{{ c.id }}/edit">Edit</a>
+            <button class="button small danger"
+                    hx-post="/cards/{{ c.id }}/delete"
+                    hx-confirm="Delete this card and its sisters?"
+                    hx-target="body" hx-swap="innerHTML">Delete</button>
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="5" class="muted">No cards.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+    {% if d.pages > 1 %}
+    <nav class="pager">
+      {% if d.page > 1 %}
+        <a class="button small" hx-get="/browse?q={{ d.query }}&page={{ d.page - 1 }}"
+           hx-target="#results" hx-select="#results" hx-swap="outerHTML"
+           href="#">← Prev</a>
+      {% endif %}
+      <span class="muted">Page {{ d.page }} / {{ d.pages }}</span>
+      {% if d.page < d.pages %}
+        <a class="button small" hx-get="/browse?q={{ d.query }}&page={{ d.page + 1 }}"
+           hx-target="#results" hx-select="#results" hx-swap="outerHTML"
+           href="#">Next →</a>
+      {% endif %}
+    </nav>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

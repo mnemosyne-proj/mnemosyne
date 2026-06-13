@@ -1,0 +1,19 @@
+# Keep the build context (and image) small and reproducible.
+.git
+.venv
+dist
+build
+*.egg-info
+**/__pycache__
+*.pyc
+*.pyo
+# Local databases / media should not leak into images.
+*.db
+*.db-journal
+*.db_media
+dot_sync_client
+dot_sync_server
+dot_test
+# Docs / packaging artifacts not needed at runtime.
+devenv.*
+.devenv*

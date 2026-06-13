@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Statistics — Mnemosyne{% endblock %}
+{% block content %}
+<section class="stats">
+  <h1>Statistics</h1>
+  {% for p in pages %}
+    <div class="stat-page">
+      <h2>{{ p.name }}</h2>
+      {% if p.is_html %}
+        <div class="stat-html">{{ p.html|safe }}</div>
+      {% else %}
+        <img src="/stats/{{ p.index }}.png" alt="{{ p.name }}" loading="lazy">
+      {% endif %}
+    </div>
+  {% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Tags — Mnemosyne{% endblock %}
+{% block content %}
+<section class="tags">
+  <h1>Tags</h1>
+  <table class="cards">
+    <tbody>
+    {% for t in tags %}
+      <tr>
+        <td>
+          <form method="post" action="/tags/{{ t.id }}/rename" class="inline">
+            <input type="text" name="name" value="{{ t.name }}">
+            <button type="submit" class="button small">Rename</button>
+          </form>
+        </td>
+        <td class="row-actions">
+          <button class="button small danger"
+                  hx-post="/tags/{{ t.id }}/delete"
+                  hx-confirm="Delete tag “{{ t.name }}”?"
+                  hx-target="body" hx-swap="innerHTML">Delete</button>
+        </td>
+      </tr>
+    {% else %}
+      <tr><td class="muted">No tags.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

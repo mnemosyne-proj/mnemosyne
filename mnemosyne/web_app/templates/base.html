@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Mnemosyne{% endblock %}</title>
+  {# Apply the saved theme before paint to avoid a flash of the wrong mode. #}
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "dark" || (!t &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+          document.documentElement.classList.add("dark");
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="/static/app.css">
+  <script src="/static/htmx.min.js" defer></script>
+  <script src="/static/_hyperscript.min.js" defer></script>
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">Mnemosyne</a>
+    <nav>
+      <a href="/review">Review</a>
+      <a href="/browse">Browse</a>
+      <a href="/decks">Decks</a>
+      <a href="/stats">Stats</a>
+      <a href="/impexp">Import/Export</a>
+      <a href="/config">Config</a>
+    </nav>
+    <button type="button" class="button small ghost" id="theme-toggle"
+            title="Toggle dark mode" onclick="toggleTheme()">
+      <span class="theme-icon">◐</span>
+    </button>
+  </header>
+  <script>
+    function toggleTheme() {
+      var dark = document.documentElement.classList.toggle("dark");
+      try { localStorage.setItem("theme", dark ? "dark" : "light"); } catch (e) {}
+    }
+  </script>
+  <main id="main">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

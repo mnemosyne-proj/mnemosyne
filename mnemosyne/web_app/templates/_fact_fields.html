@@ -1,0 +1,8 @@
+<div id="fact-fields">
+  {% for key, name in fields %}
+  <label class="field">
+    <span>{{ name }}</span>
+    <textarea name="{{ key }}" rows="2">{{ values.get(key, "") }}</textarea>
+  </label>
+  {% endfor %}
+</div>

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Review — Mnemosyne{% endblock %}
+{% block content %}
+<section class="review">
+  <p class="review-hint">Press <kbd>Space</kbd> to show the answer, then
+     <kbd>0</kbd>–<kbd>5</kbd> to grade.</p>
+  {% include "_review_panel.html" %}
+</section>
+{% endblock %}

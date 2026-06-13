@@ -1,0 +1,425 @@
+/*
+ * shadcn/ui-inspired design system, hand-ported to plain CSS so it works with
+ * the server-rendered (Jinja + HTMX) front-end -- no React, Tailwind or build
+ * step. Tokens, radius, palette and component styling mirror shadcn's default
+ * (neutral) theme, including a `.dark` variant toggled on <html>.
+ */
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --primary: 240 5.9% 10%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 240 10% 3.9%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 240 5.9% 10%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --ring: 240 4.9% 83.9%;
+}
+
+* { box-sizing: border-box; }
+
+html { color-scheme: light dark; }
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.925rem;
+  line-height: 1.5;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.01em; }
+h2 { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; }
+
+a { color: inherit; }
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85em;
+  background: hsl(var(--muted));
+  padding: 0.1rem 0.35rem;
+  border-radius: calc(var(--radius) - 2px);
+}
+
+.muted { color: hsl(var(--muted-foreground)); }
+
+/* ---- Top bar / nav ----------------------------------------------------- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: 3.5rem;
+  padding: 0 1.5rem;
+  background: hsl(var(--background) / 0.85);
+  backdrop-filter: saturate(180%) blur(8px);
+  border-bottom: 1px solid hsl(var(--border));
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.topbar .brand {
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+.topbar nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-right: auto;
+}
+
+.topbar nav a {
+  text-decoration: none;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.4rem 0.7rem;
+  border-radius: calc(var(--radius) - 2px);
+  transition: color .15s, background-color .15s;
+}
+
+.topbar nav a:hover {
+  color: hsl(var(--foreground));
+  background: hsl(var(--accent));
+}
+
+main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* ---- Buttons (shadcn Button variants) ---------------------------------- */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: calc(var(--radius) - 2px);
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .15s, color .15s, border-color .15s,
+    box-shadow .15s;
+}
+
+.button:hover { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
+
+.button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
+}
+
+.button.primary {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border-color: hsl(var(--primary));
+}
+.button.primary:hover { background: hsl(var(--primary) / 0.9); }
+
+.button.danger,
+.button.small.danger {
+  background: hsl(var(--destructive));
+  color: hsl(var(--destructive-foreground));
+  border-color: hsl(var(--destructive));
+}
+.button.danger:hover { background: hsl(var(--destructive) / 0.9); }
+
+.button.ghost {
+  border-color: transparent;
+  background: transparent;
+}
+.button.ghost:hover { background: hsl(var(--accent)); }
+
+.button.small {
+  height: 2rem;
+  padding: 0 0.65rem;
+  font-size: 0.8rem;
+}
+
+/* ---- Cards (shadcn Card) ----------------------------------------------- */
+
+.card-area,
+.counter,
+.stat-page,
+.card-form,
+.config,
+.impexp form,
+.dashboard {
+  background: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  box-shadow: 0 1px 2px 0 hsl(240 10% 3.9% / 0.05);
+}
+
+.dashboard, .card-form, .config, .stat-page, .impexp form { padding: 1.5rem; }
+
+/* ---- Dashboard --------------------------------------------------------- */
+
+.dashboard h1 { margin-top: 0; }
+
+.counters {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.counter { padding: 1.25rem; text-align: center; box-shadow: none; }
+
+.counter .value {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.counter .label {
+  color: hsl(var(--muted-foreground));
+  font-size: 0.8rem;
+}
+
+/* ---- Review ------------------------------------------------------------ */
+
+.review-hint { color: hsl(var(--muted-foreground)); font-size: 0.85rem; }
+
+.card-area {
+  padding: 2.5rem 2rem;
+  min-height: 9rem;
+  margin-bottom: 1rem;
+  font-size: 1.05rem;
+}
+
+.card-area .question { text-align: center; }
+
+.card-area .answer {
+  border-top: 1px solid hsl(var(--border));
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  text-align: center;
+}
+
+.card-area.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.grades { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+.grades .button,
+.grades button { flex: 1; min-width: 3rem; }
+
+.grade {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.75rem;
+  min-width: 3rem;
+  flex: 1;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: calc(var(--radius) - 2px);
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  cursor: pointer;
+  transition: background-color .15s, border-color .15s, color .15s;
+}
+.grade:hover { background: hsl(var(--accent)); }
+.grade.default { border-color: hsl(var(--ring)); box-shadow: 0 0 0 1px hsl(var(--ring)); }
+
+.status-bar {
+  color: hsl(var(--muted-foreground));
+  font-size: 0.8rem;
+  margin-top: 1.25rem;
+}
+
+kbd {
+  font-family: ui-monospace, monospace;
+  font-size: 0.75rem;
+  padding: 0.1rem 0.4rem;
+  border: 1px solid hsl(var(--border));
+  border-bottom-width: 2px;
+  border-radius: calc(var(--radius) - 3px);
+  background: hsl(var(--muted));
+}
+
+/* ---- Forms / inputs (shadcn Input) ------------------------------------- */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.field > span { font-size: 0.875rem; font-weight: 500; }
+
+.field.checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+input[type="text"], input[type="search"], input[type="number"],
+input[type="file"], select, textarea {
+  width: 100%;
+  font: inherit;
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--input));
+  border-radius: calc(var(--radius) - 2px);
+  padding: 0.5rem 0.75rem;
+  min-height: 2.5rem;
+  transition: border-color .15s, box-shadow .15s;
+}
+
+textarea { min-height: 4rem; resize: vertical; }
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: hsl(var(--ring));
+  box-shadow: 0 0 0 2px hsl(var(--ring) / 0.35);
+}
+
+input[type="checkbox"] {
+  width: 1rem; height: 1rem; min-height: 0; accent-color: hsl(var(--primary));
+}
+
+.form-actions { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+
+/* ---- Tables (shadcn Table) --------------------------------------------- */
+
+table.cards {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+table.cards thead th {
+  text-align: left;
+  font-weight: 500;
+  color: hsl(var(--muted-foreground));
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+table.cards td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid hsl(var(--border));
+  vertical-align: middle;
+}
+
+table.cards tbody tr:hover { background: hsl(var(--muted) / 0.5); }
+
+.row-actions { display: flex; gap: 0.4rem; justify-content: flex-end; }
+
+/* ---- Misc layout helpers ----------------------------------------------- */
+
+.browse-toolbar,
+.inline {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.browse-toolbar { margin-bottom: 1rem; }
+.browse-toolbar input[type="search"] { flex: 1; }
+.inline { display: inline-flex; }
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.1rem 0.55rem;
+  margin-left: 0.5rem;
+}
+
+.criteria { padding-left: 1.1rem; }
+.criteria li { margin: 0.2rem 0; }
+
+.stat-page { margin-bottom: 1.5rem; }
+.stat-page img { max-width: 100%; height: auto; border-radius: calc(var(--radius) - 2px); }
+.stat-page h2 { margin-top: 0; }
+
+.stats h1, .decks h1, .browse h1, .tags h1, .impexp h1, .config h1,
+.card-form h1 { margin-top: 0; }
+
+.impexp form { margin-bottom: 1.5rem; }
+.impexp h1 { margin-top: 1rem; }
+
+/* ---- Flash / alerts ---------------------------------------------------- */
+
+.flash {
+  padding: 0.75rem 1rem;
+  border-radius: calc(var(--radius) - 2px);
+  margin-bottom: 1rem;
+  border: 1px solid hsl(var(--border));
+  font-size: 0.875rem;
+}
+.flash.error {
+  border-color: hsl(var(--destructive) / 0.4);
+  color: hsl(var(--destructive));
+}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Import / Export — Mnemosyne{% endblock %}
+{% block content %}
+<section class="impexp">
+  <h1>Import</h1>
+  <form method="post" action="/import" enctype="multipart/form-data">
+    <label class="field">
+      <span>Format</span>
+      <select name="format">
+        {% for f in d.importable %}
+          <option value="{{ f.id }}">{{ f.description }} ({{ f.ext }})</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label class="field">
+      <span>File</span>
+      <input type="file" name="file" required>
+    </label>
+    <label class="field">
+      <span>Extra tag (optional)</span>
+      <input type="text" name="tag" placeholder="imported">
+    </label>
+    <button type="submit" class="button primary">Import</button>
+  </form>
+
+  <h1>Export</h1>
+  <form method="post" action="/export">
+    <label class="field">
+      <span>Format</span>
+      <select name="format">
+        {% for f in d.exportable %}
+          <option value="{{ f.id }}">{{ f.description }} ({{ f.ext }})</option>
+        {% endfor %}
+      </select>
+    </label>
+    <button type="submit" class="button primary">Export &amp; download</button>
+  </form>
+</section>
+{% endblock %}

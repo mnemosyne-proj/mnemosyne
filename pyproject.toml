@@ -20,14 +20,27 @@ dependencies = [
     "legacy-cgi>=2.6",
 ]
 
+[project.optional-dependencies]
+# Self-hosted FastAPI + HTMX web front-end. Opt-in so the desktop build and
+# its dependency set are unaffected: `uv sync --extra web`.
+web = [
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.29",
+    "jinja2>=3.1",
+    "python-multipart>=0.0.9",
+]
+
 [project.scripts]
 mnemosyne = "mnemosyne.pyqt_ui:run"
+mnemosyne-web = "mnemosyne.web_app.__main__:main"
 
 [dependency-groups]
 dev = [
     "pytest>=7.4.0",
     "pytest-timeout>=2.1.0",
     "sphinx>=7.0.1",
+    # For exercising the web app via fastapi.testclient (see tests/test_web_app.py).
+    "httpx>=0.27",
 ]
 
 [build-system]
@@ -39,7 +52,11 @@ path = "mnemosyne/version.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["mnemosyne", "openSM2sync"]
-artifacts = ["mnemosyne/pyqt_ui/ui_*.py"]
+artifacts = [
+    "mnemosyne/pyqt_ui/ui_*.py",
+    "mnemosyne/web_app/templates/*.html",
+    "mnemosyne/web_app/static/*",
+]
 exclude = [
     "mnemosyne/android",
     "mnemosyne/android_python",
