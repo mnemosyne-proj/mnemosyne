@@ -51,11 +51,11 @@ let
     xorg.libXScrnSaver
     xorg.libxcb
     xorg.xcbutil
-    xorg.xcbutilimage
-    xorg.xcbutilkeysyms
-    xorg.xcbutilrenderutil
-    xorg.xcbutilwm
-    xorg.xcbutilcursor      # libxcb-cursor.so.0 (hard requirement for Qt 6)
+    libxcb-image
+    libxcb-keysyms
+    libxcb-render-util
+    libxcb-wm
+    libxcb-cursor           # libxcb-cursor.so.0 (hard requirement for Qt 6)
   ];
 in
 {
