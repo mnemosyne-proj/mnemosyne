@@ -21,6 +21,7 @@ local/
 mnemosyne/**/*.pyc
 mnemosyne/pyqt_ui/mnemosyne_rc.py
 mnemosyne/pyqt_ui/tmp
+mnemosyne/machine.id
 mnemosyne/pyqt_ui/ui_*
 mnemosyne/embedded_in_C/*.o
 mo/
