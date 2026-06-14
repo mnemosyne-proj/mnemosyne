@@ -29,15 +29,19 @@ is for developers.
 
 ## Development environment
 
-The project uses [uv](https://docs.astral.sh/uv/) to manage Python dependencies
-(Python 3.13+). You also need the Qt6/PyQt6 runtime system libraries (GL, the X11/XCB
-stack, glib, etc.) installed via your OS package manager.
+The project uses [devenv](https://devenv.sh) (Nix) to provide the system libraries Qt6
+needs, and [uv](https://docs.astral.sh/uv/) to manage Python dependencies (Python 3.13+).
 
 ```sh
+devenv shell      # enter the dev shell (provides Qt6 native libs, Python, uv)
 uv sync           # install Python deps from uv.lock into .venv
 make build        # compile the Qt .ui files
 uv run mnemosyne  # launch the app
 ```
+
+Without devenv, install the equivalent system libraries yourself (Qt6/PyQt6 runtime
+deps — GL, the X11/XCB stack, glib, etc.; see `devenv.nix` for the full list) and a
+recent `uv`, then run the `uv`/`make` steps above.
 
 ### Running the tests
 
