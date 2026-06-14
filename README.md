@@ -79,24 +79,22 @@ You can check if the correct local version was imported by running `import mnemo
 If your distribution does not provide all required libraries, or if the libraries are too old, create a virtual environment in the top-level directory (`virtualenv venv`), activate it (`source venv/bin/activate`) and install all the required dependencies with `pip install`.
 Then, follow the steps of the previous paragraph.
 
-### Using pyenv and poetry
+### Using uv
 
-As of Mnemosyne-2.11, you may use [Pyenv](https://github.com/pyenv/pyenv) and [Poetry](https://python-poetry.org/docs/) to develop for this project. Pyenv allows you to easily install and switch between multiple python interpreters, while Poetry is a modern tool for dependency management.
+As of Mnemosyne-2.11, you may use [uv](https://docs.astral.sh/uv/) to develop for this project. uv is a fast, modern tool for managing python interpreters, virtual environments and dependencies.
 
-To get started, open a terminal at the project root, and run `pyenv local`. This will tell `pyenv` to use the python version specified in the `.python-version` file.
-
-Before activating `poetry`, make sure to run the following settings:
-
-`poetry config virtualenvs.prefer-active-python true`
-
-This will make sure that `poetry` will recognize the python interpreter activated by `pyenv`.
-
-Afterwards, run `poetry shell` to activate the project virtual environment. Then run `poetry install` to install all dependencies on your virtual environment. You can now get started on coding for Mnemosyne.
-
-If there is a need to change dependencies, you may either `poetry add <package_name>` to add a dependency and `poetry remove <package_name>` to remove one. Run the following command to update the `requirements.txt` for those prefer to download project dependencies via `pip install -r requirements.txt`.:
+To get started, open a terminal at the project root and create a virtual environment with the python version specified in the `.python-version` file:
 
 ```
-poetry export -f requirements.txt --output requirements.txt --without-hashes
+uv venv .venv
+```
+
+Activate it with `source .venv/bin/activate`. Then run `uv sync` to install all dependencies on your virtual environment. You can now get started on coding for Mnemosyne.
+
+If there is a need to change dependencies, you may either `uv add <package_name>` to add a dependency and `uv remove <package_name>` to remove one. Run the following command to update the `requirements.txt` for those who prefer to download project dependencies via `pip install -r requirements.txt`.:
+
+```
+uv export --format requirements-txt --output-file requirements.txt --no-hashes
 ```
 
 ### Running the test suite
