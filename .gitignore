@@ -31,7 +31,6 @@ test-results.xml
 test-results.todo.txt
 .git
  __pycache__/
- .devenv/
 
 
 
@@ -211,9 +210,6 @@ mnemosyne/android/gradle/gradle-daemon-jvm.properties
 
 # Backup files
 *.bak
-
-# devenv (the existing ".devenv/" entry above has a stray leading space and is ineffective)
-.devenv/
 
 # Mnemosyne runtime data (created/modified when running the app)
 mnemosyne/config.db
