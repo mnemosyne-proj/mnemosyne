@@ -49,7 +49,7 @@ To start working on Mnemosyne, you need at least the following software.
 - [Easyinstall](http://peak.telecommunity.com/DevCenter/EasyInstall)
 - [cheroot](https://pypi.python.org/pypi/Cheroot/) 5 or later
 - [Webob](http://webob.org) 1.4 or later
-- [Pillow](http://python-pillow.org)
+- [Pillow](https://python-pillow.github.io/)
 - [gTTS](https://pypi.org/project/gTTS/) for Google text-to-speech
 - [googletrans-new](https://github.com/lushan88a/google_trans_new) for Google translate support (Note: version 1.1.9 does not work, you need the
   latest version from Github.)
