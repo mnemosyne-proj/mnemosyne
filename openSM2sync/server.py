@@ -17,7 +17,7 @@ import tempfile
 from .partner import Partner
 from .log_entry import EventTypes
 from .text_formats.xml_format import XMLFormat
-from .utils import traceback_string, rand_uuid
+from .utils import traceback_string, rand_uuid, join_path
 import collections
 
 
@@ -569,11 +569,7 @@ class Server(Partner):
             session = self.sessions[session_token]
             socket = environ["wsgi.input"]
             size = int(environ["CONTENT_LENGTH"])
-            # Make sure a malicious client cannot overwrite anything outside
-            # of the media directory.
-            filename = filename.replace("../", "").replace("..\\", "")
-            filename = filename.replace("/..", "").replace("\\..", "")
-            filename = os.path.join(session.database.data_dir(), filename)
+            filename = mnemosyne.utils.join_path(session.database.data_dir(), filename)
             # We don't have progress bars here, as 'put_client_binary_file'
             # gets called too frequently, and this would slow down the UI.
             self.download_binary_file(environ["wsgi.input"], filename, size,
@@ -636,11 +632,7 @@ class Server(Partner):
             session = self.sessions[session_token]
             global mnemosyne_content_length
             socket = environ["wsgi.input"]
-            # Make sure a malicious client cannot access anything outside
-            # of the media directory.
-            filename = filename.replace("../", "").replace("..\\", "")
-            filename = filename.replace("/..", "").replace("\\..", "")
-            filename = os.path.join(session.database.data_dir(), filename)
+            filename = mnemosyne.utils.join_path(session.database.data_dir(), filename)
             file_size = os.path.getsize(filename)
             mnemosyne_content_length = file_size
             # Since we want to modify the headers in this function, we cannot

@@ -4,8 +4,10 @@
 
 import os
 import shutil
+import pytest
 
 from mnemosyne.libmnemosyne.utils import *
+import openSM2sync.utils
 
 class TestUtilFunctions(object):
 
@@ -66,4 +68,15 @@ class TestUtilFunctions(object):
     def test_filesystem(self):
         is_filesystem_case_insensitive()
 
+    def test_join_ok(self):
+        assert openSM2sync.utils.join_path("/media/", "inside") == "/media/inside"
 
+    def test_join_parent(self):
+        with pytest.raises(ValueError):
+            openSM2sync.utils.join_path("/media/", "..") == "/media/"
+        with pytest.raises(ValueError):
+            openSM2sync.utils.join_path("/media/", os.path.join("..", "outside"))
+
+    def test_join_root(self):
+        with pytest.raises(ValueError):
+            openSM2sync.utils.join_path("/media/", os.path.join("outside", ".."))

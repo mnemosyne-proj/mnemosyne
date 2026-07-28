@@ -59,3 +59,19 @@ def normalise_path(path):
         return path.replace("\\", "/")
     else:
         return path.replace("/", "\\")
+
+def join_path(base_dir: str, filename: str) -> str:
+
+    """Joins base_dir with filename, raises an execption in case of
+    directory traversal (i.e. when the joined path is outside base_dir)."""
+
+    # Make sure that base_dir ends with a /, see
+    # https://stackoverflow.com/q/2736144
+    base_dir_trail = os.path.join(base_dir, "")
+    path = os.path.join(base_dir, filename)
+    absolute_path = os.path.realpath(path)
+
+    if os.path.commonprefix((base_dir, absolute_path)) == base_dir:
+        return absolute_path
+    else:
+        raise ValueError("Path outside base directory: " + absolute_path)
