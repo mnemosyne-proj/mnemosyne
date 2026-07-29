@@ -220,7 +220,7 @@ def numeric_string_cmp_key(s):
     """
 
     atoi = lambda s: int(s) if s.isdigit() else s.lower()
-    return tuple(atoi(str) for str in re.split('(\d+)', s))
+    return tuple(atoi(str) for str in re.split('(\\d+)', s))
 
 
 def traceback_string():
