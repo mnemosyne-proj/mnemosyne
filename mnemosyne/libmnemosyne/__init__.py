@@ -103,6 +103,8 @@ class Mnemosyne(Component):
           "DefaultController"),
          ("mnemosyne.libmnemosyne.study_modes.scheduled_forgotten_new",
           "ScheduledForgottenNew"),
+         ("mnemosyne.libmnemosyne.study_modes.scheduled_forgotten_new_SM2",
+          "ScheduledForgottenNewSM2"),
          ("mnemosyne.libmnemosyne.study_modes.new_only",
           "NewOnly"),
          ("mnemosyne.libmnemosyne.study_modes.cram_all",

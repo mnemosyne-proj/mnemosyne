@@ -47,6 +47,5 @@ class SM2ControllerCramming(SM2Controller):
         pass
 
     def update_grades_area(self):
+        # No pre-selected/highlighted grade.
         self.review_widget().set_grades_enabled(self.grades_enabled)
-        if self.grades_enabled:
-            self.review_widget().set_default_grade(5)

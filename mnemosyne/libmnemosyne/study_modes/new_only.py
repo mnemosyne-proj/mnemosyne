@@ -4,8 +4,8 @@
 
 from mnemosyne.libmnemosyne.gui_translator import _
 from mnemosyne.libmnemosyne.study_mode import StudyMode
-from mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne \
-     import SM2Mnemosyne
+from mnemosyne.libmnemosyne.schedulers.fixed_intervals \
+     import FixedIntervals
 from mnemosyne.libmnemosyne.review_controllers.SM2_controller \
      import SM2Controller
 
@@ -15,7 +15,7 @@ class NewOnly(StudyMode):
     id = "NewOnly"
     name = _("Study new unlearned cards only")
     menu_weight = 2
-    Scheduler = SM2Mnemosyne
+    Scheduler = FixedIntervals
     ReviewController = SM2Controller
 
     def activate(self):

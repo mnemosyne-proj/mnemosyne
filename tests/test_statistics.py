@@ -18,6 +18,8 @@ from openSM2sync.log_entry import EventTypes
 
 class TestStatistics(MnemosyneTest):
 
+    use_SM2 = True  # Tests the classic SM-2 scheduler behaviour.
+
     def test_current_card(self):
         from mnemosyne.libmnemosyne.statistics_pages.current_card import CurrentCard
         page = CurrentCard(self.mnemosyne.component_manager)

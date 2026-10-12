@@ -15,6 +15,8 @@ DAY = 24 * HOUR # Seconds in a day.
 
 class TestScheduler(MnemosyneTest):
 
+    use_SM2 = True  # Tests the classic SM-2 scheduler behaviour.
+
     def test_midnight_UTC(self):
         if sys.platform == "win32":
             return  # no time.tzset

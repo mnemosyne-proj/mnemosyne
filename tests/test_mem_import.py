@@ -60,6 +60,8 @@ class MyImportDialog(ImportDialog):
 
 class TestMemImport(MnemosyneTest):
 
+    use_SM2 = True  # Tests the classic SM-2 scheduler behaviour.
+
     def setup_method(self):
         self.initialise_data_dir()
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True,
@@ -72,6 +74,7 @@ class TestMemImport(MnemosyneTest):
             ("test_mem_import", "Widget"))
         self.mnemosyne.components.append(\
             ("test_mem_import", "MyImportDialog"))
+        self.use_SM2_scheduler()
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.review_controller().reset()
 

@@ -33,6 +33,8 @@ class Widget(MainWidget):
 
 class TestAddCards(MnemosyneTest):
 
+    use_SM2 = True  # Tests the classic SM-2 scheduler behaviour.
+
     def setup_method(self):
         self.initialise_data_dir()
         path = os.path.join(os.getcwd(), "..", "mnemosyne", "libmnemosyne",
@@ -49,6 +51,7 @@ class TestAddCards(MnemosyneTest):
             [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "EditCardDialog"))
+        self.use_SM2_scheduler()
         self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
         self.review_controller().reset()
 

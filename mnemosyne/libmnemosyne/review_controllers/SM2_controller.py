@@ -275,8 +275,8 @@ _("You have finished your scheduled reviews. Now, learn as many failed or new ca
             phase = RET_PHASE
             default_grade = 4
         w.set_grades_enabled(self.grades_enabled)
-        if self.grades_enabled:
-            w.set_default_grade(default_grade)
+        # No grade is pre-selected or highlighted: the user must actively
+        # choose one (fixed-intervals customisation).
         # Set title for grades box.
         if self._state == "SELECT GRADE" and \
                self.config()["show_intervals"] == "buttons":

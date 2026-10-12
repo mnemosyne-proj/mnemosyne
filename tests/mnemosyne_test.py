@@ -10,6 +10,17 @@ import time
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
+from mnemosyne.libmnemosyne.hook import Hook
+
+class UseSM2Hook(Hook):
+
+    """Select the classic SM-2 study mode, for tests which test SM-2
+    specific scheduling behaviour (the default is now FixedIntervals)."""
+
+    used_for = "configuration_defaults"
+
+    def run(self):
+        self.config()["study_mode"] = "ScheduledForgottenNewSM2"
 
 class TestReviewWidget(ReviewWidget):
 
@@ -18,6 +29,10 @@ class TestReviewWidget(ReviewWidget):
 
 
 class MnemosyneTest():
+
+    # Set to True in test classes which test the classic SM-2 scheduler
+    # behaviour (the default scheduler is now FixedIntervals).
+    use_SM2 = False
     @staticmethod
     def set_timezone_utc(fn):
         """
@@ -90,11 +105,22 @@ class MnemosyneTest():
             ("mnemosyne.libmnemosyne.ui_components.main_widget", "MainWidget"))
         self.mnemosyne.gui_for_component["ScheduledForgottenNew"] = \
             [("mnemosyne_test", "TestReviewWidget")]
+        self.mnemosyne.gui_for_component["ScheduledForgottenNewSM2"] = \
+            [("mnemosyne_test", "TestReviewWidget")]
         self.mnemosyne.gui_for_component["CramAll"] = \
             [("mnemosyne_test", "TestReviewWidget")]
+        if self.use_SM2:
+            self.use_SM2_scheduler()
         self.mnemosyne.initialise(os.path.abspath("dot_test"),
                                   automatic_upgrades=False)
         self.mnemosyne.start_review()
+
+    def use_SM2_scheduler(self):
+        # Needs to be called before 'initialise'.
+        mn = self.mnemosyne
+        mn.gui_for_component["ScheduledForgottenNewSM2"] = \
+            mn.gui_for_component["ScheduledForgottenNew"]
+        mn.components.append(("mnemosyne_test", "UseSM2Hook"))
 
     def teardown_method(self):
         try:

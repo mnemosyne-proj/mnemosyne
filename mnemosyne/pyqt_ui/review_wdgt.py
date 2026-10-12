@@ -454,6 +454,8 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
             if self.focus_widget:
                 self.focus_widget.setDefault(True)
                 self.focus_widget.setFocus()
+            else:
+                self.setFocus()
 
     def update_show_button(self, text, is_default, is_enabled):
         self.show_button.setText(text)
@@ -465,19 +467,21 @@ class ReviewWdgt(QtWidgets.QWidget, QAOptimalSplit, ReviewWidget, Ui_ReviewWdgt)
 
     def set_grades_enabled(self, is_enabled):
         self.grades.setEnabled(is_enabled)
+        if is_enabled:
+            self.set_default_grade(None)
 
     def set_grade_enabled(self, grade, is_enabled):
         self.grade_buttons.button(grade).setEnabled(is_enabled)
 
     def set_default_grade(self, grade):
-        if self.auto_focus_grades:
-            # On Windows, we seem to need to clear the previous default
-            # first.
-            for grade_i in range(6):
-                self.grade_buttons.button(grade_i).setDefault(False)
-            self.grade_buttons.button(grade).setDefault(True)
-            self.grade_buttons.button(grade).setFocus()
-            self.focus_widget = self.grade_buttons.button(grade)
+        # Never pre-select or highlight a grade button. Clear any default and
+        # keep the keyboard focus on the review widget itself, so that the
+        # number-key shortcuts keep working without a highlighted button.
+        for grade_i in range(6):
+            self.grade_buttons.button(grade_i).setAutoDefault(False)
+            self.grade_buttons.button(grade_i).setDefault(False)
+        self.setFocus()
+        self.focus_widget = None
 
     def set_grades_title(self, text):
         self.grades.setTitle(text)

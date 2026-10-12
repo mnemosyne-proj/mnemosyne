@@ -27,6 +27,8 @@ class MyReviewWidget(ReviewWidget):
 
 class TestReviewController(MnemosyneTest):
 
+    use_SM2 = True  # Tests the classic SM-2 scheduler behaviour.
+
     def setup_method(self):
         global expected_scheduled_count
         expected_scheduled_count = None
@@ -45,6 +47,7 @@ class TestReviewController(MnemosyneTest):
             [("test_review_controller", "MyReviewWidget")]
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "EditCardDialog"))
+        self.use_SM2_scheduler()
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.review_controller().reset()
 
